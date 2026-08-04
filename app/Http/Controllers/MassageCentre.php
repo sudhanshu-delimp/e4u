@@ -796,6 +796,7 @@ class MassageCentre extends Controller
         }
       }
 
+
       if (!empty($filter_by_feild)) {
         $is_found           = false;
         $profile_state      = $filter_by_feild['profile_state'] ?? null;
@@ -966,21 +967,31 @@ class MassageCentre extends Controller
   {
 
     try {
-      $path = explode('/', $request->path());
+
       $data = $this->getVisitorCountry();
+      $masseur = $request->masseur_id;
+      $page = $request->page;
       if ($data) {
         $now = Carbon::now(config('app.escort_server_timezone'));
-        $query = Visitor::where('page', $path[0])->where('measure_id', $path[1])->where('ip_address', $this->getUserIp())->where('created_at', '>=', $now->copy()->subDay());
+        // $query = Visitor::where('page', $page)->where('masseur_id', $masseur)->where('visitorUuid', $request->visitorUuid)->where('created_at', '>=', $now->copy()->subDay());
+        // $visitor = $query->latest('id')->first();
 
+
+        $query = Visitor::where('page', $page)
+          ->where('masseur_id', $masseur)
+          ->where('visitorUuid', $request->visitorUuid)
+          ->where('created_at', '>=', $now->copy()->subDay());
 
         if (auth()->check()) {
           $query->where('user_id', auth()->id());
+        } else {
+          $query->whereNull('user_id');
         }
 
-        $visitor = $query->orderBy('id', 'desc')->first();
+        $visitor =     $query->latest('created_at')->first();
 
         $datas = [
-          'page'       => $path[0],
+          'page'       => $page,
           'ip_address' => $this->getUserIp(),
           'device'     => $this->getBrowser(),
           'platform'   => $this->getBrowser(),
@@ -989,16 +1000,17 @@ class MassageCentre extends Controller
           'state'      => $data[1],
           'user_type'  => auth()->check() ? 'user' : 'guest',
           'user_id'    => auth()->id(),
-          'idle'       => $now->format('h:i:s a'),
+          'idle'       => $now->format('Y-m-d h:i:s a'),
           'origin'     => $this->getVisitorCountry()[0],
           'date'       => $now,
-          'measure_id' => $path[1],
+          'masseur_id' => $masseur,
         ];
         if ($visitor) {
           $visitor->update($datas);
         } else {
           Visitor::create(array_merge($datas, [
-            'landed' => $now->format('h:i:s a'),
+            'landed' => $now->format('Y-m-d h:i:s a'),
+            'visitorUuid' => $request->visitorUuid,
           ]));
         }
       }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Analytics\MasseurController as AnalyticsMasseurController;
 use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Center\CenterController;
@@ -524,9 +525,7 @@ Route::get('profiles', function () {
   return view('center.dashboard.Annalytics.profiles');
 })->name('profiles');
 
-Route::get('masseurs', function () {
-  return view('center.dashboard.Annalytics.masseurs');
-})->name('masseurs');
+
 
 Route::get('feedback', function () {
   return view('center.dashboard.Annalytics.feedback');
@@ -627,3 +626,12 @@ Route::post('update-my-reports', [CenterNumController::class, 'updateMyReportByA
 Route::get('num-tips', function () {
   return view('center.numdash.num-tips');
 })->name('center.num-tips');
+
+
+
+// Route::get('masseurs', function () {
+//   return view('center.dashboard.Annalytics.masseurs');
+// })->name('masseurs');
+
+Route::get('masseurs', [AnalyticsMasseurController::class, 'index'])->name('masseurs');
+Route::get('masseurs/list', [AnalyticsMasseurController::class, 'getAllMasseurs'])->name('masseurs.list');

@@ -1,5 +1,6 @@
 @extends('layouts.center')
 @section('style')
+ 
 @endsection
 @section('content')
     <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -55,56 +56,7 @@
 
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>003</td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-10 justify-content-start">
-                                        <img src="{{ asset('assets/dashboard/img/avatar.png') }}" class="custompopicon"> <span class="list_profile_name">Hannah Walter</span>
-                                    </div>
-                                </td>
-                                
-                                <td><span class="custom_badge badge_active">Active</span></td>
-                                <td class="text-center">20</td>
-                                <td class="text-center">80</td>
-                                <td class="text-center">159</td>
-                                <td class="text-center">15</td>
-                                <td class="text-center">60</td>
-                                <td class="text-center">89</td>
-                            </tr>
 
-                            <tr>
-                                <td>002</td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-10 justify-content-start">
-                                        <img src="{{ asset('assets/dashboard/img/avatar.png') }}" class="custompopicon"> <span class="list_profile_name">Puspa jinge</span>
-                                    </div>
-                                </td>
-                                
-                                <td><span class="custom_badge badge_active">Active</span></td>
-                                <td class="text-center">20</td>
-                                <td class="text-center">80</td>
-                                <td class="text-center">159</td>
-                                <td class="text-center">15</td>
-                                <td class="text-center">60</td>
-                                <td class="text-center">89</td>
-                            </tr>
-
-                            <tr>
-                                <td>001</td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-10 justify-content-start">
-                                        <img src="{{ asset('assets/dashboard/img/avatar.png') }}" class="custompopicon"> <span class="list_profile_name">Gen Jully </span>
-                                    </div>
-                                </td>
-                                
-                                <td><span class="custom_badge badge_inactive">Inactive</span></td>
-                                <td class="text-center">0</td>
-                                <td class="text-center">0</td>
-                                <td class="text-center">159</td>
-                                <td class="text-center">0</td>
-                                <td class="text-center">0</td>
-                                <td class="text-center">89</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -114,44 +66,107 @@
     </div>
 @endsection
 @push('script')
-<!-- opr_accordian_table JS -->
-<script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script>
+    <!-- opr_accordian_table JS -->
+    <script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script>
 
 
-<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+    </script>
 
 
-<script>
-    var table = $("#masseursStatisticsTable").DataTable({
-        language: {
-            search: "Search: _INPUT_",
-            searchPlaceholder: "Search by Name"
-        },
-        info: true,
-        paging: true,
-        lengthChange: true,
-        searching: true,
-        bStateSave: true,
-        order: [
-            [1, 'desc']
-        ],
-        lengthMenu: [
-            [10, 25, 50, 100],
-            [10, 25, 50, 100]
-        ],
-        pageLength: 10,
+    <script>
+        var table = $("#masseursStatisticsTable").DataTable({
+            processing: true,
+            serverSide: true,
 
-           columns: [
-               { data: 'id', name: 'id', searchable: true, orderable:false ,defaultContent: 'NA'},
-               { data: 'masseur', name: 'masseur', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'status', name: 'status', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'profile_today', name: 'profile_today', searchable: true, orderable:false ,defaultContent: 'NA'},
-               { data: 'profile_this_week', name: 'profile_this_week', searchable: true, orderable:false,defaultContent: 'NA' },
-               { data: 'profile_year_to_date', name: 'profile_year_to_date', searchable: false, orderable:false,defaultContent: 'NA' },               
-               { data: 'media_today', name: 'media_today', searchable: true, orderable:false ,defaultContent: 'NA'},
-               { data: 'media_this_week', name: 'media_this_week', searchable: true, orderable:false,defaultContent: 'NA' },
-               { data: 'media_year_to_date', name: 'media_year_to_date', searchable: false, orderable:false,defaultContent: 'NA' }
-           ],
-    });
-</script>
+            ajax: "{{ route('masseurs.list') }}",
+
+            language: {
+                search: "Search: _INPUT_",
+                searchPlaceholder: "Search by Name"
+            },
+
+            info: true,
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            bStateSave: true,
+
+            order: [
+                [1, 'desc']
+            ],
+
+            lengthMenu: [
+                [10, 25, 50, 100],
+                [10, 25, 50, 100]
+            ],
+
+            pageLength: 10,
+
+            columns: [{
+                    data: 'id',
+                    name: 'id',
+                    searchable: false,
+                    orderable: false,
+                    defaultContent: 'NA'
+                },
+                {
+                    data: 'masseur',
+                    name: 'name',
+                    searchable: true,
+                    orderable: true,
+                    defaultContent: 'NA'
+                },
+                {
+                    data: 'status',
+                    name: 'status',
+                    searchable: true,
+                    orderable: true,
+                    defaultContent: 'NA'
+                },
+                {
+                    data: 'profile_today',
+                    name: 'profile_today',
+                    searchable: false,
+                    orderable: false,
+                    defaultContent: '0'
+                },
+                {
+                    data: 'profile_this_week',
+                    name: 'profile_this_week',
+                    searchable: false,
+                    orderable: false,
+                    defaultContent: '0'
+                },
+                {
+                    data: 'profile_year_to_date',
+                    name: 'profile_year_to_date',
+                    searchable: false,
+                    orderable: false,
+                    defaultContent: '0'
+                },
+                {
+                    data: 'media_today',
+                    name: 'media_today',
+                    searchable: false,
+                    orderable: false,
+                    defaultContent: '0'
+                },
+                {
+                    data: 'media_this_week',
+                    name: 'media_this_week',
+                    searchable: false,
+                    orderable: false,
+                    defaultContent: '0'
+                },
+                {
+                    data: 'media_year_to_date',
+                    name: 'media_year_to_date',
+                    searchable: false,
+                    orderable: false,
+                    defaultContent: '0'
+                }
+            ]
+        });
+    </script>
 @endpush
