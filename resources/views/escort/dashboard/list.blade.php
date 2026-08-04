@@ -95,17 +95,17 @@
                             function, you will be able to {{ $type == 'past' ? 'Duplicate,' : '' }} Delete, Edit
                             or
                             View the Profile.</li>
-                            @if($type != 'past')
-                                <li>
-                                    To display your Playmates avatar in any Profile, select <strong>Add Playmates</strong> from Action.
-                                    You can add multiple Playmates. Only your Playmates in the Location the Profile is listed at the time
-                                    can be added to the Profile. If your Playmate leaves the Location while your Profile is active, or
-                                    they suspend their Profile, they will be automatically removed from the Profile for the suspended
-                                    period, and permanently if they have left the Location.
-                                </li>
-                            @endif
-                                
-                            
+                        @if($type != 'past')
+                        <li>
+                            To display your Playmates avatar in any Profile, select <strong>Add Playmates</strong> from Action.
+                            You can add multiple Playmates. Only your Playmates in the Location the Profile is listed at the time
+                            can be added to the Profile. If your Playmate leaves the Location while your Profile is active, or
+                            they suspend their Profile, they will be automatically removed from the Profile for the suspended
+                            period, and permanently if they have left the Location.
+                        </li>
+                        @endif
+
+
                     </ol>
                 </div>
             </div>
@@ -178,7 +178,7 @@
                                     <!-- <th class="w-auto">Competitor</th>-->
                                     <th class="w-auto">Date Created</th>
                                     <th>Status</th>
-                                    <!--<th>Joined E4U</th>-->
+                                    <th>Start Date</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -502,7 +502,7 @@
 
                     $select.append('<option value="">-- Select Profile --</option>');
                     $.each(records.data, function(i, item) {
-                        if (!item.is_extended && !item.tour) {
+                        if (!item.is_extended && item.statusText != 'Upcoming' && !item.tour) {
                             $select.append(
                                 $('<option>', {
                                     value: item.id,
@@ -655,22 +655,30 @@
                     defaultContent: 'NA'
                 },
                 {
-                    data: 'enabled',
-                    name: 'enabled',
+                    data: 'statusBtn',
+                    name: 'statusBtn',
                     searchable: false,
                     orderable: false,
                     defaultContent: 'NA'
                 },
                 {
+                    data: 'start_date',
+                    name: 'start_date',
+                    searchable: false,
+                    orderable: true,
+                    visible: false,
+                    defaultContent: 'NA'
+                },
+                {
                     data: 'action',
-                    name: 'edit',
+                    name: 'start_date',
                     searchable: false,
                     orderable: false,
                     defaultContent: 'NA',
                     class: 'text-center'
                 },
             ],
-            order: [1, 'asc'],
+            order: [8, 'asc'],
             pageLength: 25,
         });
         //    $('#sailorTable_filter label').append('<i class="fa fa-search "></i>');
@@ -973,16 +981,17 @@
     });
 
     $('#duplicate-profile-modal').on('shown.bs.modal', function(e) {
-        var source = e.relatedTarget;
+        var source = $(e.relatedTarget);
+        let modelElement = $(this);
         let selected_profile_id = $(source).data('id');
-        let selected_profile_state = $(source).data('state');
         $('#duplicate-profile-modal input[name=escort_id]').val(selected_profile_id);
         $("#stageNameInp").attr('type', 'hidden');
         $("#stageNameInp").attr('name', '');
         $(".update_stage_name").addClass('d-none');
         $("#stageName").removeClass('d-none');
-        // $(`#profile_state_id option`).show(); 
-        // $(`#profile_state_id option[value="${selected_profile_state}"]`).hide(); 
+        modelElement.find('input[name="address"]').val(source.data('address'));
+        modelElement.find('select[name="name"]').val(source.data('name'));
+        modelElement.find('select[name="state_id"]').val(source.data('state'));
     });
 
     $('#play-mates-modal').on('shown.bs.modal', function(e) {

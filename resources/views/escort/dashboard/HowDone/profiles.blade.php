@@ -116,16 +116,7 @@
 
                                             </li>
 
-                                            <li>Stage Name.
-                                                <p>This is your name you will use for your Profile. You can select a Stage
-                                                    Name from your existing list, if your default Stage Name has not loaded,
-                                                    or create a new Stage Name. Any new Stage Name you create will be
-                                                    added to your list of Stage Names. Any Stage Names that are currently
-                                                    in use, for the Location, will not appear in the list. If you have
-                                                    nominated
-                                                    one of your Stage Names as the Default, that will automatically load.
-                                                </p>
-                                            </li>
+                                            
 
                                         </ul>
                                     </div>
@@ -139,6 +130,16 @@
 
 
                                 <ul class="custom-ul">
+                                    <li>Stage Name.
+                                                <p>This is your name you will use for your Profile. You can select a Stage
+                                                    Name from your existing list, if your default Stage Name has not loaded,
+                                                    or create a new Stage Name. Any new Stage Name you create will be
+                                                    added to your list of Stage Names. Any Stage Names that are currently
+                                                    in use, for the Location, will not appear in the list. If you have
+                                                    nominated
+                                                    one of your Stage Names as the Default, that will automatically load.
+                                                </p>
+                                            </li>
                                     <li>Location.
                                         <p>The Location, by default, will be your Home State. If you are presently
                                             in another Location, and that is where you want to list your Profile, then
@@ -544,8 +545,12 @@
                                             </p>
                                         </div>
                                         <div class="col-lg-5">
-                                            <div class="doc-img">
-                                                <img src="{{ asset('assets/dashboard/img/how-is-done/my-playmates.png') }}"
+                                            <div class="doc-img mt-2">
+                                                <img src="{{ asset('assets/dashboard/img/how-is-done/my-playmates-new.png') }}"
+                                                    alt="" class="w-100">
+                                            </div>
+                                            <div class="doc-img mt-2">
+                                                <img src="{{ asset('assets/dashboard/img/how-is-done/playmates.png') }}"
                                                     alt="" class="w-100">
                                             </div>
                                         </div>
@@ -871,7 +876,13 @@
                                             you apply a BRB, the BRB banner will also display on your Pin Up image
                                             on the Home Page.
                                         </p>
-
+                                        <p><i>Part B - Profile Management (Action)</i></p>
+                                <h5 class="sec-head">
+                                    Cancel BRB
+                                </h5>
+                                <p>Use this Action item to cancel you BRB notification. Once the BRB is cancelled, the BRB
+                                    tag
+                                    will automatically be removed from the Listing and the report page.</p>
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="doc-img mt-2">
@@ -880,23 +891,12 @@
                                         </div>
                                         <div class="doc-img mt-2 mb-2">
                                             <img src="{{ asset('assets/dashboard/img/how-is-done/profile-notice.png') }}"
-                                                alt="" class="w-100">
+                                                alt="" class="w-50">
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-                            <div>
-                                <p><i>Part B - Profile Management (Action)</i></p>
-                                <h5 class="sec-head">
-                                    Cancel BRB
-                                </h5>
-                                <p>Use this Action item to cancel you BRB notification. Once the BRB is cancelled, the BRB
-                                    tag
-                                    will automatically be removed from the Listing and the report page.</p>
-                            </div>
-
-
                             <div>
                                 <h5 class="sec-head">
                                     Edit
@@ -998,7 +998,7 @@
                                     
                                     <div class="col-lg-5">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/how-is-done/archive-list.png') }}"
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/archive-profile.png') }}"
                                                 alt="profile-duplicate" class=" w-100">
                                         </div>
                                     </div>
@@ -1046,7 +1046,7 @@
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/profile-duplicate-scr.png') }}"
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/dupplicate.png') }}"
                                                 alt="profile-duplicate" class=" w-100">
                                         </div>
                                     </div>

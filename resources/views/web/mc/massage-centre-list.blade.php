@@ -131,6 +131,7 @@
             </div>
 
             <!-- ////// Pagination ///////////////// -->
+              @include('web.partials.pagination-skelton')
             <div id="common_pagination"></div>
             <!-- ////// End Pagination ///////////////// -->
 
@@ -431,9 +432,11 @@
             }
         }
 
-        function toggleSkeleton(grid = false, list = false) {
+        function toggleSkeleton(grid = false, list = false, pagination = false, cusPagi = false) {
             $('#grid-skeleton').toggle(grid);
             $('#list-skeleton').toggle(list);
+            $('#skl-pagination').toggle(pagination);
+            $('.custom-pagination').toggle(cusPagi);
         }
 
         function toggleViewTitle(show = true) {
@@ -460,13 +463,13 @@
 
             $('#activeView').val('grid');
             toggleContainer(grid=true, list=false);
-            toggleSkeleton(grid = true, list = false);
+            toggleSkeleton(grid = true, list = false, pagination = true, cusPagi = false);
 
             //set view type in global varaiable
             globalMassageRequest.view_type = 'grid';
 
             setTimeout(async function() {
-                toggleSkeleton(grid=false, list=false);
+                toggleSkeleton(grid=false, list=false, pagination = false, cusPagi = true);
                 toggleViewTitle(true);
                 toggleView(grid=true, list=false);
                 
@@ -482,13 +485,13 @@
 
             toggleContainer(grid=false, list=true);
             //hide show 
-            toggleSkeleton(grid = false, list = true);
+            toggleSkeleton(grid = false, list = true, pagination = true, cusPagi = false);
 
             //set view type in global varaiable
             globalMassageRequest.view_type = 'list';
             
             setTimeout(async function() {
-                toggleSkeleton(grid = false, list = false);
+                toggleSkeleton(grid = false, list = false, pagination = false, cusPagi = true);
                 toggleViewTitle(true);
                 toggleView(grid=false, list=true);
 
@@ -539,10 +542,10 @@
                     toggleViewTitle(false);
                     toggleContainer(grid=false, list=false);
                     if(requestParam.view_type == 'grid'){
-                        toggleSkeleton(grid = true, list = false);
+                        toggleSkeleton(grid = true, list = false, pagination = true, cusPagi = false);
                        
                     }else{
-                        toggleSkeleton(grid = false, list = true);
+                        toggleSkeleton(grid = false, list = true, pagination = true, cusPagi = false);
                     }
         
                 },
@@ -571,7 +574,7 @@
                     }
                 },
                 complete: function() {
-                     toggleSkeleton(grid = false, list = false);
+                     toggleSkeleton(grid = false, list = false, pagination = false, cusPagi = true);
                 }
             });
         }

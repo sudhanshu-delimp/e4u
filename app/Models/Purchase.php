@@ -31,6 +31,18 @@ class Purchase extends Model
         return $this->morphMany(PaymentItem::class, 'item');
     }
 
+    public function isListingExtended()
+    {
+        $extendedPurchase = self::where('escort_id', $this->escort_id)
+            ->where('start_date', Carbon::parse($this->end_date)->addDay())
+            ->first();
+
+        return (object) [
+            'count' => !is_null($extendedPurchase),
+            'data'  => $extendedPurchase,
+        ];
+    }
+
     public function setStartDateAttribute($value)
     {
         $this->attributes['start_date'] = empty($value) ? null : Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');

@@ -1,21 +1,21 @@
 $(() => {
     window.App.stateId = $("#state_id").val();
-    if(window.App.stateId && $(".playmates-card-grid").length > 0){
+    if (window.App.stateId && $(".playmates-card-grid").length > 0) {
         getAvailablePlaymates();
     }
-    
-    $(document).on('keyup','#profileSearch', function(){
+
+    $(document).on('keyup', '#profileSearch', function () {
         let obj = $(this);
         let searchValue = obj.val();
-        if(searchValue.length > 3){
+        if (searchValue.length > 3) {
             getAvailablePlaymates(searchValue);
         }
-        if(searchValue.length === 0){
+        if (searchValue.length === 0) {
             getAvailablePlaymates();
         }
     });
 
-    $('#myplaymates').on('submit', function(e) {
+    $('#myplaymates').on('submit', function (e) {
         e.preventDefault();
         var form = $(this);
 
@@ -25,7 +25,7 @@ $(() => {
             $('#my_playmates').html('<div class="spinner-border"></div>');
             var url = form.attr('action');
             var data = new FormData($('#myplaymates')[0]);
-            
+
 
             $.ajax({
                 method: form.attr('method'),
@@ -36,11 +36,11 @@ $(() => {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                success: function(data) {
+                success: function (data) {
                     if (!data.error) {
                         Swal.fire('Updated', '', 'success');
                         $('#my_playmates').prop('disabled', false);
-                        $('#my_playmates').html('Save');
+                        $('#my_playmates').html('Update');
                         getAvailablePlaymates();
                     } else {
                         Swal.fire({
@@ -49,20 +49,20 @@ $(() => {
                             text: data.message
                         });
                         $('#my_playmates').prop('disabled', false);
-                        $('#my_playmates').html('Save');
+                        $('#my_playmates').html('Update');
                     }
                 }
             });
         }
     });
 
-    $(document).on('click','input[name^="add_playmate"],input[name^="update_playmate"]',function(){
-        $(this).is(':checked')?$(this).next().text('Included as Playmate'):$(this).next().text('Add as Playmate');
+    $(document).on('click', 'input[name^="add_playmate"],input[name^="update_playmate"]', function () {
+        $(this).is(':checked') ? $(this).next().text('Included as Playmate') : $(this).next().text('Add as Playmate');
     })
 });
 
 
-var getAvailablePlaymates = function(searchValue=''){
+var getAvailablePlaymates = function (searchValue = '') {
     let escortId = window.App.escortId;
     let stateId = window.App.stateId;
     return $.ajax({
@@ -72,18 +72,38 @@ var getAvailablePlaymates = function(searchValue=''){
             "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
         },
         dataType: "json",
-        data:{escortId,stateId,searchValue},
+        data: { escortId, stateId, searchValue },
         beforeSend: function () {
             $(".playmates-card-grid").html(`<div class="alert alert-info">Please wait a moment while we find your available Playmates.</div>`);
         },
     }).done(function (response) {
         if (response.success) {
             $(".playmates-card-grid").html(response.playmates_container_html);
-            if(response.escorts.length>0){
+            togglePlaymateButton();
+            if (response.escorts.length > 0) {
                 $("#profileSearch").val('');
-            }   
+            }
         }
+
     }).fail(function (xhr, status, error) {
         console.error("Error:", error);
     });
 }
+
+function togglePlaymateButton() {
+    let formBtn = $('#myplaymates button[type="submit"]');
+
+    let hasUpdatePlaymate = $('#myplaymates input[name="update_playmate[]"]').length > 0;
+    let hasCheckedAddPlaymate = $('#myplaymates input[name="add_playmate[]"]:checked').length > 0;
+
+    formBtn.prop('disabled', !(hasUpdatePlaymate || hasCheckedAddPlaymate));
+}
+
+$(document).on('change', '#myplaymates input[name="add_playmate[]"]', function () {
+    togglePlaymateButton();
+});
+
+$(document).on('change', '#myplaymates input[name="update_playmate[]"]', function () {
+    togglePlaymateButton();
+});
+

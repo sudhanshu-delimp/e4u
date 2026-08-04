@@ -23,7 +23,10 @@ use App\Models\MassagePurchase;
 use App\Models\Purchase;
 use App\Models\User;
 use App\Repositories\Purchase\PurchaseInterface;
+use App\Repositories\Playmate\PlaymateInterface;
 use App\Traits\DataTablePagination;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Admin\ListingSuspendedMail;
 
 class GlobalMonitoringController extends Controller
 {
@@ -36,13 +39,15 @@ class GlobalMonitoringController extends Controller
     protected $addAccessEnabled;
     protected $sidebar;
     protected $purchase;
+    protected $playmateHistory;
 
-    public function __construct(MassageProfileInterface $massage_profile,  EscortInterface $escort, UserInterface $user, PurchaseInterface $purchase)
+    public function __construct(MassageProfileInterface $massage_profile,  EscortInterface $escort, UserInterface $user, PurchaseInterface $purchase, PlaymateInterface $playmateHistory)
     {
         $this->escort = $escort;
         $this->massage_profile = $massage_profile;
         $this->user = $user;
         $this->purchase = $purchase;
+        $this->playmateHistory = $playmateHistory;
         $this->middleware(function ($request, $next) {
             $user = auth()->user();   // works here
             // Now do everything that needs user data
@@ -975,9 +980,74 @@ class GlobalMonitoringController extends Controller
     public function suspendListedProfile(Purchase $purchase)
     {
         try {
+            $purchase->update(['status' => 'suspend']);
+            $isExtended = $purchase->isListingExtended();
+            $escort = $purchase->escort;
+            $user = $escort->user;
+            if ($escort) {
+
+                $escortTimezone = $escort->time_zone;
+
+                $utcStart = Carbon::createFromFormat('Y-m-d H:i:s', now(), $escortTimezone)->setTimezone('UTC');
+                $utcEnd = Carbon::createFromFormat('Y-m-d H:i:s', $purchase->utc_end_time, $escortTimezone)->setTimezone('UTC');
+                SuspendProfile::create(
+                    [
+                        'escort_profile_id' => $purchase->escort_id,
+                        'user_id' => $user->id,
+                        'start_date' => Carbon::parse(now()),
+                        'utc_start_date' => $utcStart,
+                        'end_date' => Carbon::parse($purchase->end_date),
+                        'utc_end_date' => $utcEnd,
+                        'credit' => 0,
+                        'note' => "Suspended by Admin",
+                    ]
+                );
+
+                if ($isExtended && $isExtended->count) {
+                    $otherPurchase = $isExtended->data;
+                    $otherPurchase->update(['status' => 'suspend']);
+                    $utcStart = Carbon::createFromFormat('Y-m-d H:i:s', $otherPurchase->utc_start_time, $escortTimezone)->setTimezone('UTC');
+                    $utcEnd = Carbon::createFromFormat('Y-m-d H:i:s', $otherPurchase->utc_end_time, $escortTimezone)->setTimezone('UTC');
+                    SuspendProfile::create(
+                        [
+                            'escort_profile_id' => $otherPurchase->escort_id,
+                            'user_id' => $user->id,
+                            'start_date' => Carbon::parse($otherPurchase->start_date),
+                            'utc_start_date' => $utcStart,
+                            'end_date' => Carbon::parse($otherPurchase->end_date),
+                            'utc_end_date' => $utcEnd,
+                            'credit' => 0,
+                            'note' => "Suspended by Admin",
+                        ]
+                    );
+                }
+
+                foreach ($escort->playmates as $playmate) {
+                    $this->playmateHistory->trashPlaymateHistory($escort->id, $playmate->id);
+                }
+                /**
+                 * Detach all playmates this escort added
+                 */
+                $escort->playmates()->detach();
+                /**
+                 * Detach this escort from other users who added them as a playmate
+                 */
+                $escort->addedBy()->detach();
+                $escort->update([
+                    'enabled' => 0,
+                    'membership' => null,
+                    'start_date' => null,
+                    'end_date' => null,
+                    'utc_start_time' => null,
+                    'utc_end_time' => null,
+                    'purchase_id' => null
+                ]);
+            }
+
+            Mail::to($user->email)->send(new ListingSuspendedMail(compact('purchase')));
             return response()->json([
                 'success' => true,
-                'message' => $purchase
+                'message' => "Escort profile has been suspended successfully.",
             ], 200);
         } catch (Exception $e) {
             return response()->json([

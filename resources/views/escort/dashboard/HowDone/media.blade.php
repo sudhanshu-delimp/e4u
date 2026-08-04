@@ -46,7 +46,7 @@
 
                                 <h5><b>Overview</b></h5>
                                 <div class="row my-4">
-                                    <div class="col-lg-7">
+                                    <div class="col-lg-10">
                                         <p>
                                             Use this feature to store, set up your default photos, and to verify
                                             them. Verification is important as your photos, if they are
@@ -78,7 +78,7 @@
                                                 rejected.</span>
                                         </p>
                                     </div>
-                                    <div class="col-lg-5">
+                                    <div class="col-lg-2">
                                         <div class="doc-img">
                                             <img src="{{ asset('assets/app/img/e4u_verified_media.png') }}" alt=""
                                                 class="w-100 rounded-sm">
@@ -107,6 +107,7 @@
                                             Creator will also permit you to arrange your photos in your
                                             preferred order.
                                         </p>
+                                        
                                         <p class="sec-head">
                                             Thumbnail
                                         </p>
@@ -136,8 +137,30 @@
                                         <p>
                                             The same applies to your Banner and Pin Up images.
                                         </p>
-
-                                        <p class="sec-head"> Banner</p>
+                                       
+                                       
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="doc-img mb-2">
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/media-photo-scr.png') }}"
+                                                alt="" class="w-100">
+                                        </div>
+                                         <div class="d-flex justify-content-start gap-10">
+                                            <div class="doc-img mt-2">
+                                            <img src="{{ asset('assets/dashboard/img/media-photo-video-scr.png') }}"
+                                                alt="" class="w-100">
+                                        </div>
+                                         <div class="doc-img mt-2">
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/gallery-banner.png') }}"
+                                                alt="" class="w-100">
+                                        </div>
+                                         </div>
+                                    </div>
+                                </div>
+                                <p class="sec-head"> Banner</p>
+                                <div class="row">
+                                    <div class="col-lg-7">
+                                         
                                         <p>
                                             Your Banner image sits across the top of your Profile.
                                             We recommend you select an image that is landscape in
@@ -149,7 +172,18 @@
                                         <p>
                                             The Banner image is mandatory.
                                         </p>
-                                        <p class="sec-head">Pin Up</p>
+                                    </div>
+                                    <div class="col-lg-5">                                        
+                                          <div class="doc-img mt-2">
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/template-banner.png') }}"
+                                                alt="" class="w-100">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                         <p class="sec-head">Pin Up</p>
                                         <p>
                                             Your Pin Up image is your preferred image that will appear on the Website home
                                             page. The
@@ -166,31 +200,12 @@
                                             for.
                                         </p>
                                     </div>
-                                    <div class="col-lg-5">
-                                        <div class="doc-img mb-2">
-                                            <img src="{{ asset('assets/dashboard/img/how-is-done/media-photo-scr.png') }}"
-                                                alt="" class="w-100 rounded-sm">
-                                        </div>
+                                </div>
 
-                                        <div class="doc-img mt-2">
-                                            <img src="{{ asset('assets/dashboard/img/media-photo-video-scr.png') }}"
-                                                alt="" class="w-100 rounded-sm">
-                                        </div>
-
-                                        <div class="doc-img mt-2">
-                                            <img src="{{ asset('assets/dashboard/img/how-is-done/gallery-banner.png') }}"
-                                                alt="" class="w-100 rounded-sm">
-                                        </div>
-
-                                        <div class="doc-img mt-2">
-                                            <img src="{{ asset('assets/dashboard/img/how-is-done/template-banner.png') }}"
-                                                alt="" class="w-100 rounded-sm">
-                                        </div>
-                                    </div>
+                                <p class="sec-head">Verification</p>
+                                <div class="row">
                                     <div class="col-lg-7">
-                                        <p class="sec-head">
-                                            Verification
-                                        </p>
+                                        
                                         <p>
                                             Media Verification can be undertaken at any
                                             time. The Website has an automated system
@@ -245,17 +260,19 @@
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="doc-img my-2">
-                                            <img src="{{ asset('assets/dashboard/img/how-is-done/gallery-banner.png') }}"
-                                                alt="" class="w-100 rounded-sm">
+                                            <img src="{{ asset('assets/dashboard/img/how-is-done/verification.png') }}"
+                                                alt="" class="w-100">
                                         </div>
-                                        <div class="doc-img mt-2">
-                                            <img src="{{ asset('assets/dashboard/img/how-is-done/media-verify-banner.png') }}"
-                                                alt="" class="w-100 rounded-sm">
-                                        </div>
+                                        <div class="d-flex justify-content-between gap-10">
+                                            <div class="doc-img mt-2">
+                                                <img src="{{ asset('assets/dashboard/img/how-is-done/media-verify-banner.png') }}"
+                                                    alt="" class="w-100">
+                                            </div>
 
-                                        <div class="doc-img mt-2">
-                                            <img src="{{ asset('assets/dashboard/img/how-is-done/profile-image.png') }}"
-                                                alt="" class="w-100 rounded-sm">
+                                            <div class="doc-img mt-2">
+                                                <img src="{{ asset('assets/dashboard/img/how-is-done/profile-image.png') }}"
+                                                    alt="" class="w-100">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -280,7 +297,7 @@
 
                                 <h5><b>Overview</b></h5>
                                 <div class="row my-4">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-7">
                                         <p>
                                             Manage your video content here. You can upload up to six videos and select 3 as
                                             your
@@ -297,9 +314,10 @@
                                         </ul>
                                     </div>
                                 </div>
+                                 <h5><b>How is it done - Video</b></h5>
                                  <div class="row">
-                                    <div class="col-lg-12">
-                                        <h5><b>How is it done - Video</b></h5>
+                                    <div class="col-lg-7">
+                                       
                                         <p>
                                             You can upload up to six videos to your repository and
                                             then select three videos, by drag and drop, to be your
@@ -325,13 +343,11 @@
                                             for viewing.
                                         </p>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-5">
                                         <div class="doc-img mt-2">
                                             <img src="{{ asset('assets/dashboard/img/how-is-done/upload-video-banner.png') }}" alt=""
                                                 class="w-100 rounded-sm">
                                         </div>
-                                    </div>
-                                    <div class="col-lg-6">
                                         <div class="doc-img mt-2">
                                             <img src="{{ asset('assets/dashboard/img/how-is-done/video-banner.png') }}" alt=""
                                                 class="w-100 rounded-sm">

@@ -149,7 +149,7 @@
                                 <p>
                                     After you list a Profile, the key data associated with the Profile and Listing are summarised
                                     in the report. The report is a record only so that you can look back over your Listings
-                                    historically while they are still current or Upcoming.
+                                    historically while they are still Current or Upcoming.
                                 </p>
                                 <p>
                                     Once the Listing expires, the Listing is removed from the report and relocated to Past.
