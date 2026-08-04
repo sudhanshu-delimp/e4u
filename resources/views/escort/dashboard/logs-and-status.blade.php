@@ -237,7 +237,10 @@
 
                             <td class="text-center">
                                 <span class="playmate-count" id="playmate-total-count">
-                                    {{ $playmateCount }}
+                                    @php
+                                        $playmateCount = $user->playmateHistory->unique('playmate_id')->count();
+                                        echo $playmateCount;
+                                    @endphp
                                 </span>
                             </td>
                         </tr>
@@ -249,7 +252,6 @@
 
                             <td colspan="2">
                                 <div class="playmate-list">
-
                                     @foreach($user->playmateHistory->unique('playmate_id') as $item)
 
                                     <div class="playmate-icon">
