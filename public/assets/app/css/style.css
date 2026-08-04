@@ -6965,6 +6965,10 @@ table {
     margin-right: unset;
 }
 
+.screenshot-actions button:hover {
+    background-color: var(--peach) !important;
+}
+
 .screenshot-save {
     color: #fff;
 }
@@ -6975,11 +6979,11 @@ table {
 }
 
 .screenshot-save:hover {
-    background: #218838;
+    background-color: var(--peach) !important;
 }
 
-.screenshot-cancel:hover {
-    background: #c82333;
+.screenshot-actions .screenshot-cancel:hover {
+    background-color: var(--blue--text) !important;
 }
 
 .mc_card_content:has(.video_icon_ec:hover) {
