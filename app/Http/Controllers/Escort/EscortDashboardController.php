@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Escort;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdateEscortRequest;
+use App\Models\Escort;
+use App\Models\LoginAttempt;
+use DB;
+use App\Models\MyLegbox;
 
 class EscortDashboardController extends Controller
 {
@@ -16,7 +20,25 @@ class EscortDashboardController extends Controller
         $getLastLoginTime = getUserWiseLastLoginTime($user);
         $passwirdExpire = $user->account_setting;
         $passwordExpiryText = CheckExpireDate($passwirdExpire->password_expiry_days);
-        return view('escort.dashboard.logs-and-status', compact('logAndStatus', 'passwordExpiryText', 'state', 'passwirdExpire', 'getLastLoginTime'));
+
+        $authStateId = $user->current_state_id ?? $user->state_id;
+        $escortIds = Escort::where('user_id', $user->id)
+            ->where('enabled', 1)
+            ->pluck('id');
+        $legboxEscortUserIds = MyLegbox::whereIn('escort_id', $escortIds)
+            ->pluck('user_id')
+            ->unique();
+        
+        $result = LoginAttempt::join('users', 'login_attempts.user_id', '=', 'users.id')
+            ->whereIn('users.id', $legboxEscortUserIds)
+            ->where('login_attempts.type', 1)
+            ->where('login_attempts.online', 'yes')
+            ->selectRaw("
+                COUNT(DISTINCT CASE WHEN users.state_id = ? THEN users.id END) AS same_state_count,
+                COUNT(DISTINCT CASE WHEN users.state_id != ? THEN users.id END) AS outside_state_count
+            ", [$authStateId, $authStateId])
+            ->first();
+        return view('escort.dashboard.logs-and-status', compact('logAndStatus', 'passwordExpiryText', 'state', 'passwirdExpire', 'getLastLoginTime','result','user'));
     }
 
 

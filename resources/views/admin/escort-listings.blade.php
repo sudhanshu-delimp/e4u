@@ -427,6 +427,7 @@
     });
 
     var suspendListedProfile = function() {
+        let pinModalElement = $('#SetPinModal');
         $.ajax({
             url: `{{route('admin.suspend_listed_profile', '_PURCHASE_')}}`.replace('_PURCHASE_', purchaseId),
             method: 'GET',
@@ -438,6 +439,8 @@
                 showLoadingPopup('Processing Payment', 'Do not refresh or close this page.');
             },
             success: function(response, textStatus, xhr) {
+                pinModalElement.find('#pinDisplaySet').text('');
+                pinModalElement.modal('hide');
                 Swal.close();
                 displaySwal(xhr);
 

@@ -216,9 +216,9 @@
         </div>
         {{-- end --}}
         {{-- box start --}}
-        <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
+        <!-- <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('escort.dashboard.escorts-statistics') }}">
+                <a href="route('escort.dashboard.escorts-statistics')">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/icon_escort-statistics.png') }}" class="my-svg-icons" alt="Escorts Statistics">
                     </div>
@@ -228,7 +228,7 @@
                 </a>
 
             </div>
-        </div>
+        </div> -->
         {{-- end --}}
         {{-- box start --}}
         <div class="col-lg-3 col-sm-6 col-md-4 box-wrapper">
@@ -268,7 +268,7 @@
                         <img src="{{ asset('assets/dashboard/img/boxicon/agent/logs-and-statistics.png') }}" alt="Logs & Status">
                     </div>
                     <h2>
-                        Logs & Status
+                        Activity Summary
                     </h2>
                 </a>
 
