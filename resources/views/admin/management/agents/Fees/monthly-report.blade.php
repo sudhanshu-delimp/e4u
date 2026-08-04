@@ -12,43 +12,43 @@
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <!--middle content end here-->
 
-         {{-- Page Heading --}}
-    <div class="row">
-        <div class="col-md-12 custom-heading-wrapper">
-            <h1 class="h1">Monthly Report</h1>
-            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
-        </div>
-        <div class="col-md-12 mb-4">
-            <div class="card collapse" id="notes" style="">
-                <div class="card-body">
-                    <p class="notes"><b>Notes:</b> </p>
-                    <p></p>
-                    <ol>
-                        <li>The following definitions are from the Agent Agreement and apply for the purpose of
-                            calculating the Fee:
-                            <ol class="level-2">
-                                <li><b>Fees</b> mean the fees calculated pursuant to Item 5 of Schedule 1 and payable
-                                    pursuant to clause 9.1.
-                                </li>
-                                <li><b>Monthly Report</b> means the online report summarising all the activities for
-                                    that
-                                    month for Signed Up Advertisers which the calculation of the Fees for that month
-                                    will be based on.
-                                </li>
-                            </ol>
-                        </li>
-                        <li>The Fees are paid to the Operator upon the Agent having approved them. Where there
-                            is a query raised by an Agent in respect of the Monthly Report, the Fee corresponding
-                            to the Query will be separated from the Report and remain in escrow until the query is
-                            resolved.
-                        </li>
-                        <li>Fees are exclusive of GST.</li>
-                    </ol>
+        {{-- Page Heading --}}
+        <div class="row">
+            <div class="col-md-12 custom-heading-wrapper">
+                <h1 class="h1">Monthly Report</h1>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+            </div>
+            <div class="col-md-12 mb-4">
+                <div class="card collapse" id="notes" style="">
+                    <div class="card-body">
+                        <p class="notes"><b>Notes:</b> </p>
+                        <p></p>
+                        <ol>
+                            <li>The following definitions are from the Agent Agreement and apply for the purpose of
+                                calculating the Fee:
+                                <ol class="level-2">
+                                    <li><b>Fees</b> mean the fees calculated pursuant to Item 5 of Schedule 1 and payable
+                                        pursuant to clause 9.1.
+                                    </li>
+                                    <li><b>Monthly Report</b> means the online report summarising all the activities for
+                                        that
+                                        month for Signed Up Advertisers which the calculation of the Fees for that month
+                                        will be based on.
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>The Fees are paid to the Operator upon the Agent having approved them. Where there
+                                is a query raised by an Agent in respect of the Monthly Report, the Fee corresponding
+                                to the Query will be separated from the Report and remain in escrow until the query is
+                                resolved.
+                            </li>
+                            <li>Fees are exclusive of GST.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    {{-- end --}}
+        {{-- end --}}
         <div class="row">
             <div class="col-md-12">
 
@@ -63,7 +63,7 @@
                                 <th>Spend</th>
                                 <th>Fees</th>
                                 <th>Status</th>
-                                <th>Report Approved</th>
+                                <th>Date Agent Approved</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -136,9 +136,10 @@
                 </div>
             </div>
         </div>
-         {{-- view query --}}
+        {{-- view query --}}
         <div class="modal fade upload-modal" id="viewMonthlyQueryModel" tabindex="-1" role="dialog"
-            aria-labelledby="viewMonthlyQueryModelLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            aria-labelledby="viewMonthlyQueryModelLabel" aria-hidden="true" data-backdrop="static"
+            data-keyboard="false">
             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -154,7 +155,8 @@
                         <!-- End content area -->
                     </div>
                     <div class="modal-footer">
-                         <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>
+                        <button type="button" class="btn-cancel-modal" data-dismiss="modal"
+                            aria-label="Close">Close</button>
                     </div>
                 </div>
             </div>
@@ -162,73 +164,70 @@
 
         {{-- Payment Authorisation --}}
 
-<div class="modal fade upload-modal" id="payAgentreport" tabindex="-1" role="dialog"
-    aria-labelledby="payAgentreportLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
+        <div class="modal fade upload-modal" id="payAgentreport" tabindex="-1" role="dialog"
+            aria-labelledby="payAgentreportLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <!-- Header -->
+                    <div class="modal-header">
 
-            <!-- Header -->
+                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/auth.png') }}"
+                                class="custompopicon">
+                            Payment Authorisation</h5>
+                        <a href="" class="close" data-dismiss="modal" aria-label="Close">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
+                        </a>
+                    </div>
+                    <!-- Body -->
+                    <div class="modal-body" style="padding: 20px;">
 
+                        <table class="w-100 table common_modal_table">
+                            <tr>
+                                <td style="font-weight: bold; color: #001f4d;">Agent ID:</td>
+                                <td><span id="payAgentId"></span></td>
+                                <td style="font-weight: bold; color: #001f4d;">Date:</td>
+                                <td><span id="payMonthlyReportDate"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold; color: #001f4d;">Fee Total:</td>
+                                <td>$<span id="payAgenFee"></span></td>
+                                <td style="font-weight: bold; color: #001f4d;">Month:</td>
+                                <td><span id="payMonthlyReportMonth"></span></td>
+                            </tr>
+                        </table>
 
-            <div class="modal-header">
+                        <p>
+                            The Fee for the month is authorised for payment into the
+                            Operator’s nominated Bank Account for the Agent.
+                        </p>
 
-                <h5 class="modal-title text-white"><img
-                        src="{{ asset('assets/dashboard/img/auth.png') }}" class="custompopicon">
-                    Payment Authorisation</h5>
-                <a href="" class="close" data-dismiss="modal" aria-label="Close">
-                    <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
-                </a>
-            </div>
-            <!-- Body -->
-            <div class="modal-body" style="padding: 20px;">
+                        <p style="margin-top: 25px;">
+                            Managing Director: <span
+                                style="display: inline-block; border-bottom: 1px solid #000; width: 200px;"></span>
+                        </p>
 
-                <table class="w-100 table common_modal_table">
-                    <tr>
-                        <td style="font-weight: bold; color: #001f4d;">Agent ID:</td>
-                        <td>A600025</td>
-                        <td style="font-weight: bold; color: #001f4d;">Date:</td>
-                        <td>01-10-25</td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold; color: #001f4d;">Fee Total:</td>
-                        <td>$237.45</td>
-                        <td style="font-weight: bold; color: #001f4d;">Month:</td>
-                        <td>Oct</td>
-                    </tr>
-                </table>
+                        <hr style="margin: 20px 0;">
 
-                <p>
-                    The Fee for the month is authorised for payment into the
-                    Operator’s nominated Bank Account for the Agent.
-                </p>
-
-                <p style="margin-top: 25px;">
-                    Managing Director: <span
-                        style="display: inline-block; border-bottom: 1px solid #000; width: 200px;"></span>
-                </p>
-
-                <hr style="margin: 20px 0;">
-
-                <div style="text-align: right;">
-
-                 
-                    <button type="button" class="btn-success-modal">Print</button>
-
-                       <button type="button" class="btn-cancel-modal" data-dismiss="modal">
-                            Close
-                       </button>
+                        <div style="text-align: right;">
+                            <form action="{{ route('admin.fees.print.pay-detail') }}" method="post" target="_blank">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="monthly_report_id" id="monthly_report_id" value="">
+                                <button type="submit" class="btn-success-modal">Print</button>
+                                <button type="button" class="btn-cancel-modal" data-dismiss="modal">
+                                    Close
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-{{-- end --}}
-
+        {{-- end --}}
     @endsection
     @push('script')
         <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
-    </script>
+        </script>
 
         <script>
             $(document).ready(function() {
@@ -266,8 +265,20 @@
                             orderable: false,
                             defaultContent: 'NA'
                         },
-                        { data: 'agent_id', name: 'agent_id', searchable: true, orderable:true ,defaultContent: 'NA'},
-                        { data: 'territory', name: 'territory', searchable: true, orderable:true ,defaultContent: 'NA'},
+                        {
+                            data: 'agent_id',
+                            name: 'agent_id',
+                            searchable: true,
+                            orderable: true,
+                            defaultContent: 'NA'
+                        },
+                        {
+                            data: 'territory',
+                            name: 'territory',
+                            searchable: true,
+                            orderable: true,
+                            defaultContent: 'NA'
+                        },
                         {
                             data: 'total_spend',
                             name: 'total_spend',
@@ -345,7 +356,7 @@
                     });
                 });
 
-                 $(document).on('click', '#openQueryModel', function() {
+                $(document).on('click', '#openQueryModel', function() {
                     $('#queryForm')[0].reset();
                     let id = $(this).data('id');
                     let status = $(this).data('status');
@@ -391,7 +402,7 @@
                             if ($.trim(response) === "") {
                                 swal_error_popup("Query not found.");
                             } else {
-                          
+
                                 $('#renderMonthlyRaiseQuery').html(response);
                                 $('#viewMonthlyQueryModel').modal('show');
                             }
@@ -406,9 +417,35 @@
                     $('#queryForm')[0].reset();
                     let id = $(this).data('id');
                     let status = $(this).data('status');
-                    $('#fee_id').val(id);
-                    $('#fee_status').val(status);
-                    $('#payAgentreport').modal('show');
+                    $('#monthly_report_id').val(id);
+                    //$('#fee_status').val(status);
+                    var url = "{{ route('admin.fees.view.pay-detail') }}";
+
+                    $.ajax({
+                        url: url,
+                        method: 'POST',
+                        data: {
+                            report_id: id,
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            if (response.error == 1) {
+                                swal_error_popup("Data not found.");
+                            } else {
+                                $('#payAgentId').text(response.data.payAgentId);
+                                $('#payMonthlyReportDate').text(response.data.payMonthlyReportDate);
+                                $('#payMonthlyReportMonth').text(response.data
+                                    .payMonthlyReportMonth);
+                                $('#payAgenFee').text(response.data.payAgenFee);
+
+                                $('#payAgentreport').modal('show');
+                            }
+                        },
+                        error: function() {
+                            swal_error_popup("Error occurred while fetching the data.");
+                        }
+                    });
+
                 });
             });
 
@@ -445,6 +482,5 @@
                     });
                 }
             }
-
         </script>
     @endpush

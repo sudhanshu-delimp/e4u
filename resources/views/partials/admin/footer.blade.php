@@ -195,6 +195,30 @@
          $(obj).val(formatted);
     }
   </script>
+
+       @if (Session::has('success'))
+        <script>
+            Swal.fire({
+                title: ' ',
+                text: '{{ Session::get('success') }}',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        </script>
+        @endif
+
+        @foreach (['warning', 'info', 'error'] as $alert)
+        @if (Session::has($alert))
+        <script>
+            Swal.fire({
+                title: '',
+                text: '{{ Session::get($alert) }}',
+                icon: '{{ $alert }}',
+                confirmButtonText: 'OK'
+            });
+        </script>
+        @endif
+        @endforeach
   @stack('script')
         </body>
         </html>
