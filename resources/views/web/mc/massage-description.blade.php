@@ -3424,11 +3424,7 @@ function getStars(rating) {
         // console.log(cidcl);
     });
     
-<<<<<<< HEAD
-
-=======
  
->>>>>>> d33ac4518932cbc748e12f0fc322dba88f582bd6
 
 window.initMap = initMap;
 </script>
