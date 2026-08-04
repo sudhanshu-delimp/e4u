@@ -545,9 +545,9 @@ Route::get('agent-messages', function () {
   return view('center.dashboard.Communication.agent-messages');
 })->name('agent-messages');
 
-Route::get('legbox-notification', function () {
-  return view('center.dashboard.Communication.legbox-notification');
-})->name('legbox-notification');
+// Route::get('legbox-notification', function () {
+//   return view('center.dashboard.Communication.legbox-notification');
+// })->name('legbox-notification');
 
 # Massage viewer Interaction
 Route::get('legbox-viewers', [MassageViewerInteractionController::class, 'index'])->name('legbox-viewers');

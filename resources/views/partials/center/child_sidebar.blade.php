@@ -228,7 +228,6 @@
             <img src="{{ asset('assets/dashboard/img/menu-icon/management.png') }}">
             <span>Administration</span>
         </a>
-
         <div id="AdminTab" class="collapse
                 @if (in_array(request()->segment(3), []) ||
                         in_array(request()->segment(2), [
@@ -369,7 +368,7 @@
                         </a>
 
                         <a class="collapse-item {{ request()->segment(2) == 'legbox-notification' ? 'menu-active' : '' }}"
-                            href="{{ route('legbox-notification') }}">
+                            href="{{ route('centrer.legbox.notification.index') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
                             <span>Legbox Notification</span>
                         </a>
