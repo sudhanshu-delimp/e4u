@@ -104,8 +104,8 @@
             pageLength: 10,
 
             columns: [{
-                    data: 'id',
-                    name: 'id',
+                    data: 'member_id',
+                    name: 'member_id',
                     searchable: false,
                     orderable: false,
                     defaultContent: 'NA'
