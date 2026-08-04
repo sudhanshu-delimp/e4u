@@ -30,7 +30,7 @@
                     fill="#C2CFE0" />
             </svg>
             <span id="dash"
-                style="{{ $_SERVER['REQUEST_URI'] == '/escort-dashboard'  || $_SERVER['REQUEST_URI'] == '/escort-dashboard/logs' ? 'color: #e5365a;' : '' }}">Dashboard</span>
+                style="{{ $_SERVER['REQUEST_URI'] == '/escort-dashboard'  || $_SERVER['REQUEST_URI'] == '/escort-dashboard/activity-summary' ? 'color: #e5365a;' : '' }}">Dashboard</span>
 
 
         </a>

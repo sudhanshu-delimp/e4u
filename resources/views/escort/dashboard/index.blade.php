@@ -268,7 +268,7 @@
                         <img src="{{ asset('assets/dashboard/img/boxicon/agent/logs-and-statistics.png') }}" alt="Logs & Status">
                     </div>
                     <h2>
-                        Logs
+                        Activity Summary
                     </h2>
                 </a>
 

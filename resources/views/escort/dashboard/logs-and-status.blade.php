@@ -89,7 +89,7 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between">
         <div class="custom-heading-wrapper">
-            <h1 class="h1">Logs</h1>
+            <h1 class="h1">Activity Summary</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
         <div class="back-to-dashboard">
@@ -158,7 +158,7 @@
                         <tr>
                             <td class="icon-col"><i class="fas fa-credit-card"></i></td>
                             <td>Credit</td>
-                            <td class="text-center">$ {{formatCurrency($user->wallet->balance)}}</td>
+                            <td class="text-center"> {{ str_replace('$', '$ ', formatCurrency($user->wallet->balance)) }}</td>
                         </tr>
                         <tr>
                             <td class="icon-col"><i class="fas fa-gift"></i></td>

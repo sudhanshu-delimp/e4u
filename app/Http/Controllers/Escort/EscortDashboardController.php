@@ -42,7 +42,6 @@ class EscortDashboardController extends Controller
                 COUNT(DISTINCT CASE WHEN users.state_id != ? THEN users.id END) AS outside_state_count
             ", [$authStateId, $authStateId])
             ->first();
-
         return view('escort.dashboard.logs-and-status', compact('logAndStatus', 'passwordExpiryText', 'state', 'passwirdExpire', 'getLastLoginTime','result','user','playmateCount'));
     }
 
