@@ -37,6 +37,7 @@ use App\Models\Visitor;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Collection;
 
 class MassageCentre extends Controller
 {
