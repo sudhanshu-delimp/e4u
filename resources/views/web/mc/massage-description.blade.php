@@ -3150,27 +3150,40 @@ $(document).ready(function () {
     
 
     
-    $(document).on('click', '.btn-next', function () {
-        let currentModal = $(this).closest('.masseur-modal');
-        let index = parseInt(currentModal.data('index'));
+   $(document).on('click', '.btn-next', function () {
+    let currentModal = $(this).closest('.masseur-modal');
+    let index = parseInt(currentModal.data('index'));
 
-        showModal(currentModal, index + 1);
-        let massure_id = $(this).data('massure_id');
+    let newIndex = index + 1;
+
+    showModal(currentModal, newIndex);
+
+    // Get the new modal
+    let newModal = $('.masseur-modal').eq(newIndex);
+
+    let massure_id = newModal.data('massure_id');
     let page = "massure media";
-   generateLog(massure_id,page);
-    });
 
+    generateLog(massure_id, page);
+});
     
-    $(document).on('click', '.btn-prev', function () {
-        let currentModal = $(this).closest('.masseur-modal');
-        let index = parseInt(currentModal.data('index'));
+  $(document).on('click', '.btn-prev', function () {
 
-        showModal(currentModal, index - 1);
-         let massure_id = $(this).data('massure_id');
+    let currentModal = $(this).closest('.masseur-modal');
+    let index = parseInt(currentModal.data('index'));
+
+    let newIndex = index - 1;
+
+    showModal(currentModal, newIndex);
+
+    // Get NEW modal
+    let newModal = $('.masseur-modal').eq(newIndex);
+
+    let massure_id = newModal.data('massure_id');
     let page = "massure media";
-   generateLog(massure_id,page);
-        
-    });
+
+    generateLog(massure_id, page);
+});
 
 });
 
