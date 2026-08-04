@@ -175,10 +175,10 @@ class TrackLastPageVisitMiddlware
             }
 
             # Update visitor guest user to logged user
-            Visitor::where('ip_address',$this->getUserIp())->update([
-                'user_id' => auth()->user()->id,
-                'user_type' => 'user',
-            ]);
+            // Visitor::where('ip_address',$this->getUserIp())->update([
+            //     'user_id' => auth()->user()->id,
+            //     'user_type' => 'user',
+            // ]);
 
             // update auth user
             if ($attempt != null) {
@@ -206,41 +206,41 @@ class TrackLastPageVisitMiddlware
                 ]);
             }
         }else{
-            $visitor = Visitor::where('ip_address',$this->getUserIp())->first();
+            // $visitor = Visitor::where('ip_address',$this->getUserIp())->first();
             
-            if($visitor != null){
-                # update visitor activity
-                Visitor::where('ip_address',$this->getUserIp())->update([
-                    'page' => $path, // e.g. "dashboard/advertiser"
-                    'device' => $this->getBrowser(),
-                    'platform' => $this->getBrowser(),
-                    'country' => $this->getVisitorCountry()[0],
-                    'city' => null,
-                    'state' => $this->getVisitorCountry()[1],
-                    'user_type' => 'guest',
-                    'user_id' => null,
-                    'idle' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
-                    'origin' => $this->getVisitorCountry()[0],
-                    'date' => now(config('app.escort_server_timezone')),
-                ]);
-            }else{
-                # create visitor activity
-                Visitor::create([
-                    'page' => $path, // e.g. "dashboard/advertiser"
-                    'ip_address' => $this->getUserIp(),
-                    'device' => $this->getBrowser(),
-                    'platform' => $this->getBrowser(),
-                    'country' => $this->getVisitorCountry()[0],
-                    'city' => null,
-                    'state' => $this->getVisitorCountry()[1],
-                    'user_type' => 'guest',
-                    'user_id' => null,
-                    'landed' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
-                    'idle' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
-                    'origin' => $this->getVisitorCountry()[0],
-                    'date' => now(config('app.escort_server_timezone')),
-                ]);
-            }
+            // if($visitor != null){
+            //     # update visitor activity
+            //     Visitor::where('ip_address',$this->getUserIp())->update([
+            //         'page' => $path, // e.g. "dashboard/advertiser"
+            //         'device' => $this->getBrowser(),
+            //         'platform' => $this->getBrowser(),
+            //         'country' => $this->getVisitorCountry()[0],
+            //         'city' => null,
+            //         'state' => $this->getVisitorCountry()[1],
+            //         'user_type' => 'guest',
+            //         'user_id' => null,
+            //         'idle' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
+            //         'origin' => $this->getVisitorCountry()[0],
+            //         'date' => now(config('app.escort_server_timezone')),
+            //     ]);
+            // }else{
+            //     # create visitor activity
+            //     Visitor::create([
+            //         'page' => $path, // e.g. "dashboard/advertiser"
+            //         'ip_address' => $this->getUserIp(),
+            //         'device' => $this->getBrowser(),
+            //         'platform' => $this->getBrowser(),
+            //         'country' => $this->getVisitorCountry()[0],
+            //         'city' => null,
+            //         'state' => $this->getVisitorCountry()[1],
+            //         'user_type' => 'guest',
+            //         'user_id' => null,
+            //         'landed' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
+            //         'idle' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
+            //         'origin' => $this->getVisitorCountry()[0],
+            //         'date' => now(config('app.escort_server_timezone')),
+            //     ]);
+            // }
             
         }
 
