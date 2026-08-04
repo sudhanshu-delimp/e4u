@@ -33,8 +33,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use App\Models\MassageViewerInteractions;
-use Illuminate\Support\Collection;
-
 use App\Models\Visitor;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
