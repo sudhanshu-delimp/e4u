@@ -13436,6 +13436,7 @@ button:disabled {
     margin: 0 auto;
     text-align: center;
     border: 2px solid var(--blue--text);
+    background-color: #0c223d;
 }
 
 .how-it-done p i {

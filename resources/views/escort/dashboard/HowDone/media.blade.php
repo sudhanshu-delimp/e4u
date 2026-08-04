@@ -80,7 +80,7 @@
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/app/img/e4u_verified_media.png') }}" alt=""
+                                            <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}" alt=""
                                                 class="w-100 rounded-sm">
                                         </div>
                                     </div>
@@ -218,10 +218,7 @@
                                             When you upload your Media, irrespective of
                                             any existing Media in your repository, and the
                                             status of that Media, the newly uploaded
-                                            Media will automatically be tagged as
-                                        </p>
-                                        <p>
-                                            ‘Pending’. You can use any Pending Media in any Profile you have listed or
+                                            Media will automatically be tagged as ‘Pending’. You can use any Pending Media in any Profile you have listed or
                                             create. The
                                             Pending status will remain in place for 48 hours.
                                         </p>
