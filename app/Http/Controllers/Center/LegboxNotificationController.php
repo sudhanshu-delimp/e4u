@@ -27,14 +27,15 @@ class LegboxNotificationController extends Controller
             return DataTables::of($query)
                 ->addIndexColumn()
                 ->addColumn('ref', function ($row) {
-                    return sprintf('#%05d', $row->id);
+                    //return sprintf('#%05d', $row->id);
+                    return  $row->id;
                 })
-                ->filterColumn('ref', function ($query, $keyword) {
-                    $digits = ltrim($keyword, '#0');
-                    if ($digits !== '') {
-                        $query->where('id', 'like', "%{$digits}%");
-                    }
-                })
+                // ->filterColumn('ref', function ($query, $keyword) {
+                //     $digits = ltrim($keyword, '#0');
+                //     if ($digits !== '') {
+                //         $query->where('id', 'like', "%{$digits}%");
+                //     }
+                // })
                 ->editColumn('start_date', function ($row) {
                     return basicDateFormat($row['start_date']);
                 })

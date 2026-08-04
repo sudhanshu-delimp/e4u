@@ -29,6 +29,10 @@
         <x-global.notification-alert :heading="$notification['heading']" :content="$notification['content'] ?? $notification['template_name']" type="success" />
         @endforeach
         @endif
+        {{-- Legbox Notification create by Massage center --}}
+        @if($getLegBoxNotification)
+             <x-global.notification-alert :heading="$getLegBoxNotification['heading']" :content="$getLegBoxNotification['content'] ?? $getLegBoxNotification['template_name']" type="success" />
+        @endif
         <div class="custom-heading-wrapper col-md-12">
             <h1 class="h1">Dashboard</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>

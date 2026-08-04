@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAvatarMediaRequest;
 use App\Models\AgentNotification;
 use App\Models\Escort;
+use App\Models\LegboxNotification;
 use App\Models\LoginAttempt;
 use App\Models\MyLegbox;
 use App\Models\MyMassageLegbox;
@@ -40,7 +41,11 @@ class UserController extends Controller
     public function index()
     {
         $notifications = $this->viewerNotificationShow();
-        return view('user.dashboard.index', compact('notifications'));
+        //this is active viewer legbox notificaiton create by Massage Center
+
+        $getLegBoxNotification = $this->getActiveViewerLegBoxNotifications();
+
+        return view('user.dashboard.index', compact('notifications', 'getLegBoxNotification'));
     }
     public function myLegboxList()
     {
@@ -532,4 +537,21 @@ class UserController extends Controller
 
        return view('user.dashboard.favorites-online', compact('result'));
     }
+
+    // get legbox notification message for viewer
+
+    public function getActiveViewerLegBoxNotifications(){
+        $userId = auth()->user()->member_id;
+        $getNotification = LegboxNotification::where('status', 'Published')
+                            ->where('start_date', '<=', now()->utc())
+                            ->where(function($query) use ($userId) {
+                                $query->whereNull('member_id')
+                                    ->orWhere('member_id', $userId);
+                            })
+                            ->orderBy('start_date', 'asc')
+                            ->select('id', 'heading', 'content', 'template_name')
+                            ->first();
+        return $getNotification;
+    }
+
 }
