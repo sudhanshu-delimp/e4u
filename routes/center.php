@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Analytics\MasseurController as AnalyticsMasseurController;
 use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Center\CenterController;
@@ -525,9 +526,7 @@ Route::get('profiles', function () {
   return view('center.dashboard.Annalytics.profiles');
 })->name('profiles');
 
-Route::get('masseurs', function () {
-  return view('center.dashboard.Annalytics.masseurs');
-})->name('masseurs');
+
 
 Route::get('feedback', function () {
   return view('center.dashboard.Annalytics.feedback');
@@ -638,3 +637,10 @@ Route::post('/legbox-notification/{id}/status', [LegboxNotificationController::c
 Route::get('/legbox-notification/pdf-download/{id}', [LegboxNotificationController::class, 'pdfDownload'])->name('centrer.legbox.notification.pdf.download');
 Route::get('/legbox-notification/{id}/edit', [LegboxNotificationController::class, 'edit'])->name('centrer.legbox.notification.edit');
 Route::post('/legbox-notification/{id}/update', [LegboxNotificationController::class, 'update'])->name('centrer.legbox.notification.update');
+
+// Route::get('masseurs', function () {
+//   return view('center.dashboard.Annalytics.masseurs');
+// })->name('masseurs');
+
+Route::get('masseurs', [AnalyticsMasseurController::class, 'index'])->name('masseurs');
+Route::get('masseurs/list', [AnalyticsMasseurController::class, 'getAllMasseurs'])->name('masseurs.list');

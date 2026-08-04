@@ -33,8 +33,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use App\Models\MassageViewerInteractions;
-use Illuminate\Support\Collection;
-
+use App\Models\Visitor;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class MassageCentre extends Controller
 {
@@ -358,7 +360,7 @@ class MassageCentre extends Controller
                             $status = $statusMap[$verification];
 
                             $massage = $massage->whereExists(function ($q) use ($status) {
-                                $q->select(\DB::raw(1))
+                                $q->select(DB::raw(1))
                                     ->from('profile_verification_status as pvs')
                                     ->whereColumn('pvs.profile_id', 'massage_profiles.id')
                                     ->where('pvs.type', '4')
@@ -911,7 +913,7 @@ class MassageCentre extends Controller
                         $status = $statusMap[$verification];
 
                         $massage = $massage->whereExists(function ($q) use ($status) {
-                            $q->select(\DB::raw(1))
+                            $q->select(DB::raw(1))
                                 ->from('profile_verification_status as pvs')
                                 ->whereColumn('pvs.profile_id', 'massage_profiles.id')
                                 ->where('pvs.type', '4')
@@ -1024,4 +1026,136 @@ class MassageCentre extends Controller
             'total_count' => $listings->total()
         ]);
     }
+
+
+  public function generateLog(Request $request)
+  {
+
+    try {
+
+      $data = $this->getVisitorCountry();
+      $masseur = $request->masseur_id;
+      $page = $request->page;
+      if ($data) {
+        $now = Carbon::now(config('app.escort_server_timezone'));
+        // $query = Visitor::where('page', $page)->where('masseur_id', $masseur)->where('visitorUuid', $request->visitorUuid)->where('created_at', '>=', $now->copy()->subDay());
+        // $visitor = $query->latest('id')->first();
+
+
+        $query = Visitor::where('page', $page)
+          ->where('masseur_id', $masseur)
+          ->where('visitorUuid', $request->visitorUuid)
+          ->where('created_at', '>=', $now->copy()->subDay());
+
+        if (auth()->check()) {
+          $query->where('user_id', auth()->id());
+        } else {
+          $query->whereNull('user_id');
+        }
+
+        $visitor =     $query->latest('created_at')->first();
+
+        $datas = [
+          'page'       => $page,
+          'ip_address' => $this->getUserIp(),
+          'device'     => $this->getBrowser(),
+          'platform'   => $this->getBrowser(),
+          'country'    => $data[0],
+          'city'       => $data[2],
+          'state'      => $data[1],
+          'user_type'  => auth()->check() ? 'user' : 'guest',
+          'user_id'    => auth()->id(),
+          'idle'       => $now->format('Y-m-d h:i:s a'),
+          'origin'     => $this->getVisitorCountry()[0],
+          'date'       => $now,
+          'masseur_id' => $masseur,
+        ];
+        if ($visitor) {
+          $visitor->update($datas);
+        } else {
+          Visitor::create(array_merge($datas, [
+            'landed' => $now->format('Y-m-d h:i:s a'),
+            'visitorUuid' => $request->visitorUuid,
+          ]));
+        }
+      }
+    } catch (Exception $e) {
+      Log::info($e->getMessage());
+    }
+  }
+
+  public function getUserIp()
+  {
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+      // IP from shared internet
+      $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+      // IP passed from proxy
+      $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+      // Sometimes multiple IPs are returned, get the first one
+      $ip = explode(',', $ip)[0];
+    } else {
+      // Remote IP
+      $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    return $ip;
+  }
+
+  public function getVisitorCountry()
+  {
+    $ip = $this->getUserIp();
+
+    // Check if IP and Country are already stored in session
+    if (Session::has('visitor_ip') && Session::get('visitor_ip') === $ip && Session::has('visitor_country') && Session::has('visitor_city') && Session::has('visitor_region')) {
+      return [Session::get('visitor_country'), Session::get('visitor_state'), Session::get('visitor_city'), Session::get('visitor_region')];
+    }
+    // If not in session, fetch from API
+    $response = Http::get("http://ip-api.com/json/{$ip}");
+
+    $data = $response->json();
+    $visitorState = null;
+    $visitorCountry = null;
+    $visitorCity = null;
+    $visitorRegion = null;
+    if ($data && isset($data['status']) && $data['status'] === 'success') {
+      $visitorCountry = $data['country'];
+      $visitorState   = $data['regionName'];
+      $visitorCity   = $data['city'];
+      $visitorRegion   = $data['region'];
+
+      // Store in session for later use
+      Session::put('visitor_ip', $ip);
+      Session::put('visitor_country', $visitorCountry);
+      Session::put('visitor_state', $visitorState);
+      Session::put('visitor_city', $visitorCity);
+      Session::put('visitor_region', $visitorRegion);
+    }
+
+    return [$visitorCountry, $visitorState, $visitorCity, $visitorRegion];
+  }
+
+
+  public function getBrowser()
+  {
+    $userAgent = $_SERVER['HTTP_USER_AGENT'];
+    $browser = "Unknown Browser";
+
+    if (preg_match('/MSIE (\\d+\\.\\d+)/i', $userAgent, $matches)) {
+      $browser = "Internet Explorer";
+    } elseif (preg_match('/Trident.*rv:(\\d+\\.\\d+)/i', $userAgent, $matches)) {
+      $browser = "Internet Explorer";
+    } elseif (preg_match('/Edg\\/([0-9\\.]+)/i', $userAgent, $matches)) {
+      $browser = "Microsoft Edge";
+    } elseif (preg_match('/OPR\\/([0-9\\.]+)/i', $userAgent, $matches)) {
+      $browser = "Opera";
+    } elseif (preg_match('/Chrome\\/([0-9\\.]+)/i', $userAgent, $matches)) {
+      $browser = "Google Chrome";
+    } elseif (preg_match('/Safari\\/([0-9\\.]+)/i', $userAgent, $matches)) {
+      $browser = "Apple Safari";
+    } elseif (preg_match('/Firefox\\/([0-9\\.]+)/i', $userAgent, $matches)) {
+      $browser = "Mozilla Firefox";
+    }
+
+    return $browser;
+  }
 }
