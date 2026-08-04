@@ -775,7 +775,7 @@ margin-right: 5px;
 
 
                                 <!-- /////////// Messeur Modal //////////////// -->
-                                <div class="modal fade product_view upload-modal masseur-modal" id="product_view_{{$masseur->id}}" data-index="{{ $loop->index }}" data-backdrop="static" data-keyboard="false"> 
+                                <div class="modal fade product_view upload-modal masseur-modal" data-page="masseur profile"  data-massure_id="{{$masseur->id}}" id="product_view_{{$masseur->id}}" data-index="{{ $loop->index }}" data-backdrop="static" data-keyboard="false"> 
                                     <div class="modal-dialog modal-dialog-centered max-modal" >
                                     <div class="modal-content">
                                         <div class="modal-header custom_header">
@@ -803,7 +803,7 @@ margin-right: 5px;
                                                             @endphp
 
                                                             <a href="{{ $image['url'] }}"
-                                                            class="glightbox"
+                                                            class="glightbox main-gallery-image"  data-massure_id="{{$masseur->id}}"
                                                             data-gallery="masseure-gallery">
 
                                                                 <img src="{{ $image['url'] }}"
@@ -837,11 +837,11 @@ margin-right: 5px;
                                                             <div class="extra_img_wrapper">
 
                                                                 <a href="{{ $image['url'] }}"
-                                                                class="glightbox"
+                                                                class="glightbox main-gallery-image"  data-massure_id="{{$masseur->id}}"
                                                                 data-gallery="masseure-gallery">
 
                                                                     <img src="{{ $image['url'] }}"
-                                                                        class="img-responsive">
+                                                                        class="img-responsive ">
                                                                         <div class="hover-overlay">
                                                                             <span>Click me!</span>
                                                                         </div>
@@ -2792,10 +2792,10 @@ document.addEventListener('keydown', function (e) {
  <script>
 
  window.authUser = {
-        isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
-        auth_user_type: {{ auth()->check() ? auth()->user()->type : 'false' }},
-        myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}},
-        write_reviews_disable: {{ auth()->check() && auth()->user()->viewer_settings?->features_write_reviews == 0 ? 'true' : 'false' }},
+        isLoggedIn: "{{ auth()->check() ? 'true' : 'false' }}",
+        auth_user_type: "{{ auth()->check() ? auth()->user()->type : 'false' }}" ,
+        myLegboxDisabled: "{{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}}" ,
+        write_reviews_disable: "{{ auth()->check() && auth()->user()->viewer_settings?->features_write_reviews == 0 ? 'true' : 'false' }}" ,
    };
 
 
@@ -3113,9 +3113,6 @@ $(document).on('click', '.open_review_box', function (e) {
 
     });
 
-
-
-
     });
 
    
@@ -3124,9 +3121,8 @@ $(document).on('click', '.open_review_box', function (e) {
 
 
 $(document).ready(function () {
-
+ 
     function showModal(currentModal, nextIndex) {
-
         let modals = $('.masseur-modal');
         let total = modals.length;
 
@@ -3139,15 +3135,12 @@ $(document).ready(function () {
         setTimeout(function () {
 
             currentModal.hide();
-
-        
             nextModal.show();
 
             setTimeout(function () {
                 nextModal.addClass('show');
                 updateNavButtons(nextModal, nextIndex, total);
             }, 10);
-
 
             $('body').addClass('modal-open');
 
@@ -3186,15 +3179,56 @@ $(document).on('click', '.close_btn', function () {
     }, 300);
 });
 
-$(document).on('shown.bs.modal', '.masseur-modal', function () {url('{{ $massage_banner }}')
+let visitorUuid = localStorage.getItem('visitor_uuid');
+
+if (!visitorUuid) {
+    visitorUuid = crypto.randomUUID();
+    localStorage.setItem('visitor_uuid', visitorUuid);
+}
+
+ 
+$(document).on('shown.bs.modal', '.masseur-modal', function () {
 
     let modal = $(this);
     let index = parseInt(modal.data('index'));
     let total = $('.masseur-modal').length;
-
+ 
     updateNavButtons(modal, index, total);
+
+     let massure_id = $(this).data('massure_id');
+    let page = $(this).data('page');
+   generateLog(massure_id,page);
 });
 
+
+
+$(document).on('click', '.main-gallery-image', function () {
+    let massure_id = $(this).data('massure_id');
+    let page = "massure media";
+   generateLog(massure_id,page);
+
+});
+
+
+function generateLog(massure_id, page)
+{
+    $.ajax({
+        url: "{{ route('web.generate.log') }}",
+        type: "POST",
+        data: {
+            masseur_id: massure_id,
+            page: page,
+            visitorUuid: visitorUuid,
+            _token: "{{ csrf_token() }}"
+        },
+        success: function (response) {
+            // console.log('Log generated successfully:', response);
+        },
+        error: function (xhr) {
+            console.log('Error generating log:', xhr.responseText);
+        }
+    });
+}
 function updateNavButtons(modal, index, total) {
 
     let prevBtn = modal.find('.btn-prev');
@@ -3263,7 +3297,7 @@ function initMap()
                 if (placeStatus === google.maps.places.PlacesServiceStatus.OK && placeResults[0]) 
                 {
                     const place = placeResults[0];
-                    console.log('place',place);
+                    // console.log('place',place);
 
                     placeName = place.name || placeName;
 
@@ -3386,12 +3420,18 @@ function getStars(rating) {
         }
 
 
-        console.log(cid[1] + "-" + Eid);
-        console.log(cidcl);
+        // console.log(cid[1] + "-" + Eid);
+        // console.log(cidcl);
     });
+    
+<<<<<<< HEAD
 
-
+=======
+ 
+>>>>>>> d33ac4518932cbc748e12f0fc322dba88f582bd6
 
 window.initMap = initMap;
 </script>
 @endpush
+
+
