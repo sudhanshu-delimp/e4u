@@ -44,6 +44,15 @@
                                 font-size: 14px;
                                 padding: 10px;
                             }
+                            .screenshot-preview {
+                                position: absolute !important;
+                                top: 18px !important;
+                                right: 55px;
+                            }
+                            svg.screeenshot-icon {
+                                width: 20px;
+                                height: 20px;
+                            }
                             #WelcomeViewerPopup ol {
                                 padding: 20px !important;
                             }
