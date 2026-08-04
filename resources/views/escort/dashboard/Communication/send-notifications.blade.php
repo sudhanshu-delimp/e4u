@@ -49,58 +49,19 @@
                                     <tr>
 
                                         <th>State</th>
-
                                         <th class="text-center">Viewers</th>
                                         <th class="text-center">Notifications</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-content">
+                                    @foreach($viewers as $viewer)
+                                    <tr>
+                                        <td>{{ $viewer['state']}}</td>
+                                        <td class="text-center">{{ $viewer['viewers']}}</td>
+                                        <td class="text-center">{{ $viewer['notifications']}}</td>
+                                    </tr>
+                                    @endforeach
                                     
-                                    <tr>
-                                        <td>ACT:</td>
-                                        <td class="text-center">10</td>
-                                        <td class="text-center">25</td>
-                                    </tr>
-                                    <tr>
-                                        <td>NSW:</td>
-                                        <td class="text-center">23</td>
-                                        <td class="text-center">54</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Qld:</td>
-                                        <td class="text-center">33</td>
-                                        <td class="text-center">65</td>
-                                    </tr>
-                                    <tr>
-                                        <td>NT:</td>
-                                        <td class="text-center">44</td>
-                                        <td class="text-center">66</td>
-                                    </tr>
-                                    <tr>
-                                        <td>SA:</td>
-                                        <td class="text-center">71</td>
-                                        <td class="text-center">11</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tas:</td>
-                                        <td class="text-center">22</td>
-                                        <td class="text-center">31</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Vic:</td>
-                                        <td class="text-center">54</td>
-                                        <td class="text-center">43</td>
-                                    </tr>
-                                    <tr>
-                                        <td>WA:</td>
-                                        <td class="text-center">3</td>
-                                        <td class="text-center">109</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-weight-bold">Totals</td>
-                                        <td class="text-center">200</td>
-                                        <td class="text-center">250</td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -184,6 +145,9 @@
             </div>
         </div>
     </div>
+
+
+
     {{-- Send Notification Popup --}}
     <div class="modal fade upload-modal" id="new-ban" tabindex="-1" role="dialog" aria-labelledby="new-ban"
         aria-hidden="true" data-backdrop="static">
@@ -201,8 +165,12 @@
                     <form>
                         <div class="row">
                             <div class="col-12 mb-3">
-                                <select class="form-control rounded-0 mb-3">
-                                    <option>Select Home State</option>
+                                <select class="form-control rounded-0 mb-3" id="state_id">
+                                            <option>Select Home State</option>
+                                            @foreach($myStateList as $state_list)
+                                            <option value="{{$state_list['state_id']}}">{{ $state_list['state']}}</option>
+                                            @endforeach
+                                            
                                 </select>
                                 <label class="form-check-label" for="exampleCheck1"
                                     style="color: #323C47; display:none">You are
@@ -238,9 +206,8 @@
                     <div class="col-12">
                         <div class="form-group">
                             <label class="form-check-label pr-2" for="exampleCheck1">Date:<span
-                                    class="ml-1">10-10-2025</span></label>
-                            <label class="form-check-label" for="exampleCheck1"> No. of Viewers:<span
-                                    class="ml-1">100</span></label>
+                                    class="ml-1">{{ date('d-m-Y')}}</span></label>
+                            <label class="form-check-label" for="exampleCheck1"> No. of Viewers:<span class="ml-1" id="viewer_count">0</span></label>
                         </div>
                     </div>
                     <button type="button" class="btn-success-modal">Send</button>
@@ -249,6 +216,8 @@
         </div>
     </div>
     {{-- end --}}
+
+
 
 
     {{-- Notification invalid Popup --}}
@@ -322,63 +291,72 @@
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script>
-        $(document).ready(function() {
-            $('#sendNotificationTable').DataTable({
-                responsive: true,
-                initComplete: function() {
-                    // if ($('#returnToReportBtn').length === 0) {
-                    //     $('.dataTables_filter').append(
-                    //         '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
-                    //     );
-                    // }
-                    $('#returnToReportBtn').on('click', function() {
-                        var table = $('#sendNotificationTable').DataTable();
-                        table.search('').draw();
-                    });
-                },
-                "language": {
-                    "zeroRecords": "There is no record of the search criteria you entered.",
-                    searchPlaceholder: "Search by Viewer Name"
-                },
-                paging: true,
-                pageLength: 25,
-                columns: [{
-                        data: 'check',
-                        name: 'check'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'tagged',
-                        name: 'tagged',
-                        orderable: true
-                    },
-                    {
-                        data: 'home_state',
-                        name: 'home_state',
-                        orderable: true,
-                        searchable: false
-                    },
-                    {
-                        data: 'contact_method',
-                        name: 'contact_method',
-                        orderable: true
-                    },
-                    {
-                        data: 'notification',
-                        name: 'notification',
-                        orderable: true
-                    },
-                    {
-                        data: 'block',
-                        name: 'block',
-                        orderable: true,
-                        class: 'text-center'
-                    }
-                ]
-            });
-        });
+
+    let stateList = @json($myStateList);
+    $('#state_id').on('change', function () {
+        let stateId = $(this).val();
+        let state = stateList.find(item => item.state_id == stateId);
+        $('#viewer_count').text(state ? state.viewers : 0);
+    });
+
+
+        // $(document).ready(function() {
+        //     $('#sendNotificationTable').DataTable({
+        //         responsive: true,
+        //         initComplete: function() {
+        //             // if ($('#returnToReportBtn').length === 0) {
+        //             //     $('.dataTables_filter').append(
+        //             //         '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
+        //             //     );
+        //             // }
+        //             $('#returnToReportBtn').on('click', function() {
+        //                 var table = $('#sendNotificationTable').DataTable();
+        //                 table.search('').draw();
+        //             });
+        //         },
+        //         "language": {
+        //             "zeroRecords": "There is no record of the search criteria you entered.",
+        //             searchPlaceholder: "Search by Viewer Name"
+        //         },
+        //         paging: true,
+        //         pageLength: 25,
+        //         columns: [{
+        //                 data: 'check',
+        //                 name: 'check'
+        //             },
+        //             {
+        //                 data: 'name',
+        //                 name: 'name'
+        //             },
+        //             {
+        //                 data: 'tagged',
+        //                 name: 'tagged',
+        //                 orderable: true
+        //             },
+        //             {
+        //                 data: 'home_state',
+        //                 name: 'home_state',
+        //                 orderable: true,
+        //                 searchable: false
+        //             },
+        //             {
+        //                 data: 'contact_method',
+        //                 name: 'contact_method',
+        //                 orderable: true
+        //             },
+        //             {
+        //                 data: 'notification',
+        //                 name: 'notification',
+        //                 orderable: true
+        //             },
+        //             {
+        //                 data: 'block',
+        //                 name: 'block',
+        //                 orderable: true,
+        //                 class: 'text-center'
+        //             }
+        //         ]
+        //     });
+        // });
     </script>
 @endpush

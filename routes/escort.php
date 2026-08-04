@@ -10,6 +10,7 @@ use App\Http\Controllers\Escort\EscortAccountController;
 use App\Http\Controllers\Escort\EscortController;
 use App\Http\Controllers\Escort\EscortDashboardController;
 use App\Http\Controllers\Escort\EscortGalleryController;
+use App\Http\Controllers\Escort\EscortNotificationController;
 use App\Http\Controllers\Escort\EscortPolyPaymentController;
 use App\Http\Controllers\Escort\EscortReviewsController;
 use App\Http\Controllers\Escort\EscortStatisticsController;
@@ -19,6 +20,7 @@ use App\Http\Controllers\Escort\EscortTourScheduleContoller;
 use App\Http\Controllers\Escort\HowIsItDoneController;
 use App\Http\Controllers\Escort\MyPlaymatesContoller;
 use App\Http\Controllers\Escort\NumController;
+use App\Http\Controllers\Escort\PaymentController;
 use App\Http\Controllers\Escort\PinUpsController;
 use App\Http\Controllers\Escort\PlaymateController;
 use App\Http\Controllers\Escort\Profile\CreateController;
@@ -26,14 +28,13 @@ use App\Http\Controllers\Escort\Profile\ProfileInformationController;
 use App\Http\Controllers\Escort\Profile\UpdateController;
 use App\Http\Controllers\Escort\TaskListController;
 use App\Http\Controllers\Escort\TourController;
+use App\Http\Controllers\Escort\WalletController;
 use App\Http\Controllers\EscortBrbController;
 use App\Http\Controllers\MugsController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SupportTicketsController;
 use App\Http\Controllers\User\Dashboard\UserController;
-use App\Http\Controllers\Escort\WalletController;
-use App\Http\Controllers\Escort\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 //remove before prod
@@ -355,9 +356,15 @@ Route::get('get-user-review-details/{id}', [EscortReviewsController::class, "get
 Route::get('escort-agency-request', function () {
   return view('escort.dashboard.Communication.escort-agency-request');
 });
-Route::get('send-notifications', function () {
-  return view('escort.dashboard.Communication.send-notifications');
-});
+
+Route::get('viewer-list', [EscortNotificationController::class, "get_all_viewers"])->name('escort.viewer-list');
+
+
+// Route::get('send-notifications', function () {
+//   return view('escort.dashboard.Communication.send-notifications');
+// });
+
+
 Route::get('viewer-notes', function () {
   return view('escort.dashboard.Communication.viewer-notes');
 });
