@@ -6896,6 +6896,44 @@ table {
 
 /* Screenshot button */
 
+.scr-tooltip {
+    position: absolute;
+    background-color: var(--peach);
+    top: 5px;
+    right: -11px;
+    transform: translateX(-50%);
+    color: #fff;
+    padding: 7px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: .25s;
+    pointer-events: none;
+}
+
+.scr-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 26%;
+    right: -14px;
+    transform: rotate(270deg);
+    border: 8px solid transparent;
+    border-top-color: var(--peach);
+}
+
+.video-screenshot-btn:hover .scr-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    display: inline-block;
+}
+
 .video-screenshot-btn {
     position: absolute !important;
     top: 30px;
