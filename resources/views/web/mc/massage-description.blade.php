@@ -2799,9 +2799,6 @@ $(document).on('click', '.open_review_box', function (e) {
 
     });
 
-
-
-
     });
 
    
@@ -2810,9 +2807,8 @@ $(document).on('click', '.open_review_box', function (e) {
 
 
 $(document).ready(function () {
-
+ 
     function showModal(currentModal, nextIndex) {
-
         let modals = $('.masseur-modal');
         let total = modals.length;
 
@@ -2825,15 +2821,12 @@ $(document).ready(function () {
         setTimeout(function () {
 
             currentModal.hide();
-
-        
             nextModal.show();
 
             setTimeout(function () {
                 nextModal.addClass('show');
                 updateNavButtons(nextModal, nextIndex, total);
             }, 10);
-
 
             $('body').addClass('modal-open');
 
@@ -2885,7 +2878,7 @@ $(document).on('shown.bs.modal', '.masseur-modal', function () {
     let modal = $(this);
     let index = parseInt(modal.data('index'));
     let total = $('.masseur-modal').length;
-
+ 
     updateNavButtons(modal, index, total);
 
      let massure_id = $(this).data('massure_id');
@@ -3117,7 +3110,11 @@ function getStars(rating) {
         // console.log(cidcl);
     });
     
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> d33ac4518932cbc748e12f0fc322dba88f582bd6
 
 window.initMap = initMap;
 </script>
