@@ -36,7 +36,7 @@
                                         id="legboxId_{{ $escort->id }}" data-escortId="{{ $escort->id }}"
                                         data-userId="{{ $viewerAuth->id ?? 'NA' }}"
                                         data-name="{{ $escortName }}">
-                                        @if (!empty($user_type))
+                                        {{-- @if (!empty($user_type)) --}}
                                             @if (in_array($escort->id, $user_type))
                                                 <i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>
                                                 <span class="custom-heart-text list-tool remove-tool">Remove from My Legbox</span>
@@ -44,7 +44,7 @@
                                                 <i class="fa fa-heart-o" aria-hidden="true"></i>
                                                 <span class="custom-heart-text list-tool">Add to My Legbox</span>
                                             @endif
-                                        @endif
+                                        {{-- @endif --}}
                                     </span>
                                 @else
                                     <span class="add_to_favrate custom--favourite" data-name="{{ $escortName }}"><i class="fa fa-heart-o"
