@@ -11,6 +11,8 @@ class LegboxNotification extends Model
 
     protected $table = 'legbox_notifications';
 
+
+
     protected $fillable = [
         'heading', 'start_date', 'end_date', 'type', 'content','template_name', 'member_id', 'status'
     ];

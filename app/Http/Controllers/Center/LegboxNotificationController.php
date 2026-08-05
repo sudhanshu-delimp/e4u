@@ -27,15 +27,13 @@ class LegboxNotificationController extends Controller
             return DataTables::of($query)
                 ->addIndexColumn()
                 ->addColumn('ref', function ($row) {
-                    //return sprintf('#%05d', $row->id);
                     return  $row->id;
                 })
-                // ->filterColumn('ref', function ($query, $keyword) {
-                //     $digits = ltrim($keyword, '#0');
-                //     if ($digits !== '') {
-                //         $query->where('id', 'like', "%{$digits}%");
-                //     }
-                // })
+                ->filterColumn('ref', function ($query, $keyword) {
+                   if ($keyword !== '') {
+                        $query->where('id', '=', $keyword);
+                    }
+                })
                 ->editColumn('start_date', function ($row) {
                     return basicDateFormat($row['start_date']);
                 })
@@ -248,7 +246,10 @@ class LegboxNotificationController extends Controller
             $notification = LegboxNotification::findOrFail($id);
             $notification->start_date = basicDateFormat($notification->start_date);
             $notification->end_date = basicDateFormat($notification->end_date);
-            // Return raw date format for edit form
+            $notification->current_date = $notification->created_at->format('d-m-Y');
+
+
+            // Return formatted date values for edit form
             $notificationData = $notification->toArray();
             return success_response($notificationData, 'Legbox Notification view');
         } catch (\Exception $e) {
