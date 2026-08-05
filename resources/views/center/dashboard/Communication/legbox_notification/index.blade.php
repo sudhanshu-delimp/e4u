@@ -654,5 +654,20 @@
             window.open(url, '_blank');
 
         });
+
+        $('#member_id').on('input', function() {
+            let input = $(this);
+            let value = input.val().trim();
+
+            // Remove previous custom error
+            input.removeClass('is-invalid');
+            input.next('.server-error').remove();
+
+            // Validate only if user has entered something
+            if (value !== '' && !/^[Vv]/.test(value)) {
+                input.addClass('is-invalid');
+                input.after('<small class="text-danger server-error">Member ID must start with "V".</small>');
+            }
+        });
     </script>
 @endpush
