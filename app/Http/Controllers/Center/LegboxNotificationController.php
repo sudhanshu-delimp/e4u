@@ -22,6 +22,7 @@ class LegboxNotificationController extends Controller
             if (empty($clientOrder)) {
                 $query->orderBy('created_at', 'DESC');
             }
+            $query->where('create_by', auth()->user()->id);
 
 
             return DataTables::of($query)
@@ -168,6 +169,7 @@ class LegboxNotificationController extends Controller
         $end =  sqlDateFormat($data['end_date']);
         $data['start_date'] = $start;
         $data['end_date'] = $end;
+        $data['create_by'] = auth()->user()->id;
         //Check condition 
         $notificationId = $request->edit_notification_id;
 
@@ -186,6 +188,7 @@ class LegboxNotificationController extends Controller
             $update->start_date = sqlDateFormat($data['start_date']);
             $update->end_date = sqlDateFormat($data['end_date']);
             $update->type = $request->type;
+            $update->create_by = auth()->user()->id;
 
             /* Reset all type-based fields */
             $update->content       = null;
