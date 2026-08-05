@@ -38,7 +38,7 @@
                     <a class="nav-link {{$category=='banner'?'active':''}} " data-type="banner" data-toggle="tab" href="#Banner">Banner</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{$category=='pinup'?'active':''}}" data-type="pinup" data-toggle="tab" href="#Pinup">Pinup</a>
+                    <a class="nav-link {{$category=='pinup'?'active':''}}" data-type="pinup" data-toggle="tab" href="#Pinup">Pin Up</a>
                 </li>
                 
             </ul>

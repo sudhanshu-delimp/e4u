@@ -232,7 +232,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             /*PinUp */
             if ($item->latestActivePinup) {
                 $item->pro_name .= '<sup class="pinup_icon listing-tag-tooltip ml-1">Pin Up
-                <small class="listing-tag-tooltip-desc">Pinup from ' . date("d-m-Y", strtotime($item->latestActivePinup->start_date)) . " to " . date("d-m-Y", strtotime($item->latestActivePinup->end_date)) . '</small>
+                <small class="listing-tag-tooltip-desc">Pin Up from ' . date("d-m-Y", strtotime($item->latestActivePinup->start_date)) . " to " . date("d-m-Y", strtotime($item->latestActivePinup->end_date)) . '</small>
                 </sup>';
             }
             /*Upgrade */

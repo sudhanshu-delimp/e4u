@@ -211,7 +211,7 @@
                                                         <th><b>Platinum</b></th>
                                                         <th><b>Gold</b></th>
                                                         <th><b>Silver</b></th>
-                                                        <th><b>PinUp</b></th>
+                                                        <th><b>Pin Up</b></th>
                                                         <th><b>Fixed</b></th>
                                                         <th><b>Total Spend</b></th>
                                                         <th><b>Fees</b></th>
@@ -877,7 +877,7 @@
                                                     <th><b>Platinum</b></th>
                                                     <th><b>Gold</b></th>
                                                     <th><b>Silver</b></th>
-                                                    <th><b>PinUp</b></th>
+                                                    <th><b>Pin Up</b></th>
                                                 </tr>
                                             </thead>
                                             <tbody id="collapse-accordion">
