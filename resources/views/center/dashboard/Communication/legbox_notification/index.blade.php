@@ -34,7 +34,8 @@
                             <div class="card-body">
                                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
                                 <ol>
-                                    <li>You can create a Notification shown at the top of Viewer Dashboards (who flagged you in Legbox).</li>
+                                    <li>You can create a Notification shown at the top of Viewer Dashboards (who flagged you
+                                        in Legbox).</li>
 
                                     <li>Only Viewers who tagged you in their Legbox can view your Notification.</li>
                                 </ol>
@@ -102,8 +103,8 @@
                             <!-- Auto-generated Date (readonly) -->
                             <div class="col-12 mb-3">
                                 <label class="label">Current Date</label>
-                                <input type="date" id="current_date" class="form-control rounded-0"
-                                    value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" />
+                                <input type="text" id="current_date" class="form-control rounded-0 "
+                                    value="{{ \Carbon\Carbon::now()->format('d-m-Y') }}" disabled="disabled" />
                             </div>
 
                             <!-- Heading Field -->
@@ -150,12 +151,10 @@
                                         Check Morning Special - 20% off all massages.</option>
                                     <option value="We are open today.">
                                         We are open today.</option>
-                                    <option
-                                        value="Holiday Special - 4 hands for the price of 2.">
+                                    <option value="Holiday Special - 4 hands for the price of 2.">
                                         Holiday Special - 4 hands for the price of 2.
                                     </option>
-                                    <option
-                                        value="Talk to our lovely Masseurs for anything special you need.">
+                                    <option value="Talk to our lovely Masseurs for anything special you need.">
                                         Talk to our lovely Masseurs for anything special you need.</option>
                                     <option value="Get a 10% discount if you mention you found us on E4U.">
                                         Get a 10% discount if you mention you found us on E4U.
@@ -167,7 +166,7 @@
                             <div id="noticeSection" class="col-12 mb-3" style="display: none;">
                                 <label class="label">Member Id</label>
                                 <input type="text" id="member_id" name="member_id" class="form-control"
-                                    placeholder="Member Id e.g. 123456">
+                                    placeholder="Member Id e.g. v12345">
                             </div>
 
                             <!-- content -->
@@ -274,9 +273,7 @@
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script>
-
-
-        $(document).on('click', '.btn-success-modal', function () {
+        $(document).on('click', '.btn-success-modal', function() {
             $('#successModal').modal('hide');
         });
 
@@ -360,7 +357,7 @@
 
                 },
                 error: function(xhr) {
-                     let response = {};
+                    let response = {};
 
                     try {
                         response = xhr.responseJSON || JSON.parse(xhr.responseText);
@@ -368,8 +365,8 @@
                         response = {};
                     }
 
-                   
-                     // Validation errors
+
+                    // Validation errors
                     if ((xhr.status === 422 || response.status === false) && response.errors) {
 
                         $('.server-error').remove();
@@ -381,7 +378,8 @@
                             if (input.length) {
                                 input.addClass('is-invalid');
                                 input.after(
-                                    '<small class="text-danger server-error">' + message + '</small>'
+                                    '<small class="text-danger server-error">' + message +
+                                    '</small>'
                                 );
                             }
                         });
@@ -607,6 +605,7 @@
                 success: function(response) {
                     if (response.status === true) {
                         let n = response.data;
+
                         // Populate form fields
                         $('#edit_notification_id').val(n.id);
                         $('#heading').val(n.heading);
@@ -614,6 +613,7 @@
                         $('#end_date').val(n.end_date || '');
                         $('#type').val(n.type || 'Ad hoc').trigger('change');
                         $('#edit_content').val(n.content || '');
+                        $('#current_date').val(n.current_date || '')
                         if (n.template_name) {
                             $('#template_name').val(n.template_name);
                         }
@@ -653,6 +653,23 @@
             var url = urlFor(endpoint.pdf_download, encodedId);
             window.open(url, '_blank');
 
+        });
+
+        //validate member id client side
+
+        $('#member_id').on('input', function() {
+            let input = $(this);
+            let value = input.val().trim();
+
+            // Remove previous custom error
+            input.removeClass('is-invalid');
+            input.next('.server-error').remove();
+
+            // Validate only if user has entered something
+            if (value !== '' && !/^[Vv]/.test(value)) {
+                input.addClass('is-invalid');
+                input.after('<small class="text-danger server-error">Member ID must start with "V".</small>');
+            }
         });
     </script>
 @endpush
