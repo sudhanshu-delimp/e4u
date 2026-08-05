@@ -84,7 +84,7 @@
                         <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                         <ol>
                             <li>Registered Viewers who have flagged you in their Legbox are listed here. You can
-                                also see your Viewers <a href="{{ route('legbox-notification') }}"
+                                also see your Viewers <a href="{{ route('centrer.legbox.notification.index') }}"
                                     class="custom_links_design">here</a>.</li>
                             <li>The status for each Viewer is Summarised here and includes Contact.</li>
                             <li>The Viewer can set their preferences for Contact. You can also set your preferences
