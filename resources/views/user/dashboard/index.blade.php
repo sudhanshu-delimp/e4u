@@ -30,8 +30,10 @@
         @endforeach
         @endif
         {{-- Legbox Notification create by Massage center --}}
-        @if($getLegBoxNotification)
+        @if($getLegBoxNotifications)
+        @foreach ($getLegBoxNotifications as $getLegBoxNotification)
              <x-global.notification-alert :heading="$getLegBoxNotification['heading']" :content="$getLegBoxNotification['content'] ?? $getLegBoxNotification['template_name']" type="success" />
+        @endforeach
         @endif
         <div class="custom-heading-wrapper col-md-12">
             <h1 class="h1">Dashboard</h1>
