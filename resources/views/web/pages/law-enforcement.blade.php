@@ -62,7 +62,7 @@
                 &emsp;GPO Box T1756<br>
                 &emsp;Perth WA 6845
             </p>
-            <p>E: <a href="mailto:" style="color:#FF3C5F;font-size: 16px;">privacy@escorts4u.com.au</a></p>
+            <p>E: <a href="mailto:privacy@escorts4u.com.au" style="color:#FF3C5F;font-size: 16px;">privacy@escorts4u.com.au</a></p>
 
 
             <h2 class="primery_color normal_heading">Anti-Human Trafficking</h2>
