@@ -230,13 +230,16 @@ class TourRepository extends BaseRepository implements TourInterface
     public function modifyTourLocationsRecords($result)
     {
         foreach ($result as $key => $item) {
-            $action = '<div class="dropdown no-arrow archive-dropdown">
+            $action = '';
+            if (Carbon::today($item->time_zone)->diffInDays($item->end_date_formatted, false) > 0) {
+                $action .= '<div class="dropdown no-arrow archive-dropdown">
             <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">';
-            if (Carbon::today($item->time_zone)->diffInDays($item->end_date_formatted, false) > 0) {
+
                 $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-target="#tour_location_cancel" data-item-id="' . $item->id . '" data-item-type="tour-location"> <i class="fa fa-trash" ></i> Cancel</a>';
+
+                $action .= '</div></div>';
             }
-            $action .= '</div></div>';
             $item->action = $action;
             $item->status = Carbon::parse($item->end_date)->lt(Carbon::today($item->time_zone)->format('Y-m-d')) ? 'Completed' : (Carbon::parse($item->start_date)->lte(Carbon::today($item->time_zone)->format('Y-m-d')) ? 'Current' : 'Upcoming');
             $badgeClass = getStatusBadgeClass(strtolower($item->status));

@@ -8,10 +8,10 @@ $tourDetail = $tourDetail ?? null;
             <div class="modal-header">
                 <h5 class="modal-title">
                     <img src="{{ asset('assets/dashboard/img/travel.png') }}" class="custompopicon">
-                    <span class="text-white">Tour Summary</span>                        
-                    </h5>
-                
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="text-white">Tour Summary</span>
+                </h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
             </div>
@@ -25,45 +25,45 @@ $tourDetail = $tourDetail ?? null;
                             <th style="color: #0C223D; font-weight:600; border-top:1px solid #e3e6f0">Tour end date</th>
                             <td class="location_current">{{!empty($tourDetail)?$tourDetail->end_date:''}}</td>
                         </tr>
-                            <tr>
+                        <tr>
                             <th style="color: #0C223D; font-weight:600; border-top:1px solid #e3e6f0;">Locations</th>
                             <td class="location_count">{{!empty($tourDetail)?$tourDetail->locations->count():''}}</td>
                             @if(!empty($tourDetail) && $tourDetail->current_location)
-                                <th style="color: #0C223D; font-weight:600; border-top:1px solid #e3e6f0">Current Location</th>
-                                <td class="location_current">{{!empty($tourDetail)?$tourDetail->current_location->state->name:''}}</td>
-                                @else  
-                                <td colspan="2"></td>
+                            <th style="color: #0C223D; font-weight:600; border-top:1px solid #e3e6f0">Current Location</th>
+                            <td class="location_current">{{!empty($tourDetail)?$tourDetail->current_location->state->name:''}}</td>
+                            @else
+                            <td colspan="2"></td>
                             @endif
                         </tr>
                         <tr>
                             <th style="color: #0C223D; font-weight:600;">Fees</th>
                             <td class="current_fees">AU$ {{!empty($tourDetail) ? $tourDetail->tourPurchase()->sum('paid_rate') : 0.00}}</td>
-                            <td class=""  colspan="2">
+                            <td class="" colspan="2">
                                 <span style="color: #0C223D; font-weight:600;">Start Date: </span> <span>{{!empty($tourDetail)?$tourDetail->current_location->start_date->format('d-m-Y'):''}}</span>
                                 &nbsp;&nbsp;
                                 <span style="color: #0C223D; font-weight:600;">End Date: </span> <span>{{!empty($tourDetail)?$tourDetail->current_location->end_date->format('d-m-Y'):''}}</span>
                             </td>
                         </tr>
-                        @if(!empty($tourDetail) && $tourDetail->current_location) 
+                        @if(!empty($tourDetail) && $tourDetail->current_location)
                         <tr>
                             <th style="color: #0C223D; font-weight:600;">Current Profiles</th>
                             <td class="current_profile" colspan="3">
                                 <div class="d-flex justify-content-start gap-20 align-items-center flex-wrap">
                                     @php
-                                        $profiles = $tourDetail->current_location->profiles;
+                                    $profiles = $tourDetail->current_location->profiles;
                                     @endphp
                                     @foreach ($profiles as $profile)
-                                      <div class="profile_shape summary_tooltip">
+                                    <div class="profile_shape summary_tooltip">
                                         <div class="icons">
                                             <img src="{{$profile->escort->DefaultImage}}" class="custompopicon">
                                         </div>
-                                         <span class="list_profile_name">{{$profile->escort->name}}</span> 
-                                         <span class="details">{{$profile->escort->membership_type}}</span>
-                                      </div>
+                                        <span class="list_profile_name">{{$profile->escort->name}}</span>
+                                        <span class="details">{{$profile->escort->membership_type}}</span>
+                                    </div>
                                     @endforeach
                                 </div>
                             </td>
-                        </tr> 
+                        </tr>
                         @endif
                     </table>
                     <hr style="background-color: #0C223D" class="mt-3">
