@@ -121,9 +121,7 @@ Route::get('global-monitoring', function () {
   return view('admin.global-monitoring');
 })->name('admin.global-monitoring');
 
-//  Route::get('massage-centre-listings', function(){
-//      return view('admin.massage-centre-listings');
-//  })->name('admin.massage-centre-listings');
+
 
 Route::get('massage-centre-listings', [GlobalMonitoringController::class, 'massageCenterListing'])->name('admin.massage-centre-listings');
 Route::get('/data-table-listing/{type?}', [GlobalMonitoringController::class, 'dataTableListingAjax'])->name('escort.current.list.dataTableListing');
@@ -132,14 +130,11 @@ Route::get('/get-pinup-listing', [GlobalMonitoringController::class, 'getPinupLi
 
 Route::post('/massage-center-listing/{type?}', [GlobalMonitoringController::class, 'massageCenterListingAjax'])->name('admin.massage.center.dataTableListing');
 
-//  Route::get('escort-listings', function(){
-//     return view('admin.escort-listings');
-// })->name('admin.escort-listings');
-
 Route::get('escort-listings', [GlobalMonitoringController::class, 'escortListing'])->name('admin.escort-listings');
 Route::get('/data-table-escort-listing/{type?}', [GlobalMonitoringController::class, 'dataTableEscortListingAjax'])->name('escort.current.list.escort-dataTableListing');
 Route::get('/data-table-escort-single-listing/{id?}', [GlobalMonitoringController::class, 'dataTableEscortSingleListingAjax'])->name('escort.current.single-list.escort-dataTableListing');
 Route::get('/suspend-purchase/{purchase}', [GlobalMonitoringController::class, 'suspendListedProfile'])->name('admin.suspend_listed_profile');
+Route::get('/suspend-center-purchase/{purchase}', [GlobalMonitoringController::class, 'suspendCenterListedProfile'])->name('admin.center.suspend_listed_profile');
 
 # Logged in users monitoring routes
 Route::get('users-online', [GlobalMonitoringLoggedInController::class, "index"])->name('admin.logged-in-users');
@@ -424,11 +419,9 @@ Route::post('/delete-shareholder-account', [ShareholderController::class, 'delet
 Route::delete('/key-contact-delete', [ShareholderController::class, 'destroy'])->name('admin.delete.shareholder.contact');
 
 
-// Route::get('reports/advertiser-suspensions',function(){
-//     return view('admin.reports.advertiser-suspensions');
-// })->name('admin.advertiser-suspensions');
+
 Route::get('reports/advertiser-suspensions', [ReportAdvertiserSuspensionContoller::class, 'index'])->name('admin.advertiser-suspensions');
-Route::get('reports/advertiser-suspensions-list-ajax', [ReportAdvertiserSuspensionContoller::class, 'advertiserSuspensionDataTableListingAjax'])->name('admin.advertiser-suspensions-list-ajax');
+Route::get('reports/advertiser-suspensions-list-ajax/{advertiserType}', [ReportAdvertiserSuspensionContoller::class, 'advertiserSuspensionDataTableListingAjax'])->name('admin.advertiser-suspensions-list-ajax');
 
 Route::get('admin/dataTable', [AgentRequestController::class, 'dataTable'])->name('admin.dataTable');
 Route::post('send-notiification', [NotificationController::class, 'sendNotification'])->name('admin.send-notiification');

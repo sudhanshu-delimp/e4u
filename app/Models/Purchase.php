@@ -103,6 +103,11 @@ class Purchase extends Model
         return $this->belongsTo('App\Models\Escort', 'escort_id');
     }
 
+    public function user()
+    {
+        return $this->escort->user;
+    }
+
     public function tour_location()
     {
         return $this->belongsTo(TourLocation::class);
