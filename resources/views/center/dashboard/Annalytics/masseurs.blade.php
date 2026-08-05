@@ -1,6 +1,9 @@
 @extends('layouts.center')
 @section('style')
- 
+ <style>#masseursStatisticsTable tbody tr td,
+ #masseursStatisticsTable thead tr th{
+  text-align: center;
+ }</style>
 @endsection
 @section('content')
     <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -35,7 +38,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="table-responsive">
-                    <table class="w-100 table table-bordered" id="masseursStatisticsTable">
+                    <table class="w-100 table table-bordered" id="masseursStatisticsTable" style="">
                         <thead class="table-bg">
                             <tr>
                                 <th colspan="3"></th>
@@ -104,8 +107,8 @@
             pageLength: 10,
 
             columns: [{
-                    data: 'id',
-                    name: 'id',
+                    data: 'member_id',
+                    name: 'member_id',
                     searchable: false,
                     orderable: false,
                     defaultContent: 'NA'

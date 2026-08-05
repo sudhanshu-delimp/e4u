@@ -12,7 +12,7 @@
 @endsection
 @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-        <h1>PinUp Checkout</h1>
+        <h1>Pin Up Checkout</h1>
         <form id="my_escort_profile" action="{{ route('escort.payment')}}" method="post" enctype="multipart/form-data">
             @csrf
 {{--            <input type="hidden" name="user_startDate" id="user_startDate" value="{{ date('Y-m-d',strtotime(auth()->user()->created_at)) }}">--}}

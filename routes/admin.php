@@ -142,7 +142,7 @@ Route::get('/data-table-escort-single-listing/{id?}', [GlobalMonitoringControlle
 Route::get('/suspend-purchase/{purchase}', [GlobalMonitoringController::class, 'suspendListedProfile'])->name('admin.suspend_listed_profile');
 
 # Logged in users monitoring routes
-Route::get('logged-in-users', [GlobalMonitoringLoggedInController::class, "index"])->name('admin.logged-in-users');
+Route::get('users-online', [GlobalMonitoringLoggedInController::class, "index"])->name('admin.logged-in-users');
 Route::get('get-logged-in-users-by-ajax', [GlobalMonitoringLoggedInController::class, "getLoggedInUserDataTableListingAjax"])->name('admin.get-logged-in-users-by-ajax');
 Route::get('get-logged-in-single-user-deatils-ajax/{id}', [GlobalMonitoringLoggedInController::class, "getLoggedInSingleUserDetailsAjax"])->name('admin.get-logged-in-single-user-detail-with-ajax');
 Route::post('print-logged-in-single-user-deatils', [GlobalMonitoringLoggedInController::class, "printLoggedInUserSingleDetails"])->name('print.logged.user.single-details');

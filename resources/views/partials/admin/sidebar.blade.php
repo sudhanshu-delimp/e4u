@@ -41,7 +41,7 @@
                 <span>Global Monitoring </span>
             </a>
             <div id="Monitoring" class="collapse @if (request()->is('*global-monitoring*') ||
-                    request()->is('*logged-in-users*') ||
+                    request()->is('*users-online*') ||
                     request()->is('*escort-listings*') ||
                     request()->is('*massage-centre-listings*') ||
                     request()->is('*visitors*') ||
@@ -65,8 +65,7 @@
                     </a>
                     <a class="collapse-item" href="{{ route('admin.logged-in-users') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/login-user.png') }}">
-                        <span style="{{ request()->is('*logged-in-users*') ? 'color: #FF3C5F;' : '' }}">Users Logged
-                            In</span>
+                        <span style="{{ request()->is('*users-online*') ? 'color: #FF3C5F;' : '' }}"> Users Online</span>
                     </a>
                     <a class="collapse-item" href="{{ route('admin.visitors') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/visitors.png') }}">

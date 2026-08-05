@@ -139,7 +139,7 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             $latestActivePinup = $item->escort->latestActivePinup;
             if ($latestActivePinup) {
                 $item->profile_name .= '<sup class="pinup_icon listing-tag-tooltip ml-1">Pin Up
-                <small class="listing-tag-tooltip-desc">Pinup from ' . date("d-m-Y", strtotime($latestActivePinup->start_date)) . " to " . date("d-m-Y", strtotime($latestActivePinup->end_date)) . '</small>
+                <small class="listing-tag-tooltip-desc">Pin Up from ' . date("d-m-Y", strtotime($latestActivePinup->start_date)) . " to " . date("d-m-Y", strtotime($latestActivePinup->end_date)) . '</small>
                 </sup>';
             }
             $item->profile_name .= "</span>";
