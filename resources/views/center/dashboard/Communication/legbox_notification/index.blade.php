@@ -102,8 +102,8 @@
                             <!-- Auto-generated Date (readonly) -->
                             <div class="col-12 mb-3">
                                 <label class="label">Current Date</label>
-                                <input type="date" id="current_date" class="form-control rounded-0"
-                                    value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" />
+                                <input type="text" id="current_date" class="form-control rounded-0 js_datepicker"
+                                    value="{{ \Carbon\Carbon::now()->format('d-m-Y') }}" disabled='disabled' />
                             </div>
 
                             <!-- Heading Field -->
@@ -135,7 +135,7 @@
                                 <select id="type" onchange="toggleFields()" name="type"
                                     class="form-control rounded-0">
                                     {{-- <option value="">-- Select Type --</option> --}}
-                                    <option value="Ad hoc">Ad hoc</option>
+                                    <option value="Adhoc">Adhoc</option>
                                     <option value="Template">Template</option>
                                     <option value="Notice">Notice</option>
                                 </select>
@@ -297,7 +297,7 @@
                 templateSelect.style.display = 'none';
                 noticeSection.style.display = 'block';
                 contentField.style.display = 'block';
-            } else if (type === 'Ad hoc') {
+            } else if (type === 'Adhoc') {
                 templateSelect.style.display = 'none';
                 noticeSection.style.display = 'none';
                 contentField.style.display = 'block';
@@ -612,7 +612,7 @@
                         $('#heading').val(n.heading);
                         $('#start_date').val(n.start_date || '');
                         $('#end_date').val(n.end_date || '');
-                        $('#type').val(n.type || 'Ad hoc').trigger('change');
+                        $('#type').val(n.type || 'Adhoc').trigger('change');
                         $('#edit_content').val(n.content || '');
                         if (n.template_name) {
                             $('#template_name').val(n.template_name);

@@ -265,6 +265,7 @@ class LegboxNotificationController extends Controller
     {
         $query = LegboxNotification::where('status', '=', 'Published')
             ->where('id', '!=', $id)
+            ->where('create_by', '=', auth()->user()->id)
             ->where(function ($q) use ($start, $end) {
                 $q->whereBetween('start_date', [$start, $end])
                     ->orWhereBetween('end_date', [$start, $end])
