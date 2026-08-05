@@ -1,5 +1,4 @@
 
-
 @if ($queryData->count() > 0)
     <table class="table table-bordered mb-0">
         <thead class="table-bg modal-thaed">
@@ -19,3 +18,5 @@
        
     </table>
 @endif
+
+

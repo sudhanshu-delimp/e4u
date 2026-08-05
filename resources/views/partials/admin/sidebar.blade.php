@@ -778,7 +778,8 @@
                         'revision',
                         'security','shareholder','share-value',
                         'operator-staff','concierge-payments','agent-data',
-                    ]) || request()->segment(2) == 'feedback' || in_array(request()->segment(4), ['legal','community','other','about','concierge','global-notifications','agents-notifications','escorts-notifications','centres-notifications','shareholders-notifications','viewers-notifications'])) show @endif"
+                        'fees',
+                    ]) || request()->segment(2) == 'feedback' || in_array(request()->segment(4), ['legal','community','other','about','concierge','global-notifications','agents-notifications','escorts-notifications','centres-notifications','shareholders-notifications','viewers-notifications', 'monthly-report'])) show @endif"
                     aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
                     <div class="py-0 collapse-inner rounded mb-2">
@@ -792,26 +793,26 @@
                                 <span style="{{ request()->segment(3) == 'dashboard' ? 'color: #FF3C5F;' : '' }}">Dashboard</span>
                             </a>
 
-                            
+                          
 
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse"
-                            data-target="#manageAgentMenu" aria-expanded="false" aria-controls="manageAgentMenu">
+                        <a class="nav-link {{request()->segment(3) == 'fees' ? '' : 'collapsed'}}" href="#" data-toggle="collapse"
+                            data-target="#manageAgentMenu" aria-expanded="true" aria-controls="manageAgentMenu">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/manage-people.png') }}">
                             <span>Agents</span>
                         </a>
                         <div id="manageAgentMenu"
-                            class="collapse @if (in_array(request()->segment(3), ['agents-monthly-report', 'agent-data'])) show @endif" data-parent="#Management">
+                            class="collapse @if (in_array(request()->segment(4), ['monthly-report', 'data-list'])) show @endif" data-parent="#Management">
 
                             
                              <a class="collapse-item" href="{{ route('admin.dashboard.agent.data-list') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
                                 <span
-                                    style="{{ request()->segment(3) == 'agent-data' ? 'color: #FF3C5F;' : '' }}">Data List (Centres)</span>
+                                    style="{{ request()->segment(4) == 'data-list' ? 'color: #FF3C5F;' : '' }}">Data List (Centres)</span>
                             </a>
                             <a class="collapse-item" href="{{ route('admin.agents-monthly-report') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
                                 <span
-                                    style="{{ request()->segment(3) == 'agents-monthly-report' ? 'color: #FF3C5F;' : '' }}">Monthly
+                                    style="{{ request()->segment(4) == 'monthly-report' ? 'color: #FF3C5F;' : '' }}">Monthly
                                     Report</span>
                             </a>
 
