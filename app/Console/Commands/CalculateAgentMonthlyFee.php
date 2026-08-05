@@ -47,17 +47,18 @@ class CalculateAgentMonthlyFee extends Command
     public function handle()
     {
         $reportObj = (new AgentMonthlyReport);
-        try {
-            // Write code for email report
-            //Current month
-            //$billingStartDate = Carbon::now()->startOfMonth()->format('Y-m-d');
-            //$billingEndDate = Carbon::now()->endOfMonth()->format('Y-m-d');
+        // Write code for email report
+        //Current month
+        //$billingStartDate = Carbon::now()->startOfMonth()->format('Y-m-d');
+        //$billingEndDate = Carbon::now()->endOfMonth()->format('Y-m-d');
 
-            // Date before current month
-            $billingStartDate = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('Y-m-d');
-            $billingEndDate = Carbon::now()->subMonthNoOverflow()->endOfMonth()->format('Y-m-d');
-            $reportDate = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('m-Y');
-            $monthName = Carbon::parse($billingStartDate)->format('F');
+        // Date before current month
+        $billingStartDate = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('Y-m-d');
+        $billingEndDate = Carbon::now()->subMonthNoOverflow()->endOfMonth()->format('Y-m-d');
+        $reportDate = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('m-Y');
+        $monthName = Carbon::parse($billingStartDate)->format('F');
+
+        try {
 
             $notification = (new Notification);
             $notificationTitle = 'Your Monthly <span style="color:#ff0505;">Fee Report</span> for '  . $monthName . ' month is ready for approval. Please visit <a href="' . config('app.url') . '/agent-dashboard/fees/monthly-report">Fee Report</a> to acknowledge.';
@@ -124,6 +125,47 @@ class CalculateAgentMonthlyFee extends Command
             }
         } catch (Exception $e) {
             Log::info("Agent fee report error: " . $e->getMessage());
+        }
+
+        // Generate report for operators
+        
+        try {
+
+            $reports = AgentMonthlyReport::query()
+                ->join($userTableName, $userTableName . '.id', '=', $agentMonthlyTableName . '.agent_id')
+                ->join($stateTableName, $stateTableName . '.id', '=', $userTableName . '.state_id')
+                ->join($countryTable, "$countryTable.id", '=', $stateTableName . '.country_id')
+                ->whereDate($agentMonthlyTableName . '.billing_period_from', '=', $billingStartDate)
+                ->whereDate($agentMonthlyTableName . '.billing_period_to', '=', $billingEndDate)
+                ->select(
+                    $stateTableName . '.country_id',
+                    $countryTable . '.name as country_name',
+                    $agentMonthlyTableName . '.billing_period_from',
+                    $agentMonthlyTableName . '.billing_period_to',
+                    $agentMonthlyTableName . '.status',
+                    DB::raw('GROUP_CONCAT(DISTINCT ' . $agentMonthlyTableName . '.agent_id ORDER BY ' . $agentMonthlyTableName . '.agent_id) as agent_ids'),
+
+                    DB::raw('COUNT(' . $agentMonthlyTableName . '.id) as total_reports'),
+                    DB::raw('COUNT(DISTINCT ' . $agentMonthlyTableName . '.agent_id) as total_agents'),
+                    DB::raw('SUM(' . $agentMonthlyTableName . '.spend) as total_spend'),
+                    DB::raw('SUM(' . $agentMonthlyTableName . '.fees) as total_fees')
+                )
+                ->groupBy(
+                    $stateTableName . '.country_id',
+                    $countryTable . '.name',
+                    $agentMonthlyTableName . '.billing_period_from',
+                    $agentMonthlyTableName . '.billing_period_to',
+                    $agentMonthlyTableName . '.status'
+                )
+                ->orderBy('' . $agentMonthlyTableName . '.billing_period_from')
+                ->orderBy($stateTableName . '.country_id')
+                ->orderBy('' . $agentMonthlyTableName . '.status')
+                ->get();
+
+            $reports = collect($reports)->groupBy('country_id');
+
+        } catch (Exception $e) {
+            Log::info("Operator monthly fee report error: " . $e->getMessage());
         }
     }
 }

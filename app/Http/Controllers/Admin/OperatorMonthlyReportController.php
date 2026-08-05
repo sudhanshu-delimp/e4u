@@ -29,41 +29,47 @@ class OperatorMonthlyReportController extends BaseController
   public function monthlyReport()
   {
 
-   $agentMonthlyTableName = (new AgentMonthlyReport)->getTable();
-   $stateTableName = (new State)->getTable();
-   $userTableName = (new User)->getTable();
-   $countryTable = (new Country())->getTable();
+    $agentMonthlyTableName = (new AgentMonthlyReport)->getTable();
+    $stateTableName = (new State)->getTable();
+    $userTableName = (new User)->getTable();
+    $countryTable = (new Country())->getTable();
+
+    $from = '2026-06-01';
+    $to   = '2026-06-30';
 
     $reports = AgentMonthlyReport::query()
-      ->join($userTableName, $userTableName.'.id', '=', $agentMonthlyTableName.'.agent_id')
-      ->join($stateTableName, $stateTableName.'.id', '=', $userTableName.'.state_id')
-      ->join($countryTable, "$countryTable.id", '=', $stateTableName.'.country_id')
+      ->join($userTableName, $userTableName . '.id', '=', $agentMonthlyTableName . '.agent_id')
+      ->join($stateTableName, $stateTableName . '.id', '=', $userTableName . '.state_id')
+      ->join($countryTable, "$countryTable.id", '=', $stateTableName . '.country_id')
+      //->whereDate($agentMonthlyTableName . '.billing_period_from', '=', $from)
+     // ->whereDate($agentMonthlyTableName . '.billing_period_to', '=', $to)
       ->select(
-        $stateTableName.'.country_id',
-        $countryTable.'.name as country_name',
-        $agentMonthlyTableName.'.billing_period_from',
-        $agentMonthlyTableName.'.billing_period_to',
-        $agentMonthlyTableName.'.status',
+        $stateTableName . '.country_id',
+        $countryTable . '.name as country_name',
+        $agentMonthlyTableName . '.billing_period_from',
+        $agentMonthlyTableName . '.billing_period_to',
+        $agentMonthlyTableName . '.status',
+        DB::raw('GROUP_CONCAT(DISTINCT ' . $agentMonthlyTableName . '.agent_id ORDER BY ' . $agentMonthlyTableName . '.agent_id) as agent_ids'),
 
-        DB::raw('GROUP_CONCAT(DISTINCT '.$agentMonthlyTableName.'.agent_id ORDER BY '.$agentMonthlyTableName.'.agent_id) as agent_ids'),
-
-        DB::raw('COUNT('.$agentMonthlyTableName.'.id) as total_reports'),
-        DB::raw('COUNT(DISTINCT '.$agentMonthlyTableName.'.agent_id) as total_agents'),
-        DB::raw('SUM('.$agentMonthlyTableName.'.spend) as total_spend'),
-        DB::raw('SUM('.$agentMonthlyTableName.'.fees) as total_fees')
+        DB::raw('COUNT(' . $agentMonthlyTableName . '.id) as total_reports'),
+        DB::raw('COUNT(DISTINCT ' . $agentMonthlyTableName . '.agent_id) as total_agents'),
+        DB::raw('SUM(' . $agentMonthlyTableName . '.spend) as total_spend'),
+        DB::raw('SUM(' . $agentMonthlyTableName . '.fees) as total_fees')
       )
       ->groupBy(
-        $stateTableName.'.country_id',
-        $countryTable.'.name',
-        $agentMonthlyTableName.'.billing_period_from',
-        $agentMonthlyTableName.'.billing_period_to',
-        $agentMonthlyTableName.'.status'
+        $stateTableName . '.country_id',
+        $countryTable . '.name',
+        $agentMonthlyTableName . '.billing_period_from',
+        $agentMonthlyTableName . '.billing_period_to',
+        $agentMonthlyTableName . '.status'
       )
-      ->orderBy(''.$agentMonthlyTableName.'.billing_period_from')
-      ->orderBy($stateTableName.'.country_id')
-      ->orderBy(''.$agentMonthlyTableName.'.status')
+      ->orderBy('' . $agentMonthlyTableName . '.billing_period_from')
+      ->orderBy($stateTableName . '.country_id')
+      ->orderBy('' . $agentMonthlyTableName . '.status')
       ->get();
-    dd($reports->toArray());
+
+    $reports = collect($reports)->groupBy('country_id');
+    //dd($reports->toArray());
     return  view('admin.management.operator.monthly-fee-reports');
   }
 
