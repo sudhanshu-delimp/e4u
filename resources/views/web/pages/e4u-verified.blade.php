@@ -101,7 +101,7 @@
                     </p>
                 </div>
                 <div class="col-lg-7">
-                    <img src="{{ asset('assets/app/img/e4u_verified_v2.png') }}" alt="e4u verified" class="w-100">
+                    <img src="{{ asset('assets/app/img/e4u_verified_v3.png') }}" alt="e4u verified" class="w-100">
                 </div>
             </div>
             <!-- changes to this policy -->
