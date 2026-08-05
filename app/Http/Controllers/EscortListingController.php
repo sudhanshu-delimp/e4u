@@ -758,15 +758,14 @@ class EscortListingController extends Controller
         session()->put('cart', $cart);
         $count_session = count(session('cart'));
         return response()->json(compact('error', 'cart', 'count_session'));
-        //return redirect()->back()->with('success', 'Product added to cart successfully!');
 
 
     }
 
     public function removeShortList()
     {
-
         $escort_id = request()->post('escortId');
+
         $error = 0;
         if ($escort_id) {
             $cart = session()->get('cart');
