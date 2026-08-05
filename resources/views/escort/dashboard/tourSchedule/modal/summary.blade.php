@@ -29,16 +29,16 @@ $tourDetail = $tourDetail ?? null;
                             <th style="color: #0C223D; font-weight:600; border-top:1px solid #e3e6f0;">Locations</th>
                             <td class="location_count">{{!empty($tourDetail)?$tourDetail->locations->count():''}}</td>
                             @if(!empty($tourDetail) && $tourDetail->current_location)
-                                <th style="color: #0C223D; font-weight:600; border-top:1px solid #e3e6f0">Current Location</th>
-                                <td class="location_current">{{!empty($tourDetail)?$tourDetail->current_location->state->name:''}}</td>
+                                <th style="color: #0C223D; font-weight:600; border-top:1px solid #e3e6f0; background-color: #e3e6f0">Current Location</th>
+                                <td class="location_current" style="background-color: #e3e6f0">{{!empty($tourDetail)?$tourDetail->current_location->state->name:''}}</td>
                                 @else  
                                 <td colspan="2"></td>
                             @endif
                         </tr>
                         <tr>
                             <th style="color: #0C223D; font-weight:600;">Fees</th>
-                            <td class="current_fees">AU$ {{!empty($tourDetail) ? $tourDetail->tourPurchase()->sum('paid_rate') : 0.00}}</td>
-                            <td class=""  colspan="2">
+                            <td class="current_fees">{{formatCurrency(!empty($tourDetail) ? $tourDetail->tourPurchase()->sum('paid_rate') : 0.00, 'AU$ ')}}</td>
+                            <td class="" style="background-color: #e3e6f0" colspan="2">
                                 <span style="color: #0C223D; font-weight:600;">Start Date: </span> <span>{{!empty($tourDetail)?$tourDetail->current_location->start_date->format('d-m-Y'):''}}</span>
                                 &nbsp;&nbsp;
                                 <span style="color: #0C223D; font-weight:600;">End Date: </span> <span>{{!empty($tourDetail)?$tourDetail->current_location->end_date->format('d-m-Y'):''}}</span>
