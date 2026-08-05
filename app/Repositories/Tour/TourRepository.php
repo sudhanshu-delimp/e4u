@@ -232,7 +232,7 @@ class TourRepository extends BaseRepository implements TourInterface
         foreach ($result as $key => $item) {
             $action = '';
             if (Carbon::today($item->time_zone)->diffInDays($item->end_date_formatted, false) > 0) {
-                $action .= '<div class="dropdown no-arrow archive-dropdown">
+                $action .= '<div class="dropdown no-arrow archive-dropdown text-center">
             <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">';
 
