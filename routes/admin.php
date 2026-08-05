@@ -49,6 +49,7 @@ use App\Http\Controllers\Admin\ImpersonateController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Escort\Concierge\ProductController;
 use App\Http\Controllers\Admin\AgentMonthlyReportController;
+use App\Http\Controllers\Admin\OperatorMonthlyReportController;
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
@@ -282,12 +283,6 @@ Route::post('change-user-status', [ReportingController::class, 'changeUserStatus
 Route::get('management/dashboard', function () {
   return view('admin.management.management');
 })->name('admin.management');
-
-Route::get('management/monthly-fee-reports', function () {
-  return view('admin.management.operator.monthly-fee-reports');
-})->name('admin.monthly-fee-reports');
-
-
 
 Route::get('management/commission-summary', function () {
   return view('admin.management.operator.commission-summary');
@@ -962,4 +957,11 @@ Route::post('management/fees/print-monthly-report', [AgentMonthlyReportControlle
 Route::post('management/fees/query', [AgentMonthlyReportController::class, 'viewQuery'])->name('admin.fees.view.query');
 Route::post('management/fees/pay-detail', [AgentMonthlyReportController::class, 'viewPayAgentreport'])->name('admin.fees.view.pay-detail');
 Route::post('management/fees/print-pay-detail', [AgentMonthlyReportController::class, 'printPayAgentreport'])->name('admin.fees.print.pay-detail');
+
+
+// Operator Monthly Report
+
+Route::get('management/monthly-fee-reports', [OperatorMonthlyReportController::class, 'monthlyReport'])->name('admin.monthly-fee-reports');
+
+
 
