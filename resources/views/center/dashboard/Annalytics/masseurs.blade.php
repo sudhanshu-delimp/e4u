@@ -8,9 +8,16 @@
 
         #masseursStatisticsTable tbody tr td:nth-child(2) {
             text-align: left !important;
-            margin-right: 20px;
-    object-fit: cover;
+          
         }
+
+  #masseursStatisticsTable tbody tr td:nth-child(2) .d-flex img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+         
     </style>
 @endsection
 @section('content')

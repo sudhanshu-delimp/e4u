@@ -60,8 +60,12 @@ class MasseurController extends Controller
     return DataTables::of($masseurs)
 
       ->addColumn('masseur', function ($row) {
-        
-        return '<img src="' . $row->profile_img . '" alt="' . $row->name . '" class="img-fluid rounded-circle" style="width: 50px; height: 50px;"> ' . $row->name ?? 'NA';
+        return '
+<div class="d-flex align-items-center">
+    <img src="'.$row->profile_img.'" alt="'.$row->name.'">
+    <span class="ms-2">&nbsp;'.($row->name ?? 'NA').'</span>
+</div>';
+        // return '<img src="' . $row->profile_img . '" alt="' . $row->name . '" class="img-fluid rounded-circle" style="width: 50px; height: 50px;"> ' . $row->name ?? 'NA';
       })
       ->addColumn('status', function ($row) {
         return $row->status == 1 ? 'Active' : 'Inactive';
