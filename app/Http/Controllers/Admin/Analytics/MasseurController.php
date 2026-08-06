@@ -8,6 +8,7 @@ use App\Models\Visitor;
 use Illuminate\Http\Request;
 use App\Repositories\User\UserInterface;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
@@ -39,12 +40,13 @@ class MasseurController extends Controller
     $startOfWeek = Carbon::now()->startOfWeek();
     $startOfYear = Carbon::now()->startOfYear();
 
+   $massageCenterId = Auth::user()->id;
        $latestVisitor = Visitor::select('date')
         ->whereColumn('visitors.masseur_id', 'masseurs.id')
         ->latest('date')
         ->limit(1);
 
-    $masseurs = Masseur::query()
+    $masseurs = Masseur::where('user_id', $massageCenterId)
         ->select('masseurs.*')
         ->selectSub($latestVisitor, 'latest_visitor_date')
         ->orderByDesc('latest_visitor_date');
