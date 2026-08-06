@@ -814,4 +814,9 @@ class Escort extends Model
     {
         return $this->belongsTo('App\Models\User', 'updated_by');
     }
+
+    public function getStateAbbrAttribute()
+    {
+        return  config('escorts.profile.states')[$this->state_id]['stateAbbr'];
+    }
 }

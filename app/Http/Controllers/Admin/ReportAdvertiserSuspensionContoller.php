@@ -87,9 +87,8 @@ class ReportAdvertiserSuspensionContoller extends Controller
                 return $startDate->diffInDays($endDate) + 1; // inclusive of first day
             })
             ->addColumn('location', function ($row) {
-                // $state = isset($row->escort->city->country_code) ? $row->escort->city->country_code : '-';
-                // return $state;
-                return 'NA';
+                // $location =  ($row->user->type == '4') ?  $row->advertiser->state_abbr : $row->advertiser->state_abbr;
+                return $row->advertiser->state_abbr;
             })
 
             ->addColumn('action', function ($row) {

@@ -619,4 +619,9 @@ class MassageProfile extends Model
         }
         return $timezone;
     }
+
+    public function getStateAbbrAttribute()
+    {
+        return  config('escorts.profile.states')[$this->user->state_id]['stateAbbr'];
+    }
 }
