@@ -26,6 +26,8 @@
     <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.2') }}" rel="stylesheet">
     <link href="{{ asset('assets/app/css/responsive-style.css?v1.2') }}" rel="stylesheet">
     <link href="{{ asset('assets/dashboard/css/dk-responsive.css') }}" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ asset('assets/app/css/common-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/app/vendor/file-upload/css/jquery.fileupload.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/app/vendor/file-upload/css/jquery.fileupload-ui.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/app/vendor/file-upload/css/jquery.fileupload-noscript.css') }}"/>
