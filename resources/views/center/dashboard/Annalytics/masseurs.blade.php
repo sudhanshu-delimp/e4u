@@ -8,6 +8,8 @@
 
         #masseursStatisticsTable tbody tr td:nth-child(2) {
             text-align: left !important;
+            margin-right: 20px;
+    object-fit: cover;
         }
     </style>
 @endsection
