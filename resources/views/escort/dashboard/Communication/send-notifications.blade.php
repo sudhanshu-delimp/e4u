@@ -3,6 +3,12 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
+    <style>
+    .swal2-title {
+        font-size: 20px !important;
+    }
+    </style>
+
 @endsection
 @section('content')
     <div id="content-wrapper" class="d-flex flex-column">
@@ -149,6 +155,8 @@
 
 
     {{-- Send Notification Popup --}}
+    <form id="sendNotificationForm">
+    @csrf
     <div class="modal fade upload-modal" id="new-ban" tabindex="-1" role="dialog" aria-labelledby="new-ban"
         aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -165,8 +173,8 @@
                     <form>
                         <div class="row">
                             <div class="col-12 mb-3">
-                                <select class="form-control rounded-0 mb-3" id="state_id">
-                                            <option>Select Home State</option>
+                                <select class="form-control rounded-0 mb-3" id="state_id" name="state_id">
+                                            <option value="">Select Home State</option>
                                             @foreach($myStateList as $state_list)
                                             <option value="{{$state_list['state_id']}}">{{ $state_list['state']}}</option>
                                             @endforeach
@@ -210,11 +218,12 @@
                             <label class="form-check-label" for="exampleCheck1"> No. of Viewers:<span class="ml-1" id="viewer_count">0</span></label>
                         </div>
                     </div>
-                    <button type="button" class="btn-success-modal">Send</button>
+                    <button type="submit" class="btn-success-modal btn-primary">Send</button>
                 </div>
             </div>
         </div>
     </div>
+    </form>
     {{-- end --}}
 
 
@@ -236,6 +245,7 @@
                 </div>
                 <div class="modal-body pb-0">
                     <form>
+                       
                         <div class="row">
                             <div class="col-12 mb-3">
                                 <select class="form-control rounded-0">
@@ -275,7 +285,7 @@
 
                         </div>
                     </div>
-                    <button type="button" class="btn-success-modal">Send</button>
+                    <button type="submit" class="btn-success-modal">Send</button>
                 </div>
             </div>
         </div>
@@ -297,6 +307,61 @@
         let stateId = $(this).val();
         let state = stateList.find(item => item.state_id == stateId);
         $('#viewer_count').text(state ? state.viewers : 0);
+    });
+
+
+    $('#sendNotificationForm').on('submit', function(e)
+    {
+        e.preventDefault();
+        swal_waiting_popup({'title': 'Sending Notification...'});
+        var formData = new FormData(document.getElementById('sendNotificationForm'));
+
+
+        $.ajax({
+            url: "{{ route('escort.sendNotification') }}",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                $('.btn-primary').prop('disabled', true).text('Sending...');
+            },
+            success: function(response){
+                Swal.close();
+                $('.btn-primary').prop('disabled', false).text('Send Notification');
+                if(response.status)
+                {
+                    swal_success_popup(response.message ?? 'Notification send successfully');
+                    $('#sendNotificationForm')[0].reset();
+                    $('#viewer_count').text(0);
+                }
+                else
+                {
+                     swal_error_warning(response.message);
+                    
+                }
+            },
+            error:function(xhr){
+
+                console.log(xhr);
+                console.log(xhr.responseText);
+               
+
+                $('.btn-primary').prop('disabled', false).text('Send Notification');
+                if(xhr.status == 422)
+                {    
+                    let response = JSON.parse(xhr.responseText);
+                    $.each(response.errors, function(key, value) {
+                     swal_error_warning(value[0]);
+                    });
+                }
+                else
+                {
+                    swal_error_popup('Something went wrong.');
+                }
+            }
+        });
+
     });
 
 

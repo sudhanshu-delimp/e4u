@@ -358,6 +358,7 @@ Route::get('escort-agency-request', function () {
 });
 
 Route::get('viewer-list', [EscortNotificationController::class, "get_all_viewers"])->name('escort.viewer-list');
+Route::post('/escort/send-notification', [EscortNotificationController::class, 'sendNotification'])->name('escort.sendNotification');
 
 
 // Route::get('send-notifications', function () {
