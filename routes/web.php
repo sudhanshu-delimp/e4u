@@ -834,7 +834,6 @@ Route::get('/testscript', function () {
 
     $num = removeSpaceFromString('456464 645644 4444');
     echo  $num;
-    
 });
 
 
@@ -1102,3 +1101,6 @@ Route::get('check-time', function () {
     print_r($massures);
     echo '</pre>';
 });
+
+Route::get('preview/massage/{id}', [MassageCentre::class, 'massage_description'])->name('preview.massage');
+Route::get('preview/escort/{id}', [WebController::class, 'profileDescription'])->name('preview.escort');
