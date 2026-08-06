@@ -11,12 +11,11 @@
           
         }
 
-  #masseursStatisticsTable tbody tr td:nth-child(2) .d-flex img {
-    width: 50px;
-    height: 50px;
+        #masseursStatisticsTable tbody tr td:nth-child(2) img {
+           margin-right: 20px;
     object-fit: cover;
-    border-radius: 50%;
-}
+          
+        }
          
     </style>
 @endsection
