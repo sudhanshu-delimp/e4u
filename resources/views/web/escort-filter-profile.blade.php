@@ -455,6 +455,9 @@
         }
         // Run on page load (default selected radio)
         (async function() {
+
+            setProfileView(escortRequest.view_type);
+
             await updateLocationFields();
             // Save location in background
             updateLocation();
