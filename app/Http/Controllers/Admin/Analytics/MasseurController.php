@@ -8,6 +8,7 @@ use App\Models\Visitor;
 use Illuminate\Http\Request;
 use App\Repositories\User\UserInterface;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
@@ -29,6 +30,8 @@ class MasseurController extends Controller
     return view('center.dashboard.Annalytics.masseurs');
   }
 
+
+
   public function getAllMasseurs(Request $request)
   {
     if (!$request->ajax()) {
@@ -39,69 +42,53 @@ class MasseurController extends Controller
     $startOfWeek = Carbon::now()->startOfWeek();
     $startOfYear = Carbon::now()->startOfYear();
 
-       $latestVisitor = Visitor::select('date')
-        ->whereColumn('visitors.masseur_id', 'masseurs.id')
-        ->latest('date')
-        ->limit(1);
+    $massageCenterId = Auth::user()->id;
+    $latestVisitor = Visitor::select('date')
+      ->whereColumn('visitors.masseur_id', 'masseurs.id')
+      ->latest('date')
+      ->limit(1);
 
-    $masseurs = Masseur::query()
-        ->select('masseurs.*')
-        ->selectSub($latestVisitor, 'latest_visitor_date')
-        ->orderByDesc('latest_visitor_date');
+    $masseurs = Masseur::where('user_id', $massageCenterId)
+      ->select('masseurs.*')
+      ->selectSub($latestVisitor, 'latest_visitor_date')
+      ->orderByDesc('latest_visitor_date');
+
+    $getVisitorCount = function ($masseurId, $page, $fromDate) {
+      return Visitor::where('masseur_id', $masseurId)->where('page', $page)->where('date', '>=', $fromDate)->count();
+    };
 
     return DataTables::of($masseurs)
 
       ->addColumn('masseur', function ($row) {
         return $row->name ?? 'NA';
       })
-      // ->editColumn('id', function ($row) {
-      //   return str_pad($row->id, 3, '0', STR_PAD_LEFT);
-      // })
-
       ->addColumn('status', function ($row) {
         return $row->status == 1 ? 'Active' : 'Inactive';
       })
 
-      ->addColumn('profile_today', function ($row) use ($today) {
-        return Visitor::where('masseur_id', $row->id)
-          ->where('page', 'masseur profile')
-          ->where('date', '>=', $today)
-          ->count();
+      ->addColumn('profile_today', function ($row) use ($getVisitorCount, $today) {
+        return $getVisitorCount($row->id, 'masseur profile', $today);
       })
 
-      ->addColumn('profile_this_week', function ($row) use ($startOfWeek) {
-        return Visitor::where('masseur_id', $row->id)
-          ->where('page', 'masseur profile')
-          ->where('date', '>=', $startOfWeek)
-          ->count();
+      ->addColumn('profile_this_week', function ($row) use ($getVisitorCount, $startOfWeek) {
+        return $getVisitorCount($row->id, 'masseur profile', $startOfWeek);
       })
 
-      ->addColumn('profile_year_to_date', function ($row) use ($startOfYear) {
-        return Visitor::where('masseur_id', $row->id)
-          ->where('page', 'masseur profile')
-          ->where('date', '>=', $startOfYear)
-          ->count();
+      ->addColumn('profile_year_to_date', function ($row) use ($getVisitorCount, $startOfYear) {
+        return $getVisitorCount($row->id, 'masseur profile', $startOfYear);
       })
 
-      ->addColumn('media_today', function ($row) use ($today) {
-        return Visitor::where('masseur_id', $row->id)
-          ->where('page', 'massure media')
-          ->where('date', '>=', $today)
-          ->count();
+      // Media
+      ->addColumn('media_today', function ($row) use ($getVisitorCount, $today) {
+        return $getVisitorCount($row->id, 'massure media', $today);
       })
 
-      ->addColumn('media_this_week', function ($row) use ($startOfWeek) {
-        return Visitor::where('masseur_id', $row->id)
-          ->where('page', 'massure media')
-          ->where('date', '>=', $startOfWeek)
-          ->count();
+      ->addColumn('media_this_week', function ($row) use ($getVisitorCount, $startOfWeek) {
+        return $getVisitorCount($row->id, 'massure media', $startOfWeek);
       })
 
-      ->addColumn('media_year_to_date', function ($row) use ($startOfYear) {
-        return Visitor::where('masseur_id', $row->id)
-          ->where('page', 'massure media')
-          ->where('date', '>=', $startOfYear)
-          ->count();
+      ->addColumn('media_year_to_date', function ($row) use ($getVisitorCount, $startOfYear) {
+        return $getVisitorCount($row->id, 'massure media', $startOfYear);
       })
 
       ->make(true);

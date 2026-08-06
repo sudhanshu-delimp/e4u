@@ -3162,7 +3162,7 @@ $(document).ready(function () {
     let newModal = $('.masseur-modal').eq(newIndex);
 
     let massure_id = newModal.data('massure_id');
-    let page = "massure media";
+    let page = "masseur profile";
 
     generateLog(massure_id, page);
 });
@@ -3180,7 +3180,7 @@ $(document).ready(function () {
     let newModal = $('.masseur-modal').eq(newIndex);
 
     let massure_id = newModal.data('massure_id');
-    let page = "massure media";
+    let page = "masseur profile";
 
     generateLog(massure_id, page);
 });
