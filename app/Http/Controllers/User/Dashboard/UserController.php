@@ -555,7 +555,7 @@ class UserController extends Controller
                                 $query->whereNull('member_id')
                                     ->orWhere('member_id', $userId);
                             })
-                            ->orderBy('start_date', 'asc')
+                            ->orderBy('created_at', 'desc')
                             ->select('id', 'heading', 'content', 'template_name', 'create_by', 'create_by_member_id')
                             ->get();
         return $getNotification;
