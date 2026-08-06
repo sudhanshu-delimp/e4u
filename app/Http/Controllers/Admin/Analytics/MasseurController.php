@@ -64,7 +64,7 @@ class MasseurController extends Controller
         return '<img src="' . $row->profile_img . '" alt="' . $row->name . '" class="img-fluid rounded-circle" style="width: 50px; height: 50px;"> ' . $row->name ?? 'NA';
       })
       ->addColumn('status', function ($row) {
-        return $row->status == 1 ? 'Active' : 'Inactive';
+        return $row->status == 1 ? '<span class="custom_badge badge_active">Active</span>' : '<span class="custom_badge badge_inactive">Inactive</span>';
       })
 
       ->addColumn('profile_today', function ($row) use ($getVisitorCount, $today) {
