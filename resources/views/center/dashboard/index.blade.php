@@ -209,7 +209,7 @@
                         <img src="{{ asset('assets/dashboard/img/boxicon/wallet.png') }}" alt="My Wallet">
                     </div>
                     <h2>
-                        My Wallet
+                        Our Wallet
                     </h2>
                 </a>
 
