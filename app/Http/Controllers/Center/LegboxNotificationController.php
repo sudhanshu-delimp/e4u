@@ -164,12 +164,14 @@ class LegboxNotificationController extends Controller
     {
     
         $data =  $request->only(['heading', 'start_date', 'end_date', 'type', 'content', 'member_id', 'template_name', 'edit_notification_id']);
-        
+        $user = auth()->user();
         $start = sqlDateFormat($data['start_date']);    
         $end =  sqlDateFormat($data['end_date']);
         $data['start_date'] = $start;
         $data['end_date'] = $end;
-        $data['create_by'] = auth()->user()->id;
+        $data['create_by'] = $user->id;
+        $data['create_by_member_id'] = $user->member_id;
+
         //Check condition 
         $notificationId = $request->edit_notification_id;
 

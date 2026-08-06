@@ -15,6 +15,7 @@ class AddCreateByToLegboxNotificationsTable extends Migration
     {
         Schema::table('legbox_notifications', function (Blueprint $table) {
             $table->integer('create_by')->nullable()->after('status');
+            $table->string('create_by_member_id')->nullable()->after('create_by');
         });
     }
 
@@ -27,6 +28,7 @@ class AddCreateByToLegboxNotificationsTable extends Migration
     {
         Schema::table('legbox_notifications', function (Blueprint $table) {
             $table->dropColumn('create_by');
+            $table->dropColumn('create_by_member_id');
         });
     }
 }

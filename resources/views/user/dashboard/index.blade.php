@@ -26,13 +26,20 @@
     <div class="row">
         @if ($notifications)
         @foreach ($notifications as $notification)
-        <x-global.notification-alert :heading="$notification['heading']" :content="$notification['content'] ?? $notification['template_name']" type="success" />
+        <x-global.notification-alert :heading="$notification['heading']" :content="$notification['content'] ?? $notification['template_name']"  type="success"
+        :member="null"
+         />
         @endforeach
         @endif
         {{-- Legbox Notification create by Massage center --}}
         @if($getLegBoxNotifications)
         @foreach ($getLegBoxNotifications as $getLegBoxNotification)
-             <x-global.notification-alert :heading="$getLegBoxNotification['heading']" :content="$getLegBoxNotification['content'] ?? $getLegBoxNotification['template_name']" type="success" />
+             <x-global.notification-alert
+                :heading="$getLegBoxNotification['heading']"
+                :content="$getLegBoxNotification['content'] ?? $getLegBoxNotification['template_name']"
+                type="success"
+                :member="$getLegBoxNotification['create_by_member_id'] ??  null"
+            />
         @endforeach
         @endif
         <div class="custom-heading-wrapper col-md-12">
