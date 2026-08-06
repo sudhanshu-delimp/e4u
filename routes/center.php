@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Analytics\MasseurController as AnalyticsMasseurController;
 use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Center\CenterController;
@@ -29,6 +30,7 @@ use App\Http\Controllers\Center\MassageCenterDashboardController;
 use App\Http\Controllers\Center\WalletController;
 use App\Http\Controllers\Escort\Concierge\ProductController;
 use App\Http\Controllers\Escort\Concierge\ProductOrderController;
+use App\Http\Controllers\Center\LegboxNotificationController;
 
 Route::get('/', [CenterController::class, 'index'])->name('center.dashboard');
 Route::get('/dashboard', [CenterController::class, 'index'])->name('center.dashboard.impersonate');
@@ -524,9 +526,7 @@ Route::get('profiles', function () {
   return view('center.dashboard.Annalytics.profiles');
 })->name('profiles');
 
-Route::get('masseurs', function () {
-  return view('center.dashboard.Annalytics.masseurs');
-})->name('masseurs');
+
 
 Route::get('feedback', function () {
   return view('center.dashboard.Annalytics.feedback');
@@ -545,9 +545,9 @@ Route::get('agent-messages', function () {
   return view('center.dashboard.Communication.agent-messages');
 })->name('agent-messages');
 
-Route::get('legbox-notification', function () {
-  return view('center.dashboard.Communication.legbox-notification');
-})->name('legbox-notification');
+// Route::get('legbox-notification', function () {
+//   return view('center.dashboard.Communication.legbox-notification');
+// })->name('legbox-notification');
 
 # Massage viewer Interaction
 Route::get('legbox-viewers', [MassageViewerInteractionController::class, 'index'])->name('legbox-viewers');
@@ -627,3 +627,20 @@ Route::post('update-my-reports', [CenterNumController::class, 'updateMyReportByA
 Route::get('num-tips', function () {
   return view('center.numdash.num-tips');
 })->name('center.num-tips');
+
+
+##################  Communication (Legbox Notifications)  #######################
+Route::get('legbox-notification/list', [LegboxNotificationController::class, 'index'])->name('centrer.legbox.notification.index');
+Route::post('/legbox-notification/store', [LegboxNotificationController::class, 'store'])->name('centrer.legbox.notification.store');
+Route::get('/legbox-notification/{id}/show', [LegboxNotificationController::class, 'show'])->name('centrer.legbox.notification.show');
+Route::post('/legbox-notification/{id}/status', [LegboxNotificationController::class, 'updateStatus'])->name('centrer.legbox.notification.status');
+Route::get('/legbox-notification/pdf-download/{id}', [LegboxNotificationController::class, 'pdfDownload'])->name('centrer.legbox.notification.pdf.download');
+Route::get('/legbox-notification/{id}/edit', [LegboxNotificationController::class, 'edit'])->name('centrer.legbox.notification.edit');
+Route::post('/legbox-notification/{id}/update', [LegboxNotificationController::class, 'update'])->name('centrer.legbox.notification.update');
+
+// Route::get('masseurs', function () {
+//   return view('center.dashboard.Annalytics.masseurs');
+// })->name('masseurs');
+
+Route::get('masseurs', [AnalyticsMasseurController::class, 'index'])->name('masseurs');
+Route::get('masseurs/list', [AnalyticsMasseurController::class, 'getAllMasseurs'])->name('masseurs.list');

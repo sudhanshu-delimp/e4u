@@ -775,15 +775,15 @@ margin-right: 5px;
 
 
                                 <!-- /////////// Messeur Modal //////////////// -->
-                                <div class="modal fade product_view upload-modal masseur-modal" id="product_view_{{$masseur->id}}" data-index="{{ $loop->index }}" data-backdrop="static" data-keyboard="false"> 
+                                <div class="modal fade product_view upload-modal masseur-modal" data-page="masseur profile"  data-massure_id="{{$masseur->id}}" id="product_view_{{$masseur->id}}" data-index="{{ $loop->index }}" data-backdrop="static" data-keyboard="false"> 
                                     <div class="modal-dialog modal-dialog-centered max-modal" >
                                     <div class="modal-content">
                                         <div class="modal-header custom_header">
                                             <h5 class="mc_member_id"> <img src="{{ asset('../assets/app/img/Vector-31.png') }}" class="img-responsive"> Member ID: {{ $masseur->member_id ?? 'N/A' }} </h5>
                                             
                                             <div class="navigation_button">
-                                                <button class="btn-prev"><i class="fa fa-chevron-left text-white"></i> Previous </button> 
-                                                <button class="btn-next">Next <i class="fa fa-chevron-right text-white"></i> </button>
+                                                <button class="btn-prev"  data-massure_id="{{$masseur->id}}"><i class="fa fa-chevron-left text-white"></i> Previous </button> 
+                                                <button class="btn-next"  data-massure_id="{{$masseur->id}}">Next <i class="fa fa-chevron-right text-white"></i> </button>
                                             </div>
                                             <button type="button" class="close_btn" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true"><img src="{{ asset('../assets/app/img/newcross.png') }}"
@@ -803,7 +803,7 @@ margin-right: 5px;
                                                             @endphp
 
                                                             <a href="{{ $image['url'] }}"
-                                                            class="glightbox"
+                                                            class="glightbox main-gallery-image"  data-massure_id="{{$masseur->id}}"
                                                             data-gallery="masseure-gallery">
 
                                                                 <img src="{{ $image['url'] }}"
@@ -837,11 +837,11 @@ margin-right: 5px;
                                                             <div class="extra_img_wrapper">
 
                                                                 <a href="{{ $image['url'] }}"
-                                                                class="glightbox"
+                                                                class="glightbox main-gallery-image"  data-massure_id="{{$masseur->id}}"
                                                                 data-gallery="masseure-gallery">
 
                                                                     <img src="{{ $image['url'] }}"
-                                                                        class="img-responsive">
+                                                                        class="img-responsive ">
                                                                         <div class="hover-overlay">
                                                                             <span>Click me!</span>
                                                                         </div>
@@ -2235,9 +2235,7 @@ margin-right: 5px;
                 </div>
                 
                 <div class="modal-body">
-                    <div class="tab-content" id="myTabContent">
-
-                        
+                    <div class="tab-content" id="myTabContent">                        
                         <div class="tab-pane fade show active" id="menu1" role="tabpanel" aria-labelledby="profile-tab">
 
                             <div id="gallery" class="photos-grid-container gallery">
@@ -2347,12 +2345,62 @@ margin-right: 5px;
                                 <div class="swiper-wrapper">
                                         @foreach($galleryVideos as $key=>$media) 
                                            <div class="swiper-slide">
-                                                <div id="dm_{{ $key }}" class="w-100">
+                                                <div id="dm_{{ $key }}" class="w-100 video-wrapper">
                                                     <a href="#">
                                                         <video style="z-index: 1" controls="" id="videoId_{{ $key }}" src="{{ asset($media->path) }}">
                                                             <source src="{{ asset($media->path) }}" type="video/mp4">
                                                         </video> 
                                                     </a>
+                                                     {{-- Screenshot Button --}}
+                                                    <span
+                                                        type="button"
+                                                        class="video-screenshot-btn"
+                                                        data-video-id="videoId_{{ $key }}"
+                                                    >
+                                                        <svg width="24px" height="24px" class="screeenshot-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M3 8H2V4.5A2.5 2.5 0 0 1 4.5 2H8v1H4.5A1.5 1.5 0 0 0 3 4.5zm1.5 14A1.5 1.5 0 0 1 3 20.5V17H2v3.5A2.5 2.5 0 0 0 4.5 23H8v-1zM22 20.5a1.5 1.5 0 0 1-1.5 1.5H17v1h3.5a2.5 2.5 0 0 0 2.5-2.5V17h-1zM20.5 2H17v1h3.5A1.5 1.5 0 0 1 22 4.5V8h1V4.5A2.5 2.5 0 0 0 20.5 2zM14 7h4v4h1V6h-5zm-7 4V7h4V6H6v5zm11 3v4h-4v1h5v-5zm-7 4H7v-4H6v5h5z"></path><path fill="none" d="M0 0h24v24H0z"></path></g></svg>
+                                                        <p class="scr-tooltip">Take Screenshot</p>
+                                                    </span>
+
+                                                    {{-- Screenshot Preview --}}
+                                                    <div
+                                                        class="screenshot-preview"
+                                                        id="screenshotPreview_{{ $key }}"                                                                                >
+
+                                                        <img
+                                                            class="screenshot-image"
+                                                            id="screenshotImage_{{ $key }}"
+                                                            src=""
+                                                            alt="Screenshot Preview"
+                                                        >
+
+                                                        <div class="screenshot-actions">
+                                                            <button
+                                                                type="button"
+                                                                class="screenshot-cancel"
+                                                                data-key="{{ $key }}"
+                                                            >
+                                                                Cancel
+                                                            </button>
+                                                            {{-- Copy --}}
+                                                                <button
+                                                                    type="button"
+                                                                    class="screenshot-copy"
+                                                                    data-key="{{ $key }}"
+                                                                >
+                                                                    Copy
+                                                                </button>
+                                                            <button
+                                                                type="button"
+                                                                class="screenshot-save"
+                                                                data-key="{{ $key }}"
+                                                            >
+                                                                Save
+                                                            </button>
+                                                            
+
+                                                        </div>
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         @endforeach 
@@ -2475,13 +2523,279 @@ margin-right: 5px;
 <script src="{{ asset('assets/app/lightbox/js/glightbox.min.js') }}"> </script>
 <script src="{{ asset('assets/app/lightbox/js/script.js') }}"> </script>
 
+<script>
+document.addEventListener('click', async function (e) {
+
+    /*
+    ==========================================
+    TAKE SCREENSHOT
+    ==========================================
+    */
+
+    if (e.target.closest('.video-screenshot-btn')) {
+
+        const button = e.target.closest('.video-screenshot-btn');
+
+        const videoId = button.getAttribute('data-video-id');
+        const video = document.getElementById(videoId);
+
+        if (!video) {
+            return;
+        }
+
+        const wrapper = video.closest('.video-wrapper');
+
+        const preview = wrapper.querySelector('.screenshot-preview');
+        const image = wrapper.querySelector('.screenshot-image');
+
+        if (!video.videoWidth || !video.videoHeight) {
+            alert('Video is not ready yet.');
+            return;
+        }
+
+        /*
+        Create Canvas
+        */
+        const canvas = document.createElement('canvas');
+
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        const context = canvas.getContext('2d');
+
+        /*
+        Capture current video frame
+        */
+        context.drawImage(
+            video,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        /*
+        Convert to PNG
+        */
+        const screenshot = canvas.toDataURL('image/png');
+
+        /*
+        Show screenshot preview
+        */
+        image.src = screenshot;
+
+        preview.style.display = 'block';
+
+        /*
+        Store screenshot
+        */
+        preview.dataset.screenshot = screenshot;
+    }
+
+
+    /*
+    ==========================================
+    COPY SCREENSHOT
+    ==========================================
+    */
+
+    if (e.target.closest('.screenshot-copy')) {
+
+        const button = e.target.closest('.screenshot-copy');
+
+        const wrapper = button.closest('.video-wrapper');
+
+        const preview = wrapper.querySelector('.screenshot-preview');
+
+        const screenshot = preview.dataset.screenshot;
+
+        if (!screenshot) {
+            return;
+        }
+
+        try {
+
+            /*
+            Convert Base64 image to Blob
+            */
+            const response = await fetch(screenshot);
+
+            const blob = await response.blob();
+
+            /*
+            Copy image to clipboard
+            */
+            await navigator.clipboard.write([
+                new ClipboardItem({
+                    [blob.type]: blob
+                })
+            ]);
+
+            /*
+            Change button text temporarily
+            */
+            const originalText = button.innerText;
+
+            button.innerText = 'Copied!';
+
+            setTimeout(function () {
+                button.innerText = originalText;
+            }, 1500);
+
+        } catch (error) {
+
+            console.error('Copy failed:', error);
+
+            alert('Unable to copy screenshot.');
+        }
+    }
+
+
+    /*
+    ==========================================
+    SAVE SCREENSHOT
+    ==========================================
+    */
+
+    if (e.target.closest('.screenshot-save')) {
+
+        const button = e.target.closest('.screenshot-save');
+
+        const wrapper = button.closest('.video-wrapper');
+
+        const preview = wrapper.querySelector('.screenshot-preview');
+
+        const screenshot = preview.dataset.screenshot;
+
+        if (!screenshot) {
+            return;
+        }
+
+        /*
+        Create download link
+        */
+        const link = document.createElement('a');
+
+        link.href = screenshot;
+
+        link.download =
+            'video-screenshot-' +
+            Date.now() +
+            '.png';
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        document.body.removeChild(link);
+
+        /*
+        Hide preview
+        */
+        preview.style.display = 'none';
+    }
+
+
+    /*
+    ==========================================
+    CANCEL SCREENSHOT
+    ==========================================
+    */
+
+    if (e.target.closest('.screenshot-cancel')) {
+
+        const button = e.target.closest('.screenshot-cancel');
+
+        const wrapper = button.closest('.video-wrapper');
+
+        const preview = wrapper.querySelector('.screenshot-preview');
+
+        preview.style.display = 'none';
+
+        preview.dataset.screenshot = '';
+
+        const image =
+            preview.querySelector('.screenshot-image');
+
+        image.src = '';
+    }
+
+
+
+
+    /*
+    ==========================================
+    CLOSE LARGE VIEW
+    ==========================================
+    */
+
+    if (e.target.closest('#closeScreenshotLightbox')) {
+
+        closeScreenshotLightbox();
+    }
+
+});
+
+
+/*
+==========================================
+CLOSE LIGHTBOX FUNCTION
+==========================================
+*/
+
+function closeScreenshotLightbox() {
+
+    const lightbox =
+        document.getElementById('screenshotLightbox');
+
+    const lightboxImage =
+        document.getElementById('lightboxScreenshotImage');
+
+    lightbox.classList.remove('active');
+
+    lightboxImage.src = '';
+}
+
+
+/*
+==========================================
+CLICK OUTSIDE IMAGE TO CLOSE
+==========================================
+*/
+
+document.getElementById('screenshotLightbox')
+    .addEventListener('click', function (e) {
+
+        if (e.target === this) {
+
+            closeScreenshotLightbox();
+        }
+
+    });
+
+
+/*
+==========================================
+ESC KEY TO CLOSE
+==========================================
+*/
+
+document.addEventListener('keydown', function (e) {
+
+    if (e.key === 'Escape') {
+
+        closeScreenshotLightbox();
+    }
+
+});
+</script>
  <script>
 
  window.authUser = {
-        isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
-        auth_user_type: {{ auth()->check() ? auth()->user()->type : 'false' }},
-        myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}},
-        write_reviews_disable: {{ auth()->check() && auth()->user()->viewer_settings?->features_write_reviews == 0 ? 'true' : 'false' }},
+        isLoggedIn: "{{ auth()->check() ? 'true' : 'false' }}",
+        auth_user_type: "{{ auth()->check() ? auth()->user()->type : 'false' }}" ,
+        myLegboxDisabled: "{{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}}" ,
+        write_reviews_disable: "{{ auth()->check() && auth()->user()->viewer_settings?->features_write_reviews == 0 ? 'true' : 'false' }}" ,
    };
 
 
@@ -2799,9 +3113,6 @@ $(document).on('click', '.open_review_box', function (e) {
 
     });
 
-
-
-
     });
 
    
@@ -2810,9 +3121,8 @@ $(document).on('click', '.open_review_box', function (e) {
 
 
 $(document).ready(function () {
-
+ 
     function showModal(currentModal, nextIndex) {
-
         let modals = $('.masseur-modal');
         let total = modals.length;
 
@@ -2825,15 +3135,12 @@ $(document).ready(function () {
         setTimeout(function () {
 
             currentModal.hide();
-
-        
             nextModal.show();
 
             setTimeout(function () {
                 nextModal.addClass('show');
                 updateNavButtons(nextModal, nextIndex, total);
             }, 10);
-
 
             $('body').addClass('modal-open');
 
@@ -2843,20 +3150,40 @@ $(document).ready(function () {
     
 
     
-    $(document).on('click', '.btn-next', function () {
-        let currentModal = $(this).closest('.masseur-modal');
-        let index = parseInt(currentModal.data('index'));
+   $(document).on('click', '.btn-next', function () {
+    let currentModal = $(this).closest('.masseur-modal');
+    let index = parseInt(currentModal.data('index'));
 
-        showModal(currentModal, index + 1);
-    });
+    let newIndex = index + 1;
 
+    showModal(currentModal, newIndex);
+
+    // Get the new modal
+    let newModal = $('.masseur-modal').eq(newIndex);
+
+    let massure_id = newModal.data('massure_id');
+    let page = "masseur profile";
+
+    generateLog(massure_id, page);
+});
     
-    $(document).on('click', '.btn-prev', function () {
-        let currentModal = $(this).closest('.masseur-modal');
-        let index = parseInt(currentModal.data('index'));
+  $(document).on('click', '.btn-prev', function () {
 
-        showModal(currentModal, index - 1);
-    });
+    let currentModal = $(this).closest('.masseur-modal');
+    let index = parseInt(currentModal.data('index'));
+
+    let newIndex = index - 1;
+
+    showModal(currentModal, newIndex);
+
+    // Get NEW modal
+    let newModal = $('.masseur-modal').eq(newIndex);
+
+    let massure_id = newModal.data('massure_id');
+    let page = "masseur profile";
+
+    generateLog(massure_id, page);
+});
 
 });
 
@@ -2872,15 +3199,56 @@ $(document).on('click', '.close_btn', function () {
     }, 300);
 });
 
-$(document).on('shown.bs.modal', '.masseur-modal', function () {url('{{ $massage_banner }}')
+let visitorUuid = localStorage.getItem('visitor_uuid');
+
+if (!visitorUuid) {
+    visitorUuid = crypto.randomUUID();
+    localStorage.setItem('visitor_uuid', visitorUuid);
+}
+
+ 
+$(document).on('shown.bs.modal', '.masseur-modal', function () {
 
     let modal = $(this);
     let index = parseInt(modal.data('index'));
     let total = $('.masseur-modal').length;
-
+ 
     updateNavButtons(modal, index, total);
+
+     let massure_id = $(this).data('massure_id');
+    let page = $(this).data('page');
+   generateLog(massure_id,page);
 });
 
+
+
+$(document).on('click', '.main-gallery-image', function () {
+    let massure_id = $(this).data('massure_id');
+    let page = "massure media";
+   generateLog(massure_id,page);
+
+});
+
+
+function generateLog(massure_id, page)
+{
+    $.ajax({
+        url: "{{ route('web.generate.log') }}",
+        type: "POST",
+        data: {
+            masseur_id: massure_id,
+            page: page,
+            visitorUuid: visitorUuid,
+            _token: "{{ csrf_token() }}"
+        },
+        success: function (response) {
+            // console.log('Log generated successfully:', response);
+        },
+        error: function (xhr) {
+            console.log('Error generating log:', xhr.responseText);
+        }
+    });
+}
 function updateNavButtons(modal, index, total) {
 
     let prevBtn = modal.find('.btn-prev');
@@ -2949,7 +3317,7 @@ function initMap()
                 if (placeStatus === google.maps.places.PlacesServiceStatus.OK && placeResults[0]) 
                 {
                     const place = placeResults[0];
-                    console.log('place',place);
+                    // console.log('place',place);
 
                     placeName = place.name || placeName;
 
@@ -3072,12 +3440,14 @@ function getStars(rating) {
         }
 
 
-        console.log(cid[1] + "-" + Eid);
-        console.log(cidcl);
+        // console.log(cid[1] + "-" + Eid);
+        // console.log(cidcl);
     });
-
-
+    
+ 
 
 window.initMap = initMap;
 </script>
 @endpush
+
+

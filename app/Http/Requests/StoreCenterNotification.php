@@ -76,6 +76,7 @@ class StoreCenterNotification extends FormRequest
             $errors[$field] = $messages[0];
         }
 
+  
         throw new HttpResponseException(
             error_response('Validation failed', 422, $errors)
         );

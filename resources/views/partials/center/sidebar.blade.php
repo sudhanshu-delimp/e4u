@@ -241,7 +241,6 @@
              <img src="{{ asset('assets/dashboard/img/menu-icon/management.png') }}">
              <span>Administration</span>
          </a>
-
          <div id="AdminTab" class="collapse
                 @if (in_array(request()->segment(3), []) ||
                         in_array(request()->segment(2), [
@@ -287,12 +286,12 @@
 
              <div class="collapse-inner">
                  {{-- Analytics --}}
-                 <a class="nav-link collapsed disabled-link" href="#" data-toggle="collapse" data-target="#CenterAnalytics">
+                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#CenterAnalytics">
                      <img src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
                      <span>Analytics</span>
                  </a>
 
-                 {{-- <div id="CenterAnalytics"
+                 <div id="CenterAnalytics"
                     class="collapse
                         @if (in_array(request()->segment(2), ['feedback', 'profiles', 'social-media', 'masseurs'])) show @endif"
                     data-parent="#AdminTab">
@@ -323,7 +322,7 @@
                  </a>
 
              </div>
-         </div> --}}
+         </div>
          {{-- Bookkeeping --}}
          {{-- <a class="nav-link collapsed {{ request()->routeIs('center.bookkeeping') ? 'menu-active' : '' }}"
          href="{{ route('center.bookkeeping') }}">
@@ -406,7 +405,7 @@
                  </a>
 
                  <a class="collapse-item {{ request()->segment(2) == 'legbox-notification' ? 'menu-active' : '' }}"
-                     href="{{ route('legbox-notification') }}">
+                     href="{{ route('centrer.legbox.notification.index') }}">
                      <img src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
                      <span>Legbox Notification</span>
                  </a>

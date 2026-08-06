@@ -29,7 +29,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="pinups-tab" data-toggle="tab" href="#pinups" data-type="pinups" role="tab" aria-controls="pinups" aria-selected="true">
-                                        Pinup
+                                        Pin Up
                                     </a>
                                 </li>
                         </ul>

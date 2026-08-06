@@ -126,7 +126,7 @@
                                             @if ($activePinup) disabled title="" @endif>List Pin
                                             Up</button>
                                         @if ($activePinup)
-                                            <p class="pinup-tooltip">You already have an active pinup. You can book after it
+                                            <p class="pinup-tooltip">You already have an active Pin Up. You can book after it
                                                 expires. </span>
                                         @endif
                                     </div>

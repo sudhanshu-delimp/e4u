@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Log;
 class MassagePurchase extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'massage_purchases';
     protected $fillable = [
         'parent_id',
@@ -38,9 +38,9 @@ class MassagePurchase extends Model
 
     public function activeSuspendProfile()
     {
-        $now = Carbon::now('UTC');    
-        return $this->hasMany(MassageSuspendProfile::class, 'massage_profile_id','massage_profile_id')
-            ->where('utc_start_date', '<=',$now)
+        $now = Carbon::now('UTC');
+        return $this->hasMany(MassageSuspendProfile::class, 'massage_profile_id', 'massage_profile_id')
+            ->where('utc_start_date', '<=', $now)
             ->where('utc_end_date', '>=', $now);
     }
 
@@ -53,18 +53,19 @@ class MassagePurchase extends Model
     {
         return $this->hasOne(MassageProfile::class, 'id', 'massage_profile_id');
     }
-    
-    
-    
+
+
+
     public function brb()
     {
-        return $this->hasMany('App\Models\MassageBrb', 'profile_id','massage_profile_id');
+        return $this->hasMany('App\Models\MassageBrb', 'profile_id', 'massage_profile_id');
     }
 
-    public function activeUpcomingSuspend(){
-        return $this->hasOne(MassageSuspendProfile::class, 'massage_profile_id','massage_profile_id')
-        ->where('utc_end_date', '>=', Carbon::now('UTC'))
-        ->oldestOfMany('utc_start_date');
+    public function activeUpcomingSuspend()
+    {
+        return $this->hasOne(MassageSuspendProfile::class, 'massage_profile_id', 'massage_profile_id')
+            ->where('utc_end_date', '>=', Carbon::now('UTC'))
+            ->oldestOfMany('utc_start_date');
     }
 
 
@@ -73,7 +74,7 @@ class MassagePurchase extends Model
         $formatted_start = Carbon::createFromFormat('d-m-Y', $start)->format('Y-m-d');
         $formatted_end = Carbon::createFromFormat('d-m-Y', $end)->format('Y-m-d');
 
-        return $query->whereIn('status',['listed','pending'])->where('start_date', '<=', $formatted_end)->where('end_date', '>=', $formatted_start);
+        return $query->whereIn('status', ['listed', 'pending'])->where('start_date', '<=', $formatted_end)->where('end_date', '>=', $formatted_start);
     }
 
     /**
@@ -108,6 +109,16 @@ class MassagePurchase extends Model
     {
         return $this->morphMany(PaymentItem::class, 'item');
     }
+
+    public function isListingExtended()
+    {
+        $extendedPurchase = self::where('massage_profile_id', $this->massage_profile_id)
+            ->where('start_date', Carbon::parse($this->end_date)->addDay())
+            ->first();
+
+        return (object) [
+            'count' => !is_null($extendedPurchase),
+            'data'  => $extendedPurchase,
+        ];
+    }
 }
-
-

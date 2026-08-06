@@ -8,6 +8,7 @@ use App\Models\AgentNotification;
 use App\Models\CenterNotification;
 use App\Models\EscortNotification;
 use App\Models\GlobalNotification;
+use App\Models\LegboxNotification;
 use App\Models\ViewerNotification;
 use App\Models\ShareholderNotification;
 
@@ -18,7 +19,7 @@ class ExpireCenterNotification extends Command
      *
      * @var string
      */
-    protected $signature = 'center-notification:expire-check';
+    protected $signature = 'notification:expire-check';
 
     /**
      * The console command description.
@@ -45,6 +46,8 @@ class ExpireCenterNotification extends Command
     public function handle()
     {
         $today = Carbon::today()->toDateString();
+
+        //Create by Admin 
         CenterNotification::where('end_date', '<', $today)
                     ->whereNotNull('end_date')
                     ->where('status', 'Published')
@@ -74,6 +77,13 @@ class ExpireCenterNotification extends Command
             ->update(['status' => 'Completed']);
 
         ShareholderNotification::where('end_date', '<', $today)
+            ->whereNotNull('end_date')
+            ->where('status', 'Published')
+            ->update(['status' => 'Completed']);
+
+        //Legbox Notification for the Viewer, create by Massage Center
+
+        LegboxNotification::where('end_date', '<', $today)
             ->whereNotNull('end_date')
             ->where('status', 'Published')
             ->update(['status' => 'Completed']);
