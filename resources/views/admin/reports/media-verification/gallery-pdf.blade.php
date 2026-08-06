@@ -99,7 +99,7 @@
                 @if($user_type == '3')
                     <tr>
                         <td colspan="5">
-                            <div><h2 style="margin-top: 0px;font-size: 18px;">Pinup Images</h2></div>
+                            <div><h2 style="margin-top: 0px;font-size: 18px;">Pin Up Images</h2></div>
                             <div id="pinupImages">
                                 @foreach($pinupImage as $pinup_image)
                                     {!! $pinup_image !!}

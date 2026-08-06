@@ -26,7 +26,20 @@
     <div class="row">
         @if ($notifications)
         @foreach ($notifications as $notification)
-        <x-global.notification-alert :heading="$notification['heading']" :content="$notification['content'] ?? $notification['template_name']" type="success" />
+        <x-global.notification-alert :heading="$notification['heading']" :content="$notification['content'] ?? $notification['template_name']"  type="success"
+        :member="null"
+         />
+        @endforeach
+        @endif
+        {{-- Legbox Notification create by Massage center --}}
+        @if($getLegBoxNotifications)
+        @foreach ($getLegBoxNotifications as $getLegBoxNotification)
+             <x-global.notification-alert
+                :heading="$getLegBoxNotification['heading']"
+                :content="$getLegBoxNotification['content'] ?? $getLegBoxNotification['template_name']"
+                type="success"
+                :member="$getLegBoxNotification['create_by_member_id'] ??  null"
+            />
         @endforeach
         @endif
         <div class="custom-heading-wrapper col-md-12">
@@ -112,9 +125,9 @@
 </div> --}}
 {{-- end --}}
 {{-- box start --}}
-<!-- <div class="col-lg-4 box-wrapper">
+<div class="col-lg-4 box-wrapper">
     <div class="my-custom-box shadow-sm">
-        <a href="route('user.my-statistics')">
+        <a href="{{route('user.my-statistics')}}">
             <div class="box-icon">
                 <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-statistics.png') }}"
                     alt="Viewer Statistics">
@@ -125,7 +138,7 @@
         </a>
 
     </div>
-</div> -->
+</div>
 {{-- end --}}
 {{-- box start --}}
 <div class="col-lg-4 box-wrapper">

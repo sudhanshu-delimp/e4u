@@ -8,6 +8,7 @@ use App\Models\MassageProfile;
 use App\Models\EscortPinup;
 use App\Models\EscortViewerInteractions;
 use App\Models\SuspendProfile;
+use App\Models\MassageSuspendProfile;
 use App\Repositories\Escort\EscortInterface;
 use App\Repositories\MassageProfile\MassageProfileInterface;
 use App\Repositories\Service\ServiceInterface;
@@ -27,6 +28,7 @@ use App\Repositories\Playmate\PlaymateInterface;
 use App\Traits\DataTablePagination;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Admin\ListingSuspendedMail;
+use Illuminate\Support\Facades\Log;
 
 class GlobalMonitoringController extends Controller
 {
@@ -72,7 +74,6 @@ class GlobalMonitoringController extends Controller
     {
         $uptimeString = $this->getAppUptime();
 
-        // return view('admin.massage-centre-listings', ['type' => 'current', 'uptimeString' => $uptimeString]);
         return view('admin.massage-centre-listings-new', ['type' => 'current', 'uptimeString' => $uptimeString]);
     }
 
@@ -433,13 +434,12 @@ class GlobalMonitoringController extends Controller
             }
             $actionBtn = "";
             $profile_url = ['id' => $row->massageprofile->id, 'ids' => '[]'];
-            if ($row->status == 'listed') {
-                $actionBtn = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
+            $actionBtn .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
                 href="' . route('web.massage-description', $profile_url) . '" target="_blank"> 
                 <i class="fa fa-eye "></i> View</a>';
-            } else {
-                $actionBtn = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-listing" 
-                                    data-toggle="modal" data-target="#view-listing" data-id="' . $row->massageprofile->id . '" href="javascript:void(0)"><i class="fa fa-eye "></i> View Listing </a>';
+            if ($row->status == 'listed') {
+                $actionBtn .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center border-top" href="#" data-toggle="modal" data-target="#SetPinModal" data-purchase-id="' . $row->id . '"><i class="fa fa-ban "></i> Suspend 
+                                    </a>';
             }
 
             /*    $actionButtons = '<div class="dropdown no-arrow ml-3">
@@ -1048,6 +1048,64 @@ class GlobalMonitoringController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => "Escort profile has been suspended successfully.",
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function suspendCenterListedProfile(MassagePurchase $purchase)
+    {
+        try {
+            Log::warning('suspendCenterListedProfile', ['purchase' => $purchase]);
+            $purchase->update(['status' => 'suspend']);
+            $isExtended = $purchase->isListingExtended();
+            $profile = $purchase->massageprofile;
+            $profileTimezone = $profile->time_zone;
+            $utcStart = Carbon::createFromFormat('Y-m-d H:i:s', now(), $profileTimezone)->setTimezone('UTC');
+            $utcEnd = Carbon::createFromFormat('Y-m-d H:i:s', $purchase->utc_end_time, $profileTimezone)->setTimezone('UTC');
+            MassageSuspendProfile::create(
+                [
+                    'massage_profile_id' => $purchase->massage_profile_id,
+                    'user_id' => $purchase->massage_centre_id,
+                    'start_date' => Carbon::parse(now()),
+                    'utc_start_date' => $utcStart,
+                    'end_date' => Carbon::parse($purchase->end_date),
+                    'utc_end_date' => $utcEnd,
+                    'credit' => 0,
+                    'note' => "Suspended by Admin",
+                ]
+            );
+            if ($isExtended && $isExtended->count) {
+                Log::warning('suspendCenterListedProfile', ['isExtended' => $isExtended]);
+                $otherPurchase = $isExtended->data;
+                $otherPurchase->update(['status' => 'suspend']);
+                $utcStart = Carbon::createFromFormat('Y-m-d H:i:s', $otherPurchase->utc_start_time, $profileTimezone)->setTimezone('UTC');
+                $utcEnd = Carbon::createFromFormat('Y-m-d H:i:s', $otherPurchase->utc_end_time, $profileTimezone)->setTimezone('UTC');
+                SuspendProfile::create(
+                    [
+                        'massage_profile_id' => $otherPurchase->massage_profile_id,
+                        'user_id' => $otherPurchase->massage_centre_id,
+                        'start_date' => Carbon::parse($otherPurchase->start_date),
+                        'utc_start_date' => $utcStart,
+                        'end_date' => Carbon::parse($otherPurchase->end_date),
+                        'utc_end_date' => $utcEnd,
+                        'credit' => 0,
+                        'note' => "Suspended by Admin",
+                    ]
+                );
+            }
+            $profile->update([
+                'purchase_id' => null
+            ]);
+            Log::warning('suspendCenterListedProfile', ['profile' => $profile]);
+            Mail::to($purchase->user->email)->send(new ListingSuspendedMail(compact('purchase')));
+            return response()->json([
+                'success' => true,
+                'message' => "Massage Center profile has been suspended successfully.",
             ], 200);
         } catch (Exception $e) {
             return response()->json([

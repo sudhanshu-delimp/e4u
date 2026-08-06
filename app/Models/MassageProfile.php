@@ -93,9 +93,9 @@ class MassageProfile extends Model
         return formatMobileNumber($value);
     }
 
-     public function getBusinessNoAttribute($value)
+    public function getBusinessNoAttribute($value)
     {
-      return formatMobileNumber($value);
+        return formatMobileNumber($value);
     }
 
     public function state()
@@ -343,11 +343,10 @@ class MassageProfile extends Model
             }
 
             $image = $this->gallary()
-                        ->wherePivot('position', (int)$val)
-                        ->first();
+                ->wherePivot('position', (int)$val)
+                ->first();
 
             return $image ? $image : [];
-
         } catch (\Exception $e) {
             // Log error for debugging
             \Log::error('Error in get_image_position_detail: ' . $e->getMessage());
@@ -452,7 +451,7 @@ class MassageProfile extends Model
     public function reviews()
     {
         return $this->hasMany(Reviews::class, 'advertiser_id')
-                    ->where('advertiser_type', 'massage');
+            ->where('advertiser_type', 'massage');
     }
 
     public function getUserLikeDislike($massage_id, $ip, $userId)
@@ -475,21 +474,22 @@ class MassageProfile extends Model
         return $result;
     }
 
-    function getClientIP() {
+    function getClientIP()
+    {
         $ipaddress = '';
         if (isset($_SERVER['HTTP_CLIENT_IP'])) {
             $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-        } elseif(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ipaddress = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0]; 
-        } elseif(isset($_SERVER['HTTP_X_FORWARDED'])) {
+        } elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ipaddress = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0];
+        } elseif (isset($_SERVER['HTTP_X_FORWARDED'])) {
             $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
-        } elseif(isset($_SERVER['HTTP_X_CLUSTER_CLIENT_IP'])) {
+        } elseif (isset($_SERVER['HTTP_X_CLUSTER_CLIENT_IP'])) {
             $ipaddress = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
-        } elseif(isset($_SERVER['HTTP_FORWARDED_FOR'])) {
+        } elseif (isset($_SERVER['HTTP_FORWARDED_FOR'])) {
             $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
-        } elseif(isset($_SERVER['HTTP_FORWARDED'])) {
+        } elseif (isset($_SERVER['HTTP_FORWARDED'])) {
             $ipaddress = $_SERVER['HTTP_FORWARDED'];
-        } elseif(isset($_SERVER['REMOTE_ADDR'])) {
+        } elseif (isset($_SERVER['REMOTE_ADDR'])) {
             $ipaddress = $_SERVER['REMOTE_ADDR'];
         } else {
             $ipaddress = 'UNKNOWN';
@@ -513,25 +513,24 @@ class MassageProfile extends Model
     }
 
 
-     public function suspendProfile()
+    public function suspendProfile()
     {
         return $this->hasMany(MassageSuspendProfile::class, 'massage_profile_id');
     }
 
     public function purchase()
     {
-        return $this->hasMany(MassagePurchase::class, 'massage_profile_id','id');
+        return $this->hasMany(MassagePurchase::class, 'massage_profile_id', 'id');
     }
 
     public function latestPurchase()
     {
         return $this->hasOne(MassagePurchase::class, 'massage_profile_id', 'id')
-        ->where('status', 'listed')
-        ->latest('id');
-        
+            ->where('status', 'listed')
+            ->latest('id');
     }
 
-   
+
 
     public function latestExtend()
     {
@@ -556,19 +555,19 @@ class MassageProfile extends Model
     {
         $now = now('UTC');
         return $this->hasOne(MassageSuspendProfile::class, 'massage_profile_id', 'id')
-        ->where(function ($query) use ($now) {
+            ->where(function ($query) use ($now) {
                 $query->where(function ($q) use ($now) {
                     $q->where('utc_start_date', '<=', $now)
-                    ->where('utc_end_date', '>=', $now);
+                        ->where('utc_end_date', '>=', $now);
                 })
-                ->orWhere('utc_start_date', '>', $now);
+                    ->orWhere('utc_start_date', '>', $now);
             })
             ->orderBy('utc_start_date', 'asc');
     }
 
     // public function isListingExtended(){
 
-             
+
     //     $purchases = $this->purchase()
     //     ->where('utc_end_time', '>=', Carbon::now('UTC'))
     //     ->where('parent_id',0)
@@ -592,11 +591,11 @@ class MassageProfile extends Model
             return false;
         }
 
-         $purchases = $this->purchase()
-        ->where('id', '>', $latestListed->id)
-        ->where('status', 'pending')
-        ->orderBy('id', 'asc')
-        ->first();
+        $purchases = $this->purchase()
+            ->where('id', '>', $latestListed->id)
+            ->where('status', 'pending')
+            ->orderBy('id', 'asc')
+            ->first();
 
         return (object) [
             'count' => ($purchases) ? true : false,
@@ -611,4 +610,13 @@ class MassageProfile extends Model
             ->active();
     }
 
+    public function getTimeZoneAttribute()
+    {
+        $user = $this->user;
+        $timezone = config('app.escort_server_timezone');
+        if ($user && $user->state_id) {
+            $timezone = config('escorts.profile.states')[$user->state_id]['timeZone'];
+        }
+        return $timezone;
+    }
 }

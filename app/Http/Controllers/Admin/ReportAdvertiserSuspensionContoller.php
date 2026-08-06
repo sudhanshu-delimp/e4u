@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\SuspendProfile;
+use App\Models\MassageSuspendProfile;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DataTables;
@@ -42,33 +43,41 @@ class ReportAdvertiserSuspensionContoller extends Controller
         return view('admin.reports.advertiser-suspensions');
     }
 
-    public function advertiserSuspensionDataTableListingAjax()
+    public function advertiserSuspensionDataTableListingAjax($advertiserType)
     {
 
         $search = request()->get('search')['value'];
         $today = Carbon::now();
-        $escorts = SuspendProfile::where('status', 1)
-            ->whereRaw('? BETWEEN utc_start_date AND utc_end_date', [$today])
-            // ->whereIn('id', function ($query) {
-            //     $query->selectRaw('MIN(id)')
-            //         ->from('suspend_profiles')
-            //         ->where('status', 1)
-            //         ->groupBy('escort_profile_id');
-            // })
-            ->with(['escort', 'user', 'escort.city'])
-            ->get();
+        switch ($advertiserType) {
+            case 'escort': {
+                    $advertisers = SuspendProfile::where('status', 1)
+                        ->whereRaw('? BETWEEN utc_start_date AND utc_end_date', [$today])
+                        // ->with(['escort', 'user', 'escort.city'])
+                        ->get();
+                }
+                break;
+            case 'massage': {
+                    $advertisers = MassageSuspendProfile::where('status', 1)
+                        ->whereRaw('? BETWEEN utc_start_date AND utc_end_date', [$today])
+                        //->with(['escort', 'user', 'escort.city'])
+                        ->get();
+                }
+                break;
+            default:
+                # code...
+                break;
+        }
+
 
         if ($search) {
-            $escorts = $escorts->filter(function ($item) use ($search) {
-                // Match user->member_id (check if user relation exists)
+            $advertisers = $advertisers->filter(function ($item) use ($search) {
                 $matchesMemberId = $item->user && stripos($item->user->member_id, $search) !== false;
-
                 return $matchesMemberId;
             })->values(); // reset the keys
         }
 
-        return DataTables::of($escorts)
-            ->addColumn('escort_id', fn($row) => $row->escort->id)
+        return DataTables::of($advertisers)
+            ->addColumn('advertiser_id', fn($row) => $row->advertiser->id)
             ->addColumn('member_id', fn($row) => $row->user->member_id)
             ->addColumn('start_date', fn($row) =>  date('d-m-Y', strtotime($row->start_date)))
             ->addColumn('end_date', fn($row) => date('d-m-Y', strtotime($row->end_date)))
@@ -78,11 +87,13 @@ class ReportAdvertiserSuspensionContoller extends Controller
                 return $startDate->diffInDays($endDate) + 1; // inclusive of first day
             })
             ->addColumn('location', function ($row) {
-                $state = isset($row->escort->city->country_code) ? $row->escort->city->country_code : '-';
-                return $state;
+                // $state = isset($row->escort->city->country_code) ? $row->escort->city->country_code : '-';
+                // return $state;
+                return 'NA';
             })
 
             ->addColumn('action', function ($row) {
+                $redirectUrl =  ($row->user->type == '4') ? route('preview.massage', ['id' => $row->advertiser->id, 'ids' => '[]']) : route('preview.escort', $row->advertiser->id);
                 $actionBtn = '
                         <div class="dropdown no-arrow">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -91,7 +102,7 @@ class ReportAdvertiserSuspensionContoller extends Controller
                             <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
                                 
                                 
-                                <a class="viewEscortSuspendedProfile dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-escort-id=' . $row->escort_profile_id . ' data-toggle="modal" data-target="#view-profile" > <i class="fa fa-eye"></i> View</a>
+                                <a class="viewEscortSuspendedProfile dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . $redirectUrl . '" target="_blank"> <i class="fa fa-eye"></i> View</a>
                                 
                             </div>
                             </div>

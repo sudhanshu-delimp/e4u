@@ -207,9 +207,9 @@ Route::middleware('auth')->group(function () {
 
         // Route::get('/logs-and-statistics',function(){ return view('user.dashboard.logs-and-statistics');})->name('user.logs-and-statistics');
 
-        // Route::get('/my-statistics', function () {
-        //     return view('user.dashboard.my-statistics');
-        // })->name('user.my-statistics');
+        Route::get('/my-statistics', function () {
+            return view('user.dashboard.my-statistics');
+        })->name('user.my-statistics');
 
         // Route::get('/task-list',function(){
         //     return view('user.dashboard.task-list');
@@ -563,16 +563,6 @@ Route::get('/agent-dashboard/abbreviations', function () {
 })->name('agent.abbreviations');
 
 
-
-
-
-
-
-Route::get('/escort-dashboard/escorts-statistics', function () {
-    return view('escort.dashboard.escorts-statistics');
-})->name('escort.dashboard.escorts-statistics');
-
-
 Route::get('/escort-dashboard/my-playbox', function () {
     return view('escort.dashboard.my-playbox');
 })->name('escort.dashboard.my-playbox');
@@ -841,6 +831,7 @@ Route::post('/validate/otp/notification/{user}', [WebController::class, 'validat
 
 
 Route::get('/testscript', function () {
+
     $num = removeSpaceFromString('456464 645644 4444');
     echo  $num;
 });
@@ -854,6 +845,7 @@ Route::get('get_country_by_user_id/{user_id}', [App\Http\Controllers\CountryCont
 Route::get('massage-centres-list', [MassageCentre::class, 'massageList'])->name('find.massage.centre');
 Route::get('mc-ajax-list', [MassageCentre::class, 'mcAjaxList'])->name('mc-ajax-list');
 Route::get('massage-description/{id}', [MassageCentre::class, 'massage_description'])->name('web.massage-description');
+Route::post('generate/log', [MassageCentre::class, 'generateLog'])->name('web.generate.log');
 Route::post('/store-short-list', [MassageCentre::class, 'storeShortList'])->name('web.store-short-list');
 Route::post('/remove-short-list', [MassageCentre::class, 'removeShortList'])->name('web.remove-short-list');
 Route::post('/review-massage/{id}', [MassageCentre::class, 'SaveReviewMassage'])->name('web.review-massage');
@@ -1109,3 +1101,6 @@ Route::get('check-time', function () {
     print_r($massures);
     echo '</pre>';
 });
+
+Route::get('preview/massage/{id}', [MassageCentre::class, 'massage_description'])->name('preview.massage');
+Route::get('preview/escort/{id}', [WebController::class, 'profileDescription'])->name('preview.escort');

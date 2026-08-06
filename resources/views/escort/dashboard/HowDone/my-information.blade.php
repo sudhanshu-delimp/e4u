@@ -31,7 +31,7 @@
                                     </li>
                                 </div>
                                 <div class="doc-img">
-                                    <img src="{{ asset('assets/dashboard/img/how-is-done/my-info.png') }}" alt=""
+                                    <img src="{{ asset('assets/dashboard/img/how-is-done/my-information.png') }}" alt=""
                                         class="w-100">
                                 </div>
                             </div>
@@ -199,7 +199,7 @@
                                 </div>
 
                                
-                                        <h5><b>Stage Names</b></h5>
+                                        <h5 class="sec-head">Stage Names</h5>
                                 <div class="row">
                                     <div class="col-lg-7">
                                         
@@ -228,7 +228,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h5><b>Street Address</b></h5>
+                                <h5 class="sec-head">Street Address</h5>
                                 <div class="row">
                                     <div class="col-lg-7">
 
@@ -268,7 +268,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                 <h5><b>Who Am I (Tittle)</b></h5>
+                                 <h5 class="sec-head">Who Am I (Tittle)</h5>
                                 <div class="row">
                                     <div class="col-lg-7">
                                        
@@ -301,7 +301,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                  <h5><b>Who Am I (Narration)</b></h5>
+                                  <h5 class="sec-head">Who Am I (Narration)</h5>
                                 <div class="row">
                                     <div class="col-lg-7">
                                       

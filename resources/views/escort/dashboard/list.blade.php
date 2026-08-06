@@ -127,7 +127,7 @@
                                     @if ($activePinup) disabled title="" @endif>List Pin
                                     Up
                                     @if ($activePinup)
-                                    <span class="esc-tooltip-2">You already have an active <br> pinup. You can book <br> after it
+                                    <span class="esc-tooltip-2">You already have an active <br> Pin Up. You can book <br> after it
                                         expires.</span>
                                     @endif
                                 </button>
@@ -981,16 +981,17 @@
     });
 
     $('#duplicate-profile-modal').on('shown.bs.modal', function(e) {
-        var source = e.relatedTarget;
+        var source = $(e.relatedTarget);
+        let modelElement = $(this);
         let selected_profile_id = $(source).data('id');
-        let selected_profile_state = $(source).data('state');
         $('#duplicate-profile-modal input[name=escort_id]').val(selected_profile_id);
         $("#stageNameInp").attr('type', 'hidden');
         $("#stageNameInp").attr('name', '');
         $(".update_stage_name").addClass('d-none');
         $("#stageName").removeClass('d-none');
-        // $(`#profile_state_id option`).show(); 
-        // $(`#profile_state_id option[value="${selected_profile_state}"]`).hide(); 
+        modelElement.find('input[name="address"]').val(source.data('address'));
+        modelElement.find('select[name="name"]').val(source.data('name'));
+        modelElement.find('select[name="state_id"]').val(source.data('state'));
     });
 
     $('#play-mates-modal').on('shown.bs.modal', function(e) {

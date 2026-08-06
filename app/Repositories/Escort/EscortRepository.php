@@ -194,7 +194,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             </span>" : "<span class='check_circle_icon'><i class='far fa-times-circle'></i></span>";
             $item->action = '<div class="dropdown no-arrow text-center"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">';
             if ($listingStatus == 'Inactive') {
-                $item->action .= '<a class="dropdown-item dropdown-item d-flex align-items-center justify-content-start gap-10" data-toggle="modal" data-target="#duplicate-profile-modal" href="#" data-id="' . $item->id . '" data-state="' . $item->state_id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Duplicate</a><div class="dropdown-divider"></div>';
+                $item->action .= '<a class="dropdown-item dropdown-item d-flex align-items-center justify-content-start gap-10" data-toggle="modal" data-target="#duplicate-profile-modal" href="#" data-id="' . $item->id . '" data-state="' . $item->state_id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '" data-address="' . ($item->address) . '"><i class="fa fa-pen"></i>Duplicate</a><div class="dropdown-divider"></div>';
             }
 
             $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 delete-center" href="' . route('escort.delete.profile', $item->id) . '" data-id="' . $item->id . '"><i class="fa fa-trash"></i>Delete</a><div class="dropdown-divider"></div>';
@@ -232,7 +232,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             /*PinUp */
             if ($item->latestActivePinup) {
                 $item->pro_name .= '<sup class="pinup_icon listing-tag-tooltip ml-1">Pin Up
-                <small class="listing-tag-tooltip-desc">Pinup from ' . date("d-m-Y", strtotime($item->latestActivePinup->start_date)) . " to " . date("d-m-Y", strtotime($item->latestActivePinup->end_date)) . '</small>
+                <small class="listing-tag-tooltip-desc">Pin Up from ' . date("d-m-Y", strtotime($item->latestActivePinup->start_date)) . " to " . date("d-m-Y", strtotime($item->latestActivePinup->end_date)) . '</small>
                 </sup>';
             }
             /*Upgrade */

@@ -337,10 +337,10 @@
                                                 window.location.href =
                                                     "{{ route('find.massage.centre') }}";
                                             } else if (path ==
-                                                '/all-escorts-list') {
+                                                '/all-escorts-listing') {
 
                                                 window.location.href =
-                                                    "{{ route('find.all') }}";
+                                                    "{{ route('public.web.escort.listing') }}";
                                             } else if (path ==
                                                 'center-profile') {
                                                 var my_url =
@@ -359,7 +359,7 @@
                                                     my_url;
                                             } else {
                                                 window.location.href =
-                                                    "{{ route('find.all') }}";
+                                                    "{{ route('public.web.escort.listing') }}";
                                             }
 
                                         }
@@ -603,7 +603,7 @@
                         $('#sendOtpSubmit').html('Verify');
                     } else {
                         if (data.type == 0) {
-                            window.location.href = "{{ route('find.all') }}";
+                            window.location.href = "{{ route('public.web.escort.listing') }}";
                         }
                     }
                 },

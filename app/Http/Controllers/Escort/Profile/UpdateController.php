@@ -1628,6 +1628,17 @@ class UpdateController extends AppController
                         $users->save();
                     }
                 }
+
+                if (!empty($request->address)) {
+                    EscortAdditionalInformation::firstOrCreate(
+                        [
+                            'user_id' => $user->id,
+                            'type'    => 'address',
+                            'value'   => $request->address,
+                            'short_desc' => implode(' ', array_slice(explode(' ', $request->address), 0, 5)) ?? null
+                        ]
+                    );
+                }
                 /**
                  * Copy Escort Profile Images..
                  */

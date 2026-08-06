@@ -920,7 +920,7 @@
                                                         <td><b>Platinum</b></td>
                                                         <td><b>Gold</b></td>
                                                         <td><b>Silver</b></td>
-                                                        <td><b>PinUp</b></td>
+                                                        <td><b>Pin Up</b></td>
                                                         <td><b>Fixed</b></td>
                                                         <td><b>Total Spend</b></td>
                                                         <td><b>Fees</b></td>
@@ -1113,7 +1113,7 @@
                                                     <td><b>Platinum</b></td>
                                                     <td><b>Gold</b></td>
                                                     <td><b>Silver</b></td>
-                                                    <td><b>PinUp</b></td>
+                                                    <td><b>Pin Up</b></td>
                                                 </tr>
                                                 <tr>
                                                     <td><b>2022 / 2023</b></td>
@@ -1213,7 +1213,7 @@
                                                     <td><b>Platinum</b></td>
                                                     <td><b>Gold</b></td>
                                                     <td><b>Silver</b></td>
-                                                    <td><b>PinUp</b></td>
+                                                    <td><b>Pin Up</b></td>
                                                 </tr>
                                                 <tr>
                                                     <td><b>WA</b></td>
@@ -1327,7 +1327,7 @@
                                                     <td><b>Platinum</b></td>
                                                     <td><b>Gold</b></td>
                                                     <td><b>Silver</b></td>
-                                                    <td><b>PinUp</b></td>
+                                                    <td><b>Pin Up</b></td>
                                                 </tr>
                                                 <tr>
                                                     <td><b>WA</b></td>

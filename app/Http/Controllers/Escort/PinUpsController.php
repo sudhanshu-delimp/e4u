@@ -291,13 +291,13 @@ class PinUpsController extends AppController
             Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], compact('mainAccount', 'payment', 'escortPinup'), $mailConfig['subject']));
             return response()->json([
                 'success' => true,
-                'message' => 'Pinup slot booked successfully!'
+                'message' => 'Pin Up slot booked successfully!'
             ]);
         } catch (Exception $e) {
 
             return response()->json([
                 'success' => false,
-                'message' => 'Something went wrong while booking the Pinup.',
+                'message' => 'Something went wrong while booking the Pin Up.',
                 'error' => $e->getMessage(),
             ], 500);
         }

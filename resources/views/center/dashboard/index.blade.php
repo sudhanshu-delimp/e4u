@@ -18,7 +18,9 @@
     <!-- Page Heading -->
     <div class="row">
         @if($notification)
-        <x-global.notification-alert :heading="$notification['heading']" :content="$notification['content'] ?? $notification['template_name']" type="success" />
+        <x-global.notification-alert :heading="$notification['heading']" :content="$notification['content'] ?? $notification['template_name']" type="success"
+        :member="null"
+         />
         @endif
 
         <div class="col-lg-12">
@@ -207,7 +209,7 @@
                         <img src="{{ asset('assets/dashboard/img/boxicon/wallet.png') }}" alt="My Wallet">
                     </div>
                     <h2>
-                        My Wallet
+                        Our Wallet
                     </h2>
                 </a>
 

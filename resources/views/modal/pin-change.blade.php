@@ -211,7 +211,6 @@
             },
             success: function(data) {
                 if (data.error == false) {
-                    existingPin = payload_data;
                     $("#SetPinModal").modal('hide');
                     $("#modal-title").text("Pin Update Confirmation");
                     let textMsg = `<h5 class="text-center">

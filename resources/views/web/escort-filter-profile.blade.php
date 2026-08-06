@@ -223,6 +223,7 @@
 
 
         {{-- OR use fully custom pagination --}}
+        @include('web.partials.pagination-skelton')
         <div id='custom_pagenation'></div>
 
         </div>
@@ -454,6 +455,9 @@
         }
         // Run on page load (default selected radio)
         (async function() {
+
+            setProfileView(escortRequest.view_type);
+
             await updateLocationFields();
             // Save location in background
             updateLocation();
@@ -477,6 +481,7 @@
             setProfileView('grid');
             escortRequest.view_type = 'grid';
             loadEscort();
+            
         });
         // when click on list button
         $(document).on('click', '#grid-list', function() {
@@ -531,9 +536,11 @@
             await loadEscort();
         });
 
-        function toggleSkeleton(grid = false, list = false) {
+        function toggleSkeleton(grid = false, list = false, pagination = true, cusPagi = false) {
             $('#grid-skeleton').toggle(grid);
-            $('#list-skeleton').toggle(list);
+            $('#list-skeleton').toggle(list); 
+            $('#skl-pagination').toggle(pagination);
+            $('.custom-pagination').toggle(cusPagi);
         }
 
         //Load Card data with loadEscort function
@@ -598,10 +605,10 @@
 
                 beforeSend: function() {
                     if(reequestParam.view_type == 'grid'){
-                        toggleSkeleton(grid = true, list = false);
+                        toggleSkeleton(grid = true, list = false, pagination = true, cusPagi = false);
                        
                     }else{
-                        toggleSkeleton(grid = false, list = true);
+                        toggleSkeleton(grid = false, list = true, pagination = true, cusPagi = false);
                     }
 
                     if (showLoader) {
@@ -651,7 +658,7 @@
                     }
                 },
                 complete: function() {
-                    toggleSkeleton(grid = false, list = false);
+                    toggleSkeleton(grid = false, list = false, pagination = false, cusPagi = true);
                     $('#appendGridView').show();
                     $('#appendListView').show();
                     

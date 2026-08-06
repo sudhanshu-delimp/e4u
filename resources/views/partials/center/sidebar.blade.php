@@ -241,7 +241,6 @@
              <img src="{{ asset('assets/dashboard/img/menu-icon/management.png') }}">
              <span>Administration</span>
          </a>
-
          <div id="AdminTab" class="collapse
                 @if (in_array(request()->segment(3), []) ||
                         in_array(request()->segment(2), [
@@ -249,7 +248,7 @@
                             'social-media',
                             'feedback',
                             'bookkeeping',
-                            'my-wallet',
+                            'our-wallet',
                             'transaction-summary',
                             'agent-request',
                             'agent-messages',
@@ -287,12 +286,12 @@
 
              <div class="collapse-inner">
                  {{-- Analytics --}}
-                 <a class="nav-link collapsed disabled-link" href="#" data-toggle="collapse" data-target="#CenterAnalytics">
+                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#CenterAnalytics">
                      <img src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
                      <span>Analytics</span>
                  </a>
 
-                 {{-- <div id="CenterAnalytics"
+                 <div id="CenterAnalytics"
                     class="collapse
                         @if (in_array(request()->segment(2), ['feedback', 'profiles', 'social-media', 'masseurs'])) show @endif"
                     data-parent="#AdminTab">
@@ -323,7 +322,7 @@
                  </a>
 
              </div>
-         </div> --}}
+         </div>
          {{-- Bookkeeping --}}
          {{-- <a class="nav-link collapsed {{ request()->routeIs('center.bookkeeping') ? 'menu-active' : '' }}"
          href="{{ route('center.bookkeeping') }}">
@@ -341,7 +340,7 @@
 
          <div id="ManagementBookkeeping"
              class="collapse
-                    @if (in_array(request()->segment(2), ['bookkeeping','order-history','my-wallet','transaction-summary'])) show @endif"
+                    @if (in_array(request()->segment(2), ['bookkeeping','order-history','our-wallet','transaction-summary'])) show @endif"
              data-parent="#AdminTab">
 
              <a class="collapse-item {{ request()->routeIs('center.bookkeeping') ? 'menu-active' : '' }}"
@@ -350,10 +349,10 @@
                  <span>Bank Account</span>
              </a>
 
-             <a class="collapse-item {{ request()->segment(2) == 'my-wallet' ? 'menu-active' : '' }}"
+             <a class="collapse-item {{ request()->segment(2) == 'our-wallet' ? 'menu-active' : '' }}"
                  href="{{ route('center.my_wallet') }}">
                  <img src="{{ asset('assets/dashboard/img/menu-icon/credit-card-plus.png') }}">
-                 <span>My Wallet</span>
+                 <span>Our Wallet</span>
              </a>
              <a class="collapse-item {{ request()->segment(2) == 'order-history' ? 'menu-active' : '' }}"
                  href="{{ route('center.bookkeeping.product.orders') }}">
@@ -406,7 +405,7 @@
                  </a>
 
                  <a class="collapse-item {{ request()->segment(2) == 'legbox-notification' ? 'menu-active' : '' }}"
-                     href="{{ route('legbox-notification') }}">
+                     href="{{ route('centrer.legbox.notification.index') }}">
                      <img src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
                      <span>Legbox Notification</span>
                  </a>

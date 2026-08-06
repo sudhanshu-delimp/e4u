@@ -436,7 +436,7 @@
                                             <option value="">— Choose a Street Address —</option>
                                             @foreach ($savedAddresses as $addr)
                                                 <option value="{{ $addr->value }}"
-                                                    {{ $currentAddress == $addr->short_desc ? 'selected' : '' }}>
+                                                    {{ $currentAddress == $addr->value ? 'selected' : '' }}>
                                                     {{ $addr->value }}
                                                 </option>
                                             @endforeach
