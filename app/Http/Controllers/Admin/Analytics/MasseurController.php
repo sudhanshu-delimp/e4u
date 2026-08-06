@@ -91,7 +91,7 @@ class MasseurController extends Controller
       ->addColumn('media_year_to_date', function ($row) use ($getVisitorCount, $startOfYear) {
         return $getVisitorCount($row->id, 'massure media', $startOfYear);
       })
-    ->rawColumns(['masseur'])
+    ->rawColumns(['masseur','status'])
 
       ->make(true);
   }
