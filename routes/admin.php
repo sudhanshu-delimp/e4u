@@ -48,6 +48,7 @@ use App\Http\Controllers\Viewer\PunterBoxController;
 use App\Http\Controllers\Admin\ImpersonateController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Escort\Concierge\ProductController;
+use App\Http\Controllers\Admin\AgentMonthlyReportController;
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
@@ -471,9 +472,6 @@ Route::post('/approve-agent-account', [AgentController::class, 'approve_agent_ac
 Route::post('/active-agent-account', [AgentController::class, 'activate_user'])->name('admin.active-agent-account');
 
 Route::get('agent_list_data_table', [AgentController::class, 'agent_data_list'])->name('admin.agent_list_data_table');
-
-Route::get('management/agents-monthly-report', [AgentController::class, 'agent_monthly_report'])->name('admin.agents-monthly-report');
-
 
 //Centres Notification system for admin
 
@@ -946,3 +944,15 @@ Route::get('/management/punterbox-reports', function () {
 
 Route::get('/switch-login/{id}', [ImpersonateController::class, 'switchLogin'])->name('admin.switch-to-child');
 Route::get('back-to-parent', [ImpersonateController::class, 'backToParent'])->name('admin.back-to-parent');
+
+//Agent Monthly repors
+Route::get('management/fees/monthly-report', [AgentMonthlyReportController::class, 'monthlyReport'])->name('admin.agents-monthly-report');
+
+Route::get('management/fees/monthly-report-list', [AgentMonthlyReportController::class, 'monthlyReportAjax'])->name('admin.fees.monthly-report-ajax');
+Route::post('management/fees/view-monthly-report', [AgentMonthlyReportController::class, 'viewMonthlyReport'])->name('admin.fees.view.detail');
+Route::post('management/fees/update-monthly-report', [AgentMonthlyReportController::class, 'updateMonthlyReportStatus'])->name('admin.fees.update.status.detail');
+Route::post('management/fees/print-monthly-report', [AgentMonthlyReportController::class, 'printMonthlyFee'])->name('admin.print.monthly.fee');
+Route::post('management/fees/query', [AgentMonthlyReportController::class, 'viewQuery'])->name('admin.fees.view.query');
+Route::post('management/fees/pay-detail', [AgentMonthlyReportController::class, 'viewPayAgentreport'])->name('admin.fees.view.pay-detail');
+Route::post('management/fees/print-pay-detail', [AgentMonthlyReportController::class, 'printPayAgentreport'])->name('admin.fees.print.pay-detail');
+
