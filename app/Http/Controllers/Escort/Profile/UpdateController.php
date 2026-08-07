@@ -457,6 +457,10 @@ class UpdateController extends AppController
         $errors = '';
         if ($escort = $this->escort->store($input, $id)) {
             $id = $escort->id;
+
+            // create or update slug
+            (new \App\Services\SlugService)->createUpdateSlug($escort);
+
             //$error = 1;
 
             // $user = $this->user->find(auth()->user()->id);

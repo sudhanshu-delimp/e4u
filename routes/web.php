@@ -387,7 +387,10 @@ Route::get('admin-dashboard/e4u-database/escorts', function () {
 
 
 /********** escort profile description **********/
-Route::get('/escort-profile/{id}/{city?}/{membershipId?}', [App\Http\Controllers\WebController::class, 'profileDescription'])->name('profile.description');
+Route::get('/escort-profile/{id}/{city?}/{membershipId?}', [App\Http\Controllers\WebController::class, 'profileDescription'])->where('id', '[0-9]+')->name('profile.description');
+
+Route::get('/escort-profile/{profile}', [App\Http\Controllers\WebController::class, 'profileDescriptionBySlut'])->name('escort.profile.detail');
+
 Route::get('/center-profile/{id}', [App\Http\Controllers\WebController::class, 'centerProfileDescription'])->name('center.profile.description');
 Route::post('/store-message/{id}', [App\Http\Controllers\Escort\MessageReviewController::class, 'saveMessage'])->name('store.message');
 Route::post('/review-advertiser/{id}', [App\Http\Controllers\Escort\MessageReviewController::class, 'SaveReviewAdvertiser'])->name('review.advertiser');
