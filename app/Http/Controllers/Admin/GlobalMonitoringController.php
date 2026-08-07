@@ -980,7 +980,7 @@ class GlobalMonitoringController extends Controller
     public function suspendListedProfile(Purchase $purchase)
     {
         try {
-            $purchase->update(['status' => 'suspend']);
+
             $isExtended = $purchase->isListingExtended();
             $escort = $purchase->escort;
             $user = $escort->user;
@@ -988,38 +988,13 @@ class GlobalMonitoringController extends Controller
 
                 $escortTimezone = $escort->time_zone;
 
-                $utcStart = Carbon::createFromFormat('Y-m-d H:i:s', now(), $escortTimezone)->setTimezone('UTC');
-                $utcEnd = Carbon::createFromFormat('Y-m-d H:i:s', $purchase->utc_end_time, $escortTimezone)->setTimezone('UTC');
-                SuspendProfile::create(
-                    [
-                        'escort_profile_id' => $purchase->escort_id,
-                        'user_id' => $user->id,
-                        'start_date' => Carbon::parse(now()),
-                        'utc_start_date' => $utcStart,
-                        'end_date' => Carbon::parse($purchase->end_date),
-                        'utc_end_date' => $utcEnd,
-                        'credit' => 0,
-                        'note' => "Suspended by Admin",
-                    ]
-                );
+                $suspendedAt = Carbon::createFromFormat('Y-m-d H:i:s', now(), $escortTimezone)->setTimezone('UTC');
+                $purchase->update(['status' => 'suspend', 'suspended_at' => $suspendedAt]);
+
 
                 if ($isExtended && $isExtended->count) {
                     $otherPurchase = $isExtended->data;
-                    $otherPurchase->update(['status' => 'suspend']);
-                    $utcStart = Carbon::createFromFormat('Y-m-d H:i:s', $otherPurchase->utc_start_time, $escortTimezone)->setTimezone('UTC');
-                    $utcEnd = Carbon::createFromFormat('Y-m-d H:i:s', $otherPurchase->utc_end_time, $escortTimezone)->setTimezone('UTC');
-                    SuspendProfile::create(
-                        [
-                            'escort_profile_id' => $otherPurchase->escort_id,
-                            'user_id' => $user->id,
-                            'start_date' => Carbon::parse($otherPurchase->start_date),
-                            'utc_start_date' => $utcStart,
-                            'end_date' => Carbon::parse($otherPurchase->end_date),
-                            'utc_end_date' => $utcEnd,
-                            'credit' => 0,
-                            'note' => "Suspended by Admin",
-                        ]
-                    );
+                    $otherPurchase->update(['status' => 'suspend', 'suspended_at' => $suspendedAt]);
                 }
 
                 foreach ($escort->playmates as $playmate) {

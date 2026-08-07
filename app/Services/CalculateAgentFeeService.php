@@ -19,12 +19,15 @@ class CalculateAgentFeeService
     public function calculateFee($reportId = 0)
     {
         $result = collect();
+        $agentMemberId = "";
+        $billingEndDate = "";
         try {
             $report = AgentMonthlyReport::where('id', $reportId)->first();
             if ($report) {
 
                 $billingStartDate = $report->billing_period_from;
                 $billingEndDate = $report->billing_period_to;
+                $agentMemberId = $report->agent?->member_id ?? '';
 
                 $billingStartDate = Carbon::parse($billingStartDate)->format('Y-m-d');
                 $billingEndDate = Carbon::parse($billingEndDate)->format('Y-m-d');
@@ -150,6 +153,7 @@ class CalculateAgentFeeService
                 $result->put($userType, $rows);
             }
             $result['report_end_date'] = Carbon::parse($billingEndDate)->format('d-m-Y');
+            $result['agent_member_id'] = $agentMemberId;
         }
 
         return $result;

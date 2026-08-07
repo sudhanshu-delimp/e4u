@@ -1,9 +1,23 @@
 @extends('layouts.center')
 @section('style')
- <style>#masseursStatisticsTable tbody tr td,
- #masseursStatisticsTable thead tr th{
-  text-align: center;
- }</style>
+    <style>
+        #masseursStatisticsTable tbody tr td,
+        #masseursStatisticsTable thead tr th {
+            text-align: center;
+        }
+
+        #masseursStatisticsTable tbody tr td:nth-child(2) {
+            text-align: left !important;
+          
+        }
+
+        #masseursStatisticsTable tbody tr td:nth-child(2) img {
+           margin-right: 20px;
+    object-fit: cover;
+          
+        }
+         
+    </style>
 @endsection
 @section('content')
     <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
