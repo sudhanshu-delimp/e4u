@@ -16,6 +16,10 @@
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
 
+    # Route escort listing URLs to Laravel even when matching a public directory.
+    RewriteCond %{REQUEST_URI} ^/(escort|escorts)(/|$) [NC]
+    RewriteRule ^ index.php [L]
+
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
