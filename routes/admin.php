@@ -423,7 +423,8 @@ Route::delete('/key-contact-delete', [ShareholderController::class, 'destroy'])-
 
 Route::get('reports/advertiser-suspensions', [ReportAdvertiserSuspensionContoller::class, 'index'])->name('admin.advertiser-suspensions');
 Route::get('reports/advertiser-suspensions-list-ajax/{advertiserType}', [ReportAdvertiserSuspensionContoller::class, 'advertiserSuspensionDataTableListingAjax'])->name('admin.advertiser-suspensions-list-ajax');
-
+Route::get('reports/e4u-advertiser-suspensions', [ReportAdvertiserSuspensionContoller::class, 'suspendedByAdmin'])->name('admin.e4u-advertiser-suspension');
+Route::get('reports/admin-suspensions-list-ajax/{advertiserType}', [ReportAdvertiserSuspensionContoller::class, 'adminSuspensionDataTableListingAjax'])->name('admin.admin-suspensions-list-ajax');
 Route::get('admin/dataTable', [AgentRequestController::class, 'dataTable'])->name('admin.dataTable');
 Route::post('send-notiification', [NotificationController::class, 'sendNotification'])->name('admin.send-notiification');
 /** Staff */
@@ -955,4 +956,3 @@ Route::post('management/fees/print-monthly-report', [AgentMonthlyReportControlle
 Route::post('management/fees/query', [AgentMonthlyReportController::class, 'viewQuery'])->name('admin.fees.view.query');
 Route::post('management/fees/pay-detail', [AgentMonthlyReportController::class, 'viewPayAgentreport'])->name('admin.fees.view.pay-detail');
 Route::post('management/fees/print-pay-detail', [AgentMonthlyReportController::class, 'printPayAgentreport'])->name('admin.fees.print.pay-detail');
-
