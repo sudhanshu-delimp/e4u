@@ -84,6 +84,9 @@ class UpdateController extends AppController
                 //'about_title' => $request->about_title ?: $escort->about_title,
             ];
             if ($this->escort->update($id, $input)) {
+                $escortData = $escort->where('id', $id)->first();
+                // create or update slug
+                (new \App\Services\SlugService)->createUpdateSlug($escortData);
                 $error = false;
                 $user = $this->user->find(auth()->user()->id);
                 $escortNames = $user->escorts_names;

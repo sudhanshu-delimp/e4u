@@ -1032,6 +1032,9 @@ class WebController extends Controller
         if(!$escort){
            return redirect(route('public.web.escort.listing'));
         }
+        if(!empty($escort->slug)) {
+         return redirect('/escort-profile/'.$escort->slug);
+        }
 
         if (Auth::user() && auth()->user()->type == 0 &&  $escort) {
             $blockedProfileForViewers = EscortViewerInteractions::where('viewer_id', Auth::user()->id)->where('escort_blocked_viewer', true)->where('escort_id',  $escort->id)->first();
@@ -1039,6 +1042,8 @@ class WebController extends Controller
                 return redirect(route('public.web.escort.listing'));
             }
         }
+
+        
 
 
         $media = $this->escortMedia->get_videos($escort->user_id);
@@ -1247,7 +1252,7 @@ class WebController extends Controller
     }
     
 
-    public function profileDescriptionBySlut(Request $request, $profile = "")
+    public function profileDescriptionBySlug(Request $request, $profile = "")
     {
         //echo (new \App\Services\SlugService)->updateSlugExistingProfile();die;
         $id = null;

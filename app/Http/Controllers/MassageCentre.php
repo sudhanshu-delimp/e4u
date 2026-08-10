@@ -600,6 +600,104 @@ class MassageCentre extends Controller
     }
 
 
+    /**
+     * View masage profile
+     */
+    public function massageProfile(Request $request, $profile = "")
+    {
+
+        $escort = MassageProfile::where('slug', $profile)->first();
+          if(!$escort){
+             return redirect(route('find.massage.centre'));
+          } else {
+           $id = $escort->id;
+           $city = $escort->city_id;
+           $membershipId = $escort->membership;
+          }
+
+         $ids = $request->ids ? json_decode($request->ids, true) : [];
+        if (!$id || count($ids) < 1) {
+            return redirect(route('find.massage.centre'));
+        }
+
+        $listing = MassageProfile::where('id', $id)->with(['reviews' => function ($q) {
+            $q->where('status', 'published');
+        }, 'reviews.user'])->first();
+
+        # Not show specific profile to viewer if specific viewer is blocked by Massage
+
+        if (Auth::user() && auth()->user()->type == 0 &&  $listing) {
+            $blockedProfileForViewers = MassageViewerInteractions::where('viewer_id', Auth::user()->id)->where('massage_blocked_viewer', true)->where('massage_id',  $listing->id)->first();
+            if ($blockedProfileForViewers) {
+                return redirect(route('find.massage.centre'));
+            }
+        }
+
+       
+
+
+        $currentIndex = array_search($id, $ids);
+        $prevId = $ids[$currentIndex - 1] ?? null;
+        $nextId = $ids[$currentIndex + 1] ?? null;
+
+
+
+        //$listing = MassageProfile::where('id','=',$id)->first();
+        $reviews = $listing->reviews;
+
+
+
+        $massage_durations = (isset($listing->durations) && count($listing->durations) > 0) ? $listing->durations->toArray() : [];
+
+
+
+        $durations = $this->duration->all();
+
+
+        $galleryVideos = $listing->gallary()->wherePivot('type', 1)->orderBy('position', 'asc')->get();
+
+        $spamReportAdvertiser = collect();
+
+        if (Auth::user() && Auth::user()->type == 0) {
+            $spamReportAdvertiser = ReportMassageProfile::where('viewer_id', Auth::user()->id)->first();
+        }
+
+        $massageLike = null;
+        $userId = !empty(auth()->user()) ? auth()->user()->id : NULL;
+        $massageLike = $this->model_massage_profile->getUserLikeDislike($id, $request->ip(), $userId);
+
+        $total = MassageLike::where('massage_id', $id)->count();
+        if ($total > 0) {
+            $likeCount = MassageLike::where('like', 1)->where('massage_id', $id)->count();
+            $dislikeCount = MassageLike::where('like', 0)->where('massage_id', $id)->count();
+            $lp = round($likeCount / $total * 100);
+            $dp = round($dislikeCount / $total * 100);
+        } else {
+            $lp = 0;
+            $dp = 0;
+        }
+
+
+
+        if ($lp == 100) {
+            $star_rating = 5;
+        } elseif ($lp > 80) {
+            $star_rating = 4;
+        } elseif ($lp > 60) {
+            $star_rating = 3;
+        } elseif ($lp > 40) {
+            $star_rating = 2;
+        } elseif ($lp > 20) {
+            $star_rating = 1;
+        } else {
+            $star_rating = 0;
+        }
+
+
+        return view('web.mc.massage-description', compact('listing', 'durations', 'massage_durations', 'reviews', 'spamReportAdvertiser', 'lp', 'dp', 'massageLike', 'nextId', 'prevId', 'ids', 'star_rating'));
+    }
+
+
     public function storeShortList(Request $request)
     {
         $wishlist = session()->get('wishlist', []);
