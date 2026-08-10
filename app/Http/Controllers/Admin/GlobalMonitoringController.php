@@ -28,6 +28,7 @@ use App\Repositories\Playmate\PlaymateInterface;
 use App\Traits\DataTablePagination;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Admin\ListingSuspendedMail;
+use App\Mail\Admin\ListingReinstateMail;
 use Illuminate\Support\Facades\Log;
 
 class GlobalMonitoringController extends Controller
@@ -1081,6 +1082,56 @@ class GlobalMonitoringController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => "Massage Center profile has been suspended successfully.",
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function reinstateAdvertiserProfileListing(string $type, int $purchase)
+    {
+        try {
+            $purchase = match ($type) {
+                'escort' => Purchase::findOrFail($purchase),
+                'massage' => MassagePurchase::findOrFail($purchase),
+                default => abort(404),
+            };
+
+            $isExtended = $purchase->isListingExtended();
+
+            $purchase->update([
+                'status' => 'listed',
+                'suspended_at' => NULL
+            ]);
+
+            if ($isExtended && $isExtended->count) {
+                $otherPurchase = $isExtended->data;
+                $otherPurchase->update([
+                    'status' => 'listed',
+                ]);
+            }
+
+
+            if ($type == 'escort') {
+                $advertiser = $purchase->advertiser;
+                $advertiser->update([
+                    'enabled' => 1,
+                    'membership' => $purchase->membership,
+                    'start_date' => $purchase->start_date,
+                    'end_date' => $purchase->end_date,
+                    'utc_start_time' => $purchase->utc_start_time,
+                    'utc_end_time' => $purchase->utc_end_time,
+                    'purchase_id' => $purchase->id
+                ]);
+            }
+
+            Mail::to($purchase->advertiser->user->email)->send(new ListingReinstateMail(compact('purchase')));
+            return response()->json([
+                'success' => true,
+                'message' => "Advertiser profile has been reinstated successfully.",
             ], 200);
         } catch (Exception $e) {
             return response()->json([
