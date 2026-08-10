@@ -869,7 +869,7 @@ Route::post('/massage-like-dislike', [ReportMassageController::class, 'massageLi
 Route::get('/all-escorts-listing', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing');
 
 
-Route::get('/escorts/{country?}/{city?}', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing');
+Route::get('/escorts-list/{country?}/{city?}', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing');
 
 
 // https://www.escorts4u.com.au/australia   
