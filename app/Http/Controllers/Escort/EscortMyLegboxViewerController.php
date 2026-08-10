@@ -254,7 +254,7 @@ class EscortMyLegboxViewerController extends Controller
                                         aria-labelledby="dropdownMenuLink">
                                         <a class="dropdown-item align-item-custom toggle-contact" data-escort-id="' . $row->escort->id . '" href="#" title="Click to ' . Str::lower($conText) . ' contact" 
                                             data-id="' . $row->viewer->id . '" data-status="' . Str::lower($conCurrentText) . '"> 
-                                            <i class="fa fa-phone' . $conClass . ' me-1"></i> <span>' . $conText . ' Contact</span>
+                                            <i class="fa fa-phone' . $conClass . ' me-1"></i> <span>' . $conText . ' Viewer</span>
                                         </a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item align-item-custom toggle-notification" data-escort-id="' . $row->escort->id . '" href="#" title="Click to ' . Str::lower($notText) . ' notification"
