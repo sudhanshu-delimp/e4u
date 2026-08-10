@@ -482,9 +482,9 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
 
             // Get location details from Google Maps Reverse Geocoding
             $geoUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng={$lat},{$lng}&key={$apiKey}";
-          
+
             $response = Http::get($geoUrl);
- 
+
             $state = 'Unknown';
 
             if ($response->successful()) {
@@ -1884,8 +1884,8 @@ if (!function_exists('get_massage_listed_profile')) {
 
         $massage_live_ids  = MassagePurchase::where('status', 'listed')->where('massage_centre_id', auth()->user()->id)->pluck('massage_profile_id');
         if (!empty($massage_live_ids)) {
-            $profile = MassageProfile::select('id', 'purchase_id', 'name', 'profile_name', 'business_name')->with('state', 'latestPurchase','latestExtend')->whereIn('id',  $massage_live_ids)->get();
-            if ($profile->isNotEmpty()) 
+            $profile = MassageProfile::select('id', 'purchase_id', 'name', 'profile_name', 'business_name')->with('state', 'latestPurchase', 'latestExtend')->whereIn('id',  $massage_live_ids)->get();
+            if ($profile->isNotEmpty())
                 return $profile;
         }
     }
@@ -1909,7 +1909,7 @@ if (!function_exists('getMassageSuspendRefundAmount')) {
         $discountPercentage = 6;
 
         $purchase  = MassagePurchase::where('status', 'listed')->where('massage_profile_id', $profile)->first();
-        
+
 
         $normalRate   = $purchase->rate;
         $discountRate = $purchase->paid_rate;
@@ -1928,7 +1928,7 @@ if (!function_exists('getMassageSuspendRefundAmount')) {
         $refundAmount = 0;
         $startDayNumber = $purchaseStart->diffInDays($refundStart) + 1;
 
-      
+
         $refundDays = $refundStart->diffInDays($refundEnd) + 1;
 
         for ($i = 0; $i < $refundDays; $i++) {
@@ -1943,9 +1943,8 @@ if (!function_exists('getMassageSuspendRefundAmount')) {
             }
         }
 
-        
+
         return number_format((float) $refundAmount, 2, '.', '');
-       
     }
 }
 
@@ -1956,7 +1955,7 @@ if (!function_exists('getRefundAmountForCancelProfile')) {
         $refundAmount = 0.00;
         $discountDay = 21;
         $discountPercentage = 6;
-        
+
 
         $normalRate   = $purchase->rate;
         $discountRate = $purchase->paid_rate;
@@ -1975,7 +1974,7 @@ if (!function_exists('getRefundAmountForCancelProfile')) {
         $refundAmount = 0;
         $startDayNumber = $purchaseStart->diffInDays($refundStart) + 1;
 
-      
+
         $refundDays = $refundStart->diffInDays($refundEnd) + 1;
 
         for ($i = 0; $i < $refundDays; $i++) {
@@ -1990,9 +1989,8 @@ if (!function_exists('getRefundAmountForCancelProfile')) {
             }
         }
 
-        
+
         return number_format((float) $refundAmount, 2, '.', '');
-       
     }
 }
 
@@ -2365,7 +2363,7 @@ if (!function_exists('update_profile_massure')) {
 
 
 
-    function getMediaVerificationDataSmallIcon( $status)
+    function getMediaVerificationDataSmallIcon($status)
     {
         switch ($status) {
             case 0:
@@ -2545,45 +2543,43 @@ if (!function_exists('canManageClass')) {
     }
 }
 
-if (!function_exists('other_centre_support_notification_count'))
-{
+if (!function_exists('other_centre_support_notification_count')) {
     function other_centre_support_notification_count()
     {
         $userIds = User::where('created_by', auth()->id())
-                    ->where('type', '4')
-                    ->pluck('id');
-       
-        if(!empty($userIds))  
-        {
+            ->where('type', '4')
+            ->pluck('id');
+
+        if (!empty($userIds)) {
             return Notification::where('is_seen', 0)
-            ->whereIn('to_user', $userIds)
-            ->where('notification_listing_type', '1')
-            ->count();
+                ->whereIn('to_user', $userIds)
+                ->where('notification_listing_type', '1')
+                ->count();
         }
-       
-        return 0;  
+
+        return 0;
     }
 }
 
-if (!function_exists('formatToFloat'))
-{
-    function formatToFloat($value) {
-    
+if (!function_exists('formatToFloat')) {
+    function formatToFloat($value)
+    {
+
         if (empty($value)) {
             return 0.00;
         }
-        
+
         if (is_string($value)) {
             $value = str_replace(',', '', $value);
         }
-        
+
         return number_format((float)$value, 2, '.', '');
     }
 }
-if (!function_exists('checkVideoExistInMcProfile'))
-{
-    function checkVideoExistInMcProfile($user_id) {
-        return $count = MassageMedia::where('user_id',$user_id)->where('type', 1)->count(); 
+if (!function_exists('checkVideoExistInMcProfile')) {
+    function checkVideoExistInMcProfile($user_id)
+    {
+        return $count = MassageMedia::where('user_id', $user_id)->where('type', 1)->count();
     }
 }
 
@@ -2624,30 +2620,30 @@ if (!function_exists('getDashboardUrl')) {
     {
         $url = "";
         $userType = (int)($userType);
-        if($userType == 0) {
+        if ($userType == 0) {
             $url = "user-dashboard";
-        } else if($userType == 1) {
-             $url = "admin-dashboard/dashboard";
-        } else if($userType == 2) {
-             $url = "admin-dashboard/dashboard";
-        } else if($userType == 3) {
-             $url = "escort-dashboard";
-        } else if($userType == 4) {
-             $url = "center-dashboard";
-        } else if($userType == 5) {
-             $url = "agent-dashboard";
-        } else if($userType == 6) {
-             $url = "staff-dashboard";
-        } else if($userType == 7) {
-             $url = "operator-dashboard";
-        } else if($userType == 8) {
-             $url = "shareholder-dashboard";
-        } else if($userType == 9) {
-             $url = "operator-dashboard";
-        } else if($userType == 10) {
-             $url = "supplier-dashboard";
+        } else if ($userType == 1) {
+            $url = "admin-dashboard/dashboard";
+        } else if ($userType == 2) {
+            $url = "admin-dashboard/dashboard";
+        } else if ($userType == 3) {
+            $url = "escort-dashboard";
+        } else if ($userType == 4) {
+            $url = "center-dashboard";
+        } else if ($userType == 5) {
+            $url = "agent-dashboard";
+        } else if ($userType == 6) {
+            $url = "staff-dashboard";
+        } else if ($userType == 7) {
+            $url = "operator-dashboard";
+        } else if ($userType == 8) {
+            $url = "shareholder-dashboard";
+        } else if ($userType == 9) {
+            $url = "operator-dashboard";
+        } else if ($userType == 10) {
+            $url = "supplier-dashboard";
         } else {
-             $url = "user-dashboard";
+            $url = "user-dashboard";
         }
 
         return $url;
@@ -2656,8 +2652,32 @@ if (!function_exists('getDashboardUrl')) {
 
 
 if (!function_exists('getFullStateName')) {
-    function getFullStateName($state_id){
-    $stateCapital = config('escorts.profile.states')[$state_id];
+    function getFullStateName($state_id)
+    {
+        $stateCapital = config('escorts.profile.states')[$state_id];
         return $stateCapital['stateName'];
+    }
+}
+
+if (!function_exists('getCityId')) {
+    function getCityId($cityName)
+    {
+        if ($cityName === null) {
+            return false;
+        }
+
+        $getCity = config('escorts.profile.cities');
+
+        return array_search(strtolower($cityName), array_map('strtolower', $getCity), true);
+    }
+}
+
+if(!function_exists('getGenderId')) {
+    function getGenderId($gender){
+        if($gender === null){
+            return false;
+        }
+        $getGenderId = config('escorts.gender');
+        return array_search(strtolower($gender), array_map('strtolower', $getGenderId), true);
     }
 }

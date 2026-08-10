@@ -19,7 +19,9 @@
     <!-- Page Heading -->
     <div class="row">
         @if($notification)
-        <x-global.notification-alert :heading="$notification['heading']" :content="$notification['content'] ?? $notification['template_name']" type="success" />
+        <x-global.notification-alert :heading="$notification['heading']" :content="$notification['content'] ?? $notification['template_name']" type="success"
+        :member="null"
+         />
         @endif
         @if($expiringListings->count() > 0)
         @foreach ($expiringListings as $profile)

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\SuspendProfile;
 use App\Models\MassageSuspendProfile;
+use App\Models\Purchase;
+use App\Models\MassagePurchase;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DataTables;
@@ -43,6 +45,10 @@ class ReportAdvertiserSuspensionContoller extends Controller
         return view('admin.reports.advertiser-suspensions');
     }
 
+    public function suspendedByAdmin()
+    {
+        return view('admin.reports.admin-advertiser-suspensions');
+    }
     public function advertiserSuspensionDataTableListingAjax($advertiserType)
     {
 
@@ -87,12 +93,12 @@ class ReportAdvertiserSuspensionContoller extends Controller
                 return $startDate->diffInDays($endDate) + 1; // inclusive of first day
             })
             ->addColumn('location', function ($row) {
-                // $state = isset($row->escort->city->country_code) ? $row->escort->city->country_code : '-';
-                // return $state;
-                return 'NA';
+                // $location =  ($row->user->type == '4') ?  $row->advertiser->state_abbr : $row->advertiser->state_abbr;
+                return $row->advertiser->state_abbr;
             })
 
             ->addColumn('action', function ($row) {
+                $redirectUrl =  ($row->user->type == '4') ? route('preview.massage', ['id' => $row->advertiser->id, 'ids' => '[]']) : route('preview.escort', $row->advertiser->id);
                 $actionBtn = '
                         <div class="dropdown no-arrow">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -101,7 +107,79 @@ class ReportAdvertiserSuspensionContoller extends Controller
                             <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
                                 
                                 
-                                <a class="viewEscortSuspendedProfile dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-escort-id=' . $row->advertiser->id . ' data-toggle="modal" data-target="#view-profile" > <i class="fa fa-eye"></i> View</a>
+                                <a class="viewEscortSuspendedProfile dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . $redirectUrl . '" target="_blank"> <i class="fa fa-eye"></i> View</a>
+                                
+                            </div>
+                            </div>
+                    ';
+
+                return $actionBtn;
+            })
+            ->rawColumns(['action']) // if you're returning HTML
+            ->with([
+                'server_up_time' => $this->getAppUptime(),
+                'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
+            ])
+            ->make(true);
+    }
+
+    public function adminSuspensionDataTableListingAjax($advertiserType)
+    {
+
+        $search = request()->get('search')['value'];
+        $today = Carbon::now();
+        switch ($advertiserType) {
+            case 'escort': {
+                    $advertisers = Purchase::where('status', 'suspend')
+                        ->whereRaw('? BETWEEN suspended_at AND utc_end_time', [$today])
+                        ->get();
+                }
+                break;
+            case 'massage': {
+                    $advertisers = MassagePurchase::where('status', 'suspend')
+                        ->whereRaw('? BETWEEN suspended_at AND utc_end_time', [$today])
+                        ->get();
+                }
+                break;
+            default:
+                # code...
+                break;
+        }
+
+
+        if ($search) {
+            $advertisers = $advertisers->filter(function ($item) use ($search) {
+                $matchesMemberId = $item->advertiser->user && stripos($item->advertiser->user->member_id, $search) !== false;
+                return $matchesMemberId;
+            })->values(); // reset the keys
+        }
+
+        return DataTables::of($advertisers)
+            ->addColumn('advertiser_id', fn($row) => $row->advertiser->id)
+            ->addColumn('member_id', fn($row) => $row->advertiser->user->member_id)
+            ->addColumn('start_date', fn($row) =>  date('d-m-Y', strtotime($row->start_date)))
+            ->addColumn('end_date', fn($row) => date('d-m-Y', strtotime($row->end_date)))
+            ->addColumn('suspended_at', fn($row) => date('d-m-Y', strtotime($row->suspended_at)))
+            ->addColumn('days', function ($row) {
+                $startDate = Carbon::parse($row->suspended_at);
+                $endDate   = Carbon::parse($row->utc_end_time);
+                return $startDate->diffInDays($endDate) + 1; // inclusive of first day
+            })
+            ->addColumn('location', function ($row) {
+                return $row->advertiser->state_abbr;
+            })
+
+            ->addColumn('action', function ($row) {
+                $redirectUrl =  ($row->advertiser->user->type == '4') ? route('preview.massage', ['id' => $row->advertiser->id, 'ids' => '[]']) : route('preview.escort', $row->advertiser->id);
+                $actionBtn = '
+                        <div class="dropdown no-arrow">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>
+                            <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                
+                                
+                                <a class="viewEscortSuspendedProfile dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . $redirectUrl . '" target="_blank"> <i class="fa fa-eye"></i> View</a>
                                 
                             </div>
                             </div>

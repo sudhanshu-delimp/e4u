@@ -14,12 +14,15 @@ class NotificationAlert extends Component
     public $heading;
     public $content;
     public $type;
+    public $member;
 
-    public function __construct($heading, $content, $type = 'success')
+    public function __construct($heading, $content, $member,  $type = 'success')
     {
         $this->heading = $heading;
         $this->content = $content;
         $this->type = $type;
+        $this->member = $member;
+
     }
 
     /**

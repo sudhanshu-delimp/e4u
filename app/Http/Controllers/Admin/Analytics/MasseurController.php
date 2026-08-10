@@ -60,10 +60,11 @@ class MasseurController extends Controller
     return DataTables::of($masseurs)
 
       ->addColumn('masseur', function ($row) {
-        return $row->name ?? 'NA';
+        
+        return '<img src="' . $row->profile_img . '" alt="' . $row->name . '" class="img-fluid rounded-circle" style="width: 50px; height: 50px;"> ' . $row->name ?? 'NA';
       })
       ->addColumn('status', function ($row) {
-        return $row->status == 1 ? 'Active' : 'Inactive';
+        return $row->status == 1 ? '<span class="custom_badge badge_active">Active</span>' : '<span class="custom_badge badge_inactive">Inactive</span>';
       })
 
       ->addColumn('profile_today', function ($row) use ($getVisitorCount, $today) {
@@ -90,6 +91,7 @@ class MasseurController extends Controller
       ->addColumn('media_year_to_date', function ($row) use ($getVisitorCount, $startOfYear) {
         return $getVisitorCount($row->id, 'massure media', $startOfYear);
       })
+    ->rawColumns(['masseur','status'])
 
       ->make(true);
   }

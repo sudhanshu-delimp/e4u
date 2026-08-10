@@ -14,6 +14,8 @@ class AgentMonthlyReportQuery extends Model
         'fee_report_id',
         'notes',
         'status',
+        'submitted_by',
+        'user_type',
         'created_at',
         'updated_at'
     ];
@@ -24,6 +26,11 @@ class AgentMonthlyReportQuery extends Model
      * @var array
      */
     protected $hidden = ['updated_at'];
+
+       public function submittedBy()
+    {
+        return $this->belongsTo('App\Models\User', 'submitted_by', 'id')->select('id', 'member_id', 'name', 'business_name','email');
+    }
 
 
 }

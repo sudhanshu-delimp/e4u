@@ -18,7 +18,9 @@
     <!-- Page Heading -->
     <div class="row">
         @if($notification)
-        <x-global.notification-alert :heading="$notification['heading']" :content="$notification['content'] ?? $notification['template_name']" type="success" />
+        <x-global.notification-alert :heading="$notification['heading']" :content="$notification['content'] ?? $notification['template_name']" type="success"
+        :member="null"
+         />
         @endif
 
         <div class="col-lg-12">
@@ -207,7 +209,7 @@
                         <img src="{{ asset('assets/dashboard/img/boxicon/wallet.png') }}" alt="My Wallet">
                     </div>
                     <h2>
-                        My Wallet
+                        Our Wallet
                     </h2>
                 </a>
 
@@ -429,6 +431,38 @@
 
         });
     });
+
+
+    $(document).ready(function () {
+
+    const $slides = $('.announcement-slide');
+
+    if ($slides.length <= 1) {
+        $slides.first().addClass('active');
+        return;
+    }
+
+    let currentSlide = 0;
+
+    $slides.eq(currentSlide).addClass('active slide-in');
+
+    setInterval(function () {
+
+        $slides.eq(currentSlide)
+            .removeClass('active slide-in');
+
+        currentSlide++;
+
+        if (currentSlide >= $slides.length) {
+            currentSlide = 0;
+        }
+
+        $slides.eq(currentSlide)
+            .addClass('active slide-in');
+
+    }, 10000);
+
+});
 </script>
 
 

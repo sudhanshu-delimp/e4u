@@ -48,7 +48,7 @@
                                 </ol>
                             </li>
                             <li>All Fees paid to you under the Agent Agreement will be paid into your nominated Bank
-                                Account, by the Operator. Fees are inclusive of GST.
+                                Account, by the Operator. Fees are exclusive of GST.
                             </li>
                         </ol>
                     </div>
