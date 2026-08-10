@@ -156,6 +156,38 @@
 
    });
 
+   $(document).on('click', '.reinstateEscortSuspendedProfile', async function(e) {
+      e.preventDefault();
+      const buttonElement = $(this);
+      const advertiser = $("select[name='advertiser_type']").val()?.split('/').pop();
+      const purchaseId = buttonElement.data('purchase-id');
+
+      if (await isConfirm({
+            'action': 'Reinstate',
+            'text': 'Do you want to reinstate this Advertiser Listing?'
+         })) {
+         $.ajax({
+            url: `{{route('admin.reinstate.listing', ['type' => '__ADVERTISER__', 'purchase' => '__PURCHASE__'])}}`.replace('__ADVERTISER__', advertiser).replace('__PURCHASE__', purchaseId),
+            type: 'PATCH',
+            headers: {
+               'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            beforeSend: function() {
+               showLoadingPopup('Processing Reinstate...', 'Do not refresh or close this page.');
+            },
+            success: function(response, status, xhr) {
+               Swal.close();
+               displaySwal(xhr);
+            },
+            error: function(xhr, status, error) {
+               Swal.close();
+               displaySwal(xhr);
+            }
+         });
+
+      }
+   })
+
    var table = $('#advertiserSuspenstionTable').DataTable({
       language: {
          search: "Search: _INPUT_",
