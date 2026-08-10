@@ -774,4 +774,11 @@ return [
     'rejected'  => 'Rejected',
   ],
   'impersonate_action_allowed' => ['archives-listing', 'create-new-masseur', 'archive-view-photos', 'media-centre', 'add-listing', 'list', 'create-profile', 'archive-view-videos', 'upload-galleries', 'upload-videos-galleries', 'default_photos', 'default-videos', 'get-default-videos', 'get-default-photos', 'delete-photos', 'delete-videos', 'listing', 'country-list', 'city-list', 'select-city-list', 'state-list', 'get-account-video-gallery', 'load-default-masseur-list', 'create-check-messure-profile', 'get-notification', 'masseur-option-list', 'all-massager-list', 'all-masseur-list', 'update-masseur', 'create-action-messure-profile', 'center.massuers-media-upload-gallery', 'update-single-data', 'validate-phone', 'get-massuers-account-media-gallery', 'delete-masseur-photos', 'get-masseur-image-info', 'notification-seen', 'get-masseurs-media-count', 'upload-masseur-verification', 'get-account-media-gallery', 'get-account-media-gallery', 'profile-info', 'masseurs', 'update-profile', 'action-massage-profile', 'massage-brb', 'massage-suspend-credit', 'suspend-massage-profile', 'extend-profile-validate-date-range', 'listing/listing-payment', 'bumpup-register', 'get-transaction-summury', 'make-time-json', 'get-masseur-option-list', 'update-massage-profile', 'profile-information', 'update-account'],
+  'gender' => [
+    1 => 'Male',
+    6 => 'Female',
+    2 => 'Couples',
+    3 => 'Transgender',
+    4 => 'Cross Dresser',
+  ],
 ];
