@@ -641,6 +641,34 @@ $ocLavel = 'Developer';
                             <span
                                 style="{{ request()->is('*registrations-reports*') ? 'color: #FF3C5F;' : '' }}">Registrations</span>
                         </a>
+
+                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Suspensions"
+                            aria-expanded="false" aria-controls="Suspensions">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/support-services.png') }}">
+                            <span>Suspensions</span>
+                        </a>
+
+                        <div id="Suspensions" class=" collapse  @if (request()->segment(3) == 'e4u-suspensions' || request()->segment(3) == 'advertiser-suspensions') show @endif"
+                            data-parent="#Reports">
+                            <div class="py-0 collapse-inner rounded mb-2">
+                            
+                                <a class="nav-link collapse-item" href="{{ route('admin.advertiser-suspensions') }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/profile-suspensions.png') }}">
+                                    <span
+                                        style="{{ request()->is('*advertiser-suspensions*') ? 'color: #FF3C5F;' : '' }}">Advertiser</span>
+                                </a>
+                                <a class="nav-link collapse-item" href="{{ route('admin.e4u-advertiser-suspension') }}">
+                                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                        src="{{ asset('assets/dashboard/img/menu-icon/profile-suspensions.png') }}">
+                                    <span
+                                        style="{{ request()->is('*e4u-suspensions*') ? 'color: #FF3C5F;' : '' }}">E4U</span>
+                                </a>
+
+                            </div>
+                        </div>
+                        {{-- end --}}
+                        
                         <a class="nav-link collapsed"
                             href="{{ route('admin.payment.transaction_summary') }}">
                             <img width="16" height="17" viewbox="0 0 16 17" fill="none"
@@ -649,34 +677,9 @@ $ocLavel = 'Developer';
                                 style="{{ request()->is('*transaction-summary*') ? 'color: #FF3C5F;' : '' }}">Transactions</span>
                         </a>
                     </div>
+                     {{-- Suspensions --}}
+               
                 </div>
-                {{-- Suspensions --}}
-                <a class="nav-link  {{ in_array(request()->segment(3), ['e4u-suspensions','advertiser-suspensions'])  ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#Suspensions"
-                    aria-expanded="false" aria-controls="Suspensions">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/support-services.png') }}">
-                    <span>Suspensions</span>
-                </a>
-
-                <div id="Suspensions" class=" collapse  @if (request()->segment(3) == 'e4u-suspensions' || request()->segment(3) == 'advertiser-suspensions') show @endif"
-                    data-parent="#Administration">
-                    <div class="py-0 collapse-inner rounded mb-2">
-                       
-                        <a class="nav-link collapsed" href="{{ route('admin.advertiser-suspensions') }}">
-                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                                src="{{ asset('assets/dashboard/img/menu-icon/profile-suspensions.png') }}">
-                            <span
-                                style="{{ request()->is('*advertiser-suspensions*') ? 'color: #FF3C5F;' : '' }}">Advertiser</span>
-                        </a>
-                        <a class="nav-link collapsed" href="{{ route('admin.e4u-advertiser-suspension') }}">
-                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                                src="{{ asset('assets/dashboard/img/menu-icon/profile-suspensions.png') }}">
-                            <span
-                                style="{{ request()->is('*e4u-suspensions*') ? 'color: #FF3C5F;' : '' }}">E4U</span>
-                        </a>
-
-                    </div>
-                </div>
-                {{-- end --}}
                 
 
                 <a class="nav-link" href="{{ route('admin.reference-lookup') }}">
@@ -684,6 +687,8 @@ $ocLavel = 'Developer';
                         src="{{ asset('assets/dashboard/img/menu-icon/lookup.png') }}">
                     <span style="{{ request()->segment(2) == 'reference-lookup' ? 'color: #FF3C5F;' : '' }}">Reference Lookup</span>
                 </a>
+               
+                
 
                 {{-- Support Services --}}
                 <a class="nav-link  {{ in_array(request()->segment(3), ['financial-report','process-payment','summary'])  ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#supportServices"
