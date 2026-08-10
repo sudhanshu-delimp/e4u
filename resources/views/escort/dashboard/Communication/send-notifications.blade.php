@@ -47,28 +47,14 @@
 
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table class="table w-100 table-bordered">
-                                <thead class="table-bg">
+                            <table class="table table-bordered" id="viewerTable">
+                                <thead>
                                     <tr>
-                                        <th colspan="3" class="text-center">My Viewers</th>
-                                    </tr>
-                                    <tr>
-
                                         <th>State</th>
                                         <th class="text-center">Viewers</th>
                                         <th class="text-center">Notifications</th>
                                     </tr>
                                 </thead>
-                                <tbody class="table-content">
-                                    @foreach($viewers as $viewer)
-                                    <tr>
-                                        <td>{{ $viewer['state']}}</td>
-                                        <td class="text-center">{{ $viewer['viewers']}}</td>
-                                        <td class="text-center">{{ $viewer['notifications']}}</td>
-                                    </tr>
-                                    @endforeach
-                                    
-                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -82,71 +68,7 @@
                                 Notification</button>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="table-responsive">
-                            <table id="sendNotificationTable" class="table display" width="100%">
-                                <thead class="table-bg">
-                                    <tr>
-                                        <th>
-                                            <div class="ckbox">
-                                                <input type="checkbox" id="checkbox1">
-                                            </div>
-                                        </th>
-                                        <th>Viewer Name</th>
-                                        <th>Tagged</th>
-                                        <th>
-                                            Home State
-
-                                        </th>
-
-                                        <th>Contact Method</th>
-                                        <th>Notification</th>
-                                        <th>Block Viewer</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-content">
-                                    <tr>
-                                        <td>
-                                            <div class="ckbox">
-                                                <input type="checkbox" id="checkbox1">
-                                            </div>
-                                        </td>
-                                        <td><img src="{{ asset('assets/app/img/profile-img.png') }}"
-                                                class="img-profile rounded-circle playmats-img ">Skusta clee</td>
-                                        <td>10-10-2025</td>
-                                        <td>SA</td>
-                                        <td>Email</td>
-                                        <td>By email</td>
-                                        <td>
-                                            <div class="custom-control custom-switch">
-                                                <input type="checkbox" class="custom-control-input" id="customSwitch_1">
-                                                <label class="custom-control-label" for="customSwitch_1"></label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="ckbox">
-                                                <input type="checkbox" id="checkbox1">
-                                            </div>
-                                        </td>
-                                        <td><img src="{{ asset('assets/app/img/profile-img.png') }}"
-                                                class="img-profile rounded-circle playmats-img ">Johny Bravo</td>
-                                        <td>11-10-20254</td>
-                                        <td>WA</td>
-                                        <td>Mobile</td>
-                                        <td>Mobile</td>
-                                        <td>
-                                            <div class="custom-control custom-switch">
-                                                <input type="checkbox" class="custom-control-input" id="customSwitch_2">
-                                                <label class="custom-control-label" for="customSwitch_2"></label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
         </div>
@@ -229,75 +151,11 @@
 
 
 
-    {{-- Notification invalid Popup --}}
-    <div class="modal fade upload-modal" id="invalidNotification" tabindex="-1" role="dialog"
-        aria-labelledby="invalidNotification" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="invalidNotification"><img
-                            src="/assets/dashboard/img/invalid-notification.png" class="custompopicon" alt="cross">
-                        Notification invalid</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
-                </div>
-                <div class="modal-body pb-0">
-                    <form>
-                       
-                        <div class="row">
-                            <div class="col-12 mb-3">
-                                <select class="form-control rounded-0">
-                                    <option>Select Home State</option>
-                                </select>
-                            </div>
-                            <div class="col-12 mb-3">
-                                <div class="form-group text-left"
-                                    style="border: 2px dashed #e3e6f0;padding: 15px 10px 35px 10px;">
-
-                                    <label class="form-check-label" for="exampleCheck1" style="color: #323C47;">Your
-                                        request to send a notification to
-                                        <span>Viewers name</span> if only one selected, or <span>Your Viewers</span> is
-                                        invalid as you do not have a current or impending Profile in <span>Location</span>.
-                                    </label>
-                                    <div class="card-body px-0">
-                                        <h4 class="NotesHeader"><b>Notes:</b> </h4>
-                                        <ol>
-                                            <li>You must have a posted or impending Profile (a part of a Tour) to use this
-                                                feature.</li>
-                                            <li>If you have enabled the Notification feature in your settings, you do not
-                                                need to use this feature as Notifications will be sent out automatically
-                                                whenever you create a Profile or Tour.
-                                            </li>
-                                        </ol>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer pr-3">
-                    <div class="col-10 pl-0">
-                        <div class="form-group">
-                            <label class="form-check-label pr-4" for="exampleCheck1">Date:<span
-                                    class="ml-1">10-10-2025</span></label>
-
-                        </div>
-                    </div>
-                    <button type="submit" class="btn-success-modal">Send</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- end --}}
+   
 @endsection
 @push('script')
-    <!-- file upload plugin start here -->
-    <!-- file upload plugin end here -->
-    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+   
+   
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script>
@@ -315,8 +173,6 @@
         e.preventDefault();
         swal_waiting_popup({'title': 'Sending Notification...'});
         var formData = new FormData(document.getElementById('sendNotificationForm'));
-
-
         $.ajax({
             url: "{{ route('escort.sendNotification') }}",
             type: "POST",
@@ -330,10 +186,13 @@
                 Swal.close();
                 $('.btn-primary').prop('disabled', false).text('Send Notification');
                 if(response.status)
-                {
+                {   
+                    viewerTable.ajax.reload();
+                    $('#new-ban').modal('hide');
                     swal_success_popup(response.message ?? 'Notification send successfully');
                     $('#sendNotificationForm')[0].reset();
                     $('#viewer_count').text(0);
+                     
                 }
                 else
                 {
@@ -342,11 +201,6 @@
                 }
             },
             error:function(xhr){
-
-                console.log(xhr);
-                console.log(xhr.responseText);
-               
-
                 $('.btn-primary').prop('disabled', false).text('Send Notification');
                 if(xhr.status == 422)
                 {    
@@ -365,63 +219,37 @@
     });
 
 
-        // $(document).ready(function() {
-        //     $('#sendNotificationTable').DataTable({
-        //         responsive: true,
-        //         initComplete: function() {
-        //             // if ($('#returnToReportBtn').length === 0) {
-        //             //     $('.dataTables_filter').append(
-        //             //         '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
-        //             //     );
-        //             // }
-        //             $('#returnToReportBtn').on('click', function() {
-        //                 var table = $('#sendNotificationTable').DataTable();
-        //                 table.search('').draw();
-        //             });
-        //         },
-        //         "language": {
-        //             "zeroRecords": "There is no record of the search criteria you entered.",
-        //             searchPlaceholder: "Search by Viewer Name"
-        //         },
-        //         paging: true,
-        //         pageLength: 25,
-        //         columns: [{
-        //                 data: 'check',
-        //                 name: 'check'
-        //             },
-        //             {
-        //                 data: 'name',
-        //                 name: 'name'
-        //             },
-        //             {
-        //                 data: 'tagged',
-        //                 name: 'tagged',
-        //                 orderable: true
-        //             },
-        //             {
-        //                 data: 'home_state',
-        //                 name: 'home_state',
-        //                 orderable: true,
-        //                 searchable: false
-        //             },
-        //             {
-        //                 data: 'contact_method',
-        //                 name: 'contact_method',
-        //                 orderable: true
-        //             },
-        //             {
-        //                 data: 'notification',
-        //                 name: 'notification',
-        //                 orderable: true
-        //             },
-        //             {
-        //                 data: 'block',
-        //                 name: 'block',
-        //                 orderable: true,
-        //                 class: 'text-center'
-        //             }
-        //         ]
-        //     });
-        // });
+
+      var viewerTable =  $('#viewerTable').DataTable({
+            processing: true,
+            serverSide: true,
+            searching: false,
+            ordering: false,
+            paging: false,
+            info: false,
+            ajax: {
+                url: "{{ route('escort.viewers-notification.ajax') }}"
+            },
+            columns: [
+                {
+                    data: 'state',
+                    name: 'state'
+                },
+                {
+                    data: 'viewers',
+                    name: 'viewers',
+                    className: 'text-center'
+                },
+                {
+                    data: 'notifications',
+                    name: 'notifications',
+                    className: 'text-center'
+                }
+            ]
+        });
+
+
+
+       
     </script>
 @endpush
