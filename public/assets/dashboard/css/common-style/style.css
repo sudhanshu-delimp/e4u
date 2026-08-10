@@ -28,3 +28,554 @@
 .verify_icon:hover .common_media_tooltip {
     display: block;
 }
+
+form.v-form-design .form-group {
+    margin-bottom: 0px !important;
+}
+
+
+/* =========================
+   GRID
+========================= */
+
+.common-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+}
+
+.common-card {
+    grid-column: span 2;
+    padding: 28px 30px 24px;
+    border: 1px solid #e7e9ee;
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 5px 16px rgba(18, 30, 55, 0.07);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.notification-card-small {
+    grid-column: span 3;
+    min-height: 280px;
+}
+
+
+/* =========================
+   CARD HEADER
+========================= */
+
+.card-top {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.card-icon {
+    width: 45px;
+    height: 45px;
+    flex: 0 0 45px;
+    border-radius: 50%;
+    background: #fff0f4;
+    color: #f51d52;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-icon svg {
+    width: 25px;
+    height: 25px;
+}
+
+.card-heading {
+    padding-top: 2px;
+}
+
+.card-heading h2 {
+    margin: 0;
+    color: #0b1b3e;
+    font-size: 23px;
+    line-height: 1.25;
+    font-weight: 700;
+}
+
+.card-heading p {
+    margin: 7px 0 0;
+    color: #445579;
+    font-size: 18px;
+    line-height: 1.65;
+}
+
+
+/* =========================
+   SWITCH OPTIONS
+========================= */
+
+.option-list {
+    margin: 30px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+}
+
+.switch-option {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    cursor: pointer;
+    color: #101a31;
+    font-size: 17px;
+    line-height: 1.35;
+}
+
+.switch-option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.switch {
+    position: relative;
+    width: 45px;
+    height: 25px;
+    flex: 0 0 45px;
+    background: #c5c9d7;
+    border-radius: 50px;
+    transition: 0.2s ease;
+}
+
+.switch::after {
+    content: "";
+    position: absolute;
+    width: 21px;
+    height: 21px;
+    top: 2px;
+    left: 2px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: 0.2s ease;
+}
+
+.switch-option input:checked+.switch {
+    background: #f51d52;
+}
+
+.switch-option input:checked+.switch::after {
+    left: 22px;
+}
+
+
+/* =========================
+   NOTE
+========================= */
+
+.card-note {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid #e3e5ea;
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    min-height: 60px;
+}
+
+.note-icon {
+    width: 22px;
+    height: 22px;
+    flex: 0 0 22px;
+    border: 2px solid #f51d52;
+    border-radius: 50%;
+    color: #f51d52;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 1px;
+}
+
+.card-note p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+.card-note p i {
+    color: #8f9ebd !important;
+}
+
+
+/* =========================
+   RADIO BUTTONS
+========================= */
+
+.radio-options {
+    margin: 30px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.radio-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: #101a31;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.radio-option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.radio {
+    width: 22px;
+    height: 22px;
+    border: 1.8px solid #9ba2b5;
+    border-radius: 50%;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.radio-option input:checked+.radio {
+    border: 2px solid #f51d52;
+}
+
+.radio-option input:checked+.radio::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #f51d52;
+    border-radius: 50%;
+    top: 4px;
+    left: 4px;
+}
+
+
+/* =========================
+   FOOTER / SAVE
+========================= */
+
+.common-footer {
+    border-top: 1px solid #e6e8ed;
+    margin-top: 30px;
+    padding-top: 20px;
+}
+
+.common-save-btn {
+    border: 0;
+    background: #0c223d;
+    color: #fff;
+    min-width: 145px;
+    padding: 14px 27px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: 0 5px 12px rgba(245, 29, 82, 0.18);
+    transition: 0.2s ease;
+}
+
+.common-save-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 7px 15px rgba(245, 29, 82, 0.25);
+    background-color: #f51d52;
+}
+
+.entries-setting {
+    margin: 30px 0px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.entries-label {
+    color: #101a31;
+    font-size: 16px;
+}
+
+.entries-select {
+    min-width: 95px;
+    height: 42px;
+    padding: 0 35px 0 13px;
+    border: 1px solid #d5d9e2;
+    border-radius: 7px;
+    background-color: #fff;
+    color: #101a31;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+}
+
+.entries-select:focus {
+    border-color: #f51d52;
+    box-shadow: 0 0 0 3px rgba(245, 29, 82, 0.08);
+}
+
+.entries-default {
+    color: #445579;
+    font-size: 15px;
+}
+
+.entries-description {
+    margin: 14px 0 0;
+    color: #4d5c7a;
+    font-size: 15px;
+    font-style: italic;
+}
+
+
+/* =========================================
+   Password Fields
+========================================= */
+
+.password-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.cp-field {
+    margin-bottom: 24px;
+}
+
+.cp-field label {
+    display: block;
+    margin-bottom: 8px;
+    color: #173a61;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.cp-input-wrap {
+    position: relative;
+}
+
+.cp-input-wrap input {
+    width: 100%;
+    height: 48px;
+    padding: 0 48px 0 14px;
+    box-sizing: border-box;
+    border: 1px solid #dce3ea;
+    border-radius: 8px;
+    background: #fff;
+    color: #173a61;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+.cp-input-wrap input::placeholder {
+    color: #9aa6b5;
+}
+
+.cp-input-wrap input:focus {
+    border-color: #f52f5b;
+    box-shadow: 0 0 0 3px rgba(245, 47, 91, 0.08);
+}
+
+
+/* Eye Button */
+
+.cp-eye-btn {
+    position: absolute;
+    transform: translateY(-50%);
+    border: 0;
+    background: transparent;
+    color: #102d4d;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.cp-eye-btn:hover {
+    color: #f52f5b;
+}
+
+
+/* Hint */
+
+.cp-hint i {
+    margin: 7px 0 0;
+    color: #8f9ebd !important;
+    font-size: 12px;
+    font-style: italic;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1200px) {
+    .notification-title-row h1 {
+        font-size: 36px;
+    }
+    .common-card {
+        padding: 24px;
+    }
+    .card-heading h2 {
+        font-size: 21px;
+    }
+    .card-heading p {
+        font-size: 16px;
+    }
+    .switch-option,
+    .radio-option {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 991px) {
+    .notification-page {
+        padding: 28px;
+    }
+    .common-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .notification-card,
+    .notification-card-small {
+        grid-column: span 1;
+        min-height: 350px;
+    }
+    .notification-header-icon {
+        width: 72px;
+        height: 72px;
+        flex-basis: 72px;
+    }
+    .notification-header-icon svg {
+        width: 40px;
+        height: 40px;
+    }
+    .notification-title-row h1 {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 767px) {
+    .notification-page {
+        padding: 20px;
+        border-radius: 12px;
+    }
+    .notification-header {
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+    .notification-header-icon {
+        width: 58px;
+        height: 58px;
+        flex-basis: 58px;
+    }
+    .notification-header-icon svg {
+        width: 32px;
+        height: 32px;
+    }
+    .notification-title-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .notification-title-row h1 {
+        font-size: 27px;
+        letter-spacing: -0.5px;
+    }
+    .notification-header-content>p {
+        font-size: 15px;
+    }
+    .common-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+    .notification-card,
+    .notification-card-small {
+        grid-column: span 1;
+        min-height: auto;
+    }
+    .card-icon {
+        width: 35px;
+        height: 35px;
+        flex-basis: 35px;
+    }
+    .card-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+    .card-heading h2 {
+        font-size: 16px;
+    }
+    .card-heading p {
+        font-size: 15px;
+    }
+    .desktop-only {
+        display: none;
+    }
+    .radio-options {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+    .show-entries-card {
+        padding: 22px;
+    }
+    .show-entries-header {
+        align-items: flex-start;
+    }
+    .show-entries-icon {
+        width: 55px;
+        height: 55px;
+        flex-basis: 55px;
+    }
+    .show-entries-header h2 {
+        font-size: 20px;
+    }
+    .show-entries-header p {
+        font-size: 14px;
+    }
+    .entries-setting {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .entries-select {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .notification-page {
+        padding: 16px;
+    }
+    .notification-header {
+        flex-direction: column;
+    }
+    .notification-title-row h1 {
+        font-size: 25px;
+    }
+    .notification-header-content>p {
+        font-size: 14px;
+    }
+    .card-top {
+        gap: 14px;
+    }
+    .common-card {
+        padding: 20px;
+    }
+    .switch-option {
+        align-items: flex-start;
+    }
+    .switch {
+        margin-top: 1px;
+    }
+    .common-save-btn {
+        width: 100%;
+    }
+}
