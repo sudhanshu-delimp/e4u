@@ -25,6 +25,7 @@ class MassagePurchase extends Model
         'end_date',
         'utc_end_time',
         'status',
+        'suspended_at',
         'rate',
         'discount_rate',
         'total_discount',
@@ -54,7 +55,10 @@ class MassagePurchase extends Model
         return $this->hasOne(MassageProfile::class, 'id', 'massage_profile_id');
     }
 
-
+    public function advertiser()
+    {
+        return $this->belongsTo(MassageProfile::class, 'massage_profile_id');
+    }
 
     public function brb()
     {

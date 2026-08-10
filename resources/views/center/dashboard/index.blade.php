@@ -431,6 +431,38 @@
 
         });
     });
+
+
+    $(document).ready(function () {
+
+    const $slides = $('.announcement-slide');
+
+    if ($slides.length <= 1) {
+        $slides.first().addClass('active');
+        return;
+    }
+
+    let currentSlide = 0;
+
+    $slides.eq(currentSlide).addClass('active slide-in');
+
+    setInterval(function () {
+
+        $slides.eq(currentSlide)
+            .removeClass('active slide-in');
+
+        currentSlide++;
+
+        if (currentSlide >= $slides.length) {
+            currentSlide = 0;
+        }
+
+        $slides.eq(currentSlide)
+            .addClass('active slide-in');
+
+    }, 10000);
+
+});
 </script>
 
 

@@ -1,16 +1,3 @@
-<style>
-    .member-badge{
-    color: green;
-    font-weight: bold;
-    background: #ffffff;
-    padding: 2px 20px 0px;
-    font-size: 12px;
-    border-radius: 6px;
-    line-height: 15px;
-    display: inline-block;
-    margin-bottom: 10px;
-    }
-</style>
 <div class="col-lg-12 w-100">
 
     <div class="alert alert-{{ $type ?? 'info' }} " role="alert">
