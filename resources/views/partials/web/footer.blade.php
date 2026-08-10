@@ -97,16 +97,9 @@
                     $query['gender'] = '';
                     @endphp
 
-                    <li><a href="{{ route('find.all', request()->segment(2)) .
-                            '?' .
-                            http_build_query(
-                                array_merge(request()->query(), [
-                                    'city' => $key,
-                                    'gender' => '',
-                                    'view_type' => $viewType,
-                                ]),
-                            ) }}"
-                            class="footer_view_type_one" id="{{ $key }}">{{ $city }}</a></li>
+                    <li>
+                        <a href="{{ route('public.web.escort.listing', ['country' => 'australia','city' => strtolower($city)]) }}"
+                        class="footer_view_type_one" id="{{ $key }}">{{ $city }}</a></li>
                     @endforeach
                 </div>
 
