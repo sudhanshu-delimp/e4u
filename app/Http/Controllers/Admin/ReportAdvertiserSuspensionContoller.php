@@ -10,6 +10,7 @@ use App\Models\MassagePurchase;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
 
 class ReportAdvertiserSuspensionContoller extends Controller
@@ -49,6 +50,7 @@ class ReportAdvertiserSuspensionContoller extends Controller
     {
         return view('admin.reports.admin-advertiser-suspensions');
     }
+
     public function advertiserSuspensionDataTableListingAjax($advertiserType)
     {
 
@@ -177,10 +179,8 @@ class ReportAdvertiserSuspensionContoller extends Controller
                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                             </a>
                             <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                
-                                
                                 <a class="viewEscortSuspendedProfile dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . $redirectUrl . '" target="_blank"> <i class="fa fa-eye"></i> View</a>
-                                
+                                 <a class="reinstateEscortSuspendedProfile dropdown-item d-flex align-items-center justify-content-start gap-10 border-top" href="#" data-purchase-id=' . $row->id . '> <i class="fa fa-undo"></i> Reinstate</a>
                             </div>
                             </div>
                     ';

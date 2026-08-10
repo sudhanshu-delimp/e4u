@@ -23,7 +23,7 @@
                                         <img src="{{ asset('images/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                                     </td>
                                     <td style="vertical-align: middle; text-align: right;">
-                                        <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">Listing Suspended - {{ $purchase->advertiser->user->type=='4' ? 'Massage' : 'Escort' }}</h1>
+                                        <h1 style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">Listing Reinstated - {{ $purchase->advertiser->user->type=='4' ? 'Massage' : 'Escort' }}</h1>
                                         <div style="font-size: 13px; color: #cccccc;">Member ID: {{$purchase->advertiser->user->member_id ?? ''}}</div>
                                     </td>
                                 </tr>
@@ -36,9 +36,9 @@
                             <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$purchase->advertiser->user->name ?? ''}},</p>
 
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
-                                Please be informed that as a result of our investigation into your Profile Listing (Reference No: <strong>{{ $purchase->advertiser->user->type=='4' ?$purchase->massage_profile_id :  $purchase->escort_id}}</strong>), we have concluded that you are in breach of our Terms & Conditions.
+                                Please be informed that following our review, your Profile Listing (Reference No: <strong>{{ $purchase->advertiser->user->type=='4' ?$purchase->massage_profile_id :  $purchase->escort_id}}</strong>) has been reinstated.
                             </p>
-                            <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">The Listing has been suspended.</p>
+                            <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">The Listing is now active and available on our platform.</p>
 
                             <!-- email info -->
                             <x-email-info />
