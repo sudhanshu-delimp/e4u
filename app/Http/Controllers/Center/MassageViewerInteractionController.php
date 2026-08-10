@@ -217,7 +217,7 @@ class MassageViewerInteractionController extends Controller
                                             <div class="custom-tooltip-container">
                                                 <a class="dropdown-item align-item-custom toggle-massage-contact" href="#" title="Click to '.Str::lower($conText).' contact" 
                                                 data-id="'.$row->messageViewerLegbox->user_id.'" data-massage-id="'.$row->id.'" data-status="'.Str::lower($conCurrentText).'"> 
-                                                <i class="fa fa-phone'.$conClass.' me-1"></i> <span>'.$conText.' Contact</span>
+                                                <i class="fa fa-phone'.$conClass.' me-1"></i> <span>'.$conText.' Viewer</span>
                                                 </a>
                                                 <span class="tooltip-text">Massage center '.$contactTooltip.' contact this viewer again </span>
                                                 <div class="dropdown-divider"></div>
