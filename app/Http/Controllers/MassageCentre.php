@@ -615,7 +615,37 @@ class MassageCentre extends Controller
            $membershipId = $escort->membership;
           }
 
-         $ids = $request->ids ? json_decode($request->ids, true) : [];
+          $stateId = $escort->user->state_id;
+
+        $logedInUpser = auth()->user();
+        # Not show specific profile to viewer if specific viewer is blocked by Massage
+        $blockedProfileForViewersIds = [0];
+        if (Auth::user() && auth()->user()->type == 0) {
+            $blockedProfileForViewersIds = MassageViewerInteractions::where('viewer_id', Auth::user()->id)->where('massage_blocked_viewer', true)->pluck('massage_id');
+            if ($blockedProfileForViewersIds && count($blockedProfileForViewersIds) > 0) {
+                //$query = $query->whereNotIn('id', $blockedProfileForViewersIds);
+            }
+        }
+
+
+        $relatedMassges = MassagePurchase::with('massageprofile')->where('status', 'listed')
+        
+            ->whereHas('user', function ($q) use($stateId) {
+                $q->where('status', 1)
+                ->where('state_id', $stateId);
+            })
+            ->whereNotIn('massage_profile_id', $blockedProfileForViewersIds)
+            ->whereDoesntHave('activeSuspendProfile')->get();
+     
+        $relatedIds = $relatedMassges->pluck('massage_profile_id')->toArray();
+       
+        $relatedSlugs = $relatedMassges->pluck('massageprofile.slug')->filter()->toArray();
+
+
+
+         //$ids = $request->ids ? json_decode($request->ids, true) : [];
+   
+          $ids = $relatedIds;
         if (!$id || count($ids) < 1) {
             return redirect(route('find.massage.centre'));
         }
@@ -633,19 +663,17 @@ class MassageCentre extends Controller
             }
         }
 
-       
-
-
         $currentIndex = array_search($id, $ids);
         $prevId = $ids[$currentIndex - 1] ?? null;
         $nextId = $ids[$currentIndex + 1] ?? null;
 
-
+        $prevSlug = $relatedSlugs[$currentIndex - 1] ?? "";
+        $nextSlug = $relatedSlugs[$currentIndex + 1] ?? "";
+        $prevId = !empty($prevSlug) ?  $prevId : null;
+        $nextId = !empty($nextSlug) ?  $nextId : null;
 
         //$listing = MassageProfile::where('id','=',$id)->first();
         $reviews = $listing->reviews;
-
-
 
         $massage_durations = (isset($listing->durations) && count($listing->durations) > 0) ? $listing->durations->toArray() : [];
 
@@ -693,8 +721,7 @@ class MassageCentre extends Controller
             $star_rating = 0;
         }
 
-
-        return view('web.mc.massage-description', compact('listing', 'durations', 'massage_durations', 'reviews', 'spamReportAdvertiser', 'lp', 'dp', 'massageLike', 'nextId', 'prevId', 'ids', 'star_rating'));
+        return view('web.mc.massage-description', compact('listing', 'durations', 'massage_durations', 'reviews', 'spamReportAdvertiser', 'lp', 'dp', 'massageLike', 'nextId', 'prevId', 'ids', 'star_rating', 'prevSlug', 'nextSlug'));
     }
 
 
