@@ -1104,6 +1104,7 @@ class GlobalMonitoringController extends Controller
 
             $purchase->update([
                 'status' => 'listed',
+                'suspended_at' => NULL
             ]);
 
             if ($isExtended && $isExtended->count) {
