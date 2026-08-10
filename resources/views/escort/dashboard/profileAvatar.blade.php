@@ -199,7 +199,7 @@
 
                                 <div>
                                     <p>We only support JPG, GIF and PNG files.</p>
-                                    <p>Max file size: 10MB</p>
+                                    <p>Max file size: 2MB</p>
                                 </div>
 
                             </div>
@@ -209,7 +209,7 @@
                                     id="item-img-output">
                             </div>
 
-                            <div class="avatar-upload-submit">
+                            <div class="avatar-upload-submit" style="display: none">
                                 <button type="button" onclick="removeUpload()" class="change-avatar-btn">
                                     <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -283,7 +283,7 @@
                         <!-- Actions -->
                         <div class="avatar-actions">
 
-                            <button type="button" class="change-avatar-btn"
+                            <button type="button" class="change-avatar-btn" 
                                 onclick="$('#avatar-upload').trigger('click');">
                                 <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -885,10 +885,12 @@
         });
     </script>
     <script>
+        $('.avatar-upload-submit').hide();
         function removeUpload() {
             $('.file-upload-input').replaceWith($('.file-upload-input').clone());
             $('.file-upload-content').hide();
             $('.image-upload-wrap').show();
+            $('.avatar-upload-submit').hide();
         }
 
         $('.image-upload-wrap').bind('dragover', function() {
@@ -948,6 +950,7 @@
                 $('.file-upload-content').show();
                 $('#item-img-output').attr('src', resp);
                 $('#cropImagePop').modal('hide');
+              $('.avatar-upload-submit').show();
             });
         });
 
@@ -986,6 +989,7 @@
                 try {
                     removeUpload();
                 } catch (e) {}
+                $('.avatar-upload-submit').hide();
                 return false;
             }
             swal_waiting_popup({
@@ -1014,7 +1018,7 @@
                         $("#avatarSuccessModal").modal('show');
                         $(".avatarName").attr('src', url);
                         $(".file-upload-content").hide();
-
+                        $('.avatar-upload-submit').hide();
                         // Show the delete button since avatar is now uploaded
                         if ($(".delete_avatar").length === 0) {
                             $(".current-avatar h2").after(
@@ -1030,6 +1034,7 @@
                 error: function(data) {
                     Swal.close();
                     errorModuleShow(data);
+                    $('.avatar-upload-submit').hide();
                 }
             });
         });
