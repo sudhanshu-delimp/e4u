@@ -165,6 +165,7 @@
                                     <i>Select your preferred top up value to be applied to your Wallet.</i>
                                 </div>
                                 </div> --}}
+
                                 {{-- AGENT --}}
                                 <div class="form-group common-card">
                                     <div class="card-top">
@@ -339,7 +340,7 @@
                                         <p> <i>How your authentication code will be sent to you.</i></p>
                                     </div>
                                 </div>
-
+                                {{-- Show Entries --}}
                                 <div class="form-group common-card">
                                         <div class="card-top">
                                             <div class="card-icon">
