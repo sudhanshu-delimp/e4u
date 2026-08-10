@@ -136,6 +136,7 @@ Route::get('/data-table-escort-listing/{type?}', [GlobalMonitoringController::cl
 Route::get('/data-table-escort-single-listing/{id?}', [GlobalMonitoringController::class, 'dataTableEscortSingleListingAjax'])->name('escort.current.single-list.escort-dataTableListing');
 Route::get('/suspend-purchase/{purchase}', [GlobalMonitoringController::class, 'suspendListedProfile'])->name('admin.suspend_listed_profile');
 Route::get('/suspend-center-purchase/{purchase}', [GlobalMonitoringController::class, 'suspendCenterListedProfile'])->name('admin.center.suspend_listed_profile');
+Route::patch('/reinstate/{type}/{purchase}', [GlobalMonitoringController::class, 'reinstateAdvertiserProfileListing'])->name('admin.reinstate.listing');
 
 # Logged in users monitoring routes
 Route::get('users-online', [GlobalMonitoringLoggedInController::class, "index"])->name('admin.logged-in-users');
@@ -425,6 +426,8 @@ Route::get('reports/advertiser-suspensions', [ReportAdvertiserSuspensionContolle
 Route::get('reports/advertiser-suspensions-list-ajax/{advertiserType}', [ReportAdvertiserSuspensionContoller::class, 'advertiserSuspensionDataTableListingAjax'])->name('admin.advertiser-suspensions-list-ajax');
 Route::get('reports/e4u-suspensions', [ReportAdvertiserSuspensionContoller::class, 'suspendedByAdmin'])->name('admin.e4u-advertiser-suspension');
 Route::get('reports/admin-suspensions-list-ajax/{advertiserType}', [ReportAdvertiserSuspensionContoller::class, 'adminSuspensionDataTableListingAjax'])->name('admin.admin-suspensions-list-ajax');
+
+
 Route::get('admin/dataTable', [AgentRequestController::class, 'dataTable'])->name('admin.dataTable');
 Route::post('send-notiification', [NotificationController::class, 'sendNotification'])->name('admin.send-notiification');
 /** Staff */
