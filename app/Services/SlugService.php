@@ -23,7 +23,7 @@ class SlugService
             $calssName = $this->getClassName($modelObject);
             $baseSlug = '';
             if ($calssName == 'Escort') {
-                $baseSlug = isset($modelObject->profile_name) ?  $modelObject->profile_name : $modelObject->name;
+                $baseSlug = isset($modelObject->name) ?  $modelObject->name : $modelObject->profile_name;
                 $baseSlug = !empty($baseSlug) ? Str::slug($baseSlug) : 'escort';
             } else if ($calssName == 'MassageProfile') {
                 $baseSlug = isset($modelObject->business_name) ?  $modelObject->business_name : $modelObject->profile_name;
@@ -75,8 +75,9 @@ class SlugService
     public function updateSlugExistingProfile()
     {
         try {
-            Escort::whereNull('slug')
-                ->orWhere('slug', '')
+            /*  Escort::whereNull('slug')
+                ->orWhere('slug', '') */
+            Escort::orWhere('slug', '!=', '')
                 ->chunkById(25, function ($escorts) {
                     foreach ($escorts as $escort) {
                         // Process each escort
