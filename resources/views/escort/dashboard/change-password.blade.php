@@ -130,9 +130,9 @@
                         </form>
 
                     </div>
-
+                     <div class="common-card">
                     <form id="passwordExpiry" action="{{ route('escort.update.password.expiry') }}" method="POST">
-                        <div class="common-card">
+                       
                             <div class="col-md-12">
                                 <div class="card-top">
                                     <div class="card-icon">
@@ -184,8 +184,7 @@
                                             renew every30 days.</i></p>
                                 </div>
                             </div>
-                        </div>
-                        <div class="common-card mt-3">
+                            
                             <div class="col-md-12 mt-4">
                                 <div class="card-top">
                                     <div class="card-icon">
@@ -229,12 +228,13 @@
                                             Email, you will receive a notification 24 hours prior to expiry date.</i></p>
                                 </div>
                             </div>
-                        </div>
+                        
 
 
 
                         <div class="common-footer">
                             <input type="submit" value="Save" class="common-save-btn" name="submit">
+                        </div>
                         </div>
                     </form>
 

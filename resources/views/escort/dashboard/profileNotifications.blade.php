@@ -341,7 +341,7 @@
                                     </div>
                                 </div>
                                 {{-- Show Entries --}}
-                                <div class="form-group common-card">
+                                <div class="form-group common-card disabled-link">
                                         <div class="card-top">
                                             <div class="card-icon">
                                             <svg viewBox="0 0 24 24" fill="none">
