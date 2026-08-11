@@ -40,7 +40,7 @@ form.v-form-design .form-group {
 
 .common-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
     gap: 24px;
 }
 
@@ -100,7 +100,7 @@ form.v-form-design .form-group {
 .card-heading h2 {
     margin: 0;
     color: #0b1b3e;
-    font-size: 23px;
+    font-size: 20px;
     line-height: 1.25;
     font-weight: 700;
 }
@@ -386,7 +386,7 @@ form.v-form-design .form-group {
 }
 
 .cp-input-wrap input:focus {
-    border-color: #f52f5b;
+    border-color: #ff3c5f;
     box-shadow: 0 0 0 3px rgba(245, 47, 91, 0.08);
 }
 
@@ -404,7 +404,7 @@ form.v-form-design .form-group {
 }
 
 .cp-eye-btn:hover {
-    color: #f52f5b;
+    color: #ff3c5f;
 }
 
 
@@ -437,7 +437,7 @@ label.cabinet input.file {
     display: flex;
     align-items: flex-start;
     gap: 22px;
-    padding: 27px 25px;
+    padding: 20px;
     border: 1px solid #ffd8e1;
     border-radius: 15px;
     background: linear-gradient(135deg, #fffafd, #fff);
@@ -446,10 +446,10 @@ label.cabinet input.file {
 }
 
 .file-types-icon {
-    width: 58px;
-    height: 58px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
-    background: #f52f5b;
+    background: #ff3c5f;
     color: #fff;
     display: flex;
     align-items: center;
@@ -464,15 +464,15 @@ label.cabinet input.file {
 
 .file-types-content h2 {
     margin: 0 0 4px;
-    color: #f52f5b;
-    font-size: 22px;
+    color: #ff3c5f;
+    font-size: 20px;
     font-weight: 700;
 }
 
 .file-types-content>p {
-    margin: 0 0 20px;
+    margin: 0 0 10px;
     color: #303c4d;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .file-rules {
@@ -486,12 +486,12 @@ label.cabinet input.file {
     align-items: flex-start;
     gap: 10px;
     color: #263342;
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 13px;
+    line-height: 1.9;
 }
 
 .file-rule i {
-    color: #f52f5b;
+    color: #ff3c5f;
     font-size: 17px;
     margin-top: 1px;
     flex-shrink: 0;
@@ -507,9 +507,8 @@ label.cabinet input.file {
     background: #fff;
     border: 1px solid #e8edf2;
     border-radius: 16px;
-    padding: 25px;
+    padding: 20px;
     box-shadow: 0 8px 25px rgba(20, 45, 70, 0.07);
-    min-height: 470px;
     box-sizing: border-box;
 }
 
@@ -521,11 +520,11 @@ label.cabinet input.file {
 }
 
 .avatar-card .card-icon {
-    width: 62px;
-    height: 62px;
-    flex: 0 0 62px;
+    width: 45px;
+    height: 45px;
+    flex: 0 0 45px;
     background: #fff0f4;
-    color: #f52f5b;
+    color: #ff3c5f;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -535,20 +534,20 @@ label.cabinet input.file {
 }
 
 .card-heading h3 {
-    margin: 0 0 4px;
+    margin: 0px;
     color: #102d4d;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 700;
 }
 
 .card-heading p {
     margin: 0;
     color: #68778b;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .upload-area {
-    min-height: 300px;
+    min-height: 220px;
     border: 2px dashed #ffb9c9;
     border-radius: 13px;
     background: #fffafd;
@@ -562,14 +561,14 @@ label.cabinet input.file {
 
 .upload-area:hover {
     background: #fff4f7;
-    border-color: #f52f5b;
+    border-color: #ff3c5f;
 }
 
 .upload-icon {
-    width: 65px;
-    height: 65px;
+    width: 45px;
+    height: 45px;
     background: #ffedf2;
-    color: #f52f5b;
+    color: #ff3c5f;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -590,9 +589,9 @@ label.cabinet input.file {
 }
 
 .choose-file-btn {
-    background: #f52f5b;
+    background: #ff3c5f;
     color: #fff;
-    padding: 11px 26px;
+    padding: 10px 26px;
     border-radius: 7px;
     font-size: 14px;
     font-weight: 600;
@@ -615,7 +614,7 @@ label.cabinet input.file {
     height: 45px;
     border-radius: 50%;
     background: #fff0f4;
-    color: #f52f5b;
+    color: #ff3c5f;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -642,8 +641,8 @@ label.cabinet input.file {
 }
 
 .current-avatar-image img {
-    width: 275px;
-    height: 275px;
+    width: 200px;
+    height: 200px;
     object-fit: cover;
     border-radius: 50%;
     border: 5px solid #ffe0e8;
@@ -676,8 +675,8 @@ label.cabinet input.file {
 
 .change-avatar-btn {
     background: #fff;
-    color: #f52f5b;
-    border: 1px solid #f52f5b;
+    color: #ff3c5f;
+    border: 1px solid #ff3c5f;
 }
 
 .change-avatar-btn:hover {
@@ -685,9 +684,9 @@ label.cabinet input.file {
 }
 
 .remove-avatar-btn {
-    background: #f52f5b;
+    background: #ff3c5f;
     color: #fff;
-    border: 1px solid #f52f5b;
+    border: 1px solid #ff3c5f;
 }
 
 .remove-avatar-btn:hover {
@@ -717,7 +716,7 @@ label.cabinet input.file {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #f52f5b;
+    color: #ff3c5f;
     font-size: 34px;
     flex-shrink: 0;
 }
@@ -747,7 +746,7 @@ label.cabinet input.file {
 }
 
 .help-btn {
-    color: #f52f5b;
+    color: #ff3c5f;
     padding: 9px 16px;
     border-radius: 9px;
     font-size: 15px;
@@ -793,7 +792,7 @@ label.cabinet input.file {
     height: 45px;
     border-radius: 50%;
     background: #fff0f4;
-    color: #f52f5b;
+    color: #ff3c5f;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -876,7 +875,7 @@ label.cabinet input.file {
     justify-content: center;
     border-radius: 50%;
     background: #fff0f4;
-    color: #f52f5b;
+    color: #ff3c5f;
     font-size: 20px;
     flex-shrink: 0;
 }
@@ -914,7 +913,7 @@ label.cabinet input.file {
 .common-modal .common-modal-close:hover {
     background: #fff0f4;
     border-color: #ffd0dc;
-    color: #f52f5b;
+    color: #ff3c5f;
 }
 
 .common-modal .common-modal-body {
@@ -946,7 +945,7 @@ label.cabinet input.file {
 }
 
 .common-modal .common-modal-crop-area .cr-viewport {
-    border-color: #f52f5b;
+    border-color: #ff3c5f;
 }
 
 .common-modal .common-modal-hint {
@@ -963,7 +962,7 @@ label.cabinet input.file {
 }
 
 .common-modal .common-modal-hint i {
-    color: #f52f5b;
+    color: #ff3c5f;
     font-size: 15px;
     flex-shrink: 0;
 }
@@ -1011,8 +1010,8 @@ label.cabinet input.file {
 /* Primary */
 
 .common-modal .common-modal-btn-primary {
-    border: 1px solid #f52f5b;
-    background: #f52f5b;
+    border: 1px solid #ff3c5f;
+    background: #ff3c5f;
     color: #ffffff;
 }
 

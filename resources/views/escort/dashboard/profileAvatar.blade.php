@@ -45,7 +45,7 @@
                 <div class="file-types-box">
 
                     <div class="file-types-icon">
-                        <svg width="35px" height="35px" viewBox="0 0 24 24" fill="none"
+                        <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -153,7 +153,7 @@
                             <label for="avatar-upload" class="upload-area">
 
                                 <div class="upload-icon">
-                                    <svg width="40px" height="40px" viewBox="0 0 24 24"
+                                    <svg width="25px" height="25px" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg" fill="none">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
