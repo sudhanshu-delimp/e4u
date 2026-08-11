@@ -1100,6 +1100,22 @@ class GlobalMonitoringController extends Controller
                 default => abort(404),
             };
 
+            $advertiser = $purchase->advertiser;
+            $listedPlaymates = $advertiser->listedPlaymates;
+            $advertiser->playmates()->syncWithoutDetaching($listedPlaymates);
+            foreach ($listedPlaymates as $playmateId) {
+                $this->playmateHistory->savePlaymateHistory($advertiser->id, $playmateId, $advertiser->user->id);
+            }
+            foreach ($listedPlaymates as $playmateId) { //add profile to other escort profiles
+                $otherEscort = Escort::find($playmateId);
+                if ($otherEscort) {
+                    $otherEscort->playmates()->syncWithoutDetaching($advertiser->id);
+                    $this->playmateHistory->savePlaymateHistory($playmateId, $advertiser->id, $otherEscort->user->id);
+                }
+            }
+
+            //dd($advertiser->playmates);
+
             $isExtended = $purchase->isListingExtended();
 
             $purchase->update([

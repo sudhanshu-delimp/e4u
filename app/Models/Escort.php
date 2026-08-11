@@ -576,6 +576,19 @@ class Escort extends Model
         );
     }
 
+    public function getListedPlaymatesAttribute()
+    {
+        $playmateIds = $this->playmateHistory
+            ->pluck('playmate_id')
+            ->flatten()
+            ->unique()
+            ->filter();
+
+        return Self::whereIn('id', $playmateIds)
+            ->where('enabled', 1)
+            ->pluck('id')->toArray();
+    }
+
     public function addedBy()
     {
         return $this->belongsToMany(

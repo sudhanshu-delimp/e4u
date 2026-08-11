@@ -187,7 +187,7 @@
                         <ul class="results  mt-2 activePlaymate">
                                 @foreach($user->playmateHistory->unique('playmate_id') as $item)
                                     <li id="rmlist_{{$item->id}}" class="d_my_tooltip playmate-{{$item->group_status}}"><a
-                                            href="{{ route('profile.description',$item->playmate->id)}}" target="_blank">
+                                            href="{{ route('preview.escort',$item->playmate->id)}}" target="_blank">
                                             <img
                                                 src="{{ $item->playmate->DefaultImage ? asset($item->playmate->DefaultImage) : asset('assets/app/img/icons-profile.png') }}"
                                                 class="img-profile rounded-circle playmats-img">{{$item->playmate->user->member_id . ' - ' .$item->playmate->name}}
