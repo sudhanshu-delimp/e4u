@@ -176,6 +176,7 @@
                showLoadingPopup('Processing Reinstate...', 'Do not refresh or close this page.');
             },
             success: function(response, status, xhr) {
+               console.log(response);
                Swal.close();
                displaySwal(xhr);
             },

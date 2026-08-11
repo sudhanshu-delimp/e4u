@@ -3,7 +3,7 @@
 return [
     'massage_default_icon' => 'avatars/default/default_massage.png',
     'escort_default_icon' => 'avatars/default/default_escort.png',
-    'viewer_default_icon' => 'avatars/default/need_image.png',
+    'viewer_default_icon' => 'avatars/default/user.png',
     'agent_default_icon' => 'avatars/default/need_image.png',
     'staff_default_icon' => 'avatars/default/staff_default.png',
     'operator_default_icon' => 'avatars/default/operator_default.png',
