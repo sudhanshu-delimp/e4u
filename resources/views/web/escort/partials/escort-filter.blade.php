@@ -149,11 +149,12 @@
                                 <div class="display_inline_block mb-1 mr-2">
                                     <select class="custome_form_control_border_radus padding_five_px" id="escort_city"
                                         name="city">
-                                        <option value="" selected>All Cities</option>
+                                        <option value="" >All Cities</option>
                                         @foreach (@config('escorts.profile.cities') as $key => $city)
                                             <option value="{{ $key }}"
-                                                {{ $locationCityId == $key ? 'selected' : '' }}>
-                                                {{ $city }}</option>
+                                                {{ strtolower(request()->segment(3)) == strtolower($city) ? 'selected' : '' }}>
+                                                {{ $city }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>

@@ -436,7 +436,14 @@
                 };
             } else {
                 //make emable all city
-                $('#escort_city').val('').prop('disabled', false);
+                $('#escort_city').prop('disabled', false);
+
+                //re-select value
+                $('#escort_city').each(function () {
+                    var selectedValue = $(this).val();
+                    console.log(selectedValue, 'selectedValue');
+                    $(this).val(selectedValue).trigger('change');
+                });
 
                 $("#set_lat").val('');
                 $("#set_lng").val('');
@@ -448,6 +455,7 @@
                     limit: $('#limit').val(),
                     search_by_radio : getSearchByRadioValue(),
                 };
+                
             }
 
             //fetch first time data.
