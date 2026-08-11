@@ -319,7 +319,7 @@ class ViewerMassageInteractionController extends Controller
                                                 <span class="tooltip-text ">Access denied: This massage center has blocked you.</span>';
                     }else{
                         $viewButton = '<a class="dropdown-item align-item-custom massageProfileView"  href="#"
-                                                    data-toggle="modal" data-massage-name="'.$row->name.'" data-profile-enable="'.$row->enabled.'" data-id="'.$row->id.'"> <i
+                                                    data-toggle="modal" data-massage-name="'.$row->name.'" data-profile-enable="'.$row->enabled.'" data-id="'.$row->id.'" data-slug="'.$row->slug.'"> <i
                                                         class="fa fa-eye" aria-hidden="true"></i>
                                                     View</a>
                                                 <span class="tooltip-text">View the Massage Center Profile</span>';

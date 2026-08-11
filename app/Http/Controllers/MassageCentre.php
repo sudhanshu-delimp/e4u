@@ -605,7 +605,12 @@ class MassageCentre extends Controller
      */
     public function massageProfile(Request $request, $profile = "")
     {
+        $previousUrl = url()->previous();
+        $path = parse_url($previousUrl, PHP_URL_PATH);
+        $previousSlug = trim($path, '/');
 
+        $relatedIds = [];
+        $relatedSlugs = [];
         $escort = MassageProfile::where('slug', $profile)->first();
           if(!$escort){
              return redirect(route('find.massage.centre'));
@@ -627,26 +632,22 @@ class MassageCentre extends Controller
             }
         }
 
-
-        $relatedMassges = MassagePurchase::with('massageprofile')->where('status', 'listed')
+        if(in_array($previousSlug, ['massage-centres-list', 'massage-profile'])) {
+            $relatedMassges = MassagePurchase::with('massageprofile')->where('status', 'listed')
+                ->whereHas('user', function ($q) use($stateId) {
+                    $q->where('status', 1)
+                    ->where('state_id', $stateId);
+                })
+                ->whereNotIn('massage_profile_id', $blockedProfileForViewersIds)
+                ->whereDoesntHave('activeSuspendProfile')->get();
         
-            ->whereHas('user', function ($q) use($stateId) {
-                $q->where('status', 1)
-                ->where('state_id', $stateId);
-            })
-            ->whereNotIn('massage_profile_id', $blockedProfileForViewersIds)
-            ->whereDoesntHave('activeSuspendProfile')->get();
-     
-        $relatedIds = $relatedMassges->pluck('massage_profile_id')->toArray();
-       
-        $relatedSlugs = $relatedMassges->pluck('massageprofile.slug')->filter()->toArray();
-
-
-
+            $relatedIds = $relatedMassges->pluck('massage_profile_id')->toArray();
+            $relatedSlugs = $relatedMassges->pluck('massageprofile.slug')->filter()->toArray();
+        }
          //$ids = $request->ids ? json_decode($request->ids, true) : [];
    
           $ids = $relatedIds;
-        if (!$id || count($ids) < 1) {
+        if (!$id) {
             return redirect(route('find.massage.centre'));
         }
 

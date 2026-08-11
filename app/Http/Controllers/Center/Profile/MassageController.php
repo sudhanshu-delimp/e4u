@@ -154,7 +154,7 @@ class MassageController extends Controller
 
 
 
-            $profile_url = ['id' => $row->id, 'ids' => '[]'];
+            $profile_url = ['profile' => $row->slug];
 
             $brb = [];
             if (isset($row->brb) && (count($row->brb) > 0))
@@ -207,12 +207,12 @@ class MassageController extends Controller
             if (!$is_live)
                 $status .= '<div class="dropdown-divider ' . canManageClass() . '"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
                 href="javascript:void(0)" 
-                onclick="openModal(\'' . route('web.massage-description', $profile_url) . '\')"> 
+                onclick="openModal(\'' . route('web.massage-profile', $profile_url) . '\')"> 
                 <i class="fa fa-eye"></i> View
                 <div class="dropdown-divider"></div></a>';
             else
                 $status .= '<div class="dropdown-divider ' . canManageClass() . '"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
-                href="' . route('web.massage-description', $profile_url) . '"> 
+                href="' . route('web.massage-profile', $profile_url) . '"> 
                 <i class="fa fa-eye"></i> View
                 </a>';
 
