@@ -434,9 +434,10 @@ class GlobalMonitoringController extends Controller
                 $profile_name  .= '<sup class="brb_icon listing-tag-tooltip ml-1" style="background-color:#1CC88A">Extended <small class="listing-tag-tooltip-desc">Extended  ' . date('d-m-Y h:i A', strtotime($isExtended->data->start_date)) . '</small></sup>';
             }
             $actionBtn = "";
-            $profile_url = ['id' => $row->massageprofile->id, 'ids' => '[]'];
+           // $profile_url = ['id' => $row->massageprofile->id, 'ids' => '[]'];
+           $profile_url = ['profile' => $row->massageprofile->slug];
             $actionBtn .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
-                href="' . route('web.massage-description', $profile_url) . '" target="_blank"> 
+                href="' . route('web.massage-profile', $profile_url) . '" target="_blank"> 
                 <i class="fa fa-eye "></i> View</a>';
             if ($row->status == 'listed') {
                 $actionBtn .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center border-top" href="#" data-toggle="modal" data-target="#SetPinModal" data-purchase-id="' . $row->id . '"><i class="fa fa-ban "></i> Suspend 

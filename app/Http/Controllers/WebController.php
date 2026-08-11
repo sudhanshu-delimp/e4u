@@ -1032,6 +1032,250 @@ class WebController extends Controller
         if(!$escort){
            return redirect(route('public.web.escort.listing'));
         }
+        if(!empty($escort->slug)) {
+         return redirect('/escort-profile/'.$escort->slug);
+        }
+
+        if (Auth::user() && auth()->user()->type == 0 &&  $escort) {
+            $blockedProfileForViewers = EscortViewerInteractions::where('viewer_id', Auth::user()->id)->where('escort_blocked_viewer', true)->where('escort_id',  $escort->id)->first();
+            if ($blockedProfileForViewers) {
+                return redirect(route('public.web.escort.listing'));
+            }
+        }
+
+        
+
+
+        $media = $this->escortMedia->get_videos($escort->user_id);
+        $path = $this->escortMedia->findByVideoposition($escort->user_id, 1)['path'];
+
+        //dd($escort);
+
+        # add statistics for escort profile view
+        saving_escort_stats($escort->user_id, $id, 'profile_views_count');
+
+        $escortId = [];
+
+        $filterEscortsParams = session('search_escort_filters');
+
+        if ($filterEscortsParams == null) {
+            $filterEscortsParams  = [
+                'string' => request()->get('name'),
+                'city_id' => request()->get('city'),
+                'gender' => request()->get('gender'),
+                'age' => request()->get('age'),
+                'price' => request()->get('price'),
+                'duration_price' => request()->get('duration_price'),
+                'services' => request()->get('services'),
+                'enabled' => request()->get('enabled', 1),
+                'state_id' => request()->get('state-id') ? request()->get('state-id') : Session::get('session_state_id'),
+                'limit' => request()->get('limit'),
+                'view_type' => request()->get('view_type'),
+            ];
+        }
+
+        if (isset($filterEscortsParams['limit'])) {
+            $limit = $filterEscortsParams['limit'];
+        } else {
+            $limit = 25;
+        }
+
+        $backToSearchButton = session('search_escort_filters_url');
+
+        if (session('is_shortlisted_profile') == true && session('cart') == true) {
+            $cartKeys = array_keys(session('cart'));
+            if (count($cartKeys) > 0) {
+                sort($cartKeys); // Sort the array in ascending order
+                $escortId = $cartKeys;
+            } else {
+                $escortId = [];
+            }
+
+            $filterEscortsParams = session('search_shorlisting_escort_filters');
+            $backToSearchButton = session('search_shorlisting_escort_filters_url');
+        }
+
+
+        $location = request()->get('location');
+
+        $platinum = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '1'), $filterEscortsParams, $filterEscortsParams['gender'], $filterEscortsParams['age'], $location)->get();
+        $gold = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '2'), $filterEscortsParams, $filterEscortsParams['gender'], $filterEscortsParams['age'], $location)->get();
+        $silver = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '3'), $filterEscortsParams, $filterEscortsParams['gender'], $filterEscortsParams['age'], $location)->get();
+        $free = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '4'), $filterEscortsParams, $filterEscortsParams['gender'], $filterEscortsParams['age'], $location)->get();
+
+        $filterEscorts = $platinum->concat($gold)->concat($silver);
+
+        if (session('is_shortlisted_profile') == true) {
+            $filterEscorts = $filterEscorts->sortBy('id')->values();
+        }
+
+        list($next, $previous) = $this->escort->getlinks($id, $city, $membershipId, $filterEscorts);
+        $availability = $escort ? $escort->availability : null;
+
+        /*new functionality*/
+        if (request()->has('list') || request()->get('view_type') == 'list') {
+            $viewType = 'list';
+            $next = $next . '?' . $viewType;
+            $previous = $previous . '?' . $viewType;
+
+            $backToSearchButton = preg_replace('/view_type=(grid|list)/', 'view_type=list', $backToSearchButton);
+        } else {
+            $viewType = 'grid';
+            $next = $next . '?' . $viewType;
+            $previous = $previous . '?' . $viewType;
+
+            $backToSearchButton = preg_replace('/view_type=(grid|list)/', 'view_type=grid', $backToSearchButton);
+        }
+
+
+        $services1 = $this->servicesById($id, 1);
+
+        $cat1_services_one = null;
+        $cat1_services_two = null;
+        $cat1_services_three = null;
+
+
+        $categoryOneServices = $escort->services()->where('category_id', 1)->get();
+        $categoryTwoServices = $escort->services()->where('category_id', 2)->get();
+        $categoryThreeServices = $escort->services()->where('category_id', 3)->get();
+        if (!empty($categoryOneServices->toArray())) {
+            $chunks = $this->getServiceChunks($categoryOneServices->toArray());
+            $categoryOneServices = $chunks;
+        } else {
+            $categoryOneServices = [];
+        }
+        if (!empty($categoryTwoServices->toArray())) {
+            $chunks = $this->getServiceChunks($categoryTwoServices->toArray());
+            $categoryTwoServices = $chunks;
+        } else {
+            $categoryTwoServices = [];
+        }
+        if (!empty($categoryThreeServices->toArray())) {
+            $chunks = $this->getServiceChunks($categoryThreeServices->toArray());
+            $categoryThreeServices = $chunks;
+        } else {
+            $categoryThreeServices = [];
+        }
+
+        if (isset($services1[0])) {
+            $cat1_services_one = $services1[0];
+        }
+        if (isset($services1[1])) {
+            $cat1_services_two = $services1[1];
+        }
+        if (isset($services1[2])) {
+            $cat1_services_three = $services1[2];
+        }
+        $services2 = $this->servicesById($id, 2);
+
+        $cat2_services_one = null;
+        $cat2_services_two = null;
+        $cat2_services_three = null;
+        if (isset($services2[0])) {
+            $cat2_services_one = $services2[0];
+        }
+        if (isset($services2[1])) {
+            $cat2_services_two = $services2[1];
+        }
+        if (isset($services2[2])) {
+            $cat2_services_three = $services2[2];
+        }
+        // $cat2_services_one = $services2[0];
+        // $cat2_services_two = $services2[1];
+        // $cat2_services_three = $services2[2];
+        $eid = $id;
+        $services3 = $this->servicesById($id, 3);
+
+        $cat3_services_one = null;
+        $cat3_services_two = null;
+        $cat3_services_three = null;
+        if (isset($services3[0])) {
+            $cat3_services_one = $services3[0];
+        }
+        if (isset($services3[1])) {
+            $cat3_services_two = $services3[1];
+        }
+        if (isset($services3[2])) {
+            $cat3_services_three = $services3[2];
+        }
+
+        $user_type = null;
+        $escortLike = null;
+        $userId = !empty(auth()->user()) ? auth()->user()->id : NULL;
+        $escortLike = $this->_getUserLikeDislike($id, $request->ip(), $userId);
+        //dd($escortLike);
+        if (auth()->user() && auth()->user()->type == 0) {
+            $user_type = auth()->user();
+        }
+        $total = EscortLike::where('escort_id', $id)->count();
+        if ($total > 0) {
+            $likeCount = EscortLike::where('like', 1)->where('escort_id', $id)->count();
+            $dislikeCount = EscortLike::where('like', 0)->where('escort_id', $id)->count();
+            $lp = round($likeCount / $total * 100);
+            $dp = round($dislikeCount / $total * 100);
+        } else {
+            $lp = 0;
+            $dp = 0;
+        }
+
+
+        // dd($escort->reviews);
+        $reviews = $escort->reviews;
+        // $userEscortsProfile = Escort::where('user_id',$escort->user_id)->where('profile_name','!=',null)->where('enabled',1)->pluck('id');
+        // if($userEscortsProfile ->isNotEmpty()){
+        //     $reviews = Reviews::whereIn('escort_id',$userEscortsProfile)->where('status','published')->get();
+        // }
+
+        // $reviews = Reviews::where('escort_id',$id)->where('status','approved')->with('user')->get()->unique('user_id');
+        //dd($viewType);
+        $user = DB::table('users')->where('id', (int)$escort->user_id)->select('contact_type')->first();
+        $spamReportAdvertiser = collect();
+
+        if (Auth::user() && Auth::user()->type == 0) {
+            $spamReportAdvertiser = ReportEscortProfile::where('viewer_id', Auth::user()->id)->first();
+        }
+
+        # Not show specific profile to viewer if specific viewer is blocked by escort
+        if (Auth::check()) {
+            $blockedProfileForViewersIds = EscortViewerInteractions::where('viewer_id', Auth::id())
+                ->where('escort_blocked_viewer', true)
+                ->pluck('escort_id');
+
+            if ($blockedProfileForViewersIds->contains($escort->id)) {
+                $escort = collect(); // or null, based on your use-case
+            }
+        }
+        if (empty($backToSearchButton)) {
+            $backToSearchButton = route('find.all');
+        }
+        return view('web.description', compact('categoryOneServices', 'categoryTwoServices', 'categoryThreeServices', 'path', 'media', 'escortLike', 'lp', 'dp', 'user_type', 'next', 'previous', 'escort', 'availability', 'backToSearchButton', 'user', 'viewType', 'reviews', 'spamReportAdvertiser'));
+    }
+    
+
+    public function profileDescriptionBySlug(Request $request, $profile = "")
+    {
+        $id = null;
+        $city = null; 
+        $membershipId = null; 
+        $viewType = 'grid';
+
+         $escort = Escort::where('slug', $profile)->first();
+          if(!$escort){
+             return redirect(route('public.web.escort.listing'));
+          } else {
+           $id = $escort->id;
+           $city = $escort->city_id;
+           $membershipId = $escort->membership;
+          }
+
+
+        $escort = Escort::where('id', $id)->with(['reviews' => function ($q) {
+            $q->where('status', 'published');
+        }, 'reviews.user'])->first();
+
+        if(!$escort){
+           return redirect(route('public.web.escort.listing'));
+        }
 
         if (Auth::user() && auth()->user()->type == 0 &&  $escort) {
             $blockedProfileForViewers = EscortViewerInteractions::where('viewer_id', Auth::user()->id)->where('escort_blocked_viewer', true)->where('escort_id',  $escort->id)->first();

@@ -583,10 +583,13 @@
                 
                 let escortId = $(this).attr('data-id');
                 let escortProfileIsEnabled = $(this).attr('data-profile-enable');
-                let profileurl = "{{route('profile.description','_id')}}";
-                profileurl = profileurl.replace('_id',escortId);
+               // let profileurl = "{{route('profile.description','_id')}}";
+               // profileurl = profileurl.replace('_id',escortId);
+               let escortSlug = $(this).attr('data-slug');
+               let profileurl = "{{route('escort.profile.detail','_profile')}}";
+               profileurl = profileurl.replace('_profile',escortSlug);
 
-                console.log(escortProfileIsEnabled, ' jite');
+
 
                 if(escortProfileIsEnabled == '0'){
                     let htmlData = '<div class="col-md-12 my-4  text-center"><h5 class=" body_text mb-2">This Escort does not presently have any Listed Profiles.</h5></div>';
@@ -898,8 +901,12 @@
                
                 let massageProfileIsEnabled = $(this).attr('data-profile-enable');
                 //let profileurl = "{{route('center.profile.description','_id')}}";
-                let profileurl = "{{route('web.massage-description','_id')}}";
-                profileurl = profileurl.replace('_id',massageId)+'?ids=[]';
+                //let profileurl = "{{route('web.massage-description','_id')}}";
+                //profileurl = profileurl.replace('_id',massageId)+'?ids=[]';
+
+                let massageSlug = $(this).attr('data-slug');
+               let profileurl = "{{route('web.massage-profile','_profile')}}";
+               profileurl = profileurl.replace('_profile',massageSlug);
                
 
                 massageProfileIsEnabled=1;

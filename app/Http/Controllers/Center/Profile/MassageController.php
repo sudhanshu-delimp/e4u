@@ -154,7 +154,7 @@ class MassageController extends Controller
 
 
 
-            $profile_url = ['id' => $row->id, 'ids' => '[]'];
+            $profile_url = ['profile' => $row->slug];
 
             $brb = [];
             if (isset($row->brb) && (count($row->brb) > 0))
@@ -207,12 +207,12 @@ class MassageController extends Controller
             if (!$is_live)
                 $status .= '<div class="dropdown-divider ' . canManageClass() . '"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
                 href="javascript:void(0)" 
-                onclick="openModal(\'' . route('web.massage-description', $profile_url) . '\')"> 
+                onclick="openModal(\'' . route('web.massage-profile', $profile_url) . '\')"> 
                 <i class="fa fa-eye"></i> View
                 <div class="dropdown-divider"></div></a>';
             else
                 $status .= '<div class="dropdown-divider ' . canManageClass() . '"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
-                href="' . route('web.massage-description', $profile_url) . '"> 
+                href="' . route('web.massage-profile', $profile_url) . '"> 
                 <i class="fa fa-eye"></i> View
                 </a>';
 
@@ -552,6 +552,9 @@ class MassageController extends Controller
 
             $massage_profile_id = $massage->id;
 
+            // create or update slug
+            $slug = (new \App\Services\SlugService)->createUpdateSlug($massage);
+
             /* ================== Availability ================== */
             MassageAvailability::create([
                 'massage_profile_id' => $massage_profile_id,
@@ -692,8 +695,14 @@ class MassageController extends Controller
             ];
 
             $message = 'Business information updated successfully.';
-            if ($data =  MassageProfile::find($request->massage_id)->update($input))
-                $error = false;
+            
+            if ($data =  MassageProfile::find($request->massage_id)->update($input)){
+                 $error = false;
+                  // create or update slug
+                  $massCenter = MassageProfile::where('id', $request->massage_id)->first();
+                  $slug = (new \App\Services\SlugService)->createUpdateSlug($massCenter);
+            }
+               
             massage_profile_complete_status($request->massage_id);
         }
         ######### End Update profile  #####################
