@@ -55,7 +55,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
     }
 
 
-    public function paginatedByEscortId($start, $limit, $order_key, $dir, $columns, $search = null, $escort_id, $stateId = null)
+    public function paginatedByEscortId($start, $limit, $order_key, $dir, $columns, $search = null, $escort_id = null, $stateId = null)
     {
 
         $order = $this->getOrder($order_key);
@@ -90,7 +90,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
         return $columns[$order_key];
     }
 
-    public function paginatedList($start, $limit, $order_key, $dir, $columns, $search = null, $user_id, $conditions = [])
+    public function paginatedList($start, $limit, $order_key, $dir, $columns, $search = null, $user_id = null, $conditions = [])
     {
         $order = $this->getOrderEscort($order_key);
         $searchables = $this->getSearchableFields($columns);
@@ -497,7 +497,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
         return $pagination;
     }
 
-    public function filter($collection, $str = [], $user_id, $escort_id, $userId, $gen)
+    public function filter($collection, $str = [], $user_id = null, $escort_id = null, $userId = null, $gen = null)
     {
         $age[] = explode('-', $str['age']);
         if (!empty($str['age'])) {
