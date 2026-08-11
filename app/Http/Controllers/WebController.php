@@ -1254,7 +1254,6 @@ class WebController extends Controller
 
     public function profileDescriptionBySlug(Request $request, $profile = "")
     {
-        //echo (new \App\Services\SlugService)->updateSlugExistingProfile();die;
         $id = null;
         $city = null; 
         $membershipId = null; 
