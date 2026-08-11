@@ -53,6 +53,7 @@ use App\Http\Controllers\Agent\ImpersonateController;
 use App\Http\Controllers\Viewer\PunterBoxController;
 use App\Http\Controllers\Viewer\ViewerReviewsController;
 use App\Http\Controllers\Escort\EscortAccountController;
+use App\Http\Controllers\EscortListingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes    
@@ -866,20 +867,36 @@ Route::post('/massage-like-dislike', [ReportMassageController::class, 'massageLi
 
 ###########----------------SEO ROUTE FOR ESCORT----------------##################
 
-Route::get('/all-escorts-listing', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing');
+//Route::get('/all-escorts-listing', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing');
 
 
-Route::get('/escorts-list/{country?}/{city?}', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing');
+// Route::get('/escorts-list/{country?}/{city?}', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing');
+Route::get('/find-escorts',[EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing');
+
+//Gender wise
+Route::get('find-escorts/{gender}', function($gender){
+    return app(EscortListingController::class)->locationListing($gender);
+})->name('escort.gender');
+
+//Country Wise
+Route::get('/{country}', function($country){
+    return app(EscortListingController::class)->locationListing($country);
+})->name('escort.country');
+
+//Country and City wise 
+Route::get('/{country}/{city}', function($country, $city){
+    return app(EscortListingController::class)->locationListing($country, $city);
+})->name('escort.city');
+
+//Country City and with gender
+Route::get('/{country}/{city}/{gender}', function($country, $city, $gender){
+    return app(EscortListingController::class)->locationGenderListing($country, $city, $gender);
+})->name('escort.location.gender');
 
 
-// https://www.escorts4u.com.au/australia   
-// https://www.escorts4u.com.au/australia/adelaide
-// https://www.escorts4u.com.au/australia/brisbane
-// https://www.escorts4u.com.au/australia/canberra
-// https://www.escorts4u.com.au/australia/darwin
-// https://www.escorts4u.com.au/australia/hobart
-// https://www.escorts4u.com.au/australia/melbourne
-// https://www.escorts4u.com.au/australia/parth
+
+
+
 
 
 Route::post('/encrypt', function (Request $request) {
