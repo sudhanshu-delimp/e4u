@@ -612,107 +612,6 @@
         </div>
     </div>
 
-    <!-- Common Confirmation Modal -->
-    <div class="modal fade common-modal" id="conformation_modal" tabindex="-1" role="dialog"
-        aria-labelledby="confirmationModalLabel" aria-hidden="true">
-
-        <div class="modal-dialog modal-dialog-centered common-modal-dialog">
-            <div class="modal-content common-modal-content">
-
-                <!-- Header -->
-                <div class="modal-header common-modal-header">
-
-                    <div class="common-modal-title-wrap">
-
-                        <div class="common-modal-icon">
-                            <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                <g id="SVGRepo_iconCarrier">
-                                    <path
-                                        d="M14.2639 15.9375L12.5958 14.2834C11.7909 13.4851 11.3884 13.086 10.9266 12.9401C10.5204 12.8118 10.0838 12.8165 9.68048 12.9536C9.22188 13.1095 8.82814 13.5172 8.04068 14.3326L4.04409 18.2801M14.2639 15.9375L14.6053 15.599C15.4112 14.7998 15.8141 14.4002 16.2765 14.2543C16.6831 14.126 17.12 14.1311 17.5236 14.2687C17.9824 14.4251 18.3761 14.8339 19.1634 15.6514L20 16.4934M14.2639 15.9375L18.275 19.9565M18.275 19.9565C17.9176 20 17.4543 20 16.8 20H7.2C6.07989 20 5.51984 20 5.09202 19.782C4.71569 19.5903 4.40973 19.2843 4.21799 18.908C4.12796 18.7313 4.07512 18.5321 4.04409 18.2801M18.275 19.9565C18.5293 19.9256 18.7301 19.8727 18.908 19.782C19.2843 19.5903 19.5903 19.2843 19.782 18.908C20 18.4802 20 17.9201 20 16.8V16.4934M4.04409 18.2801C4 17.9221 4 17.4575 4 16.8V7.2C4 6.0799 4 5.51984 4.21799 5.09202C4.40973 4.71569 4.71569 4.40973 5.09202 4.21799C5.51984 4 6.07989 4 7.2 4H16.8C17.9201 4 18.4802 4 18.908 4.21799C19.2843 4.40973 19.5903 4.71569 19.782 5.09202C20 5.51984 20 6.0799 20 7.2V16.4934M17 8.99989C17 10.1045 16.1046 10.9999 15 10.9999C13.8954 10.9999 13 10.1045 13 8.99989C13 7.89532 13.8954 6.99989 15 6.99989C16.1046 6.99989 17 7.89532 17 8.99989Z"
-                                        stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
-                                </g>
-                            </svg>
-                        </div>
-
-                        <div>
-                            <h5 class="common-modal-title" id="confirmationModalLabel">
-
-                                <span id="modal-title">
-                                    Remove Avatar
-                                </span>
-
-                            </h5>
-                        </div>
-
-                    </div>
-
-                    <button type="button" class="common-modal-close" data-dismiss="modal" aria-label="Close">
-
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-
-                            <path d="M19 5L4.99998 19M5.00001 5L19 19" stroke="#ff3c5f" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round" />
-
-                        </svg>
-
-                    </button>
-
-                </div>
-
-                <!-- Body -->
-                <div class="modal-body common-modal-body">
-
-                    <div class="common-modal-confirm-content">
-                        <h4 id="comman_str">
-                            Are you sure you want to delete your avatar?
-                        </h4>
-
-                        <p>
-                            This action cannot be undone.
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <!-- Footer -->
-                <div class="modal-footer common-modal-footer common-modal-footer-center">
-
-                    <button type="button" class="common-modal-btn common-modal-btn-secondary" id="cancelDelete"
-                        data-dismiss="modal">
-
-                        Cancel
-
-                    </button>
-
-                    <button type="button" class="common-modal-btn common-modal-btn-primary" id="confirmDelete"
-                        data-dismiss="modal">
-
-                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <path
-                                    d="M10 12L14 16M14 12L10 16M18 6L17.1991 18.0129C17.129 19.065 17.0939 19.5911 16.8667 19.99C16.6666 20.3412 16.3648 20.6235 16.0011 20.7998C15.588 21 15.0607 21 14.0062 21H9.99377C8.93927 21 8.41202 21 7.99889 20.7998C7.63517 20.6235 7.33339 20.3412 7.13332 19.99C6.90607 19.5911 6.871 19.065 6.80086 18.0129L6 6M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6"
-                                    stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                </path>
-                            </g>
-                        </svg>
-                        Yes, Remove
-
-                    </button>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
 @endsection
 
 @push('script')
@@ -984,8 +883,7 @@
                 oversize = getBase64SizeBytes(src) > maxBytes;
             }
             if (oversize) {
-                $('.comman_msg').text('Image must be 10MB or less.');
-                $("#avatarSuccessModal").modal('show');
+                showAlert('error', 'Error', 'Image must be 10MB or less.');
                 try {
                     removeUpload();
                 } catch (e) {}
@@ -1013,168 +911,117 @@
                         var msg = "Avatar uploaded successfully!";
                         var url = "{{ asset('avatars/name') }}";
                         url = url.replace('name', data.avatarName);
-                        $('.comman_msg').text(msg);
+                        // $('.comman_msg').text(msg);
                         //$("#my_account_modal").show();
-                        $("#avatarSuccessModal").modal('show');
+                        // $("#avatarSuccessModal").modal('show');
+                        showAlert('success', '',msg);
                         $(".avatarName").attr('src', url);
                         $(".file-upload-content").hide();
                         $('.avatar-upload-submit').hide();
                         // Show the delete button since avatar is now uploaded
+                        var deleteBtn = $(".delete_avatar");
+
                         if ($(".delete_avatar").length === 0) {
-                            $(".current-avatar h2").after(
-                                `<button type="button" class="avatar close delete_avatar" aria-label="Close"><span aria-hidden="true">×</span></button>`
-                            );
+
+                            $(".avatar-actions").append(`
+                                <button type="button" class="remove-avatar-btn delete_avatar">
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+
+                                        <path
+                                            d="M10 12L14 16M14 12L10 16M18 6L17.1991 18.0129C17.129 19.065 17.0939 19.5911 16.8667 19.99C16.6666 20.3412 16.3648 20.6235 16.0011 20.7998C15.588 21 15.0607 21 14.0062 21H9.99377C8.93927 21 8.41202 21 7.99889 20.7998C7.63517 20.6235 7.33339 20.3412 7.13332 19.99C6.90607 19.5911 6.871 19.065 6.80086 18.0129L6 6M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6"
+                                            stroke="#ffffff"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                        </path>
+
+                                    </svg>
+                                    Remove
+                                </button>
+                            `);
+
                         } else {
+
                             $(".delete_avatar").show();
+
                         }
                     } else {
-                        errorModuleShow(data);
+                        showAlert('error', 'Error', data);
                     }
                 },
                 error: function(data) {
                     Swal.close();
-                    errorModuleShow(data);
+                    showAlert('error', 'Error', data);
                     $('.avatar-upload-submit').hide();
                 }
             });
         });
 
-
-        function errorModuleShow(data = null) {
-            var msg = "Something went wrong. Please try again.";
-            try {
-                var resp = data && data.responseJSON ? data.responseJSON : data;
-                if (resp) {
-                    if (resp.message) {
-                        msg = resp.message;
-                    } else if (resp.errors) {
-                        // Prefer src (base64 image) or avatar_img errors
-                        var err = resp.errors.src || resp.errors.avatar_img || resp.errors.file || null;
-                        if (Array.isArray(err) && err.length) {
-                            msg = err[0];
-                        } else if (typeof err === 'string') {
-                            msg = err;
-                        }
-                    }
-                }
-            } catch (e) {}
-
-            $('.comman_msg').text(msg);
-            $("#avatarSuccessModal").modal('show');
-            $(".delete_avatar").hide();
-        }
-
-
-        $('#confirmDelete').on('click', function(e) {
-            e.preventDefault();
-
-            try {
-                // Show loading state on delete button
-                var deleteBtn = $(".delete_avatar");
-                var originalText = deleteBtn.html();
-                deleteBtn.html('<i class="fas fa-spinner fa-spin"></i>');
-                deleteBtn.prop('disabled', true);
-
-                $.ajax({
-                    method: 'POST',
-                    url: "{{ route('escort.avatar.remove') }}",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        try {
-                            if (data.type == 0) {
-
-                                // Update avatar image to default
-                                $(".avatarName").attr('src', data.img);
-
-                                // Hide delete button
-                                $(".delete_avatar").hide();
-                            } else {
-                                // Error - show error message
-                                showErrorMessage(data.message ||
-                                    "Something went wrong. Please try again.");
-                            }
-                        } catch (error) {
-                            showErrorMessage("Error processing server response. Please try again.");
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        let errorMsg = "Error occurred while removing avatar.";
-                        showErrorMessage(errorMsg);
-                    },
-                    complete: function() {
-                        try {
-                            // Reset button state
-                            deleteBtn.html(originalText);
-                            deleteBtn.prop('disabled', false);
-                        } catch (error) {
-                            console.error('Error resetting button state:', error);
-                        }
-                    }
-                });
-            } catch (error) {
-                console.error('Error in confirmDelete click handler:', error);
-                showErrorMessage("An unexpected error occurred. Please try again.");
-
-                // Reset button state
-                var deleteBtn = $(".delete_avatar");
-                deleteBtn.html('×');
-                deleteBtn.prop('disabled', false);
-            }
-        });
-
-        $('#cancelDelete').on('click', function() {
-            // Just close the modal - no action needed
-            $("#conformation_modal").modal('hide');
-        });
-
-        // Function to show error message
-        function errorModuleShow(data = null) {
-            var msg = "";
-            try {
-                var resp = null;
-                if (data && data.responseJSON) {
-                    resp = data.responseJSON;
-                } else if (data && data.responseText) {
-                    try {
-                        resp = JSON.parse(data.responseText);
-                    } catch (e) {}
-                } else {
-                    resp = data;
-                }
-
-                if (resp) {
-                    if (typeof resp === 'string') {
-                        msg = resp;
-                    } else if (resp.message) {
-                        msg = resp.message;
-                    } else if (resp.errors) {
-                        var errors = resp.errors;
-                        var first = null;
-                        if (Array.isArray(errors)) {
-                            first = errors[0];
-                        } else if (errors.src) {
-                            first = Array.isArray(errors.src) ? errors.src[0] : errors.src;
-                        } else if (errors.avatar_img) {
-                            first = Array.isArray(errors.avatar_img) ? errors.avatar_img[0] : errors.avatar_img;
-                        } else if (errors.file) {
-                            first = Array.isArray(errors.file) ? errors.file[0] : errors.file;
-                        }
-                        if (first) msg = first;
-                    }
-                }
-            } catch (e) {}
-
-            $('.comman_msg').text(msg);
-            $("#avatarSuccessModal").modal('show');
-            $(".delete_avatar").hide();
-        }
-
-
         // Bind delete avatar event to show confirmation modal
         $(document).on('click', '.delete_avatar', function() {
-            $("#conformation_modal").modal('show');
+            showAlert(
+                'confirm',
+                '',
+                'Do you want to delete?',
+                function () {
+                    try {
+                    // Show loading state on delete button
+                        var deleteBtn = $(".delete_avatar");
+                        var originalText = deleteBtn.html();
+                        deleteBtn.html('<i class="fas fa-spinner fa-spin"></i>');
+                        deleteBtn.prop('disabled', true);
+
+                        $.ajax({
+                            method: 'POST',
+                            url: "{{ route('escort.avatar.remove') }}",
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(data) {
+                                try {
+                                    if (data.type == 0) {
+
+                                        // Update avatar image to default
+                                        $(".avatarName").attr('src', data.img);
+
+                                        // Hide delete button
+                                        $(".delete_avatar").hide();
+                                        showAlert('success', '', 'Avatar has been removed successfully.');
+                                    } else {
+                                        // Error - show error message
+                                        showAlert('error', 'Error',data.message ||
+                                            "Something went wrong. Please try again.");
+                                    }
+                                } catch (error) {
+                                    showAlert('error', 'Error',"Error processing server response. Please try again.");
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                let errorMsg = "Error occurred while removing avatar.";
+                                showAlert('error', 'Error',errorMsg);
+                            },
+                            complete: function() {
+                                try {
+                                    // Reset button state
+                                    deleteBtn.html(originalText);
+                                    deleteBtn.prop('disabled', false);
+                                } catch (error) {
+                                    console.error('Error resetting button state:', error);
+                                }
+                            }
+                        });
+                    } catch (error) {
+                    console.error('Error in confirmDelete click handler:', error);
+                    showAlert('error', 'Error', 'An unexpected error occurred. Please try again.');
+
+                    // Reset button state
+                    var deleteBtn = $(".delete_avatar");
+                    deleteBtn.html('×');
+                    deleteBtn.prop('disabled', false);
+                    }
+                }
+            );
         });
 
         function toggleAvatarInfo() {

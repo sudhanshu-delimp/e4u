@@ -299,22 +299,7 @@ console.log(endpoint.stage_names, 'stageNames....');
             return 'Something went wrong.';
         }
     }
-
-    //show alert
-
-    function showAlert(type, title, message) {
-        const iconMap = {
-            success: endpoint.success_image,
-            error: endpoint.error_image,
-            warning: endpoint.error_image
-        };
-        $('#modal-icon').attr('src', iconMap[type] || endpoint.success_image);
-        $('#modal-title').text(title || '');
-        $('#comman_str').text('');
-        $('.comman_msg').text(message || '');
-        $('#comman_modal').modal('show');
-    }
-
+    
     function getShortDesc(value) {
         // Check if value contains HTML tags
         const hasHtml = /<[^>]*>/g.test(value);

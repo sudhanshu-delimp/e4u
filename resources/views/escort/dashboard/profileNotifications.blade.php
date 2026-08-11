@@ -470,9 +470,8 @@
 
                     console.log(response);
                     Swal.close();
-                    $('#globalAlert').html(
-                        `<div id="commanAlert" class="alert rounded alert-success" >${response.message}</div>`
-                    );
+                    showAlert('success', '',response.message);
+                   
                     setTimeout(function() {
                         location.reload();
                     }, 3000);

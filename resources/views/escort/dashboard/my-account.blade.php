@@ -403,9 +403,9 @@
                },
                success: function(data) {
                    if (!data.error) {
-                   showAlert("Your details have been updated successfully.", "success");
+                   swal_success_popup('Your details have been updated successfully.');
                    } else {
-                   showAlert("Oops... something went wrong. Please try again.", "danger");
+                   swal_error_popup("Oops... something went wrong. Please try again.");
                    }
                }
                });
@@ -430,9 +430,9 @@
                },
                success: function(data) {
                if (!data.error) {
-                   showAlert("The profile and tour options have been updated successfully.", "success");
+                   swal_success_popup("The profile and tour options have been updated successfully.");
                } else {
-                   showAlert("Oops... something went wrong. Please try again.", "danger");
+                   swal_error_popup("Oops... something went wrong. Please try again.");
                }
                }
            });

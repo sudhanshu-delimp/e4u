@@ -430,14 +430,16 @@
                success: function (data) {
                    if(!data.error){
                        var msg = "Saved";
-                       $('.comman_msg').text(msg);
+                       //$('.comman_msg').text(msg);
                        //$("#my_account_modal").show();
-                       $("#comman_modal").modal('show');
+                       //$("#comman_modal").modal('show');
+                       swal_success_popup(msg);
                        $('#update-about-me').prop('disabled', false);
                        $('#update-about-me').html('Update');
                    } else {
-                       $('.comman_msg').text(data.message);
-                       $("#comman_modal").modal('show');
+                        swal_error_popup(data.message);
+                       //$('.comman_msg').text(data.message);
+                       //$("#comman_modal").modal('show');
                        $('#update-about-me').prop('disabled', false);
                        $('#update-about-me').html('Update');
                    }
@@ -480,14 +482,11 @@
                success: function (data) {
                    if(!data.error){
                        var msg = "Saved";
-                       $('.comman_msg').text(msg);
-                       //$("#my_account_modal").show();
-                       $("#comman_modal").modal('show');
+                        showAlert('success', 'Saved', msg);
                        $('#update-about-me').prop('disabled', false);
                        $('#update-about-me').html('Save Social');
                    } else {
-                       $('.comman_msg').html("Oops.. sumthing wrong Please try again");
-                       $("#comman_modal").modal('show');
+                        showAlert('error', 'Error', 'Something went wrong.');
                        $('#update-about-me').prop('disabled', false);
                        $('#update-about-me').html('Save Social');
                    }
@@ -511,7 +510,6 @@
 
    $('#read_more').on('submit', function(e) {
        e.preventDefault();
-
        var form = $(this);
         $("#modal-title").text('My Social Media');
        if (form.parsley().isValid()) {
@@ -787,14 +785,11 @@
                success: function (data) {
                    if(!data.error){
                        var msg = "Saved";
-                       $('.comman_msg').text(msg);
-                       //$("#my_account_modal").show();
-                       $("#comman_modal").modal('show');
+                        showAlert('success', 'Saved', msg);
                        $('#my_services').prop('disabled', false);
                        $('#my_services').html('Save');
                    } else {
-                       $('.comman_msg').html("Oops.. sumthing wrong Please try again");
-                       $("#comman_modal").modal('show');
+                        showAlert('error', 'Error',  'Something went wrong.');
                        $('#my_services').prop('disabled', false);
                        $('#my_services').html('Save');
                    }
@@ -835,16 +830,13 @@
             console.log(data);
                if(!data.error){
                    var msg = "Saved";
-                       $('.comman_msg').text(msg);
                        //$("#my_account_modal").show();
-                       $("#comman_modal").modal('show');
-           //
+                     showAlert('success', 'Saved', msg);
+           
                    $('#store_rate').prop('disabled', false);
                    $('#store_rate').html('Save');
                } else {
-
-                   $('.comman_msg').html("Oops.. sumthing wrong Please try again");
-                   $("#comman_modal").modal('show');
+                    showAlert('error', 'Error', '"Oops.. something wrong Please try again');
                    $('#store_rate').prop('disabled', false);
                    $('#store_rate').html('Save');
                }
@@ -875,14 +867,11 @@
                success: function (data) {
                    if(!data.error){
                        var msg = "Saved";
-                       $('.comman_msg').text(msg);
-                       //$("#my_account_modal").show();
-                       $("#comman_modal").modal('show');
+                        showAlert('success', 'Saved', msg);
                        $('#my_abilities').prop('disabled', false);
                        $('#my_abilities').html('Save');
                    } else {
-                       $('.comman_msg').html("Oops.. sumthing wrong Please try again");
-                       $("#comman_modal").modal('show');
+                        showAlert('error', 'Error', '"Oops.. something wrong Please try again');
                        $('#my_abilities').prop('disabled', false);
                        $('#my_abilities').html('Save');
                    }

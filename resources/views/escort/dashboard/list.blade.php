@@ -931,30 +931,72 @@
             }
         });
     });
+
+
+    // $(document).on('click', '.delete-center', function(e) {
+    //     e.preventDefault();
+    //     var $this = $(this);
+    //     $("#Lname").html("Would you like to Delete?");
+
+    //     $('#delete_profile').modal('show');
+
+    //     $("#save_change").click(function(e) {
+    //         console.log($this.attr('href'));
+    //         $.ajax({
+    //             method: "POST",
+    //             url: $this.attr('href'),
+    //             contentType: false,
+    //             processData: false,
+    //             headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             },
+    //             success: function(data) {
+    //                 location.reload();
+    //             }
+
+    //         })
+    //     });
+    // });
+
     $(document).on('click', '.delete-center', function(e) {
-        e.preventDefault();
-        var $this = $(this);
-        $("#Lname").html("Would you like to Delete?");
+    e.preventDefault();
 
-        $('#delete_profile').modal('show');
+    var $this = $(this);
+    var deleteUrl = $this.attr('href');
 
-        $("#save_change").click(function(e) {
-            console.log($this.attr('href'));
+    showAlert(
+        'confirm',
+        'Would you like to Delete?',
+        '',
+        function() {
+
             $.ajax({
                 method: "POST",
-                url: $this.attr('href'),
+                url: deleteUrl,
                 contentType: false,
                 processData: false,
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
+
                 success: function(data) {
                     location.reload();
-                }
+                },
 
-            })
-        });
-    });
+                error: function(xhr) {
+                    showAlert(
+                        'error',
+                        'Error',
+                        'Something went wrong. Please try again.'
+                    );
+                }
+            });
+
+        }
+    );
+});
+
+
     $(document).on('click', '.brb-inactivate', function(e) {
         e.preventDefault();
         var $this = $(this);

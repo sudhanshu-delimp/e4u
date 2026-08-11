@@ -56,11 +56,26 @@ $(() => {
         $('.img_comman_msg').text("Delete");
         if (prevTag == 'VIDEO') {
             $('#dVideo').attr('remove_media_id', id);
-            $("#delete_video").modal('show');
+             showAlert(
+                'confirm',
+                'Delete Video',
+                'Are you sure you want to delete this?',
+                function () {
+                    $('#dVideo').trigger('click');
+                }
+            );
+            
         }
         else {
             $('#dImg').attr('remove_media_id', id);
-            $("#delete_img").modal('show');
+             showAlert(
+                'confirm',
+                'Delete Image',
+                'Are you sure you want to delete this?',
+                function () {
+                    $('#dImg').trigger('click');
+                }
+            );
         }
     });
 

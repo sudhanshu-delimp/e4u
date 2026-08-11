@@ -316,7 +316,7 @@
                             $('input[type=password]').each(function() {
                                 $(this).val('');
                             });
-                            showGlobalAlert(data.message, "success");
+                            showAlert('success','', data.message);
                             //swal_success_popup(data.message);
                             // Reload page after 3 seconds to reflect changes
                             setTimeout(function() {
@@ -324,8 +324,7 @@
                             }, 3000);
                         } else {
                             // Show error using the message from server
-                            showGlobalAlert(data.message, "error");
-
+                            showAlert('error', 'Error', data.message || 'Something went wrong.');
                         }
                     },
                     error: function(xhr) {
@@ -344,9 +343,7 @@
                                 // Not JSON, keep the generic message
                             }
                         }
-
-                        swal_error_popup(errorMsg);
-                        showGlobalAlert(errorMsg, "error");
+                        showAlert('error', 'Error', errorMsg || 'Something went wrong.');
                     }
                 });
             }
@@ -375,13 +372,13 @@
                             $('input[type=password]').each(function() {
                                 $(this).val('');
                             });
-                            showGlobalAlert(data.message, "success");
+                            showAlert('success','', data.message);
                             // swal_success_popup(data.message);
                             setTimeout(function() {
                                 location.reload();
                             }, 3000);
                         } else {
-                            swal_error_popup(data.message);
+                            showAlert('error', 'Error', data.message || 'Something went wrong.');
                         }
                     },
                     error: function(data) {
@@ -390,7 +387,7 @@
                             errorsHtml += '<li>' + value + '</li>';
                         });
                         errorsHtml += '</ul>';
-                        showGlobalAlert(errorsHtml, "danger");
+                        showAlert('error', 'Error', errorsHtml || 'Something went wrong.');
                     }
                 });
             }

@@ -385,3 +385,41 @@ var getGeoLocationEscortAccountProfiles = function (state = 0) {
 $('.video_icon_ec').append(
     '<div class="video_tooltip">Escort has video to view</div>'
 );
+
+    //show alert
+function showAlert(type, title, message, callback = null) {
+
+    if (type === 'confirm') {
+
+        Swal.fire({
+            title: title,
+            text: message || '',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'Cancel',
+            confirmButtonColor: '#0b2545',
+            cancelButtonColor: '#6c757d',
+            allowOutsideClick: false,
+            allowEscapeKey: false
+        }).then((result) => {
+
+            if (result.isConfirmed && typeof callback === 'function') {
+                callback();
+            }
+
+        });
+
+        return;
+    }
+
+    Swal.fire({
+        icon: type,
+        title: title,
+        text: message || '',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#0b2545',
+        allowOutsideClick: false,
+        allowEscapeKey: false
+    });
+}

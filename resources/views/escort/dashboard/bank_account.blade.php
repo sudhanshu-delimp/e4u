@@ -1641,17 +1641,8 @@
                if (data.error == false) {
                   existingPin = payload_data;
                   $("#SetPinModal").modal('hide');
-                  $("#modal-title").text("Pin Update Confirmation");
-                  let textMsg = `<h5 class="text-center">
-                                 `+data.message+`
-                              </h5>`;
-                  $('.comman_msg').html(textMsg);
-                 setTimeout(() => {
-                    $("#comman_modal").modal('show');
-                  }, 200);
-                  
+                   showAlert('success', 'Pin Update Confirmation',data.message);  
                } 
-
             },
             error: function(data) {
                console.log(data.responseJSON.errors);
