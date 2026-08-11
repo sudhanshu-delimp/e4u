@@ -387,7 +387,10 @@ Route::get('admin-dashboard/e4u-database/escorts', function () {
 
 
 /********** escort profile description **********/
-Route::get('/escort-profile/{id}/{city?}/{membershipId?}', [App\Http\Controllers\WebController::class, 'profileDescription'])->name('profile.description');
+Route::get('/escort-profile/{id}/{city?}/{membershipId?}', [App\Http\Controllers\WebController::class, 'profileDescription'])->where('id', '[0-9]+')->name('profile.description');
+
+Route::get('/escort-profile/{profile}', [App\Http\Controllers\WebController::class, 'profileDescriptionBySlug'])->name('escort.profile.detail');
+
 Route::get('/center-profile/{id}', [App\Http\Controllers\WebController::class, 'centerProfileDescription'])->name('center.profile.description');
 Route::post('/store-message/{id}', [App\Http\Controllers\Escort\MessageReviewController::class, 'saveMessage'])->name('store.message');
 Route::post('/review-advertiser/{id}', [App\Http\Controllers\Escort\MessageReviewController::class, 'SaveReviewAdvertiser'])->name('review.advertiser');
@@ -844,7 +847,8 @@ Route::get('get_country_by_user_id/{user_id}', [App\Http\Controllers\CountryCont
 ################### Massage Centre Profile Page Url ###############
 Route::get('massage-centres-list', [MassageCentre::class, 'massageList'])->name('find.massage.centre');
 Route::get('mc-ajax-list', [MassageCentre::class, 'mcAjaxList'])->name('mc-ajax-list');
-Route::get('massage-description/{id}', [MassageCentre::class, 'massage_description'])->name('web.massage-description');
+Route::get('massage-description/{id}', [MassageCentre::class, 'massage_description'])->where('id', '[0-9]+')->name('web.massage-description');
+Route::get('massage-profile/{profile}', [MassageCentre::class, 'massageProfile'])->name('web.massage-profile');
 Route::post('generate/log', [MassageCentre::class, 'generateLog'])->name('web.generate.log');
 Route::post('/store-short-list', [MassageCentre::class, 'storeShortList'])->name('web.store-short-list');
 Route::post('/remove-short-list', [MassageCentre::class, 'removeShortList'])->name('web.remove-short-list');

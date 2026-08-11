@@ -325,7 +325,7 @@ class ViewerEscortInteractionController extends Controller
 
                     $isBlocked = '<div class="custom-control custom-switch text-center">
                                         <input type="checkbox" '.$isChecked.' class="custom-control-input isBlockedButton" id="customSwitch'.$escort->id.'">
-                                        <label class="custom-control-label" for="customSwitch'.$escort->id.'"></label>
+                                        <label class="custom-control-label" for="customSwitch'.$escort->slug.'"></label>
                                     </div>';
 
                 
@@ -388,7 +388,7 @@ class ViewerEscortInteractionController extends Controller
                                                 <span class="tooltip-text ">Access denied: This escort has blocked you.</span>';
                     }else{
                         $viewButton = '<a class="dropdown-item align-item-custom escortProfileView"  href="#"
-                                                    data-toggle="modal" data-escort-name="'.$row->name.'" data-profile-enable="'.$row->enabled.'" data-id="'.$row->id.'"> <i
+                                                    data-toggle="modal" data-escort-name="'.$row->name.'" data-profile-enable="'.$row->enabled.'" data-id="'.$row->id.'" data-slug="'.$row->slug.'"> <i
                                                         class="fa fa-eye" aria-hidden="true"></i>
                                                     View</a>
                                                 <span class="tooltip-text">View the Escort’s Profile</span>';

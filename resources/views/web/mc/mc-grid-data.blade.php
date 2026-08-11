@@ -75,9 +75,14 @@
                 @endif
             </div>
 
-            <a href="{{ route('web.massage-description', [
+            {{--  <a href="{{ route('web.massage-description', [
                 'id' => $listing->id,
                 'ids' => json_encode($ids)
+            ]) }}" class="mc_card_link"> --}}
+
+            <a href="{{ route('web.massage-profile', [
+                'profile' => $listing->slug,
+                //'ids' => json_encode($ids)
             ]) }}" class="mc_card_link">
         
                 

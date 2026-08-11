@@ -289,7 +289,7 @@
                                                     <h2>Idle Time Preference</h2>
                                                 </div>
                                             </div>
-                                            <div class="radio-options">
+                                            <div class="option-list">
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio"
                                                         name="idle_preference_time" id="idle_15" value="15"
