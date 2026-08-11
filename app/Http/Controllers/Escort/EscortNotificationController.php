@@ -163,8 +163,8 @@ class EscortNotificationController extends Controller
 
                     foreach ($viewers as $viewer) {
 
-                        $send_on_email = optional($viewer->viewer_settings)->escort_email ?? 0;
-                        $send_on_mobile = optional($viewer->viewer_settings)->escort_text ?? 0;
+                        $send_on_email = optional($viewer->viewer_settings)->advertiser_email ?? 0;
+                        $send_on_mobile = optional($viewer->viewer_settings)->advertiser_text ?? 0;
 
                         Communication::create([
                             'profile_listing_id' => $profile_listing_id,

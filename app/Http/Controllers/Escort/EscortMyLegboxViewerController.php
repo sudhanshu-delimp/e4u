@@ -24,7 +24,7 @@ class EscortMyLegboxViewerController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $escortIds = Escort::where('user_id', $user->id)->where('enabled', 1)->pluck('id');
+        $escortIds = Escort::where('user_id', $user->id)->where('default_setting', 0)->pluck('id');
         $legboxEscortUserIds = MyLegbox::whereIn('escort_id', $escortIds)->pluck('user_id')->unique();
         $viewers = User::whereIn('id', $legboxEscortUserIds)->get();
 
@@ -34,7 +34,7 @@ class EscortMyLegboxViewerController extends Controller
     public function escortViewersAjaxList()
     {
         $user = Auth::user();
-        $escortIds = Escort::where('user_id', $user->id)->where('enabled', 1)->pluck('id'); // fetch all escort profile
+        $escortIds = Escort::where('user_id', $user->id)->where('default_setting', 0)->pluck('id'); // fetch all escort profile
         $legboxEscortUserIds = MyLegbox::whereIn('escort_id', $escortIds)->select('user_id', 'escort_id');
        
         // Step 1: Get unique user records
