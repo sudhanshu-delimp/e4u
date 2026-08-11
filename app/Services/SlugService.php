@@ -75,9 +75,8 @@ class SlugService
     public function updateSlugExistingProfile()
     {
         try {
-            /*  Escort::whereNull('slug')
-                ->orWhere('slug', '') */
-            Escort::orWhere('slug', '!=', '')
+            Escort::whereNull('slug')
+                ->orWhere('slug', '')
                 ->chunkById(25, function ($escorts) {
                     foreach ($escorts as $escort) {
                         // Process each escort
