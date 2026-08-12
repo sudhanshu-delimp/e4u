@@ -169,6 +169,8 @@
        </div>
     </div>
  </div>
+
+ 
 @endsection
 @push('script')
 <!-- file upload plugin start here -->
@@ -178,17 +180,44 @@
 $(document).ready(function() {
    $('#agent_request_frm').on('submit', function() {
         $('#submitTicketBtn').prop('disabled', true).val('Submitting please wait...');
-        //let data = {'title':'Agent Request','message':'Sending Request'};
-        //wal_waiting_popup(data);
     });
 });
 </script>
 
-@if(session('agent_success'))  
+@if(session('agent_success'))
 <script>
-$('#agentconfirmationPopup').modal('show');
-$('.close_request_modal').click(function(){
-    window.location.href = '/escort-dashboard';
+$(document).ready(function() {
+
+    @if(session('resposne_status') === true)
+
+        showAlert(
+            'success',
+            'Agent Request Submitted',
+            `
+            <p>
+                Your Request for a Support Agent has been submitted.
+                A Support Agent will be in touch with you according to your preferred method.
+            </p>
+
+            <p>
+                If a Support Agent has not contacted you within 24 hours,
+                please raise a Support Ticket quoting the following reference:
+                <strong>{{ session('req_ref_number') }}</strong>.
+            </p> `,
+            'Close'
+        );
+
+    @else
+
+        showAlert(
+            'error',
+            'Request Notification',
+            @json(session('agent_success')),
+            'Close'
+        );
+
+    @endif
+
 });
 </script>
 @endif
