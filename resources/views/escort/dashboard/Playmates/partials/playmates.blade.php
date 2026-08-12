@@ -2,25 +2,25 @@
     .parsley-errors-list {
         list-style: none;
     }
-
+ 
     .at-sec {
         position: relative;
         width: 450px;
     }
-
+ 
     .at-lable {
         display: flex;
         flex-direction: row;
         align-items: center;
     }
-
+ 
     .at-lable label {
         width: 70%;
         font-size: 16px;
         font-weight: 400;
         margin: 0;
     }
-
+ 
     .at-sec input {
         height: 36px;
         width: 100%;
@@ -34,16 +34,16 @@
     font-weight: 400;
     color: #d1d3e2;
     }
-
+ 
     .at-sec input:focus {
         outline: none;
         border-color: #d1d3e2;
     }
-
+ 
     .at-sec li:focus+.results {
         display: block
     }
-
+ 
     .at-sec .results {
         display: none;
         position: absolute;
@@ -56,7 +56,7 @@
         padding-left: 11.2rem;
         border-radius: 0.5px solid #C4C4C4;
     }
-
+ 
     .at-sec div.myacording-design .card .card-body ol li,
     div.myacording-design .card .card-body ul li,
     div.myacording-design .card .card-body p {
@@ -64,12 +64,12 @@
         background: #fff;
         box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
     }
-
+ 
     .at-sec .results li {
         display: block;
         width: 270px;
     }
-
+ 
     /*.at-sec .results li:first-child { margin-top: -1px }*/
     .at-sec .results li:first-child:before,
     .search .results li:first-child:after {
@@ -82,21 +82,21 @@
         margin-left: -5px;
         border: 5px outset transparent;
     }
-
+ 
     .at-sec .results li:first-child:after {
         border-bottom: 5px solid #fdfdfd;
         top: -10px;
     }
-
+ 
     .at-sec .results li:first-child:hover:before,
     .search .results li:first-child:hover:after {
         display: none
     }
-
+ 
     .at-sec .results li:last-child {
         margin-bottom: -1px
     }
-
+ 
     .at-sec .results a {
         display: block;
         position: relative;
@@ -105,7 +105,7 @@
         font-weight: 500;
         font-size: 14px;
     }
-
+ 
     .at-sec .results a:hover {
         text-decoration: none;
         color: #fff;
@@ -113,11 +113,11 @@
         border-color: #0C223D;
         background-color: #0C223D;
     }
-
+ 
     .active-play .at-lable {
         display: block;
     }
-
+ 
     .active-play ul {
         display: flex;
         padding: 0px;
@@ -126,13 +126,13 @@
         list-style: none;
         gap: 10px;
     }
-
+ 
     .active-play li {
         padding: 10px;
         border-radius: 3px;
         background: #0C223D !important;
     }
-
+ 
     .active-play a {
         color: #fff;
         display: flex;
@@ -143,6 +143,7 @@
     <div class="row">
         <div class="col-md-12  fill_profile_headings_global custom--social-head">
             <h2>My Playmates</h2>
+
             <span class="custom--help"><b>Help?</b></span>
         </div>
         <div class="custom-note-section">
