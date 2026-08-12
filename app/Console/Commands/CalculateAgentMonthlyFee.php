@@ -14,11 +14,13 @@ use App\Models\OperatorMonthlyReportQuery;
 use App\Models\State;
 use App\Models\User;
 use App\Services\CalculateAgentFeeService;
+use App\Models\VariablAgentOperator;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+
 class CalculateAgentMonthlyFee extends Command
 {
     /**
@@ -129,10 +131,9 @@ class CalculateAgentMonthlyFee extends Command
                     }
                 }
             }
-        
+
             // Create Slug in existing advertiser profile
             (new \App\Services\SlugService)->updateSlugExistingProfile();
-
         } catch (Exception $e) {
             Log::info("Agent fee report error: " . $e->getMessage());
         }
@@ -140,6 +141,13 @@ class CalculateAgentMonthlyFee extends Command
         // Generate report for operators
 
         try {
+
+            $variable =  VariablAgentOperator::where('fee_for', 'operator')->first();
+            $commission = 2;
+            if ($variable) {
+                $commission = (is_null($variable->amount)) ? 2 : $variable->amount;
+                $amountType = $variable->amount_type;
+            }
 
             $notification = (new Notification);
             $notificationTitle = 'Your Monthly <span style="color:#ff0505;">The Fee Report</span> for ' . $monthName . ' month is ready for approval. Please visit <a href="' . config('app.url') . '/operator-dashboard/operator-monthly-report">Fee Report</a> to acknowledge.';
@@ -213,7 +221,7 @@ class CalculateAgentMonthlyFee extends Command
 
                     $exitReport = OperatorMonthlyReport::where('operator_id', $operatorId)->where('billing_period_from', $billingStartDate)->first();
                     if (!$exitReport) {
-                        $operatorFees = number_format((($totalSpend * 2) / 100), '2', '.', '');
+                        $operatorFees = number_format((($totalSpend * $commission) / 100), '2', '.', '');
                         $agentIds = implode(",", $agents);
                         $reportObj = (new OperatorMonthlyReport);
                         $reportObj->report_date = date('Y-m-d H:i:s');
@@ -248,8 +256,8 @@ class CalculateAgentMonthlyFee extends Command
                             $to = $operator->email;
                             // Log::info("Monthly operator fee email not sent: " . json_encode($opEmail).$to);
                             try {
-                              // $estatus = Mail::to($to)->send(new OperatorMonthlyFeeEmail($opEmail));
-                               
+                                // $estatus = Mail::to($to)->send(new OperatorMonthlyFeeEmail($opEmail));
+
                             } catch (Exception $e) {
                                 Log::info("Monthly operator fee email not sent: " . $e->getMessage());
                             }

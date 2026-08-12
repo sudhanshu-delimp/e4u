@@ -1267,6 +1267,9 @@ var agent_operator_fees = $("#agent_operator_fees").DataTable({
                   } else if(rowData.fee_for == 'mc_signup') {
                    paymentTypeOptons = `<option value="fixed" ${rowData.amount_type == 'fixed' ? 'selected' : ''}>Fixed($)</option>`;
                    rates = `<option value="3" ${rowData.rate == 'Per Registration' ?  'selected' : ''}>Per Registration</option>`;
+                  } else if(rowData.fee_for == 'operator') {
+                     paymentTypeOptons = `<option value="percent" ${rowData.amount_type == 'percent' ? 'selected' : ''}>Percent(%)</option>`;
+                      rates = `<option value="3" ${rowData.rate == 'Per Registration' ?  'selected' : ''}>Per Registration</option>`;
                   }
                   
                  

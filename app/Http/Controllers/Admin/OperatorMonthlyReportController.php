@@ -14,6 +14,8 @@ use App\Models\User;
 use App\Models\Country;
 use App\Models\Operator;
 use App\Services\CalculateAgentFeeService;
+use App\Services\CalculateOperatorFeeService;
+use App\Models\VariablAgentOperator;
 
 use Exception;
 use Illuminate\Http\Request;
@@ -38,7 +40,7 @@ class OperatorMonthlyReportController extends BaseController
   public function monthlyReportAjax()
   {
     $userId = auth()->user()->id;
-    $reportObj = (new AgentMonthlyReport);
+    $reportObj = (new OperatorMonthlyReport);
     try {
       $order = request()->get('order');
       $order_column = null;
@@ -78,14 +80,14 @@ class OperatorMonthlyReportController extends BaseController
   private function reportDataPagination($start, $limit, $order_key, $dir)
   {
     $userId = auth()->user()->id;
-    $reports = AgentMonthlyReport::with('state', 'agent', 'agentMonthlyReportQuery');
+    $reports = OperatorMonthlyReport::with('operator', 'operatorMonthlyReportQuery');
 
     $search = request()->input('search.value');
 
     if (!empty($search)) {
       $reports->where(function ($query) use ($search) {
         //$query->where('status', 'like', "%{$search}%");
-        $query->orWhereHas('agent', function ($q) use ($search) {
+        $query->orWhereHas('operator', function ($q) use ($search) {
           $q->where('member_id', 'like', "%{$search}%");
         });
       });
@@ -93,13 +95,13 @@ class OperatorMonthlyReportController extends BaseController
 
     switch ($order_key) {
       case 0:
-        $reports->orderBy('report_date', $dir);
+        $reports->orderBy('billing_period_from', $dir);
         break;
       case 4:
         $reports->orderBy('status', $dir);
         break;
       default:
-        $reports->orderBy('report_date', 'DESC');
+        $reports->orderBy('billing_period_from', 'DESC');
         break;
     }
 
@@ -108,16 +110,16 @@ class OperatorMonthlyReportController extends BaseController
 
     foreach ($reports as $item) {
       $approvedDate = "";
-      $queryCount = $item->agentMonthlyReportQuery->where('status', 'query')->where('notes', '!=', "")->count();
+      $queryCount = $item->operatorMonthlyReportQuery->where('status', 'query')->where('notes', '!=', "")->count();
       $item->reportDate = Carbon::parse($item->report_date)->format('d-m-Y');
       $fromDate = Carbon::parse($item->billing_period_from)->format('d-m-Y');
       $toDate = Carbon::parse($item->billing_period_to)->format('d-m-Y');
 
       $item->billing_period =  $fromDate . " to " . $toDate;
       $item->billing_period_to =  $item->billing_period_to;
-      $item->agent_id =  $item->agent->member_id;
-      $item->agent_name =  $item->agent->business_name;
-      $item->territory =  $item->state?->iso2 ?? '';
+      $item->agent_id =  $item->operator->member_id;
+      $item->agent_name =  $item->operator->business_name;
+      $item->territory =  $item->operator->country?->iso3 ?? '';
       $formattedSpend = '<div class="num_value"><span>$</span><span>' . number_format($item->spend, 2, '.', '') . '</span></div>';
       $formattedFees = '<div class="num_value"><span>$</span><span>' . number_format($item->fees, 2, '.', '') . '</span></div>';
       $item->total_spend =  $formattedSpend;
@@ -174,7 +176,7 @@ class OperatorMonthlyReportController extends BaseController
       }
 
       //  View Detail
-      $dropDown .= $divider . '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-agent_id="' . $item->agent_id . '" id="getMontlyViewReportPage"> <i class="fa fa-eye"></i> View Report</a>';
+      $dropDown .= $divider . '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-operator_id="' . $item->agent_id . '" id="getMontlyViewReportPage"> <i class="fa fa-eye"></i> View Report</a>';
 
 
       $dropDown .= '</div></div>';
@@ -195,12 +197,12 @@ class OperatorMonthlyReportController extends BaseController
     $data = $request->all();
     if (isset($data['id']) && $data['id'] > 0) {
       $id = $data['id'];
-      $calculateServiceObj = (new CalculateAgentFeeService);
+      $calculateServiceObj = (new CalculateOperatorFeeService);
       //Prepare the agent monthly fee data for view detail
       $feeData = $calculateServiceObj->calculateFee($id);
 
       if ($feeData->isNotEmpty()) {
-        return view('agent.dashboard.Fees.view_monthly_report', compact('feeData'));
+        return view('management.operator.operator-view', compact('feeData'));
       }
     }
     return "";
