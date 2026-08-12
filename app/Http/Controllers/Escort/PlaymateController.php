@@ -34,6 +34,8 @@ class PlaymateController extends Controller
             $escortId = $request->escortId;
             $user = auth()->user();
             $escortProfile = Escort::find($escortId);
+            $removedListedPlaymates = [];
+
             $searchValue = !empty($request->searchValue) ? $request->searchValue : false;
             if ($searchValue) {
                 $accountUserId = $user->id;
@@ -73,12 +75,24 @@ class PlaymateController extends Controller
                         return $escort;
                     });
                 }
+
+                /**
+                 * Get the list of those playmates of this escort profile , are inactive in playmate history but now they are listed
+                 */
+                $removedListedPlaymates = array_diff($escortProfile->listed_playmates, $escorts->pluck('id')
+                    ->flatten()
+                    ->unique()
+                    ->filter()->toArray());
+
+                if (!empty($removedListedPlaymates)) {
+                    $removedListedPlaymates = Escort::whereIn('id', $removedListedPlaymates)->get();
+                }
             }
             $response['success'] = true;
             $response['count'] = $escorts->count();
             $response['escorts'] = $escorts;
 
-            $response['playmates_container_html'] = view('escort.dashboard.profile.partials.playmates_container', compact('searchValue', 'escorts'))->render();
+            $response['playmates_container_html'] = view('escort.dashboard.profile.partials.playmates_container', compact('searchValue', 'escorts', 'removedListedPlaymates'))->render();
 
             return response()->json($response);
         } catch (Exception $e) {
