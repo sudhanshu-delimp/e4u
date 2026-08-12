@@ -51,30 +51,11 @@
         </div>
     </div>
 
-    {{-- <!-- Crop modal: original functionality retained -->
-    <div class="modal fade upload-modal" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        <img src="{{ asset('assets/dashboard/img/crop-image.png') }}" class="custompopicon">
-                        Crop Photo
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="upload-demo" class="center-block"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
-                    <button type="button" id="cropImageBtn" class="btn main_bg_color site_btn_primary">Crop</button>
-                </div>
-            </div>
-        </div>
-    </div> --}}
+    <x-crop-image-modal
+        title="Crop Photo"
+        subtitle="Adjust your image before uploading"
+        button-text="Crop & Continue"
+    />
     <!-- Common Crop Image Modal -->
 
     <div class="modal fade common-modal" id="cropImagePop" tabindex="-1" role="dialog"
