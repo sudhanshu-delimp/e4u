@@ -124,7 +124,7 @@ class CalculateAgentMonthlyFee extends Command
             }
         
             // Create Slug in existing advertiser profile
-            (new \App\Services\SlugService)->updateSlugExistingProfile();
+            //(new \App\Services\SlugService)->updateSlugExistingProfile();
 
         } catch (Exception $e) {
             Log::info("Agent fee report error: " . $e->getMessage());

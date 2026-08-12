@@ -632,7 +632,7 @@ class MassageCentre extends Controller
             }
         }
 
-        if(in_array($previousSlug, ['massage-centres-list', 'massage-profile'])) {
+        if (str_contains($previousSlug, 'massage-profile') || str_contains($previousSlug, 'massage-centres-list')) {
             $relatedMassges = MassagePurchase::with('massageprofile')->where('status', 'listed')
                 ->whereHas('user', function ($q) use($stateId) {
                     $q->where('status', 1)
