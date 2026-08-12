@@ -24,12 +24,17 @@ class SuspendProfile extends Model
 
     public function escort()
     {
-        return $this->belongsTo(Escort::class,'escort_profile_id','id');
+        return $this->belongsTo(Escort::class, 'escort_profile_id', 'id');
+    }
+
+    public function advertiser()
+    {
+        return $this->belongsTo(Escort::class, 'escort_profile_id', 'id');
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class,'user_id','id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function scopeOverlapping($query, $start, $end)

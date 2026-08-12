@@ -43,9 +43,9 @@ class UserController extends Controller
         $notifications = $this->viewerNotificationShow();
         //this is active viewer legbox notificaiton create by Massage Center
 
-        $getLegBoxNotification = $this->getActiveViewerLegBoxNotifications();
+        $getLegBoxNotifications = $this->getActiveViewerLegBoxNotifications();
 
-        return view('user.dashboard.index', compact('notifications', 'getLegBoxNotification'));
+        return view('user.dashboard.index', compact('notifications', 'getLegBoxNotifications'));
     }
     public function myLegboxList()
     {
@@ -542,15 +542,22 @@ class UserController extends Controller
 
     public function getActiveViewerLegBoxNotifications(){
         $userId = auth()->user()->member_id;
+        $massageCenterIds = MyMassageLegbox::where('massage_legbox.user_id', auth()->id())
+            ->join('massage_profiles', 'massage_profiles.id', '=', 'massage_legbox.massage_id')
+            ->select('massage_profiles.user_id as massage_center_id')
+            ->pluck('massage_center_id');
+
+
         $getNotification = LegboxNotification::where('status', 'Published')
+                            ->whereIn('create_by',$massageCenterIds)
                             ->where('start_date', '<=', now()->utc())
                             ->where(function($query) use ($userId) {
                                 $query->whereNull('member_id')
                                     ->orWhere('member_id', $userId);
                             })
-                            ->orderBy('start_date', 'asc')
-                            ->select('id', 'heading', 'content', 'template_name')
-                            ->first();
+                            ->orderBy('created_at', 'desc')
+                            ->select('id', 'heading', 'content', 'template_name', 'create_by', 'create_by_member_id')
+                            ->get();
         return $getNotification;
     }
 

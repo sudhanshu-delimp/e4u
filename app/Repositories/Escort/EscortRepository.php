@@ -48,14 +48,18 @@ class EscortRepository extends BaseRepository implements EscortInterface
         }
 
         # Note : ?no-next-page query handle in blade file for disable buttons purpose
-        return [
+       /*  return [
             $next ? route('profile.description', [$next->id, $city, $membershipId]) : '?no-next-page',
             $previous ? route('profile.description', [$previous->id, $city, $membershipId]) : '?no-prev-page',
+        ]; */
+         return [
+            $next ? route('escort.profile.detail', $next->slug) : '?no-next-page',
+            $previous ? route('escort.profile.detail', $previous->slug) : '?no-prev-page',
         ];
     }
 
 
-    public function paginatedByEscortId($start, $limit, $order_key, $dir, $columns, $search = null, $escort_id, $stateId = null)
+    public function paginatedByEscortId($start, $limit, $order_key, $dir, $columns, $search = null, $escort_id = null, $stateId = null)
     {
 
         $order = $this->getOrder($order_key);
@@ -90,7 +94,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
         return $columns[$order_key];
     }
 
-    public function paginatedList($start, $limit, $order_key, $dir, $columns, $search = null, $user_id, $conditions = [])
+    public function paginatedList($start, $limit, $order_key, $dir, $columns, $search = null, $user_id = null, $conditions = [])
     {
         $order = $this->getOrderEscort($order_key);
         $searchables = $this->getSearchableFields($columns);
@@ -211,8 +215,9 @@ class EscortRepository extends BaseRepository implements EscortInterface
             //     $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="' . $item->id . '" data-membership="' . $item->membership_number . '"  data-toggle="modal" data-target="#upgrade_modal"><i class="fa fa-wrench"></i>Upgrade</a><div class="dropdown-divider"></div>';
             // }
 
-            $item->action .= ' <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('profile.description', $item->id) . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
-            $item->action .= '</div>';
+           /* $item->action .= ' <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('profile.description', $item->id) . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
+            $item->action .= '</div>';*/
+            $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.profile.detail', $item->slug)  . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
 
             $isExtended = $item->isListingExtended();
             $isBumpUped = $item->activeBumpup;
@@ -280,7 +285,9 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 if ($item->latestActivePinup) {
                     $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="' . $item->id . '"  data-toggle="modal" data-target="#pinupSummary"><i class="fa fa-hand-pointer" aria-hidden="true"></i>Pin Up Summary</a><div class="dropdown-divider"></div>';
                 }
-                $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('profile.description', $item->id) . '?brb=' . $itemArray['brb'][0]['id'] . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
+                /*$item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('profile.description', $item->id) . '?brb=' . $itemArray['brb'][0]['id'] . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';*/
+
+                $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.profile.detail', $item->slug) . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
                 $item->action .= '</div></div>';
             }
 
@@ -494,7 +501,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
         return $pagination;
     }
 
-    public function filter($collection, $str = [], $user_id, $escort_id, $userId, $gen)
+    public function filter($collection, $str = [], $user_id = null, $escort_id = null, $userId = null, $gen = null)
     {
         $age[] = explode('-', $str['age']);
         if (!empty($str['age'])) {

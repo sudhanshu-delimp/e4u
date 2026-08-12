@@ -84,7 +84,7 @@ class ProfileInformationController extends Controller
         $durations = $this->duration->all();
         $availability = $escort->availability;
         //for additional information
-        $stage_names = User::where('id', Auth::id())->select('escorts_names','default_escort_name')->first()->toArray();
+        $stage_names = User::where('id', Auth::id())->select('escorts_names', 'default_escort_name')->first()->toArray();
         $address = $user->additionalInfo->where('type', 'address')->toArray();
         $title = $user->additionalInfo->where('type', 'title')->toArray();
         $narration = $user->additionalInfo->where('type', 'narration')->toArray();
@@ -643,16 +643,16 @@ class ProfileInformationController extends Controller
     public function updateDefaultAdditional(Request $request)
     {
 
-  
+
         try {
-            if($request->id == null && $request->type == '.delete_stage_name'){
-                   User::whereKey(Auth::id())->update(['default_escort_name' => $request->value]);
+            if ($request->id == null && $request->type == '.delete_stage_name') {
+                User::whereKey(Auth::id())->update(['default_escort_name' => $request->value]);
                 return success_response(null, "Default status updated successfully!", 200, []);
             }
 
-            
+
             $user = User::find(Auth::id());
-            if($request->alreadyDefault == 'true') {
+            if ($request->alreadyDefault == 'true') {
                 EscortAdditionalInformation::where('id', $request->id)
                     ->where('user_id', Auth::id())
                     ->where('type', Str::afterLast($request->type, '_'))
@@ -660,7 +660,7 @@ class ProfileInformationController extends Controller
 
                 return success_response(null, "Default status removed successfully!", 200, []);
             }
-           $type = Str::afterLast($request->type, '_');
+            $type = Str::afterLast($request->type, '_');
             if ($request->filled('id') && in_array($type, ['title', 'address', 'narration'])) {
 
                 EscortAdditionalInformation::where('type', $type)

@@ -2063,6 +2063,108 @@ button.btn:focus {
     }
 }
 
+.member-badge {
+    color: var(--peach);
+    font-weight: bold;
+    background: #fff1f1;
+    padding: 2px 20px;
+    font-size: 12px;
+    border-radius: 6px;
+    line-height: 15px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.notification-swiper {
+    width: 100%;
+    position: relative;
+}
+
+.notification-swiper .swiper-slide {
+    height: auto;
+}
+
+.notification-swiper .swiper-wrapper {
+    max-width: 1140px;
+}
+
+.notification-swiper .swiper-slide>div {
+    width: auto;
+}
+
+.notification-swiper .swiper-button-prev,
+.notification-swiper .swiper-button-next {
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.notification-swiper .swiper-button-prev {
+    left: 95% !important;
+}
+
+.notification-swiper .swiper-button-next {
+    right: 15px !important;
+}
+
+.notification-swiper .swiper-button-prev::after,
+.notification-swiper .swiper-button-next::after {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--peach);
+}
+
+.notification-swiper .swiper-pagination-bullet-active {
+    background: #ff3c5f;
+}
+
+
+/* =========================================================
+   Announcement Slider
+   ========================================================= */
+
+.announcement-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.announcement-slide {
+    display: none;
+    width: 100%;
+}
+
+.announcement-slide.active {
+    display: block;
+}
+
+
+/* Smooth animation */
+
+.announcement-slide.slide-in {
+    animation: announcementSlideIn 0.5s ease;
+}
+
+@keyframes announcementSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+/* Keep your existing alert design */
+
+.announcement-slider .alert {
+    margin-bottom: 16px;
+}
+
 
 /* Message chat end */
 

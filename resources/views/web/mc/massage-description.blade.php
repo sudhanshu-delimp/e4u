@@ -347,9 +347,14 @@ margin-right: 5px;
     <div class="container-fluid px-0 next-preview-fixed position-relative">
         <div class="d-flex d-flex justify-content-between">
             <div class="previous_btn_profile next_previous_btn_pogision {{ $prevId ? '' : 'previousDisableButtonCss' }}">
-                <a  href="{{ $prevId ? route('web.massage-description', [
+            {{--     <a  href="{{ $prevId ? route('web.massage-description', [
                                     'id' => $prevId,
                                     'ids' => json_encode($ids)
+                                ]) : 'massage-centres-list' }}" class="btn_ank">
+                    <span class="previous_icon"> --}}
+
+                    <a  href="{{ $prevId ? route('web.massage-profile', [
+                                    'profile' => $prevSlug,
                                 ]) : 'massage-centres-list' }}" class="btn_ank">
                     <span class="previous_icon">
                         
@@ -360,9 +365,14 @@ margin-right: 5px;
                 </a>
             </div>
             <div class="next_btn_profile next_previous_btn_pogision {{ $nextId ? '' : 'previousDisableButtonCss' }}">
-                                <a href="{{ $nextId ? route('web.massage-description', [
+                                {{-- <a href="{{ $nextId ? route('web.massage-description', [
                                     'id' => $nextId,
                                     'ids' => json_encode($ids)
+                                ]) : 'javascript:void(0)' }}"
+                                
+                                class="btn_ank"> --}}
+                                 <a href="{{ $nextId ? route('web.massage-profile', [
+                                    'profile' => $nextSlug,
                                 ]) : 'javascript:void(0)' }}"
                                 
                                 class="btn_ank">
@@ -3162,7 +3172,7 @@ $(document).ready(function () {
     let newModal = $('.masseur-modal').eq(newIndex);
 
     let massure_id = newModal.data('massure_id');
-    let page = "massure media";
+    let page = "masseur profile";
 
     generateLog(massure_id, page);
 });
@@ -3180,7 +3190,7 @@ $(document).ready(function () {
     let newModal = $('.masseur-modal').eq(newIndex);
 
     let massure_id = newModal.data('massure_id');
-    let page = "massure media";
+    let page = "masseur profile";
 
     generateLog(massure_id, page);
 });

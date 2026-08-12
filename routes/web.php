@@ -387,7 +387,10 @@ Route::get('admin-dashboard/e4u-database/escorts', function () {
 
 
 /********** escort profile description **********/
-Route::get('/escort-profile/{id}/{city?}/{membershipId?}', [App\Http\Controllers\WebController::class, 'profileDescription'])->name('profile.description');
+Route::get('/escort-profile/{id}/{city?}/{membershipId?}', [App\Http\Controllers\WebController::class, 'profileDescription'])->where('id', '[0-9]+')->name('profile.description');
+
+Route::get('/escort-profile/{profile}', [App\Http\Controllers\WebController::class, 'profileDescriptionBySlug'])->name('escort.profile.detail');
+
 Route::get('/center-profile/{id}', [App\Http\Controllers\WebController::class, 'centerProfileDescription'])->name('center.profile.description');
 Route::post('/store-message/{id}', [App\Http\Controllers\Escort\MessageReviewController::class, 'saveMessage'])->name('store.message');
 Route::post('/review-advertiser/{id}', [App\Http\Controllers\Escort\MessageReviewController::class, 'SaveReviewAdvertiser'])->name('review.advertiser');
@@ -834,7 +837,6 @@ Route::get('/testscript', function () {
 
     $num = removeSpaceFromString('456464 645644 4444');
     echo  $num;
-    
 });
 
 
@@ -845,7 +847,8 @@ Route::get('get_country_by_user_id/{user_id}', [App\Http\Controllers\CountryCont
 ################### Massage Centre Profile Page Url ###############
 Route::get('massage-centres-list', [MassageCentre::class, 'massageList'])->name('find.massage.centre');
 Route::get('mc-ajax-list', [MassageCentre::class, 'mcAjaxList'])->name('mc-ajax-list');
-Route::get('massage-description/{id}', [MassageCentre::class, 'massage_description'])->name('web.massage-description');
+Route::get('massage-description/{id}', [MassageCentre::class, 'massage_description'])->where('id', '[0-9]+')->name('web.massage-description');
+Route::get('massage-profile/{profile}', [MassageCentre::class, 'massageProfile'])->name('web.massage-profile');
 Route::post('generate/log', [MassageCentre::class, 'generateLog'])->name('web.generate.log');
 Route::post('/store-short-list', [MassageCentre::class, 'storeShortList'])->name('web.store-short-list');
 Route::post('/remove-short-list', [MassageCentre::class, 'removeShortList'])->name('web.remove-short-list');
@@ -863,6 +866,24 @@ Route::get('shortlist-mc-ajax-list', [MassageCentre::class, 'shortlist_mcAjaxLis
 Route::get('/massage-spam-report', [ReportMassageController::class, 'getSpamReportForAdvertiser'])->name('massage-spam-report');
 Route::post('/massage-spam-report', [ReportMassageController::class, 'saveSpamReportForAdvertiser'])->name('massage-spam-report');
 Route::post('/massage-like-dislike', [ReportMassageController::class, 'massageLikeDislike'])->name('web.massageLikeDislike');
+
+
+###########----------------SEO ROUTE FOR ESCORT----------------##################
+
+Route::get('/all-escorts-listing', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing');
+
+
+Route::get('/escorts-list/{country?}/{city?}', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing');
+
+
+// https://www.escorts4u.com.au/australia   
+// https://www.escorts4u.com.au/australia/adelaide
+// https://www.escorts4u.com.au/australia/brisbane
+// https://www.escorts4u.com.au/australia/canberra
+// https://www.escorts4u.com.au/australia/darwin
+// https://www.escorts4u.com.au/australia/hobart
+// https://www.escorts4u.com.au/australia/melbourne
+// https://www.escorts4u.com.au/australia/parth
 
 
 Route::post('/encrypt', function (Request $request) {
@@ -883,222 +904,5 @@ Route::post('/decrypt', function (Request $request) {
 
 
 
-Route::get('check-time', function () {
-
-
-    echo update_messure_for_active_listing();
-    exit;
-
-
-    $massagers = [
-        "monday" => [
-            "status" => "til_late",
-            "from" => "03:00 AM",
-            "to" => null
-        ],
-        "tuesday" => [
-            "status" => "custom",
-            "from" => "01:30 AM",
-            "to" => "01:30 PM"
-        ],
-        "wednesday" => [
-            "status" => "closed",
-            "from" => null,
-            "to" => null
-        ],
-        "thursday" => [
-            "status" => "custom",
-            "from" => "04:30 AM",
-            "to" => "07:00 AM"
-        ],
-        "friday" => [
-            "status" => "custom",
-            "from" => "07:30 AM",
-            "to" => "02:30 PM"
-        ],
-        "saturday" => [
-            "status" => "custom",
-            "from" => "02:00 PM",
-            "to" => "08:30 PM"
-        ],
-        "sunday" => [
-            "status" => "custom",
-            "from" => "10:00 AM",
-            "to" => "02:00 PM"
-        ]
-    ];
-
-
-
-    $massures =
-        [
-
-            [
-                "Monday" => [
-                    "status" => "closed",
-                    "from" => null,
-                    "to" => null,
-                ],
-                "Tuesday" => [
-                    "status" => "custom",
-                    "from" => "02:00 AM",
-                    "to" => "05:30 PM",
-                ],
-                "Wednesday" => [
-                    "status" => "custom",
-                    "from" => "03:00 AM",
-                    "to" => "05:30 PM",
-                ],
-                "Thursday" => [
-                    "status" => "custom",
-                    "from" => "04:00 AM",
-                    "to" => "04:30 PM",
-                ],
-                "Friday" => [
-                    "status" => "custom",
-                    "from" => "05:00 AM",
-                    "to" => "03:30 PM",
-                ],
-                "Saturday" => [
-                    "status" => "custom",
-                    "from" => "06:00 AM",
-                    "to" => "02:00 PM",
-                ],
-                "Sunday" => [
-                    "status" => "custom",
-                    "from" => "07:00 AM",
-                    "to" => "01:30 PM",
-                ],
-            ],
-            [
-                "Monday" => [
-                    "status" => "custom",
-                    "from" => "01:00 AM",
-                    "to" => "01:30 PM",
-                ],
-                "Tuesday" => [
-                    "status" => "custom",
-                    "from" => "01:30 AM",
-                    "to" => "09:30 PM",
-                ],
-                "Wednesday" => [
-                    "status" => "custom",
-                    "from" => "03:00 AM",
-                    "to" => "10:30 PM",
-                ],
-                "Thursday" => [
-                    "status" => "custom",
-                    "from" => "04:30 AM",
-                    "to" => "01:30 PM",
-                ],
-                "Friday" => [
-                    "status" => "custom",
-                    "from" => "07:30 AM",
-                    "to" => "10:30 PM",
-                ],
-                "Saturday" => [
-                    "status" => "custom",
-                    "from" => "10:00 AM",
-                    "to" => "11:30 PM",
-                ],
-                "Sunday" => [
-                    "status" => "custom",
-                    "from" => "06:30 AM",
-                    "to" => "07:30 PM",
-                ],
-            ]
-        ];
-
-
-
-
-
-
-    echo 'massage =================<br>';
-    echo '<pre>';
-    print_r($massagers);
-    echo '</pre>';
-
-
-    echo '<br>massaure ==================================<br>';
-
-
-
-    echo '<pre>';
-    print_r($massures);
-    echo '</pre>';
-    echo '<br>';
-
-
-
-    foreach ($massagers as $day => $info) {
-
-        if ($info['status'] === 'closed') {
-
-            foreach ($massures as $index => $schedule) {
-
-                foreach ($schedule as $mDay => $mInfo) {
-
-                    // match day (case-insensitive)
-                    if (strtolower($mDay) === strtolower($day)) {
-
-                        $massures[$index][$mDay] = [
-                            "status" => "closed",
-                            "from" => null,
-                            "to" => null
-                        ];
-                    }
-                }
-            }
-        }
-
-        if ($info['status'] === 'til_late') {
-
-            foreach ($massures as $index => $schedule) {
-                foreach ($schedule as $mDay => $mInfo) {
-                    if (strtolower($mDay) === strtolower($day)) {
-                        if (isset($massures[$index][$mDay]['status']) && $massures[$index][$mDay]['status'] != "closed") {
-                            $newFromTime =  isset($info['from']) ? strtotime($info['from']) : "";
-                            $oldFromTime =  isset($massures[$index][$mDay]['from']) ? strtotime($massures[$index][$mDay]['from']) : "";
-
-                            if ($newFromTime && (!$oldFromTime || $newFromTime > $oldFromTime))
-                                $massures[$index][$mDay]['from'] = $info['from'];
-                        }
-                    }
-                }
-            }
-        }
-
-        if ($info['status'] === 'custom') {
-            foreach ($massures as $index => $schedule) {
-                foreach ($schedule as $mDay => $mInfo) {
-                    if (strtolower($mDay) === strtolower($day)) {
-
-                        $newfrom  = isset($info['from']) ? $info['from'] : "";
-                        $newto  = isset($info['to']) ? $info['to'] : "";
-
-                        $newFromTime =  isset($info['from']) ? strtotime($info['from']) : "";
-                        $oldFromTime =  isset($massures[$index][$mDay]['from']) ? strtotime($massures[$index][$mDay]['from']) : "";
-
-                        $newToTime =  isset($info['to']) ? strtotime($info['to']) : "";
-                        $oldToTime =  isset($massures[$index][$mDay]['to']) ? strtotime($massures[$index][$mDay]['to']) : "";
-
-                        if ($newFromTime && (!$oldFromTime || $newFromTime > $oldFromTime))
-                            $massures[$index][$mDay]['from'] = $newfrom;
-
-                        if ($newToTime && (!$oldToTime || $newToTime < $oldToTime))
-                            $massures[$index][$mDay]['to'] = $newto;
-                    }
-                }
-            }
-        }
-    }
-
-
-
-
-    echo '<br>Updated Massures<br>';
-    echo '<pre>';
-    print_r($massures);
-    echo '</pre>';
-});
+Route::get('preview/massage/{profile}', [MassageCentre::class, 'massageProfile'])->name('preview.massage');
+Route::get('preview/escort/{profile}', [WebController::class, 'profileDescriptionBySlug'])->name('preview.escort');

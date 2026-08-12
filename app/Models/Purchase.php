@@ -11,7 +11,7 @@ class Purchase extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['parent_id', 'escort_id', 'start_date', 'end_date', 'membership', 'utc_start_time', 'utc_end_time', 'status', 'tour_location_id', 'rate', 'discount_rate', 'special_discount_value', 'special_discount_type', 'total_rate', 'paid_rate', 'created_by', 'updated_by'];
+    protected $fillable = ['parent_id', 'escort_id', 'start_date', 'end_date', 'membership', 'utc_start_time', 'utc_end_time', 'status', 'suspended_at', 'tour_location_id', 'rate', 'discount_rate', 'special_discount_value', 'special_discount_type', 'total_rate', 'paid_rate', 'created_by', 'updated_by'];
     protected $table = 'purchase';
     public $timestamps = true;
 
@@ -100,7 +100,17 @@ class Purchase extends Model
 
     public function escort()
     {
-        return $this->belongsTo('App\Models\Escort', 'escort_id');
+        return $this->belongsTo(Escort::class, 'escort_id');
+    }
+
+    public function advertiser()
+    {
+        return $this->belongsTo(Escort::class, 'escort_id');
+    }
+
+    public function user()
+    {
+        return $this->escort->user;
     }
 
     public function tour_location()

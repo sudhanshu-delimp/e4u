@@ -164,8 +164,10 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             //print_r($itemArray);die;
             $tagCount = 0;
 
-            $endpoint = ['id' => $item->escort->id];
-            $profileUrl = route('profile.description', $endpoint);
+            //$endpoint = ['id' => $item->escort->id];
+            //$profileUrl = route('profile.description', $endpoint);
+             $endpoint = ['profile' => $item->escort->slug];
+            $profileUrl = route('escort.profile.detail', $endpoint);
             $item->profileUrl = $profileUrl;
 
 

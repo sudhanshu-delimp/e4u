@@ -51,7 +51,7 @@ class EscortListingController extends Controller
 
     private function getUserLocation(Request $request)
     {
-        if (empty($request->lat) || empty($request->lng) || ($request->search_by_radio == 0 ) || ($request->locationByRadio == 'australia')) {
+        if (empty($request->lat) || empty($request->lng) || ($request->search_by_radio == 0) || ($request->locationByRadio == 'australia')) {
             return null;
         }
 
@@ -100,11 +100,8 @@ class EscortListingController extends Controller
         }
     }
 
-    private function getSearchParams(
-        Request $request,
-        $userLocation,
-        $userInterest
-    ) {
+    private function getSearchParams(Request $request, $userLocation, $userInterest)
+    {
 
 
         return [
@@ -145,10 +142,88 @@ class EscortListingController extends Controller
     }
 
 
+    private function modifyRequestParamter($request)
+    {
+        $segments = $request->segments();
+
+        if (empty($segments)) {
+            return;
+        }
+
+        $listingsPreferencesView =
+            auth()->check() &&
+            auth()->user()->viewer_settings?->listings_preferences_view == 2
+            ? 'list'
+            : 'grid';
+
+        $routeType = $segments[1] ?? '';
+        $city    = $segments[2] ?? '';
+
+        $countryList = [
+            'australia',
+            'newzealand',
+        ];
+
+        // Common parameters
+        $params = [
+            'page'             => 1,
+            'view_type'        => $listingsPreferencesView,
+            'locationByRadio'  => 'australia',
+            'limit'            => 25,
+            'search_by_radio'  => 1,
+            'services'         => '',
+            'duration_price'   => 0,
+            'varify_list'      => 'all',
+        ];
+
+        /*
+    |--------------------------------------------------------------------------
+    | Country / City URL
+    |--------------------------------------------------------------------------
+    */
+        if (in_array($routeType, $countryList, true)) {
+
+            if ($city) {
+                $cityId = getCityId($city);
+
+                if ($cityId) {
+                    $params['city'] = $cityId;
+                }
+            }
+
+            $request->merge($params);
+
+            return;
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Gender URL
+        |--------------------------------------------------------------------------
+        */
+        if ($routeType === 'gender') {
+
+            $genderType = $segments[2] ?? '';
+
+            if ($genderType) {
+
+                $genderId = getGenderId($genderType);
+
+                if ($genderId) {
+                    $params['gender'] = $genderId;
+                    $params['city']   = null;
+
+                    $request->merge($params);
+                }
+            }
+        }
+    }
+
+
 
     public function allEscortListing(Request $request, $gender = null)
     {
-         // dd($request->all());
+        // dd($request->all());
         // $request->merge([
         //     'page' => 1,
         //     'view_type' => 'grid',
@@ -159,6 +234,11 @@ class EscortListingController extends Controller
         //     'limit' => 25,
         // ]);
 
+        //modify request paramter according gender and location wise value.
+        $this->modifyRequestParamter($request);
+
+
+
 
         //get shortlist ids
         $escortId = $this->getShortListIds();
@@ -168,11 +248,10 @@ class EscortListingController extends Controller
         // make sure user alwase same state me hona chaiye tab Backend se jo v gender select kiya hoga tab wo work karega.
         $userInterest = $this->getUserInterest();
         $userLocation = $this->getUserLocation($request);
-       // dd($userLocation, $request->all());
-        //dd($request->all());
-
 
         $params = $this->getSearchParams($request, $userLocation, $userInterest);
+
+
 
         $location = request()->get('location');
 
@@ -220,7 +299,8 @@ class EscortListingController extends Controller
             'escorts.availability_time',
             'escorts.state_id',
             'escorts.created_at',
-            
+            'escorts.slug',
+
         ];
 
 
@@ -276,7 +356,7 @@ class EscortListingController extends Controller
             3 => $silver->count(),
             4 => $free->count(),
         ];
-       
+
         // Apply position rules: Pin Up → Bump Up → Upgrade → General (per membership group)
         $filterStateId = $params['state_id'];
         $result = collect();
@@ -325,6 +405,8 @@ class EscortListingController extends Controller
         }
 
         //*************************************End Pass ajax request blade data****************************/
+
+
 
 
         return view('web.escort-filter-profile', compact(
@@ -408,12 +490,12 @@ class EscortListingController extends Controller
         }
 
         //Search By Radio (Missing)
-       // dd($params);
+        // dd($params);
 
         if (isset($params['search_by_radio']) && ($params['search_by_radio'] == '1' || $params['search_by_radio'] == 1)) {
 
             $radioLocation = $params['locationByRadio'];
-  
+
             if (!empty($params['string'])) {
 
                 $uid = $params['string'];
@@ -436,7 +518,7 @@ class EscortListingController extends Controller
                 $query->where('escorts.state_id', $params['lat_state']);
             }
 
-           // return $query;
+            // return $query;
         }
 
 
@@ -447,7 +529,6 @@ class EscortListingController extends Controller
         if (!empty($params['city_id'])) {
             $query->where('escorts.city_id', $params['city_id']);
         }
-
         if (!empty($params['gender'])) {
             $query->where('escorts.gender', $params['gender']);
         } else {
@@ -564,7 +645,7 @@ class EscortListingController extends Controller
         $bumpUps = $bumpUps->sortByDesc(function ($escort) {
             return $escort->activeBumpup->utc_start_time ?? '';
         })->values();
-     
+
         // $upgraded = $upgraded->sortByDesc(function ($escort) {
         //     return $escort->membership_upgraded_at;
         // })->values();
@@ -574,7 +655,7 @@ class EscortListingController extends Controller
         // Australia-wide: Sort Bump Ups and General (New/Listings) by the fixed state order
         if (empty($filterStateId)) {
             $stateOrder = array_flip(self::PINUP_STATE_ORDER);
-            
+
             $bumpUps = $bumpUps->sortBy(function ($escort) use ($stateOrder) {
                 return $stateOrder[$escort->state_id] ?? 999;
             })->values();
@@ -610,7 +691,7 @@ class EscortListingController extends Controller
         $sortedByNewest = $escorts->sortByDesc(function ($escort) {
             return optional($escort->purchase->sortByDesc('created_at')->first())->created_at;
         })
-        ->values();
+            ->values();
 
         //start if % wise reshuffing you want
         $totalCount = $sortedByNewest->count();
@@ -632,7 +713,7 @@ class EscortListingController extends Controller
 
         $minuteBlock = $now->minute < 30 ? '00' : '30';
         $timeBlock = $now->format('Y-m-d-H-') . $minuteBlock;
-       // dd($timeBlock);
+        // dd($timeBlock);
 
         // if % wise reshuffle no need then enable 
         //  return $sortedByNewest->sortBy(function ($escort) use ($timeBlock) {
@@ -758,15 +839,12 @@ class EscortListingController extends Controller
         session()->put('cart', $cart);
         $count_session = count(session('cart'));
         return response()->json(compact('error', 'cart', 'count_session'));
-        //return redirect()->back()->with('success', 'Product added to cart successfully!');
-
-
     }
 
     public function removeShortList()
     {
-
         $escort_id = request()->post('escortId');
+
         $error = 0;
         if ($escort_id) {
             $cart = session()->get('cart');

@@ -233,7 +233,7 @@ Route::get('payments/{payment}/print', [PaymentController::class, 'printPaymentD
 
 
 # Wallet Module
-Route::get('my-wallet', [WalletController::class, 'index'])->name('center.my_wallet');
+Route::get('our-wallet', [WalletController::class, 'index'])->name('center.my_wallet');
 Route::get('wallet_transaction', [WalletController::class, 'transactionList'])->name('center.wallet_transaction');
 Route::post('advertiser/payments/adjustment', [EscortPaymentController::class, 'paymentAdjustment'])->name('advertiser.payment.adjustment');
 Route::post('advertiser/payments/process', [EscortPaymentController::class, 'processPayment'])->name('advertiser.payment.process');

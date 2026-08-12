@@ -351,113 +351,6 @@ return [
       "Delhi" => 10,
     ],
 
-    // 'states' => [
-    // 	'4022'=>[
-    // 		"stateName" => 'Uttar Pradesh',
-    // 		'timeZone' => 'Asia/Kolkata',
-    // 		'cities'=>[
-    // 			57601 => [
-    // 				'cityName' => 'Agra',
-    // 				'timeZone' => 'Asia/Kolkata',
-    // 			],
-    // 		],
-    // 	],
-    // 	'4021'=>[
-    // 		"stateName" => 'Delhi',
-    // 		'timeZone' => 'Asia/Kolkata',
-    // 		'cities'=>[
-    // 			131679 => [
-    // 				'cityName' => 'Delhi',
-    // 				'timeZone' => 'Asia/Kolkata',
-    // 			],
-    // 		],
-    // 	],
-    // 	'3907'=>[
-    // 		"stateName" => 'Australian Capital Territory',
-    // 		'timeZone' => 'Australia/Sydney',
-    // 		'cities'=>[
-    // 			4566 => [
-    // 				'cityName' => 'Canberra',
-    // 				'timeZone' => 'Australia/Sydney',
-    // 			],
-    // 		],
-    // 	],
-    // 	'3909'=>[
-    // 		"stateName" => 'New South Wales',
-    // 		'timeZone' => 'Australia/Sydney',
-    // 		'cities'=>[
-    // 			7408 => [
-    // 				'cityName' => 'Sydney',
-    // 				'timeZone' => 'Australia/Sydney',
-    // 			],
-    // 		],
-    // 	],
-    // 	'3910'=>[
-    // 		"stateName" => 'Northern Territory',
-    // 		'timeZone' => 'Australia/Darwin',
-    // 		'cities'=>[
-    // 			4947 => [
-    // 				'cityName' => 'Darwin',
-    // 				'timeZone' => 'Australia/Darwin',
-    // 			],
-    // 		],
-    // 	],
-    // 	'3905'=>[
-    // 		"stateName" => 'Queensland',
-    // 		'timeZone' => 'Australia/Brisbane',
-    // 		'cities'=>[
-    // 			4411 => [
-    // 				'cityName' => 'Brisbane',
-    // 				'timeZone' => 'Australia/Brisbane',
-    // 			],
-    // 		],
-    // 	],
-    // 	'3904'=>[
-    // 		"stateName" => 'South Australia',
-    // 		'timeZone' => 'Australia/Adelaide',
-    // 		'cities'=>[
-    // 			3919 =>[
-    // 				'cityName' => 'Adelaide',
-    // 				'timeZone' => 'Australia/Adelaide',
-    // 			],
-
-    // 		],
-    // 	],
-    // 	'3908'=>[
-    // 		"stateName" => 'Tasmania',
-    // 		'timeZone' => 'Australia/Hobart',
-    // 		'cities'=>[
-    // 			5621 => [
-    // 				'cityName' => 'Hobart',
-    // 				'timeZone' => 'Australia/Hobart',
-    // 			],
-    // 		],
-    // 	],
-    // 	'3903'=>[
-    // 		"stateName" => 'Victoria',
-    // 		'timeZone' => 'Australia/Melbourne',
-    // 		'cities'=>[
-    // 			6235 =>[
-    // 				'cityName' => 'Melbourne',
-    // 				'timeZone' => 'Australia/Melbourne',
-    // 			],
-
-    // 		],
-    // 	],
-    // 	'3906'=>[
-    // 		"stateName" => 'Western Australia',
-    // 		'timeZone' => 'Australia/Perth',
-    // 		 'cities'=>[
-    // 			6839 => [
-    // 				'cityName' => 'Perth',
-    // 				'timeZone' => 'Australia/Perth',
-    // 			],
-
-    // 		],
-    // 	],
-
-    // ],
-
 
     'states' => [
       '4008' => [
@@ -881,4 +774,11 @@ return [
     'rejected'  => 'Rejected',
   ],
   'impersonate_action_allowed' => ['archives-listing', 'create-new-masseur', 'archive-view-photos', 'media-centre', 'add-listing', 'list', 'create-profile', 'archive-view-videos', 'upload-galleries', 'upload-videos-galleries', 'default_photos', 'default-videos', 'get-default-videos', 'get-default-photos', 'delete-photos', 'delete-videos', 'listing', 'country-list', 'city-list', 'select-city-list', 'state-list', 'get-account-video-gallery', 'load-default-masseur-list', 'create-check-messure-profile', 'get-notification', 'masseur-option-list', 'all-massager-list', 'all-masseur-list', 'update-masseur', 'create-action-messure-profile', 'center.massuers-media-upload-gallery', 'update-single-data', 'validate-phone', 'get-massuers-account-media-gallery', 'delete-masseur-photos', 'get-masseur-image-info', 'notification-seen', 'get-masseurs-media-count', 'upload-masseur-verification', 'get-account-media-gallery', 'get-account-media-gallery', 'profile-info', 'masseurs', 'update-profile', 'action-massage-profile', 'massage-brb', 'massage-suspend-credit', 'suspend-massage-profile', 'extend-profile-validate-date-range', 'listing/listing-payment', 'bumpup-register', 'get-transaction-summury', 'make-time-json', 'get-masseur-option-list', 'update-massage-profile', 'profile-information', 'update-account'],
+  'gender' => [
+    1 => 'Male',
+    6 => 'Female',
+    2 => 'Couples',
+    3 => 'Transgender',
+    4 => 'Cross Dresser',
+  ],
 ];

@@ -22,6 +22,7 @@ class LegboxNotificationController extends Controller
             if (empty($clientOrder)) {
                 $query->orderBy('created_at', 'DESC');
             }
+            $query->where('create_by', auth()->user()->id);
 
 
             return DataTables::of($query)
@@ -163,11 +164,14 @@ class LegboxNotificationController extends Controller
     {
     
         $data =  $request->only(['heading', 'start_date', 'end_date', 'type', 'content', 'member_id', 'template_name', 'edit_notification_id']);
-        
+        $user = auth()->user();
         $start = sqlDateFormat($data['start_date']);    
         $end =  sqlDateFormat($data['end_date']);
         $data['start_date'] = $start;
         $data['end_date'] = $end;
+        $data['create_by'] = $user->id;
+        $data['create_by_member_id'] = $user->member_id;
+
         //Check condition 
         $notificationId = $request->edit_notification_id;
 
@@ -186,6 +190,7 @@ class LegboxNotificationController extends Controller
             $update->start_date = sqlDateFormat($data['start_date']);
             $update->end_date = sqlDateFormat($data['end_date']);
             $update->type = $request->type;
+            $update->create_by = auth()->user()->id;
 
             /* Reset all type-based fields */
             $update->content       = null;
@@ -262,6 +267,7 @@ class LegboxNotificationController extends Controller
     {
         $query = LegboxNotification::where('status', '=', 'Published')
             ->where('id', '!=', $id)
+            ->where('create_by', '=', auth()->user()->id)
             ->where(function ($q) use ($start, $end) {
                 $q->whereBetween('start_date', [$start, $end])
                     ->orWhereBetween('end_date', [$start, $end])

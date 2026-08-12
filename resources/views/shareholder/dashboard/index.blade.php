@@ -10,7 +10,9 @@
         <div class="cal-lg-12 w-100">
             @if ($agentNotifications)
                 @foreach ($agentNotifications as $notification)
-                    <x-global.notification-alert :heading="$notification['heading']" :content="$notification['content'] ?? $notification['template_name']" type="success" />
+                    <x-global.notification-alert :heading="$notification['heading']" :content="$notification['content'] ?? $notification['template_name']" type="success"
+                    :member="null"
+                     />
                 @endforeach
             @endif
         </div>

@@ -17,7 +17,7 @@
     <div class="row">
         <div class="d-sm-flex align-items-center justify-content-between col-md-12">
             <div class="custom-heading-wrapper">
-                <h1 class="h1">My Wallet</h1>
+                <h1 class="h1">Our Wallet</h1>
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
             </div>
             @if (request('from') == 'dashboard')

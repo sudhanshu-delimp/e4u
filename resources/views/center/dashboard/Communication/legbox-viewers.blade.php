@@ -66,7 +66,7 @@
             
             <div class="d-sm-flex align-items-center justify-content-between col-md-12">
                 <div class="custom-heading-wrapper">
-                    <h1 class="h1">My Legbox Viewers</h1>
+                    <h1 class="h1">Our Legbox Viewers</h1>
                     <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>
                     </h6>
                 </div>

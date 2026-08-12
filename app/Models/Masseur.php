@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 //use Illuminate\Database\Eloquent\Model;
 use App\Models\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use Illuminate\Support\Str;
 class Masseur extends Model
 {
     use HasFactory;
@@ -17,7 +17,16 @@ class Masseur extends Model
     'other_service_types' => 'array'
     ];
   
+public function getProfileImgAttribute()
+{
+    $imageUrl = asset($this->getImagePosition(1, $this->id));
 
+    if (Str::contains($imageUrl, 'mcc-default-thumbnail.png') || empty($imageUrl)) {
+        return asset('assets/app/img/def-masseur-therapy.avif');
+    }
+
+    return $imageUrl;
+}
 
     public function durations()
     {
