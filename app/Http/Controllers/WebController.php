@@ -1356,15 +1356,15 @@ class WebController extends Controller
 
         /*new functionality*/
         if (request()->has('list') || request()->get('view_type') == 'list') {
-            $viewType = 'list';
-            $next = $next . '?' . $viewType;
-            $previous = $previous . '?' . $viewType;
+            //$viewType = 'list';
+            //$next = $next . '?' . $viewType;
+            //$previous = $previous . '?' . $viewType;
 
             $backToSearchButton = preg_replace('/view_type=(grid|list)/', 'view_type=list', $backToSearchButton);
         } else {
-            $viewType = 'grid';
-            $next = $next . '?' . $viewType;
-            $previous = $previous . '?' . $viewType;
+           // $viewType = 'grid';
+            //$next = $next . '?' . $viewType;
+            //$previous = $previous . '?' . $viewType;
 
             $backToSearchButton = preg_replace('/view_type=(grid|list)/', 'view_type=grid', $backToSearchButton);
         }
