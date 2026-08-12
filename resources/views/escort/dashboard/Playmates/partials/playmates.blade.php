@@ -25,12 +25,14 @@
         height: 36px;
         width: 100%;
         padding: 0px 10px 0px 30px;
-        background: white url({{asset('avatars/Vector-24.svg')}}) 8px 8px no-repeat;
-        border-radius: 3px;
-        border: 1.8px solid #d1d3e2;
-        font-size: 13px;
-        font-weight: 400;
-        color: #d1d3e2;
+        background: white url({{asset('avatars/Vector-24.svg')
+    }
+    }) 8px 8px no-repeat;
+    border-radius: 3px;
+    border: 1.8px solid #d1d3e2;
+    font-size: 13px;
+    font-weight: 400;
+    color: #d1d3e2;
     }
 
     .at-sec input:focus {
@@ -38,7 +40,7 @@
         border-color: #d1d3e2;
     }
 
-    .at-sec li:focus + .results {
+    .at-sec li:focus+.results {
         display: block
     }
 
@@ -55,7 +57,9 @@
         border-radius: 0.5px solid #C4C4C4;
     }
 
-    .at-sec div.myacording-design .card .card-body ol li, div.myacording-design .card .card-body ul li, div.myacording-design .card .card-body p {
+    .at-sec div.myacording-design .card .card-body ol li,
+    div.myacording-design .card .card-body ul li,
+    div.myacording-design .card .card-body p {
         margin-bottom: 0;
         background: #fff;
         box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
@@ -67,7 +71,8 @@
     }
 
     /*.at-sec .results li:first-child { margin-top: -1px }*/
-    .at-sec .results li:first-child:before, .search .results li:first-child:after {
+    .at-sec .results li:first-child:before,
+    .search .results li:first-child:after {
         display: block;
         content: '';
         width: 0;
@@ -83,7 +88,8 @@
         top: -10px;
     }
 
-    .at-sec .results li:first-child:hover:before, .search .results li:first-child:hover:after {
+    .at-sec .results li:first-child:hover:before,
+    .search .results li:first-child:hover:after {
         display: none
     }
 
@@ -132,7 +138,6 @@
         display: flex;
         gap: 10px;
     }
-
 </style>
 <div class="container-fluid p-2">
     <div class="row">
@@ -143,7 +148,7 @@
         <div class="custom-note-section">
             <div class="card" style="">
                 <div class="card-body">
-                <h3 class="NotesHeader"><b>Notes:</b> </h3> 
+                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
                     <ol class=" mb-0">
                         <li>
                             By activating this feature:
@@ -172,11 +177,11 @@
             <div class="card-body border-0 pt-0 mt-0 p-0">
                 <div class="mb-1">
                     @php
-                        $playmate = auth()->user()->available_playmate
+                    $playmate = auth()->user()->available_playmate
                     @endphp
                     <input type="checkbox" class="form-controll" value="Y" id="playmate"
-                           name="available_playmate" {{(($playmate) ? "checked" : '' )}}/> <label for="playmate"
-                                                                                                  style="display: inline;">I
+                        name="available_playmate" {{(($playmate) ? "checked" : '' )}} /> <label for="playmate"
+                        style="display: inline;">I
                         am available as a Playmate</label>
                 </div>
             </div>
@@ -185,27 +190,27 @@
                     <div class="col-lg-12 my-3">
                         @if($user->playmateHistory->count()>0)
                         <ul class="results  mt-2 activePlaymate">
-                                @foreach($user->playmateHistory->unique('playmate_id') as $item)
-                                    <li id="rmlist_{{$item->id}}" class="d_my_tooltip playmate-{{$item->group_status}}"><a
-                                            href="{{ route('preview.escort',$item->playmate->id)}}" target="_blank">
-                                            <img
-                                                src="{{ $item->playmate->DefaultImage ? asset($item->playmate->DefaultImage) : asset('assets/app/img/icons-profile.png') }}"
-                                                class="img-profile rounded-circle playmats-img">{{$item->playmate->user->member_id . ' - ' .$item->playmate->name}}
-                                        </a>
-                                        <span class="playmates_rmid" data-id="{{$item->id}}">×</span>
-                                        <small class="mytool-tip">Remove</small>
-                                    </li>
-                                @endforeach
+                            @foreach($user->playmateHistory->unique('playmate_id') as $item)
+                            <li id="rmlist_{{$item->id}}" class="d_my_tooltip playmate-{{$item->group_status}}"><a
+                                    href="{{ route('preview.escort',$item->playmate->slug)}}" target="_blank">
+                                    <img
+                                        src="{{ $item->playmate->DefaultImage ? asset($item->playmate->DefaultImage) : asset('assets/app/img/icons-profile.png') }}"
+                                        class="img-profile rounded-circle playmats-img">{{$item->playmate->user->member_id . ' - ' .$item->playmate->name}}
+                                </a>
+                                <span class="playmates_rmid" data-id="{{$item->id}}">×</span>
+                                <small class="mytool-tip">Remove</small>
+                            </li>
+                            @endforeach
                         </ul>
                         @endif
                     </div>
                 </div>
             </div>
         </div>
-       
+
     </div>
 </div>
-   
+
 @push('script')
 
 <script>
@@ -240,54 +245,54 @@
     });
 
 
-    let removeAllPlaymates = function () {
-    let requests = []; // store all AJAX requests
+    let removeAllPlaymates = function() {
+        let requests = []; // store all AJAX requests
 
-    Swal.fire({
-        title: 'Removing...',
-        text: 'Please wait while we remove all playmates.',
-        allowOutsideClick: false,
-        didOpen: () => {
-            Swal.showLoading();
-        }
-    });
-
-    $(".activePlaymate li .playmates_rmid").each(function () {
-        let playmateId = $(this).data("id");
-        let request = $.ajax({
-            method: "POST",
-            url: `{{ route('escort.remove.playmate', ':id') }}`.replace(':id', playmateId),
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        }).done(function (data) {
-            if (!data.error) {
-                $(`#rmlist_${playmateId}`).remove();
+        Swal.fire({
+            title: 'Removing...',
+            text: 'Please wait while we remove all playmates.',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
             }
         });
 
-        requests.push(request);
-    });
+        $(".activePlaymate li .playmates_rmid").each(function() {
+            let playmateId = $(this).data("id");
+            let request = $.ajax({
+                method: "POST",
+                url: `{{ route('escort.remove.playmate', ':id') }}`.replace(':id', playmateId),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            }).done(function(data) {
+                if (!data.error) {
+                    $(`#rmlist_${playmateId}`).remove();
+                }
+            });
 
-    // When all AJAX complete
-    $.when.apply($, requests).then(function () {
-        Swal.fire({
-            icon: 'success',
-            title: 'All removed!',
-            text: 'All playmates have been successfully removed.',
-            timer: 1500,
-            showConfirmButton: false
+            requests.push(request);
         });
-    }).fail(function () {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error!',
-            text: 'Failed to remove some playmates.'
-        });
-    });
-};
 
-    
+        // When all AJAX complete
+        $.when.apply($, requests).then(function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'All removed!',
+                text: 'All playmates have been successfully removed.',
+                timer: 1500,
+                showConfirmButton: false
+            });
+        }).fail(function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Failed to remove some playmates.'
+            });
+        });
+    };
+
+
     function updatePlaymate(isAvailable) {
         $.ajax({
             method: "GET",
@@ -295,7 +300,7 @@
             data: {
                 'available_playmate': isAvailable
             },
-            
+
             success: function(data) {
                 var msg = "My Playmates updated successfully.";
                 $('.comman_msg').text(msg);
@@ -306,70 +311,70 @@
     }
 
     $('body').on('click', '.playmates_rmid', function(e) {
-    e.preventDefault();
+        e.preventDefault();
 
-    const $btn = $(this);
-    const playmateId = $btn.data('id');
-    const url = `{{ route('escort.remove.playmate', ':id') }}`.replace(':id', playmateId);
+        const $btn = $(this);
+        const playmateId = $btn.data('id');
+        const url = `{{ route('escort.remove.playmate', ':id') }}`.replace(':id', playmateId);
 
-    // Optionally disable button to prevent multiple clicks
-    Swal.fire({
-        title: 'My Playmates',
-        text: "Are you sure you want to remove this Playmate?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, remove it',
-        cancelButtonText: 'Cancel',
-    }).then((result) => {
-        if (!result.isConfirmed) return;
-        $btn.prop('disabled', true);
-        $.ajax({
-            method: "POST",
-            url: url,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            beforeSend: function () {
-                Swal.fire({
-                    title: 'Removing...',
-                    text: 'Please wait while we remove this playmate.',
-                    allowOutsideClick: false,
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
-                });
-            },
-            success: function (data) {
-                if (!data.error) {
-                    $(`#rmlist_${playmateId}`).remove();
+        // Optionally disable button to prevent multiple clicks
+        Swal.fire({
+            title: 'My Playmates',
+            text: "Are you sure you want to remove this Playmate?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, remove it',
+            cancelButtonText: 'Cancel',
+        }).then((result) => {
+            if (!result.isConfirmed) return;
+            $btn.prop('disabled', true);
+            $.ajax({
+                method: "POST",
+                url: url,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                beforeSend: function() {
                     Swal.fire({
-                        icon: 'success',
-                        title: 'Removed!',
-                        text: data.message || 'Playmate removed successfully.',
-                        timer: 1500,
-                        showConfirmButton: false
+                        title: 'Removing...',
+                        text: 'Please wait while we remove this playmate.',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
                     });
-                } else {
+                },
+                success: function(data) {
+                    if (!data.error) {
+                        $(`#rmlist_${playmateId}`).remove();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Removed!',
+                            text: data.message || 'Playmate removed successfully.',
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: data.message || 'Failed to remove playmate.'
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    Swal.close();
                     Swal.fire({
                         icon: 'error',
                         title: 'Error!',
-                        text: data.message || 'Failed to remove playmate.'
+                        text: 'Something went wrong. Please try again.'
                     });
+                },
+                complete: function() {
+                    $btn.prop('disabled', false); // re-enable button
                 }
-            },
-            error: function(xhr, status, error) {
-                Swal.close();
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: 'Something went wrong. Please try again.'
-                });
-            },
-            complete: function() {
-                $btn.prop('disabled', false); // re-enable button
-            }
+            });
         });
     });
-}); 
 </script>
 @endpush
