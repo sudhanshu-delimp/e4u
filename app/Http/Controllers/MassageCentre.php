@@ -635,8 +635,8 @@ class MassageCentre extends Controller
         if (str_contains($previousSlug, 'massage-profile') || str_contains($previousSlug, 'massage-centres-list')) {
             $relatedMassges = MassagePurchase::with('massageprofile')->where('status', 'listed')
                 ->whereHas('user', function ($q) use($stateId) {
-                    $q->where('status', 1)
-                    ->where('state_id', $stateId);
+                    $q->where('status', 1);
+                    //->where('state_id', $stateId);
                 })
                 ->whereNotIn('massage_profile_id', $blockedProfileForViewersIds)
                 ->whereDoesntHave('activeSuspendProfile')->get();
