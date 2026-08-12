@@ -62,10 +62,8 @@
             <div class="col-md-12" id="profile_and_tour_options">
                 <x-file-type />
                 <!-- Upload / Current Avatar -->
-                 <x-avatar-upload
-                    :form-action="route('user.save.avatar', auth()->user()->id)"
-                />
-                <x-upload-info /> 
+                <x-avatar-upload :form-action="route('user.save.avatar', auth()->user()->id)" />
+                <x-upload-info />
 
             </div>
         </div>
@@ -506,9 +504,11 @@
             } else if (src && src.indexOf('data:image/') === 0) {
                 oversize = getBase64SizeBytes(src) > maxBytes;
             }
+
             if (oversize) {
-                $('.comman_msg').text('Image must be 10MB or less.');
-                $("#comman_modal").modal('show');
+                // $('.comman_msg').text('Image must be 10MB or less.');
+                // $("#comman_modal").modal('show');
+                showAlert('Upload Avatar', 'Image must be 10MB or less.', 'error');
                 try {
                     removeUpload();
                 } catch (e) {}
@@ -520,6 +520,7 @@
             swal_waiting_popup({
                 'title': 'Your avatar is being uploaded...'
             });
+
             data.append('src', src);
             $.ajax({
                 method: form.attr('method'),
@@ -538,7 +539,8 @@
                         url = url.replace('name', data.avatarName);
                         $('.comman_msg').text(msg);
                         //$("#my_account_modal").show();
-                        $("#comman_modal").modal('show');
+                        // $("#comman_modal").modal('show');
+                        showAlert('Upload Avatar', msg, 'success');
                         $(".avatarName").attr('src', url);
                         $(".file-upload-content").hide();
                         $('.avatar-upload-submit').hide();
@@ -615,10 +617,10 @@
                     }
                 }
             } catch (e) {}
-
-            $('.comman_msg').text(msg);
-            $("#comman_modal").modal('show');
-            $(".delete_avatar").hide();
+            // $('.comman_msg').text(msg);
+            // $("#comman_modal").modal('show');
+            showAlert('Upload Avatar', msg || "Something went wrong. Please try again.", 'error');
+            // $(".delete_avatar").hide();
         }
 
         $('#confirmDelete').on('click', function(e) {
@@ -686,18 +688,24 @@
         });
 
         // Function to show error message
-        function showErrorMessage(message) {
-            $("#modal-title").text("Error");
-            $("#modal-icon").attr("src", "/assets/dashboard/img/remove-image.png");
-            $('.comman_msg').text(message);
-
+      function showErrorMessage(message) {
+            // $("#modal-title").text("Error");
+            // $("#modal-icon").attr("src", "/assets/dashboard/img/remove-image.png");
+            // $('.comman_msg').text(message);
+            showAlert('Remove Avatar', message, 'error');
             // Show modal
-            $("#comman_modal").modal('show');
+            // $("#comman_modal").modal('show');
         }
 
         // Bind delete avatar event to show confirmation modal
         $(document).on('click', '.delete_avatar', function() {
-            $("#conformation_modal").modal('show');
+            // $("#conformation_modal").modal('show');
+            showAlert('Remove Avatar', "Are you sure you want to delete your avatar?", 'warning', true).then((result) => {
+                if (result.isConfirmed) {
+                    // Perform action to delete avatar
+                    $('#confirmDelete').trigger('click');
+                }
+            });
         });
     </script>
 @endpush
