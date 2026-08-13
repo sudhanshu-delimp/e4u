@@ -254,7 +254,7 @@ class EscortListingController extends Controller
 
 
         //add the params value inside the session for load next and previous page data
-        session(['search_escort_filters' => $params]);
+       // session(['search_escort_filters' => $params]);
 
 
 
