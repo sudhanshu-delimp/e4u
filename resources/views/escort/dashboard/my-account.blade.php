@@ -103,9 +103,9 @@
                                             {{ Carbon\Carbon::parse($escort->created_at)->format('d-m-Y') }}</p>
                                     </div>
                                     <div class="form-group">
-                                        <label class="my_name common-tooltip" for="my_name">
+                                        <label class="my_name" for="my_name">
                                             My Name
-
+                                          <div class="common-tooltip">
                                             <img class="delay_tooltip tooltip-icon"
                                                 src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
                                             <span class="tooltip-text">
@@ -113,6 +113,7 @@
                                                     href="{{ route('escort.profile.information') }}">Stage
                                                     Names</a> to use in any Profile.
                                             </span>
+                                            </div>
                                         </label>
                                         <input type="text" class="form-control" name="name"
                                             placeholder="Enter name..." value="{{ $escort->name }}" required>
@@ -138,17 +139,19 @@
                                         @endif
                                     </div>
                                     <div class="form-group">
-                                        <label for="mobile" class="common_help_icon common-tooltip">Mobile
+                                        <label for="mobile" class="common_help_icon">Mobile
+                                           <div class="common-tooltip">
                                             <img class="delay_tooltip tooltip-icon"
                                                 src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
                                             <span class="tooltip-text">This is the number which will be
                                                 displayed in your Profiles.</span>
-
+                                           </div>
                                         </label>
                                         <p class="input_not_edit">{{ $escort->phone }}</p>
                                     </div>
                                     <div class="form-group">
-                                        <label class="my-agent common-tooltip" for="home_state">Home State
+                                        <label class="my-agent" for="home_state">Home State
+                                           <div class="common-tooltip">
                                             <img class="delay_tooltip tooltip-icon"
                                                 src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
                                             <span class="tooltip-text">This is the State you reside in. If
@@ -156,6 +159,7 @@
                                                 log a <a target='_blank'
                                                     href='{{ url('escort-dashboard/submitticket') }}'>Support
                                                     Ticket</a> and we will correct your setting.</span>
+                                           </div>
                                         </label>
                                         <p class="input_not_edit" placeholder="Western Australia"
                                             aria-describedby="emailHelp" id="stateNew" name="state_id"
@@ -171,17 +175,18 @@
                                             value="{{ $escort->email }}">
                                     </div>
                                     <div class="form-group">
-                                        <label class="my-agent common-tooltip" for="my_agent">
-                                            <span>My Agent
+                                        <label class="my-agent" for="my_agent">                                           
+                                            My Agent
+                                            <div class="common-tooltip">
                                                 <img class="delay_tooltip tooltip-icon"
                                                     src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
                                                 <span class="tooltip-text">You can appoint an Agent to
                                                     assist you by completing the Agency Request form. If you
                                                     want to appoint an Agent, <a
                                                         href='{{ url('escort-dashboard/escort-agency-request') }}'>click
-                                                        here.</a></span>
+                                                        here.</a></span></div>
                                         </label>
-                                        </span>
+                                        
                                         <p class="input_not_edit">
 
                                             @if (auth()->user()->my_agent)
@@ -195,11 +200,13 @@
                                         </p>
                                     </div>
                                     <div class="form-group">
-                                        <label for="PayID Name" class="common_help_icon common-tooltip">PayID Name
+                                        <label for="PayID Name" class="common_help_icon">PayID Name
+                                           <div class="common-tooltip">
                                             <img class="delay_tooltip tooltip-icon"
                                                 src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
                                             <span class="tooltip-text">Complete this information if you use
                                                 PayID with your clients.</span>
+                                           </div>
 
                                         </label>
                                         <input type="text" class="form-control" name="PayID_Name"
