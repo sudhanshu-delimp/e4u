@@ -544,7 +544,8 @@
                         url = url.replace('name', data.avatarName);
                         $('.comman_msg').text(msg);
                         //$("#my_account_modal").show();
-                        $("#comman_modal").modal('show');
+                        showAlert('Avatar Upload', msg, "success");
+                        // $("#comman_modal").modal('show');
                         $(".avatarName").attr('src', url);
                         $(".file-upload-content").hide();
                         $('.avatar-upload-submit').hide();
@@ -676,7 +677,7 @@
                     }
                 });
             } catch (error) {
-                console.error('Error in confirmDelete click handler:', error);
+                // console.error('Error in confirmDelete click handler:', error);
                 showErrorMessage("An unexpected error occurred. Please try again.");
 
                 // Reset button state
@@ -693,17 +694,23 @@
 
         // Function to show error message
         function showErrorMessage(message) {
-            $("#modal-title").text("Error");
-            $("#modal-icon").attr("src", "/assets/dashboard/img/remove-image.png");
-            $('.comman_msg').text(message);
-
-            // Show modal
-            $("#comman_modal").modal('show');
+            showAlert('Remove Avatar', message, 'error');
         }
 
         // Bind delete avatar event to show confirmation modal
+        // $(document).on('click', '.delete_avatar', function() {
+        //     $("#conformation_modal").modal('show');
+        // });
+
         $(document).on('click', '.delete_avatar', function() {
-            $("#conformation_modal").modal('show');
+            // $("#conformation_modal").modal('show');
+            showAlert('Remove Avatar', "Are you sure you want to delete your avatar?", 'warning', true).then((
+                result) => {
+                if (result.isConfirmed) {
+                    // Perform action to delete avatar
+                    $('#confirmDelete').trigger('click');
+                }
+            });
         });
     </script>
 @endpush
