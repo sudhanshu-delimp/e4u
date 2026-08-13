@@ -54,7 +54,6 @@
         <div class="row">
             <div class="col-md-12 commanAlert"></div>
         </div>
-
         <div class="row">
             <div class="col-md-12">
                 <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
@@ -64,131 +63,176 @@
 
         <div class="row">
             <div class="col-md-12 mb-5">
-                <form class="v-form-design" autocomplete="off"  id="userProfile" action="{{ route('agent.update.password') }}" method="POST">
-                    @csrf
-                    <div class="row">
-                        <div class="col-md-6">
+                <div class="common-grid">
+
+                    <div class="common-card">
+                        <form  autocomplete="off"  id="userProfile" action="{{ route('agent.update.password') }}" method="POST">
+                            @csrf
                             <div class="row">
 
-                                <!-- Current Password -->
-                                <div class="col-md-12">
-                                    <div class="form-group position-relative">
-                                        <label for="current_password">Current password</label>
-                                        <input type="password" class="form-control" name="password" id="current_password"
-                                            placeholder="{{config('constants.current_password_placeholder')}}"
-                                            autocomplete="current-password"
-                                            data-parsley-required-message="Current password is required" required>
-                                        <span class="toggle-password" toggle="#current_password">
-                                            <i class="fa fa-eye"></i>
-                                        </span>
-                                        <div class="pt-1">
-                                            <small><i>{{config('constants.current_password_notify')}}</i></small>
+                                        <!-- Current Password -->
+                                        <div class="col-md-12">
+                                            <div class="form-group cp-field">
+                                                <label for="current_password">Current password</label>
+                                                <div class="cp-input-wrap">
+                                                <input type="password"  name="password" id="current_password"
+                                                    placeholder="{{config('constants.current_password_placeholder')}}"
+                                                    autocomplete="current-password"
+                                                    data-parsley-required-message="Current password is required" required>
+                                                <button type="button" class="cp-eye-btn  toggle-password" toggle="#current_password">
+                                                    <i class="fa fa-eye"></i>
+                                                </button>
+                                                </div>
+                                                <p class="cp-hint">
+                                                    <small><i>{{config('constants.current_password_notify')}}</i></small>
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
 
-                                <!-- New Password -->
-                                <div class="col-md-12">
-                                    <div class="form-group position-relative">
-                                        <label for="new_password">New password</label>
-                                        <input type="password" class="form-control" name="new_password" id="new_password"
-                                            placeholder="New password" required autocomplete="new-password"
-                                            data-parsley-required-message="Current password is required"
-                                            data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/"
-                                            data-parsley-pattern-message="@lang('errors/validation/valid.password')">
-                                        <span class="toggle-password" toggle="#new_password">
-                                            <i class="fa fa-eye"></i>
-                                        </span>
-                                        <div class="termsandconditions_text_color"></div>
-                                        <small class="form-text text-muted"></small>
-                                        <div class="pt-1">
-                                            <small><i>Must be a minimum of eight (8) characters long</i></small>
+                                        <!-- New Password -->
+                                        <div class="col-md-12">
+                                            <div class="form-group cp-field">
+                                                <label for="new_password">New password</label>
+                                                <div class="cp-input-wrap">
+                                                <input type="password"  name="new_password" id="new_password"
+                                                    placeholder="New password" required autocomplete="new-password"
+                                                    data-parsley-required-message="Current password is required"
+                                                    data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/"
+                                                    data-parsley-pattern-message="@lang('errors/validation/valid.password')">
+                                                <button type="button" class="cp-eye-btn  toggle-password" toggle="#new_password">
+                                                    <i class="fa fa-eye"></i>
+                                                </button>
+                                                </div>
+                                                <div class="termsandconditions_text_color"></div>
+                                                <small class="form-text text-muted"></small>
+                                                <p class="cp-hint">
+                                                    <small><i>Must be a minimum of eight (8) characters long</i></small>
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
 
-                                <!-- Confirm Password -->
-                                <div class="col-md-12">
-                                    <div class="form-group position-relative">
-                                        <label for="confirm_password">Confirm password</label>
-                                        <input type="password" class="form-control" placeholder="Confirm password"
-                                            id="confirm_password" name="password_confirmation"
-                                            data-parsley-equalto="#new_password"
-                                            data-parsley-equalto-message="Confirm password should be the same password"
-                                            required autocomplete="confirm-password"
-                                            data-parsley-required-message="Confirm password is required">
-                                        <span class="toggle-password" toggle="#confirm_password">
-                                            <i class="fa fa-eye"></i>
-                                        </span>
-                                        <div class="termsandconditions_text_color"></div>
-                                    </div>
-                                </div>
-
+                                        <!-- Confirm Password -->
+                                        <div class="col-md-12">
+                                            <div class="form-group cp-field">
+                                                <label for="confirm_password">Confirm password</label>
+                                                <div class="cp-input-wrap">
+                                                <input type="password"  placeholder="Confirm password"
+                                                    id="confirm_password" name="password_confirmation"
+                                                    data-parsley-equalto="#new_password"
+                                                    data-parsley-equalto-message="Confirm password should be the same password"
+                                                    required autocomplete="confirm-password"
+                                                    data-parsley-required-message="Confirm password is required">
+                                                <button type="button" class="cp-eye-btn toggle-password" toggle="#confirm_password">
+                                                    <i class="fa fa-eye"></i>
+                                                </button>
+                                                </div>
+                                                <div class="termsandconditions_text_color"></div>
+                                            </div>
+                                        </div>
                             </div>
-                        </div>
+                            <div class="common-footer">
+
+                           
+                            <input type="submit" value="Save Password" class="common-save-btn" name="submit">
+                                 </div>
+                        </form>
                     </div>
-                    <input type="submit" value="Save Password" class="btn btn-primary shadow-none" name="submit">
-                </form>
+                 <div class="common-card">
+                    <form  id="passwordExpiry" action="{{ route('agent.update.password.expiry') }}"
+                        method="POST">
+                        <div class="col-md-12 p-0 mt-4">
+                            <div class="card-top">
+                                    <div class="card-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                            </g>
+                                            <g id="SVGRepo_iconCarrier">
+                                                <path
+                                                    d="M3 9H21M7 3V5M17 3V5M6 12H10V16H6V12ZM6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z"
+                                                    stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round"></path>
+                                            </g>
+                                        </svg>
+                                    </div>
 
+                                    <div class="card-heading">
+                                        <h2>Password Expiry</h2>
+                                    </div>
+                                </div>
 
-                <form class="v-form-design" id="passwordExpiry" action="{{ route('agent.update.password.expiry') }}"
-                    method="POST">
-                    <div class="col-md-12 p-0 mt-4">
-                        <div class="form-group mb-0">
-                            <label for="confirm_password">Password Expiry </label>
-                        </div>
-                        <div class="form-radio">
-                            <input class="" name="password_expiry_days" type="radio" value="never" id="Never"
-                                @if ($user->account_setting && $user->account_setting->password_expiry_days == 'never') {{ 'checked' }} @endif>
-                            <label class="form-check-label" for="Never">Never</label>
-                        </div>
-                        <div class="form-radio">
-                            <input class="" name="password_expiry_days" type="radio" value="30" id="day_30"
-                                @if ($user->account_setting && $user->account_setting->password_expiry_days == '30') {{ 'checked' }} @endif>
-                            <label class="form-check-label" for="day_30">Renew every 30 days</label>
-                        </div>
-                        <div class="form-radio">
-                            <input class="" name="password_expiry_days" type="radio" value="60" id="day_60"
-                                @if ($user->account_setting && $user->account_setting->password_expiry_days == '60') {{ 'checked' }} @endif>
-                            <label class="form-check-label" for="day_60">Renew every 60 days</label>
-                        </div>
-                        <div class="form-radio">
-                            <input class="" name="password_expiry_days" type="radio" value="90" id="day_90"
-                                @if ($user->account_setting && $user->account_setting->password_expiry_days == '90') {{ 'checked' }} @endif>
-                            <label class="form-check-label" for="day_90">Renew every 90 days</label>
-                        </div>
-                        <div class="pt-1">
-                            <i id="emailHelp">Unless you set your preferred Password Expiry, by default your password will
-                                renew every30 days.</i>
-                        </div>
+                            <div class="option-list">
+                                <div class="form-radio">
+                                <input class="" name="password_expiry_days" type="radio" value="never" id="Never"
+                                    @if ($user->account_setting && $user->account_setting->password_expiry_days == 'never') {{ 'checked' }} @endif>
+                                <label class="form-check-label" for="Never">Never</label>
+                            </div>
+                            <div class="form-radio">
+                                <input class="" name="password_expiry_days" type="radio" value="30" id="day_30"
+                                    @if ($user->account_setting && $user->account_setting->password_expiry_days == '30') {{ 'checked' }} @endif>
+                                <label class="form-check-label" for="day_30">Renew every 30 days</label>
+                            </div>
+                            <div class="form-radio">
+                                <input class="" name="password_expiry_days" type="radio" value="60" id="day_60"
+                                    @if ($user->account_setting && $user->account_setting->password_expiry_days == '60') {{ 'checked' }} @endif>
+                                <label class="form-check-label" for="day_60">Renew every 60 days</label>
+                            </div>
+                            <div class="form-radio">
+                                <input class="" name="password_expiry_days" type="radio" value="90" id="day_90"
+                                    @if ($user->account_setting && $user->account_setting->password_expiry_days == '90') {{ 'checked' }} @endif>
+                                <label class="form-check-label" for="day_90">Renew every 90 days</label>
+                            </div>
+                            <div class="card-note">
+                                        <span class="note-icon">i</span>
+                                        <p> <i>Unless you set your preferred Password Expiry, by default your password will
+                                    renew every30 days.</i></p>
+                                    </div>
+                            
+                            </div>
 
-                    </div>
-                    <div class="col-md-12 p-0 mt-4">
-                        <div class="form-group mb-0">
-                            <label for="confirm_password">Notification</label>
                         </div>
-                        <div class="form-check m-0">
-                            <input class="form-check-input" name="is_text_notificaion_on" type="checkbox"
-                                id="Text" value="1"
-                                @if ($user->account_setting && $user->account_setting->is_text_notificaion_on == '1') {{ 'checked' }} @endif>
-                            <label class="form-check-label" for="Text">Text</label>
-                        </div>
-                        <div class="form-check m-0">
-                            <input class="form-check-input" name="is_email_notificaion_on" type="checkbox"
-                                id="Emails" value="1"
-                                @if ($user->account_setting && $user->account_setting->is_email_notificaion_on == '1') {{ 'checked' }} @endif>
-                            <label class="form-check-label" for="Emails">Email</label>
-                        </div>
+                        <div class="col-md-12 p-0 mt-4">
+                           <div class="card-top">
+                                    <div class="card-icon">
+                                        <svg viewBox="0 0 24 24" fill="none">
+                                            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" stroke="currentColor"
+                                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
 
-                        <div class="pt-1">
-                            <i id="emailHelp">If you select to be notified of your impending password expiry by Text or
-                                Email, you will receive a notification 24 hours prior to expiry date.</i>
+                                            <path d="M10 21h4" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" />
+                                        </svg>
+                                    </div>
+
+                                    <div class="card-heading">
+                                        <h2>Notification</h2>
+                                    </div>
+                                </div>
+                                 <div class="radio-options">
+                            <div class="form-check m-0">
+                                <input class="form-check-input" name="is_text_notificaion_on" type="checkbox"
+                                    id="Text" value="1"
+                                    @if ($user->account_setting && $user->account_setting->is_text_notificaion_on == '1') {{ 'checked' }} @endif>
+                                <label class="form-check-label" for="Text">Text</label>
+                            </div>
+                            <div class="form-check m-0">
+                                <input class="form-check-input" name="is_email_notificaion_on" type="checkbox"
+                                    id="Emails" value="1"
+                                    @if ($user->account_setting && $user->account_setting->is_email_notificaion_on == '1') {{ 'checked' }} @endif>
+                                <label class="form-check-label" for="Emails">Email</label>
+                            </div>
+                                 </div>
+                            <div class="card-note">
+                                    <span class="note-icon">i</span>
+                                    <p> <i>If you select to be notified of your impending password expiry by Text or
+                                    Email, you will receive a notification 24 hours prior to expiry date.</i></p>
+                                </div>
                         </div>
-                    </div>
-                    <input type="submit" value="Save" class="btn btn-primary shadow-none mt-4" name="submit">
-                </form>
-
-
+                        <div class="common-footer">
+                        <input type="submit" value="Save" class="common-save-btn" name="submit">
+                        </div>
+                    </form>
+                 </div>
+                </div>
             </div>
         </div>
 
@@ -266,14 +310,16 @@
                             $('input[type=password]').each(function() {
                                 $(this).val('');
                             });
-                            showGlobalAlert(data.message, "success");
+                            // showGlobalAlert(data.message, "success");
+                            showAlert('Password change', "Password changed successfully. Please log in again.", "success");
                             // Reload page after 3 seconds to reflect changes
                             setTimeout(function() {
                                 location.reload();
                             }, 3000);
                         } else {
                             // Show error using the message from server
-                            showGlobalAlert(data.message, "danger");
+                            // showGlobalAlert(data.message, "danger");
+                            showAlert('Password change failed.', data.message, "error");
                         }
                     },
                     error: function(xhr) {
@@ -292,7 +338,8 @@
                                 // Not JSON, keep the generic message
                             }
                         }
-                        showGlobalAlert(errorMsg, "danger");
+                        // showGlobalAlert(errorMsg, "danger");
+                         showAlert('Password change failed.',errorMsg, "error");
 
                         // Show validation errors (e.g., Laravel validation)
                         if (xhr.responseJSON && xhr.responseJSON.errors) {
@@ -301,7 +348,8 @@
                                 errorsHtml += '<li>' + value + '</li>';
                             });
                             errorsHtml += '</ul>';
-                            showGlobalAlert(errorsHtml, "danger");
+                            // showGlobalAlert(errorsHtml, "danger");
+                              showAlert('Password change failed.',errorsHtml, "error");
                         }
                     }
                 });
@@ -330,7 +378,8 @@
                     success: function(data) {
                         //  console.log(data.message, 'data');
                         if (data.status === true) {
-                            showGlobalAlert(data.message, "success");
+                            // showGlobalAlert(data.message, "success");
+                            showAlert('Password Expiry', data.message, "success");
                             $("#resetPasswordDate").modal('hide');
                             $('#passwordExpiryText').html(data.data.text);
                         }
@@ -347,7 +396,8 @@
                                 if (res.message) {
                                     errorMsg = res.message;
                                 }
-                                showGlobalAlert(errorMsg, "danger");
+                                // showGlobalAlert(errorMsg, "danger");
+                                showAlert('Password Expiry', errorMsg, "error");
                             } catch (e) {
                                 // Not JSON, keep the generic message
                             }

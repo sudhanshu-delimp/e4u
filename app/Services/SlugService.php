@@ -23,7 +23,7 @@ class SlugService
             $calssName = $this->getClassName($modelObject);
             $baseSlug = '';
             if ($calssName == 'Escort') {
-                $baseSlug = isset($modelObject->profile_name) ?  $modelObject->profile_name : $modelObject->name;
+                $baseSlug = isset($modelObject->name) ?  $modelObject->name : $modelObject->profile_name;
                 $baseSlug = !empty($baseSlug) ? Str::slug($baseSlug) : 'escort';
             } else if ($calssName == 'MassageProfile') {
                 $baseSlug = isset($modelObject->business_name) ?  $modelObject->business_name : $modelObject->profile_name;

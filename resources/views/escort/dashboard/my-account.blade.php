@@ -45,10 +45,6 @@
 </div>
 
    <div class="row">
- 
-      <div class="col-md-12">
-         <div id="commanAlert" class="alert d-none rounded" role="alert"></div>
-      </div>
       <div class="col-md-12">
          <div id="accordion" class="myacording-design">
             <div class="card">
@@ -371,18 +367,6 @@
    
    });
    
-   function showAlert(message, type = 'success') {
-       const alertBox = $('#commanAlert');
-       alertBox
-           .removeClass('d-none alert-success alert-danger')
-           .addClass(type === 'success' ? 'alert-success' : 'alert-danger')
-           .html(message);
-   
-       setTimeout(() => {
-           alertBox.addClass('d-none');
-       }, 10000);
-   }
-   
        $('#userProfile').on('submit', function(e) {
            e.preventDefault();
            var form = $(this);
@@ -403,9 +387,9 @@
                },
                success: function(data) {
                    if (!data.error) {
-                   showAlert("Your details have been updated successfully.", "success");
+                     showAlert('success', 'Success',"Your details have been updated successfully.");
                    } else {
-                   showAlert("Oops... something went wrong. Please try again.", "danger");
+                     showAlert('error', 'Error', "Oops... something went wrong. Please try again.");
                    }
                }
                });
@@ -430,9 +414,9 @@
                },
                success: function(data) {
                if (!data.error) {
-                   showAlert("The profile and tour options have been updated successfully.", "success");
+                   showAlert('success', 'Success', "The profile and tour options have been updated successfully.");
                } else {
-                   showAlert("Oops... something went wrong. Please try again.", "danger");
+                   showAlert('error', 'Error', "Oops... something went wrong. Please try again.");
                }
                }
            });

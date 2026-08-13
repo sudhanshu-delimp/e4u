@@ -1,7 +1,8 @@
 <?php
 namespace App\Sms;
-use Exception;
 use  App\Sms\Provider\MessageMedia;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class SendSms {
     
@@ -18,6 +19,7 @@ class SendSms {
     {
         try 
         {
+
             if(config('constants.app_env')!='local')
             {
                 $send = new MessageMedia();

@@ -1259,14 +1259,17 @@ class WebController extends Controller
         $city = null; 
         $membershipId = null; 
         $viewType = 'grid';
+        $gender = null;
 
          $escort = Escort::where('slug', $profile)->first();
+     
           if(!$escort){
              return redirect(route('public.web.escort.listing'));
           } else {
            $id = $escort->id;
            $city = $escort->city_id;
            $membershipId = $escort->membership;
+           $gender =  $escort->gender_type;
           }
 
 
@@ -1302,7 +1305,7 @@ class WebController extends Controller
             $filterEscortsParams  = [
                 'string' => request()->get('name'),
                 'city_id' => request()->get('city'),
-                'gender' => request()->get('gender'),
+                'gender' => request()->get('gender')?? $gender,
                 'age' => request()->get('age'),
                 'price' => request()->get('price'),
                 'duration_price' => request()->get('duration_price'),
@@ -1355,15 +1358,15 @@ class WebController extends Controller
 
         /*new functionality*/
         if (request()->has('list') || request()->get('view_type') == 'list') {
-            $viewType = 'list';
-            $next = $next . '?' . $viewType;
-            $previous = $previous . '?' . $viewType;
+            //$viewType = 'list';
+            //$next = $next . '?' . $viewType;
+            //$previous = $previous . '?' . $viewType;
 
             $backToSearchButton = preg_replace('/view_type=(grid|list)/', 'view_type=list', $backToSearchButton);
         } else {
-            $viewType = 'grid';
-            $next = $next . '?' . $viewType;
-            $previous = $previous . '?' . $viewType;
+           // $viewType = 'grid';
+            //$next = $next . '?' . $viewType;
+            //$previous = $previous . '?' . $viewType;
 
             $backToSearchButton = preg_replace('/view_type=(grid|list)/', 'view_type=grid', $backToSearchButton);
         }
