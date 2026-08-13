@@ -583,15 +583,15 @@
         //     $("#conformation_modal").modal('show');
         // });
 
-        $(document).on('click', '.delete_avatar', function() {
+        $(document).on('click', '.delete_avatar', async function() {
             // $("#conformation_modal").modal('show');
-            showAlert('Remove Avatar', "Are you sure you want to delete your avatar?", 'warning', true).then((
-                result) => {
-                if (result.isConfirmed) {
-                    // Perform action to delete avatar
-                    $('#confirmDelete').trigger('click');
-                }
-            });
+             
+          if (await isConfirm({
+                    'action': 'Remove',
+                    'text': 'you want to delete your avatar.'
+                })) {
+                $('#confirmDelete').trigger('click');
+            }
         });
     </script>
 @endpush
