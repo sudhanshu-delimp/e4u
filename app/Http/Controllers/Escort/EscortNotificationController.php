@@ -176,8 +176,8 @@ class EscortNotificationController extends Controller
 
                     foreach ($viewers as $viewer) {
                         $viewer_blocked  = false;
-                        $send_on_email = optional($viewer->viewer_settings)->advertiser_email ?? 0;
-                        $send_on_mobile = optional($viewer->viewer_settings)->advertiser_text ?? 0;
+                        $send_on_email = optional($viewer->viewer_settings)->advertiser_email ?? '0';
+                        $send_on_mobile = optional($viewer->viewer_settings)->advertiser_text ?? '0';
 
                         $esvi = EscortViewerInteractions::where('escort_id', $purchase->escort->id)
                                                             ->where('viewer_id', $viewer->id)
@@ -197,15 +197,7 @@ class EscortNotificationController extends Controller
                         }                              
 
                         $notificationSent = false;
-                        Communication::create([
-                            'profile_listing_id' => $profile_listing_id,
-                            'state_id'           => $viewer->viewer_user->state_id,
-                            'sender_id'          => auth()->id(),
-                            'receiver_id'        => $viewer->viewer_user_id,
-                            'sender_type'        => 'escort',
-                            'send_on_email'      => $send_on_email,
-                            'send_on_mobile'     => $send_on_mobile,
-                        ]);
+                       
 
                         ############## Send Email ##################
                         if ($send_on_email == '1' && !$viewer_blocked) 
@@ -234,7 +226,20 @@ class EscortNotificationController extends Controller
                              $notificationSent = true;
                         }
 
-                        if ($notificationSent) {
+                        if ($notificationSent) 
+                        {
+
+                            Communication::create([
+                                'profile_listing_id' => $profile_listing_id,
+                                'state_id'           => $viewer->viewer_user->state_id,
+                                'sender_id'          => auth()->id(),
+                                'receiver_id'        => $viewer->viewer_user_id,
+                                'sender_type'        => 'escort',
+                                'send_on_email'      => (string) $send_on_email,
+                                'send_on_mobile'     => (string) $send_on_mobile,
+                            ]);
+
+
                             $notificationCount++;
                             $user_count [$viewer->viewer_user_id] = $viewer->viewer_user_id;
                         }
