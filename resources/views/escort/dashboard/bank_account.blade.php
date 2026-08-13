@@ -1680,7 +1680,7 @@
                table.draw();
                $('#delete_bank').modal('hide');
                $("#header_msg").html("Delete Profile");
-               showAlert('success', 'Success', 'Bank Account Deleted Confirmation', "The bank account has been successfully deleted.");
+               showAlert('success', 'Bank Account Deleted Confirmation', "The bank account has been successfully deleted.");
                $("#modal-title").text('Delete Bank Account Confirmation');
 
             }
