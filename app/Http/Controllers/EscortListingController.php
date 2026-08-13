@@ -299,6 +299,7 @@ class EscortListingController extends Controller
             'escorts.availability_time',
             'escorts.state_id',
             'escorts.created_at',
+            'escorts.slug',
 
         ];
 

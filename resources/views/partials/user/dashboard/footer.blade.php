@@ -2,23 +2,25 @@
             <i class="fas fa-angle-up"></i>
         </a>
         <!-- Logout Modal-->
-        <div class="modal upload-modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+        <div class="modal upload-modal fade" id="logoutModal" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title htext" id="exampleModalLabel">
-                            <img src="{{ asset('assets/app/img/logout-red.png')}}" class="log--out--pic">
-                            Logout</h5>
+                            <img src="{{ asset('assets/app/img/logout-red.png') }}" class="log--out--pic">
+                            Logout
+                        </h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                        </span>
+                            <span aria-hidden="true">
+                                <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                    class="img-fluid img_resize_in_smscreen">
+                            </span>
                         </button>
                     </div>
-                      <div class="modal-body text-center">
+                    <div class="modal-body text-center">
                         <h5 class="custom_modal_text my-0">
-                                Are you sure that you want to logout?
+                            Are you sure that you want to logout?
                         </h5>
                     </div>
                     <div class="modal-footer justify-content-center pt-0">
@@ -41,12 +43,12 @@
         <script src="{{ asset('assets/dashboard/vendor/ckeditor/ckeditor.js') }}"></script>
         <!-- Custom scripts for all pages-->
         <script src="{{ asset('assets/dashboard/js/sb-admin-2.min.js') }}"></script>
-        <script src="{{asset('assets/app/js/jquery-ui.min.js')}}"></script>
+        <script src="{{ asset('assets/app/js/jquery-ui.min.js') }}"></script>
         <!-- Page level plugins -->
         @include('partials.common.footer-scripts')
 
         <script>
-            $(document).ready(function(){
+            $(document).ready(function() {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -63,9 +65,9 @@
         <!-- ///////////// Notification ////////////////// -->
         <script>
             const getNotifications = () => {
-                    ajaxRequest({
+                ajaxRequest({
                     url: "{{ route('user.get-notification') }}",
-                    method : 'Get',
+                    method: 'Get',
                     data: {},
                     success: function(response) {
 
@@ -74,16 +76,16 @@
                         let alert_notifications_html = "";
                         let support_notify_html = "";
 
-                            /////////// Alert Notification List ///////////////////////
-                            if (alert_notifications?.data?.length > 0)
-                            {   
-                                if(alert_notifications.is_new)
-                                {
-                                $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i><span class="badge badge-danger badge-counter"> '+alert_notifications?.data?.length+'</span>');
-                                }
-                            
-                                alert_notifications.data.forEach((notification) => {
-                                    alert_notifications_html+= `<span class="dropdown-item d-flex align-items-center alert_notify_li" id="${notification.id}">
+                        /////////// Alert Notification List ///////////////////////
+                        if (alert_notifications?.data?.length > 0) {
+                            if (alert_notifications.is_new) {
+                                $('.alert_notify_bell').html(
+                                    '<i class="top-icon-bg fas fa-bell fa-fw"></i><span class="badge badge-danger badge-counter"> ' +
+                                    alert_notifications?.data?.length + '</span>');
+                            }
+
+                            alert_notifications.data.forEach((notification) => {
+                                alert_notifications_html += `<span class="dropdown-item d-flex align-items-center alert_notify_li" id="${notification.id}">
                                                 <div class="mr-3">
                                                     <div class="icon-circle bg-success">
                                                     ${notification.notification_icon}
@@ -94,32 +96,33 @@
                                                     ${notification.title}
                                                 </div>
                                             </span>`;
-                                });
+                            });
 
-                                alert_notifications_html+=`<a class="dropdown-item text-center small text-gray-800" href="show-ALL">Show All Alerts</a>`;
-                                $('.alert_notify_html').html(alert_notifications_html);
-                            }
-                            else
-                            {
-                                $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i>');
-                                $('.alert_notify_html').html(`<a class="dropdown-item d-flex align-items-center" href="#">No New Notification Found</a>`); 
-                            }
+                            alert_notifications_html +=
+                                `<a class="dropdown-item text-center small text-gray-800" href="show-ALL">Show All Alerts</a>`;
+                            $('.alert_notify_html').html(alert_notifications_html);
+                        } else {
+                            $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i>');
+                            $('.alert_notify_html').html(
+                                `<a class="dropdown-item d-flex align-items-center" href="#">No New Notification Found</a>`
+                                );
+                        }
                         /////////// End  Alert Notification List /////////////////////////////
 
-                        
+
 
                         ///////////// Support Notification List //////////////////////////////
-                        
-                        if (support_notifications?.data?.length > 0) 
-                        {  
-                             
-                                if(support_notifications.is_new)
-                                {
-                                $('.support_notify_bell').html('<i class="top-icon-bg fas fa-ticket-alt fa-fw"></i><span class="badge badge-danger badge-counter">'+support_notifications?.data?.length+'</span>');
-                                }
-                            
-                                support_notifications.data.forEach((notification) => {
-                                    support_notify_html+= `<span class="dropdown-item d-flex align-items-center support_notify_li" id="${notification.id}">
+
+                        if (support_notifications?.data?.length > 0) {
+
+                            if (support_notifications.is_new) {
+                                $('.support_notify_bell').html(
+                                    '<i class="top-icon-bg fas fa-ticket-alt fa-fw"></i><span class="badge badge-danger badge-counter">' +
+                                    support_notifications?.data?.length + '</span>');
+                            }
+
+                            support_notifications.data.forEach((notification) => {
+                                support_notify_html += `<span class="dropdown-item d-flex align-items-center support_notify_li" id="${notification.id}">
                                                 <div class="mr-3">
                                                     <div class="icon-circle bg-success">
                                                     ${notification.notification_icon}
@@ -130,101 +133,99 @@
                                                     ${notification.title}
                                                 </div>
                                             </span>`;
-                                });
+                            });
 
-                                support_notify_html+=`<a class="dropdown-item text-center small text-gray-800" href="show-ALL">Show All Alerts</a>`;
-                                $('.support_notify_html').html(support_notify_html);
-                        }
-                        else
-                        {
-                                $('.support_notify_bell').html('<i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>');
-                                $('.support_notify_html').html(`<a class="dropdown-item d-flex align-items-center" href="#">No New Notification Found</a>`); 
+                            support_notify_html +=
+                                `<a class="dropdown-item text-center small text-gray-800" href="show-ALL">Show All Alerts</a>`;
+                            $('.support_notify_html').html(support_notify_html);
+                        } else {
+                            $('.support_notify_bell').html(
+                                '<i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>');
+                            $('.support_notify_html').html(
+                                `<a class="dropdown-item d-flex align-items-center" href="#">No New Notification Found</a>`
+                                );
                         }
                         ///////////// End Support Notification List //////////////////////////
                     },
                     error: function(xhr) {
                         console.log('Error in Notification List');
                     }
-                    });
+                });
 
             }
 
-         const notificationSeen = (notification_id) => {
+            const notificationSeen = (notification_id) => {
 
-             return new Promise((resolve, reject) => {
-                ajaxRequest({
-                    url: "{{ route('user.notification-seen') }}",
-                    method : 'Post',
-                    data: {
-                        'notification_id' : notification_id
-                    },
-                    success: function(response) {
-                        if(response.success)
-                         {
-                            resolve(true);
-                         }
-                         else
-                         {
+                return new Promise((resolve, reject) => {
+                    ajaxRequest({
+                        url: "{{ route('user.notification-seen') }}",
+                        method: 'Post',
+                        data: {
+                            'notification_id': notification_id
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                resolve(true);
+                            } else {
+                                resolve(false);
+                            }
+
+                        },
+                        error: function() {
                             resolve(false);
-                         }   
-                        
-                    },
-                    error: function() {
-                        resolve(false); 
+                        }
+                    });
+                });
+
+            }
+
+            $(document).ready(function() {
+                getNotifications();
+                setInterval(function() {
+                    getNotifications();
+                }, 15000);
+
+                $(document).on('click', '.alert_notify_li', async function(e) {
+                    const seen = await notificationSeen($(this).attr('id'));
+                    if (seen) {
+                        getNotifications();
                     }
                 });
-             });
 
-         }   
-        
-         $(document).ready(function(){
-            getNotifications();
-             setInterval(function () {
-                  getNotifications();
-            }, 15000);
-
-            $(document).on('click', '.alert_notify_li', async function (e) {
-                const seen = await notificationSeen($(this).attr('id'));
-                 if (seen) {
-                    getNotifications();
-                 }
+                $(document).on('click', '.support_notify_li', async function(e) {
+                    const seen = await notificationSeen($(this).attr('id'));
+                    if (seen) {
+                        getNotifications();
+                    }
+                });
             });
 
-            $(document).on('click', '.support_notify_li', async function (e) {
-                const seen = await notificationSeen($(this).attr('id'));
-                 if (seen) {
-                    getNotifications();
-                 }
+            $(document).on('click', '.alert_notify_html .dropdown-item', function(e) {
+                e.stopPropagation();
             });
-        });
 
-        $(document).on('click', '.alert_notify_html .dropdown-item', function (e) {
-            e.stopPropagation(); 
-        });
-        
             $(document).ready(function() {
                 get_current_location_time();
                 setInterval(updateTime, 1000);
 
             });
 
-           function get_current_location_time() {
+            function get_current_location_time() {
                 $.ajax({
-                    url: '{{ route("user.get_current_location_time") }}',
+                    url: '{{ route('user.get_current_location_time') }}',
                     method: 'GET',
-                    success: function (response) {
+                    success: function(response) {
                         $(".live_current_location").text(response.current_state);
                         localStorage.setItem('time_zone', response.time_zone);
                         updateTime();
                     },
-                    error: function (xhr, status, error) {
+                    error: function(xhr, status, error) {
                         console.error('Error in location filter:', error);
                     }
                 });
             }
 
-            function updateTime() 
-            {
+            function updateTime() {
                 let timeZone = localStorage.getItem('time_zone');
                 const now = new Date();
                 const options = {
@@ -237,7 +238,48 @@
                 const time = new Intl.DateTimeFormat('en-US', options).format(new Date());
                 $(".live_current_time").html(`${time}`);
             }
-</script> 
-         
-    </body>
-</html>
+
+            function showAlert(title, message, type, confirm = false) {
+                const options = {
+                    title: title,
+                    html: message,
+                    icon: type
+                };
+
+                if (confirm) {
+                    options.showCancelButton = true;
+                    options.confirmButtonText = 'Yes, Confirm';
+                    options.cancelButtonText = 'Cancel';
+                    options.reverseButtons = true;
+                }
+
+                return Swal.fire(options);
+
+            }
+        </script>
+        @if (Session::has('success'))
+            <script>
+                Swal.fire({
+                    title: ' ',
+                    text: '{{ Session::get('success') }}',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            </script>
+        @endif
+
+        @foreach (['warning', 'info', 'error'] as $alert)
+            @if (Session::has($alert))
+                <script>
+                    Swal.fire({
+                        title: '',
+                        text: '{{ Session::get($alert) }}',
+                        icon: '{{ $alert }}',
+                        confirmButtonText: 'OK'
+                    });
+                </script>
+            @endif
+        @endforeach
+        </body>
+
+        </html>

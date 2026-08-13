@@ -271,7 +271,7 @@
                                             <h2>Idle Time Preference</h2>
                                         </div>
                                     </div>
-                                    <div class="radio-options">
+                                    <div class="option-list">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="idle_preference_time"
                                                 id="idle_15" value="15"
@@ -398,34 +398,7 @@
                                         </div>
                                 </div>
                                 {{-- SUBSCRIPTIONS --}}
-                                <!-- <div class="form-group">
-                                        <h3 class="h3">Subscriptions</h3>
-
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox"
-                                                name="subscriptions_num" id="num" value="1"
-                                                {{ isset($setting->escort_settings) && $setting->escort_settings->subscriptions_num == '1' ? 'checked' : '' }}>
-                                                
-                                            <label class="form-check-label" for="num">NUM</label>
-                                        </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="subscriptions_state" id="sub_1" value="1"
-                                                {{ isset($setting->escort_settings) && $setting->escort_settings->subscriptions_state == '1' ? 'checked' : '' }}>
-                                                
-                                                <label class="form-check-label" for="sub_1">Home State</label>
-                                            </div>
-
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="subscriptions_state" id="sub_2" value="2"
-                                                    {{ isset($setting->escort_settings) && $setting->escort_settings->subscriptions_state == '2' ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="sub_2">Australia wide</label>
-                                            </div>
-
-                                        <div class="pt-1">
-                                            <i>Monthly subscriptions. Your card will be automatically debited.</i>
-                                        </div>
-                                    </div> -->
+                                
 
                             </div>
                         </div>
@@ -451,8 +424,6 @@
 
             let formData = new FormData(this);
 
-
-            //swal_waiting_popup({'title':'Updating Settings'});
             $('#globalAlert').show();
             $.ajax({
                 type: "POST",
@@ -463,16 +434,10 @@
                 success: function(response) {
 
                     Swal.close();
-                    // swal_success_popup(response.message);
-                    // setTimeout(function() {
-                    //     location.reload();
-                    // }, 2000);
-
+                
                     console.log(response);
                     Swal.close();
-                    $('#globalAlert').html(
-                        `<div id="commanAlert" class="alert rounded alert-success" >${response.message}</div>`
-                    );
+                    showAlert('success', '', response.message || 'Notification settings updated successfully!');
                     setTimeout(function() {
                         location.reload();
                     }, 3000);
@@ -484,8 +449,7 @@
                 error: function(xhr) {
                     Swal.close();
                     console.log(xhr);
-                    swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
-                    //  $('#globalAlert').html(`<div id="commanAlert" class="alert rounded alert-error">Error : Something went wrong</div>`);
+                    showAlert('error', '', xhr.responseJSON.message || 'Something went wrong');
                 }
             });
         });

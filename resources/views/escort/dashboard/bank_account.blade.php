@@ -937,12 +937,6 @@
             },
             success: function(data) {
                if(data.error == false && data.type == 'eft'){
-                //   $('.eftBankName').text(data.eft_bank.bank_name);
-                //   $('.eftAccountName').text(data.eft_bank.account_name);
-                //   $('.eftBSBName').text(data.eft_bank.bsb);
-                //   $('.eftAccountNumber').text(data.eft_bank.account_number);
-                //   $('.eftAccountStatus').text(data.eft_bank.state == 1 ? 'Primary Account' : 'Secondary Account');
-                  //$("#viewEftBankdetails").modal('show');
                   $('.primary_bsb').text(data.eft_bank.bsb);
                   $('.primary_acc_no').text(data.eft_bank.account_number);
                   $("#InstructionPayerModal").modal('show');
@@ -950,8 +944,7 @@
                }
                if(data.error == false && data.type == 'payment_receipt'){
                    $("#modal-title").text('Bank Payment Receipt');
-                  $('.comman_msg').html("The payment receipt has been sent successfully.");
-                  $("#comman_modal").modal('show');
+                   showAlert('success', 'Bank Payment Receipt', 'The payment receipt has been sent successfully.');
                }
                
             },
@@ -1425,8 +1418,6 @@
             },
             success: function(data) {
                if(data.status){
-                  //$("#sendOtp_modal").modal('show');
-                  //$("#change_pin_active").val('1');
                }
             },
             error: function(data) {
@@ -1524,6 +1515,7 @@
                if(data.changePin == '1' || data.changePin == '0'){
                   if(data.changePin == '1'){
                      $('#sendOtp_modal').modal('hide');
+                     $('.otp-input').val('');
                      $("#SetPinModal").modal('show');
                      $('#pinDisplaySet').text('');
                      $('#otp').val('');
@@ -1553,45 +1545,46 @@
                
  
                if(isBankAccountChanged && data.error != 3){
-                  $("#modal-title").text('Bank Account Update Confirmation');
-                  $('.comman_msg').html('<h5>Your bank account details have been successfully updated.</h5>');
-                  $("#comman_modal").modal('show');
+                  showAlert('success', 'Bank Account Update Confirmation', 'Your bank account details have been successfully updated.');
                  
                   $("#sendOtp_modal").modal('hide');
+                  $('.otp-input').val('');
  
                }else{
                   let bankState = data.bank_data.state == 1 ? 'Primary' : 'Secondary';
                   let account_number = data.bank_data.account_number;
-                 
- 
-                  $("#modal-title").text('New Bank Account added Confirmation');
+            
                   if (data.error == 0) {
-                     let textMsg = `<p class="text-left p-2">
-                        Bank Account `+account_number+` has been added to your list
-                        of Bank Accounts as a `+bankState+` account.</br></br>
-                        You can edit the details by clicking the 'Action' link.</br></br>
-                        The default PIN is 1234 which you can reset by clicking the
-                        Change PIN button.
-                     </p>`;
-                     $('.comman_msg').html(textMsg);
-                      $('.common_modal_close_btn').text('Close');
-                     $("#comman_modal").modal('show');
- 
-                     
+                    showAlert(
+                     'success',
+                     'New Bank Account Added Confirmation',
+                     `
+                        <p class="text-left p-2">
+                              Bank Account ${account_number}  has been added to your list of Bank Accounts
+                              as a ${bankState} account.
+                              <br><br>
+                              You can edit the details by clicking the 'Action' link.
+                              <br><br>
+                              The default PIN is 1234 which you can reset by clicking
+                              the Change PIN button.
+                        </p>
+                     `
+                  );
                      $("#sendOtp_modal").modal('hide');
+                     $('.otp-input').val('');
                      
                      //table.draw();
                   }
                   if (data.error == 2) {
-                     $('.comman_msg').html("Please select primary account");
-                     $("#comman_modal").modal('show');
+                     showAlert('error', 'Error', 'Please select primary account');
                      $("#sendOtp_modal").modal('hide');
+                     $('.otp-input').val('');
                      //table.draw();
                   }
                   if (data.error == 3) {
-                     $('.comman_msg').html("You can't update the primary account.");
-                     $("#comman_modal").modal('show');
+                     showAlert('error', 'Error', 'You can\'t update the primary account.');
                      $("#sendOtp_modal").modal('hide');
+                     $('.otp-input').val('');
                      //table.draw();
                   }
                }
@@ -1642,13 +1635,7 @@
                   existingPin = payload_data;
                   $("#SetPinModal").modal('hide');
                   $("#modal-title").text("Pin Update Confirmation");
-                  let textMsg = `<h5 class="text-center">
-                                 `+data.message+`
-                              </h5>`;
-                  $('.comman_msg').html(textMsg);
-                 setTimeout(() => {
-                    $("#comman_modal").modal('show');
-                  }, 200);
+                  showAlert('success', 'Pin Update Confirmation', data.message);
                   
                } 
 
@@ -1666,6 +1653,7 @@
       $("#previous input:hidden").val(' ');
 
    });
+
    $(document).on('click', '.delete_bankModal', function(e) {
       e.preventDefault();
       var $this = $(this);
@@ -1692,17 +1680,15 @@
                table.draw();
                $('#delete_bank').modal('hide');
                $("#header_msg").html("Delete Profile");
-               $('.comman_msg').html("The bank account has been successfully deleted.");
-               $("#comman_modal").modal('show');
+               showAlert('success', 'Bank Account Deleted Confirmation', "The bank account has been successfully deleted.");
                $("#modal-title").text('Delete Bank Account Confirmation');
 
             }
             if (data.error == true) {
                table.draw();
                $('#delete_bank').modal('hide');
-               $('.comman_msg').html("Primary Account can not be deleted. ");
+               showAlert('error', 'Error', 'Primary Account can not be deleted.');
                $("#header_msg").html("Delete Profile");
-               $("#comman_modal").modal('show');
                $("#modal-title").text('Delete Bank Account Confirmation');
 
             }

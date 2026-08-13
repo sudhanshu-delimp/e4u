@@ -600,6 +600,132 @@ class MassageCentre extends Controller
     }
 
 
+    /**
+     * View masage profile
+     */
+    public function massageProfile(Request $request, $profile = "")
+    {
+        $previousUrl = url()->previous();
+        $path = parse_url($previousUrl, PHP_URL_PATH);
+        $previousSlug = trim($path, '/');
+
+        $relatedIds = [];
+        $relatedSlugs = [];
+        $escort = MassageProfile::where('slug', $profile)->first();
+          if(!$escort){
+             return redirect(route('find.massage.centre'));
+          } else {
+           $id = $escort->id;
+           $city = $escort->city_id;
+           $membershipId = $escort->membership;
+          }
+
+          $stateId = $escort->user->state_id;
+
+        $logedInUpser = auth()->user();
+        # Not show specific profile to viewer if specific viewer is blocked by Massage
+        $blockedProfileForViewersIds = [0];
+        if (Auth::user() && auth()->user()->type == 0) {
+            $blockedProfileForViewersIds = MassageViewerInteractions::where('viewer_id', Auth::user()->id)->where('massage_blocked_viewer', true)->pluck('massage_id');
+            if ($blockedProfileForViewersIds && count($blockedProfileForViewersIds) > 0) {
+                //$query = $query->whereNotIn('id', $blockedProfileForViewersIds);
+            }
+        }
+
+        if (str_contains($previousSlug, 'massage-profile') || str_contains($previousSlug, 'massage-centres-list')) {
+            $relatedMassges = MassagePurchase::with('massageprofile')->where('status', 'listed')
+                ->whereHas('user', function ($q) use($stateId) {
+                    $q->where('status', 1);
+                    //->where('state_id', $stateId);
+                })
+                ->whereNotIn('massage_profile_id', $blockedProfileForViewersIds)
+                ->whereDoesntHave('activeSuspendProfile')->get();
+        
+            $relatedIds = $relatedMassges->pluck('massage_profile_id')->toArray();
+            $relatedSlugs = $relatedMassges->pluck('massageprofile.slug')->filter()->toArray();
+        }
+         //$ids = $request->ids ? json_decode($request->ids, true) : [];
+   
+          $ids = $relatedIds;
+        if (!$id) {
+            return redirect(route('find.massage.centre'));
+        }
+
+        $listing = MassageProfile::where('id', $id)->with(['reviews' => function ($q) {
+            $q->where('status', 'published');
+        }, 'reviews.user'])->first();
+
+        # Not show specific profile to viewer if specific viewer is blocked by Massage
+
+        if (Auth::user() && auth()->user()->type == 0 &&  $listing) {
+            $blockedProfileForViewers = MassageViewerInteractions::where('viewer_id', Auth::user()->id)->where('massage_blocked_viewer', true)->where('massage_id',  $listing->id)->first();
+            if ($blockedProfileForViewers) {
+                return redirect(route('find.massage.centre'));
+            }
+        }
+
+        $currentIndex = array_search($id, $ids);
+        $prevId = $ids[$currentIndex - 1] ?? null;
+        $nextId = $ids[$currentIndex + 1] ?? null;
+
+        $prevSlug = $relatedSlugs[$currentIndex - 1] ?? "";
+        $nextSlug = $relatedSlugs[$currentIndex + 1] ?? "";
+        $prevId = !empty($prevSlug) ?  $prevId : null;
+        $nextId = !empty($nextSlug) ?  $nextId : null;
+
+        //$listing = MassageProfile::where('id','=',$id)->first();
+        $reviews = $listing->reviews;
+
+        $massage_durations = (isset($listing->durations) && count($listing->durations) > 0) ? $listing->durations->toArray() : [];
+
+
+
+        $durations = $this->duration->all();
+
+
+        $galleryVideos = $listing->gallary()->wherePivot('type', 1)->orderBy('position', 'asc')->get();
+
+        $spamReportAdvertiser = collect();
+
+        if (Auth::user() && Auth::user()->type == 0) {
+            $spamReportAdvertiser = ReportMassageProfile::where('viewer_id', Auth::user()->id)->first();
+        }
+
+        $massageLike = null;
+        $userId = !empty(auth()->user()) ? auth()->user()->id : NULL;
+        $massageLike = $this->model_massage_profile->getUserLikeDislike($id, $request->ip(), $userId);
+
+        $total = MassageLike::where('massage_id', $id)->count();
+        if ($total > 0) {
+            $likeCount = MassageLike::where('like', 1)->where('massage_id', $id)->count();
+            $dislikeCount = MassageLike::where('like', 0)->where('massage_id', $id)->count();
+            $lp = round($likeCount / $total * 100);
+            $dp = round($dislikeCount / $total * 100);
+        } else {
+            $lp = 0;
+            $dp = 0;
+        }
+
+
+
+        if ($lp == 100) {
+            $star_rating = 5;
+        } elseif ($lp > 80) {
+            $star_rating = 4;
+        } elseif ($lp > 60) {
+            $star_rating = 3;
+        } elseif ($lp > 40) {
+            $star_rating = 2;
+        } elseif ($lp > 20) {
+            $star_rating = 1;
+        } else {
+            $star_rating = 0;
+        }
+
+        return view('web.mc.massage-description', compact('listing', 'durations', 'massage_durations', 'reviews', 'spamReportAdvertiser', 'lp', 'dp', 'massageLike', 'nextId', 'prevId', 'ids', 'star_rating', 'prevSlug', 'nextSlug'));
+    }
+
+
     public function storeShortList(Request $request)
     {
         $wishlist = session()->get('wishlist', []);
