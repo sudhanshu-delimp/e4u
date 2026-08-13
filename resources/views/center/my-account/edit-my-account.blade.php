@@ -241,7 +241,7 @@
                                                             <div class="form-group">
                                                                 <label for="email">Method of contact:</label>
                                                                 <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" checked
+                                                                    <input class="form-check-input" 
                                                                         type="checkbox" name="contact_type[]"
                                                                         id="Method_Message" value="1"
                                                                         @if (!empty($escort->contact_type)) {{ in_array(1, $escort->contact_type) ? 'checked' : null }} @endif>
@@ -249,7 +249,7 @@
                                                                         for="Method_Message">Message (via Console)</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="checkbox"
+                                                                    <input class="form-check-input" checked type="checkbox"
                                                                         name="contact_type[]" id="Method_Text"
                                                                         value="2"
                                                                         @if (!empty($escort->contact_type)) {{ in_array(2, $escort->contact_type) ? 'checked' : null }} @endif>
