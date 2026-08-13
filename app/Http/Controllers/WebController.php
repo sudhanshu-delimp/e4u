@@ -1073,6 +1073,7 @@ class WebController extends Controller
                 'view_type' => request()->get('view_type'),
             ];
         }
+        
 
         if (isset($filterEscortsParams['limit'])) {
             $limit = $filterEscortsParams['limit'];
@@ -1312,6 +1313,7 @@ class WebController extends Controller
                 'view_type' => request()->get('view_type'),
             ];
         }
+
 
         if (isset($filterEscortsParams['limit'])) {
             $limit = $filterEscortsParams['limit'];

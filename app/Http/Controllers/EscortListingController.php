@@ -253,6 +253,10 @@ class EscortListingController extends Controller
         $params = $this->getSearchParams($request, $userLocation, $userInterest);
 
 
+        //add the params value inside the session for load next and previous page data
+        session(['search_escort_filters' => $params]);
+
+
 
         $location = request()->get('location');
 
