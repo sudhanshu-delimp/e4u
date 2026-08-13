@@ -1,4 +1,7 @@
-@if ($escorts->count() > 0 || $removedListedPlaymates->count() > 0 )
+@if($searchValue && count($escorts)===0)
+<div class="alert alert-info">The Member ID you have searched is not available. Please check the Member ID is correct and they have a current Listed Profile.</div>
+@elseif (count($escorts) > 0 || count($removedListedPlaymates) > 0)
+@if(!empty($escorts))
 @foreach ($escorts as $escort)
 @php
 $image = $escort->gallary()->wherePivot('position', 1)->first();
@@ -18,6 +21,8 @@ $image = $escort->gallary()->wherePivot('position', 1)->first();
     </div>
 </div>
 @endforeach
+@endif
+@if(count($removedListedPlaymates) > 0)
 @foreach ($removedListedPlaymates as $escort)
 @php
 $image = $escort->gallary()->wherePivot('position', 1)->first();
@@ -37,8 +42,7 @@ $image = $escort->gallary()->wherePivot('position', 1)->first();
     </div>
 </div>
 @endforeach
-@elseif ($searchValue)
-<div class="alert alert-info">The Member ID you have searched is not available. Please check the Member ID is correct and they have a current Listed Profile.</div>
+@endif
 @else
 <div class="alert alert-info">Your Playmate list is empty.</div>
 @endif
