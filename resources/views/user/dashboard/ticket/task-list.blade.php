@@ -391,7 +391,7 @@
                 },
                 error: function(xhr) {
                     // alert('Something went wrong. Please try again.');
-                    showAlert("Task Error", 'Something went wrong. Please try again.', "error");
+                    showAlert("Task", 'Something went wrong. Please try again.', "error");
                 }
             });
         }
@@ -417,7 +417,7 @@
                 },
                 error: function(xhr) {
                     // alert('Something went wrong. Please try again.');
-                    showAlert("Task Error", 'Something went wrong. Please try again.', "error");
+                    showAlert("Task", 'Something went wrong. Please try again.', "error");
                 }
             });
         }
@@ -518,7 +518,7 @@
                         loadTasks(1);
                         $('#taskModal').modal('hide');
                         // $("#success_msg").text('Task Added successfully.');
-                        showAlert("Task Added", 'Task has been added successfully', "success");
+                        showAlert("Task", 'Task has been added successfully', "success");
                         // $('#successModal').modal('show');
                         return true;
                     }
@@ -530,7 +530,7 @@
                         callAjax(openData, openUrl);
                         $('#taskModal').modal('hide');
                         // $("#success_msg").text('Task Updated successfully.');
-                        showAlert("Task Updated", 'Task has been updated successfully', "success");
+                        showAlert("Task", 'Task has been updated successfully', "success");
                         // $('#successModal').modal('show');
                         return true;
                     }
@@ -542,14 +542,14 @@
                         callAjax(openData, openUrl);
                         $('#taskModal').modal('hide');
                         // $("#success_msg").text('Task has been marked as completed');
-                        showAlert("Task Completed", 'Task has been marked as completed', "success");
+                        showAlert("Task", 'Task has been marked as completed', "success");
                         // $('#successModal').modal('show');
                         return true;
                     }
                 },
                 error: function(xhr) {
                     // alert('Something went wrong. Please try again.');
-                    showAlert("Task Error", 'Something went wrong. Please try again.', "error");
+                    showAlert("Task", 'Something went wrong. Please try again.', "error");
                 }
             });
         }

@@ -638,7 +638,8 @@
                 },
                 error: function(xhr) {
                     // handle error
-                    alert('Something went wrong. Please try again.');
+                    // alert('Something went wrong. Please try again.');
+                    showAlert('Error', 'Something went wrong. Please try again.', 'error');
                 }
             });
         }
