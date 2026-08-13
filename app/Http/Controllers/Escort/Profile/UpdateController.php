@@ -1619,11 +1619,15 @@ class UpdateController extends AppController
                 'enabled' => 0,
                 'user_id' => $user->id,
                 'default_setting' => 0,
-                'about' => $request->about ? $request->about : ($escortDefault->about ?: null),
-                'about_title' => $request->about_title ? $request->about_title : ($escortDefault->about_title ?: null),
+                'about' => $request->about ? $request->about : ($escortDefault->about ?: NULL),
+                'about_title' => $request->about_title ? $request->about_title : ($escortDefault->about_title ?: NULL),
+                'slug' => NULL
             ];
 
             if ($escort = $this->escort->store($input, null)) {
+                // create or update slug
+                (new \App\Services\SlugService)->createUpdateSlug($escort);
+
                 if (!empty(trim($request->name)) && !empty(trim($request->update_stage_name))) {
 
                     $users = $this->user->find($user->id);
