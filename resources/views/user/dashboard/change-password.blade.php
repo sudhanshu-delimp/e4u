@@ -261,17 +261,17 @@
 
         });
 
-        function showGlobalAlert(message, type = 'success') {
-            const alertBox = $('#globalAlert');
-            alertBox
-                .removeClass('d-none alert-success alert-danger')
-                .addClass(type === 'success' ? 'alert-success' : 'alert-danger')
-                .html(message);
+        // function showGlobalAlert(message, type = 'success') {
+        //     const alertBox = $('#globalAlert');
+        //     alertBox
+        //         .removeClass('d-none alert-success alert-danger')
+        //         .addClass(type === 'success' ? 'alert-success' : 'alert-danger')
+        //         .html(message);
 
-            setTimeout(() => {
-                alertBox.addClass('d-none');
-            }, 4000); // hide after 4 seconds
-        }
+        //     setTimeout(() => {
+        //         alertBox.addClass('d-none');
+        //     }, 4000); // hide after 4 seconds
+        // }
 
         $('#userProfile').on('submit', function(e) {
             e.preventDefault();
@@ -296,7 +296,7 @@
                             $('input[type=password]').each(function() {
                                 $(this).val('');
                             });
-                            showGlobalAlert(data.message, 'success');
+                            showAlert("Password Change", data.message, "success");
                             //swal_success_popup(data.message);
                             // Reload page after 3 seconds to reflect changes
                             setTimeout(function() {
@@ -305,7 +305,7 @@
                         } else {
                             // Show error using the message from server
                             //swal_error_popup(data.message);
-                            showGlobalAlert(data.message, 'error');
+                            showAlert("Password Change", data.message, "error");
                         }
                     },
                     error: function(xhr) {
@@ -326,7 +326,7 @@
                         }
 
                         //swal_error_popup(errorMsg);
-                        showGlobalAlert(errorMsg, 'error');
+                        showAlert("Password Change", errorMsg, "error");
                     }
                 });
             }
@@ -355,12 +355,12 @@
                             $('input[type=password]').each(function() {
                                 $(this).val('');
                             });
-                            showGlobalAlert(data.message, 'success');
+                            showAlert("Password Expiry", data.message, "success");
                             setTimeout(function() {
                                 location.reload();
                             }, 3000);
                         } else {
-                            showGlobalAlert(data.message, 'danger');
+                             showAlert("Password Expiry", data.message, "error");
                         }
                     },
                     error: function(data) {
@@ -369,7 +369,7 @@
                             errorsHtml += '<li>' + value + '</li>';
                         });
                         errorsHtml += '</ul>';
-                        showGlobalAlert(errorsHtml, "danger");
+                          showAlert("Password Expiry", errorsHtml, "error");
                     }
                 });
             }
