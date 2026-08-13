@@ -255,7 +255,7 @@
                     // openTask();
                 }
 
-                   if(buttonId!="complete_task"){
+                if (buttonId != "complete_task") {
                     $('#taskModal').modal('show');
                 }
                 // Show modal
@@ -467,28 +467,16 @@
             let formData = {
                 'change_task_id': taskId,
             }
-
-            // completeHtml =
-            //     `<div class=" text-center my-3 col-md-12"><h4 id="task_desc">Are you sure you want to mark selected tasks as completed?</h4></div>`;
-
-            // $("#task_form_html").html(completeHtml);
-            // $("#save_button").text('Yes');
-            // $("#save_button").show();
-            // $("#cancel_button").text('Cancel');
-
             let actionStatusUrl = "{{ route('agent.dashboard.ajax-change-status') }}";
 
-            // $('#task_form').attr('action', actionStatusUrl)
-            // $("#change_task_id").val(taskId);
-            showAlert('Remove Avatar', "Are you sure you want to mark selected tasks as completed?", 'warning', true).then((
-                result) => {
-                if (result.isConfirmed) {
-                    // Perform action to delete avatar
-                    callAjax(formData, actionStatusUrl);
-                }
-            });
+            if (await isConfirm({
+                    'action': 'Complete',
+                    'text': 'you want to mark selected tasks as completed?.'
+                })) {
+                callAjax(formData, actionStatusUrl);
+            }
 
-            
+
         }
 
         function viewTask(taskId) {
