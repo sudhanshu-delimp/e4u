@@ -6605,6 +6605,12 @@ form.v-form-design .form-group {
     margin-bottom: 25px;
 }
 
+.topbar .nav-item .nav-link .img-profile {
+    height: 2rem;
+    width: 2rem;
+    object-fit: cover;
+}
+
 form.v-form-design label {
     font-family: Poppins;
     font-size: 16px;

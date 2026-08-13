@@ -1,265 +1,238 @@
-
 @extends('layouts.userDashboard')
 @section('style')
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
 
-<style type="text/css">
-    .parsley-errors-list {
-        list-style: none;
-        color: rgb(248, 0, 0)
-    }
-</style>
+    <style type="text/css">
+        .parsley-errors-list {
+            list-style: none;
+            color: rgb(248, 0, 0)
+        }
+    </style>
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-    <!--middle content start here-->
-    <!-- Page Heading -->
-    <div class="row">
-        <div class="custom-heading-wrapper col-md-12"><h1 class="h1">Notifications</h1>
-            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
-        </div>
-        <div class="col-md-12 mb-4">
-            <div class="card collapse" id="notes" style="">
-                <div class="card-body">
-                    <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                    <ol>
-                        <li>Use this feature to enable and disable your notification preferences..</li>
-                        <li>Please note that for an Advertiser to receive any of your Requests, the Advertiser
-                            must have enabled the corresponding feature in their preference settings.</li>
+    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+        <!--middle content start here-->
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="custom-heading-wrapper col-md-12">
+                <h1 class="h1">Notifications</h1>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
+                    aria-expanded="true"><b>Help?</b></span>
+            </div>
+            <div class="col-md-12 mb-4">
+                <div class="card collapse" id="notes" style="">
+                    <div class="card-body">
+                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                        <ol>
+                            <li>Use this feature to enable and disable your notification preferences..</li>
+                            <li>Please note that for an Advertiser to receive any of your Requests, the Advertiser
+                                must have enabled the corresponding feature in their preference settings.</li>
                             <li>Legbox Notifications from Escorts are an Alert that the Escort is on Tour and will be
                                 visiting your Location the day after you receive the Notification. To receive the
                                 Notification you must have this feature enabled.</li>
                             <li>Note also the default setting for 2FA authentification.</li>
-                    </ol>
+                        </ol>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-12">
-            <div id="globalAlert"></div>
-        </div>
-    </div>
-
-    <div class="row"> 
-         <div class="col-md-12">
-    <form id="notificationForm" name="notification_setting"  
-        method="post" 
-        action="{{ route('user.update_notification_setting') }}">
-        @csrf
-            <div class="row"> 
-        <div class="col-md-12">
-            <div class="common-grid">
-                <!-- Alert Notifications -->
-                <div class="form-group common-card">
-                    <div class="card-top">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" fill="none">
-                                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"
-                                    stroke="currentColor" stroke-width="1.8"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-
-                                <path d="M10 21h4" stroke="currentColor" stroke-width="1.8"
-                                    stroke-linecap="round" />
-                            </svg>
-                        </div>
-
-                        <div class="card-heading">
-                            <h2>Alert notifications</h2>
-                             <p>From an Advertiser</p>
-                        </div>
-                    </div>
-
-                   
-                    <div class="option-list">
-                        <div class="custom-control custom-switch">
-                        <input type="checkbox" 
-                            class="custom-control-input" 
-                            id="advertiser_email"   
-                            name="advertiser_email" 
-                            value="1"
-                            {{ $setting->viewer_settings?->advertiser_email == '1' ? 'checked' : '' }}>
-                        <label class="custom-control-label" for="advertiser_email">Email</label>
-                    </div>
-
-                    <div class="custom-control custom-switch">
-                        <input type="checkbox" 
-                            class="custom-control-input" 
-                            id="advertiser_text"   
-                            name="advertiser_text" 
-                            value="1"
-                            {{ $setting->viewer_settings?->advertiser_text == '1' ? 'checked' : '' }}>
-                        <label class="custom-control-label" for="advertiser_text">Text</label>
-                    </div>
-                    </div>
-                    <div class="card-note">
-                        <span class="note-icon">i</span>
-                        <p><i>How an Escort or Massage Centre will communicate with you, including when on Tour.</i></p>
-                    </div>
-
-                    
-                </div>
-
-                 <!-- Alert Notifications -->
-                <div class="form-group common-card">
-                    <div class="card-top">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" fill="none">
-                                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"
-                                    stroke="currentColor" stroke-width="1.8"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-
-                                <path d="M10 21h4" stroke="currentColor" stroke-width="1.8"
-                                    stroke-linecap="round" />
-                            </svg>
-                        </div>
-
-                        <div class="card-heading">
-                            <h2>Alert notifications</h2>
-                             <p>By Escorts4U</p>
-                        </div>
-                    </div>
-                    
-                    <div class="option-list">
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" 
-                                class="custom-control-input" 
-                                id="escort_email"   {{-- ✅ unique ID --}}
-                                name="escort_email" 
-                                value="1"
-                                {{ $setting->viewer_settings?->escort_email == '1' ? 'checked' : '' }}>
-                            <label class="custom-control-label" for="escort_email">Email</label>
-                        </div>
-
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" 
-                                class="custom-control-input" 
-                                id="escort_text"   
-                                name="escort_text" 
-                                value="1"
-                                {{ $setting->viewer_settings?->escort_text == '1' ? 'checked' : '' }}>
-                            <label class="custom-control-label" for="escort_text">Text</label>
-                        </div>
-                    </div>
-
-                     <div class="card-note">
-                        <span class="note-icon">i</span>
-                        <p> <i>How Escorts4U will communicate with you.</i></p>
-                    </div>
-                </div>
-
-                <!-- Idle Time Preference -->
-                <div class="form-group common-card">
-                    <div class="card-top">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" fill="none">
-                                <circle cx="12" cy="12" r="8.5"
-                                    stroke="currentColor" stroke-width="1.8" />
-
-                                <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </div>
-
-                        <div class="card-heading">
-                            <h2>Idle Time Preference</h2>
-                        </div>
-                    </div>
-                    <div class="option-list">
-                        <div class="form-check form-check-inline">
-                        <input class="form-check-input" 
-                            type="radio" 
-                            name="idle_time" 
-                            id="idle_time_15"  
-                            value="15"
-                            {{ $setting->viewer_settings?->idle_preference_time == '15' ? 'checked' : '' }}>
-                        <label class="form-check-label" for="idle_time_15">15 minutes</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" 
-                            type="radio" 
-                            name="idle_time" 
-                            id="idle_time_30"  
-                            value="30"
-                            {{ $setting->viewer_settings?->idle_preference_time == '30' ? 'checked' : '' }}>
-                        <label class="form-check-label" for="idle_time_30">30 minutes</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" 
-                            type="radio" 
-                            name="idle_time" 
-                            id="idle_time_60"   
-                            value="60"
-                            {{ $setting->viewer_settings?->idle_preference_time == '60' ? 'checked' : '' }}>
-                        <label class="form-check-label" for="idle_time_60">60 minutes</label>
-                    </div> 
-                    
-                    
-                    </div>
-                    <div class="card-note">
-                                                <span class="note-icon">i</span>
-                                                <p><i>Set the Idle time before you are logged out of your Console.</i></p>
-                                            </div>
-                </div>
-
-                <!-- 2FA Authentication -->
-                <div class="form-group common-card">
-                    <div class="card-top">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" fill="none">
-                                <path d="M12 3l8 3v5c0 5.2-3.2 8.7-8 10-4.8-1.3-8-4.8-8-10V6l8-3z"
-                                    stroke="currentColor" stroke-width="1.8"
-                                    stroke-linejoin="round" />
-
-                                <path d="m8.5 11.8 2.2 2.2 4.8-5" stroke="currentColor"
-                                    stroke-width="1.8" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                        </div>
-
-                        <div class="card-heading">
-                            <h2>2FA Authentication</h2>
-                        </div>
-                    </div>
-                    <div class="radio-options">
-                        <div class="form-check">
-                        <input class="form-check-input" 
-                            type="radio" 
-                            name="twofa" 
-                            id="twofa_email"   {{-- ✅ unique ID --}}
-                            value="1"
-                            {{ $setting->viewer_settings?->twofa == '1' ? 'checked' : '' }}>
-                        <label class="form-check-label" for="twofa_email">Email</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" 
-                            type="radio" 
-                            name="twofa" 
-                            id="twofa_text"   {{-- ✅ unique ID --}}
-                            value="2"
-                            {{ $setting->viewer_settings?->twofa == '2' ? 'checked' : '' }}>
-                        <label class="form-check-label" for="twofa_text">Text</label>
-                    </div>
-                    </div>
-                    <div class="card-note">
-                                                <span class="note-icon">i</span>
-                                                <p><i>How your authentification code will be sent to you.</i></p>
-                                            </div>
-                </div>
-            </div>
-            
-            <div class="common-footer">
-                <input type="submit" id="saveNotificationBtn" value="Save" class="common-save-btn" name="submit">
+            <div class="col-lg-12">
+                <div id="globalAlert"></div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <form id="notificationForm" name="notification_setting" method="post"
+                    action="{{ route('user.update_notification_setting') }}">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="common-grid">
+                                <!-- Alert Notifications -->
+                                <div class="form-group common-card">
+                                    <div class="card-top">
+                                        <div class="card-icon">
+                                            <svg viewBox="0 0 24 24" fill="none">
+                                                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"
+                                                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+
+                                                <path d="M10 21h4" stroke="currentColor" stroke-width="1.8"
+                                                    stroke-linecap="round" />
+                                            </svg>
+                                        </div>
+
+                                        <div class="card-heading">
+                                            <h2>Alert notifications</h2>
+                                            <p>From an Advertiser</p>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="option-list">
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="advertiser_email"
+                                                name="advertiser_email" value="1"
+                                                {{ $setting->viewer_settings?->advertiser_email == '1' ? 'checked' : '' }}>
+                                            <label class="custom-control-label" for="advertiser_email">Email</label>
+                                        </div>
+
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="advertiser_text"
+                                                name="advertiser_text" value="1"
+                                                {{ $setting->viewer_settings?->advertiser_text == '1' ? 'checked' : '' }}>
+                                            <label class="custom-control-label" for="advertiser_text">Text</label>
+                                        </div>
+                                    </div>
+                                    <div class="card-note">
+                                        <span class="note-icon">i</span>
+                                        <p><i>How an Escort or Massage Centre will communicate with you, including when on
+                                                Tour.</i></p>
+                                    </div>
+
+
+                                </div>
+
+                                <!-- Alert Notifications -->
+                                <div class="form-group common-card">
+                                    <div class="card-top">
+                                        <div class="card-icon">
+                                            <svg viewBox="0 0 24 24" fill="none">
+                                                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"
+                                                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+
+                                                <path d="M10 21h4" stroke="currentColor" stroke-width="1.8"
+                                                    stroke-linecap="round" />
+                                            </svg>
+                                        </div>
+
+                                        <div class="card-heading">
+                                            <h2>Alert notifications</h2>
+                                            <p>By Escorts4U</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="option-list">
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="escort_email"
+                                                {{-- ✅ unique ID --}} name="escort_email" value="1"
+                                                {{ $setting->viewer_settings?->escort_email == '1' ? 'checked' : '' }}>
+                                            <label class="custom-control-label" for="escort_email">Email</label>
+                                        </div>
+
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="escort_text"
+                                                name="escort_text" value="1"
+                                                {{ $setting->viewer_settings?->escort_text == '1' ? 'checked' : '' }}>
+                                            <label class="custom-control-label" for="escort_text">Text</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-note">
+                                        <span class="note-icon">i</span>
+                                        <p> <i>How Escorts4U will communicate with you.</i></p>
+                                    </div>
+                                </div>
+
+                                <!-- Idle Time Preference -->
+                                <div class="form-group common-card">
+                                    <div class="card-top">
+                                        <div class="card-icon">
+                                            <svg viewBox="0 0 24 24" fill="none">
+                                                <circle cx="12" cy="12" r="8.5" stroke="currentColor"
+                                                    stroke-width="1.8" />
+
+                                                <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8"
+                                                    stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                        </div>
+
+                                        <div class="card-heading">
+                                            <h2>Idle Time Preference</h2>
+                                        </div>
+                                    </div>
+                                    <div class="option-list">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="idle_time"
+                                                id="idle_time_15" value="15"
+                                                {{ $setting->viewer_settings?->idle_preference_time == '15' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="idle_time_15">15 minutes</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="idle_time"
+                                                id="idle_time_30" value="30"
+                                                {{ $setting->viewer_settings?->idle_preference_time == '30' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="idle_time_30">30 minutes</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="idle_time"
+                                                id="idle_time_60" value="60"
+                                                {{ $setting->viewer_settings?->idle_preference_time == '60' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="idle_time_60">60 minutes</label>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="card-note">
+                                        <span class="note-icon">i</span>
+                                        <p><i>Set the Idle time before you are logged out of your Console.</i></p>
+                                    </div>
+                                </div>
+
+                                <!-- 2FA Authentication -->
+                                <div class="form-group common-card">
+                                    <div class="card-top">
+                                        <div class="card-icon">
+                                            <svg viewBox="0 0 24 24" fill="none">
+                                                <path d="M12 3l8 3v5c0 5.2-3.2 8.7-8 10-4.8-1.3-8-4.8-8-10V6l8-3z"
+                                                    stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+
+                                                <path d="m8.5 11.8 2.2 2.2 4.8-5" stroke="currentColor" stroke-width="1.8"
+                                                    stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                        </div>
+
+                                        <div class="card-heading">
+                                            <h2>2FA Authentication</h2>
+                                        </div>
+                                    </div>
+                                    <div class="radio-options">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="twofa"
+                                                id="twofa_email" {{-- ✅ unique ID --}} value="1"
+                                                {{ $setting->viewer_settings?->twofa == '1' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="twofa_email">Email</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="twofa"
+                                                id="twofa_text" {{-- ✅ unique ID --}} value="2"
+                                                {{ $setting->viewer_settings?->twofa == '2' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="twofa_text">Text</label>
+                                        </div>
+                                    </div>
+                                    <div class="card-note">
+                                        <span class="note-icon">i</span>
+                                        <p><i>How your authentification code will be sent to you.</i></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="common-footer">
+                                <input type="submit" id="saveNotificationBtn" value="Save" class="common-save-btn"
+                                    name="submit">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-    </form>
-</div>
-</div>
 
 
 
-  {{--   <div class="row mt-5">
+        {{--   <div class="row mt-5">
         <div class="col-lg-12">
             <h3 class="h3 mb-4">Set Legbox Notifications </h3>
             <div class="table-responsive">
@@ -309,133 +282,146 @@
             </div>
         </div>
     </div> --}}
-</div>
-
-
-
+    </div>
 @endsection
 @push('script')
-<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script>
-  $(document).on('submit', 'form[name="notification_setting"]', function(e) 
-      {
-         e.preventDefault(); 
-        let form = $('#notificationForm')[0];
-        let formData = new FormData(form);
-        let url = $('#notificationForm').attr('action');
-        //  swal_waiting_popup({'title':'Updating Settings'});
-        $('#globalAlert').show();
-         $.ajax({
-               url: url,
-               method: 'POST',
-               data: formData,
-               contentType: false,
-               processData: false, 
-               success: function(response) {
-                //      Swal.close();
-                //      swal_success_popup(response.message);
-                //      setTimeout(function() {
-                //     location.reload();
-                // }, 2000);
-                Swal.close();
-                     $('#globalAlert').html(`<div id="commanAlert" class="alert rounded alert-success" >${response.message}</div>`);
-                     setTimeout(function() {
+    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+    </script>
+    <script>
+        $(document).on('submit', 'form[name="notification_setting"]', function(e) {
+            e.preventDefault();
+            let form = $('#notificationForm')[0];
+            let formData = new FormData(form);
+            let url = $('#notificationForm').attr('action');
+            //  swal_waiting_popup({'title':'Updating Settings'});
+            $('#globalAlert').show();
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    //      Swal.close();
+                    //      swal_success_popup(response.message);
+                    //      setTimeout(function() {
+                    //     location.reload();
+                    // }, 2000);
+                    Swal.close();
+                    // $('#globalAlert').html(
+                    //     `<div id="commanAlert" class="alert rounded alert-success" >${response.message}</div>`
+                    //     );
+                    showAlert("Notification", response.message, "success");
+                    setTimeout(function() {
                         location.reload();
                     }, 3000);
                     window.scrollTo({
                         top: 0,
                         behavior: 'smooth'
                     });
-               },
-               error: function(xhr) {
-                     Swal.close();
-                     console.log(xhr);
-                    swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
-               }
-         });
-      });
-</script>
+                },
+                error: function(xhr) {
+                    Swal.close();
+                    // console.log(xhr);
+                    // swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+                    showAlert("Notification", xhr.responseJSON.message || 'Something went wrong',
+                        "error");
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            // load_notification();
+
+            $(document).on('click', '.notification-action', function(e) {
+                var requestId = $(this).data('id');
+                var action = $(this).data('action');
+
+                var message = '';
+
+                if (action === 'enable')
+                    message = 'Enabling';
+
+                if (action === 'disable')
+                    message = 'Disabling';
+
+                $.ajax({
+                    url: "{{ route('user.enable-disable-legbox-notification') }}",
+                    method: "POST",
+                    data: {
+                        'requestId': requestId,
+                        'action': action,
+                        'message': message
+                    },
+
+                    success: function(response) {
+                        if (response.status) {
+                            //  swal_success_popup(response.message);
+                            showAlert("Notification", response.message, "success");
+                        } else {
+                            //  swal_error_popup(response.message);
+                            showAlert("Notification", response.message, "error");
+                        }
+                    },
+                    error: function(xhr) {
+                        Swal.close();
+                        //  swal_error_popup(xhr.responseJSON.message);
+                        showAlert("Notification", xhr.responseJSON.message ||
+                            'Something went wrong', "error");
+                    }
+                });
 
 
-
-
-<script>
-   $(document).ready(function() {
-     // load_notification();
-
-     $(document).on('click', '.notification-action', function(e) 
-      {
-             var requestId = $(this).data('id');
-             var action = $(this).data('action');
-    
-             var message = '';
-
-             if(action === 'enable')
-                message = 'Enabling';
-
-            if(action === 'disable')
-                message = 'Disabling';
-
-             $.ajax({
-               url: "{{ route('user.enable-disable-legbox-notification') }}", 
-               method: "POST",
-               data: {'requestId':requestId,'action':action,'message':message},
-               
-               success: function(response) {
-                     if (response.status) {
-                         swal_success_popup(response.message);
-                     }
-                     else
-                     {
-                         swal_error_popup(response.message);
-                     }  
-               },
-                  error: function(xhr) {
-                     Swal.close();
-                     swal_error_popup(xhr.responseJSON.message);
-                  }
             });
 
-             
-      });
+        });
 
-   });
-
-   function load_notification()
-   {
-      var table = $('#userNotificationList').DataTable({
-            language: {
-            search: "Search: _INPUT_",
-            searchPlaceholder: "Search by Member ID..."
-         },   
-         info: true,
-         lengthChange: true,
-         searching: true,
-         bStateSave: true,
-         order: [[1, 'desc']],
-         processing: true,
-         serverSide: true,
-         paging: true,
-         ajax: {
-               url: "{{ route('user.legbox-notification-list') }}", 
-               type: "GET",
-               dataSrc: function(json) {
-                  // var totalRows = json.data.length; 
-                  //var totalRows = json.recordsTotal || json.recordsFiltered; 
-                  //$(".totalListing").text(totalRows);
-                  //console.log(json, json.per_page, json.current_page);
-                  return json.data;
-               }
-         },
-         columns: [
-               { data: 'user_member_id', name: 'user_member_id' },
-               { data: 'user_name', name: 'user_name' },
-               { data: 'user_message', name: 'user_message' },
-               { data: 'action', name: 'action', orderable: false }
-         ]
-      });
-   }
-
- </script>
-
+        function load_notification() {
+            var table = $('#userNotificationList').DataTable({
+                language: {
+                    search: "Search: _INPUT_",
+                    searchPlaceholder: "Search by Member ID..."
+                },
+                info: true,
+                lengthChange: true,
+                searching: true,
+                bStateSave: true,
+                order: [
+                    [1, 'desc']
+                ],
+                processing: true,
+                serverSide: true,
+                paging: true,
+                ajax: {
+                    url: "{{ route('user.legbox-notification-list') }}",
+                    type: "GET",
+                    dataSrc: function(json) {
+                        // var totalRows = json.data.length; 
+                        //var totalRows = json.recordsTotal || json.recordsFiltered; 
+                        //$(".totalListing").text(totalRows);
+                        //console.log(json, json.per_page, json.current_page);
+                        return json.data;
+                    }
+                },
+                columns: [{
+                        data: 'user_member_id',
+                        name: 'user_member_id'
+                    },
+                    {
+                        data: 'user_name',
+                        name: 'user_name'
+                    },
+                    {
+                        data: 'user_message',
+                        name: 'user_message'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    }
+                ]
+            });
+        }
+    </script>
 @endpush

@@ -249,7 +249,10 @@
                 }
 
                 // Show modal
-                $('#taskModal').modal('show');
+                if(buttonId!="complete_task"){
+                    $('#taskModal').modal('show');
+                }
+                // $('#taskModal').modal('show');
             });
 
             $('#save_button').on('click', function(e) {
@@ -387,7 +390,8 @@
                     // alert('Task marked as completed successfully.');
                 },
                 error: function(xhr) {
-                    alert('Something went wrong. Please try again.');
+                    // alert('Something went wrong. Please try again.');
+                    showAlert("Task Error", 'Something went wrong. Please try again.', "error");
                 }
             });
         }
@@ -412,25 +416,33 @@
                     }
                 },
                 error: function(xhr) {
-                    alert('Something went wrong. Please try again.');
+                    // alert('Something went wrong. Please try again.');
+                    showAlert("Task Error", 'Something went wrong. Please try again.', "error");
                 }
             });
         }
 
         function completeTask(taskId) {
             let formData = {
-                'task_id': taskId
+                'change_task_id': taskId
             };
-            let completeHtml =
-                `<div class="text-center my-3 col-md-12"><h4 id="task_desc">Are you sure you want to mark selected tasks as completed?</h4></div>`;
+            // let completeHtml =
+            //     `<div class="text-center my-3 col-md-12"><h4 id="task_desc">Are you sure you want to mark selected tasks as completed?</h4></div>`;
 
-            $("#task_form_html").html(completeHtml);
-            $("#save_button").text('Yes').show();
-            $("#cancel_button").text('Cancel');
+            // $("#task_form_html").html(completeHtml);
+            // $("#save_button").text('Yes').show();
+            // $("#cancel_button").text('Cancel');
 
             let actionStatusUrl = "{{ route('viewer.dashboard.ajax-change-status') }}";
-            $('#task_form').attr('action', actionStatusUrl);
-            $("#change_task_id").val(taskId);
+                showAlert('Task', "Are you sure you want to mark selected tasks as completed?", 'warning', true).then((
+                result) => {
+                if (result.isConfirmed) {
+                    // Perform action to delete avatar
+                    callAjax(formData, actionStatusUrl);
+                }
+            });
+            // $('#task_form').attr('action', actionStatusUrl);
+            // $("#change_task_id").val(taskId);
         }
 
         function viewTask(taskId) {
@@ -505,8 +517,9 @@
                     if (response.task_name === 'add_task') {
                         loadTasks(1);
                         $('#taskModal').modal('hide');
-                        $("#success_msg").text('Task Added successfully.');
-                        $('#successModal').modal('show');
+                        // $("#success_msg").text('Task Added successfully.');
+                        showAlert("Task Added", 'Task has been added successfully', "success");
+                        // $('#successModal').modal('show');
                         return true;
                     }
 
@@ -516,8 +529,9 @@
                         let openUrl = '{{ route('viewer.dashboard.ajax-open-task') }}';
                         callAjax(openData, openUrl);
                         $('#taskModal').modal('hide');
-                        $("#success_msg").text('Task Updated successfully.');
-                        $('#successModal').modal('show');
+                        // $("#success_msg").text('Task Updated successfully.');
+                        showAlert("Task Updated", 'Task has been updated successfully', "success");
+                        // $('#successModal').modal('show');
                         return true;
                     }
 
@@ -527,13 +541,15 @@
                         let openUrl = '{{ route('viewer.dashboard.ajax-open-task') }}';
                         callAjax(openData, openUrl);
                         $('#taskModal').modal('hide');
-                        $("#success_msg").text('Task has been marked as completed');
-                        $('#successModal').modal('show');
+                        // $("#success_msg").text('Task has been marked as completed');
+                        showAlert("Task Completed", 'Task has been marked as completed', "success");
+                        // $('#successModal').modal('show');
                         return true;
                     }
                 },
                 error: function(xhr) {
-                    alert('Something went wrong. Please try again.');
+                    // alert('Something went wrong. Please try again.');
+                    showAlert("Task Error", 'Something went wrong. Please try again.', "error");
                 }
             });
         }

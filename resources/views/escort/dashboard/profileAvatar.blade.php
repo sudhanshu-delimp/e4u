@@ -51,30 +51,11 @@
         </div>
     </div>
 
-    {{-- <!-- Crop modal: original functionality retained -->
-    <div class="modal fade upload-modal" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        <img src="{{ asset('assets/dashboard/img/crop-image.png') }}" class="custompopicon">
-                        Crop Photo
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="upload-demo" class="center-block"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
-                    <button type="button" id="cropImageBtn" class="btn main_bg_color site_btn_primary">Crop</button>
-                </div>
-            </div>
-        </div>
-    </div> --}}
+    <x-crop-image-modal
+        title="Crop Photo"
+        subtitle="Adjust your image before uploading"
+        button-text="Crop & Continue"
+    />
     <!-- Common Crop Image Modal -->
 
     <div class="modal fade common-modal" id="cropImagePop" tabindex="-1" role="dialog"
@@ -389,168 +370,6 @@
 
     <script src="https://foliotek.github.io/Croppie/croppie.js"></script>
 
-    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-    <script type="text/javascript">
-        $('#userProfile').parsley({
-
-        });
-
-
-
-        $('#userProfile').on('submit', function(e) {
-            e.preventDefault();
-
-            var form = $(this);
-
-            if (form.parsley().isValid()) {
-
-                var url = form.attr('action');
-                var data = new FormData(form[0]);
-                $.ajax({
-                    method: form.attr('method'),
-                    url: url,
-                    data: data,
-                    contentType: false,
-                    processData: false,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        if (!data.error) {
-                            $.toast({
-                                heading: 'Success',
-                                text: 'Details successfully saved',
-                                icon: 'success',
-                                loader: true,
-                                position: 'top-right', // Change it to false to disable loader
-                                loaderBg: '#9EC600' // To change the background
-                            });
-
-                        } else {
-                            $.toast({
-                                heading: 'Error',
-                                text: 'Records Not update',
-                                icon: 'error',
-                                loader: true,
-                                position: 'top-right', // Change it to false to disable loader
-                                loaderBg: '#9EC600' // To change the background
-                            });
-
-                        }
-                    },
-
-                });
-            }
-        });
-        $('#city').select2({
-            allowClear: true,
-            placeholder: 'Select City',
-            createTag: function(params) {
-                var term = $.trim(params.term);
-
-                if (term === '') {
-                    return null;
-                }
-                return {
-                    id: term,
-                    text: term,
-                    newTag: false // add additional parameters
-                }
-            },
-            tags: false,
-            minimumInputLength: 2,
-            tokenSeparators: [','],
-            ajax: {
-                url: "{{ route('city.list') }}",
-                dataType: "json",
-                type: "GET",
-                data: function(params) {
-                    console.log(params);
-                    var queryParameters = {
-                        query: params.term,
-                        state_id: $('#state').val()
-                    }
-                    return queryParameters;
-                },
-                processResults: function(data) {
-                    return {
-                        results: $.map(data, function(item) {
-
-                            return {
-                                text: item.name,
-                                id: item.id
-                            }
-                        })
-                    };
-                }
-            }
-        });
-
-        $('#state').select2({
-            allowClear: true,
-            placeholder: 'Select State',
-            createTag: function(params) {
-                var term = $.trim(params.term);
-
-                if (term === '') {
-                    return null;
-                }
-                return {
-                    id: term,
-                    text: term,
-                    newTag: false // add additional parameters
-                }
-            },
-            tags: false,
-            minimumInputLength: 2,
-            tokenSeparators: [','],
-            ajax: {
-                url: "{{ route('state.list') }}",
-                dataType: "json",
-                type: "GET",
-                data: function(params) {
-                    console.log(params);
-                    var queryParameters = {
-                        query: params.term,
-                        country_id: $('#country').val()
-                    }
-                    return queryParameters;
-                },
-                processResults: function(data) {
-                    return {
-                        results: $.map(data, function(item) {
-
-                            return {
-                                text: item.name,
-                                id: item.id
-                            }
-                        })
-                    };
-                }
-            }
-        });
-
-
-        $('#country').on('change', function(e) {
-            if ($(this).val()) {
-                $('#state').prop('disabled', false);
-                $('#state').select2('open');
-            } else {
-                $('#state').prop('disabled', true);
-            }
-        });
-
-        $('#state').on('change', function(e) {
-            if ($(this).val()) {
-                $('#city').prop('disabled', false);
-                $('#city').select2('open');
-            } else {
-                $('#city').prop('disabled', true);
-            }
-        });
-    </script>
     <script>
         $('.avatar-upload-submit').hide();
         function removeUpload() {
@@ -607,10 +426,11 @@
 
         $('#cropImageBtn').on('click', function(ev) {
             $uploadCrop.croppie('result', {
-                type: 'base64',
-                format: 'jpeg',
+                type: 'canvas',
+                size: 'viewport',
+                format: 'png',
                 size: {
-                    width: 150,
+                    width: 200,
                     height: 200
                 }
             }).then(function(resp) {
@@ -651,8 +471,7 @@
                 oversize = getBase64SizeBytes(src) > maxBytes;
             }
             if (oversize) {
-                $('.comman_msg').text('Image must be 10MB or less.');
-                $("#avatarSuccessModal").modal('show');
+                showAlert('error', 'Upload Your Avatar','Image must be 10MB or less.');
                 try {
                     removeUpload();
                 } catch (e) {}
@@ -677,59 +496,46 @@
                 success: function(data) {
                     Swal.close();
                     if (data.type == 0) {
-                        var msg = "Avatar uploaded successfully!";
                         var url = "{{ asset('avatars/name') }}";
                         url = url.replace('name', data.avatarName);
-                        $('.comman_msg').text(msg);
-                        //$("#my_account_modal").show();
-                        $("#avatarSuccessModal").modal('show');
+                         showAlert('success', 'Upload Successful','Avatar uploaded successfully!');
                         $(".avatarName").attr('src', url);
                         $(".file-upload-content").hide();
                         $('.avatar-upload-submit').hide();
                         // Show the delete button since avatar is now uploaded
-                        if ($(".delete_avatar").length === 0) {
-                            $(".current-avatar h2").after(
-                                `<button type="button" class="avatar close delete_avatar" aria-label="Close"><span aria-hidden="true">×</span></button>`
-                            );
-                        } else {
-                            $(".delete_avatar").show();
-                        }
+                          // Add Remove button immediately after successful upload
+                            if ($(".delete_avatar").length === 0) {
+                        
+                                $(".avatar-actions").append(`
+                                    <button type="button" class="remove-avatar-btn delete_avatar">
+                                    <!-- SVG -->
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                                            d="M10 12L14 16M14 12L10 16M18 6L17.1991 18.0129C17.129 19.065 17.0939 19.5911 16.8667 19.99C16.6666 20.3411 16.3648 20.6235 16.0011 20.7998C15.588 21 15.0607 21 14.0062 21H9.99377C8.93927 21 8.41202 21 7.99889 20.7998C7.63517 20.6235 7.33339 20.3411 7.13332 19.99C6.90607 19.5911 6.871 19.065 6.80086 18.0129L6 6M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698 15.4671 5.18807 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698 8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6"
+                                                            stroke="#ffffff"
+                                                            stroke-width="2"
+                                                            stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                    </path>
+                                    </svg>
+                                                    Remove
+                                    </button>
+                                `);
+                            } else {
+                                $(".delete_avatar").show();
+                            }
                     } else {
-                        errorModuleShow(data);
+                         showAlert('error', 'Error', data);
                     }
                 },
                 error: function(data) {
                     Swal.close();
-                    errorModuleShow(data);
+                    showAlert('error', 'Error', data);
                     $('.avatar-upload-submit').hide();
                 }
             });
         });
-
-
-        function errorModuleShow(data = null) {
-            var msg = "Something went wrong. Please try again.";
-            try {
-                var resp = data && data.responseJSON ? data.responseJSON : data;
-                if (resp) {
-                    if (resp.message) {
-                        msg = resp.message;
-                    } else if (resp.errors) {
-                        // Prefer src (base64 image) or avatar_img errors
-                        var err = resp.errors.src || resp.errors.avatar_img || resp.errors.file || null;
-                        if (Array.isArray(err) && err.length) {
-                            msg = err[0];
-                        } else if (typeof err === 'string') {
-                            msg = err;
-                        }
-                    }
-                }
-            } catch (e) {}
-
-            $('.comman_msg').text(msg);
-            $("#avatarSuccessModal").modal('show');
-            $(".delete_avatar").hide();
-        }
 
 
         $('#confirmDelete').on('click', function(e) {
@@ -754,21 +560,21 @@
 
                                 // Update avatar image to default
                                 $(".avatarName").attr('src', data.img);
-
+                                showAlert('success', 'Success', 'Avatar removed successfully!');
                                 // Hide delete button
                                 $(".delete_avatar").hide();
                             } else {
                                 // Error - show error message
-                                showErrorMessage(data.message ||
+                                showAlert('error', 'Error', data.message ||
                                     "Something went wrong. Please try again.");
                             }
                         } catch (error) {
-                            showErrorMessage("Error processing server response. Please try again.");
+                            showAlert('error', 'Error', "Error processing server response. Please try again.");
                         }
                     },
                     error: function(xhr, status, error) {
                         let errorMsg = "Error occurred while removing avatar.";
-                        showErrorMessage(errorMsg);
+                        showAlert('error', 'Error', errorMsg);
                     },
                     complete: function() {
                         try {
@@ -782,7 +588,7 @@
                 });
             } catch (error) {
                 console.error('Error in confirmDelete click handler:', error);
-                showErrorMessage("An unexpected error occurred. Please try again.");
+                showAlert('error', 'Error', "An unexpected error occurred. Please try again.");
 
                 // Reset button state
                 var deleteBtn = $(".delete_avatar");
@@ -796,49 +602,7 @@
             $("#conformation_modal").modal('hide');
         });
 
-        // Function to show error message
-        function errorModuleShow(data = null) {
-            var msg = "";
-            try {
-                var resp = null;
-                if (data && data.responseJSON) {
-                    resp = data.responseJSON;
-                } else if (data && data.responseText) {
-                    try {
-                        resp = JSON.parse(data.responseText);
-                    } catch (e) {}
-                } else {
-                    resp = data;
-                }
-
-                if (resp) {
-                    if (typeof resp === 'string') {
-                        msg = resp;
-                    } else if (resp.message) {
-                        msg = resp.message;
-                    } else if (resp.errors) {
-                        var errors = resp.errors;
-                        var first = null;
-                        if (Array.isArray(errors)) {
-                            first = errors[0];
-                        } else if (errors.src) {
-                            first = Array.isArray(errors.src) ? errors.src[0] : errors.src;
-                        } else if (errors.avatar_img) {
-                            first = Array.isArray(errors.avatar_img) ? errors.avatar_img[0] : errors.avatar_img;
-                        } else if (errors.file) {
-                            first = Array.isArray(errors.file) ? errors.file[0] : errors.file;
-                        }
-                        if (first) msg = first;
-                    }
-                }
-            } catch (e) {}
-
-            $('.comman_msg').text(msg);
-            $("#avatarSuccessModal").modal('show');
-            $(".delete_avatar").hide();
-        }
-
-
+    
         // Bind delete avatar event to show confirmation modal
         $(document).on('click', '.delete_avatar', function() {
             $("#conformation_modal").modal('show');

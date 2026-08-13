@@ -84,13 +84,10 @@
                     <div class="col-md-12 mb-3">
                         <div id="profileAlert" class="alert d-none rounded" role="alert"></div>
                     </div>
-                    <div class="row">
                         <div class="col-md-12">
-                            <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
+                            <div id="globalAlert" class="alert d-none rounded w-100" role="alert"></div>
                         </div>
-                    </div>
                     <div class="col-md-12 mb-5">
-
                         {{-- Success Message --}}
                         @if (session('success'))
                             <div class="alert alert-success text-left">
@@ -99,135 +96,198 @@
                         @endif
 
 
-                        <form class="v-form-design" id="userProfile" action="{{ route('admin.update.password') }}"
-                            method="POST" autocomplete="off">
-                            @csrf
-                            <div class="row">
-                                <div class="col-md-6">
+                        <div class="common-grid">
+
+                            <div class="common-card">
+                                <form id="userProfile" action="{{ route('admin.update.password') }}" method="POST"
+                                    autocomplete="off">
+                                    @csrf
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="form-group position-relative">
+                                            <div class="form-group cp-field">
                                                 <label for="current_password">Current password</label>
-                                                <input type="password" class="form-control" value="{{ old('password') }}"
-                                                    autocomplete="current-password"
-                                                    name="current_password" id="passwordN" placeholder="{{config('constants.current_password_placeholder')}}"
-                                                    data-parsley-required-message="Current password is required" required>
-                                                <span class="toggle-password" toggle="#passwordN">
-                                                    <i class="fa fa-eye"></i>
-                                                </span>
+                                                <div class="cp-input-wrap">
+                                                    <input type="password" value="{{ old('password') }}"
+                                                        autocomplete="current-password" name="current_password"
+                                                        id="passwordN"
+                                                        placeholder="{{ config('constants.current_password_placeholder') }}"
+                                                        data-parsley-required-message="Current password is required"
+                                                        required>
+                                                    <button type="button" class="cp-eye-btn toggle-password"
+                                                        toggle="#passwordN">
+                                                        <i class="fa fa-eye"></i>
+                                                    </button>
+                                                </div>
                                                 @error('password')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
-                                                <div class="pt-1">
-                                                    <small id="emailHelp"><i>{{config('constants.current_password_notify')}}</i></small>
-                                                </div>
+
+                                                <p class="cp-hint">
+                                                    <small><i>{{ config('constants.current_password_notify') }}</i></small>
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
-                                            <div class="form-group position-relative">
+                                            <div class="form-group cp-field">
                                                 <label for="new_password">New password</label>
-                                                <input type="password" required class="form-control"
-                                                    value="{{old('new_password')}}" name="new_password" id="new_password"
-                                                    placeholder="New password" aria-describedby="emailHelp" required
-                                                    autocomplete="new-password"
-                                                    data-parsley-required-message="Password is required"
-                                                    data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&amp;*?])[A-Za-z\d#$@!%&amp;*?]{8,30}$/"
-                                                    data-parsley-pattern-message="Password must be of at least 8 character, must contain both upper-case and lower-case character, at least one number and special character">
-                                                <span class="toggle-password" toggle="#new_password">
-                                                    <i class="fa fa-eye"></i>
-                                                </span>
+                                                <div class="cp-input-wrap">
+                                                    <input type="password" required value="{{ old('new_password') }}"
+                                                        name="new_password" id="new_password" placeholder="New password"
+                                                        aria-describedby="emailHelp" required autocomplete="new-password"
+                                                        data-parsley-required-message="Password is required"
+                                                        data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&amp;*?])[A-Za-z\d#$@!%&amp;*?]{8,30}$/"
+                                                        data-parsley-pattern-message="Password must be of at least 8 character, must contain both upper-case and lower-case character, at least one number and special character">
+                                                    <button type="button" class="cp-eye-btn toggle-password"
+                                                        toggle="#new_password">
+                                                        <i class="fa fa-eye"></i>
+                                                    </button>
+                                                </div>
                                                 <div class="termsandconditions_text_color">
                                                     @error('new_password')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
-                                                <div class="pt-1">
-                                                    <small id="emailHelp"><i>Must be a minimum of eight (8) characters
+
+                                                <p class="cp-hint">
+                                                    <small><i>Must be a minimum of eight (8) characters
                                                             long</i></small>
-                                                </div>
+                                                </p>
                                             </div>
                                         </div>
                                         <!-- Confirm Password -->
                                         <div class="col-md-12">
-                                            <div class="form-group position-relative">
+                                            <div class="form-group cp-field">
                                                 <label for="confirm_password">Confirm password</label>
-                                                <input type="password" class="form-control" placeholder="Confirm password"
-                                                    id="confirm_password" name="new_password_confirmation"
-                                                    data-parsley-equalto="#new_password"
-                                                    data-parsley-equalto-message="Confirm password should be the same password"
-                                                    required autocomplete="confirm-password"
-                                                    data-parsley-required-message="Confirm password is required">
-                                                <span class="toggle-password" toggle="#confirm_password">
-                                                    <i class="fa fa-eye"></i>
-                                                </span>
+                                                <div class="cp-input-wrap">
+                                                    <input type="password" placeholder="Confirm password"
+                                                        id="confirm_password" name="new_password_confirmation"
+                                                        data-parsley-equalto="#new_password"
+                                                        data-parsley-equalto-message="Confirm password should be the same password"
+                                                        required autocomplete="confirm-password"
+                                                        data-parsley-required-message="Confirm password is required">
+                                                    <button type="button" class="cp-eye-btn toggle-password"
+                                                        toggle="#confirm_password">
+                                                        <i class="fa fa-eye"></i>
+                                                    </button>
+                                                </div>
                                                 <div class="termsandconditions_text_color"></div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="common-footer">
+                                    <input type="submit" value="Save Password" class="common-save-btn"
+                                        name="submit"></div>
+                                </form>
                             </div>
-                            <input type="submit" value="Save Password" class="btn btn-primary shadow-none mt-4"
-                                name="submit">
-                        </form>
 
-                        <form class="v-form-design" id="passwordExpiry"
-                            action="{{ route('admin.update.password.expiry') }}" method="POST">
-                            <div class="col-md-12 p-0 mt-4">
-                                <div class="form-group mb-0">
-                                    <label for="confirm_password">Password Expiry </label>
-                                </div>
-                                <div class="form-radio">
-                                    <input class="" name="password_expiry_days" type="radio" value="never" id="Never"
-                                        @if ($user->account_setting && $user->account_setting->password_expiry_days == 'never') {{ 'checked' }} @endif>
-                                    <label class="form-check-label" for="Never">Never</label>
-                                </div>
-                                <div class="form-radio">
-                                    <input class="" name="password_expiry_days" type="radio" value="30" id="Day_30"
-                                        @if ($user->account_setting && $user->account_setting->password_expiry_days == '30') {{ 'checked' }} @endif>
-                                    <label class="form-check-label" for="Day_30">Renew every 30 days</label>
-                                </div>
-                                <div class="form-radio">
-                                    <input class="" name="password_expiry_days" type="radio" value="60" id="Day_60"
-                                        @if ($user->account_setting && $user->account_setting->password_expiry_days == '60') {{ 'checked' }} @endif>
-                                    <label class="form-check-label" for="Day_60">Renew every 60 days</label>
-                                </div>
-                                <div class="form-radio">
-                                    <input class="" name="password_expiry_days" type="radio" value="90" id="Day_90"
-                                        @if ($user->account_setting && $user->account_setting->password_expiry_days == '90') {{ 'checked' }} @endif>
-                                    <label class="form-check-label" for="Day_90">Renew every 90 days</label>
-                                </div>
-                                <div class="pt-1">
-                                    <i id="emailHelp">Unless you set your preferred Password Expiry, by default your
-                                        password will
-                                        renew every30 days.</i>
-                                </div>
 
+
+
+                            <div class="common-card">
+                                <form id="passwordExpiry" action="{{ route('admin.update.password.expiry') }}"
+                                    method="POST">
+                                    <div class="col-md-12 p-0 mt-4">
+                                        <div class="card-top">
+                                            <div class="card-icon">
+                                                <svg viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                        stroke-linejoin="round">
+                                                    </g>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                        <path
+                                                            d="M3 9H21M7 3V5M17 3V5M6 12H10V16H6V12ZM6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z"
+                                                            stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round"></path>
+                                                    </g>
+                                                </svg>
+                                            </div>
+
+                                            <div class="card-heading">
+                                                <h2>Password Expiry</h2>
+                                            </div>
+                                        </div>
+                                        <div class="option-list">
+                                            <div class="form-radio">
+                                                <input class="" name="password_expiry_days" type="radio"
+                                                    value="never" id="Never"
+                                                    @if ($user->account_setting && $user->account_setting->password_expiry_days == 'never') {{ 'checked' }} @endif>
+                                                <label class="form-check-label" for="Never">Never</label>
+                                            </div>
+                                            <div class="form-radio">
+                                                <input class="" name="password_expiry_days" type="radio"
+                                                    value="30" id="Day_30"
+                                                    @if ($user->account_setting && $user->account_setting->password_expiry_days == '30') {{ 'checked' }} @endif>
+                                                <label class="form-check-label" for="Day_30">Renew every 30 days</label>
+                                            </div>
+                                            <div class="form-radio">
+                                                <input class="" name="password_expiry_days" type="radio"
+                                                    value="60" id="Day_60"
+                                                    @if ($user->account_setting && $user->account_setting->password_expiry_days == '60') {{ 'checked' }} @endif>
+                                                <label class="form-check-label" for="Day_60">Renew every 60 days</label>
+                                            </div>
+                                            <div class="form-radio">
+                                                <input class="" name="password_expiry_days" type="radio"
+                                                    value="90" id="Day_90"
+                                                    @if ($user->account_setting && $user->account_setting->password_expiry_days == '90') {{ 'checked' }} @endif>
+                                                <label class="form-check-label" for="Day_90">Renew every 90 days</label>
+                                            </div>
+                                            <div class="card-note">
+                                                <span class="note-icon">i</span>
+                                                <p> <i>Unless you set your preferred Password Expiry, by default
+                                                        your password will renew every 30 days.</i></p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12 p-0 mt-4">
+                                        <div class="card-top">
+                                            <div class="card-icon">
+                                                <svg viewBox="0 0 24 24" fill="none">
+                                                    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"
+                                                        stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                                        stroke-linejoin="round" />
+
+                                                    <path d="M10 21h4" stroke="currentColor" stroke-width="1.8"
+                                                        stroke-linecap="round" />
+                                                </svg>
+                                            </div>
+
+                                            <div class="card-heading">
+                                                <h2>Notification</h2>
+                                            </div>
+                                        </div>
+                                        <div class="radio-options">
+                                            <div class="form-check m-0">
+                                                <input class="form-check-input" name="is_text_notificaion_on"
+                                                    type="checkbox" id="Text_Us" value="1"
+                                                    @if ($user->account_setting && $user->account_setting->is_text_notificaion_on == '1') {{ 'checked' }} @endif>
+                                                <label class="form-check-label" for="Text_Us">Text</label>
+                                            </div>
+                                            <div class="form-check m-0">
+                                                <input class="form-check-input" name="is_email_notificaion_on"
+                                                    type="checkbox" id="Email_Us" value="1"
+                                                    @if ($user->account_setting && $user->account_setting->is_email_notificaion_on == '1') {{ 'checked' }} @endif>
+                                                <label class="form-check-label" for="Email_Us">Email</label>
+                                            </div>
+
+                                        </div>
+                                        <div class="card-note">
+                                            <span class="note-icon">i</span>
+                                            <p> <i>If you select to be notified of your impending password
+                                                    expiry by
+                                                    Text or Email, you will receive a notification 24 hours prior to expiry
+                                                    date.</i></p>
+                                        </div>
+
+                                    </div>
+                                    <div class="common-footer">
+                                        <button type="submit" class="common-save-btn" name="submit">Save</button>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="col-md-12 p-0 mt-4">
-                                <div class="form-group mb-0">
-                                    <label for="confirm_password">Notification</label>
-                                </div>
-                                <div class="form-check m-0">
-                                    <input class="form-check-input" name="is_text_notificaion_on" type="checkbox"
-                                        id="Text_Us" value="1"
-                                        @if ($user->account_setting && $user->account_setting->is_text_notificaion_on == '1') {{ 'checked' }} @endif>
-                                    <label class="form-check-label" for="Text_Us">Text</label>
-                                </div>
-                                <div class="form-check m-0">
-                                    <input class="form-check-input" name="is_email_notificaion_on" type="checkbox"
-                                        id="Email_Us" value="1"
-                                        @if ($user->account_setting && $user->account_setting->is_email_notificaion_on == '1') {{ 'checked' }} @endif>
-                                    <label class="form-check-label" for="Email_Us">Email</label>
-                                </div>
-
-                                <div class="pt-1">
-                                    <i id="emailHelp">If you select to be notified of your impending password expiry by
-                                        Text or Email, you will receive a notification 24 hours prior to expiry date.
-                                    </i>
-                                </div>
-                            </div>
-                            <button type="submit" class="opr-common-btn mt-4" name="submit">Save</button>
-                        </form>
+                        </div>
                     </div>
                 </div>
                 <!--middle content end here-->
