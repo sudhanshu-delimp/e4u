@@ -414,10 +414,11 @@
 
         $('#cropImageBtn').on('click', function(ev) {
             $uploadCrop.croppie('result', {
-                type: 'base64',
-                format: 'jpeg',
+                type: 'canvas',
+                size: 'viewport',
+                format: 'png',
                 size: {
-                    width: 150,
+                    width: 200,
                     height: 200
                 }
             }).then(function(resp) {
