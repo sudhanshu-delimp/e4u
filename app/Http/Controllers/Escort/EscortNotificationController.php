@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Jobs\SendViewerNotificationJob;
 use App\Models\Communication;
 use App\Models\Escort;
+use App\Models\EscortViewerInteractions;
 use App\Models\MyLegbox;
 use App\Models\Purchase;
+use App\Models\User;
 use App\Sms\SendSms;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
@@ -24,9 +27,14 @@ class EscortNotificationController extends Controller
                 return $item['viewers'] > 0;
             })->values();
 
+            $user = Auth::user();
+            $escortIds = Escort::where('user_id', $user->id)->where('default_setting', 0)->pluck('id');
+            $legboxEscortUserIds = MyLegbox::whereIn('escort_id', $escortIds)->pluck('user_id')->unique();
+            $viewers = User::whereIn('id', $legboxEscortUserIds)->get();
+
             return view(
                 'escort.dashboard.Communication.send-notifications',
-                compact('myStateList')
+                compact('myStateList','viewers')
             );
 
         }
@@ -102,6 +110,7 @@ class EscortNotificationController extends Controller
 
             try 
             {
+                $stateName = config('escorts.profile.states')[$request->state_id]['stateName'];
                 $sendotp = new SendSms();
                 DB::beginTransaction();
                 $state_id = $request->state_id;
@@ -128,6 +137,9 @@ class EscortNotificationController extends Controller
                     ], 200);
                 }
 
+
+                $user_count = [];
+                $notificationCount = 0;
                 $purchases = Purchase::with('escort:id,name,profile_name,title,business_name,city_id')
                     ->whereIn('escort_id', function ($query) use ($state_id) {
                         $query->select('id')
@@ -160,12 +172,31 @@ class EscortNotificationController extends Controller
                     $start_date = $purchase->start_date ?? '';
                     $end_date = $purchase->end_date ?? '';
                     $profile_listing_id = $purchase->id;
+                    //$viewer_comm = false;
 
                     foreach ($viewers as $viewer) {
-
+                        $viewer_blocked  = false;
                         $send_on_email = optional($viewer->viewer_settings)->advertiser_email ?? 0;
                         $send_on_mobile = optional($viewer->viewer_settings)->advertiser_text ?? 0;
 
+                        $esvi = EscortViewerInteractions::where('escort_id', $purchase->escort->id)
+                                                            ->where('viewer_id', $viewer->id)
+                                                            ->where('user_id', Auth::user()->id)
+                                                            ->first();
+                        
+
+                        if ($esvi) {
+                            if (
+                                $esvi->viewer_blocked_escort == 1 ||
+                                $esvi->viewer_disabled_contact == 1 ||
+                                $esvi->escort_disabled_contact == 1 ||
+                                $esvi->escort_disabled_notification == 1
+                            ) {
+                                $viewer_blocked = true;
+                            }
+                        }                              
+
+                        $notificationSent = false;
                         Communication::create([
                             'profile_listing_id' => $profile_listing_id,
                             'state_id'           => $viewer->viewer_user->state_id,
@@ -177,7 +208,7 @@ class EscortNotificationController extends Controller
                         ]);
 
                         ############## Send Email ##################
-                        if ($send_on_email == '1') 
+                        if ($send_on_email == '1' && !$viewer_blocked) 
                         {
                             SendViewerNotificationJob::dispatch(
                                 $viewer->viewer_user->email,
@@ -190,23 +221,47 @@ class EscortNotificationController extends Controller
                                     'member_id' => $viewer->viewer_user->member_id
                                 ]
                             );
+
+                            $notificationSent = true;
+                            $user_count [$viewer->viewer_user_id] = $viewer->viewer_user_id;
+
                          }
 
                         ############## Send SMS ##################
-                        if ($send_on_mobile == '1' && ($viewer->viewer_user->phone && $viewer->viewer_user->phone!="")) {
+                        if (!$viewer_blocked && $send_on_mobile == '1' && ($viewer->viewer_user->phone && $viewer->viewer_user->phone!="")) {
                              $msg = "Your favorite Escort ".$name." will arrive in your Location on the ".$start_date.". Here is a link to their Profile ".$profile_url.". Regards E4U.";
                              $output = $sendotp->send_otp_sms(removeSpaceFromString($viewer->viewer_user->phone),$msg);
+                             $notificationSent = true;
+                        }
+
+                        if ($notificationSent) {
+                            $notificationCount++;
+                            $user_count [$viewer->viewer_user_id] = $viewer->viewer_user_id;
                         }
                     }
                 }
 
                 DB::commit();
 
-                return response()->json([
+                if($notificationCount==0)
+                {
+                    return response()->json([
                     'status'  => true,
-                    'message' => 'Notifications sent successfully.',
-                ], 200);
+                    'message' => "No notifications were sent to viewers in ".$stateName."  because notifications or contact have been disabled",
+                    ], 200);
 
+                }
+
+                if($notificationCount>0)
+                {
+                    $updated_user_count = array_values($user_count);
+                    return response()->json([
+                        'status'  => true,
+                        'message' => "{$notificationCount} notification(s) have been sent successfully to " . count($updated_user_count) . " viewer(s).",
+                    ], 200);
+                }
+
+                
             } catch (\Exception $e) {
                 DB::rollBack();
                 Log::error('Send Notification Error', [

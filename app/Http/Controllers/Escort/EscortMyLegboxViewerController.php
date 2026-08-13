@@ -6,16 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Escort;
 use App\Models\EscortViewerInteractions;
+use App\Models\MassageProfile;
 use App\Models\MyLegbox;
+use App\Models\MyMassageLegbox;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use DataTables;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use App\Models\MassageProfile;
-use App\Models\MyMassageLegbox;
 
  
 
@@ -29,6 +30,13 @@ class EscortMyLegboxViewerController extends Controller
         $viewers = User::whereIn('id', $legboxEscortUserIds)->get();
 
         return view('escort.dashboard.my-legbox-viewers', ['viewers' => $viewers]);
+    }
+
+    function getMyLegbox($userId, $escortId)
+    {
+        return MyLegbox::where('user_id', $userId)
+            ->where('escort_id', $escortId)
+            ->first();
     }
 
     public function escortViewersAjaxList()
@@ -52,13 +60,30 @@ class EscortMyLegboxViewerController extends Controller
         });
 
         $newCollect = $viewers->values()->map(function ($viewer, $index) use ($escorts) {
+
+            $escort = $escorts[$index] ?? null;
+
+                $legbox = $this->getMyLegbox(
+                    $viewer->id,
+                    $escort->id ?? null
+                );
+
             return (object)[
+
+
                 'viewer' => $viewer,
-                'escort' => $escorts[$index] ?? null,
+                'escort' => $escort,
+                'legbox' => $legbox,
+                
+                
             ];
         });
 
         return DataTables::of($newCollect)
+
+        
+            ->addColumn('tagged_date', fn($row) => $row->legbox->created_at? \Carbon\Carbon::parse($row->legbox->created_at)->format('d-m-Y'): '-')    
+            ->addColumn('viewer_name', fn($row) => $row->viewer->name)
             ->addColumn('viewer_id', fn($row) => $row->viewer->member_id)
             ->addColumn('home_state', function ($row) {
                 $stateId = $row->viewer->state_id;
@@ -68,6 +93,7 @@ class EscortMyLegboxViewerController extends Controller
             ->addColumn('notification_enabled', function ($row) {
 
                 $isNotifcationEnabled = 'No';
+                
                 # Check viewer account notification setting first
                 if ($row->viewer->interest && $row->viewer->interest->features) {
                     $viewerNotification = json_decode($row->viewer->interest->features);
@@ -87,38 +113,45 @@ class EscortMyLegboxViewerController extends Controller
 
                 return  $isNotifcationEnabled;
             })
-            ->addColumn('contact_enabled', function ($row) {
+            ->addColumn('contact_enabled', function ($row)  {
 
-                $contact_enabled = 'Yes';
-
-                # Check viewer account setting first
-                if ($row->viewer->interest && $row->viewer->interest->features) {
-                    $viewerNotification = json_decode($row->viewer->interest->features);
-                    $isNotifcationEnabled = in_array('alerts', $viewerNotification);
-
-                    if ($isNotifcationEnabled && $row->viewer->interest->notifications) {
-                        $viewerNotificationIsEnabled = json_decode($row->viewer->interest->notifications);
-                        if (in_array('email', $viewerNotificationIsEnabled) || in_array('text', $viewerNotificationIsEnabled)) {
-                            $contact_enabled = 'Yes';
-                        }
-
-                        $contact_enabled = 'No';
-                    }
-                }
-
-                # If particular escort is contact disabled
-                $esvi = EscortViewerInteractions::where('escort_id', $row->escort->id)->where('viewer_id', $row->viewer->id)->where('user_id', Auth::user()->id)->first();
-
-                if ($esvi) {
                     $contact_enabled = 'No';
-                    if ($esvi->viewer_disabled_contact == 0) {
+                    
+                    
+                    # If particular escort is contact disabled
+                    $esvi = EscortViewerInteractions::where('escort_id', $row->escort->id)->where('viewer_id', $row->viewer->id)->where('user_id', Auth::user()->id)->first();
+                    if ($esvi) 
+                    {
+                        if ($esvi->viewer_disabled_contact == 0) 
                         $contact_enabled = 'Yes';
+                       
+                        
                     }
-                }
 
-                return  $contact_enabled;
+
+                    # Check viewer account setting first
+                    if ($row->viewer->viewer_settings) 
+                    {
+                        if($row->viewer->viewer_settings->advertiser_email && $row->viewer->viewer_settings->advertiser_emai=='1')
+                        {
+                             $contact_enabled = 'Yes';
+                             $viewer_contact_type[] = 'Email';
+                        }
+                       
+                        if($row->viewer->viewer_settings->advertiser_text && $row->viewer->viewer_settings->advertiser_text=='1')
+                        {
+                             $contact_enabled = 'Yes';
+                             $viewer_contact__type[] = 'Text';
+                        }
+                       
+                    }
+
+                    return  $contact_enabled;
             })
             ->addColumn('contact_method', function ($row) {
+
+                $contact_method = "";
+                $viewer_contact_type = [];
 
                 # If particular escort is contact disabled then no contact info will be show to escort
                 $esvi = EscortViewerInteractions::where('escort_id', $row->escort->id)->where('viewer_id', $row->viewer->id)->where('user_id', Auth::user()->id)->first();
@@ -126,41 +159,44 @@ class EscortMyLegboxViewerController extends Controller
                 if ($esvi) {
                     if ($esvi->viewer_blocked_escort == 1) {
                         $contact_method = 'blocked';
-                        return $contact_method;
-                    }
-                }
-
-                $contactMethod = '-';
-
-                if ($row->viewer->interest && $row->viewer->interest->features) {
-                    $viewerNotification = json_decode($row->viewer->interest->features);
-                    $isNotifcationEnabled = in_array('alerts', $viewerNotification);
-
-                    if ($isNotifcationEnabled && $row->viewer->interest->notifications) {
-                        $viewerNotificationIsEnabled = json_decode($row->viewer->interest->notifications);
-                        if (in_array('email', $viewerNotificationIsEnabled) && in_array('text', $viewerNotificationIsEnabled)) {
-                            $contactMethod =  'Email, Text';
-                        }
-
-                        if (in_array('email', $viewerNotificationIsEnabled)) {
-                            $contactMethod =  'Email';
-                        }
-
-                        if (in_array('text', $viewerNotificationIsEnabled)) {
-                            $contactMethod = 'Text';
-                        }
                     }
                 }
 
                 if ($esvi) {
                     if ($esvi->viewer_disabled_contact == 1) {
-                        $contactMethod = 'Disabled';
+                        $contact_method = 'Disabled';
                     }
                 }
 
-                return  $contactMethod;
+
+                if ($row->viewer->viewer_settings) 
+                {
+                    if($row->viewer->viewer_settings->advertiser_email && $row->viewer->viewer_settings->advertiser_email=='1')
+                    $viewer_contact_type[] = 'Email';
+                   
+                    if($row->viewer->viewer_settings->advertiser_text && $row->viewer->viewer_settings->advertiser_text=='1')
+                    $viewer_contact_type[] = 'Text';
+                }
+
+                if($contact_method=="")
+                {
+                   $contact_method = !empty($viewer_contact_type)? implode(', ', $viewer_contact_type): '-';
+
+                }
+
+                return  $contact_method;
             })
-            ->addColumn('viewer_comm', function ($row) use (&$contactMethod) {
+            ->addColumn('viewer_comm', function ($row) {
+
+
+                $viewer_comm = "";
+                $viewer_contact_type = [];
+
+                 if($row->viewer->viewer_settings->advertiser_email && $row->viewer->viewer_settings->advertiser_email=='1')
+                $viewer_contact_type[] = 'Email';
+                
+                if($row->viewer->viewer_settings->advertiser_text && $row->viewer->viewer_settings->advertiser_text=='1')
+                $viewer_contact_type[] = 'Text';
 
                 # If particular escort is contact disabled then no contact info will be show to escort
                 $esvi = EscortViewerInteractions::where('escort_id', $row->escort->id)->where('viewer_id', $row->viewer->id)->where('user_id', Auth::user()->id)->first();
@@ -172,34 +208,24 @@ class EscortMyLegboxViewerController extends Controller
                     }
                 }
 
-                $viewer_comm = '-';
-                if ($row->viewer->interest && $row->viewer->interest->features) {
-                    $viewerNotification = json_decode($row->viewer->interest->features);
-                    $isNotifcationEnabled = in_array('alerts', $viewerNotification);
-
-                    if ($isNotifcationEnabled && $row->viewer->interest->notifications) {
-                        $viewerNotificationIsEnabled = json_decode($row->viewer->interest->notifications);
-                        if (in_array('email', $viewerNotificationIsEnabled) && in_array('text', $viewerNotificationIsEnabled)) {
-                            $contactMethod = $row->viewer->email . ', ' . $row->viewer->phone;
-                            $viewer_comm = $contactMethod;
-                        }
-
-                        if (in_array('email', $viewerNotificationIsEnabled)) {
-                            $contactMethod = $row->viewer->email;
-                            $viewer_comm = $contactMethod;
-                        }
-
-                        if (in_array('text', $viewerNotificationIsEnabled)) {
-                            $contactMethod = $row->viewer->phone;
-                            $viewer_comm = $contactMethod;
-                        }
-                    }
-                }
-
                 if ($esvi) {
                     if ($esvi->viewer_disabled_contact == 1) {
                         $viewer_comm = 'Disabled';
                     }
+                }
+
+                if($viewer_comm=="")
+                {
+                    $contact = []; 
+                    if (in_array('Email', $viewer_contact_type)) 
+                    $contact[] = $row->viewer->email;
+
+                    if (in_array('Text', $viewer_contact_type)) 
+                    $contact[] = $row->viewer->phone;
+                    
+                    $viewer_comm = !empty($contact)? implode(', ', $contact): '-';
+
+
                 }
 
                 return  $viewer_comm;

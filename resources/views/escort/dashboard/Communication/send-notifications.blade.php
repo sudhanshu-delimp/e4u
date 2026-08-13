@@ -43,11 +43,11 @@
                     </div>
                 </div>
                 {{-- my viewers --}}
-                <div class="row mb-5">
+                <!-- <div class="row mb-5">
 
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="viewerTable">
+                            <table class="table table-bordered" id="viewerNotificationTable">
                                 <thead>
                                     <tr>
                                         <th>State</th>
@@ -58,9 +58,8 @@
                             </table>
                         </div>
                     </div>
-                </div>
-                {{-- end --}}
-                <!--middle content-->
+                </div> -->
+
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
                         <div class="bothsearch-form" style="gap: 10px;">
@@ -68,8 +67,112 @@
                                 Notification</button>
                         </div>
                     </div>
-                   
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <!-- <table id="sendNotificationTable" class="table display" width="100%">
+                                <thead class="table-bg">
+                                    <tr>
+                                        <th>
+                                            <div class="ckbox">
+                                                <input type="checkbox" id="checkbox1">
+                                            </div>
+                                        </th>
+                                        <th>Viewer Name</th>
+                                        <th>Tagged</th>
+                                        <th>
+                                            Home State
+
+                                        </th>
+
+                                        <th>Contact Method</th>
+                                        <th>Notification</th>
+                                        <th>Block Viewer</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-content">
+                                    <tr>
+                                        <td>
+                                            <div class="ckbox">
+                                                <input type="checkbox" id="checkbox1">
+                                            </div>
+                                        </td>
+                                        <td><img src="{{ asset('assets/app/img/profile-img.png') }}"
+                                                class="img-profile rounded-circle playmats-img ">Skusta clee</td>
+                                        <td>10-10-2025</td>
+                                        <td>SA</td>
+                                        <td>Email</td>
+                                        <td>By email</td>
+                                        <td>
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input" id="customSwitch_1">
+                                                <label class="custom-control-label" for="customSwitch_1"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="ckbox">
+                                                <input type="checkbox" id="checkbox1">
+                                            </div>
+                                        </td>
+                                        <td><img src="{{ asset('assets/app/img/profile-img.png') }}"
+                                                class="img-profile rounded-circle playmats-img ">Johny Bravo</td>
+                                        <td>11-10-20254</td>
+                                        <td>WA</td>
+                                        <td>Mobile</td>
+                                        <td>Mobile</td>
+                                        <td>
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input" id="customSwitch_2">
+                                                <label class="custom-control-label" for="customSwitch_2"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table> -->
+
+                    <table id="viewerTable" class="table custom--newtable" width="100%">
+                        <thead class="bg-first">
+                            <tr>
+                                <th>Viewer Name </th>
+                                <th>Home State</th>
+                                <th>Tagged </th>
+                                <th>Notifications
+                                    Enabled</th>
+                               
+                                <th>Contact
+                                    Method</th>
+                               
+                                <th>Block
+                                    Viewer</th>
+                             
+                            </tr>
+                        </thead>
+                       <tbody class="table-content">
+                    </tbody>
+                    </table>
+
+
+
+
+
+                        </div>
+                    </div>
                 </div>
+
+
+
+                {{-- end --}}
+                <!--middle content-->
+                <!-- <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                        <div class="bothsearch-form" style="gap: 10px;">
+                            <button type="button" class="create-tour-sec" data-toggle="modal" data-target="#new-ban">Send
+                                Notification</button>
+                        </div>
+                    </div>
+                   
+                </div> -->
             </div>
         </div>
     </div>
@@ -187,7 +290,7 @@
                 $('.btn-primary').prop('disabled', false).text('Send Notification');
                 if(response.status)
                 {   
-                    viewerTable.ajax.reload();
+                    //viewerTable.ajax.reload();
                     $('#new-ban').modal('hide');
                     swal_success_popup(response.message ?? 'Notification send successfully');
                     $('#sendNotificationForm')[0].reset();
@@ -220,33 +323,150 @@
 
 
 
-      var viewerTable =  $('#viewerTable').DataTable({
-            processing: true,
-            serverSide: true,
-            searching: false,
-            ordering: false,
-            paging: false,
-            info: false,
-            ajax: {
-                url: "{{ route('escort.viewers-notification.ajax') }}"
-            },
-            columns: [
-                {
-                    data: 'state',
-                    name: 'state'
+    //   var viewerTable =  $('#viewerNotificationTable').DataTable({
+    //         processing: true,
+    //         serverSide: true,
+    //         searching: false,
+    //         ordering: false,
+    //         paging: false,
+    //         info: false,
+    //         ajax: {
+    //             url: "{{ route('escort.viewers-notification.ajax') }}"
+    //         },
+    //         columns: [
+    //             {
+    //                 data: 'state',
+    //                 name: 'state'
+    //             },
+    //             {
+    //                 data: 'viewers',
+    //                 name: 'viewers',
+    //                 className: 'text-center'
+    //             },
+    //             {
+    //                 data: 'notifications',
+    //                 name: 'notifications',
+    //                 className: 'text-center'
+    //             }
+    //         ]
+    //     });
+
+
+    $(document).ready(function() {
+            var viewerTable = $('#viewerTable').DataTable({
+                responsive: true,
+                language: {
+                    search: "Search:", // ✅ This will show the label
+                    searchPlaceholder: "Search by Viewer ID or Profile ID", // ✅ This is the placeholder
+                    lengthMenu: "Show _MENU_ entries",
+                    zeroRecords: "No matching records found",
+                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    infoEmpty: "No entries available",
+                    infoFiltered: "(filtered from _MAX_ total entries)"
                 },
-                {
-                    data: 'viewers',
-                    name: 'viewers',
-                    className: 'text-center'
+                initComplete: function() {
+                    // if ($('#returnToReportBtn').length === 0) {
+                    //     $('.dataTables_filter').append(
+                    //         '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
+                    //     );
+                    // }
+                    $('#returnToReportBtn').on('click', function() {
+                        var table = $('#viewerTable').DataTable();
+                        table.search('').draw();
+                    });
                 },
-                {
-                    data: 'notifications',
-                    name: 'notifications',
-                    className: 'text-center'
-                }
-            ]
+                "language": {
+                    "zeroRecords": "There is no record of the search criteria you entered.",
+                    searchPlaceholder: "Search by ID or Profile Name"
+                },
+                paging: true,
+                ajax: {
+                    url: "{{ route('escort.viewer-legbox-list') }}",
+                    data: function(data) {
+                        console.log('data');
+                        // d.type = 'player';
+                            // console.log('data');
+                            // console.log(data);
+                    }
+                },
+                columns: [
+                    { data: 'viewer_name', name: 'viewer_name' },                         // 0
+                    { data: 'home_state', name: 'home_state' },                        // 2
+                    { data: 'tagged_date', name: 'tagged_date' },                        // 2
+                    { data: 'notification_enabled', name: 'notification_enabled' },                  
+                    { data: 'contact_method', name: 'contact_method' },                   // 4
+                     { data: 'block_viewer', name: 'block_viewer' }, 
+                    //{ data: 'playbox_subscription', name: 'playbox_subscription' },       // 6
+                                         // 9
+                  
+                ],
+               
+                autoWidth: false,
+                
+                pageLength: 25,
+            });
+
+
+
+
+        $(document).on('change', '.isBlockedButton', function() {
+            let viewerId = $(this).data('id');;
+            let escortId = $(this).attr('data-escort-id');
+            let isBlocked = $(this).is(':checked') ? 1 : 0;
+            let data = {
+                'viewer_id' : viewerId,
+                'escort_id' : escortId,
+                'is_blocked' : isBlocked,
+                'type' : 'block',
+                'message' : 'Viewer is '+(isBlocked ? 'Blocked' : 'UnBlocked')+' successfully!',
+            }
+
+            if(isBlocked){
+                $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/block.png")}}');
+            }else{
+                $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/unblock.png")}}');
+            }
+
+            console.log(data);
+
+            let url = '{{ route("escort.viewer-interaction.update") }}';
+            return  ajaxCall(url, data, $(this));
+            
         });
+
+
+         function ajaxCall(actionUrl,rowData,thisObj)
+            {
+                rowData.token = '{{ csrf_token() }}';
+                $.ajax({
+                    url: actionUrl,
+                    method: 'POST',
+                    data: rowData,
+                    success: function(response) {
+                        console.log('response');
+                        console.log(response);
+                        $('#escortProfileModal').modal('show');
+                        $('#viewerTable').DataTable().ajax.reload(null, false);
+                        if(response.type == 'block'){
+                            $(".modal_title_span").text('Viewer Block');
+                            $(".body_text").text(response.message);
+                        }
+                        if(response.type == 'contact'){
+                            $(".modal_title_span").text('Viewer Contact');
+                            $(".body_text").text(response.message);
+                        }
+                        if(response.type == 'notification'){
+                            $(".modal_title_span").text('Viewer Notification');
+                            $(".body_text").text(response.message);
+                        }
+                    },
+                    error: function(err) {
+                        //showGlobalAlert("Something went wrong.", "danger");
+                    }
+                });
+            }
+
+    });
 
 
 
