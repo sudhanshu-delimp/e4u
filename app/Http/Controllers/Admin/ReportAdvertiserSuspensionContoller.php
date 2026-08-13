@@ -172,7 +172,7 @@ class ReportAdvertiserSuspensionContoller extends Controller
             })
 
             ->addColumn('action', function ($row) {
-                $redirectUrl =  ($row->advertiser->user->type == '4') ? route('preview.massage', ['id' => $row->advertiser->id, 'ids' => '[]']) : route('preview.escort', $row->advertiser->id);
+                $redirectUrl =  ($row->advertiser->user->type == '4') ? route('preview.massage', $row->advertiser->slug) : route('preview.escort', $row->advertiser->slug);
                 $actionBtn = '
                         <div class="dropdown no-arrow">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
