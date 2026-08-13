@@ -62,6 +62,14 @@
 
         <!-- ///////////// Notification ////////////////// -->
         <script>
+               function showAlert(title, message, type) {
+            Swal.fire({
+                title: title,
+                text: message,
+                icon: type
+            });
+
+        }
             const getNotifications = () => {
                     ajaxRequest({
                     url: "{{ route('user.get-notification') }}",
