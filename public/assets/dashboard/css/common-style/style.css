@@ -1234,6 +1234,63 @@ label.cabinet input.file {
 }
 
 
+/* common-form */
+
+.common-form .form-control,
+.common-form .input_not_edit {
+    width: 100%;
+    height: 48px;
+    padding: 0 48px 0 14px;
+    box-sizing: border-box;
+    border: 1px solid #dce3ea;
+    border-radius: 8px !important;
+    background: #fff;
+    color: #173a61;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+.common-form .input_not_edit {
+    line-height: 48px;
+    background: #f2f2f2;
+}
+
+.common-form .form-control::placeholder {
+    color: #9aa6b5;
+}
+
+.common-form .form-control:focus {
+    border-color: #ff3c5f !important;
+    box-shadow: 0 0 0 3px rgba(245, 47, 91, 0.08);
+}
+
+.common-form .inner-row {
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #f2f2f2;
+    margin-bottom: 25px;
+}
+
+.common-form .inner-field-row {
+    display: flex !important;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.common-form .inner-field-row .form-group {
+    flex: 1;
+}
+
+.inner-row .card-top {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f2f2f2;
+    padding-bottom: 15px;
+}
+
+
 /* =========================
    RESPONSIVE
 ========================= */
@@ -1397,5 +1454,8 @@ label.cabinet input.file {
     }
     .common-save-btn {
         width: 100%;
+    }
+    .common-form .inner-field-row {
+        flex-direction: column;
     }
 }
