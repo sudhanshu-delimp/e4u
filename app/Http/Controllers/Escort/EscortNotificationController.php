@@ -124,7 +124,7 @@ class EscortNotificationController extends Controller
                 ->whereIn('escort_id', function ($query) {
                     $query->select('id')
                         ->from('escorts')
-                        ->where('enabled', 1)
+                        ->where('default_setting', 0)
                         ->where('user_id', auth()->id());
                 })
                 ->get();

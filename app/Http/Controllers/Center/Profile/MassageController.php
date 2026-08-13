@@ -50,6 +50,7 @@ use App\Repositories\Message\MessageMediaInterface;
 use App\Repositories\Service\ServiceInterface;
 use App\Repositories\Thumbnail\ThumbnailInterface;
 use App\Repositories\User\UserInterface;
+use App\Services\SlugService;
 use App\Services\WalletService;
 use App\Traits\ResizeImage;
 use Carbon\Carbon;
@@ -1239,8 +1240,14 @@ class MassageController extends Controller
             if ($massage) {
                 $newMassage = $massage->replicate();
                 $newMassage->profile_name = $new_profile_name;
+                $newMassage->slug =null;
                 $newMassage->save();
 
+                ########### Create Slug ############
+                $slug = new SlugService();
+                $slug->createUpdateSlug($newMassage);
+
+    
                 $new_massage_profile_id = $newMassage->id;
 
                 if ($new_massage_profile_id != "") {
