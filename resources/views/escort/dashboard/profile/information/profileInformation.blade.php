@@ -412,7 +412,6 @@
    $('#update_about_me').on('submit', function(e) {
        e.preventDefault();
        var form = $(this);
-      $("#modal-title").text('My Additional Information');
       $("#modal-icon").attr("src", "/assets/dashboard/img/info.png");
        if (form.parsley().isValid()) {
 
@@ -429,15 +428,12 @@
                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                success: function (data) {
                    if(!data.error){
-                       var msg = "Saved";
-                       $('.comman_msg').text(msg);
+                       showAlert('success', 'Success', "Your details have been updated successfully.");
                        //$("#my_account_modal").show();
-                       $("#comman_modal").modal('show');
                        $('#update-about-me').prop('disabled', false);
                        $('#update-about-me').html('Update');
                    } else {
-                       $('.comman_msg').text(data.message);
-                       $("#comman_modal").modal('show');
+                          showAlert('error', 'Error', "Oops... something went wrong. Please try again.");
                        $('#update-about-me').prop('disabled', false);
                        $('#update-about-me').html('Update');
                    }
@@ -480,14 +476,12 @@
                success: function (data) {
                    if(!data.error){
                        var msg = "Saved";
-                       $('.comman_msg').text(msg);
+                       showAlert('success', 'My Social Media', msg);
                        //$("#my_account_modal").show();
-                       $("#comman_modal").modal('show');
                        $('#update-about-me').prop('disabled', false);
                        $('#update-about-me').html('Save Social');
                    } else {
-                       $('.comman_msg').html("Oops.. sumthing wrong Please try again");
-                       $("#comman_modal").modal('show');
+                       showAlert('error', 'My Social Media', "Oops.. something went wrong. Please try again.");
                        $('#update-about-me').prop('disabled', false);
                        $('#update-about-me').html('Save Social');
                    }
@@ -513,7 +507,6 @@
        e.preventDefault();
 
        var form = $(this);
-        $("#modal-title").text('My Social Media');
        if (form.parsley().isValid()) {
 
            var url = form.attr('action');
@@ -531,15 +524,13 @@
                success: function (data) {
                    if(!data.error){
 
-                       $('.Lname').html("Saved");
-                       $("#my_account_modal").show();
+                       showAlert('success', 'My Social Media', "Saved");
                        $('#read-more').prop('disabled', false);
                        $('#read-more').html('Update');
                        //location.reload();
                    } else {
 
-                       $('.Lname').html("Oops.. sumthing wrong Please try again");
-                       $("#my_account_modal").show();
+                       showAlert('error', 'My Social Media', "Oops.. something went wrong. Please try again");
                        $('#read-more').prop('disabled', false);
                        $('#read-more').html('Update');
                    }
@@ -772,7 +763,6 @@
            var form = $(this);
            var url = form.attr('action');
            var data = new FormData($('#myServices')[0]);
-           $("#modal-title").text('My Service (tags)');
            $("#modal-icon").attr("src", "/assets/dashboard/img/my-service-tag.png");
            $('#my_services').prop('disabled', true);
            $('#my_services').html('<div class="spinner-border"></div>');
@@ -787,14 +777,12 @@
                success: function (data) {
                    if(!data.error){
                        var msg = "Saved";
-                       $('.comman_msg').text(msg);
+                          showAlert('success', 'My Service (tags)', msg);
                        //$("#my_account_modal").show();
-                       $("#comman_modal").modal('show');
                        $('#my_services').prop('disabled', false);
                        $('#my_services').html('Save');
                    } else {
-                       $('.comman_msg').html("Oops.. sumthing wrong Please try again");
-                       $("#comman_modal").modal('show');
+                        showAlert('error', 'My Service (tags)', "Oops.. something went wrong. Please try again.");
                        $('#my_services').prop('disabled', false);
                        $('#my_services').html('Save');
                    }
@@ -820,7 +808,6 @@
        var form = $(this);
        var url = form.attr('action');
        var data = new FormData($('#storeRate')[0]);
-       $("#modal-title").text('My Rates');
        $("#modal-icon").attr("src", "/assets/dashboard/img/price-list.png");
        $('#store_rate').prop('disabled', true);
        $('#store_rate').html('<div class="spinner-border"></div>');
@@ -835,16 +822,14 @@
             console.log(data);
                if(!data.error){
                    var msg = "Saved";
-                       $('.comman_msg').text(msg);
+                       showAlert('success', 'My Rates', msg);
                        //$("#my_account_modal").show();
-                       $("#comman_modal").modal('show');
            //
                    $('#store_rate').prop('disabled', false);
                    $('#store_rate').html('Save');
                } else {
 
-                   $('.comman_msg').html("Oops.. sumthing wrong Please try again");
-                   $("#comman_modal").modal('show');
+                    showAlert('error', 'My Rates', "Oops.. something went wrong. Please try again.");
                    $('#store_rate').prop('disabled', false);
                    $('#store_rate').html('Save');
                }
@@ -855,7 +840,6 @@
    $('#myability').on('submit', function(e) {
        e.preventDefault();
        var form = $(this);
-       $("#modal-title").text('My Available Times');
        $("#modal-icon").attr("src", "/assets/dashboard/img/available-time.png");
        if (form.parsley().isValid()) {
 
@@ -875,14 +859,12 @@
                success: function (data) {
                    if(!data.error){
                        var msg = "Saved";
-                       $('.comman_msg').text(msg);
+                       showAlert('success', 'My Available Times', msg);
                        //$("#my_account_modal").show();
-                       $("#comman_modal").modal('show');
                        $('#my_abilities').prop('disabled', false);
                        $('#my_abilities').html('Save');
                    } else {
-                       $('.comman_msg').html("Oops.. sumthing wrong Please try again");
-                       $("#comman_modal").modal('show');
+                        showAlert('error', 'My Available Times', "Oops.. something went wrong. Please try again.");
                        $('#my_abilities').prop('disabled', false);
                        $('#my_abilities').html('Save');
                    }
