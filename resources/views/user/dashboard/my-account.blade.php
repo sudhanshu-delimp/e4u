@@ -236,14 +236,14 @@
         });
 
 
-        function showAlert(title, message, type) {
-            Swal.fire({
-                title: title,
-                text: message,
-                icon: type
-            });
+        // function showAlert(title, message, type) {
+        //     Swal.fire({
+        //         title: title,
+        //         text: message,
+        //         icon: type
+        //     });
 
-        }
+        // }
         $('#city').select2({
             allowClear: true,
             placeholder: 'Select City',

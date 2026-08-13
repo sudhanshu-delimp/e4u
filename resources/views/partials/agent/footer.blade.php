@@ -238,14 +238,23 @@
             e.stopPropagation(); 
         });
 
-             function showAlert(title, message, type) {
-            Swal.fire({
-                title: title,
-                text: message,
-                icon: type
-            });
+         function showAlert(title, message, type, confirm = false) {
+                const options = {
+                    title: title,
+                    html: message,
+                    icon: type
+                };
 
-        }
+                if (confirm) {
+                    options.showCancelButton = true;
+                    options.confirmButtonText = 'Yes, Confirm';
+                    options.cancelButtonText = 'Cancel';
+                    options.reverseButtons = true;
+                }
+
+                return Swal.fire(options);
+
+            }
         </script>  
 
            
