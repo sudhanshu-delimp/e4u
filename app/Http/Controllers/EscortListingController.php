@@ -146,7 +146,7 @@ class EscortListingController extends Controller
     {
         $segments = $request->segments();
 
-        if (empty($segments)) {
+        if (empty($segments) || $segments[0] !== 'find-escorts') {
             return;
         }
 
@@ -156,8 +156,9 @@ class EscortListingController extends Controller
             ? 'list'
             : 'grid';
 
-        $routeType = $segments[1] ?? '';
-        $city    = $segments[2] ?? '';
+        $firstSegment = $segments[1] ?? '';
+        $secondSegment   = $segments[2] ?? '';
+        $thirdSegment   = $segments[3] ?? '';
 
         $countryList = [
             'australia',
@@ -165,57 +166,59 @@ class EscortListingController extends Controller
         ];
 
         // Common parameters
-        $params = [
-            'page'             => 1,
-            'view_type'        => $listingsPreferencesView,
-            'locationByRadio'  => 'australia',
-            'limit'            => 25,
-            'search_by_radio'  => 1,
-            'services'         => '',
-            'duration_price'   => 0,
-            'varify_list'      => 'all',
-        ];
+        $params = [];
+        if (!$request->has('page')) $params['page'] = 1;
+        if (!$request->has('view_type')) $params['view_type'] = $listingsPreferencesView;
+        if (!$request->has('locationByRadio')) $params['locationByRadio'] = 'australia';
+        if (!$request->has('limit')) $params['limit'] = 25;
+        if (!$request->has('search_by_radio')) $params['search_by_radio'] = 1;
+        if (!$request->has('services')) $params['services'] = '';
+        if (!$request->has('duration_price')) $params['duration_price'] = 0;
+        if (!$request->has('varify_list')) $params['varify_list'] = 'all';
 
-        /*
-    |--------------------------------------------------------------------------
-    | Country / City URL
-    |--------------------------------------------------------------------------
-    */
-        if (in_array($routeType, $countryList, true)) {
 
-            if ($city) {
-                $cityId = getCityId($city);
+        $urlCity = null;
+        $urlGender = null;
 
-                if ($cityId) {
-                    $params['city'] = $cityId;
+        if ($firstSegment) {
+            if (in_array(strtolower($firstSegment), $countryList)) {
+                if ($secondSegment) {
+                    $cityId = getCityId($secondSegment);
+                    if ($cityId) {
+                        $urlCity = $cityId;
+                        if ($thirdSegment) {
+                            $genderId = getGenderId($thirdSegment);
+                            if ($genderId) {
+                                $urlGender = $genderId;
+                            }
+                        }
+                    } else {
+                        // Could be a gender instead of city
+                        $genderId = getGenderId($secondSegment);
+                        if ($genderId) {
+                            $urlGender = $genderId;
+                        }
+                    }
+                }
+            } else {
+                // Not a country, maybe a gender
+                $genderId = getGenderId($firstSegment);
+                if ($genderId) {
+                    $urlGender = $genderId;
                 }
             }
-
-            $request->merge($params);
-
-            return;
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | Gender URL
-        |--------------------------------------------------------------------------
-        */
-        if ($routeType === 'gender') {
+        if (!$request->has('city') && $urlCity) {
+            $params['city'] = (string) $urlCity;
+        }
 
-            $genderType = $segments[2] ?? '';
+        if (!$request->has('gender') && $urlGender) {
+            $params['gender'] = (string) $urlGender;
+        }
 
-            if ($genderType) {
-
-                $genderId = getGenderId($genderType);
-
-                if ($genderId) {
-                    $params['gender'] = $genderId;
-                    $params['city']   = null;
-
-                    $request->merge($params);
-                }
-            }
+        if (!empty($params)) {
+            $request->merge($params);
         }
     }
 
@@ -223,7 +226,7 @@ class EscortListingController extends Controller
 
     public function allEscortListing(Request $request, $gender = null)
     {
-        // dd($request->all());
+
         // $request->merge([
         //     'page' => 1,
         //     'view_type' => 'grid',
@@ -236,10 +239,8 @@ class EscortListingController extends Controller
 
         //modify request paramter according gender and location wise value.
         $this->modifyRequestParamter($request);
-
-
-
-
+       // dd($request->all());
+       
         //get shortlist ids
         $escortId = $this->getShortListIds();
         $count_session = count((array) session('cart'));
@@ -781,32 +782,6 @@ class EscortListingController extends Controller
         }
     }
 
-    //Make short list using the session
-    // public function addRemoveCard($escort_id)
-    // {
-
-    //     $userId = auth()->user()->id ?? null;
-    //     if (count((array) session('cart')) > 0) {
-    //         $cart = session()->get('cart');
-    //     } else {
-    //         $cart = session()->get('cart', []);
-    //     }
-
-    //     if (isset($cart[$escort_id])) {
-    //         $cart[$escort_id]['quantity']++;
-    //         $error = 0;
-    //     } else {
-    //         $cart[$escort_id] = [
-    //             "user_id" => $userId,
-    //             "quantity" => 1,
-    //         ];
-    //         $error = 1;
-    //     }
-
-    //     session()->put('cart', $cart);
-    //     $count_session = count(session('cart'));
-    //     return response()->json(compact('error', 'cart', 'count_session'));
-    // }
 
     public function clearShortList(Request $request)
     {

@@ -98,7 +98,7 @@
                     @endphp
 
                     <li>
-                        <a href="{{ route('public.web.escort.listing', ['country' => 'australia','city' => strtolower($city)]) }}"
+                        <a href="{{ route('public.web.escort.listing', ['country_or_gender' => 'australia','city' => strtolower($city)]) }}"
                         class="footer_view_type_one" id="{{ $key }}">{{ $city }}</a></li>
                     @endforeach
                 </div>

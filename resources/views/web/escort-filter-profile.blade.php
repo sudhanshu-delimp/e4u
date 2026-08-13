@@ -441,7 +441,6 @@
                 //re-select value
                 $('#escort_city').each(function () {
                     var selectedValue = $(this).val();
-                    console.log(selectedValue, 'selectedValue');
                     $(this).val(selectedValue).trigger('change');
                 });
 
@@ -601,7 +600,7 @@
                 ajaxReq.abort();
             }
             //update Brower Url
-            let params = new URLSearchParams($.param(formData));
+            let params = new URLSearchParams($.param(formData));;
 
             // history.replaceState({}, '', window.location.pathname + '?' + params.toString());
 
