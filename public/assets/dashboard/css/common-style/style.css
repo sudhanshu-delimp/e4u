@@ -1169,6 +1169,7 @@ label.cabinet input.file {
 .common-form .input_not_edit {
     line-height: 48px;
     background: #f2f2f2;
+    overflow: hidden;
 }
 
 .common-form .form-control::placeholder {
@@ -1189,7 +1190,7 @@ label.cabinet input.file {
 
 .common-form .inner-field-row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 24px;
     margin-top: 15px;
     flex-wrap: wrap;
@@ -1349,7 +1350,8 @@ label.cabinet input.file {
         width: 100%;
     }
     .common-form .inner-field-row {
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
     .common-modal .common-modal-dialog {
         width: calc(100% - 20px);
