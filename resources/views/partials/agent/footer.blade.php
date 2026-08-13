@@ -237,6 +237,15 @@
         $(document).on('click', '.alert_notify_html .dropdown-item', function (e) {
             e.stopPropagation(); 
         });
+
+             function showAlert(title, message, type) {
+            Swal.fire({
+                title: title,
+                text: message,
+                icon: type
+            });
+
+        }
         </script>  
 
            
