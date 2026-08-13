@@ -223,11 +223,16 @@
                                         <select class="form-control loc-sec" id="location_state" name="state_id" required
                                             data-parsley-required-message="Select Location" data-parsley-errors-container="#location-errors">
                                             <option value="">Select your Home State (if not already identified)</option>
-                                            @foreach ($state as $name)
-                                                <option value="{{ $name->id }}"
-                                                    {{ isset(request()->ipinfo->country_name) && request()->ipinfo->country_name != null && request()->ipinfo->region == $name->name ? request()->ipinfo->region : '' }}>
-                                                    {{ $name->name }}</option>
+                                            
+                                             @foreach (config('escorts.profile.states') as $key => $state)
+                                                <option style="font-weight: 500;" value="{{ $key }}"
+                                                    {{ isset(request()->ipinfo->country_name) && request()->ipinfo->country_name != null && request()->ipinfo->region == $state['stateName'] ? request()->ipinfo->region : '' }}>
+                                                    {{ $state['stateName'] }} </option>
                                             @endforeach
+                                            
+                                            
+                                            
+                                           
                                         </select>
                                 </div>
                                     <div id="location-errors"></div>

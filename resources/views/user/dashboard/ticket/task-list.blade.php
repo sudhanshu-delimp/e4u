@@ -391,7 +391,7 @@
                 },
                 error: function(xhr) {
                     // alert('Something went wrong. Please try again.');
-                    showAlert("Task Error", 'Something went wrong. Please try again.', "error");
+                    showAlert("Task", 'Something went wrong. Please try again.', "error");
                 }
             });
         }
@@ -417,12 +417,12 @@
                 },
                 error: function(xhr) {
                     // alert('Something went wrong. Please try again.');
-                    showAlert("Task Error", 'Something went wrong. Please try again.', "error");
+                    showAlert("Task", 'Something went wrong. Please try again.', "error");
                 }
             });
         }
 
-        function completeTask(taskId) {
+      async  function completeTask(taskId) {
             let formData = {
                 'change_task_id': taskId
             };
@@ -434,15 +434,13 @@
             // $("#cancel_button").text('Cancel');
 
             let actionStatusUrl = "{{ route('viewer.dashboard.ajax-change-status') }}";
-                showAlert('Task', "Are you sure you want to mark selected tasks as completed?", 'warning', true).then((
-                result) => {
-                if (result.isConfirmed) {
-                    // Perform action to delete avatar
-                    callAjax(formData, actionStatusUrl);
-                }
-            });
-            // $('#task_form').attr('action', actionStatusUrl);
-            // $("#change_task_id").val(taskId);
+                
+               if (await isConfirm({
+                    'action': 'Complete',
+                    'text': 'you want to mark selected tasks as completed?.'
+                })) {
+               callAjax(formData, actionStatusUrl);
+            }
         }
 
         function viewTask(taskId) {
@@ -518,7 +516,7 @@
                         loadTasks(1);
                         $('#taskModal').modal('hide');
                         // $("#success_msg").text('Task Added successfully.');
-                        showAlert("Task Added", 'Task has been added successfully', "success");
+                        showAlert("Task", 'Task has been added successfully', "success");
                         // $('#successModal').modal('show');
                         return true;
                     }
@@ -530,7 +528,7 @@
                         callAjax(openData, openUrl);
                         $('#taskModal').modal('hide');
                         // $("#success_msg").text('Task Updated successfully.');
-                        showAlert("Task Updated", 'Task has been updated successfully', "success");
+                        showAlert("Task", 'Task has been updated successfully', "success");
                         // $('#successModal').modal('show');
                         return true;
                     }
@@ -542,14 +540,14 @@
                         callAjax(openData, openUrl);
                         $('#taskModal').modal('hide');
                         // $("#success_msg").text('Task has been marked as completed');
-                        showAlert("Task Completed", 'Task has been marked as completed', "success");
+                        showAlert("Task", 'Task has been marked as completed', "success");
                         // $('#successModal').modal('show');
                         return true;
                     }
                 },
                 error: function(xhr) {
                     // alert('Something went wrong. Please try again.');
-                    showAlert("Task Error", 'Something went wrong. Please try again.', "error");
+                    showAlert("Task", 'Something went wrong. Please try again.', "error");
                 }
             });
         }

@@ -281,18 +281,6 @@
 
         });
 
-        function showGlobalAlert(message, type = 'success') {
-            const alertBox = $('#globalAlert');
-            alertBox
-                .removeClass('d-none alert-success alert-danger')
-                .addClass(type === 'success' ? 'alert-success' : 'alert-danger')
-                .html(message);
-
-            setTimeout(() => {
-                alertBox.addClass('d-none');
-            }, 4000); // hide after 4 seconds
-        }
-
         $('#userProfile').on('submit', function(e) {
             e.preventDefault();
             var form = $(this);
@@ -316,7 +304,7 @@
                             $('input[type=password]').each(function() {
                                 $(this).val('');
                             });
-                            showGlobalAlert(data.message, "success");
+                            showAlert('success', '', data.message);
                             //swal_success_popup(data.message);
                             // Reload page after 3 seconds to reflect changes
                             setTimeout(function() {
@@ -324,8 +312,7 @@
                             }, 3000);
                         } else {
                             // Show error using the message from server
-                            showGlobalAlert(data.message, "error");
-
+                            showAlert('error', '', data.message);
                         }
                     },
                     error: function(xhr) {
@@ -346,7 +333,7 @@
                         }
 
                         swal_error_popup(errorMsg);
-                        showGlobalAlert(errorMsg, "error");
+                        showAlert('error', '', errorMsg);
                     }
                 });
             }
@@ -375,13 +362,13 @@
                             $('input[type=password]').each(function() {
                                 $(this).val('');
                             });
-                            showGlobalAlert(data.message, "success");
+                             showAlert('success', '',data.message);
                             // swal_success_popup(data.message);
                             setTimeout(function() {
                                 location.reload();
                             }, 3000);
                         } else {
-                            swal_error_popup(data.message);
+                            showAlert('error', '', data.message);
                         }
                     },
                     error: function(data) {
@@ -390,7 +377,7 @@
                             errorsHtml += '<li>' + value + '</li>';
                         });
                         errorsHtml += '</ul>';
-                        showGlobalAlert(errorsHtml, "danger");
+                        showAlert('error', '', errorsHtml);
                     }
                 });
             }

@@ -588,15 +588,14 @@
     </div>
 @endsection
 @push('script')
-    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-    <script type="text/javascript">
-        $('#userProfile').parsley({
-
-        });
-
-       function toggleAvatarInfo(button) {
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script type="text/javascript">
+   $('#userProfile').parsley({
+   
+   });
+      function toggleAvatarInfo(button) {
          const currentBox = button.closest('.additional-info');
 
          if (!currentBox) return;
@@ -611,184 +610,173 @@
          // Current section ko toggle karo
          currentBox.classList.toggle('open');
       }
-
-        function showAlert(message, type = 'success') {
-            const alertBox = $('#commanAlert');
-            alertBox
-                .removeClass('d-none alert-success alert-danger')
-                .addClass(type === 'success' ? 'alert-success' : 'alert-danger')
-                .html(message);
-
-            setTimeout(() => {
-                alertBox.addClass('d-none');
-            }, 10000);
-        }
-
-        $('#userProfile').on('submit', function(e) {
-            e.preventDefault();
-            var form = $(this);
-            $("#modal-title").text('About Me');
-
-            if (form.parsley().isValid()) {
-                var url = form.attr('action');
-                var data = new FormData(form[0]);
-
-                $.ajax({
-                    method: form.attr('method'),
-                    url: url,
-                    data: data,
-                    contentType: false,
-                    processData: false,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        if (!data.error) {
-                            showAlert("Your details have been updated successfully.", "success");
-                        } else {
-                            showAlert("Oops... something went wrong. Please try again.", "danger");
-                        }
-                    }
-                });
-            }
-        });
-
-        $('#profile_tour_options').on('submit', function(e) {
-            e.preventDefault();
-            var form = $(this);
-            var url = form.attr('action');
-            var data = new FormData(form[0]);
-            $("#modal-title").text('Profile and Tour options');
-
-            $.ajax({
-                method: form.attr('method'),
-                url: url,
-                data: data,
-                contentType: false,
-                processData: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(data) {
-                    if (!data.error) {
-                        showAlert("The profile and tour options have been updated successfully.",
-                            "success");
-                    } else {
-                        showAlert("Oops... something went wrong. Please try again.", "danger");
-                    }
-                }
-            });
-        });
-
-        $("#close").click(function() {
-            $("#my_account_modal").hide();
-            location.reload();
-        });
-        $('#city').select2({
-            allowClear: true,
-            placeholder: 'Select City',
-            createTag: function(params) {
-                var term = $.trim(params.term);
-
-                if (term === '') {
-                    return null;
-                }
-                return {
-                    id: term,
-                    text: term,
-                    newTag: false // add additional parameters
-                }
-            },
-            tags: false,
-            minimumInputLength: 2,
-            tokenSeparators: [','],
-            ajax: {
-                url: "{{ route('city.list') }}",
-                dataType: "json",
-                type: "GET",
-                data: function(params) {
-                    console.log(params);
-                    var queryParameters = {
-                        query: params.term,
-                        state_id: $('#state').val()
-                    }
-                    return queryParameters;
-                },
-                processResults: function(data) {
-                    return {
-                        results: $.map(data, function(item) {
-
-                            return {
-                                text: item.name,
-                                id: item.id
-                            }
-                        })
-                    };
-                }
-            }
-        });
-
-        $('#state').select2({
-            allowClear: true,
-            placeholder: 'Select State',
-            createTag: function(params) {
-                var term = $.trim(params.term);
-
-                if (term === '') {
-                    return null;
-                }
-                return {
-                    id: term,
-                    text: term,
-                    newTag: false // add additional parameters
-                }
-            },
-            tags: false,
-            minimumInputLength: 2,
-            tokenSeparators: [','],
-            ajax: {
-                url: "{{ route('state.list') }}",
-                dataType: "json",
-                type: "GET",
-                data: function(params) {
-                    console.log(params);
-                    var queryParameters = {
-                        query: params.term,
-                        country_id: $('#country').val()
-                    }
-                    return queryParameters;
-                },
-                processResults: function(data) {
-                    return {
-                        results: $.map(data, function(item) {
-
-                            return {
-                                text: item.name,
-                                id: item.id
-                            }
-                        })
-                    };
-                }
-            }
-        });
-
-
-        $('#country').on('change', function(e) {
-            if ($(this).val()) {
-                $('#state').prop('disabled', false);
-                $('#state').select2('open');
-            } else {
-                $('#state').prop('disabled', true);
-            }
-        });
-
-        $('#state').on('change', function(e) {
-            if ($(this).val()) {
-                $('#city').prop('disabled', false);
-                $('#city').select2('open');
-            } else {
-                $('#city').prop('disabled', true);
-            }
-        });
-    </script>
+       $('#userProfile').on('submit', function(e) {
+           e.preventDefault();
+           var form = $(this);
+           $("#modal-title").text('About Me');
+   
+           if (form.parsley().isValid()) {
+               var url = form.attr('action');
+               var data = new FormData(form[0]);
+   
+               $.ajax({
+               method: form.attr('method'),
+               url: url,
+               data: data,
+               contentType: false,
+               processData: false,
+               headers: {
+                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               },
+               success: function(data) {
+                   if (!data.error) {
+                     showAlert('success', 'Success',"Your details have been updated successfully.");
+                   } else {
+                     showAlert('error', 'Error', "Oops... something went wrong. Please try again.");
+                   }
+               }
+               });
+           }
+       });
+   
+       $('#profile_tour_options').on('submit', function(e) {
+           e.preventDefault();
+           var form = $(this);
+           var url = form.attr('action');
+           var data = new FormData(form[0]);
+           $("#modal-title").text('Profile and Tour options');
+   
+           $.ajax({
+               method: form.attr('method'),
+               url: url,
+               data: data,
+               contentType: false,
+               processData: false,
+               headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               },
+               success: function(data) {
+               if (!data.error) {
+                   showAlert('success', 'Success', "The profile and tour options have been updated successfully.");
+               } else {
+                   showAlert('error', 'Error', "Oops... something went wrong. Please try again.");
+               }
+               }
+           });
+       });
+   
+   $("#close").click(function()
+     {
+         $("#my_account_modal").hide();
+         location.reload();
+     });
+   $('#city').select2({
+     allowClear: true,
+     placeholder :'Select City',
+     createTag: function(params) {
+       var term = $.trim(params.term);
+   
+       if (term === '') {
+         return null;
+       }
+       return {
+         id: term,
+         text: term,
+                 newTag: false // add additional parameters
+               }
+             },
+             tags: false,
+             minimumInputLength: 2,
+             tokenSeparators: [','],
+             ajax: {
+               url: "{{ route('city.list') }}",
+               dataType: "json",
+               type: "GET",
+               data: function(params) {
+                 console.log(params);
+                 var queryParameters = {
+                   query: params.term,
+                   state_id: $('#state').val()
+                 }
+                 return queryParameters;
+               },
+               processResults: function(data) {
+                 return {
+                   results: $.map(data, function(item) {
+   
+                     return {
+                       text: item.name,
+                       id: item.id
+                     }
+                   })
+                 };
+               }
+             }
+           });
+   
+   $('#state').select2({
+     allowClear: true,
+     placeholder :'Select State',
+     createTag: function(params) {
+       var term = $.trim(params.term);
+   
+       if (term === '') {
+         return null;
+       }
+       return {
+         id: term,
+         text: term,
+                 newTag: false // add additional parameters
+               }
+             },
+             tags: false,
+             minimumInputLength: 2,
+             tokenSeparators: [','],
+             ajax: {
+               url: "{{ route('state.list') }}",
+               dataType: "json",
+               type: "GET",
+               data: function(params) {
+                 console.log(params);
+                 var queryParameters = {
+                   query: params.term,
+                   country_id: $('#country').val()
+                 }
+                 return queryParameters;
+               },
+               processResults: function(data) {
+                 return {
+                   results: $.map(data, function(item) {
+   
+                     return {
+                       text: item.name,
+                       id: item.id
+                     }
+                   })
+                 };
+               }
+             }
+           });
+   
+   
+   $('#country').on('change', function(e) {
+     if($(this).val()) {
+       $('#state').prop('disabled', false);
+       $('#state').select2('open');
+     } else {
+       $('#state').prop('disabled', true);
+     }
+   });
+   
+   $('#state').on('change', function(e) {
+     if($(this).val()) {
+       $('#city').prop('disabled', false);
+       $('#city').select2('open');
+     } else {
+       $('#city').prop('disabled', true);
+     }
+   });
+   
+   
+</script>
 @endpush
