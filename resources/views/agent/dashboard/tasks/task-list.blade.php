@@ -459,7 +459,7 @@
             });
         }
 
-        function completeTask(taskId) {
+        async function completeTask(taskId) {
 
             let selectedTask = 1;
             let completedTaskIds = [];
