@@ -934,24 +934,14 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(data) {
-                    const modalElement = document.getElementById('comman_modal');
-                    const modal = new bootstrap.Modal(modalElement);
                     if (!data.error) {
                         var msg = "Saved";
-                        $('.comman_msg').html(msg);
-                        //$("#comman_modal").modal('show');
+                        showAlert('success', 'About Us',msg);
                         
-                        modal.show();
-                        //$("#my_account_modal").show();
-
-                        //
                     } else {
                         $('.Lname').html("Oops.. sumthing wrong Please try again");
                         var msg = "Oops.. sumthing wrong Please try again";
-                        $('.comman_msg').html(msg);
-                        //$("#comman_modal").modal('show');
-                        modal.show();
-
+                        showAlert('error', 'About Us',msg);
                     }
                 },
                 error: function(xhr) {submit_button
@@ -966,9 +956,8 @@
                     $.each(errors, function(key, value) {
                         msg += value[0] + "<br>";
                     });
-
-                    $('.comman_msg').html(msg);
-                    modal.show();
+                    showAlert('error', '',msg);
+                    
                 }
         }
 
@@ -1108,20 +1097,11 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function(data) {
-                    const modalElement = document.getElementById('comman_modal');
-                const modal = new bootstrap.Modal(modalElement);
+               
                 if (!data.error) {
-                    $('.comman_msg').html("Saved");
-                    //$("#my_account_modal").modal('show');
-                    //$("#my_account_modal").show();
-                    //$("#comman_msg").modal('show');
-                    modal.show();
-
+                    showAlert('success', 'Profile Contact Options','Saved');
                 } else {
-                    $('.comman_msg').html("Oops.. sumthing wrong Please try again");
-                    //$("#comman_msg").show();
-                        modal.show();
-
+                    showAlert('error', 'Error', 'Oops.. something wrong Please try again');
                 }
             },
 

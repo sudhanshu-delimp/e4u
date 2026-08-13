@@ -460,9 +460,6 @@
                 }
             });
 
-            //  swal_waiting_popup({'title':'Updating Settings'});
-            // $('#globalAlert').show();
-
             $.ajax({
                 url: $(this).attr('action'),
                 type: "POST",
@@ -470,27 +467,10 @@
                 contentType: false,
                 processData: false,
                 success: function(response) {
-                    Swal.close();
-                    //swal_success_popup(response.message);
-                    Swal.close();
-                    $('#globalAlert').html(
-                        `<div id="commanAlert" class="alert rounded alert-success" >${response.message}</div>`
-                    );
-                    //  setTimeout(function() {
-                    //     $('#globalAlert').hide();
-                    //   }, 3000);
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                    setTimeout(function() {
-                        location.reload();
-                    }, 3000);
+                   showAlert('success', 'Success', response.message);
                 },
                 error: function(xhr) {
-                    console.log(xhr.responseJSON);
-                    swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
-                    // alert("Something went wrong!");
+                    showAlert('error', 'Error', xhr.responseJSON.message || 'Something went wrong');
                 }
             });
         });
