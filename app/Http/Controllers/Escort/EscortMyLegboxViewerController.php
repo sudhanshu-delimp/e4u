@@ -192,10 +192,10 @@ class EscortMyLegboxViewerController extends Controller
                 $viewer_comm = "";
                 $viewer_contact_type = [];
 
-                 if($row->viewer->viewer_settings->advertiser_email && $row->viewer->viewer_settings->advertiser_email=='1')
+                 if($row->viewer->viewer_settings && $row->viewer->viewer_settings->advertiser_email && $row->viewer->viewer_settings->advertiser_email=='1')
                 $viewer_contact_type[] = 'Email';
                 
-                if($row->viewer->viewer_settings->advertiser_text && $row->viewer->viewer_settings->advertiser_text=='1')
+                if($row->viewer->viewer_settings && $row->viewer->viewer_settings->advertiser_text && $row->viewer->viewer_settings->advertiser_text=='1')
                 $viewer_contact_type[] = 'Text';
 
                 # If particular escort is contact disabled then no contact info will be show to escort
