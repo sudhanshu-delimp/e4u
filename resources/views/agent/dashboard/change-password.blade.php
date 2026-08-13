@@ -310,14 +310,16 @@
                             $('input[type=password]').each(function() {
                                 $(this).val('');
                             });
-                            showGlobalAlert(data.message, "success");
+                            // showGlobalAlert(data.message, "success");
+                            showAlert('Password change', "Password changed successfully. Please log in again.", "success");
                             // Reload page after 3 seconds to reflect changes
                             setTimeout(function() {
                                 location.reload();
                             }, 3000);
                         } else {
                             // Show error using the message from server
-                            showGlobalAlert(data.message, "danger");
+                            // showGlobalAlert(data.message, "danger");
+                            showAlert('Password change failed.', data.message, "error");
                         }
                     },
                     error: function(xhr) {
@@ -336,7 +338,8 @@
                                 // Not JSON, keep the generic message
                             }
                         }
-                        showGlobalAlert(errorMsg, "danger");
+                        // showGlobalAlert(errorMsg, "danger");
+                         showAlert('Password change failed.',errorMsg, "error");
 
                         // Show validation errors (e.g., Laravel validation)
                         if (xhr.responseJSON && xhr.responseJSON.errors) {
@@ -345,7 +348,8 @@
                                 errorsHtml += '<li>' + value + '</li>';
                             });
                             errorsHtml += '</ul>';
-                            showGlobalAlert(errorsHtml, "danger");
+                            // showGlobalAlert(errorsHtml, "danger");
+                              showAlert('Password change failed.',errorsHtml, "error");
                         }
                     }
                 });
@@ -374,7 +378,8 @@
                     success: function(data) {
                         //  console.log(data.message, 'data');
                         if (data.status === true) {
-                            showGlobalAlert(data.message, "success");
+                            // showGlobalAlert(data.message, "success");
+                            showAlert('Password Expiry', data.message, "success");
                             $("#resetPasswordDate").modal('hide');
                             $('#passwordExpiryText').html(data.data.text);
                         }
@@ -391,7 +396,8 @@
                                 if (res.message) {
                                     errorMsg = res.message;
                                 }
-                                showGlobalAlert(errorMsg, "danger");
+                                // showGlobalAlert(errorMsg, "danger");
+                                showAlert('Password Expiry', errorMsg, "error");
                             } catch (e) {
                                 // Not JSON, keep the generic message
                             }
