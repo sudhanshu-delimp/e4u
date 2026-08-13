@@ -152,7 +152,7 @@
                                         <option value="" >All Cities</option>
                                         @foreach (@config('escorts.profile.cities') as $key => $city)
                                             <option value="{{ $key }}"
-                                                {{ strtolower(request()->segment(3)) == strtolower($city) ? 'selected' : '' }}>
+                                                {{ $locationCityId == $key ? 'selected' : '' }}>
                                                 {{ $city }}
                                             </option>
                                         @endforeach
@@ -163,19 +163,19 @@
                                         id="escort_gender" name="gender">
                                         <option value="" selected>All Genders</option>
                                         <option value="1"
-                                            {{ $filterGenderId == '1' || request()->segment(2) == 'Male' ? 'selected' : '' }}>
+                                            {{ $filterGenderId == '1' ? 'selected' : '' }}>
                                             Male</option>
                                         <option
-                                            value="6"{{ $filterGenderId == '6' || request()->segment(2) == 'Female' ? 'selected' : '' }}>
+                                            value="6"{{ $filterGenderId == '6' ? 'selected' : '' }}>
                                             Female</option>
                                         <option
-                                            value="2"{{ $filterGenderId == '2' || request()->segment(2) == 'Couples' ? 'selected' : '' }}>
+                                            value="2"{{ $filterGenderId == '2' ? 'selected' : '' }}>
                                             Couples</option>
                                         <option
-                                            value="3"{{ $filterGenderId == '3' || request()->segment(2) == 'Transgender' ? 'selected' : '' }}>
+                                            value="3"{{ $filterGenderId == '3' ? 'selected' : '' }}>
                                             Transgender</option>
                                         <option
-                                            value="4"{{ $filterGenderId == '4' || request()->segment(2) == 'Cross Dresser' ? 'selected' : '' }}>
+                                            value="4"{{ $filterGenderId == '4' ? 'selected' : '' }}>
                                             Cross Dresser</option>
                                     </select>
                                 </div>
