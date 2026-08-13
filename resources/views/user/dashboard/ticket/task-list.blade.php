@@ -434,15 +434,13 @@
             // $("#cancel_button").text('Cancel');
 
             let actionStatusUrl = "{{ route('viewer.dashboard.ajax-change-status') }}";
-                showAlert('Task', "Are you sure you want to mark selected tasks as completed?", 'warning', true).then((
-                result) => {
-                if (result.isConfirmed) {
-                    // Perform action to delete avatar
-                    callAjax(formData, actionStatusUrl);
-                }
-            });
-            // $('#task_form').attr('action', actionStatusUrl);
-            // $("#change_task_id").val(taskId);
+                
+               if (await isConfirm({
+                    'action': 'Complete',
+                    'text': 'you want to mark selected tasks as completed?.'
+                })) {
+               callAjax(formData, actionStatusUrl);
+            }
         }
 
         function viewTask(taskId) {
