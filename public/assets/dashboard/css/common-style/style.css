@@ -1170,6 +1170,7 @@ label.cabinet input.file {
     line-height: 48px;
     background: #f2f2f2;
     overflow: hidden;
+    margin-bottom: 0px;
 }
 
 .common-form .form-control::placeholder {
