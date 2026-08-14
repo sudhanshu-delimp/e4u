@@ -422,7 +422,7 @@
             });
         }
 
-        function completeTask(taskId) {
+      async  function completeTask(taskId) {
             let formData = {
                 'change_task_id': taskId
             };
