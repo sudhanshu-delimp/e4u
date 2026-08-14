@@ -302,6 +302,7 @@
                     'submit_ticket',
                     'order-history',
                     'concierge',
+                    'legbox-notification',
                 ]) ||
                     in_array(request()->segment(1), ['submit_ticket']) ||
                     in_array(request()->segment(3), ['uploads', 'guidelines', 'listings','products'])) show @endif"
@@ -350,11 +351,13 @@
                         <span>Bookkeeping</span>
                     </a>
 
+                    
+
                     <div id="ManagementBookkeeping"
                         class="collapse
                     @if (in_array(request()->segment(2), ['bank_account', 'my-wallet', 'transaction-summary','order-history'])) show @endif"
                         data-parent="#Management">
-<a class="collapse-item {{ request()->segment(2) == 'bank_account' ? 'menu-active' : '' }}"
+                        <a class="collapse-item {{ request()->segment(2) == 'bank_account' ? 'menu-active' : '' }}"
                             href="{{ route('escort.bank_account') }}">
                             <img src="{{ asset('assets/app/img/sales-performance.png') }}">
                             <span>Bank Account</span>
@@ -382,7 +385,7 @@
                         <img src="{{ asset('assets/dashboard/img/menu-icon/ccone.png') }}" />
                         <span>Communication</span>
                     </a>
-
+                    
                     <div id="ManagementCommunication"
                         class="collapse 
                          @if (in_array(request()->segment(2), [
@@ -394,6 +397,7 @@
                                  'viewer-notes',
                                  'viewer-messaging',
                                  'view-reviews',
+                                 'legbox-notification',
                              ])) show @endif"
                         data-parent="#Management">
 
@@ -427,6 +431,12 @@
                                 href="{{ url('escort-dashboard/send-notifications') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
                                 <span>Notifications</span>
+                            </a>
+
+                            <a class="collapse-item {{ request()->segment(2) == 'legbox-notification' ? 'menu-active' : '' }}"
+                                href="{{ route('escort.legbox.notification.index') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
+                                <span>Legbox Notification</span>
                             </a>
 
 

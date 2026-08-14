@@ -93,7 +93,7 @@ Route::middleware('auth')->group(function () {
     ################ All Authencated User Url #################################
     Route::prefix('user-dashboard')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('user.dashboard');
-        // Route::get('/edit-profile', [UserController::class, 'edit'])->name('user.edit');
+        Route::get('/edit-profile', [UserController::class, 'edit'])->name('user.edit');
         Route::get('/update-account', [UserController::class, 'edit'])->name('user.account.edit');
         Route::post('/update-account', [UserController::class, 'update'])->name('user.account.update');
         Route::get('/upload-my-avatar', [UserController::class, 'uploadAvatar'])->name('user.profile.avatar');
