@@ -15,7 +15,7 @@
       
       <div class="col-md-12">
          <div class="v-main-heading h3" style="display: inline-block;"><h1> Listings</h1></div>
-            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+<span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>                     </span>
      </div>
      <div class="col-md-12 ">
          <div class="card collapse  mb-4" id="notes">
