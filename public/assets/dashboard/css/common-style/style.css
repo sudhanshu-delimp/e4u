@@ -456,6 +456,41 @@ label.cabinet input.file {
     box-shadow: 0px 0px 6px -2px #ccc;
 }
 
+.card#notes {
+    border: 1px solid #ffd8e1;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #fffafd, #fff);
+    margin-bottom: 30px;
+    box-shadow: 0px 0px 6px -2px #ccc;
+}
+
+.card#notes .card-body {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+}
+
+.card#notes .card-body ol {
+    margin-bottom: 0px;
+}
+
+.helpNoteLink {
+    border: 1px solid #ffd0dc;
+    background: #fff3f6;
+    color: #ff3c5f;
+    padding: 5px 15px;
+    border-radius: 10px;
+    font-size: 12px !important;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.helpNoteLink:hover {
+    background: #ff3c5f;
+    color: #fff3f6;
+}
+
 .file-types-icon {
     width: 45px;
     height: 45px;

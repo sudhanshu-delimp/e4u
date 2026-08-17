@@ -9703,7 +9703,8 @@ ul {
 }
 
 .NotesHeader {
-    font-size: 1.2rem;
+    font-size: 18px;
+    color: #0c223d;
 }
 
 .helpNoteLink {
