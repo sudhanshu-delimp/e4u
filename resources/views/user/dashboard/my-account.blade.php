@@ -99,8 +99,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="membership_num">Date Joined</label>
-                                        <label class="input_not_edit" placeholder=" "
-                                            aria-describedby="emailHelp">{{ Carbon\Carbon::parse($user->created_at)->format('d-m-Y') }}</label>
+                                        <p class="input_not_edit" placeholder=" "
+                                            aria-describedby="emailHelp">{{ Carbon\Carbon::parse($user->created_at)->format('d-m-Y') }}</p>
                                     </div>
                                     <div class="form-group">
                                         <label for="my_name" class="my-agent">My Name 
@@ -137,10 +137,10 @@
                                         <span id="state-errors"></span>
                                     </div>
                                     <div class="form-group">
-                                        <label for="email">Email 
-                                            {{-- <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"></label> --}}
+                                        <label for="email">Email</label>
+                                            {{-- <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"> --}}
 
-                                        <p type="text" class="input_not_edit" placeholder="JaneDoe@domain.com.au"
+                                        <p  class="input_not_edit" 
                                             name="email" aria-describedby="emailHelp">{{ $user->email }}</p>
                                     </div>
                                 </div>
