@@ -1,7 +1,7 @@
 @extends('layouts.webHome')
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/app/css/homepage.css?v1.06') }}">
+    <link rel="stylesheet" href="{{ asset('assets/app/css/homepage.css?v1.07') }}">
     <style>
         #parsley-id-5 li {
             margin-left: 0 !important;
