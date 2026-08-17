@@ -47,6 +47,7 @@
                      <option value="{{ route('admin.admin-suspensions-list-ajax','escort') }}">Escort</option>
                      <option value="{{ route('admin.admin-suspensions-list-ajax','massage') }}">Massage Center</option>
                   </select>
+                  <button class="btn-switch">Switch to Advertiser</button>
                </div>
                <div class="total_listing">
                   <div><span>Total : </span></div>

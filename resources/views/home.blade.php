@@ -219,6 +219,7 @@
 
                     <div class="wel_price_badge">
                         {{ isset($pricing[0]['price']) ? '$' . $pricing[0]['price'] : 'NA' }} / Day
+                        <span class="ptooltip"> Gold: {{$pricing[1]['price']}} / Day <br> Silver: {{$pricing[2]['price']}} / Day</span>
                     </div>
 
                 </div>

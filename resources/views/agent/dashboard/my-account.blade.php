@@ -232,8 +232,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="mobile">Territory</label>
-                                        <label class="input_not_edit"
-                                            aria-describedby="emailHelp">{{ $user->state->name }}</label>
+                                        <p class="input_not_edit"
+                                            aria-describedby="emailHelp">{{ $user->state->name }}</p>
                                     </div>
                                     
                                 </div>
@@ -295,14 +295,14 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="membership_num">Massage Centres (Signed Up)</label>
-                                        <label class="input_not_edit" placeholder=" " aria-describedby="emailHelp">
+                                        <p class="input_not_edit" placeholder=" " aria-describedby="emailHelp">
                                             @if ($user->agent_detail->commission_registration_type == 'percent')
                                                 {{ $user->agent_detail ? $user->agent_detail->commission_registration_amount . '%' : '' }}
                                             @else
                                                 {{ $user->agent_detail ? "$" . $user->agent_detail->commission_registration_amount : '' }}
                                             @endif
 
-                                        </label>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
