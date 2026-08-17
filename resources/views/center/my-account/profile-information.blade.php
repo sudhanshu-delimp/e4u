@@ -51,7 +51,7 @@
                 <div class="col-md-12 mb-4">
                     <div class="card collapse" id="notes" style="">
                         <div class="card-body">
-                            <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                           <h3 class="NotesHeader"><b>Notes:</b></h3>
                             <p>Please complete as much as you can about yourself. When creating a Massage Profile, your Profile Information will:</p>
                             <ol>
                                 <li>Pre-populate the forms.</li>

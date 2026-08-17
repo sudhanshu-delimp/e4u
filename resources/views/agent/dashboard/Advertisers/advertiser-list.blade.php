@@ -52,7 +52,7 @@
                         <div class="col-md-12 mb-4">
                             <div class="card collapse" id="notes">
                                 <div class="card-body">
-                                    <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                                   <h3 class="NotesHeader"><b>Notes:</b></h3>
                                     <ol>
                                         <li>
                                             You can access all of your Advertisers here. The report 'Earnings' column is

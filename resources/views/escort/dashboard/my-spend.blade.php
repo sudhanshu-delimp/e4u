@@ -25,7 +25,7 @@
         <div class="d-sm-flex align-items-center justify-content-between">
             <div class="custom-heading-wrapper">
                 <h1 class="h1">My Spend</h1>
-                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>                     </span>
             </div>
             <div class="back-to-dashboard">
                 <a href="{{ url()->previous() ?? route('dashboard.home') }}">
@@ -38,7 +38,7 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                       <h3 class="NotesHeader"><b>Notes:</b></h3>
                         
                         <ol>
                             <li>This page is a summary of all the Fees you have spent on the Services.</li>

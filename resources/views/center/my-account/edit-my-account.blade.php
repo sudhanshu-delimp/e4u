@@ -49,7 +49,7 @@
                     <div class="col-md-12 mb-4">
                         <div class="card collapse" id="notes" style="">
                             <div class="card-body">
-                                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                               <h3 class="NotesHeader"><b>Notes:</b></h3>
                                 <ol>
                                     <li>Your Advertiser Profile Information will pre-populate any Massage Profile you
                                         create,
@@ -518,7 +518,7 @@
 
                                     <div class="card collapse p-0" id="in_notes" style="">
                                         <div class="card-body border-0 mt-0">
-                                            <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                                           <h3 class="NotesHeader"><b>Notes:</b></h3>
                                             <ol>
                                                 <li>Add your associated Centres in your corporate group (<b>Associated
                                                         Centre</b>) here. The Centre listed under Our Account is the

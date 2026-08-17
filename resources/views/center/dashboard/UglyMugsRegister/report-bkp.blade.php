@@ -22,7 +22,7 @@
             <div class="col-md-12 mb-4">
                <div class="card">
                   <div class="card-body">
-                     <p><b>Notes:</b> </p>
+                     <h3 class="NotesHeader"><b>Notes:</b></h3>
                      <p class="mb-1">The National Ugly Mug register (NUM) is a closed publication for Escorts only. Each entry contains personal reports, provided by Escorts, of incidents involving problem clients. The NUM makes these reports available to help other Escorts avoid problem clients, and as an extension of the "word of mouth" warnings given by Escorts between each other.</p>
                      <p>Escorts4U makes no claims:</p>
                      <ul style="padding-left: 1.8rem;">

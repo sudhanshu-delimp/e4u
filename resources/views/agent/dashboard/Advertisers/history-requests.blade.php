@@ -11,7 +11,7 @@
       <div class="col-md-12 mb-4">
          <div class="card collapse" id="notes" style="">
             <div class="card-body">
-               <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+              <h3 class="NotesHeader"><b>Notes:</b></h3>
                <ol>
                   <li>You can view all the Advertiser requests to you for services (<b>Request</b>) here.</li>
                   <li>You can view the full details of the Request by clicking the 'View' icon. The Request will

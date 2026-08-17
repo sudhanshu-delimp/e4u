@@ -253,7 +253,7 @@
                                                                     Account, including any account password.</p>
                                                             </li>
                                                         </ul>
-                                                        <p></p>
+                                                        
                                                     </li>
                                                 </ul>
                                             </li>
@@ -300,7 +300,7 @@
                                                                     information</p>
                                                             </li>
                                                         </ul>
-                                                        <p></p>
+                                                        
                                                         <p class="padding_left_five_px">In addition, you may not use the
                                                             Escorts4U mail server or another website mail server to
                                                             relay mail without the express written permission of the

@@ -53,7 +53,7 @@
         <div class="col-md-12 mb-4">
             <div class="card collapse" id="notes">
                 <div class="card-body">
-                    <p class="mb-0" style="font-size: 20px;"><b>Notes:</b></p>
+                    <h3 class="NotesHeader"><b>Notes:</b></h3>
                     <ol>
                         <li>The National Ugly Mugs register (<b>NUM</b>) is a free service to all Escorts. You can use the NUM service at any time. Your details, when you undertake a search, are kept confidential.</li>
                         <li>You can only search for an offender by their mobile number. Search your next booking by their mobile number itself, e.g. 0400 123 456. Do not include any prefixes, e.g. +61 or spaces</li>

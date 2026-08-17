@@ -67,8 +67,8 @@
             <div class="d-sm-flex align-items-center justify-content-between col-md-12">
                 <div class="custom-heading-wrapper">
                     <h1 class="h1">Our Legbox Viewers</h1>
-                    <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>
-                    </h6>
+                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>
+                    </span>
                 </div>
                  @if (request('from') == 'dashboard')
                 <div class="back-to-dashboard">
@@ -81,7 +81,7 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                       <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
                             <li>Registered Viewers who have flagged you in their Legbox are listed here. You can
                                 also see your Viewers <a href="{{ route('centrer.legbox.notification.index') }}"

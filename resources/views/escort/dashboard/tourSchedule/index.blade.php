@@ -45,7 +45,7 @@
         <div class="col-md-12 mb-4">
             <div class="card collapse" id="notes" style="">
                 <div class="card-body">
-                    <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                   <h3 class="NotesHeader"><b>Notes:</b></h3>
 
                     <ol>
                         <li>All of your Tours are listed here for a twelve month period. To view at Tour that is older than 12 months, <a href="{{url('escort-dashboard/list-tour/past')}}" class="custom_links_design">click here</a>.</li>

@@ -1469,7 +1469,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                         </a>
                         <div class="content">                        
                             <div class="accodien_manage_padding_content">
-                                <p></p>
+                                
                                 <table class="table text-center table-bordered">
                                     <thead class="table-bg">
                                         <tr>

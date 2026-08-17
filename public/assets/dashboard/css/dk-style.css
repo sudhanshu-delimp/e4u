@@ -12472,6 +12472,10 @@ button:disabled {
     border: 2px solid var(--blue--text);
 }
 
+.doc-img.active {
+    background-color: #0c223d;
+}
+
 .how-it-done p i {
     color: #000000;
 }
@@ -13538,15 +13542,6 @@ button:disabled {
     text-align: justify;
     margin-bottom: 0.8rem !important;
     font-size: 18px !important;
-}
-
-.doc-img {
-    box-shadow: 0 .125rem .25rem 0 rgba(58, 59, 69, .2) !important;
-    padding: 15px;
-    margin: 0 auto;
-    text-align: center;
-    border: 2px solid var(--blue--text);
-    background-color: #0c223d;
 }
 
 .how-it-done p i {

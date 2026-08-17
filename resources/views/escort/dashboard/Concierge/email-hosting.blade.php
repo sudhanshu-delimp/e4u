@@ -25,8 +25,8 @@
                 <div class="col-md-12 mb-4">
                     <div class="card collapse" id="notes" style="">
                         <div class="card-body">
-                            <p class="mb-1" style="font-size: 20px;"><b>Notes:</b> </p>
-                            <ol class=" pl-5">
+                            <h3 class="NotesHeader"><b>Notes:</b></h3>
+                            <ol>
                                 <li>This form will be pre-populated with your details according to what you have entered
                                     in <a href="{{ route('escort.account.edit') }}" class="custom_links_design">My
                                         Account</a>. You can alter any of the information.</li>

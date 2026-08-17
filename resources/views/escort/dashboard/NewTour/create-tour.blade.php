@@ -20,8 +20,7 @@
         </div>
     <div class="row">        
         <div class="col-md-12 mb-4 custom--tourdash" id="profile_and_tour_options">
-            <div class="collapse" id="notes">
-                <div class="card">
+            <div class="card collapse" id="notes">
                     <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
                     <ol>
@@ -30,13 +29,12 @@
                         <li>If you want your Profile to appear one day before you arrive at the Location, make sure you have that <a href="/escort-dashboard/update-account" class="custom_links_design">feature</a> enabled.</li>
                         <li>If you change your schedule and will be staying longer or leaving sooner than the scheduled dates in your Tour, remember to <a href="/escort-dashboard/edit-tour" class="custom_links_design">update</a> your Tour to reflect the new dates.</li>
                     </ol>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="row tour-dashrow">
-        <div class="col-md-9">
+        <div class="col-lg-12">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <form id="locationForm">

@@ -15,7 +15,7 @@
             <div class="card collapse" id="notes" style="">
                 <div class="card-body">
                     <p class="notes"><b>Notes:</b> </p>
-                    <p></p>
+                    
                     <ol>
                            <li>This report is a summary of the Monthly Operator’s Fee.</li>
                            <li>Agent summary can be viewed from here.</li> 

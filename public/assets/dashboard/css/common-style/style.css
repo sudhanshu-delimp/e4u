@@ -464,7 +464,21 @@ label.cabinet input.file {
     box-shadow: 0px 0px 6px -2px #ccc;
 }
 
+#notes .card {
+    border: 1px solid #ffd8e1;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #fffafd, #fff);
+    margin-bottom: 30px;
+    box-shadow: 0px 0px 6px -2px #ccc;
+}
+
 .card#notes .card-body {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+}
+
+#notes .card .card-body {
     display: flex;
     align-items: baseline;
     gap: 20px;

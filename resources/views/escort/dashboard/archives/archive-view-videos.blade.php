@@ -17,8 +17,7 @@
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
         </div>
         <div class="col-md-12 mb-4">
-            <div class="collapse" id="notes">
-                <div class="card">
+            <div class="card collapse" id="notes">
                     <div class="card-body">
                         <h2 class="NotesHeader"><b>Notes:</b> </h2>
                         <ol>
@@ -28,7 +27,6 @@
                             <li>Whilst you can upload up to six videos, please remember you can only display up to three in any Profile.</li>
                         </ol>
                     </div>
-                </div>
             </div>
         </div>
         <div class="col-md-12 mb-3">    

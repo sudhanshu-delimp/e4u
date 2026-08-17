@@ -18,7 +18,7 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                       <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
                             <li>Use these Guidelines to help you understand your obligations under the E4U Terms
                                 & Conditions - Influencer (<b>Agreement</b>).</li>

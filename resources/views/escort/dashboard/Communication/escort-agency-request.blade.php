@@ -23,7 +23,7 @@
         <div class="col-md-12 mb-4">
             <div class="card collapse" id="notes" style="">
             <div class="card-body">
-                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+               <h3 class="NotesHeader"><b>Notes:</b></h3>
                 <ol>
                     <li>This form will be pre-populated with your details according to what you have selected in your <a href="notifications-features" class="custom_links_design">Notifications & Features</a> settings.
                 Use this form to request an Agent for assistance.</li>
