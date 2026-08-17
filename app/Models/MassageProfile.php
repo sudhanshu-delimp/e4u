@@ -555,6 +555,8 @@ class MassageProfile extends Model
     {
         $now = now('UTC');
         return $this->hasOne(MassageSuspendProfile::class, 'massage_profile_id', 'id')
+            ->where('is_cancelled','1')
+            ->where('is_archived','0')
             ->where(function ($query) use ($now) {
                 $query->where(function ($q) use ($now) {
                     $q->where('utc_start_date', '<=', $now)

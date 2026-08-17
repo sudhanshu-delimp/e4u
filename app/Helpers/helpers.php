@@ -21,6 +21,7 @@ use App\Models\MassagePurchase;
 use App\Models\MassageRate;
 use App\Models\MassageService;
 use App\Models\MassageStatistics;
+use App\Models\MassageSuspendProfile;
 use App\Models\Masseur;
 use App\Models\MasseurMedia;
 use App\Models\Notification;
@@ -1971,6 +1972,15 @@ if (!function_exists('getRefundAmountForCancelProfile')) {
             return 0;
         }
 
+        $previousSuspends = MassageSuspendProfile::where(
+            'massage_profile_id',
+            $purchase->massage_profile_id
+        )
+        ->where('is_archived', '0')
+        ->get(['start_date', 'end_date']);
+        
+
+
         $refundAmount = 0;
         $startDayNumber = $purchaseStart->diffInDays($refundStart) + 1;
 
@@ -1979,7 +1989,28 @@ if (!function_exists('getRefundAmountForCancelProfile')) {
 
         for ($i = 0; $i < $refundDays; $i++) {
 
+            $currentDate = $refundStart->copy()->addDays($i);
             $currentDay = $startDayNumber + $i;
+
+            ######## Check whether this date was already refunded/suspended. 
+            $alreadyRefunded = MassageSuspendProfile::where(
+                'massage_profile_id',
+                $purchase->massage_profile_id
+            )
+            ->where('is_archived', '0')
+            ->whereDate('start_date', '<=', $currentDate)
+            ->whereDate('end_date', '>=', $currentDate)
+            ->exists();
+
+            // Log::info('currentDate => ' . $currentDate->format('Y-m-d'));
+            // Log::info('alreadyRefunded => ' . ($alreadyRefunded ? '1' : '0'));
+
+           
+            if ($alreadyRefunded) {
+                continue;
+            }
+            ######## End Check whether this date was already refunded/suspended. 
+
 
             if ($currentDay <= $discountDay) {
                 $refundAmount += $normalRate;
