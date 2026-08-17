@@ -41,7 +41,7 @@
                 <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:18px;">
                     <tr>
                         <td style="border:1px solid #ccc;padding:8px;width:25%;font-weight:bold;">Ref</td>
-                        <td style="border:1px solid #ccc;padding:8px;">{{sprintf('#%05d', $pdfDetail['ref'])}}</td>
+                        <td style="border:1px solid #ccc;padding:8px;">{{$pdfDetail['ref']}}</td>
                     </tr>
                     <tr>
                         <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">Heading</td>

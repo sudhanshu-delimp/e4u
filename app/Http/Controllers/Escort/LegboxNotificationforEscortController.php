@@ -141,7 +141,7 @@ class LegboxNotificationforEscortController extends Controller
             $n = LegboxNotificationForEscrt::findOrFail($id);
             return success_response([
                 'id' => $n->id,
-                'ref' => sprintf('#%05d', $n->id),
+                'ref' => $n->id,
                 'heading' => $n->heading,
                 'start_date' => basicDateFormat($n->start_date),
                 'end_date' => basicDateFormat($n->end_date),
