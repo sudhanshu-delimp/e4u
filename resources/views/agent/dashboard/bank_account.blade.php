@@ -435,27 +435,27 @@
 
 
 
-                "drawCallback": function(settings) {
-                    var api = this.api();
-                    var pageInfo = api.page.info();
-                    console.log(pageInfo);
+                // "drawCallback": function(settings) {
+                //     var api = this.api();
+                //     var pageInfo = api.page.info();
+                //     console.log(pageInfo);
 
 
-                    if (pageInfo.pages < 1) {
-                        $(this).closest('.dataTables_wrapper').find('.dataTables_info').hide();
-                        $(this).closest('.dataTables_wrapper').find('.paging_simple_numbers').hide();
-                        $(this).closest('.dataTables_wrapper').find('.dataTables_length').hide();
-                        $(this).closest('.dataTables_wrapper').find('.dataTables_filter').hide();
+                //     if (pageInfo.pages < 1) {
+                //         $(this).closest('.dataTables_wrapper').find('.dataTables_info').hide();
+                //         $(this).closest('.dataTables_wrapper').find('.paging_simple_numbers').hide();
+                //         $(this).closest('.dataTables_wrapper').find('.dataTables_length').hide();
+                //         $(this).closest('.dataTables_wrapper').find('.dataTables_filter').hide();
 
 
 
-                    } else {
-                        $(this).closest('.dataTables_wrapper').find('.dataTables_info').show();
-                        $(this).closest('.dataTables_wrapper').find('.paging_simple_numbers').show();
-                        $(this).closest('.dataTables_wrapper').find('.dataTables_length').show();
-                        $(this).closest('.dataTables_wrapper').find('.dataTables_filter').show();
-                    }
-                },
+                //     } else {
+                //         $(this).closest('.dataTables_wrapper').find('.dataTables_info').show();
+                //         $(this).closest('.dataTables_wrapper').find('.paging_simple_numbers').show();
+                //         $(this).closest('.dataTables_wrapper').find('.dataTables_length').show();
+                //         $(this).closest('.dataTables_wrapper').find('.dataTables_filter').show();
+                //     }
+                // },
 
                 "language": {
                     search: "_INPUT_",

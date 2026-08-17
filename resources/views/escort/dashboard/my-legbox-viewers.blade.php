@@ -123,7 +123,7 @@
                 <div class="modal-body pb-0 agent-tour">
                     <div class="row">
                         <div class="col-md-12">
-                            <h5 class="custom_modal_text modal-text-response">This Escort does not presently have any Listed Profiles.</h5>
+                            <h5 class="custom_modal_text">This Escort does not presently have any Listed Profiles.</h5>
                         </div>
                     </div>
 
@@ -298,22 +298,19 @@
                     success: function(response) {
                         console.log('response');
                         console.log(response);
-                        // $('#escortProfileModal').modal('show');
+                        $('#escortProfileModal').modal('show');
                         $('#viewerTable').DataTable().ajax.reload(null, false);
                         if(response.type == 'block'){
                             $(".modal_title_span").text('Viewer Block');
-                            // $(".modal-text-response").text(response.message);
-                            showAlert('success', 'Viewer Block', response.message);
+                            $(".custom_modal_text").text(response.message);
                         }
                         if(response.type == 'contact'){
                             $(".modal_title_span").text('Viewer Contact');
-                            // $(".modal-text-response").text(response.message);
-                            showAlert('success', 'Viewer Contact', response.message);
+                            $(".custom_modal_text").text(response.message);
                         }
                         if(response.type == 'notification'){
                             $(".modal_title_span").text('Viewer Notification');
-                            // $(".modal-text-response").text(response.message);
-                            showAlert('success', 'Viewer Notification', response.message);
+                            $(".custom_modal_text").text(response.message);
                         }
                     },
                     error: function(err) {

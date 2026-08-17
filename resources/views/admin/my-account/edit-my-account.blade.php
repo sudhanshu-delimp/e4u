@@ -448,7 +448,7 @@
                         </div>
                         <!-- End 2FA -->
                 <div class="common-footer">
-                    <input type="submit" value="Save" class="common-save-btn float-right" name="submit">
+                    <input type="submit" value="Save" class="common-save-btn" name="submit">
                 </div>
                 </div>
                 

@@ -36,6 +36,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SupportTicketsController;
 use App\Http\Controllers\User\Dashboard\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Escort\LegboxNotificationforEscortController;
 
 //remove before prod
 Route::post('/test-paymentUrl', [EscortController::class, 'pinup_test_payment'])->name('escort.payment');
@@ -532,6 +533,16 @@ Route::post('/update-password', [AgentAccountController::class, 'changePassword'
 // })->name('escort.dashboard.customise-dashboard');
 
 // Route::get('profile', [HowIsItDoneController::class, 'profile'])->name('escort.how_is_it_done.profile');
+
+
+##################  Communication (Legbox Notifications)  #######################
+Route::get('legbox-notification/list', [LegboxNotificationforEscortController::class, 'index'])->name('escort.legbox.notification.index');
+Route::post('/legbox-notification/store', [LegboxNotificationforEscortController::class, 'store'])->name('escort.legbox.notification.store');
+Route::get('/legbox-notification/{id}/show', [LegboxNotificationforEscortController::class, 'show'])->name('escort.legbox.notification.show');
+Route::post('/legbox-notification/{id}/status', [LegboxNotificationforEscortController::class, 'updateStatus'])->name('escort.legbox.notification.status');
+Route::get('/legbox-notification/pdf-download/{id}', [LegboxNotificationforEscortController::class, 'pdfDownload'])->name('escort.legbox.notification.pdf.download');
+Route::get('/legbox-notification/{id}/edit', [LegboxNotificationforEscortController::class, 'edit'])->name('escort.legbox.notification.edit');
+Route::post('/legbox-notification/{id}/update', [LegboxNotificationforEscortController::class, 'update'])->name('escort.legbox.notification.update');
 
 
 //Escort DashBorad Route And Controller
