@@ -606,6 +606,7 @@ a.btn-why {
 }
 
 .wel_price_badge {
+    position: relative;
     display: inline-block;
     padding: 10px 25px;
     border-radius: 50px;
@@ -613,6 +614,42 @@ a.btn-why {
     color: #ff3c5f;
     font-size: 14px;
     font-weight: 700;
+}
+
+.wel_price_badge .ptooltip {
+    position: absolute;
+    left: 50%;
+    top: -100%;
+    z-index: 999;
+    transform: translate(-50%, -50%);
+    width: max-content;
+    background: #ff3c5f;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: none;
+    transition: opacity 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.wel_price_badge .ptooltip::after {
+    position: absolute;
+    left: 50%;
+    top: 47px;
+    content: '';
+    border-width: 6px;
+    border-style: solid;
+    border-color: var(--peach) transparent transparent transparent;
+    transform: rotate(0deg) translate(-50%, 0%);
+}
+
+.wel_price_badge:hover .ptooltip {
+    display: block;
 }
 
 .bottom-note {

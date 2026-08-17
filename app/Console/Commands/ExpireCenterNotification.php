@@ -2,15 +2,16 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
-use Illuminate\Console\Command;
 use App\Models\AgentNotification;
 use App\Models\CenterNotification;
 use App\Models\EscortNotification;
 use App\Models\GlobalNotification;
 use App\Models\LegboxNotification;
-use App\Models\ViewerNotification;
+use App\Models\LegboxNotificationForEscrt;
 use App\Models\ShareholderNotification;
+use App\Models\ViewerNotification;
+use Carbon\Carbon;
+use Illuminate\Console\Command;
 
 class ExpireCenterNotification extends Command
 {
@@ -84,6 +85,11 @@ class ExpireCenterNotification extends Command
         //Legbox Notification for the Viewer, create by Massage Center
 
         LegboxNotification::where('end_date', '<', $today)
+            ->whereNotNull('end_date')
+            ->where('status', 'Published')
+            ->update(['status' => 'Completed']);
+        //Lagobox Notification for the Escort
+        LegboxNotificationForEscrt::where('end_date', '<', $today)
             ->whereNotNull('end_date')
             ->where('status', 'Published')
             ->update(['status' => 'Completed']);

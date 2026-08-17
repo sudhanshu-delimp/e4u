@@ -250,7 +250,6 @@
 
 
 
-
                                         <div class="fiter_btns slect__btn_tab">
                                             <div class="display_inline_block mb-1 mr-2">
                                                 <select class="custome_form_control_border_radus padding_five_px"
@@ -263,6 +262,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            
                                             <div class="display_inline_block mb-1 mr-2">
                                                 <select class="custome_form_control_border_radus padding_five_px"
                                                     id="select2-dropdown" name="gender">

@@ -141,17 +141,17 @@
                                 <button style="padding: 10px;" class="btn btn-custom-success esc-tooltip-wrap"
                                     data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile">
                                     Extend Listing
-                                    <span class="esc-tooltip-2">Extend your Profile to a <br> new end date</span>
+                                    <span class="esc-tooltip-2">Extend your Listing to a <br> new end date</span>
                                 </button>
                                 <button style="padding: 10px;" class="btn btn-bump-up esc-tooltip-wrap"
                                     data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump
                                     Up
-                                    <span class="esc-tooltip-2">Bump your Profile up to <br> the top of the Listings</span>
+                                    <span class="esc-tooltip-2">Bump your Listing up to <br> the top of the Listings</span>
                                 </button>
                                 <button style="padding: 10px;" class="btn btn-primary esc-tooltip-wrap"
                                     data-toggle="modal" data-target="#suspend_profile"
                                     id="btn_suspend_profile">Suspend Listing
-                                    <span class="esc-tooltip-2">Take down your Profile <br> for a set period</span>
+                                    <span class="esc-tooltip-2">Take down your Listing <br> for a set period</span>
                                 </button>
 
 

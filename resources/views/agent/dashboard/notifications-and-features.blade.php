@@ -316,63 +316,47 @@
                                             </div>
                                         </div>
 
-                                        
+
                                         {{-- Show Entries --}}
                                         <div class="form-group common-card disabled-link">
-                                                <div class="card-top">
-                                                    <div class="card-icon">
+                                            <div class="card-top">
+                                                <div class="card-icon">
                                                     <svg viewBox="0 0 24 24" fill="none">
-                                                            <path
-                                                                d="M4 6h16M4 12h16M4 18h16"
-                                                                stroke="currentColor"
-                                                                stroke-width="1.8"
-                                                                stroke-linecap="round"
-                                                            />
-                                                            <circle
-                                                                cx="7"
-                                                                cy="6"
-                                                                r="1.5"
-                                                                fill="currentColor"
-                                                            />
-                                                            <circle
-                                                                cx="7"
-                                                                cy="12"
-                                                                r="1.5"
-                                                                fill="currentColor"
-                                                            />
-                                                            <circle
-                                                                cx="7"
-                                                                cy="18"
-                                                                r="1.5"
-                                                                fill="currentColor"
-                                                            />
-                                                        </svg>
-                                                    </div>
-
-                                                    <div class="card-heading">
-                                                        <h2>Show Entries</h2>
-                                                    </div>
+                                                        <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor"
+                                                            stroke-width="1.8" stroke-linecap="round" />
+                                                        <circle cx="7" cy="6" r="1.5"
+                                                            fill="currentColor" />
+                                                        <circle cx="7" cy="12" r="1.5"
+                                                            fill="currentColor" />
+                                                        <circle cx="7" cy="18" r="1.5"
+                                                            fill="currentColor" />
+                                                    </svg>
                                                 </div>
 
-                                                <div class="entries-setting">
-
-                                                    <span class="entries-label">
-                                                        Your default setting is:
-                                                    </span>
-
-                                                    <select class="entries-select" name="entries">
-                                                        <option value="25" selected>25</option>
-                                                        <option value="50">50</option>
-                                                        <option value="75">75</option>
-                                                        <option value="100">100</option>
-                                                    </select>
-
-                                                </div> 
-
-                                                <div class="card-note">
-                                                    <span class="note-icon">i</span>
-                                                    <p> <i>Select your preferred number of entries for Report pages.</i></p>
+                                                <div class="card-heading">
+                                                    <h2>Show Entries</h2>
                                                 </div>
+                                            </div>
+
+                                            <div class="entries-setting">
+
+                                                <span class="entries-label">
+                                                    Your default setting is:
+                                                </span>
+
+                                                <select class="entries-select" name="entries">
+                                                    <option value="25" selected>25</option>
+                                                    <option value="50">50</option>
+                                                    <option value="75">75</option>
+                                                    <option value="100">100</option>
+                                                </select>
+
+                                            </div>
+
+                                            <div class="card-note">
+                                                <span class="note-icon">i</span>
+                                                <p> <i>Select your preferred number of entries for Report pages.</i></p>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -473,9 +457,8 @@
                 processData: false,
                 success: function(response) {
                     Swal.close();
-                    $('.commanAlert').html(
-                        `<div id="commanAlert" class="alert rounded alert-success" >${response.message}</div>`
-                    );
+                    showAlert("Notification Settings", response.message, 'success');
+                    // $('.commanAlert').html(`<div id="commanAlert" class="alert rounded alert-success" >${response.message}</div>`);
                     setTimeout(function() {
                         location.reload();
                     }, 3000);
@@ -486,10 +469,11 @@
                 },
                 error: function(xhr) {
                     Swal.close();
-                    console.log(xhr);
-                    $('.commanAlert').html(
-                        `<div id="commanAlert" class="alert rounded alert-error">Error : Something went wrong</div>`
-                    );
+                    // console.log(xhr);
+                    showAlert('Notification Settings', 'Error : Something went wrong', 'error');
+                    // $('.commanAlert').html(
+                    //     `<div id="commanAlert" class="alert rounded alert-error">Error : Something went wrong</div>`
+                    // );
                 }
             });
         });

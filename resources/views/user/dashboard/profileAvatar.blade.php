@@ -71,7 +71,7 @@
 
 
     </div>
-    
+
     <div class="modal fade common-modal" id="cropImagePop" tabindex="-1" role="dialog"
         aria-labelledby="cropImageModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered common-modal-dialog">
@@ -442,7 +442,7 @@
             viewport: {
                 width: 200,
                 height: 200,
-                type:'circle',
+                type: 'circle',
             },
             enforceBoundary: false,
             enableExif: true
@@ -460,10 +460,11 @@
 
         $('#cropImageBtn').on('click', function(ev) {
             $uploadCrop.croppie('result', {
-                type: 'base64',
-                format: 'jpeg',
+               type: 'canvas',
+                size: 'viewport',
+                format: 'png',
                 size: {
-                    width: 150,
+                    width: 200,
                     height: 200
                 }
             }).then(function(resp) {
@@ -688,7 +689,7 @@
         });
 
         // Function to show error message
-      function showErrorMessage(message) {
+        function showErrorMessage(message) {
             // $("#modal-title").text("Error");
             // $("#modal-icon").attr("src", "/assets/dashboard/img/remove-image.png");
             // $('.comman_msg').text(message);
@@ -698,14 +699,22 @@
         }
 
         // Bind delete avatar event to show confirmation modal
-        $(document).on('click', '.delete_avatar', function() {
+        $(document).on('click', '.delete_avatar', async function() {
             // $("#conformation_modal").modal('show');
-            showAlert('Remove Avatar', "Are you sure you want to delete your avatar?", 'warning', true).then((result) => {
-                if (result.isConfirmed) {
-                    // Perform action to delete avatar
-                    $('#confirmDelete').trigger('click');
-                }
-            });
+
+            if (await isConfirm({
+                    'action': 'Remove',
+                    'text': 'you want to delete your avatar.'
+                })) {
+                $('#confirmDelete').trigger('click');
+            }
+
+            // showAlert('Remove Avatar', "Are you sure you want to delete your avatar?", 'warning', true).then((result) => {
+            //     if (result.isConfirmed) {
+            //         // Perform action to delete avatar
+            //         $('#confirmDelete').trigger('click');
+            //     }
+            // });
         });
     </script>
 @endpush

@@ -22,18 +22,27 @@
     }
 
     .at-sec input {
+
         height: 36px;
+
         width: 100%;
-        padding: 0px 10px 0px 30px;
-        background: white url({{asset('avatars/Vector-24.svg')
+
+        padding: 0 10px 0 30px;
+
+        background: white url('{{ asset(' avatars/Vector-24.svg') }}') 8px center no-repeat;
+
+        border-radius: 3px;
+
+        border: 1.8px solid #d1d3e2;
+
+        font-size: 13px;
+
+        font-weight: 400;
+
+        color: #333;
+
     }
-    }) 8px 8px no-repeat;
-    border-radius: 3px;
-    border: 1.8px solid #d1d3e2;
-    font-size: 13px;
-    font-weight: 400;
-    color: #d1d3e2;
-    }
+
 
     .at-sec input:focus {
         outline: none;
@@ -143,6 +152,7 @@
     <div class="row">
         <div class="col-md-12  fill_profile_headings_global custom--social-head">
             <h2>My Playmates</h2>
+
             <span class="custom--help"><b>Help?</b></span>
         </div>
         <div class="custom-note-section">

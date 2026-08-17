@@ -1,7 +1,7 @@
 @extends('layouts.webHome')
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/app/css/homepage.css?v1.06') }}">
+    <link rel="stylesheet" href="{{ asset('assets/app/css/homepage.css?v1.07') }}">
     <style>
         #parsley-id-5 li {
             margin-left: 0 !important;
@@ -219,6 +219,7 @@
 
                     <div class="wel_price_badge">
                         {{ isset($pricing[0]['price']) ? '$' . $pricing[0]['price'] : 'NA' }} / Day
+                        <span class="ptooltip"> Gold: {{$pricing[1]['price']}} / Day <br> Silver: {{$pricing[2]['price']}} / Day</span>
                     </div>
 
                 </div>

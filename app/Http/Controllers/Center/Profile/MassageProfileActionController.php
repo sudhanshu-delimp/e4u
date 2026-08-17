@@ -107,7 +107,10 @@ class MassageProfileActionController extends BaseController
                 $refundAmountWithGst = $refund + $gstAmount;
             }
 
-            $existSuspendedDate = $massageProfile->suspendProfile()->overlapping($startDate, $endDate)->exists();
+            $existSuspendedDate = $massageProfile->suspendProfile()
+                                                ->where(['is_cancelled'=>'1','is_archived'=>'0'])
+                                                ->overlapping($startDate, $endDate)
+                                                ->exists();
             if ($existSuspendedDate) {
                 return response()->json([
                     'success' => false,
@@ -134,7 +137,7 @@ class MassageProfileActionController extends BaseController
         $requestEndDate = Carbon::parse($request->end_date)->endOfDay();
 
         # If suspended periods already exists then add future date
-        $existSuspendedDate = $massageProfile->suspendProfile()->overlapping($request->start_date, $request->end_date)->exists();
+        $existSuspendedDate = $massageProfile->suspendProfile()->where(['is_cancelled'=>'1','is_archived'=>'0'])->overlapping($request->start_date, $request->end_date)->exists();
 
         if ($existSuspendedDate) {
             return response()->json([
@@ -161,6 +164,7 @@ class MassageProfileActionController extends BaseController
         $suspendProfile = MassageSuspendProfile::create(
             [
                 'massage_profile_id' => $request->suspend_profile_id,
+                'is_cancelled' => '1',
                 'user_id' => $user->id,
                 'start_date' => Carbon::parse($request->start_date),
                 'utc_start_date' => $utcStart,

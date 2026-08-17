@@ -53,6 +53,7 @@ use App\Http\Controllers\Agent\ImpersonateController;
 use App\Http\Controllers\Viewer\PunterBoxController;
 use App\Http\Controllers\Viewer\ViewerReviewsController;
 use App\Http\Controllers\Escort\EscortAccountController;
+use App\Http\Controllers\EscortListingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes    
@@ -92,7 +93,7 @@ Route::middleware('auth')->group(function () {
     ################ All Authencated User Url #################################
     Route::prefix('user-dashboard')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('user.dashboard');
-        // Route::get('/edit-profile', [UserController::class, 'edit'])->name('user.edit');
+        Route::get('/edit-profile', [UserController::class, 'edit'])->name('user.edit');
         Route::get('/update-account', [UserController::class, 'edit'])->name('user.account.edit');
         Route::post('/update-account', [UserController::class, 'update'])->name('user.account.update');
         Route::get('/upload-my-avatar', [UserController::class, 'uploadAvatar'])->name('user.profile.avatar');
@@ -334,7 +335,8 @@ Route::post('/location/filter', [App\Http\Controllers\WebController::class, 'fil
 Route::get('/grid-escort-list', [App\Http\Controllers\WebController::class, 'gridEscortList'])->name('grid.escort.list');
 
 /****************************************************all-escorts-list**********************************************/
-Route::get('/all-escorts-listing', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing');
+//Route::get('/all-escorts-listing', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing');
+Route::get('/find-escorts/{country_or_gender?}/{city?}/{gender?}', [EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing');
 Route::get('/fetch-escort-services', [App\Http\Controllers\EscortListingController::class, 'fetchEscortServices'])->name('public.web.fecth.services');
 // New route 
 Route::post('/escort-add-to-shortlist/{id}', [App\Http\Controllers\EscortListingController::class, 'addtocart'])->name('web.public.save.addtocart');
@@ -868,22 +870,10 @@ Route::post('/massage-spam-report', [ReportMassageController::class, 'saveSpamRe
 Route::post('/massage-like-dislike', [ReportMassageController::class, 'massageLikeDislike'])->name('web.massageLikeDislike');
 
 
-###########----------------SEO ROUTE FOR ESCORT----------------##################
-
-Route::get('/all-escorts-listing', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing');
 
 
-Route::get('/escorts-list/{country?}/{city?}', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing');
 
 
-// https://www.escorts4u.com.au/australia   
-// https://www.escorts4u.com.au/australia/adelaide
-// https://www.escorts4u.com.au/australia/brisbane
-// https://www.escorts4u.com.au/australia/canberra
-// https://www.escorts4u.com.au/australia/darwin
-// https://www.escorts4u.com.au/australia/hobart
-// https://www.escorts4u.com.au/australia/melbourne
-// https://www.escorts4u.com.au/australia/parth
 
 
 Route::post('/encrypt', function (Request $request) {

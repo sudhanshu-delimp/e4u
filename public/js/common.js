@@ -292,7 +292,7 @@ var displaySwal = function (xhr, showConfirmButton = true) {
 function showAlert(title, message, type, confirm = false) {
   const options = {
     title: title,
-    text: message,
+    html: message,
     icon: type
   };
 
@@ -401,3 +401,16 @@ var getGeoLocationEscortAccountProfiles = function (state = 0) {
 $('.video_icon_ec').append(
   '<div class="video_tooltip">Escort has video to view</div>'
 );
+
+function showAlert(type, title, message, buttonTitle = 'OK') {
+
+    Swal.fire({
+        icon: type,
+        title: title,
+        html: message || '',
+        confirmButtonText: buttonTitle,
+        confirmButtonColor: '#0b2545',
+        allowOutsideClick: false,
+        allowEscapeKey: false
+    });
+}

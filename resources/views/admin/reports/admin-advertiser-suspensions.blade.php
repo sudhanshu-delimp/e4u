@@ -23,7 +23,7 @@
    <!--middle content-->
    <div class="row mt-5">
       <div class="custom-heading-wrapper col-md-12">
-         <h1 class="h1">E4U Listings Suspended</h1>
+         <h1 class="h1">Listings Suspended (E4U)</h1>
          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
       </div>
       <div class="col-md-12 ">
@@ -47,6 +47,7 @@
                      <option value="{{ route('admin.admin-suspensions-list-ajax','escort') }}">Escort</option>
                      <option value="{{ route('admin.admin-suspensions-list-ajax','massage') }}">Massage Center</option>
                   </select>
+                  <button class="btn-switch">Switch to Advertiser</button>
                </div>
                <div class="total_listing">
                   <div><span>Total : </span></div>

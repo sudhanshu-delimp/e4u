@@ -302,15 +302,15 @@
                         $('#viewerTable').DataTable().ajax.reload(null, false);
                         if(response.type == 'block'){
                             $(".modal_title_span").text('Viewer Block');
-                            $(".body_text").text(response.message);
+                            $(".custom_modal_text").text(response.message);
                         }
                         if(response.type == 'contact'){
                             $(".modal_title_span").text('Viewer Contact');
-                            $(".body_text").text(response.message);
+                            $(".custom_modal_text").text(response.message);
                         }
                         if(response.type == 'notification'){
                             $(".modal_title_span").text('Viewer Notification');
-                            $(".body_text").text(response.message);
+                            $(".custom_modal_text").text(response.message);
                         }
                     },
                     error: function(err) {

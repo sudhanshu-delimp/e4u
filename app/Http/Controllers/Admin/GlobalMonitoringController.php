@@ -434,8 +434,8 @@ class GlobalMonitoringController extends Controller
                 $profile_name  .= '<sup class="brb_icon listing-tag-tooltip ml-1" style="background-color:#1CC88A">Extended <small class="listing-tag-tooltip-desc">Extended  ' . date('d-m-Y h:i A', strtotime($isExtended->data->start_date)) . '</small></sup>';
             }
             $actionBtn = "";
-           // $profile_url = ['id' => $row->massageprofile->id, 'ids' => '[]'];
-           $profile_url = ['profile' => $row->massageprofile->slug];
+            // $profile_url = ['id' => $row->massageprofile->id, 'ids' => '[]'];
+            $profile_url = ['profile' => $row->massageprofile->slug];
             $actionBtn .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
                 href="' . route('web.massage-profile', $profile_url) . '" target="_blank"> 
                 <i class="fa fa-eye "></i> View</a>';
@@ -1042,38 +1042,12 @@ class GlobalMonitoringController extends Controller
             $isExtended = $purchase->isListingExtended();
             $profile = $purchase->massageprofile;
             $profileTimezone = $profile->time_zone;
-            $utcStart = Carbon::createFromFormat('Y-m-d H:i:s', now(), $profileTimezone)->setTimezone('UTC');
-            $utcEnd = Carbon::createFromFormat('Y-m-d H:i:s', $purchase->utc_end_time, $profileTimezone)->setTimezone('UTC');
-            MassageSuspendProfile::create(
-                [
-                    'massage_profile_id' => $purchase->massage_profile_id,
-                    'user_id' => $purchase->massage_centre_id,
-                    'start_date' => Carbon::parse(now()),
-                    'utc_start_date' => $utcStart,
-                    'end_date' => Carbon::parse($purchase->end_date),
-                    'utc_end_date' => $utcEnd,
-                    'credit' => 0,
-                    'note' => "Suspended by Admin",
-                ]
-            );
+            $suspendedAt = Carbon::createFromFormat('Y-m-d H:i:s', now(), $profileTimezone)->setTimezone('UTC');
+            $purchase->update(['status' => 'suspend', 'suspended_at' => $suspendedAt]);
+
             if ($isExtended && $isExtended->count) {
-                Log::warning('suspendCenterListedProfile', ['isExtended' => $isExtended]);
                 $otherPurchase = $isExtended->data;
-                $otherPurchase->update(['status' => 'suspend']);
-                $utcStart = Carbon::createFromFormat('Y-m-d H:i:s', $otherPurchase->utc_start_time, $profileTimezone)->setTimezone('UTC');
-                $utcEnd = Carbon::createFromFormat('Y-m-d H:i:s', $otherPurchase->utc_end_time, $profileTimezone)->setTimezone('UTC');
-                SuspendProfile::create(
-                    [
-                        'massage_profile_id' => $otherPurchase->massage_profile_id,
-                        'user_id' => $otherPurchase->massage_centre_id,
-                        'start_date' => Carbon::parse($otherPurchase->start_date),
-                        'utc_start_date' => $utcStart,
-                        'end_date' => Carbon::parse($otherPurchase->end_date),
-                        'utc_end_date' => $utcEnd,
-                        'credit' => 0,
-                        'note' => "Suspended by Admin",
-                    ]
-                );
+                $otherPurchase->update(['status' => 'suspend', 'suspended_at' => $suspendedAt]);
             }
             $profile->update([
                 'purchase_id' => null
@@ -1102,20 +1076,6 @@ class GlobalMonitoringController extends Controller
             };
 
             $advertiser = $purchase->advertiser;
-            $listedPlaymates = $advertiser->listedPlaymates;
-            $advertiser->playmates()->syncWithoutDetaching($listedPlaymates);
-            foreach ($listedPlaymates as $playmateId) {
-                $this->playmateHistory->savePlaymateHistory($advertiser->id, $playmateId, $advertiser->user->id);
-            }
-            foreach ($listedPlaymates as $playmateId) { //add profile to other escort profiles
-                $otherEscort = Escort::find($playmateId);
-                if ($otherEscort) {
-                    $otherEscort->playmates()->syncWithoutDetaching($advertiser->id);
-                    $this->playmateHistory->savePlaymateHistory($playmateId, $advertiser->id, $otherEscort->user->id);
-                }
-            }
-
-            //dd($advertiser->playmates);
 
             $isExtended = $purchase->isListingExtended();
 
@@ -1133,7 +1093,6 @@ class GlobalMonitoringController extends Controller
 
 
             if ($type == 'escort') {
-                $advertiser = $purchase->advertiser;
                 $advertiser->update([
                     'enabled' => 1,
                     'membership' => $purchase->membership,
@@ -1141,6 +1100,23 @@ class GlobalMonitoringController extends Controller
                     'end_date' => $purchase->end_date,
                     'utc_start_time' => $purchase->utc_start_time,
                     'utc_end_time' => $purchase->utc_end_time,
+                    'purchase_id' => $purchase->id
+                ]);
+
+                $listedPlaymates = $advertiser->listedPlaymates;
+                $advertiser->playmates()->syncWithoutDetaching($listedPlaymates);
+                foreach ($listedPlaymates as $playmateId) {
+                    $this->playmateHistory->savePlaymateHistory($advertiser->id, $playmateId, $advertiser->user->id);
+                }
+                foreach ($listedPlaymates as $playmateId) { //add profile to other escort profiles
+                    $otherEscort = Escort::find($playmateId);
+                    if ($otherEscort) {
+                        $otherEscort->playmates()->syncWithoutDetaching($advertiser->id);
+                        $this->playmateHistory->savePlaymateHistory($playmateId, $advertiser->id, $otherEscort->user->id);
+                    }
+                }
+            } else {
+                $advertiser->update([
                     'purchase_id' => $purchase->id
                 ]);
             }

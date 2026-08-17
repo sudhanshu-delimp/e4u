@@ -3,6 +3,12 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
+    <style>
+    .swal2-title {
+        font-size: 20px !important;
+    }
+    </style>
+
 @endsection
 @section('content')
     <div id="content-wrapper" class="d-flex flex-column">
@@ -37,77 +43,23 @@
                     </div>
                 </div>
                 {{-- my viewers --}}
-                <div class="row mb-5">
+                <!-- <div class="row mb-5">
 
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table class="table w-100 table-bordered">
-                                <thead class="table-bg">
+                            <table class="table table-bordered" id="viewerNotificationTable">
+                                <thead>
                                     <tr>
-                                        <th colspan="3" class="text-center">My Viewers</th>
-                                    </tr>
-                                    <tr>
-
                                         <th>State</th>
-
                                         <th class="text-center">Viewers</th>
                                         <th class="text-center">Notifications</th>
                                     </tr>
                                 </thead>
-                                <tbody class="table-content">
-                                    
-                                    <tr>
-                                        <td>ACT:</td>
-                                        <td class="text-center">10</td>
-                                        <td class="text-center">25</td>
-                                    </tr>
-                                    <tr>
-                                        <td>NSW:</td>
-                                        <td class="text-center">23</td>
-                                        <td class="text-center">54</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Qld:</td>
-                                        <td class="text-center">33</td>
-                                        <td class="text-center">65</td>
-                                    </tr>
-                                    <tr>
-                                        <td>NT:</td>
-                                        <td class="text-center">44</td>
-                                        <td class="text-center">66</td>
-                                    </tr>
-                                    <tr>
-                                        <td>SA:</td>
-                                        <td class="text-center">71</td>
-                                        <td class="text-center">11</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tas:</td>
-                                        <td class="text-center">22</td>
-                                        <td class="text-center">31</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Vic:</td>
-                                        <td class="text-center">54</td>
-                                        <td class="text-center">43</td>
-                                    </tr>
-                                    <tr>
-                                        <td>WA:</td>
-                                        <td class="text-center">3</td>
-                                        <td class="text-center">109</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-weight-bold">Totals</td>
-                                        <td class="text-center">200</td>
-                                        <td class="text-center">250</td>
-                                    </tr>
-                                </tbody>
                             </table>
                         </div>
                     </div>
-                </div>
-                {{-- end --}}
-                <!--middle content-->
+                </div> -->
+
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
                         <div class="bothsearch-form" style="gap: 10px;">
@@ -117,7 +69,7 @@
                     </div>
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table id="sendNotificationTable" class="table display" width="100%">
+                            <!-- <table id="sendNotificationTable" class="table display" width="100%">
                                 <thead class="table-bg">
                                     <tr>
                                         <th>
@@ -177,14 +129,59 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                            </table>
+                            </table> -->
+
+                    <table id="viewerTable" class="table custom--newtable" width="100%">
+                        <thead class="bg-first">
+                            <tr>
+                                <th>Viewer Name </th>
+                                <th>Home State</th>
+                                <th>Tagged </th>
+                                <th>Notifications
+                                    Enabled</th>
+                               
+                                <th>Contact
+                                    Method</th>
+                               
+                                <th>Block
+                                    Viewer</th>
+                             
+                            </tr>
+                        </thead>
+                       <tbody class="table-content">
+                    </tbody>
+                    </table>
+
+
+
+
+
                         </div>
                     </div>
                 </div>
+
+
+
+                {{-- end --}}
+                <!--middle content-->
+                <!-- <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                        <div class="bothsearch-form" style="gap: 10px;">
+                            <button type="button" class="create-tour-sec" data-toggle="modal" data-target="#new-ban">Send
+                                Notification</button>
+                        </div>
+                    </div>
+                   
+                </div> -->
             </div>
         </div>
     </div>
+
+
+
     {{-- Send Notification Popup --}}
+    <form id="sendNotificationForm">
+    @csrf
     <div class="modal fade upload-modal" id="new-ban" tabindex="-1" role="dialog" aria-labelledby="new-ban"
         aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -201,8 +198,12 @@
                     <form>
                         <div class="row">
                             <div class="col-12 mb-3">
-                                <select class="form-control rounded-0 mb-3">
-                                    <option>Select Home State</option>
+                                <select class="form-control rounded-0 mb-3" id="state_id" name="state_id">
+                                            <option value="">Select Home State</option>
+                                            @foreach($myStateList as $state_list)
+                                            <option value="{{$state_list['state_id']}}">{{ $state_list['state']}}</option>
+                                            @endforeach
+                                            
                                 </select>
                                 <label class="form-check-label" for="exampleCheck1"
                                     style="color: #323C47; display:none">You are
@@ -238,93 +239,131 @@
                     <div class="col-12">
                         <div class="form-group">
                             <label class="form-check-label pr-2" for="exampleCheck1">Date:<span
-                                    class="ml-1">10-10-2025</span></label>
-                            <label class="form-check-label" for="exampleCheck1"> No. of Viewers:<span
-                                    class="ml-1">100</span></label>
+                                    class="ml-1">{{ date('d-m-Y')}}</span></label>
+                            <label class="form-check-label" for="exampleCheck1"> No. of Viewers:<span class="ml-1" id="viewer_count">0</span></label>
                         </div>
                     </div>
-                    <button type="button" class="btn-success-modal">Send</button>
+                    <button type="submit" class="btn-success-modal btn-primary">Send</button>
                 </div>
             </div>
         </div>
     </div>
+    </form>
     {{-- end --}}
 
 
-    {{-- Notification invalid Popup --}}
-    <div class="modal fade upload-modal" id="invalidNotification" tabindex="-1" role="dialog"
-        aria-labelledby="invalidNotification" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="invalidNotification"><img
-                            src="/assets/dashboard/img/invalid-notification.png" class="custompopicon" alt="cross">
-                        Notification invalid</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
-                </div>
-                <div class="modal-body pb-0">
-                    <form>
-                        <div class="row">
-                            <div class="col-12 mb-3">
-                                <select class="form-control rounded-0">
-                                    <option>Select Home State</option>
-                                </select>
-                            </div>
-                            <div class="col-12 mb-3">
-                                <div class="form-group text-left"
-                                    style="border: 2px dashed #e3e6f0;padding: 15px 10px 35px 10px;">
 
-                                    <label class="form-check-label" for="exampleCheck1" style="color: #323C47;">Your
-                                        request to send a notification to
-                                        <span>Viewers name</span> if only one selected, or <span>Your Viewers</span> is
-                                        invalid as you do not have a current or impending Profile in <span>Location</span>.
-                                    </label>
-                                    <div class="card-body px-0">
-                                        <h4 class="NotesHeader"><b>Notes:</b> </h4>
-                                        <ol>
-                                            <li>You must have a posted or impending Profile (a part of a Tour) to use this
-                                                feature.</li>
-                                            <li>If you have enabled the Notification feature in your settings, you do not
-                                                need to use this feature as Notifications will be sent out automatically
-                                                whenever you create a Profile or Tour.
-                                            </li>
-                                        </ol>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer pr-3">
-                    <div class="col-10 pl-0">
-                        <div class="form-group">
-                            <label class="form-check-label pr-4" for="exampleCheck1">Date:<span
-                                    class="ml-1">10-10-2025</span></label>
 
-                        </div>
-                    </div>
-                    <button type="button" class="btn-success-modal">Send</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- end --}}
+   
 @endsection
 @push('script')
-    <!-- file upload plugin start here -->
-    <!-- file upload plugin end here -->
-    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+   
+   
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script>
-        $(document).ready(function() {
-            $('#sendNotificationTable').DataTable({
+
+    let stateList = @json($myStateList);
+    $('#state_id').on('change', function () {
+        let stateId = $(this).val();
+        let state = stateList.find(item => item.state_id == stateId);
+        $('#viewer_count').text(state ? state.viewers : 0);
+    });
+
+
+    $('#sendNotificationForm').on('submit', function(e)
+    {
+        e.preventDefault();
+        swal_waiting_popup({'title': 'Sending Notification...'});
+        var formData = new FormData(document.getElementById('sendNotificationForm'));
+        $.ajax({
+            url: "{{ route('escort.sendNotification') }}",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                $('.btn-primary').prop('disabled', true).text('Sending...');
+            },
+            success: function(response){
+                Swal.close();
+                $('.btn-primary').prop('disabled', false).text('Send Notification');
+                if(response.status)
+                {   
+                    //viewerTable.ajax.reload();
+                    $('#new-ban').modal('hide');
+                    swal_success_popup(response.message ?? 'Notification send successfully');
+                    $('#sendNotificationForm')[0].reset();
+                    $('#viewer_count').text(0);
+                     
+                }
+                else
+                {
+                     swal_error_warning(response.message);
+                    
+                }
+            },
+            error:function(xhr){
+                $('.btn-primary').prop('disabled', false).text('Send Notification');
+                if(xhr.status == 422)
+                {    
+                    let response = JSON.parse(xhr.responseText);
+                    $.each(response.errors, function(key, value) {
+                     swal_error_warning(value[0]);
+                    });
+                }
+                else
+                {
+                    swal_error_popup('Something went wrong.');
+                }
+            }
+        });
+
+    });
+
+
+
+    //   var viewerTable =  $('#viewerNotificationTable').DataTable({
+    //         processing: true,
+    //         serverSide: true,
+    //         searching: false,
+    //         ordering: false,
+    //         paging: false,
+    //         info: false,
+    //         ajax: {
+    //             url: "{{ route('escort.viewers-notification.ajax') }}"
+    //         },
+    //         columns: [
+    //             {
+    //                 data: 'state',
+    //                 name: 'state'
+    //             },
+    //             {
+    //                 data: 'viewers',
+    //                 name: 'viewers',
+    //                 className: 'text-center'
+    //             },
+    //             {
+    //                 data: 'notifications',
+    //                 name: 'notifications',
+    //                 className: 'text-center'
+    //             }
+    //         ]
+    //     });
+
+
+    $(document).ready(function() {
+            var viewerTable = $('#viewerTable').DataTable({
                 responsive: true,
+                language: {
+                    search: "Search:", // ✅ This will show the label
+                    searchPlaceholder: "Search by Viewer ID or Profile ID", // ✅ This is the placeholder
+                    lengthMenu: "Show _MENU_ entries",
+                    zeroRecords: "No matching records found",
+                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    infoEmpty: "No entries available",
+                    infoFiltered: "(filtered from _MAX_ total entries)"
+                },
                 initComplete: function() {
                     // if ($('#returnToReportBtn').length === 0) {
                     //     $('.dataTables_filter').append(
@@ -332,53 +371,105 @@
                     //     );
                     // }
                     $('#returnToReportBtn').on('click', function() {
-                        var table = $('#sendNotificationTable').DataTable();
+                        var table = $('#viewerTable').DataTable();
                         table.search('').draw();
                     });
                 },
                 "language": {
                     "zeroRecords": "There is no record of the search criteria you entered.",
-                    searchPlaceholder: "Search by Viewer Name"
+                    searchPlaceholder: "Search by ID or Profile Name"
                 },
                 paging: true,
-                pageLength: 25,
-                columns: [{
-                        data: 'check',
-                        name: 'check'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'tagged',
-                        name: 'tagged',
-                        orderable: true
-                    },
-                    {
-                        data: 'home_state',
-                        name: 'home_state',
-                        orderable: true,
-                        searchable: false
-                    },
-                    {
-                        data: 'contact_method',
-                        name: 'contact_method',
-                        orderable: true
-                    },
-                    {
-                        data: 'notification',
-                        name: 'notification',
-                        orderable: true
-                    },
-                    {
-                        data: 'block',
-                        name: 'block',
-                        orderable: true,
-                        class: 'text-center'
+                ajax: {
+                    url: "{{ route('escort.viewer-legbox-list') }}",
+                    data: function(data) {
+                        console.log('data');
+                        // d.type = 'player';
+                            // console.log('data');
+                            // console.log(data);
                     }
-                ]
+                },
+                columns: [
+                    { data: 'viewer_name', name: 'viewer_name' },                         // 0
+                    { data: 'home_state', name: 'home_state' },                        // 2
+                    { data: 'tagged_date', name: 'tagged_date' },                        // 2
+                    { data: 'notification_enabled', name: 'notification_enabled' },                  
+                    { data: 'contact_method', name: 'contact_method' },                   // 4
+                     { data: 'block_viewer', name: 'block_viewer' }, 
+                    //{ data: 'playbox_subscription', name: 'playbox_subscription' },       // 6
+                                         // 9
+                  
+                ],
+               
+                autoWidth: false,
+                
+                pageLength: 25,
             });
+
+
+
+
+        $(document).on('change', '.isBlockedButton', function() {
+            let viewerId = $(this).data('id');;
+            let escortId = $(this).attr('data-escort-id');
+            let isBlocked = $(this).is(':checked') ? 1 : 0;
+            let data = {
+                'viewer_id' : viewerId,
+                'escort_id' : escortId,
+                'is_blocked' : isBlocked,
+                'type' : 'block',
+                'message' : 'Viewer is '+(isBlocked ? 'Blocked' : 'UnBlocked')+' successfully!',
+            }
+
+            if(isBlocked){
+                $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/block.png")}}');
+            }else{
+                $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/unblock.png")}}');
+            }
+
+            console.log(data);
+
+            let url = '{{ route("escort.viewer-interaction.update") }}';
+            return  ajaxCall(url, data, $(this));
+            
         });
+
+
+         function ajaxCall(actionUrl,rowData,thisObj)
+            {
+                rowData.token = '{{ csrf_token() }}';
+                $.ajax({
+                    url: actionUrl,
+                    method: 'POST',
+                    data: rowData,
+                    success: function(response) {
+                        console.log('response');
+                        console.log(response);
+                        $('#escortProfileModal').modal('show');
+                        $('#viewerTable').DataTable().ajax.reload(null, false);
+                        if(response.type == 'block'){
+                            $(".modal_title_span").text('Viewer Block');
+                            $(".body_text").text(response.message);
+                        }
+                        if(response.type == 'contact'){
+                            $(".modal_title_span").text('Viewer Contact');
+                            $(".body_text").text(response.message);
+                        }
+                        if(response.type == 'notification'){
+                            $(".modal_title_span").text('Viewer Notification');
+                            $(".body_text").text(response.message);
+                        }
+                    },
+                    error: function(err) {
+                        //showGlobalAlert("Something went wrong.", "danger");
+                    }
+                });
+            }
+
+    });
+
+
+
+       
     </script>
 @endpush

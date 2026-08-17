@@ -6605,6 +6605,12 @@ form.v-form-design .form-group {
     margin-bottom: 25px;
 }
 
+.topbar .nav-item .nav-link .img-profile {
+    height: 2rem;
+    width: 2rem;
+    object-fit: cover;
+}
+
 form.v-form-design label {
     font-family: Poppins;
     font-size: 16px;
@@ -7890,7 +7896,7 @@ margin-left: 10px;
     opacity: 0;
     position: absolute;
     bottom: 165%;
-    left: 94%;
+    left: 16px;
     transform: translateX(-50%) translateY(5px);
     width: 200px;
     background-color: #0c223d;

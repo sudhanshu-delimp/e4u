@@ -10,6 +10,7 @@ use App\Http\Controllers\Escort\EscortAccountController;
 use App\Http\Controllers\Escort\EscortController;
 use App\Http\Controllers\Escort\EscortDashboardController;
 use App\Http\Controllers\Escort\EscortGalleryController;
+use App\Http\Controllers\Escort\EscortNotificationController;
 use App\Http\Controllers\Escort\EscortPolyPaymentController;
 use App\Http\Controllers\Escort\EscortReviewsController;
 use App\Http\Controllers\Escort\EscortStatisticsController;
@@ -19,6 +20,7 @@ use App\Http\Controllers\Escort\EscortTourScheduleContoller;
 use App\Http\Controllers\Escort\HowIsItDoneController;
 use App\Http\Controllers\Escort\MyPlaymatesContoller;
 use App\Http\Controllers\Escort\NumController;
+use App\Http\Controllers\Escort\PaymentController;
 use App\Http\Controllers\Escort\PinUpsController;
 use App\Http\Controllers\Escort\PlaymateController;
 use App\Http\Controllers\Escort\Profile\CreateController;
@@ -26,15 +28,15 @@ use App\Http\Controllers\Escort\Profile\ProfileInformationController;
 use App\Http\Controllers\Escort\Profile\UpdateController;
 use App\Http\Controllers\Escort\TaskListController;
 use App\Http\Controllers\Escort\TourController;
+use App\Http\Controllers\Escort\WalletController;
 use App\Http\Controllers\EscortBrbController;
 use App\Http\Controllers\MugsController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SupportTicketsController;
 use App\Http\Controllers\User\Dashboard\UserController;
-use App\Http\Controllers\Escort\WalletController;
-use App\Http\Controllers\Escort\PaymentController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Escort\LegboxNotificationforEscortController;
 
 //remove before prod
 Route::post('/test-paymentUrl', [EscortController::class, 'pinup_test_payment'])->name('escort.payment');
@@ -355,9 +357,17 @@ Route::get('get-user-review-details/{id}', [EscortReviewsController::class, "get
 Route::get('escort-agency-request', function () {
   return view('escort.dashboard.Communication.escort-agency-request');
 });
-Route::get('send-notifications', function () {
-  return view('escort.dashboard.Communication.send-notifications');
-});
+
+Route::get('send-notifications', [EscortNotificationController::class, "get_all_viewers"])->name('escort.send-notifications');
+Route::post('/escort/send-notification', [EscortNotificationController::class, 'sendNotification'])->name('escort.sendNotification');
+Route::get('viewers-notification.ajax', [EscortNotificationController::class, 'get_all_viewers_ajax'])->name('escort.viewers-notification.ajax');
+
+
+// Route::get('send-notifications', function () {
+//   return view('escort.dashboard.Communication.send-notifications');
+// });
+
+
 Route::get('viewer-notes', function () {
   return view('escort.dashboard.Communication.viewer-notes');
 });
@@ -523,6 +533,16 @@ Route::post('/update-password', [AgentAccountController::class, 'changePassword'
 // })->name('escort.dashboard.customise-dashboard');
 
 // Route::get('profile', [HowIsItDoneController::class, 'profile'])->name('escort.how_is_it_done.profile');
+
+
+##################  Communication (Legbox Notifications)  #######################
+Route::get('legbox-notification/list', [LegboxNotificationforEscortController::class, 'index'])->name('escort.legbox.notification.index');
+Route::post('/legbox-notification/store', [LegboxNotificationforEscortController::class, 'store'])->name('escort.legbox.notification.store');
+Route::get('/legbox-notification/{id}/show', [LegboxNotificationforEscortController::class, 'show'])->name('escort.legbox.notification.show');
+Route::post('/legbox-notification/{id}/status', [LegboxNotificationforEscortController::class, 'updateStatus'])->name('escort.legbox.notification.status');
+Route::get('/legbox-notification/pdf-download/{id}', [LegboxNotificationforEscortController::class, 'pdfDownload'])->name('escort.legbox.notification.pdf.download');
+Route::get('/legbox-notification/{id}/edit', [LegboxNotificationforEscortController::class, 'edit'])->name('escort.legbox.notification.edit');
+Route::post('/legbox-notification/{id}/update', [LegboxNotificationforEscortController::class, 'update'])->name('escort.legbox.notification.update');
 
 
 //Escort DashBorad Route And Controller

@@ -45,6 +45,21 @@
                     </div>
                 </div>
             @endif
+
+            {{-- for Escort create --}}
+            @if ($getLegBoxNotificationsEscort)
+                <div class="notification-swiper swiper" role="alert">
+                    <div class="swiper-wrapper">
+                        @foreach ($getLegBoxNotificationsEscort as $getLegBoxNotification)
+                            <div class="swiper-slide">
+                                <x-global.notification-alert :heading="$getLegBoxNotification['heading']" :content="$getLegBoxNotification['content'] ?? $getLegBoxNotification['template_name']" type="success"
+                                    :member="$getLegBoxNotification['create_by_member_id'] ?? null" />
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
+            @endif
         </div>
 
         <div class="row">

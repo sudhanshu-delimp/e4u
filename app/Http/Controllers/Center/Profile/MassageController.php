@@ -50,6 +50,7 @@ use App\Repositories\Message\MessageMediaInterface;
 use App\Repositories\Service\ServiceInterface;
 use App\Repositories\Thumbnail\ThumbnailInterface;
 use App\Repositories\User\UserInterface;
+use App\Services\SlugService;
 use App\Services\WalletService;
 use App\Traits\ResizeImage;
 use Carbon\Carbon;
@@ -1124,6 +1125,7 @@ class MassageController extends Controller
                     ]);
                 }
 
+
                 foreach ($purchases as $purchase) {
 
                     if ($purchase->status == 'listed') {
@@ -1148,6 +1150,8 @@ class MassageController extends Controller
                         $refundAmountWithGst = 0;
                     }
 
+                    // Log::info(' $refundAmountWithGst============>'. $refundAmountWithGst);
+
                     $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
                     $utc_date_time =  Carbon::now($profileTimezone)->startOfDay()->utc();
                     $purchase->status = 'cancel';
@@ -1171,13 +1175,18 @@ class MassageController extends Controller
                     );
                 }
 
+                MassageSuspendProfile::where([
+                    'massage_profile_id' => $request->profile_id
+                ])->update([
+                    'is_archived' => '1'
+                ]);
                 $mess = "Profile cancelled successfully.";
             }
             ########## End Cancel Profile ###############
 
             ########## Delete Profile ###################
             if ($request->action == 'delete') {
-                $this->delete_massage_profile($massage, $request->profile_id);
+                // $this->delete_massage_profile($massage, $request->profile_id);
                 $mess = 'Profile deleted successfully.';
             }
             ######### End Delete Profile ################
@@ -1239,8 +1248,14 @@ class MassageController extends Controller
             if ($massage) {
                 $newMassage = $massage->replicate();
                 $newMassage->profile_name = $new_profile_name;
+                $newMassage->slug =null;
                 $newMassage->save();
 
+                ########### Create Slug ############
+                $slug = new SlugService();
+                $slug->createUpdateSlug($newMassage);
+
+    
                 $new_massage_profile_id = $newMassage->id;
 
                 if ($new_massage_profile_id != "") {

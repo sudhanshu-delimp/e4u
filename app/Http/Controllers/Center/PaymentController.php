@@ -7,12 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Mail\PaymentMailer;
 use App\Models\MassageBumpup;
 use App\Models\MassagePurchase;
+use App\Models\MassageSuspendProfile;
 use App\Models\PaymentHistory;
 use App\Models\PaymentProcess;
 use App\Repositories\Message\MessageRepository;
 use App\Services\PinPaymentService;
 use App\Services\WalletService;
-use PDF;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use PDF;
 
 class PaymentController extends BaseController
 {
@@ -536,11 +537,21 @@ class PaymentController extends BaseController
             {
             $purchaseData = session()->get('MassagePurchase');
             $purchaseDetail = MassagePurchase::create($purchaseData);
-            if (!empty($payment)) {
-                    $purchaseDetail->paymentItems()->create([
-                        'payment_history_id' => $payment->id,
-                        'amount' => $purchaseDetail->paid_rate, /// paid amount stored in Massage Purchase table  
-                    ]);
+
+            if ($action == 'listing') {
+                MassageSuspendProfile::where([
+                    'massage_profile_id' => $purchaseData['massage_profile_id']
+                ])->update([
+                    'is_archived' => '1'
+                ]);
+            }
+
+            if (!empty($payment)) 
+            {
+                $purchaseDetail->paymentItems()->create([
+                    'payment_history_id' => $payment->id,
+                    'amount' => $purchaseDetail->paid_rate, /// paid amount stored in Massage Purchase table  
+                ]);
             }
 
             }
