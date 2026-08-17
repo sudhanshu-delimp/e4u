@@ -51,8 +51,8 @@
                                 Account.
                             </li>
                             <!-- <li>
-                            You can add new your Bank Account details by clicking the 'Add New' button. SMS 2FA authentification is applied for any changes to your Bank Account details.
-                        </li> -->
+                                You can add new your Bank Account details by clicking the 'Add New' button. SMS 2FA authentification is applied for any changes to your Bank Account details.
+                            </li> -->
 
                             <li>
                                 You can add new your Bank Account details by clicking the 'Add New' button.
@@ -471,6 +471,8 @@
                 searchable: true,
                 searching: true,
                 bStateSave: true,
+                lengthMenu: [{{ config('app.paginate_range') }}],
+                pageLength: {{ config('app.paginate_length') }},
 
                 ajax: {
                     url: "{{ route('agent.bankDetail.dataTable') }}",

@@ -39,7 +39,8 @@
         .btn-primary {
             border-color: unset !important;
         }
-        .table-responsive{
+
+        .table-responsive {
             overflow: visible
         }
     </style>
@@ -112,7 +113,7 @@
             </div>
             <div class="col-md-12">
                 <div class="table-responsive">
-                    <table class="table table-bordered ">
+                    <table id="taskListTable" class="table table-bordered">
                         <thead class="bg-first">
                             <tr>
                                 <th>Task</th>
@@ -120,12 +121,10 @@
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
-                        <tbody id="taskList">
-
+                        <tbody>
                         </tbody>
                     </table>
                 </div>
-                <div class="d-flex justify-content-end mt-4 custome_paginator"></div>
             </div>
         </div>
     </div>
@@ -206,13 +205,47 @@
             </div>
         </div>
     </div>
-    
-
 @endsection
 @push('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>
+        let taskTable;
+
         $(document).ready(function() {
+            taskTable = $('#taskListTable').DataTable({
+                processing: true,
+                serverSide: true,
+                searching: true,
+                lengthChange: true,
+                stateSave: false,
+
+                ajax: "{{ route('viewer.dashboard.ajax-fetch-task') }}",
+
+                lengthMenu: [{{ config('app.paginate_range') }}],
+                pageLength: {{ config('app.paginate_length') }},
+
+                columns: [{
+                        data: 'task',
+                        name: 'title'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        className: 'text-center'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center'
+                    }
+                ]
+            });
+
+
+
             // calculate task summary
             let formData = $('#task_form').serialize();
             let actionUrl = '{{ route('viewer.dashboard.ajax-open-task') }}';
@@ -249,7 +282,7 @@
                 }
 
                 // Show modal
-                if(buttonId!="complete_task"){
+                if (buttonId != "complete_task") {
                     $('#taskModal').modal('show');
                 }
                 // $('#taskModal').modal('show');
@@ -422,7 +455,7 @@
             });
         }
 
-      async  function completeTask(taskId) {
+        async function completeTask(taskId) {
             let formData = {
                 'change_task_id': taskId
             };
@@ -434,12 +467,12 @@
             // $("#cancel_button").text('Cancel');
 
             let actionStatusUrl = "{{ route('viewer.dashboard.ajax-change-status') }}";
-                
-               if (await isConfirm({
+
+            if (await isConfirm({
                     'action': 'Complete',
                     'text': 'you want to mark selected tasks as completed?.'
                 })) {
-               callAjax(formData, actionStatusUrl);
+                callAjax(formData, actionStatusUrl);
             }
         }
 
@@ -513,7 +546,7 @@
                     }
 
                     if (response.task_name === 'add_task') {
-                        loadTasks(1);
+                        loadTasks();
                         $('#taskModal').modal('hide');
                         // $("#success_msg").text('Task Added successfully.');
                         showAlert("Task", 'Task has been added successfully', "success");
@@ -522,7 +555,7 @@
                     }
 
                     if (response.task_name === 'update_task') {
-                        loadTasks(1);
+                        loadTasks();
                         let openData = $('#task_form').serialize();
                         let openUrl = '{{ route('viewer.dashboard.ajax-open-task') }}';
                         callAjax(openData, openUrl);
@@ -534,7 +567,7 @@
                     }
 
                     if (response.task_name === 'complete_task') {
-                        loadTasks(1);
+                        loadTasks();
                         let openData = $('#task_form').serialize();
                         let openUrl = '{{ route('viewer.dashboard.ajax-open-task') }}';
                         callAjax(openData, openUrl);
@@ -552,124 +585,8 @@
             });
         }
 
-        // Initial load
-        loadTasks(1);
-
-        // handle pagination click
-        $(document).on('click', '.page-link', function(e) {
-            e.preventDefault();
-            let page = $(this).data('page');
-            if (page) {
-                loadTasks(page);
-            }
-        });
-
-        function loadTasks(page = 1) {
-            let baseUrl = "{{ route('viewer.dashboard.ajax-fetch-task') }}" + '?page=' + page;
-            $.ajax({
-                url: baseUrl,
-                type: 'GET',
-                contentType: 'application/json',
-                headers: {
-                    'Accept': 'application/json',
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    renderTasks(response.data.data);
-                    renderPagination(response.data);
-                },
-                error: function(xhr) {}
-            });
-        }
-
-        function renderTasks(tasks) {
-            let html = '';
-
-            $.each(tasks, function(index, task) {
-                let statusLabel = task.status;
-                if (task.status === 'inprogress') {
-                    statusLabel = 'In Progress';
-                } else if (task.status === 'open') {
-                    statusLabel = 'Open';
-                } else if (task.status === 'completed') {
-                    statusLabel = 'Completed';
-                }
-
-                let priorityColor = 'text-high';
-                if (task.priority === 'medium') {
-                    priorityColor = 'text-medium';
-                } else if (task.priority === 'low') {
-                    priorityColor = 'text-low';
-                }
-
-                let checkboxId = 'task_checkbox_' + task.id;
-                let taskId = task.id;
-                let menuId = 'dropdownMenuLink_' + task.id;
-
-                html += `
-                    <tr>
-                        <td class="task-color">
-                            <label for="${checkboxId}" class="mb-0 cursor-pointer">
-                            <i class="fas fa-circle ${priorityColor} taski mr-2"></i> ${task.title}
-                            </label>
-                        </td>
-                        <td class="td-actions text-center">
-                            <span class="custom_badge ${task.status_color_class || ''}">${statusLabel}</span>
-                        </td>
-                        <td class="theme-color text-center bg-white">
-                            <div class="dropdown no-arrow">
-                                <a class="dropdown-toggle" href="#" role="button" id="${menuId}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="${menuId}">
-                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="edit_task" data-id="${taskId}">
-                                        <i class="fa fa-pen"></i> Edit Task
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="complete_task" data-id="${taskId}">
-                                        <i class="fa fa-check-circle"></i> Complete Task
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="view_task" data-id="${taskId}">
-                                        <i class="fa fa-eye"></i> View
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-            });
-
-            $('#taskList').html(html);
-        }
-
-        function renderPagination(data) {
-            let pagination = `<nav><ul class="pagination">`;
-
-            if (data.current_page > 1) {
-                pagination +=
-                    `<li class="page-item"><a href="#" class="page-link" data-page="${data.current_page - 1}"><i class="fa fa-angle-left"></i></a></li>`;
-            } else {
-                pagination +=
-                    `<li class="page-item page-link border-0 text-muted" style="cursor: not-allowed;"><i class="fa fa-angle-left"></i></li>`;
-            }
-
-            for (let i = 1; i <= data.last_page; i++) {
-                pagination += `<li class="page-item ${i === data.current_page ? 'active' : ''}">
-                                <a href="#" class="page-link" data-page="${i}">${i}</a>
-                            </li>`;
-            }
-
-            if (data.current_page < data.last_page) {
-                pagination +=
-                    `<li class="page-item"><a href="#" class="page-link" data-page="${data.current_page + 1}"><i class="fa fa-angle-right"></i></a></li>`;
-            } else {
-                pagination +=
-                    `<li class="page-item page-link border-0 text-muted" style="cursor: not-allowed;"><i class="fa fa-angle-right"></i></li>`;
-            }
-
-            pagination += `</ul></nav>`;
-            $('.custome_paginator').html(pagination);
+        function loadTasks() {
+            taskTable.ajax.reload(null, false);
         }
     </script>
 @endpush

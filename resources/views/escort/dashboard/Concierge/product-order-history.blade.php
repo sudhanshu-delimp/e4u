@@ -113,6 +113,8 @@
         @include('escort.dashboard.Concierge.modal.view_order_history_modal')
     @endsection
     @push('script')
+
+
         <script>
             $(document).ready(function() {
                 var table = $("#productsHistoryTable").DataTable({
