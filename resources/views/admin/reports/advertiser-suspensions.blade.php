@@ -42,12 +42,14 @@
       <div class="col-md-12">
          <div class="row my-3">
             <div class="col-md-12 col-sm-12 d-flex justify-content-between" style="gap: 50px;">
-               <div class="">
+               <div class="d-flex justify-content-between align-items-center gap-10">
                   <select id="advertiserFilter" name="advertiser_type" class="form-select form-select-sm p-2" style="width: 200px;">
                      <option value="{{ route('admin.advertiser-suspensions-list-ajax','escort') }}">Escort</option>
                      <option value="{{ route('admin.advertiser-suspensions-list-ajax','massage') }}">Massage Center</option>
                   </select>
-                  <button class="btn-switch">Switch to E4U</button>
+                  <a class="nav-link collapse-item btn-switch" href="{{ route('admin.e4u-advertiser-suspension') }}">
+                     Switch to E4U
+                   </a>
                </div>
                <div class="total_listing">
                   <div><span>Total : </span></div>
