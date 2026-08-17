@@ -113,9 +113,9 @@
         @include('escort.dashboard.Concierge.modal.view_order_history_modal')
     @endsection
     @push('script')
-        {{-- <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css">
 
-        <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script> --}}
+        <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
 
         <!-- Your custom JS -->
 
