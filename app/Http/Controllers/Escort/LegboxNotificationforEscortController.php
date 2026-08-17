@@ -194,12 +194,12 @@ class LegboxNotificationforEscortController extends Controller
             $update->member_id     = null;
 
             if ($request->type == 'Ad hoc') {
-                $update->content = $request->content;
+                $update->content = $data['content'];
             } elseif ($request->type == 'Template') {
                 $update->template_name = $request->template_name;
             } elseif ($request->type == 'Notice') {
                 $update->member_id = $request->member_id;
-                $update->content = $request->content;
+                $update->content = $data['content'];
             }
 
             $update->save();
