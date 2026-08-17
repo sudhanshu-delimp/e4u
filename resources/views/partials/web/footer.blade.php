@@ -349,7 +349,7 @@
                 <div class="modal-body">
                     <h5 class="modal-title"><img src="{{ asset('assets/app/img/block-user.png') }}"
                             class="img-fluid"> User Agreement</h5>
-                    <p>This Website contains sexually explicit material (<b>Explicit Material</b>). Do NOT continue if:
+                    <p>This Website may contain sexually explicit material (<b>Explicit Material</b>). Do NOT continue if:
                     </p>
                     <ol class="pl-3">
                         <li>You are not at least 18 years of age or the age of majority in any jurisdiction that
