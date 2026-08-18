@@ -33,6 +33,9 @@ class OperatorMonthlyReportController extends BaseController
    */
   public function monthlyReport()
   {
+    $calculateServiceObj = (new CalculateOperatorFeeService);
+    //$feeData = $calculateServiceObj->calculateFee(3);
+   // dd( $feeData);
     return  view('admin.management.operator.monthly-fee-reports');
   }
 
