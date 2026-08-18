@@ -687,7 +687,8 @@
                     },
                 ],
                 order: [8, 'asc'],
-                pageLength: 25,
+                pageLength: {{$datatable_entries }},
+                lengthMenu: [25, 50, 75, 100],
             });
             //    $('#sailorTable_filter label').append('<i class="fa fa-search "></i>');
 
