@@ -189,15 +189,14 @@
             <div class="d-sm-flex align-items-center justify-content-between col-md-12">
                 <div class="custom-heading-wrapper">
                     <h1 class="h1">Prospect Lists (Centres)</h1>
-                    <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>
-                    </h6>
+                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>                     </span>
                 </div>
 
             </div>
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b></p>
+                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
                             <li>The E4U data list (<b>Data</b>) includes all known Massage Centres located in your
                                 Territory.

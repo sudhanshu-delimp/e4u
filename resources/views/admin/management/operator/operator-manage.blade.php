@@ -37,7 +37,7 @@
                     <div class="col-md-12 mb-4">
                         <div class="card collapse" id="notes">
                             <div class="card-body">
-                                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b></p>
+                                <h3 class="NotesHeader"><b>Notes:</b></h3>
                                 <ol>
                                     <li>Manage the Operator from here.</li>
                                     <li>Update the Operator's details and status from here.</li>

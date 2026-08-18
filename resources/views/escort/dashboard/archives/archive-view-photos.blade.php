@@ -141,8 +141,7 @@
     </div>
     <div class="row">
         <div class="col-md-12 mb-4">
-            <div class="collapse" id="notes">
-                <div class="card">
+            <div class="card collapse" id="notes">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
                         <ol>
@@ -158,7 +157,6 @@
                             </li>
                         </ol>
                     </div>
-                </div>
             </div>
         </div>
         <div class="col-md-12 mb-3 d-flex justify-content-end gap-10">

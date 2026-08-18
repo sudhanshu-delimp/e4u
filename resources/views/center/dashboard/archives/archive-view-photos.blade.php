@@ -135,8 +135,8 @@
                 <div class="d-sm-flex align-items-center justify-content-between">
                     <div class="custom-heading-wrapper">
                         <h1 class="h1">Photos</h1>
-                        <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true">
-                            <b>Help?</b></h6>
+                        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true">
+                            <b>Help?</b></span>
                     </div>
                     @if (request('from') == 'dashboard')
                         <div class="back-to-dashboard">
@@ -148,8 +148,7 @@
                 </div>
             </div>
             <div class="col-md-12 mb-4">
-                <div class="collapse" id="notes">
-                    <div class="card">
+                <div class="card collapse" id="notes">
                         <div class="card-body">
                             <h3 class="NotesHeader"><b>Notes:</b> </h3>
                             <ol>
@@ -178,7 +177,6 @@
                                 </li>
                             </ol>
                         </div>
-                    </div>
                 </div>
             </div>
             <div class="col-md-12 mb-3 d-flex justify-content-end gap-10">

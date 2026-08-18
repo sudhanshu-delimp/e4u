@@ -31,7 +31,7 @@
                     <div class="col-md-12 mb-4">
                         <div class="card collapse" id="notes" style="">
                             <div class="card-body">
-                                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                               <h3 class="NotesHeader"><b>Notes:</b></h3>
                                 <ol>
                                     <li>Enable and disable your notification and feature preferences.</li>
                                     <li>For a Viewer or Agent to receive your Notifications, the Viewer or Agent must have

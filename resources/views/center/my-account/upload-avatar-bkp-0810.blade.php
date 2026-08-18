@@ -76,7 +76,7 @@
                 <div class="col-md-12 mb-4" id="profile_and_tour_options">
                     <div class="card collapse" id="notes" style="">
                         <div class="card-body">
-                            <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                           <h3 class="NotesHeader"><b>Notes:</b></h3>
                             <ol>
                                 <li>You don't have to have an avatar, it is entirely up to you.</li>
                                 <li>Your avatar will not be displayed publicly.</li>

@@ -180,7 +180,7 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                       <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
                             <li>Reports generated from <a href="{{ route('agent.marketing.prospect.list') }}"
                                     class="custom_links_design">Prospects List</a> are saved here.</li>

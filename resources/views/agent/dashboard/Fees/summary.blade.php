@@ -53,7 +53,7 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                       <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
                             <li>You can apply filters within the Fees Summary to suit your query or report type.</li>
                             <li>All Fees paid to you under the Agent Agreement will be paid into your nominated Bank
@@ -790,7 +790,7 @@
 
                                             <div class="card collapse" id="notes2" style="">
                                                 <div class="card-body note_list">
-                                                    <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                                                   <h3 class="NotesHeader"><b>Notes:</b></h3>
                                                     <ol>
                                                         <li>This Week, a 7 day week which are the days either side of the
                                                             selected date, means:

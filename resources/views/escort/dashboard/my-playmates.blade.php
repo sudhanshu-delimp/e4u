@@ -18,8 +18,8 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                    <div class="card-body">
-                      <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                      <p></p>
+                     <h3 class="NotesHeader"><b>Notes:</b></h3>
+                      
                       <ol>
                             <li>Your Playmates are listed here which you can view and manage.</li>
                             <li>To remove a Playmate from your Playmate list, simply click the 'Remove' link in Action.

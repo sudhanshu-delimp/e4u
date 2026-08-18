@@ -45,12 +45,12 @@
      <div class="row">
         <div class="custom-heading-wrapper col-md-12">
             <h1 class="h1">View & Reply</h1>
-            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>                     </span>
         </div>
         <div class="col-md-12 mb-4">
             <div class="card collapse" id="notes" style="">
                 <div class="card-body">
-                    <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                   <h3 class="NotesHeader"><b>Notes:</b></h3>
                     <ol>
                         <li>You will receive a Notification, located in the Support Ticket Alert (top menu bar), when you have an unread Support Ticket message.</li>
                         <li>Use the <a href="javascript:void(0)" class="custom_links_design">Messaging</a> service for communication with other Users (if available).</li>

@@ -701,7 +701,7 @@ determined period for the Profile, like for example, every 5 days at the Platinu
                   when analysing your successes.</p>         
                                  <p><b>Q; How does the Tour feature work?</b>
                   </p>
-                                 <p></p>         
+                                          
                                  <p>As soon as you create your Tour from your selected Profiles, it will be posted
                   according to your start date. One day prior to your first Tour destination you will appear
                   on the Escort Home Page for that Location, according to the Membership Type you
@@ -713,7 +713,7 @@ determined period for the Profile, like for example, every 5 days at the Platinu
                   to receive V-Alert notifications. Where you select this option in the Tour creator, a
                   V-Alert will be automatically forwarded to Viewers one day before each leg of the Tour. 
                   This is a free service.</p>
-               <p></p> 
+                
                <p><b>Q: Do I need to enter information into my Tour?</b></p>
                <p>Your Tour will automatically use the same information and Media that is set up in each
                   of your selected Profiles you have created for your different Locations. Like for

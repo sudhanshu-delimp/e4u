@@ -44,13 +44,24 @@
     </style>
 @endsection
 @section('content')
-    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 register-pin-up">
-        <!--middle content start here-->
-        <!-- Page Heading -->
-        <div class="row">
-            <div class="custom-heading-wrapper col-md-12">
-                <h1 class="h1">View & Reply</h1>
-                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 register-pin-up">
+    <!--middle content start here-->
+     <!-- Page Heading -->
+     <div class="row">
+        <div class="custom-heading-wrapper col-md-12">
+            <h1 class="h1">View & Reply</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>                     </span>
+        </div>
+        <div class="col-md-12 mb-4">
+            <div class="card collapse" id="notes" style="">
+                <div class="card-body">
+                   <h3 class="NotesHeader"><b>Notes:</b></h3>
+                    <ol>
+                        <li>You will receive a Notification, located in the Support Ticket Alert (top menu bar), when you have an unread Support Ticket message.</li>
+                        <li>Use the <a href="{{ route('user.viewer-messages')}}" class="custom_links_design">Messaging</a> service for communication with other Users (if available).</li>
+                        
+                    </ol>
+                </div>
             </div>
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">

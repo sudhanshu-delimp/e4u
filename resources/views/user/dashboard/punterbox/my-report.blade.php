@@ -23,14 +23,28 @@
     </style>
 @endsection
 @section('content')
-    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-        <!--middle content start here-->
-        <!-- Page Heading -->
-        <div class="row">
-            <div class="custom-heading-wrapper col-md-12">
-                <h1 class="h1">My Report</h1>
-                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
-                    aria-expanded="true"><b>Help?</b></span>
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+    <!--middle content start here-->
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="custom-heading-wrapper col-md-12">
+            <h1 class="h1">My Report</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+        </div>
+        <div class="col-md-12 mb-4">
+            <div class="card collapse" id="notes" style="">
+                <div class="card-body">
+                   <h3 class="NotesHeader"><b>Notes:</b></h3>
+                    <ol>
+                        <li>You can view all of your Reports here. Simply search the report you are looking for by
+                            searching the mobile number. Or scroll through the pages.</li>
+                        <li>You can also select a Report/s you wish to edit or remove from your register by clicking
+                            the appropriate button. Any Notebox you remove from your register will be permanently
+                            removed.</li>
+                        <li>New Reports when created or edited, are listed here. The status of the new Report
+                            remains as Pending and is not available to other Viewers until approved and published.</li>
+                    </ol>
+                </div>
             </div>
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">

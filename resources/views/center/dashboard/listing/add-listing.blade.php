@@ -131,7 +131,7 @@ background:#16385f;
             <div class="collapse" id="notes">
                 <div class="card">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                       <h3 class="NotesHeader"><b>Notes:</b></h3>
                       <ol>
                           <li>Please note we use 2FA verification process to enable you to make payment.</li>
                           <li>Your verification code will be sent to your nominated preference.</li>
