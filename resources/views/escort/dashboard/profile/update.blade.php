@@ -63,7 +63,7 @@
                 @else
                     <h1 class="h1">Update Profile</h1>
                 @endif
-                <span class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options"
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
                     aria-expanded="true"><b>Help?</b></span>
             </div>
             @if (request('from') == 'dashboard')
@@ -80,19 +80,11 @@
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
                         <ol>
-                            <li>Use this feature to create your Profiles. You can create as many Profiles as you
-                                like for as many Locations as you like.
-                            </li>
-                            <li>The Profiles you create will be used to create Tours.</li>
-                            <li>Each time you create a Profile, it will be pre-populated with your <a
-                                    href="/escort-dashboard/profile-informations" class="custom_links_design">Profile
-                                    Information</a> you have set. Take the time
-                                to set up your <a href="/escort-dashboard/profile-informations"
-                                    class="custom_links_design">Profile Information</a> and <a
-                                    href="/escort-dashboard/archive-medias" class="custom_links_design">Media</a>.
-                                Any changes you make in the Profile Creator will only apply to that Profile unless
-                                you click the ‘Update’ button for the section you have changed. Otherwise your
-                                Profile Information settings will not change.
+                            <li>Use this feature to create a new Profile.  You can create as many Profiles as you want for as many Locations as you want.</li>
+                            <li>This page will auto load with your data saved in My Information.  You can edit any of the pre-loaded data.  Where data is edited, you will be asked if you want to save the changes to your My Information data.  If you don't, My Information will remain unchanged, and the edited data will be saved to the new Profile.</li>
+                           <li>When creating a new Profile for a particular Location, we recommend you adopt a protocol that will help you identify the Profile, for example, a Profile you wish to create for NSW, could be named:  NSW01 and thereafter for any other Profiles for NSW, NSW02.</li>
+                            <li>
+                                Media Verification status is an automatic process.  You can upload any media and attach it to a Profile.  Uploaded photos will automatically by assigned the Verification status 'Pending'.  You have 48 hours to upload your Verification Image, otherwise the status will automatically change to 'Unverified'.  When Media is Verified by E4U, all Media uploaded and which is Pending or Unverified, will be updated to 'Verified', including any photos displayed in a Listed Profile.
                             </li>
                         </ol>
                     </div>

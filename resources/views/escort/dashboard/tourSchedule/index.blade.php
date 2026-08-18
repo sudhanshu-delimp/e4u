@@ -48,9 +48,9 @@
                    <h3 class="NotesHeader"><b>Notes:</b></h3>
 
                     <ol>
-                        <li>All of your Tours are listed here for a twelve month period. To view at Tour that is older than 12 months, <a href="{{url('escort-dashboard/list-tour/past')}}" class="custom_links_design">click here</a>.</li>
-                        <li>There are multiple functions available to you by clicking Action.
-                        </li>
+                        <li>All of your Tours are listed here for a twelve month period. To View a Tour that is older than 12 months, <a href="{{url('escort-dashboard/list-tour/past')}}" class="custom_links_design">click here</a>.</li>
+                        <li>Click the Action function to View Tour and add a Pin Up for any of the Locations within your Tour, or Tour Summary for a summary of all of the important elements of your Tour, including the current leg of the Tour.</li>
+                        <li>Click 'Open' to view each of the Tour legs and the Status.  Select the Action feature to Cancel a Tour leg.</li>
                     </ol>
                 </div>
             </div>
