@@ -161,7 +161,7 @@ $(document).ready(function () {
     paging: true,
     lengthChange: true,
     searching: true,
-    bStateSave: true,
+    bStateSave: false,
     ordering: false,
     lengthMenu: paginateRange,
     pageLength: paginateLength,
