@@ -488,6 +488,13 @@ label.cabinet input.file {
     margin-bottom: 0px;
 }
 
+.card#notes .card-body ol li {
+    line-height: 28px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #192A3E;
+}
+
 .helpNoteLink {
     border: 1px solid #ffd0dc;
     background: #fff3f6;
