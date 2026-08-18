@@ -103,6 +103,9 @@ Route::post('save-member-type/{id}', [UpdateController::class, 'saveMembership']
 Route::post('/escort-suspend/profile-credit', [EscortSuspendProfileController::class, 'suspendProfileCredit'])->name('suspend.calculate.credit.live');
 Route::post('escort-suspend/profile', [EscortSuspendProfileController::class, 'suspendProfile'])->name('escort.profile.suspend');
 
+Route::get('/cancel/listing/credit/{profile}', [EscortController::class, 'cancelProfileCredit'])->name('cancel.profile.credit');
+Route::patch('/cancel/listing/{profile}', [EscortController::class, 'cancelProfileListing'])->name('cancel.profile.listing');
+
 
 Route::get('view-archive/{id?}', [CreateController::class, 'archives'])->name('escort.archives');
 // Route::get('view-archive-profile-folder/{id?}',[CreateController::class,'archivesProfile'])->name('escort.archives.profile-folder');

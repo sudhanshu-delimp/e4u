@@ -48,11 +48,11 @@ class EscortRepository extends BaseRepository implements EscortInterface
         }
 
         # Note : ?no-next-page query handle in blade file for disable buttons purpose
-       /*  return [
+        /*  return [
             $next ? route('profile.description', [$next->id, $city, $membershipId]) : '?no-next-page',
             $previous ? route('profile.description', [$previous->id, $city, $membershipId]) : '?no-prev-page',
         ]; */
-         return [
+        return [
             $next ? route('escort.profile.detail', $next->slug) : '?no-next-page',
             $previous ? route('escort.profile.detail', $previous->slug) : '?no-prev-page',
         ];
@@ -105,7 +105,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 'latestActivePinup',
                 'currentActivePinup',
                 'activeBumpup',
-                'activeUpcomingSuspend',
+                'mainPurchase.activeUpcomingSuspend',
                 'brb' => function ($query) {
                     $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
                 },
@@ -207,7 +207,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', ['id' => $item->id, 'tab' => 'my-playmates']) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Add Playmates</a><div class="dropdown-divider"></div>';
             }
 
-            if ($item->latestActivePinup && empty($item->activeUpcomingSuspend)) {
+            if ($item->latestActivePinup && empty($item->mainPurchase->activeUpcomingSuspend)) {
                 $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="' . $item->id . '"  data-toggle="modal" data-target="#pinupSummary"><i class="fa fa-hand-pointer"></i>Pin Up Summary</a><div class="dropdown-divider"></div>';
             }
 
@@ -215,7 +215,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             //     $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="' . $item->id . '" data-membership="' . $item->membership_number . '"  data-toggle="modal" data-target="#upgrade_modal"><i class="fa fa-wrench"></i>Upgrade</a><div class="dropdown-divider"></div>';
             // }
 
-           /* $item->action .= ' <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('profile.description', $item->id) . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
+            /* $item->action .= ' <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('profile.description', $item->id) . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
             $item->action .= '</div>';*/
             $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.profile.detail', $item->slug)  . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
 
@@ -260,14 +260,14 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 </sup>';
             }
             /*Suspend */
-            if (!empty($item->activeUpcomingSuspend) || $item->user->status == "Suspended") {
+            if (!empty($item->mainPurchase->activeUpcomingSuspend) || $item->user->status == "Suspended") {
                 if ($item->user->status == "Suspended") {
                     $item->pro_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
                 <small class="listing-tag-tooltip-desc">Your membership has been Suspended due to a Report</small>
                 </sup>';
                 } else {
                     $item->pro_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
-                <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($item->activeUpcomingSuspend->start_date)) . " to " . date("d-m-Y", strtotime($item->activeUpcomingSuspend->end_date)) . '</small>
+                <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($item->mainPurchase->activeUpcomingSuspend->start_date)) . " to " . date("d-m-Y", strtotime($item->mainPurchase->activeUpcomingSuspend->end_date)) . '</small>
                 </sup>';
                 }
             }
