@@ -93,8 +93,7 @@
                         <ol>
                             <li>Use this feature to review and make changes to your Profiles.</li>
                             <li>You can view and edit a Profile by selecting 'Action'. By selecting the Action
-                                function, you will be able to {{ $type == 'past' ? 'Duplicate,' : '' }} Delete, Edit
-                                or
+                                function, you will be able to {{ $type == 'past' ? 'Duplicate,' : '' }} Delete, Edit,
                                 View the Profile and Add Playmates.</li>
                             @if ($type != 'past')
                                 <li>
