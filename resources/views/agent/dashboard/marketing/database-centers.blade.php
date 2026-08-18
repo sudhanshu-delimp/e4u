@@ -76,17 +76,15 @@
         data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
         data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
         data-marketing-database-centres="{{ route('agent.marketing.database.centres') }}"
-        data-marketing-view-database-center="{{route('agent.marketing.database.view', ['id' => '__ID__'])}}"
-        data-marketing-download-database-center="{{route('agent.marketing.database.download', ['id' => '__ID__'])}}"
-        data-count-active-post-code="{{route('agent.marketing.database.active.count')}}"
-        data-download-pdf="{{route('agent.marketing.database.download.pdf',  ['id' => '__ID__'])}}"
-        >
+        data-marketing-view-database-center="{{ route('agent.marketing.database.view', ['id' => '__ID__']) }}"
+        data-marketing-download-database-center="{{ route('agent.marketing.database.download', ['id' => '__ID__']) }}"
+        data-count-active-post-code="{{ route('agent.marketing.database.active.count') }}"
+        data-download-pdf="{{ route('agent.marketing.database.download.pdf', ['id' => '__ID__']) }}">
 
         @include('agent.dashboard.marketing.modal.data-summary-modal')
     @endsection
     @push('script')
         <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
         </script>
-        <script src="{{asset('agent/dashboard/marketing/database-center.js')}}"></script>
-
+        <script src="{{ asset('agent/dashboard/marketing/database-center.js') }}"></script>
     @endpush

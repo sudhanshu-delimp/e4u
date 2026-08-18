@@ -143,9 +143,10 @@
                 </div>
             </div>
         </div>
-         {{-- view query --}}
+        {{-- view query --}}
         <div class="modal fade upload-modal" id="viewMonthlyQueryModel" tabindex="-1" role="dialog"
-            aria-labelledby="viewMonthlyQueryModelLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            aria-labelledby="viewMonthlyQueryModelLabel" aria-hidden="true" data-backdrop="static"
+            data-keyboard="false">
             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -161,12 +162,12 @@
                         <!-- End content area -->
                     </div>
                     <div class="modal-footer">
-                         <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>
+                        <button type="button" class="btn-cancel-modal" data-dismiss="modal"
+                            aria-label="Close">Close</button>
                     </div>
                 </div>
             </div>
         </div>
-
     @endsection
     @push('script')
         <!-- file upload plugin start here -->
@@ -185,7 +186,8 @@
                     lengthChange: true,
                     searchable: false,
                     bStateSave: false,
-
+                    lengthMenu: paginateRange,
+                    pageLength: paginateLength,
                     ajax: {
                         url: "{{ route('agent.fees.monthly-report-ajax') }}",
                         data: function(d) {
@@ -288,7 +290,7 @@
                     });
                 });
 
-                 $(document).on('click', '#openQueryModel', function() {
+                $(document).on('click', '#openQueryModel', function() {
                     $('#queryForm')[0].reset();
                     let id = $(this).data('id');
                     let status = $(this).data('status');
@@ -334,7 +336,7 @@
                             if ($.trim(response) === "") {
                                 swal_error_popup("Query not found.");
                             } else {
-                          
+
                                 $('#renderMonthlyRaiseQuery').html(response);
                                 $('#viewMonthlyQueryModel').modal('show');
                             }
@@ -379,6 +381,5 @@
                     });
                 }
             }
-
         </script>
     @endpush

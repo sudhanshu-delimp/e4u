@@ -154,11 +154,8 @@
             paging: true,
             processing: false,
             serverSide: false,
-            pageLength: 10,
-            lengthMenu: [
-                [10, 20, 50, 100],
-                [10, 20, 50, 100]
-            ],
+            lengthMenu: [{{ config('app.paginate_range') }}],
+            pageLength: {{ config('app.paginate_length') }},
             ordering: true,
             columnDefs: [{
                     targets: 5,

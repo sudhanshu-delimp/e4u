@@ -464,7 +464,8 @@
                 lengthChange: true,
                 searching: true,
                 bStateSave: false,
-
+                lengthMenu: paginateRange,
+pageLength: paginateLength,
                 ajax: {
                     url: "{{ route('agent.accepted_advertiser_datatable') }}",
                     type: 'GET',
@@ -571,11 +572,7 @@
                 order: [
                     [0, 'desc']
                 ],
-                lengthMenu: [
-                    [10, 25, 50, 100],
-                    [10, 25, 50, 100]
-                ],
-                pageLength: 10,
+                 
             });
         });
 
