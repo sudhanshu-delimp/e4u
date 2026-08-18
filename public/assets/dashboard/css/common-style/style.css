@@ -4,7 +4,7 @@
     top: 1px;
     z-index: 999;
     width: max-content;
-    background: var(--peach);
+    background: #ff3c5f;
     color: #fff;
     font-size: 10px;
     font-weight: 500;
@@ -21,7 +21,7 @@
     content: '';
     border-width: 5px;
     border-style: solid;
-    border-color: var(--peach) transparent transparent transparent;
+    border-color: #ff3c5f transparent transparent transparent;
     transform: rotate(270deg) translate(50%, 100%);
 }
 
@@ -1198,6 +1198,720 @@ label.cabinet input.file {
     border: 0;
 }
 
+
+/* .pm-layout */
+
+
+/* =========================================================
+   MAIN LAYOUT
+========================================================= */
+
+.pm-layout {
+    display: grid;
+    grid-template-columns: 450px minmax(0, 1fr);
+    gap: 20px;
+    align-items: stretch;
+}
+
+
+/* =========================================================
+   LEFT CARD
+========================================================= */
+
+.pm-default-card {
+    overflow: hidden;
+    border: 1px solid #e5e9ef;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 5px 22px rgba(20, 43, 70, .06);
+}
+
+.pm-default-title {
+    min-height: 69px;
+    padding: 0 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #f1dce2;
+}
+
+.pm-section-icon {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+    background: #fff0f4;
+}
+
+.pm-section-icon svg {
+    width: 19px;
+    height: 19px;
+    fill: none;
+    stroke: #ff3c5f;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.pm-default-title span {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.pm-default-body {
+    padding: 21px 27px 25px;
+}
+
+.pm-default-section {
+    margin-bottom: 19px;
+}
+
+.pm-default-section:last-child {
+    margin-bottom: 0;
+}
+
+.pm-default-section h3 {
+    margin: 0 0 9px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   NO IMAGE PLACEHOLDER
+========================================================= */
+
+.pm-main-placeholder {
+    height: 175px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e1e5ea;
+    border-radius: 8px;
+    background: linear-gradient( 135deg, #f9fafb, #f1f3f6);
+}
+
+.pm-main-placeholder img {
+    width: 100%;
+    height: 100%;
+}
+
+.pm-main-placeholder label {
+    margin-bottom: 0px;
+}
+
+.pm-no-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    color: #a7b0bc;
+}
+
+.pm-no-image svg {
+    width: 45px;
+    height: 45px;
+    fill: none;
+    stroke: #b5bdc8;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.pm-no-image span {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.pm-menu-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 50%;
+    background: #fff;
+    color: #0c223d;
+    font-size: 13px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .12);
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   STATUS BADGE
+========================================================= */
+
+.pm-status {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 9px;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.pm-status svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.pm-status.pending {
+    background: #ff3c5f;
+}
+
+.pm-status.unverified {
+    background: #ff3c5f;
+}
+
+
+/* =========================================================
+   MINI IMAGE GRID
+========================================================= */
+
+.pm-mini-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+}
+
+.pm-mini-placeholder,
+.pm-add-placeholder {
+    height: 68px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 7px;
+}
+
+.pm-mini-placeholder {
+    border: 1px solid #e1e5ea;
+    background: linear-gradient( 135deg, #fafbfc, #eef1f4);
+}
+
+.pm-small-no-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pm-small-no-image svg {
+    width: 25px;
+    height: 25px;
+    fill: none;
+    stroke: #b4bdc8;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.pm-add-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2px;
+    border: 1px dashed #cbd2db;
+    background: #fafbfc;
+    color: #8d98a6;
+}
+
+.pm-plus {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #e8ecf0;
+    color: #86919f;
+    font-size: 18px;
+}
+
+.pm-add-placeholder span {
+    font-size: 7px;
+}
+
+.pm-remove {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 50%;
+    background: #fff;
+    color: #667487;
+    font-size: 15px;
+    line-height: 1;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .12);
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   WIDE PLACEHOLDER
+========================================================= */
+
+.pm-banner-sections {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.pm-banner-sections .pm-default-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0px;
+}
+
+.pm-banner-sections .pm-wide-placeholder {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.pm-banner-sections .pm-wide-placeholder .newbtn {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.pm-banner-sections .pm-wide-placeholder .common-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.pm-wide-placeholder {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e1e5ea;
+    border-radius: 7px;
+    background: linear-gradient( 135deg, #fafbfc, #f0f2f5);
+}
+
+.pm-wide-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pm-wide-placeholder label {
+    margin-bottom: 0px;
+}
+
+.pm-wide-placeholder .pm-no-image {
+    flex-direction: row;
+    gap: 9px;
+}
+
+.pm-wide-placeholder .pm-no-image svg {
+    width: 30px;
+    height: 30px;
+}
+
+
+/* =========================================================
+   GALLERY CARD
+========================================================= */
+
+.pm-gallery-card {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid #e5e9ef;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 5px 22px rgba(20, 43, 70, .06);
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+.pm-filter-row {
+    min-height: 87px;
+    padding: 0 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid #e5e9ef;
+}
+
+.pm-status-tabs {
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    border: 1px solid #edf0f4;
+    border-radius: 9px;
+    background: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .03);
+}
+
+.pm-status-tab {
+    min-height: 40px;
+    padding: 0 17px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 0;
+    border-radius: 7px;
+    background: transparent;
+    color: #0c223d;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.pm-status-tabs ul li {
+    margin-bottom: 0px;
+}
+
+.pm-status-tab.active {
+    background: #ff3c5f;
+    color: #fff !important;
+    box-shadow: 0 4px 10px rgba(255, 49, 91, .18);
+}
+
+.pm-status-tab.active .icons {
+    color: #fff;
+    filter: brightness(5);
+}
+
+.pm-check-icon {
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #1cc98a;
+    color: #fff;
+    font-size: 11px;
+}
+
+.pm-shield-icon {
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #ffad27;
+    color: #fff;
+    font-size: 8px;
+}
+
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+.pm-storage {
+    width: 230px;
+}
+
+.pm-storage-label {
+    margin-bottom: 8px;
+    text-align: right;
+    color: #748095;
+    font-size: 12px;
+}
+
+.pm-storage-label strong {
+    color: #0c223d;
+}
+
+.pm-storage-bar {
+    height: 9px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #dfe4ea;
+}
+
+.pm-storage-progress {
+    width: 66.66%;
+    height: 100%;
+    border-radius: inherit;
+    background: #ff3c5f;
+}
+
+
+/* =========================================================
+   CATEGORY TABS
+========================================================= */
+
+.pm-category-tabs {
+    min-height: 67px;
+    padding: 0 25px;
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    border-bottom: 1px solid #edf0f3;
+}
+
+.pm-category {
+    height: 49px;
+    padding: 0 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    color: #0c223d;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.pm-category svg {
+    width: 19px;
+    height: 19px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.pm-category.active {
+    border-bottom-color: #ff3c5f !important;
+    color: #ff3c5f !important;
+    background: #fff0f4 !important;
+    border-radius: 7px 7px 0 0 !important;
+}
+
+
+/* =========================================================
+   GALLERY GRID
+========================================================= */
+
+.pm-gallery-grid {
+    padding: 20px 25px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.pm-photo-card {
+    height: 218px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #e1e5ea;
+    border-radius: 9px;
+    background: #f5f6f8;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.pm-photo-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(9, 45, 81, .10);
+}
+
+.pm-photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    background: linear-gradient( 135deg, #f8f9fb 0%, #eef1f4 100%);
+    color: #a6afba;
+}
+
+.pm-photo-placeholder svg {
+    width: 47px;
+    height: 47px;
+    fill: none;
+    stroke: #aeb7c2;
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.pm-photo-placeholder span {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   GALLERY BADGE
+========================================================= */
+
+.pm-gallery-badge {
+    position: absolute;
+    left: 8px;
+    bottom: 8px;
+    padding: 5px 8px;
+    border-radius: 5px;
+    background: #ff3c5f;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.pm-photo-delete {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    width: 29px;
+    height: 29px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 50%;
+    background: #fff;
+    color: #0c223d;
+    font-size: 19px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .14);
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.pm-photo-delete:hover {
+    background: #ff3c5f;
+    color: #fff;
+}
+
+
+/* =========================================================
+   PAGINATION
+========================================================= */
+
+.pm-pagination {
+    padding: 2px 25px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.pm-pagination button {
+    width: 39px;
+    height: 39px;
+    border: 1px solid #e2e6eb;
+    border-radius: 7px;
+    background: #fff;
+    color: #0c223d;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.pm-pagination button:hover,
+.pm-pagination button.active {
+    border-color: #ff3c5f;
+    background: #ff3c5f;
+    color: #fff;
+}
+
+
+/* =========================================================
+   PHOTO TIPS
+========================================================= */
+
+.pm-tips {
+    min-height: 96px;
+    margin-top: 20px;
+    padding: 18px 28px;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid #f5dce3;
+    border-radius: 10px;
+    background: linear-gradient( 100deg, #fff4f7, #fffafd);
+}
+
+.pm-tip-title {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.pm-tip-icon,
+.pm-tip-round {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #ffe7ed;
+    color: #ff3c5f;
+    font-size: 19px;
+}
+
+.pm-tip-title strong {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 14px;
+}
+
+.pm-tip-title span {
+    display: block;
+    color: #7b8797;
+    font-size: 10px;
+}
+
+.pm-tip-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #0c223d;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.pm-tip-round svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
 @media (max-width: 600px) {
     .avatar-upload-submit {
         flex-direction: column;
@@ -1298,11 +2012,17 @@ label.cabinet input.file {
     .radio-option {
         font-size: 15px;
     }
+    .pm-layout {
+        grid-template-columns: 320px minmax(0, 1fr);
+    }
 }
 
 @media (max-width: 991px) {
     .notification-page {
         padding: 28px;
+    }
+    .pm-layout {
+        grid-template-columns: 1fr;
     }
     .common-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1505,6 +2225,9 @@ label.cabinet input.file {
 @media (max-width: 480px) {
     .notification-page {
         padding: 16px;
+    }
+    .pm-default-body {
+        padding: 18px;
     }
     .notification-header {
         flex-direction: column;
