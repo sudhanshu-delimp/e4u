@@ -1045,7 +1045,8 @@
          order: [1, 'asc'],
          searchable: false,
          bStateSave: false,
-         pageLength: 25,
+         pageLength: {{$datatable_entries }},
+         lengthMenu: [25, 50, 75, 100],
          "language": {
                     "zeroRecords": "There is no record of the search criteria you entered.",
                      searchPlaceholder: "Search by Account Number"

@@ -153,7 +153,8 @@
             table = $('#playmateListTable').DataTable({
                 serverSide: true,
                 processing: true,
-                pageLength: 25,
+                pageLength: {{$datatable_entries }},
+                lengthMenu: [25, 50, 75, 100],
                 "language": {
                     "zeroRecords": "There is no record of the search criteria you entered.",
                     searchPlaceholder: "Search by Profile Name"

@@ -221,11 +221,8 @@
                     [6, 'desc']
                 ], // Default sort by created_on descending
 
-                lengthMenu: [
-                    [10, 25, 50, 100],
-                    [10, 25, 50, 100]
-                ],
-                pageLength: 25,
+                pageLength: {{$datatable_entries }},
+                lengthMenu: [25, 50, 75, 100],
             });
 
             // ✅ Add placeholder to search input

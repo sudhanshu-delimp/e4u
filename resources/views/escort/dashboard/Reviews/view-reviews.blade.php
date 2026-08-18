@@ -190,9 +190,8 @@
             info: true,
             lengthChange: true,
             searching: true,
-            bStateSave: true,
+            bStateSave: false,
             ordering: true,
-            pageLength: 25,
             ajax: {
                 url: "{{ route('escort.reviews-profile-by-ajax') }}",
                 type: "GET",
@@ -202,6 +201,8 @@
             },
                 drawCallback: function (settings) {
             },
+            pageLength: {{$datatable_entries }},
+            lengthMenu: [25, 50, 75, 100],
             columns: [
                 { data: 'ref', name: 'ref' },
                 { data: 'escort_name', name: 'escort_name' },

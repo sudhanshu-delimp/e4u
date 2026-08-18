@@ -341,7 +341,7 @@
                                     </div>
                                 </div>
                                 {{-- Show Entries --}}
-                                <div class="form-group common-card disabled-link">
+                                <div class="form-group common-card">
                                         <div class="card-top">
                                             <div class="card-icon">
                                             <svg viewBox="0 0 24 24" fill="none">
@@ -384,10 +384,10 @@
                                             </span>
 
                                             <select class="entries-select" name="entries">
-                                                <option value="25" selected>25</option>
-                                                <option value="50">50</option>
-                                                <option value="75">75</option>
-                                                <option value="100">100</option>
+                                                <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '25' ? 'selected' : '' }} value="25" selected>25</option>
+                                                <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '50' ? 'selected' : '' }} value="50">50</option>
+                                                <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '75' ? 'selected' : '' }} value="75">75</option>
+                                                <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '100' ? 'selected' : '' }} value="100">100</option>
                                             </select>
 
                                         </div> 
@@ -432,19 +432,7 @@
                 processData: false,
                 contentType: false,
                 success: function(response) {
-
-                    Swal.close();
-                
-                    console.log(response);
-                    Swal.close();
                     showAlert('success', '', response.message || 'Notification settings updated successfully!');
-                    setTimeout(function() {
-                        location.reload();
-                    }, 3000);
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
                 },
                 error: function(xhr) {
                     Swal.close();
