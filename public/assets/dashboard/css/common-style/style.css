@@ -475,7 +475,7 @@ label.cabinet input.file {
 .card#notes .card-body {
     display: flex;
     align-items: baseline;
-    gap: 20px;
+    flex-direction: column;
 }
 
 #notes .card .card-body {
