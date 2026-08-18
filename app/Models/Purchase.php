@@ -42,6 +42,13 @@ class Purchase extends Model
             ->where('utc_start_date', '>', now('UTC'));
     }
 
+    public function activeSuspendProfile()
+    {
+        return $this->hasMany(SuspendProfile::class, 'escort_profile_id')
+            ->where('utc_start_date', '<=', Carbon::now('UTC'))
+            ->where('utc_end_date', '>=', Carbon::now('UTC'));
+    }
+
     public function activeUpcomingSuspend()
     {
         return $this->hasOne(SuspendProfile::class, 'purchase_id')
