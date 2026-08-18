@@ -40,6 +40,7 @@ use App\Http\Requests\UpdateEscortRequest;
 use App\Repositories\Escort\EscortInterface;
 use App\Http\Requests\StoreAvatarMediaRequest;
 use App\Repositories\Purchase\PurchaseInterface;
+use App\Repositories\Playmate\PlaymateInterface;
 use App\Repositories\AttemptLogin\AttemptLoginRepository;
 use App\Models\EscortNotification;
 use App\Models\AdvertiserDiscount;
@@ -64,9 +65,10 @@ class EscortController extends BaseController
     protected $walletService;
     protected $pinService;
     protected $featureService;
+    protected $playmateHistory;
     protected $account;
 
-    public function __construct(AttemptLoginRepository $attemptlogin, EscortInterface $escort, UserInterface $user, PurchaseInterface $purchase, WalletService $walletService, PinPaymentService $pinService, EscortListingFeatureService $featureService)
+    public function __construct(AttemptLoginRepository $attemptlogin, EscortInterface $escort, UserInterface $user, PurchaseInterface $purchase, WalletService $walletService, PinPaymentService $pinService, EscortListingFeatureService $featureService, PlaymateInterface $playmateHistory)
     {
         $this->escort = $escort;
         $this->purchase = $purchase;
@@ -75,6 +77,7 @@ class EscortController extends BaseController
         $this->walletService = $walletService;
         $this->pinService = $pinService;
         $this->featureService = $featureService;
+        $this->playmateHistory = $playmateHistory;
 
         $this->middleware(function ($request, $next) {
             $this->account = auth()->user();
@@ -1002,5 +1005,92 @@ class EscortController extends BaseController
             ->select('id', 'heading', 'content', 'template_name')
             ->first();
         return $notification;
+    }
+
+    public function cancelProfileCredit(Escort $profile)
+    {
+        try {
+            $result = getListingCancelAmount($profile);
+            return response()->json([
+                'success' => true,
+                'refund_amount' => $result->net_credit_amount,
+                'message' => '',
+                'result' => $result
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong while booking the Pinup.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function cancelProfileListing(Escort $profile)
+    {
+        try {
+            $result = getListingCancelAmount($profile);
+
+            if (!empty($result->main_purchase)) {
+                $this->walletService->credit(
+                    $this->account,
+                    $result->net_credit_amount,
+                    $result->main_purchase,
+                    'Cancel Profile Listing.',
+                    [
+                        'user_id' => $this->account->id,
+                        'escort_id' => $profile->id
+                    ]
+                );
+                $result->main_purchase->update(['status' => 'cancel']);
+            }
+
+            if (!empty($result->other_purchase)) {
+                $this->walletService->credit(
+                    $this->account,
+                    $result->extend_listing_credit_amount,
+                    $result->other_purchase,
+                    'Cancel Extended Profile Listing.',
+                    [
+                        'user_id' => $this->account->id,
+                        'escort_id' => $profile->id
+                    ]
+                );
+                $result->other_purchase->update(['status' => 'cancel']);
+            }
+
+            foreach ($profile->playmates as $playmate) {
+                $this->playmateHistory->trashPlaymateHistory($profile->id, $playmate->id);
+            }
+            /**
+             * Detach all playmates this escort added
+             */
+            $profile->playmates()->detach();
+            /**
+             * Detach this escort from other users who added them as a playmate
+             */
+            $profile->addedBy()->detach();
+            $profile->update([
+                'enabled' => 0,
+                'membership' => null,
+                'start_date' => null,
+                'end_date' => null,
+                'utc_start_time' => null,
+                'utc_end_time' => null,
+                'purchase_id' => null
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'refund_amount' => $result->net_credit_amount,
+                'message' => 'Profile ID ' . $profile->id . ' has been canceled.',
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong while booking the Pinup.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }

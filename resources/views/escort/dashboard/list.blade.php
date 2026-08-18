@@ -45,7 +45,8 @@
     #btn_add_brb,
     #btn_extend_profile,
     #btn_pinup_profile,
-    #btn_bumpup_profile {
+    #btn_bumpup_profile,
+    #btn_cancel_profile {
         display: none;
     }
 
@@ -152,6 +153,11 @@
                                     data-toggle="modal" data-target="#suspend_profile"
                                     id="btn_suspend_profile">Suspend Listing
                                     <span class="esc-tooltip-2">Take down your Profile <br> for a set period</span>
+                                </button>
+                                <button style="padding: 10px;" class="btn btn-danger esc-tooltip-wrap"
+                                    data-toggle="modal" data-target="#cancel_profile"
+                                    id="btn_cancel_profile">Cancel Listing
+                                    <span class="esc-tooltip-2">Take down your Profile</span>
                                 </button>
 
 
@@ -405,13 +411,17 @@
                     <div class="modal-footer" style="text-align: end; display: block;">
                         <button type="submit" class="btn-success-modal" id="save_brb" disabled>Suspend</button>
                         <button type="button" class="btn-cancel-modal" id="save_brb"
-                            data-dismiss="modal">Cancel</button>
+                            data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
 </div>
+<!-- end suspend profile modal -->
+
+<!-- suspend profile modal start here -->
+@include('escort.dashboard.modal.cancel_profile_listing')
 <!-- end suspend profile modal -->
 
 <div class="modal fade upload-modal programmatic" id="delete_profile" style="display: none">
@@ -498,6 +508,9 @@
                 let $selectUpgrade = $('#upgrade_profile_id');
                 $selectUpgrade.empty();
 
+                let $selectCancel = $('#cancelProfileId');
+                $selectCancel.empty();
+
                 if (records.recordsTotal > 0) {
 
                     $select.append('<option value="">-- Select Profile --</option>');
@@ -518,6 +531,19 @@
                     $selectSuspend.append('<option value="">-- Select Profile --</option>');
                     $.each(records.data, function(i, item) {
                         $selectSuspend.append(
+                            $('<option>', {
+                                value: item.id,
+                                text: `${item.id} - ${item.name} - ${item.state.name}`,
+                                'data-start': item.start_date_formatted,
+                                'data-end': item.end_date_formatted,
+                                'data-membership': item.membership_number,
+                            })
+                        );
+                    });
+
+                    $selectCancel.append('<option value="">-- Select Profile --</option>');
+                    $.each(records.data, function(i, item) {
+                        $selectCancel.append(
                             $('<option>', {
                                 value: item.id,
                                 text: `${item.id} - ${item.name} - ${item.state.name}`,
