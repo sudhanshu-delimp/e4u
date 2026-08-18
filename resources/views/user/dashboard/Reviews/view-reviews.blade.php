@@ -187,8 +187,8 @@
                 searching: true,
                 bStateSave: false,
                 ordering: true,
-                lengthMenu: [{{ config('app.paginate_range') }}],
-                pageLength: {{ config('app.paginate_length') }},
+                lengthMenu: paginateRange,
+pageLength: paginateLength,
                 ajax: {
                     url: "{{ route('user.reviews-profile-by-ajax') }}",
                     type: "GET",

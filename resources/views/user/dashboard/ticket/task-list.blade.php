@@ -222,8 +222,8 @@
 
                 ajax: "{{ route('viewer.dashboard.ajax-fetch-task') }}",
 
-                lengthMenu: [{{ config('app.paginate_range') }}],
-                pageLength: {{ config('app.paginate_length') }},
+                lengthMenu: paginateRange,
+pageLength: paginateLength,
 
                 columns: [{
                         data: 'task',

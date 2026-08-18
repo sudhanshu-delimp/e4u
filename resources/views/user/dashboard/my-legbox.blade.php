@@ -514,8 +514,8 @@
                 searchable: true,
                 serverSide: true,
                 searching: true,
-                lengthMenu: [{{ config('app.paginate_range') }}],
-                pageLength: {{ config('app.paginate_length') }},
+                lengthMenu: paginateRange,
+                pageLength: paginateLength,
                 ajax: {
                     url: "{{ route('user.my-legbox-escort-list') }}",
                     dataSrc: function(json) {
@@ -847,6 +847,8 @@
                 paging: true,
                 searchable: true,
                 searching: true,
+                lengthMenu: paginateRange,
+                pageLength: paginateLength,
                 ajax: {
                     url: "{{ route('user.my-legbox-massage-list') }}",
                     dataSrc: function(json) {

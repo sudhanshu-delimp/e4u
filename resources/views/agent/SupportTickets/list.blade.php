@@ -145,7 +145,8 @@
         lengthChange: true,
         searching: true,
         bStateSave: false,
-
+        lengthMenu: paginateRange,
+        pageLength: paginateLength,
         ajax: {
             url: "{{ route('support-ticket.dataTable') }}",
             type: 'GET',
@@ -168,9 +169,6 @@
         ],
 
         order: [[6, 'desc']], // Default sort by created_on descending
-
-        lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-        pageLength: 10,
     });
    
     $('#supportTicketsTable').on('init.dt', function () {

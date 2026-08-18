@@ -471,8 +471,8 @@
                 searchable: true,
                 searching: true,
                 bStateSave: true,
-                lengthMenu: [{{ config('app.paginate_range') }}],
-                pageLength: {{ config('app.paginate_length') }},
+                lengthMenu: paginateRange,
+pageLength: paginateLength,
 
                 ajax: {
                     url: "{{ route('agent.bankDetail.dataTable') }}",

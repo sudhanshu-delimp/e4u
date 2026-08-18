@@ -136,7 +136,9 @@
         order: [],
         searchable: false,
         searching: true,
-        bStateSave: true
+        lengthMenu: paginateRange,
+                pageLength: paginateLength,
+        bStateSave: false,
     });
 </script>
 @endsection

@@ -147,8 +147,8 @@
                 processing: false,
                 serverSide: false,
 
-                lengthMenu: [{{ config('app.paginate_range') }}],
-                pageLength: {{ config('app.paginate_length') }},
+                lengthMenu: paginateRange,
+pageLength: paginateLength,
                 ordering: true,
                 columnDefs: [{
                         targets: 5,

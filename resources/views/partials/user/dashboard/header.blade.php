@@ -65,4 +65,9 @@
     }
         
     </style>
+    <script>
+      
+        var paginateRange = [{{ config('app.paginate_range') }}];
+            var paginateLength = {{ config('app.paginate_length') }};
+    </script>
 </head>
