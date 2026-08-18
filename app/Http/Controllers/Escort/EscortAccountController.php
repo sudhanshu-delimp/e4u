@@ -141,11 +141,6 @@ class EscortAccountController extends Controller
     public function bankDetails()
     {
         $user = $this->user->find(auth()->user()->id);
-        // $passwordData = PasswordSecurity::all();
-        // $mytime = Carbon::now();
-        // $arr = [];
-
-        //        dd($user);
         return view('escort.dashboard.bank_account', compact('user'));
     }
 

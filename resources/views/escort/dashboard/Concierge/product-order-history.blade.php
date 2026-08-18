@@ -118,6 +118,8 @@
                 var table = $("#productsHistoryTable").DataTable({
                     processing: true,
                     serverSide: true,
+                    pageLength: {{$datatable_entries }},
+                    lengthMenu: [25, 50, 75, 100],
                     ajax: {
                         url: "{{ auth()->user()->type == 4 ? route('center.order.list') : route('escort.order.list') }}",
                         type: 'GET'

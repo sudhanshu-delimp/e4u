@@ -28,10 +28,6 @@ class SupportTicketsController extends AppController
 
     public function index()
     {
-        /*$tickets = SupportTickets::where('user_id', auth()->user()->id)
-            ->orderBy('created_on', 'DESC')
-            ->orderBy('status', 'ASC')
-            ->get()->toArray();*/
         list($prefix, $prefix2) = $this->_getPrefix(auth()->user()->type);
         return view("$prefix2.SupportTickets.list");
     }

@@ -481,6 +481,8 @@
             lengthChange: true,
             searchable: false,
             bStateSave: false,
+            pageLength: {{$datatable_entries }},
+            lengthMenu: [25, 50, 75, 100],
             drawCallback: function(settings) {
                 let records = settings.json;
                 let $select = $('#extendProfileId');
@@ -679,7 +681,6 @@
                 },
             ],
             order: [8, 'asc'],
-            pageLength: 25,
         });
         //    $('#sailorTable_filter label').append('<i class="fa fa-search "></i>');
 

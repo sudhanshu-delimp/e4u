@@ -293,7 +293,8 @@
             },
         ],
         order: [0, 'desc'],
-        pageLength: 25,
+        pageLength: {{$datatable_entries }},
+        lengthMenu: [25, 50, 75, 100],
     });
 </script>
 @endprepend

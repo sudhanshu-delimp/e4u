@@ -718,6 +718,7 @@ class EscortController extends BaseController
 
             'subscriptions_num' => $request->subscriptions_num ?? '0',
             'subscriptions_state' => $request->subscriptions_state ?? null,
+            'datatable_entries' => $request->entries ?? '25',
 
         ];
 
