@@ -169,6 +169,7 @@ margin-right: 5px;
     @section('content')
 
     @php 
+        $baseUrl= url('/').'/';
         $massager_name = $listing->profile_name;
         $business_name = $listing->business_name;
         $other_services = "";
@@ -249,7 +250,7 @@ margin-right: 5px;
 
         
         <div class="back_to_list">
-             <a href="../massage-centres-list" class="back--search "> 
+             <a href="{{$baseUrl.config("constants.massage_list_base_slug")}}" class="back--search "> 
                 <span class="previous_icon">
                         <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <g opacity="0.4"> <path d="M9.00039 15.3802H13.9204C15.6204 15.3802 17.0004 14.0002 17.0004 12.3002C17.0004 10.6002 15.6204 9.22021 13.9204 9.22021H7.15039" stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8.57 10.7701L7 9.19012L8.57 7.62012" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
                 
@@ -347,17 +348,33 @@ margin-right: 5px;
     <div class="container-fluid px-0 next-preview-fixed position-relative">
         <div class="d-flex d-flex justify-content-between">
             <div class="previous_btn_profile next_previous_btn_pogision {{ $prevId ? '' : 'previousDisableButtonCss' }}">
-            {{--     <a  href="{{ $prevId ? route('web.massage-description', [
-                                    'id' => $prevId,
-                                    'ids' => json_encode($ids)
+           
+
+                   {{--  <a  href="{{ $prevId ? route('web.massage-profile', [
+                                    'profile' => $prevSlug,
                                 ]) : 'massage-centres-list' }}" class="btn_ank">
                     <span class="previous_icon"> --}}
 
-                    <a  href="{{ $prevId ? route('web.massage-profile', [
-                                    'profile' => $prevSlug,
-                                ]) : 'massage-centres-list' }}" class="btn_ank">
-                    <span class="previous_icon">
-                        
+            @php
+             $states = config('escorts.profile.states');
+            @endphp
+            @if($prevList)
+            @php
+             $stateName = isset($states[$prevList->user->state_id]) ? $states[$prevList->user->state_id]['stateAbbr'] : "";
+             
+            @endphp
+            
+            <a href="{{ route('web.massage-profile.new', [
+                'county' => isset($prevList->user->state->country->name) ?  strtolower($prevList->user->state->country->name) : 'australia',
+                'state' =>$stateName,
+                'member_id' => $prevList->user->member_id,
+                'profile' => $prevList->slug,
+                //'ids' => json_encode($ids)
+            ]) }}" class="btn_ank">
+            @else 
+                <a  href="{{$baseUrl.config("constants.massage_list_base_slug")}}" class="btn_ank">
+            @endif
+                         <span class="previous_icon">
                     <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path opacity="0.4" d="M13.2602 15.5302L9.74023 12.0002L13.2602 8.47021" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
                 
                     </span>
@@ -376,6 +393,21 @@ margin-right: 5px;
                                 ]) : 'javascript:void(0)' }}"
                                 
                                 class="btn_ank">
+ @if($nextList)
+
+            @php
+             $stateNameNext = isset($states[$nextList->user->state_id]) ? $states[$nextList->user->state_id]['stateAbbr'] : "";
+            @endphp
+            <a href="{{ route('web.massage-profile.new', [
+                'county' => isset($nextList->user->state->country->name) ?  strtolower($nextList->user->state->country->name) : 'australia',
+                'state' =>$stateNameNext,
+                'member_id' => $nextList->user->member_id,
+                'profile' => $nextList->slug,
+            ]) }}" class="btn_ank">
+
+             @else 
+                <a  href="javascript:void(0)" class="btn_ank">
+            @endif
                     <span class="previous_text remove_in_sm">Next</span>
                     <span class="previous_icon">
                         
