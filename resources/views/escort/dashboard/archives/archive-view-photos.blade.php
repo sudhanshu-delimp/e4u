@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
     <link rel="stylesheet" type="text/css" href="https://foliotek.github.io/Croppie/croppie.css">
     <link href="{{ asset('assets/plugins/ajax/libs/jquery/jquery-ui.css') }} " rel="stylesheet" type="text/css" />
-    <style type="text/css">
+    {{-- <style type="text/css">
         .parsley-errors-list {
             list-style: none;
             color: rgb(248, 0, 0)
@@ -122,7 +122,7 @@
         .my-custompop-tabs .nav-item .nav-link.active {
             color: #fff;
         }
-    </style>
+    </style> --}}
 @endsection
 @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -310,22 +310,22 @@
                                             }
                                         @endphp
 
-                                        <div class="verify_icon" id="verify_icon_2"
+                                        <div class="pm_verify_icon" id="verify_icon_2"
                                             style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
 
                                             @if (!empty($imageData['id']))
                                                 @if ($status == '0')
                                                     <img
                                                         src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                                    <span class="mc_media_tooltip">Media Pending</span>
+                                                    <span class="pm_tooltip">Media Pending</span>
                                                 @elseif($status == '1')
                                                     <img
                                                         src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span
-                                                        class="mc_media_tooltip">Media verified</span>
+                                                        class="pm_tooltip">Media verified</span>
                                                 @else
                                                     <img
                                                         src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span
-                                                        class="mc_media_tooltip">Media Unverified</span>
+                                                        class="pm_tooltip">Media Unverified</span>
                                                 @endif
                                             @endif
                                         </div>
@@ -348,22 +348,22 @@
                                             }
                                         @endphp
 
-                                        <div class="verify_icon" id="verify_icon_3"
+                                        <div class="pm_verify_icon" id="verify_icon_3"
                                             style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
 
                                             @if (!empty($imageData['id']))
                                                 @if ($status == '0')
                                                     <img
                                                         src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                                    <span class="mc_media_tooltip">Media Pending</span>
+                                                    <span class="pm_tooltip">Media Pending</span>
                                                 @elseif($status == '1')
                                                     <img
                                                         src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span
-                                                        class="mc_media_tooltip">Media verified</span>
+                                                        class="pm_tooltip">Media verified</span>
                                                 @else
                                                     <img
                                                         src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span
-                                                        class="mc_media_tooltip">Media Unverified</span>
+                                                        class="pm_tooltip">Media Unverified</span>
                                                 @endif
                                             @endif
                                         </div>
@@ -386,22 +386,22 @@
                                             }
                                         @endphp
 
-                                        <div class="verify_icon" id="verify_icon_4"
+                                        <div class="pm_verify_icon" id="verify_icon_4"
                                             style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
 
                                             @if (!empty($imageData['id']))
                                                 @if ($status == '0')
                                                     <img
                                                         src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                                    <span class="mc_media_tooltip">Media Pending</span>
+                                                    <span class="pm_tooltip">Media Pending</span>
                                                 @elseif($status == '1')
                                                     <img
                                                         src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span
-                                                        class="mc_media_tooltip">Media verified</span>
+                                                        class="pm_tooltip">Media verified</span>
                                                 @else
                                                     <img
                                                         src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span
-                                                        class="mc_media_tooltip">Media Unverified</span>
+                                                        class="pm_tooltip">Media Unverified</span>
                                                 @endif
                                             @endif
                                         </div>
@@ -424,22 +424,22 @@
                                             }
                                         @endphp
 
-                                        <div class="verify_icon" id="verify_icon_5"
+                                        <div class="pm_verify_icon" id="verify_icon_5"
                                             style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
 
                                             @if (!empty($imageData['id']))
                                                 @if ($status == '0')
                                                     <img
                                                         src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                                    <span class="mc_media_tooltip">Media Pending</span>
+                                                    <span class="pm_tooltip">Media Pending</span>
                                                 @elseif($status == '1')
                                                     <img
                                                         src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span
-                                                        class="mc_media_tooltip">Media verified</span>
+                                                        class="pm_tooltip">Media verified</span>
                                                 @else
                                                     <img
                                                         src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span
-                                                        class="mc_media_tooltip">Media Unverified</span>
+                                                        class="pm_tooltip">Media Unverified</span>
                                                 @endif
                                             @endif
                                         </div>
@@ -462,22 +462,22 @@
                                             }
                                         @endphp
 
-                                        <div class="verify_icon" id="verify_icon_6"
+                                        <div class="pm_verify_icon" id="verify_icon_6"
                                             style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
 
                                             @if (!empty($imageData['id']))
                                                 @if ($status == '0')
                                                     <img
                                                         src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                                    <span class="mc_media_tooltip">Media Pending</span>
+                                                    <span class="pm_tooltip">Media Pending</span>
                                                 @elseif($status == '1')
                                                     <img
                                                         src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span
-                                                        class="mc_media_tooltip">Media verified</span>
+                                                        class="pm_tooltip">Media verified</span>
                                                 @else
                                                     <img
                                                         src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span
-                                                        class="mc_media_tooltip">Media Unverified</span>
+                                                        class="pm_tooltip">Media Unverified</span>
                                                 @endif
                                             @endif
                                         </div>
@@ -500,22 +500,22 @@
                                             }
                                         @endphp
 
-                                        <div class="verify_icon" id="verify_icon_7"
+                                        <div class="pm_verify_icon" id="verify_icon_7"
                                             style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
 
                                             @if (!empty($imageData['id']))
                                                 @if ($status == '0')
                                                     <img
                                                         src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                                    <span class="mc_media_tooltip">Media Pending</span>
+                                                    <span class="pm_tooltip">Media Pending</span>
                                                 @elseif($status == '1')
                                                     <img
                                                         src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span
-                                                        class="mc_media_tooltip">Media verified</span>
+                                                        class="pm_tooltip">Media verified</span>
                                                 @else
                                                     <img
                                                         src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span
-                                                        class="mc_media_tooltip">Media Unverified</span>
+                                                        class="pm_tooltip">Media Unverified</span>
                                                 @endif
                                             @endif
                                         </div>
@@ -684,7 +684,7 @@
                             <div id="pagination-container"></div>
                             <div id="carouselExampleIndicators" class="carousel slide " data-bs-wrap="false"
                                 data-bs-ride="carousel">
-                                <ul class="pagination ml-2 pl-1 ">
+                                <ul class="pagination ml-3 px-2 ">
                                     <!-- Declare the item in the group -->
                                     <li class="page-item preview">
                                         <!-- Declare the link of the item -->
@@ -710,68 +710,68 @@
                                         <a class="page-link" href="#carouselExampleIndicators" id="nextId">››</a>
                                     </li>
                                 </ul>
-                                <div class="p-3">
+                                <div class="">
                                     <div class="carousel-inner" id="view_all">
 
-                                        @foreach (collect($media)->whereNotIn('position', [9, 10])->chunk(10) as $keyId => $images)
+                                        @foreach (collect($media)->whereNotIn('position', [9, 10])->chunk(8) as $keyId => $images)
                                             <div class="carousel-item " id="cItem_{{ $loop->index }}"
                                                 data-id="{{ $loop->index }}">
-                                                <div class="grid-container" id="dvSource">
+                                                <div class="pm-gallery-grid" id="dvSource">
                                                     @foreach ($images as $image)
                                                         @if (!in_array($image->position, [8]) /*$image->position != 8*/)
-                                                            <div class="item4" id="dm_{{ $image->id }}">
+                                                            <div class="item4 pm-photo-card" id="dm_{{ $image->id }}">
                                                                 <img class="img-thumbnail defult-image"
                                                                     src="{{ asset($image->path) }}" alt=" "
                                                                     data-id="{{ $image->id }}"
                                                                     data-position="{{ $image->position ? $image->position : '' }}">
-                                                                <i class="fa fa-trash deleteimg"
+                                                                <i class="fa fa-times deleteimg"
                                                                     data-id="{{ $image->id }}"
-                                                                    title="Remove this media"></i>
+                                                                    ></i>
                                                                 @switch($image->position)
                                                                     @case(9)
-                                                                        <span class="badge badge-red">Banner</span>
+                                                                        <span class="pm-gallery-badge">Banner</span>
                                                                     @break
 
                                                                     @case(10)
-                                                                        <span class="badge badge-red">Pin Up</span>
+                                                                        <span class="pm-gallery-badge">Pin Up</span>
                                                                     @break
 
                                                                     @default
-                                                                        <span class="badge badge-red">Gallery</span>
+                                                                        <span class="pm-gallery-badge">Gallery</span>
                                                                 @endswitch
                                                                 @switch($image->varified)
                                                                     @case(0)
                                                                         {{-- Pending --}}
-                                                                        <div class="verify_icon">
+                                                                        <div class="pm_verify_icon">
                                                                             <img
                                                                                 src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                                                            <span class="mc_media_tooltip">Media Pending</span>
+                                                                            <span class="pm_tooltip">Media Pending</span>
                                                                         </div>
                                                                     @break
 
                                                                     @case(1)
                                                                         {{-- Verified --}}
-                                                                        <div class="verify_icon">
+                                                                        <div class="pm_verify_icon">
                                                                             <img
                                                                                 src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
-                                                                            <span class="mc_media_tooltip">Media Verified</span>
+                                                                            <span class="pm_tooltip">Media Verified</span>
                                                                         </div>
                                                                     @break
 
                                                                     @case(2)
                                                                         {{-- Unverified --}}
-                                                                        <div class="verify_icon">
+                                                                        <div class="pm_verify_icon">
                                                                             <img
                                                                                 src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
-                                                                            <span class="mc_media_tooltip">Media Unverified</span>
+                                                                            <span class="pm_tooltip">Media Unverified</span>
                                                                         </div>
                                                                     @break
 
                                                                     @default
-                                                                        <div class="verify_icon">
+                                                                        <div class="pm_verify_icon">
                                                                             <img
                                                                                 src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
-                                                                            <span class="mc_media_tooltip">Media Unverified</span>
+                                                                            <span class="pm_tooltip">Media Unverified</span>
                                                                         </div>
                                                                 @endswitch
                                                                 @php $status = $image->varified ?? "2"; @endphp
@@ -1213,13 +1213,13 @@
                         } else {
                             if (status == "0") {
                                 iconPath = '/assets/app/img/pending_icon/e4u_pending-icon_REV.png';
-                                iconText = '<span class="mc_media_tooltip">Media Pending</span>';
+                                iconText = '<span class="pm_tooltip">Media Pending</span>';
                             } else if (status == "1") {
                                 iconPath = '/assets/app/img/verify/verified_icon.png';
-                                iconText = '<span class="mc_media_tooltip">Media Verified</span>';
+                                iconText = '<span class="pm_tooltip">Media Verified</span>';
                             } else {
                                 iconPath = '/assets/app/img/verify/unverified_icon.png';
-                                iconText = '<span class="mc_media_tooltip">Media Unverified</span>';
+                                iconText = '<span class="pm_tooltip">Media Unverified</span>';
                             }
                         }
 

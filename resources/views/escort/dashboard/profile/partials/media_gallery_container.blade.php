@@ -72,7 +72,7 @@
         <div class="col-md-12">
             <div id="pagination-container"></div>
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel">
-                <ul class="pagination ml-2 pl-1">
+                <ul class="pagination ml-3 px-2">
                 <li class="page-item preview">
                 <a class="page-link" href="#carouselExampleIndicators" id="preId">‹‹</a>
 
@@ -86,52 +86,52 @@
                 <a class="page-link" href="#carouselExampleIndicators" id="nextId">››</a>
                 </li>
                 </ul>
-                <div class="container pt-2" style="padding-left: 0.75rem;padding-right: 0.75rem;">
+                <div>
                 <div class="carousel-inner" id="view_all">
-                @foreach($mediaCategory->chunk(10)  as $keyId => $images)
+                @foreach($mediaCategory->chunk(8)  as $keyId => $images)
                     <div class="carousel-item" id="cItem_{{$loop->index}}" data-id="{{$loop->index}}">
-                        <div class="grid-container" id="dvSource">  
+                        <div class="pm-gallery-grid" id="dvSource">  
                         @foreach($images as $image)    
                         @if(!in_array($image->position, [8]))                                               
-                            <div class="item4" id="dm_{{$image->id}}">
+                            <div class="item4 pm-photo-card" id="dm_{{$image->id}}">
                                 <img class="img-thumbnail defult-image ui-draggable" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
-                                <i class="fa fa-trash deleteimg" data-id="{{$image->id}}" title="Remove this media"></i>                                        
+                                <i class="fa fa-times deleteimg" data-id="{{$image->id}}" ></i>                                        
                                 @switch($image->position)
                                     @case(9)
-                                        <span class="badge badge-red">Banner</span>
+                                        <span class="pm-gallery-badge">Banner</span>
                                     @break
                                     @case(10)
-                                        <span class="badge badge-red">Pin Up</span>
+                                        <span class="pm-gallery-badge">Pin Up</span>
                                     @break
                                     @default
-                                        <span class="badge badge-red">Gallery</span>
+                                        <span class="pm-gallery-badge">Gallery</span>
                                 @endswitch
                                 @switch($image->varified)
                                     @case(0) {{-- Pending --}}
-                                        <div class="verify_icon">
+                                        <div class="pm_verify_icon">
                                             <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                            <span class="mc_media_tooltip">Media Pending</span>
+                                            <span class="pm_tooltip">Media Pending</span>
                                         </div>
                                         @break
 
                                     @case(1) {{-- Verified --}}
-                                        <div class="verify_icon">
+                                        <div class="pm_verify_icon">
                                             <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
-                                            <span class="mc_media_tooltip">Media Verified</span>
+                                            <span class="pm_tooltip">Media Verified</span>
                                         </div>
                                         @break
 
                                     @case(2) {{-- Unverified --}}
-                                        <div class="verify_icon">
+                                        <div class="pm_verify_icon">
                                             <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
-                                            <span class="mc_media_tooltip">Media Unverified</span>
+                                            <span class="pm_tooltip">Media Unverified</span>
                                         </div>
                                         @break
 
                                     @default
-                                        <div class="verify_icon">
+                                        <div class="pm_verify_icon">
                                             <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
-                                            <span class="mc_media_tooltip">Media Unverified</span>
+                                            <span class="pm_tooltip">Media Unverified</span>
                                         </div>
 
                                 @endswitch
