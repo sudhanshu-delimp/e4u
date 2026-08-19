@@ -595,16 +595,16 @@ class MassageCentre extends Controller
         } else {
             $star_rating = 0;
         }
+         $prevList = $nextList = null;
 
-
-        return view('web.mc.massage-description', compact('listing', 'durations', 'massage_durations', 'reviews', 'spamReportAdvertiser', 'lp', 'dp', 'massageLike', 'nextId', 'prevId', 'ids', 'star_rating', 'prevSlug', 'nextSlug'));
+        return view('web.mc.massage-description', compact('listing', 'durations', 'massage_durations', 'reviews', 'spamReportAdvertiser', 'lp', 'dp', 'massageLike', 'nextId', 'prevId', 'ids', 'star_rating', 'prevSlug', 'nextSlug', 'prevList','nextList'));
     }
 
 
     /**
      * View masage profile
      */
-    public function massageProfile(Request $request, $profile = "")
+    public function massageProfile(Request $request,  $country = "",  $state = "",  $memberId = "", $profile = "")
     {
         $previousUrl = url()->previous();
         $path = parse_url($previousUrl, PHP_URL_PATH);
@@ -612,6 +612,8 @@ class MassageCentre extends Controller
 
         $relatedIds = [];
         $relatedSlugs = [];
+        $profile = !empty($profile) ? $profile : $country;
+
         $escort = MassageProfile::where('slug', $profile)->first();
           if(!$escort){
              return redirect(route('find.massage.centre'));
@@ -673,8 +675,9 @@ class MassageCentre extends Controller
         $nextSlug = $relatedSlugs[$currentIndex + 1] ?? "";
         $prevId = !empty($prevSlug) ?  $prevId : null;
         $nextId = !empty($nextSlug) ?  $nextId : null;
-
-        //$listing = MassageProfile::where('id','=',$id)->first();
+       
+        $prevList = MassageProfile::where('id','=',$prevId)->first();
+        $nextList = MassageProfile::where('id','=',$nextId)->first();
         $reviews = $listing->reviews;
 
         $massage_durations = (isset($listing->durations) && count($listing->durations) > 0) ? $listing->durations->toArray() : [];
@@ -723,7 +726,7 @@ class MassageCentre extends Controller
             $star_rating = 0;
         }
 
-        return view('web.mc.massage-description', compact('listing', 'durations', 'massage_durations', 'reviews', 'spamReportAdvertiser', 'lp', 'dp', 'massageLike', 'nextId', 'prevId', 'ids', 'star_rating', 'prevSlug', 'nextSlug'));
+        return view('web.mc.massage-description', compact('listing', 'durations', 'massage_durations', 'reviews', 'spamReportAdvertiser', 'lp', 'dp', 'massageLike', 'nextId', 'prevId', 'ids', 'star_rating', 'prevSlug', 'nextSlug','prevList', 'nextList'));
     }
 
 

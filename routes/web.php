@@ -896,3 +896,6 @@ Route::post('/decrypt', function (Request $request) {
 
 Route::get('preview/massage/{profile}', [MassageCentre::class, 'massageProfile'])->name('preview.massage');
 Route::get('preview/escort/{profile}', [WebController::class, 'profileDescriptionBySlug'])->name('preview.escort');
+
+Route::get('/escort-profile/{profile}', [App\Http\Controllers\WebController::class, 'profileDescriptionBySlug'])->name('escort.profile.detail');
+Route::get('find_massage_centres/{county}/{state}/{member_id}/{profile}', [MassageCentre::class, 'massageProfile'])->name('web.massage-profile.new');

@@ -56,19 +56,17 @@ $twitter_link = "https://x.com/NMugs32853";
             </div>
         @endif
 
-        {{--  <a 
-         href="{{ route('web.massage-description', [
-                'id' => $listing->id,
-                'ids' => json_encode($ids)
-            ]) }}" 
-         class="mc_card_link"> --}}
-           <a 
-         href="{{ route('web.massage-profile', [
+         @php
+             $states = config('escorts.profile.states');
+             $stateName = isset($states[$listing->user->state_id]) ? $states[$listing->user->state_id]['stateAbbr'] : "";
+             @endphp
+            <a href="{{ route('web.massage-profile.new', [
+                'county' => isset($listing->user->state->country->name) ?  strtolower($listing->user->state->country->name) : 'australia',
+                'state' =>$stateName,
+                'member_id' => $listing->user->member_id,
                 'profile' => $listing->slug,
-               // 'ids' => json_encode($ids)
-            ]) }}" 
-         class="mc_card_link">
-             <img src="{{ $massage_thumb }}" alt="">
+                //'ids' => json_encode($ids)
+            ]) }}" class="mc_card_link"> <img src="{{ $massage_thumb }}" alt="">
          </a>
          <span class="verify_icon">
             @php 
@@ -213,12 +211,13 @@ $twitter_link = "https://x.com/NMugs32853";
                 
                      {{ Str::limit(strip_tags($listing->about_us_box), 140) }}
 
-                     <a 
-                     href="{{ route('web.massage-profile', [
-                        'profile' => $listing->slug,
-                    ]) }}"
-                     
-                     class="read-more-link">Read More</a>
+                <a href="{{ route('web.massage-profile.new', [
+                'county' => isset($listing->user->state->country->name) ?  strtolower($listing->user->state->country->name) : 'australia',
+                'state' =>$stateName,
+                'member_id' => $listing->user->member_id,
+                'profile' => $listing->slug,
+                //'ids' => json_encode($ids)
+            ]) }}" class="read-more-link">Read More</a>
                  </p>
 
 
