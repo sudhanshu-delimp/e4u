@@ -1749,6 +1749,7 @@ label.cabinet input.file {
     border-radius: 9px;
     background: #f5f6f8;
     transition: transform .2s ease, box-shadow .2s ease;
+    cursor: grabbing;
 }
 
 .pm-photo-card:hover {
@@ -1817,11 +1818,17 @@ label.cabinet input.file {
     box-shadow: 0 3px 10px rgba(0, 0, 0, .14);
     cursor: pointer;
     transition: all .2s ease;
+    opacity: 0;
 }
 
 .deleteimg:hover {
     background: #ff3c5f;
     color: #fff;
+}
+
+.pm-photo-card:hover .deleteimg {
+    opacity: 1;
+    transition: all .2s ease;
 }
 
 
@@ -1840,6 +1847,7 @@ label.cabinet input.file {
     border-radius: 5px;
     width: 25px;
     height: 25px;
+    cursor: pointer;
 }
 
 .pm_tooltip::after {
