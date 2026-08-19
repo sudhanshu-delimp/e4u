@@ -45,9 +45,9 @@
                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         
                         <ol>
-                            <li>Registered Viewers who have flagged you in their Legbox are listed here. You can
+                            <li>Registered Viewers who have flagged you in their Legbox are listed here. <!--You can
                                 also see your Viewers <a href="{{ url('escort-dashboard/send-notofications') }}"
-                                    class="custom_links_design">here</a>.</li>
+                                    class="custom_links_design">here</a>--->.</li>
                             <li>The status for each Viewer is Summarised here and includes Notifications and
                                 Contact.</li>
                             <li>The Viewer can set their preferences for Notifications and Contact. You can also set
@@ -198,7 +198,7 @@
                
                 autoWidth: false,
                 pageLength: {{$datatable_entries }},
-                lengthMenu: [25, 50, 75, 100],
+                lengthMenu: [10, 25, 50, 75, 100],
             });
 
             // Event to set total count
