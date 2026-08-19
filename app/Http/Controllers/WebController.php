@@ -1253,15 +1253,17 @@ class WebController extends Controller
     }
     
 
-    public function profileDescriptionBySlug(Request $request, $profile = "")
+    public function profileDescriptionBySlug(Request $request, $country = "", $state = "", $city = "", $gender = "", $memberId = "", $profile = "")
     {
         $id = null;
         $city = null; 
         $membershipId = null; 
         $viewType = 'grid';
         $gender = null;
+        $profile = !empty($profile) ? $profile : $country;
 
          $escort = Escort::where('slug', $profile)->first();
+         //echo getEscortMassageDetailUrl($escort);die;
      
           if(!$escort){
              return redirect(route('public.web.escort.listing'));

@@ -12,7 +12,7 @@
                     <div class="section_wise_level_icon_img all-escort-profile-pic">
                         {{-- <a href="{{ route('profile.description', [$escort->id, $escort->city_id]) }}?list"
                             class=""> --}}
-                             <a href="{{ route('escort.profile.detail', $escort->slug) }}" class="">
+                             <a href="{{ getEscortMassageDetailUrl($escort) }}" class="">
                             @if ($escort->latestActiveBrb)
                                 <div class="brb--content">
                                     <div class="brb--wrappr">
@@ -227,7 +227,7 @@
                                 @if (strlen($plainTextAbout) > 210)
                                    {{--  <a href="{{ route('profile.description', $escort->id) }}?list&brb={{ isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : '' }}"
                                         class="h6 text-danger">Read More</a> --}}
-                                        <a href="{{ route('escort.profile.detail', $escort->slug) }}"
+                                        <a href="{{ getEscortMassageDetailUrl($escort) }}"
                                         class="h6 text-danger">Read More</a>
                                 @endif
                             </p>
@@ -275,7 +275,7 @@
                             </div>
                             {{-- <a href="{{ route('profile.description', $escort->id) }}?list&brb={{ isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : '' }}"
                                 class="btn btn_for_profile_list_view custom-view-profile">View Profile</a> --}}
-                                <a href="{{ route('escort.profile.detail', $escort->slug) }}"
+                                <a href="{{ getEscortMassageDetailUrl($escort) }}"
                                 class="btn btn_for_profile_list_view custom-view-profile">View Profile</a>
                         </div>
 

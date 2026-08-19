@@ -2756,7 +2756,7 @@ if (!function_exists('getGenderId')) {
 }
 
 if (!function_exists('getStateCityIds')) {
-    function getStateCityIds($stateAbbr, $cityName=null)
+    function getStateCityIds($stateAbbr, $cityName = null)
     {
         $states = config('escorts.profile.states');
 
@@ -2768,21 +2768,60 @@ if (!function_exists('getStateCityIds')) {
             //Match city name
 
             foreach ($state['cities'] as $cityId => $city) {
-                if($cityName){
+                if ($cityName) {
                     if (strcasecmp($city['cityName'], $cityName) === 0) {
                         return [
                             'state_id' => (int) $stateId,
                             'city_id' => (int) $cityId,
                         ];
                     }
-                }else{
+                } else {
                     return [
                         'state_id' => (int) $stateId,
                         'city_id' => (int) $cityId,
                     ];
                 }
-                
             }
         }
+    }
+}
+
+if (!function_exists('getEscortMassageDetailUrl')) {
+    function getEscortMassageDetailUrl($modelObject, $type = "escort")
+    {
+        $states = config('escorts.profile.states');
+        try {
+            if ($type == "escort") {
+                if ($modelObject) {
+                    $stateArr = isset($states[$modelObject->state_id]) ? $states[$modelObject->state_id] : [];
+                    $stateName = isset($stateArr['stateAbbr']) ? strtolower($stateArr['stateAbbr']) : " ";
+                    $cityName = isset($stateArr['cities'][$modelObject->city_id]['cityName']) ? strtolower($stateArr['cities'][$modelObject->city_id]['cityName']) : " ";
+                    $gender = isset($modelObject->gender) ? strtolower($modelObject->gender) : " ";
+
+                    $url = route('escort.profile.detail.new', [
+                        'county' => isset($modelObject->state->country->name) ?  strtolower($modelObject->state->country->name) : 'australia',
+                        'state' => $stateName,
+                        'city' => $cityName,
+                        'gender' => $gender,
+                        'member_id' => $modelObject->user->member_id,
+                        'profile' => $modelObject->slug,
+                    ]);
+                }
+            } else {
+                if ($modelObject) {
+                    $stateName = isset($states[$modelObject->user->state_id]) ? strtolower($states[$modelObject->user->state_id]['stateAbbr']) : " ";
+                    $url = route('web.massage-profile.new', [
+                        'county' => isset($modelObject->user->state->country->name) ?  strtolower($modelObject->user->state->country->name) : 'australia',
+                        'state' => $stateName,
+                        'member_id' => $modelObject->user->member_id,
+                        'profile' => $modelObject->slug,
+                    ]);
+                }
+            }
+        } catch (\Exception $e) {
+            //
+        }
+
+        return $url;
     }
 }

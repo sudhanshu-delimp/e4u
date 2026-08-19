@@ -894,8 +894,14 @@ Route::post('/decrypt', function (Request $request) {
 
 
 
+
 Route::get('preview/massage/{profile}', [MassageCentre::class, 'massageProfile'])->name('preview.massage');
 Route::get('preview/escort/{profile}', [WebController::class, 'profileDescriptionBySlug'])->name('preview.escort');
 
-Route::get('/escort-profile/{profile}', [App\Http\Controllers\WebController::class, 'profileDescriptionBySlug'])->name('escort.profile.detail');
-Route::get('find_massage_centres/{county}/{state}/{member_id}/{profile}', [MassageCentre::class, 'massageProfile'])->name('web.massage-profile.new');
+$ecortBaseSlug = config("constants.escort_list_base_slug");
+$massageBaseSlug = config("constants.massage_list_base_slug");
+
+
+
+Route::get($ecortBaseSlug.'/{county}/{state}/{city}/{gender}/{member_id}/{profile}', [App\Http\Controllers\WebController::class, 'profileDescriptionBySlug'])->name('escort.profile.detail.new');
+Route::get($massageBaseSlug .'/{county}/{state}/{member_id}/{profile}', [MassageCentre::class, 'massageProfile'])->name('web.massage-profile.new');
