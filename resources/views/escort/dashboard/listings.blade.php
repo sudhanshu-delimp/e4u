@@ -144,7 +144,7 @@
             searchable: false,
             bStateSave: false,
             pageLength: {{$datatable_entries }},
-            lengthMenu: [25, 50, 75, 100],
+            lengthMenu: [10, 25, 50, 75, 100],
             "language": {
                 "zeroRecords": "There is no record of the search criteria you entered.",
                 searchPlaceholder: "Search by ID or Profile Name"
