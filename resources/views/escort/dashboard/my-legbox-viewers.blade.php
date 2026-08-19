@@ -198,7 +198,7 @@
                
                 autoWidth: false,
                 pageLength: {{$datatable_entries }},
-                lengthMenu: [25, 50, 75, 100],
+                lengthMenu: [10, 25, 50, 75, 100],
             });
 
             // Event to set total count
