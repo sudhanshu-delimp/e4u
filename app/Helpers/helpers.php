@@ -1075,18 +1075,20 @@ if (!function_exists('sendLoginOtpEmail')) {
 if (!function_exists('sendLoginOtpSms')) {
     function sendLoginOtpSms($otp, $user, $message = null)
     {
-        log_info('sendLoginOtpSms');
+        Log::info('sendLoginOtpSms');
 
-        if (isset($user->phone) && $user->phone != "") {
+        Log::info('User phone', [
+            'phone' => $user->phone ?? null,
+        ]);
+
+        if (!empty($user->phone)) {
 
             $username = ($user && $user->type == '5')
                 ? $user->business_name
                 : $user->name;
 
-            // default message
             $message = $message ?? "Hello :username, your one-time login OTP is :otp. If you didn’t request this, please ignore this message.";
 
-            // replace placeholders
             $message = str_replace(
                 [':username', ':otp'],
                 [$username, $otp],
@@ -1094,10 +1096,23 @@ if (!function_exists('sendLoginOtpSms')) {
             );
 
             $sendotp = new SendSms();
+
+            Log::info('Sending OTP SMS', [
+                'phone' => $user->phone,
+                'otp' => $otp,
+                'message' => $message,
+            ]);
+
             $output = $sendotp->send_otp_sms($user->phone, $message);
+
+            Log::info('OTP SMS response', [
+                'output' => $output,
+            ]);
 
             return $output;
         }
+
+        Log::warning('OTP SMS not sent: phone number is empty');
 
         return false;
     }
