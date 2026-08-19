@@ -77,7 +77,7 @@
                 <a class="page-link" href="#carouselExampleIndicators" id="preId">‹‹</a>
 
                 </li>
-                @for($i = 0; $i < ceil(count($mediaCategory)/10); $i++ )
+                @for($i = 0; $i < ceil(count($mediaCategory)/8); $i++ )
                 <li class="page-item" id="pageItem_{{$i}}" data-id="{{$i}}">
                     <a data-target="#carouselExampleIndicators" data-slide-to="{{$i}}" class="page-link" href="#">{{$i + 1}}</a>
                 </li>

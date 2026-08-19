@@ -714,7 +714,7 @@
                                     @for ($i = 0;
         $i <
         ceil(
-            collect($media)->whereNotIn('position', [9, 10])->count() / 10,
+            collect($media)->whereNotIn('position', [9, 10])->count() / 8,
         );
         $i++)
                                         <li class="page-item " id="pageItem_{{ $i }}"

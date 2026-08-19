@@ -1817,7 +1817,6 @@ label.cabinet input.file {
     font-size: 12px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, .14);
     cursor: pointer;
-    transition: all .2s ease;
     opacity: 0;
 }
 
@@ -1828,7 +1827,6 @@ label.cabinet input.file {
 
 .pm-photo-card:hover .deleteimg {
     opacity: 1;
-    transition: all .2s ease;
 }
 
 
@@ -2081,6 +2079,103 @@ label.cabinet input.file {
     margin-bottom: 20px;
     border-bottom: 1px solid #f2f2f2;
     padding-bottom: 15px;
+}
+
+.upload-modal-body {
+    padding: 8px 34px 30px;
+}
+
+.upload-boxes {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 28px;
+}
+
+.upload-dropzone {
+    min-height: 285px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    border: 2px dashed #ffb7c7;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #fffafb, #ffffff);
+    cursor: pointer;
+    transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.upload-dropzone:hover {
+    border-color: #ff3c63;
+    background: #fff6f8;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(255, 60, 99, 0.08);
+}
+
+.upload-dropzone-cover {
+    border-color: #c8d9f3;
+    background: linear-gradient(145deg, #fbfdff, #ffffff);
+}
+
+.upload-dropzone-cover:hover {
+    border-color: #73a5ef;
+    background: #f7faff;
+    box-shadow: 0 12px 30px rgba(73, 135, 230, 0.08);
+}
+
+.upload-plus {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-radius: 50%;
+}
+
+.upload-plus svg {
+    width: 20px;
+    height: 20px;
+}
+
+.upload-plus-pink {
+    color: #ff3c5f;
+    background: #fff0f4;
+}
+
+.upload-plus-blue {
+    color: #70a4ed;
+    background: #eef5ff;
+}
+
+.upload-dropzone h3 {
+    margin: 0 0 8px;
+    color: #092747;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.upload-main-text {
+    margin: 0 0 10px;
+    color: #6b7d98;
+    font-size: 11px;
+}
+
+.upload-dropzone>span {
+    color: #8796ad;
+    font-size: 10px;
+}
+
+.recommended-size {
+    position: absolute;
+    top: 25px;
+    padding: 5px 15px;
+    border-radius: 8px;
+    color: #6680a5;
+    background: #f0f5fc;
+    font-size: 10px;
 }
 
 
