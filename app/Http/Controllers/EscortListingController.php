@@ -125,6 +125,7 @@ class EscortListingController extends Controller
             'membership_type'   => $request->membership_type,
             'verification'      => $request->varify_list,
             'page'              => $request->page ?? 1,
+            'member_id'         => $request->member_id,
         ];
     }
 
@@ -146,7 +147,7 @@ class EscortListingController extends Controller
     {
         $segments = $request->segments();
 
-        if (empty($segments) || $segments[0] !== 'find-escorts') {
+        if (empty($segments) || $segments[0] !== 'find_escorts') {
             return;
         }
 
@@ -156,13 +157,33 @@ class EscortListingController extends Controller
             ? 'list'
             : 'grid';
 
-        $firstSegment = $segments[1] ?? '';
-        $secondSegment   = $segments[2] ?? '';
+        $firstSegment   = $segments[1] ?? '';
+        $secondSegment  = $segments[2] ?? '';
         $thirdSegment   = $segments[3] ?? '';
+        $forthSegment   = $segments[4] ?? '';
+        $fifthSegment   = $segments[5] ?? '';
+
+        // array: [
+        //     0 => "find_escorts"
+        //     1 => "australia"
+        //     2 => "qld"
+        //     3 => "brisbane"
+        //     4 => "female"
+        //     5 => "E80392"
+        //     ]
+
+        // dd($firstSegment, $secondSegment, $thirdSegment, $forthSegment, $fifthSegment);
 
         $countryList = [
             'australia',
             'newzealand',
+        ];
+        $genderList = [
+            'female',
+            'male',
+            'couples',
+            'transgender',
+            'cross%20dresser'
         ];
 
         // Common parameters
@@ -175,43 +196,68 @@ class EscortListingController extends Controller
         if (!$request->has('services')) $params['services'] = '';
         if (!$request->has('duration_price')) $params['duration_price'] = 0;
         if (!$request->has('varify_list')) $params['varify_list'] = 'all';
+        if (!$request->has('member_id')) $params['member_id'] = '';
 
 
         $urlCity = null;
+        $urlState = null;
         $urlGender = null;
+        $urlMemberId = null;
 
         if ($firstSegment) {
             if (in_array(strtolower($firstSegment), $countryList)) {
-                if ($secondSegment) {
-                    $cityId = getCityId($secondSegment);
-                    if ($cityId) {
-                        $urlCity = $cityId;
-                        if ($thirdSegment) {
-                            $genderId = getGenderId($thirdSegment);
-                            if ($genderId) {
-                                $urlGender = $genderId;
-                            }
-                        }
-                    } else {
-                        // Could be a gender instead of city
-                        $genderId = getGenderId($secondSegment);
-                        if ($genderId) {
-                            $urlGender = $genderId;
-                        }
+                if (in_array($secondSegment, $genderList)) {
+                    //gender pass
+                    $genderId = getGenderId($secondSegment);
+                    if ($genderId) {
+                        $urlGender = $genderId;
+                    }
+                } else {
+                    //when get state abbar
+                    $cityStateId = getStateCityIds($secondSegment, $thirdSegment);
+                    if ($cityStateId) {
+                        $urlCity = $cityStateId['city_id'];
+                        $urlState = $cityStateId['state_id'];
                     }
                 }
             } else {
                 // Not a country, maybe a gender
-                $genderId = getGenderId($firstSegment);
+                $genderId = getGenderId($secondSegment);
                 if ($genderId) {
                     $urlGender = $genderId;
                 }
             }
         }
 
+
+        if(in_array(strtolower($forthSegment), $genderList)){
+            //gender pass
+            $genderId = getGenderId($forthSegment);
+            if ($genderId) {
+                $urlGender = $genderId;
+            }
+
+        }else{
+            $urlMemberId = $forthSegment;
+        }
+
+        if($fifthSegment){
+             $urlMemberId = $fifthSegment;
+        }
+
+
         if (!$request->has('city') && $urlCity) {
             $params['city'] = (string) $urlCity;
         }
+
+        if(!$request->has('state') && $urlState){
+            $params['state_id'] = (string) $urlState;
+        }
+
+        if($fifthSegment){
+            $params['member_id'] = $urlMemberId;
+        }
+        
 
         if (!$request->has('gender') && $urlGender) {
             $params['gender'] = (string) $urlGender;
@@ -239,8 +285,7 @@ class EscortListingController extends Controller
 
         //modify request paramter according gender and location wise value.
         $this->modifyRequestParamter($request);
-       // dd($request->all());
-       
+
         //get shortlist ids
         $escortId = $this->getShortListIds();
         $count_session = count((array) session('cart'));
@@ -251,10 +296,11 @@ class EscortListingController extends Controller
         $userLocation = $this->getUserLocation($request);
 
         $params = $this->getSearchParams($request, $userLocation, $userInterest);
+        //dd($params);
 
 
         //add the params value inside the session for load next and previous page data
-       // session(['search_escort_filters' => $params]);
+        // session(['search_escort_filters' => $params]);
 
 
 
@@ -324,7 +370,7 @@ class EscortListingController extends Controller
                 'escort_videos',
                 'city:id,name',
                 'oneHourDuration',
-                'user:id,profile_creator',
+                'user:id,profile_creator,member_id',
                 'durations:id,name',
                 'purchase' => function ($q) {
                     $q->where('status', 'listed');
@@ -533,6 +579,17 @@ class EscortListingController extends Controller
         // City
         if (!empty($params['city_id'])) {
             $query->where('escorts.city_id', $params['city_id']);
+        }
+        //state
+        if(!empty($params['state_id'])){
+            $query->where('escorts.state_id', $params['state_id']);
+        }
+
+        //member id check
+        if(!empty($params['member_id'])){
+            $query->whereHas('user', function ($q) use ($params) {
+                 $q->where('member_id',$params['member_id']);
+            });
         }
         if (!empty($params['gender'])) {
             $query->where('escorts.gender', $params['gender']);

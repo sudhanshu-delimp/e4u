@@ -1976,9 +1976,9 @@ if (!function_exists('getRefundAmountForCancelProfile')) {
             'massage_profile_id',
             $purchase->massage_profile_id
         )
-        ->where('is_archived', '0')
-        ->get(['start_date', 'end_date']);
-        
+            ->where('is_archived', '0')
+            ->get(['start_date', 'end_date']);
+
 
 
         $refundAmount = 0;
@@ -1997,15 +1997,15 @@ if (!function_exists('getRefundAmountForCancelProfile')) {
                 'massage_profile_id',
                 $purchase->massage_profile_id
             )
-            ->where('is_archived', '0')
-            ->whereDate('start_date', '<=', $currentDate)
-            ->whereDate('end_date', '>=', $currentDate)
-            ->exists();
+                ->where('is_archived', '0')
+                ->whereDate('start_date', '<=', $currentDate)
+                ->whereDate('end_date', '>=', $currentDate)
+                ->exists();
 
             // Log::info('currentDate => ' . $currentDate->format('Y-m-d'));
             // Log::info('alreadyRefunded => ' . ($alreadyRefunded ? '1' : '0'));
 
-           
+
             if ($alreadyRefunded) {
                 continue;
             }
@@ -2703,12 +2703,45 @@ if (!function_exists('getCityId')) {
     }
 }
 
-if(!function_exists('getGenderId')) {
-    function getGenderId($gender){
-        if($gender === null){
+if (!function_exists('getGenderId')) {
+    function getGenderId($gender)
+    {
+        if ($gender === null) {
             return false;
         }
         $getGenderId = config('escorts.gender');
         return array_search(strtolower($gender), array_map('strtolower', $getGenderId), true);
+    }
+}
+
+if (!function_exists('getStateCityIds')) {
+    function getStateCityIds($stateAbbr, $cityName=null)
+    {
+        $states = config('escorts.profile.states');
+
+        foreach ($states as $stateId => $state) {
+            if (strcasecmp($state['stateAbbr'], $stateAbbr) !== 0) {
+                continue;
+            }
+
+            //Match city name
+
+            foreach ($state['cities'] as $cityId => $city) {
+                if($cityName){
+                    if (strcasecmp($city['cityName'], $cityName) === 0) {
+                        return [
+                            'state_id' => (int) $stateId,
+                            'city_id' => (int) $cityId,
+                        ];
+                    }
+                }else{
+                    return [
+                        'state_id' => (int) $stateId,
+                        'city_id' => (int) $cityId,
+                    ];
+                }
+                
+            }
+        }
     }
 }
