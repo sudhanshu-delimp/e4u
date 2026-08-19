@@ -21,7 +21,7 @@
       <div class="col-md-12 ">
           <div class="card collapse  mb-4" id="notes">
               <div class="card-body">
-                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+               <h3 class="NotesHeader"><b>Notes:</b></h3>
                   
               </div>
           </div>

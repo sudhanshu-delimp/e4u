@@ -79,7 +79,7 @@
                                         </p>
                                     </div>
                                     <div class="col-lg-2">
-                                        <div class="doc-img">
+                                        <div class="doc-img active">
                                             <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}" alt=""
                                                 class="w-100 rounded-sm">
                                         </div>

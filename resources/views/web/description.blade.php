@@ -1060,7 +1060,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
 
                                                                     @php
                                                                         $allImages = $escort->gallary()
-                                                                            ->wherePivot('type',0)
+                                                                            ->where('escorts_medias.type', 0)
                                                                             ->wherePivotIn('position',[1,2,3,4,5,6,7])
                                                                             ->orderBy('position','asc')
                                                                             ->get();
@@ -1469,7 +1469,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                         </a>
                         <div class="content">                        
                             <div class="accodien_manage_padding_content">
-                                <p></p>
+                                
                                 <table class="table text-center table-bordered">
                                     <thead class="table-bg">
                                         <tr>
@@ -1518,8 +1518,9 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                         <h2><img src="{{ asset('assets/app/img/tips.svg') }}">Tips</h2>
                     </div>
                     <div class="pt-2">
-                        <div id="tipcrousal" class="carousel slide carousel_remove_in_tip" data-ride="carousel" data-interval="5000">
+                        <div id="tipcrousal2" class="carousel slide carousel_remove_in_tip" data-ride="carousel" data-interval="5000">
                             <!-- Wrapper for carousel items -->
+
                             <div class="carousel-inner">
                                 <div class="carousel-item tip_carousel_item_text active item-01">
                                     <p>Ask questions and become informed.</p>

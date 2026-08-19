@@ -245,7 +245,7 @@
                                 </ul>
                             </div>
                             <div class="col-lg-6">
-                                <!-- <p></p> -->
+                                <!--  -->
 
 
                                 <ul style="padding : 0;">
@@ -547,7 +547,7 @@
                                 </p>
                             </div>
                             <div class="col-lg-6">
-                                <!-- <p></p> -->
+                                <!--  -->
                                 <h2 id="set-M">M</h2>
                                 <p><b>Massage Centre : </b> has the same meaning as “<a href="{{ route('pages.terms-conditions')}}"
                                         class="termsandconditions_text_color text-decoration-none">Massage Centre</a>”

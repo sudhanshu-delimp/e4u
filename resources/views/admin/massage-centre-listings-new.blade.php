@@ -32,8 +32,7 @@
         <div class="d-sm-flex align-items-center justify-content-between col-md-12">
             <div class="custom-heading-wrapper">
                 <h1 class="h1">Massage Centre Listings</h1>
-                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>
-                </h6>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>                     </span>
             </div>
             @if (request('from') == 'dashboard')
             <div class="back-to-dashboard">
@@ -64,8 +63,11 @@
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12 ">
             <div class="row my-3">
-
-                <div class="col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
+                 <div class="col-lg-12 d-flex justify-content-between" style="gap: 20px;">
+                <a class="nav-link collapse-item btn-switch" href="{{ route('admin.escort-listings') }}">
+                    Switch to Escort Listings
+                </a>
+                <div class="d-flex justify-content-end" style="gap: 50px;">
 
                     <div class="total_listing">
                         <div><span>Total Listings : </span></div>
@@ -73,6 +75,7 @@
                     </div>
                 </div>
             </div>
+        </div>
             <div class="massage_table_class">
                 <table class="table" id="listings" style="width:100%;">
                     <thead class="table-bg">

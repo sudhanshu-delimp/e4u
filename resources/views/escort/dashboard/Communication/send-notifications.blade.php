@@ -25,7 +25,7 @@
                     <div class="col-md-12 mb-4">
                         <div class="card collapse" id="notes" style="">
                             <div class="card-body">
-                                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                               <h3 class="NotesHeader"><b>Notes:</b></h3>
                                 <ol>
                                     <li>Use this feature for displaying a list of your Viewers who have flagged you in
                                         their Legbox.</li>
@@ -43,22 +43,7 @@
                     </div>
                 </div>
                 {{-- my viewers --}}
-                <!-- <div class="row mb-5">
-
-                    <div class="col-md-12">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="viewerNotificationTable">
-                                <thead>
-                                    <tr>
-                                        <th>State</th>
-                                        <th class="text-center">Viewers</th>
-                                        <th class="text-center">Notifications</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-                </div> -->
+            
 
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
@@ -164,15 +149,7 @@
 
                 {{-- end --}}
                 <!--middle content-->
-                <!-- <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-                        <div class="bothsearch-form" style="gap: 10px;">
-                            <button type="button" class="create-tour-sec" data-toggle="modal" data-target="#new-ban">Send
-                                Notification</button>
-                        </div>
-                    </div>
-                   
-                </div> -->
+              
             </div>
         </div>
     </div>
@@ -355,6 +332,8 @@
     $(document).ready(function() {
             var viewerTable = $('#viewerTable').DataTable({
                 responsive: true,
+                pageLength: {{$datatable_entries }},
+                lengthMenu: [10, 25, 50, 75, 100],
                 language: {
                     search: "Search:", // ✅ This will show the label
                     searchPlaceholder: "Search by Viewer ID or Profile ID", // ✅ This is the placeholder
@@ -403,7 +382,6 @@
                
                 autoWidth: false,
                 
-                pageLength: 25,
             });
 
 

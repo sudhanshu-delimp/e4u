@@ -48,7 +48,7 @@
             <div class="col-md-12 mb-4">
             <div class="card collapse" id="notes" style="">
                 <div class="card-body">
-                    <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                   <h3 class="NotesHeader"><b>Notes:</b></h3>
                     <ol>
                         <li>You will receive a Notification, located in the Support Ticket Alert (top menu bar), when you have an unread Support Ticket message.</li>
                         <li>Use the <a href="{{ route('agent.agent-messages')}}" class="custom_links_design">Messaging</a> service for communication with other Users (if available).</li>
@@ -145,7 +145,8 @@
         lengthChange: true,
         searching: true,
         bStateSave: false,
-
+        lengthMenu: paginateRange,
+        pageLength: paginateLength,
         ajax: {
             url: "{{ route('support-ticket.dataTable') }}",
             type: 'GET',
@@ -168,9 +169,6 @@
         ],
 
         order: [[6, 'desc']], // Default sort by created_on descending
-
-        lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-        pageLength: 10,
     });
    
     $('#supportTicketsTable').on('init.dt', function () {

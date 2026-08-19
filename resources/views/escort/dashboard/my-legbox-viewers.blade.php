@@ -29,8 +29,7 @@
             <div class="d-sm-flex align-items-center justify-content-between col-md-12">
                 <div class="custom-heading-wrapper">
                     <h1 class="h1">My Legbox Viewers</h1>
-                    <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>
-                    </h6>
+                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>                     </span>
                 </div>
                  @if (request('from') == 'dashboard')
                 <div class="back-to-dashboard">
@@ -43,12 +42,12 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                        <p></p>
+                       <h3 class="NotesHeader"><b>Notes:</b></h3>
+                        
                         <ol>
-                            <li>Registered Viewers who have flagged you in their Legbox are listed here. You can
+                            <li>Registered Viewers who have flagged you in their Legbox are listed here. <!--You can
                                 also see your Viewers <a href="{{ url('escort-dashboard/send-notofications') }}"
-                                    class="custom_links_design">here</a>.</li>
+                                    class="custom_links_design">here</a>--->.</li>
                             <li>The status for each Viewer is Summarised here and includes Notifications and
                                 Contact.</li>
                             <li>The Viewer can set their preferences for Notifications and Contact. You can also set
@@ -198,8 +197,8 @@
                 ],
                
                 autoWidth: false,
-                
-                pageLength: 25,
+                pageLength: {{$datatable_entries }},
+                lengthMenu: [10, 25, 50, 75, 100],
             });
 
             // Event to set total count

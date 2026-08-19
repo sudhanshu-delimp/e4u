@@ -11,6 +11,7 @@ class SuspendProfile extends Model
     use HasFactory;
 
     protected $fillable = [
+        'purchase_id',
         'escort_profile_id',
         'user_id',
         'start_date',
@@ -35,6 +36,11 @@ class SuspendProfile extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function purchase()
+    {
+        return $this->belongsTo(Purchase::class, 'purchase_id');
     }
 
     public function scopeOverlapping($query, $start, $end)

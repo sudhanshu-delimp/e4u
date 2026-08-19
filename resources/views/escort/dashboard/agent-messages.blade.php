@@ -15,8 +15,8 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                        <p></p>
+                       <h3 class="NotesHeader"><b>Notes:</b></h3>
+                        
                         <ol>
                             <li>Use Messages for all of your communications between other Users. Any Viewer you have
                                 blocked, or have blocked you, will not appear in your list.</li>

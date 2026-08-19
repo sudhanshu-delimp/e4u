@@ -35,8 +35,8 @@ h5 {
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                    <div class="card-body">
-                      <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                      <p></p>
+                     <h3 class="NotesHeader"><b>Notes:</b></h3>
+                      
                       <ol>
                             
                       </ol>
@@ -139,7 +139,7 @@ h5 {
                         </div>
                     </div>
               
-                    <div class="statistics-card shadow-sm">
+                    <div class="statistics-card shadow-sm disabled-link">
                         <div class="statistics-text">
                             <div class="statistics-label">My Playbox Subscriptions
                             </div>

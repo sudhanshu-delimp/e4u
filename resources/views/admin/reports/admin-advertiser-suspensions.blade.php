@@ -23,7 +23,7 @@
    <!--middle content-->
    <div class="row mt-5">
       <div class="custom-heading-wrapper col-md-12">
-         <h1 class="h1">E4U Listings Suspended</h1>
+         <h1 class="h1">Listings Suspended (E4U)</h1>
          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
       </div>
       <div class="col-md-12 ">
@@ -42,11 +42,14 @@
       <div class="col-md-12">
          <div class="row my-3">
             <div class="col-md-12 col-sm-12 d-flex justify-content-between" style="gap: 50px;">
-               <div class="">
+               <div class="d-flex justify-content-between align-items-center gap-10">
                   <select id="advertiserFilter" name="advertiser_type" class="form-select form-select-sm p-2" style="width: 200px;">
                      <option value="{{ route('admin.admin-suspensions-list-ajax','escort') }}">Escort</option>
                      <option value="{{ route('admin.admin-suspensions-list-ajax','massage') }}">Massage Center</option>
                   </select>
+                  <a class="nav-link collapse-item btn-switch" href="{{route('admin.advertiser-suspensions')}}">
+                     Switch to Advertiser
+                  </a>
                </div>
                <div class="total_listing">
                   <div><span>Total : </span></div>

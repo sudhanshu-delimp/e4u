@@ -57,10 +57,15 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                    <div class="card-body">
-                      <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                      <p></p>
+                     <h3 class="NotesHeader"><b>Notes:</b></h3>
+                      
                       <ol>
-                            
+                            <li>
+                                Use this feature to record tasks that you need to perform.  It serves as a basic reminder service for you, like for example, if you are intending to create a Tour, so that you don't forget, create a Task to remind yourself when to create the Tour.
+                            </li>
+                            <li>Select the Action feature to Edit or View your Task.</li>
+                            <li>Tasks will always be listed according to the priority you have set for the Task.</li>
+
                       </ol>
                    </div>
                 </div>

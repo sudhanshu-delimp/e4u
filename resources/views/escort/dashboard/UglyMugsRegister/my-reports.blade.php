@@ -49,7 +49,7 @@
     <div class="col-md-12 mb-4">
       <div class="card collapse" id="notes">
         <div class="card-body">
-          <p class="mb-0" style="font-size: 20px;"><b>Notes:</b></p>
+          <h3 class="NotesHeader"><b>Notes:</b></h3>
           <ol>
             <li>
               You can view all of your Reports here. Simply search the report you are looking for by
@@ -173,12 +173,8 @@
             paging: true,
             processing: false,
             serverSide: false,
-           
-            lengthMenu: [
-                [10, 25, 50, 100],
-                [10, 25, 50, 100]
-            ],
-            pageLength: 25,
+            pageLength: {{$datatable_entries }},
+            lengthMenu: [10, 25, 50, 75, 100],
             ordering: true,
             columnDefs: [{
                     targets: 5,

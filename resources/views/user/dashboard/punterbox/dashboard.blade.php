@@ -62,8 +62,7 @@
         <div class="d-sm-flex align-items-center justify-content-between col-md-12">
             <div class="custom-heading-wrapper">
                 <h1 class="h1">Dashboard</h1>
-                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>
-                </h6>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>                     </span>
             </div>
             @if (request('from') == 'dashboard')
             <div class="back-to-dashboard">
@@ -76,7 +75,7 @@
         <div class="col-md-12 mb-4">
             <div class="card collapse" id="notes" style="">
                 <div class="card-body">
-                    <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                   <h3 class="NotesHeader"><b>Notes:</b></h3>
                     <ol>
                         <li>The Punterbox register <b>(Punterbox)</b> is a free service to all Viewers. You can use
                             the Punterbox service at any time. Your details, when you undertake a search, are
@@ -154,11 +153,8 @@
             paging: true,
             processing: false,
             serverSide: false,
-            pageLength: 10,
-            lengthMenu: [
-                [10, 20, 50, 100],
-                [10, 20, 50, 100]
-            ],
+            lengthMenu: [{{ config('app.paginate_range') }}],
+            pageLength: {{ config('app.paginate_length') }},
             ordering: true,
             columnDefs: [{
                     targets: 5,

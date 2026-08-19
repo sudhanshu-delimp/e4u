@@ -8,6 +8,7 @@ use App\Http\Requests\StoreAvatarMediaRequest;
 use App\Models\AgentNotification;
 use App\Models\Escort;
 use App\Models\LegboxNotification;
+use App\Models\LegboxNotificationForEscrt;
 use App\Models\LoginAttempt;
 use App\Models\MyLegbox;
 use App\Models\MyMassageLegbox;
@@ -43,9 +44,11 @@ class UserController extends Controller
         $notifications = $this->viewerNotificationShow();
         //this is active viewer legbox notificaiton create by Massage Center
 
-        $getLegBoxNotifications = $this->getActiveViewerLegBoxNotifications();
+        $getLegBoxNotifications = $this->getActiveViewerLegBoxNotificationsForMassage();
 
-        return view('user.dashboard.index', compact('notifications', 'getLegBoxNotifications'));
+        $getLegBoxNotificationsEscort = $this->getActiveViewerLegBoxNotificationsForEscort();
+
+        return view('user.dashboard.index', compact('notifications', 'getLegBoxNotifications', 'getLegBoxNotificationsEscort'));
     }
     public function myLegboxList()
     {
@@ -242,7 +245,7 @@ class UserController extends Controller
 
     public function editPassword()
     {
-        $user = User::where('id',auth()->user()->id)->first();
+        $user = User::where('id', auth()->user()->id)->first();
         return view('user.dashboard.change-password', compact('user'));
     }
 
@@ -279,7 +282,7 @@ class UserController extends Controller
 
     public function updatePassword(Request $request)
     {
-        
+
         $response = [];
         try {
             $current_user  = User::with('account_setting')->where('id', auth()->user()->id)->first();
@@ -288,7 +291,7 @@ class UserController extends Controller
             } else {
                 $data = $request->all();
                 $this->user->changeUserPassword($data);
-               $response =  Success_response($data,'Password Changed Successfully',200);
+                $response =  Success_response($data, 'Password Changed Successfully', 200);
             }
             return $response;
         } catch (Exception $e) {
@@ -300,12 +303,11 @@ class UserController extends Controller
     public function updatePasswordExpiry(Request $request)
     {
         $data = $request->all();
-        try{
+        try {
             $this->user->update_account_setting($data);
-           return  Success_response($data,'Password Settings Updated Successfully',200);
-        } catch(Exception $e){
-             return error_response('Failed to update Password Settings', 500);
-            
+            return  Success_response($data, 'Password Settings Updated Successfully', 200);
+        } catch (Exception $e) {
+            return error_response('Failed to update Password Settings', 500);
         }
     }
 
@@ -414,14 +416,13 @@ class UserController extends Controller
         $user->available_playmate = $available_playmate;
         $user->save();
 
-         $setting = $user->escort_settings;
+        $setting = $user->escort_settings;
 
         if ($setting) {
             $setting->features_i_am_available_as_a_playmate = (string)$available_playmate;
-            if($setting->save()) {
-               //
+            if ($setting->save()) {
+                //
             }
-
         }
         return response()->json(compact('available_playmate'));
     }
@@ -535,12 +536,13 @@ class UserController extends Controller
             ", [$authStateId, $authStateId, $authUserId])
             ->first();
 
-       return view('user.dashboard.favorites-online', compact('result'));
+        return view('user.dashboard.favorites-online', compact('result'));
     }
 
     // get legbox notification message for viewer
 
-    public function getActiveViewerLegBoxNotifications(){
+    public function getActiveViewerLegBoxNotificationsForMassage()
+    {
         $userId = auth()->user()->member_id;
         $massageCenterIds = MyMassageLegbox::where('massage_legbox.user_id', auth()->id())
             ->join('massage_profiles', 'massage_profiles.id', '=', 'massage_legbox.massage_id')
@@ -549,16 +551,37 @@ class UserController extends Controller
 
 
         $getNotification = LegboxNotification::where('status', 'Published')
-                            ->whereIn('create_by',$massageCenterIds)
-                            ->where('start_date', '<=', now()->utc())
-                            ->where(function($query) use ($userId) {
-                                $query->whereNull('member_id')
-                                    ->orWhere('member_id', $userId);
-                            })
-                            ->orderBy('created_at', 'desc')
-                            ->select('id', 'heading', 'content', 'template_name', 'create_by', 'create_by_member_id')
-                            ->get();
+            ->whereIn('create_by', $massageCenterIds)
+            ->where('start_date', '<=', now()->utc())
+            ->where(function ($query) use ($userId) {
+                $query->whereNull('member_id')
+                    ->orWhere('member_id', $userId);
+            })
+            ->orderBy('created_at', 'desc')
+            ->select('id', 'heading', 'content', 'template_name', 'create_by', 'create_by_member_id')
+            ->get();
         return $getNotification;
     }
 
+    public function getActiveViewerLegBoxNotificationsForEscort()
+    {
+        $userId = auth()->user()->member_id;
+        $escortIds = MyLegbox::where('my_legbox.user_id', auth()->id())
+            ->join('escorts', 'escorts.id', '=', 'my_legbox.escort_id')
+            ->select('escorts.user_id as  escort_id')
+            ->pluck('escort_id');
+
+        $getNotification = LegboxNotificationForEscrt::where('status', 'Published')
+            ->whereIn('create_by', $escortIds)
+            ->where('start_date', '<=', now()->utc())
+            ->where(function ($query) use ($userId) {
+                $query->whereNull('member_id')
+                    ->orWhere('member_id', $userId);
+            })
+            ->orderBy('created_at', 'desc')
+            ->select('id', 'heading', 'content', 'template_name', 'create_by', 'create_by_member_id')
+            ->get();
+
+        return $getNotification;
+    }
 }

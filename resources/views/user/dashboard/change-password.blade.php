@@ -27,7 +27,7 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                       <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
                             <li>Use this feature to change your Password and to set up your Password preferences.</li>
                             <li>Your Password, unless you change the settings, will by default expire every 30 days. You

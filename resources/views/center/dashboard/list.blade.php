@@ -173,7 +173,7 @@ background:#16385f;
             <div class="col-md-12 mb-4">
                <div class="card collapse" id="notes" style="">
                   <div class="card-body">
-                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                    <h3 class="NotesHeader"><b>Notes:</b></h3>
                      <!-- <ol>
                            <li>Use these help pages for explanations and guidance on managing all of your Masseur
                               Profiles.</li>
@@ -200,12 +200,12 @@ background:#16385f;
                                     <div class="">
                                           <button class="btn brb-btn" data-toggle="modal"
                                                 data-target="#add_brb" id="btn_add_brb">Shop Closed</button>
-                                                <button style="padding: 10px;" class="btn btn-custom-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Profile  </button>
+                                                <button style="padding: 10px;" class="btn btn-custom-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Listing  </button>
                                           
                                           
                                           <button style="padding: 10px;" class="btn btn-bump-up" data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump Up  </button>
                                           <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
-                                                data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button> 
+                                                data-target="#suspend_profile" id="btn_suspend_profile">Suspend Listing</button> 
                                        </div>
                                 </div> 
                            </div>  

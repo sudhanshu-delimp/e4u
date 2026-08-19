@@ -13,9 +13,9 @@
                 <h1 class="h1">Shareholders</h1>
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
             </div>
-            <div class="col-md-12 mb-5 collapse" id="notes">
-                <div class="card">
-                    <div class="card-body">
+            <div class="col-md-12 mb-5">
+                <div class="card  collapse" id="notes">
+                    <div class="card-body ">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
                         <ol class="level-1">
                             <li>Set up and manage Member shareholdings here.</li>

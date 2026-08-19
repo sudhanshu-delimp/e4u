@@ -16,6 +16,7 @@ class SetFeesVariablesUsers extends Controller
     {
         $pricings = PricingSummary::with('memberships')->get();
         $items = $pricings->groupBy('days');
+       
 
         // foreach( $items as $key => $result) {
         //     dd($result->where('days',$key)->where('membership_id',1));

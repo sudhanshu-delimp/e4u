@@ -17,7 +17,7 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                       <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
                             <li>Download the E4U Influencer icon from here and store it on your computer.</li>
                             <li>Click the link to activate the download.</li>

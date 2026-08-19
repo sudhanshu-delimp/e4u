@@ -22,7 +22,7 @@
       <div class="col-md-12 mb-4">
           <div class="card collapse" id="notes" style="">
             <div class="card-body">
-                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+               <h3 class="NotesHeader"><b>Notes:</b></h3>
                 <ol>
                   <li>The My Notebox feature is a free service to Viewers that you can use any time.</li>
                   <li>To commence a new Notebox, select the Escort Type you want to create – Female,

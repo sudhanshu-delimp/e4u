@@ -15,20 +15,23 @@ class SendSms {
     }
 
 
-    public function send_otp_sms($phone,$text) 
-    {
-        try 
-        {
+public function send_otp_sms($phone, $text)
+{
+    try {
 
-            if(config('constants.app_env')!='local')
-            {
-                $send = new MessageMedia();
-                return $send->sendMessages($phone, $text);
-            }
-            
-        } 
-        catch (Exception $e) {
-            logErrorLocal($e);
-        }
+        $send = new MessageMedia();
+
+        return $send->sendMessages($phone, $text);
+
+    } catch (\Exception $e) {
+
+        Log::error('OTP SMS Error', [
+            'message' => $e->getMessage(),
+        ]);
+
+        logErrorLocal($e);
+
+        return false;
     }
+} 
 }

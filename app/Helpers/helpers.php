@@ -21,6 +21,7 @@ use App\Models\MassagePurchase;
 use App\Models\MassageRate;
 use App\Models\MassageService;
 use App\Models\MassageStatistics;
+use App\Models\MassageSuspendProfile;
 use App\Models\Masseur;
 use App\Models\MasseurMedia;
 use App\Models\Notification;
@@ -1074,18 +1075,20 @@ if (!function_exists('sendLoginOtpEmail')) {
 if (!function_exists('sendLoginOtpSms')) {
     function sendLoginOtpSms($otp, $user, $message = null)
     {
-        log_info('sendLoginOtpSms');
+        Log::info('sendLoginOtpSms');
 
-        if (isset($user->phone) && $user->phone != "") {
+        Log::info('User phone', [
+            'phone' => $user->phone ?? null,
+        ]);
+
+        if (!empty($user->phone)) {
 
             $username = ($user && $user->type == '5')
                 ? $user->business_name
                 : $user->name;
 
-            // default message
             $message = $message ?? "Hello :username, your one-time login OTP is :otp. If you didn’t request this, please ignore this message.";
 
-            // replace placeholders
             $message = str_replace(
                 [':username', ':otp'],
                 [$username, $otp],
@@ -1093,10 +1096,23 @@ if (!function_exists('sendLoginOtpSms')) {
             );
 
             $sendotp = new SendSms();
+
+            Log::info('Sending OTP SMS', [
+                'phone' => $user->phone,
+                'otp' => $otp,
+                'message' => $message,
+            ]);
+
             $output = $sendotp->send_otp_sms($user->phone, $message);
+
+            Log::info('OTP SMS response', [
+                'output' => $output,
+            ]);
 
             return $output;
         }
+
+        Log::warning('OTP SMS not sent: phone number is empty');
 
         return false;
     }
@@ -1391,13 +1407,39 @@ if (!function_exists('getListingRefundAmount')) {
             $membership = $purchase->membership;
             $total_days = $purchase->days_number;
             $remaining_days = $purchase->left_listing_days;
-            //$remaining_days = $escortDetail->left_listing_days;
             list($usedDicount, $usedAmount) = calculateTotalFee($membership, ($total_days - $remaining_days), $escortDetail->user, $purchase);
             $refundAmount = $purchase->paid_rate - $usedAmount;
             $gstAmount = getGSTAmount($refundAmount);
             $refundAmount = $refundAmount + $gstAmount;
         }
         return number_format($refundAmount, 2, '.', '');
+    }
+}
+
+if (!function_exists('getListingCancelAmount')) {
+    function getListingCancelAmount($profile)
+    {
+        $response = new stdClass();
+        $netCreditAmount = 0.00;
+        $refundAmount = getListingRefundAmount($profile);
+        $mainPurchase = $profile->mainPurchase;
+        $previousCreditedAmount = $mainPurchase->upcomingSuspends()->sum('credit');
+        $response->credit_amount = $refundAmount;
+        $response->suspend_credited_amount = $previousCreditedAmount;
+        $response->listing_adjusted_credit_amount = number_format(($refundAmount - $previousCreditedAmount), 2, '.', '');
+        $netCreditAmount = $response->listing_adjusted_credit_amount;
+
+        $isExtended = $mainPurchase->isListingExtended();
+        if ($isExtended && $isExtended->count) {
+            $otherPurchase = $isExtended->data;
+            $otherPurchaseCredit = $otherPurchase->refund_amount;
+            $response->extend_listing_credit_amount = number_format(($otherPurchaseCredit), 2, '.', '');
+            $netCreditAmount += $response->extend_listing_credit_amount;
+            $response->other_purchase = $otherPurchase;
+        }
+        $response->net_credit_amount = number_format(($netCreditAmount), 2, '.', '');
+        $response->main_purchase = $mainPurchase;
+        return $response;
     }
 }
 
@@ -1971,6 +2013,15 @@ if (!function_exists('getRefundAmountForCancelProfile')) {
             return 0;
         }
 
+        $previousSuspends = MassageSuspendProfile::where(
+            'massage_profile_id',
+            $purchase->massage_profile_id
+        )
+        ->where('is_archived', '0')
+        ->get(['start_date', 'end_date']);
+        
+
+
         $refundAmount = 0;
         $startDayNumber = $purchaseStart->diffInDays($refundStart) + 1;
 
@@ -1979,7 +2030,28 @@ if (!function_exists('getRefundAmountForCancelProfile')) {
 
         for ($i = 0; $i < $refundDays; $i++) {
 
+            $currentDate = $refundStart->copy()->addDays($i);
             $currentDay = $startDayNumber + $i;
+
+            ######## Check whether this date was already refunded/suspended. 
+            $alreadyRefunded = MassageSuspendProfile::where(
+                'massage_profile_id',
+                $purchase->massage_profile_id
+            )
+            ->where('is_archived', '0')
+            ->whereDate('start_date', '<=', $currentDate)
+            ->whereDate('end_date', '>=', $currentDate)
+            ->exists();
+
+            // Log::info('currentDate => ' . $currentDate->format('Y-m-d'));
+            // Log::info('alreadyRefunded => ' . ($alreadyRefunded ? '1' : '0'));
+
+           
+            if ($alreadyRefunded) {
+                continue;
+            }
+            ######## End Check whether this date was already refunded/suspended. 
+
 
             if ($currentDay <= $discountDay) {
                 $refundAmount += $normalRate;
@@ -2672,9 +2744,10 @@ if (!function_exists('getCityId')) {
     }
 }
 
-if(!function_exists('getGenderId')) {
-    function getGenderId($gender){
-        if($gender === null){
+if (!function_exists('getGenderId')) {
+    function getGenderId($gender)
+    {
+        if ($gender === null) {
             return false;
         }
         $getGenderId = config('escorts.gender');

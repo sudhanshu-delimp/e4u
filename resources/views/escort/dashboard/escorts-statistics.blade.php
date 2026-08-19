@@ -22,8 +22,8 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                    <div class="card-body">
-                      <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                      <p></p>
+                     <h3 class="NotesHeader"><b>Notes:</b></h3>
+                      
                       <ol>
                             <li>To add Credit, go to Bookkeeping and select <a href="{{url('escort-dashboard/credit-my-account')}}" class="custom_links_design">Add Credit</a>.</li>
                             <li>You can change your Password settings here. You will be notified by your preferred method when your Password is due to expire.</li>

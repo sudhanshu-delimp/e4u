@@ -45,7 +45,8 @@
     #btn_add_brb,
     #btn_extend_profile,
     #btn_pinup_profile,
-    #btn_bumpup_profile {
+    #btn_bumpup_profile,
+    #btn_cancel_profile {
         display: none;
     }
 
@@ -84,26 +85,30 @@
         @endif
     </div>
 
-    <div class="row">
-        <div class="col-md-12 mb-4 collapse" id="notes">
-            <div class="card " id="notes">
-                <div class="card-body">
-                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                    <ol>
-                        <li>Use this feature to review and make changes to your Profiles.</li>
-                        <li>You can view and edit a Profile by selecting 'Action'. By selecting the Action
-                            function, you will be able to {{ $type == 'past' ? 'Duplicate,' : '' }} Delete, Edit
-                            or
-                            View the Profile.</li>
-                        @if($type != 'past')
-                        <li>
-                            To display your Playmates avatar in any Profile, select <strong>Add Playmates</strong> from Action.
-                            You can add multiple Playmates. Only your Playmates in the Location the Profile is listed at the time
-                            can be added to the Profile. If your Playmate leaves the Location while your Profile is active, or
-                            they suspend their Profile, they will be automatically removed from the Profile for the suspended
-                            period, and permanently if they have left the Location.
-                        </li>
-                        @endif
+        <div class="row">
+            <div class="col-md-12 mb-4 collapse" id="notes">
+                <div class="card " id="notes">
+                    <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol>
+                            <li>Use this feature to review and make changes to your Profiles.</li>
+                            <li>You can view and edit a Profile by selecting 'Action'. By selecting the Action
+                                function, you will be able to {{ $type == 'past' ? 'Duplicate,' : '' }} Delete, Edit,
+                                View the Profile and Add Playmates.</li>
+                            @if ($type != 'past')
+                                <li>
+                                    To display your Playmates avatar in any Profile, select <strong>Add Playmates</strong>
+                                    from Action.
+                                    You can add multiple Playmates. Only your Playmates in the Location the Profile is
+                                    listed at the time
+                                    can be added to the Profile. If your Playmate leaves the Location while your Profile is
+                                    active, or
+                                    they suspend their Profile, they will be automatically removed from the Profile for the
+                                    suspended
+                                    period, and permanently if they have left the Location. If your Playmate returns to your
+                                    Location, they will automatically be added back into the Listed Profile.
+                                </li>
+                            @endif
 
 
                     </ol>
@@ -121,69 +126,76 @@
                         <div class="add--list listingActionButtons">
                             <div class="">
 
-                                {{-- <div class="pinup-tooltip-wrapper"> --}}
-                                <button style="padding: 10px;" class="btn btn-warning esc-tooltip-wrap" data-toggle="modal"
-                                    data-target="#pinup_profile" id="btn_pinup_profile"
-                                    @if ($activePinup) disabled title="" @endif>List Pin
-                                    Up
-                                    @if ($activePinup)
-                                    <span class="esc-tooltip-2">You already have an active <br> Pin Up. You can book <br> after it
-                                        expires.</span>
-                                    @endif
+                                        {{-- <div class="pinup-tooltip-wrapper"> --}}
+                                        <button style="padding: 10px;" class="btn btn-warning esc-tooltip-wrap"
+                                            data-toggle="modal" data-target="#pinup_profile" id="btn_pinup_profile"
+                                            @if ($activePinup) disabled title="" @endif>List Pin
+                                            Up
+                                            @if ($activePinup)
+                                                <span class="esc-tooltip-2">You already have an active <br> Pin Up. You can
+                                                    book <br> after it
+                                                    expires.</span>
+                                            @endif
+                                        </button>
+
+                                        <button class="btn upgrade-btn esc-tooltip-wrap" data-toggle="modal"
+                                            data-target="#upgrade_modal" id="btn_upgrade">Upgrade
+                                            <span class="esc-tooltip-2">Upgrade your Membership <br> Type</span>
+                                        </button>
+
+
+                                        <button style="padding: 10px;" class="btn btn-custom-success esc-tooltip-wrap"
+                                            data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile">
+                                            Extend Listing
+                                            <span class="esc-tooltip-2">Extend your Listing to a <br> new end date</span>
+                                        </button>
+                                        <button style="padding: 10px;" class="btn btn-bump-up esc-tooltip-wrap"
+                                            data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump
+                                            Up
+                                            <span class="esc-tooltip-2">Bump your Listing up to <br> the top of the
+                                                Listings</span>
+                                        </button>
+                                        <button style="padding: 10px;" class="btn btn-primary esc-tooltip-wrap"
+                                            data-toggle="modal" data-target="#suspend_profile"
+                                            id="btn_suspend_profile">Suspend Listing
+                                            <span class="esc-tooltip-2">Take down your Listing <br> for a set period</span>
+                                        </button>
+					<button style="padding: 10px;" class="btn btn-danger esc-tooltip-wrap"
+                                    data-toggle="modal" data-target="#cancel_profile"
+                                    id="btn_cancel_profile">Cancel Listing
+                                    <span class="esc-tooltip-2">Take down your Profile</span>
                                 </button>
 
-                                <button class="btn upgrade-btn esc-tooltip-wrap" data-toggle="modal"
-                                    data-target="#upgrade_modal" id="btn_upgrade">Upgrade
-                                    <span class="esc-tooltip-2">Upgrade your Membership <br> Type</span>
-                                </button>
 
 
-                                <button style="padding: 10px;" class="btn btn-custom-success esc-tooltip-wrap"
-                                    data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile">
-                                    Extend Listing
-                                    <span class="esc-tooltip-2">Extend your Profile to a <br> new end date</span>
-                                </button>
-                                <button style="padding: 10px;" class="btn btn-bump-up esc-tooltip-wrap"
-                                    data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump
-                                    Up
-                                    <span class="esc-tooltip-2">Bump your Profile up to <br> the top of the Listings</span>
-                                </button>
-                                <button style="padding: 10px;" class="btn btn-primary esc-tooltip-wrap"
-                                    data-toggle="modal" data-target="#suspend_profile"
-                                    id="btn_suspend_profile">Suspend Listing
-                                    <span class="esc-tooltip-2">Take down your Profile <br> for a set period</span>
-                                </button>
-
-
-
+                                    </div>
+                                    <button class="btn brb-btn esc-tooltip-wrap" data-toggle="modal" data-target="#add_brb"
+                                        id="btn_add_brb">Add BRB
+                                        <span class="esc-tooltip-2">Be Right Back display</span>
+                                    </button>
+                                </div>
                             </div>
-                            <button class="btn brb-btn esc-tooltip-wrap" data-toggle="modal"
-                                data-target="#add_brb" id="btn_add_brb">Add BRB
-                                <span class="esc-tooltip-2">Be Right Back display</span>
-                            </button>
+                            <br>
+                        @endif
+                        <div class="table-responsive">
+                            <table class="table w-100" id="sailorTable">
+                                <thead id="table-sec" class="table-bg">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th class="w-auto">Profile Name</th>
+                                        <th class="w-auto">Location</th>
+                                        <th class="w-auto">Stage Name</th>
+                                        <th class="w-auto">Membership</th>
+                                        <th class="w-auto">Mobile Number</th>
+                                        <!-- <th class="w-auto">Competitor</th>-->
+                                        <th class="w-auto">Date Created</th>
+                                        <th>Status</th>
+                                        <th>Start Date</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
-                    </div>
-                    <br>
-                    @endif
-                    <div class="table-responsive">
-                        <table class="table w-100" id="sailorTable">
-                            <thead id="table-sec" class="table-bg">
-                                <tr>
-                                    <th>ID</th>
-                                    <th class="w-auto">Profile Name</th>
-                                    <th class="w-auto">Location</th>
-                                    <th class="w-auto">Stage Name</th>
-                                    <th class="w-auto">Membership</th>
-                                    <th class="w-auto">Mobile Number</th>
-                                    <!-- <th class="w-auto">Competitor</th>-->
-                                    <th class="w-auto">Date Created</th>
-                                    <th>Status</th>
-                                    <th>Start Date</th>
-                                    <th class="text-center">Action</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
 
                     <div>
                     </div>
@@ -405,13 +417,17 @@
                     <div class="modal-footer" style="text-align: end; display: block;">
                         <button type="submit" class="btn-success-modal" id="save_brb" disabled>Suspend</button>
                         <button type="button" class="btn-cancel-modal" id="save_brb"
-                            data-dismiss="modal">Cancel</button>
+                            data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
 </div>
+<!-- end suspend profile modal -->
+
+<!-- suspend profile modal start here -->
+@include('escort.dashboard.modal.cancel_profile_listing')
 <!-- end suspend profile modal -->
 
 <div class="modal fade upload-modal programmatic" id="delete_profile" style="display: none">
@@ -498,6 +514,9 @@
                 let $selectUpgrade = $('#upgrade_profile_id');
                 $selectUpgrade.empty();
 
+                let $selectCancel = $('#cancelProfileId');
+                $selectCancel.empty();
+
                 if (records.recordsTotal > 0) {
 
                     $select.append('<option value="">-- Select Profile --</option>');
@@ -518,6 +537,19 @@
                     $selectSuspend.append('<option value="">-- Select Profile --</option>');
                     $.each(records.data, function(i, item) {
                         $selectSuspend.append(
+                            $('<option>', {
+                                value: item.id,
+                                text: `${item.id} - ${item.name} - ${item.state.name}`,
+                                'data-start': item.start_date_formatted,
+                                'data-end': item.end_date_formatted,
+                                'data-membership': item.membership_number,
+                            })
+                        );
+                    });
+
+                    $selectCancel.append('<option value="">-- Select Profile --</option>');
+                    $.each(records.data, function(i, item) {
+                        $selectCancel.append(
                             $('<option>', {
                                 value: item.id,
                                 text: `${item.id} - ${item.name} - ${item.state.name}`,
@@ -603,85 +635,86 @@
                 }
 
 
-            },
-            columns: [{
-                    data: 'id',
-                    name: 'id',
-                    searchable: true,
-                    orderable: true,
-                    defaultContent: 'NA'
                 },
-                {
-                    data: 'pro_name',
-                    name: 'profile_name',
-                    searchable: true,
-                    orderable: true,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'state_name',
-                    name: 'state_name',
-                    searchable: false,
-                    orderable: false,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'stage_name',
-                    name: 'stage_name',
-                    searchable: false,
-                    orderable: true,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'membership',
-                    name: 'membership',
-                    searchable: false,
-                    orderable: false,
-                    defaultContent: 'NA',
-                    visible: shouldHide
-                },
-                {
-                    data: 'phone',
-                    name: 'phone',
-                    searchable: false,
-                    orderable: false,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'timezone_created_at',
-                    name: 'created_at',
-                    searchable: false,
-                    orderable: true,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'statusBtn',
-                    name: 'statusBtn',
-                    searchable: false,
-                    orderable: false,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'start_date',
-                    name: 'start_date',
-                    searchable: false,
-                    orderable: true,
-                    visible: false,
-                    defaultContent: 'NA'
-                },
-                {
-                    data: 'action',
-                    name: 'start_date',
-                    searchable: false,
-                    orderable: false,
-                    defaultContent: 'NA',
-                    class: 'text-center'
-                },
-            ],
-            order: [8, 'asc'],
-            pageLength: 25,
-        });
-        //    $('#sailorTable_filter label').append('<i class="fa fa-search "></i>');
+                columns: [{
+                        data: 'id',
+                        name: 'id',
+                        searchable: true,
+                        orderable: true,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'pro_name',
+                        name: 'profile_name',
+                        searchable: true,
+                        orderable: true,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'state_name',
+                        name: 'state_name',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'stage_name',
+                        name: 'stage_name',
+                        searchable: false,
+                        orderable: true,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'membership',
+                        name: 'membership',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA',
+                        visible: shouldHide
+                    },
+                    {
+                        data: 'phone',
+                        name: 'phone',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'timezone_created_at',
+                        name: 'created_at',
+                        searchable: false,
+                        orderable: true,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'statusBtn',
+                        name: 'statusBtn',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'start_date',
+                        name: 'start_date',
+                        searchable: false,
+                        orderable: true,
+                        visible: false,
+                        defaultContent: 'NA'
+                    },
+                    {
+                        data: 'action',
+                        name: 'start_date',
+                        searchable: false,
+                        orderable: false,
+                        defaultContent: 'NA',
+                        class: 'text-center'
+                    },
+                ],
+                order: [8, 'asc'],
+                pageLength: {{$datatable_entries }},
+                lengthMenu: [10, 25, 50, 75, 100],
+            });
+            //    $('#sailorTable_filter label').append('<i class="fa fa-search "></i>');
 
         $('#profile_state_id').change(function() {
             var stateId = $(this).val();

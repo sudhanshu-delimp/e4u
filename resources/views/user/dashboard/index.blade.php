@@ -45,6 +45,21 @@
                     </div>
                 </div>
             @endif
+
+            {{-- for Escort create --}}
+            @if ($getLegBoxNotificationsEscort)
+                <div class="notification-swiper swiper" role="alert">
+                    <div class="swiper-wrapper">
+                        @foreach ($getLegBoxNotificationsEscort as $getLegBoxNotification)
+                            <div class="swiper-slide">
+                                <x-global.notification-alert :heading="$getLegBoxNotification['heading']" :content="$getLegBoxNotification['content'] ?? $getLegBoxNotification['template_name']" type="success"
+                                    :member="$getLegBoxNotification['create_by_member_id'] ?? null" />
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
+            @endif
         </div>
 
         <div class="row">
@@ -57,8 +72,8 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b></p>
-                        <p></p>
+                        <h3 class="NotesHeader"><b>Notes:</b></h3>
+                        
                         <ol>
                             <li>Use this feature to enable and disable your feature preferences.</li>
                             <li>Please note that for an Advertiser to participate in any of these features, they must

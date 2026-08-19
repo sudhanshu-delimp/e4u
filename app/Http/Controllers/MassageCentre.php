@@ -542,7 +542,8 @@ class MassageCentre extends Controller
         $prevId = $ids[$currentIndex - 1] ?? null;
         $nextId = $ids[$currentIndex + 1] ?? null;
 
-
+        $prevSlug = $prevId = !empty($prevSlug) ?  $prevId : null;
+        $nextSlug = $nextId = !empty($nextSlug) ?  $nextId : null;
 
         //$listing = MassageProfile::where('id','=',$id)->first();
         $reviews = $listing->reviews;
@@ -596,7 +597,7 @@ class MassageCentre extends Controller
         }
 
 
-        return view('web.mc.massage-description', compact('listing', 'durations', 'massage_durations', 'reviews', 'spamReportAdvertiser', 'lp', 'dp', 'massageLike', 'nextId', 'prevId', 'ids', 'star_rating'));
+        return view('web.mc.massage-description', compact('listing', 'durations', 'massage_durations', 'reviews', 'spamReportAdvertiser', 'lp', 'dp', 'massageLike', 'nextId', 'prevId', 'ids', 'star_rating', 'prevSlug', 'nextSlug'));
     }
 
 

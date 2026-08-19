@@ -20,6 +20,8 @@ class MassageSuspendProfile extends Model
         'utc_end_date',
         'note',
         'status',
+        'is_archived',
+         'is_cancelled'
     ];
 
     public function massage_profile()

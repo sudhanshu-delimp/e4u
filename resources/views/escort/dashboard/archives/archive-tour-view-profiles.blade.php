@@ -30,7 +30,7 @@
             <div class="col-md-12 mb-4">
                <div class="card collapse" id="notes" style="">
                   <div class="card-body">
-                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                    <h3 class="NotesHeader"><b>Notes:</b></h3>
                      <ol>
                         <li>Use this feature to edit your Tour.</li>
                         <li>You can change any Profile's start or finish date, Membership Type and remove a Profile from the Tour.</li>
@@ -199,7 +199,8 @@
          table = $('#sailorTable').DataTable({
             serverSide: true,
             processing: true,
-                pageLength: 25,
+            pageLength: {{$datatable_entries }},
+            lengthMenu: [10, 25, 50, 75, 100],
             "language": {
                "zeroRecords": "There is no record of the search criteria you entered.",
                searchPlaceholder: "Search by ID or Profile Name"

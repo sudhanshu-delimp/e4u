@@ -155,7 +155,7 @@ class EscortNotificationController extends Controller
                     DB::rollBack();
                     return response()->json([
                         'status'  => false,
-                        'message' => 'Notification could not be sent because no active profile was found.',
+                        'message' => 'Notification could not be sent because no active Profile was found.',
                     ], 200);
                 }
 

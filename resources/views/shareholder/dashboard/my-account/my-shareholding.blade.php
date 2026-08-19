@@ -14,8 +14,8 @@
         <div class="col-md-12 mb-4">
             <div class="card collapse" id="notes" style="">
                 <div class="card-body">
-                    <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                    <p></p>
+                   <h3 class="NotesHeader"><b>Notes:</b></h3>
+                    
                     <ol>
                         <li>Use this feature to keep up to date your shareholding.</li>
                         <li>Go to <a href="{{ route('shareholder.share-value')}}" class="custom_links_design">Share Value</a> for information on the value of your shares.</li>

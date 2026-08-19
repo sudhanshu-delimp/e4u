@@ -18,7 +18,7 @@
                         <div class="col-lg-12">
                              <div class="card collapse   mb-4" id="notes">
                                 <div class="card-body">
-                                    <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                                   <h3 class="NotesHeader"><b>Notes:</b></h3>
                                     <ol>
                                         <li>These community information pages are a complete summary of all the terms
                                             and
@@ -331,7 +331,7 @@
                                                             </ul>
                                                         </div>
                                                         <div class="col-lg-6">
-                                                            <!-- <p></p> -->
+                                                            <!--  -->
 
 
                                                             <ul style="padding : 0;">
@@ -753,7 +753,7 @@
                                                             </p>
                                                         </div>
                                                         <div class="col-lg-6">
-                                                            <!-- <p></p> -->
+                                                            <!--  -->
                                                             <h2 id="set-M">M</h2>
                                                             <p><b>Massage Centre : </b> has the same meaning as “<a
                                                                     href="{{ 'terms-conditions' }}"
