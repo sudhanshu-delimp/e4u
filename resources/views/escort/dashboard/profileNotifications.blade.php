@@ -28,7 +28,7 @@
                             <li>For a Viewer or Agent to receive your Notifications, the Viewer or Agent must have
                                 also enabled the feature.</li>
                             <li>Please note what features are enabled by default.</li>
-                            <li>Your Auto-Recharge option is ‘No’ by default.
+                            <!-- <li>Your Auto-Recharge option is ‘No’ by default.
                                 <ol class="level-2">
                                     <li>select your preferred option. The preferred option will remain in place until you
                                         change it. The Top Up will occur when your Wallet balance falls below
@@ -39,7 +39,7 @@
                                         the transaction by your bank may affect any Listing you have or Tour status.
                                     </li>
                                 </ol>
-                            </li>
+                            </li> -->
                             <li>Note also the default setting for 2FA authentification.</li>
                         </ol>
                     </div>
@@ -332,6 +332,13 @@
                                                 {{ isset($setting->escort_settings) && $setting->escort_settings->twofa == '2' ? 'checked' : '' }}>
 
                                             <label class="form-check-label" for="auth_2">Text</label>
+                                        </div>
+
+                                         <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="twofa" id="auth_3"
+                                                value="3"
+                                                {{ isset($setting->escort_settings) && $setting->escort_settings->twofa == '3' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="auth_3">Both</label>
                                         </div>
                                     </div>
 

@@ -251,6 +251,12 @@ class Escort extends Model
         return $this->hasMany(SuspendProfile::class, 'escort_profile_id');
     }
 
+    public function upcomingSuspends()
+    {
+        return $this->suspendProfile()
+            ->where('utc_start_date', '>', now('UTC'));
+    }
+
     public function activeSuspendProfile()
     {
         return $this->hasMany(SuspendProfile::class, 'escort_profile_id')

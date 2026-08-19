@@ -139,7 +139,7 @@ h5 {
                         </div>
                     </div>
               
-                    <div class="statistics-card shadow-sm">
+                    <div class="statistics-card shadow-sm disabled-link">
                         <div class="statistics-text">
                             <div class="statistics-label">My Playbox Subscriptions
                             </div>
