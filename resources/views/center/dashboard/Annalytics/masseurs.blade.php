@@ -113,7 +113,7 @@
                 [1, 'desc']
             ],
             pageLength: {{$datatable_entries }},
-            lengthMenu: [10,25, 50, 75, 100],
+            lengthMenu: [{{ config('app.paginate_range') }}], 
             columns: [{
                     data: 'member_id',
                     name: 'member_id',

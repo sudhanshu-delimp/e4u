@@ -16,8 +16,6 @@ class CenterReviewsController extends Controller
     public function viewReviews(Request $request)
     {
         [$advertiserReports, $reports] = $this->getAdvertiserReviews();
-        //dd($advertiserReports->toArray());
-
         return view('center.dashboard.Reviews.view-reviews', [
             'advertiserReports' => $advertiserReports,
             'reports' => $reports

@@ -567,7 +567,7 @@ Route::get('reccomendations', function () {
 /* Route::get('view-reviews',function(){
     return view('center.dashboard.Reviews.view-reviews');
 })->name('center.view-reviews'); */
-Route::get('view-reviews', [CenterReviewsController::class, 'viewRevxiews'])->name('center.view-reviews');
+Route::get('view-reviews', [CenterReviewsController::class, 'viewReviews'])->name('center.view-reviews');
 Route::get('reviews-by-ajax', [CenterReviewsController::class, 'getCenterProfileReviewsByAjax'])->name('center.reviews-profile-by-ajax');
 Route::post('user-review-status-update', [CenterReviewsController::class, "updateUserReviewStatus"])->name('center.user-review-status-update');
 Route::get('get-user-review-details/{id}', [CenterReviewsController::class, "getSingleUserReviewDetails"])->name('center.get-single-user-review-details');
