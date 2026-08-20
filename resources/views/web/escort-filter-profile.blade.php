@@ -411,6 +411,75 @@
         const viewType = "{{ $listingsPreferencesView }}";
         escortRequest.view_type = viewType;
 
+        const escortRouteStates = @json(config('escorts.profile.states'));
+        const escortRouteGenders = @json(config('escorts.gender'));
+
+        const escortBaseUrl = "{{config('constants.escort_list_base_slug')}}";
+
+        function getEscortRouteMemberId(selectedCity, genderId) {
+            const segments = window.location.pathname.split('/').filter(Boolean);
+            const lastSegment = segments[segments.length - 1] || '';
+            const currentState = segments[2] || '';
+            const currentCity = segments[3] || '';
+            const currentGender = segments[4] || '';
+            const selectedGender = escortRouteGenders[genderId] || '';
+
+            if (!/^E[\w-]+$/i.test(lastSegment) || !selectedCity) {
+                return null;
+            }
+
+            if (currentState !== selectedCity.state || currentCity !== selectedCity.city) {
+                return null;
+            }
+
+            if (selectedGender && currentGender !== selectedGender.toLowerCase().replace(/\s+/g, '%20')) {
+                return null;
+            }
+
+            return lastSegment;
+        }
+
+        function getEscortListingPath() {
+            const cityId = String($('#escort_city').val() || '');
+            const genderId = String($('#escort_gender').val() || '');
+            const pathSegments = [escortBaseUrl];
+            let selectedCity = null;
+
+            Object.values(escortRouteStates).some(function(state) {
+                return Object.entries(state.cities || {}).some(function([id, city]) {
+                    if (String(id) === cityId) {
+                        selectedCity = {
+                            state: state.stateAbbr.toLowerCase(),
+                            city: city.cityName.toLowerCase()
+                        };
+                        return true;
+                    }
+
+                    return false;
+                });
+            });
+
+            if (selectedCity) {
+                pathSegments.push('australia');
+                pathSegments.push(selectedCity.state, selectedCity.city);
+
+                const genderSlug = escortRouteGenders[genderId];
+                if (genderSlug) {
+                    pathSegments.push(genderSlug.toLowerCase().replace(/\s+/g, '%20'));
+                }
+
+                const memberId = getEscortRouteMemberId(selectedCity, genderId);
+                if (memberId) {
+                    pathSegments.push(memberId);
+                }
+            } else if (escortRouteGenders[genderId]) {
+                pathSegments.push('australia');
+                pathSegments.push(escortRouteGenders[genderId].toLowerCase().replace(/\s+/g, '%20'));
+            }
+
+            return '/' + pathSegments.join('/');
+        }
+
   
 
 
@@ -510,8 +579,11 @@
             $('#filterForm')[0].reset();
             //again set the location radio button to previous value
             $(`input[name="locationByRadio"][value="${locByRad}"]`).prop('checked', true);
+            $('#escort_city').val('');
+            $('#escort_gender').val('');
+            $('#search_by_member_id_and_name').val('');
             escortRequest = {
-                filter_by_feild: {
+                filter_by_field: {
                     city: '',
                     gender: '',
                     age: '',
@@ -555,8 +627,8 @@
         let currentPage = getCurrentPage();
 
         function loadEscort(reequestParam = escortRequest, showLoader = true) {
-            let reequestUrl = window.location.pathname;
-            let formData = $('#escortFilterForm').serializeArray();
+            let reequestUrl = getEscortListingPath();
+            let formData = $('#filterForm').serializeArray();
             //push current page number
             formData.push({
                 name: 'page',
@@ -599,10 +671,8 @@
             if (ajaxReq) {
                 ajaxReq.abort();
             }
-            //update Brower Url
-            let params = new URLSearchParams($.param(formData));;
-
-            // history.replaceState({}, '', window.location.pathname + '?' + params.toString());
+            // Update the browser URL with the clean route only.
+            history.replaceState({}, '', reequestUrl);
 
             ajaxReq = $.ajax({
                 url: reequestUrl,

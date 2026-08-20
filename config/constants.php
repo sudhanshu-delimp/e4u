@@ -147,4 +147,9 @@ return [
         'percent'   => 'Percent',
         'fixed'  =>  'Fixed',
     ],
+
+
+ 'escort_list_base_slug'   => env('ESCORT_LIST_BASE_SLUG', 'find_escorts'),
+ 'massage_list_base_slug'   => env('MASSAGE_LIST_BASE_SLUG', 'find_massage_centres'),
 ];
+

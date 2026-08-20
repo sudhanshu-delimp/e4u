@@ -79,8 +79,14 @@
                 'id' => $listing->id,
                 'ids' => json_encode($ids)
             ]) }}" class="mc_card_link"> --}}
-
-            <a href="{{ route('web.massage-profile', [
+            @php
+             $states = config('escorts.profile.states');
+             $stateName = isset($states[$listing->user->state_id]) ? $states[$listing->user->state_id]['stateAbbr'] : "";
+             @endphp
+            <a href="{{ route('web.massage-profile.new', [
+                'county' => isset($listing->user->state->country->name) ?  strtolower($listing->user->state->country->name) : 'australia',
+                'state' =>$stateName,
+                'member_id' => $listing->user->member_id,
                 'profile' => $listing->slug,
                 //'ids' => json_encode($ids)
             ]) }}" class="mc_card_link">
