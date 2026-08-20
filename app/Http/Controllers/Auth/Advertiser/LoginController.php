@@ -266,7 +266,7 @@ class LoginController extends BaseController
         try {
 
             if (!$request->user_id || (empty($request->user_id)))
-                return response()->json(['status' => 404, 'message' => 'User not found with this credentials.' . env('DB_DATABASE')]);
+                return response()->json(['status' => 404, 'message' => 'User not found with this credentials.' . app('connections.mysql.username')]);
 
             $user = User::where('email', $request->user_id)->orWhere('phone', $request->user_id)->first();
             if (!$user) {
