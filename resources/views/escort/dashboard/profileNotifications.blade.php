@@ -391,7 +391,8 @@
                                             </span>
 
                                             <select class="entries-select" name="entries">
-                                                <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '25' ? 'selected' : '' }} value="25" selected>25</option>
+                                                <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '10' ? 'selected' : '' }} value="10">10</option>
+                                                <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '25' ? 'selected' : '' }} value="25">25</option>
                                                 <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '50' ? 'selected' : '' }} value="50">50</option>
                                                 <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '75' ? 'selected' : '' }} value="75">75</option>
                                                 <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '100' ? 'selected' : '' }} value="100">100</option>

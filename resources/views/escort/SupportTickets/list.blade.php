@@ -222,7 +222,7 @@
                 ], // Default sort by created_on descending
 
                 pageLength: {{$datatable_entries }},
-                lengthMenu: [25, 50, 75, 100],
+                lengthMenu: [{{ config('app.paginate_range') }}],   
             });
 
             // ✅ Add placeholder to search input

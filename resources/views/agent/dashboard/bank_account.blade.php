@@ -428,7 +428,6 @@
             });
 
 
-
             ///////// Data Table ////////////////
 
             var table = $('#bankAccountTable').DataTable({
@@ -470,10 +469,9 @@
                 order: [1, 'asc'],
                 searchable: true,
                 searching: true,
-                bStateSave: true,
+                bStateSave: false,
                 lengthMenu: paginateRange,
-pageLength: paginateLength,
-
+                pageLength: paginateLength,
                 ajax: {
                     url: "{{ route('agent.bankDetail.dataTable') }}",
                     data: function(d) {

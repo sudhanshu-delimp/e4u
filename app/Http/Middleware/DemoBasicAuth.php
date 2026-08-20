@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class DemoBasicAuth
 {
@@ -16,16 +17,40 @@ class DemoBasicAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        $username = 'meetwithme';
-        $password = 'currentYear@2025';
-        if(isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] == '127.0.0.1') {
+        // Log::info('DemoBasicAuth', [
+        //     'url' => $request->fullUrl(),
+        //     'user' => $request->getUser(),
+        //     'password' => $request->getPassword(),
+        // ]);
+
+        // $username = 'meetwithme';
+        // $password = 'currentYear@2025';
+
+        // if ($request->getUser() !== $username || $request->getPassword() !== $password) {
+        //     return response('Unauthorized', 401)
+        //         ->header('WWW-Authenticate', 'Basic realm="Demo Area"');
+        // }
+
+        // return $next($request);
+
+        if (session()->get('demo_authenticated') === true) {
             return $next($request);
         }
-        if ($request->getUser() !== $username || $request->getPassword() !== $password) {
-            return response('Unauthorized', 401)
-                ->header('WWW-Authenticate', 'Basic realm="Demo Area"');
+
+        $username = 'meetwithme';
+        $password = 'currentYear@2025';
+
+        // Check Basic Auth credentials
+        if (
+            $request->getUser() === $username &&
+            $request->getPassword() === $password
+        ) {
+            session()->put('demo_authenticated', true);
+
+            return $next($request);
         }
-    
-        return $next($request);
+
+        return response('Unauthorized', 401)
+            ->header('WWW-Authenticate', 'Basic realm="Demo Area"');
     }
 }
