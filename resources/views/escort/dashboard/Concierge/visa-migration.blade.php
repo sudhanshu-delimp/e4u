@@ -8,6 +8,14 @@
             list-style: none;
             color: rgb(248, 0, 0)
         }
+
+        .form-check-inline .form-check-input {
+            margin-right: 15px !important
+        }
+
+        .form-check {
+            margin: 0 60px 0 10px;
+        }
     </style>
 @endsection
 @section('content')
