@@ -345,6 +345,10 @@
                                                 </span>
 
                                                 <select class="entries-select" name="show_entries">
+                                                    <option value="10"
+                                                        {{ isset($setting->agent_settings) && $setting->agent_settings->show_entries == '10' ? 'selected' : '' }}>
+                                                        10
+                                                    </option>
                                                     <option value="25"
                                                         {{ isset($setting->agent_settings) && $setting->agent_settings->show_entries == '25' ? 'selected' : '' }}>
                                                         25

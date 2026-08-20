@@ -337,57 +337,57 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
     <script type="text/javascript">
-        $('#userProfile').parsley({
+        // $('#userProfile').parsley({
 
-        });
+        // });
 
 
 
-        $('#userProfile').on('submit', function(e) {
-            e.preventDefault();
+        // $('#userProfile').on('submit', function(e) {
+        //     e.preventDefault();
 
-            var form = $(this);
+        //     var form = $(this);
 
-            if (form.parsley().isValid()) {
+        //     if (form.parsley().isValid()) {
 
-                var url = form.attr('action');
-                var data = new FormData(form[0]);
-                $.ajax({
-                    method: form.attr('method'),
-                    url: url,
-                    data: data,
-                    contentType: false,
-                    processData: false,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        if (!data.error) {
-                            $.toast({
-                                heading: 'Success',
-                                text: 'Details successfully saved',
-                                icon: 'success',
-                                loader: true,
-                                position: 'top-right', // Change it to false to disable loader
-                                loaderBg: '#9EC600' // To change the background
-                            });
+        //         var url = form.attr('action');
+        //         var data = new FormData(form[0]);
+        //         $.ajax({
+        //             method: form.attr('method'),
+        //             url: url,
+        //             data: data,
+        //             contentType: false,
+        //             processData: false,
+        //             headers: {
+        //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //             },
+        //             success: function(data) {
+        //                 if (!data.error) {
+        //                     $.toast({
+        //                         heading: 'Success',
+        //                         text: 'Details successfully saved',
+        //                         icon: 'success',
+        //                         loader: true,
+        //                         position: 'top-right', // Change it to false to disable loader
+        //                         loaderBg: '#9EC600' // To change the background
+        //                     });
 
-                        } else {
-                            $.toast({
-                                heading: 'Error',
-                                text: 'Records Not update',
-                                icon: 'error',
-                                loader: true,
-                                position: 'top-right', // Change it to false to disable loader
-                                loaderBg: '#9EC600' // To change the background
-                            });
+        //                 } else {
+        //                     $.toast({
+        //                         heading: 'Error',
+        //                         text: 'Records Not update',
+        //                         icon: 'error',
+        //                         loader: true,
+        //                         position: 'top-right', // Change it to false to disable loader
+        //                         loaderBg: '#9EC600' // To change the background
+        //                     });
 
-                        }
-                    },
+        //                 }
+        //             },
 
-                });
-            }
-        });
+        //         });
+        //     }
+        // });
         $('#city').select2({
             allowClear: true,
             placeholder: 'Select City',
