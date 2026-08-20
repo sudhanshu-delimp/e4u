@@ -160,7 +160,7 @@ Route::name('center.')->group(function () {
   Route::get('/order-details', [ProductOrderController::class, 'getOrderDetails'])->name('order.details');
   Route::get('/print-order-details/{id}', [ProductOrderController::class, 'printOrderDetail'])->name('print.order.details');
   Route::get('/transaction-history', [ProductOrderController::class, 'orders'])->name('orders');
-  Route::get('/order-history', [ProductOrderController::class, 'orders'])->name('bookkeeping.product.orders');
+Route::get('/order-history', [ProductOrderController::class, 'orders'])->name('bookkeeping.product.orders');
 
 });
 
