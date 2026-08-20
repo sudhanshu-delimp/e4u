@@ -1284,7 +1284,8 @@ label.cabinet input.file {
 ========================================================= */
 
 .pm-main-placeholder {
-    height: 175px;
+    aspect-ratio: 3 / 4;
+    width: 50%;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -1394,7 +1395,7 @@ label.cabinet input.file {
 
 .pm-mini-placeholder,
 .pm-add-placeholder {
-    height: 68px;
+    aspect-ratio: 3 / 4;
     position: relative;
     overflow: hidden;
     border-radius: 7px;
@@ -1403,7 +1404,7 @@ label.cabinet input.file {
 
 .pm-mini-placeholder .dvDest img {
     width: 100%;
-    height: 82px;
+    height: 100%;
     object-fit: cover;
     cursor: pointer;
 }
@@ -1522,7 +1523,7 @@ label.cabinet input.file {
 }
 
 .pm-wide-placeholder {
-    width: 100%;
+    aspect-ratio: 4 / 3;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -1801,7 +1802,7 @@ label.cabinet input.file {
     font-weight: 600;
 }
 
-.deleteimg {
+.pm-photo-card .deleteimg {
     position: absolute;
     right: 8px;
     bottom: 8px;
@@ -1882,6 +1883,58 @@ label.cabinet input.file {
 }
 
 .pm_verify_icon:hover .pm_tooltip {
+    display: block;
+}
+
+.pm_lgverify_icon {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: #0c223d;
+    width: 100px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.pm_lgverify_icon img {
+    width: 80%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pm_lg_tooltip {
+    position: absolute;
+    left: 50%;
+    top: -35px;
+    z-index: 999;
+    width: max-content;
+    background: #ff3c5f;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: none;
+    transform: translate(-50%, 0%);
+}
+
+.pm_lg_tooltip::after {
+    position: absolute;
+    left: 50%;
+    top: 26px;
+    content: '';
+    border-width: 6px;
+    border-style: solid;
+    border-color: var(--peach) transparent transparent transparent;
+    transform: rotate(0deg) translate(-50%);
+}
+
+.pm_lgverify_icon:hover .pm_lg_tooltip {
     display: block;
 }
 

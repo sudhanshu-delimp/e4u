@@ -8421,6 +8421,8 @@ button.short-list.btn.btn-primary {
 
 .custom-upload-photo {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .custom-merchant-modal {

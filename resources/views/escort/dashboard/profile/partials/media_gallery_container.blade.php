@@ -77,7 +77,7 @@
                 <a class="page-link" href="#carouselExampleIndicators" id="preId">‹‹</a>
 
                 </li>
-                @for($i = 0; $i < ceil(count($mediaCategory)/8); $i++ )
+                @for($i = 0; $i < ceil(count($mediaCategory)/12); $i++ )
                 <li class="page-item" id="pageItem_{{$i}}" data-id="{{$i}}">
                     <a data-target="#carouselExampleIndicators" data-slide-to="{{$i}}" class="page-link" href="#">{{$i + 1}}</a>
                 </li>
@@ -88,11 +88,11 @@
                 </ul>
                 <div>
                 <div class="carousel-inner" id="view_all">
-                @foreach($mediaCategory->chunk(8)  as $keyId => $images)
+                @foreach($mediaCategory->chunk(12)  as $keyId => $images)
                     <div class="carousel-item" id="cItem_{{$loop->index}}" data-id="{{$loop->index}}">
                         <div class="pm-gallery-grid" id="dvSource">  
                         @foreach($images as $image)    
-                        @if(!in_array($image->position, [8]))                                               
+                        @if(!in_array($image->position, [12]))                                               
                             <div class="item4 pm-photo-card" id="dm_{{$image->id}}">
                                 <img class="img-thumbnail defult-image ui-draggable" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
                                 <i class="fa fa-times deleteimg" data-id="{{$image->id}}" ></i>                                        

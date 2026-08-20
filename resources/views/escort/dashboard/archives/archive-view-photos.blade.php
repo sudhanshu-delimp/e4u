@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
     <link rel="stylesheet" type="text/css" href="https://foliotek.github.io/Croppie/croppie.css">
     <link href="{{ asset('assets/plugins/ajax/libs/jquery/jquery-ui.css') }} " rel="stylesheet" type="text/css" />
-    {{-- <style type="text/css">
+    <style type="text/css">
         .parsley-errors-list {
             list-style: none;
             color: rgb(248, 0, 0)
@@ -17,6 +17,16 @@
 
         .modalPopup>.item2 {
             cursor: pointer;
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        .grid-container>div {
+            background-color: rgba(255, 255, 255, 0.8);
         }
 
         .ui-draggable-dragging {
@@ -36,81 +46,9 @@
 
         .pis {
             display: none;
-        }
+        } 
 
-        .newbtn {
-            cursor: pointer;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-            gap: 10px;
-        }
-
-        .grid-container>div {
-            background-color: rgba(255, 255, 255, 0.8);
-        }
-
-        .item1 {
-            grid-column: 3 / span 3;
-        }
-
-        .item4 {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        img.img-thumbnail.defult-image {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-
-        img.img-thumbnail.defult-image-3 {
-            width: 585px;
-            height: 202px;
-            object-fit: cover;
-            position: absolute;
-        }
-
-        img#blah8 {
-            width: 425px !important;
-        }
-
-        .leftLst.over {
-            pointer-events: none;
-        }
-
-        .item4 .fa-trash {
-            position: absolute;
-            right: 10px;
-            top: 10px;
-            color: #e73b3b;
-            display: none;
-        }
-
-        .item4:hover .fa-trash {
-            display: block;
-        }
-
-        .item4 {
-            position: relative;
-        }
-
-        .item2 {
-            height: 100% !important;
-            width: 100%;
-        }
-
-        .item2 img {
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: cover;
-        }
-
-        .modal-tab {
+     .modal-tab {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
         }
@@ -121,8 +59,8 @@
 
         .my-custompop-tabs .nav-item .nav-link.active {
             color: #fff;
-        }
-    </style> --}}
+        } 
+    </style>
 @endsection
 @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -269,18 +207,18 @@
                                         }
                                     @endphp
 
-                                    <div class="lg_verify_icon" id="verify_icon_1"
+                                    <div class="pm_lgverify_icon" id="verify_icon_1"
                                         style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                         @if (!empty($imageData['id']))
                                             @if ($status == '0')
                                                 <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
-                                                <span class="common_shield_tooltip">Media Pending</span>
+                                                <span class="pm_lg_tooltip">Media Pending</span>
                                             @elseif($status == '1')
                                                 <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
-                                                <span class="common_shield_tooltip">Media Verified</span>
+                                                <span class="pm_lg_tooltip">Media Verified</span>
                                             @else
                                                 <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
-                                                <span class="common_shield_tooltip">Media Unverified</span>
+                                                <span class="pm_lg_tooltip">Media Unverified</span>
                                             @endif
                                         @endif
 
@@ -288,6 +226,7 @@
                                 </label>
 
                             </div>
+                            
                         </div>
                         <div class="pm-default-section">
                             <div class="pm-label-row">
@@ -541,19 +480,19 @@
                                                 $status = $media_details->varified;
                                             }
                                         @endphp
-                                        <div class="lg_verify_icon" id="verify_icon_9"
+                                        <div class="pm_lgverify_icon" id="verify_icon_9"
                                             style="{{ !empty($imageData['id']) && $media_details->template != '1' ? '' : 'display:none;' }}">
                                             @if (!empty($imageData['id']))
                                                 @if ($status == '0')
                                                     <img
                                                         src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
-                                                    <span class="common_shield_tooltip">Media Pending</span>
+                                                    <span class="pm_lg_tooltip">Media Pending</span>
                                                 @elseif($status == '1')
                                                     <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
-                                                    <span class="common_shield_tooltip">Media Verified</span>
+                                                    <span class="pm_lg_tooltip">Media Verified</span>
                                                 @else
                                                     <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
-                                                    <span class="common_shield_tooltip">Media Unverified</span>
+                                                    <span class="pm_lg_tooltip">Media Unverified</span>
                                                 @endif
                                             @endif
                                         </div>
@@ -577,19 +516,19 @@
                                                 $status = $media_details->varified;
                                             }
                                         @endphp
-                                        <div class="lg_verify_icon" id="verify_icon_10"
+                                        <div class="pm_lgverify_icon" id="verify_icon_10"
                                             style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                             @if (!empty($imageData['id']))
                                                 @if ($status == '0')
                                                     <img
                                                         src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
-                                                    <span class="common_shield_tooltip">Media Pending</span>
+                                                    <span class="pm_lg_tooltip">Media Pending</span>
                                                 @elseif($status == '1')
                                                     <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
-                                                    <span class="common_shield_tooltip">Media Verified</span>
+                                                    <span class="pm_lg_tooltip">Media Verified</span>
                                                 @else
                                                     <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
-                                                    <span class="common_shield_tooltip">Media Unverified</span>
+                                                    <span class="pm_lg_tooltip">Media Unverified</span>
                                                 @endif
                                             @endif
                                         </div>
@@ -712,11 +651,11 @@
 
 
                                     @for ($i = 0;
-        $i <
-        ceil(
-            collect($media)->whereNotIn('position', [9, 10])->count() / 8,
-        );
-        $i++)
+                                        $i <
+                                        ceil(
+                                            collect($media)->whereNotIn('position', [9, 10])->count() / 12,
+                                        );
+                                        $i++)
                                         <li class="page-item " id="pageItem_{{ $i }}"
                                             data-id="{{ $i }}">
                                             <a data-target="#carouselExampleIndicators"
@@ -732,12 +671,12 @@
                                 <div class="">
                                     <div class="carousel-inner" id="view_all">
 
-                                        @foreach (collect($media)->whereNotIn('position', [9, 10])->chunk(8) as $keyId => $images)
+                                        @foreach (collect($media)->whereNotIn('position', [9, 10])->chunk(12) as $keyId => $images)
                                             <div class="carousel-item " id="cItem_{{ $loop->index }}"
                                                 data-id="{{ $loop->index }}">
                                                 <div class="pm-gallery-grid" id="dvSource">
                                                     @foreach ($images as $image)
-                                                        @if (!in_array($image->position, [8]) /*$image->position != 8*/)
+                                                        @if (!in_array($image->position, [12]) /*$image->position != 8*/)
                                                             <div class="item4 pm-photo-card" id="dm_{{ $image->id }}">
                                                                 <img class="img-thumbnail defult-image"
                                                                     src="{{ asset($image->path) }}" alt=" "
@@ -925,7 +864,7 @@
                         <div id="gallery_modal_container" class="grid-container modalPopup">
                             @foreach ($media as $keyId => $image)
                                 @if (!in_array($image->position, [9, 10]) /*$image->position != 8*/)
-                                    <div class="item4">
+                                    <div class="item4 pm-photo-card ">
                                         <img class="img-thumbnail defult-image select_image"
                                             src="{{ asset($image->path) }}" alt=" "
                                             data-id="{{ $image->id }}"
@@ -979,7 +918,7 @@
                                 <!-- Tab panes -->
                                 <div class="tab-pane fade show active" id="upload" role="tabpanel"
                                     aria-labelledby="upload-tab">
-                                    <div id="banner_modal_container" class="modal-tab">
+                                    <div id="banner_modal_container" class="modal-tab grid-container">
                                         @foreach ($media as $keyId => $image)
                                             @if (in_array($image->position, [9]))
                                                 <!-- upload Template Tab -->
@@ -1280,13 +1219,13 @@
 
                                 if (status == "0") {
                                     iconPath = '/assets/app/img/pending_icon/e4u_pending_REV.png';
-                                    iconText = '<span class="common_shield_tooltip">Media Pending</span>';
+                                    iconText = '<span class="pm_lg_tooltip">Media Pending</span>';
                                 } else if (status == "1") {
                                     iconPath = '/assets/app/img/verify/e4u_verified_REV.png';
-                                    iconText = '<span class="common_shield_tooltip">Media Verified</span>';
+                                    iconText = '<span class="pm_lg_tooltip">Media Verified</span>';
                                 } else {
                                     iconPath = '/assets/app/img/verify/unverified_light.png';
-                                    iconText = '<span class="common_shield_tooltip">Media Unverified</span>';
+                                    iconText = '<span class="pm_lg_tooltip">Media Unverified</span>';
                                 }
 
                             } else {
