@@ -2751,7 +2751,7 @@ if (!function_exists('getGenderId')) {
             return false;
         }
         $getGenderId = config('escorts.gender');
-        return array_search(strtolower($gender), array_map('strtolower', $getGenderId), true);
+        return array_search(strtolower($gender), array_map('strtolower', str_replace(' ', '_', $getGenderId)), true);
     }
 }
 
@@ -2824,5 +2824,19 @@ if (!function_exists('getEscortMassageDetailUrl')) {
         }
 
         return $url;
+    }
+}
+if (!function_exists('getStateAbbrByCityName')) {
+    function getStateAbbrByCityName($cityName){
+        $states = config('escorts.profile.states', []);
+        foreach ($states as $state) {
+            foreach ($state['cities'] ?? [] as $city) {
+                if (strtolower($city['cityName']) == strtolower($cityName)) {
+                    return strtolower($state['stateAbbr']);
+                }
+            }
+        }
+
+        return null;
     }
 }

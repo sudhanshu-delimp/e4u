@@ -333,7 +333,7 @@
             var viewerTable = $('#viewerTable').DataTable({
                 responsive: true,
                 pageLength: {{$datatable_entries }},
-                lengthMenu: [25, 50, 75, 100],
+                lengthMenu: [{{ config('app.paginate_range') }}],   
                 language: {
                     search: "Search:", // ✅ This will show the label
                     searchPlaceholder: "Search by Viewer ID or Profile ID", // ✅ This is the placeholder

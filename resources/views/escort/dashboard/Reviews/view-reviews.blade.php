@@ -202,7 +202,7 @@
                 drawCallback: function (settings) {
             },
             pageLength: {{$datatable_entries }},
-            lengthMenu: [25, 50, 75, 100],
+            lengthMenu: [{{ config('app.paginate_range') }}],   
             columns: [
                 { data: 'ref', name: 'ref' },
                 { data: 'escort_name', name: 'escort_name' },

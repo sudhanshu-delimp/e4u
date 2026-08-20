@@ -325,7 +325,7 @@ class ViewerEscortInteractionController extends Controller
 
                     $isBlocked = '<div class="custom-control custom-switch text-center">
                                         <input type="checkbox" '.$isChecked.' class="custom-control-input isBlockedButton" id="customSwitch'.$escort->id.'">
-                                        <label class="custom-control-label" for="customSwitch'.$escort->slug.'"></label>
+                                        <label class="custom-control-label" for="customSwitch'.$escort->id.'"></label>
                                     </div>';
 
                 

@@ -759,7 +759,7 @@ class AgentController extends BaseController
             'escort_text'                           => $request->boolean('escort_text') ? '1' : '0',
             'idle_preference_time'                  => $request->input('idle_time', '60'),
             'twofa'                                 => $request->input('twofa', '2'),
-
+            'show_entries'                          => $request->input('show_entries', '2'),
         ];
 
         $setting = $user->agent_settings;

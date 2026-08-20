@@ -6,6 +6,7 @@ use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Escort\ArchivesController;
 use App\Http\Controllers\Escort\Concierge\ProductController;
 use App\Http\Controllers\Escort\Concierge\ProductOrderController;
+use App\Http\Controllers\Escort\Concierge\VisaMigrationController;
 use App\Http\Controllers\Escort\EscortAccountController;
 use App\Http\Controllers\Escort\EscortController;
 use App\Http\Controllers\Escort\EscortDashboardController;
@@ -411,18 +412,14 @@ Route::get('concierge/', function () {
 Route::get('travel', function () {
   return view('escort.dashboard.Concierge.travel');
 });
-Route::get('visa-migration', function () {
-  return view('escort.dashboard.Concierge.visa-migration');
-});
-
+Route::get('visa-migration', [VisaMigrationController::class, 'index'])->name('visa.migration');
+Route::post('/visa-migration-request', [VisaMigrationController::class, 'store'])->name('visa.migration.store');
 
 
 Route::get('travel', function () {
   return view('escort.dashboard.Concierge.travel');
 });
-Route::get('visa-migration', function () {
-  return view('escort.dashboard.Concierge.visa-migration');
-});
+
 
 Route::get('/list-tour/{type}', [TourController::class, 'viewTourList'])->name('escort.view.tour.list');
 

@@ -38,7 +38,8 @@
                <h3 class="NotesHeader"><b>Notes:</b></h3>
                
                 <ol>
-                      
+                      <li>Your statistics reflect the activity generated on the Website for each of the categories set out on this page.</li>
+                      <li>Some of the statistics can be viewed in more detail in other parts of the Website.</li>
                 </ol>
             </div>
           </div>
