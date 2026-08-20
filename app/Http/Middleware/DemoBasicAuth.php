@@ -37,8 +37,8 @@ class DemoBasicAuth
             return $next($request);
         }
 
-        $username = 'meetwithme';
-        $password = 'currentYear@2025';
+        $username = 'guest';
+        $password = 'guest@2025';
 
         // Check Basic Auth credentials
         if (
