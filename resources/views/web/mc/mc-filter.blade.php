@@ -1,14 +1,53 @@
  <div class="container filter-contain mt-3">
      <div class="accordion custom_accordian" id="accordionExample">
          <div class="card">
-             <div class="card-header all_filter_accordain" id="headingOne">
-                 <h2 class="mb-0">
-                     <button class="btn btn-block text-left btn-search" type="button" data-toggle="collapse"
-                         data-target="#collapseSearch" aria-expanded="true" aria-controls="collapseSearch">
-                         Find Massage Centre
-                         <i class="fa fa-angle-down"></i>
-                     </button>
-                 </h2>
+             <div class="card-header public_filter_accordian" id="headingOne">
+
+                 <div class="pub_heading " data-toggle="collapse" data-target="#collapseSearch" aria-expanded="true"
+                     aria-controls="collapseSearch">
+                     <h2>
+                         <span class="pub_filter_icon">
+                             <svg width="20px" height="20px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1"
+                                 xmlns="http://www.w3.org/2000/svg" fill="#000000">
+                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                 <g id="SVGRepo_iconCarrier">
+                                     <defs>
+                                         <style>
+                                             .cls-1 {
+
+                                                 fill: none;
+                                                 stroke: #ff3c5f;
+                                                 stroke-miterlimit: 10;
+                                                 stroke-width: 1.91px;
+                                             }
+                                         </style>
+                                     </defs>
+                                     <path class="cls-1"
+                                         d="M16.41,12.13a3.32,3.32,0,0,0-.9-.13H4.67A3.17,3.17,0,0,0,1.5,15.17v.34a3.17,3.17,0,0,0,3.17,3.17h6.38">
+                                     </path>
+                                     <rect class="cls-1" x="3.41" y="6.27" width="13.36" height="5.73"
+                                         rx="2.86">
+                                     </rect>
+                                     <rect class="cls-1" x="5.32" y="1.5" width="9.55" height="4.77" rx="2.39">
+                                     </rect>
+                                     <path class="cls-1"
+                                         d="M20.59,16.77H22.5a0,0,0,0,1,0,0v1.91a3.82,3.82,0,0,1-3.82,3.82H16.77a0,0,0,0,1,0,0V20.59A3.82,3.82,0,0,1,20.59,16.77Z">
+                                     </path>
+                                     <path class="cls-1"
+                                         d="M19,17.13a3.81,3.81,0,0,0-.89-4l-1.35-1.35-.36.36-1,1a3.79,3.79,0,0,0-.89,4">
+                                     </path>
+                                     <path class="cls-1"
+                                         d="M14.86,16.77h1.91a0,0,0,0,1,0,0v1.91A3.82,3.82,0,0,1,13,22.5H11a0,0,0,0,1,0,0V20.59A3.82,3.82,0,0,1,14.86,16.77Z"
+                                         transform="translate(-5.73 33.55) rotate(-90)"></path>
+                                 </g>
+                             </svg>
+                         </span> Find Massage Centre
+                     </h2>
+
+                     <i class="fa fa-angle-down"></i>
+                 </div>
+
              </div>
 
              <div id="collapseSearch" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
@@ -27,7 +66,18 @@
                                                  </a>
                                              </div>
                                          </div>
-                                         <span class="reshuffle_tag">Listings reshuffle every
+                                         <span class="reshuffle_tag"> <svg width="15px" height="15px"
+                                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                     stroke-linejoin="round"></g>
+                                                 <g id="SVGRepo_iconCarrier">
+                                                     <path
+                                                         d="M4.51555 7C3.55827 8.4301 3 10.1499 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3V6M12 12L8 8"
+                                                         stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"
+                                                         stroke-linejoin="round"></path>
+                                                 </g>
+                                             </svg> Listings reshuffle every
                                              30 minutes. </span>
                                      </div>
 
@@ -37,7 +87,8 @@
                                                  <div class="location_radio_filter">
                                                      <div class="d-flex align-items-start" style="padding-top: 2px;">
                                                          <input type="radio" name="locationByRadio"
-                                                             value="your_location" id="yourLocation" class="location-radio" >
+                                                             value="your_location" id="yourLocation"
+                                                             class="location-radio">
                                                          <label for="yourLocation"
                                                              style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
                                                              Your Location
@@ -45,8 +96,8 @@
                                                      </div>
 
                                                      <div class="d-flex align-items-start">
-                                                         <input type="radio" name="locationByRadio" value="australia" class="location-radio" checked
-                                                              id="australia">
+                                                         <input type="radio" name="locationByRadio" value="australia"
+                                                             class="location-radio" checked id="australia">
                                                          <label for="australia"
                                                              style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
                                                              Australia
@@ -56,7 +107,8 @@
                                              </div>
                                              {{-- search --}}
                                              <div class="col-lg-5 search_items mb-1">
-                                                 <div class="input-group custome_form_control managefilter_search_btn_style rounded search_btn_profile custom_search_btn_profile">
+                                                 <div
+                                                     class="input-group custome_form_control managefilter_search_btn_style rounded search_btn_profile custom_search_btn_profile">
 
                                                      <!-- Hidden input to hold selected search type -->
                                                      <input type="hidden" name="search_by_radio" id="search_by_radio"
@@ -75,8 +127,10 @@
                                                          <i class="fa fa-search" aria-hidden="true"></i>
                                                      </button>
 
-                                                     <input type="hidden" name="lat" id="set_lat" value="">
-                                                     <input type="hidden" name="lng" id="set_lng" value="">
+                                                     <input type="hidden" name="lat" id="set_lat"
+                                                         value="">
+                                                     <input type="hidden" name="lng" id="set_lng"
+                                                         value="">
                                                  </div>
                                              </div>
 
@@ -93,7 +147,7 @@
                                                      </select>
                                                  </div>
 
-                                                 
+
                                                  <div>
                                                      <button type="button"
                                                          class="btn reset_filter filter-tooltip-wrap" id="v_wishlist">
@@ -151,7 +205,7 @@
                                              @endforeach
                                          </select>
                                      </div>
-                                     
+
 
                                      <div class="display_inline_block mb-1 mr-2">
                                          <select class="custome_form_control_border_radus padding_five_px"
@@ -212,16 +266,18 @@
                                              <option value="verified">Verified</option>
                                          </select>
                                      </div>
-                                     <div class="display_inline_block mb-1 mr-2">
-                                         <button type="button" class="btn reset_filter lower_filter">
-                                            Search
+                                     <div class="display_inline_block mb-1 mr-2 ">
+                                         <input type="hidden" name="apply_pagination_rule"
+                                             id="apply_pagination_rule" value="0">
+                                         <button type="button"
+                                             class="btn reset_filter lower_filter reset_form_filter">
+                                             <svg width="18px" height="18px" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000" stroke-width="1.365"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g fill="none" fill-rule="evenodd" stroke="#FF3C5F" stroke-linecap="round" stroke-linejoin="round" transform="matrix(0 1 1 0 2.5 2.5)"> <path d="m3.98652376 1.07807068c-2.38377179 1.38514556-3.98652376 3.96636605-3.98652376 6.92192932 0 4.418278 3.581722 8 8 8s8-3.581722 8-8-3.581722-8-8-8"></path> <path d="m4 1v4h-4" transform="matrix(1 0 0 -1 0 6)"></path> </g> </g></svg> Reset
                                          </button>
                                      </div>
-                                      <div class="display_inline_block mb-1">
-                                        <input type="hidden" name="apply_pagination_rule"
-                                                             id="apply_pagination_rule" value="0">
-                                         <button type="button" class="btn reset_filter lower_filter reset_form_filter">
-                                             Reset
+                                     
+                                     <div class="display_inline_block mb-1">
+                                         <button type="button" class="btn reset_filter lower_filter">
+                                             <svg width="18px" height="18px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15 15L21 21" stroke="#FF3C5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="#FF3C5F" stroke-width="2"></path> </g></svg> Search
                                          </button>
                                      </div>
                                  </div>
@@ -354,13 +410,29 @@
                                          the Service Tags you selected by clicking the ‘Clear Tags’ link in the
                                          panel.</li>
                                  </ol>
-                             </div>                             
+                             </div>
                              <div class="tab-pane p-3" id="tabs-5" role="tabpanel">
-                                <ol class="pl-3">
-                                    <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/verified_icon_dark.png') }}"  alt="verified icon" /></span>  Represents that the Advertiser's Media has been Verified by E4U. </div></li>
-                                    <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/e4u_pending-icon.png') }}"  alt="verified icon" /> </span> Represents that the Advertiser's Media has been submitted for verification and is pending with E4U. </div></li>
-                                    <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/unverified_icon_dark.png') }}"  alt="verified icon" /> </span> Represents that the Advertiser's Media has not been submitted to E4U for verification, or has been rejected. </div></li>
-                                </ol>
+                                 <ol class="pl-3">
+                                     <li class="help_icons">
+                                         <div><span><img
+                                                     src="{{ asset('assets/app/img/verify/verified_icon_dark.png') }}"
+                                                     alt="verified icon" /></span> Represents that the Advertiser's
+                                             Media has been Verified by E4U. </div>
+                                     </li>
+                                     <li class="help_icons">
+                                         <div><span><img
+                                                     src="{{ asset('assets/app/img/verify/e4u_pending-icon.png') }}"
+                                                     alt="verified icon" /> </span> Represents that the Advertiser's
+                                             Media has been submitted for verification and is pending with E4U. </div>
+                                     </li>
+                                     <li class="help_icons">
+                                         <div><span><img
+                                                     src="{{ asset('assets/app/img/verify/unverified_icon_dark.png') }}"
+                                                     alt="verified icon" /> </span> Represents that the Advertiser's
+                                             Media has not been submitted to E4U for verification, or has been rejected.
+                                         </div>
+                                     </li>
+                                 </ol>
                              </div>
                          </div>
                      </div>
@@ -369,4 +441,3 @@
          </div>
      </div>
  </div>
- 
