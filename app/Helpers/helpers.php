@@ -2786,3 +2786,18 @@ if (!function_exists('getStateCityIds')) {
         }
     }
 }
+
+if (!function_exists('getStateAbbrByCityName')) {
+    function getStateAbbrByCityName($cityName){
+        $states = config('escorts.profile.states', []);
+        foreach ($states as $state) {
+            foreach ($state['cities'] ?? [] as $city) {
+                if (strtolower($city['cityName']) == strtolower($cityName)) {
+                    return strtolower($state['stateAbbr']);
+                }
+            }
+        }
+
+        return null;
+    }
+}
