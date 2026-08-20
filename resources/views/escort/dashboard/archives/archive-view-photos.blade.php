@@ -567,7 +567,7 @@
                                                     stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"
                                                     stroke-linejoin="round"></path>
                                             </g>
-                                        </svg>Verified</a>
+                                        </svg> Verified</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link pm-status-tab" data-filter-type="unverified" id="menu_unverified"
