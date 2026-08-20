@@ -90,7 +90,7 @@ class LoginController extends BaseController
                 }
             }
             if (! is_null($request->email)) {
-                
+
                 $user = User::where('email', '=', $request->email)->where('type', '!=', '7')->first();
                 //if ($user == null || $user->type != 6) {
                 if ($user == null) {
@@ -190,21 +190,20 @@ class LoginController extends BaseController
         $userType =  $request->input('type', "");
         $userTypeList = [$user->type];
         if ($user->type == 3 || $user->type == 4) {
-             $userTypeList = [3,4];
+            $userTypeList = [3, 4];
         }
-        
+
         if (!in_array((int)$userType, $userTypeList)) {
             $userType = (string) $userType;
-            if($user->type == 0) {
-                 throw ValidationException::withMessages([
+            if ($user->type == 0) {
+                throw ValidationException::withMessages([
                     'email' => isset($wrongConsoleLoginMsg[$userType]) ? $wrongConsoleLoginMsg[$userType] : "You are not authorized to login this console.",
                 ]);
             } else {
-                 throw ValidationException::withMessages([
+                throw ValidationException::withMessages([
                     'phone' => isset($wrongConsoleLoginMsg[$userType]) ? $wrongConsoleLoginMsg[$userType] : "You are not authorized to login this console.",
                 ]);
             }
-            
         }
 
         if ($count === 1) {
@@ -266,9 +265,9 @@ class LoginController extends BaseController
     {
         try {
 
-            if(!$request->user_id || (empty($request->user_id)))
-            return response()->json(['status' => 404,'message' => 'User not found with this credentials.']);    
-        
+            if (!$request->user_id || (empty($request->user_id)))
+                return response()->json(['status' => 404, 'message' => 'User not found with this credentials.' . env('DB_DATABASE')]);
+
             $user = User::where('email', $request->user_id)->orWhere('phone', $request->user_id)->first();
             if (!$user) {
                 return response()->json([
@@ -313,7 +312,7 @@ class LoginController extends BaseController
 
     protected function checkOTP(Request $request)
     {
-     
+
         $forgot_password = (int) ($request->forget_password ?? 0);
         if ($forgot_password) {
             $user = User::where('email', $request->email)->first();
@@ -379,7 +378,7 @@ class LoginController extends BaseController
                     $escort->default_setting = 1;
                     $escort->save();
                 }
-                session()->forget(['parent_user_id','is_impersonated','switch_for']);
+                session()->forget(['parent_user_id', 'is_impersonated', 'switch_for']);
             }
             if ($type == 4) {
                 if (!MassageProfile::where('user_id', auth()->user()->id)->exists()) {
@@ -390,14 +389,14 @@ class LoginController extends BaseController
                 }
 
                 ########### Only For Massage To Massage #################
-                session()->forget(['parent_massage_id','is_impersonated','switch_for']);
+                session()->forget(['parent_massage_id', 'is_impersonated', 'switch_for']);
 
-                session()->forget(['parent_user_id','is_impersonated','switch_for']);
+                session()->forget(['parent_user_id', 'is_impersonated', 'switch_for']);
             }
             if ($type == 5) {
                 ########### Only For Agent To Massage #################
-                session()->forget(['parent_agent_id','is_impersonated','switch_for']);
-                 session()->forget(['parent_user_id','is_impersonated','switch_for']);
+                session()->forget(['parent_agent_id', 'is_impersonated', 'switch_for']);
+                session()->forget(['parent_user_id', 'is_impersonated', 'switch_for']);
             }
 
             $result = $this->attemptlogin->findby(auth()->user()->id);
