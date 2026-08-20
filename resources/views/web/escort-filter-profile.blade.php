@@ -628,7 +628,7 @@
 
         function loadEscort(reequestParam = escortRequest, showLoader = true) {
             let reequestUrl = getEscortListingPath();
-            let formData = $('#filterForm').serializeArray();
+            let formData = $('#escortFilterForm').serializeArray();
             //push current page number
             formData.push({
                 name: 'page',
