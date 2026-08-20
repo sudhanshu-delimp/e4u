@@ -94,7 +94,7 @@
                                 {{-- First Name --}}
                                 <div class="form-group">
                                     <label for="first_name" class="required"><b>First Name</b></label>
-                                    <input id="first_name" placeholder="First Name" name="first_name" type="text"
+                                    <input id="first_name" placeholder="First Name" name="first_name" type="text" value="{{Auth::user()->name}}"
                                         class="form-control">
 
                                     <span class="text-danger error-text first_name_error"></span>
@@ -113,7 +113,7 @@
                                 <div class="form-group">
                                     <label for="email"><b>Email Address</b></label>
                                     <input id="email" placeholder="Email" name="email" type="email"
-                                        class="form-control">
+                                        class="form-control" value="{{Auth::user()->email}}">
 
                                     <span class="text-danger error-text email_error"></span>
                                 </div>
@@ -121,7 +121,7 @@
                                 {{-- Mobile --}}
                                 <div class="form-group">
                                     <label for="mobile"><b>Mobile Number</b></label>
-                                    <input id="mobile" placeholder="Mobile" name="mobile" type="text"
+                                    <input id="mobile" placeholder="Mobile" name="mobile" type="text" value="{{Auth::user()->phone}}"
                                         class="form-control">
 
                                     <span class="text-danger error-text mobile_error"></span>
