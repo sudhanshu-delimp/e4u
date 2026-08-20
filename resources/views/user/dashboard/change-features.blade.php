@@ -25,7 +25,7 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                       <h3 class="NotesHeader"><b>Notes:</b></h3>
+                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
                             <li>Use this feature to enable and disable your feature preferences.</li>
                             <li>Please note that for an Advertiser to participate in any of these features, they must
@@ -54,8 +54,7 @@
 
             <div class="col-md-12" id="profile_and_tour_options">
 
-                <form  id="change_features_id" name="change_features" method="POST"
-                    action="{{ route('change-features') }}">
+                <form id="change_features_id" name="change_features" method="POST" action="{{ route('change-features') }}">
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
@@ -134,9 +133,45 @@
                                 <div class="form-group common-card">
                                     <div class="card-top">
                                         <div class="card-icon">
-                                            
 
-                                            <svg fill="#ff3c5f" height="200px" width="200px" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M29,6H17c-0.6,0-1-0.4-1-1s0.4-1,1-1h12c0.6,0,1,0.4,1,1S29.6,6,29,6z"></path> </g> <g> <path d="M24,10h-7c-0.6,0-1-0.4-1-1s0.4-1,1-1h7c0.6,0,1,0.4,1,1S24.6,10,24,10z"></path> </g> <g> <path d="M29,22H17c-0.6,0-1-0.4-1-1s0.4-1,1-1h12c0.6,0,1,0.4,1,1S29.6,22,29,22z"></path> </g> <g> <path d="M24,26h-7c-0.6,0-1-0.4-1-1s0.4-1,1-1h7c0.6,0,1,0.4,1,1S24.6,26,24,26z"></path> </g> <g> <path d="M8,30c-3.3,0-6-2.7-6-6s2.7-6,6-6s6,2.7,6,6S11.3,30,8,30z"></path> </g> <path d="M8,2C4.7,2,2,4.7,2,8s2.7,6,6,6s6-2.7,6-6S11.3,2,8,2z M8,10c-1.1,0-2-0.9-2-2s0.9-2,2-2s2,0.9,2,2S9.1,10,8,10z"></path> </g></svg>
+
+                                            <svg fill="#ff3c5f" height="200px" width="200px" version="1.1"
+                                                id="Icons" xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32"
+                                                xml:space="preserve">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <g>
+                                                        <path
+                                                            d="M29,6H17c-0.6,0-1-0.4-1-1s0.4-1,1-1h12c0.6,0,1,0.4,1,1S29.6,6,29,6z">
+                                                        </path>
+                                                    </g>
+                                                    <g>
+                                                        <path
+                                                            d="M24,10h-7c-0.6,0-1-0.4-1-1s0.4-1,1-1h7c0.6,0,1,0.4,1,1S24.6,10,24,10z">
+                                                        </path>
+                                                    </g>
+                                                    <g>
+                                                        <path
+                                                            d="M29,22H17c-0.6,0-1-0.4-1-1s0.4-1,1-1h12c0.6,0,1,0.4,1,1S29.6,22,29,22z">
+                                                        </path>
+                                                    </g>
+                                                    <g>
+                                                        <path
+                                                            d="M24,26h-7c-0.6,0-1-0.4-1-1s0.4-1,1-1h7c0.6,0,1,0.4,1,1S24.6,26,24,26z">
+                                                        </path>
+                                                    </g>
+                                                    <g>
+                                                        <path d="M8,30c-3.3,0-6-2.7-6-6s2.7-6,6-6s6,2.7,6,6S11.3,30,8,30z">
+                                                        </path>
+                                                    </g>
+                                                    <path
+                                                        d="M8,2C4.7,2,2,4.7,2,8s2.7,6,6,6s6-2.7,6-6S11.3,2,8,2z M8,10c-1.1,0-2-0.9-2-2s0.9-2,2-2s2,0.9,2,2S9.1,10,8,10z">
+                                                    </path>
+                                                </g>
+                                            </svg>
                                         </div>
 
                                         <div class="card-heading">
@@ -250,64 +285,62 @@
                                                 Listings View page.</i></p>
                                     </div>
                                 </div>
-                                
-                                        {{-- Show Entries --}}
-                                        <div class="form-group common-card disabled-link">
-                                                <div class="card-top">
-                                                    <div class="card-icon">
-                                                    <svg viewBox="0 0 24 24" fill="none">
-                                                            <path
-                                                                d="M4 6h16M4 12h16M4 18h16"
-                                                                stroke="currentColor"
-                                                                stroke-width="1.8"
-                                                                stroke-linecap="round"
-                                                            />
-                                                            <circle
-                                                                cx="7"
-                                                                cy="6"
-                                                                r="1.5"
-                                                                fill="currentColor"
-                                                            />
-                                                            <circle
-                                                                cx="7"
-                                                                cy="12"
-                                                                r="1.5"
-                                                                fill="currentColor"
-                                                            />
-                                                            <circle
-                                                                cx="7"
-                                                                cy="18"
-                                                                r="1.5"
-                                                                fill="currentColor"
-                                                            />
-                                                        </svg>
-                                                    </div>
 
-                                                    <div class="card-heading">
-                                                        <h2>Show Entries</h2>
-                                                    </div>
-                                                </div>
-
-                                                <div class="entries-setting">
-
-                                                    <span class="entries-label">
-                                                        Your default setting is:
-                                                    </span>
-
-                                                    <select class="entries-select" name="entries">
-                                                        <option value="25" selected>25</option>
-                                                        <option value="50">50</option>
-                                                        <option value="75">75</option>
-                                                        <option value="100">100</option>
-                                                    </select>
-
-                                                </div> 
-
-                                                <div class="card-note">
-                                                    <span class="note-icon">i</span>
-                                                    <p> <i>Select your preferred number of entries for Report pages.</i></p>
-                                                </div>
+                                {{-- Show Entries --}}
+                                <div class="form-group common-card disabled-link">
+                                    <div class="card-top">
+                                        <div class="card-icon">
+                                            <svg viewBox="0 0 24 24" fill="none">
+                                                <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.8"
+                                                    stroke-linecap="round" />
+                                                <circle cx="7" cy="6" r="1.5" fill="currentColor" />
+                                                <circle cx="7" cy="12" r="1.5" fill="currentColor" />
+                                                <circle cx="7" cy="18" r="1.5" fill="currentColor" />
+                                            </svg>
                                         </div>
+
+                                        <div class="card-heading">
+                                            <h2>Show Entries</h2>
+                                        </div>
+                                    </div>
+
+                                    <div class="entries-setting">
+
+                                        <span class="entries-label">
+                                            Your default setting is:
+                                        </span>
+
+                                        <select class="entries-select" name="show_entries">
+                                            <option value="25"
+                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->show_entries == '25' ? 'selected' : '' }}>
+                                                25
+                                            </option>
+
+                                            <option value="50"
+                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->show_entries == '50' ? 'selected' : '' }}>
+                                                50
+                                            </option>
+
+                                            <option value="75"
+                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->show_entries == '75' ? 'selected' : '' }}>
+                                                75
+                                            </option>
+
+                                            <option value="100"
+                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->show_entries == '100' ? 'selected' : '' }}>
+                                                100
+                                            </option>
+                                        </select>
+
+                                    </div>
+
+                                    <div class="card-note">
+                                        <span class="note-icon">i</span>
+                                        <p>
+                                            <i>Select your preferred number of entries for Report pages.</i>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
