@@ -8,6 +8,17 @@
             list-style: none;
             color: rgb(248, 0, 0)
         }
+<<<<<<< HEAD
+=======
+
+        .form-check-inline .form-check-input {
+            margin-right: 15px !important
+        }
+
+        .form-check {
+            margin: 0 60px 0 10px;
+        }
+>>>>>>> 568d82745 (visa migration page style)
     </style>
 @endsection
 @section('content')
@@ -51,6 +62,7 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
                 <form id="assistanceRequestForm">
                     @csrf
 
@@ -215,6 +227,98 @@
                     <button type="submit" class="new-btn-sec btn btn-primary shadow-none" id="submitAssistanceRequest">
                         Send request
                     </button>
+=======
+                <form class=" ">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h2 class="pb-2"><b>Available services</b> </h2>
+                            <p>The following Services are available through our Partner:</p>
+                            <ul>
+                                <li>Visa and Migration advice including applications, renewals and ongoing assistance</li>
+                                <li>Education course selection advice including ongoing assistance</li>
+                            </ul>
+                            <h2 class="pb-2"><b>Request for assistance</b> </h2>
+                            <div class="form-group ">
+                                <div><label for="preference"><b>Your contact preference</b> </label></div>
+                                <div class="form-check form-check-inline">
+                                    <input name="contact_pref" class="form-check-input" type="checkbox" id="pref_Email"
+                                        value="1">
+                                    <label class="form-check-label" for="pref_Email">Email</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input name="contact_pref" class="form-check-input" type="checkbox" id="pref_Mobile"
+                                        value="1">
+                                    <label class="form-check-label" for="pref_Mobile">Mobile</label>
+                                </div>
+                            </div>
+
+                            <b>Your details:</b>
+                            <div class="mt-2">
+                                <div class="form-group ">
+                                    <label for="email"><b>First Name</b> </label>
+                                    <input id="name" placeholder="First Name" name="name" type="text"
+                                        class="form-control" required="">
+                                </div>
+                                <div class="form-group ">
+                                    <label for="email"><b>Last Name</b> </label>
+                                    <input id="name" placeholder="Last Name" name="name" type="text"
+                                        class="form-control" required="">
+                                </div>
+                                <div class="form-group ">
+                                    <label for="email"><b>Email Address</b></label>
+                                    <input id="name" placeholder="Email" name="name" type="text"
+                                        class="form-control" required="">
+                                </div>
+                                <div class="form-group ">
+                                    <label for="email"><b>Mobile Number</b> </label>
+                                    <input id="name" placeholder="Mobile" name="name" type="text"
+                                        class="form-control" required="">
+                                </div>
+                            </div>
+
+                            <div class="form-group ">
+                                <label for="email"><b>Passport country of issue</b> <span
+                                        style="color:red">*</span></label>
+                                <input id="name" placeholder="Country of issue eg Thailand" name="name"
+                                    type="text" class="form-control" required="">
+                                <span><i>You can disclose this information during your discussion with us if you
+                                        prefer</i></span>
+                            </div>
+                            <div class="form-group custom-radio mb-0">
+                                <label for="email"><b>Indicate which area of advice you are enquiring about</b>
+                                </label><br>
+                                <input type="radio" id="html" name="fav_language" value="HTML">
+                                &nbsp; <label class="m-0" for="html">Visa</label><br><input type="radio"
+                                    id="css" name="fav_language" value="CSS">
+                                &nbsp; <label for="css">Visa & Education Course</label><br>
+                            </div>
+                            <div class="form-group ">
+                                <label for="home_state"><b>Visa enquiry type</b></label>
+                                <select class="form-control" placeholder="Western Australia" aria-describedby="emailHelp"
+                                    required="">
+                                    <option selected="">--- Select ----------</option>
+                                    <option>020 Bridging Visa</option>
+                                    <option>601 Electronic Travel Authority</option>
+                                    <option>651 eVisitor Visa</option>
+                                    <option>500 Student Visa</option>
+                                    <option>485 Temporary Graduate Visa</option>
+                                    <option>417 Working Holiday Visa</option>
+                                    <option>462 Work and Holiday Visa</option>
+                                </select>
+                                <span id="state-errors"></span>
+                            </div>
+
+                            <div class="form-group ">
+                                <label for="exampleFormControlTextarea1"><b>Comments</b> (<i>Please provide any additional
+                                        information that may assist</i>)
+                                </label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" value="Send request" class="new-btn-sec btn btn-primary shadow-none"
+                        name="submit">
+>>>>>>> 568d82745 (visa migration page style)
                 </form>
                 <div id="accordion" class="myacording-design mb-5 mt-5">
                     <div class="card ">
@@ -296,6 +400,7 @@
         </div>
         <!--middle content end here-->
     </div>
+<<<<<<< HEAD
     <div class="modal fade upload-modal " id="visa_migration_request" data-backdrop="static" data-keyboard="false"
         role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
@@ -321,6 +426,8 @@
             </div>
         </div>
     </div>
+=======
+>>>>>>> 568d82745 (visa migration page style)
 @endsection
 @push('script')
     <!-- file upload plugin start here -->
@@ -329,6 +436,7 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
     <script type="text/javascript">
+<<<<<<< HEAD
         // $('#userProfile').parsley({
 
         // });
@@ -380,6 +488,59 @@
         //         });
         //     }
         // });
+=======
+        $('#userProfile').parsley({
+
+        });
+
+
+
+        $('#userProfile').on('submit', function(e) {
+            e.preventDefault();
+
+            var form = $(this);
+
+            if (form.parsley().isValid()) {
+
+                var url = form.attr('action');
+                var data = new FormData(form[0]);
+                $.ajax({
+                    method: form.attr('method'),
+                    url: url,
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (!data.error) {
+                            $.toast({
+                                heading: 'Success',
+                                text: 'Details successfully saved',
+                                icon: 'success',
+                                loader: true,
+                                position: 'top-right', // Change it to false to disable loader
+                                loaderBg: '#9EC600' // To change the background
+                            });
+
+                        } else {
+                            $.toast({
+                                heading: 'Error',
+                                text: 'Records Not update',
+                                icon: 'error',
+                                loader: true,
+                                position: 'top-right', // Change it to false to disable loader
+                                loaderBg: '#9EC600' // To change the background
+                            });
+
+                        }
+                    },
+
+                });
+            }
+        });
+>>>>>>> 568d82745 (visa migration page style)
         $('#city').select2({
             allowClear: true,
             placeholder: 'Select City',
@@ -486,6 +647,7 @@
                 $('#city').prop('disabled', true);
             }
         });
+<<<<<<< HEAD
 
         $("#assistanceRequestForm").on("submit", function(e) {
             e.preventDefault();
@@ -527,5 +689,7 @@
                 }
             });
         });
+=======
+>>>>>>> 568d82745 (visa migration page style)
     </script>
 @endpush
