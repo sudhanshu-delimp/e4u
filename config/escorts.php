@@ -781,4 +781,13 @@ return [
     3 => 'Transgender',
     4 => 'Cross Dresser',
   ],
+  'visa_types' => [
+    '020' => '020 Bridging Visa',
+    '601' => '601 Electronic Travel Authority',
+    '651' => '651 eVisitor Visa',
+    '500' => '500 Student Visa',
+    '485' => '485 Temporary Graduate Visa',
+    '417' => '417 Working Holiday Visa',
+    '462' => '462 Work and Holiday Visa',
+],
 ];
