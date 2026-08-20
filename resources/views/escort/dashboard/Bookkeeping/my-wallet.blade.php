@@ -294,7 +294,7 @@
         ],
         order: [0, 'desc'],
         pageLength: {{$datatable_entries }},
-        lengthMenu: [10, 25, 50, 75, 100],
+        lengthMenu: [{{ config('app.paginate_range') }}], 
     });
 </script>
 @endprepend

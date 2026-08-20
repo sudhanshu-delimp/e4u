@@ -35,6 +35,7 @@ class ViewerSetting extends Model
     'interests_with_trans',
     'interests_with_cross_dresser',
     'interests_with_couples',
+    'show_entries'
 
 
 

@@ -20,12 +20,7 @@ $('#passwordExpiry').on('submit', function (e) {
             },
             success: function (data) {
                 if (data.status === true) {
-                    showAlert(
-                        'success',
-                        'Success',
-                        data.message
-                    );
-
+                    showAlert('success', 'Success',data.message);
                     $("#resetPasswordDate").modal('hide');
                     $('#passwordExpiryText').html(data.data.text);
                 }
@@ -42,12 +37,7 @@ $('#passwordExpiry').on('submit', function (e) {
                         if (res.message) {
                             errorMsg = res.message;
                         }
-                        showAlert(
-                            'success',
-                            'Success',
-                            errorMsg
-                        );
-                        
+                         showAlert('error', 'Error',errorMsg);
                     } catch (e) {
                         // Not JSON, keep the generic message
                     }
