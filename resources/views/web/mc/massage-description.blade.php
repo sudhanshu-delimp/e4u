@@ -248,7 +248,7 @@ margin-right: 5px;
             background-position: center;
             background-repeat: no-repeat; background-size:cover;">
 
-        
+        @if($prevList || $nextList)
         <div class="back_to_list">
              <a href="{{$baseUrl.config("constants.massage_list_base_slug")}}" class="back--search "> 
                 <span class="previous_icon">
@@ -257,6 +257,7 @@ margin-right: 5px;
                 </span> <span class="hide_ph">Back to Search</span>  
             </a>
         </div>
+        @endif
         <div class="container">
             <div class="row">
                 <div class="col-12 p-0">                    
@@ -348,29 +349,8 @@ margin-right: 5px;
     <div class="container-fluid px-0 next-preview-fixed position-relative">
         <div class="d-flex d-flex justify-content-between">
             <div class="previous_btn_profile next_previous_btn_pogision {{ $prevId ? '' : 'previousDisableButtonCss' }}">
-           
-
-                   {{--  <a  href="{{ $prevId ? route('web.massage-profile', [
-                                    'profile' => $prevSlug,
-                                ]) : 'massage-centres-list' }}" class="btn_ank">
-                    <span class="previous_icon"> --}}
-
-            @php
-             $states = config('escorts.profile.states');
-            @endphp
             @if($prevList)
-            @php
-             $stateName = isset($states[$prevList->user->state_id]) ? $states[$prevList->user->state_id]['stateAbbr'] : "";
-             
-            @endphp
-            
-            <a href="{{ route('web.massage-profile.new', [
-                'county' => isset($prevList->user->state->country->name) ?  strtolower($prevList->user->state->country->name) : 'australia',
-                'state' =>$stateName,
-                'member_id' => $prevList->user->member_id,
-                'profile' => $prevList->slug,
-                //'ids' => json_encode($ids)
-            ]) }}" class="btn_ank">
+            <a href="{{ getEscortMassageDetailUrl($prevList, 'massage') }}" class="btn_ank">
             @else 
                 <a  href="{{$baseUrl.config("constants.massage_list_base_slug")}}" class="btn_ank">
             @endif
@@ -382,32 +362,12 @@ margin-right: 5px;
                 </a>
             </div>
             <div class="next_btn_profile next_previous_btn_pogision {{ $nextId ? '' : 'previousDisableButtonCss' }}">
-                                {{-- <a href="{{ $nextId ? route('web.massage-description', [
-                                    'id' => $nextId,
-                                    'ids' => json_encode($ids)
-                                ]) : 'javascript:void(0)' }}"
                                 
-                                class="btn_ank"> --}}
-                                 <a href="{{ $nextId ? route('web.massage-profile', [
-                                    'profile' => $nextSlug,
-                                ]) : 'javascript:void(0)' }}"
-                                
-                                class="btn_ank">
- @if($nextList)
-
-            @php
-             $stateNameNext = isset($states[$nextList->user->state_id]) ? $states[$nextList->user->state_id]['stateAbbr'] : "";
-            @endphp
-            <a href="{{ route('web.massage-profile.new', [
-                'county' => isset($nextList->user->state->country->name) ?  strtolower($nextList->user->state->country->name) : 'australia',
-                'state' =>$stateNameNext,
-                'member_id' => $nextList->user->member_id,
-                'profile' => $nextList->slug,
-            ]) }}" class="btn_ank">
-
-             @else 
-                <a  href="javascript:void(0)" class="btn_ank">
-            @endif
+        @if($nextList)
+            <a href="{{getEscortMassageDetailUrl($nextList, 'massage')}}" class="btn_ank">
+        @else 
+            <a  href="javascript:void(0)" class="btn_ank">
+         @endif
                     <span class="previous_text remove_in_sm">Next</span>
                     <span class="previous_icon">
                         
@@ -3485,8 +3445,6 @@ function getStars(rating) {
         // console.log(cid[1] + "-" + Eid);
         // console.log(cidcl);
     });
-    
- 
 
 window.initMap = initMap;
 </script>

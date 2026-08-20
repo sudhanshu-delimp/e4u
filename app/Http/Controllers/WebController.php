@@ -1255,6 +1255,10 @@ class WebController extends Controller
 
     public function profileDescriptionBySlug(Request $request, $country = "", $state = "", $city = "", $gender = "", $memberId = "", $profile = "")
     {
+        $previousUrl = url()->previous();
+        $path = parse_url($previousUrl, PHP_URL_PATH);
+        $previousSlug = trim($path, '/');
+      
         $id = null;
         $city = null; 
         $membershipId = null; 
@@ -1354,8 +1358,11 @@ class WebController extends Controller
         if (session('is_shortlisted_profile') == true) {
             $filterEscorts = $filterEscorts->sortBy('id')->values();
         }
-
+        $next = $previous = null;
+        $ecortBaseSlug = config("constants.escort_list_base_slug");
+        if (str_contains($previousSlug, 'escort-profile') || str_contains($previousSlug, $ecortBaseSlug)) {
         list($next, $previous) = $this->escort->getlinks($id, $city, $membershipId, $filterEscorts);
+        }
         $availability = $escort ? $escort->availability : null;
 
         /*new functionality*/

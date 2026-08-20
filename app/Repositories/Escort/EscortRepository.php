@@ -53,8 +53,8 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $previous ? route('profile.description', [$previous->id, $city, $membershipId]) : '?no-prev-page',
         ]; */
         return [
-            $next ? route('escort.profile.detail', $next->slug) : '?no-next-page',
-            $previous ? route('escort.profile.detail', $previous->slug) : '?no-prev-page',
+            $next ? getEscortMassageDetailUrl($next) : '?no-next-page',
+            $previous ? getEscortMassageDetailUrl($previous) : '?no-prev-page',
         ];
     }
 
@@ -184,7 +184,8 @@ class EscortRepository extends BaseRepository implements EscortInterface
             else
                 $item->stage_name = $item->name;
             $item->phone = $item->phone ? $item->phone : "NA";
-            $item->gender = $item->gender ? $item->gender : "NA";
+            //$item->gender = $item->gender ? $item->gender : "NA";
+            
             $item->membership_number = $item->membership ? $item->membership : 0;
             $item->membership = $item->membership ? $item->membershipType : "NA";
             $item->homeState = $item->user ? $item->user->state->iso2 : "NA";
@@ -217,7 +218,8 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
             /* $item->action .= ' <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('profile.description', $item->id) . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
             $item->action .= '</div>';*/
-            $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.profile.detail', $item->slug)  . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
+            $profileUrl = getEscortMassageDetailUrl($item);
+            $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . $profileUrl  . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
 
             $isExtended = $item->isListingExtended();
             $isBumpUped = $item->activeBumpup;
