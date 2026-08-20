@@ -165,6 +165,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/my-escort-legbox-ajax', [EscortMyLegboxViewerController::class, 'escortViewersAjaxList'])->name('escort.viewer-legbox-list');
         Route::post('/escort/viewer-interaction-update', [EscortViewerInteractionController::class, 'escortUpdateViewerInteraction'])->name('escort.viewer-interaction.update');
 
+
         # Viewer escort interaction routes
         Route::get('/my-viwer-escort-legbox-ajax', [ViewerEscortInteractionController::class, 'dashboardEscortListAjax'])->name('user.my-legbox-escort-list');
         Route::get('/my-viewer-escort-legbox-ajax', [ViewerEscortInteractionController::class, 'viewersEscortAjaxList'])->name('viewer.escort-legbox-list');
@@ -192,7 +193,6 @@ Route::middleware('auth')->group(function () {
         Route::post('task-status', [ViewerTaskListController::class, 'statusTask'])->name('viewer.dashboard.ajax-change-status');
         Route::post('task-open', [ViewerTaskListController::class, 'openTask'])->name('viewer.dashboard.ajax-open-task');
         Route::post('task-delete', [ViewerTaskListController::class, 'destroy'])->name('viewer.dashboard.ajax-delete-task');
-
 
         # Dashboard > Favorites Online
         Route::get('favorites-online', [UserController::class, 'favoritesOnline'])->name('user.favorites-online');

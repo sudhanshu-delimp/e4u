@@ -24,6 +24,7 @@ class AgentSetting extends Model
     'twofa',
     'call',
     'idle_preference_time',
+    'show_entries'
 
 ];
   

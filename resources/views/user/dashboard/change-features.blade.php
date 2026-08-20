@@ -252,62 +252,64 @@
                                 </div>
                                 
                                         {{-- Show Entries --}}
-                                        <div class="form-group common-card disabled-link">
-                                                <div class="card-top">
-                                                    <div class="card-icon">
-                                                    <svg viewBox="0 0 24 24" fill="none">
-                                                            <path
-                                                                d="M4 6h16M4 12h16M4 18h16"
-                                                                stroke="currentColor"
-                                                                stroke-width="1.8"
-                                                                stroke-linecap="round"
-                                                            />
-                                                            <circle
-                                                                cx="7"
-                                                                cy="6"
-                                                                r="1.5"
-                                                                fill="currentColor"
-                                                            />
-                                                            <circle
-                                                                cx="7"
-                                                                cy="12"
-                                                                r="1.5"
-                                                                fill="currentColor"
-                                                            />
-                                                            <circle
-                                                                cx="7"
-                                                                cy="18"
-                                                                r="1.5"
-                                                                fill="currentColor"
-                                                            />
-                                                        </svg>
-                                                    </div>
+                                       <div class="form-group common-card">
+    <div class="card-top">
+        <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+                <path
+                    d="M4 6h16M4 12h16M4 18h16"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                />
+                <circle cx="7" cy="6" r="1.5" fill="currentColor" />
+                <circle cx="7" cy="12" r="1.5" fill="currentColor" />
+                <circle cx="7" cy="18" r="1.5" fill="currentColor" />
+            </svg>
+        </div>
 
-                                                    <div class="card-heading">
-                                                        <h2>Show Entries</h2>
-                                                    </div>
-                                                </div>
+        <div class="card-heading">
+            <h2>Show Entries</h2>
+        </div>
+    </div>
 
-                                                <div class="entries-setting">
+    <div class="entries-setting">
 
-                                                    <span class="entries-label">
-                                                        Your default setting is:
-                                                    </span>
+        <span class="entries-label">
+            Your default setting is:
+        </span>
 
-                                                    <select class="entries-select" name="entries">
-                                                        <option value="25" selected>25</option>
-                                                        <option value="50">50</option>
-                                                        <option value="75">75</option>
-                                                        <option value="100">100</option>
-                                                    </select>
+        <select class="entries-select" name="show_entries">
+            <option value="25"
+                {{ isset($setting->viewer_settings) && $setting->viewer_settings->show_entries == '25' ? 'selected' : '' }}>
+                25
+            </option>
 
-                                                </div> 
+            <option value="50"
+                {{ isset($setting->viewer_settings) && $setting->viewer_settings->show_entries == '50' ? 'selected' : '' }}>
+                50
+            </option>
 
-                                                <div class="card-note">
-                                                    <span class="note-icon">i</span>
-                                                    <p> <i>Select your preferred number of entries for Report pages.</i></p>
-                                                </div>
-                                        </div>
+            <option value="75"
+                {{ isset($setting->viewer_settings) && $setting->viewer_settings->show_entries == '75' ? 'selected' : '' }}>
+                75
+            </option>
+
+            <option value="100"
+                {{ isset($setting->viewer_settings) && $setting->viewer_settings->show_entries == '100' ? 'selected' : '' }}>
+                100
+            </option>
+        </select>
+
+    </div>
+
+    <div class="card-note">
+        <span class="note-icon">i</span>
+        <p>
+            <i>Select your preferred number of entries for Report pages.</i>
+        </p>
+    </div>
+</div>
                             </div>
 
                         </div>

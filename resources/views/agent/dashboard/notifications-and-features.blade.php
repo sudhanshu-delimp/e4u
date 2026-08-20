@@ -47,7 +47,7 @@
                     <div class="col-md-12 mb-4">
                         <div class="card collapse" id="notes" style="">
                             <div class="card-body">
-                               <h3 class="NotesHeader"><b>Notes:</b></h3>
+                                <h3 class="NotesHeader"><b>Notes:</b></h3>
                                 <ol>
                                     <li>Use this feature to enable and disable your notification and feature preferences.
                                     </li>
@@ -318,7 +318,7 @@
 
 
                                         {{-- Show Entries --}}
-                                        <div class="form-group common-card disabled-link">
+                                        <div class="form-group common-card">
                                             <div class="card-top">
                                                 <div class="card-icon">
                                                     <svg viewBox="0 0 24 24" fill="none">
@@ -344,11 +344,26 @@
                                                     Your default setting is:
                                                 </span>
 
-                                                <select class="entries-select" name="entries">
-                                                    <option value="25" selected>25</option>
-                                                    <option value="50">50</option>
-                                                    <option value="75">75</option>
-                                                    <option value="100">100</option>
+                                                <select class="entries-select" name="show_entries">
+                                                    <option value="25"
+                                                        {{ isset($setting->agent_settings) && $setting->agent_settings->show_entries == '25' ? 'selected' : '' }}>
+                                                        25
+                                                    </option>
+
+                                                    <option value="50"
+                                                        {{ isset($setting->agent_settings) && $setting->agent_settings->show_entries == '50' ? 'selected' : '' }}>
+                                                        50
+                                                    </option>
+
+                                                    <option value="75"
+                                                        {{ isset($setting->agent_settings) && $setting->agent_settings->show_entries == '75' ? 'selected' : '' }}>
+                                                        75
+                                                    </option>
+
+                                                    <option value="100"
+                                                        {{ isset($setting->agent_settings) && $setting->agent_settings->show_entries == '100' ? 'selected' : '' }}>
+                                                        100
+                                                    </option>
                                                 </select>
 
                                             </div>
