@@ -2751,7 +2751,7 @@ if (!function_exists('getGenderId')) {
             return false;
         }
         $getGenderId = config('escorts.gender');
-        return array_search(strtolower($gender), array_map('strtolower', $getGenderId), true);
+        return array_search(strtolower($gender), array_map('strtolower', str_replace(' ', '_', $getGenderId)), true);
     }
 }
 

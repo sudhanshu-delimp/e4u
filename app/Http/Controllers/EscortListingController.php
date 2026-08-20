@@ -183,7 +183,7 @@ class EscortListingController extends Controller
             'male',
             'couples',
             'transgender',
-            'cross%20dresser'
+            'cross_dresser'
         ];
 
         // Common parameters
@@ -215,6 +215,7 @@ class EscortListingController extends Controller
                 } else {
                     //when get state abbar
                     $cityStateId = getStateCityIds($secondSegment, $thirdSegment);
+
                     if ($cityStateId) {
                         $urlCity = $cityStateId['city_id'];
                         $urlState = $cityStateId['state_id'];
@@ -241,27 +242,32 @@ class EscortListingController extends Controller
             $urlMemberId = $forthSegment;
         }
 
-        if($fifthSegment){
-             $urlMemberId = $fifthSegment;
-        }
+
 
 
         if (!$request->has('city') && $urlCity) {
             $params['city'] = (string) $urlCity;
         }
 
+
         if(!$request->has('state') && $urlState){
             $params['state_id'] = (string) $urlState;
         }
 
+
         if($fifthSegment){
+            $urlMemberId = $fifthSegment;
+        }
+
+
+        if($urlMemberId && !$request->filled('member_id')){
             $params['member_id'] = $urlMemberId;
         }
-        
 
-        if (!$request->has('gender') && $urlGender) {
+        if (!$request->filled('gender') && $urlGender) {
             $params['gender'] = (string) $urlGender;
         }
+
 
         if (!empty($params)) {
             $request->merge($params);
@@ -295,8 +301,9 @@ class EscortListingController extends Controller
         $userInterest = $this->getUserInterest();
         $userLocation = $this->getUserLocation($request);
 
+
         $params = $this->getSearchParams($request, $userLocation, $userInterest);
-        //dd($params);
+
 
 
         //add the params value inside the session for load next and previous page data
@@ -378,6 +385,8 @@ class EscortListingController extends Controller
             ]);
 
 
+
+
         $query = $this->applyFilterOnEscort(
             $query,
             $params,
@@ -385,7 +394,6 @@ class EscortListingController extends Controller
             $params['age'],
             $location
         );
-
 
         $escorts = $query->get();
 
@@ -581,16 +589,26 @@ class EscortListingController extends Controller
             $query->where('escorts.city_id', $params['city_id']);
         }
         //state
+
         if(!empty($params['state_id'])){
             $query->where('escorts.state_id', $params['state_id']);
         }
 
         //member id check
+        //dd($params['member_id']);
         if(!empty($params['member_id'])){
             $query->whereHas('user', function ($q) use ($params) {
-                 $q->where('member_id',$params['member_id']);
+                 $q->where('member_id', $params['member_id']);
             });
         }
+ 
+
+
+
+
+     
+
+
         if (!empty($params['gender'])) {
             $query->where('escorts.gender', $params['gender']);
         } else {
