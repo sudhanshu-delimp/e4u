@@ -99,16 +99,7 @@ class MassageController extends Controller
 
     public function massager_list(Request $request)
     {
-
-        // if(is_domain_localhost())
-        // $active_profile = get_massage_listed_profile();
-        // else
-        // $active_profile = [];
-
         $active_profile = get_massage_listed_profile();
-
-        // dd($active_profile->toArray());
-
         return view('center.dashboard.list', compact('active_profile'));
     }
 

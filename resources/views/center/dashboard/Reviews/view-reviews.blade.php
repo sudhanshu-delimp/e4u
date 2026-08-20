@@ -190,9 +190,10 @@
             info: true,
             lengthChange: true,
             searching: true,
-            bStateSave: true,
+            bStateSave: false,
             ordering: true,
-            pageLength: 25,
+            pageLength: {{$datatable_entries }},
+            lengthMenu: [10,25, 50, 75, 100],  
             ajax: {
                 url: "{{ route('center.reviews-profile-by-ajax') }}",
                 type: "GET",

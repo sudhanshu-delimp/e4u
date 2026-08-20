@@ -135,11 +135,10 @@
            processing: true,
            serverSide: true,
            lengthChange: true,
-
            searchable:false,
-           //searching:false,
            bStateSave: false,
-
+            pageLength: {{$datatable_entries }},
+            lengthMenu: [10,25, 50, 75, 100],  
            ajax: {
                url: "{{ route('support-ticket.dataTable') }}",
                data: function (d) {

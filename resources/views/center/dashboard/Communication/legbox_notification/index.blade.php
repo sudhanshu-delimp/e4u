@@ -466,11 +466,9 @@
                 },
             ],
             order: [],
-            lengthMenu: [
-                [10, 25, 50, 100],
-                [10, 25, 50, 100]
-            ],
-            pageLength: 10
+            
+            pageLength: {{$datatable_entries }},
+            lengthMenu: [10,25, 50, 75, 100],  
         });
 
         // Event delegation for dynamic action buttons

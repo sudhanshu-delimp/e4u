@@ -355,6 +355,14 @@
                                                         {{ old('twofa', $setting->twofa ?? null) == 2 ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="auth_text">Text</label>
                                                 </div>
+
+                                                 <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="twofa"
+                                                        id="auth_text3" value="3"
+                                                        {{ old('twofa', $setting->twofa ?? null) == 3 ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="auth_text3">Both</label>
+                                                </div>
+
                                             </div>
 
 
@@ -365,7 +373,7 @@
                                         </div>
                                         
                                         {{-- Show Entries --}}
-                                        <div class="form-group common-card disabled-link">
+                                        <div class="form-group common-card">
                                                 <div class="card-top">
                                                     <div class="card-icon">
                                                     <svg viewBox="0 0 24 24" fill="none">
@@ -408,10 +416,11 @@
                                                     </span>
 
                                                     <select class="entries-select" name="entries">
-                                                        <option value="25" selected>25</option>
-                                                        <option value="50">50</option>
-                                                        <option value="75">75</option>
-                                                        <option value="100">100</option>
+                                                        <option {{ ($setting->datatable_entries) && $setting->datatable_entries  == 10 ? 'selected' : '' }} value="10">10</option>
+                                                        <option {{ ($setting->datatable_entries) && $setting->datatable_entries  == 25 ? 'selected' : '' }} value="25">25</option>
+                                                        <option  {{ ($setting->datatable_entries) && $setting->datatable_entries  == 50 ? 'selected' : '' }}  value="50">50</option>
+                                                        <option {{ ($setting->datatable_entries) && $setting->datatable_entries  == 75 ? 'selected' : '' }}  value="75">75</option>
+                                                        <option {{ ($setting->datatable_entries) && $setting->datatable_entries  == 100 ? 'selected' : '' }}  value="100">100</option>
                                                     </select>
 
                                                 </div> 

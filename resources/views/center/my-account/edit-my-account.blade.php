@@ -1076,31 +1076,22 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                        const modalElement = document.getElementById('comman_modal');
-                        const modal = new bootstrap.Modal(modalElement);
+                    
                         if (!data.error) {
-                            var msg = "Saved";
-                            $('.comman_msg').html(msg);
-                            //$("#comman_modal").modal('show');
-
-                            modal.show();
-                            //$("#my_account_modal").show();
-
-                            //
+                            showAlert(
+                                'success',
+                                'Success',
+                                'Saved'
+                            );
                         } else {
-                            $('.Lname').html("Oops.. sumthing wrong Please try again");
-                            var msg = "Oops.. sumthing wrong Please try again";
-                            $('.comman_msg').html(msg);
-                            //$("#comman_modal").modal('show');
-                            modal.show();
-
+                            showAlert(
+                                'error',
+                                'Error',
+                                'Oops.. something wrong Please try again'
+                            );
                         }
                     },
                     error: function(xhr) {
-                        submit_button
-                        const modalElement = document.getElementById('comman_modal');
-                        const modal = new bootstrap.Modal(modalElement);
-
                         if (xhr.status === 422) {
 
                             let errors = xhr.responseJSON.errors;
@@ -1110,8 +1101,11 @@
                                 msg += value[0] + "<br>";
                             });
 
-                            $('.comman_msg').html(msg);
-                            modal.show();
+                            showAlert(
+                                'error',
+                                'Error',
+                                msg
+                            );
                         }
                     }
 
@@ -1251,20 +1245,20 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(data) {
-                    const modalElement = document.getElementById('comman_modal');
-                    const modal = new bootstrap.Modal(modalElement);
                     if (!data.error) {
-                        $('.comman_msg').html("Saved");
-                        //$("#my_account_modal").modal('show');
-                        //$("#my_account_modal").show();
-                        //$("#comman_msg").modal('show');
-                        modal.show();
+                       
+                    showAlert(
+                        'success',
+                        'Success',
+                        'Saved'
+                    );
 
                     } else {
-                        $('.comman_msg').html("Oops.. sumthing wrong Please try again");
-                        //$("#comman_msg").show();
-                        modal.show();
-
+                         showAlert(
+                            'error',
+                            'Error',
+                            'Oops.. something wrong Please try again.'
+                        );
                     }
                 },
 

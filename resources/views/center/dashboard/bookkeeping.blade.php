@@ -1081,6 +1081,8 @@ Account details, including the initial setup.</li>
          order: [1, 'asc'],
          searchable: false,
          bStateSave: false,
+          pageLength: {{$datatable_entries }},
+         lengthMenu: [10,25, 50, 75, 100],
          "language": {
                     "zeroRecords": "There is no record of the search criteria you entered.",
                      searchPlaceholder: "Search by Account Number"

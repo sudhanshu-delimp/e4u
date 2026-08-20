@@ -195,7 +195,9 @@
                 paging: true,
                 searchable: true,
                 serverSide: true,
-                searching: true,
+                searching: true,  
+                pageLength: {{$datatable_entries }},
+                lengthMenu: [10,25, 50, 75, 100],  
                 ajax: {
                     url: "{{ route('massage.viewer-legbox-list-ajax') }}",
                     dataSrc: function(json) {

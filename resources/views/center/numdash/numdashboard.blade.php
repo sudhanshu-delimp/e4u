@@ -134,11 +134,8 @@
             paging: true,
             processing: false,
             serverSide: false,
-            pageLength: 10,
-            lengthMenu: [
-                [10, 20, 50, 100],
-                [10, 20, 50, 100]
-            ],
+           pageLength: {{$datatable_entries }},
+            lengthMenu: [10,25, 50, 75, 100],  
             ordering: true,
             columnDefs: [{
                     targets: 5,
