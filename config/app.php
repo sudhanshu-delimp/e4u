@@ -254,5 +254,6 @@ return [
   'loyalty_amount' => (float) env('LOYALTY_AMOUNT', 200),
   'paginate_range' =>  env('PAGINATE_RANGE',"10, 25, 50, 75, 100"),
   'paginate_length' =>  env('PAGINATE_LENGTH',25),
+  'peams_mail' =>  env('PEAMS_EMAIL'),
 
 ];
