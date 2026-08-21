@@ -190,7 +190,7 @@ body {
     padding: 10px;
     width: max-content;
     height: unset !important;
-    box-shadow: 0 5px 12px rgba(245, 29, 82, 0.18);
+    /* box-shadow: 0 5px 12px rgba(245, 29, 82, 0.18); */
     transition: 0.2s ease;
     border: 1px solid var(--peach);
 }
@@ -296,6 +296,15 @@ a.pub_secondary_btn {
 .fiter_btns .reset_form_filter {
     background-color: #fff;
     border: 1px solid #ff3c5f;
+}
+
+.pub_search_area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 5px;
 }
 
 
@@ -4419,14 +4428,27 @@ a.admin-login:hover {
 }
 
 .custom-profile-search-btn {
-    background: #0c223d;
+    background: var(--peach);
     padding: 12px !important;
     margin-right: 0px;
     border-radius: 0;
+    outline: none !important;
+}
+
+.custom-profile-search-btn:focus {
+    outline: none !important;
+}
+
+.custom-profile-search-btn:hover {
+    background-color: var(--blue--text);
 }
 
 .custom-profile-search-btn i {
-    color: var(--peach) !important;
+    color: var(--white) !important;
+}
+
+.custom-profile-search-btn:hover i {
+    color: var(--white);
 }
 
 .custom_search_btn_profile {
@@ -4439,7 +4461,7 @@ a.admin-login:hover {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
     gap: 15px;
-    width: 100%;
+    width: 350px;
 }
 
 .search_btn_profile * {
@@ -4511,6 +4533,11 @@ a.admin-login:hover {
 .search_items .form-control::placeholder {
     color: #90a0b7;
     opacity: 1;
+}
+
+.search_items input[type="search"] {
+    height: unset;
+    line-height: unset;
 }
 
 .search_filters .reset_filter:hover {
@@ -6598,10 +6625,23 @@ table {
 /* Optional: Make it responsive */
 
 .location_radio_filter {
-    width: 105px;
     display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.location_radio_filter label {
+    border: 1px solid #90a0b7;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 13px;
+    color: #90A0B7;
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
 }
 
 
@@ -8005,6 +8045,11 @@ table {
     border: 1px solid #90A0B7 !important;
 }
 
+.total_count {
+    color: var(--peach);
+    font-weight: bold;
+}
+
 .custom-accordion-title {
     font-weight: 600 !important;
     display: flex !important;
@@ -8995,7 +9040,7 @@ h2.custom--review img {
     position: relative;
     background-color: #fff;
     color: #fff;
-    box-shadow: 0 5px 12px rgba(245, 29, 82, 0.18);
+    /* box-shadow: 0 5px 12px rgba(245, 29, 82, 0.18); */
     transition: 0.2s ease;
     border: 1px solid #90a0b7;
     cursor: pointer;

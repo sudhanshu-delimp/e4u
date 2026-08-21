@@ -82,31 +82,26 @@
                                      </div>
 
                                      <div class="col-lg-12">
-                                         <div class="row align-items-center">
-                                             <div class="col-lg-2 location_items mb-1">
+                                         <div class="pub_search_area">
+                                             <div class="location_items">
                                                  <div class="location_radio_filter">
-                                                     <div class="d-flex align-items-start" style="padding-top: 2px;">
+                                                     <label for="yourLocation">
                                                          <input type="radio" name="locationByRadio"
                                                              value="your_location" id="yourLocation"
                                                              class="location-radio">
-                                                         <label for="yourLocation"
-                                                             style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
-                                                             Your Location
-                                                         </label>
-                                                     </div>
 
-                                                     <div class="d-flex align-items-start">
+                                                         Your Location
+                                                     </label>
+                                                     <label for="australia">
                                                          <input type="radio" name="locationByRadio" value="australia"
                                                              class="location-radio" checked id="australia">
-                                                         <label for="australia"
-                                                             style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
-                                                             Australia
-                                                         </label>
-                                                     </div>
+
+                                                         Australia
+                                                     </label>
                                                  </div>
                                              </div>
                                              {{-- search --}}
-                                             <div class="col-lg-5 search_items mb-1">
+                                             <div class=" search_items">
                                                  <div
                                                      class="input-group custome_form_control managefilter_search_btn_style rounded search_btn_profile custom_search_btn_profile">
 
@@ -134,8 +129,7 @@
                                                  </div>
                                              </div>
 
-
-                                             <div class="col-lg-5 display_items mb-1">
+                                             <div class="display_items">
                                                  <div class="item_dis">
                                                      <span class="item-head">Display item</span>
                                                      <select class="custome_form_control_border_radus padding_five_px"
@@ -150,7 +144,8 @@
 
                                                  <div>
                                                      <button type="button"
-                                                         class="pub_view_shortlist filter-tooltip-wrap" id="v_wishlist">
+                                                         class="pub_view_shortlist filter-tooltip-wrap"
+                                                         id="v_wishlist">
                                                          <a href="{{ route('find.massage.shortlist') }}"
                                                              class="text-decoration-none">
                                                              <div
@@ -176,18 +171,25 @@
                                                      <a type="submit" href="javascript:void(0);"
                                                          class="pub_secondary_btn clear_short_list"
                                                          data-toggle="tooltip" title="">
-                                                         <svg width="18px" height="18px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M8 8L16 16" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M16 8L8 16" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg> Clear Shortlist
+                                                         <svg width="18px" height="18px" viewBox="0 0 24 24"
+                                                             fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                                 stroke-linejoin="round"></g>
+                                                             <g id="SVGRepo_iconCarrier">
+                                                                 <path d="M8 8L16 16" stroke="#ff3c5f"
+                                                                     stroke-width="2" stroke-linecap="round"
+                                                                     stroke-linejoin="round"></path>
+                                                                 <path d="M16 8L8 16" stroke="#ff3c5f"
+                                                                     stroke-width="2" stroke-linecap="round"
+                                                                     stroke-linejoin="round"></path>
+                                                             </g>
+                                                         </svg> Clear Shortlist
                                                      </a>
                                                  </div>
 
                                              </div>
                                          </div>
-
-
-
-
-
-
                                      </div>
                                  </div>
                                  {{-- row end --}}
@@ -322,7 +324,7 @@
                                              id="view_grid">
                                              <span class="custom-toltip">Grid View</span>
                                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                  viewBox="0 0 30 30" fill="none">
+                                                 viewBox="0 0 30 30" fill="none">
                                                  <path
                                                      d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z"
                                                      stroke="#526174" stroke-width="3" stroke-linecap="round"
@@ -346,7 +348,7 @@
 
                                              <span class="custom-toltip">List View</span>
                                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                  viewBox="0 0 27 24" fill="none">
+                                                 viewBox="0 0 27 24" fill="none">
                                                  <path
                                                      d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663"
                                                      stroke="#526174" stroke-width="3" stroke-linecap="round"
