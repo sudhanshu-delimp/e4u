@@ -101,27 +101,27 @@
 
                                 {{-- First Name --}}
                                 <div class="form-group">
-                                    <label for="first_name" class="required"><b>First Name</b></label>
-                                    <input id="first_name" placeholder="First Name" name="first_name" type="text" value="{{Auth::user()->name}}"
-                                        class="form-control">
+                                    <label for="business_name" class="required"><b>Business Name</b></label>
+                                    <input id="business_name" placeholder="Business Name" name="business_name"
+                                        type="text" class="form-control">
 
-                                    <span class="text-danger error-text first_name_error"></span>
+                                    <span class="text-danger error-text business_name_error"></span>
                                 </div>
 
                                 {{-- Last Name --}}
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="last_name"><b>Last Name</b></label>
                                     <input id="last_name" placeholder="Last Name" name="last_name" type="text"
                                         class="form-control">
 
                                     <span class="text-danger error-text last_name_error"></span>
-                                </div>
+                                </div> --}}
 
                                 {{-- Email --}}
                                 <div class="form-group">
                                     <label for="email"><b>Email Address</b></label>
                                     <input id="email" placeholder="Email" name="email" type="email"
-                                        class="form-control" value="{{Auth::user()->email}}">
+                                        class="form-control" value="{{ Auth::user()->email }}">
 
                                     <span class="text-danger error-text email_error"></span>
                                 </div>
@@ -129,8 +129,8 @@
                                 {{-- Mobile --}}
                                 <div class="form-group">
                                     <label for="mobile"><b>Mobile Number</b></label>
-                                    <input id="mobile" placeholder="Mobile" name="mobile" type="text" value="{{Auth::user()->phone}}"
-                                        class="form-control">
+                                    <input id="mobile" placeholder="Mobile" name="mobile" type="text"
+                                        value="{{ Auth::user()->phone }}" class="form-control">
 
                                     <span class="text-danger error-text mobile_error"></span>
                                 </div>
@@ -313,7 +313,7 @@
                         Visa Services - Request Confirmation
                     </h5>
                     <button type="button" class="close text-white" data-dismiss="modal">
-                        <img src="https://staging.e4u.host.powerwebhosting.com.au/assets/app/img/newcross.png"
+                        <img src="{{asset('assets/app/img/newcross.png')}}"
                             class="img-fluid img_resize_in_smscreen">
                     </button>
                 </div>
@@ -321,7 +321,7 @@
                     <p align="justify">Your Request for Visa services assistant has been received. You will also receive an
                         A-Alert confirming your request with a reference. If you have not been contacted by a
                         member of the team within 24 hours (of a business day), please raise a Support Ticket
-                        quoting the reference.</p>
+                        quoting the reference. </p>
                     <br>
                     <span><b>Date sent: </b> {{ \Carbon\Carbon::now('Australia/Perth')->format('d-m-Y') }}</span>
 
@@ -499,7 +499,9 @@
             e.preventDefault();
             let form = this;
             let submitButton = $("#submitAssistanceRequest");
+                        $("#visa_migration_request").modal('show');
 
+                        return true;
             // Clear previous errors
             $(".error-text").text("");
             submitButton.prop("disabled", true).text("Sending...");
