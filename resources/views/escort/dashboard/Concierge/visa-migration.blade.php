@@ -491,9 +491,7 @@
             e.preventDefault();
             let form = this;
             let submitButton = $("#submitAssistanceRequest");
-                        $("#visa_migration_request").modal('show');
-
-                        return true;
+                      
             // Clear previous errors
             $(".error-text").text("");
             submitButton.prop("disabled", true).text("Sending...");
