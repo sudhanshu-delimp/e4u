@@ -71,14 +71,14 @@
         }
 
         /*.cms-lvl2{
-                                                                                                            margin-left: 30px;
-                                                                                                            }*/
+                                                                                                                margin-left: 30px;
+                                                                                                                }*/
         /*.cms-lvl3{
-                                                                                                            margin-left:50px ;
-                                                                                                            }*/
+                                                                                                                margin-left:50px ;
+                                                                                                                }*/
         /*.cms-lvl4{
-                                                                                                            margin-left:50px ;
-                                                                                                            }*/
+                                                                                                                margin-left:50px ;
+                                                                                                                }*/
         .cms-paragraph,
         .cms-list-paragraph {
             font-size: 16px;
@@ -139,11 +139,14 @@
 
                                                 <div class="content_details">
                                                     <h3>Our Disclosures</h3>
-                                                    <p>
-                                                        Please read these Terms and Conditions carefully before you accept.
-                                                        We draw your attention
-                                                        to the following important provisions:
-                                                    </p>
+                                                    <div>
+                                                        <p>
+                                                            Please read these Terms and Conditions carefully before you
+                                                            accept.
+                                                            We draw your attention
+                                                            to the following important provisions:
+                                                        </p>
+                                                    </div>
 
                                                     <ul class="my-2">
                                                         <li>our Privacy Policy (available on our Website) which sets out how
@@ -159,19 +162,22 @@
                                                             we may amend
                                                             these Terms and Conditions.</li>
                                                     </ul>
-                                                    <p>
+                                                    <div>
+                                                        <p>
                                                         We may receive a benefit (which may include a referral fee or a
                                                         commission) should you visit
                                                         certain third party websites through a link on our Website, or for
                                                         featuring certain goods or
                                                         services on our Website.
                                                     </p>
-                                                    
                                                     <p class="mt-2">
                                                         Nothing in these Terms and Conditions limits your rights and
                                                         remedies at law, including any
                                                         of your Consumer Law Rights.
                                                     </p>
+                                                    </div>
+
+                                                    
                                                 </div>
                                                 {{-- 1 --}}
                                                 <div class="content_details">
@@ -179,19 +185,15 @@
 
                                                     <div class="content_align">
                                                     </div>
+                                                    <p>
 
-                                                    <div class="content_align">
-                                                        <span></span>
-                                                        <p>
+                                                        This Website is owned and operated by Blackbox Tech Pty Ltd ACN:
+                                                        664 919 975, who
+                                                        is referred to in these Terms and Conditions as E4U, Escorts4U,
+                                                        we, us, our and similar
+                                                        grammatical forms.
 
-                                                            This Website is owned and operated by Blackbox Tech Pty Ltd ACN:
-                                                            664 919 975, who
-                                                            is referred to in these Terms and Conditions as E4U, Escorts4U,
-                                                            we, us, our and similar
-                                                            grammatical forms.
-
-                                                        </p>
-                                                    </div>
+                                                    </p>
                                                 </div>
                                                 {{-- end --}}
 
@@ -240,15 +242,13 @@
 
 
 
-                                                    <div class="content_align">
-                                                        <span></span>
-                                                        <p>
+                                                    <p>
 
-                                                            Every User consents to E4U using Geolocation technology to
-                                                            identify the User's Home
-                                                            State during Registration or when undertaking a Profile search.
-                                                        </p>
-                                                    </div>
+                                                        Every User consents to E4U using Geolocation technology to
+                                                        identify the User's Home
+                                                        State during Registration or when undertaking a Profile search.
+                                                    </p>
+
                                                 </div>
                                                 {{-- end --}}
 
@@ -1048,7 +1048,8 @@
                                                                 <ol class="level-3">
                                                                     <li>the rights of any person or corporation under the
                                                                         <i>Competition and Consumer Act
-                                                                        2010</i> (Cth) or equivalent State legislation;</li>
+                                                                            2010</i> (Cth) or equivalent State legislation;
+                                                                    </li>
                                                                     <li>any intellectual property right, including but not
                                                                         limited to, copyright, trade marks,
                                                                         business names, confidential information rights
@@ -3365,26 +3366,20 @@
                                                     <h3 class="mb-3 content_align"><span>44.</span>Definitions and
                                                         Interpretation</h3>
 
+                                                    <p class="pl-5">
+                                                        Definitions
+                                                    </p>
+
+
+                                                    <p class="pl-5">
+                                                        In these Terms and Conditions unless the contrary intention
+                                                        appears or the context
+                                                        otherwise requires:
+                                                    </p>
 
                                                     <div class="content_align">
 
-                                                        <p class="pl-5">
-                                                            Definitions
-                                                        </p>
-                                                    </div>
-
-                                                    <div class="content_align">
-
-                                                        <p class="pl-5">
-                                                            In these Terms and Conditions unless the contrary intention
-                                                            appears or the context
-                                                            otherwise requires:
-                                                        </p>
-                                                    </div>
-
-                                                    <div class="content_align">
-
-                                                        <p>
+                                                      
                                                         <ol class="pl-1" style="list-style-type: none">
                                                             <li>
                                                                 <b>Acceptable Usage Policy</b> means the Acceptable Usage
@@ -3397,6 +3392,7 @@
                                                                 <b>Account</b> means the account created by a User upon
                                                                 registration on the Website;
                                                             </li>
+
                                                             <li>
                                                                 <b>Advertiser</b> means either of or collectively an Escort
                                                                 or Massage Centre who advertise
@@ -3409,6 +3405,7 @@
                                                                 behalf, a reference to the Advertiser includes a reference
                                                                 to their Agent;
                                                             </li>
+
                                                             <li>
                                                                 <b>Advertiser Console</b> means the Advertiser's information
                                                                 management tool on the
@@ -3658,7 +3655,7 @@
                                                                 the Services are provided.
                                                             </li>
                                                         </ol>
-                                                        </p>
+                                                
 
                                                     </div>
 
@@ -3688,20 +3685,20 @@
                             <div class="border_top_one_px padding_ten_px_top_btm">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        
-                                            <!-- level 1 list -->
-                                            <p>
-                                                We may change or modify these Terms and Conditions in the future. We
-                                                will note the date that revisions were last made at the bottom of this
-                                                page. Any revision will take effect upon its posting. It is your
-                                                responsibility to check the <a href="{{ url('terms-conditions') }}">Terms
-                                                    and Conditions</a> from time to time to review the most current
-                                                version.
-                                            </p>
-                                            <p>
-                                                Escorts4U archives all previous versions of the Terms and Conditions
-                                            </p>
-                                            <p><b>This policy was last updated 03-06-2025</b></p>
+
+                                        <!-- level 1 list -->
+                                        <p>
+                                            We may change or modify these Terms and Conditions in the future. We
+                                            will note the date that revisions were last made at the bottom of this
+                                            page. Any revision will take effect upon its posting. It is your
+                                            responsibility to check the <a href="{{ url('terms-conditions') }}">Terms
+                                                and Conditions</a> from time to time to review the most current
+                                            version.
+                                        </p>
+                                        <p>
+                                            Escorts4U archives all previous versions of the Terms and Conditions
+                                        </p>
+                                        <p><b>This policy was last updated 03-06-2025</b></p>
                                     </div>
                                 </div>
                             </div>

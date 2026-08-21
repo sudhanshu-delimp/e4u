@@ -30,28 +30,26 @@ class VisaMigrationController extends Controller
       $mailData['ref'] = $created->id;
       $mailData['member_id'] = Auth::user()->member_id;
 
-      $mailData['member_name'] = $created->first_name . ' ' . $created->last_name;
-
-
+      $mailData['member_name'] = Auth::user()->name;
+    
 
 
       if ($created) {
 
-        Mail::to(Auth::user()->email)->send(new VisaMigrationRequestMail($mailData));
+        // Mail::to(Auth::user()->email)->send(new VisaMigrationRequestMail($mailData));
         $contactPreferences = json_decode($created->contact_preference, true) ?? [];
 
         $preferredContactMethod = collect($contactPreferences)
           ->map(fn($method) => ucfirst($method))
           ->implode(' and ');
         $mailData['preferred_contact_method'] = $preferredContactMethod;
-        $mailData['first_name'] = $created->first_name;
-        $mailData['last_name'] = $created->last_name;
         $mailData['email'] = $created->email;
         $mailData['mobile'] =   preg_replace('/\s+/', '', $created->mobile);;
         $mailData['visa_enquiry_type'] =   config('escorts.visa_types.' . $created->visa_enquiry_type, $created->visa_enquiry_type);;
         $mailData['comments'] = $created->comments;
         $mailData['area_type'] = $created->area_type;
         $mailData['passport_country'] = $created->passport_country;
+        $mailData['business_name'] = $created->business_name;
 
         // $peamsMail = "ashish.kumar+56@delimp.com";
         $peamsMail = config("app.peams_mail");

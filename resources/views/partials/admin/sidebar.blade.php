@@ -186,8 +186,7 @@ $ocLavel = 'Developer';
                             <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                 src="{{ asset('assets/dashboard/img/menu-icon/Migration.png') }}">
                             <span
-                                style="{{ request()->segment(3) == 'visa-migration-request' ? 'color: #FF3C5F;' : '' }}">Visa
-                                Migration Request</span>
+                                style="{{ request()->segment(3) == 'visa-migration-request' ? 'color: #FF3C5F;' : '' }}">Visa Request</span>
                         </a>
                     </div>
                 </div>

@@ -189,7 +189,7 @@
                         <div class="col-lg-12 card-list-wrapper">
                             
                            
-                            <div class="card shadow-sm border-1 my-spend-box">
+                            <div class="card shadow-sm border-1 my-spend-box disabled-link">
                                 <div class="card-body adv-summary-card">
                                     <div class="lft">
                                         <div class="spend-icons">
@@ -200,7 +200,7 @@
                                     <span class="amount-text">${{ number_format($data['email'], 2) }}</span>
                                 </div>
                             </div>
-                            <div class="card shadow-sm border-1 my-spend-box">
+                            <div class="card shadow-sm border-1 my-spend-box disabled-link">
                                 <div class="card-body adv-summary-card">
                                     <div class="lft">
                                         <div class="spend-icons">
@@ -222,7 +222,7 @@
                                     <span class="amount-text">${{ number_format($data['product'], 2) }}</span>
                                 </div>
                             </div>
-                            <div class="card shadow-sm border-1 my-spend-box">
+                            <div class="card shadow-sm border-1 my-spend-box disabled-link">
                                 <div class="card-body adv-summary-card">
                                     <div class="lft">
                                         <div class="spend-icons">
