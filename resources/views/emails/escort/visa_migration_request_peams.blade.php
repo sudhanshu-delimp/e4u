@@ -68,7 +68,7 @@
                                 <p style="margin: 5px 0;"><strong>Visa Enquiry Type:</strong>
                                     {{ $data['visa_enquiry_type'] }}</p>
                                 <p style="margin: 5px 0;"><strong>Passport Country of
-                                        Issue:</strong>{{ $data['passport_country'] }}</p>
+                                        Issue: </strong>{{ $data['passport_country'] }}</p>
                             </div>
                             <p style="margin: 5px 0;">
                                 <strong>Comments:</strong>
