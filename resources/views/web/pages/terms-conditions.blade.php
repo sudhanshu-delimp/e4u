@@ -162,19 +162,22 @@
                                                             we may amend
                                                             these Terms and Conditions.</li>
                                                     </ul>
-                                                    <p>
+                                                    <div>
+                                                        <p>
                                                         We may receive a benefit (which may include a referral fee or a
                                                         commission) should you visit
                                                         certain third party websites through a link on our Website, or for
                                                         featuring certain goods or
                                                         services on our Website.
                                                     </p>
-
                                                     <p class="mt-2">
                                                         Nothing in these Terms and Conditions limits your rights and
                                                         remedies at law, including any
                                                         of your Consumer Law Rights.
                                                     </p>
+                                                    </div>
+
+                                                    
                                                 </div>
                                                 {{-- 1 --}}
                                                 <div class="content_details">
