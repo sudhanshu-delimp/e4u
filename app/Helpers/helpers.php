@@ -2798,7 +2798,7 @@ if (!function_exists('getEscortMassageDetailUrl')) {
                     $stateName = isset($stateArr['stateAbbr']) ? strtolower($stateArr['stateAbbr']) : " ";
                     $cityName = isset($stateArr['cities'][$modelObject->city_id]['cityName']) ? strtolower($stateArr['cities'][$modelObject->city_id]['cityName']) : " ";
                     $genderName = isset($modelObject->gender) ? strtolower($modelObject->gender) : " ";
-                 
+
                     $url = route('escort.profile.detail.new', [
                         'county' => isset($modelObject->state->country->name) ?  strtolower($modelObject->state->country->name) : 'australia',
                         'state' => $stateName,
@@ -2814,6 +2814,7 @@ if (!function_exists('getEscortMassageDetailUrl')) {
                     $url = route('web.massage-profile.new', [
                         'county' => isset($modelObject->user->state->country->name) ?  strtolower($modelObject->user->state->country->name) : 'australia',
                         'state' => $stateName,
+                        'city' => getCityNameByStateId($modelObject->user->state_id),
                         'member_id' => $modelObject->user->member_id,
                         'profile' => $modelObject->slug,
                     ]);
@@ -2827,7 +2828,8 @@ if (!function_exists('getEscortMassageDetailUrl')) {
     }
 }
 if (!function_exists('getStateAbbrByCityName')) {
-    function getStateAbbrByCityName($cityName){
+    function getStateAbbrByCityName($cityName)
+    {
         $states = config('escorts.profile.states', []);
         foreach ($states as $state) {
             foreach ($state['cities'] ?? [] as $city) {
@@ -2838,5 +2840,22 @@ if (!function_exists('getStateAbbrByCityName')) {
         }
 
         return null;
+    }
+}
+
+if (!function_exists('getCityNameByStateId')) {
+
+    function getCityNameByStateId($stateId)
+    {
+        $states = config('escorts.profile.states', []);
+        $stateArr = isset($states[$stateId]) ? $states[$stateId] : [];
+        
+         foreach ($stateArr['cities'] as $city) {
+           $cityName = strtolower($city['cityName']);
+           if(!empty($cityName)) {
+                continue;
+           }
+         }
+        return $cityName;
     }
 }

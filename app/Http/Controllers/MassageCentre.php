@@ -604,7 +604,7 @@ class MassageCentre extends Controller
     /**
      * View masage profile
      */
-    public function massageProfile(Request $request,  $country = "",  $state = "",  $memberId = "", $profile = "")
+    public function massageProfile(Request $request, $country = "", $state = "", $city = "", $memberId = "", $profile = "")
     {
         $previousUrl = url()->previous();
         $path = parse_url($previousUrl, PHP_URL_PATH);
