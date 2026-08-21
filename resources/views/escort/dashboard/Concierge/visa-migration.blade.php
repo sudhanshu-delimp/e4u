@@ -305,7 +305,7 @@
                         Visa Services - Request Confirmation
                     </h5>
                     <button type="button" class="close text-white" data-dismiss="modal">
-                        <img src="https://staging.e4u.host.powerwebhosting.com.au/assets/app/img/newcross.png"
+                        <img src="{{asset('assets/app/img/newcross.png')}}"
                             class="img-fluid img_resize_in_smscreen">
                     </button>
                 </div>
@@ -313,7 +313,7 @@
                     <p align="justify">Your Request for Visa services assistant has been received. You will also receive an
                         A-Alert confirming your request with a reference. If you have not been contacted by a
                         member of the team within 24 hours (of a business day), please raise a Support Ticket
-                        quoting the reference.</p>
+                        quoting the reference. </p>
                     <br>
                     <span><b>Date sent: </b> {{ \Carbon\Carbon::now('Australia/Perth')->format('d-m-Y') }}</span>
 
@@ -491,7 +491,9 @@
             e.preventDefault();
             let form = this;
             let submitButton = $("#submitAssistanceRequest");
+                        $("#visa_migration_request").modal('show');
 
+                        return true;
             // Clear previous errors
             $(".error-text").text("");
             submitButton.prop("disabled", true).text("Sending...");
