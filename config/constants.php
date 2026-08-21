@@ -30,6 +30,10 @@ return [
         'key'   => env('SMS_API_KEY'),
         'secret' => env('SMS_API_SECRET'),
     ],
+    'datatable_length_menu' => array_map(
+        'intval',
+        explode(',', env('DATATABLE_LENGTH_MENU', '10,20,50,100'))
+    ),
 
     'app_env' => env('APP_ENV'),
     'dashboard_viewer' => [

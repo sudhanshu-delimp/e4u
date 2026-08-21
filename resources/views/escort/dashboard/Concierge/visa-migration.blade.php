@@ -318,7 +318,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Your Request for Visa services assistant has been received. You will also receive an
+                    <p align="justify">Your Request for Visa services assistant has been received. You will also receive an
                         A-Alert confirming your request with a reference. If you have not been contacted by a
                         member of the team within 24 hours (of a business day), please raise a Support Ticket
                         quoting the reference.</p>
