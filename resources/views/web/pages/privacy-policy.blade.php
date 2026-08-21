@@ -67,7 +67,8 @@
 
                                                 <div class="content_details">
                                                     <h3>Statement</h3>
-                                                    <p>
+                                                    <div>
+                                                        <p>
                                                         Blackbox Tech Pty Ltd trading as Escorts4U (ABN 88 664 919 975) (<b>we</b>,
                                                         <b>us</b> or <b>our</b>) is
                                                         committed to protecting your privacy. This policy explains how we
@@ -76,13 +77,14 @@
                                                         handle, whether we collect
                                                         it through the Website, in person, or through other means.
                                                     </p>
+                                                    </div>
                                                 </div>
 
 
                                                 <div class="content_details">
                                                     <h3>Quick overview</h3>
 
-                                                    <ul class="my-3">
+                                                    <ol class="my-3">
                                                         <li>We collect information you provide to us and information we
                                                             gather when we interact with you</li>
                                                         <li>We use this information to provide our Services and improve your
@@ -91,7 +93,7 @@
                                                         </li>
                                                         <li>You have rights regarding your personal information, including
                                                             access and correction rights</li>
-                                                    </ul>
+                                                    </ol>
                                                 </div>
                                                 {{-- 1 --}}
                                                 <div class="content_details">
@@ -99,23 +101,22 @@
                                                     </h3>
 
                                                     <div class="content_align">
-                                                        <span></span>
+                                                       
                                                         <p>We collect a range of information from Users when you visit our
                                                             Website. These include:</p>
                                                     </div>
 
                                                     <div class="content_align">
-                                                        <span></span>
                                                         <ol class="level-2">
                                                             <li>Identity and contact details
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>Name, email address and phone number</li>
                                                                     <li>Other details according to your Membership Type,
                                                                         such as your address</li>
                                                                 </ul>
                                                             </li>
                                                             <li>Service related information
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>Payment and transaction details for Services you've
                                                                         purchased from us or
                                                                         enquiries about our Services</li>
@@ -125,7 +126,7 @@
                                                                 </ul>
                                                             </li>
                                                             <li>Digital information
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>IP address and general location information derived
                                                                         from your IP address</li>
                                                                     <li>Search and browsing behaviour</li>
@@ -134,7 +135,7 @@
                                                                 </ul>
                                                             </li>
                                                             <li>Customer Support Recordings
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>Call recordings for customer suppor</li>
                                                                     <li>Records of meetings and decisions for customer
                                                                         support</li>
@@ -173,7 +174,7 @@
                                                         information</h3>
 
                                                     <div class="content_align">
-                                                        <span></span>
+                                                       
                                                         <p>
 
                                                             We collect personal information about you either:
@@ -182,10 +183,9 @@
                                                     </div>
 
                                                     <div class="content_align">
-                                                        <span></span>
-                                                        <ul>
+                                                       <ol class="level-2">
                                                             <li>Directly from you when you:
-                                                                <ul>
+                                                                <ul class="level-3">
                                                                     <li>interact with us</li>
                                                                     <li>contact us</li>
                                                                     <li>fill out forms</li>
@@ -193,13 +193,13 @@
                                                                 </ul>
                                                             </li>
                                                             <li>Automatically when you:
-                                                                <ul>
+                                                                <ul class="level-3">
                                                                     <li>visit the Website</li>
                                                                     <li>use our technologies</li>
                                                                     <li>interact with the Services or social media</li>
                                                                 </ul>
                                                             </li>
-                                                        </ul>
+                                                        </ol>
                                                     </div>
                                                 </div>
                                                 {{-- end --}}
@@ -234,16 +234,16 @@
                                                     </h3>
 
                                                     <div class="content_align">
-                                                        <span></span>
+                                                       
                                                         <p>We collect and use your personal information to run our business
                                                             and provide our Services as set out below.</p>
                                                     </div>
 
                                                     <div class="content_align">
-                                                        <span></span>
+                                                      
                                                         <ol class="level-2">
                                                             <li>Business operations
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>To manage our relationship with you as a User of our
                                                                         services or supplier</li>
                                                                     <li>To help Users find each other</li>
@@ -257,7 +257,7 @@
                                                                 </ul>
                                                             </li>
                                                             <li>Communication and support
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>To respond to your questions and support requests
                                                                     </li>
                                                                     <li>To communicate important updates about our Services
@@ -270,7 +270,7 @@
                                                                 </ul>
                                                             </li>
                                                             <li>Service improvement
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>To conduct analytics and market research</li>
                                                                     <li>To improve our business operations and Services
                                                                         generally</li>
@@ -280,7 +280,7 @@
                                                                 </ul>
                                                             </li>
                                                             <li>Marketing and promotions
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>To send you promotional information about our
                                                                         Services and events</li>
                                                                     <li>To inform you about our Services that may interest
@@ -295,7 +295,7 @@
                                                                 </p>
                                                             </li>
                                                             <li>Legal and compliance
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>To respond to court orders or legal processes</li>
                                                                     <li>To maintain required business records</li>
                                                                     <li>To fulfil regulatory requirements or reporting
@@ -342,15 +342,15 @@
                                                     </h3>
 
                                                     <div class="content_align">
-                                                        <span></span>
+                                                       
                                                         <p>We may disclose personal information to:</p>
                                                     </div>
 
                                                     <div class="content_align">
-                                                        <span></span>
+                                                        
                                                         <ol class="level-2">
                                                             <li>Service providers
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>IT service providers</li>
                                                                     <li>Data storage providers</li>
                                                                     <li>Web hosting and server providers</li>
@@ -360,7 +360,7 @@
                                                                 </ul>
                                                             </li>
                                                             <li>Professional advisers
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>Bankers, bookkeepers and accountants</li>
                                                                     <li>Auditors</li>
                                                                     <li>Insurers and insurance brokers</li>
@@ -369,7 +369,7 @@
                                                                 </ul>
                                                             </li>
                                                             <li>Business partners
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>Our existing or potential Agents</li>
                                                                     <li>Our business partners or contractors</li>
                                                                 </ul>
@@ -378,7 +378,7 @@
                                                                 <p>Where permitted by law, we may share your personal
                                                                     information with our related entities including:</p>
 
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>PEAMS Australia Pty Ltd - for migration and related
                                                                         services</li>
                                                                     <li>Agency Management (Australia) Pty Ltd - for Agent
@@ -389,7 +389,7 @@
                                                             <li>Corporate transactions
                                                                 <p>If we merge with or are acquired by another company, or
                                                                     sell our business assets:</p>
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>Your information may be disclosed to our advisers
                                                                     </li>
                                                                     <li>Your information may be disclosed to the potential
@@ -399,7 +399,7 @@
                                                                 </ul>
                                                             </li>
                                                             <li>Legal and regulatory bodies
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>Courts and tribunals</li>
                                                                     <li>Regulatory authorities including as required for
                                                                         reporting obligations</li>
@@ -407,7 +407,7 @@
                                                                 </ul>
                                                             </li>
                                                             <li>Other parties
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>Third parties you have authorised</li>
                                                                     <li>Any other parties as required or permitted by law
                                                                     </li>
@@ -423,7 +423,7 @@
                                                     <h3 class="mb-3 content_align"><span>5.</span>Overseas disclosure</h3>
 
                                                     <div class="content_align">
-                                                        <span></span>
+                                                      
                                                         <p>
 
                                                             We may disclose personal information to overseas third party
@@ -433,7 +433,7 @@
                                                     </div>
 
                                                     <div class="content_align">
-                                                        <span></span>
+                                                       
                                                         <ol class="level-2">
                                                             <li>Storage and access
                                                                 <p>
@@ -444,7 +444,7 @@
                                                                     and the United States of America, in these
                                                                     circumstances:
                                                                 </p>
-                                                                <ul>
+                                                                <ul class="level-3">
                                                                     <li>When our service providers are located overseas</li>
                                                                     <li>When we work with overseas business partners</li>
                                                                     <li>When using cloud-based services or data storage
@@ -502,13 +502,13 @@
                                                     </h3>
 
                                                     <div class="content_align">
-                                                        <span></span>
+                                                       
                                                         <p>How we manage your privacy rights and choices is completely
                                                             determined by you.</p>
                                                     </div>
 
                                                     <div class="content_align">
-                                                        <span></span>
+                                                        
                                                         <ol class="level-2">
                                                             <li>Providing information
                                                                 <p>You can choose whether to provide personal information to
@@ -560,7 +560,7 @@
                                                             <li>How to contact us about your rights or to make a complaint
                                                                 and what happens next
                                                                 <p>Step 1: Contact our privacy officer</p>
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>Email: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="mailto:privacy@escorts4u.com.au" style="word-break: break-all;">privacy@escorts4u.com.au</a></li>
                                                                     <li>Phone: &nbsp;&nbsp;&nbsp;&nbsp; 1300 700 444</li>
                                                                     <li>Post: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GPO Box T1756 Perth WA 6845</li>
@@ -579,7 +579,7 @@
                                                                 <p>
                                                                     We will:
                                                                 </p>
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>Verify your identity before processing your request
                                                                     </li>
                                                                     <li>Investigate thoroughly (for complaints) or process
@@ -599,7 +599,7 @@
                                                                     If you're not satisfied with our response to your
                                                                     complaint, you can:
                                                                 </p>
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>Ask for a review by our senior management, or</li>
                                                                     <li>Contact external bodies such as the Office of the
                                                                         Australian Information Commissioner (Phone: 1300 363
@@ -623,7 +623,7 @@
                                                         information</h3>
 
                                                     <div class="content_align">
-                                                        <span></span>
+                                                        
                                                         <p>
 
                                                             We use multiple layers of security to protect your information.
@@ -633,11 +633,11 @@
                                                     </div>
 
                                                     <div class="content_align">
-                                                        <span></span>
+                                                        
                                                         <ol class="level-2">
                                                             <li>Technical safeguards
 
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>Enterprise-grade encryption for data storage and
                                                                         transmission </li>
                                                                     <li>Regular security testing and monitoring</li>
@@ -646,7 +646,7 @@
                                                             </li>
                                                             <li>Operational security
 
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>Staff training on security and privacy</li>
                                                                     <li>Strict access controls based on job requirements
                                                                     </li>
@@ -657,7 +657,7 @@
                                                             </li>
                                                             <li>Physical security
 
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>Secure premises with controlled access</li>
                                                                     <li>Secure disposal of physical documents</li>
                                                                     <li>Equipment security protocols</li>
@@ -687,7 +687,7 @@
                                                         information</h3>
 
                                                     <div class="content_align">
-                                                        <span></span>
+                                                        
                                                         <p>
 
                                                             We keep your personal information only as long as we need it for
@@ -728,13 +728,13 @@
                                                     <h3 class="mb-3 content_align"><span>9.</span> Cookies</h3>
 
                                                     <div class="content_align">
-                                                        <span></span>
+                                                        
                                                         <p>We use a number of technologies to manage the Website and your
                                                             account. These include:</p>
                                                     </div>
 
                                                     <div class="content_align">
-                                                        <span></span>
+                                                        
                                                         <ol class="level-2">
                                                             <li>What We Use
                                                                 <p>We use cookies, tracking pixels, and similar technologies
@@ -742,7 +742,7 @@
                                                                     experience and our Services.</p>
                                                             </li>
                                                             <li>Cookies
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>Small text files stored on your device</li>
                                                                     <li>Help remember your preferences</li>
                                                                     <li>Enable certain Website functions</li>
@@ -751,7 +751,7 @@
                                                                 </ul>
                                                             </li>
                                                             <li>Tracking Pixels
-                                                                <ul class="my-2">
+                                                                <ul class="my-2 level-3">
                                                                     <li>Tiny, invisible images in web pages and emails</li>
                                                                     <li>Help us understand how you interact with our content
                                                                     </li>
@@ -763,21 +763,21 @@
                                                                 <p>
                                                                     Essential Functions
                                                                 </p>
-                                                                <ul class="my-2">
+                                                                <ul class="my-2 level-3">
                                                                     <li>Remember your login status</li>
                                                                     <li>Maintain your session security</li>
                                                                     <li>Store your preferences</li>
                                                                     <li>Enable core Website features</li>
                                                                 </ul>
                                                                 <p>Analytics and Performance</p>
-                                                                <ul class="my-2">
+                                                                <ul class="my-2 level-3">
                                                                     <li>Understand how the Website is used</li>
                                                                     <li>Measure page views and traffic</li>
                                                                     <li>Analyse User navigation patterns</li>
                                                                     <li>Identify areas for improvement</li>
                                                                 </ul>
                                                                 <p>Personalisation</p>
-                                                                <ul class="my-2">
+                                                                <ul class="my-2 level-3">
                                                                     <li>Remember your preferences</li>
                                                                     <li>Tailor content to your interests</li>
                                                                     <li>Improve your browsing experience</li>
@@ -786,7 +786,7 @@
                                                             </li>
                                                             <li>Your control
                                                                 <p>You can manage these technologies by:</p>
-                                                                <ul class="my-3">
+                                                                <ul class="my-3 level-3">
                                                                     <li>Adjusting your browser settings to block or delete
                                                                         cookies</li>
                                                                     <li>Using privacy-focused browser extensions</li>
@@ -811,7 +811,7 @@
                                                     <h3 class="mb-3 content_align"><span>10.</span>Google Analytics</h3>
 
                                                     <div class="content_align">
-                                                        <span></span>
+                                                        
                                                         <p class="pl-2">We use Google Analytics to understand how people
                                                             use the
                                                             Website. This involves
@@ -827,12 +827,12 @@
                                                     </div>
 
                                                      <div class="content_align">
-                                                        <span></span>
+                                                        
                                                         <p>You can control Google Analytics tracking by:</p>
                                                     </div>
                                                     <div class="content_align">
-                                                        <span></span>
-                                                            <ul class="my-3">
+                                                        
+                                                            <ul class="my-3 level-3">
 
                                                                 <li>Adjusting your browser settings to refuse cookies
                                                                 </li>
@@ -852,7 +852,7 @@
 
                                                     </div>
                                                      <div class="content_align">
-                                                        <span></span>
+                                                        
                                                          <p>Please note that if you refuse all cookies by adjusting your
                                                                 browser settings, you may not be able to use the full
                                                                 functionality of the Website.</p>
@@ -868,11 +868,11 @@
                                                         data</h3>
 
                                                     <div class="content_align">
-                                                        <span></span>
+                                                        
                                                         <div class="pl-2">
                                                             <p>We collect your approximate Location via the Website for the
                                                                 following purposes:</p>
-                                                            <ul class="my-3">
+                                                            <ul class="my-3 level-3">
 
                                                                 <li>For security and safety</li>
                                                                 <li>To prevent and detect fraud</li>
