@@ -49,12 +49,12 @@
                             </p>
 
                             <div style="margin-bottom: 25px;">
-                                <p style="margin: 5px 0;"><strong>First Name:</strong> {{ $data['first_name'] }}</p>
-                                <p style="margin: 5px 0;"><strong>Last Name:</strong> {{ $data['last_name'] }}</p>
-                                <p style="margin: 5px 0;"><strong>Email:</strong> {{ $data['email'] }}</p>
-                                <p style="margin: 5px 0;"><strong>Mobile:</strong> {{ $data['mobile'] }}</p>
+                                <p style="margin: 5px 0;"><strong>Name: </strong> {{ $data['member_name'] }}</p>
+                                <p style="margin: 5px 0;"><strong>Business Name: </strong> {{ $data['business_name'] }}</p>
+                                <p style="margin: 5px 0;"><strong>Email: </strong> {{ $data['email'] }}</p>
+                                <p style="margin: 5px 0;"><strong>Mobile: </strong> {{ $data['mobile'] }}</p>
                                 <p style="margin: 5px 0;"><strong>Preferred Contact
-                                        Method:</strong>{{ $data['preferred_contact_method'] ?? 'Not specified' }} </p>
+                                        Method: </strong>{{ $data['preferred_contact_method'] ?? 'Not specified' }} </p>
                             </div>
 
                             <p style="margin: 0 0 10px 0; font-weight: 600;">
@@ -62,10 +62,10 @@
                             </p>
 
                             <div style="margin-bottom: 25px;">
-                                <p style="margin: 5px 0;"><strong>Area of Advice:</strong> {{  ucwords(str_replace('_', ' ', $data['area_type']));
+                                <p style="margin: 5px 0;"><strong>Area of Advice: </strong> {{  ucwords(str_replace('_', ' ', $data['area_type']));
  }}
                                 </p>
-                                <p style="margin: 5px 0;"><strong>Visa Enquiry Type:</strong>
+                                <p style="margin: 5px 0;"><strong>Visa Enquiry Type: </strong>
                                     {{ $data['visa_enquiry_type'] }}</p>
                                 <p style="margin: 5px 0;"><strong>Passport Country of
                                         Issue: </strong>{{ $data['passport_country'] }}</p>
