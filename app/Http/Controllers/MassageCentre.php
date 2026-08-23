@@ -605,21 +605,17 @@ class MassageCentre extends Controller
      */
     public function massageProfile(Request $request, $country = "", $state = "", $city = "", $memberId = "", $profile = "")
     {
-
         $previousUrl = url()->previous();
         $path = parse_url($previousUrl, PHP_URL_PATH);
         $previousSlug = trim($path, '/');
-
         $relatedIds = [];
         $relatedSlugs = [];
-
         $country = trim($country);
         $state = trim($state);
         $city = trim($city);
         $profile = trim($profile);
         $memberId = trim($memberId);
         $isproceed = false;
-
         $countryId = "";
         $stateId = "";
         $cityId = "";
