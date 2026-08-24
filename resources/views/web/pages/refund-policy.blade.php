@@ -1,26 +1,11 @@
 @extends('layouts.web')
 @section('style')
 <style>
-   .loader {
-   border: 16px solid #f3f3f3;
-   border-radius: 50%;
-   border-top: 16px solid #3498db;
-   width: 120px;
-   height: 120px;
-   -webkit-animation: spin 2s linear infinite; /* Safari */
-   animation: spin 2s linear infinite;
-   }
-   /* Safari */
-   @-webkit-keyframes spin {
-   0% { -webkit-transform: rotate(0deg); }
-   100% { -webkit-transform: rotate(360deg); }
-   }
-   @keyframes spin {
-   0% { transform: rotate(0deg); }
-   100% { transform: rotate(360deg); }
-   }
-    p, ol, ul{
+    p, ol, ul, ol{
             text-align: justify
+        }
+        ol{
+         padding-left: 30px
         }
 </style>
 @endsection
@@ -33,7 +18,7 @@
 
       <p>The following occasions are where our Refund Policy does not apply:
       </p>
-      <ul>
+        <ol class="common_list_design">
          <li>
             <p class="mb-0">Your Profile has been posted on the Website but you have changed your mind,
                 decided you did not like the published Profile, had no use for it, or found cheaper
@@ -51,16 +36,16 @@
          <li>
             <p class="mb-0">Any part of the Services become unavailable</p>
          </li>
-      </ul>
+      </ol>
       <h2 class="primery_color normal_heading">Refund Request Process
       </h2>
        <p><u><i>When can a refund be requested?</i></u></p>
       <p>You can request a refund of the Fee before:</p>
-      <ul>
+        <ol class="common_list_design">
          <li>Your Profile expires and you suspend the Profile (you can create a Profile, List the Profile, and then place the Profile on hold or suspend); or
          </li>
          <li>Your Membership becomes subject to a breach of the Terms</li>
-      </ul>
+      </ol>
       <p>Any refund request made after a Profile or Tour has expired, or your Membership
           becomes inactive, will not be considered or provided.
       </p>

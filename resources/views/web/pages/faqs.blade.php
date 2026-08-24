@@ -1,24 +1,6 @@
 @extends('layouts.web')
 @section('style')
 <style>
-   .loader {
-   border: 16px solid #f3f3f3;
-   border-radius: 50%;
-   border-top: 16px solid #3498db;
-   width: 120px;
-   height: 120px;
-   -webkit-animation: spin 2s linear infinite; /* Safari */
-   animation: spin 2s linear infinite;
-   }
-   /* Safari */
-   @-webkit-keyframes spin {
-   0% { -webkit-transform: rotate(0deg); }
-   100% { -webkit-transform: rotate(360deg); }
-   }
-   @keyframes spin {
-   0% { transform: rotate(0deg); }
-   100% { transform: rotate(360deg); }
-   }
    .table thead th {
     vertical-align: bottom;
     border: 1px solid #dee2e6;
@@ -160,7 +142,7 @@
                      </tbody>
                   </table>
                   <p class="border-top-0 pl-2 pb-2"><b>Note:</b></p>
-                  <ol>
+                    <ol class="common_list_design">
                      <li>Local Laws published in the relevant jurisdiction as at 1st January 2024.</li>
                   </ol>
                   
@@ -176,12 +158,12 @@
                <div class="accodien_manage_padding_content">
                   <p style="border: none;"><b>Q: What Account information is mandatory for an Advertiser and what is not?</b></p>
                   <p>When you register to become a Member, there is some mandatory information we request from you, such as your:</p>
-                  <ul>
+                   <ol class="common_list_design">
                      <li>your name (for an Escort) or Business name (for a Massage Centre)</li>
                      <li>mobile number</li>
                      <li>email account; and</li>
                      <li>Home State (where you are domiciled).</li>
-                  </ul>
+                 </ol>
                   <p>We do require your name, it is not optional. When you create a Profile,
                      you can nominate a Profile Name for the Profile you are creating. We refer to that name as your 'Stage Name'.  You can allocate a
                      different Stage Name for each Profile, and have as many as your like.</p><br>
@@ -189,12 +171,12 @@
                      Membership ID, and in some communications, your name you have provided to us, such as payments for Services.</p><br>
                   <p><b>Q: What Account information is mandatory for a Viewer and what is not?</b></p>
                   <p>When you register to be come a Member, there is some mandatory information we request from you, such as your:</p>
-                  <ul>
+                   <ol class="common_list_design">
                      <li>mobile number</li>
                      <li>email account; and</li>
                      <li>Home State (where you are domiciled).
                      </li>
-                  </ul>
+                 </ol>
                   <p>You do not have to provide your name but it is optional and should you choose to have
                      a name, the name you choose can be anonymous in nature.</p><br>
                   <p><b>Q: To what extent is Geolocation applied in the Website?</b></p>
@@ -220,7 +202,7 @@
                   <p>Media Verification is very important.  Once you upload your Media (photos), you can then have your photos verified.
                      Simply upload your Verification Image and within 24 hours the Media will be reviewed and the verification status updated.
                      There are three verification statuses:
-                     <ul>
+                      <ol class="common_list_design">
                         <li>Pending.  This is when you have uploaded your Media but the Media has not been verified.  All Media will display the E4U Pending icon.  
                            You have 48 hours to upload your Verification Image, otherwise your verification status will change to Unverified, and the E4U 
                               Unverified icon will be displayed on all Media.  This includes any Listed Profiles.</li>
@@ -232,14 +214,14 @@
                            If you do not upload a new Verification Image within 48 hours, the new Media status will change to Unverified, and will have the E4U Unveridied
                            icon displayed on that Media.  You can have a mix of Pending, Unverified and Verified Media appear within a Profile should you select Media and attached
                            to a Profile in between verification.</li>
-                     </ul>
+                    </ol>
                   </p>
                   <p>Once you have all of your images and video uploaded in your Archive folder, you will have three groups of Media:</p>
-                  <ul>
+                   <ol class="common_list_design">
                      <li>Thumbnail (default image for your series of Profile photos)</li>
                      <li>Gallery images (a set of up to six photos which appear with the Thumbnail image when selected)</li>
                      <li>Banner Image (which appears across the top of your Profile); and</li>
-                  </ul>
+                 </ol>
                   <p>Remember, if you have submitted your Verification Image to E4U, we will attach an E4U Verified icon,
                      according to the status, to the image.  This is highly recommended as verification adds credibility to your Profile.</p><br>
                   <p><b>Q: Can I remove my photos?</b></p>
@@ -297,10 +279,10 @@
                      Advertisers in the management of their Account, Media, Profiles, Tours, Concierge
                      Services and Account information.</p><br>
                   <p>You can appoint an Agent at any time by either:</p>
-                  <ul>
+                   <ol class="common_list_design">
                      <li>Nominating the Agent as a part of the registration process; or by</li>
                      <li>Requesting an Agent to be appointed by lodging a request through your Dashboard.</li>
-                  </ul>
+                 </ol>
                   <p>When you appoint an Agent, you enter into an arrangement with the Agent directly for
                      the Agent to provide the Agent Services. The Agent will have full access to your
                      Account.</p>
@@ -333,14 +315,14 @@
                      when you set up your Account or any Profiles after your first payment. You can even set up Profiles to be
                      retained in your Archive Folder until you are ready to List them.</p><br>
                   <p>There are effectively three payment options, all with your Card, namely:</p>
-                  <ul>
+                   <ol class="common_list_design">
                      <li>Pay as you go. If you List a Profile for 3 days, you pay for 3 days.</li>
                      <li>Pay in advance. You can pay a lump sum into your Wallet and then draw down
                         on those funds as you List, extend or renew your Profiles or Tours.</li>
                      <li>Pay and renew. You pay for the number of days you have selected for your Profile,
                         and elect to automatically renew your Profile each nominated period thereafter (like
                         every 5 days) and for the nominated occurrences (like for 3 renewals).</li>
-                  </ul>
+                 </ol>
                   <p><b>Q: Can I pay weekly?</b></p>
                   <p>Yes you can. We calculate your Fees based on the number of days you select for
                      your Profile to be Listed. Some discounts do apply in certain circumstances (see
@@ -547,7 +529,7 @@
                   </p><br>
                   <p><b>Q: I cannot upload and/or save my images, why?</b></p>
                   <p>Check the allowed image types below and then try again:</p>
-                  <ul>
+                   <ol class="common_list_design">
                      <li>photos must be .jpg or .png format</li>
                      <li>gallery photos must be portrait orientation, and your Banner and Pin Up images should be landscape</li>
                      <li>the minimum height and width of the photos must be 500px</li>
@@ -555,7 +537,7 @@
                      <li>if your ratio is smaller then we will crop from the bottom</li>
                      <li>if your ratio is larger then we will crop from the sides</li>
                      <li>maximum allowed dimension is 4000x6000px</li>
-                  </ul>
+                 </ol>
                   <p>If you still have problems, please email us or preferably, log on and create a Support Ticket.</p><br>
                   <p><b>Q: I have other questions, where can I send my messages?</b></p>
                   <p>If you have any other technical or administrative questions, please email us or
