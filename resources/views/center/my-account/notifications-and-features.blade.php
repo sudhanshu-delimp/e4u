@@ -415,12 +415,16 @@
                                                         Your default setting is:
                                                     </span>
 
+                                                   @php
+                                                        $datatableEntries = $setting->datatable_entries ?? 25;
+                                                    @endphp
+
                                                     <select class="entries-select" name="entries">
-                                                        <option {{ ($setting->datatable_entries) && $setting->datatable_entries  == 10 ? 'selected' : '' }} value="10">10</option>
-                                                        <option {{ ($setting->datatable_entries) && $setting->datatable_entries  == 25 ? 'selected' : '' }} value="25">25</option>
-                                                        <option  {{ ($setting->datatable_entries) && $setting->datatable_entries  == 50 ? 'selected' : '' }}  value="50">50</option>
-                                                        <option {{ ($setting->datatable_entries) && $setting->datatable_entries  == 75 ? 'selected' : '' }}  value="75">75</option>
-                                                        <option {{ ($setting->datatable_entries) && $setting->datatable_entries  == 100 ? 'selected' : '' }}  value="100">100</option>
+                                                        <option value="10" {{ $datatableEntries == 10 ? 'selected' : '' }}>10</option>
+                                                        <option value="25" {{ $datatableEntries == 25 ? 'selected' : '' }}>25</option>
+                                                        <option value="50" {{ $datatableEntries == 50 ? 'selected' : '' }}>50</option>
+                                                        <option value="75" {{ $datatableEntries == 75 ? 'selected' : '' }}>75</option>
+                                                        <option value="100" {{ $datatableEntries == 100 ? 'selected' : '' }}>100</option>
                                                     </select>
 
                                                 </div> 
