@@ -1,25 +1,5 @@
 @extends('layouts.web')
 @section('style')
-<style>
-    .loader {
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid #3498db;
-    width: 120px;
-    height: 120px;
-    -webkit-animation: spin 2s linear infinite; /* Safari */
-    animation: spin 2s linear infinite;
-    }
-    /* Safari */
-    @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-    }
-    @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-    }
-</style>
 @endsection
 @section('content')
 <section class="padding_top_eight_px padding_bottom_eight_px footer-links-si">
@@ -28,7 +8,6 @@
 
 
             <h1 class="home_heading_first margin_btm_twenty_px">A Guide to Seeing Escorts and Masseurs</h1>
-{{--           <h3>(A Guide to Seeing Escorts and Masseurs)</h3>--}}
            <div class="accordion-container">
 
                <div class="set">
@@ -41,20 +20,20 @@
                        <div class="accodien_manage_padding_content">
                            <p>Do not do stupid things or expect Escorts or especially Masseurs to do so.</p>
                            <p>Always remember:</p>
-                           <ul>
+                             <ol class="common_list_design">
                                <li>If you are not sure what you are doing is right, <u>do not do it</u></li>
                                <li>To treat an Escort and Masseur with respect and like fellow human beings (they are and never forget that)</li>
                                <li>Make sure you know and understand the <a class="c-red" href="{{ url('faqs')}}">Local Laws</a> and do not get arrested</li>
                                <li>Do not take any drugs to the appointment</li>
                                <li>Do not do anything which feels uncomfortable. If you feel uncomfortable or in danger, leave immediately</li>
                                <li>What the difference is between an Escort and a Masseur and make sure you understand that</li>
-                           </ul>
+                           </ol>
                            <p>Never forget:</p>
-                           <ul>
+                             <ol class="common_list_design">
                                <li>To always be careful and to stay safe</li>
                                <li>Escorts and Massage Centres can list you in the <a class="c-red" href="{{ url('https://www.nationaluglymugs.com.au')}}" Target="_blank">NUM</a>
                                    if you behave inappropriately</li>
-                           </ul>
+                           </ol>
                        </div>
                    </div>
                </div>
@@ -204,7 +183,7 @@
                                going on a date. Here is a list of tips compiled from talking to a number of Escorts and
                                Massage Centres:
                            </p>
-                           <ul>
+                             <ol class="common_list_design">
                                <li>Take a shower before the appointment or at the start of the appointment. An Escort
                                    will always offer you the opportunity to shower when you arrive. Showering at the
                                    appointment will install confidence in the Escort that you are clean.  Most Massage Centres also offer a shower facility
@@ -230,7 +209,7 @@
                                    not a great way to start or end an appointment. You are visiting what is a place of
                                    residence or work (or both), treat it respectfully
                                </li>
-                           </ul>
+                           </ol>
 
                            
                        </div>
@@ -288,22 +267,22 @@
                            <p>It is important that you maintain your own health. Here are some tips for you:
                            </p><br>
                            <p>Where to look:</p>
-                           <ul>
+                             <ol class="common_list_design">
                                <li>Lift your penis and have a good look around the genital area</li>
                                <li>Lift your balls and pull back your foreskin</li>
                                <li>Gently squeeze along the shaft of your penis to see if a discharge emerges</li>
                                <li>Look between the area of your anus and penis</li>
                                <li>Check around the anal area</li>
                                <li>Look through the pubic hair and around the genitals, thighs and buttocks</li>
-                           </ul>
+                           </ol>
                            <p>What to look for:</p>
-                           <ul>
+                             <ol class="common_list_design">
                                <li>Sores, blisters, rashes, and warts</li>
                                <li>Itching, redness, swollen glands, unpleasant odour</li>
                                <li>Discharge—if it is milky, thick, yellowish, grayish and/or smelly it could be gonorrhoea or chlamydia</li>
                                <li>Crabs—these are brown or white and look like freckles</li>
 
-                           </ul>
+                           </ol>
                            <p>Remember, STIs frequently cause no signs or symptoms. Using a condom is essential
                                when meeting with an Escort, even when there are no visible signs when you have
                                checked yourself.
