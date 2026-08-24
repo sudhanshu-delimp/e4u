@@ -50,7 +50,7 @@
                                 </tr>
                             </table>
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
-                                Pursuant to your cancellation, your Wallet has been credited {{ formatCurrency($result->net_credit_amount) }} for future use.
+                                Pursuant to your cancellation, your Wallet has been credited with {{ formatCurrency($result->net_credit_amount) }} for future use.
                             </p>
                             <!-- email info -->
                             <x-email-info />
