@@ -1,35 +1,5 @@
 @extends('layouts.web')
 @section('style')
-    <style>
-        .loader {
-            border: 16px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 16px solid #3498db;
-            width: 120px;
-            height: 120px;
-            -webkit-animation: spin 2s linear infinite; /* Safari */
-            animation: spin 2s linear infinite;
-        }
-
-        /* Safari */
-        @-webkit-keyframes spin {
-            0% {
-                -webkit-transform: rotate(0deg);
-            }
-            100% {
-                -webkit-transform: rotate(360deg);
-            }
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
 @endsection
 @section('content')
     <section class="padding_top_eight_px padding_bottom_eight_px footer-links-si">
@@ -52,7 +22,7 @@
                 conditions:</p>
 
 
-            <ul>
+              <ol>
                 <li><p class="mb-0">Disclaimer</p></li>
                 <p>Escorts4U provides this Website on which Advertisers may publish material and
                     information. Escorts4U does not assume a duty of care to Users and makes no
@@ -113,7 +83,7 @@
                 <p>To the maximum extent permitted by law you assume all risks associated with the use
                     of any Websites including, without limitation the risk:
 
-                    <ul style="list-style: disc;">
+                    <ul class="level-2">
                         <li>
                             <p class="mb-0">of your computer, software or data being damaged by any virus which might be
                         transmitted or activated via any Websites or your access to it; or</p></li>
@@ -122,31 +92,7 @@
                     </ul>
                 </p>
 
-           {{-- <li><p class="mb-0">Data Collection</p></li>
-            <p>Your use of any Websites may be logged for the purpose of Geolocation, security,
-                usage, monitoring and compliance with the <a href="{{ url('law-enforcement')}}"
-                                                             class="termsandconditions_text_color">Local Laws</a> (as
-                they may apply).</p>
-            <li><p class="mb-0">Usage</p></li>
-            <p>Unauthorised use of any Websites could result in a criminal prosecution.</p>
-            <li><p class="mb-0">Jurisdiction</p></li>
-            <p>Irrespective of whether the Websites are hosted on web servers in Australia or outside
-                Australia. These <a href="{{ route('pages.terms-conditions')}}" class="termsandconditions_text_color">Terms and
-                    Conditions</a> are governed by the laws in force in the State
-                of Western Australia and the Commonwealth of Australia. Any dispute about these
-                Terms and Conditions or the content of any Websites are subject to the exclusive
-                jurisdiction of the courts of the State of Western Australia. By your accessing the
-                Websites you agree to submit to those Courts.
-            </p>--}}
-
-            </ul>
-        <!-- <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-       <p class="text_decoration_for_a">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any
-          revision will take effect upon its posting. It is your responsibility to check the <a href="{{ route('pages.terms-conditions')}}" class="termsandconditions_text_color">Terms and Conditions</a> and this Policy from time to time to
-          review the most current version.
-       </p>
-       <p>Escorts4U archives all previous versions of this Policy.</p>
-       <p><b>This policy was last updated 01-12-18</b></p> -->
+            </ol>
 
             <div class="container mt-4 px-0 chagneto-policy">
             <hr class="custom_hr">

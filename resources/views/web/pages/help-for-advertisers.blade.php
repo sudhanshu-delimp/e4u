@@ -56,34 +56,6 @@
          .membership_packages.table td:last-child{
             text-align: left;
          }
-        .loader {
-            border: 16px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 16px solid #3498db;
-            width: 120px;
-            height: 120px;
-            -webkit-animation: spin 2s linear infinite; /* Safari */
-            animation: spin 2s linear infinite;
-        }
-
-        /* Safari */
-        @-webkit-keyframes spin {
-            0% {
-                -webkit-transform: rotate(0deg);
-            }
-            100% {
-                -webkit-transform: rotate(360deg);
-            }
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
     </style>
 @endsection
 @section('content')
@@ -120,7 +92,7 @@
                             <p>Yes. We have a number of great features to enhance your Profile and relationship
                                 building with Viewers. You can:
                             </p>
-                            <ul>
+                              <ol class="common_list_design">
                                 <li>Upgrade your Platinum Listing to 'Pin Up' status.  As the Location's Pin Up, you will appear 
                                     at the front of the Website and at the top of the Listing page
                                 </li>
@@ -142,7 +114,7 @@
                                 </li>
                                 <li>Much more ...
                                 </li>
-                            </ul>
+                            </ol>
                             <p><b>Q: is there a loyalty program?</b></p>
                             <p>Absolutely. Escorts4U will reward you for your loyalty. A simple program, for every
                                 $200.00 in advertising an Escort spends with us, we will reward you with 1 day of free
@@ -156,20 +128,20 @@
                             <p>Yes you can. Our support team will help you manage your Account or alternatively,
                                 you can reach out to an Agent. An Agent will assist you with:
                             </p>
-                            <ul>
+                              <ol class="common_list_design">
                                 <li>Managing your Account details and Profile Information</li>
                                 <li>Managing your Media (photo images and video)</li>
                                 <li>Creating your Profiles and Tours</li>
                                 <li>Any of the Concierge Services; and</li>
                                 <li>Generally, be there for you</li>
-                            </ul>
+                            </ol>
                             <p>You can appoint an Agent at any time by either:</p>
-                            <ul>
+                              <ol class="common_list_design">
                                 <li>Nominating the Agent as a part of the registration process; or by</li>
                                 <li>Requesting an Agent to be appointed by lodging a request through your
                                     Dashboard.
                                 </li>
-                            </ul>
+                            </ol>
                             <p>When you appoint an Agent, you enter into an arrangement with the Agent directly for
                                 the Agent to provide the Agent Services. The Agent will have full access to your
                                 Account.</p>
@@ -495,7 +467,7 @@
 
                             <p><b>Notes: </b>
                                 </p>
-                            <ol>
+                              <ol class="common_list_design">
                                 <li>Feature availability is subject to the <a
                                     href="{{ url('law-enforcement')}}"
                                     class="termsandconditions_text_color">Local Laws</a>.</li>
@@ -552,12 +524,12 @@
                         <div class="accodien_manage_padding_content">
                             <p class="pt-4"><b>Q: Who can register for Membership?</b></p>
                             <p>There are several types of Membership available:</p>
-                            <ul>
+                              <ol class="common_list_design">
                                 <li>Independent Escorts</li>
                                 <li>Massage Centres</li>
                                 <li>Viewers (it is free); and</li>
                                 <li>Agent, management services for Escorts and Massage Centres</li>
-                            </ul>
+                            </ol>
                             <p><b>Q: What is the effect on me according to the Membership type I select?</b></p>
                             <p>We have a range of Membership options that are sure to fit in with your needs.</p><br>
                             <p>Depending on the Viewer's display preference, the Search Page will present in either a
@@ -683,14 +655,14 @@
                                 will have the option to utilise them.</p><br>
                             <p><b>Q: What is the easiest way to pay?</b></p>
                             <p>There are effectively three payment options, all with your Card, namely:</p>
-                            <ul>
+                              <ol class="common_list_design">
                                 <li>Pay as you go. If you post a Profile for 3 days, you only pay for 3 days.</li>
                                 <li>Pay in advance. You can pay a lump sum into your Wallet and then draw down
                                     on those funds as you List and renew your Profiles or Tours.</li>
                                 <li>Pay and renew. You pay for the number of days you have selected for your Profile,
                                     and elect to automatically renew your Profile each nominated period thereafter (like
                                     every 5 days) and for the nominated occurrences (like for 3 renewals).</li>
-                            </ul>
+                            </ol>
                             <p>All transactions are completed using SMS 2FA and are confirmed by email notification
                                 to you. You can also view all of your purchase history from your Dashboard.</p><br>
                             <p><b>Q: How do you set prices?</b></p>
@@ -736,7 +708,7 @@
                                 E4U Verification Icon, which essentially verifies your Media as being genuine.</p><br>
                             <p><b>Q: What are the photograph image requirements to advertise?</b></p>
                             <p>We have a strict policy on what images you can publish. Your images must:</p><br>
-                            <ul>
+                              <ol class="common_list_design">
                                 <li>Be good quality and high resolution</li>
                                 <li>Be your own (of yourself). Other people in the image is acceptable provided you
                                     have their consent
@@ -750,13 +722,13 @@
                                     photographer, but must have a good quality finish
                                 </li>
 
-                            </ul>
+                            </ol>
                             <p>You can publish a montage photo image, like for example your Thumbnail image, provided that each of the images contained
                                 in the montage are compliant with our policy.
                             </p><br>
                             <p>We will not publish any images which:
                             </p>
-                            <ul>
+                              <ol class="common_list_design">
                                 <li>Are low quality (too small, dark, grainy or blurry)</li>
                                 <li>We find on non escort websites, or any photo where we have doubt about the
                                     ownership of the image
@@ -776,11 +748,11 @@
                                     (This information is set out in your Profile)
                                 </li>
                                 <li>Contain magazine covers, publications or video/DVD covers</li>
-                            </ul>
+                            </ol>
                             <p><b>Q: What are the video requirements for inclusion in my Profile?</b></p>
                             <p>We have a strict policy on the content of your video you can publish. Your video must:
                             </p>
-                            <ul>
+                              <ol class="common_list_design">
                                 <li>Be no longer than 30 seconds</li>
                                 <li>Be in either mp4 or wav format. You can not provide a link to your video</li>
                                 <li>Not contain any sexually explicit content or language, like for example,
@@ -789,7 +761,7 @@
                                 <li>Not contain any of your contact details, such as email, telephone or website
                                     address. This information is set out in your Profile
                                 </li>
-                            </ul>
+                            </ol>
                             <p>We recommend your videos are brief and highlight your personality.</p><br>
                              
                         </div>
@@ -808,7 +780,7 @@
                             <p>Yes you certainly can. Logon to your Account and in the Dashboard area you can see
                                 statistics, graphs and results which detail:
                             </p>
-                            <ul>
+                              <ol class="common_list_design">
                                 <li>Clicks on your Profile</li>
                                 <li>Clicks on your phone number</li>
                                 <li>Clicks on each of your photo images</li>
@@ -819,7 +791,7 @@
                                 <li>The number of messages sent to you</li>
                                 <li>Clicks to your social media page/s (if you have provided a link)</li>
                                 <li>And many other helpful analytics</li>
-                            </ul>
+                            </ol>
                             <p>If you use Google Analytics you can also find the number of website visitors by looking
                                 in Acquisition > Campaigns > All Campaigns. We know you will not always know about
                                 all the customers we send, but we have tried our best to give you an idea</p><br>
@@ -851,7 +823,7 @@
                                 Profile. Spend the time to complete your Profile Information, you will find the time is
                                 well spent.</p><br>
                             <p>Here are some good tips for you:</p>
-                            <ul>
+                              <ol class="common_list_design">
                                 <li>Put real photos up, preferably more than one. You can upload up to 6 photos plus
                                     your Thumbnail. Make sure you have had them verified to save time when you post
                                     your Profile
@@ -871,9 +843,9 @@
                                 <li>Include your My Playbox content if you have enable this feature</li>
                                 <li>Include your social media links if you have any</li>
 
-                            </ul>
+                            </ol>
                             <p>Please do not:</p>
-                            <ul>
+                              <ol class="common_list_design">
                                 <li>Post fake listings or fake photos, it will eventually come to our attention and the
                                     Profile will be either suspended or removed
                                 </li>
@@ -887,7 +859,7 @@
                                     for services that you actually provide. Viewers might form a negative view of you
                                     and reflect that view in a Review
                                 </li>
-                            </ul>
+                            </ol>
                             <p><b>Q: Can I have more than one Profile?</b></p>
                             <p>Yes, you absolutely can. If you create more than one Profile for a Location you might want to use a different 
                                 Stage Name for each Profile, perhaps use different Media and set out a different summary about yourself. 
@@ -908,7 +880,7 @@
                             <p>Profiles within each Membership Types are reshuffled every 30 minutes and customised
                                 to each individual Advertiser according to their Profile Information. The search bar in
                                 the Website is very powerful and enables Viewers to search Advertisers by:</p>
-                            <ul>
+                              <ol class="common_list_design">
                                 <li>State / Capital City</li>
                                 <li>Gender</li>
                                 <li>Age</li>
@@ -917,14 +889,14 @@
                                 <li>Playmates</li>
                                 <li>Verified Photos</li>
                                 <li>Much more ...</li>
-                            </ul>
+                            </ol>
                             <p>The search bar also has an advanced feature whereby Viewers can also search by
                                 Service Tag for:</p>
-                            <ul>
+                              <ol class="common_list_design">
                                 <li>Fun stuff on the Viewer</li>
                                 <li>Kinky stuff on the Viewer</li>
                                 <li>Fun stuff on the Advertiser</li>
-                            </ul>
+                            </ol>
                             <p>It is very important that you set your Profile Information for Service Tags accurately so
                                 that a Viewer can undertake a search with confidence.</p><br>
                             <p>By completing your Profile creator and answering all the questions, you enhance your
@@ -948,7 +920,7 @@
                             <p>Media Verification is very important.  Once you upload your Media (photos), you can then have your photos verified.
                                 Simply upload your Verification Image and within 24 hours the Media will be reviewed and the verification status updated.
                                 There are three verification statuses:</p>
-                       <ul>
+                         <ol class="common_list_design">
                             <li>Pending.  This is when you have uploaded your Media but the Media has not been verified.  All Media will display the E4U Pending icon.  
                                You have 48 hours to upload your Verification Image, otherwise your verification status will change to Unverified, and the E4U 
                                   Unverified icon will be displayed on all Media.  This includes any Listed Profiles.</li>
@@ -960,18 +932,18 @@
                            If you do not upload a new Verification Image within 48 hours, the new Media status will change to Unverified, and will have the E4U Unveridied
                            icon displayed on that Media.  You can have a mix of Pending, Unverified and Verified Media appear within a Profile should you select Media and attached
                            to a Profile in between verification.</li>
-                        </ul>
+                        </ol>
                             <p><b>Q: What is not OK?</b></p>
                             <p>If you are an Advertiser and do not follow the Policies, your Account, including any future accounts, will be blocked.</p><br>
                             <p>It is not acceptable for:</p>
-                            <ul>
+                              <ol class="common_list_design">
                                 <li>Underage photos or photos of children to appear in any Profile
                                 </li>
                                 <li>Trafficking, enslavement or anything similar to be promoted</li>
                                 <li>Abuse, violence or oppressive behaviour to be directed towards other Advertisers or Viewers</li>
                                 <li>Online trolling or other defamation to be directed towards other Advertisers or Viewers</li>
 
-                            </ul>
+                            </ol>
                              
                         </div>
                     </div>
@@ -987,14 +959,14 @@
                         <div class="accodien_manage_padding_content">
                             <p class="pt-4"><b>Q: What are these services?</b></p>
                             <p>Escorts4U offers for your convenience a:</p>
-                            <ul>
+                              <ol class="common_list_design">
                                 <li>Mobile SIM service for your mobile phone while in Australia. Unlimited voice and
                                     text for a fixed monthly fee
                                 </li>
                                 <li>Managed Email account. Use your email account to register for all of your
                                     purchases while in Australia
                                 </li>
-                            </ul>
+                            </ol>
                             <p><b>Q: How do I pay for these services?</b></p>
                             <p>Payment, by Card, is required when you request any of these services. You tell us
                                 how long you are here for and payment is charged according to your stay. You can
@@ -1084,21 +1056,21 @@
                             <p><b>Q: What can I do in the NUM register?</b></p>
                             <p>When you register as an Advertiser you automatically gain access to the NUM
                                 register. You can:</p>
-                            <ul>
+                              <ol class="common_list_design">
                                 <li>View Alerts</li>
                                 <li>Make a report</li>
                                 <li>Do a number check</li>
                                 <li>Do an email check</li>
                                 <li>Do a name check (be mindful that the person you are checking may have provided you with a false name)</li>
-                            </ul>
+                            </ol>
                             <p><b>Q: Can I do a Number check?</b></p>
                             <p>Yes. Simply log on and follow these simple steps:</p>
-                            <ul>
+                              <ol class="common_list_design">
                                 <li>Go to the NUM Dashboard</li>
                                 <li>Type in the number you want to check in the search field</li>
                                 <li>As you type the number into the search field, a short list will appear which will narrow down as you type in the number</li>
                                 <li>If there is a report, a summary will appear letting you know if there has been a match or not (this service is subject to the Privacy Act).</li>
-                            </ul>
+                            </ol>
                             <p>As the number checker is new, there are not so many 'ugly numbers' in the database,
                                 so if there is no match this is not to say that the number and person using the number
                                 are safe to meet with.  Always apply caution with who you intend meeting with.</p><br>

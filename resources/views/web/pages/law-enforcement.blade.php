@@ -1,37 +1,5 @@
 @extends('layouts.web')
 @section('style')
-    <style>
-        .loader {
-            border: 16px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 16px solid #3498db;
-            width: 120px;
-            height: 120px;
-            -webkit-animation: spin 2s linear infinite; /* Safari */
-            animation: spin 2s linear infinite;
-        }
-
-        /* Safari */
-        @-webkit-keyframes spin {
-            0% {
-                -webkit-transform: rotate(0deg);
-            }
-            100% {
-                -webkit-transform: rotate(360deg);
-            }
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-         p, ol, ul{
-            text-align: justify
-        }
     </style>
 @endsection
 @section('content')
@@ -72,7 +40,7 @@
                     href="{{ route('pages.terms-conditions')}}" class="termsandconditions_text_color">Terms and
                     Conditions</a>).</p>
             <p>There are some salient points which will assist you in recognising trafficking, namely:</p>
-            <ol>
+              <ol class="common_list_design">
                 <li><p class="mb-0">The Advertiser or Masseur may be accompanied by or contacted through another
                         individual.</p></li>
                 <li><p class="mb-0">An individual other than the Advertiser speaks for or appears to maintain control over
@@ -84,13 +52,13 @@
             </p>
 
             The Advertiser:
-            <ul>
+              <ol class="common_list_design">
                 <li><p class="mb-0">has difficulty communicating, whether resulting from a language barrier or fear of
                         interaction</p></li>
                 <li><p class="mb-0">is hesitant to undertake an 'Out Call'</p></li>
                 <li><p class="mb-0">may ask you to make payment to another person</p></li>
                 <li><p class="mb-0">looks very young, possibly a minor</p></li>
-            </ul>
+            </ol>
 
             <p>Don't hesitate to report trafficking & exploitation. Please report any suspected sexual
                 exploitation of minors or human trafficking to the Australian government. In case of an

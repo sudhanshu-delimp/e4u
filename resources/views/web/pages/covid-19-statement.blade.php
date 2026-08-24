@@ -1,29 +1,5 @@
 @extends('layouts.web')
 @section('style')
-<style>
-    .loader {
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid #3498db;
-    width: 120px;
-    height: 120px;
-    -webkit-animation: spin 2s linear infinite; /* Safari */
-    animation: spin 2s linear infinite;
-    }
-    /* Safari */
-    @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-    }
-    @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-    }
-    
-        p, ol, ul{
-            text-align: justify
-        }
-</style>
 @endsection
 @section('content')
 
@@ -50,7 +26,7 @@
      <p class="">Subject to the <a href="{{ route('pages.terms-conditions')}}" class="termsandconditions_text_color">Terms and Conditions</a>, by using the Services, Users accept the following
      conditions in relation to the Covid-19 Regulations:</p>
 
-     <ul>
+       <ol>
         <li><p class="mb-0">Responsibility</p></li>
         <p>Escorts4U accepts no responsibility for the completeness or accuracy of any
             information on its Website or social media platforms in relation to the Covid-19
@@ -68,20 +44,11 @@
      <li><p class="mb-0">Risk</p></li>
      <p>To the maximum extent permitted by law you assume all risks and responsibilities
          associated with:</p>
-         <ul>
+         <ul class="level-2">
              <li><p class="mb-0">any meeting or association you engage in with a User; and</p></li>
              <li><p class="mb-0">compliance with the Covid-19 Regulations</p></li>
          </ul>
-     </ul>
-
-
-          <!--  <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-           <p class="text_decoration_for_a">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any
-              revision will take effect upon its posting. It is your responsibility to check the <a href="{{ route('pages.terms-conditions')}}" class="termsandconditions_text_color">Terms and Conditions</a> and this Policy from time to time to
-              review the most current version.
-           </p>
-           <p>Escorts4U archives all previous versions of this Policy.</p>
-           <p><b>This policy was last updated 01-12-18</b></p> -->
+     </ol>
 
       <div class="container mt-4 px-0 chagneto-policy">
       <hr class="custom_hr">
@@ -97,36 +64,5 @@
 
 @endsection
 @push('scripts')
-<script>
-    var skipSliderage = document.getElementById("skipstepage");
-    var skipValuesage = [
-    document.getElementById("skip-value-lower-age"),
-    document.getElementById("skip-value-upper-age")
-    ];
-
-    noUiSlider.create(skipSliderage, {
-    start: [0, 30],
-    connect: true,
-    behaviour: "drag",
-    step: 1,
-    range: {
-       min: 18,
-       max: 60
-    },
-    format: {
-       from: function (value) {
-          return parseInt(value);
-       },
-       to: function (value) {
-          return parseInt(value);
-       }
-    }
-    });
-
-    skipSliderage.noUiSlider.on("update", function (values, handle) {
-    skipValuesage[handle].innerHTML = values[handle];
-    });
-
-</script>
 
 @endpush

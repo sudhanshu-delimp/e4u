@@ -69,7 +69,7 @@
             </p>
             <h2 class="primery_color normal_heading">The benefits to you</h2>
             <p>By developing this policy, all Users are delivered a range of benefits, which include:</p>
-            <ol class="e4u-verify-list">
+              <ol class="common_list_design">
                 <li> <i>Enhanced Transparency and Trust.</i> E4U Verified lets you know that when you look at
                     any Advertiser's Media that displays an E4U Verified icon, the Advertiser has submitted
                     that Media and passed the verification process. You can rely on the Media's

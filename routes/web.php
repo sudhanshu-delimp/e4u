@@ -848,6 +848,9 @@ Route::get('get_country_by_user_id/{user_id}', [App\Http\Controllers\CountryCont
 
 ################### Massage Centre Profile Page Url ###############
 Route::get('massage-centres-list', [MassageCentre::class, 'massageList'])->name('find.massage.centre');
+
+Route::get('find_massage_centres/{country?}/{state?}/{city?}/{member_id?}', [MassageCentre::class, 'massageList'])->name('find.massage.centres');
+
 Route::get('mc-ajax-list', [MassageCentre::class, 'mcAjaxList'])->name('mc-ajax-list');
 Route::get('massage-description/{id}', [MassageCentre::class, 'massage_description'])->where('id', '[0-9]+')->name('web.massage-description');
 Route::get('massage-profile/{profile}', [MassageCentre::class, 'massageProfile'])->name('web.massage-profile');

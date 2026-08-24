@@ -1,25 +1,5 @@
 @extends('layouts.web')
 @section('style')
-<style>
-    .loader {
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid #3498db;
-    width: 120px;
-    height: 120px;
-    -webkit-animation: spin 2s linear infinite; /* Safari */
-    animation: spin 2s linear infinite;
-    }
-    /* Safari */
-    @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-    }
-    @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-    }
-</style>
 @endsection
 @section('content')
 
@@ -47,7 +27,7 @@
                  <p>
                      We use the following cookies:
                  </p>
-                 <ul>
+                   <ol class="common_list_design">
                      <li>
                          Strictly necessary cookies. These cookies are essential to enable you to move around
                          our Website and use all of the features. Without these cookies, some of the Services
@@ -64,7 +44,7 @@
                          the Website. This enables us to personalise our content for you, greet you by name
                          and remember your preferences (for example, your choice of language or region).
                      </li>
-                 </ul>
+                 </ol>
                  <p>
                      If you are a registered User of this Website, Cookie management is available to you from within My Account.
                  </p>
