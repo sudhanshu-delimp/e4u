@@ -1029,11 +1029,11 @@ class WebController extends Controller
             $q->where('status', 'published');
         }, 'reviews.user'])->first();
 
-        if(!$escort){
-           return redirect(route('public.web.escort.listing'));
+        if (!$escort) {
+            return redirect(route('public.web.escort.listing'));
         }
-        if(!empty($escort->slug)) {
-         return redirect('/escort-profile/'.$escort->slug);
+        if (!empty($escort->slug)) {
+            return redirect('/escort-profile/' . $escort->slug);
         }
 
         if (Auth::user() && auth()->user()->type == 0 &&  $escort) {
@@ -1043,7 +1043,7 @@ class WebController extends Controller
             }
         }
 
-        
+
 
 
         $media = $this->escortMedia->get_videos($escort->user_id);
@@ -1073,7 +1073,7 @@ class WebController extends Controller
                 'view_type' => request()->get('view_type'),
             ];
         }
-        
+
 
         if (isset($filterEscortsParams['limit'])) {
             $limit = $filterEscortsParams['limit'];
@@ -1251,40 +1251,81 @@ class WebController extends Controller
         }
         return view('web.description', compact('categoryOneServices', 'categoryTwoServices', 'categoryThreeServices', 'path', 'media', 'escortLike', 'lp', 'dp', 'user_type', 'next', 'previous', 'escort', 'availability', 'backToSearchButton', 'user', 'viewType', 'reviews', 'spamReportAdvertiser'));
     }
-    
+
 
     public function profileDescriptionBySlug(Request $request, $country = "", $state = "", $city = "", $gender = "", $memberId = "", $profile = "")
     {
         $previousUrl = url()->previous();
         $path = parse_url($previousUrl, PHP_URL_PATH);
         $previousSlug = trim($path, '/');
-      
-        $id = null;
-        $city = null; 
-        $membershipId = null; 
-        $viewType = 'grid';
-        $gender = null;
-        $profile = !empty($profile) ? $profile : $country;
 
-         $escort = Escort::where('slug', $profile)->first();
-         //echo getEscortMassageDetailUrl($escort);die;
-     
-          if(!$escort){
-             return redirect(route('public.web.escort.listing'));
-          } else {
-           $id = $escort->id;
-           $city = $escort->city_id;
-           $membershipId = $escort->membership;
-           $gender =  $escort->gender_type;
-          }
+
+        $membershipId = null;
+        $viewType = 'grid';
+
+        $country = trim($country);
+        $state = trim($state);
+        $city = trim($city);
+        $profile = trim($profile);
+        $memberId = trim($memberId);
+        $gender = trim($gender);
+        $isproceed = false;
+
+        $countryId = "";
+        $stateId = "";
+        $cityId = "";
+        $genderId = "";
+        $escort = null;
+
+        if (!empty($country) && empty($state) && empty($city) && empty($gender) && empty($memberId) && empty($profile)) {
+            $profile = $country;
+            $escort = Escort::where('slug', $profile)->first();
+        } else if (isset($country, $state, $city, $gender, $memberId, $profile) && $country !== '' && $state !== '' && $city !== '' && $gender !== '' && $profile !== '') {
+
+            $countryArr = findCountryByName($country);
+            $countryId = ($countryArr) ? $countryArr['id'] : "";
+            $cityStateId = getStateCityIds($state, $city);
+
+            if ($cityStateId) {
+                $stateId = $cityStateId['state_id'];
+                $cityId = $cityStateId['city_id'];
+            }
+
+            $genderId =  getGenderId($gender);
+            $escort = Escort::with('user', 'state')
+                ->where('slug', $profile)
+                ->where('state_id', $stateId)
+                ->where('city_id', $cityId)
+                ->where('gender', $genderId)
+                ->whereHas('user', function ($query) use ($memberId) {
+                    $query->where('member_id', $memberId);
+                })
+                ->whereHas('state', function ($query) use ($countryId) {
+                    $query->where('country_id', $countryId);
+                })
+                ->first();
+        }
+
+        $id = null;
+        $city = null;
+        $gender = null;
+
+        if (!$escort) {
+            return redirect(route('public.web.escort.listing'));
+        } else {
+            $id = $escort->id;
+            $city = $escort->city_id;
+            $membershipId = $escort->membership;
+            $gender =  $escort->gender_type;
+        }
 
 
         $escort = Escort::where('id', $id)->with(['reviews' => function ($q) {
             $q->where('status', 'published');
         }, 'reviews.user'])->first();
 
-        if(!$escort){
-           return redirect(route('public.web.escort.listing'));
+        if (!$escort) {
+            return redirect(route('public.web.escort.listing'));
         }
 
         if (Auth::user() && auth()->user()->type == 0 &&  $escort) {
@@ -1311,7 +1352,7 @@ class WebController extends Controller
             $filterEscortsParams  = [
                 'string' => request()->get('name'),
                 'city_id' => request()->get('city'),
-                'gender' => request()->get('gender')?? $gender,
+                'gender' => request()->get('gender') ?? $gender,
                 'age' => request()->get('age'),
                 'price' => request()->get('price'),
                 'duration_price' => request()->get('duration_price'),
@@ -1361,7 +1402,7 @@ class WebController extends Controller
         $next = $previous = null;
         $ecortBaseSlug = config("constants.escort_list_base_slug");
         if (str_contains($previousSlug, 'escort-profile') || str_contains($previousSlug, $ecortBaseSlug)) {
-        list($next, $previous) = $this->escort->getlinks($id, $city, $membershipId, $filterEscorts);
+            list($next, $previous) = $this->escort->getlinks($id, $city, $membershipId, $filterEscorts);
         }
         $availability = $escort ? $escort->availability : null;
 
@@ -1373,7 +1414,7 @@ class WebController extends Controller
 
             $backToSearchButton = preg_replace('/view_type=(grid|list)/', 'view_type=list', $backToSearchButton);
         } else {
-           // $viewType = 'grid';
+            // $viewType = 'grid';
             //$next = $next . '?' . $viewType;
             //$previous = $previous . '?' . $viewType;
 

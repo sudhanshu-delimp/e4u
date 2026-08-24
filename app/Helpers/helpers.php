@@ -2847,15 +2847,36 @@ if (!function_exists('getCityNameByStateId')) {
 
     function getCityNameByStateId($stateId)
     {
+        $cityName = "";
         $states = config('escorts.profile.states', []);
         $stateArr = isset($states[$stateId]) ? $states[$stateId] : [];
-        
-         foreach ($stateArr['cities'] as $city) {
-           $cityName = strtolower($city['cityName']);
-           if(!empty($cityName)) {
-                continue;
-           }
-         }
+        if (isset($stateArr['cities'])) {
+            foreach ($stateArr['cities'] as $city) {
+                $cityName = strtolower($city['cityName']);
+                if (!empty($cityName)) {
+                    continue;
+                }
+            }
+        }
         return $cityName;
+    }
+}
+
+if (!function_exists('findCountryByName')) {
+    function findCountryByName(string $countryName): ?array
+    {
+        $countries = config('operator.country');
+
+        foreach ($countries as $id => $country) {
+            if (strcasecmp($country['name'], $countryName) === 0) {
+                return [
+                    'id'   => $id,
+                    'name' => $country['name'],
+                    'iso2' => $country['iso2'],
+                ];
+            }
+        }
+
+        return null;
     }
 }

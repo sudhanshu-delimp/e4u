@@ -389,7 +389,7 @@ margin-right: 5px;
                             <div class="col-sm-12 d-flex align-items-center justify-content-between gap-10 flex-wrap">
                                 <div class="d-flex align-items-center justify-content-center gap-10">
                                     <div class="mc_tooltip_wrap">
-                                        <img src="../assets/dashboard/img/massage-only.png" alt="Massage">
+                                        <img src="{{ asset('assets/dashboard/img/massage-only.png') }}" alt="Massage">
                                         <p class="mc_rate_tooltip">Massage only</p> 
                                     </div>
                                     <div class="div_contain_text">
@@ -403,7 +403,7 @@ margin-right: 5px;
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center gap-10">
                                     <div class="mc_tooltip_wrap">
-                                    <img src="../assets/dashboard/img/massage-with2.png" alt="Masseur">
+                                    <img src="{{ asset('assets/dashboard/img/massage-with2.png') }}" alt="Masseur">
                                      <p class="mc_rate_tooltip">Massage with extras +2 hands.</p> 
                                     </div>    
                                     <div class="div_contain_text">
@@ -417,7 +417,7 @@ margin-right: 5px;
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center gap-10">
                                     <div class="mc_tooltip_wrap">
-                                    <img src="../assets/dashboard/img/massage-with4.png" alt="2+ Masseurs">
+                                    <img src="{{ asset('assets/dashboard/img/massage-with4.png')}}" alt="2+ Masseurs">
                                     <p class="mc_rate_tooltip">Massage with extras +4 hands.</p>   
                                     </div>
                                     <div class="div_contain_text">
