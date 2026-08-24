@@ -142,7 +142,7 @@
                 processing: false,
                 serverSide: false,
                 pageLength: {{$datatable_entries }},
-                lengthMenu: [10, 25, 50, 75, 100],
+                lengthMenu: [{{ config('app.paginate_range') }}],   
                 ordering: true,
                 columnDefs: [{
                         targets: 5,

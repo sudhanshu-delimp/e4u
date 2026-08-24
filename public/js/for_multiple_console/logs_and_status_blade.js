@@ -19,10 +19,8 @@ $('#passwordExpiry').on('submit', function (e) {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (data) {
-              //  console.log(data.message, 'data');
                 if (data.status === true) {
-                    //swal_success_popup(data.message);
-                    showGlobalAlert(data.message, "success");
+                    showAlert('success', 'Success',data.message);
                     $("#resetPasswordDate").modal('hide');
                     $('#passwordExpiryText').html(data.data.text);
                 }
@@ -39,7 +37,7 @@ $('#passwordExpiry').on('submit', function (e) {
                         if (res.message) {
                             errorMsg = res.message;
                         }
-                        swal_error_popup(errorMsg);
+                         showAlert('error', 'Error',errorMsg);
                     } catch (e) {
                         // Not JSON, keep the generic message
                     }
@@ -49,17 +47,3 @@ $('#passwordExpiry').on('submit', function (e) {
         });
     }
 });
-
-
-
-function showGlobalAlert(message, type = 'success') {
-    const alertBox = $('#globalAlert');
-    alertBox
-        .removeClass('d-none alert-success alert-danger')
-        .addClass(type === 'success' ? 'alert-success' : 'alert-danger')
-        .html(message);
-
-    setTimeout(() => {
-        alertBox.addClass('d-none');
-    }, 4000); // hide after 4 seconds
-}

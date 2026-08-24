@@ -56,20 +56,7 @@ $twitter_link = "https://x.com/NMugs32853";
             </div>
         @endif
 
-        {{--  <a 
-         href="{{ route('web.massage-description', [
-                'id' => $listing->id,
-                'ids' => json_encode($ids)
-            ]) }}" 
-         class="mc_card_link"> --}}
-           <a 
-         href="{{ route('web.massage-profile', [
-                'profile' => $listing->slug,
-               // 'ids' => json_encode($ids)
-            ]) }}" 
-         class="mc_card_link">
-             <img src="{{ $massage_thumb }}" alt="">
-         </a>
+        <a href="{{ getEscortMassageDetailUrl($listing, 'massage')}}" class="mc_card_link"> <img src="{{ $massage_thumb }}" alt=""></a>
          <span class="verify_icon">
             @php 
                 $media_verification_status =  get_profile_verification_status($listing->id);
@@ -209,21 +196,10 @@ $twitter_link = "https://x.com/NMugs32853";
                  <strong>About Us</strong><br>
 
                  <p class="mc_list_desc">
+                {{ Str::limit(strip_tags($listing->about_us_box), 140) }}
 
-                
-                     {{ Str::limit(strip_tags($listing->about_us_box), 140) }}
-
-                     <a 
-                     href="{{ route('web.massage-profile', [
-                        'profile' => $listing->slug,
-                    ]) }}"
-                     
-                     class="read-more-link">Read More</a>
+                <a href="{{ getEscortMassageDetailUrl($listing, 'massage') }}" class="read-more-link">Read More</a>
                  </p>
-
-
-                   
-
              </div>
          </div>
          <div class="social_media_icons w-100">

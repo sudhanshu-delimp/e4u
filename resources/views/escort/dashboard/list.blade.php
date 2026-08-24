@@ -712,7 +712,7 @@
                 ],
                 order: [8, 'asc'],
                 pageLength: {{$datatable_entries }},
-                lengthMenu: [10, 25, 50, 75, 100],
+                lengthMenu: [{{ config('app.paginate_range') }}],  
             });
             //    $('#sailorTable_filter label').append('<i class="fa fa-search "></i>');
 

@@ -48,7 +48,9 @@ use App\Services\WalletService;
 use App\Services\EscortListingFeatureService;
 use App\Services\PinPaymentService;
 use App\Mail\PaymentMailer;
+use App\Mail\Escort\Listing\CancelMailer;
 use Illuminate\Support\Facades\Mail;
+
 
 class EscortController extends BaseController
 {
@@ -1080,6 +1082,8 @@ class EscortController extends BaseController
                 'utc_end_time' => null,
                 'purchase_id' => null
             ]);
+
+            Mail::to($this->account->email)->send(new CancelMailer(compact('result')));
 
             return response()->json([
                 'success' => true,

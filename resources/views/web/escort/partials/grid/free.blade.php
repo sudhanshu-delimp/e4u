@@ -55,7 +55,7 @@
    {{--  <a class="card short-card card_box_style mb-0"
         href="{{ route('profile.description', [$escort->id, $escort->city_id, $escort->membership]) }}?brb={{ isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : '' }}"> --}}
          <a class="card short-card card_box_style mb-0"
-        href="{{ route('escort.profile.detail', $escort->slug) }}">
+        href="{{ getEscortMassageDetailUrl($escort) }}">
         <div class="card2 card_box_style1">
             @if ($escort->latestActiveBrb)
                 <div class="brb--content">

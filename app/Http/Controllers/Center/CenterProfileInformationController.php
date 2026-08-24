@@ -743,6 +743,7 @@ class CenterProfileInformationController extends BaseController
 
                 'idle_preference_time' => $request->idle_preference_time,
                 'twofa' => $request->twofa,
+                'datatable_entries' => $request->entries,
 
         ];
 

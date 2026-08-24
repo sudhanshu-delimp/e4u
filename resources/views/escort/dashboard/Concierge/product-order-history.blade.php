@@ -113,15 +113,14 @@
         @include('escort.dashboard.Concierge.modal.view_order_history_modal')
     @endsection
     @push('script')
-
-
+        <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
         <script>
             $(document).ready(function() {
                 var table = $("#productsHistoryTable").DataTable({
                     processing: true,
                     serverSide: true,
                     pageLength: {{$datatable_entries }},
-                    lengthMenu: [10, 25, 50, 75, 100],
+                    lengthMenu: [{{ config('app.paginate_range') }}],   
                     ajax: {
                         url: "{{ auth()->user()->type == 4 ? route('center.order.list') : route('escort.order.list') }}",
                         type: 'GET'

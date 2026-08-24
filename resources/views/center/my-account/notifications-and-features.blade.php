@@ -355,6 +355,14 @@
                                                         {{ old('twofa', $setting->twofa ?? null) == 2 ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="auth_text">Text</label>
                                                 </div>
+
+                                                 <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="twofa"
+                                                        id="auth_text3" value="3"
+                                                        {{ old('twofa', $setting->twofa ?? null) == 3 ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="auth_text3">Both</label>
+                                                </div>
+
                                             </div>
 
 
@@ -365,7 +373,7 @@
                                         </div>
                                         
                                         {{-- Show Entries --}}
-                                        <div class="form-group common-card disabled-link">
+                                        <div class="form-group common-card">
                                                 <div class="card-top">
                                                     <div class="card-icon">
                                                     <svg viewBox="0 0 24 24" fill="none">
@@ -407,11 +415,16 @@
                                                         Your default setting is:
                                                     </span>
 
+                                                   @php
+                                                        $datatableEntries = $setting->datatable_entries ?? 25;
+                                                    @endphp
+
                                                     <select class="entries-select" name="entries">
-                                                        <option value="25" selected>25</option>
-                                                        <option value="50">50</option>
-                                                        <option value="75">75</option>
-                                                        <option value="100">100</option>
+                                                        <option value="10" {{ $datatableEntries == 10 ? 'selected' : '' }}>10</option>
+                                                        <option value="25" {{ $datatableEntries == 25 ? 'selected' : '' }}>25</option>
+                                                        <option value="50" {{ $datatableEntries == 50 ? 'selected' : '' }}>50</option>
+                                                        <option value="75" {{ $datatableEntries == 75 ? 'selected' : '' }}>75</option>
+                                                        <option value="100" {{ $datatableEntries == 100 ? 'selected' : '' }}>100</option>
                                                     </select>
 
                                                 </div> 
@@ -460,9 +473,6 @@
                 }
             });
 
-            //  swal_waiting_popup({'title':'Updating Settings'});
-            // $('#globalAlert').show();
-
             $.ajax({
                 url: $(this).attr('action'),
                 type: "POST",
@@ -470,27 +480,10 @@
                 contentType: false,
                 processData: false,
                 success: function(response) {
-                    Swal.close();
-                    //swal_success_popup(response.message);
-                    Swal.close();
-                    $('#globalAlert').html(
-                        `<div id="commanAlert" class="alert rounded alert-success" >${response.message}</div>`
-                    );
-                    //  setTimeout(function() {
-                    //     $('#globalAlert').hide();
-                    //   }, 3000);
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                    setTimeout(function() {
-                        location.reload();
-                    }, 3000);
+                   showAlert('success', 'Success', response.message);
                 },
                 error: function(xhr) {
-                    console.log(xhr.responseJSON);
-                    swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
-                    // alert("Something went wrong!");
+                    showAlert('error', 'Error', xhr.responseJSON.message || 'Something went wrong');
                 }
             });
         });

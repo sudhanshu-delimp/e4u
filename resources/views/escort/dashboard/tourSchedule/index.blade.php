@@ -94,7 +94,7 @@
             serverSide: true,
             processing: true,
             pageLength: {{$datatable_entries }},
-            lengthMenu: [10, 25, 50, 75, 100],
+            lengthMenu: [{{ config('app.paginate_range') }}],   
             "language": {
                 "zeroRecords": "There is no record of the search criteria you entered.",
                 searchPlaceholder: "Search by ID or Profile Name"

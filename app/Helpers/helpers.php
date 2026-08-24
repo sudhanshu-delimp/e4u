@@ -2017,9 +2017,9 @@ if (!function_exists('getRefundAmountForCancelProfile')) {
             'massage_profile_id',
             $purchase->massage_profile_id
         )
-        ->where('is_archived', '0')
-        ->get(['start_date', 'end_date']);
-        
+            ->where('is_archived', '0')
+            ->get(['start_date', 'end_date']);
+
 
 
         $refundAmount = 0;
@@ -2038,15 +2038,15 @@ if (!function_exists('getRefundAmountForCancelProfile')) {
                 'massage_profile_id',
                 $purchase->massage_profile_id
             )
-            ->where('is_archived', '0')
-            ->whereDate('start_date', '<=', $currentDate)
-            ->whereDate('end_date', '>=', $currentDate)
-            ->exists();
+                ->where('is_archived', '0')
+                ->whereDate('start_date', '<=', $currentDate)
+                ->whereDate('end_date', '>=', $currentDate)
+                ->exists();
 
             // Log::info('currentDate => ' . $currentDate->format('Y-m-d'));
             // Log::info('alreadyRefunded => ' . ($alreadyRefunded ? '1' : '0'));
 
-           
+
             if ($alreadyRefunded) {
                 continue;
             }
@@ -2751,6 +2751,132 @@ if (!function_exists('getGenderId')) {
             return false;
         }
         $getGenderId = config('escorts.gender');
-        return array_search(strtolower($gender), array_map('strtolower', $getGenderId), true);
+        return array_search(strtolower($gender), array_map('strtolower', str_replace(' ', '_', $getGenderId)), true);
+    }
+}
+
+if (!function_exists('getStateCityIds')) {
+    function getStateCityIds($stateAbbr, $cityName = null)
+    {
+        $states = config('escorts.profile.states');
+
+        foreach ($states as $stateId => $state) {
+            if (strcasecmp($state['stateAbbr'], $stateAbbr) !== 0) {
+                continue;
+            }
+
+            //Match city name
+
+            foreach ($state['cities'] as $cityId => $city) {
+                if ($cityName) {
+                    if (strcasecmp($city['cityName'], $cityName) === 0) {
+                        return [
+                            'state_id' => (int) $stateId,
+                            'city_id' => (int) $cityId,
+                        ];
+                    }
+                } else {
+                    return [
+                        'state_id' => (int) $stateId,
+                        'city_id' => (int) $cityId,
+                    ];
+                }
+            }
+        }
+    }
+}
+
+if (!function_exists('getEscortMassageDetailUrl')) {
+    function getEscortMassageDetailUrl($modelObject, $type = "escort")
+    {
+        $url = "javascript:void(0)";
+        $states = config('escorts.profile.states');
+        try {
+            if ($type == "escort") {
+                if ($modelObject) {
+                    $stateArr = isset($states[$modelObject->state_id]) ? $states[$modelObject->state_id] : [];
+                    $stateName = isset($stateArr['stateAbbr']) ? strtolower($stateArr['stateAbbr']) : " ";
+                    $cityName = isset($stateArr['cities'][$modelObject->city_id]['cityName']) ? strtolower($stateArr['cities'][$modelObject->city_id]['cityName']) : " ";
+                    $genderName = isset($modelObject->gender) ? strtolower($modelObject->gender) : " ";
+
+                    $url = route('escort.profile.detail.new', [
+                        'county' => isset($modelObject->state->country->name) ?  strtolower($modelObject->state->country->name) : 'australia',
+                        'state' => $stateName,
+                        'city' => $cityName,
+                        'gender' => $genderName,
+                        'member_id' => $modelObject->user->member_id,
+                        'profile' => $modelObject->slug,
+                    ]);
+                }
+            } else {
+                if ($modelObject) {
+                    $stateName = isset($states[$modelObject->user->state_id]) ? strtolower($states[$modelObject->user->state_id]['stateAbbr']) : " ";
+                    $url = route('web.massage-profile.new', [
+                        'county' => isset($modelObject->user->state->country->name) ?  strtolower($modelObject->user->state->country->name) : 'australia',
+                        'state' => $stateName,
+                        'city' => getCityNameByStateId($modelObject->user->state_id),
+                        'member_id' => $modelObject->user->member_id,
+                        'profile' => $modelObject->slug,
+                    ]);
+                }
+            }
+        } catch (\Exception $e) {
+            //
+        }
+
+        return $url;
+    }
+}
+if (!function_exists('getStateAbbrByCityName')) {
+    function getStateAbbrByCityName($cityName)
+    {
+        $states = config('escorts.profile.states', []);
+        foreach ($states as $state) {
+            foreach ($state['cities'] ?? [] as $city) {
+                if (strtolower($city['cityName']) == strtolower($cityName)) {
+                    return strtolower($state['stateAbbr']);
+                }
+            }
+        }
+
+        return null;
+    }
+}
+
+if (!function_exists('getCityNameByStateId')) {
+
+    function getCityNameByStateId($stateId)
+    {
+        $cityName = "";
+        $states = config('escorts.profile.states', []);
+        $stateArr = isset($states[$stateId]) ? $states[$stateId] : [];
+        if (isset($stateArr['cities'])) {
+            foreach ($stateArr['cities'] as $city) {
+                $cityName = strtolower($city['cityName']);
+                if (!empty($cityName)) {
+                    continue;
+                }
+            }
+        }
+        return $cityName;
+    }
+}
+
+if (!function_exists('findCountryByName')) {
+    function findCountryByName(string $countryName): ?array
+    {
+        $countries = config('operator.country');
+
+        foreach ($countries as $id => $country) {
+            if (strcasecmp($country['name'], $countryName) === 0) {
+                return [
+                    'id'   => $id,
+                    'name' => $country['name'],
+                    'iso2' => $country['iso2'],
+                ];
+            }
+        }
+
+        return null;
     }
 }

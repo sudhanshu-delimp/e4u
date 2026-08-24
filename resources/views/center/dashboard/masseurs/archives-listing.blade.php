@@ -202,14 +202,14 @@ function showCheckboxes() {
    
 
 var table = $("#masseurs_list").DataTable({
-    info: true,
-    paging: true,
-    lengthChange: true,
-    searching: true,
-    bStateSave: true,
-    order: [[1, 'desc']],
-    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-    pageLength: 10,    
+      info: true,
+      paging: true,
+      lengthChange: true,
+      searching: true,
+      bStateSave: false,
+      order: [[1, 'desc']],
+      pageLength: {{$datatable_entries }},
+      lengthMenu: [{{ config('app.paginate_range') }}],    
 
     ajax: {
         url: "{{ route('center.all-masseur-list') }}",

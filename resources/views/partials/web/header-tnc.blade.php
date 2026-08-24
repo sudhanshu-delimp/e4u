@@ -16,7 +16,7 @@
 
 
     <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    {{-- <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.7') }}" rel="stylesheet"> --}}
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.7') }}" rel="stylesheet">
     <link href="{{ asset('assets/app/css/responsive-style.css?v1.1') }}" rel="stylesheet">
     <!-- jquery ui cdn -->
 

@@ -737,8 +737,6 @@ class MasseurController extends AppController
     
     public function masseur_list(Request $request)
     {
-
-        
         return view('center.dashboard.masseurs.archives-listing');
     }
 

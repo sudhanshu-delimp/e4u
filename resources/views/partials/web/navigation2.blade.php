@@ -24,11 +24,11 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Find Escorts</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('public.web.escort.listing',['country_or_gender'=> 'female']) }}"><img src="{{asset('assets/app/img/woman-avatar.svg')}}">Female</a>
-                        <a class="dropdown-item" href="{{ route('public.web.escort.listing',['country_or_gender'=> 'male']) }}"><img src="{{asset('assets/app/img/male-user.svg')}}">Male</a>
-                        <a class="dropdown-item saptate_by_border" href="{{ route('public.web.escort.listing',['country_or_gender'=> 'couples']) }}"><img src="{{asset('assets/app/img/couple.svg')}}">Couples</a>
-                        <a class="dropdown-item" href="{{ route('public.web.escort.listing',['country_or_gender'=> 'transgender']) }}"><img src="{{asset('assets/app/img/Vector.svg')}}">Transgender</a>
-                        <a class="dropdown-item" href="{{ route('public.web.escort.listing',['country_or_gender'=> 'cross dresser']) }}"><img src="{{asset('assets/app/img/male-user.svg')}}">Cross Dresser</a>
+                        <a class="dropdown-item" href="{{ route('public.web.escort.listing',['country' => 'australia','gender_or_state'=> 'female']) }}"><img src="{{asset('assets/app/img/woman-avatar.svg')}}">Female</a>
+                        <a class="dropdown-item" href="{{ route('public.web.escort.listing',['country' => 'australia','gender_or_state'=> 'male']) }}"><img src="{{asset('assets/app/img/male-user.svg')}}">Male</a>
+                        <a class="dropdown-item saptate_by_border" href="{{ route('public.web.escort.listing',['country' => 'australia','gender_or_state'=> 'couples']) }}"><img src="{{asset('assets/app/img/couple.svg')}}">Couples</a>
+                        <a class="dropdown-item" href="{{ route('public.web.escort.listing',['country' => 'australia','gender_or_state'=> 'transgender']) }}"><img src="{{asset('assets/app/img/Vector.svg')}}">Transgender</a>
+                        <a class="dropdown-item" href="{{ route('public.web.escort.listing',['country' => 'australia','gender_or_state'=> 'cross_dresser']) }}"><img src="{{asset('assets/app/img/male-user.svg')}}">Cross Dresser</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">

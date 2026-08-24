@@ -2714,6 +2714,26 @@ ol {
     list-style-type: disc;
 }
 
+div.content_align {
+    padding-left: 50px;
+}
+
+.content_details>p {
+    padding-left: 50px;
+}
+
+.content_align ol.pl-1 {
+    padding-left: 0px !important;
+}
+
+.content_align ol.pl-1 li {
+    padding-left: 0px !important;
+}
+
+.content_align p {
+    padding-left: 0px;
+}
+
 .content_align {
     display: flex;
     align-items: baseline;

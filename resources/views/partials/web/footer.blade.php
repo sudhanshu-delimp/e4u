@@ -85,20 +85,14 @@
             @endphp
             <!-- Location - AUS -->
             <div class="col-md-6 col-lg-2">
-
                 <h5 class="footer-title">Location - AUS</h5>
-
                 <div class="footer-links location-grid">
-
                     @foreach (config('escorts.profile.cities') as $key => $city)
                     @php
-                    $query = request()->query();
-                    $query['city'] = $key;
-                    $query['gender'] = '';
+                     $stateAbbr = getStateAbbrByCityName(strtolower($city));
                     @endphp
-
                     <li>
-                        <a href="{{ route('public.web.escort.listing', ['country_or_gender' => 'australia','city' => strtolower($city)]) }}"
+                        <a href="{{ route('public.web.escort.listing', ['country' => 'australia', 'gender_or_state' => $stateAbbr, 'city' => strtolower($city)]) }}"
                         class="footer_view_type_one" id="{{ $key }}">{{ $city }}</a></li>
                     @endforeach
                 </div>
