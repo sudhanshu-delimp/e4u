@@ -36,7 +36,7 @@
                             <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$result->main_purchase->escort->user->name ?? ''}},</p>
 
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
-                                Your listing has been successfully cancelled.
+                                Your Listing has been successfully cancelled.
                             </p>
                             <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Cancellation Details:</b></p>
                             <table>
@@ -50,7 +50,7 @@
                                 </tr>
                             </table>
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
-                                As a result of the cancellation, the applicable credit amount has been added to your account.
+                                Pursuant to your cancellation, your Wallet has been credited {{ formatCurrency($result->net_credit_amount) }} for future use.
                             </p>
                             <!-- email info -->
                             <x-email-info />
