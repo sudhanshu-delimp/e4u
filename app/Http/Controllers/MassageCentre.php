@@ -130,9 +130,13 @@ class MassageCentre extends Controller
 
     public function mcAjaxList(Request $request)
     {
-       // dd($request->all());
+       //dd($request->all()); //M20189
+
+      
         $per_page = 2;
         $logedInUpser = auth()->user();
+        $memberId = $request->input('filter_by_feild.massage_id', []);
+   
 
 
         # Not show specific profile to viewer if specific viewer is blocked by Massage
@@ -146,8 +150,12 @@ class MassageCentre extends Controller
 
 
         $massage_live_ids = MassagePurchase::where('status', 'listed')
-            ->whereHas('user', function ($q) {
-                $q->where('status', 1);
+            ->whereHas('user', function ($q) use($memberId) {
+                $q->where('status', 1)
+                    ->when(!empty($memberId), function($q) use ($memberId){
+                          $q->where('member_id', $memberId);
+                    });
+            
             })
             ->whereNotIn('massage_profile_id', $blockedProfileForViewersIds)
             ->whereDoesntHave('activeSuspendProfile')
@@ -198,6 +206,7 @@ class MassageCentre extends Controller
 
                     if ($location == 'your_location' &&  $set_lat != "" &&  $set_lng != "") {
                         $userLocation = $this->getRealTimeGeolocationOfUsers($set_lat, $set_lng);
+                        dd($userLocation);
                         $lat_state = $userLocation['state'];
                         $lng_city = $userLocation['city'];
 
