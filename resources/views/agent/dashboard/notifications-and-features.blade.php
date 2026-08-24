@@ -380,7 +380,7 @@
 
                                     </div>
                                     <div class="common-footer">
-                                        <input type="submit" value="save" class="common-save-btn" name="submit">
+                                        <input type="submit" value="Save" class="common-save-btn" name="submit">
                                     </div>
                                 </div>
                                 @csrf

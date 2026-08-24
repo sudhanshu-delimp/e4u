@@ -1,33 +1,7 @@
 @extends('layouts.web')
 @section('style')
-<style>
-    .loader {
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid #3498db;
-    width: 120px;
-    height: 120px;
-    -webkit-animation: spin 2s linear infinite; /* Safari */
-    animation: spin 2s linear infinite;
-    }
-    /* Safari */
-    @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-    }
-    @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-    }
-</style>
 @endsection
 @section('content')
-
-
-
-
-
-
 <section class="padding_top_eight_px padding_bottom_eight_px">
    <div class="container reg_info text-justify">
     <h1 class="home_heading_first margin_btm_twenty_px page-title">What is a Massage Centre</h1>
@@ -49,14 +23,14 @@
     <p>
         A Centre Profile enables you to post a:
     </p>
-    <ul>
+      <ol class="common_list_design">
         <li>Summary of the key points about your business including your address</li>
         <li>Description of your Massage Centre by way of commentary setting out why Viewers should visit you</li>
        <li>List of the services on offer, such as Nuru, nude and prostate massage</li>
        <li>Summary of your rates in a structured manner</li>
        <li>Summary of the Centre's open times and access </li>
        <li>Profile for each of your Masseurs, up to eight, which includes:
-        <ul>
+        <ul class="level-2">
             <li>Their name</li>
             <li>Up to three photos</li>
             <li>Their available days and times</li>
@@ -65,7 +39,7 @@
             <li>And much more ...</li>
         </ul>
        </li>
-    </ul>
+    </ol>
     <h2 class="primery_color normal_heading">Registration is free</h2>
 
       <!-- please register link should redirect on advertiser registration form -->
@@ -90,36 +64,5 @@
 </section>
 @endsection
 @push('scripts')
-<script>
-    var skipSliderage = document.getElementById("skipstepage");
-    var skipValuesage = [
-    document.getElementById("skip-value-lower-age"),
-    document.getElementById("skip-value-upper-age")
-    ];
-    
-    noUiSlider.create(skipSliderage, {
-    start: [0, 30],
-    connect: true,
-    behaviour: "drag",
-    step: 1,
-    range: {
-       min: 18,
-       max: 60
-    },
-    format: {
-       from: function (value) {
-          return parseInt(value);
-       },
-       to: function (value) {
-          return parseInt(value);
-       }
-    }
-    });
-    
-    skipSliderage.noUiSlider.on("update", function (values, handle) {
-    skipValuesage[handle].innerHTML = values[handle];
-    });
-    
-</script>
 
 @endpush

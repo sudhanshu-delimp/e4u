@@ -193,15 +193,15 @@
                                      </div>
                                  </div>
                                  {{-- row end --}}
-
+                                
                                  <div class="fiter_btns slect__btn_tab pb-2">
                                      <div class="display_inline_block mb-1 mr-2">
                                          <select class="custome_form_control_border_radus padding_five_px"
                                              id="profile_city" name="profile_city">
                                              <option value="" selected>All Cities</option>
                                              @foreach (@config('escorts.profile.cities') as $key => $city)
-                                                 <option value="{{ $key }}"
-                                                     {{ request()->get('city') == $key ? 'selected' : '' }}>
+                                                 <option value="{{ $key }}" 
+                                                     {{ strtolower(request()->segment(4)) == strtolower($city) ? 'selected' : '' }}>
                                                      {{ $city }}
                                                  </option>
                                              @endforeach

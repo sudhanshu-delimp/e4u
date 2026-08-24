@@ -284,6 +284,7 @@
             filter_by_location: {},
             filter_by_feild: {},
             view_type: 'null',
+            url_param: {},
         };
 
 
@@ -521,6 +522,69 @@
 
 
 
+        const massageRouteStates = escortRouteStates = @json(config('escorts.profile.states'));
+
+        const massageBaseUrl = "{{config('constants.massage_list_base_slug')}}";
+
+        function getMassageRouteMemberId(selectedCity) {
+            const segments = window.location.pathname.split('/').filter(Boolean);
+            const lastSegment = segments[segments.length - 1] || '';
+            const currentState = segments[2] || '';
+            const currentCity = segments[3] || '';
+            const currentMemberId   = segments[4] || '';
+
+        
+            if (!/^M[\w-]+$/i.test(lastSegment) || !selectedCity) {
+                return null;
+            }
+            
+            if (currentState !== selectedCity.state || currentCity !== selectedCity.city) {
+                return null;
+            }
+
+            
+
+            return lastSegment;
+        }
+
+        function getMassageListingPath() {
+            const cityId = String($('#profile_city').val() || '');
+            const pathSegments = [massageBaseUrl];
+            let selectedCity = null;
+            Object.values(massageRouteStates).some(function(state) {
+                return Object.entries(state.cities || {}).some(function([id, city]) {
+                    if (String(id) === cityId) {
+                        selectedCity = {
+                            state: state.stateAbbr.toLowerCase(),
+                            city: city.cityName.toLowerCase()
+                        };
+                        return true;
+                    }
+
+                    return false;
+                });
+            });
+
+            if (selectedCity) {
+                pathSegments.push('australia');
+                pathSegments.push(selectedCity.state, selectedCity.city);
+
+                const memberId = getMassageRouteMemberId(selectedCity);
+
+                if (memberId) {
+                    pathSegments.push(memberId);
+                }
+            } 
+
+            //assing city id in the global variable
+             globalMassageRequest.filter_by_feild = {
+                profile_city : $('#profile_city').val(),
+                massage_id : window.location.pathname.split('/').filter(Boolean)[4] ?? '',
+            }
+
+
+            return '/' + pathSegments.join('/');
+        }
 
 
         /* ===============================
@@ -529,14 +593,22 @@
 
         async function loadData(requestParam = globalMassageRequest, showLoader = true) {
 
+            console.log(requestParam, '......');
+            let requestUrl = getMassageListingPath();
+
+           
             let ajaxReq = null;
+            let currentUrl = window.location.href;
+
 
             if (ajaxReq) {
                 ajaxReq.abort();
             }
 
+            history.replaceState({}, '', requestUrl);
+
             ajaxReq = $.ajax({
-                url: "{{ route('mc-ajax-list') }}",
+                url: "{{ route('mc-ajax-list') }}", 
                 data: requestParam,
                 beforeSend: function() {
                     toggleViewTitle(false);
@@ -812,7 +884,7 @@
                 };
             } else {
                 //make emable all city
-                $('#profile_city').val('').prop('disabled', false);
+                $('#profile_city').prop('disabled', false);
 
                 $("#set_lat").val('');
                 $("#set_lng").val('');

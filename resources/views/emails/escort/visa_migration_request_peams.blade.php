@@ -40,12 +40,11 @@
 
 
                             <p style="margin: 0 0 20px 0;">
-                                I am seeking assistance regarding a visa enquiry and would like to discuss my options
-                                and requirements with your team.
+                                The Member described below is seeking assistance regarding a visa enquiry and would like to discuss their options and requirements with your team.
                             </p>
 
                             <p style="margin: 0 0 10px 0; font-weight: 600;">
-                                Please find my details below:
+                             The Member's details are as follows:
                             </p>
 
                             <div style="margin-bottom: 25px;">

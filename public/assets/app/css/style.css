@@ -432,6 +432,14 @@ a.pub_secondary_btn {
     border-radius: 8px;
 }
 
+.common_list_design {
+    padding-left: 20px;
+}
+
+.common_list_design li {
+    padding-left: 20px;
+}
+
 
 /* Input box */
 

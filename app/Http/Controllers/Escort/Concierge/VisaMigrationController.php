@@ -26,12 +26,13 @@ class VisaMigrationController extends Controller
       $data = $request->validated();
       $data['contact_preference'] = json_encode($request->contact_pref);
       $data['area_type'] = $request->advice_area;
+      $data['user_id'] = Auth::user()->id;
       $created = VisaMigration::create($data);
       $mailData['ref'] = $created->id;
       $mailData['member_id'] = Auth::user()->member_id;
 
       $mailData['member_name'] = Auth::user()->name;
-    
+
 
 
       if ($created) {
@@ -44,6 +45,7 @@ class VisaMigrationController extends Controller
           ->implode(' and ');
         $mailData['preferred_contact_method'] = $preferredContactMethod;
         $mailData['email'] = $created->email;
+
         $mailData['mobile'] =   preg_replace('/\s+/', '', $created->mobile);;
         $mailData['visa_enquiry_type'] =   config('escorts.visa_types.' . $created->visa_enquiry_type, $created->visa_enquiry_type);;
         $mailData['comments'] = $created->comments;

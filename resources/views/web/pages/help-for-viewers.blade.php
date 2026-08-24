@@ -1,24 +1,6 @@
 @extends('layouts.web')
 @section('style')
 <style>
-    .loader {
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid #3498db;
-    width: 120px;
-    height: 120px;
-    -webkit-animation: spin 2s linear infinite; /* Safari */
-    animation: spin 2s linear infinite;
-    }
-    /* Safari */
-    @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-    }
-    @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-    }
 
     .membership_packages.table th{
             font-weight: bold;
@@ -70,11 +52,11 @@
                                      Q:</strong> Can I remain anonymous as a subscriber?
                                  </b></p>
                                  <p>Yes you can. We only request your:</p>
-                                 <ul>
+                                   <ol class="common_list_design">
                                      <li> Mobile number (for SMS 2FA verification), and notifications if you have your mobile number selected for that purpose </li>
                                      <li>Email address (for notifications)</li>
                                      <li>Your location (city),</li>
-                                 </ul>
+                                 </ol>
                                  <p>as a mandatory information requirement during the registration process.</p>
                              </div>
                              <div class="col-sm-12">
@@ -93,14 +75,14 @@
                                  <p class="pt-2"><b>Q: What features can I control?</b></p>
                                  <p>In your Dashboard you will have access to the Viewer features. Some features are
                                      enabled by default which include:</p>
-                                 <ul>
+                                   <ol class="common_list_design">
                                      <li>Legbox. You can flag your favourite Advertiser to be added to your Legbox </li>
                                      <li>Write reviews</li>
                                      <li>Receive A-Alert notifications (email is enabled by default)</li>
                                      <li>Participate in direct chatting with an Advertiser (if the Advertiser has this feature enabled)</li>
-                                 </ul>
+                                 </ol>
                                  <p>Optional features that you can enable include:</p>
-                                 <ul>
+                                   <ol class="common_list_design">
                                      <li>What are your interests? (This will help us refine your Advertiser Listing Page)</li>
                                      <li>Display my name in communications (whatever name you have set up in your Account details, which can be a fictitious name, like “Longman10")</li>
                                      <li>Password expiry (default is set to “Never”)</li>
@@ -108,7 +90,7 @@
                                      <li>Advertiser notes (record your experience with an Advertiser "Notebox")</li>
                                      <li>A-Alert notifications (how you are notified for any alert, by email or text or both)</li>
                                      <li>Upload your Avatar (Display your personal image or any image with your Account summary)</li>
-                                  </ul>
+                                  </ol>
                              </div>
                              <div class="col-sm-12">
                                  <p class="pt-2"><b>Q: What will happen if I leave the Website open on my browser and I walk away?</b></p>

@@ -2795,9 +2795,9 @@ if (!function_exists('getEscortMassageDetailUrl')) {
             if ($type == "escort") {
                 if ($modelObject) {
                     $stateArr = isset($states[$modelObject->state_id]) ? $states[$modelObject->state_id] : [];
-                    $stateName = isset($stateArr['stateAbbr']) ? strtolower($stateArr['stateAbbr']) : " ";
-                    $cityName = isset($stateArr['cities'][$modelObject->city_id]['cityName']) ? strtolower($stateArr['cities'][$modelObject->city_id]['cityName']) : " ";
-                    $genderName = isset($modelObject->gender) ? strtolower($modelObject->gender) : " ";
+                    $stateName = isset($stateArr['stateAbbr']) ? strtolower($stateArr['stateAbbr']) : "";
+                    $cityName = isset($stateArr['cities'][$modelObject->city_id]['cityName']) ? strtolower($stateArr['cities'][$modelObject->city_id]['cityName']) : "";
+                    $genderName = isset($modelObject->gender) ? strtolower($modelObject->gender) : "";
 
                     $url = route('escort.profile.detail.new', [
                         'county' => isset($modelObject->state->country->name) ?  strtolower($modelObject->state->country->name) : 'australia',
@@ -2810,7 +2810,7 @@ if (!function_exists('getEscortMassageDetailUrl')) {
                 }
             } else {
                 if ($modelObject) {
-                    $stateName = isset($states[$modelObject->user->state_id]) ? strtolower($states[$modelObject->user->state_id]['stateAbbr']) : " ";
+                    $stateName = isset($states[$modelObject->user->state_id]) ? strtolower($states[$modelObject->user->state_id]['stateAbbr']) : "";
                     $url = route('web.massage-profile.new', [
                         'county' => isset($modelObject->user->state->country->name) ?  strtolower($modelObject->user->state->country->name) : 'australia',
                         'state' => $stateName,
