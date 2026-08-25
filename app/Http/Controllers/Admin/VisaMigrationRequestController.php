@@ -25,7 +25,7 @@ class VisaMigrationRequestController extends Controller
                 WHEN 'completed' THEN 4
                 ELSE 5
             END
-        ")->orderBy('id', 'asc');
+        ");
 
     return DataTables::of($query)
       ->addIndexColumn()
