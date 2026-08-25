@@ -989,6 +989,8 @@
             return location;
         }
 
-
+         $('.btn-search').on('click', function(){
+            $('.btn-search i').toggleClass('rotate-180');
+        })
     </script>
 @endpush
