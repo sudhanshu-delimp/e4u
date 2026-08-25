@@ -119,7 +119,9 @@ class VisaMigrationRequestController extends Controller
             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
         </a>
 
-        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">' . implode('<div class="dropdown-divider"></div>', $actions) . '</div>
+        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">'
+          . implode('<div class="dropdown-divider"></div>', $actions) .
+          '</div>
     </div>';
       })
       ->rawColumns(['action', 'status'])
