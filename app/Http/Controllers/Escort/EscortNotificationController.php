@@ -179,22 +179,8 @@ class EscortNotificationController extends Controller
                         $send_on_email = optional($viewer->viewer_settings)->advertiser_email ?? '0';
                         $send_on_mobile = optional($viewer->viewer_settings)->advertiser_text ?? '0';
 
-                        $esvi = EscortViewerInteractions::where('escort_id', $purchase->escort->id)
-                                                            ->where('viewer_id', $viewer->id)
-                                                            ->where('user_id', Auth::user()->id)
-                                                            ->first();
-                        
-
-                        if ($esvi) {
-                            if (
-                                $esvi->escort_blocked_viewer == 1 ||
-                                $esvi->viewer_blocked_escort == 1 ||
-                                $esvi->viewer_disabled_contact == 1 ||
-                                $esvi->escort_disabled_contact == 1 ||
-                                $esvi->escort_disabled_notification == 1
-                            ) {
-                                $viewer_blocked = true;
-                            }
+                        if (is_viewer_block_by_escort ($purchase->escort->id,$viewer->viewer_user->id,Auth::user()->id)) {
+                            $viewer_blocked = true;
                         }                              
 
                         $notificationSent = false;
