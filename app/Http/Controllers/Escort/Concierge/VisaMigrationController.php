@@ -37,7 +37,7 @@ class VisaMigrationController extends Controller
 
       if ($created) {
 
-        // Mail::to(Auth::user()->email)->send(new VisaMigrationRequestMail($mailData));
+        Mail::to(Auth::user()->email)->send(new VisaMigrationRequestMail($mailData));
         $contactPreferences = json_decode($created->contact_preference, true) ?? [];
 
         $preferredContactMethod = collect($contactPreferences)
@@ -51,7 +51,9 @@ class VisaMigrationController extends Controller
         $mailData['comments'] = $created->comments;
         $mailData['area_type'] = $created->area_type;
         $mailData['passport_country'] = $created->passport_country;
-        $mailData['business_name'] = $created->business_name;
+        $mailData['business_name'] = $created->business_name??'';
+        $mailData['first_name'] = $created->first_name;
+        $mailData['last_name'] = $created->last_name;
 
         // $peamsMail = "ashish.kumar+56@delimp.com";
         $peamsMail = config("app.peams_mail");

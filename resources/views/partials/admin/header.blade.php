@@ -66,5 +66,7 @@
     @show
     <script>
      var BASE_URL = "{{ url('/') }}";
+        var paginateLength=25;
+        var paginateRange = [{{ config('app.paginate_range') }}];
     </script>
 </head>

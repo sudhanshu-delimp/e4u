@@ -182,7 +182,7 @@ $ocLavel = 'Developer';
                                 Requests</span>
                         </a>
 
-                        <a class="collapse-item" href="{{ route('visa-migration-request') }}">
+                        <a class="collapse-item" href="{{ route('admin.visa.migration.index') }}">
                             <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                 src="{{ asset('assets/dashboard/img/menu-icon/Migration.png') }}">
                             <span
