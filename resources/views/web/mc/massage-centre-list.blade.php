@@ -94,12 +94,12 @@
             <div class="row">
 
 
-                 <!-- ////// Include the Skeleton Grid Type ////////// -->
-                 @include('web.mc.mc-grid-skeleton')
+                <!-- ////// Include the Skeleton Grid Type ////////// -->
+                @include('web.mc.mc-grid-skeleton')
 
-                 
-                 <!-- ////// Include the Skeleton List Type ////////// -->
-                 @include('web.mc.mc-list-skeleton')
+
+                <!-- ////// Include the Skeleton List Type ////////// -->
+                @include('web.mc.mc-list-skeleton')
 
                 <!-- ////// Grid View ///////////////// -->
                 <div class="col-sm-12" id="grid_view">
@@ -131,7 +131,7 @@
             </div>
 
             <!-- ////// Pagination ///////////////// -->
-              @include('web.partials.pagination-skelton')
+            @include('web.partials.pagination-skelton')
             <div id="common_pagination"></div>
             <!-- ////// End Pagination ///////////////// -->
 
@@ -358,7 +358,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                       // console.log(data);
+                        // console.log(data);
 
                     }
                 });
@@ -381,7 +381,7 @@
                 var login_url = "{{ route('viewer.login', ':id') }}";
                 var loginurl = login_url.replace(':id', 'legboxId=' + Eid);
                 var loginurl2 = loginurl.replace(':path', 'path=' + window.location.pathname);
-               
+
 
 
                 var regurl = "{{ route('register', ':id') }}";
@@ -391,7 +391,7 @@
                 $('#regUrl').attr('href', regurl)
             }
 
-           
+
         });
 
 
@@ -455,58 +455,48 @@
         }
 
 
-        /* ===============================
-           VIEW SWITCH
-        =============================== */
-
         $('#view_grid').on('click', function() {
             activeView = 'grid';
 
             $('#activeView').val('grid');
-            toggleContainer(grid=true, list=false);
+            toggleContainer(grid = true, list = false);
             toggleSkeleton(grid = true, list = false, pagination = true, cusPagi = false);
 
             //set view type in global varaiable
             globalMassageRequest.view_type = 'grid';
 
             setTimeout(async function() {
-                toggleSkeleton(grid=false, list=false, pagination = false, cusPagi = true);
+                toggleSkeleton(grid = false, list = false, pagination = false, cusPagi = true);
                 toggleViewTitle(true);
-                toggleView(grid=true, list=false);
-                
+                toggleView(grid = true, list = false);
+
             }, 500);
             $('.view-active').removeClass('view-active');
             $(this).addClass('view-active active');
-      
+
         });
 
         $('#view_list').on('click', function() {
             activeView = 'list';
             $('#activeView').val('list');
 
-            toggleContainer(grid=false, list=true);
+            toggleContainer(grid = false, list = true);
             //hide show 
             toggleSkeleton(grid = false, list = true, pagination = true, cusPagi = false);
 
             //set view type in global varaiable
             globalMassageRequest.view_type = 'list';
-            
+
             setTimeout(async function() {
                 toggleSkeleton(grid = false, list = false, pagination = false, cusPagi = true);
                 toggleViewTitle(true);
-                toggleView(grid=false, list=true);
+                toggleView(grid = false, list = true);
 
             }, 500);
             $('.view-active').removeClass('view-active active');
             $(this).addClass('view-active active');
 
         });
-
-
-
-        /* ===============================
-           PAGINATION 
-        =============================== */
 
         $(document).on('click', '.custom-pagination a', async function(e) {
             e.preventDefault();
@@ -521,67 +511,147 @@
         });
 
 
-
         const massageRouteStates = escortRouteStates = @json(config('escorts.profile.states'));
 
-        const massageBaseUrl = "{{config('constants.massage_list_base_slug')}}";
+        const massageBaseUrl = "{{ config('constants.massage_list_base_slug') }}";
 
         function getMassageRouteMemberId(selectedCity) {
             const segments = window.location.pathname.split('/').filter(Boolean);
             const lastSegment = segments[segments.length - 1] || '';
-            const currentState = segments[2] || '';
-            const currentCity = segments[3] || '';
-            const currentMemberId   = segments[4] || '';
+            const routeOffset = String(segments[1] || '').toLowerCase() === 'australia' ? 2 : 1;
+            const currentState = segments[routeOffset] || '';
+            const currentCity = segments[routeOffset + 1] || '';
 
-        
+
             if (!/^M[\w-]+$/i.test(lastSegment) || !selectedCity) {
                 return null;
             }
-            
+
             if (currentState !== selectedCity.state || currentCity !== selectedCity.city) {
                 return null;
             }
-
-            
 
             return lastSegment;
         }
 
         function getMassageListingPath() {
-            const cityId = String($('#profile_city').val() || '');
-            const pathSegments = [massageBaseUrl];
-            let selectedCity = null;
-            Object.values(massageRouteStates).some(function(state) {
-                return Object.entries(state.cities || {}).some(function([id, city]) {
-                    if (String(id) === cityId) {
-                        selectedCity = {
-                            state: state.stateAbbr.toLowerCase(),
-                            city: city.cityName.toLowerCase()
-                        };
-                        return true;
-                    }
+            const segments = window.location.pathname.split('/').filter(Boolean);
 
+            const hasCountrySegment = String(segments[1] || '').toLowerCase() === 'australia';
+            const routeOffset = hasCountrySegment ? 2 : 1;
+            const urlState = String(segments[routeOffset] || '').toLowerCase();
+            const urlCity = String(segments[routeOffset + 1] || '').toLowerCase();
+            const selectedCityId = String($('#profile_city').val() || '');
+            const currentMemberId = segments[routeOffset + 2] || '';
+
+
+            const pathSegments = [massageBaseUrl];
+
+            let selectedState = null;
+            let selectedCity = null;
+            let cityIds = null;
+
+            Object.entries(massageRouteStates).some(function([stateId, state]) {
+
+                const stateAbbr = String(state.stateAbbr || '').toLowerCase();
+                const cities = state.cities || {};
+
+                if (selectedCityId) {
+                    return Object.entries(cities).some(function([cityId, city]) {
+                        if (String(cityId) !== selectedCityId) {
+                            return false;
+                        }
+
+                        selectedState = {
+                            id: stateId,
+                            abbr: stateAbbr
+                        };
+                        selectedCity = {
+                            stateId: stateId,
+                            cityId: cityId,
+                            state: stateAbbr,
+                            city: String(city.cityName || '').toLowerCase()
+                        };
+                        cityIds = cityId;
+
+                        return true;
+                    });
+                }
+
+                // Match state from URL
+                if (stateAbbr !== urlState) {
                     return false;
-                });
+                }
+
+                selectedState = {
+                    id: stateId,
+                    abbr: stateAbbr
+                };
+
+                if (urlCity) {
+
+                    return Object.entries(cities).some(function([cityId, city]) {
+
+                        const cityName = String(city.cityName || '').toLowerCase();
+
+                        if (cityName === urlCity) {
+
+                            selectedCity = {
+                                stateId: stateId,
+                                cityId: cityId,
+                                state: stateAbbr,
+                                city: cityName
+                            };
+
+                            cityIds = cityId;
+
+                            return true;
+                        }
+
+                        return false;
+                    });
+                }
+
+
+                // Use one city ID so the backend can resolve the state.
+                if (!selectedCity && !urlCity) {
+                    cityIds = Object.keys(cities)[0] || null;
+                }
+
+                return true;
             });
 
-            if (selectedCity) {
+            if (hasCountrySegment || selectedState) {
                 pathSegments.push('australia');
-                pathSegments.push(selectedCity.state, selectedCity.city);
+            }
 
-                const memberId = getMassageRouteMemberId(selectedCity);
+            if (selectedState) {
+                pathSegments.push(selectedState.abbr);
+
+                if (selectedCity) {
+                    pathSegments.push(selectedCity.city);
+                }
+
+                const memberId = getMassageRouteMemberId(
+                    selectedCity || {
+                        state: selectedState.abbr
+                    }
+                );
 
                 if (memberId) {
                     pathSegments.push(memberId);
                 }
-            } 
-
-            //assing city id in the global variable
-             globalMassageRequest.filter_by_feild = {
-                profile_city : $('#profile_city').val(),
-                massage_id : window.location.pathname.split('/').filter(Boolean)[4] ?? '',
             }
 
+
+            // ==========================================
+            // Backend filter
+            // ==========================================
+
+            globalMassageRequest.filter_by_feild = Object.assign({}, globalMassageRequest.filter_by_feild, {
+                profile_city: cityIds,
+                massage_id: currentMemberId
+            });
 
             return '/' + pathSegments.join('/');
         }
@@ -593,10 +663,9 @@
 
         async function loadData(requestParam = globalMassageRequest, showLoader = true) {
 
-            console.log(requestParam, '......');
             let requestUrl = getMassageListingPath();
 
-           
+
             let ajaxReq = null;
             let currentUrl = window.location.href;
 
@@ -608,18 +677,18 @@
             history.replaceState({}, '', requestUrl);
 
             ajaxReq = $.ajax({
-                url: "{{ route('mc-ajax-list') }}", 
+                url: "{{ route('mc-ajax-list') }}",
                 data: requestParam,
                 beforeSend: function() {
                     toggleViewTitle(false);
-                    toggleContainer(grid=false, list=false);
-                    if(requestParam.view_type == 'grid'){
+                    toggleContainer(grid = false, list = false);
+                    if (requestParam.view_type == 'grid') {
                         toggleSkeleton(grid = true, list = false, pagination = true, cusPagi = false);
-                       
-                    }else{
+
+                    } else {
                         toggleSkeleton(grid = false, list = true, pagination = true, cusPagi = false);
                     }
-        
+
                 },
                 success: function(res) {
                     $('.mc_card_container').html(res.grid);
@@ -635,18 +704,18 @@
 
                     //show heading
                     toggleViewTitle(true);
-                   
+
 
                     if (requestParam.view_type == 'grid') {
-                        toggleContainer(grid=true, list=false);
-                        toggleView(grid = true, list=false);
+                        toggleContainer(grid = true, list = false);
+                        toggleView(grid = true, list = false);
                     } else {
-                        toggleContainer(grid=false, list=true);
-                        toggleView(grid = false, list=true);
+                        toggleContainer(grid = false, list = true);
+                        toggleView(grid = false, list = true);
                     }
                 },
                 complete: function() {
-                     toggleSkeleton(grid = false, list = false, pagination = false, cusPagi = true);
+                    toggleSkeleton(grid = false, list = false, pagination = false, cusPagi = true);
                 }
             });
         }
@@ -864,13 +933,13 @@
 
         async function updateLocationFields() {
             let selectedLocation = $('input[name="locationByRadio"]:checked').attr('id');
-            
+
             if (selectedLocation === 'yourLocation') {
                 //make disable all city
                 $('#profile_city').val('').prop('disabled', true);
                 //get storage location.
                 const location = await getLocation();
-            
+
                 if (location) {
                     $("#set_lat").val(location?.lat || '');
                     $("#set_lng").val(location?.lng || '');
@@ -988,7 +1057,5 @@
             }
             return location;
         }
-
-
     </script>
 @endpush

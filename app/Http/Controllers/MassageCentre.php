@@ -130,6 +130,7 @@ class MassageCentre extends Controller
 
     public function mcAjaxList(Request $request)
     {
+       // dd($request->all());
 
         $per_page = 2;
         $logedInUpser = auth()->user();

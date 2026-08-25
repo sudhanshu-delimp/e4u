@@ -213,12 +213,13 @@ class EscortListingController extends Controller
                         $urlGender = $genderId;
                     }
                 } else {
-                    //when get state abbar
-                    $cityStateId = getStateCityIds($secondSegment, $thirdSegment);
+                    $cityStateId = getStateCityIds($secondSegment, $thirdSegment ?: null);
 
                     if ($cityStateId) {
-                        $urlCity = $cityStateId['city_id'];
                         $urlState = $cityStateId['state_id'];
+                        if ($thirdSegment) {
+                            $urlCity = $cityStateId['city_id'];
+                        }
                     }
                 }
             } else {
