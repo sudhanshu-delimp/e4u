@@ -1,35 +1,5 @@
 @extends('layouts.tnc')
 @section('style')
-    <style>
-        .loader {
-            border: 16px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 16px solid #3498db;
-            width: 120px;
-            height: 120px;
-            -webkit-animation: spin 2s linear infinite; /* Safari */
-            animation: spin 2s linear infinite;
-        }
-
-        /* Safari */
-        @-webkit-keyframes spin {
-            0% {
-                -webkit-transform: rotate(0deg);
-            }
-            100% {
-                -webkit-transform: rotate(360deg);
-            }
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
 @endsection
 @section('content')
 
@@ -86,9 +56,9 @@
                             <div class="border_top_one_px padding_ten_px_top_btm">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <ol>
+                                          <ol class="common_list_design">
                                             <li>
-                                                <h5 class="policy_sub_headings"><u>Your general responsibilities</u>
+                                                <h5 class="policy_sub_headings">Your general responsibilities
                                                 </h5>
                                                 <p class="padding_left_five_px">The Services enable you to advertise private 
                                                     escort and massage centre services, in the form of a Profile and to
@@ -99,7 +69,7 @@
                                                     Services with respect toward others and in a responsible manner.</p>
                                                 <p class="padding_left_five_px">You remain solely liable and responsible
                                                     for:</p>
-                                                <ul>
+                                                <ul class="level-2">
                                                     <li>
                                                         <p class="mb-0">your use of the Services (see also Covid-19
                                                                 Statement)</p>
@@ -121,7 +91,7 @@
                                                     termination of the Services.</p>
                                             </li>
                                             <li>
-                                                <h5 class="policy_sub_headings"><u>Illegal or harmful use</u></h5>
+                                                <h5 class="policy_sub_headings">Illegal or harmful use</h5>
                                                 <p class="padding_left_five_px">You may use the Services for lawful
                                                     purposes only. The transmission, distribution, sale, or storage of
                                                     any material in violation of any Local Law, Classification Laws,
@@ -136,7 +106,7 @@
                                                     party. Examples of such material include, without limitation, any
                                                     material that falls within the following circumstances:</p>
 
-                                                <ul class="list_style_disc">
+                                                <ul class="level-2">
                                                     <li>
                                                         <h5 class="policy_sub_headings">Infringement</h5>
                                                         <p>Material which infringes another persons intellectual
@@ -183,8 +153,8 @@
                                                 </ul>
                                             </li>
                                             <li>
-                                                <h5 class="policy_sub_headings"><u>System and network security and
-                                                        integrity</u></h5>
+                                                <h5 class="policy_sub_headings">System and network security and
+                                                        integrity</h5>
                                                 <ul class="padding_zero_px">
                                                     <li>
                                                         <p class="padding_left_five_px">Breaches of Escorts4U or any
@@ -198,7 +168,7 @@
                                                             network security violations include, without limitation, the
                                                             following:
                                                         </p>
-                                                        <ul class="list_style_disc">
+                                                        <ul class="level-2">
                                                             <li>
                                                                 <h5 class="policy_sub_headings">Hacking</h5>
                                                                 <p>Unauthorised access to or use of data, systems,
@@ -259,14 +229,14 @@
                                             </li>
 
                                             <li>
-                                                <h5 class="policy_sub_headings"><u>E-Mail</u></h5>
+                                                <h5 class="policy_sub_headings">E-Mail</h5>
                                                 <ul class="padding_zero_px">
                                                     <li>
                                                         <p class="padding_left_five_px">You may not distribute, publish,
                                                             or send any of the following types of e-mail to a User, or
                                                             other person connected with, or known through the Services:
                                                         </p>
-                                                        <ul class="list_style_disc">
+                                                        <ul class="level-2">
                                                             <li>
                                                                 <p>unsolicited promotions, advertising or solicitations
                                                                     (commonly referred to as "spam"), including, without
@@ -312,7 +282,7 @@
                                             </li>
 
                                             <li>
-                                                <h5 class="policy_sub_headings"><u>Protection of Minors</u></h5>
+                                                <h5 class="policy_sub_headings">Protection of Minors</h5>
                                                 <ul class="padding_zero_px">
                                                     <li>
                                                         <p class="padding_left_five_px">Escorts4U
@@ -329,7 +299,7 @@
                                             </li>
 
                                             <li>
-                                                <h5 class="policy_sub_headings"><u>Breach of the Guidelines</u></h5>
+                                                <h5 class="policy_sub_headings">Breach of the Guidelines</h5>
                                                 <ul class="padding_zero_px">
                                                     <li>
                                                         <p class="padding_left_five_px text_decoration_for_a">A breach

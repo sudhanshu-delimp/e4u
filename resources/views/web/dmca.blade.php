@@ -1,25 +1,5 @@
 @extends('layouts.web')
 @section('style')
-<style>
-   .loader {
-   border: 16px solid #f3f3f3;
-   border-radius: 50%;
-   border-top: 16px solid #3498db;
-   width: 120px;
-   height: 120px;
-   -webkit-animation: spin 2s linear infinite; /* Safari */
-   animation: spin 2s linear infinite;
-   }
-   /* Safari */
-   @-webkit-keyframes spin {
-   0% { -webkit-transform: rotate(0deg); }
-   100% { -webkit-transform: rotate(360deg); }
-   }
-   @keyframes spin {
-   0% { transform: rotate(0deg); }
-   100% { transform: rotate(360deg); }
-   }
-</style>
 @endsection
 @section('content')
 <section class="padding_top_eight_px padding_bottom_eight_px footer-links-si">
@@ -35,7 +15,7 @@ bring the alleged Infringement to our attention (<b>Report</b>).
  
       <p>To assist us in addressing your Report, please provide the following important information:
       </p>
-      <ul>
+        <ol class="common_list_design">
          <li>
             <p class="mb-0">A physical or electronic signature of the authorised representative or owner of the
             copyright that is allegedly infringed;
@@ -63,7 +43,7 @@ bring the alleged Infringement to our attention (<b>Report</b>).
             <p class="mb-0">A statement from you that the Report is accurate, and that you are authorised to act
             on behalf of the copyright owner by providing the expressed terms of the authorisation.</p>
          </li>
-      </ul>
+      </ol>
       <p> Please forward your Report to:
       </p>
       <p> Blackbox Tech Pty Ltd <br>

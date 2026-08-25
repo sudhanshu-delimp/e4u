@@ -148,8 +148,8 @@
                                                         </p>
                                                     </div>
 
-                                                    <ul class="my-2">
-                                                        <li>our Privacy Policy (available on our Website) which sets out how
+                                                    <ol class="my-2">
+                                                        <li>ool Privacy Policy (available on our Website) which sets out how
                                                             we will handle your
                                                             personal information;</li>
                                                         <li>clause 24 (Consumer Law Rights) which sets out your rights under
@@ -161,7 +161,7 @@
                                                         <li>clause 2.2 (Updates to Terms and Conditions) which sets out how
                                                             we may amend
                                                             these Terms and Conditions.</li>
-                                                    </ul>
+                                                    </ol>
                                                     <div>
                                                         <p>
                                                         We may receive a benefit (which may include a referral fee or a
