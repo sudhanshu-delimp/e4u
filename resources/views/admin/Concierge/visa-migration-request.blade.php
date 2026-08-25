@@ -10,29 +10,10 @@
             <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
                 <div class="row">
                     <div class="custom-heading-wrapper col-md-12">
-                        <h1 class="h1">Email Requests</h1>
-                        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
-                            style="font-size:16px"><b>Help?</b> </span>
+                        <h1 class="h1">Visa Requests</h1>
+
                     </div>
-                    <div class="col-md-12 mb-4">
-                        <div class="card collapse" id="notes">
-                            <div class="card-body">
-                                <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                <ol>
-                                    <li>An email request is to be actioned within 24 hours of receipt.</li>
-                                    <li>An email notification has also been sent to <a href="mailto:admin@e4u.com.au"
-                                            class="custom_links_design">admin@e4u.com.au</a>.</li>
-                                    <li>When establishing the Email account, ensure:
-                                        <ol class="level-2">
-                                            <li>the Member and Email details are entered up in the Email Register before
-                                                completing this page.</li>
-                                            <li>Activate account.</li>
-                                        </ol>
-                                    </li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -41,11 +22,11 @@
                                 <thead class="table-bg">
                                     <tr>
                                         <th>Ref</th>
-                                        <th class="text-nowrap">Member Id</th>
-                                        <th class="text-nowrap">Business Name</th>
-                                        <th class="text-nowrap">Order Date</th>
-                                        <th class="text-nowrap">Visa Type</th>
-                                        <th class="text-nowrap">Passport Country</th>
+                                        <th>Member Id</th>
+                                        <th>Name</th>
+                                        <th>Order Date</th>
+                                        <th>Visa Type</th>
+                                        <th>Origin</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -54,6 +35,19 @@
                                 <tbody class="table-content">
 
                                 </tbody>
+                                <tr>
+                                    <th colspan="8" class="border-0"></th>
+                                </tr>
+                                <tfoot class="bg-first t-foot mt-4">
+                                    <tr>
+                                        <th colspan="3" class="text-left border-0">Server time: <span
+                                                class="serverTime">{{ date('d-m-Y h:i a') }}</span></th>
+                                        <th colspan="3" class="text-center border-0">Refresh time:<span
+                                                class="refreshSeconds"> 15</span></th>
+                                        <th colspan="2" class="text-right border-0" style="text-align: right!important;">
+                                            Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -78,62 +72,58 @@
 
     <script>
         $(document).ready(function() {
+            let countdown = 1;
+            setInterval(() => {
+                countdown--;
+                $(".refreshSeconds").text(' ' + countdown);
+
+                if (countdown <= 0) {
+                    $('#visaMigrationRequestTable').DataTable().ajax.reload(null, false);
+                    countdown = 15;
+
+                }
+
+            }, 1000);
+
+
 
             $('#visaMigrationRequestTable').DataTable({
-
                 processing: true,
-
                 serverSide: true,
-
                 responsive: false,
-
                 scrollX: true,
-
-                pageLength: 10,
-
-                lengthMenu: [
-                    [10, 25, 50, 75, 100],
-                    [10, 25, 50, 75, 100]
-                ],
-
+                pageLength: paginateLength,
+                lengthMenu: paginateRange,
                 ajax: {
                     url: "{{ route('admin.visa.migration.lists') }}",
                     type: "GET"
                 },
-
                 language: {
                     search: "Search: _INPUT_",
-                    searchPlaceholder: "Search visa migration requests...",
+                    searchPlaceholder: "Search member id, visa and origin migration requests...",
                     lengthMenu: "Show _MENU_ entries",
                     processing: "Loading..."
                 },
-
-                columns: [
-
-                    {
+                columns: [{
                         data: 'id',
                         name: 'id'
                     },
-
                     {
                         data: 'member_id',
                         name: 'member_id'
                     },
                     {
-                        data: 'business_name',
-                        name: 'business_name'
+                        data: 'name',
+                        name: 'name'
                     },
-
                     {
-                        data: 'created_at',
-                        name: 'created_at'
+                        data: 'order_date',
+                        name: 'order_date'
                     },
-
                     {
                         data: 'area_type',
                         name: 'area_type'
                     },
-
                     {
                         data: 'passport_country',
                         name: 'passport_country'
@@ -146,15 +136,112 @@
                         data: 'action',
                         name: 'action'
                     },
-
                 ],
-
                 order: [
                     [0, 'desc']
                 ]
 
             });
 
+        });
+        $(document).on('click', '.js-status', function(e) {
+            e.preventDefault();
+
+            let id = $(this).data('id');
+            let status = $(this).data('status');
+
+            let statusText = status
+                .replace('_', ' ')
+                .replace(/\b\w/g, function(letter) {
+                    return letter.toUpperCase();
+                });
+
+            Swal.fire({
+                title: 'Update Status',
+                html: 'Are you sure you want to change the status to <strong>' + statusText + '</strong>?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, update it',
+                cancelButtonText: 'Cancel',
+                reverseButtons: true
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ route('admin.visa.migration.update.status') }}",
+                        type: "POST",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            id: id,
+                            status: status
+                        },
+
+                        beforeSend: function() {
+                            Swal.fire({
+                                title: 'Updating...',
+                                text: 'Please wait.',
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                                didOpen: () => {
+                                    Swal.showLoading();
+                                }
+                            });
+
+                        },
+
+                        success: function(response) {
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Updated!',
+                                text: response.message,
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+
+                            $('#visaMigrationRequestTable')
+                                .DataTable()
+                                .ajax.reload(null, false);
+                        },
+
+                        error: function(xhr) {
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: xhr.responseJSON?.message ||
+                                    'Something went wrong while updating the status.'
+                            });
+                        }
+                    });
+                }
+            });
+        });
+        $('#confirmStatus').on('click', function() {
+
+            let id = $('#status_id').val();
+            let status = $('#status').val();
+
+            $.ajax({
+                url: "{{ route('admin.visa.migration.update.status') }}",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    id: id,
+                    status: status
+                },
+                success: function(response) {
+
+                    $('#statusModal').modal('hide');
+
+                    $('#visaMigrationRequestTable').DataTable().ajax.reload(null, false);
+
+                    toastr.success(response.message);
+                },
+                error: function(xhr) {
+                    toastr.error('Something went wrong.');
+                }
+            });
         });
     </script>
 @endpush
