@@ -100,22 +100,29 @@
                             <div class="mt-2">
 
                                 {{-- First Name --}}
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="business_name" class="required"><b>Business Name</b></label>
                                     <input id="business_name" placeholder="Business Name" name="business_name"
                                         type="text" class="form-control">
 
                                     <span class="text-danger error-text business_name_error"></span>
-                                </div>
+                                </div> --}}
 
                                 {{-- Last Name --}}
-                                {{-- <div class="form-group">
+                                <div class="form-group">
+                                    <label for="first_name"><b>First Name</b></label>
+                                    <input id="first_name" placeholder="First Name" name="first_name" type="text"
+                                        class="form-control">
+
+                                    <span class="text-danger error-text first_name_error"></span>
+                                </div>
+                                <div class="form-group">
                                     <label for="last_name"><b>Last Name</b></label>
                                     <input id="last_name" placeholder="Last Name" name="last_name" type="text"
                                         class="form-control">
 
                                     <span class="text-danger error-text last_name_error"></span>
-                                </div> --}}
+                                </div>
 
                                 {{-- Email --}}
                                 <div class="form-group">

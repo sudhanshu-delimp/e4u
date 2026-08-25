@@ -440,10 +440,13 @@
         }
 
         function getEscortListingPath() {
+            const segments = window.location.pathname.split('/').filter(Boolean);
             const cityId = String($('#escort_city').val() || '');
             const genderId = String($('#escort_gender').val() || '');
             const pathSegments = [escortBaseUrl];
             let selectedCity = null;
+            const currentCountry = (segments[1] || '').toLowerCase();
+            const currentState = (segments[2] || '').toLowerCase();
 
             Object.values(escortRouteStates).some(function(state) {
                 return Object.entries(state.cities || {}).some(function([id, city]) {
@@ -458,7 +461,7 @@
                     return false;
                 });
             });
-
+           
             if (selectedCity) {
                 pathSegments.push('australia');
                 pathSegments.push(selectedCity.state, selectedCity.city);
@@ -472,9 +475,22 @@
                 if (memberId) {
                     pathSegments.push(memberId);
                 }
+
+            } else if (currentCountry === 'australia' && currentState &&
+                Object.values(escortRouteStates).some(function(state) {
+                    return state.stateAbbr.toLowerCase() === currentState;
+                })) {
+                pathSegments.push('australia', currentState);
+
+                const genderSlug = escortRouteGenders[genderId];
+                if (genderSlug) {
+                    pathSegments.push(genderSlug.toLowerCase().replace(/\s+/g, '%20'));
+                }
             } else if (escortRouteGenders[genderId]) {
                 pathSegments.push('australia');
                 pathSegments.push(escortRouteGenders[genderId].toLowerCase().replace(/\s+/g, '%20'));
+            } else if (currentCountry === 'australia') {
+                pathSegments.push('australia');
             }
 
             return '/' + pathSegments.join('/');

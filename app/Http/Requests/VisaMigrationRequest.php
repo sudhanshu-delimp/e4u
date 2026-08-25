@@ -27,8 +27,8 @@ class VisaMigrationRequest extends FormRequest
       'contact_pref' => ['required', 'array', 'min:1'],
       'contact_pref.*' => ['required', 'in:email,mobile'],
 
-      'business_name' => ['required', 'string', 'max:100'],
-      // 'last_name' => ['required', 'string', 'max:100'],
+      'first_name' => ['required', 'string', 'max:100'],
+      'last_name' => ['required', 'string', 'max:100'],
 
       'email' => ['required', 'email', 'max:255'],
       // 'term_condition' => ['required', 'accepted'],
@@ -66,8 +66,8 @@ class VisaMigrationRequest extends FormRequest
   {
     return [
       'contact_pref.required' => 'Please select at least one contact preference.',
-      'business_name.required' => 'Business name is required.',
-      // 'last_name.required' => 'Last name is required.',
+      'first_name.required' => 'Business name is required.',
+      'last_name.required' => 'Last name is required.',
       'email.required' => 'Email address is required.',
       'email.email' => 'Please enter a valid email address.',
       'mobile.required' => 'Mobile number is required.',
