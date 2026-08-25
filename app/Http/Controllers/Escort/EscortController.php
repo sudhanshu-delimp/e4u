@@ -1037,7 +1037,7 @@ class EscortController extends BaseController
             if (!empty($result->main_purchase)) {
                 $this->walletService->credit(
                     $this->account,
-                    $result->net_credit_amount,
+                    $result->listing_adjusted_credit_amount,
                     $result->main_purchase,
                     'Cancel Profile Listing.',
                     [
