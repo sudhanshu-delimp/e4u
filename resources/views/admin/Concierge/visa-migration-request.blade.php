@@ -1,8 +1,8 @@
 @extends('layouts.admin')
- @section('style')
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
+@section('style')
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
 @section('content')
- 
+
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
         <!-- Main Content -->
@@ -37,20 +37,17 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="table-responsive custom-badge">
-    <table id="visaMigrationRequestTable" class="table" style="width: 100%;">
-                                <thead class="table-bg"> 
+                            <table id="visaMigrationRequestTable" class="table" style="width: 100%;">
+                                <thead class="table-bg">
                                     <tr>
-                                        <th>ID</th>
+                                        <th>Ref</th>
+                                        <th class="text-nowrap">Member Id</th>
                                         <th class="text-nowrap">Business Name</th>
-                                        <th class="text-nowrap">Contact Preference</th>
-                                        <th>Email</th>
-                                        <th>Mobile</th>
+                                        <th class="text-nowrap">Order Date</th>
+                                        <th class="text-nowrap">Visa Type</th>
                                         <th class="text-nowrap">Passport Country</th>
-                                        <th class="text-nowrap">Area Type</th>
-                                        <th class="text-nowrap">Visa Enquiry Type</th>
-                                        <th >Comments</th>
-                                        <th class="text-nowrap">Created At</th>
-                                        <th class="text-nowrap">Updated At</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
 
@@ -119,43 +116,12 @@
                     },
 
                     {
+                        data: 'member_id',
+                        name: 'member_id'
+                    },
+                    {
                         data: 'business_name',
                         name: 'business_name'
-                    },
-
-                    {
-                        data: 'contact_preference',
-                        name: 'contact_preference'
-                    },
-
-                    {
-                        data: 'email',
-                        name: 'email'
-                    },
-
-                    {
-                        data: 'mobile',
-                        name: 'mobile'
-                    },
-
-                    {
-                        data: 'passport_country',
-                        name: 'passport_country'
-                    },
-
-                    {
-                        data: 'area_type',
-                        name: 'area_type'
-                    },
-
-                    {
-                        data: 'visa_enquiry_type',
-                        name: 'visa_enquiry_type'
-                    },
-
-                    {
-                        data: 'comments',
-                        name: 'comments'
                     },
 
                     {
@@ -164,9 +130,22 @@
                     },
 
                     {
-                        data: 'updated_at',
-                        name: 'updated_at'
-                    }
+                        data: 'area_type',
+                        name: 'area_type'
+                    },
+
+                    {
+                        data: 'passport_country',
+                        name: 'passport_country'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action'
+                    },
 
                 ],
 
