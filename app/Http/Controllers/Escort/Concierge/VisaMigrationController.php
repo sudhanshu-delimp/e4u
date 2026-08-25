@@ -37,7 +37,7 @@ class VisaMigrationController extends Controller
 
       if ($created) {
 
-        // Mail::to(Auth::user()->email)->send(new VisaMigrationRequestMail($mailData));
+        Mail::to(Auth::user()->email)->send(new VisaMigrationRequestMail($mailData));
         $contactPreferences = json_decode($created->contact_preference, true) ?? [];
 
         $preferredContactMethod = collect($contactPreferences)
