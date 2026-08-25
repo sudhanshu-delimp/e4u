@@ -281,6 +281,7 @@ class EscortListingController extends Controller
     {
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         // $request->merge([
         //     'page' => 1,
         //     'view_type' => 'grid',
@@ -298,6 +299,8 @@ class EscortListingController extends Controller
         $escortId = $this->getShortListIds();
         $count_session = count((array) session('cart'));
 =======
+=======
+>>>>>>> Stashed changes
      $escortId = [];
         if (session('cart')) {
             foreach (session('cart') as $id => $vlaue) {
@@ -307,12 +310,16 @@ class EscortListingController extends Controller
             $escortId[] = null;
         }
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         //get Lagbox ids
         $user_type = $this->getUserTypeIds();
         // make sure user alwase same state me hona chaiye tab Backend se jo v gender select kiya hoga tab wo work karega.
         $userInterest = $this->getUserInterest();
         $userLocation = $this->getUserLocation($request);
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 
 
@@ -324,6 +331,9 @@ class EscortListingController extends Controller
         // session(['search_escort_filters' => $params]);
 
 
+=======
+        $params = $this->getSearchParams($request, $userLocation, $userInterest);;
+>>>>>>> Stashed changes
 =======
         $params = $this->getSearchParams($request, $userLocation, $userInterest);;
 >>>>>>> Stashed changes
@@ -879,6 +889,7 @@ class EscortListingController extends Controller
     }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
     public function clearShortList(Request $request)
     {
@@ -890,6 +901,12 @@ class EscortListingController extends Controller
     public function addtocart($escort_id)
     {
 
+=======
+    //Make short list using the session
+
+    public function addtocart($escort_id)
+    {
+>>>>>>> Stashed changes
 =======
     //Make short list using the session
 
@@ -937,6 +954,7 @@ class EscortListingController extends Controller
         }
    
         return response()->json(compact('error', 'count_session'));
+<<<<<<< Updated upstream
     }
 
     public function removeShortList()
@@ -954,5 +972,7 @@ class EscortListingController extends Controller
             }
         }
         return response()->json(compact('error', 'count_session'));
+=======
+>>>>>>> Stashed changes
     }
 }
