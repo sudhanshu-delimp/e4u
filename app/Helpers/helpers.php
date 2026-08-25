@@ -2439,17 +2439,17 @@ if (!function_exists('update_profile_massure')) {
     {
         switch ($status) {
             case 0:
-                $icon  = asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png');
+                $icon  = asset('assets/app/img/verify/e4u_pending-icon.png');
                 $label = 'Media Pending';
                 break;
 
             case 1:
-                $icon  = asset('assets/app/img/verify/verified_icon.png');
+                $icon  = asset('assets/app/img/verify/unverified_icon_dark.png');
                 $label = 'Media Verified';
                 break;
 
             case 2:
-                $icon  = asset('assets/app/img/verify/unverified_icon.png');
+                $icon  = asset('assets/app/img/verify/unverified_icon_dark.png');
                 $label = 'Media Unverified';
                 break;
 

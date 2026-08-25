@@ -475,6 +475,12 @@
                                 width: 15px;
                                 height: 15px;
                             }
+                            .ec_card_conatiner {
+                                display: grid;
+                                grid-template-columns: 1fr;
+                                gap: 25px;
+                                justify-content: start;
+                            }
                         }
                         
                         @media(max-width:486px) {

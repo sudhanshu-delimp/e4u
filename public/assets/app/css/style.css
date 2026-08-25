@@ -305,6 +305,7 @@ body {
     background-color: #0c223d !important;
     padding: 0;
     cursor: pointer;
+    margin-bottom: 0px !important;
 }
 
 .public_filter_accordian .pub_heading {
@@ -2832,10 +2833,24 @@ h3.content_align span {
     display: flex;
 }
 
-.add_to_favrate {
-    color: #ff3c5f;
-    font-size: 15px;
+.custom--favourite {
+    color: var(--peach);
+    font-size: 14px;
+    position: relative;
+    background-color: #fff1f4;
+    width: 27px;
+    height: 27px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border-radius: 100px;
     cursor: pointer;
+}
+
+.add_to_favrate {
+    color: var(--peach);
+    font-size: 14px;
+    position: relative;
 }
 
 
@@ -3129,6 +3144,7 @@ i.fa.fa-heart-o{
     text-decoration: none;
     font-weight: 400;
     font-size: 14px;
+    border-radius: 10px;
 }
 
 .custom-pagination ul li a:hover i {
@@ -6850,12 +6866,182 @@ table {
 /* end */
 
 
+/* ec_card_conatiner */
+
+.ec_card_conatiner {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 202px));
+    gap: 25px;
+    justify-content: start;
+}
+
+.ec_card {
+    position: relative;
+    min-height: 310px;
+    width: 100%;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 10px;
+    background: rgba(15, 23, 42, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    backdrop-filter: blur(18px);
+}
+
+.ec_card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.02) 35%, rgba(7, 12, 24, 0.15) 55%, rgba(7, 12, 24, 0.95) 100%);
+    pointer-events: none;
+}
+
+.ec_card_header {
+    /* background-color: rgb(12, 34, 61, 0.3); */
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+
+.ec_title {
+    color: #fff;
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 15ch;
+    display: block;
+}
+
+.ec_card_link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.ec_profile_img .veryfy_img {
+    position: absolute;
+    width: 90px;
+    object-fit: contain;
+    bottom: 0px;
+    right: 0px;
+    background: var(--blue--text);
+    padding: 5px;
+    border-radius: 0px 0px 10px 0px;
+}
+
+.ec_profile_img .veryfy_img img {
+    width: 100%;
+}
+
+.ec_profile_img,
+.extra_img_wrapper {
+    position: relative;
+}
+
+.ec_profile_img .glightbox img {
+    width: 305px;
+    height: 374px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.ec_profile_img>img {
+    width: 100%;
+    height: 265px;
+    object-fit: cover;
+}
+
+.ec_profile_img img:hover+.common_shield_tooltip {
+    display: block;
+}
+
+.ec_card_content {
+    background-color: rgb(12 34 61 / 30%);
+    padding: 10px;
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    z-index: 1;
+    bottom: 43px;
+    left: 0;
+    right: 0;
+    transition: 0.3s linear;
+}
+
+.ec_card_content .items {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.ec_card_content .decs {
+    color: #fff;
+}
+
+.ec_card_content .decs img {
+    width: 20px;
+    /* filter: invert(0) brightness(129.5) grayscale(1) contrast(13.5); */
+}
+
+.ec_card_content:has(.video_icon_ec:hover) {
+    overflow: visible;
+}
+
+.ec_card_content .items .title {
+    color: #fff1f4;
+    font-weight: 500;
+}
+
+.ec_card_content .items .mc_star i {
+    color: var(--peach);
+}
+
+.ec_profile_img:hover+.ec_card_content,
+.ec_card_content:hover {
+    height: 150px;
+}
+
+.ec_card_footer {
+    background-color: rgba(12, 34, 61);
+    padding: 10px;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.ec_card_footer a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 13px;
+    transition: 0.5s ease-in-out;
+}
+
+.ec_card_footer a:hover {
+    color: var(--peach);
+    transition: 0.5s ease-in-out;
+}
+
+
 /* mc_card_container */
 
 .mc_card_container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 202px));
-    gap: 17px;
+    gap: 25px;
     justify-content: start;
 }
 
@@ -6864,7 +7050,20 @@ table {
     min-height: 310px;
     width: 100%;
     object-fit: cover;
-    border: 1px solid rgb(12, 34, 61);
+    overflow: hidden;
+    border-radius: 10px;
+    background: rgba(15, 23, 42, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    backdrop-filter: blur(18px);
+}
+
+.mc_card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.02) 35%, rgba(7, 12, 24, 0.15) 55%, rgba(7, 12, 24, 0.95) 100%);
+    pointer-events: none;
 }
 
 .mc_card_link {
@@ -6877,7 +7076,7 @@ table {
 }
 
 .mc_card_header {
-    background-color: rgb(12, 34, 61, 0.3);
+    /* background-color: rgb(12, 34, 61, 0.3); */
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -6888,11 +7087,11 @@ table {
 }
 
 .mc_card_content {
-    background-color: rgba(170, 170, 170, 0.7);
+    background-color: rgb(12 34 61 / 30%);
     padding: 10px;
     position: absolute;
     width: 100%;
-    height: 35px;
+    height: 40px;
     overflow: hidden;
     z-index: 1;
     bottom: 43px;
@@ -6924,6 +7123,16 @@ table {
 
 .video_icon_ec {
     position: relative;
+}
+
+.video_icons {
+    background: #fff1f4;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
 }
 
 .video_tooltip {
@@ -7106,7 +7315,8 @@ table {
 }
 
 .mc_card_content .items .title {
-    color: #fff;
+    color: #fff1f4;
+    font-weight: 500;
 }
 
 .mc_card_content .items .mc_star i {
@@ -7131,9 +7341,15 @@ table {
 }
 
 .mc_card_footer a {
-    color: var(--peach);
+    color: var(--white);
     text-decoration: none;
     font-size: 13px;
+    transition: 0.5s ease-in-out;
+}
+
+.mc_card_footer a:hover {
+    color: var(--peach);
+    transition: 0.5s ease-in-out;
 }
 
 .mc_card .mc_title {
@@ -7180,18 +7396,34 @@ table {
 
 .mc_card_header .my_legbox_icon {
     color: var(--peach);
-    font-size: 18px;
+    font-size: 14px;
     position: relative;
+    background-color: #fff1f4;
+    width: 27px;
+    height: 27px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border-radius: 100px;
 }
 
 .mc_card_header .verify_icon {
     position: relative;
     cursor: pointer;
+    background-color: #fff1f4;
+    width: 27px;
+    height: 27px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
 }
 
 .mc_card_header .verify_icon img {
-    max-width: 18px;
     width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .mc_media_tooltip {
@@ -7227,8 +7459,8 @@ table {
 
 .mc_legbox_tooltip {
     position: absolute;
-    right: 25px;
-    top: 0;
+    right: 35px;
+    top: 2px;
     z-index: 999;
     width: max-content;
     background: #ff3c5f;
@@ -7290,6 +7522,32 @@ table {
     color: #0c223d;
     border-bottom: 1px solid #022c3d;
     margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 10px;
+}
+
+.mc_view_title .icon {
+    background-color: #fff1f4;
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--peach);
+}
+
+.mc_view_title .icon svg {
+    width: 25px;
+    height: 25px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .mc_card_wrapper {
@@ -9468,7 +9726,7 @@ img.twitter-x-logo {
 .custom--favourite span.custom-heart-text {
     background: var(--peach);
     position: absolute;
-    top: 6px;
+    top: 0px;
     right: 35px;
     color: #fff;
     padding: 5px;
@@ -10372,7 +10630,16 @@ p.blog-link {
 }
 
 .vrf-tooltip-wrap {
-    /* position: relative; */
+    position: relative;
+    cursor: pointer;
+    background-color: #fff1f4;
+    width: 27px;
+    height: 27px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
 }
 
 .border_color {
@@ -10390,8 +10657,8 @@ p.blog-link {
     font-size: 11px;
     white-space: nowrap;
     position: absolute;
-    top: 5px;
-    left: 18%;
+    top: 0px;
+    left: 35px;
     transition: opacity 0.3s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1000;

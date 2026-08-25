@@ -3820,8 +3820,8 @@ button.btn:focus {
 
 .mcs_media_tooltip {
     position: absolute;
-    left: 25px;
-    top: 1px;
+    left: 35px;
+    top: 2px;
     z-index: 999;
     width: max-content;
     background: var(--peach);
