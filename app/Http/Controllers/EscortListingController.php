@@ -493,7 +493,12 @@ class EscortListingController extends Controller
         $query->whereHas('user', function ($q) {
             $q->where('status', 1);
         });
-        $query->whereDoesntHave('activeSuspendProfile');
+        //new code checking by the purchse table
+        $query->whereHas('purchase', function($q) {
+            $q->whereDoesntHave('activeSuspendProfile');
+        });
+        // this is older code checking by escort table
+        //$query->whereDoesntHave('activeSuspendProfile');
 
         //filter membership type wise escort
 
