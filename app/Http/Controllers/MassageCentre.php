@@ -205,7 +205,7 @@ class MassageCentre extends Controller
 
                     if ($location == 'your_location' &&  $set_lat != "" &&  $set_lng != "") {
                         $userLocation = $this->getRealTimeGeolocationOfUsers($set_lat, $set_lng);
-                        dd($userLocation);
+                        //dd($userLocation);
                         $lat_state = $userLocation['state'];
                         $lng_city = $userLocation['city'];
 
