@@ -37,7 +37,6 @@ class VisaMigrationRequestController extends Controller
       ->filterColumn('visa_type', function ($query, $keyword) {
         $query->where('visa_type', 'like', "%{$keyword}%");
       })
-
       ->filterColumn('origin', function ($query, $keyword) {
         $query->where('origin', 'like', "%{$keyword}%");
       })
