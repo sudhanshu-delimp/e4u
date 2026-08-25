@@ -206,7 +206,7 @@ class EscortListingController extends Controller
 
         if ($firstSegment) {
             if (in_array(strtolower($firstSegment), $countryList)) {
-                if (in_array($secondSegment, $genderList)) {
+                if (in_array(strtolower($secondSegment), $genderList)) {
                     //gender pass
                     $genderId = getGenderId($secondSegment);
                     if ($genderId) {
@@ -232,7 +232,7 @@ class EscortListingController extends Controller
         }
 
 
-        if(in_array(strtolower($forthSegment), $genderList)){
+        if (in_array(strtolower($forthSegment), $genderList)) {
             //gender pass
             $genderId = getGenderId($forthSegment);
             if ($genderId) {

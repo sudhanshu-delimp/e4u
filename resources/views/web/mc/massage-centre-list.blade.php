@@ -514,6 +514,7 @@
         const massageRouteStates = escortRouteStates = @json(config('escorts.profile.states'));
 
         const massageBaseUrl = "{{ config('constants.massage_list_base_slug') }}";
+        let preserveInitialMassageLocationUrl = true;
 
         function getMassageRouteMemberId(selectedCity) {
             const segments = window.location.pathname.split('/').filter(Boolean);
@@ -578,6 +579,10 @@
                     });
                 }
 
+                if (!preserveInitialMassageLocationUrl) {
+                    return false;
+                }
+
                 // Match state from URL
                 if (stateAbbr !== urlState) {
                     return false;
@@ -589,20 +594,17 @@
                 };
 
                 if (urlCity) {
-
-                    return Object.entries(cities).some(function([cityId, city]) {
+                    Object.entries(cities).some(function([cityId, city]) {
 
                         const cityName = String(city.cityName || '').toLowerCase();
 
                         if (cityName === urlCity) {
-
                             selectedCity = {
                                 stateId: stateId,
                                 cityId: cityId,
                                 state: stateAbbr,
                                 city: cityName
                             };
-
                             cityIds = cityId;
 
                             return true;
@@ -612,20 +614,19 @@
                     });
                 }
 
-
-                // Use one city ID so the backend can resolve the state.
-                if (!selectedCity && !urlCity) {
+                if (!selectedCity) {
                     cityIds = Object.keys(cities)[0] || null;
                 }
+
 
                 return true;
             });
 
-            if (hasCountrySegment || selectedState) {
+            if (selectedCity || (preserveInitialMassageLocationUrl && hasCountrySegment)) {
                 pathSegments.push('australia');
             }
 
-            if (selectedState) {
+            if (selectedCity || (preserveInitialMassageLocationUrl && selectedState)) {
                 pathSegments.push(selectedState.abbr);
 
                 if (selectedCity) {
@@ -804,6 +805,7 @@
         /////// Short List ///////////////
         $(document).on('click', '.upper_filter', async function(e) {
             e.preventDefault();
+            preserveInitialMassageLocationUrl = false;
             globalMassageRequest.filter_by_location = {
                 locationByRadio: $('input[name="locationByRadio"]:checked').val(),
                 by_name_member: $('#by_name_member').val(),
@@ -819,6 +821,7 @@
         /////// Per Page ///////////////
         $(document).on('change', '#per_page', async function(e) {
             e.preventDefault();
+            preserveInitialMassageLocationUrl = false;
             let val = $(this).val();
             globalMassageRequest.filter_by_location = {
                 locationByRadio: $('input[name="locationByRadio"]:checked').val(),
@@ -833,6 +836,7 @@
 
         $(document).on('click', '.lower_filter', async function(e) {
             e.preventDefault();
+            preserveInitialMassageLocationUrl = false;
 
             globalMassageRequest.filter_by_feild = {
                 profile_state: $('#profile_state').val(),
@@ -851,12 +855,14 @@
         //reset the filter
         $(document).on('click', '.reset_form_filter', async function(e) {
             e.preventDefault();
+            preserveInitialMassageLocationUrl = false;
             let locByRad = $('input[name="locationByRadio"]:checked').val();
             let letVal = $('#set_lat').val();
             let lngVal = $('#set_lng').val();
             $('#filterForm')[0].reset();
             //again set the location radio button to previous value
             $(`input[name="locationByRadio"][value="${locByRad}"]`).prop('checked', true);
+            $('#profile_city').val('');
             globalMassageRequest = {
                 filter_by_feild: {
                     profile_state: '',
@@ -978,6 +984,7 @@
 
         // Run when radio changes
         $(document).on('change', 'input[name="locationByRadio"]', async function() {
+            preserveInitialMassageLocationUrl = false;
             await updateLocationFields();
             let selectValue = $(this).val();
         });
