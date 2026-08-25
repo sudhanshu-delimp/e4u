@@ -64,9 +64,7 @@
                         </div>
                     </div>
                     <div class="modal-footer" style="text-align: end; display: block;">
-                        <button type="submit" class="btn-success-modal" id="save_brb" disabled>Cancel</button>
-                        <button type="button" class="btn-cancel-modal" id="save_brb"
-                            data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn-success-modal" id="save_brb" disabled>Proceed to Cancel Listing</button>
                     </div>
                 </div>
             </div>

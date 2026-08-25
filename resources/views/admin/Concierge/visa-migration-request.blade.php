@@ -90,8 +90,6 @@
             $('#visaMigrationRequestTable').DataTable({
                 processing: true,
                 serverSide: true,
-                responsive: false,
-                scrollX: true,
                 pageLength: paginateLength,
                 lengthMenu: paginateRange,
                 ajax: {
@@ -106,40 +104,41 @@
                 },
                 columns: [{
                         data: 'id',
-                        name: 'id'
+                        name: 'id',
                     },
                     {
                         data: 'member_id',
-                        name: 'member_id'
+                        name: 'member_id',
+
                     },
                     {
                         data: 'name',
-                        name: 'name'
+                        name: 'name',
                     },
                     {
                         data: 'order_date',
-                        name: 'order_date'
+                        name: 'order_date',
+                       
                     },
                     {
                         data: 'area_type',
-                        name: 'area_type'
+                        name: 'area_type',
                     },
                     {
                         data: 'passport_country',
-                        name: 'passport_country'
+                        name: 'passport_country',
                     },
                     {
                         data: 'status',
-                        name: 'status'
+                        name: 'status',
                     },
                     {
                         data: 'action',
-                        name: 'action'
+                        name: 'action',
                     },
                 ],
-                order: [
-                    [0, 'desc']
-                ]
+                ordering: false
+                
 
             });
 
