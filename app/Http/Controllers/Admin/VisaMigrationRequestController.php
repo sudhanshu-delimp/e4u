@@ -17,20 +17,44 @@ class VisaMigrationRequestController extends Controller
 
   public function lists(Request $request)
   {
-    $query = VisaMigration::query()->orderBy('id','asc');
+    $query = VisaMigration::with('user')->orderByRaw("
+            CASE status
+                WHEN 'pending' THEN 1
+                WHEN 'on_hold' THEN 2
+                WHEN 'in_progress' THEN 3
+                WHEN 'completed' THEN 4
+                ELSE 5
+            END
+        ")->orderBy('id', 'asc');
 
     return DataTables::of($query)
       ->addIndexColumn()
+      ->filterColumn('member_id', function ($query, $keyword) {
+        $query->whereHas('user', function ($q) use ($keyword) {
+          $q->where('member_id', 'like', "%{$keyword}%");
+        });
+      })
+      ->filterColumn('visa_type', function ($query, $keyword) {
+        $query->where('visa_type', 'like', "%{$keyword}%");
+      })
 
+      ->filterColumn('origin', function ($query, $keyword) {
+        $query->where('origin', 'like', "%{$keyword}%");
+      })
       ->editColumn('business_name', function ($row) {
         return $row->business_name ?? '-';
       })
-
+      ->addColumn('name', function ($row) {
+        return $row->user ? $row->first_name . " " . $row->last_name : '-';
+      })
       ->editColumn('contact_preference', function ($row) {
         return   collect(json_decode($row->contact_preference, true) ?? [])->map(fn($method) => ucfirst($method))->implode(' and ');
       })
 
 
+      ->addColumn('order_date', function ($row) {
+        return $row->created_at ? date('d-m-Y', strtotime($row->created_at)) : '--';
+      })
       ->editColumn('member_id', function ($row) {
         return $row->user ? $row->user->member_id : '--';
       })
@@ -48,6 +72,8 @@ class VisaMigrationRequestController extends Controller
           $status =  '<span class="custom_badge badge_completed">Completed</span>';
         else if ($row->status == 'in_progress')
           $status =  '<span class="custom_badge badge_inProgress">In progress</span>';
+        else if ($row->status == 'on_hold')
+          $status =  '<span class="custom_badge badge_onHold">On Hold</span>';
         else
           $status =  '<span class="custom_badge badge_pending">Pending</span>';
 
@@ -55,55 +81,77 @@ class VisaMigrationRequestController extends Controller
       })
 
       ->addColumn('action', function ($row) {
+
         $actions = [];
 
-        // If suspended -> offer publish and remove
-        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-publish" data-id="' . $row->id . '"><i class="fa fa-fw fa-upload"></i> Publish</a>';
-        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-remove" data-id="' . $row->id . '"><i class="fa fa-trash"></i> Remove</a>';
-        // Common actions
-        $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-view" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
+        $actions[] = '<a href="#" 
+        class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-status"
+        data-id="' . $row->id . '"
+        data-status="pending">
+        <i class="fa fa-clock"></i> Pending
+    </a>';
 
+        $actions[] = '<a href="#" 
+        class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-status"
+        data-id="' . $row->id . '"
+        data-status="on_hold">
+        <i class="fa fa-pause"></i> On Hold
+    </a>';
 
-        $dropdown = '<div class="dropdown no-arrow">'
-          . '<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
-          . '<i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>'
-          . '</a>'
-          . '<div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">'
-          . implode('<div class="dropdown-divider"></div>', $actions)
-          . '</div>'
-          . '</div>';
+        $actions[] = '<a href="#" 
+        class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-status"
+        data-id="' . $row->id . '"
+        data-status="in_progress">
+        <i class="fa fa-spinner"></i> In Progress
+    </a>';
 
-        return $dropdown;
+        $actions[] = '<a href="#" 
+        class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-status"
+        data-id="' . $row->id . '"
+        data-status="completed">
+        <i class="fa fa-check"></i> Completed
+    </a>';
+
+        return '<div class="dropdown no-arrow">
+        <a class="dropdown-toggle" href="#" role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false">
+            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+        </a>
+
+        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">'
+          . implode('<div class="dropdown-divider"></div>', $actions) .
+          '</div>
+    </div>';
       })
       ->rawColumns(['action', 'status'])
-
-      // ->editColumn('visa_enquiry_type', function ($row) {
-      //   return $row->visa_enquiry_type
-      //     ? config(
-      //       'escorts.visa_types.' . $row->visa_enquiry_type,
-      //       $row->visa_enquiry_type
-      //     )
-      //     : '-';
-      // })
-
-      //   ->editColumn('comments', function ($row) {
-      // return $row->comments ? Str::limit($row->comments, 30) : '-';
-      //   })
-
-      // ->editColumn('created_at', function ($row) {
-      //   return $row->created_at
-      //     ? $row->created_at->format('d-m-Y H:i')
-      //     : '-';
-      // })
-
-      // ->editColumn('updated_at', function ($row) {
-      //   return $row->updated_at
-      //     ? $row->updated_at->format('d-m-Y H:i')
-      //     : '-';
-      // })
-
-
-
       ->make(true);
+  }
+  public function updateStatus(Request $request)
+  {
+    $request->validate([
+      'id' => 'required|integer|exists:visa_migrations,id',
+      'status' => 'required|in:pending,in_progress,completed,on_hold',
+    ]);
+
+    try {
+
+      $visaMigration = VisaMigration::findOrFail($request->id);
+
+      $visaMigration->status = $request->status;
+      $visaMigration->save();
+
+      return response()->json([
+        'success' => true,
+        'message' => 'Status updated successfully.',
+      ]);
+    } catch (\Exception $e) {
+
+      return response()->json([
+        'success' => false,
+        'message' => 'Unable to update status.',
+      ], 500);
+    }
   }
 }

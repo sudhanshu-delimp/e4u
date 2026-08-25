@@ -763,6 +763,7 @@ Route::prefix('reports')->name('admin.')->group(function () {
  
   Route::get('/concierge/visa-migration-request', [VisaMigrationRequestController::class, 'index'])->name('admin.visa.migration.index');
   Route::get('/concierge/visa-migration-request/lists', [VisaMigrationRequestController::class, 'lists'])->name('admin.visa.migration.lists');
+  Route::post('/concierge/visa-migration-request/update/status', [VisaMigrationRequestController::class, 'updateStatus'])->name('admin.visa.migration.update.status');
 
 
 
