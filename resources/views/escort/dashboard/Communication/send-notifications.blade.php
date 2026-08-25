@@ -120,16 +120,11 @@
                         <thead class="bg-first">
                             <tr>
                                 <th>Viewer Name </th>
-                                <th>Home State</th>
                                 <th>Tagged </th>
-                                <th>Notifications
-                                    Enabled</th>
-                               
-                                <th>Contact
-                                    Method</th>
-                               
-                                <th>Block
-                                    Viewer</th>
+                                <th>Home State</th>
+                                <th>Contact Method</th>
+                                <th>Notifications</th>
+                                <th>Block Viewer</th>
                              
                             </tr>
                         </thead>
@@ -267,9 +262,9 @@
                 $('.btn-primary').prop('disabled', false).text('Send Notification');
                 if(response.status)
                 {   
-                    //viewerTable.ajax.reload();
+                    $('#viewerTable').DataTable().ajax.reload(null, false);
                     $('#new-ban').modal('hide');
-                    swal_success_popup(response.message ?? 'Notification send successfully');
+                    showAlert('success', 'Viewer Notification',response.message ?? 'Notification send successfully');
                     $('#sendNotificationForm')[0].reset();
                     $('#viewer_count').text(0);
                      
@@ -335,8 +330,8 @@
                 pageLength: {{$datatable_entries }},
                 lengthMenu: [{{ config('app.paginate_range') }}],   
                 language: {
-                    search: "Search:", // ✅ This will show the label
-                    searchPlaceholder: "Search by Viewer ID or Profile ID", // ✅ This is the placeholder
+                    search: "Search:", 
+                    searchPlaceholder: "Search by Viewer ID or Profile ID", 
                     lengthMenu: "Show _MENU_ entries",
                     zeroRecords: "No matching records found",
                     info: "Showing _START_ to _END_ of _TOTAL_ entries",
@@ -369,13 +364,13 @@
                     }
                 },
                 columns: [
-                    { data: 'viewer_name', name: 'viewer_name' },                         // 0
-                    { data: 'home_state', name: 'home_state' },                        // 2
-                    { data: 'tagged_date', name: 'tagged_date' },                        // 2
-                    { data: 'notification_enabled', name: 'notification_enabled' },                  
-                    { data: 'contact_method', name: 'contact_method' },                   // 4
-                     { data: 'block_viewer', name: 'block_viewer' }, 
-                    //{ data: 'playbox_subscription', name: 'playbox_subscription' },       // 6
+                    { data: 'viewer_name', name: 'viewer_name' }, 
+                    { data: 'tagged_date', name: 'tagged_date' },                     
+                    { data: 'home_state', name: 'home_state' },                        
+                    { data: 'contact_method', name: 'contact_method' }, 
+                    { data: 'notification_enabled', name: 'notification_enabled' },                    
+                    { data: 'block_viewer', name: 'block_viewer' }, 
+                    //{ data: 'playbox_subscription', name: 'playbox_subscription' },      
                                          // 9
                   
                 ],

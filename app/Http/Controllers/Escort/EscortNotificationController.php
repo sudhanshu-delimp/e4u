@@ -187,6 +187,7 @@ class EscortNotificationController extends Controller
 
                         if ($esvi) {
                             if (
+                                $esvi->escort_blocked_viewer == 1 ||
                                 $esvi->viewer_blocked_escort == 1 ||
                                 $esvi->viewer_disabled_contact == 1 ||
                                 $esvi->escort_disabled_contact == 1 ||
