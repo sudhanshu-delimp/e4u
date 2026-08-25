@@ -90,19 +90,23 @@
 
                     <div class="total_listing">
                         <div><span>Platinum Listings : </span></div>
-                        <div><span class="platinumListing">4,456</span></div>
+                        <div><span class="platinumListing">0</span></div>
                     </div>
                     <div class="total_listing">
                         <div><span>Gold Listings : </span></div>
-                        <div><span class="goldListing">4,456</span></div>
+                        <div><span class="goldListing">0</span></div>
                     </div>
                     <div class="total_listing">
                         <div><span>Silver Listings : </span></div>
-                        <div><span class="silverListing">4,456</span></div>
+                        <div><span class="silverListing">0</span></div>
+                    </div>
+                    <div class="total_listing">
+                        <div><span>Suspend Listings : </span></div>
+                        <div><span class="suspendListing">0</span></div>
                     </div>
                     <div class="total_listing">
                         <div><span>Total Listings : </span></div>
-                        <div><span class="totalListing">4,456</span></div>
+                        <div><span class="totalListing">0</span></div>
                     </div>
                 </div>
             </div>
@@ -239,6 +243,7 @@
                             $(".platinumListing").text(json.membershipCounts.platinum);
                             $(".goldListing").text(json.membershipCounts.gold);
                             $(".silverListing").text(json.membershipCounts.silver);
+                            $(".suspendListing").text(json.membershipCounts.current_suspend);
                             $(".serverTime").text(json.server_time);
                             $(".uptimeClass").html(json.server_up_time);
                             isInitialLoad = false;
