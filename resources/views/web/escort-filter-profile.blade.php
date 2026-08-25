@@ -433,7 +433,7 @@
                 return null;
             }
 
-            if (selectedGender && currentGender !== selectedGender.toLowerCase().replace(/\s+/g, '%20')) {
+            if (selectedGender && currentGender !== selectedGender.toLowerCase().replace(/\s+/g, '_')) {
                 return null;
             }
 
@@ -468,8 +468,9 @@
                 pathSegments.push(selectedCity.state, selectedCity.city);
 
                 const genderSlug = escortRouteGenders[genderId];
+
                 if (genderSlug) {
-                    pathSegments.push(genderSlug.toLowerCase().replace(/\s+/g, '%20'));
+                    pathSegments.push(genderSlug.toLowerCase().replace(/\s+/g, '_'));
                 }
 
                 const memberId = getEscortRouteMemberId(selectedCity, genderId);
@@ -479,7 +480,7 @@
 
             } else if (escortRouteGenders[genderId]) {
                 pathSegments.push('australia');
-                pathSegments.push(escortRouteGenders[genderId].toLowerCase().replace(/\s+/g, '%20'));
+                pathSegments.push(escortRouteGenders[genderId].toLowerCase().replace(/\s+/g, '_'));
             } else if (preserveInitialLocationUrl && currentCountry === 'australia') {
                 pathSegments.push('australia');
                 if (currentState &&
