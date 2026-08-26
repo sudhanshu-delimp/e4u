@@ -23,7 +23,7 @@
    <!--middle content-->
    <div class="row mt-5">
       <div class="custom-heading-wrapper col-md-12">
-         <h1 class="h1">Listings Cancelled (Advertiser)</h1>
+         <h1 class="h1">Listings Cancellations (Advertiser)</h1>
          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
       </div>
       <div class="col-md-12 ">
@@ -44,12 +44,9 @@
             <div class="col-md-12 col-sm-12 d-flex justify-content-between" style="gap: 50px;">
                <div class="d-flex justify-content-between align-items-center gap-10">
                   <select id="advertiserFilter" name="advertiser_type" class="form-select form-select-sm p-2" style="width: 200px;">
-                     <option value="{{ route('admin.advertiser-suspensions-list-ajax','escort') }}">Escort</option>
-                     <option value="{{ route('admin.advertiser-suspensions-list-ajax','massage') }}">Massage Center</option>
+                     <option value="{{ route('admin.advertiser-cancellation-list-ajax','escort') }}">Escort</option>
+                     <option value="{{ route('admin.advertiser-cancellation-list-ajax','massage') }}">Massage Center</option>
                   </select>
-                  <a class="nav-link collapse-item btn-switch" href="{{ route('admin.e4u-advertiser-suspension') }}">
-                     Switch to E4U
-                  </a>
                </div>
                <div class="total_listing">
                   <div><span>Total : </span></div>
@@ -58,14 +55,14 @@
             </div>
          </div>
          <div class="table-responsive">
-            <table class="table" id="advertiserSuspenstionTable">
+            <table class="table" id="advertiserCancellationTable">
                <thead class="table-bg">
                   <tr>
                      <th>ID</th>
                      <th>Member ID</th>
                      <th>Start Date</th>
                      <th>End Date</th>
-                     <th>Days</th>
+                     <th>Cancel Date</th>
                      <th>Location</th>
                      <th>Action</th>
                   </tr>
@@ -140,25 +137,7 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
-   $(document).ready(function() {
-
-
-      // $('#customSearch').on('keyup', function() {
-      //    $('#advertiserSuspenstionTable').DataTable().search(this.value).draw();
-      // });
-
-      // $(document).on('click', '.viewEscortSuspendedProfile', function(e) {
-      //    e.preventDefault(); // prevent default link behavior
-
-      //    const escortId = $(this).attr('data-escort-id');
-      //    var profileUrl = '{{route("profile.description","_id")}}'.replace('_id', escortId);
-
-      //    $("#escortPopupModalBodyIframe").attr('src', profileUrl)
-      // });
-
-   });
-
-   var table = $('#advertiserSuspenstionTable').DataTable({
+   var table = $('#advertiserCancellationTable').DataTable({
       language: {
          search: "Search: _INPUT_",
          searchPlaceholder: "Search by Member ID"
@@ -168,7 +147,7 @@
       searching: true,
       bStateSave: true,
       order: [
-         [1, 'desc']
+         [4, 'desc']
       ],
       processing: true,
       serverSide: true,
@@ -180,7 +159,6 @@
             // var totalRows = json.data.length; 
             var totalRows = json.recordsTotal || json.recordsFiltered;
             $(".totalListing").text(totalRows);
-            console.log(json, json.per_page, json.current_page);
             $(".serverTime").text(json.server_time);
             $(".uptimeClass").html(json.server_up_time);
             return json.data;
@@ -197,24 +175,29 @@
          },
          {
             data: 'start_date',
-            name: 'start_date'
+            name: 'start_date',
+            searchable: false,
          },
          {
             data: 'end_date',
-            name: 'end_date'
+            name: 'end_date',
+            searchable: false,
          },
          {
-            data: 'days',
-            name: 'days'
+            data: 'cancelled_at',
+            name: 'cancelled_at',
+            searchable: false,
          },
          {
             data: 'location',
-            name: 'location'
+            name: 'location',
+            orderable: false,
          },
          {
             data: 'action',
             name: 'action',
             orderable: false,
+            searchable: false,
             class: 'text-center'
          }
       ]

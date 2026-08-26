@@ -428,7 +428,7 @@ Route::get('reports/advertiser-suspensions-list-ajax/{advertiserType}', [ReportA
 Route::get('reports/e4u-suspensions', [ReportAdvertiserSuspensionContoller::class, 'suspendedByAdmin'])->name('admin.e4u-advertiser-suspension');
 Route::get('reports/admin-suspensions-list-ajax/{advertiserType}', [ReportAdvertiserSuspensionContoller::class, 'adminSuspensionDataTableListingAjax'])->name('admin.admin-suspensions-list-ajax');
 Route::get('reports/advertiser-cancellations', [ReportAdvertiserSuspensionContoller::class, 'cancelledByAdvertiser'])->name('admin.advertiser-cancellations');
-
+Route::get('reports/advertiser-cancellation-list-ajax/{advertiserType}', [ReportAdvertiserSuspensionContoller::class, 'advertiserCancellationDataTableListingAjax'])->name('admin.advertiser-cancellation-list-ajax');
 
 Route::get('admin/dataTable', [AgentRequestController::class, 'dataTable'])->name('admin.dataTable');
 Route::post('send-notiification', [NotificationController::class, 'sendNotification'])->name('admin.send-notiification');
