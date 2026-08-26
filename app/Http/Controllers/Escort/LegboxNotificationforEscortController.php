@@ -141,7 +141,7 @@ class LegboxNotificationforEscortController extends Controller
             $n = LegboxNotificationForEscrt::findOrFail($id);
             return success_response([
                 'id' => $n->id,
-                'ref' => sprintf('#%05d', $n->id),
+                'ref' => $n->id,
                 'heading' => $n->heading,
                 'start_date' => basicDateFormat($n->start_date),
                 'end_date' => basicDateFormat($n->end_date),
@@ -193,13 +193,13 @@ class LegboxNotificationforEscortController extends Controller
             $update->template_name = null;
             $update->member_id     = null;
 
-            if ($request->type == 'Ad hoc') {
-                $update->content = $request->content;
+            if ($request->type == 'Adhoc') {
+                $update->content = $data['content'];
             } elseif ($request->type == 'Template') {
                 $update->template_name = $request->template_name;
             } elseif ($request->type == 'Notice') {
                 $update->member_id = $request->member_id;
-                $update->content = $request->content;
+                $update->content = $data['content'];
             }
 
             $update->save();

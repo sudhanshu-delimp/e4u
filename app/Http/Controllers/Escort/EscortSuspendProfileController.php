@@ -35,7 +35,11 @@ class EscortSuspendProfileController extends Controller
             $startDate = $request->start_date;
             $endDate = $request->end_date;
             $refund = getSuspendRefundAmount($escortProfile, $startDate, $endDate);
-            $existSuspendedDate = $escortProfile->suspendProfile()->overlapping($startDate, $endDate)->exists();
+            $existSuspendedDate = $escortProfile->mainPurchase
+                ->suspendProfile()
+                ->overlapping($startDate, $endDate)
+                ->exists();
+
             if ($existSuspendedDate) {
                 return response()->json([
                     'success' => false,
@@ -80,6 +84,7 @@ class EscortSuspendProfileController extends Controller
         # Store suspend profile details
         $suspendProfile = SuspendProfile::create(
             [
+                'purchase_id' => $escortProfile->purchase_id,
                 'escort_profile_id' => $request->suspend_profile_id,
                 'user_id' => $user->id,
                 'start_date' => Carbon::parse($request->start_date),

@@ -50,6 +50,7 @@ use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Escort\Concierge\ProductController;
 use App\Http\Controllers\Admin\AgentMonthlyReportController;
 use App\Http\Controllers\Admin\OperatorMonthlyReportController;
+use App\Http\Controllers\Admin\VisaMigrationRequestController;
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
@@ -754,9 +755,12 @@ Route::prefix('reports')->name('admin.')->group(function () {
   Route::post('/order-complete', [ProductOrderController::class, 'orderComplete'])->name('escort.order.complete');
   Route::get('/order-details', [ProductOrderController::class, 'getOrderDetails'])->name('escort.order.details');
 });
-Route::get('/Concierge/visa-migration-request', function () {
-  return view('admin.Concierge.visa-migration-request');
-})->name('visa-migration-request');
+ 
+  Route::get('/concierge/visa-migration-request', [VisaMigrationRequestController::class, 'index'])->name('admin.visa.migration.index');
+  Route::get('/concierge/visa-migration-request/lists', [VisaMigrationRequestController::class, 'lists'])->name('admin.visa.migration.lists');
+  Route::post('/concierge/visa-migration-request/update/status', [VisaMigrationRequestController::class, 'updateStatus'])->name('admin.visa.migration.update.status');
+
+
 
 Route::get('/reporting/email-request', function () {
   return view('admin.reporting.email-request');

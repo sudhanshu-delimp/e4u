@@ -210,6 +210,7 @@ class Escort extends Model
     public function isListingExtended()
     {
         $extendedPurchase = $this->purchase()->where('escort_id', $this->id)
+            ->where('status', 'pending')
             ->where('start_date', Carbon::parse($this->end_date)->addDay())
             ->first();
 
@@ -249,6 +250,12 @@ class Escort extends Model
     public function suspendProfile()
     {
         return $this->hasMany(SuspendProfile::class, 'escort_profile_id');
+    }
+
+    public function upcomingSuspends()
+    {
+        return $this->suspendProfile()
+            ->where('utc_start_date', '>', now('UTC'));
     }
 
     public function activeSuspendProfile()

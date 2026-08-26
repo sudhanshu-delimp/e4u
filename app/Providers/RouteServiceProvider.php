@@ -27,7 +27,7 @@ class RouteServiceProvider extends ServiceProvider
     public const EscortList = '/all-escorts-list';
     public const staffDashboard = '/staff-dashboard';
     public const OperatorDashboard = '/operator-dashboard';
-     public const ShareholderDashboard = '/shareholder-dashboard';
+    public const ShareholderDashboard = '/shareholder-dashboard';
 
     /**
      * The controller namespace for the application.
@@ -54,55 +54,51 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/api.php'));
 
             Route::prefix('admin-dashboard')
-                ->middleware(['web', 'admin','TrackLoginUserInfo'])
+                ->middleware(['web', 'admin', 'TrackLoginUserInfo'])
                 ->namespace('App\Http\Controllers\Admin')
                 ->group(base_path('routes/admin.php'));
 
             Route::prefix('escort-dashboard')
-                ->middleware(['web', 'escort', 'HeaderInfo','TrackLoginUserInfo'])
+                ->middleware(['web', 'escort', 'HeaderInfo', 'TrackLoginUserInfo'])
                 ->namespace('App\Http\Controllers\Escort')
                 ->group(base_path('routes/escort.php'));
-     
-            Route::middleware(['web', 'user', 'HeaderInfo','TrackLoginUserInfo'])
-                //->namespace('App\Http\Controllers\User')
-                ->group(base_path('routes/web.php'));
 
             Route::prefix('agent-dashboard')
-                ->middleware(['web', 'agent', 'HeaderInfo','TrackLoginUserInfo'])
+                ->middleware(['web', 'agent', 'HeaderInfo', 'TrackLoginUserInfo'])
                 ->namespace('App\Http\Controllers\Agent')
                 ->group(base_path('routes/agent.php'));
-            
-           /*  Route::prefix('shareholder-dashboard')
+
+            /*  Route::prefix('shareholder-dashboard')
             ->middleware(['web', 'HeaderInfo','TrackLoginUserInfo'])
             ->namespace('App\Http\Controllers\Shareholder')
             ->group(base_path('routes/shareholder.php'));  */
-            
+
             Route::prefix('operator-dashboard')
-            ->middleware(['web', 'operator', 'HeaderInfo','TrackLoginUserInfo'])
-            ->namespace('App\Http\Controllers\Operator')
-            ->group(base_path('routes/operator.php')); 
+                ->middleware(['web', 'operator', 'HeaderInfo', 'TrackLoginUserInfo'])
+                ->namespace('App\Http\Controllers\Operator')
+                ->group(base_path('routes/operator.php'));
 
             Route::prefix('center-dashboard')
-                ->middleware(['web', 'center', 'HeaderInfo','TrackLoginUserInfo','view.only'])
+                ->middleware(['web', 'center', 'HeaderInfo', 'TrackLoginUserInfo', 'view.only'])
                 ->namespace('App\Http\Controllers\Center')
                 ->group(base_path('routes/center.php'));
 
-            Route::middleware(['web','TrackLoginUserInfo','demo.auth'])
+            Route::middleware(['web', 'TrackLoginUserInfo', 'demo.auth'])
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
 
             Route::middleware('dev')
                 ->namespace('App\Http\Controllers\Dev')
                 ->group(base_path('routes/dev.php'));
-             Route::prefix('staff-dashboard')
-                ->middleware(['web', 'staff', 'HeaderInfo','TrackLoginUserInfo'])
+            Route::prefix('staff-dashboard')
+                ->middleware(['web', 'staff', 'HeaderInfo', 'TrackLoginUserInfo'])
                 ->namespace('App\Http\Controllers\Staff')
-                ->group(base_path('routes/staff.php'));  
-                
+                ->group(base_path('routes/staff.php'));
+
             Route::prefix('shareholder-dashboard')
-            ->middleware(['web', 'shareholder', 'HeaderInfo','TrackLoginUserInfo'])
-            ->namespace('App\Http\Controllers\Shareholder')
-            ->group(base_path('routes/shareholder.php'));     
+                ->middleware(['web', 'shareholder', 'HeaderInfo', 'TrackLoginUserInfo'])
+                ->namespace('App\Http\Controllers\Shareholder')
+                ->group(base_path('routes/shareholder.php'));
         });
     }
 

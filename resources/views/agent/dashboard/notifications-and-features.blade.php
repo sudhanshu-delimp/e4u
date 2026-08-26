@@ -47,7 +47,7 @@
                     <div class="col-md-12 mb-4">
                         <div class="card collapse" id="notes" style="">
                             <div class="card-body">
-                                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                                <h3 class="NotesHeader"><b>Notes:</b></h3>
                                 <ol>
                                     <li>Use this feature to enable and disable your notification and feature preferences.
                                     </li>
@@ -344,11 +344,30 @@
                                                     Your default setting is:
                                                 </span>
 
-                                                <select class="entries-select" name="entries">
-                                                    <option value="25" selected>25</option>
-                                                    <option value="50">50</option>
-                                                    <option value="75">75</option>
-                                                    <option value="100">100</option>
+                                                <select class="entries-select" name="show_entries">
+                                                    <option value="10"
+                                                        {{ isset($setting->agent_settings) && $setting->agent_settings->show_entries == '10' ? 'selected' : '' }}>
+                                                        10
+                                                    </option>
+                                                    <option value="25"
+                                                        {{ isset($setting->agent_settings) && $setting->agent_settings->show_entries == '25' ? 'selected' : '' }}>
+                                                        25
+                                                    </option>
+
+                                                    <option value="50"
+                                                        {{ isset($setting->agent_settings) && $setting->agent_settings->show_entries == '50' ? 'selected' : '' }}>
+                                                        50
+                                                    </option>
+
+                                                    <option value="75"
+                                                        {{ isset($setting->agent_settings) && $setting->agent_settings->show_entries == '75' ? 'selected' : '' }}>
+                                                        75
+                                                    </option>
+
+                                                    <option value="100"
+                                                        {{ isset($setting->agent_settings) && $setting->agent_settings->show_entries == '100' ? 'selected' : '' }}>
+                                                        100
+                                                    </option>
                                                 </select>
 
                                             </div>
@@ -361,7 +380,7 @@
 
                                     </div>
                                     <div class="common-footer">
-                                        <input type="submit" value="save" class="common-save-btn" name="submit">
+                                        <input type="submit" value="Save" class="common-save-btn" name="submit">
                                     </div>
                                 </div>
                                 @csrf

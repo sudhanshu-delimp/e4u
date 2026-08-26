@@ -128,6 +128,7 @@
         </div>
     </div>
 </div>
+
 @endsection
 @push('script')
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
@@ -142,7 +143,8 @@
             lengthChange: true,
             searchable: false,
             bStateSave: false,
-            pageLength: 25,
+            pageLength: {{$datatable_entries }},
+            lengthMenu: [{{ config('app.paginate_range') }}],  
             "language": {
                 "zeroRecords": "There is no record of the search criteria you entered.",
                 searchPlaceholder: "Search by ID or Profile Name"

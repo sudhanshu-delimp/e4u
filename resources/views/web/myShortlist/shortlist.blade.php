@@ -48,14 +48,26 @@
 
             <div class="accordion custom_accordian" id="accordionExample">
                 <div class="card">
-                    <div class="card-header all_filter_accordain" id="headingOne">
-                        <h2 class="mb-0">
-                            <button class="btn btn-block text-left btn-search" type="button" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="true" aria-controls="collapseSearch">
-                            Find Escorts
+                    
+                    <div class="card-header public_filter_accordian" id="headingOne">
+                        <div class="pub_heading btn-search" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="true"
+                            aria-controls="collapseSearch" bis_skin_checked="1">
+                            <h2>
+                                <span class="pub_filter_icon">
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" class="icon_esc" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path d="M15 7C15 8.65685 13.6569 10 12 10C10.3431 10 9 8.65685 9 7C9 5.34315 10.3431 4 12 4C13.6569 4 15 5.34315 15 7Z" stroke="#ff3c5f" stroke-width="2"></path>
+                                                    <path d="M5 19.5C5 15.9101 7.91015 13 11.5 13H12.5C16.0899 13 19 15.9101 19 19.5V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V19.5Z" stroke="#ff3c5f" stroke-width="2"></path>
+                                                </g>
+                                            </svg>
+                                </span> Find Escorts
+                            </h2>
                             <i class="fa fa-angle-down"></i>
-                            </button>                        
-                        </h2>
+                        </div>
                     </div>
+
 
                     <div id="collapseSearch" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                         <div class="card-body">

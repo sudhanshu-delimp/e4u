@@ -131,8 +131,11 @@ class MassageCentre extends Controller
     public function mcAjaxList(Request $request)
     {
        // dd($request->all());
+
         $per_page = 2;
         $logedInUpser = auth()->user();
+        $memberId = $request->input('filter_by_feild.massage_id', []);
+   
 
 
         # Not show specific profile to viewer if specific viewer is blocked by Massage
@@ -146,8 +149,12 @@ class MassageCentre extends Controller
 
 
         $massage_live_ids = MassagePurchase::where('status', 'listed')
-            ->whereHas('user', function ($q) {
-                $q->where('status', 1);
+            ->whereHas('user', function ($q) use($memberId) {
+                $q->where('status', 1)
+                    ->when(!empty($memberId), function($q) use ($memberId){
+                          $q->where('member_id', $memberId);
+                    });
+            
             })
             ->whereNotIn('massage_profile_id', $blockedProfileForViewersIds)
             ->whereDoesntHave('activeSuspendProfile')
@@ -166,7 +173,7 @@ class MassageCentre extends Controller
         $filter_by_location = $request->input('filter_by_location', []);
         $filter_by_feild    = $request->input('filter_by_feild', []);
 
-    
+
         $massage_users = User::where('type', '4');
         if (!empty($mc_user_id))
             $massage_users = $massage_users->whereIn('id', $mc_user_id);
@@ -176,7 +183,7 @@ class MassageCentre extends Controller
         if (!empty($mc_live_list))
             $massage = $massage->whereIn('id', $mc_live_list);
 
-  
+
 
         ######### Upper Filter ##################### 
         if ((!empty($filter_by_location)) || (!empty($filter_by_feild))) {
@@ -198,6 +205,7 @@ class MassageCentre extends Controller
 
                     if ($location == 'your_location' &&  $set_lat != "" &&  $set_lng != "") {
                         $userLocation = $this->getRealTimeGeolocationOfUsers($set_lat, $set_lng);
+                        //dd($userLocation);
                         $lat_state = $userLocation['state'];
                         $lng_city = $userLocation['city'];
 
@@ -246,8 +254,7 @@ class MassageCentre extends Controller
                                 $massage = $massage->whereRaw('1 = 0');
                             }
                         }
-                        
-                        } else if ($location == 'australia') {
+                    } else if ($location == 'australia') {
                         if (!empty($member)) {
                             $massage_users = $massage_users->distinct()->pluck('id')->toArray();
                             $external_search = User::where('type', 5);
@@ -282,7 +289,7 @@ class MassageCentre extends Controller
                     }
                 }
 
-              
+
                 if (!empty($filter_by_feild)) {
 
                     $profile_state      = $filter_by_feild['profile_state'] ?? null;
@@ -381,19 +388,19 @@ class MassageCentre extends Controller
             //$massage = $massage->paginate($per_page)->onEachSide(1);
         } else {
             $massage = $massage->where('default_setting', '!=', '1');
-           
+
             // if (empty($mc_live_list))
             //     $massage = $massage->whereIn('id', $mc_live_list);
             // else
             //     $massage = $massage->whereRaw('1 = 0');
 
-              if (!empty($mc_live_list)){
+            if (!empty($mc_live_list)) {
                 $massage = $massage->whereIn('id', $mc_live_list);
-              }else{
+            } else {
                 $massage = $massage->whereRaw('1 = 0');
-              }
-               
-    
+            }
+
+
             //$massage = $massage->paginate($per_page)->onEachSide(1);
         }
         ######### End Upper Filter ##################### 
@@ -542,7 +549,8 @@ class MassageCentre extends Controller
         $prevId = $ids[$currentIndex - 1] ?? null;
         $nextId = $ids[$currentIndex + 1] ?? null;
 
-
+        $prevSlug = $prevId = !empty($prevSlug) ?  $prevId : null;
+        $nextSlug = $nextId = !empty($nextSlug) ?  $nextId : null;
 
         //$listing = MassageProfile::where('id','=',$id)->first();
         $reviews = $listing->reviews;
@@ -594,33 +602,74 @@ class MassageCentre extends Controller
         } else {
             $star_rating = 0;
         }
+        $prevList = $nextList = null;
 
-
-        return view('web.mc.massage-description', compact('listing', 'durations', 'massage_durations', 'reviews', 'spamReportAdvertiser', 'lp', 'dp', 'massageLike', 'nextId', 'prevId', 'ids', 'star_rating'));
+        return view('web.mc.massage-description', compact('listing', 'durations', 'massage_durations', 'reviews', 'spamReportAdvertiser', 'lp', 'dp', 'massageLike', 'nextId', 'prevId', 'ids', 'star_rating', 'prevSlug', 'nextSlug', 'prevList', 'nextList'));
     }
 
 
     /**
      * View masage profile
      */
-    public function massageProfile(Request $request, $profile = "")
+    public function massageProfile(Request $request, $country = "", $state = "", $city = "", $memberId = "", $profile = "")
     {
         $previousUrl = url()->previous();
         $path = parse_url($previousUrl, PHP_URL_PATH);
         $previousSlug = trim($path, '/');
-
         $relatedIds = [];
         $relatedSlugs = [];
-        $escort = MassageProfile::where('slug', $profile)->first();
-          if(!$escort){
-             return redirect(route('find.massage.centre'));
-          } else {
-           $id = $escort->id;
-           $city = $escort->city_id;
-           $membershipId = $escort->membership;
-          }
+        $country = trim($country);
+        $state = trim($state);
+        $city = trim($city);
+        $profile = trim($profile);
+        $memberId = trim($memberId);
+        $isproceed = false;
+        $countryId = "";
+        $stateId = "";
+        $cityId = "";
+        $escort = null;
 
-          $stateId = $escort->user->state_id;
+        if (!empty($country) && empty($state) && empty($city) && empty($memberId) && empty($profile)) {
+            $profile = $country;
+            $escort = MassageProfile::where('slug', $profile)->first();
+        } else if (isset($country, $state, $city, $memberId, $profile) && $country !== '' && $state !== '' && $city !== '' && $profile !== '') {
+            $countryArr = findCountryByName($country);
+            $countryId = ($countryArr) ? $countryArr['id'] : "";
+            $cityStateId = getStateCityIds($state, $city);
+
+            if ($cityStateId) {
+                $stateId = $cityStateId['state_id'];
+                $cityId = $cityStateId['city_id'];
+            }
+
+            $cityName = getCityNameByStateId($stateId);
+            if($cityName != $city) {
+                return redirect(route('find.massage.centre'));
+            }
+           
+            $escort = MassageProfile::with(['user.state'])
+                ->where('slug', $profile)
+                ->whereHas('user', function ($query) use ($memberId, $stateId, $countryId) {
+                    $query->where('member_id', $memberId)
+                        ->where('state_id', $stateId)
+                        ->whereHas('state', function ($q) use ($countryId) {
+                            $q->where('country_id', $countryId);
+                        });
+                })
+                ->first();
+        } else {
+            return redirect(route('find.massage.centre'));
+        }
+
+        if (!$escort) {
+            return redirect(route('find.massage.centre'));
+        } else {
+            $id = $escort->id;
+            $city = $escort->city_id;
+            $membershipId = $escort->membership;
+        }
+
+        $stateId = $escort->user->state_id;
 
         $logedInUpser = auth()->user();
         # Not show specific profile to viewer if specific viewer is blocked by Massage
@@ -634,19 +683,18 @@ class MassageCentre extends Controller
 
         if (str_contains($previousSlug, 'massage-profile') || str_contains($previousSlug, 'massage-centres-list')) {
             $relatedMassges = MassagePurchase::with('massageprofile')->where('status', 'listed')
-                ->whereHas('user', function ($q) use($stateId) {
-                    $q->where('status', 1);
-                    //->where('state_id', $stateId);
+                ->whereHas('user', function ($q) use ($stateId) {
+                    $q->where('status', 1)->where('state_id', $stateId);
                 })
                 ->whereNotIn('massage_profile_id', $blockedProfileForViewersIds)
                 ->whereDoesntHave('activeSuspendProfile')->get();
-        
+
             $relatedIds = $relatedMassges->pluck('massage_profile_id')->toArray();
             $relatedSlugs = $relatedMassges->pluck('massageprofile.slug')->filter()->toArray();
         }
-         //$ids = $request->ids ? json_decode($request->ids, true) : [];
-   
-          $ids = $relatedIds;
+        //$ids = $request->ids ? json_decode($request->ids, true) : [];
+
+        $ids = $relatedIds;
         if (!$id) {
             return redirect(route('find.massage.centre'));
         }
@@ -673,7 +721,8 @@ class MassageCentre extends Controller
         $prevId = !empty($prevSlug) ?  $prevId : null;
         $nextId = !empty($nextSlug) ?  $nextId : null;
 
-        //$listing = MassageProfile::where('id','=',$id)->first();
+        $prevList = MassageProfile::where('id', '=', $prevId)->first();
+        $nextList = MassageProfile::where('id', '=', $nextId)->first();
         $reviews = $listing->reviews;
 
         $massage_durations = (isset($listing->durations) && count($listing->durations) > 0) ? $listing->durations->toArray() : [];
@@ -722,7 +771,7 @@ class MassageCentre extends Controller
             $star_rating = 0;
         }
 
-        return view('web.mc.massage-description', compact('listing', 'durations', 'massage_durations', 'reviews', 'spamReportAdvertiser', 'lp', 'dp', 'massageLike', 'nextId', 'prevId', 'ids', 'star_rating', 'prevSlug', 'nextSlug'));
+        return view('web.mc.massage-description', compact('listing', 'durations', 'massage_durations', 'reviews', 'spamReportAdvertiser', 'lp', 'dp', 'massageLike', 'nextId', 'prevId', 'ids', 'star_rating', 'prevSlug', 'nextSlug', 'prevList', 'nextList'));
     }
 
 
@@ -1145,7 +1194,7 @@ class MassageCentre extends Controller
                 'query' => request()->query(),
             ]
         );
-     
+
         return response()->json([
             'grid' => view('web.mc-shortlist.mc-grid-data', compact('listings', 'media'))->render(),
             'list' => view('web.mc-shortlist.mc-list-data', compact('listings'))->render(),
@@ -1155,134 +1204,134 @@ class MassageCentre extends Controller
     }
 
 
-  public function generateLog(Request $request)
-  {
+    public function generateLog(Request $request)
+    {
 
-    try {
+        try {
 
-      $data = $this->getVisitorCountry();
-      $masseur = $request->masseur_id;
-      $page = $request->page;
-      if ($data) {
-        $now = Carbon::now(config('app.escort_server_timezone'));
-        // $query = Visitor::where('page', $page)->where('masseur_id', $masseur)->where('visitorUuid', $request->visitorUuid)->where('created_at', '>=', $now->copy()->subDay());
-        // $visitor = $query->latest('id')->first();
+            $data = $this->getVisitorCountry();
+            $masseur = $request->masseur_id;
+            $page = $request->page;
+            if ($data) {
+                $now = Carbon::now(config('app.escort_server_timezone'));
+                // $query = Visitor::where('page', $page)->where('masseur_id', $masseur)->where('visitorUuid', $request->visitorUuid)->where('created_at', '>=', $now->copy()->subDay());
+                // $visitor = $query->latest('id')->first();
 
 
-        $query = Visitor::where('page', $page)
-          ->where('masseur_id', $masseur)
-          ->where('visitorUuid', $request->visitorUuid)
-          ->where('created_at', '>=', $now->copy()->subDay());
+                $query = Visitor::where('page', $page)
+                    ->where('masseur_id', $masseur)
+                    ->where('visitorUuid', $request->visitorUuid)
+                    ->where('created_at', '>=', $now->copy()->subDay());
 
-        if (auth()->check()) {
-          $query->where('user_id', auth()->id());
+                if (auth()->check()) {
+                    $query->where('user_id', auth()->id());
+                } else {
+                    $query->whereNull('user_id');
+                }
+
+                $visitor =     $query->latest('created_at')->first();
+
+                $datas = [
+                    'page'       => $page,
+                    'ip_address' => $this->getUserIp(),
+                    'device'     => $this->getBrowser(),
+                    'platform'   => $this->getBrowser(),
+                    'country'    => $data[0],
+                    'city'       => $data[2],
+                    'state'      => $data[1],
+                    'user_type'  => auth()->check() ? 'user' : 'guest',
+                    'user_id'    => auth()->id(),
+                    'idle'       => $now->format('Y-m-d h:i:s a'),
+                    'origin'     => $this->getVisitorCountry()[0],
+                    'date'       => $now,
+                    'masseur_id' => $masseur,
+                ];
+                if ($visitor) {
+                    $visitor->update($datas);
+                } else {
+                    Visitor::create(array_merge($datas, [
+                        'landed' => $now->format('Y-m-d h:i:s a'),
+                        'visitorUuid' => $request->visitorUuid,
+                    ]));
+                }
+            }
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
+        }
+    }
+
+    public function getUserIp()
+    {
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            // IP from shared internet
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            // IP passed from proxy
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            // Sometimes multiple IPs are returned, get the first one
+            $ip = explode(',', $ip)[0];
         } else {
-          $query->whereNull('user_id');
+            // Remote IP
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
+    }
+
+    public function getVisitorCountry()
+    {
+        $ip = $this->getUserIp();
+
+        // Check if IP and Country are already stored in session
+        if (Session::has('visitor_ip') && Session::get('visitor_ip') === $ip && Session::has('visitor_country') && Session::has('visitor_city') && Session::has('visitor_region')) {
+            return [Session::get('visitor_country'), Session::get('visitor_state'), Session::get('visitor_city'), Session::get('visitor_region')];
+        }
+        // If not in session, fetch from API
+        $response = Http::get("http://ip-api.com/json/{$ip}");
+
+        $data = $response->json();
+        $visitorState = null;
+        $visitorCountry = null;
+        $visitorCity = null;
+        $visitorRegion = null;
+        if ($data && isset($data['status']) && $data['status'] === 'success') {
+            $visitorCountry = $data['country'];
+            $visitorState   = $data['regionName'];
+            $visitorCity   = $data['city'];
+            $visitorRegion   = $data['region'];
+
+            // Store in session for later use
+            Session::put('visitor_ip', $ip);
+            Session::put('visitor_country', $visitorCountry);
+            Session::put('visitor_state', $visitorState);
+            Session::put('visitor_city', $visitorCity);
+            Session::put('visitor_region', $visitorRegion);
         }
 
-        $visitor =     $query->latest('created_at')->first();
+        return [$visitorCountry, $visitorState, $visitorCity, $visitorRegion];
+    }
 
-        $datas = [
-          'page'       => $page,
-          'ip_address' => $this->getUserIp(),
-          'device'     => $this->getBrowser(),
-          'platform'   => $this->getBrowser(),
-          'country'    => $data[0],
-          'city'       => $data[2],
-          'state'      => $data[1],
-          'user_type'  => auth()->check() ? 'user' : 'guest',
-          'user_id'    => auth()->id(),
-          'idle'       => $now->format('Y-m-d h:i:s a'),
-          'origin'     => $this->getVisitorCountry()[0],
-          'date'       => $now,
-          'masseur_id' => $masseur,
-        ];
-        if ($visitor) {
-          $visitor->update($datas);
-        } else {
-          Visitor::create(array_merge($datas, [
-            'landed' => $now->format('Y-m-d h:i:s a'),
-            'visitorUuid' => $request->visitorUuid,
-          ]));
+
+    public function getBrowser()
+    {
+        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+        $browser = "Unknown Browser";
+
+        if (preg_match('/MSIE (\\d+\\.\\d+)/i', $userAgent, $matches)) {
+            $browser = "Internet Explorer";
+        } elseif (preg_match('/Trident.*rv:(\\d+\\.\\d+)/i', $userAgent, $matches)) {
+            $browser = "Internet Explorer";
+        } elseif (preg_match('/Edg\\/([0-9\\.]+)/i', $userAgent, $matches)) {
+            $browser = "Microsoft Edge";
+        } elseif (preg_match('/OPR\\/([0-9\\.]+)/i', $userAgent, $matches)) {
+            $browser = "Opera";
+        } elseif (preg_match('/Chrome\\/([0-9\\.]+)/i', $userAgent, $matches)) {
+            $browser = "Google Chrome";
+        } elseif (preg_match('/Safari\\/([0-9\\.]+)/i', $userAgent, $matches)) {
+            $browser = "Apple Safari";
+        } elseif (preg_match('/Firefox\\/([0-9\\.]+)/i', $userAgent, $matches)) {
+            $browser = "Mozilla Firefox";
         }
-      }
-    } catch (Exception $e) {
-      Log::info($e->getMessage());
+
+        return $browser;
     }
-  }
-
-  public function getUserIp()
-  {
-    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-      // IP from shared internet
-      $ip = $_SERVER['HTTP_CLIENT_IP'];
-    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-      // IP passed from proxy
-      $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-      // Sometimes multiple IPs are returned, get the first one
-      $ip = explode(',', $ip)[0];
-    } else {
-      // Remote IP
-      $ip = $_SERVER['REMOTE_ADDR'];
-    }
-    return $ip;
-  }
-
-  public function getVisitorCountry()
-  {
-    $ip = $this->getUserIp();
-
-    // Check if IP and Country are already stored in session
-    if (Session::has('visitor_ip') && Session::get('visitor_ip') === $ip && Session::has('visitor_country') && Session::has('visitor_city') && Session::has('visitor_region')) {
-      return [Session::get('visitor_country'), Session::get('visitor_state'), Session::get('visitor_city'), Session::get('visitor_region')];
-    }
-    // If not in session, fetch from API
-    $response = Http::get("http://ip-api.com/json/{$ip}");
-
-    $data = $response->json();
-    $visitorState = null;
-    $visitorCountry = null;
-    $visitorCity = null;
-    $visitorRegion = null;
-    if ($data && isset($data['status']) && $data['status'] === 'success') {
-      $visitorCountry = $data['country'];
-      $visitorState   = $data['regionName'];
-      $visitorCity   = $data['city'];
-      $visitorRegion   = $data['region'];
-
-      // Store in session for later use
-      Session::put('visitor_ip', $ip);
-      Session::put('visitor_country', $visitorCountry);
-      Session::put('visitor_state', $visitorState);
-      Session::put('visitor_city', $visitorCity);
-      Session::put('visitor_region', $visitorRegion);
-    }
-
-    return [$visitorCountry, $visitorState, $visitorCity, $visitorRegion];
-  }
-
-
-  public function getBrowser()
-  {
-    $userAgent = $_SERVER['HTTP_USER_AGENT'];
-    $browser = "Unknown Browser";
-
-    if (preg_match('/MSIE (\\d+\\.\\d+)/i', $userAgent, $matches)) {
-      $browser = "Internet Explorer";
-    } elseif (preg_match('/Trident.*rv:(\\d+\\.\\d+)/i', $userAgent, $matches)) {
-      $browser = "Internet Explorer";
-    } elseif (preg_match('/Edg\\/([0-9\\.]+)/i', $userAgent, $matches)) {
-      $browser = "Microsoft Edge";
-    } elseif (preg_match('/OPR\\/([0-9\\.]+)/i', $userAgent, $matches)) {
-      $browser = "Opera";
-    } elseif (preg_match('/Chrome\\/([0-9\\.]+)/i', $userAgent, $matches)) {
-      $browser = "Google Chrome";
-    } elseif (preg_match('/Safari\\/([0-9\\.]+)/i', $userAgent, $matches)) {
-      $browser = "Apple Safari";
-    } elseif (preg_match('/Firefox\\/([0-9\\.]+)/i', $userAgent, $matches)) {
-      $browser = "Mozilla Firefox";
-    }
-
-    return $browser;
-  }
 }

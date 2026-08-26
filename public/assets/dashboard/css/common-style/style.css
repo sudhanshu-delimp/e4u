@@ -389,8 +389,16 @@ form.v-form-design .form-group {
     box-shadow: 0 0 0 3px rgba(245, 47, 91, 0.08);
 }
 
+.btn-switch {
+    background: #0c223d;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+}
+
 .btn-switch:hover {
     background-color: #ff3c5f;
+    color: #fff;
 }
 
 
@@ -446,6 +454,62 @@ label.cabinet input.file {
     background: linear-gradient(135deg, #fffafd, #fff);
     margin-bottom: 30px;
     box-shadow: 0px 0px 6px -2px #ccc;
+}
+
+.card#notes {
+    border: 1px solid #ffd8e1;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #fffafd, #fff);
+    margin-bottom: 30px;
+    box-shadow: 0px 0px 6px -2px #ccc;
+}
+
+#notes .card {
+    border: 1px solid #ffd8e1;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #fffafd, #fff);
+    margin-bottom: 30px;
+    box-shadow: 0px 0px 6px -2px #ccc;
+}
+
+.card#notes .card-body {
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+}
+
+#notes .card .card-body {
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+}
+
+.card#notes .card-body ol {
+    margin-bottom: 0px;
+}
+
+.card#notes .card-body ol li {
+    line-height: 28px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #192A3E;
+}
+
+.helpNoteLink {
+    border: 1px solid #ffd0dc;
+    background: #fff3f6;
+    color: #ff3c5f;
+    padding: 5px 15px;
+    border-radius: 10px;
+    font-size: 12px !important;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.helpNoteLink:hover {
+    background: #ff3c5f;
+    color: #fff3f6;
 }
 
 .file-types-icon {

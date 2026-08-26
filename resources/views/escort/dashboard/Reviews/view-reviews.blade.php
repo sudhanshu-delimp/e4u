@@ -29,8 +29,8 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                        <p></p>
+                       <h3 class="NotesHeader"><b>Notes:</b></h3>
+                        
                         <ol>
                             <li>View your published Reviews here.</li>
                             <li>Simply click the ‘View’ button to see what the Viewer has written about you.</li>
@@ -190,9 +190,8 @@
             info: true,
             lengthChange: true,
             searching: true,
-            bStateSave: true,
+            bStateSave: false,
             ordering: true,
-            pageLength: 25,
             ajax: {
                 url: "{{ route('escort.reviews-profile-by-ajax') }}",
                 type: "GET",
@@ -202,6 +201,8 @@
             },
                 drawCallback: function (settings) {
             },
+            pageLength: {{$datatable_entries }},
+            lengthMenu: [{{ config('app.paginate_range') }}],   
             columns: [
                 { data: 'ref', name: 'ref' },
                 { data: 'escort_name', name: 'escort_name' },

@@ -47,9 +47,11 @@ class AccountSettingController extends BaseController
                 'interests_with_trans'                                  => $request->boolean('interests_with_trans') ? '1' : '0',
                 'interests_with_cross_dresser'                          => $request->boolean('interests_with_cross_dresser') ? '1' : '0',
                 'interests_with_couples'                                => $request->boolean('interests_with_couples') ? '1' : '0',
+                'show_entries'                                => $request->show_entries??25,
             ];
 
             $setting = $user->viewer_settings;
+        
             if ($setting) {
                 $setting->update($data);
             } else {

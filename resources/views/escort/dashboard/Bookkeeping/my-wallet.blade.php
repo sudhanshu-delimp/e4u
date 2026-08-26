@@ -265,9 +265,9 @@
             },
             {
                 data: 'description',
-                name: 'description',
+                name: 'id',
                 searchable: true,
-                orderable: true,
+                orderable: false,
                 defaultContent: 'NA'
             },
             {
@@ -292,8 +292,9 @@
                 defaultContent: 'NA'
             },
         ],
-        order: [0, 'desc'],
-        pageLength: 25,
+        order: [1, 'desc'],
+        pageLength: {{$datatable_entries }},
+        lengthMenu: [{{ config('app.paginate_range') }}], 
     });
 </script>
 @endprepend

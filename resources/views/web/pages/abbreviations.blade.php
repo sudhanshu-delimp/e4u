@@ -5,37 +5,6 @@
    html{
       scroll-behavior:smooth;
    }
-    .loader {
-        border: 16px solid #f3f3f3;
-        border-radius: 50%;
-        border-top: 16px solid #3498db;
-        width: 120px;
-        height: 120px;
-        -webkit-animation: spin 2s linear infinite;
-        /* Safari */
-        animation: spin 2s linear infinite;
-    }
-
-    /* Safari */
-    @-webkit-keyframes spin {
-        0% {
-            -webkit-transform: rotate(0deg);
-        }
-
-        100% {
-            -webkit-transform: rotate(360deg);
-        }
-    }
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
     h2 {
   scroll-margin-top: 110px; /* match your fixed header height */
 }
@@ -74,13 +43,13 @@
                         <p>It is important for clients of escort and massage services to have a full understanding of
                             what is being offered. A prospective client needs to know in advance:
                         </p>
-                        <ul>
+                          <ol class="common_list_design">
                             <li>What the boundaries for an Escort and Massage Centre are</li>
                             <li>If the Escort or Masseur they are looking at in the Profile can fulfill the fantasies or
                                 services they are looking for; and
                             </li>
                             <li>The Escort can provide the services that they are seeking</li>
-                        </ul>
+                        </ol>
                         <p>So communication of the services on offer and the understanding of them are important to
                             having a memorable and pleasant experience. To help you come to an informed decision,
                             along with these abbreviations, Profiles are designed so as to ensure as much of the
@@ -245,7 +214,7 @@
                                 </ul>
                             </div>
                             <div class="col-lg-6">
-                                <!-- <p></p> -->
+                                <!--  -->
 
 
                                 <ul style="padding : 0;">
@@ -547,7 +516,7 @@
                                 </p>
                             </div>
                             <div class="col-lg-6">
-                                <!-- <p></p> -->
+                                <!--  -->
                                 <h2 id="set-M">M</h2>
                                 <p><b>Massage Centre : </b> has the same meaning as “<a href="{{ route('pages.terms-conditions')}}"
                                         class="termsandconditions_text_color text-decoration-none">Massage Centre</a>”

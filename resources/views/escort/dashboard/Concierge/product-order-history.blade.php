@@ -113,34 +113,18 @@
         @include('escort.dashboard.Concierge.modal.view_order_history_modal')
     @endsection
     @push('script')
-        <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css">
-
-        <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
-
-        <!-- Your custom JS -->
-
+        <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
         <script>
             $(document).ready(function() {
                 var table = $("#productsHistoryTable").DataTable({
                     processing: true,
                     serverSide: true,
+                    pageLength: {{$datatable_entries }},
+                    lengthMenu: [{{ config('app.paginate_range') }}],   
                     ajax: {
                         url: "{{ auth()->user()->type == 4 ? route('center.order.list') : route('escort.order.list') }}",
                         type: 'GET'
                     },
-                    info: true,
-                    paging: true,
-                    lengthChange: true,
-                    searching: true,
-                    bStateSave: true,
-                    order: [
-                        [1, 'desc']
-                    ],
-                    lengthMenu: [
-                        [10, 25, 50, 100],
-                        [10, 25, 50, 100]
-                    ],
-                    pageLength: 25,
                     columns: [{
                             data: 'order_id',
                             name: 'order_id'
@@ -153,22 +137,6 @@
                             data: 'user',
                             name: 'user'
                         },
-                        // {
-                        //     data: 'sub_total',
-                        //     name: 'sub_total'
-                        // },
-                        // {
-                        //     data: 'wallet_amount',
-                        //     name: 'wallet_amount'
-                        // },
-                        // {
-                        //     data: 'delivery_charges',
-                        //     name: 'delivery_charges'
-                        // },
-                        // {
-                        //     data: 'gst_amount',
-                        //     name: 'gst_amount'
-                        // },
                         {
                             data: 'total_amount',
                             name: 'total_amount'
@@ -195,6 +163,7 @@
                     ]
                 });
             });
+            
             $(document).on('click', '.view-order-details', function(e) {
                 e.preventDefault();
                 var orderId = $(this).data('item');

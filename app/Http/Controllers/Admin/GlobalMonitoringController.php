@@ -437,7 +437,7 @@ class GlobalMonitoringController extends Controller
             // $profile_url = ['id' => $row->massageprofile->id, 'ids' => '[]'];
             $profile_url = ['profile' => $row->massageprofile->slug];
             $actionBtn .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
-                href="' . route('web.massage-profile', $profile_url) . '" target="_blank"> 
+                href="' .  getEscortMassageDetailUrl($row->massageprofile, 'massage') . '" target="_blank"> 
                 <i class="fa fa-eye "></i> View</a>';
             if ($row->status == 'listed') {
                 $actionBtn .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center border-top" href="#" data-toggle="modal" data-target="#SetPinModal" data-purchase-id="' . $row->id . '"><i class="fa fa-ban "></i> Suspend 
@@ -782,9 +782,10 @@ class GlobalMonitoringController extends Controller
             });
 
         return [
-            'silver'   => (clone $escorts)->whereIn('membership', ['3'])->count() ?? 0,
-            'gold'     => (clone $escorts)->whereIn('membership', ['2'])->count() ?? 0,
-            'platinum' => (clone $escorts)->whereIn('membership', ['1'])->count() ?? 0,
+            'silver'   => (clone $escorts)->whereIn('membership', ['3'])->whereDoesntHave('activeSuspendProfile')->count() ?? 0,
+            'gold'     => (clone $escorts)->whereIn('membership', ['2'])->whereDoesntHave('activeSuspendProfile')->count() ?? 0,
+            'platinum' => (clone $escorts)->whereIn('membership', ['1'])->whereDoesntHave('activeSuspendProfile')->count() ?? 0,
+            'current_suspend' => (clone $escorts)->whereHas('activeSuspendProfile')->count(),
             'total' => (clone $escorts)->whereIn('membership', ['1', '2', '3'])->count() ?? 0,
         ];
     }

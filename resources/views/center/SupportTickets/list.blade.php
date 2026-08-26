@@ -135,11 +135,10 @@
            processing: true,
            serverSide: true,
            lengthChange: true,
-
            searchable:false,
-           //searching:false,
            bStateSave: false,
-
+            pageLength: {{$datatable_entries }},
+            lengthMenu: [{{ config('app.paginate_range') }}],   
            ajax: {
                url: "{{ route('support-ticket.dataTable') }}",
                data: function (d) {

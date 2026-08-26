@@ -28,7 +28,7 @@ class CalculateAgentMonthlyFee extends Command
      *
      * @var string
      */
-    protected $signature = 'agent:calculate-fee';
+    protected $signature = 'agent:calculate-fee {slug?}';
 
     /**
      * The console command description.
@@ -131,9 +131,13 @@ class CalculateAgentMonthlyFee extends Command
                     }
                 }
             }
-
+        $slug = $this->argument('slug');
+        if($slug == 'yes') {
+            $this->info("Creating slug for advertiser");
             // Create Slug in existing advertiser profile
             (new \App\Services\SlugService)->updateSlugExistingProfile();
+        } 
+
         } catch (Exception $e) {
             Log::info("Agent fee report error: " . $e->getMessage());
         }

@@ -43,17 +43,17 @@
     </p>
     <h2 class="primery_color normal_heading">What we do and don't do</h2>
     <p>We do not:</p>
-    <ul>
+      <ol class="common_list_design">
         <li>Post advertisements which are not created and paid for by the Advertiser</li>
         <li>Create ghost Profiles (fake advertisements created by the service provider)</li>
         <li>Allow an expired Profile to remain posted on the Website</li>
         <li>Allow fake Profiles and Media to be published </li>
         <li>Provide fake statistics and analytics to the Advertiser</li>
         <li>Operate cookies, bots or spyware to crawl all over you</li>
-    </ul>
+    </ol>
 
     <p>We do:</p>
-    <ul>
+      <ol class="common_list_design">
        <li>Provide an open, transparent and professional Website</li>
        <li>Offer a range of features not available on other websites, like My Playmates, BRB, Extend Profile, Suspend Profile, Pin Up and Bumpup</li>
        <li>Remove the Profile or Tour when it expires</li>
@@ -61,7 +61,7 @@
        <li>Make ourselves available to you to address your issues and concerns</li>
        <li>Have Agents available to assist you with the management of your Account, Profiles, Tours and My Playbox</li>
        <li>To the best of our ability, provide you with as much anonymity as possible</li>
-    </ul>
+    </ol>
 
     <h2 class="primery_color normal_heading">A modern approach</h2>
     <p>
@@ -101,13 +101,13 @@
         bring to the Website other important services to assist Advertisers. We have partnered
         with quality service providers to bring:
     </p>
-    <ul>
+      <ol class="common_list_design">
         <li>Accommodation and travel services - book online with us</li>
         <li>Products - order your products online and have them delivered to your door</li>
         <li>Telecommunications services - Mobile SIM and email accounts. Easy to set up, no need to go through all the rigorous processes at your local telco shop </li>
         <li>Visa & Migration advice. Professional advice for all of your visa and migration
             requirements, including education placement and management services and advice</li>
-    </ul>
+    </ol>
     <p>
         Escorts4U set out to create a business model that focuses on what the needs of an Escort
         and Massage Centre are, having regard to their everyday requirements. Advertisers can,
@@ -144,36 +144,5 @@ upload Content for Users to view either by pay-per-play or by subscription.
 </section>
 @endsection
 @push('scripts')
-<script>
-    var skipSliderage = document.getElementById("skipstepage");
-    var skipValuesage = [
-    document.getElementById("skip-value-lower-age"),
-    document.getElementById("skip-value-upper-age")
-    ];
-    
-    noUiSlider.create(skipSliderage, {
-    start: [0, 30],
-    connect: true,
-    behaviour: "drag",
-    step: 1,
-    range: {
-       min: 18,
-       max: 60
-    },
-    format: {
-       from: function (value) {
-          return parseInt(value);
-       },
-       to: function (value) {
-          return parseInt(value);
-       }
-    }
-    });
-    
-    skipSliderage.noUiSlider.on("update", function (values, handle) {
-    skipValuesage[handle].innerHTML = values[handle];
-    });
-    
-</script>
 
 @endpush

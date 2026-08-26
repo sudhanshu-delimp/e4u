@@ -14,7 +14,7 @@
         <div class="col-md-12 mb-4">
             <div class="card collapse" id="notes" style="">
                 <div class="card-body">
-                    <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                   <h3 class="NotesHeader"><b>Notes:</b></h3>
                     <ol>
                         <li>All of the Company’s financial statements are available here.</li>
                         <li>Click the financial report you are looking for and it will download as a .pdf file for you

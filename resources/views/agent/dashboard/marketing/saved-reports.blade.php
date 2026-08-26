@@ -39,7 +39,7 @@
         }
     </style>
 
-        <style>
+    <style>
         #loader {
             position: fixed;
             top: 0;
@@ -180,7 +180,7 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                       <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
                             <li>Reports generated from <a href="{{ route('agent.marketing.prospect.list') }}"
                                     class="custom_links_design">Prospects List</a> are saved here.</li>
@@ -221,7 +221,7 @@
 
     </div>
 
-    
+
     <div id="loader" class="overlay d-none">
         <div class="download-icon"><img src="{{ asset('assets/dashboard/img/arrow.png') }}" alt=""
                 style="width: 70px;"></div>
@@ -229,7 +229,7 @@
         <p id="progressText">0 / 0</p>
         <div class="progress-container">
             <div class="progress-bar"></div>
-            
+
         </div>
     </div>
 
@@ -259,10 +259,9 @@
         data-view-centerlist-url="{{ route('agent.marketing.prospect.view.centerlist', ['id' => '__ID__']) }}"
         data-save-report-list="{{ route('agent.marketing.save.report.list') }}"
         data-view-approspectlist="{{ route('agent.marketing.save.report.appointment.list', ['id' => '__ID__']) }}"
-        data-search-center="{{route('agent.marketing.save.report.search.center')}}"
-        data-progress-data="{{route('agent.marketing.prospect.progress', ['id' => '__ID__'])}}"
-        data-download-data="{{route('agent.marketing.prospect.download', ['id' => '__ID__'])}}"
-        ></div>
+        data-search-center="{{ route('agent.marketing.save.report.search.center') }}"
+        data-progress-data="{{ route('agent.marketing.prospect.progress', ['id' => '__ID__']) }}"
+        data-download-data="{{ route('agent.marketing.prospect.download', ['id' => '__ID__']) }}"></div>
 @endsection
 @push('script')
     <!-- file upload plugin start here -->
@@ -272,8 +271,7 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
-
-
+ 
 
 
     <script src="{{ asset('agent/dashboard/marketing/prospect-lists/create-prospect.js') }}"></script>

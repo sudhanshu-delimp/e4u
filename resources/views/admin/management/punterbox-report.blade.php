@@ -18,7 +18,7 @@
                   <div class="col-md-8 mb-2">
                      <div class="card">
                         <div class="card-body">
-                           <p><b>Notes:</b> </p>
+                           <h3 class="NotesHeader"><b>Notes:</b></h3>
                            <ul style="list-style: auto;">
                               <li>This report is a consolidation of Viewer reports on Advertisers.</li>
                               <li>To action a Viewer report, the Viewer’s consent must be first obtained.</li>

@@ -28,7 +28,7 @@
             <div class="col-md-12 mb-4">
                <div class="card">
                   <div class="card-body">
-                     <p><b>Notes:</b> </p>
+                     <h3 class="NotesHeader"><b>Notes:</b></h3>
                      <ol>
                         <li>
                           The NUM register (<b>NUM</b>) is a free service to all Escorts. You can use the NUM service

@@ -58,24 +58,94 @@ Class MessageMedia
     // }
 
     public function sendMessages($phone, $text_message)
-    {
-            $authUserName = config('constants.sms_api.key');
-            $authPassword = config('constants.sms_api.secret');
-            $phone = substr(preg_replace('/\D/', '', $phone),-9); 
-            $client = new MessageMediaMessagesClient($authUserName, $authPassword , false);
-            $messagesController = $client->getMessages();
-            $body = new Models\SendMessagesRequest();
-            $body->messages = [];
-            $message = new Models\Message();
-            $message->content = $text_message;
-            $message->destinationNumber = '+61'.$phone;
-            $body->messages[] = $message;
-            try {
-                $result = $messagesController->sendMessages($body);
-            } 
-              catch (\Exception $e) {
-                logErrorLocal($e);
-            }
-    }
+{
+    try {
+
+        $authUserName = config('constants.sms_api.key');
+        $authPassword = config('constants.sms_api.secret');
+
+        /*
+         * Remove spaces, brackets, hyphens and any
+         * other non-numeric characters.
+         */
+        $phone = preg_replace('/\D/', '', $phone);
+
+        /*
+         * Convert Australian number to international format.
+         *
+         * 0418812228      -> +61418812228
+         * 04 1881 2228    -> +61418812228
+         * 61418812228     -> +61418812228
+         * +61418812228    -> +61418812228
+         */
+
+        if (str_starts_with($phone, '61')) {
+
+            // Already has Australia country code
+            $phone = '+' . $phone;
+
+        } elseif (str_starts_with($phone, '0')) {
+
+            // Australian local number
+            // Remove leading 0 and add +61
+            $phone = '+61' . substr($phone, 1);
+
+        } else {
+
+            // Assume Australian number without country code
+            $phone = '+61' . $phone;
+        }
+
+        Log::info('SMS destination number', [
+            'phone' => $phone,
+        ]);
+
+        $client = new MessageMediaMessagesClient(
+            $authUserName,
+            $authPassword,
+            false
+        );
+
+        $messagesController = $client->getMessages();
+
+        $body = new Models\SendMessagesRequest();
+        $body->messages = [];
+
+        $message = new Models\Message();
+
+        $message->content = $text_message;
+        $message->destinationNumber = $phone;
+
+        $body->messages[] = $message;
+
+        Log::info('Sending SMS', [
+            'destination' => $phone,
+        ]);
+
+        $result = $messagesController->sendMessages($body);
+
+        Log::info('MessageMedia SMS API response', [
+            'response' => $result,
+            'destination' => $phone,
+        ]);
+
+        return $result;
+
+    } catch (\Exception $e) {
+
+    Log::error('MessageMedia SMS API Error', [
+        'message' => $e->getMessage(),
+        'code' => $e->getCode(),
+        'file' => $e->getFile(),
+        'line' => $e->getLine(),
+        'phone' => $phone ?? null,
+        'trace' => $e->getTraceAsString(),
+    ]);
+
+    logErrorLocal($e);
+
+    return false;
+}
+}
     
 }

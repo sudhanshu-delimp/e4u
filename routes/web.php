@@ -336,7 +336,7 @@ Route::get('/grid-escort-list', [App\Http\Controllers\WebController::class, 'gri
 
 /****************************************************all-escorts-list**********************************************/
 //Route::get('/all-escorts-listing', [App\Http\Controllers\EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing');
-Route::get('/find-escorts/{country_or_gender?}/{city?}/{gender?}', [EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing');
+Route::get('/find_escorts/{country?}/{gender_or_state?}/{city?}/{gender_or_member_id?}/{gender?}', [EscortListingController::class, 'allEscortListing'])->name('public.web.escort.listing');
 Route::get('/fetch-escort-services', [App\Http\Controllers\EscortListingController::class, 'fetchEscortServices'])->name('public.web.fecth.services');
 // New route 
 Route::post('/escort-add-to-shortlist/{id}', [App\Http\Controllers\EscortListingController::class, 'addtocart'])->name('web.public.save.addtocart');
@@ -847,7 +847,10 @@ Route::get('get_country_by_user_id/{user_id}', [App\Http\Controllers\CountryCont
 
 
 ################### Massage Centre Profile Page Url ###############
-Route::get('massage-centres-list', [MassageCentre::class, 'massageList'])->name('find.massage.centre');
+//Route::get('massage-centres-list', [MassageCentre::class, 'massageList'])->name('find.massage.centre');
+
+Route::get('find_massage_centres/{country?}/{state?}/{city?}/{member_id?}', [MassageCentre::class, 'massageList'])->name('find.massage.centre');
+
 Route::get('mc-ajax-list', [MassageCentre::class, 'mcAjaxList'])->name('mc-ajax-list');
 Route::get('massage-description/{id}', [MassageCentre::class, 'massage_description'])->where('id', '[0-9]+')->name('web.massage-description');
 Route::get('massage-profile/{profile}', [MassageCentre::class, 'massageProfile'])->name('web.massage-profile');
@@ -869,13 +872,6 @@ Route::get('/massage-spam-report', [ReportMassageController::class, 'getSpamRepo
 Route::post('/massage-spam-report', [ReportMassageController::class, 'saveSpamReportForAdvertiser'])->name('massage-spam-report');
 Route::post('/massage-like-dislike', [ReportMassageController::class, 'massageLikeDislike'])->name('web.massageLikeDislike');
 
-
-
-
-
-
-
-
 Route::post('/encrypt', function (Request $request) {
 
     return response()->json([
@@ -891,8 +887,11 @@ Route::post('/decrypt', function (Request $request) {
     ]);
 });
 
-
-
-
 Route::get('preview/massage/{profile}', [MassageCentre::class, 'massageProfile'])->name('preview.massage');
 Route::get('preview/escort/{profile}', [WebController::class, 'profileDescriptionBySlug'])->name('preview.escort');
+
+$ecortBaseSlug = config("constants.escort_list_base_slug");
+$massageBaseSlug = config("constants.massage_list_base_slug");
+
+Route::get($ecortBaseSlug.'/{county}/{state}/{city}/{gender}/{member_id}/{profile}', [App\Http\Controllers\WebController::class, 'profileDescriptionBySlug'])->name('escort.profile.detail.new');
+Route::get($massageBaseSlug .'/{county}/{state}/{city?}/{member_id}/{profile}', [MassageCentre::class, 'massageProfile'])->name('web.massage-profile.new');

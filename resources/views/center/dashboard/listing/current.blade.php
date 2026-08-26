@@ -28,8 +28,8 @@
                <div class="col-md-12 mb-4">
                   <div class="card collapse" id="notes" style="">
                      <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                        <p></p>
+                       <h3 class="NotesHeader"><b>Notes:</b></h3>
+                        
                         <ol>
                               
                         </ol>
@@ -95,8 +95,8 @@
     searching: true,
     bStateSave: false,
     order: [[0, 'desc']],
-    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-    pageLength: 10,    
+    pageLength: {{$datatable_entries }},
+    lengthMenu: [{{ config('app.paginate_range') }}],  
 
     ajax: {
         url: "{{ route('center.current-listing') }}",

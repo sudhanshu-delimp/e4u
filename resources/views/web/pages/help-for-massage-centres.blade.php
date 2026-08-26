@@ -45,7 +45,7 @@
                                     eight Masseur Profiles within the Massage Centre Profile, you only pay the one set
                                     Fee.</p><br>
                                 <p>The Profile focuses on two elements:</p>
-                                <ol>
+                                  <ol class="common_list_design">
                                  <li> Important information about the Massage Centre, like the business address
                                     (including a Google map), whether showers are available, front and rear entry
                                     and much more.</li>
@@ -68,7 +68,7 @@
                                 it very quick and easy to create a Profile. Spend the time to complete your Profile
                                 Information for the Massage Centre as well as for each of your Masseurs, you will find
                                 the time is well spent. Here are some good tips for you:</p>
-                                <ul>
+                                  <ol class="common_list_design">
                                     <li>Put a lovely landscape photo up of your Massage Centre for your Banner Image,
                                         like a photo of the premises from the front, or the reception inside</li>
                                     <li>Put real photos up of the Masseurs, up to four for each Masseur. You can also
@@ -93,11 +93,11 @@
                                     <li>
                                         Include your social media links if you have any
                                     </li>
-                                </ul>
+                                </ol>
                                 <p>
                                     Please do not:
                                 </p>
-                                <ul>
+                                  <ol class="common_list_design">
                                     <li>Post fake listings or fake photos, it will eventually come to our attention and the
                                         Profile will be either suspended or removed</li>
                                     <li>Use ALL CAPS, it looks CHEAP. Clients do not like you yelling at them</li>
@@ -107,7 +107,7 @@
                                     <li>Enable Service Tags for services that you do not provide. Only select Service Tags
                                         for services that you actually provide. Viewers might form a negative view of you
                                         and reflect that view in a Review</li>
-                                </ul>
+                                </ol>
                         </div>
                         <div class="col-sm-12">
                             <p class="pt-2"><b>Q: Can I have more than one Profile?</b></p>
@@ -139,13 +139,13 @@
                              <p class="pbot">Profiles within the Massage Centre Listing Page are reshuffled every 30 minutes. The
                                 search bar in the Website is very powerful and enables Viewers to search Advertisers
                                 by: </p>
-                                <ul>
+                                  <ol class="common_list_design">
                                     <li>State / Capital City</li>
                                     <li>Age</li>
                                     <li>Massage Services</li>
                                     <li>Other Services; and</li>
                                     <li>Verified Photos</li>
-                                </ul>
+                                </ol>
                             <p>It is very important that you set your Profile Information for Service Tags accurately so
                                 that a Viewer can undertake a search with confidence.</p><br>
                             <p>
@@ -181,12 +181,12 @@
                             <p>If you are an Advertiser and do not follow the Policies, your Account, including any
                                 future accounts, will be blocked.</p><br>
                             <p>It is not acceptable for:</p>
-                            <ul>
+                              <ol class="common_list_design">
                                 <li>Underage photos or photos of children to appear in your Profile, or the Profile of any Masseur</li>
                                 <li>Trafficking, enslavement or anything similar to be promoted</li>
                                 <li>Abuse, violence or oppressive behaviour to be directed towards other Advertisers or Viewers</li>
                                 <li>Online trolling or other defamation to be directed towards other Advertisers or Viewers</li>
-                            </ul>
+                            </ol>
                             
                         </div>
 
@@ -224,23 +224,23 @@
                           <p>Yes. We have a number of great features to enhance your Profile and relationship
                             building with Viewers. You can:</p><br>
 
-                          <ul>
+                            <ol class="common_list_design">
                               <li>Post your Massage Centre logo in the Thumbnail of your Profile</li>
                               <li>Create up to 8 Masseur Profiles within your Profile</li>
                               <li>At your option, each Massage Centre Profile has:
-                                  <ul>
+                                  <ol class="level-2">
                                       <li>A Banner Image</li>
                                       <li>Up to 6 photos plus your Thumbnail</li>
                                       <li>A comprehensive summary of the Masseur, including their name, age, mobile number and much more</li>
                                       <li>The ability to be flagged as a favourite by a Viewer, what we call My Legbox</li>
-                                  </ul>
+                                  </ol>
                               </li>
                               <li>Archive your Massage Centre Profile and Media, ready to be activated at any time. 
                                 You can also archive all of your Masseurs Profile Information ready to be added to
                                 your Massage Centre Profile when the Masseur commences employment at your
                                 business.</li>
                                 <li> Much more ...</li>
-                          </ul>
+                          </ol>
                       </div>
                       
                       <div class="col-sm-12">
@@ -256,18 +256,18 @@
                           <p><b>Q: Can I get help to manage my Account?</b></p>
                         <p>Yes you can. Our support team will help you manage your Account or alternatively,
                             you can reach out to an Agent. An Agent will assist you with:</p>
-                        <ul>
+                          <ol class="common_list_design">
                             <li>Managing your Account details and Profile Information</li>
                             <li>Managing your Media (photo images and video)</li>
                             <li>Creating your Profile and Masseur Profiles</li>
                             <li>Any of the Concierge Services; and</li>
                             <li>Generally, be there for you</li>
-                        </ul>
+                        </ol>
                         <p>You can appoint an Agent at any time by either:</p>
-                        <ul>
+                          <ol class="common_list_design">
                             <li>Nominating the Agent as a part of the registration process; or by</li>
                             <li>Requesting an Agent to be appointed by lodging a request through your Dashboard.</li>
-                        </ul>
+                        </ol>
                         <p>
                             When you appoint an Agent, you enter into an arrangement with the Agent directly with
                             the Agent to provide the Agent Services. The Agent will have full access to your Account.</p><br>
@@ -312,7 +312,7 @@
                       <div class="col-sm-12">
                           <p><b>Q: What is the easiest way to pay? </b></p>
                         <p>There are effectively three payment options, all with your Card, namely:</p>
-                        <ul>
+                          <ol class="common_list_design">
                             <li>Pay as you go. If you post a Profile for 3 days, you can pay for 3 days.</li>
                            
                             <li>Pay in advance. You can pay a lump sum into your Account and then draw down
@@ -320,7 +320,7 @@
                             <li>Pay and renew. You pay for the number of days you have selected for your Profile,
                                 and elect to automatically renew your Profile each nominated period thereafter (like
                                 every 5 days) and for the nominated occurrences (like for 3 renewals).</li>
-                        </ul>
+                        </ol>
                        <p>
                         All transactions are completed using SMS 2FA and are confirmed by email notification to you. 
                         You can also view all of your purchase history from your Dashboard.</p><br>
@@ -387,7 +387,7 @@
                       <p class="pbot">
                         We have a strict policy on what images you can publish. Your images must:
                       </p>
-                      <ul>
+                        <ol class="common_list_design">
                           <li>Be good quality and high resolution </li>
                           <li>Be your own (of your premises). People in any image of your premises is
                             acceptable provided you have their consent</li>
@@ -397,7 +397,7 @@
                             images without the watermark)</li>
                         <li>Be professional in quality. They do not need to be taken by a professional
                             photographer, but must have a good quality finish</li>
-                      </ul>
+                      </ol>
                       <p>
                         You can publish a montage photo image, like for example for your Thumbnail image,
                         provided that each of the images contained in the montage are compliant with our
@@ -405,7 +405,7 @@
                       <p>
                         We will not publish any images which:
                       </p>
-                      <ul>
+                        <ol class="common_list_design">
                           <li>Are low quality (too small, dark, grainy or blurry)</li>
                           <li>We find on non adult services websites, or any photo where we have doubt about the ownership of the image</li>
                           <li>Overly explicit, and most likely do not comply with the <a href="{{ url('faqs')}}" style="color:#FF3C5F">Local Laws</a> or the Classification Laws</li>
@@ -415,7 +415,7 @@
                         <li>Have the Masseur's name and / or their mobile number displayed on the image</li>
                         <li>Have your contact details on them, such as email, telephone or website address. (This information is set out in your Profile)</li>
                         <li>Contain magazine covers, publications or video/DVD covers</li>
-                      </ul>
+                      </ol>
 
                     </div>
                        
@@ -423,12 +423,12 @@
                         <p class="pt-2"><b>Q: What are the video requirements for inclusion in our Profile?</b></p>
                          <p class="pbot">
                             We have a strict policy on the content of your video you can publish. Your video must:</p>
-                         <ul>
+                           <ol class="common_list_design">
                              <li>Be no longer than 30 seconds</li>
                              <li>Be in either mp4 or wav format. You can not provide a link to your video</li>
                              <li>Not contain any sexually explicit content, only contain content of your premises, but include staff and Masseurs</li>
                              <li>Not contain any of your contact details, such as email, telephone or website address. This information is set out in your Profile</li>
-                         </ul>
+                         </ol>
                          <p>We recommend your videos are brief and highlight the features of your premises.  This is what the Viewers are interested in.</p>
                           
                     </div>
@@ -451,7 +451,7 @@
                              <div class="col-sm-12">
                                  <p class="pt-2"><b>Q: Can I see how much business you are generating for us? </b></p>
                                  <p>Yes you certainly can. Logon to your Account and in the Dashboard area you can see statistics, graphs and results which detail:</p>
-                                 <ul>
+                                   <ol class="common_list_design">
                                      <li>Clicks on your Profile, including Masseurs</li>
                                      <li>Clicks on your phone number</li>
                                      <li>Clicks on each of your photo images</li>
@@ -461,7 +461,7 @@
                                      <li>The number of messages sent to you</li>
                                      <li>Clicks to your social media page/s (if you have provided a link)</li>
                                      <li>And many other helpful analytics</li>
-                                 </ul>
+                                 </ol>
                                  <p>
                                     If you use Google Analytics you can also find the number of website visitors by looking
                                     in Acquisition &gt; Campaigns &gt; All Campaigns. We know you will not always know about

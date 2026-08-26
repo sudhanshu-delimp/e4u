@@ -6,6 +6,7 @@ use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Escort\ArchivesController;
 use App\Http\Controllers\Escort\Concierge\ProductController;
 use App\Http\Controllers\Escort\Concierge\ProductOrderController;
+use App\Http\Controllers\Escort\Concierge\VisaMigrationController;
 use App\Http\Controllers\Escort\EscortAccountController;
 use App\Http\Controllers\Escort\EscortController;
 use App\Http\Controllers\Escort\EscortDashboardController;
@@ -102,6 +103,9 @@ Route::post('save-member-type/{id}', [UpdateController::class, 'saveMembership']
 // suspend profile
 Route::post('/escort-suspend/profile-credit', [EscortSuspendProfileController::class, 'suspendProfileCredit'])->name('suspend.calculate.credit.live');
 Route::post('escort-suspend/profile', [EscortSuspendProfileController::class, 'suspendProfile'])->name('escort.profile.suspend');
+
+Route::get('/cancel/listing/credit/{profile}', [EscortController::class, 'cancelProfileCredit'])->name('cancel.profile.credit');
+Route::patch('/cancel/listing/{profile}', [EscortController::class, 'cancelProfileListing'])->name('cancel.profile.listing');
 
 
 Route::get('view-archive/{id?}', [CreateController::class, 'archives'])->name('escort.archives');
@@ -408,18 +412,14 @@ Route::get('concierge/', function () {
 Route::get('travel', function () {
   return view('escort.dashboard.Concierge.travel');
 });
-Route::get('visa-migration', function () {
-  return view('escort.dashboard.Concierge.visa-migration');
-});
-
+Route::get('visa-migration', [VisaMigrationController::class, 'index'])->name('visa.migration');
+Route::post('/visa-migration-request', [VisaMigrationController::class, 'store'])->name('visa.migration.store');
 
 
 Route::get('travel', function () {
   return view('escort.dashboard.Concierge.travel');
 });
-Route::get('visa-migration', function () {
-  return view('escort.dashboard.Concierge.visa-migration');
-});
+
 
 Route::get('/list-tour/{type}', [TourController::class, 'viewTourList'])->name('escort.view.tour.list');
 

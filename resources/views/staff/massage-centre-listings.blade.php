@@ -28,8 +28,7 @@ display: contents;
         <div class="d-sm-flex align-items-center justify-content-between col-md-12">
             <div class="custom-heading-wrapper">
                 <h1 class="h1">Massage Centre Listings</h1>
-                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>
-                </h6>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>                     </span>
             </div>
              @if (request('from') !== 'sidebar')
             <div class="back-to-dashboard">
@@ -113,9 +112,9 @@ display: contents;
                 </table>
                 
                 {{-- <div class="timer_section">
-                    <p></p>
-                    <p></p>
-                    <p></p>
+                    
+                    
+                    
                 </div>
                 <div class="customPaginationContainer mt-4 d-flex justify-content-between"></div>
                 <nav aria-label="Page navigation example" class="customPagination">

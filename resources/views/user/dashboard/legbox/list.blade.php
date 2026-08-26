@@ -33,7 +33,7 @@
                      <div class="col-md-12 mb-4">
                         <div class="card collapse" id="notes" style="">
                            <div class="card-body">
-                              <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                             <h3 class="NotesHeader"><b>Notes:</b></h3>
                               <ol>
                                  <li>The My Legbox feature is a list only for your favourite Escorts and Massage Centres.  Please note that Notifications only applies to Escorts.
                                     <li>Use the Notebox feature to record your experience with an Escort or Massage Centre you have added to <a href="{{ url('user-dashboard/notebox/new')}}" class="custom_links_design">My Legbox.</a>  </li>

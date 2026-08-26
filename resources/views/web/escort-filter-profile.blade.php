@@ -411,6 +411,89 @@
         const viewType = "{{ $listingsPreferencesView }}";
         escortRequest.view_type = viewType;
 
+        const escortRouteStates = @json(config('escorts.profile.states'));
+        const escortRouteGenders = @json(config('escorts.gender'));
+
+        const escortBaseUrl = "{{config('constants.escort_list_base_slug')}}";
+        let preserveInitialLocationUrl = true;
+
+        function getEscortRouteMemberId(selectedCity, genderId) {
+            const segments = window.location.pathname.split('/').filter(Boolean);
+            const lastSegment = segments[segments.length - 1] || '';
+            const currentState = segments[2] || '';
+            const currentCity = segments[3] || '';
+            const currentGender = segments[4] || '';
+            const selectedGender = escortRouteGenders[genderId] || '';
+
+            if (!/^E[\w-]+$/i.test(lastSegment) || !selectedCity) {
+                return null;
+            }
+
+            if (currentState !== selectedCity.state || currentCity !== selectedCity.city) {
+                return null;
+            }
+
+            if (selectedGender && currentGender !== selectedGender.toLowerCase().replace(/\s+/g, '_')) {
+                return null;
+            }
+
+            return lastSegment;
+        }
+
+        function getEscortListingPath() {
+            const segments = window.location.pathname.split('/').filter(Boolean);
+            const cityId = String($('#escort_city').val() || '');
+            const genderId = String($('#escort_gender').val() || '');
+            const pathSegments = [escortBaseUrl];
+            let selectedCity = null;
+            const currentCountry = (segments[1] || '').toLowerCase();
+            const currentState = (segments[2] || '').toLowerCase();
+
+            Object.values(escortRouteStates).some(function(state) {
+                return Object.entries(state.cities || {}).some(function([id, city]) {
+                    if (String(id) === cityId) {
+                        selectedCity = {
+                            state: state.stateAbbr.toLowerCase(),
+                            city: city.cityName.toLowerCase()
+                        };
+                        return true;
+                    }
+
+                    return false;
+                });
+            });
+           
+            if (selectedCity) {
+                pathSegments.push('australia');
+                pathSegments.push(selectedCity.state, selectedCity.city);
+
+                const genderSlug = escortRouteGenders[genderId];
+
+                if (genderSlug) {
+                    pathSegments.push(genderSlug.toLowerCase().replace(/\s+/g, '_'));
+                }
+
+                const memberId = getEscortRouteMemberId(selectedCity, genderId);
+                if (memberId) {
+                    pathSegments.push(memberId);
+                }
+
+            } else if (escortRouteGenders[genderId]) {
+                pathSegments.push('australia');
+                pathSegments.push(escortRouteGenders[genderId].toLowerCase().replace(/\s+/g, '_'));
+            } else if (preserveInitialLocationUrl && currentCountry === 'australia') {
+                pathSegments.push('australia');
+                if (currentState &&
+                    Object.values(escortRouteStates).some(function(state) {
+                        return state.stateAbbr.toLowerCase() === currentState;
+                    })) {
+                    pathSegments.push(currentState);
+                }
+            }
+
+            return '/' + pathSegments.join('/');
+        }
+
   
 
 
@@ -503,6 +586,7 @@
         //reset the filter
         $(document).on('click', '.reset_form_filter', async function(e) {
             e.preventDefault();
+            preserveInitialLocationUrl = false;
             let locByRad = $('input[name="locationByRadio"]:checked').val();
             let letVal = $('#set_lat').val();
             let lngVal = $('#set_lng').val();
@@ -510,8 +594,11 @@
             $('#filterForm')[0].reset();
             //again set the location radio button to previous value
             $(`input[name="locationByRadio"][value="${locByRad}"]`).prop('checked', true);
+            $('#escort_city').val('');
+            $('#escort_gender').val('');
+            $('#search_by_member_id_and_name').val('');
             escortRequest = {
-                filter_by_feild: {
+                filter_by_field: {
                     city: '',
                     gender: '',
                     age: '',
@@ -555,7 +642,7 @@
         let currentPage = getCurrentPage();
 
         function loadEscort(reequestParam = escortRequest, showLoader = true) {
-            let reequestUrl = window.location.pathname;
+            let reequestUrl = getEscortListingPath();
             let formData = $('#escortFilterForm').serializeArray();
             //push current page number
             formData.push({
@@ -599,10 +686,8 @@
             if (ajaxReq) {
                 ajaxReq.abort();
             }
-            //update Brower Url
-            let params = new URLSearchParams($.param(formData));;
-
-            // history.replaceState({}, '', window.location.pathname + '?' + params.toString());
+            // Update the browser URL with the clean route only.
+            history.replaceState({}, '', reequestUrl);
 
             ajaxReq = $.ajax({
                 url: reequestUrl,
@@ -719,6 +804,7 @@
         // filter data for use search by member id or name
         $(document).on('click', '.searchEscort', function(e) {
             e.preventDefault();
+            preserveInitialLocationUrl = false;
             // let checkRadioVal = $('#search_by_radio').val();
             // const radioValue = checkRadioVal == 'australia' ? 0 : 1;
 
@@ -739,6 +825,7 @@
 
         $(document).on('click', '#applayFilter', function(e) {
             e.preventDefault();
+            preserveInitialLocationUrl = false;
             Object.assign(escortRequest, {
                 page: 1
             });
@@ -765,6 +852,7 @@
 
         $(document).on('change', '#limit', function(e) {
              e.preventDefault();
+            preserveInitialLocationUrl = false;
             let limitVal = $(this).val();
 
             escortRequest.page = 1;

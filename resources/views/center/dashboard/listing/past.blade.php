@@ -28,8 +28,8 @@
                <div class="col-md-12 mb-4">
                   <div class="card collapse" id="notes" style="">
                      <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                        <p></p>
+                       <h3 class="NotesHeader"><b>Notes:</b></h3>
+                        
                         <ol>
                               
                         </ol>
@@ -72,22 +72,6 @@
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
    <script>
-   // var table = $("#currentListings").DataTable({
-   //    language: {
-   //       search: "Search: _INPUT_",
-   //       searchPlaceholder: "Search by Profile Name"
-   //    },
-   //    info: true,
-   //    paging: true,
-   //    lengthChange: true,
-   //    searching: true,
-   //    bStateSave: true,
-   //    order: [[1, 'desc']], // default sort on 2nd column (index starts from 0)
-   //    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-   //    pageLength: 10
-   // });
-
-
    var table = $("#currentListings").DataTable({
     info: true,
     paging: true,
@@ -95,8 +79,8 @@
     searching: true,
     bStateSave: false,
     order: [[0, 'desc']],
-    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-    pageLength: 10,    
+    pageLength: {{$datatable_entries }},
+   lengthMenu: [10,25, 50, 75, 100],     
 
     ajax: {
         url: "{{ route('center.past-listing') }}",

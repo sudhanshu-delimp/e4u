@@ -66,8 +66,8 @@
                 <div class="d-sm-flex align-items-center justify-content-between">
                     <div class="custom-heading-wrapper">
                         <h1 class="h1">Manage Masseurs</h1>
-                        <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true">
-                            <b>Help?</b></h6>
+                        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true">
+                            <b>Help?</b></span>
                     </div>
                     @if (request('from') == 'dashboard')
                         <div class="back-to-dashboard">
@@ -82,7 +82,7 @@
             <div class="col-md-12 mb-4">
                <div class="card collapse" id="notes" style="">
                   <div class="card-body">
-                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                    <h3 class="NotesHeader"><b>Notes:</b></h3>
                      <ol>
                            <li>Activate and deactivate Masseurs. The status must be Active to include the Masseur in the Default Listing.</li>
                            <li>Edit a Masseur's details here.</li>
@@ -202,14 +202,14 @@ function showCheckboxes() {
    
 
 var table = $("#masseurs_list").DataTable({
-    info: true,
-    paging: true,
-    lengthChange: true,
-    searching: true,
-    bStateSave: true,
-    order: [[1, 'desc']],
-    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-    pageLength: 10,    
+      info: true,
+      paging: true,
+      lengthChange: true,
+      searching: true,
+      bStateSave: false,
+      order: [[1, 'desc']],
+      pageLength: {{$datatable_entries }},
+      lengthMenu: [{{ config('app.paginate_range') }}],    
 
     ajax: {
         url: "{{ route('center.all-masseur-list') }}",

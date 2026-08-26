@@ -19,7 +19,7 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                       <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
                             <li>View your top Advertisers here.</li>
                             <li>To view any of these summaries in detail, go to the relevant page in the Side bar Menu.</li>

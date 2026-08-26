@@ -28,7 +28,7 @@
                             <li>For a Viewer or Agent to receive your Notifications, the Viewer or Agent must have
                                 also enabled the feature.</li>
                             <li>Please note what features are enabled by default.</li>
-                            <li>Your Auto-Recharge option is ‘No’ by default.
+                            <!-- <li>Your Auto-Recharge option is ‘No’ by default.
                                 <ol class="level-2">
                                     <li>select your preferred option. The preferred option will remain in place until you
                                         change it. The Top Up will occur when your Wallet balance falls below
@@ -39,7 +39,7 @@
                                         the transaction by your bank may affect any Listing you have or Tour status.
                                     </li>
                                 </ol>
-                            </li>
+                            </li> -->
                             <li>Note also the default setting for 2FA authentification.</li>
                         </ol>
                     </div>
@@ -333,6 +333,13 @@
 
                                             <label class="form-check-label" for="auth_2">Text</label>
                                         </div>
+
+                                         <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="twofa" id="auth_3"
+                                                value="3"
+                                                {{ isset($setting->escort_settings) && $setting->escort_settings->twofa == '3' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="auth_3">Both</label>
+                                        </div>
                                     </div>
 
                                     <div class="card-note">
@@ -341,7 +348,7 @@
                                     </div>
                                 </div>
                                 {{-- Show Entries --}}
-                                <div class="form-group common-card disabled-link">
+                                <div class="form-group common-card">
                                         <div class="card-top">
                                             <div class="card-icon">
                                             <svg viewBox="0 0 24 24" fill="none">
@@ -384,10 +391,11 @@
                                             </span>
 
                                             <select class="entries-select" name="entries">
-                                                <option value="25" selected>25</option>
-                                                <option value="50">50</option>
-                                                <option value="75">75</option>
-                                                <option value="100">100</option>
+                                                <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '10' ? 'selected' : '' }} value="10">10</option>
+                                                <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '25' ? 'selected' : '' }} value="25">25</option>
+                                                <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '50' ? 'selected' : '' }} value="50">50</option>
+                                                <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '75' ? 'selected' : '' }} value="75">75</option>
+                                                <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '100' ? 'selected' : '' }} value="100">100</option>
                                             </select>
 
                                         </div> 
@@ -432,19 +440,7 @@
                 processData: false,
                 contentType: false,
                 success: function(response) {
-
-                    Swal.close();
-                
-                    console.log(response);
-                    Swal.close();
                     showAlert('success', '', response.message || 'Notification settings updated successfully!');
-                    setTimeout(function() {
-                        location.reload();
-                    }, 3000);
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
                 },
                 error: function(xhr) {
                     Swal.close();

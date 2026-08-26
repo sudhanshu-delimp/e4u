@@ -27,7 +27,7 @@
     <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.2') }}" rel="stylesheet">
     <link href="{{ asset('assets/dashboard/css/dk-responsive.css?v1.2') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/common-style/style.css?v1.01') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/dashboard/css/common-style/style.css?v1.02') }}" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     {{-- <link rel="stylesheet" href="{{ asset('assets/app/css/bootstrap.min.css') }}"> --}}
@@ -66,5 +66,7 @@
     @show
     <script>
      var BASE_URL = "{{ url('/') }}";
+        var paginateLength=25;
+        var paginateRange = [{{ config('app.paginate_range') }}];
     </script>
 </head>

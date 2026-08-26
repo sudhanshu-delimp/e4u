@@ -28,7 +28,7 @@
       <div class="col-md-12 my-2">
           <div class="card collapse" id="notes" style="">
           <div class="card-body">
-              <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+             <h3 class="NotesHeader"><b>Notes:</b></h3>
               <ol>
                   <li>
                      The National Ugly Mugs register (<b>NUM</b>) is a free service to all Advertisers. You can

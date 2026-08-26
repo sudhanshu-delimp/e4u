@@ -42,9 +42,9 @@
     <!-- font awsome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v2.09') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v2.08') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v1.6') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v3.02') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v2.09') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v1.7') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />

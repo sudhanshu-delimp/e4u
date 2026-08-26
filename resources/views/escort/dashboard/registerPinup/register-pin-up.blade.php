@@ -32,7 +32,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="v-main-heading h3" style="display: inline-block;">Register for Pin-up</div>
-                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>                     </span>
             </div>
             <div class="col-md-12 mt-4 pl-4 mycont">
                 <div class="row collapse" id="notes">

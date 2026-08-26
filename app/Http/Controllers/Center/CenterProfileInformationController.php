@@ -730,10 +730,10 @@ class CenterProfileInformationController extends BaseController
                 'features_allow_viewers_to_ask_you_a_question' => $request->features_allow_viewers_to_ask_you_a_question ?? 0,
                 'features_allow_viewers_to_send_you_a_text_message' => $request->features_allow_viewers_to_send_you_a_text_message ?? 0,
 
-                'auto_recharge_no' => $request->auto_recharge_no ?? 0,
-                'auto_recharge_500' => $request->auto_recharge_500 ?? 0,
-                'auto_recharge_1000' => $request->auto_recharge_1000 ?? 0,
-                'auto_recharge_1500' => $request->auto_recharge_1500 ?? 0,
+                // 'auto_recharge_no' => $request->auto_recharge_no ?? 0,
+                // 'auto_recharge_500' => $request->auto_recharge_500 ?? 0,
+                // 'auto_recharge_1000' => $request->auto_recharge_1000 ?? 0,
+                // 'auto_recharge_1500' => $request->auto_recharge_1500 ?? 0,
 
                 'agent_receive_communications' => $request->agent_receive_communications ?? 0,
                 'agent_send_communications' => $request->agent_send_communications ?? 0,
@@ -743,6 +743,7 @@ class CenterProfileInformationController extends BaseController
 
                 'idle_preference_time' => $request->idle_preference_time,
                 'twofa' => $request->twofa,
+                'datatable_entries' => $request->entries,
 
         ];
 

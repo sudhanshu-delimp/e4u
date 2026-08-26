@@ -18,8 +18,8 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                        <p></p>
+                       <h3 class="NotesHeader"><b>Notes:</b></h3>
+                        
                         <ol>
                             <li>These Guidelines and Procedures are provided to assist you meet your obligations
                                 under the Website’s Terms & Conditions.</li>
@@ -136,7 +136,9 @@
         order: [],
         searchable: false,
         searching: true,
-        bStateSave: true
+        lengthMenu: paginateRange,
+                pageLength: paginateLength,
+        bStateSave: false,
     });
 </script>
 @endsection

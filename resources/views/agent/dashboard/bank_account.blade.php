@@ -44,15 +44,15 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                       <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
                             <li>
                                 All Commission paid to you under the Agent Agreement will be paid into your nominated Bank
                                 Account.
                             </li>
                             <!-- <li>
-                            You can add new your Bank Account details by clicking the 'Add New' button. SMS 2FA authentification is applied for any changes to your Bank Account details.
-                        </li> -->
+                                You can add new your Bank Account details by clicking the 'Add New' button. SMS 2FA authentification is applied for any changes to your Bank Account details.
+                            </li> -->
 
                             <li>
                                 You can add new your Bank Account details by clicking the 'Add New' button.
@@ -428,7 +428,6 @@
             });
 
 
-
             ///////// Data Table ////////////////
 
             var table = $('#bankAccountTable').DataTable({
@@ -470,8 +469,9 @@
                 order: [1, 'asc'],
                 searchable: true,
                 searching: true,
-                bStateSave: true,
-
+                bStateSave: false,
+                lengthMenu: paginateRange,
+                pageLength: paginateLength,
                 ajax: {
                     url: "{{ route('agent.bankDetail.dataTable') }}",
                     data: function(d) {

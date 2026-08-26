@@ -31,6 +31,31 @@ class Purchase extends Model
         return $this->morphMany(PaymentItem::class, 'item');
     }
 
+    public function suspendProfile()
+    {
+        return $this->hasMany(SuspendProfile::class, 'purchase_id');
+    }
+
+    public function upcomingSuspends()
+    {
+        return $this->suspendProfile()
+            ->where('utc_start_date', '>', now('UTC'));
+    }
+
+    public function activeSuspendProfile()
+    {
+        return $this->hasMany(SuspendProfile::class, 'purchase_id')
+            ->where('utc_start_date', '<=', Carbon::now('UTC'))
+            ->where('utc_end_date', '>=', Carbon::now('UTC'));
+    }
+
+    public function activeUpcomingSuspend()
+    {
+        return $this->hasOne(SuspendProfile::class, 'purchase_id')
+            ->where('utc_end_date', '>=', Carbon::now('UTC'))
+            ->oldestOfMany('utc_start_date');
+    }
+
     public function isListingExtended()
     {
         $extendedPurchase = self::where('escort_id', $this->escort_id)

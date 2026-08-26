@@ -35,10 +35,11 @@
       <div class="col-md-12 mb-4">
           <div class="card collapse" id="notes" style="">
             <div class="card-body">
-                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+               <h3 class="NotesHeader"><b>Notes:</b></h3>
                
                 <ol>
-                      
+                      <li>Your statistics reflect the activity generated on the Website for each of the categories set out on this page.</li>
+                      <li>Some of the statistics can be viewed in more detail in other parts of the Website.</li>
                 </ol>
             </div>
           </div>

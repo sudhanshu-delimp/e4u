@@ -77,7 +77,7 @@ $contactMsg = session('success');
             <div class="content">
                <div class="accodien_manage_padding_content">
                   <p>Our offices are attended between 8:00 am and 6:00 pm WST (Australia). If you are:</p>
-                  <ul>
+                    <ol class="common_list_design">
                      <li>Looking to make an appointment with an Advertiser, we are not an agency and do not
                         arrange bookings. Please contact <a class="c-red" href="{{ url('all-escorts-list')}}">Advertisers</a> directly.
                      </li>
@@ -100,7 +100,7 @@ $contactMsg = session('success');
                         information regarding legal process.
                      </li>
 
-                  </ul>
+                  </ol>
                   <p>For anything else, contact us <a class="c-red" href="javascript:void(0)" onClick="openSolution();">here</a>, or by any of
                      the alternative means below. Whichever
                      method of communication you use we will get back to you within the next few days. 
@@ -243,13 +243,13 @@ $contactMsg = session('success');
                   <p>For the best method of communication, Users should log a "Support Ticket" with us. A
                      Support Ticket is:
                   </p>
-                  <ul>
+                    <ol class="common_list_design">
                      <li>Secure</li>
                      <li>Pre-populated with your details</li>
                      <li>Offers "Title" drop down list</li>
                      <li>Foot-printed
                      </li>
-                  </ul>
+                  </ol>
                   <p>You will need to <a class="c-red" href="{{route('viewer.login')}}">log on</a> as a User to log a Support Ticket.
                      If you haven't registered as a
                      Viewer, and would like to log a Support Ticket, register <a class="c-red"

@@ -17,8 +17,8 @@
             <div class="col-md-12 my-2">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                        <p></p>
+                       <h3 class="NotesHeader"><b>Notes:</b></h3>
+                        
                         <ol>
                             <li>Use Messages for all of your communications with Advertisers. Any Advertiser you
                                 have blocked, or have blocked you, will not appear in your list.</li>

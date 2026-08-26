@@ -1,25 +1,5 @@
 @extends('layouts.web')
 @section('style')
-<style>
-   .loader {
-   border: 16px solid #f3f3f3;
-   border-radius: 50%;
-   border-top: 16px solid #3498db;
-   width: 120px;
-   height: 120px;
-   -webkit-animation: spin 2s linear infinite; /* Safari */
-   animation: spin 2s linear infinite;
-   }
-   /* Safari */
-   @-webkit-keyframes spin {
-   0% { -webkit-transform: rotate(0deg); }
-   100% { -webkit-transform: rotate(360deg); }
-   }
-   @keyframes spin {
-   0% { transform: rotate(0deg); }
-   100% { transform: rotate(360deg); }
-   }
-</style>
 @endsection
 @section('content')
 <section class="padding_top_eight_px padding_bottom_eight_px footer-links-si text-justify">
@@ -56,7 +36,7 @@
       <h2 class="primery_color normal_heading">How can a parent/legal guardian restrict access to the Website?</h2>
       <p>Use “SafeSearch’’. You can use these to make sure there are no 18+ websites in search
          results:</p>
-      <ul>
+        <ol class="common_list_design">
          <li>
             Google SafeSearch
          </li>
@@ -66,14 +46,14 @@
          <li>
             Bing SafeSearch
          </li>
-      </ul>
+      </ol>
       <p> For Apple devices (iPhone, iPad, iPod Touch), you can use Apple’s parental controls. For
          Android devices and laptops, you can use Google Family Link. For desktops with Windows
          10 or higher, you can use Microsoft Family Safety and for more parental monitoring software,
          you can research and try these:
       </p>
 
-      <ul>
+        <ol class="common_list_design">
          <li>
             OpenDNS FamilyShield
          </li>
@@ -83,7 +63,7 @@
          <li>
             Screen Time
          </li>
-      </ul>
+      </ol>
       <p>Additional parental control measures help ensure that your child's access to adult websites
          is restricted and that they have a safe online experience.</p>
       <h2 class="primery_color normal_heading">Disclaimer</h2>

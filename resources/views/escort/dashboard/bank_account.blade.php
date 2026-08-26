@@ -191,8 +191,8 @@
 
       </div>
 
-      <div class="col-md-12 mb-4 collapse" id="notes">
-         <div class="card">
+      <div class="col-md-12 mb-4 ">
+         <div class="card collapse" id="notes">
             <div class="card-body">
                <h3 class="NotesHeader"><b>Notes:</b> </h3>
                <ol>
@@ -1045,7 +1045,8 @@
          order: [1, 'asc'],
          searchable: false,
          bStateSave: false,
-         pageLength: 25,
+         pageLength: {{$datatable_entries }},
+         lengthMenu: [{{ config('app.paginate_range') }}], 
          "language": {
                     "zeroRecords": "There is no record of the search criteria you entered.",
                      searchPlaceholder: "Search by Account Number"
