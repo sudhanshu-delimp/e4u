@@ -163,6 +163,7 @@
                 {{-- end --}}
                 <div class="items custom-gender-type-icon">
                     <span class="title">Available to:</span>
+                    <span class="image_height_width_for_col_six decs">
                     <span class="d-flex gap-1 position-relative decs">
                         @if ($escort->available_to)
                             @foreach ($escort->available_to as $key => $available_to)
@@ -174,6 +175,7 @@
                                 </div>
                             @endforeach
                         @endif
+                    </span>
                     </span>
                 </div>
 

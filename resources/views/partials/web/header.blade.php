@@ -5,6 +5,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="RATING" content="RTA-5042-1996-1400-1577-RTA" />
+
     {{-- <meta name="google-site-verification" content="tzqUkr_jX_neI5MlPldK2ai6CErqC0OOKQCvJ85xJeA" /> --}}
     <!-- Bootstrap CSS -->
     <link rel="shortcut icon" href="{{ asset('assets/app/img/favicon.ico') }}" />
@@ -42,7 +44,7 @@
     <!-- font awsome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v3.04') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v3.05') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v3.02') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v1.8') }}">
 

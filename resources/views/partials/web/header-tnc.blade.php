@@ -5,6 +5,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="RATING" content="RTA-5042-1996-1400-1577-RTA" />
+
     <!-- Bootstrap CSS -->
     <link rel="shortcut icon" href="{{ asset('assets/app/img/favicon.ico') }}" />
     <title>E4U - Escort Directory</title>

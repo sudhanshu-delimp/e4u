@@ -168,6 +168,16 @@ body {
     text-align: justify;
 }
 
+.rta_logo {
+    width: 70px;
+}
+
+.rta_logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
 
 /* blogs */
 
@@ -6986,11 +6996,6 @@ table {
 
 .ec_card_content .decs {
     color: #fff;
-}
-
-.ec_card_content .decs img {
-    width: 20px;
-    /* filter: invert(0) brightness(129.5) grayscale(1) contrast(13.5); */
 }
 
 .ec_card_content:has(.video_icon_ec:hover) {

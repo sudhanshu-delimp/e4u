@@ -135,7 +135,7 @@
 
             <div class="items custom-available-time-icon">
                 <span class="title">Services:</span>
-                <span class="desc">
+                <span class="image_height_width_for_col_six position-relative desc">
                     <div class="icon-with-tooltip position-relative">
                         <img src="{{ asset('assets/app/img/heart-white.png') }}"
                             style="width: 16px; height:17px; display:{{ $escort->massage_price != null ? '' : 'none' }};">
@@ -161,9 +161,10 @@
             </div>
 
             {{-- end --}}
-            <div class="items">
+            <div class="items custom-gender-type-icon">
                 <span class="title">Available to:</span>
-                <span class="d-flex gap-1 position-relative decs">
+                <span class="image_height_width_for_col_six decs">
+                <span class="d-flex gap-1 position-relative">
                     @if ($escort->available_to)
                         @foreach ($escort->available_to as $key => $available_to)
                             <div class="icon-with-tooltip position-relative">
@@ -175,6 +176,7 @@
                         @endforeach
                     @endif
                 </span>
+            </span>
             </div>
 
         </div>
