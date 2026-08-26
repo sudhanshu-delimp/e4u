@@ -359,6 +359,7 @@ class EscortListingController extends Controller
             'escorts.state_id',
             'escorts.created_at',
             'escorts.slug',
+            'escorts.available_to'
 
         ];
 
@@ -397,6 +398,24 @@ class EscortListingController extends Controller
         );
 
         $escorts = $query->get();
+
+        $escorts->each(function ($escort) {
+            $duration = $escort->oneHourDuration->first();
+            $prices = $duration?->pivot;
+
+            $escort->massage_price = $prices?->massage_price;
+            $escort->incall_price = $prices?->incall_price;
+            $escort->outcall_price = $prices?->outcall_price;
+
+            $lowestPriceArray = [];
+            foreach (['massage_price', 'incall_price', 'outcall_price'] as $priceType) {
+                if ($prices?->{$priceType} !== null) {
+                    $lowestPriceArray[] = (float) $prices->{$priceType};
+                }
+            }
+
+            $escort->lowest_rate_price = $lowestPriceArray ? min($lowestPriceArray) : '';
+        });
 
 
         $groups = $escorts->groupBy('membership');
@@ -608,12 +627,6 @@ class EscortListingController extends Controller
             });
         }
  
-
-
-
-
-     
-
 
         if (!empty($params['gender'])) {
             $query->where('escorts.gender', $params['gender']);
