@@ -38,7 +38,7 @@
 
              {{-- Page Numbers --}}
              @for ($i = $start; $i <= $end; $i++)
-                 <li>
+                 <li class="mx-1">
                      <a href="{{ $paginator->url($i) }}"
                          style="background-color: {{ $i == $paginator->currentPage() ? '#F2F2F2' : '#0C223d' }}; font-weight: {{ $i == $paginator->currentPage() ? 'bold' : 'normal' }}; color: {{ $i == $paginator->currentPage() ? '#ff3c5f' : '#fff' }};">
                          {{ $i }}
