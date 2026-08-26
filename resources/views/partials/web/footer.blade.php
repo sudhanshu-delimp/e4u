@@ -207,7 +207,9 @@
 
                             <a href="{{ url('parent-control') }} ">Parent Control</a>
                         </div>
-
+                        <div class="rta_logo">
+                            <img src="{{ asset('assets/app/img/rta-logo.png') }}" alt="RESTRICTED TO ADULTS">
+                        </div>
                     </div>
                 </div>
 
