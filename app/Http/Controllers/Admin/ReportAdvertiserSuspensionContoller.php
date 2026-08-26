@@ -46,6 +46,11 @@ class ReportAdvertiserSuspensionContoller extends Controller
         return view('admin.reports.advertiser-suspensions');
     }
 
+    public function cancelledByAdvertiser()
+    {
+        return view('admin.reports.advertiser-cancellations');
+    }
+
     public function suspendedByAdmin()
     {
         return view('admin.reports.admin-advertiser-suspensions');
