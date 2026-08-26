@@ -2885,22 +2885,26 @@ if (!function_exists('findCountryByName')) {
 
 if (!function_exists('is_viewer_block_by_escort')) {
 
-       function is_viewer_block_by_escort ($escort_id,$viewer_id,$user_id)
-       {
-            $viewer_blocked = false;
-            $esvi =  EscortViewerInteractions::where('escort_id', $escort_id)
-                                                            ->where('viewer_id', $viewer_id)
-                                                            ->where('user_id', $user_id)
-                                                            ->first();
-            if ($esvi) 
-            {
-                //if ($esvi->escort_blocked_viewer == 1 || $esvi->escort_disabled_notification == 1 || $esvi->viewer_blocked_escort == 1 || $esvi->viewer_disabled_notification == 1) 
-                if ($esvi->escort_disabled_notification == 1 ||  $esvi->viewer_disabled_notification == 1) 
-                {
+    function is_viewer_block_by_escort($escort_id, $viewer_id, $user_id)
+    {
+        $viewer_blocked = false;
+        $esvi =  EscortViewerInteractions::where('escort_id', $escort_id)
+            ->where('viewer_id', $viewer_id)
+            ->where('user_id', $user_id)
+            ->first();
+        if ($esvi) {
+            //if ($esvi->escort_blocked_viewer == 1 || $esvi->escort_disabled_notification == 1 || $esvi->viewer_blocked_escort == 1 || $esvi->viewer_disabled_notification == 1) 
+            if ($esvi->escort_disabled_notification == 1 ||  $esvi->viewer_disabled_notification == 1) {
                 $viewer_blocked = true;
-                }
-            } 
+            }
+        }
 
-            return $viewer_blocked;                                                           
-       }
+        return $viewer_blocked;
+    }
+}
+
+function getAustraliaTime($dateTimeUTC, $format = null)
+{
+    $dateTime = Carbon::parse($dateTimeUTC, 'UTC')->setTimezone(config('common.local_timezone'));
+    return $format ? $dateTime->format($format) : $dateTime;
 }

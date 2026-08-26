@@ -11,7 +11,7 @@ class Purchase extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['parent_id', 'escort_id', 'start_date', 'end_date', 'membership', 'utc_start_time', 'utc_end_time', 'status', 'suspended_at', 'tour_location_id', 'rate', 'discount_rate', 'special_discount_value', 'special_discount_type', 'total_rate', 'paid_rate', 'created_by', 'updated_by'];
+    protected $fillable = ['parent_id', 'escort_id', 'start_date', 'end_date', 'membership', 'utc_start_time', 'utc_end_time', 'status', 'suspended_at', 'cancelled_at', 'tour_location_id', 'rate', 'discount_rate', 'special_discount_value', 'special_discount_type', 'total_rate', 'paid_rate', 'created_by', 'updated_by'];
     protected $table = 'purchase';
     public $timestamps = true;
 
