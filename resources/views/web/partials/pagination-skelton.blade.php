@@ -14,14 +14,14 @@ margin-top: 25px;
 width: 82px;
 height: 38px;
 background: #c9c9c9;
-border-radius: 2px;
+border-radius: 10px;
 }
 
 .skl-page-number {
 width: 46px;
 height: 38px;
 background: #c9c9c9;
-border-radius: 2px;
+border-radius: 10px;
 }
 
 .skl-pagination-info {
