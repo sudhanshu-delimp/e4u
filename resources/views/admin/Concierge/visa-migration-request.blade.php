@@ -216,31 +216,6 @@
                 }
             });
         });
-        $('#confirmStatus').on('click', function() {
-
-            let id = $('#status_id').val();
-            let status = $('#status').val();
-
-            $.ajax({
-                url: "{{ route('admin.visa.migration.update.status') }}",
-                type: "POST",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    id: id,
-                    status: status
-                },
-                success: function(response) {
-
-                    $('#statusModal').modal('hide');
-
-                    $('#visaMigrationRequestTable').DataTable().ajax.reload(null, false);
-
-                    toastr.success(response.message);
-                },
-                error: function(xhr) {
-                    toastr.error('Something went wrong.');
-                }
-            });
-        });
+         
     </script>
 @endpush
