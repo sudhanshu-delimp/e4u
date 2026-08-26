@@ -9107,6 +9107,7 @@ h2.custom--review img {
     top: 9rem;
     padding: 10px;
     width: 100%;
+    z-index: 9999;
 }
 
 .brb--wrappr {
