@@ -13,6 +13,7 @@ use App\Models\Escort;
 use App\Models\EscortAdditionalInformation;
 use App\Models\EscortMedia;
 use App\Models\EscortStatistics;
+use App\Models\EscortViewerInteractions;
 use App\Models\GlobalNotification;
 use App\Models\MassageAvailability;
 use App\Models\MassageMedia;
@@ -2879,4 +2880,27 @@ if (!function_exists('findCountryByName')) {
 
         return null;
     }
+}
+
+
+if (!function_exists('is_viewer_block_by_escort')) {
+
+       function is_viewer_block_by_escort ($escort_id,$viewer_id,$user_id)
+       {
+            $viewer_blocked = false;
+            $esvi =  EscortViewerInteractions::where('escort_id', $escort_id)
+                                                            ->where('viewer_id', $viewer_id)
+                                                            ->where('user_id', $user_id)
+                                                            ->first();
+            if ($esvi) 
+            {
+                //if ($esvi->escort_blocked_viewer == 1 || $esvi->escort_disabled_notification == 1 || $esvi->viewer_blocked_escort == 1 || $esvi->viewer_disabled_notification == 1) 
+                if ($esvi->escort_disabled_notification == 1 ||  $esvi->viewer_disabled_notification == 1) 
+                {
+                $viewer_blocked = true;
+                }
+            } 
+
+            return $viewer_blocked;                                                           
+       }
 }

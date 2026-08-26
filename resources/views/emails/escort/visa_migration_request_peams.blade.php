@@ -40,16 +40,17 @@
 
 
                             <p style="margin: 0 0 20px 0;">
-                                The Member described below is seeking assistance regarding a visa enquiry and would like to discuss their options and requirements with your team.
+                                The Member described below is seeking assistance regarding a visa enquiry and would like
+                                to discuss their options and requirements with your team.
                             </p>
 
                             <p style="margin: 0 0 10px 0; font-weight: 600;">
-                             The Member's details are as follows:
+                                The Member's details are as follows:
                             </p>
 
                             <div style="margin-bottom: 25px;">
-                                <p style="margin: 5px 0;"><strong>Name: </strong> {{ $data['member_name'] }}</p>
-                                <p style="margin: 5px 0;"><strong>Business Name: </strong> {{ $data['business_name'] }}</p>
+                                <p style="margin: 5px 0;"><strong>First Name: </strong> {{ $data['first_name'] }}</p>
+                                <p style="margin: 5px 0;"><strong>Last Name: </strong> {{ $data['last_name'] }}</p>
                                 <p style="margin: 5px 0;"><strong>Email: </strong> {{ $data['email'] }}</p>
                                 <p style="margin: 5px 0;"><strong>Mobile: </strong> {{ $data['mobile'] }}</p>
                                 <p style="margin: 5px 0;"><strong>Preferred Contact
@@ -61,8 +62,8 @@
                             </p>
 
                             <div style="margin-bottom: 25px;">
-                                <p style="margin: 5px 0;"><strong>Area of Advice: </strong> {{  ucwords(str_replace('_', ' ', $data['area_type']));
- }}
+                                <p style="margin: 5px 0;"><strong>Area of Advice: </strong>
+                                    {{ ucwords(str_replace('_', ' ', $data['area_type'])) }}
                                 </p>
                                 <p style="margin: 5px 0;"><strong>Visa Enquiry Type: </strong>
                                     {{ $data['visa_enquiry_type'] }}</p>
@@ -73,11 +74,10 @@
                                 <strong>Comments:</strong>
                             </p>
 
-                            <div
-                                style="margin-top: 8px; padding: 12px 15px; background-color: #f7f7f7; border: 1px solid #e0e0e0; border-radius: 4px;">
+                            <div style="margin-top: 8px; padding: 12px 15px; background-color: #f7f7f7; border: 1px solid #e0e0e0; border-radius: 4px;">
                                 {{ $data['comments'] ?: 'No additional comments provided.' }}
                             </div>
-<br>
+                            <br>
                             <p style="margin: 0 0 20px 0;">
                                 I would appreciate it if one of your team members could contact me to discuss my visa
                                 requirements and advise me on the available options and next steps.

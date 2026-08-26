@@ -206,19 +206,20 @@ class EscortListingController extends Controller
 
         if ($firstSegment) {
             if (in_array(strtolower($firstSegment), $countryList)) {
-                if (in_array($secondSegment, $genderList)) {
+                if (in_array(strtolower($secondSegment), $genderList)) {
                     //gender pass
                     $genderId = getGenderId($secondSegment);
                     if ($genderId) {
                         $urlGender = $genderId;
                     }
                 } else {
-                    //when get state abbar
-                    $cityStateId = getStateCityIds($secondSegment, $thirdSegment);
+                    $cityStateId = getStateCityIds($secondSegment, $thirdSegment ?: null);
 
                     if ($cityStateId) {
-                        $urlCity = $cityStateId['city_id'];
                         $urlState = $cityStateId['state_id'];
+                        if ($thirdSegment) {
+                            $urlCity = $cityStateId['city_id'];
+                        }
                     }
                 }
             } else {
@@ -231,7 +232,7 @@ class EscortListingController extends Controller
         }
 
 
-        if(in_array(strtolower($forthSegment), $genderList)){
+        if (in_array(strtolower($forthSegment), $genderList)) {
             //gender pass
             $genderId = getGenderId($forthSegment);
             if ($genderId) {
@@ -492,7 +493,12 @@ class EscortListingController extends Controller
         $query->whereHas('user', function ($q) {
             $q->where('status', 1);
         });
-        $query->whereDoesntHave('activeSuspendProfile');
+        //new code checking by the purchse table
+        $query->whereHas('purchase', function($q) {
+            $q->whereDoesntHave('activeSuspendProfile');
+        });
+        // this is older code checking by escort table
+        //$query->whereDoesntHave('activeSuspendProfile');
 
         //filter membership type wise escort
 

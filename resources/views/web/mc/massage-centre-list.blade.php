@@ -474,10 +474,6 @@
         }
 
 
-        /* ===============================
-           VIEW SWITCH
-        =============================== */
-
         $('#view_grid').on('click', function() {
             activeView = 'grid';
 
@@ -521,12 +517,6 @@
 
         });
 
-
-
-        /* ===============================
-           PAGINATION 
-        =============================== */
-
         $(document).on('click', '.custom-pagination a', async function(e) {
             e.preventDefault();
 
@@ -540,17 +530,17 @@
         });
 
 
-
         const massageRouteStates = escortRouteStates = @json(config('escorts.profile.states'));
 
         const massageBaseUrl = "{{ config('constants.massage_list_base_slug') }}";
+        let preserveInitialMassageLocationUrl = true;
 
         function getMassageRouteMemberId(selectedCity) {
             const segments = window.location.pathname.split('/').filter(Boolean);
             const lastSegment = segments[segments.length - 1] || '';
-            const currentState = segments[2] || '';
-            const currentCity = segments[3] || '';
-            const currentMemberId = segments[4] || '';
+            const routeOffset = String(segments[1] || '').toLowerCase() === 'australia' ? 2 : 1;
+            const currentState = segments[routeOffset] || '';
+            const currentCity = segments[routeOffset + 1] || '';
 
 
             if (!/^M[\w-]+$/i.test(lastSegment) || !selectedCity) {
@@ -561,46 +551,127 @@
                 return null;
             }
 
-
-
             return lastSegment;
         }
 
         function getMassageListingPath() {
-            const cityId = String($('#profile_city').val() || '');
-            const pathSegments = [massageBaseUrl];
-            let selectedCity = null;
-            Object.values(massageRouteStates).some(function(state) {
-                return Object.entries(state.cities || {}).some(function([id, city]) {
-                    if (String(id) === cityId) {
-                        selectedCity = {
-                            state: state.stateAbbr.toLowerCase(),
-                            city: city.cityName.toLowerCase()
-                        };
-                        return true;
-                    }
+            const segments = window.location.pathname.split('/').filter(Boolean);
 
+            const hasCountrySegment = String(segments[1] || '').toLowerCase() === 'australia';
+            const routeOffset = hasCountrySegment ? 2 : 1;
+            const urlState = String(segments[routeOffset] || '').toLowerCase();
+            const urlCity = String(segments[routeOffset + 1] || '').toLowerCase();
+            const selectedCityId = String($('#profile_city').val() || '');
+            const currentMemberId = segments[routeOffset + 2] || '';
+
+
+            const pathSegments = [massageBaseUrl];
+
+            let selectedState = null;
+            let selectedCity = null;
+            let cityIds = null;
+
+            Object.entries(massageRouteStates).some(function([stateId, state]) {
+
+                const stateAbbr = String(state.stateAbbr || '').toLowerCase();
+                const cities = state.cities || {};
+
+                if (selectedCityId) {
+                    return Object.entries(cities).some(function([cityId, city]) {
+                        if (String(cityId) !== selectedCityId) {
+                            return false;
+                        }
+
+                        selectedState = {
+                            id: stateId,
+                            abbr: stateAbbr
+                        };
+                        selectedCity = {
+                            stateId: stateId,
+                            cityId: cityId,
+                            state: stateAbbr,
+                            city: String(city.cityName || '').toLowerCase()
+                        };
+                        cityIds = cityId;
+
+                        return true;
+                    });
+                }
+
+                if (!preserveInitialMassageLocationUrl) {
                     return false;
-                });
+                }
+
+                // Match state from URL
+                if (stateAbbr !== urlState) {
+                    return false;
+                }
+
+                selectedState = {
+                    id: stateId,
+                    abbr: stateAbbr
+                };
+
+                if (urlCity) {
+                    Object.entries(cities).some(function([cityId, city]) {
+
+                        const cityName = String(city.cityName || '').toLowerCase();
+
+                        if (cityName === urlCity) {
+                            selectedCity = {
+                                stateId: stateId,
+                                cityId: cityId,
+                                state: stateAbbr,
+                                city: cityName
+                            };
+                            cityIds = cityId;
+
+                            return true;
+                        }
+
+                        return false;
+                    });
+                }
+
+                if (!selectedCity) {
+                    cityIds = Object.keys(cities)[0] || null;
+                }
+
+
+                return true;
             });
 
-            if (selectedCity) {
+            if (selectedCity || (preserveInitialMassageLocationUrl && hasCountrySegment)) {
                 pathSegments.push('australia');
-                pathSegments.push(selectedCity.state, selectedCity.city);
+            }
 
-                const memberId = getMassageRouteMemberId(selectedCity);
+            if (selectedCity || (preserveInitialMassageLocationUrl && selectedState)) {
+                pathSegments.push(selectedState.abbr);
+
+                if (selectedCity) {
+                    pathSegments.push(selectedCity.city);
+                }
+
+                const memberId = getMassageRouteMemberId(
+                    selectedCity || {
+                        state: selectedState.abbr
+                    }
+                );
 
                 if (memberId) {
                     pathSegments.push(memberId);
                 }
             }
 
-            //assing city id in the global variable
-            globalMassageRequest.filter_by_feild = {
-                profile_city: $('#profile_city').val(),
-                massage_id: window.location.pathname.split('/').filter(Boolean)[4] ?? '',
-            }
 
+            // ==========================================
+            // Backend filter
+            // ==========================================
+
+            globalMassageRequest.filter_by_feild = Object.assign({}, globalMassageRequest.filter_by_feild, {
+                profile_city: cityIds,
+                massage_id: currentMemberId
+            });
 
             return '/' + pathSegments.join('/');
         }
@@ -612,7 +683,6 @@
 
         async function loadData(requestParam = globalMassageRequest, showLoader = true) {
 
-            console.log(requestParam, '......');
             let requestUrl = getMassageListingPath();
 
 
@@ -754,6 +824,7 @@
         /////// Short List ///////////////
         $(document).on('click', '.upper_filter', async function(e) {
             e.preventDefault();
+            preserveInitialMassageLocationUrl = false;
             globalMassageRequest.filter_by_location = {
                 locationByRadio: $('input[name="locationByRadio"]:checked').val(),
                 by_name_member: $('#by_name_member').val(),
@@ -769,6 +840,7 @@
         /////// Per Page ///////////////
         $(document).on('change', '#per_page', async function(e) {
             e.preventDefault();
+            preserveInitialMassageLocationUrl = false;
             let val = $(this).val();
             globalMassageRequest.filter_by_location = {
                 locationByRadio: $('input[name="locationByRadio"]:checked').val(),
@@ -783,6 +855,7 @@
 
         $(document).on('click', '.lower_filter', async function(e) {
             e.preventDefault();
+            preserveInitialMassageLocationUrl = false;
 
             globalMassageRequest.filter_by_feild = {
                 profile_state: $('#profile_state').val(),
@@ -801,12 +874,14 @@
         //reset the filter
         $(document).on('click', '.reset_form_filter', async function(e) {
             e.preventDefault();
+            preserveInitialMassageLocationUrl = false;
             let locByRad = $('input[name="locationByRadio"]:checked').val();
             let letVal = $('#set_lat').val();
             let lngVal = $('#set_lng').val();
             $('#filterForm')[0].reset();
             //again set the location radio button to previous value
             $(`input[name="locationByRadio"][value="${locByRad}"]`).prop('checked', true);
+            $('#profile_city').val('');
             globalMassageRequest = {
                 filter_by_feild: {
                     profile_state: '',
@@ -928,6 +1003,7 @@
 
         // Run when radio changes
         $(document).on('change', 'input[name="locationByRadio"]', async function() {
+            preserveInitialMassageLocationUrl = false;
             await updateLocationFields();
             let selectValue = $(this).val();
         });
