@@ -1,23 +1,7 @@
 @extends('layouts.web')
 @section('style')
     <style>
-        #view_list svg path,
-        #view_grid svg path {
-            stroke: #000;
-            transition: stroke 0.3s;
-        }
-
-
-        #view_list:hover svg path,
-        #view_grid:hover svg path {
-            stroke: #fff;
-        }
-
-
-        .view-active svg path {
-            stroke: #ff3c5f !important;
-        }
-
+       
         #page_loader {
             position: fixed;
             top: 0;
