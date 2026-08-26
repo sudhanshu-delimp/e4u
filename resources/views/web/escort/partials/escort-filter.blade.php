@@ -453,15 +453,12 @@
                                                 </div>
                                                 {{-- grid and list filter Btn --}}
                                                 <div class="grd_lst_filter_btn">
-                                                    <div class="grid_list_icon_box display_inline_block grid--btn"
-                                                        data-toggle="modal1" data-target="#"
-                                                        data-url="grid-escort-list">
-                                                        <a href="javascript:void(0)" class="view-toggle"
-                                                            class="{{ $viewType == 'grid' ? 'active' : '' }}"
-                                                            id="grid-modal" data-toggle="tooltip">
+                                                    <div class="grid_list_icon_box display_inline_block grid--btn view-toggle" class="{{ $viewType == 'grid' ? 'active' : '' }}"
+                                                            id="grid-modal">
+                                                       
                                                             <span class="custom-toltip">Grid View</span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="30"
-                                                                height="30" viewBox="0 0 30 30" fill="none">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25"
+                                                                height="25" viewBox="0 0 30 30" fill="none">
                                                                 <path
                                                                     d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z"
                                                                     stroke="#0C223D" stroke-width="3"
@@ -479,21 +476,19 @@
                                                                     stroke="#0C223D" stroke-width="3"
                                                                     stroke-linecap="round" stroke-linejoin="round" />
                                                             </svg>
-                                                        </a>
+                                                        
                                                     </div>
-                                                    <div class="grid_list_icon_box display_inline_block list-btn">
-                                                        <a href="javascript:void(0)" class="view-toggle"
-                                                            class="{{ $viewType == 'list' ? 'active' : '' }}"
-                                                            id="grid-list" data-toggle="tooltip">
+                                                    <div class="grid_list_icon_box display_inline_block list-btn view-toggle" class="{{ $viewType == 'list' ? 'active' : '' }}" id="grid-list">
+                                                        
                                                             <span class="custom-toltip">List View</span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="27"
-                                                                height="24" viewBox="0 0 27 24" fill="none">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25"
+                                                                height="25" viewBox="0 0 27 24" fill="none">
                                                                 <path
                                                                     d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663"
                                                                     stroke="#0C223D" stroke-width="3"
                                                                     stroke-linecap="round" stroke-linejoin="round" />
                                                             </svg>
-                                                        </a>
+                                                        
                                                     </div>
                                                 </div>
                                                 {{-- end --}}
