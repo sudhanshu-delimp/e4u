@@ -7522,8 +7522,8 @@ table {
 /* mc_list_card */
 
 .mc_view_title {
-    font-size: clamp(18px, 4vw, 24px);
-    font-weight: 500;
+    font-size: clamp(14px, 4vw, 18px);
+    font-weight: 600;
     color: #0c223d;
     border-bottom: 1px solid #022c3d;
     margin-bottom: 15px;
@@ -7536,8 +7536,8 @@ table {
 .mc_view_title .icon {
     background-color: #fff1f4;
     padding: 10px;
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     border-radius: 100%;
     display: flex;
     align-items: center;
@@ -7546,8 +7546,8 @@ table {
 }
 
 .mc_view_title .icon svg {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     fill: none;
     stroke: currentColor;
     stroke-width: 1.8;
