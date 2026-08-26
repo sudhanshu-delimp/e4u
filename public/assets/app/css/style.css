@@ -6998,11 +6998,6 @@ table {
     color: #fff;
 }
 
-.ec_card_content .decs img {
-    width: 20px;
-    /* filter: invert(0) brightness(129.5) grayscale(1) contrast(13.5); */
-}
-
 .ec_card_content:has(.video_icon_ec:hover) {
     overflow: visible;
 }
