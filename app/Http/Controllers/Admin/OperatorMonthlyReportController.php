@@ -34,9 +34,9 @@ class OperatorMonthlyReportController extends BaseController
   public function monthlyReport()
   {
     $calculateServiceObj = (new CalculateOperatorFeeService);
-    //$feeData = $calculateServiceObj->calculateFee(3);
-   // dd( $feeData);
-    return  view('admin.management.operator.monthly-fee-reports');
+    //$feeData = $calculateServiceObj->getOperatorFeeDetails(3);
+    //dd($feeData);
+    return  view('admin.management.operator.fees.monthly-fee-reports');
   }
 
 
@@ -202,10 +202,10 @@ class OperatorMonthlyReportController extends BaseController
       $id = $data['id'];
       $calculateServiceObj = (new CalculateOperatorFeeService);
       //Prepare the agent monthly fee data for view detail
-      $feeData = $calculateServiceObj->calculateFee($id);
+      $feeDatas = $calculateServiceObj->getOperatorFeeDetails($id);
 
-      if ($feeData->isNotEmpty()) {
-        return view('management.operator.operator-view', compact('feeData'));
+      if (count($feeDatas) > 0) {
+        return view('admin.management.operator.fees.view_monthly_report', compact('feeDatas'));
       }
     }
     return "";

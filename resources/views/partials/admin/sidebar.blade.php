@@ -808,7 +808,7 @@ $ocLavel = 'Developer';
                         'security','shareholder','share-value',
                         'operator-staff','concierge-payments','agent-data',
                         'fees',
-                    ]) || request()->segment(2) == 'feedback' || in_array(request()->segment(4), ['legal','community','other','about','concierge','global-notifications','agents-notifications','escorts-notifications','centres-notifications','shareholders-notifications','viewers-notifications', 'monthly-report'])) show @endif"
+                    ]) || request()->segment(2) == 'feedback' || in_array(request()->segment(4), ['legal','community','other','about','concierge','global-notifications','agents-notifications','escorts-notifications','centres-notifications','shareholders-notifications','viewers-notifications', 'monthly-report', 'monthly-fee-reports', 'commission-summary'])) show @endif"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
             <div class="py-0 collapse-inner rounded mb-2">
@@ -1193,17 +1193,17 @@ $ocLavel = 'Developer';
                     <img src="{{ asset('assets/dashboard/img/menu-icon/operator.png') }}">
                     <span>Operator</span>
                 </a>
-                <div id="operatorMenu" class="collapse @if (in_array(request()->segment(3), ['monthly-fee-reports', 'commission-summary'])) show @endif" data-parent="#Management">
+                <div id="operatorMenu" class="collapse @if (in_array(request()->segment(4), ['monthly-fee-reports', 'commission-summary'])) show @endif" data-parent="#Management">
 
                     <a class="collapse-item" href="{{ route('admin.commission-summary') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/fee-summary.png') }}">
                         <span
-                            style="{{ request()->segment(3) == 'commission-summary' ? 'color: #FF3C5F;' : '' }}">Fees Summary</span>
+                            style="{{ request()->segment(4) == 'commission-summary' ? 'color: #FF3C5F;' : '' }}">Fees Summary</span>
                     </a>
                     <a class="collapse-item" href="{{ route('admin.monthly-fee-reports') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
                         <span
-                            style="{{ request()->segment(3) == 'monthly-fee-reports' ? 'color: #FF3C5F;' : '' }}">Monthly
+                            style="{{ request()->segment(4) == 'monthly-fee-reports' ? 'color: #FF3C5F;' : '' }}">Monthly
                             Fee Reports</span>
                     </a>
                 </div>

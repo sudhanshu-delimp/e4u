@@ -13,15 +13,36 @@ use Illuminate\Support\Facades\Log;
 
 class CalculateOperatorFeeService
 {
-     /**
-     * Prepare the agent monthly fee data for view detail
+
+
+    /**
+     * Find the agent monthly fee data for view detail
      * 
      * @param integer $reportId
      * @param return object
      */
     public function getOperatorFeeDetails($reportId = 0)
     {
-        $report = OperatorMonthlyReport::where('id', $reportId)->first();
+        $details = [];
+        try {
+            $report = OperatorMonthlyReport::where('id', $reportId)->first();
+
+            $billingStartDate = $report->billing_period_from;
+            $billingEndDate = $report->billing_period_to;
+            $agentMemberId = $report->agent?->member_id ?? '';
+
+            $billingStartDate = Carbon::parse($billingStartDate)->format('Y-m-d');
+            $billingEndDate = Carbon::parse($billingEndDate)->format('Y-m-d');
+            $agentIds = explode(",", $report->agent_ids);
+            if (count($agentIds) > 0) {
+                foreach ($agentIds as $agentId) {
+                    $details[$agentId] = $this->calculateFee($agentId, $billingStartDate, $billingEndDate)->toArray();
+                }
+            }
+        } catch (Exception $e) {
+            //
+        }
+        return $details;
     }
     /**
      * Prepare the agent monthly fee data for view detail
@@ -29,120 +50,100 @@ class CalculateOperatorFeeService
      * @param integer $reportId
      * @param return object
      */
-    public function calculateFee( $report, $agentId = 0)
+    public function calculateFee($agentId, $billingStartDate, $billingEndDate)
     {
         $result = collect();
         $agentMemberId = "";
-        $billingEndDate = "";
-        $operatorResults = [];
         try {
-            $report = OperatorMonthlyReport::where('id', $reportId)->first();
-            if ($report) {
+            if ($agentId) {
+                $commissions = AgentCommission::select(['id', 'agent_id', 'user_id', 'user_type', 'commissionable_id', 'purchase_amount', 'total_commission_amount', 'commission_date'])
+                    ->with([
 
-                $billingStartDate = $report->billing_period_from;
-                $billingEndDate = $report->billing_period_to;
-                $agentMemberId = $report->agent?->member_id ?? '';
+                        'user' => function ($query) {
+                            $query->select(
+                                'id',
+                                'member_id',
+                                'name',
+                                'business_name',
+                                'email',
+                                'phone',
+                                'state_id'
+                            );
+                        },
+                        'agent' => function ($query) {
+                            $query->select(
+                                'id',
+                                'member_id',
+                                'name',
+                                'business_name',
+                                'email',
+                                'phone',
+                                'state_id'
+                            );
+                        },
+                        'paymentHistory' => function ($query) {
+                            $query->select(
+                                'id',
+                                'service'
+                            );
+                        },
+                        'items.item',
+                    ])
+                    ->where('agent_id', (int)$agentId)
+                    ->whereBetween('commission_date', [$billingStartDate, $billingEndDate])
+                    ->get();
+                if ($commissions->isNotEmpty()) {
 
-                $billingStartDate = Carbon::parse($billingStartDate)->format('Y-m-d');
-                $billingEndDate = Carbon::parse($billingEndDate)->format('Y-m-d');
-                $agentIds = explode(",", $report->agent_ids);
-        
+                    $agentMemberId = $commissions[0]->agent?->member_id ?? '';
+                    $result = $commissions->groupBy('user_id')->map(function ($records) {
 
-                if (count($agentIds) > 0) {
-                    foreach ($agentIds as $agentId) {
-
-                        $commissions = AgentCommission::select(['id', 'agent_id', 'user_id', 'user_type', 'commissionable_id', 'purchase_amount', 'total_commission_amount', 'commission_date'])
-                            ->with([
-
-                                'user' => function ($query) {
-                                    $query->select(
-                                        'id',
-                                        'member_id',
-                                        'name',
-                                        'business_name',
-                                        'email',
-                                        'phone',
-                                        'state_id'
-                                    );
-                                },
-                                'agent' => function ($query) {
-                                    $query->select(
-                                        'id',
-                                        'member_id',
-                                        'name',
-                                        'business_name',
-                                        'email',
-                                        'phone',
-                                        'state_id'
-                                    );
-                                },
-                                'paymentHistory' => function ($query) {
-                                    $query->select(
-                                        'id',
-                                        'service'
-                                    );
-                                },
-                                'items.item',
-                            ])
-                            ->where('agent_id', $agentId)
-                            ->whereBetween('commission_date', [$billingStartDate, $billingEndDate])
-                            ->get();
-
-                        if ($commissions->isNotEmpty()) {
-
-                            $result = $commissions->groupBy('user_id')->map(function ($records) {
-
-                                $first = $records->first();
-
-                                return [
-                                    'user_id' => $first->user_id,
-                                    'user_type' => $first->user_type,
-                                    'user_name' => filled($first->user->name)
-                                        ? $first->user->name
-                                        : $first->user->business_name,
-                                    'user_member_id' => filled($first->user->member_id)
-                                        ? $first->user->member_id
-                                        : '',
-                                    'user_state_name' => filled($first->user->state_id)
-                                        ? $first->user->state->iso2
-                                        : '',
+                        $first = $records->first();
+                        return [
+                            'user_id' => $first->user_id,
+                            'user_type' => $first->user_type,
+                            'user_name' => (filled($first->user->name)
+                                ? $first->user->name
+                                : $first->user->business_name)." (".($first->user->member_id).")",
+                            'user_member_id' => filled($first->user->member_id)
+                                ? $first->user->member_id
+                                : '',
+                            'user_state_name' => filled($first->user->state_id)
+                                ? $first->user->state->iso2
+                                : '',
 
 
-                                    'agent_name' => filled($first->agent->name)
-                                        ? $first->agent->name
-                                        : $first->agent->business_name,
+                            'agent_name' => filled($first->agent->name)
+                                ? $first->agent->name
+                                : $first->agent->business_name,
 
-                                    'total_purchase_amount' => number_format($records->sum('purchase_amount'), 2, '.', ''),
-                                    'total_commission_amount' => number_format($records->sum('total_commission_amount'), 2, '.', ''),
-                                    'total_days' => $records->sum(function ($record) {
+                            'total_purchase_amount' => number_format($records->sum('purchase_amount'), 2, '.', ''),
+                            'total_commission_amount' => number_format($records->sum('total_commission_amount'), 2, '.', ''),
+                            'total_days' => $records->sum(function ($record) {
 
-                                        if (in_array($record->items->item_type, [
-                                            \App\Models\MassageBumpup::class,
-                                            \App\Models\EscortBumpup::class,
-                                        ])) {
-                                            return 0;
-                                        }
+                                if (in_array($record->items->item_type, [
+                                    \App\Models\MassageBumpup::class,
+                                    \App\Models\EscortBumpup::class,
+                                ])) {
+                                    return 0;
+                                }
 
-                                        $item = $record->items->item ?? null;
+                                $item = $record->items->item ?? null;
 
-                                        if (!$item || empty($item->start_date) || empty($item->end_date)) {
-                                            return 0;
-                                        }
+                                if (!$item || empty($item->start_date) || empty($item->end_date)) {
+                                    return 0;
+                                }
 
-                                        $format = preg_match('/^\d{2}-\d{2}-\d{4}$/', $item->start_date)
-                                            ? 'd-m-Y'
-                                            : 'Y-m-d';
+                                $format = preg_match('/^\d{2}-\d{2}-\d{4}$/', $item->start_date)
+                                    ? 'd-m-Y'
+                                    : 'Y-m-d';
 
-                                        $start = Carbon::createFromFormat($format, $item->start_date);
-                                        $end   = Carbon::createFromFormat($format, $item->end_date);
+                                $start = Carbon::createFromFormat($format, $item->start_date);
+                                $end   = Carbon::createFromFormat($format, $item->end_date);
 
-                                        return $start->diffInDays($end) + 1;
-                                    }),
-                                ];
-                            })->values();
-                        }
-                        $operatorResults[$agentId] = $result;
-                    } // End foreach
+                                return $start->diffInDays($end) + 1;
+                            }),
+                        ];
+                    })->values();
                 }
             }
         } catch (Exception $e) {
@@ -153,7 +154,9 @@ class CalculateOperatorFeeService
 
             $result = $result->groupBy('user_type');
             $feeDetails = $this->calculateFeeDetails($commissions);
+            
             foreach ($result as $userType => $rows) {
+               
                 foreach ($rows as $index => $row) {
                     if (isset($row['user_id'])) {
                         $userId = $row['user_id'];
@@ -184,7 +187,6 @@ class CalculateOperatorFeeService
 
     private function calculateFeeDetails($reports)
     {
-        //dd($reports->toArray());
         $result = $reports->groupBy('user_id')->map(function ($rows) {
 
             $summary = [
@@ -285,11 +287,10 @@ class CalculateOperatorFeeService
                     $summary['MBU']['commission'] +=  number_format($commission, 2, '.', '');
                 }
             }
-            //dd( $summary);
             return [
                 'user_id' => $rows->first()->user_id,
                 'user_type' => $rows->first()->user_type,
-                'user_name' => $rows->first()->user['name'] ?: $rows->first()->user['business_name'],
+                'user_name' => ($rows->first()->user['name'] ?: $rows->first()->user['business_name']),
 
                 'P'   => $summary['P'],
                 'G'   => $summary['G'],

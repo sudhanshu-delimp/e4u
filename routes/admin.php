@@ -281,7 +281,7 @@ Route::get('management/dashboard', function () {
   return view('admin.management.management');
 })->name('admin.management');
 
-Route::get('management/commission-summary', function () {
+Route::get('management/operator/commission-summary', function () {
   return view('admin.management.operator.commission-summary');
 })->name('admin.commission-summary');
 
@@ -964,7 +964,7 @@ Route::post('management/fees/print-pay-detail', [AgentMonthlyReportController::c
 
 Route::get('management/operator/monthly-fee-reports', [OperatorMonthlyReportController::class, 'monthlyReport'])->name('admin.monthly-fee-reports');
 Route::get('management/operator/monthly-report-list', [OperatorMonthlyReportController::class, 'monthlyReportAjax'])->name('admin.operator.monthly-report-ajax');
-Route::post('management/operator/view-monthly-report', [OperatorMonthlyReportController::class, 'viewMonthlyReport'])->name('admin.operator.view.detail');
+Route::post('management/operator/view-monthly-report', [OperatorMonthlyReportController::class, 'viewMonthlyReport'])->name('admin.operator.view.monthly.detail');
 Route::post('management/operator/update-monthly-report', [OperatorMonthlyReportController::class, 'updateMonthlyReportStatus'])->name('admin.operator.update.status.detail');
 Route::post('management/operator/print-monthly-report', [OperatorMonthlyReportController::class, 'printMonthlyFee'])->name('admin.print.monthly.operator');
 Route::post('management/operator/query', [OperatorMonthlyReportController::class, 'viewQuery'])->name('admin.operator.view.query');
