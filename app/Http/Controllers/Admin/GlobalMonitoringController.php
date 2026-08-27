@@ -825,9 +825,11 @@ class GlobalMonitoringController extends Controller
     {
         //$result = $this->escortListedProfile($id);
 
-        $escort = Escort::where('id', $id)->with(['durations', 'purchase', 'user', 'brb' => function ($query) {
+        $escortProfile = Escort::where('id', $id)->with(['durations', 'purchase', 'user', 'brb' => function ($query) {
             $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
-        }, 'pinup', 'suspendProfile'])->first()->toArray();
+        }, 'pinup', 'suspendProfile'])->first();
+
+    $escort = $escortProfile->toArray();
 
 
         $dataTableData = [];
@@ -878,7 +880,8 @@ class GlobalMonitoringController extends Controller
 
                 $memberId = isset($escort['user']['member_id']) ? $escort['user']['member_id'] : '';
                 $dataTableData = [
-                    'profileurl' => route('profile.description', $escort['id']),
+                    //'profileurl' => route('profile.description', $escort['id']),
+                    'profileurl' => getEscortMassageDetailUrl($escortProfile),
                     'id' => $escort['id'],
                     'member_id' => $memberId,
                     'member' => $escort['name'],
