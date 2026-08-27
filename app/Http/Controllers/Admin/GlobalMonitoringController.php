@@ -289,16 +289,17 @@ class GlobalMonitoringController extends Controller
         $draw   = intval(request()->input('draw'));
         $massagePurchaseTableName = (new MassagePurchase)->getTable();
         $userTableName = (new User())->getTable();
-        $massagers = MassagePurchase::with([
-            'brb' => function ($query) {
-                $query->where('brb_time', '>', Carbon::now('UTC'))
-                    ->where('active', 'Y')
-                    ->orderBy('brb_time', 'desc');
-            },
-            'massageprofile',
-            'user:id,status,member_id,name,email,phone,status,state_id',
-            'activeUpcomingSuspend',
-        ])
+        $massagers = MassagePurchase::whereDoesntHave('activeSuspendProfile')
+            ->with([
+                'brb' => function ($query) {
+                    $query->where('brb_time', '>', Carbon::now('UTC'))
+                        ->where('active', 'Y')
+                        ->orderBy('brb_time', 'desc');
+                },
+                'massageprofile',
+                'user:id,status,member_id,name,email,phone,status,state_id',
+                'activeUpcomingSuspend',
+            ])
             ->leftJoin($userTableName, $userTableName . '.id', '=', $massagePurchaseTableName . '.massage_centre_id')
             ->select($massagePurchaseTableName . '.*')
             ->whereIn($massagePurchaseTableName . '.status', ['listed', 'expire'])
