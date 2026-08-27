@@ -219,6 +219,7 @@ class PaymentController extends Controller
             $insert['loyalty_amount'] = $benefit_token['loyalty_amount'];
             $insert['net_amount'] = $this->pinService->getNetAmount();
             $insert['gst_amount'] = !in_array($benefit_token['action'], ['wallet']) ? $this->pinService->getGSTAmount() : $this->pinService->getGSTAmount(0);
+            $insert['total_payable_amount'] = $this->pinService->getDefaultTotalDue();
             $insert['paid_amount'] = $this->pinService->getTotalDue();
 
             if (!$is_bypass) {
