@@ -6,7 +6,11 @@
     .playmate-total-row {
         background: #fafafa;
     }
-
+    
+    td.icon-con{        
+        width: 10% !important;
+        text-align: center;
+    }
     .playmate-count {
         display: inline-flex;
         justify-content: center;
@@ -131,12 +135,12 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="icon-col"><i class="fas fa-map-marker-alt"></i></td>
+                            <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-map-marker-alt"></i></td>
                             <td>In my Location</td>
                             <td class="text-center">{{$result['same_state_count']}}</td>
                         </tr>
                         <tr>
-                            <td class="icon-col"><i class="fas fa-globe"></i></td>
+                            <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-globe"></i></td>
                             <td>Outside my Location</td>
                             <td class="text-center">{{$result['outside_state_count']}}</td>
                         </tr>
@@ -156,12 +160,12 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="icon-col"><i class="fas fa-credit-card"></i></td>
+                            <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-credit-card"></i></td>
                             <td>Credit</td>
                             <td class="text-center"> {{ str_replace('$', '$ ', formatCurrency($user->wallet->balance)) }}</td>
                         </tr>
                         <tr>
-                            <td class="icon-col"><i class="fas fa-gift"></i></td>
+                            <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-gift"></i></td>
                             <td>Loyalty days</td>
                             <td class="text-center">{{$user->wallet->earn_days .' '. ($user->wallet->earn_days > 1 ? 'Days':'Day')}}</td>
                         </tr>
@@ -182,23 +186,23 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="icon-col"><i class="fas fa-sign-in-alt"></i></td>
+                            <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-sign-in-alt"></i></td>
                             <td>Login count</td>
                             <td class="text-center" colspan="2">{{ $logAndStatus->login_count ?? '' }}</td>
                         </tr>
                         <tr>
-                            <td class="icon-col"><i class="far fa-clock"></i></td>
+                            <td class="icon-col" style="width:70px;text-align:center;"><i class="far fa-clock"></i></td>
                             <td>Last login</td>
                             <td class="text-center" colspan="2">{{ $getLastLoginTime ?? '' }}</td>
                         </tr>
                         <tr>
-                            <td class="icon-col"><i class="fas fa-map"></i></td>
+                            <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-map"></i></td>
                             <td>Home State</td>
                             <td class="text-center" colspan="2">{{ $state ?? '' }}
                             </td>
                         </tr>
                         <tr>
-                            <td class="icon-col"><i class="fas fa-key"></i></td>
+                            <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-key"></i></td>
                             <td>Password expiry</td>
                             <td class="text-center" id="passwordExpiryText">{{ $passwordExpiryText ?? '' }}</td>
                             <td class="text-center">
@@ -227,7 +231,7 @@
                     <tbody>
 
                         <tr class="playmate-total-row">
-                            <td class="icon-col">
+                            <td class="icon-col" style="width:70px;text-align:center;">
                                 <i class="fas fa-users"></i>
                             </td>
 
@@ -246,7 +250,7 @@
                         </tr>
 
                         <tr>
-                            <td class="icon-col align-middle">
+                            <td class="icon-col align-middle" style="width:70px;text-align:center;">
                                 <i class="fas fa-user-friends"></i>
                             </td>
 

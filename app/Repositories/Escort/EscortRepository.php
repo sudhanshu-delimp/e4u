@@ -110,6 +110,17 @@ class EscortRepository extends BaseRepository implements EscortInterface
                     $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
                 },
             ])
+            ->orderByRaw("
+        CASE WHEN EXISTS (
+            SELECT 1
+            FROM suspend_profiles sp
+            INNER JOIN purchase p ON p.id = sp.purchase_id
+            WHERE p.id = escorts.purchase_id
+            AND sp.utc_start_date <= UTC_TIMESTAMP()
+            AND sp.utc_end_date >= UTC_TIMESTAMP()
+        )
+        THEN 1 ELSE 0 END ASC
+    ")
             ->orderBy($order, $dir)
             ->orderBy('membership', 'asc');
 
@@ -175,9 +186,11 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 $item->enabled = "Draft";
             }
 
-            $listingStatus = ((!empty($item->utc_start_time)) && $item->utc_start_time > now()) ? 'Upcoming' : (((!empty($item->utc_start_time)) && $item->utc_end_time > now()) ? 'Active' : 'Inactive');
-
-
+            if (!empty($item->mainPurchase) && $item->mainPurchase->activeSuspendProfile->count() > 0) {
+                $listingStatus = 'Suspended';
+            } else {
+                $listingStatus = ((!empty($item->utc_start_time)) && $item->utc_start_time > now()) ? 'Upcoming' : (((!empty($item->utc_start_time)) && $item->utc_end_time > now()) ? 'Active' : 'Inactive');
+            }
 
             if ($item->gender == 'Transgender')
                 $item->stage_name = 'TS-' . $item->name;
@@ -185,7 +198,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 $item->stage_name = $item->name;
             $item->phone = $item->phone ? $item->phone : "NA";
             //$item->gender = $item->gender ? $item->gender : "NA";
-            
+
             $item->membership_number = $item->membership ? $item->membership : 0;
             $item->membership = $item->membership ? $item->membershipType : "NA";
             $item->homeState = $item->user ? $item->user->state->iso2 : "NA";

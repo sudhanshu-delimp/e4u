@@ -16,10 +16,10 @@ return [
         ]
     ],
 
-    
+
     'contactus_admin_email' => env('CONTACTUS_ADMIN_EMAIL', 'admin@e4u.com.au'),
     'contactus_cc_email' => env('CONTACTUS_CC_EMAIL', ''),
-    
+
     'feedback_subject' => [
         '1' => 'Complaint',
         '2' => 'Complement',
@@ -35,4 +35,5 @@ return [
 
     'otp_resend_seconds' => env('OTP_RESEND_SECONDS', 60),
     'local_timezone' => env('LOCAL_TIMEZONE'),
+    'discount_after_days' => env('DISCOUNT_AFTER_DAYS', 21)
 ];

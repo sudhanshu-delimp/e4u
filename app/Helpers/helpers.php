@@ -112,7 +112,7 @@ if (!function_exists('calculateTotalFee')) {
         if (!empty($userObject)) {
             $appiedDiscount = $userObject->activeFeeDiscount;
         }
-        $discount_day = 21;
+        $discount_day = config('common.discount_after_days');
         if (!empty($purchaseObject)) {  /* To manage price changes done by Admin , to use same price at the time of purchase */
             $normalRate   = $purchaseObject->rate;
             $discountRate = $purchaseObject->discount_rate;
@@ -2440,17 +2440,17 @@ if (!function_exists('update_profile_massure')) {
     {
         switch ($status) {
             case 0:
-                $icon  = asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png');
+                $icon  = asset('assets/app/img/verify/e4u_pending-icon.png');
                 $label = 'Media Pending';
                 break;
 
             case 1:
-                $icon  = asset('assets/app/img/verify/verified_icon.png');
+                $icon  = asset('assets/app/img/verify/verified_icon_dark.png');
                 $label = 'Media Verified';
                 break;
 
             case 2:
-                $icon  = asset('assets/app/img/verify/unverified_icon.png');
+                $icon  = asset('assets/app/img/verify/unverified_icon_dark.png');
                 $label = 'Media Unverified';
                 break;
 
@@ -2885,22 +2885,26 @@ if (!function_exists('findCountryByName')) {
 
 if (!function_exists('is_viewer_block_by_escort')) {
 
-       function is_viewer_block_by_escort ($escort_id,$viewer_id,$user_id)
-       {
-            $viewer_blocked = false;
-            $esvi =  EscortViewerInteractions::where('escort_id', $escort_id)
-                                                            ->where('viewer_id', $viewer_id)
-                                                            ->where('user_id', $user_id)
-                                                            ->first();
-            if ($esvi) 
-            {
-                //if ($esvi->escort_blocked_viewer == 1 || $esvi->escort_disabled_notification == 1 || $esvi->viewer_blocked_escort == 1 || $esvi->viewer_disabled_notification == 1) 
-                if ($esvi->escort_disabled_notification == 1 ||  $esvi->viewer_disabled_notification == 1) 
-                {
+    function is_viewer_block_by_escort($escort_id, $viewer_id, $user_id)
+    {
+        $viewer_blocked = false;
+        $esvi =  EscortViewerInteractions::where('escort_id', $escort_id)
+            ->where('viewer_id', $viewer_id)
+            ->where('user_id', $user_id)
+            ->first();
+        if ($esvi) {
+            //if ($esvi->escort_blocked_viewer == 1 || $esvi->escort_disabled_notification == 1 || $esvi->viewer_blocked_escort == 1 || $esvi->viewer_disabled_notification == 1) 
+            if ($esvi->escort_disabled_notification == 1 ||  $esvi->viewer_disabled_notification == 1) {
                 $viewer_blocked = true;
-                }
-            } 
+            }
+        }
 
-            return $viewer_blocked;                                                           
-       }
+        return $viewer_blocked;
+    }
+}
+
+function getAustraliaTime($dateTimeUTC, $format = null)
+{
+    $dateTime = Carbon::parse($dateTimeUTC, 'UTC')->setTimezone(config('common.local_timezone'));
+    return $format ? $dateTime->format($format) : $dateTime;
 }
