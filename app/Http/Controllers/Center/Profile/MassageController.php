@@ -1159,6 +1159,7 @@ class MassageController extends Controller
                         'Cancel Profile.',
                         [
                             'user_id' => $user->id,
+                            'purchase_id' => $purchase->id,
                             'massage_profile_id' => $request->profile_id,
                             'start_date' => $refundStartDate,
                             'end_date' => $refundEndDate,

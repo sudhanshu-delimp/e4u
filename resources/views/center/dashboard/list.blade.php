@@ -816,7 +816,7 @@ $("#suspend_form").on('submit', async function(e)
                success: function(data) {
                   Swal.close();
                   if (data.response.success) {
-                      swal_success_popup(data.response.message);
+                      swal_success_popup(data.response.message,'Suspend Profile');
                      $('#suspend_profile').modal('hide');
                      table.ajax.reload(null, false);
                   } else {
