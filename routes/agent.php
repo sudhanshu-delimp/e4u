@@ -171,7 +171,8 @@ use App\Http\Controllers\Agent\MonthlyReportController;
     Route::get('/accepted_advertiser_datatable', [AgentRequestController::class, 'accepted_advertiser_datatable'])->name('agent.accepted_advertiser_datatable');
 
     //Fee summary
-    Route::get('fees/summary', [FeesSummeryController::class, 'feesSummery'])->name('agent.fees.summary');
+    Route::get('fees/summary', [FeesSummeryController::class, 'feesSummary'])->name('agent.fees.summary');
+    Route::get('advertiser/fees/summery', [FeesSummeryController::class, 'fetchFeeSummeryAdvertiserData'])->name('agent.advertiser.fees.summary');
      
     Route::get('/multi-merge-report',function(){
     return view('agent.dashboard.marketing.multi-merge-report');
