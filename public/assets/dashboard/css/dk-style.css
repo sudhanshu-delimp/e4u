@@ -10872,6 +10872,12 @@ border-top: 5px solid var(--blue--text);
 border-top: 5px solid var(--peach);
 } */
 
+.add--list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .my-custom-box:hover {
     background-color: #c2cfe052;
 }

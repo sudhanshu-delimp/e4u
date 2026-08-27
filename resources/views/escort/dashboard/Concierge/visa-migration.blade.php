@@ -194,6 +194,7 @@
                                     <option value="020">020 Bridging Visa</option>
                                     <option value="601">601 Electronic Travel Authority</option>
                                     <option value="651">651 eVisitor Visa</option>
+                                    <option value="820">820 Partner Visa</option>
                                     <option value="500">500 Student Visa</option>
                                     <option value="485">485 Temporary Graduate Visa</option>
                                     <option value="417">417 Working Holiday Visa</option>
