@@ -107,6 +107,7 @@
                         <option>020 Bridging Visa</option>
                         <option>601 Electronic Travel Authority</option>
                         <option>651 eVisitor Visa</option>
+                        <option>820 Partner Visa</option>
                         <option>500 Student Visa</option>
                         <option>485 Temporary Graduate Visa</option>
                         <option>417 Working Holiday Visa</option>
