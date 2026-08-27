@@ -1539,10 +1539,10 @@ margin-right: 5px;
                             
                             <button type="button" class="btn profile_message_btn_cc" data-toggle="modal"
                                 data-target="#mysendmessage">
-                                <img src="../assets/app/img/smallsmsicon.png" class="image_20px_msg">Message Us
+                                <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="image_20px_msg">Message Us
                             </button>
                             <button type="button" class="btn profile_message_btn_cc" id="reportAdvertiserBtn" data-toggle="modal">
-                                <img src="../assets/app/img/smallsmsicon.png" class="image_20px_msg">Report Centre
+                                <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="image_20px_msg">Report Centre
                             </button>
                         </div>
                     </div>
@@ -1595,7 +1595,7 @@ margin-right: 5px;
                 <!-- Contacting Me Section -->
                 <div class="box_shadow manage_padding_margin_bg_color">
                     <div class="profile_card_border profile_description_contect">
-                        <h2><img src="../assets/app/img/contact_me.svg"> Contacting us</h2>
+                        <h2><img src="{{ asset('assets/app/img/contact_me.svg') }}"> Contacting us</h2>
                     </div>
                         <div class="padding_20_tob_btm_side reduse_pad">
                             <span class="span_display_block connecting_me_chat_phone">
@@ -1667,7 +1667,7 @@ margin-right: 5px;
                 <!-- Vaccination Status -->
                 <div class="vax-btn">
                     <button type="button" class="btn my_legbox single-prof-btn">
-                        <img src="../assets/app/img/vaccinated.svg">Vaccinated, up to date
+                        <img src="{{ asset('assets/app/img/vaccinated.svg') }}">Vaccinated, up to date
                     </button>
                 </div>
 
@@ -1703,7 +1703,7 @@ margin-right: 5px;
                 <!-- Tips Carousel -->
                 <div class="box_shadow padding_twelve_px">
                     <div class="profile_card_border profile_description_contect position-relative">
-                        <h2><img src="../assets/app/img/tips.svg">Tips</h2>
+                        <h2><img src="{{ asset('assets/app/img/tips.svg') }}">Tips</h2>
                     </div>
                     <div class="pt-2">
                         <div class="text-slider">
@@ -1722,7 +1722,7 @@ margin-right: 5px;
                 <!-- Reviews Section -->
                 <div class="box_shadow manage_padding_margin_bg_color box_shad_pad">
                     <div class="profile_card_border profile_page_box_heading">
-                        <h2 class="custom--review"><img src="../assets/app/img/review-custom.png"> Reviews</h2>
+                        <h2 class="custom--review"><img src="{{ asset('assets/app/img/review-custom.png') }}"> Reviews</h2>
                     </div>
 
 

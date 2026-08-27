@@ -1,23 +1,7 @@
 @extends('layouts.web')
 @section('style')
     <style>
-        #view_list svg path,
-        #view_grid svg path {
-            stroke: #000;
-            transition: stroke 0.3s;
-        }
-
-
-        #view_list:hover svg path,
-        #view_grid:hover svg path {
-            stroke: #fff;
-        }
-
-
-        .view-active svg path {
-            stroke: #ff3c5f !important;
-        }
-
+       
         #page_loader {
             position: fixed;
             top: 0;
@@ -89,7 +73,7 @@
 
         @include('web.mc.mc-filter')
 
-        <div class="container my-5">
+        <div class="container my-4">
 
             <div class="row">
 
@@ -103,23 +87,50 @@
 
                 <!-- ////// Grid View ///////////////// -->
                 <div class="col-sm-12" id="grid_view">
-                    <h2 class="mc_view_title">Grid View</h2>
+                    <h2 class="mc_view_title">
+
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" fill="none">
+                                <path d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </span>
+                        Grid View
+                    </h2>
                     <div class="mc_card_container"></div>
 
                 </div>
 
                 <!-- ////// List View ///////////////// -->
                 <div class="col-sm-12" id="list_view">
-                    <h2 class="mc_view_title">List View</h2>
+                    <h2 class="mc_view_title">
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 27 24">
+                                <path d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663"
+                                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </span>
+                        List View
+                    </h2>
                     <div class="mc_list_container"></div>
                 </div>
-
                 <div class="col-sm-12">
-                    <div class="no--listing" style="display:none;">
-                        <p><i>There are no listings for your search criteria.</i></p>
+                    <div class="no--listing">
+                        <div class="no-listing-icon">
+                            <img src="{{ asset('assets/app/img/no-results.png') }}" alt="">
+                        </div>
+
+                        <div class="no-listing-content">
+                            <h3>No Listings Found</h3>
+                            <p>
+                                We couldn't find any listings matching your search criteria.
+                                Try adjusting your filters or search options.
+                            </p>                            
+                        </div>
                     </div>
                 </div>
-
 
 
 
@@ -514,6 +525,7 @@
         const massageRouteStates = escortRouteStates = @json(config('escorts.profile.states'));
 
         const massageBaseUrl = "{{ config('constants.massage_list_base_slug') }}";
+        let preserveInitialMassageLocationUrl = true;
 
         function getMassageRouteMemberId(selectedCity) {
             const segments = window.location.pathname.split('/').filter(Boolean);
@@ -578,6 +590,10 @@
                     });
                 }
 
+                if (!preserveInitialMassageLocationUrl) {
+                    return false;
+                }
+
                 // Match state from URL
                 if (stateAbbr !== urlState) {
                     return false;
@@ -589,20 +605,17 @@
                 };
 
                 if (urlCity) {
-
-                    return Object.entries(cities).some(function([cityId, city]) {
+                    Object.entries(cities).some(function([cityId, city]) {
 
                         const cityName = String(city.cityName || '').toLowerCase();
 
                         if (cityName === urlCity) {
-
                             selectedCity = {
                                 stateId: stateId,
                                 cityId: cityId,
                                 state: stateAbbr,
                                 city: cityName
                             };
-
                             cityIds = cityId;
 
                             return true;
@@ -612,20 +625,19 @@
                     });
                 }
 
-
-                // Use one city ID so the backend can resolve the state.
-                if (!selectedCity && !urlCity) {
+                if (!selectedCity) {
                     cityIds = Object.keys(cities)[0] || null;
                 }
+
 
                 return true;
             });
 
-            if (hasCountrySegment || selectedState) {
+            if (selectedCity || (preserveInitialMassageLocationUrl && hasCountrySegment)) {
                 pathSegments.push('australia');
             }
 
-            if (selectedState) {
+            if (selectedCity || (preserveInitialMassageLocationUrl && selectedState)) {
                 pathSegments.push(selectedState.abbr);
 
                 if (selectedCity) {
@@ -804,6 +816,7 @@
         /////// Short List ///////////////
         $(document).on('click', '.upper_filter', async function(e) {
             e.preventDefault();
+            preserveInitialMassageLocationUrl = false;
             globalMassageRequest.filter_by_location = {
                 locationByRadio: $('input[name="locationByRadio"]:checked').val(),
                 by_name_member: $('#by_name_member').val(),
@@ -819,6 +832,7 @@
         /////// Per Page ///////////////
         $(document).on('change', '#per_page', async function(e) {
             e.preventDefault();
+            preserveInitialMassageLocationUrl = false;
             let val = $(this).val();
             globalMassageRequest.filter_by_location = {
                 locationByRadio: $('input[name="locationByRadio"]:checked').val(),
@@ -833,6 +847,7 @@
 
         $(document).on('click', '.lower_filter', async function(e) {
             e.preventDefault();
+            preserveInitialMassageLocationUrl = false;
 
             globalMassageRequest.filter_by_feild = {
                 profile_state: $('#profile_state').val(),
@@ -851,12 +866,14 @@
         //reset the filter
         $(document).on('click', '.reset_form_filter', async function(e) {
             e.preventDefault();
+            preserveInitialMassageLocationUrl = false;
             let locByRad = $('input[name="locationByRadio"]:checked').val();
             let letVal = $('#set_lat').val();
             let lngVal = $('#set_lng').val();
             $('#filterForm')[0].reset();
             //again set the location radio button to previous value
             $(`input[name="locationByRadio"][value="${locByRad}"]`).prop('checked', true);
+            $('#profile_city').val('');
             globalMassageRequest = {
                 filter_by_feild: {
                     profile_state: '',
@@ -978,6 +995,7 @@
 
         // Run when radio changes
         $(document).on('change', 'input[name="locationByRadio"]', async function() {
+            preserveInitialMassageLocationUrl = false;
             await updateLocationFields();
             let selectValue = $(this).val();
         });
@@ -1058,7 +1076,7 @@
             return location;
         }
 
-         $('.btn-search').on('click', function(){
+        $('.btn-search').on('click', function() {
             $('.btn-search i').toggleClass('rotate-180');
         })
     </script>

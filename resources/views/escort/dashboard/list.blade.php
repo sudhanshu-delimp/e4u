@@ -163,7 +163,7 @@
 					<button style="padding: 10px;" class="btn btn-danger esc-tooltip-wrap"
                                     data-toggle="modal" data-target="#cancel_profile"
                                     id="btn_cancel_profile">Cancel Listing
-                                    <span class="esc-tooltip-2">Take down your Profile</span>
+                                    <span class="esc-tooltip-2">Take down your Listing</span>
                                 </button>
 
 
@@ -415,9 +415,7 @@
                         </div>
                     </div>
                     <div class="modal-footer" style="text-align: end; display: block;">
-                        <button type="submit" class="btn-success-modal" id="save_brb" disabled>Suspend</button>
-                        <button type="button" class="btn-cancel-modal" id="save_brb"
-                            data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn-success-modal" id="save_brb" disabled>Proceed to Suspend Listing</button>
                     </div>
                 </div>
             </div>
@@ -426,9 +424,9 @@
 </div>
 <!-- end suspend profile modal -->
 
-<!-- suspend profile modal start here -->
+
 @include('escort.dashboard.modal.cancel_profile_listing')
-<!-- end suspend profile modal -->
+
 
 <div class="modal fade upload-modal programmatic" id="delete_profile" style="display: none">
     <div class="modal-dialog modal-dialog-centered" role="document">

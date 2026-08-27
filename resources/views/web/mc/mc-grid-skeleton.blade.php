@@ -12,6 +12,7 @@
         background: #fff;
         border: 1px solid #ddd;
         overflow: hidden;
+        border-radius: 10px;
     }
 
     /* Skeleton */

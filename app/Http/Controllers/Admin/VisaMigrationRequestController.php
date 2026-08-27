@@ -25,7 +25,7 @@ class VisaMigrationRequestController extends Controller
                 WHEN 'completed' THEN 4
                 ELSE 5
             END
-        ")->orderBy('id', 'asc');
+        ");
 
     return DataTables::of($query)
       ->addIndexColumn()
@@ -119,7 +119,9 @@ class VisaMigrationRequestController extends Controller
             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
         </a>
 
-        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">' . implode('<div class="dropdown-divider"></div>', $actions) . '</div>
+        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">'
+          . implode('<div class="dropdown-divider"></div>', $actions) .
+          '</div>
     </div>';
       })
       ->rawColumns(['action', 'status'])

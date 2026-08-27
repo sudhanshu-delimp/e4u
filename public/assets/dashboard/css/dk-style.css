@@ -3820,8 +3820,8 @@ button.btn:focus {
 
 .mcs_media_tooltip {
     position: absolute;
-    left: 25px;
-    top: 1px;
+    left: 35px;
+    top: 2px;
     z-index: 999;
     width: max-content;
     background: var(--peach);
@@ -10871,6 +10871,12 @@ border-top: 5px solid var(--blue--text);
 .box-wrapper:nth-child(even) .my-custom-box {
 border-top: 5px solid var(--peach);
 } */
+
+.add--list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 .my-custom-box:hover {
     background-color: #c2cfe052;

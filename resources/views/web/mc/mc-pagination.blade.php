@@ -37,7 +37,7 @@
 
              {{-- Page Numbers --}}
              @for ($i = $start; $i <= $end; $i++)
-                 <li>
+                 <li class="mx-1">
                      <a href="{{ $listings->url($i) }}"
                          style="background-color: {{ $i == $listings->currentPage() ? '#F2F2F2' : '#0C223d' }}; font-weight: {{ $i == $listings->currentPage() ? 'bold' : 'normal' }}; color: {{ $i == $listings->currentPage() ? '#ff3c5f' : '#fff' }};">
                          {{ $i }}
