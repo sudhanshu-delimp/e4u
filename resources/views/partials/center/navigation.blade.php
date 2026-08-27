@@ -271,11 +271,6 @@
                                     <a class="dropdown-item" href="{{ route('support-ticket.form_create')}}">
                                         <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/support-ticket.png') }}">
                                         Support Ticket
-                                    </a>                                    
-                                    <a class="dropdown-item" href="javascript:void(0)">
-                                        <img class="profile_icons"
-                                            src="{{ asset('assets/dashboard/img/profile-icons/visa.png') }}">
-                                        820 - Partner Visa
                                     </a>
                                 </div>
                                 
