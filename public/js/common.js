@@ -61,10 +61,11 @@ function swal_fire(message) {
   Swal.fire(message);
 }
 
-function swal_success_popup(message, redirect = null) {
+function swal_success_popup(message, title='', redirect = null) {
 
   let config = {
-    title: message ? message : 'Action Performed',
+    title: title ? title : '',
+    text: message ? message : 'Action Performed Succeesfully',
     icon: "success",
     draggable: true,
     allowOutsideClick: false,

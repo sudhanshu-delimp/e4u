@@ -1948,7 +1948,7 @@ if (!function_exists('getMassageSuspendRefundAmount')) {
     function getMassageSuspendRefundAmount($profile, $refundStartDate = null, $refundEndDate = null)
     {
         $refundAmount = 0.00;
-        $discountDay = 21;
+        $discountDay = config('common.discount_after_days');
         $discountPercentage = 6;
 
         $purchase  = MassagePurchase::where('status', 'listed')->where('massage_profile_id', $profile)->first();
@@ -1996,7 +1996,7 @@ if (!function_exists('getRefundAmountForCancelProfile')) {
     function getRefundAmountForCancelProfile($purchase, $refundStartDate = null, $refundEndDate = null)
     {
         $refundAmount = 0.00;
-        $discountDay = 21;
+        $discountDay = config('common.discount_after_days');
         $discountPercentage = 6;
 
 
@@ -2014,15 +2014,7 @@ if (!function_exists('getRefundAmountForCancelProfile')) {
             return 0;
         }
 
-        $previousSuspends = MassageSuspendProfile::where(
-            'massage_profile_id',
-            $purchase->massage_profile_id
-        )
-            ->where('is_archived', '0')
-            ->get(['start_date', 'end_date']);
-
-
-
+      
         $refundAmount = 0;
         $startDayNumber = $purchaseStart->diffInDays($refundStart) + 1;
 
@@ -2035,11 +2027,7 @@ if (!function_exists('getRefundAmountForCancelProfile')) {
             $currentDay = $startDayNumber + $i;
 
             ######## Check whether this date was already refunded/suspended. 
-            $alreadyRefunded = MassageSuspendProfile::where(
-                'massage_profile_id',
-                $purchase->massage_profile_id
-            )
-                ->where('is_archived', '0')
+            $alreadyRefunded = MassageSuspendProfile::where(['massage_profile_id'=>$purchase->massage_profile_id,'purchase_id'=>$purchase->id])
                 ->whereDate('start_date', '<=', $currentDate)
                 ->whereDate('end_date', '>=', $currentDate)
                 ->exists();
@@ -2907,4 +2895,9 @@ function getAustraliaTime($dateTimeUTC, $format = null)
 {
     $dateTime = Carbon::parse($dateTimeUTC, 'UTC')->setTimezone(config('common.local_timezone'));
     return $format ? $dateTime->format($format) : $dateTime;
+}
+
+function get_massage_purchase_id($id)
+{
+    return MassageProfile::select('id')->where('id',$id)->first();
 }
