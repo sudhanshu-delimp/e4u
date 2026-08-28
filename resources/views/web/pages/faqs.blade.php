@@ -290,7 +290,7 @@
                </div>
             </div>
          </div>
-<div class="set">
+         <div class="set">
             <a>
             Payments
             <i class="fa fa-angle-down"></i>

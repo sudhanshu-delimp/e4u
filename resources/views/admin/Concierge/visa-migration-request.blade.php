@@ -11,10 +11,24 @@
                 <div class="row">
                     <div class="custom-heading-wrapper col-md-12">
                         <h1 class="h1">Visa Requests</h1>
-
+                        <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes"
+                            aria-expanded="true">Help?</span>
                     </div>
-
+                    <div class="col-md-12 mb-4">
+                        <div class="card collapse" id="notes" style="">
+                            <div class="card-body">
+                               <h3 class="NotesHeader"><b>Notes:</b></h3>
+                                <ol>
+                                    <li>A Visa request (Request) is forwarded to PEAMS Australia Pty Ltd (PEAMS) for actioning. <u> We do not action the Request.</u></li>
+                                    <li>Check the status of the Request within 48 hours that the Request is being actioned by PEAMS.</li>
+                                    <li>Update the status of the Request as it progresses through each stage.</li>
+                                    
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="table-responsive custom-badge">

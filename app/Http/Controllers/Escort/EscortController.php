@@ -1033,7 +1033,7 @@ class EscortController extends BaseController
     {
         try {
             $result = getListingCancelAmount($profile);
-
+            $cancelledAt = Carbon::createFromFormat('Y-m-d H:i:s', now(), $profile->time_zone)->setTimezone('UTC');
             if (!empty($result->main_purchase)) {
                 $this->walletService->credit(
                     $this->account,
@@ -1045,7 +1045,7 @@ class EscortController extends BaseController
                         'escort_id' => $profile->id
                     ]
                 );
-                $result->main_purchase->update(['status' => 'cancel']);
+                $result->main_purchase->update(['status' => 'cancel', 'cancelled_at' => $cancelledAt]);
             }
 
             if (!empty($result->other_purchase)) {
@@ -1059,7 +1059,7 @@ class EscortController extends BaseController
                         'escort_id' => $profile->id
                     ]
                 );
-                $result->other_purchase->update(['status' => 'cancel']);
+                $result->other_purchase->update(['status' => 'cancel', 'cancelled_at' => $cancelledAt]);
             }
 
             foreach ($profile->playmates as $playmate) {

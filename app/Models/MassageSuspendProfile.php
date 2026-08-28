@@ -11,6 +11,7 @@ class MassageSuspendProfile extends Model
     use HasFactory;
 
     protected $fillable = [
+        'purchase_id',
         'massage_profile_id',
         'user_id',
         'start_date',

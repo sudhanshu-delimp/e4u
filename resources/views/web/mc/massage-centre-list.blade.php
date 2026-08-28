@@ -1,23 +1,7 @@
 @extends('layouts.web')
 @section('style')
     <style>
-        #view_list svg path,
-        #view_grid svg path {
-            stroke: #000;
-            transition: stroke 0.3s;
-        }
-
-
-        #view_list:hover svg path,
-        #view_grid:hover svg path {
-            stroke: #fff;
-        }
-
-
-        .view-active svg path {
-            stroke: #ff3c5f !important;
-        }
-
+       
         #page_loader {
             position: fixed;
             top: 0;
@@ -89,7 +73,7 @@
 
         @include('web.mc.mc-filter')
 
-        <div class="container my-5">
+        <div class="container my-4">
 
             <div class="row">
 
@@ -132,13 +116,21 @@
                     </h2>
                     <div class="mc_list_container"></div>
                 </div>
-
                 <div class="col-sm-12">
-                    <div class="no--listing" style="display:none;">
-                        <p><i>There are no listings for your search criteria.</i></p>
+                    <div class="no--listing">
+                        <div class="no-listing-icon">
+                            <img src="{{ asset('assets/app/img/no-results.png') }}" alt="">
+                        </div>
+
+                        <div class="no-listing-content">
+                            <h3>No Listings Found</h3>
+                            <p>
+                                We couldn't find any listings matching your search criteria.
+                                Try adjusting your filters or search options.
+                            </p>                            
+                        </div>
                     </div>
                 </div>
-
 
 
 

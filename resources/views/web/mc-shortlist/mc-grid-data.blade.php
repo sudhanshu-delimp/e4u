@@ -118,8 +118,18 @@
         @endforeach
 
         @else
-        <div class="no_listing">
-            <p><i>There are no listings for your search criteria.</i></p>
+        <div class="no--listing">
+            <div class="no-listing-icon">
+                <img src="{{ asset('assets/app/img/no-results.png') }}" alt="">
+            </div>
+
+            <div class="no-listing-content">
+                <h3>No Listings Found</h3>
+                <p>
+                    We couldn't find any listings matching your search criteria.
+                    Try adjusting your filters or search options.
+                </p>                            
+            </div>
         </div>
         @endif
  
