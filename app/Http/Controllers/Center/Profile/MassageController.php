@@ -1090,6 +1090,7 @@ class MassageController extends Controller
             $user = auth()->user();
             $mess = "";
             $totalRefundAmount = 0;
+            $totalRefundAmountWithGst = 0;
             $userId = auth()->user()->id;
             $current_date = Carbon::parse(date('Y-m-d'));
             $home_state = auth()->user()->state_id;
@@ -1141,7 +1142,14 @@ class MassageController extends Controller
                         $refundAmountWithGst = 0;
                     }
 
-                    // Log::info(' $refundAmountWithGst============>'. $refundAmountWithGst);
+                    //Log::info(' $refundAmountWithGst============>'. $refundAmountWithGst);
+
+                    if($purchase->status=='pending')
+                    $credit_tag = 'Cancel Extended Profile Listing.';
+                    else
+                    $credit_tag = 'Cancel Profile Listing.';    
+                
+                    
 
                     $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
                     $utc_date_time =  Carbon::now($profileTimezone)->startOfDay()->utc();
@@ -1151,12 +1159,13 @@ class MassageController extends Controller
 
                     $massage->purchase_id = null;
                     $massage->save();
+                    $totalRefundAmountWithGst += $refundAmountWithGst;
 
                     $transaction = $this->walletService->credit(
                         $user,
                         $refundAmountWithGst,
                         $purchase,
-                        'Cancel Profile.',
+                        $credit_tag,
                         [
                             'user_id' => $user->id,
                             'purchase_id' => $purchase->id,
@@ -1166,13 +1175,8 @@ class MassageController extends Controller
                         ]
                     );
                 }
-
-                MassageSuspendProfile::where([
-                    'massage_profile_id' => $request->profile_id
-                ])->update([
-                    'is_archived' => '1'
-                ]);
-                $mess = "Profile cancelled successfully.";
+                            
+               $mess = "Your profile has been successfully cancelled, and a total refund of $" . number_format($totalRefundAmountWithGst, 2) . " has been added to your wallet.";
             }
             ########## End Cancel Profile ###############
 

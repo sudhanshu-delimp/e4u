@@ -766,7 +766,8 @@ $(document).ready(function() {
                success: function(response) {
                   $("#creditCalculationLive").html('0.00');
                   if(response.success){
-                        $("#creditCalculationLive").html(response.refundAmountWithGst);
+                         let refundAmount = parseFloat(response.refundAmountWithGst) || 0;
+                        $("#creditCalculationLive").html(refundAmount.toFixed(2));
                         $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
                   }
                   else {
