@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agent Montly Fee Report</title>
+    <title>Operator Montly Fee Report</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -62,10 +61,10 @@
         $data = file_get_contents($path);
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $payAgentId = $reportData['payAgentId'];
+        $payOperatorId = $reportData['payOperatorId'];
         $payMonthlyReportDate = $reportData['payMonthlyReportDate'];
         $payMonthlyReportMonth = $reportData['payMonthlyReportMonth'];
-        $payAgenFee = number_format($reportData['payAgenFee'], 2, '.', ''); 
+        $payOperatorFee = number_format($reportData['payOperatorFee'], 2, '.', ''); 
     @endphp    
     <!-- Body -->
 
@@ -74,28 +73,27 @@
                 <td style="text-align: left !important;"> <span>
                         <img src="{{ $base64 }}" style="width: 25px;">
                     </span><span
-                        style="color:#fff; font-weight:bold;text-align: left !important;padding-top:-20px;font-size: 14px;">Payment
-                        Authorisation</span> </td>
+                        style="color:#fff; font-weight:bold;text-align: left !important;padding-top:-20px;font-size: 14px;">Payment Authorisation</span> </td>
             </tr>
         </table>
         <table class="w-100 table common_modal_table" style="padding: 20px 0 0 0;">
             <tr>
-                <td style="font-weight: bold; color: #001f4d;">Agent ID:</td>
-                <td><span id="payAgentId">{{$payAgentId}}</span></td>
+                <td style="font-weight: bold; color: #001f4d;">Operator ID:</td>
+                <td><span id="payAgentId">{{$payOperatorId}}</span></td>
                 <td style="font-weight: bold; color: #001f4d;">Date:</td>
                 <td><span id="payMonthlyReportDate">{{$payMonthlyReportDate}}</span></td>
             </tr>
             <tr>
                 <td style="font-weight: bold; color: #001f4d;">Fee Total:</td>
-                <td><span id="payAgenFee">${{$payAgenFee}}</span></td>
+                <td><span id="payAgenFee">${{$payOperatorFee}}</span></td>
                 <td style="font-weight: bold; color: #001f4d;">Month:</td>
                 <td><span id="payMonthlyReportMonth">{{$payMonthlyReportMonth}}</span></td>
             </tr>
         </table>
-        <p>
-            The Fee for the month is authorised for payment into the
-            Operator’s nominated Bank Account for the Agent.
-        </p>
+         <p>
+                    The Fee for the month is authorised for payment into the
+                    Operator’s nominated Bank Account.
+                </p>
         <p style="margin-top: 25px;">
             Managing Director: <span style="display: inline-block; border-bottom: 1px solid #000; width: 200px;"></span>
         </p>

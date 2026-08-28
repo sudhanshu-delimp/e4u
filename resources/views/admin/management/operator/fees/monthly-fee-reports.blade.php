@@ -81,7 +81,7 @@
                 <!-- End content area -->
             </div>
             <div class="modal-footer">
-                <form action="{{ route('admin.print.monthly.fee') }}" method="post" target="_blank">
+                <form action="{{ route('admin.print.monthly.operator.report') }}" method="post" target="_blank">
                     {{ csrf_field() }}
                     <input type="hidden" name="fee_print_id" id="fee_print_id" value="">
                     <button type="submit" class="print-btn m-0">🖨️ Print Report</button>
@@ -172,15 +172,15 @@
                 <table class="w-100 table opr_modal_table">
                     <tr>
                         <td style="font-weight: bold; color: #001f4d;">Operator ID: </td>
-                        <td>A600025</td>
+                        <td><span id="payOperatorId"></span></td>
                         <td style="font-weight: bold; color: #001f4d;">Date:</td>
-                        <td>01-10-25</td>
+                        <td><span id="payMonthlyReportDate"></span></td>
                     </tr>
                     <tr>
                         <td style="font-weight: bold; color: #001f4d;">Fee Total:</td>
-                        <td>$237.45</td>
+                        <td>$<span id="payOperatorFee"></span></td>
                         <td style="font-weight: bold; color: #001f4d;">Month:</td>
-                        <td>Oct</td>
+                        <td><span id="payMonthlyReportMonth"></span></td>
                     </tr>
                 </table>
 
@@ -196,15 +196,16 @@
 
                 <hr style="margin: 20px 0;">
 
-                <div style="text-align:right;">
-
-
-
-                    <button type="button" class="btn-success-modal">Print</button>
-                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">
-                        Close
-                    </button>
-                </div>
+                <div style="text-align: right;">
+                            <form action="{{ route('admin.operator.print.pay-detail') }}" method="post" target="_blank">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="monthly_report_id" id="monthly_report_id" value="">
+                                <button type="submit" class="btn-success-modal">Print</button>
+                                <button type="button" class="btn-cancel-modal" data-dismiss="modal">
+                                    Close
+                                </button>
+                            </form>
+                        </div>
             </div>
         </div>
     </div>
@@ -371,7 +372,7 @@
         $(document).on('click', '.getSubmittedQuery', function() {
             let id = $(this).data('id');
             let agent_id = $(this).data('agent_id');
-            var url = "{{ route('admin.fees.view.query') }}";
+            var url = "{{ route('admin.operator.view.query') }}";
             $.ajax({
                 url: url,
                 method: 'POST',
@@ -395,13 +396,12 @@
             });
         });
 
-        $(document).on('click', '#viewPayAgentreport', function() {
+        $(document).on('click', '#viewPayOperatorRreport', function() {
             $('#queryForm')[0].reset();
             let id = $(this).data('id');
             let status = $(this).data('status');
             $('#monthly_report_id').val(id);
-            //$('#fee_status').val(status);
-            var url = "{{ route('admin.fees.view.pay-detail') }}";
+            var url = "{{ route('admin.operator.view.pay-detail') }}";
 
             $.ajax({
                 url: url,
@@ -414,11 +414,10 @@
                     if (response.error == 1) {
                         swal_error_popup("Data not found.");
                     } else {
-                        $('#payAgentId').text(response.data.payAgentId);
+                        $('#payOperatorId').text(response.data.operatorId);
                         $('#payMonthlyReportDate').text(response.data.payMonthlyReportDate);
-                        $('#payMonthlyReportMonth').text(response.data
-                            .payMonthlyReportMonth);
-                        $('#payAgenFee').text(response.data.payAgenFee);
+                        $('#payMonthlyReportMonth').text(response.data.payMonthlyReportMonth);
+                        $('#payOperatorFee').text(response.data.payOperatorFee);
 
                         $('#payAgentreport').modal('show');
                     }
@@ -436,7 +435,7 @@
                 'action': 'Update',
                 'text': 'Are you sure you want to update status?'
             })) {
-            var url = "{{ route('admin.fees.update.status.detail') }}";
+            var url = "{{ route('admin.operator.update.status.detail') }}";
             url = url.replace(':id', id);
             url = url.replace(':status', status);
             $.ajax({

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
 use App\Models\AgentCommission;
-use App\Models\AgentMonthlyReport;
 use App\Models\OperatorMonthlyReport;
 use App\Models\OperatorMonthlyReportQuery;
 use App\Models\PaymentHistory;
@@ -36,7 +35,7 @@ class OperatorMonthlyReportController extends BaseController
     $calculateServiceObj = (new CalculateOperatorFeeService);
     //$feeData = $calculateServiceObj->getOperatorFeeDetails(3);
     //dd($feeData);
-    return  view('admin.management.operator.fees.monthly-fee-reports');
+    return view('admin.management.operator.fees.monthly-fee-reports');
   }
 
 
@@ -146,13 +145,15 @@ class OperatorMonthlyReportController extends BaseController
         //Approve
         /*  $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
         $divider = '<div class="dropdown-divider"></div>';
+        */
         //Query
         $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
-        $divider = '<div class="dropdown-divider"></div>'; */
+        $divider = '<div class="dropdown-divider"></div>'; 
       } else if ($item->status == 'approved') {
         //Query
-        $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="paid"  id="viewPayAgentreport"><i class="fa fa-star"></i>Pay</a>';
+        $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="paid"  id="viewPayOperatorRreport"><i class="fa fa-star"></i>Pay</a>';
         $divider = '<div class="dropdown-divider"></div>';
+        
       } else if ($item->status == 'paid') {
         //Query
         //$dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Query</a>';
@@ -224,14 +225,14 @@ class OperatorMonthlyReportController extends BaseController
       $id = $data['id'];
       $status = $data['status'];
       $note = $data['note'] ?? "";
-      $report = AgentMonthlyReport::where('id', $id)->first();
+      $report = OperatorMonthlyReport::where('id', $id)->first();
       if ($report) {
         $report->status = $status;
         if ($report->save()) {
           if ($status == 'query' || $status == 'query_resolved') {
             $userId = auth()->user()->id;
             $userType = auth()->user()->type;
-            $reportQueryObj = (new AgentMonthlyReportQuery);
+            $reportQueryObj = (new OperatorMonthlyReportQuery);
             $reportQueryObj->fee_report_id = $id;
             $reportQueryObj->status = $status;
             $reportQueryObj->submitted_by = $userId;
@@ -252,19 +253,28 @@ class OperatorMonthlyReportController extends BaseController
 
   public function printMonthlyFee(Request $request)
   {
-
     $reportId  = $request->fee_print_id;
-    $report = AgentMonthlyReport::where('id', $reportId)->first();
+    $report = OperatorMonthlyReport::where('id', $reportId)->first();
     if ($report) {
-      $calculateServiceObj = (new CalculateAgentFeeService);
-      $feeData = $calculateServiceObj->calculateFee($reportId);
-      //return view('agent.dashboard.Fees.print_monthly_report', compact('feeData'));
-      if ($feeData->isNotEmpty()) {
+      $reportMonth = Carbon::parse($report->report_date)->format('F');
+      $operatorMemberId = $report->operator->member_id;
+      $calculateServiceObj = (new CalculateOperatorFeeService);
+      $feeDatas = $calculateServiceObj->getOperatorFeeDetails($reportId);
+      $reportEndDate = Carbon::parse($report->billing_period_to)->format('d-m-Y');
+      //return view('admin.management.operator.fees.print_monthly_report', compact('feeDatas', 'operatorMemberId', 'reportEndDate'));
+      if (count($feeDatas) > 0) {
         $pdf = PDF::loadView(
-          'admin.management.agents.Fees.print_monthly_report',
-          ['feeData' => $feeData]
+          'admin.management.operator.fees.print_monthly_report',
+          [
+            'feeDatas' => $feeDatas, 
+            'operatorMemberId' => $operatorMemberId, 
+            'reportEndDate' => $reportEndDate
+          ]
         )->setOption(['isRemoteEnabled' => true]);
-        return $pdf->stream('monthly_agent_fee_report.pdf');
+
+         $fileName = 'monthly_operator_fee_report_'.$operatorMemberId.'-'. $reportMonth.'.pdf';
+          return $pdf->stream($fileName);
+        
       }
     }
     return response()->redirectTo('/admin-dashboard/management/agent/monthly-report')->with('error', 'Monthly fee record not found.');
@@ -280,7 +290,7 @@ class OperatorMonthlyReportController extends BaseController
     $data = $request->all();
     if (isset($data['id']) && $data['id'] > 0) {
       $id = $data['id'];
-      $queryObj = (new AgentMonthlyReportQuery);
+      $queryObj = (new OperatorMonthlyReportQuery);
 
       $queryData = $queryObj->with('submittedBy')
         ->where('fee_report_id', $id)
@@ -289,7 +299,7 @@ class OperatorMonthlyReportController extends BaseController
         ->get();
 
       if ($queryData->isNotEmpty()) {
-        return view('admin.management.agents.Fees.view_query', compact('queryData'));
+        return view('admin.management.operator.fees.view_query', compact('queryData'));
       }
     }
     return "";
@@ -300,7 +310,7 @@ class OperatorMonthlyReportController extends BaseController
    * 
    * @param \Illuminate\Http\Request $request
    */
-  public function viewPayAgentreport(Request $request)
+  public function viewPayOperatorRreport(Request $request)
   {
     $reportId  = $request->report_id;
     $response['error'] = 1;
@@ -308,14 +318,14 @@ class OperatorMonthlyReportController extends BaseController
 
     if (!empty($reportId)) {
 
-      $report = AgentMonthlyReport::where('id', $reportId)->first();
+      $report = OperatorMonthlyReport::where('id', $reportId)->first();
       if ($report) {
         $reportDate = Carbon::parse($report->report_date)->format('d-m-Y');
         $reportMonth = Carbon::parse($report->report_date)->format('F');
-        $reportData['payAgentId'] = $report->agent->member_id;
+        $reportData['operatorId'] = $report->operator->member_id;
         $reportData['payMonthlyReportDate'] = $reportDate;
         $reportData['payMonthlyReportMonth'] = $reportMonth;
-        $reportData['payAgenFee'] = number_format($report->fees, 2, '.', '');
+        $reportData['payOperatorFee'] = number_format($report->fees, 2, '.', '');
 
 
         $response['error'] = 0;
@@ -331,26 +341,27 @@ class OperatorMonthlyReportController extends BaseController
    * 
    * @param \Illuminate\Http\Request $request
    */
-  public function printPayAgentreport(Request $request)
+  public function printPayOperatorReport(Request $request)
   {
     try {
       $reportId  = $request->monthly_report_id;
       if (!empty($reportId)) {
 
-        $report = AgentMonthlyReport::where('id', $reportId)->first();
+        $report = OperatorMonthlyReport::where('id', $reportId)->first();
         if ($report) {
           $reportDate = Carbon::parse($report->report_date)->format('d-m-Y');
           $reportMonth = Carbon::parse($report->report_date)->format('F');
-          $reportData['payAgentId'] = $report->agent->member_id;
+          $reportData['payOperatorId'] = $report->operator->member_id;
           $reportData['payMonthlyReportDate'] = $reportDate;
           $reportData['payMonthlyReportMonth'] = $reportMonth;
-          $reportData['payAgenFee'] = number_format($report->fees, 2, '.', '');
+          $reportData['payOperatorFee'] = number_format($report->fees, 2, '.', '');
 
           $pdf = PDF::loadView(
-            'admin.management.agents.Fees.print_monthly_pay_report',
+            'admin.management.operator.fees.print_monthly_pay_report',
             ['reportData' => $reportData]
           )->setOption(['isRemoteEnabled' => true]);
-          return $pdf->stream('monthly_agent_payment_authorisation_report.pdf');
+          $fileName = 'monthly_operator_payment_authorisation_report_'.$report->operator->member_id.'-'. $reportMonth.'.pdf';
+          return $pdf->stream($fileName);
         }
       }
     } catch (Exception $e) {
