@@ -76,7 +76,7 @@ class MassagePurchase extends Model
     public function activeUpcomingSuspend()
     {
         return $this->hasOne(MassageSuspendProfile::class, 'purchase_id', 'id')
-            ->whereColumn('massage_suspend_profiles.massage_profile_id', 'massage_purchases.massage_profile_id')
+            //->whereColumn('massage_suspend_profiles.massage_profile_id', 'massage_purchases.massage_profile_id')
             ->where('utc_end_date', '>=', Carbon::now('UTC'))
             ->oldestOfMany('utc_start_date');
     }
