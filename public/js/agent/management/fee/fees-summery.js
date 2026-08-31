@@ -1,5 +1,15 @@
 
+
 $(function () {
+    const mmRoot = $('#manage-route');
+    const endpoint = {
+        csrf_token: mmRoot.data('csrf-token'),
+        success_image: mmRoot.data('success-image'),
+        error_image: mmRoot.data('error-image'),
+        advertiser_fees_summery: mmRoot.data('advertiser-fees-summery'),
+        agent_fees_summary : mmRoot.data('agent-fees-summary'),
+    };
+
 
 
     let isHidden = false;
@@ -34,6 +44,29 @@ $(function () {
             $(targetClass).hide();
         }
     });
+
+    // Alert Helper function
+    function showAlert(type, message) {
+        if (typeof Swal !== 'undefined') {
+            Swal.fire({
+                icon: type,
+                //title: type === 'success' ? 'Success!' : type === 'error' ? 'Error!' : 'Warning!',
+                text: message,
+                timer: 2500,
+                showConfirmButton: false
+            });
+        } else {
+            alert(message);
+        }
+    }
+
+
+$(document).on('change', '#display_type, #select-fy', function(){
+    let fy = $('#select-fy').val();
+    let displayType = $('#display_type').val();
+    window.location.href =  `${endpoint.agent_fees_summary}?fee_summery_advertiser_fy=${encodeURIComponent(fy)}&display_type=${encodeURIComponent(displayType)}`;
+});
+
 
 });
 
