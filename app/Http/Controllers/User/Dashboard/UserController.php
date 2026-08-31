@@ -515,28 +515,34 @@ class UserController extends Controller
     // Favorites Online
     public function favoritesOnline()
     {
-        $auth = auth()->user();
-        $authStateId = $auth->current_state_id ?? $auth->state_id;
-        $authUserId  = $auth->id;
-        $result = LoginAttempt::join('users', 'login_attempts.user_id', '=', 'users.id')
-            ->join('escorts', 'users.id', '=', 'escorts.user_id')
-            ->join('my_legbox', 'escorts.id', '=', 'my_legbox.escort_id')
-            ->where('my_legbox.user_id', $authUserId)
-            ->where('login_attempts.type', 1)
-            ->where('login_attempts.online', 'yes')
-            ->selectRaw("
-                COUNT(DISTINCT CASE WHEN users.state_id = ? THEN users.id END) AS same_state_count,
-                COUNT(DISTINCT CASE WHEN users.state_id != ? THEN users.id END) AS outside_state_count,
-                COUNT(DISTINCT users.id) AS total_count,
-                (
-                    SELECT COUNT(*)
-                    FROM my_legbox ml
-                    WHERE ml.user_id = ?
-                ) AS total_legbox
-            ", [$authStateId, $authStateId, $authUserId])
-            ->first();
+        // $auth = auth()->user();
+        // $authStateId = $auth->current_state_id ?? $auth->state_id;
+       $auth = auth()->user();
 
-        return view('user.dashboard.favorites-online', compact('result'));
+$authStateId = $auth->current_state_id ?? $auth->state_id;
+$authUserId  = $auth->id;
+
+$result = LoginAttempt::join('users', 'login_attempts.user_id', '=', 'users.id')
+    ->join('escorts','users.id', '=', 'escorts.user_id')
+    ->join('my_legbox', 'escorts.id','=','my_legbox.escort_id')
+    ->where('my_legbox.user_id', $authUserId)
+    ->where('login_attempts.type', 1)
+    ->where('login_attempts.online', 'yes')
+    ->selectRaw("
+        COUNT(DISTINCT CASE WHEN users.state_id = ? THEN users.id END) AS same_state_count,
+        COUNT(DISTINCT CASE WHEN users.state_id != ? THEN users.id END) AS outside_state_count,
+        COUNT(DISTINCT users.id) AS total_count,(SELECT COUNT(*) FROM my_legbox ml WHERE ml.user_id = ?) AS total_legbox,
+        ( SELECT COUNT(*) FROM massage_legbox mlb WHERE mlb.user_id = ? ) AS total_massage_legbox
+    ", [
+        $authStateId,
+        $authStateId,
+        $authUserId,
+        $authUserId
+    ])
+    ->first();
+     $result->total_legbox_count =  $result['total_legbox'] + $result['total_massage_legbox'];
+
+    return view('user.dashboard.favorites-online', compact('result'));
     }
 
     // get legbox notification message for viewer
