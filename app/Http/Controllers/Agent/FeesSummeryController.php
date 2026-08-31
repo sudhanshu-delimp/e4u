@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Purchase;
 use App\Services\FeesSummeryService;
+use App\Services\FeeSummaryService;
 use Illuminate\View\Component;
 use Override;
 
@@ -22,10 +23,12 @@ class FeesSummeryController extends Controller
 {
 
   protected $feeService;
+  protected $feeSummary;
 
-  public function __construct(FeesSummeryService $feesSummeryService)
+  public function __construct(FeesSummeryService $feesSummeryService, FeeSummaryService $feeSummaryService )
   {
     $this->feeService = $feesSummeryService;
+    $this->feeSummary = $feeSummaryService;
   }
 
 
@@ -36,10 +39,15 @@ class FeesSummeryController extends Controller
     $fy = $request->get('fee_summery_advertiser_fy') ?? $this->feeService->currentFYLabel();
     $displayType =  $request->get('display_type') ?? 'member_id';
   
-    $feeSummery = $this->feeService->getSummeryData(
-      requestedFY: $fy,
-      displayType: $displayType
-    );
+    // $feeSummery = $this->feeService->getSummeryData(
+    //   requestedFY: $fy,
+    //   displayType: $displayType
+    // );
+
+        $feeSummery = $this->feeSummary->getSummaryData(
+          $request->get('fee_summery_advertiser_fy'),
+          $request->get('display_type', 'member_id')
+      );
 
 
 

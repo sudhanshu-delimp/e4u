@@ -27,6 +27,7 @@ use App\Http\Controllers\Agent\ProspectListController;
 use App\Http\Controllers\Agent\DatabaseCentreController;
 use App\Http\Controllers\Agent\ImpersonateController;
 use App\Http\Controllers\Agent\FeesSummeryController;
+use App\Http\Controllers\Agent\FeesSummeryControllerV2;
 use App\Http\Controllers\Agent\MonthlyReportController;
 
 
