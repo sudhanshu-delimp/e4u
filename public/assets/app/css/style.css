@@ -4083,9 +4083,26 @@ div#myTabContent .right-side-img .right-bott-im1 img {
     margin-bottom: 0px;
 }
 
-.video_icon img {
-    /*height: 30px;*/
-    width: 25px;
+.video_icon_mc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 1;
+}
+
+.video_icon_mc .video_icon img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff1f4;
+    border-radius: 100px;
+    padding: 7px;
+    height: 35px;
+    width: 35px;
 }
 
 .section_wise_level_icon_img {
@@ -7564,6 +7581,7 @@ table {
 .mc_list_card {
     display: grid;
     grid-template-columns: 300px 1fr;
+    grid-template-rows: auto auto;
     gap: 15px;
     align-items: start;
     min-height: 360px;
@@ -7599,13 +7617,66 @@ table {
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    margin-bottom: 10px;
+    grid-column: 2 / 4;
+    grid-row: 1;
 }
 
 .mc_list_content_inner {
     display: flex;
     flex-direction: column;
-    gap: 5px;
     justify-content: space-between;
+}
+
+.mc_list_time {
+    grid-column: 1 / -1;
+    grid-row: 2;
+}
+
+.mc_tab_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff1f4;
+    border-radius: 10px 10px 0px 0px;
+    padding: 5px;
+}
+
+.mc_tab_header .nav-tabs {
+    border-bottom: 0px;
+}
+
+.mc_tab_header .list_button_wrap {
+    padding: 5px !important;
+}
+
+.mc_tab_header .nav-item a.active {
+    color: #fff;
+}
+
+.m_wishlist,
+.m_removelist {
+    background-color: var(--peach);
+    border-radius: var(--radius-sm);
+    padding: 10px !important;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.mc_tab_header .nav-tabs .nav-link {
+    border: 1px solid var(--peach);
+    color: var(--peach);
+}
+
+.mc_tab_header .nav-tabs .nav-link:focus,
+.nav-tabs .nav-link:hover {
+    background-color: var(--peach);
+    color: var(--white);
 }
 
 .mc_list_img {
@@ -7613,6 +7684,8 @@ table {
     height: 100%;
     width: 100%;
     object-fit: cover;
+    grid-column: 1;
+    grid-row: 1;
 }
 
 .mc_list_img .mc_card_link img {
@@ -7636,6 +7709,8 @@ table {
     justify-content: space-between;
     align-items: center;
     gap: 10px;
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .mc_list_title {
@@ -7659,25 +7734,63 @@ table {
     justify-content: flex-start;
     align-items: center;
     gap: 10px;
+    padding: 10px 10px 0px;
+    border-top: 1px solid var(--border-color);
 }
 
 .mc_list_meta {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding: 3px 0;
+    gap: 10px;
+    padding: 10px;
+}
+
+.mc_list_about {
+    padding: 10px 10px 10px;
+    border-top: 1px solid var(--border-color);
 }
 
 .mc_list_desc {
     line-height: 20px;
     font-size: 14px;
     text-align: justify;
+    margin-bottom: 0px;
 }
 
 .read-more-link {
     color: var(--peach);
     text-decoration: none;
     cursor: pointer;
+}
+
+.mc_list_meta .services_card {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 10px;
+}
+
+.mc_list_meta .services_card .icon svg {
+    width: 25px;
+    height: 25px;
+}
+
+.mc_list_meta .services_card .details {
+    line-height: 14px;
+}
+
+.mc_list_meta .services_card .details p {
+    margin-bottom: 0px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.mc_list_meta .services_card .details span {
+    font-size: 12px;
 }
 
 .read-more-link:hover {
@@ -8674,8 +8787,6 @@ h2.custom--review img {
     color: #fff;
     font-size: clamp(12px, 4vw, 15px) !important;
     font-weight: 400;
-    margin-left: auto;
-    margin-top: 5px;
 }
 
 .custom-sort-filter:hover {
@@ -10015,7 +10126,7 @@ h3 {
 .video--icon {
     position: relative;
     display: flex;
-    justify-content: end;
+    justify-content: start;
 }
 
 .custom--available-section .video_icon span.custom--tooltip,
@@ -10025,9 +10136,9 @@ h3 {
     position: absolute;
     color: #fff;
     pointer-events: none;
-    right: 0;
+    left: 0;
     width: max-content;
-    top: -35px;
+    top: -38px;
     visibility: hidden;
     opacity: 0;
     font-size: 12px;
@@ -10039,9 +10150,9 @@ h3 {
 .custom--tooltip::after {
     content: '';
     position: absolute;
-    top: 96%;
-    right: 4px;
-    border-width: 5px;
+    top: 27px;
+    left: 11px;
+    border-width: 6px;
     transform: rotate(0deg);
     border-style: solid;
     border-color: var(--peach) transparent transparent transparent;
