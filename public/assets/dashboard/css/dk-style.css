@@ -31,6 +31,12 @@
     --inProgress--status: rgb(140, 150, 230);
     --completed--status: rgb(250, 130, 60);
     /* end */
+    --radius-sm: 5px;
+    --radius-md: 10px;
+    --radius-lg: 15px;
+    --radius-xl: 24px;
+    --radius-full: 100px;
+    --border-color: #e7e9ee;
 }
 
 .custom_badge {
@@ -3820,8 +3826,8 @@ button.btn:focus {
 
 .mcs_media_tooltip {
     position: absolute;
-    left: 25px;
-    top: 1px;
+    left: 35px;
+    top: 2px;
     z-index: 999;
     width: max-content;
     background: var(--peach);
@@ -6501,6 +6507,13 @@ div.myacording-design .card {
     border-radius: 3px;
 }
 
+div.myacording-design .card.common-card {
+    border-color: var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 0px !important;
+    overflow: hidden;
+}
+
 
 /*.myacording-design ul {
 list-style: auto;
@@ -6538,9 +6551,20 @@ div.myacording-design .card .card-body {
     text-align: justify;
 }
 
+.myacording-design .card.common-card .card-body {
+    border-top: 1px solid var(--border-color);
+    padding: 30px;
+    margin-top: 0px;
+}
+
 div.myacording-design .card-header a.card-link.collapsed {
     border-bottom: 0;
     padding-bottom: 0;
+}
+
+div.myacording-design .common-card .card-header a {
+    font-size: 20px;
+    padding: 25px !important;
 }
 
 div.myacording-design .card .card-header a:after {
@@ -10871,6 +10895,12 @@ border-top: 5px solid var(--blue--text);
 .box-wrapper:nth-child(even) .my-custom-box {
 border-top: 5px solid var(--peach);
 } */
+
+.add--list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 .my-custom-box:hover {
     background-color: #c2cfe052;

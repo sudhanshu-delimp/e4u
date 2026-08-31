@@ -10,7 +10,7 @@
                  <span class="bordertopp">
                      {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
              </div>
-             <div class="row responsive_colums_in_lg_five_col escost_list">
+             <div class="ec_card_conatiner">
                  @if ($grouped->has('1'))
                      @foreach ($grouped['1'] as $escort)
                          @include('web.escort.partials.grid.platinum')
@@ -34,7 +34,7 @@
                  <span class="bordertopp">
                      {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
              </div>
-             <div class="row responsive_colums_in_lg_five_col escost_list">
+             <div class="ec_card_conatiner">
                  @if ($grouped->has('2'))
                      @foreach ($grouped['2'] as $escort)
                          @include('web.escort.partials.grid.gold')
@@ -58,7 +58,7 @@
                  <span class="bordertopp">
                      {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}</span>
              </div>
-             <div class="row responsive_colums_in_lg_five_col escost_list">
+             <div class="ec_card_conatiner">
                  @if ($grouped->has('3'))
                      @foreach ($grouped['3'] as $escort)
                          @include('web.escort.partials.grid.silver')
@@ -82,7 +82,7 @@
                  <span class="bordertopp">
                      {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}</span>
              </div>
-             <div class="row responsive_colums_in_lg_five_col escost_list">
+             <div class="ec_card_conatiner">
                  @if ($grouped->has('4'))
                      @foreach ($grouped['4'] as $escort)
                          @include('web.escort.partials.grid.free')

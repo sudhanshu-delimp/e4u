@@ -1,23 +1,7 @@
 @extends('layouts.web')
 @section('style')
     <style>
-        #view_list svg path,
-        #view_grid svg path {
-            stroke: #000;
-            transition: stroke 0.3s;
-        }
-
-
-        #view_list:hover svg path,
-        #view_grid:hover svg path {
-            stroke: #fff;
-        }
-
-
-        .view-active svg path {
-            stroke: #ff3c5f !important;
-        }
-
+       
         #page_loader {
             position: fixed;
             top: 0;
@@ -89,37 +73,64 @@
 
         @include('web.mc.mc-filter')
 
-        <div class="container my-5">
+        <div class="container my-4">
 
             <div class="row">
 
 
-                 <!-- ////// Include the Skeleton Grid Type ////////// -->
-                 @include('web.mc.mc-grid-skeleton')
+                <!-- ////// Include the Skeleton Grid Type ////////// -->
+                @include('web.mc.mc-grid-skeleton')
 
-                 
-                 <!-- ////// Include the Skeleton List Type ////////// -->
-                 @include('web.mc.mc-list-skeleton')
+
+                <!-- ////// Include the Skeleton List Type ////////// -->
+                @include('web.mc.mc-list-skeleton')
 
                 <!-- ////// Grid View ///////////////// -->
                 <div class="col-sm-12" id="grid_view">
-                    <h2 class="mc_view_title">Grid View</h2>
+                    <h2 class="mc_view_title">
+
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" fill="none">
+                                <path d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </span>
+                        Grid View
+                    </h2>
                     <div class="mc_card_container"></div>
 
                 </div>
 
                 <!-- ////// List View ///////////////// -->
                 <div class="col-sm-12" id="list_view">
-                    <h2 class="mc_view_title">List View</h2>
+                    <h2 class="mc_view_title">
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 27 24">
+                                <path d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663"
+                                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </span>
+                        List View
+                    </h2>
                     <div class="mc_list_container"></div>
                 </div>
-
                 <div class="col-sm-12">
-                    <div class="no--listing" style="display:none;">
-                        <p><i>There are no listings for your search criteria.</i></p>
+                    <div class="no--listing">
+                        <div class="no-listing-icon">
+                            <img src="{{ asset('assets/app/img/no-results.png') }}" alt="">
+                        </div>
+
+                        <div class="no-listing-content">
+                            <h3>No Listings Found</h3>
+                            <p>
+                                We couldn't find any listings matching your search criteria.
+                                Try adjusting your filters or search options.
+                            </p>                            
+                        </div>
                     </div>
                 </div>
-
 
 
 
@@ -131,7 +142,7 @@
             </div>
 
             <!-- ////// Pagination ///////////////// -->
-              @include('web.partials.pagination-skelton')
+            @include('web.partials.pagination-skelton')
             <div id="common_pagination"></div>
             <!-- ////// End Pagination ///////////////// -->
 
@@ -358,7 +369,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                       // console.log(data);
+                        // console.log(data);
 
                     }
                 });
@@ -381,7 +392,7 @@
                 var login_url = "{{ route('viewer.login', ':id') }}";
                 var loginurl = login_url.replace(':id', 'legboxId=' + Eid);
                 var loginurl2 = loginurl.replace(':path', 'path=' + window.location.pathname);
-               
+
 
 
                 var regurl = "{{ route('register', ':id') }}";
@@ -391,7 +402,7 @@
                 $('#regUrl').attr('href', regurl)
             }
 
-           
+
         });
 
 
@@ -455,58 +466,48 @@
         }
 
 
-        /* ===============================
-           VIEW SWITCH
-        =============================== */
-
         $('#view_grid').on('click', function() {
             activeView = 'grid';
 
             $('#activeView').val('grid');
-            toggleContainer(grid=true, list=false);
+            toggleContainer(grid = true, list = false);
             toggleSkeleton(grid = true, list = false, pagination = true, cusPagi = false);
 
             //set view type in global varaiable
             globalMassageRequest.view_type = 'grid';
 
             setTimeout(async function() {
-                toggleSkeleton(grid=false, list=false, pagination = false, cusPagi = true);
+                toggleSkeleton(grid = false, list = false, pagination = false, cusPagi = true);
                 toggleViewTitle(true);
-                toggleView(grid=true, list=false);
-                
+                toggleView(grid = true, list = false);
+
             }, 500);
             $('.view-active').removeClass('view-active');
             $(this).addClass('view-active active');
-      
+
         });
 
         $('#view_list').on('click', function() {
             activeView = 'list';
             $('#activeView').val('list');
 
-            toggleContainer(grid=false, list=true);
+            toggleContainer(grid = false, list = true);
             //hide show 
             toggleSkeleton(grid = false, list = true, pagination = true, cusPagi = false);
 
             //set view type in global varaiable
             globalMassageRequest.view_type = 'list';
-            
+
             setTimeout(async function() {
                 toggleSkeleton(grid = false, list = false, pagination = false, cusPagi = true);
                 toggleViewTitle(true);
-                toggleView(grid=false, list=true);
+                toggleView(grid = false, list = true);
 
             }, 500);
             $('.view-active').removeClass('view-active active');
             $(this).addClass('view-active active');
 
         });
-
-
-
-        /* ===============================
-           PAGINATION 
-        =============================== */
 
         $(document).on('click', '.custom-pagination a', async function(e) {
             e.preventDefault();
@@ -521,67 +522,148 @@
         });
 
 
-
         const massageRouteStates = escortRouteStates = @json(config('escorts.profile.states'));
 
-        const massageBaseUrl = "{{config('constants.massage_list_base_slug')}}";
+        const massageBaseUrl = "{{ config('constants.massage_list_base_slug') }}";
+        let preserveInitialMassageLocationUrl = true;
 
         function getMassageRouteMemberId(selectedCity) {
             const segments = window.location.pathname.split('/').filter(Boolean);
             const lastSegment = segments[segments.length - 1] || '';
-            const currentState = segments[2] || '';
-            const currentCity = segments[3] || '';
-            const currentMemberId   = segments[4] || '';
+            const routeOffset = String(segments[1] || '').toLowerCase() === 'australia' ? 2 : 1;
+            const currentState = segments[routeOffset] || '';
+            const currentCity = segments[routeOffset + 1] || '';
 
-        
+
             if (!/^M[\w-]+$/i.test(lastSegment) || !selectedCity) {
                 return null;
             }
-            
+
             if (currentState !== selectedCity.state || currentCity !== selectedCity.city) {
                 return null;
             }
-
-            
 
             return lastSegment;
         }
 
         function getMassageListingPath() {
-            const cityId = String($('#profile_city').val() || '');
-            const pathSegments = [massageBaseUrl];
-            let selectedCity = null;
-            Object.values(massageRouteStates).some(function(state) {
-                return Object.entries(state.cities || {}).some(function([id, city]) {
-                    if (String(id) === cityId) {
-                        selectedCity = {
-                            state: state.stateAbbr.toLowerCase(),
-                            city: city.cityName.toLowerCase()
-                        };
-                        return true;
-                    }
+            const segments = window.location.pathname.split('/').filter(Boolean);
 
+            const hasCountrySegment = String(segments[1] || '').toLowerCase() === 'australia';
+            const routeOffset = hasCountrySegment ? 2 : 1;
+            const urlState = String(segments[routeOffset] || '').toLowerCase();
+            const urlCity = String(segments[routeOffset + 1] || '').toLowerCase();
+            const selectedCityId = String($('#profile_city').val() || '');
+            const currentMemberId = segments[routeOffset + 2] || '';
+
+
+            const pathSegments = [massageBaseUrl];
+
+            let selectedState = null;
+            let selectedCity = null;
+            let cityIds = null;
+
+            Object.entries(massageRouteStates).some(function([stateId, state]) {
+
+                const stateAbbr = String(state.stateAbbr || '').toLowerCase();
+                const cities = state.cities || {};
+
+                if (selectedCityId) {
+                    return Object.entries(cities).some(function([cityId, city]) {
+                        if (String(cityId) !== selectedCityId) {
+                            return false;
+                        }
+
+                        selectedState = {
+                            id: stateId,
+                            abbr: stateAbbr
+                        };
+                        selectedCity = {
+                            stateId: stateId,
+                            cityId: cityId,
+                            state: stateAbbr,
+                            city: String(city.cityName || '').toLowerCase()
+                        };
+                        cityIds = cityId;
+
+                        return true;
+                    });
+                }
+
+                if (!preserveInitialMassageLocationUrl) {
                     return false;
-                });
+                }
+
+                // Match state from URL
+                if (stateAbbr !== urlState) {
+                    return false;
+                }
+
+                selectedState = {
+                    id: stateId,
+                    abbr: stateAbbr
+                };
+
+                if (urlCity) {
+                    Object.entries(cities).some(function([cityId, city]) {
+
+                        const cityName = String(city.cityName || '').toLowerCase();
+
+                        if (cityName === urlCity) {
+                            selectedCity = {
+                                stateId: stateId,
+                                cityId: cityId,
+                                state: stateAbbr,
+                                city: cityName
+                            };
+                            cityIds = cityId;
+
+                            return true;
+                        }
+
+                        return false;
+                    });
+                }
+
+                if (!selectedCity) {
+                    cityIds = Object.keys(cities)[0] || null;
+                }
+
+
+                return true;
             });
 
-            if (selectedCity) {
+            if (selectedCity || (preserveInitialMassageLocationUrl && hasCountrySegment)) {
                 pathSegments.push('australia');
-                pathSegments.push(selectedCity.state, selectedCity.city);
+            }
 
-                const memberId = getMassageRouteMemberId(selectedCity);
+            if (selectedCity || (preserveInitialMassageLocationUrl && selectedState)) {
+                pathSegments.push(selectedState.abbr);
+
+                if (selectedCity) {
+                    pathSegments.push(selectedCity.city);
+                }
+
+                const memberId = getMassageRouteMemberId(
+                    selectedCity || {
+                        state: selectedState.abbr
+                    }
+                );
 
                 if (memberId) {
                     pathSegments.push(memberId);
                 }
-            } 
-
-            //assing city id in the global variable
-             globalMassageRequest.filter_by_feild = {
-                profile_city : $('#profile_city').val(),
-                massage_id : window.location.pathname.split('/').filter(Boolean)[4] ?? '',
             }
 
+
+            // ==========================================
+            // Backend filter
+            // ==========================================
+
+            globalMassageRequest.filter_by_feild = Object.assign({}, globalMassageRequest.filter_by_feild, {
+                profile_city: cityIds,
+                massage_id: currentMemberId
+            });
 
             return '/' + pathSegments.join('/');
         }
@@ -593,10 +675,9 @@
 
         async function loadData(requestParam = globalMassageRequest, showLoader = true) {
 
-            console.log(requestParam, '......');
             let requestUrl = getMassageListingPath();
 
-           
+
             let ajaxReq = null;
             let currentUrl = window.location.href;
 
@@ -608,18 +689,18 @@
             history.replaceState({}, '', requestUrl);
 
             ajaxReq = $.ajax({
-                url: "{{ route('mc-ajax-list') }}", 
+                url: "{{ route('mc-ajax-list') }}",
                 data: requestParam,
                 beforeSend: function() {
                     toggleViewTitle(false);
-                    toggleContainer(grid=false, list=false);
-                    if(requestParam.view_type == 'grid'){
+                    toggleContainer(grid = false, list = false);
+                    if (requestParam.view_type == 'grid') {
                         toggleSkeleton(grid = true, list = false, pagination = true, cusPagi = false);
-                       
-                    }else{
+
+                    } else {
                         toggleSkeleton(grid = false, list = true, pagination = true, cusPagi = false);
                     }
-        
+
                 },
                 success: function(res) {
                     $('.mc_card_container').html(res.grid);
@@ -635,18 +716,18 @@
 
                     //show heading
                     toggleViewTitle(true);
-                   
+
 
                     if (requestParam.view_type == 'grid') {
-                        toggleContainer(grid=true, list=false);
-                        toggleView(grid = true, list=false);
+                        toggleContainer(grid = true, list = false);
+                        toggleView(grid = true, list = false);
                     } else {
-                        toggleContainer(grid=false, list=true);
-                        toggleView(grid = false, list=true);
+                        toggleContainer(grid = false, list = true);
+                        toggleView(grid = false, list = true);
                     }
                 },
                 complete: function() {
-                     toggleSkeleton(grid = false, list = false, pagination = false, cusPagi = true);
+                    toggleSkeleton(grid = false, list = false, pagination = false, cusPagi = true);
                 }
             });
         }
@@ -735,6 +816,7 @@
         /////// Short List ///////////////
         $(document).on('click', '.upper_filter', async function(e) {
             e.preventDefault();
+            preserveInitialMassageLocationUrl = false;
             globalMassageRequest.filter_by_location = {
                 locationByRadio: $('input[name="locationByRadio"]:checked').val(),
                 by_name_member: $('#by_name_member').val(),
@@ -750,6 +832,7 @@
         /////// Per Page ///////////////
         $(document).on('change', '#per_page', async function(e) {
             e.preventDefault();
+            preserveInitialMassageLocationUrl = false;
             let val = $(this).val();
             globalMassageRequest.filter_by_location = {
                 locationByRadio: $('input[name="locationByRadio"]:checked').val(),
@@ -764,6 +847,7 @@
 
         $(document).on('click', '.lower_filter', async function(e) {
             e.preventDefault();
+            preserveInitialMassageLocationUrl = false;
 
             globalMassageRequest.filter_by_feild = {
                 profile_state: $('#profile_state').val(),
@@ -782,12 +866,14 @@
         //reset the filter
         $(document).on('click', '.reset_form_filter', async function(e) {
             e.preventDefault();
+            preserveInitialMassageLocationUrl = false;
             let locByRad = $('input[name="locationByRadio"]:checked').val();
             let letVal = $('#set_lat').val();
             let lngVal = $('#set_lng').val();
             $('#filterForm')[0].reset();
             //again set the location radio button to previous value
             $(`input[name="locationByRadio"][value="${locByRad}"]`).prop('checked', true);
+            $('#profile_city').val('');
             globalMassageRequest = {
                 filter_by_feild: {
                     profile_state: '',
@@ -864,13 +950,13 @@
 
         async function updateLocationFields() {
             let selectedLocation = $('input[name="locationByRadio"]:checked').attr('id');
-            
+
             if (selectedLocation === 'yourLocation') {
                 //make disable all city
                 $('#profile_city').val('').prop('disabled', true);
                 //get storage location.
                 const location = await getLocation();
-            
+
                 if (location) {
                     $("#set_lat").val(location?.lat || '');
                     $("#set_lng").val(location?.lng || '');
@@ -909,6 +995,7 @@
 
         // Run when radio changes
         $(document).on('change', 'input[name="locationByRadio"]', async function() {
+            preserveInitialMassageLocationUrl = false;
             await updateLocationFields();
             let selectValue = $(this).val();
         });
@@ -989,7 +1076,7 @@
             return location;
         }
 
-         $('.btn-search').on('click', function(){
+        $('.btn-search').on('click', function() {
             $('.btn-search i').toggleClass('rotate-180');
         })
     </script>

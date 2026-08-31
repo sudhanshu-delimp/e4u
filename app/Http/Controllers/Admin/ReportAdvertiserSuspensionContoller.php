@@ -46,6 +46,11 @@ class ReportAdvertiserSuspensionContoller extends Controller
         return view('admin.reports.advertiser-suspensions');
     }
 
+    public function cancelledByAdvertiser()
+    {
+        return view('admin.reports.advertiser-cancellations');
+    }
+
     public function suspendedByAdmin()
     {
         return view('admin.reports.admin-advertiser-suspensions');
@@ -100,7 +105,7 @@ class ReportAdvertiserSuspensionContoller extends Controller
             })
 
             ->addColumn('action', function ($row) {
-                $redirectUrl =  ($row->user->type == '4') ? route('preview.massage', ['id' => $row->advertiser->id, 'ids' => '[]']) : route('preview.escort', $row->advertiser->id);
+                $redirectUrl =  ($row->user->type == '4') ? route('preview.massage', $row->advertiser->slug) : route('preview.escort', $row->advertiser->slug);
                 $actionBtn = '
                         <div class="dropdown no-arrow">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -111,6 +116,71 @@ class ReportAdvertiserSuspensionContoller extends Controller
                                 
                                 <a class="viewEscortSuspendedProfile dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . $redirectUrl . '" target="_blank"> <i class="fa fa-eye"></i> View</a>
                                 
+                            </div>
+                            </div>
+                    ';
+
+                return $actionBtn;
+            })
+            ->rawColumns(['action']) // if you're returning HTML
+            ->with([
+                'server_up_time' => $this->getAppUptime(),
+                'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
+            ])
+            ->make(true);
+    }
+
+    public function advertiserCancellationDataTableListingAjax($advertiserType)
+    {
+
+        $search = request()->get('search')['value'];
+        $today = Carbon::now();
+        switch ($advertiserType) {
+            case 'escort': {
+                    $purchases = Purchase::whereRaw('? BETWEEN utc_start_time AND utc_end_time', [$today])
+                        ->where('status', 'cancel')
+                        ->get();
+                }
+                break;
+            case 'massage': {
+                    $purchases = MassagePurchase::whereRaw('? BETWEEN utc_start_time AND utc_end_time', [$today])
+                        ->where('status', 'cancel')
+                        ->get();
+                }
+                break;
+            default:
+                # code...
+                break;
+        }
+
+
+        if ($search) {
+            $purchases = $purchases->filter(function ($item) use ($search) {
+                $matchesMemberId = $item->advertiser->user && stripos($item->advertiser->user->member_id, $search) !== false;
+                return $matchesMemberId;
+            })->values(); // reset the keys
+        }
+
+        return DataTables::of($purchases)
+            ->addColumn('advertiser_id', fn($row) => $row->advertiser->id)
+            ->addColumn('member_id', fn($row) => $row->advertiser->user->member_id)
+            ->addColumn('start_date', fn($row) =>  date('d-m-Y', strtotime($row->start_date)))
+            ->addColumn('end_date', fn($row) => date('d-m-Y', strtotime($row->end_date)))
+            ->addColumn('location', function ($row) {
+                return $row->advertiser->state_abbr;
+            })
+            ->addColumn('cancelled_at', function ($row) {
+                return ($row->advertiser->user->type == '4') ? getAustraliaTime($row->utc_cancel_time, 'd-m-Y h:i A') : getAustraliaTime($row->cancelled_at, 'd-m-Y h:i A');
+            })
+            ->addColumn('action', function ($row) {
+                $redirectUrl =  ($row->advertiser->user->type == '4') ? route('preview.massage', $row->advertiser->slug) : route('preview.escort', $row->advertiser->slug);
+                $actionBtn = '
+                        <div class="dropdown no-arrow">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>
+                            <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                <a class="viewEscortSuspendedProfile dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . $redirectUrl . '" target="_blank"> <i class="fa fa-eye"></i> View Profile</a>
                             </div>
                             </div>
                     ';

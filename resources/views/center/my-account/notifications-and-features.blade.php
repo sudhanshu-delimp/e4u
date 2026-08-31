@@ -120,67 +120,6 @@
                                             </div>
                                         </div>
 
-
-                                        <!-- Auto Recharge Section -->
-                                        <div class="form-group common-card">
-                                            <div class="card-top">
-                                                <div class="card-icon">
-                                                    <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                                            stroke-linejoin="round"></g>
-                                                        <g id="SVGRepo_iconCarrier">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M12 6C8.69 6 6 8.69 6 12H9L5 16L1 12H4C4 7.58 7.58 4 12 4C13.57 4 15.03 4.46 16.26 5.24L14.8 6.7C13.97 6.25 13.01 6 12 6ZM15 12L19 8L23 12H20C20 16.42 16.42 20 12 20C10.43 20 8.97 19.54 7.74 18.76L9.2 17.3C10.03 17.75 10.99 18 12 18C15.31 18 18 15.31 18 12H15Z"
-                                                                fill="#ff3c5f"></path>
-                                                        </g>
-                                                    </svg>
-                                                </div>
-
-                                                <div class="card-heading">
-                                                    <h2>Auto-Recharge Options</h2>
-                                                </div>
-                                            </div>
-                                            <div class="option-list">
-
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox"
-                                                        name="auto_recharge_no" id="auto1" value="1"
-                                                        {{ old('auto_recharge_no', $setting->auto_recharge_no ?? 0) ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="auto1">No</label>
-                                                </div>
-
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox"
-                                                        name="auto_recharge_500" id="auto2" value="1"
-                                                        {{ old('auto_recharge_500', $setting->auto_recharge_500 ?? 0) ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="auto2">$500.00</label>
-                                                </div>
-
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox"
-                                                        name="auto_recharge_1000" id="auto3" value="1"
-                                                        {{ old('auto_recharge_1000', $setting->auto_recharge_1000 ?? 0) ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="auto3">$1,000.00</label>
-                                                </div>
-
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox"
-                                                        name="auto_recharge_1500" id="auto4" value="1"
-                                                        {{ old('auto_recharge_1500', $setting->auto_recharge_1500 ?? 0) ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="auto4">$1,500.00</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="card-note">
-                                                <span class="note-icon">i</span>
-                                                <p><i>Select your preferred top up value to be applied to your
-                                                        Wallet.</i></p>
-                                            </div>
-                                        </div>
-
-
                                         <!-- Agent -->
                                         <div class="form-group common-card">
                                             <div class="card-top">

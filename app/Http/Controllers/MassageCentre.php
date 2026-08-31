@@ -130,6 +130,7 @@ class MassageCentre extends Controller
 
     public function mcAjaxList(Request $request)
     {
+       // dd($request->all());
 
         $per_page = 2;
         $logedInUpser = auth()->user();
@@ -204,7 +205,7 @@ class MassageCentre extends Controller
 
                     if ($location == 'your_location' &&  $set_lat != "" &&  $set_lng != "") {
                         $userLocation = $this->getRealTimeGeolocationOfUsers($set_lat, $set_lng);
-                        dd($userLocation);
+                        //dd($userLocation);
                         $lat_state = $userLocation['state'];
                         $lng_city = $userLocation['city'];
 
@@ -614,7 +615,7 @@ class MassageCentre extends Controller
     {
         $previousUrl = url()->previous();
         $path = parse_url($previousUrl, PHP_URL_PATH);
-        $previousSlug = trim($path, '/');
+        $previousSlug = $previousSlug = trim($path, '/');
         $relatedIds = [];
         $relatedSlugs = [];
         $country = trim($country);
@@ -684,6 +685,16 @@ class MassageCentre extends Controller
             $relatedMassges = MassagePurchase::with('massageprofile')->where('status', 'listed')
                 ->whereHas('user', function ($q) use ($stateId) {
                     $q->where('status', 1)->where('state_id', $stateId);
+                })
+                ->whereNotIn('massage_profile_id', $blockedProfileForViewersIds)
+                ->whereDoesntHave('activeSuspendProfile')->get();
+
+            $relatedIds = $relatedMassges->pluck('massage_profile_id')->toArray();
+            $relatedSlugs = $relatedMassges->pluck('massageprofile.slug')->filter()->toArray();
+        } else {
+            $relatedMassges = MassagePurchase::with('massageprofile')->where('status', 'listed')
+                ->whereHas('user', function ($q) use ($stateId) {
+                    $q->where('status', 1);
                 })
                 ->whereNotIn('massage_profile_id', $blockedProfileForViewersIds)
                 ->whereDoesntHave('activeSuspendProfile')->get();

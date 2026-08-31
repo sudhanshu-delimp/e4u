@@ -198,8 +198,8 @@ background:#16385f;
                            <div class="action_buttons">
                                 <div class="add--list listingActionButtons">
                                     <div class="">
-                                          <button class="btn brb-btn" data-toggle="modal"
-                                                data-target="#add_brb" id="btn_add_brb">Shop Closed</button>
+                                          
+
                                                 <button style="padding: 10px;" class="btn btn-custom-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Listing  </button>
                                           
                                           
@@ -207,6 +207,8 @@ background:#16385f;
                                           <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
                                                 data-target="#suspend_profile" id="btn_suspend_profile">Suspend Listing</button> 
                                        </div>
+                                       <button class="btn brb-btn" data-toggle="modal"
+                                                data-target="#add_brb" id="btn_add_brb">Shop Closed</button>
                                 </div> 
                            </div>  
                             @endif
@@ -764,7 +766,8 @@ $(document).ready(function() {
                success: function(response) {
                   $("#creditCalculationLive").html('0.00');
                   if(response.success){
-                        $("#creditCalculationLive").html(response.refundAmountWithGst);
+                         let refundAmount = parseFloat(response.refundAmountWithGst) || 0;
+                        $("#creditCalculationLive").html(refundAmount.toFixed(2));
                         $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
                   }
                   else {
@@ -816,7 +819,7 @@ $("#suspend_form").on('submit', async function(e)
                success: function(data) {
                   Swal.close();
                   if (data.response.success) {
-                      swal_success_popup(data.response.message);
+                      swal_success_popup(data.response.message,'Suspend Profile');
                      $('#suspend_profile').modal('hide');
                      table.ajax.reload(null, false);
                   } else {

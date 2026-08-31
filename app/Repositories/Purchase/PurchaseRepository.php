@@ -51,6 +51,7 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
         $table = $this->model->getTable();
         $query = $this->model
             ->where($conditions)
+            ->whereDoesntHave('activeSuspendProfile')
             ->with([
                 'escort.brb' => function ($q) {
                     $q->where('brb_time', '>', Carbon::now('UTC'))
@@ -168,9 +169,9 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             //$profileUrl = route('profile.description', $endpoint);
             //$endpoint = ['profile' => $item->escort->slug];
             //$profileUrl = route('escort.profile.detail', $endpoint);
-           
+
             $profileUrl = getEscortMassageDetailUrl($item->escort);
-             $item->profileUrl = $profileUrl;
+            $item->profileUrl = $profileUrl;
 
 
             if ($itemArray['brb']) {

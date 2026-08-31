@@ -5,6 +5,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="RATING" content="RTA-5042-1996-1400-1577-RTA" />
+
     {{-- <meta name="google-site-verification" content="tzqUkr_jX_neI5MlPldK2ai6CErqC0OOKQCvJ85xJeA" /> --}}
     <!-- Bootstrap CSS -->
     <link rel="shortcut icon" href="{{ asset('assets/app/img/favicon.ico') }}" />
@@ -15,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 
     <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-style.css?v2.08') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v2.09') }}" rel="stylesheet">
     <!-- jquery ui cdn -->
 
     <!-- google fonts -->
@@ -42,9 +44,9 @@
     <!-- font awsome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v3.02') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v2.09') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v1.7') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v3.07') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v3.03') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v1.09') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />

@@ -51,14 +51,14 @@ class SyncEscortProfile extends Command
         $listedPurchases = Purchase::where('status', 'listed')
             ->where('utc_end_time', '<=', $now)
             ->get();
-        if($listedPurchases->count() > 0){
+        if ($listedPurchases->count() > 0) {
             $this->info('Records are found.');
-            foreach ($listedPurchases as $key=>$purchase) {
+            foreach ($listedPurchases as $key => $purchase) {
                 $purchase->update(['status' => 'expire']);
                 $escort = $purchase->escort;
                 if ($escort) {
                     foreach ($escort->playmates as $playmate) {
-                        $this->playmateHistory->trashPlaymateHistory($escort->id,$playmate->id);
+                        $this->playmateHistory->trashPlaymateHistory($escort->id, $playmate->id);
                     }
                     /**
                      * Detach all playmates this escort added
@@ -78,13 +78,12 @@ class SyncEscortProfile extends Command
                         'purchase_id' => null
                     ]);
                     $this->info("=============== $key ===============");
-                    $this->info("Disabled Escort ID {$escort->id} (related to expired Purchase ID {$purchase->id})");
+                    $this->info("Disabled Escort ID {$escort->id} (related to expired Purchase ID {$purchase->id}) on {$purchase->start_date} to {$purchase->end_date}");
                 }
             }
-    
+
             $this->info('All expired listed purchases processed.');
-        }
-        else{
+        } else {
             $this->info('No Record found.');
         }
 
@@ -92,14 +91,14 @@ class SyncEscortProfile extends Command
          * Enable Listed Profiles
          */
         $pendingPurchases = Purchase::where('utc_start_time', '<=', $now)
-        ->where('status','pending')
-        ->get();
-        if($pendingPurchases->count() > 0){
+            ->where('status', 'pending')
+            ->get();
+        if ($pendingPurchases->count() > 0) {
             $this->info('Records are found.');
-            foreach ($pendingPurchases as $key=>$purchase) {
+            foreach ($pendingPurchases as $key => $purchase) {
                 $escort = $purchase->escort;
-               // print_this($escort->toArray());
-                if($escort){
+                // print_this($escort->toArray());
+                if ($escort) {
                     $escort->update([
                         'start_date' => $purchase['start_date'],
                         'end_date' => $purchase['end_date'],
@@ -110,14 +109,13 @@ class SyncEscortProfile extends Command
                         'purchase_id' => $purchase['id']
                     ]);
                 }
-                $purchase->update(['status'=>'listed']);
+                $purchase->update(['status' => 'listed']);
                 Artisan::queue('profile:sync-status'); // update profile verification status
                 $this->info("=============== $key ===============");
-                $this->info("Enabled Escort ID {$purchase->escort_id} (related to pending Purchase ID {$purchase->id})");
+                $this->info("Enabled Escort ID {$purchase->escort_id} (related to pending Purchase ID {$purchase->id}) on {$purchase->start_date} to {$purchase->end_date}");
             }
             $this->info('All pending listed purchases processed.');
-        }
-        else{
+        } else {
             $this->info('No Record found.');
         }
     }

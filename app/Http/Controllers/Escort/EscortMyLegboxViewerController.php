@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Escort;
 
 use App\Http\Controllers\Controller;
 use App\Models\City;
+use App\Models\Communication;
 use App\Models\Escort;
 use App\Models\EscortViewerInteractions;
 use App\Models\MassageProfile;
@@ -38,6 +39,15 @@ class EscortMyLegboxViewerController extends Controller
             ->where('escort_id', $escortId)
             ->first();
     }
+
+    function getNotification($viewer_id, $state_id)
+    {
+        return Communication::where('sender_id', auth()->user()->id)
+        ->where('state_id', $state_id)
+        ->where('receiver_id', $viewer_id)
+        ->count();
+    }
+
 
     public function escortViewersAjaxList()
     {
@@ -92,26 +102,28 @@ class EscortMyLegboxViewerController extends Controller
             ->addColumn('escort_profile', fn($row) => $row->escort->id ?? '-')
             ->addColumn('notification_enabled', function ($row) {
 
-                $isNotifcationEnabled = 'No';
+                    return $this->getNotification($row->viewer->id, $row->viewer->state_id);
+
+                // $isNotifcationEnabled = 'No';
                 
-                # Check viewer account notification setting first
-                if ($row->viewer->interest && $row->viewer->interest->features) {
-                    $viewerNotification = json_decode($row->viewer->interest->features);
-                    $isNotifcationEnabled = in_array('alerts', $viewerNotification);
-                    $isNotifcationEnabled = $isNotifcationEnabled ? 'Yes' : 'No';
-                }
+                // # Check viewer account notification setting first
+                // if ($row->viewer->interest && $row->viewer->interest->features) {
+                //     $viewerNotification = json_decode($row->viewer->interest->features);
+                //     $isNotifcationEnabled = in_array('alerts', $viewerNotification);
+                //     $isNotifcationEnabled = $isNotifcationEnabled ? 'Yes' : 'No';
+                // }
 
-                # If particular escort is notification disabled
-                $esvi = EscortViewerInteractions::where('escort_id', $row->escort->id)->where('viewer_id', $row->viewer->id)->where('user_id', Auth::user()->id)->first();
+                // # If particular escort is notification disabled
+                // $esvi = EscortViewerInteractions::where('escort_id', $row->escort->id)->where('viewer_id', $row->viewer->id)->where('user_id', Auth::user()->id)->first();
 
-                if ($esvi) {
-                    $isNotifcationEnabled = 'No';
-                    if ($esvi->viewer_disabled_notification == 0) {
-                        $isNotifcationEnabled = 'Yes';
-                    }
-                }
+                // if ($esvi) {
+                //     $isNotifcationEnabled = 'No';
+                //     if ($esvi->viewer_disabled_notification == 0) {
+                //         $isNotifcationEnabled = 'Yes';
+                //     }
+                // }
 
-                return  $isNotifcationEnabled;
+                // return  $isNotifcationEnabled;
             })
             ->addColumn('contact_enabled', function ($row)  {
 

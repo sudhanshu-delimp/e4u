@@ -289,16 +289,17 @@ class GlobalMonitoringController extends Controller
         $draw   = intval(request()->input('draw'));
         $massagePurchaseTableName = (new MassagePurchase)->getTable();
         $userTableName = (new User())->getTable();
-        $massagers = MassagePurchase::with([
-            'brb' => function ($query) {
-                $query->where('brb_time', '>', Carbon::now('UTC'))
-                    ->where('active', 'Y')
-                    ->orderBy('brb_time', 'desc');
-            },
-            'massageprofile',
-            'user:id,status,member_id,name,email,phone,status,state_id',
-            'activeUpcomingSuspend',
-        ])
+        $massagers = MassagePurchase::whereDoesntHave('activeSuspendProfile')
+            ->with([
+                'brb' => function ($query) {
+                    $query->where('brb_time', '>', Carbon::now('UTC'))
+                        ->where('active', 'Y')
+                        ->orderBy('brb_time', 'desc');
+                },
+                'massageprofile',
+                'user:id,status,member_id,name,email,phone,status,state_id',
+                'activeUpcomingSuspend',
+            ])
             ->leftJoin($userTableName, $userTableName . '.id', '=', $massagePurchaseTableName . '.massage_centre_id')
             ->select($massagePurchaseTableName . '.*')
             ->whereIn($massagePurchaseTableName . '.status', ['listed', 'expire'])
@@ -782,9 +783,10 @@ class GlobalMonitoringController extends Controller
             });
 
         return [
-            'silver'   => (clone $escorts)->whereIn('membership', ['3'])->count() ?? 0,
-            'gold'     => (clone $escorts)->whereIn('membership', ['2'])->count() ?? 0,
-            'platinum' => (clone $escorts)->whereIn('membership', ['1'])->count() ?? 0,
+            'silver'   => (clone $escorts)->whereIn('membership', ['3'])->whereDoesntHave('activeSuspendProfile')->count() ?? 0,
+            'gold'     => (clone $escorts)->whereIn('membership', ['2'])->whereDoesntHave('activeSuspendProfile')->count() ?? 0,
+            'platinum' => (clone $escorts)->whereIn('membership', ['1'])->whereDoesntHave('activeSuspendProfile')->count() ?? 0,
+            'current_suspend' => (clone $escorts)->whereHas('activeSuspendProfile')->count(),
             'total' => (clone $escorts)->whereIn('membership', ['1', '2', '3'])->count() ?? 0,
         ];
     }
@@ -824,9 +826,11 @@ class GlobalMonitoringController extends Controller
     {
         //$result = $this->escortListedProfile($id);
 
-        $escort = Escort::where('id', $id)->with(['durations', 'purchase', 'user', 'brb' => function ($query) {
+        $escortProfile = Escort::where('id', $id)->with(['durations', 'purchase', 'user', 'brb' => function ($query) {
             $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
-        }, 'pinup', 'suspendProfile'])->first()->toArray();
+        }, 'pinup', 'suspendProfile'])->first();
+
+    $escort = $escortProfile->toArray();
 
 
         $dataTableData = [];
@@ -877,7 +881,8 @@ class GlobalMonitoringController extends Controller
 
                 $memberId = isset($escort['user']['member_id']) ? $escort['user']['member_id'] : '';
                 $dataTableData = [
-                    'profileurl' => route('profile.description', $escort['id']),
+                    //'profileurl' => route('profile.description', $escort['id']),
+                    'profileurl' => getEscortMassageDetailUrl($escortProfile),
                     'id' => $escort['id'],
                     'member_id' => $memberId,
                     'member' => $escort['name'],

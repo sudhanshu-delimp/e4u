@@ -394,9 +394,6 @@
                             span.footer_text_color_white {
                                 font-size: 13px;
                             }
-                            .grid_list_icon_box {
-                                font-size: 25px !important;
-                            }
                             div#exampleModal .nav-tabs .nav-link {
                                 font-size: 13px;
                                 padding: 0px 5px;
@@ -474,6 +471,12 @@
                             .tip .trikon_style .pinup-icon {
                                 width: 15px;
                                 height: 15px;
+                            }
+                            .ec_card_conatiner {
+                                display: grid;
+                                grid-template-columns: 1fr;
+                                gap: 25px;
+                                justify-content: start;
                             }
                         }
                         

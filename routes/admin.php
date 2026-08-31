@@ -49,6 +49,7 @@ use App\Http\Controllers\Admin\ImpersonateController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Escort\Concierge\ProductController;
 use App\Http\Controllers\Admin\AgentMonthlyReportController;
+use App\Http\Controllers\Admin\VisaMigrationRequestController;
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
@@ -426,7 +427,8 @@ Route::get('reports/advertiser-suspensions', [ReportAdvertiserSuspensionContolle
 Route::get('reports/advertiser-suspensions-list-ajax/{advertiserType}', [ReportAdvertiserSuspensionContoller::class, 'advertiserSuspensionDataTableListingAjax'])->name('admin.advertiser-suspensions-list-ajax');
 Route::get('reports/e4u-suspensions', [ReportAdvertiserSuspensionContoller::class, 'suspendedByAdmin'])->name('admin.e4u-advertiser-suspension');
 Route::get('reports/admin-suspensions-list-ajax/{advertiserType}', [ReportAdvertiserSuspensionContoller::class, 'adminSuspensionDataTableListingAjax'])->name('admin.admin-suspensions-list-ajax');
-
+Route::get('reports/advertiser-cancellations', [ReportAdvertiserSuspensionContoller::class, 'cancelledByAdvertiser'])->name('admin.advertiser-cancellations');
+Route::get('reports/advertiser-cancellation-list-ajax/{advertiserType}', [ReportAdvertiserSuspensionContoller::class, 'advertiserCancellationDataTableListingAjax'])->name('admin.advertiser-cancellation-list-ajax');
 
 Route::get('admin/dataTable', [AgentRequestController::class, 'dataTable'])->name('admin.dataTable');
 Route::post('send-notiification', [NotificationController::class, 'sendNotification'])->name('admin.send-notiification');
@@ -759,9 +761,12 @@ Route::prefix('reports')->name('admin.')->group(function () {
   Route::post('/order-complete', [ProductOrderController::class, 'orderComplete'])->name('escort.order.complete');
   Route::get('/order-details', [ProductOrderController::class, 'getOrderDetails'])->name('escort.order.details');
 });
-Route::get('/Concierge/visa-migration-request', function () {
-  return view('admin.Concierge.visa-migration-request');
-})->name('visa-migration-request');
+
+Route::get('/concierge/visa-migration-request', [VisaMigrationRequestController::class, 'index'])->name('admin.visa.migration.index');
+Route::get('/concierge/visa-migration-request/lists', [VisaMigrationRequestController::class, 'lists'])->name('admin.visa.migration.lists');
+Route::post('/concierge/visa-migration-request/update/status', [VisaMigrationRequestController::class, 'updateStatus'])->name('admin.visa.migration.update.status');
+
+
 
 Route::get('/reporting/email-request', function () {
   return view('admin.reporting.email-request');

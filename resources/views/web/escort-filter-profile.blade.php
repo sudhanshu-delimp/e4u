@@ -215,9 +215,19 @@
 
             </div>
 
-            <div class="no--listing" style="display:none;">
-                <p><i>There are no listings for your search criteria.</i></p>
-            </div>
+           <div class="no--listing">
+                        <div class="no-listing-icon">
+                            <img src="{{ asset('assets/app/img/no-results.png') }}" alt="">
+                        </div>
+
+                        <div class="no-listing-content">
+                            <h3>No Listings Found</h3>
+                            <p>
+                                We couldn't find any listings matching your search criteria.
+                                Try adjusting your filters or search options.
+                            </p>                            
+                        </div>
+                    </div>
 
         </div>
 
@@ -415,6 +425,7 @@
         const escortRouteGenders = @json(config('escorts.gender'));
 
         const escortBaseUrl = "{{config('constants.escort_list_base_slug')}}";
+        let preserveInitialLocationUrl = true;
 
         function getEscortRouteMemberId(selectedCity, genderId) {
             const segments = window.location.pathname.split('/').filter(Boolean);
@@ -432,7 +443,7 @@
                 return null;
             }
 
-            if (selectedGender && currentGender !== selectedGender.toLowerCase().replace(/\s+/g, '%20')) {
+            if (selectedGender && currentGender !== selectedGender.toLowerCase().replace(/\s+/g, '_')) {
                 return null;
             }
 
@@ -440,10 +451,13 @@
         }
 
         function getEscortListingPath() {
+            const segments = window.location.pathname.split('/').filter(Boolean);
             const cityId = String($('#escort_city').val() || '');
             const genderId = String($('#escort_gender').val() || '');
             const pathSegments = [escortBaseUrl];
             let selectedCity = null;
+            const currentCountry = (segments[1] || '').toLowerCase();
+            const currentState = (segments[2] || '').toLowerCase();
 
             Object.values(escortRouteStates).some(function(state) {
                 return Object.entries(state.cities || {}).some(function([id, city]) {
@@ -458,23 +472,33 @@
                     return false;
                 });
             });
-
+           
             if (selectedCity) {
                 pathSegments.push('australia');
                 pathSegments.push(selectedCity.state, selectedCity.city);
 
                 const genderSlug = escortRouteGenders[genderId];
+
                 if (genderSlug) {
-                    pathSegments.push(genderSlug.toLowerCase().replace(/\s+/g, '%20'));
+                    pathSegments.push(genderSlug.toLowerCase().replace(/\s+/g, '_'));
                 }
 
                 const memberId = getEscortRouteMemberId(selectedCity, genderId);
                 if (memberId) {
                     pathSegments.push(memberId);
                 }
+
             } else if (escortRouteGenders[genderId]) {
                 pathSegments.push('australia');
-                pathSegments.push(escortRouteGenders[genderId].toLowerCase().replace(/\s+/g, '%20'));
+                pathSegments.push(escortRouteGenders[genderId].toLowerCase().replace(/\s+/g, '_'));
+            } else if (preserveInitialLocationUrl && currentCountry === 'australia') {
+                pathSegments.push('australia');
+                if (currentState &&
+                    Object.values(escortRouteStates).some(function(state) {
+                        return state.stateAbbr.toLowerCase() === currentState;
+                    })) {
+                    pathSegments.push(currentState);
+                }
             }
 
             return '/' + pathSegments.join('/');
@@ -572,6 +596,7 @@
         //reset the filter
         $(document).on('click', '.reset_form_filter', async function(e) {
             e.preventDefault();
+            preserveInitialLocationUrl = false;
             let locByRad = $('input[name="locationByRadio"]:checked').val();
             let letVal = $('#set_lat').val();
             let lngVal = $('#set_lng').val();
@@ -789,6 +814,7 @@
         // filter data for use search by member id or name
         $(document).on('click', '.searchEscort', function(e) {
             e.preventDefault();
+            preserveInitialLocationUrl = false;
             // let checkRadioVal = $('#search_by_radio').val();
             // const radioValue = checkRadioVal == 'australia' ? 0 : 1;
 
@@ -809,6 +835,7 @@
 
         $(document).on('click', '#applayFilter', function(e) {
             e.preventDefault();
+            preserveInitialLocationUrl = false;
             Object.assign(escortRequest, {
                 page: 1
             });
@@ -835,6 +862,7 @@
 
         $(document).on('change', '#limit', function(e) {
              e.preventDefault();
+            preserveInitialLocationUrl = false;
             let limitVal = $(this).val();
 
             escortRequest.page = 1;
