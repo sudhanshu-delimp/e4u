@@ -7598,7 +7598,7 @@ table {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    background: var(--blue--text);
+    background: #fff1f4;
     z-index: 10;
     width: 100px;
     padding: 5px;
@@ -7619,7 +7619,6 @@ table {
     height: 100%;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
-    margin-bottom: 10px;
     grid-column: 2 / 4;
     grid-row: 1;
 }
@@ -7658,14 +7657,8 @@ table {
 
 .m_wishlist,
 .m_removelist {
-    background-color: var(--peach);
     border-radius: var(--radius-sm);
     padding: 10px !important;
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    font-weight: 400;
-    font-size: 14px;
 }
 
 .mc_tab_header .nav-tabs .nav-link {
@@ -7734,7 +7727,7 @@ table {
     justify-content: flex-start;
     align-items: center;
     gap: 10px;
-    padding: 10px 10px 0px;
+    padding: 10px;
     border-top: 1px solid var(--border-color);
 }
 

@@ -2464,13 +2464,13 @@ if (!function_exists('update_profile_massure')) {
                 break;
 
             case 1:
-                $icon  = asset('assets/app/img/verify/verified-lg.png');
+                $icon  = asset('assets/app/img/verify/e4u_verified.png');
                 $label = 'Media Verified';
                 break;
 
             case 2:
             default:
-                $icon  = asset('assets/app/img/verify/unverified-lg.png');
+                $icon  = asset('assets/app/img/verify/unverified_dark.png');
                 $label = 'Media Unverified';
                 break;
         }
