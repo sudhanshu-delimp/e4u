@@ -108,7 +108,7 @@ class MassageProfileActionController extends BaseController
             }
 
             $existSuspendedDate = $massageProfile->suspendProfile()
-                                                ->where(['is_cancelled'=>'1','is_archived'=>'0'])
+                                                ->where(['purchase_id'=>$massageProfile->purchase_id,'massage_profile_id' => $massageProfile->id])
                                                 ->overlapping($startDate, $endDate)
                                                 ->exists();
             if ($existSuspendedDate) {
@@ -130,14 +130,28 @@ class MassageProfileActionController extends BaseController
 
     function suspendProfile(Request $request)
     {
+       
         $user = auth()->user();
         $massageProfile = getMassageDetail($request->suspend_profile_id);
         $escortTimezone = $massageProfile->time_zone;
         $requestStartDate = Carbon::parse($request->start_date)->startOfDay();
         $requestEndDate = Carbon::parse($request->end_date)->endOfDay();
 
+        if(!$massageProfile || $massageProfile->purchase_id)
+        {
+             $response = [
+                'success' => false,
+                'suspend' => '',
+                'message' => 'Profile not suspended!',
+                'suspended_at' => '',
+                'profile_id' => '',
+            ];
+        }
+
+        
+
         # If suspended periods already exists then add future date
-        $existSuspendedDate = $massageProfile->suspendProfile()->where(['is_cancelled'=>'1','is_archived'=>'0'])->overlapping($request->start_date, $request->end_date)->exists();
+        $existSuspendedDate = $massageProfile->suspendProfile()->where(['purchase_id'=>$massageProfile->purchase_id,'massage_profile_id' => $massageProfile->id])->overlapping($request->start_date, $request->end_date)->exists();
 
         if ($existSuspendedDate) {
             return response()->json([
@@ -164,7 +178,7 @@ class MassageProfileActionController extends BaseController
         $suspendProfile = MassageSuspendProfile::create(
             [
                 'massage_profile_id' => $request->suspend_profile_id,
-                'is_cancelled' => '1',
+                'purchase_id' => $massageProfile->purchase_id,
                 'user_id' => $user->id,
                 'start_date' => Carbon::parse($request->start_date),
                 'utc_start_date' => $utcStart,

@@ -39,10 +39,18 @@ class MassagePurchase extends Model
 
     public function activeSuspendProfile()
     {
+        // $now = Carbon::now('UTC');
+        // return $this->hasMany(MassageSuspendProfile::class, 'massage_profile_id', 'massage_profile_id')
+        //     ->where('utc_start_date', '<=', $now)
+        //     ->where('utc_end_date', '>=', $now);
+
+
         $now = Carbon::now('UTC');
-        return $this->hasMany(MassageSuspendProfile::class, 'massage_profile_id', 'massage_profile_id')
-            ->where('utc_start_date', '<=', $now)
-            ->where('utc_end_date', '>=', $now);
+        return $this->hasMany(MassageSuspendProfile::class, 'purchase_id', 'id')
+        ->whereColumn('massage_suspend_profiles.massage_profile_id', 'massage_purchases.massage_profile_id')
+        ->where('utc_start_date', '<=', $now)
+        ->where('utc_end_date', '>=', $now);
+
     }
 
     public function user()
@@ -67,9 +75,8 @@ class MassagePurchase extends Model
 
     public function activeUpcomingSuspend()
     {
-        return $this->hasOne(MassageSuspendProfile::class, 'massage_profile_id', 'massage_profile_id')
-            ->where('is_cancelled', '=', '1')
-            ->where('is_archived', '=', '0')
+        return $this->hasOne(MassageSuspendProfile::class, 'purchase_id', 'id')
+            //->whereColumn('massage_suspend_profiles.massage_profile_id', 'massage_purchases.massage_profile_id')
             ->where('utc_end_date', '>=', Carbon::now('UTC'))
             ->oldestOfMany('utc_start_date');
     }
