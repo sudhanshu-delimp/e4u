@@ -36,7 +36,6 @@ class MassagePurchase extends Model
         'updated_by'
     ];
 
-
     public function activeSuspendProfile()
     {
         // $now = Carbon::now('UTC');
@@ -47,10 +46,16 @@ class MassagePurchase extends Model
 
         $now = Carbon::now('UTC');
         return $this->hasMany(MassageSuspendProfile::class, 'purchase_id', 'id')
-        ->whereColumn('massage_suspend_profiles.massage_profile_id', 'massage_purchases.massage_profile_id')
-        ->where('utc_start_date', '<=', $now)
-        ->where('utc_end_date', '>=', $now);
+            //->whereColumn('massage_suspend_profiles.massage_profile_id', 'massage_purchases.massage_profile_id')
+            ->where('utc_start_date', '<=', $now)
+            ->where('utc_end_date', '>=', $now);
+    }
 
+    public function activeSuspendProfileV2()
+    {
+        return $this->hasMany(MassageSuspendProfile::class, 'purchase_id')
+            ->where('utc_start_date', '<=', Carbon::now('UTC'))
+            ->where('utc_end_date', '>=', Carbon::now('UTC'));
     }
 
     public function user()
