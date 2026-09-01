@@ -16,7 +16,7 @@ class VisaMigrationService
   {
     try {
 
-      Mail::to(Auth::user()->email)->send(new VisaMigrationRequestMail($mailData));
+      // Mail::to(Auth::user()->email)->send(new VisaMigrationRequestMail($mailData));
       $contactPreferences = json_decode($visaMigration->contact_preference, true) ?? [];
 
       $preferredContactMethod = collect($contactPreferences)
@@ -39,10 +39,10 @@ class VisaMigrationService
       // $peamsMail = "ashish.kumar+56@delimp.com";
       $peamsMail = config("app.peams_mail");
 
-      $e4uEmail = config('app.e4u_mail');
+      $e4uEmail = config('app.e4u_mail') ? [config('app.e4u_mail')] : [];
       // $e4uEmail = "ashish.kumar@delimp.com";
 
-      Mail::to($peamsMail)->cc([$e4uEmail])->send(new VisaMigrationMailToPeams($mailData));
+      Mail::to($peamsMail)->cc($e4uEmail)->send(new VisaMigrationMailToPeams($mailData));
       return true;
     } catch (Exception $e) {
       Log::info("visa migration service " . $e->getMessage());
