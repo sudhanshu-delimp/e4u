@@ -39,15 +39,15 @@ class FeesSummeryController extends Controller
     $fy = $request->get('fee_summery_advertiser_fy') ?? $this->feeService->currentFYLabel();
     $displayType =  $request->get('display_type') ?? 'member_id';
   
-    // $feeSummery = $this->feeService->getSummeryData(
-    //   requestedFY: $fy,
-    //   displayType: $displayType
-    // );
+    $feeSummery = $this->feeService->getSummeryData(
+      requestedFY: $fy,
+      displayType: $displayType
+    );
 
-        $feeSummery = $this->feeSummary->getSummaryData(
-          $request->get('fee_summery_advertiser_fy'),
-          $request->get('display_type', 'member_id')
-      );
+      //   $feeSummery = $this->feeSummary->getSummaryData(
+      //     $request->get('fee_summery_advertiser_fy'),
+      //     $request->get('display_type', 'member_id')
+      // );
 
 
 
