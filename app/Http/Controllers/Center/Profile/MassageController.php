@@ -15,6 +15,7 @@ use App\Http\Requests\MassageProfile\PurchaseListingRequest;
 use App\Http\Requests\MassageProfile\StoreMasssageMediaRequest;
 use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
 use App\Http\Requests\UpdateEscortRequest;
+use App\Mail\MessageCentr\MassageProfileCancellationEmail;
 use App\Models\AgentCommission;
 use App\Models\Duration;
 use App\Models\EscortCovidReport;
@@ -60,6 +61,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -1172,7 +1174,24 @@ class MassageController extends Controller
                 }
                             
                $mess = "Your profile has been successfully cancelled, and a total refund of $" . number_format($totalRefundAmountWithGst, 2) . " has been added to your wallet.";
-            }
+            
+                $data = [
+                    'user' => $user,
+                    'massageProfile' => $massage,
+                    'refundAmount' => $totalRefundAmountWithGst,
+                ];
+
+                try 
+                {
+                    Mail::to($user->email)->send(
+                        new MassageProfileCancellationEmail($data)
+                    );
+                }  
+                catch (Exception $e) {
+                    Log::info($e->getMessage());
+                }
+            
+           }
             ########## End Cancel Profile ###############
 
             ########## Delete Profile ###################
