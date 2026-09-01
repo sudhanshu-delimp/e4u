@@ -40,17 +40,12 @@ class VisaMigrationRequestController extends Controller
       ->filterColumn('origin', function ($query, $keyword) {
         $query->where('origin', 'like', "%{$keyword}%");
       })
-      ->editColumn('business_name', function ($row) {
-        return $row->business_name ?? '-';
-      })
       ->addColumn('name', function ($row) {
-        return $row->user ? $row->first_name . " " . $row->last_name : '-';
+        return $row->business_name ? $row->business_name : $row->first_name . " " . $row->last_name;
       })
       ->editColumn('contact_preference', function ($row) {
         return   collect(json_decode($row->contact_preference, true) ?? [])->map(fn($method) => ucfirst($method))->implode(' and ');
       })
-
-
       ->addColumn('order_date', function ($row) {
         return $row->created_at ? date('d-m-Y', strtotime($row->created_at)) : '--';
       })

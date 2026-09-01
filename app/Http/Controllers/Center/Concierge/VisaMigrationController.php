@@ -1,26 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Escort\Concierge;
+namespace App\Http\Controllers\Center\Concierge;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\VisaMigrationMcRequest;
 use App\Http\Requests\VisaMigrationRequest;
-use App\Mail\Escort\VisaMigrationMailToPeams;
-use App\Mail\Escort\VisaMigrationRequestMail;
 use App\Models\VisaMigration;
 use App\Services\VisaMigrationService;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 
 class VisaMigrationController extends Controller
 {
   public function index()
   {
-    return view('escort.dashboard.Concierge.visa-migration');
+    return view('center.dashboard.Concierge.visa');
   }
-  public function store(VisaMigrationRequest $request, VisaMigrationService $visaMigrationService)
+  public function store(VisaMigrationMcRequest  $request, VisaMigrationService $visaMigrationService)
   {
     try {
 
@@ -33,7 +30,8 @@ class VisaMigrationController extends Controller
       $mailData['member_id'] = Auth::user()->member_id;
 
       $mailData['member_name'] = Auth::user()->name;
-      $mailData['console'] = "EC";
+      $mailData['console'] = "MC";
+
       if ($created) {
         $response =   $visaMigrationService->sendEmailToPeams($created, $mailData);
         if ($response) {
