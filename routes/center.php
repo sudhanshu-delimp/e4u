@@ -26,6 +26,7 @@ use App\Http\Controllers\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Center\CenterReviewsController;
+use App\Http\Controllers\Center\Concierge\VisaMigrationController;
 use App\Http\Controllers\Center\MassageCenterDashboardController;
 use App\Http\Controllers\Center\WalletController;
 use App\Http\Controllers\Escort\Concierge\ProductController;
@@ -517,9 +518,10 @@ Route::get('travel', function () {
 })->name('center.travel');
 
 
-Route::get('visa', function () {
-  return view('center.dashboard.Concierge.visa');
-})->name('center.visa');
+ 
+Route::get('visa', [VisaMigrationController::class, 'index'])->name('visa.migration');
+Route::post('/visa-migration-request', [VisaMigrationController::class, 'store'])->name('visa.migration.store');
+
 
 Route::get('profiles', function () {
   return view('center.dashboard.Annalytics.profiles');

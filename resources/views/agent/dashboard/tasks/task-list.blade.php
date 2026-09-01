@@ -65,7 +65,9 @@
                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         
                         <ol>
-
+                            <li>Use this feature to record tasks that you need to perform.  It serves as a basic reminder service for you, like for example, if you are intending to meet with a Massage Centre, and you need to prepare any materials before meeting with them, create a Task to remind yourself.</li>
+                            <li>Select the Action feature to Edit or View your Task.</li>
+                            <li>Tasks will always be listed according to the priority you have set for the Task.</li>
                         </ol>
                     </div>
                 </div>

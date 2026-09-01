@@ -207,13 +207,13 @@
 
                             <a href="{{ url('parent-control') }} ">Parent Control</a>
                         </div>
-                        <div class="rta_logo">
-                            <img src="{{ asset('assets/app/img/rta-logo.png') }}" alt="RESTRICTED TO ADULTS">
-                        </div>
                     </div>
                 </div>
 
                 <div class="col-lg-4 delimp_copyright order-last order-md-0">
+                    <span class="rta_logo">
+                        <img src="{{ asset('assets/app/img/rta-logo.png') }}" alt="RESTRICTED TO ADULTS">
+                    </span>
                     <span><img
                             src="{{ asset('assets/app/img/delimp-technology.png') }}"
                             alt="Delimp Technology Pvt. Ltd."> Built by <a href="https://delimp.com/" target="_blank">
@@ -223,7 +223,7 @@
 
                     <div class="footer-social">
                         <span class="last-revision mr-3">
-                            Last Revision: 1 June 2025
+                            Last Revision: 1 August 2026
                         </span>
                         <span class="cptby">Follow Us : </span>
                         <span class="social-icons">

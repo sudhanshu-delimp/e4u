@@ -162,7 +162,11 @@
                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         
                         <ol>
-
+                            <li>Use this feature to create appointments with your potential new Advertiser or any subsequent appointment with your Advertiser.</li>
+                            <li>Select the New Appointment button to add a new appointment to your Planner.</li>
+                            <li>Select the Action feature to Edit, View, reschedule of close off your appointment.</li>
+                            <li>Select the View Planner button to view all of your appointments.</li>
+                            <li>Appointments will always be listed according to the priority you have set for the appointment.</li>
                         </ol>
                     </div>
                 </div>

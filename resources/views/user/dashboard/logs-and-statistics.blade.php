@@ -25,7 +25,8 @@
                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         
                         <ol>
-                            <li>You can change your Password settings here. You will be notified by your preferred
+                            <li>You can change your Password settings here.</li>
+                            <li>You will be notified by your preferred
                                 method when your Password is due to expire.</li>
                         </ol>
                     </div>

@@ -174,7 +174,8 @@ body {
 }
 
 .rta_logo {
-    width: 70px;
+    width: 100px;
+    display: inline-block;
 }
 
 .rta_logo img {
