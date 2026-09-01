@@ -59,7 +59,7 @@
                         </div>
                     </div>
                 </div>
-                <form id="assistanceRequestForm">
+                <form id="assistanceRequestFormEscort">
                     @csrf
 
                     <div class="row">
@@ -335,12 +335,11 @@
     <!-- file upload plugin start here -->
     <!-- file upload plugin end here -->
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
     <script type="text/javascript">
       
        
-        $("#assistanceRequestForm").on("submit", function(e) {
+        $("#assistanceRequestFormEscort").on("submit", function(e) {
             e.preventDefault();
             let form = this;
             let submitButton = $("#submitAssistanceRequest");
@@ -348,9 +347,8 @@
             // Clear previous errors
             $(".error-text").text("");
             submitButton.prop("disabled", true).text("Sending...");
-
             $.ajax({
-                url: "{{ route('visa.migration.store') }}",
+                url: "{{ route('visa.migration.store.escort') }}",
                 type: "POST",
                 data: $(form).serialize(),
                 success: function(response) {
