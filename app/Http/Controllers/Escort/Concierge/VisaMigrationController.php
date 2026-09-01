@@ -34,6 +34,7 @@ class VisaMigrationController extends Controller
 
       $mailData['member_name'] = Auth::user()->name;
       $mailData['console'] = "EC";
+      
       if ($created) {
         $response =   $visaMigrationService->sendEmailToPeams($created, $mailData);
         if ($response) {
@@ -45,20 +46,15 @@ class VisaMigrationController extends Controller
           return response()->json([
             'status' => false,
             'message' => 'Unable to send the email to PEAMS & E4U. Please check the recipient email addresses and try again.',
-          ], 422);
+          ], 419);
         }
       }
     } catch (\Exception $th) {
 
-      Log::error('Visa Migration Request Error', [
-        'message' => $th->getMessage(),
-        'trace' => $th->getTraceAsString(),
-      ]);
-
       return response()->json([
         'status' => false,
-        'message' => 'Something went wrong while submitting your request. Please try again.',
-      ], 422);
+        'message' => $th->getMessage(),
+      ], 419);
     }
   }
 }
