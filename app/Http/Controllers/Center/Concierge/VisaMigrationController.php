@@ -38,12 +38,12 @@ class VisaMigrationController extends Controller
           return response()->json([
             'status' => true,
             'message' => 'Your request has been submitted successfully.',
-          ], 201);
+          ], 200);
         } else {
           return response()->json([
             'status' => false,
-            'message' => 'Something went wrong while sending mail to peams & e4u. Please try again.',
-          ], 201);
+            'message' => 'Unable to send the email to PEAMS & E4U. Please check the recipient email addresses and try again.',
+          ], 422);
         }
       }
     } catch (\Exception $th) {
@@ -56,7 +56,7 @@ class VisaMigrationController extends Controller
       return response()->json([
         'status' => false,
         'message' => 'Something went wrong while submitting your request. Please try again.',
-      ], 500);
+      ], 422);
     }
   }
 }

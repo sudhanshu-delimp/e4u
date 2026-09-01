@@ -356,6 +356,7 @@
                             $("." + errorField + "_error").text(messages[0]);
                         });
                     } else {
+                    alert('fpumd error');
                         Swal.fire({
                             icon: "error",
                             title: "Error",
