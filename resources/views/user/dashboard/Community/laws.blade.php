@@ -37,6 +37,7 @@
                                     <li>The following table is a list of all of the legislation that applies to your Location.</li>
                                     <li>To view the law, click the link and the legislation will open in a new tab for you to
                                         browse.</li>
+                                        <li>Local Laws published in the relevant jurisdiction as at 1st January 2024.</li>
                                 </ol>
                             </div>
                         </div>
@@ -112,15 +113,7 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <p class="pt-5"><b>NOTE:</b> </p>
-                                    <ol>
-                                        <li class="">Local Laws published in the relevant jurisdiction as at 1st January 2024.</li>
-                                    </ol>
-                                    </div>
-                                    <div class="mt-5">
-                                        <b>Changes to this Guide</b><br>
-                                        <span>This Guide was last updated on 02-2024.</span>
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>

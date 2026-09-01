@@ -59,7 +59,7 @@
                         </div>
                     </div>
                 </div>
-                <form id="assistanceRequestForm">
+                <form id="assistanceRequestFormEscort">
                     @csrf
 
                     <div class="row">
@@ -336,168 +336,11 @@
     <!-- file upload plugin start here -->
     <!-- file upload plugin end here -->
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
     <script type="text/javascript">
-        // $('#userProfile').parsley({
-
-        // });
-
-
-
-        // $('#userProfile').on('submit', function(e) {
-        //     e.preventDefault();
-
-        //     var form = $(this);
-
-        //     if (form.parsley().isValid()) {
-
-        //         var url = form.attr('action');
-        //         var data = new FormData(form[0]);
-        //         $.ajax({
-        //             method: form.attr('method'),
-        //             url: url,
-        //             data: data,
-        //             contentType: false,
-        //             processData: false,
-        //             headers: {
-        //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //             },
-        //             success: function(data) {
-        //                 if (!data.error) {
-        //                     $.toast({
-        //                         heading: 'Success',
-        //                         text: 'Details successfully saved',
-        //                         icon: 'success',
-        //                         loader: true,
-        //                         position: 'top-right', // Change it to false to disable loader
-        //                         loaderBg: '#9EC600' // To change the background
-        //                     });
-
-        //                 } else {
-        //                     $.toast({
-        //                         heading: 'Error',
-        //                         text: 'Records Not update',
-        //                         icon: 'error',
-        //                         loader: true,
-        //                         position: 'top-right', // Change it to false to disable loader
-        //                         loaderBg: '#9EC600' // To change the background
-        //                     });
-
-        //                 }
-        //             },
-
-        //         });
-        //     }
-        // });
-        $('#city').select2({
-            allowClear: true,
-            placeholder: 'Select City',
-            createTag: function(params) {
-                var term = $.trim(params.term);
-
-                if (term === '') {
-                    return null;
-                }
-                return {
-                    id: term,
-                    text: term,
-                    newTag: false // add additional parameters
-                }
-            },
-            tags: false,
-            minimumInputLength: 2,
-            tokenSeparators: [','],
-            ajax: {
-                url: "{{ route('city.list') }}",
-                dataType: "json",
-                type: "GET",
-                data: function(params) {
-                    console.log(params);
-                    var queryParameters = {
-                        query: params.term,
-                        state_id: $('#state').val()
-                    }
-                    return queryParameters;
-                },
-                processResults: function(data) {
-                    return {
-                        results: $.map(data, function(item) {
-
-                            return {
-                                text: item.name,
-                                id: item.id
-                            }
-                        })
-                    };
-                }
-            }
-        });
-
-        $('#state').select2({
-            allowClear: true,
-            placeholder: 'Select State',
-            createTag: function(params) {
-                var term = $.trim(params.term);
-
-                if (term === '') {
-                    return null;
-                }
-                return {
-                    id: term,
-                    text: term,
-                    newTag: false // add additional parameters
-                }
-            },
-            tags: false,
-            minimumInputLength: 2,
-            tokenSeparators: [','],
-            ajax: {
-                url: "{{ route('state.list') }}",
-                dataType: "json",
-                type: "GET",
-                data: function(params) {
-                    console.log(params);
-                    var queryParameters = {
-                        query: params.term,
-                        country_id: $('#country').val()
-                    }
-                    return queryParameters;
-                },
-                processResults: function(data) {
-                    return {
-                        results: $.map(data, function(item) {
-
-                            return {
-                                text: item.name,
-                                id: item.id
-                            }
-                        })
-                    };
-                }
-            }
-        });
-
-
-        $('#country').on('change', function(e) {
-            if ($(this).val()) {
-                $('#state').prop('disabled', false);
-                $('#state').select2('open');
-            } else {
-                $('#state').prop('disabled', true);
-            }
-        });
-
-        $('#state').on('change', function(e) {
-            if ($(this).val()) {
-                $('#city').prop('disabled', false);
-                $('#city').select2('open');
-            } else {
-                $('#city').prop('disabled', true);
-            }
-        });
-
-        $("#assistanceRequestForm").on("submit", function(e) {
+      
+       
+        $("#assistanceRequestFormEscort").on("submit", function(e) {
             e.preventDefault();
             let form = this;
             let submitButton = $("#submitAssistanceRequest");
@@ -505,9 +348,8 @@
             // Clear previous errors
             $(".error-text").text("");
             submitButton.prop("disabled", true).text("Sending...");
-
             $.ajax({
-                url: "{{ route('visa.migration.store') }}",
+                url: "{{ route('visa.migration.store.escort') }}",
                 type: "POST",
                 data: $(form).serialize(),
                 success: function(response) {
@@ -517,6 +359,7 @@
                     }
                 },
                 error: function(xhr) {
+                    const messageResponse = JSON.parse(xhr.responseText);
                     if (xhr.status === 422) {
                         let response = JSON.parse(xhr.responseText);
                         let errors = response.errors;
@@ -528,7 +371,7 @@
                         Swal.fire({
                             icon: "error",
                             title: "Error",
-                            text: "Something went wrong. Please try again."
+                            text: messageResponse.message
                         });
                     }
                 },

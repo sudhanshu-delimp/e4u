@@ -233,8 +233,13 @@
                                     </div>
 
                                 </div>
-                                <hr>
-                                <small class="text-muted">Select one of the above options to rate the escort.</small>
+                               <hr style="background-color: #0C223D" />
+                            </div>
+                            <div class="col-lg-12">
+                                <p class="mb-1"><b>Notes:</b></p>
+                                <ol class="pl-4 text-justify">
+                                <li>Select one of the above options to rate the Escort.</li>
+                                </ol>
                             </div>
                         </div>
 
@@ -308,10 +313,15 @@
                                         <label class="form-check-label" for="massage_rate_great">Great</label>
                                     </div>
 
-                                </div>
-                                <hr>
-                                <small class="text-muted">Select one of the above options to rate the massage
-                                    center.</small>
+                                </div>                                
+                               <hr style="background-color: #0C223D" />
+                            </div>
+                            <div class="col-lg-12">
+                                <p class="mb-1"><b>Notes:</b></p>
+                                <ol class="pl-4 text-justify">
+                                <li>Select one of the above options to rate the Massage
+                                    Center.</li>
+                                </ol>
                             </div>
                         </div>
 
@@ -813,7 +823,7 @@
                         if (response.type == 'rate') {
                             $('#rateEscortModal').modal('hide');
                             $(".modal_title_span").text('Escort Rating');
-                            let message = 'Rating successfully added for this escort';
+                            let message = 'Rating successfully added for this Escort';
                             $(".body_text").text(message);
                         }
 
