@@ -32,9 +32,9 @@ class VisaMigrationController extends Controller
       $mailData['ref'] = $created->id;
       $mailData['member_id'] = Auth::user()->member_id;
 
-      $mailData['member_name'] = Auth::user()->name;
+      $mailData['member_name'] = !empty($created->first_name) ? $created->first_name . " " . $created->last_name : Auth::user()->name;
       $mailData['console'] = "EC";
-      
+
       if ($created) {
         $response =   $visaMigrationService->sendEmailToPeams($created, $mailData);
         if ($response) {
