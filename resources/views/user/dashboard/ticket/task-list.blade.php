@@ -71,9 +71,10 @@
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
                        <h3 class="NotesHeader"><b>Notes:</b></h3>
-
                         <ol>
-
+                            <li>Use this feature to record tasks that you need to perform.  It serves as a basic reminder service for you, like for example, if you are intending to meet with an Escort or Massage Centre, or for any other task that comes to your attention.</li>
+                            <li>Select the Action feature to Edit or View your Task.</li>
+                            <li>Tasks will always be listed according to the priority you have set for the Task.</li>
                         </ol>
                     </div>
                 </div>
