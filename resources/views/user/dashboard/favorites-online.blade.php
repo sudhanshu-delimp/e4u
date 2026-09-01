@@ -65,7 +65,7 @@
 
                 </td>
                 <td class="font-weight-bold">Total Legbox</td>
-                <td class="text-center font-weight-bold">{{$result['total_legbox']}}</td>
+                <td class="text-center font-weight-bold">{{$result['total_legbox_count'] ?? 0}}</td>
                 </tr>
             </tbody>
             </table>
