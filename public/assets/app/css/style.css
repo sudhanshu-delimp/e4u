@@ -5,6 +5,7 @@
         --black-body: #212529;
         --peach: #ff3c5f;
         --blue--text--default: #2B3D50;
+        --off-white: #fff1f4;
         /* status */
         --active--status: rgb(80, 220, 150);
         --inactive--status: rgb(255, 0, 0);
@@ -336,7 +337,7 @@
     
     .public_filter_accordian i {
         color: #ff3c5f;
-        background: #fff1f4;
+        background: var(--off-white);
         width: 25px;
         height: 25px;
         display: flex;
@@ -349,7 +350,7 @@
     .pub_filter_icon {
         width: 35px;
         height: 35px;
-        background: #fff1f4;
+        background: var(--off-white);
         border-radius: 50%;
         display: flex;
         justify-content: center;
@@ -2780,7 +2781,7 @@
         color: var(--peach);
         font-size: 14px;
         position: relative;
-        background-color: #fff1f4;
+        background-color: var(--off-white);
         width: 27px;
         height: 27px;
         align-items: center;
@@ -3530,7 +3531,7 @@ i.fa.fa-heart-o{
     }
     
     .social_media_icons .s_icon {
-        background: #fff1f4;
+        background: var(--off-white);
         width: 35px;
         height: 35px;
         display: flex;
@@ -4004,7 +4005,7 @@ i.fa.fa-heart-o{
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #fff1f4;
+        background: var(--off-white);
         border-radius: 100px;
         padding: 7px;
         height: 35px;
@@ -4417,7 +4418,7 @@ i.fa.fa-heart-o{
     .reshuffle_tag {
         color: #ff3c5f;
         font-size: clamp(12px, 3vw, 14px);
-        background: #fff1f4;
+        background: var(--off-white);
         padding: 2px 5px;
         border-radius: var(--radius-sm);
         font-weight: 500;
@@ -6629,7 +6630,7 @@ i.fa.fa-heart-o{
         object-fit: contain;
         top: 5px;
         right: 5px;
-        background: #fff1f4;
+        background: var(--off-white);
         padding: 3px;
         display: flex;
         justify-content: center;
@@ -6644,17 +6645,21 @@ i.fa.fa-heart-o{
     
     .mc_profile_img .veryfy_img {
         position: absolute;
-        width: 90px;
-        object-fit: contain;
-        bottom: 0px;
-        right: 0px;
-        background: var(--blue--text);
+        bottom: 10px;
+        right: 10px;
+        background: var(--off-white);
+        z-index: 10;
+        width: 100px;
         padding: 5px;
-        border-radius: 0px 0px 10px 0px;
+        cursor: pointer;
+        border-radius: var(--radius-sm) !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
     .mc_profile_img .veryfy_img img {
-        width: 100%;
+        width: 80%;
     }
     
     .massage_type_info {
@@ -6840,7 +6845,7 @@ i.fa.fa-heart-o{
     }
     
     .ec_card_content .items .title {
-        color: #fff1f4;
+        color: var(--off-white);
         font-weight: 500;
     }
     
@@ -6966,7 +6971,7 @@ i.fa.fa-heart-o{
     }
     
     .video_icons {
-        background: #fff1f4;
+        background: var(--off-white);
         height: 25px;
         width: 25px;
         display: flex;
@@ -7147,7 +7152,7 @@ i.fa.fa-heart-o{
     }
     
     .mc_card_content .items .title {
-        color: #fff1f4;
+        color: var(--off-white);
         font-weight: 500;
     }
     
@@ -7230,7 +7235,7 @@ i.fa.fa-heart-o{
         color: var(--peach);
         font-size: 14px;
         position: relative;
-        background-color: #fff1f4;
+        background-color: var(--off-white);
         width: 27px;
         height: 27px;
         align-items: center;
@@ -7242,7 +7247,7 @@ i.fa.fa-heart-o{
     .mc_card_header .verify_icon {
         position: relative;
         cursor: pointer;
-        background-color: #fff1f4;
+        background-color: var(--off-white);
         width: 27px;
         height: 27px;
         border-radius: var(--radius-full);
@@ -7355,7 +7360,7 @@ i.fa.fa-heart-o{
     }
     
     .mc_view_title .icon {
-        background-color: #fff1f4;
+        background-color: var(--off-white);
         padding: 10px;
         width: 45px;
         height: 45px;
@@ -7402,11 +7407,14 @@ i.fa.fa-heart-o{
         position: absolute;
         bottom: 10px;
         right: 10px;
-        background: #fff1f4;
+        background: var(--off-white);
         z-index: 10;
         width: 100px;
         padding: 5px;
         border-radius: var(--radius-sm);
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
     .open-time-table td {
@@ -7424,7 +7432,7 @@ i.fa.fa-heart-o{
     }
     
     .mc_list_card .verify_icon img {
-        width: 100%;
+        width: 80%;
         height: 100%;
         object-fit: cover;
     }
@@ -7456,7 +7464,7 @@ i.fa.fa-heart-o{
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: #fff1f4;
+        background: var(--off-white);
         border-radius: 10px 10px 0px 0px;
         padding: 5px;
     }
@@ -7646,7 +7654,7 @@ i.fa.fa-heart-o{
         color: var(--peach);
         font-size: 18px;
         position: relative;
-        background-color: #fff1f4;
+        background-color: var(--off-white);
         width: 35px;
         height: 35px;
         align-items: center;
@@ -9475,18 +9483,18 @@ i.fa.fa-heart-o{
     
     .profile_verify_icon .verify_icon {
         position: absolute;
-        bottom: 0px;
-        right: 1px;
-        background: rgb(12, 34, 61);
+        bottom: 10px;
+        right: 10px;
+        background: var(--off-white);
         z-index: 10;
-        width: 90px;
-        height: 37px;
+        width: 100px;
         padding: 5px;
         cursor: pointer;
+        border-radius: var(--radius-sm);
     }
     
     .profile_verify_icon .verify_icon img {
-        width: 100%;
+        width: 80%;
     }
     
     .common_shield_tooltip {
@@ -10630,7 +10638,7 @@ i.fa.fa-heart-o{
     .vrf-tooltip-wrap {
         position: relative;
         cursor: pointer;
-        background-color: #fff1f4;
+        background-color: var(--off-white);
         width: 27px;
         height: 27px;
         border-radius: var(--radius-full);
