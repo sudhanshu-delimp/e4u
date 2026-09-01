@@ -61,7 +61,7 @@
                                     </br>
                                     <p>Do not do stupid things or expect Escorts or especially Masseurs to do so</p>
                                     <p>Always remember:</p>
-                                    <ul style="list-style: unset;">
+                                    <ol class="common_list_design">
                                        <li>If you are not sure what you are doing is right, do not do it</li>
                                        <li>To treat an Escort and Masseur with respect and like fellow human beings (they are
                                           and never forget that)
@@ -74,12 +74,12 @@
                                        <li>What the difference is between an Escort and a Masseur and make sure you
                                           understand that
                                        </li>
-                                    </ul>
+                                    </ol>
                                     <p>Never forget:</p>
-                                    <ul style="list-style: unset;">
+                                    <ol class="common_list_design">
                                        <li>To always be careful and to stay safe</li>
                                        <li>Escorts and Massage Centres can list you in the NUM if you behave inappropriately.</li>
-                                    </ul>
+                                    </ol>
                                  </div>
                               </div>
                            </div>
@@ -256,7 +256,7 @@
                                        going on a date. Here is a list of tips compiled from talking to a number of Escorts and
                                        Massage Centres:
                                     </p>
-                                    <ul style="list-style: unset;">
+                                    <ol class="common_list_design">
                                        <li>Take a shower before the appointment or at the start of the appointment. An Escort
                                           will always offer you the opportunity to shower when you arrive. Showering at the
                                           appointment will install confidence in the Escort that you are clean
@@ -282,7 +282,7 @@
                                           a great way to start or end an appointment. You are visiting what is a place of
                                           residence or work (or both), treat it respectfully
                                        </li>
-                                    </ul>
+                                    </ol>
                                  </div>
                               </div>
                            </div>
@@ -345,7 +345,7 @@
                                     <p>It is important that you maintain your own health. Here are some tips for you:
                                     </p>
                                     <p>Where to look:</p>
-                                    <ul style="list-style: unset;">
+                                    <ol class="common_list_design">
                                        <li>Lift your penis and have a good look around the genital area
                                        </li>
                                        <li>Lift your balls and pull back your foreskin</li>
@@ -354,9 +354,9 @@
                                        </li>
                                        <li>Check around the anal area</li>
                                        <li>Check around the anal area</li>
-                                    </ul>
+                                    </ol>
                                     <p>What to look for:</p>
-                                    <ul style="list-style: unset;">
+                                    <ol class="common_list_design">
                                        <li>Sores, blisters, rashes, and warts</li>
                                        <li>Itching, redness, swollen glands, unpleasant odour</li>
                                        <li>Discharge—if it is milky, thick, yellowish, grayish and/or smelly it could be
@@ -364,7 +364,7 @@
                                        </li>
                                        <li>Crabs—these are brown or white and look like freckles
                                        </li>
-                                    </ul>
+                                    </ol>
                                     <p>Remember, STIs frequently cause no signs or symptoms. Using a condom is essential
                                        when meeting with an Escort, even when there are no visible signs when you have
                                        checked yourself
