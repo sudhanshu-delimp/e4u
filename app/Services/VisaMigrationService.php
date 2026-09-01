@@ -16,7 +16,7 @@ class VisaMigrationService
   {
     try {
 
-      // Mail::to(Auth::user()->email)->send(new VisaMigrationRequestMail($mailData));
+      Mail::to(Auth::user()->email)->send(new VisaMigrationRequestMail($mailData));
       $contactPreferences = json_decode($visaMigration->contact_preference, true) ?? [];
 
       $preferredContactMethod = collect($contactPreferences)
