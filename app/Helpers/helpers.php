@@ -2459,7 +2459,7 @@ if (!function_exists('update_profile_massure')) {
     {
         switch ($status) {
             case 0:
-                $icon  = asset('assets/app/img/verify/pending-lg.png');
+                $icon  = asset('assets/app/img/verify/e4u_pending.png');
                 $label = 'Media Pending';
                 break;
 

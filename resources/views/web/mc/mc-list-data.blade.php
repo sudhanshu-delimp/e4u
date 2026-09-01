@@ -60,43 +60,6 @@
                     <img src="{{ $media_status['icon'] }}" alt="pending">
                     <span class="common_shield_tooltip">{{ $media_status['label'] }}</span>
                 </span>
-                <div class="social_media_icons w-100">
-                    <div class="social_media_wrapper">
-
-
-                        <div class="d-flex justify-content-between gap-10">
-
-                            @if (isset($social_links['facebook']) && $social_links['facebook'] != '')
-                                <div class="s_icon">
-                                    <a href="{{ $social_links['facebook'] }}" target="_blank"><img
-                                            src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/facebook.png"
-                                            alt="logo"></a>
-                                </div>
-                            @endif
-
-                            @if (isset($social_links['insta']) && $social_links['insta'] != '')
-                                <div class="s_icon">
-                                    <a href="{{ $social_links['insta'] }}" target="_blank"><img
-                                            src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/instagram.png"
-                                            alt="logo"></a>
-                                </div>
-                            @endif
-
-
-                            <div class="s_icon">
-                                <a href="{{ $twitter_link }}" target="_blank"><img
-                                        src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png"
-                                        alt="logo"></a>
-                            </div>
-
-
-
-                        </div>
-
-                    </div>
-
-
-                </div>
                 <div class="mc_list_legbox">
 
 
@@ -148,42 +111,52 @@
             <!-- Middle Content -->
             <div class="mc_list_content">
                 <div class="mc_list_content_inner w-100">
-                    
-                   <div class="mc_tab_header">
-                     <ul class="nav nav-tabs" id="profileTabs-{{ $listing->id }}" role="tablist">
 
-                        <li class="nav-item">
-                            <a class="nav-link active" id="profile-details-tab-{{ $listing->id }}" data-toggle="tab"
-                                href="#profile-details-{{ $listing->id }}" role="tab"
-                                aria-controls="profile-details-{{ $listing->id }}" aria-selected="true">
-                                Profile Details
-                            </a>
-                        </li>
+                    <div class="mc_tab_header">
+                        <ul class="nav nav-tabs" id="profileTabs-{{ $listing->id }}" role="tablist">
 
-                        <li class="nav-item">
-                            <a class="nav-link" id="open-times-tab-{{ $listing->id }}" data-toggle="tab"
-                                href="#open-times-{{ $listing->id }}" role="tab"
-                                aria-controls="open-times-{{ $listing->id }}" aria-selected="false">
-                                Open Times
-                            </a>
-                        </li>
-                    </ul>
-                    
+                            <li class="nav-item">
+                                <a class="nav-link active" id="profile-details-tab-{{ $listing->id }}"
+                                    data-toggle="tab" href="#profile-details-{{ $listing->id }}" role="tab"
+                                    aria-controls="profile-details-{{ $listing->id }}" aria-selected="true">
+                                     Profile Details
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" id="open-times-tab-{{ $listing->id }}" data-toggle="tab"
+                                    href="#open-times-{{ $listing->id }}" role="tab"
+                                    aria-controls="open-times-{{ $listing->id }}" aria-selected="false">
+                                    
+                                    Open Times
+                                </a>
+                            </li>
+                        </ul>
+
 
                         @php
                             $inWishlist = in_array($listing->id, session('wishlist', []));
                         @endphp
-                        
+
                         <span class="list_button_wrap" id="list_button_wrap_id{{ $listing->id }}">
                             <button type="button" class="{{ $inWishlist ? 'm_removelist' : 'm_wishlist' }}"
                                 data-id="{{ $listing->id }}">
 
-                               <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#fff" stroke-width="0.168"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M17.75 20.75C17.5974 20.747 17.4487 20.702 17.32 20.62L12 16.91L6.68 20.62C6.56249 20.6915 6.42757 20.7294 6.29 20.7294C6.15243 20.7294 6.01751 20.6915 5.9 20.62C5.78491 20.5607 5.68741 20.4722 5.61722 20.3634C5.54703 20.2546 5.50661 20.1293 5.5 20V6C5.5 5.27065 5.78973 4.57118 6.30546 4.05546C6.82118 3.53973 7.52065 3.25 8.25 3.25H15.75C16.4793 3.25 17.1788 3.53973 17.6945 4.05546C18.2103 4.57118 18.5 5.27065 18.5 6V20C18.5005 20.1362 18.4634 20.2698 18.3929 20.3863C18.3223 20.5027 18.2209 20.5974 18.1 20.66C17.9927 20.7189 17.8724 20.7498 17.75 20.75ZM12 15.25C12.1532 15.2484 12.3033 15.2938 12.43 15.38L17 18.56V6C17 5.66848 16.8683 5.35054 16.6339 5.11612C16.3995 4.8817 16.0815 4.75 15.75 4.75H8.25C7.91848 4.75 7.60054 4.8817 7.36612 5.11612C7.1317 5.35054 7 5.66848 7 6V18.56L11.57 15.38C11.6967 15.2938 11.8468 15.2484 12 15.25Z" fill="#ffffff"></path> </g></svg>
+                                <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg" stroke="#fff" stroke-width="0.168">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path
+                                            d="M17.75 20.75C17.5974 20.747 17.4487 20.702 17.32 20.62L12 16.91L6.68 20.62C6.56249 20.6915 6.42757 20.7294 6.29 20.7294C6.15243 20.7294 6.01751 20.6915 5.9 20.62C5.78491 20.5607 5.68741 20.4722 5.61722 20.3634C5.54703 20.2546 5.50661 20.1293 5.5 20V6C5.5 5.27065 5.78973 4.57118 6.30546 4.05546C6.82118 3.53973 7.52065 3.25 8.25 3.25H15.75C16.4793 3.25 17.1788 3.53973 17.6945 4.05546C18.2103 4.57118 18.5 5.27065 18.5 6V20C18.5005 20.1362 18.4634 20.2698 18.3929 20.3863C18.3223 20.5027 18.2209 20.5974 18.1 20.66C17.9927 20.7189 17.8724 20.7498 17.75 20.75ZM12 15.25C12.1532 15.2484 12.3033 15.2938 12.43 15.38L17 18.56V6C17 5.66848 16.8683 5.35054 16.6339 5.11612C16.3995 4.8817 16.0815 4.75 15.75 4.75H8.25C7.91848 4.75 7.60054 4.8817 7.36612 5.11612C7.1317 5.35054 7 5.66848 7 6V18.56L11.57 15.38C11.6967 15.2938 11.8468 15.2484 12 15.25Z"
+                                            fill="#ffffff"></path>
+                                    </g>
+                                </svg>
                                 {{ $inWishlist ? 'Remove from Shortlist' : 'Add to Shortlist' }}
                             </button>
                         </span>
 
-                   </div>
+                    </div>
 
 
                     <div class="tab-content" id="profileTabsContent-{{ $listing->id }}">
@@ -205,15 +178,55 @@
                                         @endfor)
                                     </span>
                                 </div>
+
+                                <div class="social_media_icons">
+                                    <div class="social_media_wrapper">
+
+
+                                        <div class="d-flex justify-content-between gap-10">
+
+                                            @if (isset($social_links['facebook']) && $social_links['facebook'] != '')
+                                                <div class="s_icon">
+                                                    <a href="{{ $social_links['facebook'] }}" target="_blank"><img
+                                                            src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/facebook.png"
+                                                            alt="logo"></a>
+                                                </div>
+                                            @endif
+
+                                            @if (isset($social_links['insta']) && $social_links['insta'] != '')
+                                                <div class="s_icon">
+                                                    <a href="{{ $social_links['insta'] }}" target="_blank"><img
+                                                            src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/instagram.png"
+                                                            alt="logo"></a>
+                                                </div>
+                                            @endif
+
+
+                                            <div class="s_icon">
+                                                <a href="{{ $twitter_link }}" target="_blank"><img
+                                                        src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png"
+                                                        alt="logo"></a>
+                                            </div>
+
+
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
                             </div>
                             <div class="mc_list_meta">
                                 <div class="services_card">
                                     <spna class="icon">
-                                        <svg fill="#ff3c5f" height="24px" width="24px" version="1.1" id="Layer_1"
-                                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                            viewBox="0 0 512 512" xml:space="preserve" stroke="#ff3c5f">
+                                        <svg fill="#ff3c5f" height="24px" width="24px" version="1.1"
+                                            id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"
+                                            xml:space="preserve" stroke="#ff3c5f">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                stroke-linejoin="round">
                                             </g>
                                             <g id="SVGRepo_iconCarrier">
                                                 <g>
@@ -241,7 +254,8 @@
                                         <svg width="64px" height="64px" viewBox="0 0 512 512"
                                             xmlns="http://www.w3.org/2000/svg" fill="#000000">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                stroke-linejoin="round">
                                             </g>
                                             <g id="SVGRepo_iconCarrier">
                                                 <path fill="#ff3c5f"
@@ -257,12 +271,13 @@
                                 </div>
                                 <div class="services_card">
                                     <spna class="icon">
-                                        <svg fill="#ff3c5f" height="64px" width="64px" version="1.1" id="Capa_1"
-                                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                            viewBox="0 0 458.508 458.508" xml:space="preserve" stroke="#ff3c5f"
-                                            stroke-width="2.751048">
+                                        <svg fill="#ff3c5f" height="64px" width="64px" version="1.1"
+                                            id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 458.508 458.508"
+                                            xml:space="preserve" stroke="#ff3c5f" stroke-width="2.751048">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                stroke-linejoin="round">
                                             </g>
                                             <g id="SVGRepo_iconCarrier">
                                                 <g>
@@ -304,22 +319,23 @@
                                         <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                stroke-linejoin="round">
                                             </g>
                                             <g id="SVGRepo_iconCarrier">
-                                                <path d="M3 21H21" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
+                                                <path d="M3 21H21" stroke="#ff3c5f" stroke-width="2"
+                                                    stroke-linecap="round" stroke-linejoin="round"></path>
                                                 <path
                                                     d="M19 21V15V7C19 5.11438 19 4.17157 18.4142 3.58579C17.8284 3 16.8856 3 15 3H12H9C7.11438 3 6.17157 3 5.58579 3.58579C5 4.17157 5 5.11438 5 7V15V21"
                                                     stroke="#ff3c5f" stroke-width="2" stroke-linejoin="round"></path>
-                                                <path d="M9 8L10 8" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
+                                                <path d="M9 8L10 8" stroke="#ff3c5f" stroke-width="2"
+                                                    stroke-linecap="round" stroke-linejoin="round"></path>
                                                 <path d="M9 12L10 12" stroke="#ff3c5f" stroke-width="2"
                                                     stroke-linecap="round" stroke-linejoin="round"></path>
                                                 <path d="M9 16L10 16" stroke="#ff3c5f" stroke-width="2"
                                                     stroke-linecap="round" stroke-linejoin="round"></path>
-                                                <path d="M14 8L15 8" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
+                                                <path d="M14 8L15 8" stroke="#ff3c5f" stroke-width="2"
+                                                    stroke-linecap="round" stroke-linejoin="round"></path>
                                                 <path d="M14 12L15 12" stroke="#ff3c5f" stroke-width="2"
                                                     stroke-linecap="round" stroke-linejoin="round"></path>
                                                 <path d="M14 16L15 16" stroke="#ff3c5f" stroke-width="2"
@@ -337,7 +353,8 @@
                                         <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                stroke-linejoin="round">
                                             </g>
                                             <g id="SVGRepo_iconCarrier">
                                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -357,7 +374,8 @@
                                             xmlns="http://www.w3.org/2000/svg" stroke="#000000"
                                             stroke-width="0.00024000000000000003">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                stroke-linejoin="round">
                                             </g>
                                             <g id="SVGRepo_iconCarrier">
                                                 <path
@@ -376,11 +394,13 @@
                                 </div>
                                 <div class="services_card">
                                     <spna class="icon">
-                                        <svg fill="#ff3c5f" height="64px" width="64px" version="1.1" id="Layer_1"
-                                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                            viewBox="0 0 512 512" xml:space="preserve">
+                                        <svg fill="#ff3c5f" height="64px" width="64px" version="1.1"
+                                            id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"
+                                            xml:space="preserve">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                stroke-linejoin="round">
                                             </g>
                                             <g id="SVGRepo_iconCarrier">
                                                 <g>
@@ -405,7 +425,8 @@
                                             @foreach ($listing->massage_services()->where('category_id', 1)->get() as $value)
                                                 @php
                                                     $massage_services .=
-                                                        config('escorts.profile.massage-services')[$value->service_id] . ', ';
+                                                        config('escorts.profile.massage-services')[$value->service_id] .
+                                                        ', ';
                                                 @endphp
                                             @endforeach
 
@@ -417,18 +438,21 @@
                                     <spna class="icon">
                                         <svg fill="#ff3c5f" version="1.1" id="Layer_1" xmlns:x="&amp;ns_extend;"
                                             xmlns:i="&amp;ns_ai;" xmlns:graph="&amp;ns_graphs;"
-                                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                            width="64px" height="64px" viewBox="0 0 24 24"
-                                            enable-background="new 0 0 24 24" xml:space="preserve">
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" width="64px" height="64px"
+                                            viewBox="0 0 24 24" enable-background="new 0 0 24 24"
+                                            xml:space="preserve">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                stroke-linejoin="round">
                                             </g>
                                             <g id="SVGRepo_iconCarrier">
                                                 <metadata>
                                                     <sfw xmlns="&amp;ns_sfw;">
                                                         <slices> </slices>
                                                         <slicesourcebounds width="505" height="984"
-                                                            bottomleftorigin="true" x="0" y="-120"> </slicesourcebounds>
+                                                            bottomleftorigin="true" x="0" y="-120">
+                                                        </slicesourcebounds>
                                                     </sfw>
                                                 </metadata>
                                                 <g>
@@ -465,7 +489,8 @@
                                             @foreach ($listing->massage_services()->where('category_id', 2)->get() as $value)
                                                 @php
                                                     $other_services .=
-                                                        config('escorts.profile.other-services')[$value->service_id] . ', ';
+                                                        config('escorts.profile.other-services')[$value->service_id] .
+                                                        ', ';
                                                 @endphp
                                             @endforeach
 
@@ -489,7 +514,8 @@
                             </div>
 
                             <div class="mc_list_address">
-                                <img src="{{ asset('assets/app/img/gps.png') }}" alt="address" class="custompopicon">
+                                <img src="{{ asset('assets/app/img/gps.png') }}" alt="address"
+                                    class="custompopicon">
                                 {{ $listing->address }}
                             </div>
                         </div>
@@ -499,7 +525,7 @@
                         <div class="tab-pane fade" id="open-times-{{ $listing->id }}" role="tabpanel"
                             aria-labelledby="open-times-tab-{{ $listing->id }}">
 
-                            <table class="table table-striped mb-0">
+                            <table class="table open-time-table mb-0">
                                 <tbody style="text-align: left;">
                                     <?php echo get_weakly_availibility($listing); ?>
                                 </tbody>
@@ -511,7 +537,7 @@
                     </div>
 
 
-                   
+
                 </div>
             </div>
 
