@@ -413,7 +413,7 @@ Route::get('travel', function () {
   return view('escort.dashboard.Concierge.travel');
 });
 Route::get('visa-migration', [VisaMigrationController::class, 'index'])->name('visa.migration');
-Route::post('/visa-migration-request', [VisaMigrationController::class, 'store'])->name('visa.migration.store');
+Route::post('/visa-migration-request', [VisaMigrationController::class, 'store'])->name('visa.migration.store.escort');
 
 
 Route::get('travel', function () {
