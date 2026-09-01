@@ -360,6 +360,7 @@
                     }
                 },
                 error: function(xhr) {
+                    const messageResponse = JSON.parse(xhr.responseText);
                     if (xhr.status === 422) {
                         let response = JSON.parse(xhr.responseText);
                         let errors = response.errors;
@@ -371,7 +372,7 @@
                         Swal.fire({
                             icon: "error",
                             title: "Error",
-                            text: "Something went wrong. Please try again."
+                            text: messageResponse.message
                         });
                     }
                 },
