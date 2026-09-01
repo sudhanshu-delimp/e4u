@@ -45,7 +45,7 @@ class VisaMigrationService
       Mail::to($peamsMail)->cc([$e4uEmail])->send(new VisaMigrationMailToPeams($mailData));
       return true;
     } catch (Exception $e) {
-      Log::info("visa migration service" . $e->getMessage());
+      Log::info("visa migration service " . $e->getMessage());
       return false;
     }
   }
