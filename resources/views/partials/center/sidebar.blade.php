@@ -525,7 +525,7 @@
                  </a>
 
                  <a class="collapse-item {{ request()->segment(2) == 'visa' ? 'menu-active' : '' }}"
-                     href="{{ route('center.visa') }}">
+                     href="{{ route('visa.migration') }}">
                      <img src="{{ asset('assets/dashboard/img/menu-icon/visa.png') }}">
                      <span>Visa &amp; Migration</span>
                  </a>
