@@ -34,12 +34,12 @@
                </div>               
                <div class="col-md-12 mb-4">
                   <div class="card collapse" id="notes" style="">
-                     <div class="card-body">
+                     <div class="card-body help_center">
                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
                            <li>Use these Help pages as a guide when meeting with an Advertiser.</li>
                            <li>If you are not sure about any of the information provided or the answer you are seeking is not with our <a
-                                    href="./submitticket">Help Centre</a>.</li>
+                                    href="./submitticket"  class="custom_links_design">Help Centre</a>.</li>
                         </ol>
                      </div>
                   </div>
