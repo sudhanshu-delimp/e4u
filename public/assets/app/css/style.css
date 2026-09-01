@@ -7592,10 +7592,11 @@ i.fa.fa-heart-o{
         display: flex;
         gap: 15px;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-start;
         border: 1px solid var(--border-color);
         border-radius: var(--radius-sm);
         padding: 10px;
+        flex-grow: 1;
     }
     
     .mc_list_meta .services_card .icon svg {
