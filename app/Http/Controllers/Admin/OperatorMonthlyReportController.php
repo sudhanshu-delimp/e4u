@@ -15,6 +15,7 @@ use App\Models\Operator;
 use App\Services\CalculateAgentFeeService;
 use App\Services\CalculateOperatorFeeService;
 use App\Models\VariablAgentOperator;
+use App\Models\Notification;
 
 use Exception;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class OperatorMonthlyReportController extends BaseController
    */
   public function monthlyReport()
   {
-    $calculateServiceObj = (new CalculateOperatorFeeService);
+    //$calculateServiceObj = (new CalculateOperatorFeeService);
     //$feeData = $calculateServiceObj->getOperatorFeeDetails(3);
     //dd($feeData);
     return view('admin.management.operator.fees.monthly-fee-reports');
@@ -67,7 +68,7 @@ class OperatorMonthlyReportController extends BaseController
         "data"            => $result
       );
     } catch (Exception $e) {
-      Log::info("Agent fee report erro: " . $e->getMessage());
+      Log::info("Operator fee report erro: " . $e->getMessage());
       $data = array(
         "draw"            => intval(request()->input('draw')),
         "recordsTotal"    => 0,
@@ -143,30 +144,29 @@ class OperatorMonthlyReportController extends BaseController
 
       if ($item->status == 'pending') {
         //Approve
-        /*  $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
+        $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
         $divider = '<div class="dropdown-divider"></div>';
-        */
+
         //Query
         $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
-        $divider = '<div class="dropdown-divider"></div>'; 
+        $divider = '<div class="dropdown-divider"></div>';
       } else if ($item->status == 'approved') {
         //Query
         $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="paid"  id="viewPayOperatorRreport"><i class="fa fa-star"></i>Pay</a>';
         $divider = '<div class="dropdown-divider"></div>';
-        
       } else if ($item->status == 'paid') {
-        //Query
-        //$dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Query</a>';
+        //pending
+        $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="pending"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Pending</a>';
       } else if ($item->status == 'query') {
-        //Approve
+
 
         $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" id="openQueryModel"><i class="fa fa-search-minus"></i></i>Reply Query</a>';
         $divider = '<div class="dropdown-divider"></div>';
       } else if ($item->status == 'query_resolved') {
         //Approve
-        /* $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
+        $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
 
-        $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
+        /*$dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
         $divider = '<div class="dropdown-divider"></div>'; */
       }
 
@@ -202,7 +202,7 @@ class OperatorMonthlyReportController extends BaseController
     if (isset($data['id']) && $data['id'] > 0) {
       $id = $data['id'];
       $calculateServiceObj = (new CalculateOperatorFeeService);
-      //Prepare the agent monthly fee data for view detail
+      //Prepare the operator monthly fee data for view detail
       $feeDatas = $calculateServiceObj->getOperatorFeeDetails($id);
 
       if (count($feeDatas) > 0) {
@@ -266,18 +266,17 @@ class OperatorMonthlyReportController extends BaseController
         $pdf = PDF::loadView(
           'admin.management.operator.fees.print_monthly_report',
           [
-            'feeDatas' => $feeDatas, 
-            'operatorMemberId' => $operatorMemberId, 
+            'feeDatas' => $feeDatas,
+            'operatorMemberId' => $operatorMemberId,
             'reportEndDate' => $reportEndDate
           ]
         )->setOption(['isRemoteEnabled' => true]);
 
-         $fileName = 'monthly_operator_fee_report_'.$operatorMemberId.'-'. $reportMonth.'.pdf';
-          return $pdf->stream($fileName);
-        
+        $fileName = 'operator_monthly_fee_report_' . $operatorMemberId . '-' . $reportMonth . '.pdf';
+        return $pdf->stream($fileName);
       }
     }
-    return response()->redirectTo('/admin-dashboard/management/agent/monthly-report')->with('error', 'Monthly fee record not found.');
+    return response()->redirectTo('/admin-dashboard/management/operator/monthly-fee-reports')->with('error', 'Monthly fee record not found.');
   }
 
   /**
@@ -345,6 +344,7 @@ class OperatorMonthlyReportController extends BaseController
   {
     try {
       $reportId  = $request->monthly_report_id;
+     
       if (!empty($reportId)) {
 
         $report = OperatorMonthlyReport::where('id', $reportId)->first();
@@ -355,18 +355,43 @@ class OperatorMonthlyReportController extends BaseController
           $reportData['payMonthlyReportDate'] = $reportDate;
           $reportData['payMonthlyReportMonth'] = $reportMonth;
           $reportData['payOperatorFee'] = number_format($report->fees, 2, '.', '');
+          $operatorId = $report->operator_id;
 
           $pdf = PDF::loadView(
             'admin.management.operator.fees.print_monthly_pay_report',
             ['reportData' => $reportData]
           )->setOption(['isRemoteEnabled' => true]);
-          $fileName = 'monthly_operator_payment_authorisation_report_'.$report->operator->member_id.'-'. $reportMonth.'.pdf';
+          $fileName = 'operator_monthly_payment_authorisation_report_' . $report->operator->member_id . '-' . $reportMonth . '.pdf';
+          $report->status = "paid";
+          
+          if ($report->save()) {
+        
+            $notification = (new Notification);
+            $notificationTitle = 'Your<span style="color:#ff0505;"> Monthly Fee </span> has been paid for ' . $reportMonth . ' month. Please visit <a href="' . config('app.url') . '/operator-dashboard/operator-monthly-report">Fee Report</a> to acknowledge.';
+
+            $notificationIcon = $notification->notificationIcon('general');
+
+            // Write code for email report
+            $data = [];
+            $data['to_user'] = $operatorId;
+            $data['notification_type'] = 'general';
+            $data['notification_icon'] = $notificationIcon;
+            $data['notification_listing_type'] = 3;
+            $data['title'] = $notificationTitle;
+            $data['message'] = '';
+            $data['created_at'] = date('Y-m-d H:i:s');
+            $data['updated_at'] = date('Y-m-d H:i:s');
+            $notification->insert($data);
+
+          }
           return $pdf->stream($fileName);
         }
       }
+     
     } catch (Exception $e) {
-      return response()->redirectTo('/admin-dashboard/management/agent/monthly-report')->with('error', 'Error occurred while fetching the report data. Please try later.');
+       dd($e->getMessage());
+      return response()->redirectTo('/admin-dashboard/management/operator/monthly-fee-reports')->with('error', 'Error occurred while fetching the report data. Please try later.');
     }
-    return response()->redirectTo('/admin-dashboard/management/agent/monthly-report')->with('error', 'Monthly fee record not found.');
+    return response()->redirectTo('/admin-dashboard/management/operator/monthly-fee-reports')->with('error', 'Monthly fee record not found.');
   }
 }

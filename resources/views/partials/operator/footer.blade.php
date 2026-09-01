@@ -96,9 +96,131 @@
             </script>
 
         @section('script')
+         @stack('script')
         @show
        
-        @stack('script')
+         <!-- ///////////// Notification ////////////////// -->
+        <script>
+            const getNotifications = () => {
+                    ajaxRequest({
+                    url: "{{ route('operator.get-notification') }}",
+                    method : 'Get',
+                    data: {},
+                    success: function(response) {
+
+                        let alert_notifications = response.alert_notifications;
+                        let fee_report_notifications = response.fee_report_notifications;
+                        let alert_notifications_html = "";
+                        let fee_report_html = "";
+
+                            /////////// Alert Notification List ///////////////////////
+                    if (fee_report_notifications?.data?.length > 0) {   
+                                if(fee_report_notifications.is_new)
+                                {
+                                $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i><span class="badge badge-danger badge-counter"> '+fee_report_notifications?.data?.length+' </span>');
+                                }
+                            
+                                fee_report_notifications.data.forEach((notification) => {
+                                    fee_report_html+= `<span class="dropdown-item d-flex align-items-center alert_notify_li" id="${notification.id}">
+                                                <div class="mr-3">
+                                                    <div class="icon-circle bg-success">
+                                                    ${notification.notification_icon}
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="small text-gray-800"> ${notification.created_at}</div>
+                                                    ${notification.title}
+                                                </div>
+                                            </span>`;
+                                });
+
+                               
+                                $('.alert_notify_html').html(fee_report_html);
+                            }
+                            else
+                            {   $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i>');
+                                $('.alert_notify_html').html(`<a class="dropdown-item d-flex align-items-center" href="#">No New Notification Found</a>`); 
+                            }
+                        /////////// End  Alert Notification List /////////////////////////////
+                    },
+                    error: function(xhr) {
+                        console.log('Error in Notification List');
+                    }
+                    });
+
+            }
+
+         const notificationSeen = (notification_id) => {
+
+             return new Promise((resolve, reject) => {
+                ajaxRequest({
+                    url: "{{ route('operator.notification-seen') }}",
+                    method : 'Post',
+                    data: {
+                        'notification_id' : notification_id
+                    },
+                    success: function(response) {
+                        if(response.success)
+                         {
+                            resolve(true);
+                         }
+                         else
+                         {
+                            resolve(false);
+                         }   
+                        
+                    },
+                    error: function() {
+                        resolve(false); 
+                    }
+                });
+             });
+
+         }   
+        
+         $(document).ready(function(){
+            getNotifications();
+             setInterval(function () {
+                  getNotifications();
+            }, 15000);
+
+            $(document).on('click', '.alert_notify_li', async function (e) {
+                const seen = await notificationSeen($(this).attr('id'));
+                 if (seen) {
+                    getNotifications();
+                 }
+            });
+
+            $(document).on('click', '.support_notify_li', async function (e) {
+                const seen = await notificationSeen($(this).attr('id'));
+                 if (seen) {
+                    getNotifications();
+                 }
+            });
+        });
+
+        $(document).on('click', '.alert_notify_html .dropdown-item', function (e) {
+            e.stopPropagation(); 
+        });
+
+         function showAlert(title, message, type, confirm = false) {
+                const options = {
+                    title: title,
+                    html: message,
+                    icon: type
+                };
+
+                if (confirm) {
+                    options.showCancelButton = true;
+                    options.confirmButtonText = 'Yes, Confirm';
+                    options.cancelButtonText = 'Cancel';
+                    options.reverseButtons = true;
+                }
+
+                return Swal.fire(options);
+
+            }
+        </script>  
 
          
 </body>

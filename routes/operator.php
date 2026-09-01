@@ -4,6 +4,7 @@ use App\Http\Controllers\Operator\OperatorController;
 use App\Http\Controllers\Operator\OperatorstaffController;
 use App\Http\Controllers\User\Dashboard\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NotificationController;
 
 //Route::get('operator-login', [App\Http\Controllers\Admin\AuthController::class,'showOperatorLoginForm'])->name('operator.login');
 Route::get('/', [OperatorController::class, 'index'])->name('operator.index');
@@ -42,3 +43,6 @@ Route::get('/view-operator-staff/{id}', [OperatorstaffController::class, 'viewSt
 Route::post('/approve-operator-staff-account', [OperatorstaffController::class, 'approve_staff_account'])->name('operator.operator.approve_staff_account');
 Route::post('/print-operator-staff', [OperatorstaffController::class, 'printStaffDetails'])->name('operator.operator.print_staff');
 Route::get('back-to-parent', [App\Http\Controllers\Admin\ImpersonateController::class, 'backToParent'])->name('operator.back-to-parent');
+
+Route::get('get-notification', [NotificationController::class, 'getNotification'])->name('operator.get-notification');
+Route::post('notification-seen', [NotificationController::class, 'makeNotificationSeen'])->name('operator.notification-seen');

@@ -90,7 +90,7 @@ class CalculateOperatorFeeService
                         'items.item',
                     ])
                     ->where('agent_id', (int)$agentId)
-                    ->whereBetween('commission_date', [$billingStartDate, $billingEndDate])
+                    ->whereBetween('commission_date', [$billingStartDate." 00:00:00", $billingEndDate." 23:59:59"])
                     ->get();
                 if ($commissions->isNotEmpty()) {
 

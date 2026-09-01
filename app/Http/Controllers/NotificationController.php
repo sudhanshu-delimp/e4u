@@ -51,7 +51,12 @@ class NotificationController extends BaseController
 
         if (Auth::check()) 
         {
-                $userId = Auth::id();
+            $userId = Auth::id();
+            $user = auth()->user();
+            if($user->type == '9') {
+                $userId = $user->operator_id;
+            }
+               
                 $alert_notifications = [];
                 $support_notifications = [];
                 $other_centre_notifications = [];
@@ -89,6 +94,8 @@ class NotificationController extends BaseController
                         if($notification->is_seen=='0')
                         $fee_report_notifications['is_new'] = 1;
                         }
+
+                        
                     }
     
                }

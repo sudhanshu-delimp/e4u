@@ -64,12 +64,17 @@ class CalculateAgentMonthlyFee extends Command
         $billingStartDate = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('Y-m-d');
         $billingEndDate = Carbon::now()->subMonthNoOverflow()->endOfMonth()->format('Y-m-d');
         $reportDate = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('m-Y');
+        //$billingStartDate = '2026-08-01';
+        //$billingEndDate = '2026-08-31';
+        //$reportDate = '08-2026';
+        
         $monthName = Carbon::parse($billingStartDate)->format('F');
+        
 
         try {
 
             $notification = (new Notification);
-            $notificationTitle = 'Your Monthly <span style="color:#ff0505;">The Fee Report</span> for ' . $monthName . ' month is ready for approval. Please visit <a href="' . config('app.url') . '/agent-dashboard/fees/monthly-report">Fee Report</a> to acknowledge.';
+            $notificationTitle = 'Your Monthly <span style="color:#ff0505;"> Fee Report</span> for ' . $monthName . ' month is ready for approval. Please visit <a href="' . config('app.url') . '/agent-dashboard/fees/monthly-report">Fee Report</a> to acknowledge.';
 
             $notificationIcon = $notification->notificationIcon('general');
 
@@ -83,9 +88,11 @@ class CalculateAgentMonthlyFee extends Command
                         $queryState->select(['id', 'name', 'iso2', 'country_id']);
                     });
             })
-                ->whereBetween('commission_date', [$billingStartDate, $billingEndDate])
+                ->whereBetween('commission_date', [$billingStartDate." 00:00:00", $billingEndDate." 23:59:59"])
                 ->groupBy('agent_id')
                 ->get();
+
+             //Log::info("Monthly agent fee email not sent: " . json_encode($reports->toArray()));die;
 
 
             if ($reports->count() > 0) {
@@ -154,7 +161,7 @@ class CalculateAgentMonthlyFee extends Command
             }
 
             $notification = (new Notification);
-            $notificationTitle = 'Your Monthly <span style="color:#ff0505;">The Fee Report</span> for ' . $monthName . ' month is ready for approval. Please visit <a href="' . config('app.url') . '/operator-dashboard/operator-monthly-report">Fee Report</a> to acknowledge.';
+            $notificationTitle = 'Your Monthly <span style="color:#ff0505;"> Fee Report</span> for ' . $monthName . ' month is ready for approval. Please visit <a href="' . config('app.url') . '/operator-dashboard/operator-monthly-report">Fee Report</a> to acknowledge.';
 
             $notificationIcon = $notification->notificationIcon('general');
 
