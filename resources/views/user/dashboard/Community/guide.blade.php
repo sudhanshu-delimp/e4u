@@ -36,7 +36,11 @@
                   <div class="card collapse" id="notes" style="">
                      <div class="card-body">
                        <h3 class="NotesHeader"><b>Notes:</b></h3>
-                        <ol></ol>
+                        <ol>
+                           <li>Use these Help pages as a guide when meeting with an Advertiser.</li>
+                           <li>If you are not sure about any of the information provided or the answer you are seeking is not with our <a
+                                    href="./submitticket">Help Centre</a>.</li>
+                        </ol>
                      </div>
                   </div>
                </div>

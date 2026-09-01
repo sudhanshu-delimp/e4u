@@ -358,11 +358,11 @@
                                 style="{{ request()->segment(2) == 'classification-laws' ? 'color: #e5365a;' : '' }}">Classification
                                 laws</span>
                         </a>
-                        <a class="collapse-item" href="{{ route('agent.help') }}">
+                        {{-- <a class="collapse-item" href="{{ route('agent.help') }}">
                             <img src="{{ asset('assets/app/img/helptips.png') }}">
                             <span style="{{ request()->segment(2) == 'help' ? 'color: #e5365a;' : '' }}">Help &
                                 Tips</span>
-                        </a>
+                        </a> --}}
                         <a class="collapse-item" href="{{ route('agent.laws') }}">
                             <img src="{{ asset('assets/app/img/gavel.png') }}">
                             <span style="{{ request()->segment(2) == 'laws' ? 'color: #e5365a;' : '' }}">Local

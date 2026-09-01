@@ -33,6 +33,9 @@
                     <div class="card-body">
                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
+                            <li>Use this feature to view all of your personal details - who you are, your Agent Agreement, and Fees.</li>
+                            <li>You can download your Agent Agreement which incorporates your KPIs and other critical information in relation to your expected performance outcomes.</li>
+                            <li>There is some general information also available to you inside each of the My Account groups.</li>
                         </ol>
                     </div>
                 </div>
