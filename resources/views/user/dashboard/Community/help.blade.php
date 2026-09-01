@@ -26,7 +26,7 @@
                         <ol>
                            <li>Use these Help pages to answer all your questions regarding your Membership.</li>
                            <li>If you are not sure about any of the information provided or the answer you are seeking is not here, get in touch with our <a
-                                    href="./submitticket">Help Centre</a>.</li>
+                                    href="./submitticket"  class="custom_links_design">Help Centre</a>.</li>
                         </ol>
                      </div>
                   </div>

@@ -33,7 +33,7 @@
         </div>
         <div class="col-md-12 mb-4">
             <div class="card collapse" id="notes" style="">
-                <div class="card-body">
+                <div class="card-body help_center">
                    <h3 class="NotesHeader"><b>Notes:</b></h3>
                     <ol>
                         <li>You can view all of your Reports here. Simply search the report you are looking for by
