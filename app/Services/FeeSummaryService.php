@@ -16,6 +16,7 @@ class FeeSummaryService
     public function getSummaryData(?string $requestedFy = null, string $displayType = 'member_id'): array
     {
         $availableFys = $this->availableFinancialYears();
+      //  dd($requestedFy,$availableFys);
         $selectedFy = $this->resolveFinancialYear($requestedFy, $availableFys);
         $earnings = $this->earnings($selectedFy, $displayType);
         $total = $earnings->sum(fn ($earning) => $earning->total_spend);
@@ -105,6 +106,8 @@ class FeeSummaryService
             ->unique()
             ->sortDesc()
             ->values();
+
+            
     }
 
     protected function earnings(string $financialYear, string $displayType): Collection
@@ -113,7 +116,6 @@ class FeeSummaryService
         $feePercentage = (int) VariablAgentOperator::query()
             ->where('fee_for', 'advertising')
             ->value('amount');
-
         $payments = PaymentHistory::query()
             ->where('status', 'success')
             ->whereBetween('paid_at', [$range['start'], $range['end']])
@@ -129,7 +131,7 @@ class FeeSummaryService
                 return [
                     'user' => $payment->user,
                     'item' => $paymentItem->item,
-                    'amount' => (float) $payment->net_amount,
+                    'amount' => (float) $payment->net_amount, //need to add total amount
                 ];
             });
         })->groupBy(fn ($row) => $row['user']->id)
@@ -204,10 +206,9 @@ class FeeSummaryService
 
     protected function resolveFinancialYear(?string $requested, Collection $available): string
     {
+
         $current = $this->currentFinancialYear();
-        return $requested && $available->contains($requested)
-            ? $requested
-            : ($available->contains($current) ? $current : ($available->first() ?? $current));
+        return $requested && $available->contains($requested) ? $requested : ($available->contains($current) ? $current : ($available->first() ?? $current));
     }
 
     protected function sortKey(string $displayType): string

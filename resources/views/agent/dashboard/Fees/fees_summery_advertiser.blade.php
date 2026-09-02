@@ -125,16 +125,16 @@
                 @foreach($feeSummery['earnings'] as $summery)
                 
                  <tr>
-                     <td class="text-left">{{$summery['member_id'] ?? ''}} </td>
-                     <td class="text-left">{{$summery['advertiser_name'] ?? ''}}</td>
-                     <td class="text-center">{{$summery['joined_date'] ?? ''}}</td>
-                     <td class="text-right">{{formatCurrency($summery['platinum_spend']) ?? ''}}</td>
-                     <td class="text-right">{{formatCurrency($summery['gold_spend']) ?? ''}}</td>
-                     <td class="text-right">{{formatCurrency($summery['silver_spend']) ?? ''}}</td>
-                     <td class="text-right">{{formatCurrency($summery['pinup_spend']) ?? ''}}</td>
-                     <td>{{formatCurrency($summery['fixed_spend']) ?? ''}} </td>
-                     <td class="text-right">{{formatCurrency($summery['total_spend'])}}</td>
-                     <td class="text-right">{{formatCurrency($summery['fees'])}}</td>
+                     <td class="text-left">{{$summery->member_id ?? ''}} </td>
+                     <td class="text-left">{{$summery->advertiser_name ?? ''}}</td>
+                     <td class="text-center">{{$summery->joined_date ?? ''}}</td>
+                     <td class="text-right">{{formatCurrency($summery->platinum_spend) ?? ''}}</td>
+                     <td class="text-right">{{formatCurrency($summery->gold_spend) ?? ''}}</td>
+                     <td class="text-right">{{formatCurrency($summery->silver_spend) ?? ''}}</td>
+                     <td class="text-right">{{formatCurrency($summery->pinup_spend) ?? ''}}</td>
+                     <td>{{formatCurrency($summery->fixed_spend) ?? ''}} </td>
+                     <td class="text-right">{{formatCurrency($summery->total_spend)}}</td>
+                     <td class="text-right">{{formatCurrency($summery->fees)}}</td>
                      <td class="text-center">
                          <div class="dropdown no-arrow">
                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -143,9 +143,7 @@
                              </a>
                              <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                  aria-labelledby="dropdownMenuLink" style="">
-                                 <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                     href="#" data-toggle="modal" data-target="#commission-report"
-                                    >
+                                 <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"  href="#" data-toggle="modal" data-target="#commission-report" >
                                      <i class="fa fa-eye"></i> View Advertiser Report
                                  </a>
                                  <div class="dropdown-divider"></div>

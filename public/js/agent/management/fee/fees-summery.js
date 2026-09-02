@@ -8,6 +8,7 @@ $(function () {
         error_image: mmRoot.data('error-image'),
         advertiser_fees_summery: mmRoot.data('advertiser-fees-summery'),
         agent_fees_summary : mmRoot.data('agent-fees-summary'),
+        single_advertiser_summary : mmRoot.data('single-advertiser-summary'),
     };
 
 
