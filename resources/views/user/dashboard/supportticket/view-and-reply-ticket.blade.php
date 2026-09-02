@@ -63,47 +63,32 @@
                     </ol>
                 </div>
             </div>
-            <div class="col-md-12 mb-4">
-                <div class="card collapse" id="notes" style="">
-                    <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                        <ol>
-                            <li>You will receive a Notification, located in the Support Ticket Alert (top menu bar), when
-                                you have an unread Support Ticket message.</li>
-                            <li>Use the <a href="{{ route('user.viewer-messages') }}"
-                                    class="custom_links_design">Messaging</a> service for communication with other Users (if
-                                available).</li>
-
-                        </ol>
-                    </div>
+        </div>
+     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box-body table-responsive">
+                <table class="table w-100" id="supportTicketsTable">
+                    <thead id="table-sec" class="table-bg">
+                        <tr>
+                            <th>Ticket ID </th>
+                            <th>Department</th>
+                            <th>Priority</th>
+                            <th>Service Type</th>
+                            <th>Subject</th>
+                            <th>Date Created</th>
+                            <th>Document</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                </table>
+                <div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="box-body table-responsive">
-                    <table class="table" id="supportTicketsTable">
-                        <thead id="table-sec" class="table-bg">
-                            <tr>
-                                <th>Ticket ID </th>
-                                <th>Department</th>
-                                <th>Priority</th>
-                                <th>Service Type</th>
-                                <th>Subject</th>
-                                <th>Date Created</th>
-                                <th>Document</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                    </table>
-                    <div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--middle content end here-->
     </div>
+</div>
 
     <div class="modal fade upload-modal" id="conversation_modal" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
@@ -143,14 +128,6 @@
     </div>
 @endsection
 @push('script')
-    <!-- file upload plugin start here -->
-    <!-- file upload plugin end here -->
-    <!-- <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script> -->
-
-
-
 
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>

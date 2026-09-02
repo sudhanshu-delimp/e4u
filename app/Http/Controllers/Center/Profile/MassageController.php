@@ -15,6 +15,7 @@ use App\Http\Requests\MassageProfile\PurchaseListingRequest;
 use App\Http\Requests\MassageProfile\StoreMasssageMediaRequest;
 use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
 use App\Http\Requests\UpdateEscortRequest;
+use App\Mail\MessageCentr\MassageProfileCancellationEmail;
 use App\Models\AgentCommission;
 use App\Models\Duration;
 use App\Models\EscortCovidReport;
@@ -60,6 +61,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -119,6 +121,7 @@ class MassageController extends Controller
         ])
             ->where('user_id', auth()->user()->id)
             ->where('default_setting', 0);
+
         /*  if($request->isImpersonated) {
                 $massage = $massage->where('created_by', $request->impersonatedId);
             } */
@@ -126,11 +129,6 @@ class MassageController extends Controller
             ->orderByDesc('is_active')
             ->orderBy('id', 'desc')
             ->get();
-
-
-
-
-
 
         $home_state = auth()->user()->state_id;
         $localTimeZone  = config("escorts.profile.states.$home_state.timeZone");
@@ -230,22 +228,26 @@ class MassageController extends Controller
             //  <div class="dropdown-divider"></div>           
             //<a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#viewMasseur">  <i class="fa fa-eye "></i> View Profile</a>
 
+            $json_enc = $row->mainPurchase
+                ? json_decode(json_encode($row->mainPurchase), true)
+                : null;
+
+
+            $listingStatus = ($row->mainPurchase && $row->mainPurchase->activeSuspendProfile->count() > 0) ? 'Suspended' : (($is_live) ? 'Active' : 'Inactive');
+            $listingStatusClass = getStatusBadgeClass(strtolower($listingStatus));
             return [
                 'is_live' => $is_live ? 1 : 0,
                 'id' => $row->id,
                 'profile_name' => $profile_name,
                 'business_name' => $row->business_name,
                 'business_no' => $row->business_no,
-                'phone' => $row->phone,
+                'phone' => $row->phone ?? null,
                 'created_at' => date('d M Y', strtotime($row->created_at)),
-                'status' => ($is_live) ? '<span class="custom_badge badge_active">Active</span>' : '<span class="custom_badge badge_inactive">Inactive</span>',
+                'status' => "<span class='custom_badge {$listingStatusClass}'>{$listingStatus}</span>",
                 'action' => $action
 
             ];
         });
-
-
-
 
 
         return response()->json([
@@ -687,14 +689,14 @@ class MassageController extends Controller
             ];
 
             $message = 'Business information updated successfully.';
-            
-            if ($data =  MassageProfile::find($request->massage_id)->update($input)){
-                 $error = false;
-                  // create or update slug
-                  $massCenter = MassageProfile::where('id', $request->massage_id)->first();
-                  $slug = (new \App\Services\SlugService)->createUpdateSlug($massCenter);
+
+            if ($data =  MassageProfile::find($request->massage_id)->update($input)) {
+                $error = false;
+                // create or update slug
+                $massCenter = MassageProfile::where('id', $request->massage_id)->first();
+                $slug = (new \App\Services\SlugService)->createUpdateSlug($massCenter);
             }
-               
+
             massage_profile_complete_status($request->massage_id);
         }
         ######### End Update profile  #####################
@@ -1144,12 +1146,12 @@ class MassageController extends Controller
 
                     //Log::info(' $refundAmountWithGst============>'. $refundAmountWithGst);
 
-                    if($purchase->status=='pending')
-                    $credit_tag = 'Cancel Extended Profile Listing.';
+                    if ($purchase->status == 'pending')
+                        $credit_tag = 'Cancel Extended Profile Listing.';
                     else
-                    $credit_tag = 'Cancel Profile Listing.';    
-                
-                    
+                        $credit_tag = 'Cancel Profile Listing.';
+
+
 
                     $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
                     $utc_date_time =  Carbon::now($profileTimezone)->startOfDay()->utc();
@@ -1175,8 +1177,22 @@ class MassageController extends Controller
                         ]
                     );
                 }
-                            
-               $mess = "Your profile has been successfully cancelled, and a total refund of $" . number_format($totalRefundAmountWithGst, 2) . " has been added to your wallet.";
+
+                $mess = "Your profile has been successfully cancelled, and a total refund of $" . number_format($totalRefundAmountWithGst, 2) . " has been added to your wallet.";
+
+                $data = [
+                    'user' => $user,
+                    'massageProfile' => $massage,
+                    'refundAmount' => $totalRefundAmountWithGst,
+                ];
+
+                try {
+                    Mail::to($user->email)->send(
+                        new MassageProfileCancellationEmail($data)
+                    );
+                } catch (Exception $e) {
+                    Log::info($e->getMessage());
+                }
             }
             ########## End Cancel Profile ###############
 
@@ -1244,14 +1260,14 @@ class MassageController extends Controller
             if ($massage) {
                 $newMassage = $massage->replicate();
                 $newMassage->profile_name = $new_profile_name;
-                $newMassage->slug =null;
+                $newMassage->slug = null;
                 $newMassage->save();
 
                 ########### Create Slug ############
                 $slug = new SlugService();
                 $slug->createUpdateSlug($newMassage);
 
-    
+
                 $new_massage_profile_id = $newMassage->id;
 
                 if ($new_massage_profile_id != "") {
@@ -1503,16 +1519,17 @@ class MassageController extends Controller
     public function  massager_current_listing(Request $request)
     {
         $today = Carbon::today();
-        $massagers = MassagePurchase::with([
-            'brb' => function ($query) {
-                $query->where('brb_time', '>', Carbon::now('UTC'))
-                    ->where('active', 'Y')
-                    ->orderBy('brb_time', 'desc');
-            },
-            'massageprofile',
-            'user:id,status',
-            'activeUpcomingSuspend'
-        ])
+        $massagers = MassagePurchase::whereDoesntHave('activeSuspendProfile')
+            ->with([
+                'brb' => function ($query) {
+                    $query->where('brb_time', '>', Carbon::now('UTC'))
+                        ->where('active', 'Y')
+                        ->orderBy('brb_time', 'desc');
+                },
+                'massageprofile',
+                'user:id,status',
+                'activeUpcomingSuspend'
+            ])
             ->where('massage_centre_id', auth()->user()->id)
             ->whereIn('status', ['listed', 'pending'])
             /* ->when($request->isImpersonated, function ($query) use ($request) {

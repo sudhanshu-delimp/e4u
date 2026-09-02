@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 
     <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-style.css?v2.09') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v3.01') }}" rel="stylesheet">
     <!-- jquery ui cdn -->
 
     <!-- google fonts -->
@@ -44,9 +44,9 @@
     <!-- font awsome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v3.07') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v3.03') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v1.09') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v3.08') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v3.04') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v2.01') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />

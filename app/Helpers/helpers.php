@@ -479,6 +479,7 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
 
     function getRealTimeGeolocationOfUsers($lat, $lng)
     {
+        
         try {
             $apiKey = config('services.google_map.api_key'); // env('GOOGLE_MAPS_API_KEY');
 
@@ -487,7 +488,7 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
 
             $response = Http::get($geoUrl);
 
-            $state = 'Unknown';
+            $state = '';
 
             if ($response->successful()) {
                 foreach ($response['results'][0]['address_components'] as $component) {
@@ -498,23 +499,23 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
                 }
             }
 
-            $stateFromDb = State::where('name', $state)->first();
+            //$stateFromDb = State::where('name', $state)->first();
 
-            $stateCapital = config('escorts.profile.states')[$stateFromDb->id] ?? null;
+            $stateCapital = getStateAbbr($state);
 
             $timezone = $stateCapital ? $stateCapital['timeZone'] : "UTC";
-
+    
             $parms = [
                 'geo_state' => $state,
-                'state' => $stateFromDb ? $stateFromDb->id : null,
+                'state' => $stateCapital ? $stateCapital['stateId'] : null,
                 'city' => $stateCapital ? array_key_first($stateCapital['cities']) : null,
                 'home_state' => auth()->user() ? auth()->user()->home_state : null,
-                'current_location' => $stateFromDb->iso2,
+                'current_location' => $stateCapital['stateAbbr'],
                 'timezone' => $timezone,
                 'current_time' => now($timezone)->format('h:i A')
             ];
 
-            return $parms;
+           return $parms;
         } catch (\Exception $e) {
             $stateCapital = config('escorts.profile.states')[auth()->user()->state_id];
             $timezone = $stateCapital ? $stateCapital['timeZone'] : "UTC";
@@ -2900,4 +2901,23 @@ function getAustraliaTime($dateTimeUTC, $format = null)
 function get_massage_purchase_id($id)
 {
     return MassageProfile::select('id')->where('id',$id)->first();
+}
+
+if (!function_exists('getStateAbbr')) {
+    function getStateAbbr($fullStateName)
+    {
+        $states = config('escorts.profile.states');
+
+        foreach ($states as $stateId => $state) {
+            if (strcasecmp($state['stateName'], $fullStateName) !== 0) {
+                continue;
+            }
+
+            $state['stateId'] = $stateId;
+
+            return $state;
+        }
+
+        return null;
+    }
 }

@@ -22,7 +22,7 @@
                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
                             <li>View your top Advertisers here.</li>
-                            <li>To view any of these summaries in detail, go to the relevant page in the Side bar Menu.</li>
+                            <li>To view any of these summaries in detail, go to the relevant page in the Side Bar Menu.</li>
                         </ol>
                     </div>
                 </div>

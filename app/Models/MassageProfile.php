@@ -561,22 +561,52 @@ class MassageProfile extends Model
             'purchase_id',
             'purchase_id'
         )
-        ->join('massage_profiles', function ($join) {
-            $join->on('massage_suspend_profiles.purchase_id','=','massage_profiles.purchase_id')
-                ->on('massage_suspend_profiles.massage_profile_id','=','massage_profiles.id');
-        })
-        ->where(function ($query) use ($now) {
-            $query->where(function ($q) use ($now) {
-                $q->where('massage_suspend_profiles.utc_start_date', '<=', $now)
-                ->where('massage_suspend_profiles.utc_end_date', '>=', $now);
+            ->join('massage_profiles', function ($join) {
+                $join->on('massage_suspend_profiles.purchase_id', '=', 'massage_profiles.purchase_id')
+                    ->on('massage_suspend_profiles.massage_profile_id', '=', 'massage_profiles.id');
             })
-            ->orWhere('massage_suspend_profiles.utc_start_date', '>', $now);
-        })
-        ->orderBy('massage_suspend_profiles.utc_start_date', 'asc')
-        ->select('massage_suspend_profiles.*');
+            ->where(function ($query) use ($now) {
+                $query->where(function ($q) use ($now) {
+                    $q->where('massage_suspend_profiles.utc_start_date', '<=', $now)
+                        ->where('massage_suspend_profiles.utc_end_date', '>=', $now);
+                })
+                    ->orWhere('massage_suspend_profiles.utc_start_date', '>', $now);
+            })
+            ->orderBy('massage_suspend_profiles.utc_start_date', 'asc')
+            ->select('massage_suspend_profiles.*');
     }
 
-    
+    // public function activeUpcomingSuspend()
+    // {
+    //     $now = now('UTC');
+    //     return $this->hasOne(MassageSuspendProfile::class, 'massage_profile_id', 'id')
+    //         ->where('is_cancelled','1')
+    //         ->where('is_archived','0')
+    //         ->where(function ($query) use ($now) {
+    //             $query->where(function ($q) use ($now) {
+    //                 $q->where('utc_start_date', '<=', $now)
+    //                     ->where('utc_end_date', '>=', $now);
+    //             })
+    //                 ->orWhere('utc_start_date', '>', $now);
+    //         })
+    //         ->orderBy('utc_start_date', 'asc');
+    // }
+
+
+    // public function isListingExtended(){
+
+
+    //     $purchases = $this->purchase()
+    //     ->where('utc_end_time', '>=', Carbon::now('UTC'))
+    //     ->where('parent_id',0)
+    //     ->where('status','!=','cancel')
+    //     ->orderBy('utc_end_time', 'desc')
+    //     ->get();
+    //     return (object)[
+    //         'count' => $purchases->count() > 1,
+    //         'data' => $purchases->first()
+    //     ];
+    // }
 
     public function isListingExtended()
     {
