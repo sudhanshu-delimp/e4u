@@ -11229,11 +11229,11 @@ border-top: 5px solid var(--peach);
 }
 
 .statistics-card {
-    border-radius: 5px;
+    border-radius: var(--radius-sm);
     padding: 16px;
     margin: 10px 0px;
     background-color: #fff;
-    border: 1px solid #0c223d40;
+    border: 1px solid var(--border-color);
     color: var(--blue--text) !important;
     width: 100%;
     min-width: 250px;
