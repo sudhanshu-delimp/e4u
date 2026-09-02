@@ -12097,21 +12097,6 @@ border-top: 5px solid var(--peach);
     display: block;
 }
 
-button {
-    margin: 0px;
-    padding: 10px 20px;
-    border: none;
-    background: #0c223d;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-}
-
 .playmates-tab h2 {
     font-size: 24px;
     color: var(--blue--text);
@@ -13067,21 +13052,6 @@ details[open]>summary:first-of-type {
 
 .step-content.active {
     display: block;
-}
-
-button {
-    margin: 0px;
-    padding: 10px 20px;
-    border: none;
-    background: #0c223d;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:disabled {
-    background: #ccc;
-    cursor: not-allowed;
 }
 
 .playmates-tab h2 {

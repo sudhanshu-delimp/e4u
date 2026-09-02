@@ -131,6 +131,15 @@
                                     Open Times
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" id="services-tab-{{ $listing->id }}" data-toggle="tab"
+                                    href="#services-{{ $listing->id }}" role="tab"
+                                    aria-controls="services-{{ $listing->id }}" aria-selected="false">
+                                    
+                                    Services
+                                </a>
+                            </li>
                         </ul>
 
 
@@ -392,6 +401,46 @@
                                         <span>{{ config('escorts.profile.Security.' . $listing->security, 'N/A') }}</span>
                                     </span>
                                 </div>
+                            </div>
+
+                            <div class="mc_list_about">
+                                <strong>About Us</strong><br>
+
+                                <p class="mc_list_desc">
+                                    {{ Str::limit(strip_tags($listing->about_us_box), 140) }}
+
+                                    <a href="{{ getEscortMassageDetailUrl($listing, 'massage') }}"
+                                        class="read-more-link">Read More</a>
+                                </p>
+                            </div>
+
+                            <div class="mc_list_address">
+                                <img src="{{ asset('assets/app/img/gps.png') }}" alt="address"
+                                    class="custompopicon">
+                                {{ $listing->address }}
+                            </div>
+                        </div>
+
+
+                        <!-- Open Times -->
+                        <div class="tab-pane fade p-2" id="open-times-{{ $listing->id }}" role="tabpanel"
+                            aria-labelledby="open-times-tab-{{ $listing->id }}">
+
+                            <table class="table table-striped table-hover open-time-table mb-0">
+                                <tbody style="text-align: left;">
+                                    <?php echo get_weakly_availibility($listing); ?>
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                          <!-- Services -->
+                        <div class="tab-pane fade" id="services-{{ $listing->id }}" role="tabpanel"
+                            aria-labelledby="services-tab-{{ $listing->id }}">
+
+                                <div class="mc_list_meta">
+                                    
                                 <div class="services_card">
                                     <spna class="icon">
                                         <svg fill="#ff3c5f" height="64px" width="64px" version="1.1"
@@ -500,37 +549,7 @@
                                         </span>
                                     </span>
                                 </div>
-                            </div>
-
-                            <div class="mc_list_about">
-                                <strong>About Us</strong><br>
-
-                                <p class="mc_list_desc">
-                                    {{ Str::limit(strip_tags($listing->about_us_box), 140) }}
-
-                                    <a href="{{ getEscortMassageDetailUrl($listing, 'massage') }}"
-                                        class="read-more-link">Read More</a>
-                                </p>
-                            </div>
-
-                            <div class="mc_list_address">
-                                <img src="{{ asset('assets/app/img/gps.png') }}" alt="address"
-                                    class="custompopicon">
-                                {{ $listing->address }}
-                            </div>
-                        </div>
-
-
-                        <!-- Open Times -->
-                        <div class="tab-pane fade" id="open-times-{{ $listing->id }}" role="tabpanel"
-                            aria-labelledby="open-times-tab-{{ $listing->id }}">
-
-                            <table class="table open-time-table mb-0">
-                                <tbody style="text-align: left;">
-                                    <?php echo get_weakly_availibility($listing); ?>
-                                </tbody>
-
-                            </table>
+                                </div>
 
                         </div>
 

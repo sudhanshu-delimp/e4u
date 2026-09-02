@@ -7390,7 +7390,6 @@ i.fa.fa-heart-o{
     .mc_list_card {
         display: grid;
         grid-template-columns: 300px 1fr;
-        grid-template-rows: auto auto;
         gap: 15px;
         align-items: start;
         min-height: 360px;
@@ -7420,7 +7419,7 @@ i.fa.fa-heart-o{
     .open-time-table td {
         border: 0px;
         border-bottom: 1px solid var(--border-color);
-        padding: .675rem !important;
+        padding: .601rem !important;
     }
     
     .open-time-table tr:last-child td {
@@ -7443,6 +7442,7 @@ i.fa.fa-heart-o{
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
+        width: 100%;
         border: 1px solid var(--border-color);
         border-radius: var(--radius-md);
         grid-column: 2 / 4;
@@ -7453,6 +7453,10 @@ i.fa.fa-heart-o{
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+    }
+    
+    .mc_list_content_inner .tab-content {
+        min-height: 350px;
     }
     
     .mc_list_time {
@@ -7605,6 +7609,7 @@ i.fa.fa-heart-o{
         border-radius: var(--radius-sm);
         padding: 10px;
         flex-grow: 1;
+        width: 180px;
     }
     
     .mc_list_meta .services_card .icon svg {
@@ -9941,7 +9946,7 @@ i.fa.fa-heart-o{
         content: '';
         position: absolute;
         top: 11px;
-        left: -12px;
+        left: -11px;
         border-width: 6px;
         transform: rotate(90deg);
         border-style: solid;
