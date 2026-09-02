@@ -50,3 +50,4 @@ public/massageProfile/images/*
 public/escorts/images/*
 public/avatars/*
 laravel.log
+.DS_Store
