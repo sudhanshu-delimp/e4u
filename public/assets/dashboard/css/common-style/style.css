@@ -1337,7 +1337,7 @@ label.cabinet input.file {
 }
 
 .stats-icon {
-    background-color: var(--peach);
+    background-color: var(--light-pink);
     border-radius: var(--radius-full);
     max-width: 45px;
     min-width: 45px;

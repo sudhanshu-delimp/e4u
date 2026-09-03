@@ -228,6 +228,13 @@ $contactMsg = session('success');
                      GPO Box T1756<br>
                      Perth WA 6845
                   </p><br>
+
+                  <p>
+                     Registered Office:
+                  </p>
+                  <p>Unit 27, 168 Guildford Road</p>
+                  <p>Maylands WA 6051</p>
+                  <p>Australia</p><br>
                   <p>T:&nbsp; &nbsp;+61 1300 700 444</p>
                   <p>E:&nbsp; &nbsp;<a href="mailto:info@escorts4u.com.au">info@escorts4u.com.au</a></p>
                </div>
