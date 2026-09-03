@@ -280,6 +280,10 @@ Route::get('management/dashboard', function () {
   return view('admin.management.management');
 })->name('admin.management');
 
+Route::get('management/seo', function () {
+  return view('admin.management.seo.index');
+})->name('admin.seo');
+
 Route::get('management/monthly-fee-reports', function () {
   return view('admin.management.operator.monthly-fee-reports');
 })->name('admin.monthly-fee-reports');
