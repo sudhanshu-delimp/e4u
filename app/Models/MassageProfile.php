@@ -561,19 +561,19 @@ class MassageProfile extends Model
             'purchase_id',
             'purchase_id'
         )
-        ->join('massage_profiles', function ($join) {
-            $join->on('massage_suspend_profiles.purchase_id','=','massage_profiles.purchase_id')
-                ->on('massage_suspend_profiles.massage_profile_id','=','massage_profiles.id');
-        })
-        ->where(function ($query) use ($now) {
-            $query->where(function ($q) use ($now) {
-                $q->where('massage_suspend_profiles.utc_start_date', '<=', $now)
-                ->where('massage_suspend_profiles.utc_end_date', '>=', $now);
+            ->join('massage_profiles', function ($join) {
+                $join->on('massage_suspend_profiles.purchase_id', '=', 'massage_profiles.purchase_id')
+                    ->on('massage_suspend_profiles.massage_profile_id', '=', 'massage_profiles.id');
             })
-            ->orWhere('massage_suspend_profiles.utc_start_date', '>', $now);
-        })
-        ->orderBy('massage_suspend_profiles.utc_start_date', 'asc')
-        ->select('massage_suspend_profiles.*');
+            ->where(function ($query) use ($now) {
+                $query->where(function ($q) use ($now) {
+                    $q->where('massage_suspend_profiles.utc_start_date', '<=', $now)
+                        ->where('massage_suspend_profiles.utc_end_date', '>=', $now);
+                })
+                    ->orWhere('massage_suspend_profiles.utc_start_date', '>', $now);
+            })
+            ->orderBy('massage_suspend_profiles.utc_start_date', 'asc')
+            ->select('massage_suspend_profiles.*');
     }
 
     // public function activeUpcomingSuspend()
@@ -591,7 +591,7 @@ class MassageProfile extends Model
     //         })
     //         ->orderBy('utc_start_date', 'asc');
     // }
-    
+
 
     // public function isListingExtended(){
 

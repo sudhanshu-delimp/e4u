@@ -95,6 +95,10 @@
     background-color: #f3f3f3;
 }
 
+.common_list_design li {
+    padding-left: 20px;
+}
+
 .wallet_details .card-body h5 {
     margin-bottom: 0px;
     font-weight: 600;
@@ -6587,7 +6591,7 @@ div.myacording-design .card .card-body p {
     margin-bottom: 0px;
     font-family: 'Poppins';
     font-weight: normal;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .accordian_wrapper p {
@@ -11225,11 +11229,11 @@ border-top: 5px solid var(--peach);
 }
 
 .statistics-card {
-    border-radius: 5px;
+    border-radius: var(--radius-sm);
     padding: 16px;
     margin: 10px 0px;
     background-color: #fff;
-    border: 1px solid #0c223d40;
+    border: 1px solid var(--border-color);
     color: var(--blue--text) !important;
     width: 100%;
     min-width: 250px;

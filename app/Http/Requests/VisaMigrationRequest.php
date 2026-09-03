@@ -66,7 +66,7 @@ class VisaMigrationRequest extends FormRequest
   {
     return [
       'contact_pref.required' => 'Please select at least one contact preference.',
-      'first_name.required' => 'Business name is required.',
+      'first_name.required' => 'First name is required.',
       'last_name.required' => 'Last name is required.',
       'email.required' => 'Email address is required.',
       'email.email' => 'Please enter a valid email address.',
