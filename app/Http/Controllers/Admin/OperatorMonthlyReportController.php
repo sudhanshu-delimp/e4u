@@ -120,7 +120,7 @@ class OperatorMonthlyReportController extends BaseController
 
       $item->billing_period =  $fromDate . " to " . $toDate;
       $item->billing_period_to =  $item->billing_period_to;
-      $item->agent_id =  $item->operator->member_id;
+      $item->operator_member_id =  $item->operator->member_id;
       $item->agent_name =  $item->operator->business_name;
       $item->territory =  $item->operator->country?->iso3 ?? '';
       $formattedSpend = '<div class="num_value"><span>$</span><span>' . number_format($item->spend, 2, '.', '') . '</span></div>';
@@ -228,6 +228,9 @@ class OperatorMonthlyReportController extends BaseController
       $report = OperatorMonthlyReport::where('id', $id)->first();
       if ($report) {
         $report->status = $status;
+        if( $status == 'approved') {
+           $report->report_approved = now();
+        }
         if ($report->save()) {
           if ($status == 'query' || $status == 'query_resolved') {
             $userId = auth()->user()->id;

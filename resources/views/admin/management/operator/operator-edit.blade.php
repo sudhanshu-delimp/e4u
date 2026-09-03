@@ -98,8 +98,6 @@
         </div>
         <div class="col-6 mb-3">
             <label class="form-check-label" for="country_id">Territory</label>
-
-
             <input type="hidden" name="country_id" value="{{ $operator->country_id }}">
             <input type="text" class="form-control rounded-0" value="{{ $countryName }}" disabled>
 
@@ -192,11 +190,11 @@
             <label lass="form-label" for="advertising_commission_type">Amount Type</label>
             <select class="form-control rounded-0" name="advertising_commission_type"
                 id="advertising_commission_type">
-                <option value="">Amount Type</option>
+               {{--  <option value="">Amount Type</option> --}}
                 <option value="percent" {{$operator->operator_detail?->advertising_commission_type=='percent' ? 'selected' : '' }}>
                     Percent</option>
-                <option value="fixed"{{$operator->operator_detail?->advertising_commission_type=='fixed' ? 'selected' : '' }}>Fixed
-                </option>
+               {{--  <option value="fixed"{{$operator->operator_detail?->advertising_commission_type=='fixed' ? 'selected' : '' }}>Fixed
+                </option> --}}
             </select>
             <span class="text-danger error-advertising_commission_type"></span>
         </div>
@@ -212,19 +210,17 @@
             <label lass="form-label" for="massge_centre_commission_type">Amount Type</label>
             <select class="form-control rounded-0" name="massge_centre_commission_type"
                 id="massge_centre_commission_type">
-                <option value="">Amount Type</option>
+               {{--  <option value="">Amount Type</option> --}}
                 <option value="percent" {{$operator->operator_detail?->massge_centre_commission_type=='percent' ? 'selected' : '' }}>
                     Percent</option>
-                <option value="fixed"{{$operator->operator_detail?->massge_centre_commission_type=='fixed' ? 'selected' : '' }}>Fixed
-                </option>
+                {{-- <option value="fixed"{{$operator->operator_detail?->massge_centre_commission_type=='fixed' ? 'selected' : '' }}>Fixed
+                </option> --}}
             </select>
             <span class="text-danger error-massge_centre_commission_type"></span>
         </div>
     </div>
-
     <div class="modal-footer p-0">
         <button type="submit" class="btn-success-modal m-0">Update</button>
         <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Cancel</button>
     </div>
-
 </form>

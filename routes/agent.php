@@ -232,9 +232,7 @@ Route::get('forms',function(){
     // })->name('Fees.summary');
 
 
-Route::get('Fees/my-income',function(){
-    return view('agent.dashboard.Fees.my-income');
-})->name('Fees.my-income');
+
 
 Route::get('my-statistics',function(){
     return view('agent.dashboard.my-statistics');
@@ -354,5 +352,9 @@ Route::post('fees/view-monthly-report', [MonthlyReportController::class, 'viewMo
 Route::post('fees/update-monthly-report', [MonthlyReportController::class, 'updateMonthlyReportStatus'])->name('agent.fees.update.status.detail');
 Route::post('fees/print-monthly-report', [MonthlyReportController::class, 'printMonthlyFee'])->name('agent.print.monthly.fee');
 Route::post('fees/query', [MonthlyReportController::class, 'viewQuery'])->name('agent.fees.view.query');
+
+Route::get('fees/my-income', [MonthlyReportController::class, 'myIncome'])->name('Fees.my-income');
+
+
 
 

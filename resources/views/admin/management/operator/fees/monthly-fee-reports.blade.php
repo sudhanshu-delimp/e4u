@@ -47,6 +47,7 @@
                                     <th>Date Issued</th>
                                     <th>Billing Period</th>
                                     <th>Territory</th>
+                                    <th>Operator</th>
                                     <th>Spend</th>
                                     <th>Fees</th>
                                     <th>Status</th>
@@ -224,7 +225,7 @@
         var table = $('#commissionStatementTable').DataTable({
             language: {
                 search: "Search: _INPUT_",
-                searchPlaceholder: "Search by agent ID",
+                searchPlaceholder: "Search by Operator ID",
             },
             processing: true,
             serverSide: true,
@@ -259,6 +260,13 @@
                 {
                     data: 'territory',
                     name: 'territory',
+                    searchable: true,
+                    orderable: true,
+                    defaultContent: 'NA'
+                },
+                 {
+                    data: 'operator_member_id',
+                    name: 'operator_member_id',
                     searchable: true,
                     orderable: true,
                     defaultContent: 'NA'

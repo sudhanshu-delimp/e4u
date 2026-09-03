@@ -11,16 +11,10 @@
             : 0;
         $addAccess = staffPageAccessPermission($securityLevel, 'add');
         $addAccessEnabled = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
-
         $editAccess = staffPageAccessPermission($securityLevel, 'edit');
         $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
-
-
         $adv_commissionfee =  $commissionfee[0]['amount'];
         $massg_commissionfee =$commissionfee[1]['amount'];
-
-        
-
         $commissionAdvertisingType = $commissionfee[0]['amount_type'];
         $commissionRegistrationType = $commissionfee[1]['amount_type'];
     @endphp
@@ -255,11 +249,11 @@
                                 <label lass="form-label" for="commission_registration_type">Amount Type</label>
                                 <select class="form-control rounded-0" name="commission_registration_type"
                                     id="commission_registration_type">
-                                    <option value="">Amount Type</option>
+                                    {{-- <option value="">Amount Type</option> --}}
                                     <option value="percent" {{ $commissionAdvertisingType == 'percent' ? 'selected' : '' }}>
                                         Percent</option>
-                                    <option value="fixed"{{ $commissionAdvertisingType == 'fixed' ? 'selected' : '' }}>Fixed
-                                    </option>
+                                   {{--  <option value="fixed"{{ $commissionAdvertisingType == 'fixed' ? 'selected' : '' }}>Fixed
+                                    </option> --}}
                                 </select>
                                 <span class="text-danger error-commission_registration_type"></span>
                             </div>
@@ -276,12 +270,12 @@
                                 <label lass="form-label" for="commission_registration_type">Amount Type</label>
                                 <select class="form-control rounded-0" name="commission_registration_type"
                                     id="commission_registration_type">
-                                    <option value="">Amount Type</option>
+                                    {{-- <option value="">Amount Type</option> --}}
                                     <option value="percent" {{ $commissionRegistrationType == 'percent' ? 'selected' : '' }}>
                                         Percent</option>
-                                    <option value="fixed"{{ $commissionRegistrationType == 'fixed' ? 'selected' : '' }}>
+                                    {{-- <option value="fixed"{{ $commissionRegistrationType == 'fixed' ? 'selected' : '' }}>
                                         Fixed
-                                    </option>
+                                    </option> --}}
                                 </select>
                                 <span class="text-danger error-commission_registration_type"></span>
                             </div>

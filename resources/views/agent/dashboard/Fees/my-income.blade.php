@@ -22,7 +22,7 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                       <h3 class="NotesHeader"><b>Notes:</b></h3>
+                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
                             <li>You can view your Income according to the period displayed.</li>
                             <li>For an expanded summary of income, go to <a href="{{ route('agent.fees.summary') }}"
@@ -47,7 +47,7 @@
                         <div class="statistics-text">
                             <div class="statistics-label font-weight-bold">Today's Income
                             </div>
-                            <div class="statistics-value"><span>$</span> 950.00</div>
+                            <div class="statistics-value"><span>$</span> {{ $advertisers['today'] }}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
@@ -58,7 +58,7 @@
                         <div class="statistics-text">
                             <div class="statistics-label font-weight-bold">Week to Date
                             </div>
-                            <div class="statistics-value"><span>$</span> 2,500.00</div>
+                            <div class="statistics-value"><span>$</span> {{ $advertisers['week'] }}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
@@ -69,7 +69,7 @@
                         <div class="statistics-text">
                             <div class="statistics-label font-weight-bold">Month to Date
                             </div>
-                            <div class="statistics-value"><span>$</span> 5,500.00</div>
+                            <div class="statistics-value"><span>$</span> {{ $advertisers['month'] }}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
@@ -80,7 +80,7 @@
                         <div class="statistics-text">
                             <div class="statistics-label font-weight-bold">Year to Date
                             </div>
-                            <div class="statistics-value"><span>$</span> 75,5000.00</div>
+                            <div class="statistics-value"><span>$</span> {{ $advertisers['year'] }}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
@@ -100,7 +100,7 @@
                         <div class="statistics-text">
                             <div class="statistics-label font-weight-bold">Today's Income
                             </div>
-                            <div class="statistics-value"><span>$</span> 450.00</div>
+                            <div class="statistics-value"><span>$</span> {{ $escorts['today'] }}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
@@ -110,7 +110,7 @@
                         <div class="statistics-text">
                             <div class="statistics-label font-weight-bold">Week to Date
                             </div>
-                            <div class="statistics-value"><span>$</span> 1,500.00</div>
+                            <div class="statistics-value"><span>$</span> {{ $escorts['week'] }}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
@@ -120,7 +120,7 @@
                         <div class="statistics-text">
                             <div class="statistics-label font-weight-bold">Month to Date
                             </div>
-                            <div class="statistics-value"><span>$</span> 2,500.00</div>
+                            <div class="statistics-value"><span>$</span> {{ $escorts['month'] }}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
@@ -130,7 +130,7 @@
                         <div class="statistics-text">
                             <div class="statistics-label font-weight-bold">Year to Date
                             </div>
-                            <div class="statistics-value"><span>$</span> 55,000.00</div>
+                            <div class="statistics-value"><span>$</span> {{ $escorts['year'] }}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
@@ -149,7 +149,7 @@
                         <div class="statistics-text">
                             <div class="statistics-label font-weight-bold">Today's Income
                             </div>
-                            <div class="statistics-value"><span>$</span> 150.00</div>
+                            <div class="statistics-value"><span>$</span> {{ $massageCentres['today'] }}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
@@ -159,7 +159,7 @@
                         <div class="statistics-text">
                             <div class="statistics-label font-weight-bold">Week to Date
                             </div>
-                            <div class="statistics-value"><span>$</span> 500.00</div>
+                            <div class="statistics-value"><span>$</span> {{ $massageCentres['week'] }}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
@@ -169,7 +169,7 @@
                         <div class="statistics-text">
                             <div class="statistics-label font-weight-bold">Month to Date
                             </div>
-                            <div class="statistics-value"><span>$</span> 750.00</div>
+                            <div class="statistics-value"><span>$</span> {{ $massageCentres['month'] }}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
@@ -179,7 +179,7 @@
                         <div class="statistics-text">
                             <div class="statistics-label font-weight-bold">Year to Date
                             </div>
-                            <div class="statistics-value"><span>$</span> 25,000.00</div>
+                            <div class="statistics-value"><span>$</span> {{ $massageCentres['year'] }}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
@@ -188,8 +188,6 @@
                 </div>
             </div>
             {{-- end --}}
-
-
         </div>
     @endsection
     @section('script')
