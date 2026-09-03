@@ -1190,6 +1190,11 @@ class MasseurController extends AppController
 
         $data = $masseurs->map(function ($row) use ($countries) {
 
+            if($row->is_default=='1')
+            $member_id = '<span id="brb_56">'.$row->member_id.'</span><br><sup class="brb_icon listing-tag-tooltip ml-1" style="background-color:#6e6e6e">Default <small class="listing-tag-tooltip-desc">Default Masseur</small></sup>';
+            else
+            $member_id = $row->member_id;
+
             if($row->status==1)
             $status = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center masseur_action '.canManageClass().'" data-row-id="'.$row->id.'" id="row_deactive" href="javascript:void(0)">   <i class="fa fa-ban"></i> Deactivate</a>';   
                 else
@@ -1221,7 +1226,7 @@ class MasseurController extends AppController
 
             return [
                 
-                'member_id' => $row->member_id,
+                'member_id' => $member_id,
                 'name' => $row->name,
                 'stage_name' => $row->stage_name,
                 'mobile' => $row->mobile,

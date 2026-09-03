@@ -55,11 +55,28 @@
                     </div>
                     {{-- end --}}
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12">
-                            <div class="d-flex justify-content-end my-3">
+
+                    <div class="col-md-12 col-sm-12 d-flex justify-content-between" style="gap: 50px;">
+
+                <div class="d-flex justify-content-between align-items-center gap-2">
+                  <select id="advertiserFilter" name="advertiser_type" class="form-select form-select-sm p-2" style="width: 200px;">
+                     <option value="{{ route('agent.analytic-profiles-list-ajax','escort') }}">Escort</option>
+                     <option value="{{ route('agent.analytic-profiles-list-ajax','massage') }}">Massage Center</option>
+                  </select>
+               </div>
+
+                 <div class="d-flex justify-content-end my-3">
                                 <button class="btn-common mr-0" type="button" data-target="#printReport"
                                     data-toggle="modal">Print Report</button>
                             </div>
+
+                    </div>
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+
+                
+
+
+                          
                             <div class="table-responsive">
                                 <table class="table w-100" id="advProfileSummaryTable">
                                     <thead class="table-bg">
@@ -460,33 +477,93 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+        
     </script>
     <script>
-        var table = $('#advProfileSummaryTable').DataTable({
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Search By Member ID",
-                sSearch: 'Search:'
-            },
-            processing: false,
-            serverSide: false,
-            lengthChange: true,
-            order: [0, 'asc'],
+
+    var table = $('#advProfileSummaryTable').DataTable({
+      language: {
+         search: "Search: _INPUT_",
+         searchPlaceholder: "Search by Member ID"
+      },
+      info: true,
+      lengthChange: true,
+      searching: true,
+      bStateSave: true,
+      order: [
+         [4, 'desc']
+      ],
+      processing: true,
+      serverSide: true,
+      paging: true,
+      ajax: {
+         url: $("select[name='advertiser_type']").val(),
+         type: "GET",
+         dataSrc: function(json) {
+            var totalRows = json.recordsTotal || json.recordsFiltered;
+            $(".totalListing").text(totalRows);
+            $(".serverTime").text(json.server_time);
+            $(".uptimeClass").html(json.server_up_time);
+            return json.data;
+         }
+      },
+      columns: [{
+            data: 'advertiser_id',
+            name: 'advertiser_id',
+            orderable: false,
+         },
+         {
+            data: 'member_id',
+            name: 'member_id'
+         },
+         {
+            data: 'start_date',
+            name: 'start_date',
             searchable: false,
-            searching: true,
-            bStateSave: true,
-         columns: [
-            { data: 'member_id', name: 'member_id', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'name', name: 'name', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'mobile', name: 'mobile', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'start_date', name: 'start_date', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'end_date', name: 'end_date', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'total_day', name: 'total_day', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'pinup', name: 'pinup', searchable: true, orderable:true ,defaultContent: 'NA'},
-            { data: 'listing_fee', name: 'listing_fee', searchable: false, orderable:true ,defaultContent: 'NA'},
-            { data: 'agent_fee', name: 'agent_fee', searchable: false, orderable:true ,defaultContent: 'NA'},
-            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
-            ],
-        });
+         },
+         {
+            data: 'end_date',
+            name: 'end_date',
+            searchable: false,
+         },
+         {
+            data: 'cancelled_at',
+            name: 'cancelled_at',
+            searchable: false,
+         },
+         {
+            data: 'location',
+            name: 'location',
+            orderable: false,
+         },
+         {
+            data: 'location',
+            name: 'location',
+            orderable: false,
+         },
+         {
+            data: 'location',
+            name: 'location',
+            orderable: false,
+         },
+         {
+            data: 'location',
+            name: 'location',
+            orderable: false,
+         },
+         {
+            data: 'action',
+            name: 'action',
+            orderable: false,
+            searchable: false,
+            class: 'text-center'
+         }
+      ]
+   });
+
+
+
+
+       
     </script>
 @endpush
