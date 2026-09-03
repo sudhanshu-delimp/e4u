@@ -274,9 +274,9 @@
                         <div class="accodien_manage_padding_content">
                             <p>Our Business Hours are:</p>
                             <p>Monday to Friday:&nbsp; &nbsp;8:00am to 6:00pm (WST)</p>
-                            <p>Saturday & Sunday:&nbsp; &nbsp;10:00am to 4:00pm (WST) (online only)</p><br>
+                            <p>Saturday & Sunday:&nbsp; &nbsp;10:00am to 4:00pm (WST) (online only)</p>
                             <p>You can contact us through either of the following methods:</p>
-                            <br>
+                            
                             <span class="d-flex justify-content-start" style="gap:100px">
                                 <span>
                                     <p class="border-0">Postal:</p>
@@ -294,7 +294,7 @@
                                     <p>Australia</p>
                                 </span>
                             </span>
-                            <br>
+                            
 
 
                             <p>T:&nbsp; &nbsp;+61 1300 700 444</p>
