@@ -1337,7 +1337,7 @@ label.cabinet input.file {
 }
 
 .stats-icon {
-    background-color: var(--light-pink);
+    background-color: var(--peach);
     border-radius: var(--radius-full);
     max-width: 45px;
     min-width: 45px;
@@ -1347,6 +1347,67 @@ label.cabinet input.file {
     align-items: center;
     justify-content: center;
     color: var(--blue--text) !important;
+}
+
+.wallet-summary-card {
+    min-width: 220px;
+    padding: 13px 18px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 6px 20px rgba(9, 37, 68, 0.06);
+}
+
+.wallet-summary-icon {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    flex-shrink: 0;
+}
+
+.balance .wallet-summary-icon {
+    background: var(--light-pink);
+}
+
+.reward .wallet-summary-icon {
+    background: #fff0f3;
+    color: var(--peach);
+}
+
+.wallet-summary-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.wallet-summary-icon svg path {
+    stroke: var(--peach);
+}
+
+.wallet-summary-label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+.wallet-summary-value {
+    display: block;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.balance .wallet-summary-value {
+    color: #28a745;
+}
+
+.reward .wallet-summary-value {
+    color: var(--peach);
 }
 
 
