@@ -104,8 +104,9 @@
     <div class="modal fade upload-modal" id="message-report" tabindex="-1" role="dialog" aria-labelledby="CompetitorLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
-            <div id="appendSingleMassage">
-              
+            <div class="modal-content">
+                <div id="appendSingleMassage">
+                </div>
             </div>
         </div>
     </div>
@@ -127,7 +128,7 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script> --}} {{--
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script> --}} {{--
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script> --}}
-    <script type="text/javascript" src="{{ asset('js/agent/management/fee/fees-summery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/agent/management/fee/fees-summery.js') }}?v={{ filemtime(public_path('js/agent/management/fee/fees-summery.js')) }}"></script>
 
     <script>
         // $(document).ready(function() {

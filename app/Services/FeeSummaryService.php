@@ -169,15 +169,15 @@ class FeeSummaryService
                 $totalSpend = array_sum($totals);
                 return (object) array_merge([
                     'member_id' => $user->member_id,
+                    'user_id' => $user->id,
                     'advertiser_name' => $user->name,
-                    'membership_type' => $user->type === '3' ? 'E' : 'MC',
+                    'membership_type' => $user->type == '3' ? 'E' : 'MC',
                     'joined_date' => optional($user->created_at)->format('d-m-Y'),
                     'total_spend' => $totalSpend,
                     'fees' => round($totalSpend * $feePercentage / 100, 2),
                     'fee_percentage' => $feePercentage,
                 ], $totals);
             });
-
         return $earnings->sortBy($this->sortKey($displayType), SORT_REGULAR, $this->descending($displayType))->values();
     }
 
