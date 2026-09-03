@@ -6588,10 +6588,11 @@ div.myacording-design .card .card-header a.collapsed:after {
 div.myacording-design .card .card-body ol li,
 div.myacording-design .card .card-body ul li,
 div.myacording-design .card .card-body p {
-    margin-bottom: 0px;
+    border-top: 0px;
     font-family: 'Poppins';
     font-weight: normal;
-    font-size: 14px;
+    font-size: clamp(14px, 4vw, 16px);
+    line-height: 28px;
 }
 
 .accordian_wrapper p {

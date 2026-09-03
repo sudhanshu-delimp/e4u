@@ -149,7 +149,7 @@
                                                     </div>
 
                                                     <ol class="my-2">
-                                                        <li>ool Privacy Policy (available on our Website) which sets out how
+                                                        <li>Our Privacy Policy (available on our Website) which sets out how
                                                             we will handle your
                                                             personal information;</li>
                                                         <li>clause 24 (Consumer Law Rights) which sets out your rights under
