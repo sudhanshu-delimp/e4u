@@ -73,11 +73,11 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', function () {
         return redirect('/');
     })->name('login');
-    Route::get('/advertiser-login', [AdvertiserLoginController::class, 'index'])->name('advertiser.login');
-    Route::get('/viewer-login', [AdvertiserLoginController::class, 'indexViewer'])->name('viewer.login');
+    Route::get('/advertiser-login', [AdvertiserLoginController::class, 'index'])->name('advertiser.login')->seo_name('Advertiser Login');
+    Route::get('/viewer-login', [AdvertiserLoginController::class, 'indexViewer'])->name('viewer.login')->seo_name('Viewer Login');
     //Route::get('/agent-login', [AdvertiserLoginController::class,'indexAgent'])->name('agent.login');
-    Route::match(array('GET', 'POST'), '/agent-login', [AdvertiserLoginController::class, 'indexAgent'])->name('agent.login');
-    Route::get('/register', [GuestRegisterController::class, 'showRegistrationForm'])->name('register');
+    Route::match(array('GET', 'POST'), '/agent-login', [AdvertiserLoginController::class, 'indexAgent'])->name('agent.login')->seo_name('Agent Login');
+    Route::get('/register', [GuestRegisterController::class, 'showRegistrationForm'])->name('register')->seo_name('Register');
     Route::post('/register', [RegisterController::class, 'register']);
     Route::get('/staff-login', [AdvertiserLoginController::class, 'indexStaff'])->name('staff.login');
 });

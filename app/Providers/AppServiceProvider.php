@@ -6,6 +6,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Routing\Route;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    
+
     public function boot()
     {
         View::composer('*', function ($view) {
@@ -68,5 +69,11 @@ class AppServiceProvider extends ServiceProvider
         }
 
         Paginator::useBootstrap();
+
+        //for use SEO perpes 
+        Route::macro('seo_name', function (string $label) {
+            $this->action['seo_name'] = $label;
+            return $this; 
+        });
     }
 }
