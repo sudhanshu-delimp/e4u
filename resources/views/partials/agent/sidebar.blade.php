@@ -267,7 +267,7 @@
             'abbreviations','classification-laws','help','laws','ticket-list'
         ]) || in_array(request()->segment(1), ['submit_ticket'])) show @endif"
             data-parent="#accordionSidebar">
-            <div class="collapse-inner">
+            <div class="collapse-inner disabled-link">
 
                 {{-- Analytics --}}
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Analytics"
