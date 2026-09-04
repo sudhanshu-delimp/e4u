@@ -426,7 +426,7 @@
                         <div class="tab-pane fade p-2" id="open-times-{{ $listing->id }}" role="tabpanel"
                             aria-labelledby="open-times-tab-{{ $listing->id }}">
 
-                            <table class="table table-striped table-hover open-time-table mb-0">
+                            <table class="table table-striped open-time-table mb-0">
                                 <tbody style="text-align: left;">
                                     <?php echo get_weakly_availibility($listing); ?>
                                 </tbody>

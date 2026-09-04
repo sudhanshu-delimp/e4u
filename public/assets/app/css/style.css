@@ -3618,6 +3618,14 @@ i.fa.fa-heart-o{
         font-family: FontAwesome;
     }
     
+    .open-time-table.table-striped tbody tr:nth-of-type(odd) {
+        background-color: var(--off-white) !important;
+    }
+    
+    .open-time-table.table-striped tbody td {
+        border-bottom: 1px solid var(--off-white);
+    }
+    
     .table-striped tbody tr:nth-of-type(odd) {
         background-color: #E5E5E5;
     }
@@ -7585,6 +7593,7 @@ i.fa.fa-heart-o{
     .mc_list_about {
         padding: 10px 10px 10px;
         border-top: 1px solid var(--border-color);
+        min-height: 85px;
     }
     
     .mc_list_desc {
