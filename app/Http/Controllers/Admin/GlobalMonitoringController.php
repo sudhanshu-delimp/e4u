@@ -830,7 +830,7 @@ class GlobalMonitoringController extends Controller
             $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
         }, 'pinup', 'suspendProfile'])->first();
 
-    $escort = $escortProfile->toArray();
+        $escort = $escortProfile->toArray();
 
 
         $dataTableData = [];
