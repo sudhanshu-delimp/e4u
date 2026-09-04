@@ -733,7 +733,7 @@ span.menu-active {
     background: #EFF0F6;
     padding: 13px;
     border-radius: 40px;
-    width: 42px;
+    width: 42px !important;
     height: 40px;
 }
 
@@ -1806,8 +1806,8 @@ button.btn:focus {
 /* Add money section */
 
 .add-money-box {
-    background: #f7f9fc;
-    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
     padding: 20px;
 }
 
@@ -6588,10 +6588,11 @@ div.myacording-design .card .card-header a.collapsed:after {
 div.myacording-design .card .card-body ol li,
 div.myacording-design .card .card-body ul li,
 div.myacording-design .card .card-body p {
-    margin-bottom: 0px;
+    border-top: 0px;
     font-family: 'Poppins';
     font-weight: normal;
-    font-size: 14px;
+    font-size: clamp(14px, 4vw, 16px);
+    line-height: 28px;
 }
 
 .accordian_wrapper p {
