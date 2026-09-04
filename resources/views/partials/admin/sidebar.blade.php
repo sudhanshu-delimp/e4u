@@ -6,7 +6,7 @@
 
     $ocLavel = 'Management';
     if ($securityLevel == 2) {
-        $ocLavel = 'Admin';
+        $ocLavel = 'Management';
     } elseif ($securityLevel == 3) {
         $ocLavel = 'Admin';
     } elseif ($securityLevel == 4) {
