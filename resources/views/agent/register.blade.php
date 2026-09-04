@@ -537,7 +537,7 @@
 
                         if (data.error == 1 && data.status === 'Pending') {
                             sessionStorage.setItem('agent_pending_status',
-                                'Your account has been successfully created but is currently inactive.\n \nYou will receive an email notification once it has been activated.'
+                                'Your account has been successfully created but is currently inactive.\n You will receive an email notification once it has been activated.'
                                 );
                             window.location.href = "{{ route('agent.login') }}";
                             return false;
@@ -632,7 +632,7 @@
                     },
                     error: function(data) {
                         Swal.close();
-                        console.log("error: b", data.responseJSON.errors);
+                        // console.log("error: b", data.responseJSON.errors);
                         var errorsHtml = '<ul><li>';
                         $.each(data.responseJSON.errors, function(key, value) {
                             console.log("key=", key);

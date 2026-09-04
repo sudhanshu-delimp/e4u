@@ -213,6 +213,7 @@
                 <div class="col-lg-4 delimp_copyright order-last order-md-0">
                     <span class="rta_logo">
                         <img src="{{ asset('assets/app/img/rta-logo.png') }}" alt="RESTRICTED TO ADULTS">
+                        <span class="tooltip">Restricted to adults.</span>
                     </span>
                     <span><img
                             src="{{ asset('assets/app/img/delimp-technology.png') }}"

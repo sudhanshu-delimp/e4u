@@ -95,6 +95,10 @@
     background-color: #f3f3f3;
 }
 
+.common_list_design li {
+    padding-left: 20px;
+}
+
 .wallet_details .card-body h5 {
     margin-bottom: 0px;
     font-weight: 600;
@@ -729,7 +733,7 @@ span.menu-active {
     background: #EFF0F6;
     padding: 13px;
     border-radius: 40px;
-    width: 42px;
+    width: 42px !important;
     height: 40px;
 }
 
@@ -1802,8 +1806,8 @@ button.btn:focus {
 /* Add money section */
 
 .add-money-box {
-    background: #f7f9fc;
-    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
     padding: 20px;
 }
 
@@ -6584,10 +6588,11 @@ div.myacording-design .card .card-header a.collapsed:after {
 div.myacording-design .card .card-body ol li,
 div.myacording-design .card .card-body ul li,
 div.myacording-design .card .card-body p {
-    margin-bottom: 0px;
+    border-top: 0px;
     font-family: 'Poppins';
     font-weight: normal;
-    font-size: 16px;
+    font-size: clamp(14px, 4vw, 16px);
+    line-height: 28px;
 }
 
 .accordian_wrapper p {
@@ -11225,11 +11230,11 @@ border-top: 5px solid var(--peach);
 }
 
 .statistics-card {
-    border-radius: 5px;
+    border-radius: var(--radius-sm);
     padding: 16px;
     margin: 10px 0px;
     background-color: #fff;
-    border: 1px solid #0c223d40;
+    border: 1px solid var(--border-color);
     color: var(--blue--text) !important;
     width: 100%;
     min-width: 250px;

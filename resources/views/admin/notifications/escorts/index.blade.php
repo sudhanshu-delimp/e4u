@@ -178,6 +178,7 @@
                                         value="Did you know you can book your accommodation online with us? Simply go to Concierge and select Accommodation.">
                                         Did you know you can book your accommodation online with us? Simply go to Concierge
                                         and select Accommodation.</option>
+                                        <option value="Get in front of everyone else and book your Pin Up position for each Location when you Tour.">Get in front of everyone else and book your Pin Up position for each Location when you Tour.</option>
                                 </select>
                             </div>
 

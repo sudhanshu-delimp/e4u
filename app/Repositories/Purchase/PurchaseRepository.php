@@ -97,11 +97,18 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             $query->selectRaw("$table.*,DATEDIFF(end_date, NOW()) as days_left")->orderBy('days_left', $dir);
         } else {
             $query->orderByRaw("
-            CASE
-            WHEN end_date >= CURDATE() THEN 0
-            ELSE 1
-            END ASC
-            ")->orderBy($order_field, $dir);
+                CASE
+                WHEN status = 'listed' THEN 0
+                WHEN status = 'pending' THEN 1
+                ELSE 2
+                END ASC
+                ")
+                ->orderByRaw("
+                CASE
+                WHEN end_date >= CURDATE() THEN 0
+                ELSE 1
+                END ASC
+                ")->orderBy($order_field, $dir);
         }
         $mainQuery = $query->offset($start)->limit($limit);
         $result = $this->modifyEscorts($mainQuery->get(), $start);
@@ -113,17 +120,27 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
         $i = 1;
         $locations = config('escorts.profile.states');
         foreach ($result as $key => $item) {
-
-            $startDate = Carbon::parse(date('d-m-Y', strtotime($item->start_date)))->startOfDay();
-            $endDate = Carbon::parse(date('d-m-Y', strtotime($item->end_date)))->startOfDay();
-            $now = Carbon::now()->startOfDay();
-            if ($startDate > $now) {
-                $statusBtn = '<span class="custom_badge badge_upcoming">Upcoming</span>';
-            } elseif ($endDate < $now) {
-                $statusBtn = '<span class="custom_badge badge_suspended">Expired</span>';
-            } else {
-                $statusBtn = '<span class="custom_badge badge_current">Current</span>';
+            $listingStatus = '';
+            switch ($item->status) {
+                case 'listed': {
+                        $listingStatus = 'Current';
+                    }
+                    break;
+                case 'pending': {
+                        $listingStatus = 'Upcoming';
+                    }
+                    break;
+                case 'expire': {
+                        $listingStatus = 'Expired';
+                    }
+                    break;
             }
+
+            $listingStatusClass = getStatusBadgeClass(strtolower($listingStatus));
+            $item->statusBtn = "<span class='custom_badge {$listingStatusClass}'>{$listingStatus}</span>";
+            $item->status = $item->statusBtn;
+
+
             $localTimeZone = getEscortTimezone($item);
             $isExtended = $item->isListingExtended();
             $mainPurchase = $item->escort->mainPurchase;
@@ -154,8 +171,7 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             // $badgeClass = getStatusBadgeClass(strtolower($statusText));
             // $item->status = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
             // $item->statusBtn = $statusBtn;
-            $item->status = $statusBtn;
-            $item->statusBtn = $statusBtn;
+
 
             $item->location = $locations[$item->escort->state_id]['stateAbbr'];
             $item->membership = getMembershipType($item->membership);

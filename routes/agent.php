@@ -1,34 +1,34 @@
 
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Agent\AgentController;
-use App\Http\Controllers\Escort\TourController;
-use App\Http\Controllers\Agent\EscortController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\Agent\AgentTaskController;
-use App\Http\Controllers\Escort\ArchivesController;
-use App\Http\Controllers\Agent\AppointmentController;
 use App\Http\Controllers\Agent\AgentAccountController;
-use App\Http\Controllers\Agent\AgentRequestController;
-use App\Http\Controllers\User\Dashboard\UserController;
+use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\Agent\AgentDashboardController;
+use App\Http\Controllers\Agent\AgentRequestController;
+use App\Http\Controllers\Agent\AgentTaskController;
+use App\Http\Controllers\Agent\AgentTourPaymentController;
+use App\Http\Controllers\Agent\AnalyticsController;
+use App\Http\Controllers\Agent\AppointmentController;
+use App\Http\Controllers\Agent\DatabaseCentreController;
+use App\Http\Controllers\Agent\FeesSummaryController;
+use App\Http\Controllers\Agent\EscortController;
+use App\Http\Controllers\Agent\FeesSummeryController;
+use App\Http\Controllers\Agent\ImpersonateController;
+use App\Http\Controllers\Agent\MonthlyReportController;
+use App\Http\Controllers\Agent\ProspectListController;
+use App\Http\Controllers\Escort\ArchivesController;
+use App\Http\Controllers\Escort\EscortController as DataTableController;
 use App\Http\Controllers\Escort\EscortGalleryController;
-
+use App\Http\Controllers\Escort\EscortPolyPaymentController;
 use App\Http\Controllers\Escort\Profile\CreateController;
 use App\Http\Controllers\Escort\Profile\UpdateController;
-use App\Http\Controllers\Agent\AgentTourPaymentController;
-use App\Http\Controllers\Escort\EscortPolyPaymentController;
+use App\Http\Controllers\Escort\TourController;
 use App\Http\Controllers\MyAdvertiser\ListAdvertiserController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
-use App\Http\Controllers\Escort\EscortController as DataTableController;
-use App\Http\Controllers\Agent\ProspectListController;
-use App\Http\Controllers\Agent\DatabaseCentreController;
-use App\Http\Controllers\Agent\ImpersonateController;
-use App\Http\Controllers\Agent\FeesSummeryController;
-use App\Http\Controllers\Agent\FeesSummeryControllerV2;
-use App\Http\Controllers\Agent\MonthlyReportController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\User\Dashboard\UserController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 
     Route::get('/', [AgentController::class, 'index'])->name('agent.dashboard');
@@ -149,6 +149,11 @@ use App\Http\Controllers\Agent\MonthlyReportController;
 
 
 
+    Route::get('advertiser-profiles',function(){return view('agent.dashboard.Annalytics.advertiser-profiles');})->name('agent.advertiser-profiles');
+    Route::get('analytic-profiles-list-ajax/{advertiserType}', [AnalyticsController::class, 'analytic_profiles_list_ajax'])->name('agent.analytic-profiles-list-ajax');
+
+
+
     //Demo
     Route::get('marketing/prospect-list/demo1', function(){
        return view('agent.dashboard.marketing.modal.doc1');
@@ -172,8 +177,9 @@ use App\Http\Controllers\Agent\MonthlyReportController;
     Route::get('/accepted_advertiser_datatable', [AgentRequestController::class, 'accepted_advertiser_datatable'])->name('agent.accepted_advertiser_datatable');
 
     //Fee summary
-    Route::get('fees/summary', [FeesSummeryController::class, 'feesSummary'])->name('agent.fees.summary');
-    Route::get('advertiser/fees/summery', [FeesSummeryController::class, 'fetchFeeSummeryAdvertiserData'])->name('agent.advertiser.fees.summary');
+    Route::get('fees/summary', [FeesSummaryController::class, 'feesSummary'])->name('agent.fees.summary');
+    Route::get('single-advertiser-fees-summary', [FeesSummaryController::class, 'singleAdvertiserFeeSummary'])->name('single-advertiser-summary');
+    Route::get('advertiser/fees/summery', [FeesSummaryController::class, 'fetchFeeSummeryAdvertiserData'])->name('agent.advertiser.fees.summary');
      
     Route::get('/multi-merge-report',function(){
     return view('agent.dashboard.marketing.multi-merge-report');
@@ -183,9 +189,6 @@ use App\Http\Controllers\Agent\MonthlyReportController;
     return view('agent.dashboard.marketing.single-merge-report');
 })->name('agent.single-merge-report');
 
-    Route::get('advertiser-profiles',function(){
-    return view('agent.dashboard.Annalytics.advertiser-profiles');
-})->name('agent.advertiser-profiles');
 
     Route::get('advertiser-social-media',function(){
     return view('agent.dashboard.Annalytics.advertiser-social-media');
