@@ -33,7 +33,7 @@ class OperatorController extends BaseController
 
     public function __construct(UserInterface $user, OperatorBankDetailInterface $operatorBankDetail)
     {
-        $this->user = $user;
+        $this->userInterface = $this->user = $user;
         $this->operatorBankDetail = $operatorBankDetail;
         $this->middleware(function ($request, $next) {
 
@@ -210,7 +210,7 @@ class OperatorController extends BaseController
         //$user->password = Hash::make($request->new_password);
         //$user->save();
         $data = $request->all();
-        $this->user->changeUserPassword($data);
+        $this->userInterface->changeUserPassword($data);
         return response()->json(["status" => true, "message" => 'Your password has been updated successfully!']);
     }
 
@@ -312,7 +312,7 @@ class OperatorController extends BaseController
     {
         $user = $this->user->find(auth()->user()->id);
         $data = $request->all();
-        $resposne = $this->user->changeUserPassword($data);
+        $resposne = $this->userInterface->changeUserPassword($data);
 
         if ($resposne['status'])
             return $this->successResponse($resposne['message']);

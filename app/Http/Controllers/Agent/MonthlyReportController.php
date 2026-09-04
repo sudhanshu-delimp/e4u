@@ -23,24 +23,11 @@ class MonthlyReportController extends BaseController
 
   /**
    *  View the monthly fee reports list
+   * 
+   * @return \Illuminate\View\View
    */
   public function monthlyReport()
   {
-
-    $agentId = auth()->user()->id;
-    $reportId = 4;
-    $agentData = auth()->user();
-    $agent['name'] = $agentData->contact_person ?? $agentData->business_name;
-    $agent['member_id'] = $agentData->member_id ?? "";
-    $agent['report_date'] = '07-2026';
-
-    /* $calculateServiceObj = (new CalculateAgentFeeService);
-
-    $feeData = $calculateServiceObj->calculateFee($reportId);
-    if ($feeData->isNotEmpty()) {
-      //dd($feeData->toArray());
-    } */
-    // return  view('emails.agent.agent_monthly_fee', compact('agent'));
     return  view('agent.dashboard.Fees.monthly-report');
   }
 
@@ -195,6 +182,7 @@ class MonthlyReportController extends BaseController
    * View the monthly fee detail
    * 
    * @param \Illuminate\Http\Request $request
+   * @return \Illuminate\View\View
    */
   public function viewMonthlyReport(Request $request)
   {
@@ -229,6 +217,9 @@ class MonthlyReportController extends BaseController
       $report = AgentMonthlyReport::where('id', $id)->first();
       if ($report) {
         $report->status = $status;
+        if( $status == 'approved') {
+           $report->report_approved = now();
+        }
         if ($report->save()) {
           if ($status == 'query' || $status == 'query_resolved') {
             $reportQueryObj = (new AgentMonthlyReportQuery);
@@ -274,6 +265,7 @@ class MonthlyReportController extends BaseController
    * View the monthly fee detail
    * 
    * @param \Illuminate\Http\Request $request
+   * @return \Illuminate\View\View
    */
   public function viewQuery(Request $request)
   {
@@ -293,5 +285,58 @@ class MonthlyReportController extends BaseController
       }
     }
     return "";
+  }
+
+  /**
+   * Display the authenticated agent's income summary page.
+   *
+   * @return \Illuminate\View\View
+   */
+  public function myIncome()
+  {
+    $agentData = auth()->user();
+
+    $agentId = $agentData->id;
+
+    $today = Carbon::today();
+    $weekStart = Carbon::now()->startOfWeek();
+    $weekEnd = Carbon::now()->endOfWeek();
+    $monthStart = Carbon::now()->startOfMonth();
+    $monthEnd = Carbon::now()->endOfMonth();
+    $yearStart = Carbon::now()->startOfYear();
+    $yearEnd = Carbon::now()->endOfYear();
+    $commissions = AgentCommission::where('agent_id', $agentId);
+
+    $advertisers = [
+      'today' => $this->getIncome($commissions, [3, 4], $today, $today->copy()->endOfDay()),
+      'week'  => $this->getIncome($commissions, [3, 4], $weekStart, $weekEnd),
+      'month' => $this->getIncome($commissions, [3, 4], $monthStart, $monthEnd),
+      'year'  => $this->getIncome($commissions, [3, 4], $yearStart, $yearEnd),
+    ];
+
+    $escorts = [
+      'today' => $this->getIncome($commissions, [3], $today, $today->copy()->endOfDay()),
+      'week'  => $this->getIncome($commissions, [3], $weekStart, $weekEnd),
+      'month' => $this->getIncome($commissions, [3], $monthStart, $monthEnd),
+      'year'  => $this->getIncome($commissions, [3], $yearStart, $yearEnd),
+    ];
+
+    $massageCentres = [
+      'today' => $this->getIncome($commissions, [4], $today, $today->copy()->endOfDay()),
+      'week'  => $this->getIncome($commissions, [4], $weekStart, $weekEnd),
+      'month' => $this->getIncome($commissions, [4], $monthStart, $monthEnd),
+      'year'  => $this->getIncome($commissions, [4], $yearStart, $yearEnd),
+    ];
+
+    return  view('agent.dashboard.Fees.my-income', compact('advertisers', 'escorts', 'massageCentres'));
+  }
+
+  private function getIncome($query, $userTypes, $from, $to)
+  {
+    $sum =  (clone $query)
+      ->whereIn('user_type', (array) $userTypes)
+      ->whereBetween('commission_date', [$from, $to])
+      ->sum('total_commission_amount');
+    return number_format($sum, 2, ".", "");
   }
 }

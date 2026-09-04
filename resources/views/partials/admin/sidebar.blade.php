@@ -836,6 +836,7 @@
                 </a>
 
                 <!-- Parent: Management -->
+                
                 <div id="Management" class="collapse @if (in_array(request()->segment(3), [
                         'email-management',
                         'sim-management',
@@ -899,6 +900,7 @@
                         'concierge-payments',
                         'agent-data',
                         'fees',
+                        'operator'
                     ]) ||
                         request()->segment(2) == 'feedback' ||
                         in_array(request()->segment(4), [
@@ -914,6 +916,7 @@
                             'shareholders-notifications',
                             'viewers-notifications',
                             'monthly-report',
+                            'monthly-fee-reports'
                         ])) show @endif"
                     aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
@@ -1338,7 +1341,7 @@
                             <img src="{{ asset('assets/dashboard/img/menu-icon/operator.png') }}">
                             <span>Operator</span>
                         </a>
-                        <div id="operatorMenu" class="collapse @if (in_array(request()->segment(3), ['monthly-fee-reports', 'commission-summary'])) show @endif"
+                        <div id="operatorMenu" class="collapse @if (in_array(request()->segment(4), ['monthly-fee-reports', 'commission-summary'])) show @endif"
                             data-parent="#Management">
 
                             <a class="collapse-item" href="{{ route('admin.commission-summary') }}">
@@ -1350,7 +1353,7 @@
                             <a class="collapse-item" href="{{ route('admin.monthly-fee-reports') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
                                 <span
-                                    style="{{ request()->segment(3) == 'monthly-fee-reports' ? 'color: #FF3C5F;' : '' }}">Monthly
+                                    style="{{ request()->segment(4) == 'monthly-fee-reports' ? 'color: #FF3C5F;' : '' }}">Monthly
                                     Fee Reports</span>
                             </a>
                         </div>

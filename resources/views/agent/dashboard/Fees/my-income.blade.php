@@ -38,20 +38,16 @@
         <div class="col-lg-12 card-wrapper">
             <div class="row">
                 {{-- 1st --}}
-                <div class="col-lg-12 common-card mb-3">
-                    <div class="card-top">
-                        <div class="card-icon">
-                            <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                <g id="SVGRepo_iconCarrier">
-                                    <path
-                                        d="M3 6V17C3 18.6569 4.34315 20 6 20H20C20.5523 20 21 19.5523 21 19V16M19 8H5C3.89543 8 3 7.10457 3 6V6C3 4.89543 3.89543 4 5 4H18C18.5523 4 19 4.44772 19 5V8ZM19 8H20C20.5523 8 21 8.44772 21 9V12M21 12H18C16.8954 12 16 12.8954 16 14V14C16 15.1046 16.8954 16 18 16H21M21 12V16"
-                                        stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    </path>
-                                </g>
-                            </svg>
+                <div class="col-lg-12">
+                    <h4 class="font-weight-bold" style="color: var(--blue--text);">My Income (Advertisers)
+                    </h4>
+                </div>
+                <div class="col-lg-12 card-list-wrapper">
+                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                        <div class="statistics-text">
+                            <div class="statistics-label font-weight-bold">Today's Income
+                            </div>
+                            <div class="statistics-value"><span>$</span> {{ $advertisers['today'] }}</div>
                         </div>
                         <div class="card-heading">
                             <h2>My Income (Advertisers)</h2>
@@ -92,10 +88,19 @@
                                     <div class="stats-value"><span>$</span> 950.00</div>
                                 </div>
                             </div>
+                            <div class="statistics-value"><span>$</span> {{ $advertisers['week'] }}</div>
                         </div>
 
-                        <div class="stats-card">
-                            <div class="stats-details">
+                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                        <div class="statistics-text">
+                            <div class="statistics-label font-weight-bold">Month to Date
+                            </div>
+                            <div class="statistics-value"><span>$</span> {{ $advertisers['month'] }}</div>
+                        </div>
+                        <div class="statistics-icon">
+                            <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
+                        </div>
+                    </div>
 
                                 <div class="stats-icon">
                                     <div class="stats-icon">
@@ -108,6 +113,7 @@
                                     <div class="stats-value"><span>$</span> 2,500.00</div>
                                 </div>
                             </div>
+                            <div class="statistics-value"><span>$</span> {{ $advertisers['year'] }}</div>
                         </div>
 
                         <div class="stats-card">
@@ -143,21 +149,20 @@
                         </div>
                     </div>
                 </div>
-                {{-- 2nd --}}                
-                <div class="col-lg-12 common-card mb-3">
-                    <div class="card-top">
-                        <div class="card-icon">
-                            <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                <g id="SVGRepo_iconCarrier">
-                                    <path
-                                        d="M3 6V17C3 18.6569 4.34315 20 6 20H20C20.5523 20 21 19.5523 21 19V16M19 8H5C3.89543 8 3 7.10457 3 6V6C3 4.89543 3.89543 4 5 4H18C18.5523 4 19 4.44772 19 5V8ZM19 8H20C20.5523 8 21 8.44772 21 9V12M21 12H18C16.8954 12 16 12.8954 16 14V14C16 15.1046 16.8954 16 18 16H21M21 12V16"
-                                        stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    </path>
-                                </g>
-                            </svg>
+                {{-- 2nd --}}
+                <div class="col-lg-12">
+                    <h4 class="font-weight-bold" style="color: var(--blue--text);">My Income (Escorts)
+
+                    </h4>
+                </div>
+
+
+                <div class="col-lg-12 card-list-wrapper">
+                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                        <div class="statistics-text">
+                            <div class="statistics-label font-weight-bold">Today's Income
+                            </div>
+                            <div class="statistics-value"><span>$</span> {{ $escorts['today'] }}</div>
                         </div>
                         <div class="card-heading">
                             <h2>My Income (Escorts)</h2>
@@ -198,6 +203,7 @@
                                     <div class="stats-value"><span>$</span> 450.00</div>
                                 </div>
                             </div>
+                            <div class="statistics-value"><span>$</span> {{ $escorts['week'] }}</div>
                         </div>
 
                         <div class="stats-card">
@@ -212,6 +218,7 @@
                                     <div class="stats-value"><span>$</span> 1,500.00</div>
                                 </div>
                             </div>
+                            <div class="statistics-value"><span>$</span> {{ $escorts['month'] }}</div>
                         </div>
 
                         <div class="stats-card">
@@ -225,7 +232,7 @@
                                     <div class="stats-value"><span>$</span> 2,500.00</div>
                                 </div>
                             </div>
-
+                            <div class="statistics-value"><span>$</span> {{ $escorts['year'] }}</div>
                         </div>
 
                         <div class="stats-card">
@@ -312,6 +319,7 @@
                                     <div class="stats-value"><span>$</span> 500.00</div>
                                 </div>
                             </div>
+                            <div class="statistics-value"><span>$</span> {{ $massageCentres['today'] }}</div>
                         </div>
 
                         <div class="stats-card">
@@ -325,7 +333,7 @@
                                     <div class="stats-value"><span>$</span> 750.00</div>
                                 </div>
                             </div>
-
+                            <div class="statistics-value"><span>$</span> {{ $massageCentres['week'] }}</div>
                         </div>
 
                         <div class="stats-card">
@@ -340,13 +348,25 @@
                                     <div class="stats-value"><span>$</span> 25,000.00</div>
                                 </div>
                             </div>
+                            <div class="statistics-value"><span>$</span> {{ $massageCentres['month'] }}</div>
+                        </div>
+                        <div class="statistics-icon">
+                            <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
+                        </div>
+                    </div>
+                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                        <div class="statistics-text">
+                            <div class="statistics-label font-weight-bold">Year to Date
+                            </div>
+                            <div class="statistics-value"><span>$</span> {{ $massageCentres['year'] }}</div>
+                        </div>
+                        <div class="statistics-icon">
+                            <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
                         </div>
                     </div>
                 </div>
             </div>
             {{-- end --}}
-
-
         </div>
     @endsection
     @section('script')
