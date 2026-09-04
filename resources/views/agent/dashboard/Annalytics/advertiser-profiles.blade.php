@@ -94,7 +94,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <!-- <tr>
                                             <td>E60165</td>
                                             <td>Jane</td>
                                             <td>0438 028 728</td>
@@ -133,7 +133,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                        </tr>
+                                        </tr> -->
 
                                     </tbody>
                                 </table>
@@ -236,36 +236,37 @@
     {{-- Current Location --}}
 
     <div class="upload-modal fade modal programmatic" id="current_location" tabindex="-1" role="dialog"
-        aria-labelledby="current_location" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-
-                    <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/map.png') }}"
-                            class="custompopicon" alt="cross">Current Location - E60165</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen">
-                        </span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <h5 class="custom_modal_text">
-                                The current Location for Name is: <b>Location</b>
-                            </h5>
-                            <div class="modal-footer justify-content-center">
-                                <button type="button" class="btn-success-modal">Ok</button>
-                                <button type="button" class="btn-success-modal" data-dismiss="modal">Send Message</button>
-                            </div>
+    aria-labelledby="current_location" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-white">
+                    <img src="{{ asset('assets/dashboard/img/map.png') }}" class="custompopicon" alt="cross">
+                    Current Location - <span id="modal-member-id"></span>
+                </h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h5 class="custom_modal_text">
+                            The current Location for <span id="modal-member-name"></span> is : 
+                            <b id="modal-member-location"></b>
+                        </h5>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn-success-modal" data-dismiss="modal">Ok</button>
+                            <!-- <button type="button" class="btn-success-modal" data-dismiss="modal">Send Message</button> -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
     {{-- end --}}
 
@@ -508,13 +509,18 @@
          }
       },
       columns: [{
-            data: 'advertiser_id',
-            name: 'advertiser_id',
+            data: 'member_id',
+            name: 'member_id',
             orderable: false,
          },
          {
-            data: 'member_id',
-            name: 'member_id'
+            data: 'name',
+            name: 'name'
+         },
+         {
+            data: 'mobile',
+            name: 'mobile',
+            searchable: false,
          },
          {
             data: 'start_date',
@@ -527,28 +533,24 @@
             searchable: false,
          },
          {
-            data: 'cancelled_at',
-            name: 'cancelled_at',
+            data: 'total_days',
+            name: 'total_days',
             searchable: false,
          },
+        
          {
-            data: 'location',
-            name: 'location',
+            data: 'pin_up',
+            name: 'pin_up',
             orderable: false,
          },
          {
-            data: 'location',
-            name: 'location',
+            data: 'lsiting_fee',
+            name: 'lsiting_fee',
             orderable: false,
          },
          {
-            data: 'location',
-            name: 'location',
-            orderable: false,
-         },
-         {
-            data: 'location',
-            name: 'location',
+            data: 'adgent_fee',
+            name: 'adgent_fee',
             orderable: false,
          },
          {
@@ -562,8 +564,68 @@
    });
 
 
+ $("select[name='advertiser_type']").on("change", function() {
+      var url = $(this).val();
+      table.ajax.url(url).load();
+   });
 
 
+   $(document).ready(function () {
+    $('#current_location').on('show.bs.modal', function (event) {
+        
+        var button = $(event.relatedTarget); 
+        
        
+        var memberId = button.data('memberid');
+        var memberName = button.data('membername');
+        var location = button.data('location');
+
+        // Update the modal's content
+        var modal = $(this);
+        modal.find('#modal-member-id').text(memberId ?? 'N/A');
+        modal.find('#modal-member-name').text(memberName ?? 'Member');
+        modal.find('#modal-member-location').text(location ?? 'Not specified');
+    });
+});
+     
+
+$(document).ready(function () {
+    $(document).on('click', '.open-summary-modal', function (e) {
+        e.preventDefault();
+        
+        let purchaseId = $(this).data('id');
+        let url = "{{ route('agent.profile_summary', ':id') }}".replace(':id', purchaseId);
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            beforeSend: function () {
+              
+                $('#profile_summary').remove();
+            },
+            success: function (response) {
+                if (response.status === 'success') {
+                    // Append new modal HTML to body
+                    $('body').append(response.html);
+
+                    // Trigger/Open Bootstrap Modal
+                    $('#profile_summary').modal('show');
+                }
+            },
+            error: function (xhr) {
+                console.error('Failed to load profile summary modal:', xhr);
+            }
+        });
+    });
+
+    // Optional: Clean up DOM when modal is closed
+    $(document).on('hidden.bs.modal', '#profile_summary', function () {
+        $(this).remove();
+    });
+});
+
+
+
     </script>
 @endpush

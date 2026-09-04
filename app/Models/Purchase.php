@@ -28,7 +28,7 @@ class Purchase extends Model
 
     public function paymentItems()
     {
-        return $this->morphMany(PaymentItem::class, 'item');
+        return $this->morphOne(PaymentItem::class, 'item');
     }
 
     public function suspendProfile()

@@ -2921,3 +2921,15 @@ if (!function_exists('getStateAbbr')) {
         return null;
     }
 }
+
+
+if (!function_exists('calculate_agent_commission')) {
+function calculate_agent_commission($amount, $percent) {
+
+    if (!$amount || !$percent) {
+        return 0.00;
+    }
+
+    return ($amount * $percent) / 100;
+}
+}
