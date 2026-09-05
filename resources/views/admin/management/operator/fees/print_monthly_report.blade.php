@@ -9,22 +9,17 @@
     <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.2') }}" rel="stylesheet">
 
     <style>
-        .heading {
-            display: block;
-            font-size: 1rem;
-            font-weight: 500;
-            line-height: 1px;
-        }
+        
 
         @page {
-            size: A4;
-            margin: 20px;
+            size: A4;margin: 20px;
         }
+       
 
-        body {
-            margin: 0;
-            padding: 0;
-        }
+body {
+    margin: 0;
+    padding: 0;
+}
 
         h2 {
             font-size: 16px;
@@ -72,7 +67,7 @@
 
     @endphp
     @if (count($feeDatas) > 0)
-        <table class="mb-0" style="background-color:#0c223d;width:100%;">
+        <table class="table mb-0 common_accordian_table" style="background-color:#0c223d;">
             <tr>
                 <td style="text-align: left !important;"> <span>
                         <img src="{{ $base64 }}" style="width: 25px;">
@@ -86,10 +81,10 @@
                 </td>
             </tr>
         </table>
-        <table  style="width:100%; border: 1px solid #ccc;padding: 0;">
+        <table class="table" style="border: 1px solid #ccc;padding: 0;">
             <tr>
                 <td style="width: 100%;padding: 10px 5px 20px 5px;">
-                    <table class="table mb-0 ">
+                    <table class="table mb-0 common_accordian_table">
                         <thead class="table-bg modal-thaed">
                             <tr>
                                 <th>Agent ID</th>
@@ -101,7 +96,7 @@
                                 <th>Fee</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="accordionParent">
                             @foreach ($feeDatas as $agentId => $feeData)
                                 @php
                                     $esortReports = isset($feeData[3]) ? $feeData[3] : collect();
@@ -393,5 +388,4 @@
         </table>
     @endif
 </body>
-
 </html>
