@@ -303,7 +303,7 @@ class OperatorMonthlyReportController extends BaseController
       $calculateServiceObj = (new CalculateOperatorFeeService);
       $feeDatas = $calculateServiceObj->getOperatorFeeDetails($reportId);
       $reportEndDate = Carbon::parse($report->billing_period_to)->format('d-m-Y');
-      return view('admin.management.operator.fees.print_monthly_report', compact('feeDatas', 'operatorMemberId', 'reportEndDate'));
+      //return view('admin.management.operator.fees.print_monthly_report', compact('feeDatas', 'operatorMemberId', 'reportEndDate'));
       if (count($feeDatas) > 0) {
         $pdf = PDF::loadView(
           'admin.management.operator.fees.print_monthly_report',
