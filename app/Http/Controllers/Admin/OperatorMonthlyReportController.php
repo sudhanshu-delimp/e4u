@@ -27,6 +27,35 @@ use PDF;
 
 class OperatorMonthlyReportController extends BaseController
 {
+  protected $viewAccessEnabled;
+  protected $editAccessEnabled;
+  protected $addAccessEnabled;
+  protected $sidebar;
+
+  public function __construct()
+  {
+    $this->middleware(function ($request, $next) {
+      $user = auth()->user();   // works here
+      // Now do everything that needs user data
+      $securityLevel = isset($user->staff_detail->security_level) ? $user->staff_detail->security_level : 0;
+
+      $viewAccess = staffPageAccessPermission($securityLevel, 'view');
+      $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+      $addAccess = staffPageAccessPermission($securityLevel, 'add');
+      $this->sidebar = staffPageAccessPermission($securityLevel, 'sidebar');
+
+      $this->viewAccessEnabled  = isset($viewAccess['yesNo']) && $viewAccess['yesNo'] == 'yes';
+      $this->editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+      $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+
+      if (isset($this->sidebar['management']['yesNo']) && $this->sidebar['management']['yesNo'] == 'no') {
+        return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
+      }
+
+      return $next($request);
+    });
+  }
+
 
   /**
    *  View the monthly fee reports list
@@ -144,27 +173,37 @@ class OperatorMonthlyReportController extends BaseController
 
       if ($item->status == 'pending') {
         //Approve
-        $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
-        $divider = '<div class="dropdown-divider"></div>';
+        if ($this->editAccessEnabled) {
+          $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
+          $divider = '<div class="dropdown-divider"></div>';
 
-        //Query
-        $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
-        $divider = '<div class="dropdown-divider"></div>';
+
+          //Query
+          $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
+          $divider = '<div class="dropdown-divider"></div>';
+        }
       } else if ($item->status == 'approved') {
         //Query
-        $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="paid"  id="viewPayOperatorRreport"><i class="fa fa-star"></i>Pay</a>';
-        $divider = '<div class="dropdown-divider"></div>';
+        if ($this->editAccessEnabled) {
+          $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="paid"  id="viewPayOperatorRreport"><i class="fa fa-star"></i>Pay</a>';
+          $divider = '<div class="dropdown-divider"></div>';
+        }
       } else if ($item->status == 'paid') {
         //pending
-        $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="pending"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Pending</a>';
+        if ($this->editAccessEnabled) {
+          $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="pending"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Pending</a>';
+        }
       } else if ($item->status == 'query') {
 
-
-        $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" id="openQueryModel"><i class="fa fa-search-minus"></i></i>Reply Query</a>';
-        $divider = '<div class="dropdown-divider"></div>';
+        if ($this->editAccessEnabled) {
+          $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" id="openQueryModel"><i class="fa fa-search-minus"></i></i>Reply Query</a>';
+          $divider = '<div class="dropdown-divider"></div>';
+        }
       } else if ($item->status == 'query_resolved') {
         //Approve
-        $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
+        if ($this->editAccessEnabled) {
+          $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
+        }
 
         /*$dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
         $divider = '<div class="dropdown-divider"></div>'; */
@@ -228,8 +267,8 @@ class OperatorMonthlyReportController extends BaseController
       $report = OperatorMonthlyReport::where('id', $id)->first();
       if ($report) {
         $report->status = $status;
-        if( $status == 'approved') {
-           $report->report_approved = now();
+        if ($status == 'approved') {
+          $report->report_approved = now();
         }
         if ($report->save()) {
           if ($status == 'query' || $status == 'query_resolved') {
@@ -347,7 +386,7 @@ class OperatorMonthlyReportController extends BaseController
   {
     try {
       $reportId  = $request->monthly_report_id;
-     
+
       if (!empty($reportId)) {
 
         $report = OperatorMonthlyReport::where('id', $reportId)->first();
@@ -366,9 +405,9 @@ class OperatorMonthlyReportController extends BaseController
           )->setOption(['isRemoteEnabled' => true]);
           $fileName = 'operator_monthly_payment_authorisation_report_' . $report->operator->member_id . '-' . $reportMonth . '.pdf';
           $report->status = "paid";
-          
+
           if ($report->save()) {
-        
+
             $notification = (new Notification);
             $notificationTitle = 'Your<span style="color:#ff0505;"> Monthly Fee </span> has been paid for ' . $reportMonth . ' month. Please visit <a href="' . config('app.url') . '/operator-dashboard/operator-monthly-report">Fee Report</a> to acknowledge.';
 
@@ -385,14 +424,12 @@ class OperatorMonthlyReportController extends BaseController
             $data['created_at'] = date('Y-m-d H:i:s');
             $data['updated_at'] = date('Y-m-d H:i:s');
             $notification->insert($data);
-
           }
           return $pdf->stream($fileName);
         }
       }
-     
     } catch (Exception $e) {
-       dd($e->getMessage());
+      dd($e->getMessage());
       return response()->redirectTo('/admin-dashboard/management/operator/monthly-fee-reports')->with('error', 'Error occurred while fetching the report data. Please try later.');
     }
     return response()->redirectTo('/admin-dashboard/management/operator/monthly-fee-reports')->with('error', 'Monthly fee record not found.');

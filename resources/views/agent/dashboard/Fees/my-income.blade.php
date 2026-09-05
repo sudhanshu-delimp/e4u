@@ -309,7 +309,7 @@
                                 <div class="stats-text">
                                     <div class="stats-label font-weight-bold">Week to Date
                                     </div>
-                                    <div class="stats-value"><span>$</span> 500.00</div>
+                                    <div class="stats-value"><span>$</span> {{ $massageCentres['week'] }}</div>
                                 </div>
                             </div>
                         </div>
