@@ -312,7 +312,8 @@ class OperatorMonthlyReportController extends BaseController
             'operatorMemberId' => $operatorMemberId,
             'reportEndDate' => $reportEndDate
           ]
-        )->setOption(['isRemoteEnabled' => true]);
+        )->setPaper('A4', 'portrait')
+        ->setOption(['isRemoteEnabled' => true]);
 
         $fileName = 'operator_monthly_fee_report_' . $operatorMemberId . '-' . $reportMonth . '.pdf';
         return $pdf->stream($fileName);

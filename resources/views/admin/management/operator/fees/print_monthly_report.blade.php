@@ -18,6 +18,12 @@
 
         @page {
             size: A4;
+            margin: 20px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
         }
 
         h2 {
@@ -387,4 +393,5 @@
         </table>
     @endif
 </body>
+
 </html>
