@@ -72,7 +72,7 @@
 
     @endphp
     @if (count($feeDatas) > 0)
-        <table class="table mb-0 common_accordian_table" style="background-color:#0c223d;">
+        <table class="mb-0" style="background-color:#0c223d;width:100%;">
             <tr>
                 <td style="text-align: left !important;"> <span>
                         <img src="{{ $base64 }}" style="width: 25px;">
@@ -86,10 +86,10 @@
                 </td>
             </tr>
         </table>
-        <table class="table" style="border: 1px solid #ccc;padding: 0;">
+        <table  style="width:100%; border: 1px solid #ccc;padding: 0;">
             <tr>
                 <td style="width: 100%;padding: 10px 5px 20px 5px;">
-                    <table class="table mb-0 common_accordian_table">
+                    <table class="table mb-0 ">
                         <thead class="table-bg modal-thaed">
                             <tr>
                                 <th>Agent ID</th>
