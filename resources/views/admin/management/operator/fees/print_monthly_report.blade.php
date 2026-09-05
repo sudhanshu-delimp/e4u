@@ -99,8 +99,8 @@ body {
                         <tbody id="accordionParent">
                             @foreach ($feeDatas as $agentId => $feeData)
                                 @php
-                                    $esortReports = isset($feeData[3]) ? $feeData[3] : collect();
-                                    $massgeReports = isset($feeData[4]) ? $feeData[4] : collect();
+                                    $esortReports = isset($feeData[31]) ? $feeData[3] : collect();
+                                    $massgeReports = isset($feeData[41]) ? $feeData[4] : collect();
                                     $reportEndDate = isset($feeData['report_end_date'])
                                         ? $feeData['report_end_date']
                                         : '';
