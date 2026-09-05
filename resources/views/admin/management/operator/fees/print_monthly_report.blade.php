@@ -37,12 +37,14 @@
 
         .table td {
             vertical-align: middle;
+              border: 1px solid  #cf1111
         }
 
         table td {
             padding: .75rem;
             color: #333 !important;
             font-size: 12px;
+            border: 1px solid  #cf1111
         }
 
         table th {
@@ -51,6 +53,7 @@
             font-weight: 500;
             vertical-align: middle;
             font-family: 'Poppins', sans-serif;
+              border: 1px solid  #cf1111
         }
     </style>
 </head>
@@ -101,7 +104,7 @@
                                 <th>Fee</th>
                             </tr>
                         </thead>
-                        <tbody id="accordionParent">
+                        <tbody>
                             @foreach ($feeDatas as $agentId => $feeData)
                                 @php
                                     $esortReports = isset($feeData[3]) ? $feeData[3] : collect();
