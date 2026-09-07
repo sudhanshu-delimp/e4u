@@ -49,7 +49,7 @@
     .skl-title {
         width: 100%;
         height: 14px;
-        background: #c9c9c9;
+        background: #eeeeee;
     }
 
     /* Image */
@@ -89,20 +89,20 @@
     .skl-location {
         width: 75px;
         height: 14px;
-        background: #c9c9c9;
+        background: #eeeeee;
     }
 
     .skl-flag {
         width: 18px;
         height: 18px;
         border-radius: 50%;
-        background: #c9c9c9;
+        background: #eeeeee;
     }
 
     .skl-rating {
         width: 65px;
         height: 14px;
-        background: #c9c9c9;
+        background: #eeeeee;
     }
 
     /* skl-Footer */
@@ -115,7 +115,7 @@
     .skl-button {
         width: 100%;
         height: 14px;
-        background: #c9c9c9;
+        background: #eeeeee;
 
     }
     

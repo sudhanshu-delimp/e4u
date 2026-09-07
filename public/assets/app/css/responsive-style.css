@@ -4,6 +4,17 @@
                             .next-preview-fixed>div>div {
                                 top: -60px !important;
                             }
+                            .ec_other_details {
+                                display: flex;
+                                font-size: 12px;
+                                font-weight: 500;
+                                flex-direction: column;
+                                margin: 0px !important;
+                            }
+                            .ec_other_details span:nth-child(2) {
+                                border: 1px solid #a7a7a7;
+                                margin: 5px 0;
+                            }
                             .btn.my_legbox {
                                 width: 100%;
                             }
@@ -39,6 +50,14 @@
                             .navbar-light .navbar-nav .header_login_btn,
                             .navbar-light .navbar-nav .header_reg_btn {
                                 width: max-content;
+                            }
+                            .all-escort-profile-pic {
+                                position: relative;
+                                height: 400px;
+                                width: 100%;
+                                object-fit: cover;
+                                grid-column: 1;
+                                grid-row: 1;
                             }
                             #WelcomeEscortPopup li {
                                 font-size: 14px;
@@ -545,6 +564,21 @@
                                 display: flex;
                                 justify-content: space-between;
                                 gap: 5px 25px;
+                            }
+                            .ec_tab_header {
+                                display: flex;
+                                align-items: normal;
+                                justify-content: space-between;
+                                background: var(--off-white);
+                                border-radius: 10px 10px 0px 0px;
+                                flex-direction: column;
+                                gap: 5px;
+                                width: 100%;
+                                padding: 5px;
+                            }
+                            .ec_tab_header .nav-tabs {
+                                border-bottom: 0px;
+                                justify-content: space-between;
                             }
                             .mc_list_card {
                                 padding: 0px;

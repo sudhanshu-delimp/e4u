@@ -454,19 +454,6 @@
                             </div>
 
                         </div>
-
-                       
-                    {{-- 3rd --}}
-                    <table class="table table-striped mb-0">
-                        <thead class="table_heading_bgcolor_color">
-                            <tr>
-                                <th scope="col">Service</th>
-                                <th scope="col">Massage</th>
-                                <th scope="col">Incalls</th>
-                            </tr>
-                        </thead>
-                    </table>
-                    {{-- end --}}
                 </div>
             </div>
         </div>

@@ -46,7 +46,7 @@
         align-items: center;
         gap: 10px;
         padding: 10px;
-        background: #fff1f4;
+        background: #fff;
         border-bottom: 1px solid #eeeeee;
     }
 
@@ -226,28 +226,22 @@
     .shimmer {
         position: relative;
         overflow: hidden;
-        background: #ececec;
+        background: #e5e5e5;
     }
 
     .shimmer::after {
         content: "";
         position: absolute;
-        top: 0;
-        left: -150%;
-        width: 150%;
-        height: 100%;
-        background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.7),
-            transparent
-        );
-        animation: loading 1.3s infinite;
+        inset: 0;
+        transform: translateX(-100%);
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .85), transparent);
+        animation: loader 1.2s infinite;
     }
 
-    @keyframes loading {
+    
+    @keyframes loader {
         100% {
-            left: 150%;
+            transform: translateX(100%);
         }
     }
 
