@@ -1324,6 +1324,7 @@ if (!function_exists('getStatusBadgeClass')) {
     function getStatusBadgeClass($status)
     {
         $statusMap = [
+            'Expired'           => 'badge_suspended',
             'Published'         => 'badge_published',
             'Suspended'         => 'badge_suspended',
             'Removed'           => 'badge_suspended',

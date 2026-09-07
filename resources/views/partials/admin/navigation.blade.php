@@ -1,8 +1,11 @@
 <!-- Topbar -->
 @php
 $positions = config('staff.position');
+$levels = config('staff.security_level');
 $postionKey = auth()->user()->staff_detail?->position;
+$level = auth()->user()->staff_detail?->security_level;
 $position = $positions[$postionKey] ?? "";
+$levelName = $levels[$level] ?? "";
 @endphp
 <nav
     class="db-custom-topbar navbar justify-navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm pl-3 pl-lg-5 pr-3 pr-lg-5 ">
@@ -23,6 +26,10 @@ $position = $positions[$postionKey] ?? "";
                 </span>
                 <span>
                     <b>Position : </b><span class="user-values" >{{ $position}}</span>
+                </span>
+                 <span>
+                    <span class="separator">|</span>
+                    <b>Security Level : </b><span class="user-values" >{{ $levelName}}</span>
                     
                 </span>
             </div>
@@ -123,12 +130,10 @@ $position = $positions[$postionKey] ?? "";
                 <div class="highlight-menu">
                     
                     <a class="dropdown-item menu-profile" href="javascript:void(0);">                        
-                        <span>{{ auth()->user()->name }}</span> <br> ({{ $position }}) <br> {{ auth()->user()->member_id }} 
+                        <span>{{ auth()->user()->name }}</span> <br> ({{ $position }}) 
                     </a>
                 </div>
-                
-                                
-                                
+
                 <div class="dropdown-item account-toggle d-flex justify-content-between align-items-center">
                     <span>
                         My account

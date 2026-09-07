@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Model;
 
-class AgentMonthlyReport extends Model
+class OperatorMonthlyReport extends Model
 {
     use HasFactory;
 
@@ -13,10 +13,12 @@ class AgentMonthlyReport extends Model
         'report_date',
         'billing_period_from',
         'billing_period_to',
-        'agent_id',
-        'state_id',
+        'operator_id',
+        'country_id',
         'spend',
         'fees',
+        'agent_ids',
+        'agent_fees',
         'status',
         'report_approved',
         'approved_by',
@@ -38,19 +40,19 @@ class AgentMonthlyReport extends Model
      */
     protected $hidden = ['updated_at', 'created_by', 'updated_by'];
 
-    public function state()
+    public function country()
     {
-        return $this->belongsTo('App\Models\State', 'state_id');
+        return $this->belongsTo('App\Models\Country', 'country_id');
     }
 
-    public function agent()
+    public function operator()
     {
-        return $this->belongsTo('App\Models\User', 'agent_id', 'id');
+        return $this->belongsTo('App\Models\User', 'operator_id', 'id');
     }
 
-    public function agentMonthlyReportQuery()
+    public function operatorMonthlyReportQuery()
     {
-        return $this->hasMany('App\Models\AgentMonthlyReportQuery', 'fee_report_id', 'id');
+        return $this->hasMany('App\Models\OperatorMonthlyReportQuery', 'fee_report_id', 'id');
     }
 
 

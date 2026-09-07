@@ -109,17 +109,19 @@ class ReportingController extends BaseController
         END
     ");
         $search = request()->input('search.value');
+        $search = preg_replace('/\s+/', '', $search);
 
         if (!empty($search)) {
+
             $agent->where(function ($query) use ($search) {
-                $query->where('id', 'like', "%{$search}%")
-                    ->orWhere('member_id', 'like', "%{$search}%")
-                    ->orWhere('name', 'like', "%{$search}%")
-                    ->orWhere('phone', 'like', "%{$search}%")
-                    ->orWhere('email', 'like', "%{$search}%")
-                    ->orWhereHas('state', function ($q) use ($search) {
-                        $q->where('name', 'like', "%{$search}%");
-                    });
+                $query->where('member_id', 'like', "{$search}%")
+                    //->orWhere('member_id', 'like', "%{$search}%")
+                   // ->orWhere('name', 'like', "%{$search}%")
+                   ->orWhere('phone', 'like', "%{$search}%");
+                   // ->orWhere('email', 'like', "%{$search}%")
+                  //  ->orWhereHas('state', function ($q) use ($search) {
+                       // $q->where('name', 'like', "%{$search}%");
+                    //);
             });
         }
 

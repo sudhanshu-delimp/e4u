@@ -357,7 +357,7 @@
                     
                     }
 
-            }, 1000);
+            }, 5000);
 
             $('#customSearch').on('keyup', function() {
                     $('#RegistrationsReportTable').DataTable().search(this.value).draw();
@@ -367,7 +367,7 @@
         var table = $("#RegistrationsReportTable").DataTable({
             language: {
                 search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Member ID",
+                searchPlaceholder: "Search by Member ID or Mobile",
             },
 
             processing: true,

@@ -49,6 +49,7 @@ use App\Http\Controllers\Admin\ImpersonateController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Escort\Concierge\ProductController;
 use App\Http\Controllers\Admin\AgentMonthlyReportController;
+use App\Http\Controllers\Admin\OperatorMonthlyReportController;
 use App\Http\Controllers\Admin\VisaMigrationRequestController;
 use App\Http\Controllers\Admin\SeoManagementController;
 
@@ -281,6 +282,7 @@ Route::get('management/dashboard', function () {
   return view('admin.management.management');
 })->name('admin.management');
 
+<<<<<<< HEAD
 
 Route::get('management/monthly-fee-reports', function () {
   return view('admin.management.operator.monthly-fee-reports');
@@ -289,6 +291,9 @@ Route::get('management/monthly-fee-reports', function () {
 
 
 Route::get('management/commission-summary', function () {
+=======
+Route::get('management/operator/commission-summary', function () {
+>>>>>>> 74bacb371ed4999300b6d210c90a987338768429
   return view('admin.management.operator.commission-summary');
 })->name('admin.commission-summary');
 
