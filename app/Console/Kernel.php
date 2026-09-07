@@ -51,6 +51,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('pdf:clean')->everySixHours();
         //To run the command at 8:00 AM on the first day of every month
         $schedule->command('agent:calculate-fee')->monthlyOn(1, '08:00');
+        $schedule->command('concierge:generate-reconciliation')->lastDayOfMonth('23:00')->timezone('Australia/Perth');
+
     }
 
     /**

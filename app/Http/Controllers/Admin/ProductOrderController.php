@@ -26,6 +26,29 @@ use Yajra\DataTables\DataTables;
 class ProductOrderController extends Controller
 {
 
+ protected $viewAccessEnabled;
+    protected $editAccessEnabled;
+    protected $addAccessEnabled;
+    protected $sidebar;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $user = auth()->user();   // works here
+            // Now do everything that needs user data
+            $securityLevel = isset($user->staff_detail->security_level) ? $user->staff_detail->security_level : 0;
+
+            $viewAccess = staffPageAccessPermission($securityLevel, 'view');
+            $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+            $addAccess = staffPageAccessPermission($securityLevel, 'add');
+            $this->sidebar = staffPageAccessPermission($securityLevel, 'sidebar');
+
+            $this->viewAccessEnabled  = isset($viewAccess['yesNo']) && $viewAccess['yesNo'] == 'yes';
+            $this->editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+            $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+            return $next($request);
+        });
+    }
 
   public function orders(Request $request)
   {
@@ -84,14 +107,15 @@ class ProductOrderController extends Controller
         if (strtolower($row->delivery_type) === 'post') {
           $html = 'data-toggle="modal" data-target="#active_req"';
         }
-        // dd($html);
-        return '<div class="dropdown no-arrow">
+      
+        $html= '<div class="dropdown no-arrow">
     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-    </a>
+    </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">';
+      if($this->editAccessEnabled){ 
 
-    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">
+   $html .= '
 
         <a class="dropdown-item open-status-modal"
            href="#"
@@ -144,9 +168,10 @@ class ProductOrderController extends Controller
            data-toggle="modal"
            data-target="#active_req">
             <i class="fa fa-times-circle"></i> Reject Order
-        </a>
+        </a><div class="dropdown-divider"></div>';
+        }
 
-        <div class="dropdown-divider"></div>
+        $html .= '
 
         <a class="dropdown-item view-order-details"
            href="#"
@@ -160,6 +185,7 @@ class ProductOrderController extends Controller
 
     </div>
 </div>';
+return $html;
       })
       ->addColumn('payment_method', function ($row) {
         return $row->payment_method ?? 'Card';
