@@ -54,6 +54,8 @@ use App\Http\Controllers\Viewer\PunterBoxController;
 use App\Http\Controllers\Viewer\ViewerReviewsController;
 use App\Http\Controllers\Escort\EscortAccountController;
 use App\Http\Controllers\EscortListingController;
+use App\Http\Controllers\User\NoteBoxController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes    
@@ -221,17 +223,6 @@ Route::middleware('auth')->group(function () {
             return view('user.dashboard.Community.guide');
         })->name('user.guide');
 
-        Route::get('/notebox/new', function () {
-            return view('user.dashboard.notebox.new');
-        })->name('user.new');
-
-        Route::get('/notebox/list', function () {
-            return view('user.dashboard.notebox.list');
-        })->name('user.list');
-
-        Route::get('/notebox/edit', function () {
-            return view('user.dashboard.notebox.edit-notebox');
-        })->name('user.edit-notebox');
 
         Route::get('/punterbox/dashboard', function () {
             return view('user.dashboard.punterbox.dashboard');
@@ -245,6 +236,23 @@ Route::middleware('auth')->group(function () {
         Route::delete('my-report/{id}', [PunterBoxController::class, 'destroy'])->name('user.my-report.delete');
         Route::get('num-dashboard', [PunterBoxController::class, 'showReportOnDashboardAjax'])->name('user.punterboxdashboard');
 
+        //    Route::get('/notebox/new', function () {
+        //     return view('user.dashboard.notebox.new');
+        // })->name('user.new');
+
+        Route::get('/notebox/list', function () {
+            return view('user.dashboard.notebox.list');
+        })->name('user.list');
+
+        Route::get('/notebox/edit', function () {
+            return view('user.dashboard.notebox.edit-notebox');
+        })->name('user.edit-notebox');
+
+
+        Route::get('/notebox/new', [NoteBoxController::class, 'index'])->name('user.new');
+        Route::get('/notebox/my-reports', [NoteBoxController::class, 'myReports'])->name('user.my-notebox-reports');
+        Route::post('add-report', [NoteBoxController::class, 'storeReport'])->name('notebox.store');
+        
 
         Route::get('/punterbox/my-report', function () {
             return view('user.dashboard.punterbox.my-report');

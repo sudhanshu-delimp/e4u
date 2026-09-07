@@ -228,12 +228,12 @@
                 {{-- end --}}
 
                 {{-- fee --}}
-                <a class="nav-link disabled-link collapsed @if (isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_enable_my_notebox != '1') inactive_li @endif" href="#" data-toggle="collapse" data-target="#Fees">
+                <a class="nav-link collapsed @if (isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_enable_my_notebox != '1') inactive_li @endif" href="#" data-toggle="collapse" data-target="#Fees">
                     <img class="mr-2 pl-1 cstm--icon" src="{{ asset('assets/dashboard/img/MyNotebox.png') }}"
                 style="filter: brightness(0) saturate(100%) invert(99%) sepia(5%) saturate(0%) hue-rotate(101deg) brightness(110%) contrast(100%);">
                     <span>Notebox</span>
                 </a>
-                {{-- <div id="Fees" class="collapse @if (request()->segment(3) == 'list' ||
+                <div id="Fees" class="collapse @if (request()->segment(3) == 'list' ||
                         request()->segment(3) == 'new') show @endif;"
                     data-parent="#Management">
 
@@ -250,7 +250,7 @@
                         </a>
 
                     </div>
-                </div> --}}
+                </div> 
                 {{-- end --}}
                 {{-- Punterbox --}}
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Punterbox">
