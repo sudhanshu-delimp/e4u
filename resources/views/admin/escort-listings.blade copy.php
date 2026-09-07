@@ -188,38 +188,71 @@
 @endsection
 
 @push('script')
-    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script>
-   var table = $('#escort_listings').DataTable({
-      language: {
-         search: "Search: _INPUT_",
-         searchPlaceholder: "Search by Member ID"
-      },
-      info: true,
-      lengthChange: true,
-      searching: true,
-      order: [
-         [5, 'asc']
-      ],
-    bStateSave: false,
-    processing: true,
-    serverSide: true,
-      paging: true,
-      ajax: {
-         url: "{{ route('escort.current.list.escort-dataTableListing', 'current') }}",
-         type: "GET",
-         dataSrc: function(json) {
-           $(".totalListing").text(json.membershipCounts.total);
-                $(".platinumListing").text(json.membershipCounts.platinum);
-                $(".goldListing").text(json.membershipCounts.gold);
-                $(".silverListing").text(json.membershipCounts.silver);
-                $(".suspendListing").text(json.membershipCounts.current_suspend);
-                $(".serverTime").text(json.server_time);
-                $(".uptimeClass").html(json.server_up_time);
-                return json.data;
-         }
-      },
-      columns: [
+    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function(e) {
+            ajaxReload();
+            let countdown = 15;
+            setInterval(() => {
+                countdown--;
+                $(".refreshSeconds").text(' ' + countdown);
+
+                if (countdown <= 0) {
+                    $('#escort_listings').DataTable().ajax.reload(null, false);
+                    countdown = 15;
+
+                }
+
+            }, 1000);
+
+            $('#customSearch').on('keyup', function() {
+                $('#escort_listings').DataTable().search(this.value).draw();
+            });
+        })
+
+        let isInitialLoad = true;
+        //SetPinModal
+        function ajaxReload() {
+            var table = $('#escort_listings').DataTable({
+                language: {
+                    search: "Search: _INPUT_",
+                    searchPlaceholder: "Search by Member ID or Profile Name"
+                },
+                autoWidth: false,
+                info: true,
+                lengthChange: true,
+                searching: true,
+                order: [
+                    [5, 'desc']
+                ],
+                bStateSave: false,
+                processing: true,
+                serverSide: true,
+                paging: true,
+                ajax: {
+                    url: "{{ route('escort.current.list.escort-dataTableListing', 'current') }}",
+                    type: "GET",
+                    dataSrc: function(json) {
+                        // var totalRows = json.data.length; 
+                        if (isInitialLoad) {
+                            var totalRows = json.recordsTotal || json.recordsFiltered;
+
+                            $(".totalListing").text(json.membershipCounts.total);
+                            $(".platinumListing").text(json.membershipCounts.platinum);
+                            $(".goldListing").text(json.membershipCounts.gold);
+                            $(".silverListing").text(json.membershipCounts.silver);
+                            $(".suspendListing").text(json.membershipCounts.current_suspend);
+                            $(".serverTime").text(json.server_time);
+                            $(".uptimeClass").html(json.server_up_time);
+                            isInitialLoad = false;
+                        }
+
+                        return json.data;
+                    }
+                },
+                columns: [
                     {
                         data: 'member_id',
                         name: 'member_id',
@@ -254,7 +287,7 @@
                         data: 'start_date',
                         name: 'start_date',
                         searchable: false,
-                        orderable: true
+                        orderable: false
                     },
                     {
                         data: 'end_date',
@@ -281,12 +314,36 @@
                         searchable: false,
                         orderable: false,
                     },
+                ],
+                order: [5, 'asc'],
+                columnDefs: [{
+                        targets: 0
+                    }, // First column
                     {
-            data: 'action',
-            name: 'action',
-            orderable: false,
-            class: 'text-center',
-            render: function(data, type, row) {
+                        targets: 1
+                    }, // Third column
+                    {
+                        targets: 2
+                    }, // Third column 
+                    {
+                        targets: 4
+                    },
+                    {
+                        targets: 5
+                    },
+                    {
+                        targets: 6
+                    },
+                    {
+                        targets: 8
+                    },
+                    {
+                        targets: 9
+                    },
+                    {
+                        targets: 10,
+                        orderable: false,
+                        render: function(data, type, row) {
                             if (row.statusOriginal == 'listed') {
                                 return `
                             <div class="dropdown no-arrow ml-3">
@@ -323,26 +380,88 @@
                         `;
                             }
                         }
-         }
-                ],
-   });
+                    }
+                ]
+            });
 
-   $("select[name='advertiser_type']").on("change", function() {
-      var url = $(this).val();
-      table.ajax.url(url).load();
-   });
+        }
 
-   let countdown = 15;
-   setInterval(() => {
-      countdown--;
-      $(".refreshSeconds").text(' ' + countdown);
+        $(document).on('click', '.view-listing', function(e) {
+            e.preventDefault(); // prevent default link behavior
 
-      if (countdown <= 0) {
-         table.draw();
-         countdown = 15;
+            const escortId = $(this).data('id');
 
-      }
+            $.ajax({
+                url: '{{ route('escort.current.single-list.escort-dataTableListing') }}/' +
+                    escortId, // replace with your actual route
+                method: 'GET',
+                success: function(response) {
+                    console.log(response.profileurl);
 
-   }, 1000);
-</script>
+                    $("#escortPopupModalBodyIframe").attr('src', response.profileurl)
+                },
+                error: function(xhr) {
+                    console.error('Failed to fetch data');
+                    $('#view-listing .modal-body').html(
+                        '<p class="text-danger">Error loading data...</p>');
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            function checkAndApplyResponsive() {
+                if ($(window).width() < 1500) {
+                    if (!$('.massage_table_class').hasClass('table-responsive')) {
+                        $('.massage_table_class').addClass('table-responsive');
+                    }
+                } else {
+                    $('.massage_table_class').removeClass('table-responsive');
+                }
+            }
+
+            // Initial check
+            checkAndApplyResponsive();
+
+            // Recheck on window resize
+            $(window).resize(function() {
+                checkAndApplyResponsive();
+            });
+        });
+
+        var purchaseId = 0;
+        $("#SetPinModal").on('show.bs.modal', function(event) {
+            let button = $(event.relatedTarget);
+            let modalObject = $(this);
+            purchaseId = button.data('purchase-id');
+
+            modalObject.find('input[name="action"]').val('suspendListedProfile');
+        });
+
+        var suspendListedProfile = function() {
+            let pinModalElement = $('#SetPinModal');
+            $.ajax({
+                url: `{{ route('admin.suspend_listed_profile', '_PURCHASE_') }}`.replace('_PURCHASE_',
+                    purchaseId),
+                method: 'GET',
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                beforeSend: function() {
+                    showLoadingPopup('Processing Payment', 'Do not refresh or close this page.');
+                },
+                success: function(response, textStatus, xhr) {
+                    pinModalElement.find('#pinDisplaySet').text('');
+                    pinModalElement.modal('hide');
+                    Swal.close();
+                    displaySwal(xhr);
+
+                },
+                error: function(xhr) {
+                    Swal.close();
+                    displaySwal(xhr);
+                }
+            });
+        }
+    </script>
 @endpush

@@ -298,31 +298,32 @@ class MonthlyReportController extends BaseController
 
     $agentId = $agentData->id;
 
-    $today = Carbon::today();
-    $weekStart = Carbon::now()->startOfWeek();
-    $weekEnd = Carbon::now()->endOfWeek();
-    $monthStart = Carbon::now()->startOfMonth();
-    $monthEnd = Carbon::now()->endOfMonth();
-    $yearStart = Carbon::now()->startOfYear();
-    $yearEnd = Carbon::now()->endOfYear();
+    $startToday = Carbon::today()->format("Y-m-d 00:00:00");
+    $endToday = Carbon::today()->format("Y-m-d 23:59:59");
+    $weekStart = Carbon::now()->startOfWeek()->format("Y-m-d 00:00:00");
+    $weekEnd = Carbon::now()->endOfWeek()->format("Y-m-d 23:59:59");
+    $monthStart = Carbon::now()->startOfMonth()->format("Y-m-d 00:00:00");
+    $monthEnd = Carbon::now()->endOfMonth()->format("Y-m-d 23:59:59");;
+    $yearStart = Carbon::now()->startOfYear()->format("Y-m-d 00:00:00");;
+    $yearEnd = Carbon::now()->endOfYear()->format("Y-m-d 23:59:59");;
     $commissions = AgentCommission::where('agent_id', $agentId);
 
     $advertisers = [
-      'today' => $this->getIncome($commissions, [3, 4], $today, $today->copy()->endOfDay()),
+      'today' => $this->getIncome($commissions, [3, 4], $startToday, $endToday),
       'week'  => $this->getIncome($commissions, [3, 4], $weekStart, $weekEnd),
       'month' => $this->getIncome($commissions, [3, 4], $monthStart, $monthEnd),
       'year'  => $this->getIncome($commissions, [3, 4], $yearStart, $yearEnd),
     ];
 
     $escorts = [
-      'today' => $this->getIncome($commissions, [3], $today, $today->copy()->endOfDay()),
+      'today' => $this->getIncome($commissions, [3], $startToday, $endToday),
       'week'  => $this->getIncome($commissions, [3], $weekStart, $weekEnd),
       'month' => $this->getIncome($commissions, [3], $monthStart, $monthEnd),
       'year'  => $this->getIncome($commissions, [3], $yearStart, $yearEnd),
     ];
 
     $massageCentres = [
-      'today' => $this->getIncome($commissions, [4], $today, $today->copy()->endOfDay()),
+      'today' => $this->getIncome($commissions, [4], $startToday, $endToday),
       'week'  => $this->getIncome($commissions, [4], $weekStart, $weekEnd),
       'month' => $this->getIncome($commissions, [4], $monthStart, $monthEnd),
       'year'  => $this->getIncome($commissions, [4], $yearStart, $yearEnd),

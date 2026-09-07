@@ -64,15 +64,19 @@ class ReportAdvertiserSuspensionContoller extends Controller
         switch ($advertiserType) {
             case 'escort': {
                     $advertisers = SuspendProfile::where('status', 1)
+                        ->whereHas('advertiser', function ($subQuery) {
+                            $subQuery->whereNotNull('purchase_id');
+                        })
                         ->whereRaw('? BETWEEN utc_start_date AND utc_end_date', [$today])
-                        // ->with(['escort', 'user', 'escort.city'])
                         ->get();
                 }
                 break;
             case 'massage': {
                     $advertisers = MassageSuspendProfile::where('status', 1)
+                        ->whereHas('advertiser', function ($subQuery) {
+                            $subQuery->whereNotNull('purchase_id');
+                        })
                         ->whereRaw('? BETWEEN utc_start_date AND utc_end_date', [$today])
-                        //->with(['escort', 'user', 'escort.city'])
                         ->get();
                 }
                 break;
