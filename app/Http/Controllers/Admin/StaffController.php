@@ -12,6 +12,10 @@ use App\Http\Requests\Staff\AddNewStaff;
 use App\Models\Staff;
 use App\Repositories\Staff\StaffInterface;
 use PDF;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ChangePasswordlEmail;
 
 class StaffController extends BaseController
 {
@@ -113,6 +117,9 @@ class StaffController extends BaseController
      */
     public function staff_list()
     {
+        //$user = User::where('id', 379)->first();
+        //$user->plainPassword = "Delimp@123";
+        //return view('emails.user_change_password_email', compact('user'));
         return view('admin.management.staff.staff');
     }
 
@@ -195,6 +202,7 @@ class StaffController extends BaseController
             $activate_html = "";
             $dropdownsub = "";
             $edit = "";
+            $updatePassword = "";
             /*  if ($item->status != 'Suspended') {
                 $suspend_html = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center account-suspend-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-ban"></i> Suspend</a><div class="dropdown-divider"></div>';
             }
@@ -212,52 +220,55 @@ class StaffController extends BaseController
                 if (auth()->user()->member_id != $item->member_id) {
                     $edit = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit-staff-btn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>';
                 }
-            }    
+
+                $updatePassword = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center update_password" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i>Update Password</a>';
+            }
+
 
             if ($item->status == 'Pending') {
                 $dropdownsub .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center approve_account" href="javascript:void(0)" data-id=' . $item->id . '> <i class="fa fa-check"></i>Approve</a><div class="dropdown-divider"></div>';
                 /* 
                 $dropdownsub .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center account-suspend-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-ban"></i>Suspend</a><div class="dropdown-divider"></div>'; */
-                 if (auth()->user()->member_id == $item->member_id) {
+                if (auth()->user()->member_id == $item->member_id) {
                     $dropdown .= $view;
-                 } else {
-                     if ($this->editAccessEnabled) {
-                    $dropdown .= $dropdownsub. $edit.  $view;
+                } else {
+                    if ($this->editAccessEnabled) {
+                        $dropdown .= $dropdownsub . $edit .  $view;
                     } else {
                         $dropdown .= $view;
                     }
-                 }
+                }
             }
 
             if ($item->status == 'Active') {
                 $dropdownsub = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center account-suspend-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-ban"></i>Suspend</a>';
                 if (auth()->user()->member_id == $item->member_id) {
                     $dropdown .= $view;
-                 } else {
+                } else {
                     if ($this->editAccessEnabled) {
-                     $dropdown .= $edit . $dropdownsub.  $view;
-                     } else {
+                        $dropdown .= $edit . $dropdownsub .  $updatePassword . $view;
+                    } else {
                         $dropdown .= $view;
                     }
-                 }
+                }
             }
 
             if ($item->status == 'Suspended') {
                 $dropdownsub = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center active-account-btn" href="javascript:void(0)" data-id=' . $item->id . '>   <i class="fa fa-check"></i>Activate</a><div class="dropdown-divider"></div>';
-               
+
                 if (auth()->user()->member_id == $item->member_id) {
                     $dropdown .= $view;
-                 } else {
+                } else {
                     if ($this->editAccessEnabled) {
-                      $dropdown .= $dropdownsub. $edit.  $view;
+                        $dropdown .= $dropdownsub . $edit . $updatePassword . $view;
                     } else {
                         $dropdown .= $view;
                     }
-                 }
+                }
             }
-            
+
             $dropdown .= '</div></div>';
-             $item->status_name = '<span class="custom_badge '.getStatusBadgeClass($item->status).'">'.$item->status.' </span>';
+            $item->status_name = '<span class="custom_badge ' . getStatusBadgeClass($item->status) . '">' . $item->status . ' </span>';
 
             $item->action = $dropdown;
             $i++;
@@ -279,8 +290,8 @@ class StaffController extends BaseController
             $user->status = '3';
             $response = $user->save();
 
-            if ($response){
-                 $resposne = $this->staffRepo->sendSuspendEmail($user);
+            if ($response) {
+                $resposne = $this->staffRepo->sendSuspendEmail($user);
                 return $this->successResponse('Account Suspended Successfully.');
             } else
                 return $this->successResponse('Error Occurred while Account Suspending.');
@@ -354,5 +365,46 @@ class StaffController extends BaseController
         } else {
             return response()->json(['status' => 'error', 'message' => 'Staff ID is required.'], 400);
         }
+    }
+
+    /**
+     * Update password for all manage people
+     */
+    public function updatePassword(Request $request)
+    {
+        $error = true;
+        $request->validate([
+            'new_password' => 'required|min:8|same:new_password_confirmation',
+            'new_password_confirmation' => 'required|min:8',
+        ], [
+            'new_password.required' => 'Please enter a new password.',
+            'new_password.min' => 'New password must be at least 8 characters.',
+            'new_password.same' => 'New password and confirmation do not match.',
+            'new_password_confirmation.required' => 'Please confirm your new password.',
+            'new_password_confirmation.min' => 'Password confirmation must be at least 8 characters.',
+        ]);
+
+        $userId = $request->input('user_id', 0);
+        $user = User::where('id', $userId)->first();
+        if ($user) {
+            $newPassword = $request->input('new_password', '');
+            $userType = $user->type;
+            $memberid = $user->member_id;
+            $user->password = Hash::make($newPassword);
+            if ($user->save()) {
+                try {
+                    $user->plainPassword = $newPassword;
+                    Mail::to($user->email)->send(new ChangePasswordlEmail($user));
+                } catch (Exception $e) {
+                    Log::error('Password update email sending failed: ' . $e->getMessage());
+                }
+             return response()->json(["status" => true, "message" => 'Password updated successfully!'], 200);    
+            }
+           
+        }
+        return response()->json(['status' => false, 'message' => 'Error occured while updating password!'], 400);
+
+        //$this->user->changeUserPassword($data);
+
     }
 }

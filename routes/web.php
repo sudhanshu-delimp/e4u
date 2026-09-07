@@ -895,3 +895,5 @@ $massageBaseSlug = config("constants.massage_list_base_slug");
 
 Route::get($ecortBaseSlug.'/{county}/{state}/{city}/{gender}/{member_id}/{profile}', [App\Http\Controllers\WebController::class, 'profileDescriptionBySlug'])->name('escort.profile.detail.new');
 Route::get($massageBaseSlug .'/{county}/{state}/{city?}/{member_id}/{profile}', [MassageCentre::class, 'massageProfile'])->name('web.massage-profile.new');
+
+Route::get('supplier-login', [App\Http\Controllers\Admin\AuthController::class, 'showOperatorLoginForm'])->name('supplier.login');
