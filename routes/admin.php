@@ -282,18 +282,7 @@ Route::get('management/dashboard', function () {
   return view('admin.management.management');
 })->name('admin.management');
 
-<<<<<<< HEAD
-
-Route::get('management/monthly-fee-reports', function () {
-  return view('admin.management.operator.monthly-fee-reports');
-})->name('admin.monthly-fee-reports');
-
-
-
-Route::get('management/commission-summary', function () {
-=======
 Route::get('management/operator/commission-summary', function () {
->>>>>>> 74bacb371ed4999300b6d210c90a987338768429
   return view('admin.management.operator.commission-summary');
 })->name('admin.commission-summary');
 
@@ -979,5 +968,16 @@ Route::post('management/fees/print-pay-detail', [AgentMonthlyReportController::c
  Route::get('management/seo/data', [SeoManagementController::class, 'getSeoData'])->name('admin.seo.data');
  Route::post('management/seo', [SeoManagementController::class, 'saveSeoData'])->name('admin.seo.save');
  Route::post('management/seo', [SeoManagementController::class, 'saveSeoData'])->name('admin.seo.save');
+// Operator Monthly Report
+
+Route::get('management/operator/monthly-fee-reports', [OperatorMonthlyReportController::class, 'monthlyReport'])->name('admin.monthly-fee-reports');
+Route::get('management/operator/monthly-report-list', [OperatorMonthlyReportController::class, 'monthlyReportAjax'])->name('admin.operator.monthly-report-ajax');
+Route::post('management/operator/view-monthly-report', [OperatorMonthlyReportController::class, 'viewMonthlyReport'])->name('admin.operator.view.monthly.detail');
+Route::post('management/operator/update-monthly-report', [OperatorMonthlyReportController::class, 'updateMonthlyReportStatus'])->name('admin.operator.update.status.detail');
+Route::post('management/operator/print-monthly-report', [OperatorMonthlyReportController::class, 'printMonthlyFee'])->name('admin.print.monthly.operator.report');
+Route::post('management/operator/query', [OperatorMonthlyReportController::class, 'viewQuery'])->name('admin.operator.view.query');
+Route::post('management/operator/pay-detail', [OperatorMonthlyReportController::class, 'viewPayOperatorRreport'])->name('admin.operator.view.pay-detail');
+Route::post('management/operator/print-pay-detail', [OperatorMonthlyReportController::class, 'printPayOperatorReport'])->name('admin.operator.print.pay-detail');
+
 
 
