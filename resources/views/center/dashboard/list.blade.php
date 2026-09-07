@@ -174,14 +174,11 @@ background:#16385f;
                <div class="card collapse" id="notes" style="">
                   <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b></h3>
-                     <!-- <ol>
-                           <li>Use these help pages for explanations and guidance on managing all of your Masseur
-                              Profiles.</li>
-                           <li>You can upload four photos for each Masseur. Designate one as the Masseur’s
-                              Thumbnail.</li>
-                           <li>Activate up to eight Masseur Profiles at any one time to appear the Massage Centre
-                              Profile.</li>
-                     </ol> -->
+                     <ol>
+                           <li>Use this feature to review and make changes to your Profile.</li>
+                           <li>You can view and edit your Profile by selecting 'Action'. By selecting the Action function, you will be able to Edit and View your Profile.</li>
+                           <li>Remember, you can create as many Profiles as you like, but you can only List one at a time.</li>
+                     </ol>
                   </div>
                </div>
             </div>

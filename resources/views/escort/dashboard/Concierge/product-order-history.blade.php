@@ -33,9 +33,11 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-1" style="font-size: 20px;"><b>Notes:</b> </p>
+                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
-
+                            <li>View all of your Orders here.</li>
+                            <li>To print the Oder off, select View from the Action options and then Print.</li>
+                            <li>The Order is also summarised in the Transaction Summary report.</li>
                         </ol>
                     </div>
                 </div>

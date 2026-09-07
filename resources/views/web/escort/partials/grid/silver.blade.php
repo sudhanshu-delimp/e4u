@@ -69,7 +69,7 @@
                 <div class="items">
                     <span class="title">{{ $escort->city ? $escort->city->name : '' }}
                         {{ $escort->age ? ' - ' . $escort->age : '' }}</span>
-                    <span class="video_icon_ec">
+                    <span class="video_icon_grid">
                         @if ($escort->escort_videos->isNotEmpty())
                             <img src="{{ asset('assets/app/img/video_play.svg') }}">
                             <div class="video_tooltip">Escort has video to view</div>

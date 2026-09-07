@@ -7006,6 +7006,11 @@ i.fa.fa-heart-o{
             visibility: visible;
         }
         
+        .video_icon_grid:hover .video_tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        
         .video-wrapper {
             position: relative;
             width: 100%;
@@ -7141,7 +7146,11 @@ i.fa.fa-heart-o{
             background-color: var(--blue--text) !important;
         }
         
-        .mc_card_content:has(.video_icon_ec:hover) {
+        .mc_card_content:has(.video_icon_grid:hover) {
+            overflow: visible;
+        }
+        
+        .ec_card_content:has(.video_icon_grid:hover) {
             overflow: visible;
         }
         
@@ -10316,6 +10325,15 @@ i.fa.fa-heart-o{
             gap: 10px;
             padding: 10px;
             border-bottom: 1px solid var(--border-color);
+        }
+        
+        .video_icon_grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            z-index: 2;
+            position: relative;
         }
         
         .video_icon_ec {

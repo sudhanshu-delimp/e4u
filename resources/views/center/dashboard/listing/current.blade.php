@@ -31,7 +31,8 @@
                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         
                         <ol>
-                              
+                              <li>Use this feature to check your current and any upcoming Listings. To view a Listing from an Associated Centre, you will need to switch to that Centre.</li>
+                              <li>To Suspend a click <a href="{{ route('center.list') }}" class="custom_links_design">here</a>. Where you suspend a Listing that is currently posted, you will receive a Credit.</li>
                         </ol>
                      </div>
                   </div>

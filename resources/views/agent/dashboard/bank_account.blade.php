@@ -70,8 +70,8 @@
             <div class="col-md-12">
                 <div class="row pt-2 pb-2">
                     <div class="col-md-12 mb-2">
-                        <div class="card Summary">
-                            <div class="card-body pb-0">
+                        <div class="card border-0 p-0 Summary">
+                            <div class="card-body p-0">
                                 <p class="banner-sub-heading">Agent Details</p>
                                 <ul class="mb-2">
                                     <li><b style="color: #5D6D7E;">Name :</b>{{ $user->business_name }}</li>

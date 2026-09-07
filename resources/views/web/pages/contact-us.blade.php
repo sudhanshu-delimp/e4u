@@ -289,9 +289,9 @@
                                     <p class="border-0">
                                         Registered Office:
                                     </p>
-                                    <p>Unit 27, 168 Guildford Road</p>
-                                    <p>Maylands WA 6051</p>
-                                    <p>Australia</p>
+                                    <p>Unit 27, 168 Guildford Road<br>
+                                    Maylands WA 6051<br>
+                                    Australia</p>
                                 </span>
                             </span>
                             

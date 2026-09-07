@@ -74,7 +74,7 @@
                     <span class="title ">{{ $escort->city ? $escort->city->name : '' }} {{ $escort->age ? ' - ' . $escort->age : '' }}
                        
                     </span>
-                    <span class="video_icon_ec">
+                    <span class="video_icon_grid">
                         @if ($escort->escort_videos->isNotEmpty())
                             <div class="video_tooltip">Escort has video to view</div>
                              <span class="video_icons">
