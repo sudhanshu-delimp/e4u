@@ -7862,9 +7862,6 @@ i.fa.fa-heart-o{
             margin-bottom: 10px;
         }
         
-        .ec-box span,
-        .mc-box span {}
-        
         .inner-div-2 {
             position: relative;
             padding: clamp(15px, 4vw, 30px);
@@ -8052,9 +8049,6 @@ i.fa.fa-heart-o{
             .masseur_profile_wrapper {
                 flex-wrap: wrap;
             }
-            /* .masseur_profile_wrapper .masseur_extra_img {
-        flex-direction: row;
-    } */
             .masseur_profile_wrapper .masseur_extra_img img {
                 width: 100px;
                 height: 100px;
@@ -8155,14 +8149,6 @@ i.fa.fa-heart-o{
                 margin-top: 1.5em !important;
                 padding: 25px!important;
             }
-            /* a.back--search {
-                    position: relative;
-                    top: 5px;
-                    right: 0px;
-                }
-                .next-preview-fixed>div>div {
-                    position: relative;
-                } */
         }
         
         .total--list {
