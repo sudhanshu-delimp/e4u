@@ -40,6 +40,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Route;
 
 use function PHPSTORM_META\type;
 
@@ -479,7 +480,7 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
 
     function getRealTimeGeolocationOfUsers($lat, $lng)
     {
-        
+
         try {
             $apiKey = config('services.google_map.api_key'); // env('GOOGLE_MAPS_API_KEY');
 
@@ -504,7 +505,7 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
             $stateCapital = getStateAbbr($state);
 
             $timezone = $stateCapital ? $stateCapital['timeZone'] : "UTC";
-    
+
             $parms = [
                 'geo_state' => $state,
                 'state' => $stateCapital ? $stateCapital['stateId'] : null,
@@ -515,7 +516,7 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
                 'current_time' => now($timezone)->format('h:i A')
             ];
 
-           return $parms;
+            return $parms;
         } catch (\Exception $e) {
             $stateCapital = config('escorts.profile.states')[auth()->user()->state_id];
             $timezone = $stateCapital ? $stateCapital['timeZone'] : "UTC";
@@ -2015,7 +2016,7 @@ if (!function_exists('getRefundAmountForCancelProfile')) {
             return 0;
         }
 
-      
+
         $refundAmount = 0;
         $startDayNumber = $purchaseStart->diffInDays($refundStart) + 1;
 
@@ -2028,7 +2029,7 @@ if (!function_exists('getRefundAmountForCancelProfile')) {
             $currentDay = $startDayNumber + $i;
 
             ######## Check whether this date was already refunded/suspended. 
-            $alreadyRefunded = MassageSuspendProfile::where(['massage_profile_id'=>$purchase->massage_profile_id,'purchase_id'=>$purchase->id])
+            $alreadyRefunded = MassageSuspendProfile::where(['massage_profile_id' => $purchase->massage_profile_id, 'purchase_id' => $purchase->id])
                 ->whereDate('start_date', '<=', $currentDate)
                 ->whereDate('end_date', '>=', $currentDate)
                 ->exists();
@@ -2900,7 +2901,7 @@ function getAustraliaTime($dateTimeUTC, $format = null)
 
 function get_massage_purchase_id($id)
 {
-    return MassageProfile::select('id')->where('id',$id)->first();
+    return MassageProfile::select('id')->where('id', $id)->first();
 }
 
 if (!function_exists('getStateAbbr')) {
@@ -2919,5 +2920,27 @@ if (!function_exists('getStateAbbr')) {
         }
 
         return null;
+    }
+}
+
+if (!function_exists('getSeoTaggedRoutes')) {
+    function getSeoTaggedRoutes()
+    {
+        $result = [];
+
+        foreach (Route::getRoutes() as $route) {
+            $seoName = $route->getAction('seo_name'); // null agar seo_name nahi diya
+
+            if ($seoName) {
+                $result[] = [
+                    'route_name' => $route->getName(),   // "agent.dashboard" — stable key
+                    'uri'        => $route->uri(),        // "/" — sirf display ke liye
+                    'seo_label'  => $seoName,              // "home page"
+                    'methods'    => $route->methods(),
+                ];
+            }
+        }
+
+        return $result;
     }
 }

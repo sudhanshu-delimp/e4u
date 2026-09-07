@@ -39,6 +39,9 @@ class CreateSeoMetasTable extends Migration
             //for feature use
             $table->boolean('is_active')->default(true);
 
+            $table->text('schema_script')->nullable();
+            $table->text('robots_txt')->nullable();
+
 
             $table->timestamps();
         });

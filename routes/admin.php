@@ -50,6 +50,7 @@ use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Escort\Concierge\ProductController;
 use App\Http\Controllers\Admin\AgentMonthlyReportController;
 use App\Http\Controllers\Admin\VisaMigrationRequestController;
+use App\Http\Controllers\Admin\SeoManagementController;
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
@@ -280,9 +281,6 @@ Route::get('management/dashboard', function () {
   return view('admin.management.management');
 })->name('admin.management');
 
-Route::get('management/seo', function () {
-  return view('admin.management.seo.index');
-})->name('admin.seo');
 
 Route::get('management/monthly-fee-reports', function () {
   return view('admin.management.operator.monthly-fee-reports');
@@ -971,4 +969,10 @@ Route::post('management/fees/print-pay-detail', [AgentMonthlyReportController::c
 
 
 //SEO in OC(M)
+
+ Route::get('management/seo', [SeoManagementController::class, 'seoManagement'])->name('admin.seo');
+ Route::get('management/seo/data', [SeoManagementController::class, 'getSeoData'])->name('admin.seo.data');
+ Route::post('management/seo', [SeoManagementController::class, 'saveSeoData'])->name('admin.seo.save');
+ Route::post('management/seo', [SeoManagementController::class, 'saveSeoData'])->name('admin.seo.save');
+
 

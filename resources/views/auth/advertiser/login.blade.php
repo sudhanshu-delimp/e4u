@@ -13,6 +13,7 @@
    
 </style>
 @endsection
+@dd($seo);
 <div class="container">
          <section class="common_login_page">
             <div class="row">
