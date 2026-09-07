@@ -4,34 +4,58 @@ namespace App\Services;
 
 use App\Models\AgentCommission;
 use App\Models\AgentMonthlyReport;
+use App\Models\Operator;
+use App\Models\OperatorMonthlyReport;
+use App\Models\OperatorMonthlyReportQuery;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class CalculateAgentFeeService
+class CalculateOperatorFeeService
 {
+
+
+    /**
+     * Find the agent monthly fee data for view detail
+     * 
+     * @param integer $reportId
+     * @param return object
+     */
+    public function getOperatorFeeDetails($reportId = 0)
+    {
+        $details = [];
+        try {
+            $report = OperatorMonthlyReport::where('id', $reportId)->first();
+
+            $billingStartDate = $report->billing_period_from;
+            $billingEndDate = $report->billing_period_to;
+            $agentMemberId = $report->agent?->member_id ?? '';
+
+            $billingStartDate = Carbon::parse($billingStartDate)->format('Y-m-d');
+            $billingEndDate = Carbon::parse($billingEndDate)->format('Y-m-d');
+            $agentIds = explode(",", $report->agent_ids);
+            if (count($agentIds) > 0) {
+                foreach ($agentIds as $agentId) {
+                    $details[$agentId] = $this->calculateFee($agentId, $billingStartDate, $billingEndDate)->toArray();
+                }
+            }
+        } catch (Exception $e) {
+            //
+        }
+        return $details;
+    }
     /**
      * Prepare the agent monthly fee data for view detail
      * 
      * @param integer $reportId
      * @param return object
      */
-    public function calculateFee($reportId = 0)
+    public function calculateFee($agentId, $billingStartDate, $billingEndDate)
     {
         $result = collect();
         $agentMemberId = "";
-        $billingEndDate = "";
         try {
-            $report = AgentMonthlyReport::where('id', $reportId)->first();
-            if ($report) {
-
-                $billingStartDate = $report->billing_period_from;
-                $billingEndDate = $report->billing_period_to;
-                $agentMemberId = $report->agent?->member_id ?? '';
-
-                $billingStartDate = Carbon::parse($billingStartDate)->format('Y-m-d');
-                $billingEndDate = Carbon::parse($billingEndDate)->format('Y-m-d');
-                $agentId = $report->agent_id;
+            if ($agentId) {
                 $commissions = AgentCommission::select(['id', 'agent_id', 'user_id', 'user_type', 'commissionable_id', 'purchase_amount', 'total_commission_amount', 'commission_date'])
                     ->with([
 
@@ -65,22 +89,21 @@ class CalculateAgentFeeService
                         },
                         'items.item',
                     ])
-                    ->where('agent_id', $agentId)
+                    ->where('agent_id', (int)$agentId)
                     ->whereBetween('commission_date', [$billingStartDate." 00:00:00", $billingEndDate." 23:59:59"])
                     ->get();
-
                 if ($commissions->isNotEmpty()) {
 
+                    $agentMemberId = $commissions[0]->agent?->member_id ?? '';
                     $result = $commissions->groupBy('user_id')->map(function ($records) {
 
                         $first = $records->first();
-
                         return [
                             'user_id' => $first->user_id,
                             'user_type' => $first->user_type,
-                            'user_name' => filled($first->user->name)
+                            'user_name' => (filled($first->user->name)
                                 ? $first->user->name
-                                : $first->user->business_name,
+                                : $first->user->business_name)." (".($first->user->member_id).")",
                             'user_member_id' => filled($first->user->member_id)
                                 ? $first->user->member_id
                                 : '',
@@ -126,11 +149,14 @@ class CalculateAgentFeeService
         } catch (Exception $e) {
             Log::info("Faile to calculate agent fee from service: " . $e->getMessage());
         }
+
         if ($result->isNotEmpty()) {
 
             $result = $result->groupBy('user_type');
             $feeDetails = $this->calculateFeeDetails($commissions);
+            
             foreach ($result as $userType => $rows) {
+               
                 foreach ($rows as $index => $row) {
                     if (isset($row['user_id'])) {
                         $userId = $row['user_id'];
@@ -161,7 +187,6 @@ class CalculateAgentFeeService
 
     private function calculateFeeDetails($reports)
     {
-        //dd($reports->toArray());
         $result = $reports->groupBy('user_id')->map(function ($rows) {
 
             $summary = [
@@ -262,11 +287,10 @@ class CalculateAgentFeeService
                     $summary['MBU']['commission'] +=  number_format($commission, 2, '.', '');
                 }
             }
-            //dd( $summary);
             return [
                 'user_id' => $rows->first()->user_id,
                 'user_type' => $rows->first()->user_type,
-                'user_name' => $rows->first()->user['name'] ?: $rows->first()->user['business_name'],
+                'user_name' => ($rows->first()->user['name'] ?: $rows->first()->user['business_name']),
 
                 'P'   => $summary['P'],
                 'G'   => $summary['G'],

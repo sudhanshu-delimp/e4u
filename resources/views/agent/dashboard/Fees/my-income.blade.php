@@ -89,7 +89,7 @@
                                 <div class="stat-text">
                                     <div class="stats-label">Today's Income
                                     </div>
-                                    <div class="stats-value"><span>$</span> 950.00</div>
+                                    <div class="stats-value"><span>$</span> {{ $advertisers['today'] }}</div>
                                 </div>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                                 <div class="stats-text">
                                     <div class="stats-label font-weight-bold">Week to Date
                                     </div>
-                                    <div class="stats-value"><span>$</span> 2,500.00</div>
+                                    <div class="stats-value"><span>$</span>  {{ $advertisers['week'] }}</div>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                                 <div class="stats-text">
                                     <div class="stats-label font-weight-bold">Month to Date
                                     </div>
-                                    <div class="stats-value"><span>$</span> 5,500.00</div>
+                                    <div class="stats-value"><span>$</span> {{ $advertisers['month'] }}</div>
                                 </div>
                             </div>
 
@@ -137,7 +137,7 @@
                                 <div class="stats-text">
                                     <div class="stats-label font-weight-bold">Year to Date
                                     </div>
-                                    <div class="stats-value"><span>$</span> 75,5000.00</div>
+                                    <div class="stats-value"><span>$</span> {{ $advertisers['year'] }}</div>
                                 </div>
                             </div>
                         </div>
@@ -195,7 +195,7 @@
                                 <div class="stat-text">
                                     <div class="stats-label">Today's Income
                                     </div>
-                                    <div class="stats-value"><span>$</span> 450.00</div>
+                                    <div class="stats-value"><span>$</span>{{ $escorts['today'] }}</div>
                                 </div>
                             </div>
                         </div>
@@ -209,7 +209,7 @@
                                 <div class="stats-text">
                                     <div class="stats-label font-weight-bold">Week to Date
                                     </div>
-                                    <div class="stats-value"><span>$</span> 1,500.00</div>
+                                    <div class="stats-value"><span>$</span> {{ $escorts['week'] }}</div>
                                 </div>
                             </div>
                         </div>
@@ -222,7 +222,7 @@
                                 <div class="stats-text">
                                     <div class="stats-label font-weight-bold">Month to Date
                                     </div>
-                                    <div class="stats-value"><span>$</span> 2,500.00</div>
+                                    <div class="stats-value"><span>$</span> {{ $escorts['month'] }}</div>
                                 </div>
                             </div>
 
@@ -237,7 +237,7 @@
                                 <div class="stats-text">
                                     <div class="stats-label font-weight-bold">Year to Date
                                     </div>
-                                    <div class="stats-value"><span>$</span> 5,5000.00</div>
+                                    <div class="stats-value"><span>$</span>{{ $escorts['year'] }}</div>
                                 </div>
                             </div>
                         </div>
@@ -295,7 +295,7 @@
                                 <div class="stat-text">
                                     <div class="stats-label">Today's Income
                                     </div>
-                                    <div class="stats-value"><span>$</span> 150.00</div>
+                                    <div class="stats-value"><span>$</span> {{ $massageCentres['today'] }}</div>
                                 </div>
                             </div>
                         </div>
@@ -309,7 +309,7 @@
                                 <div class="stats-text">
                                     <div class="stats-label font-weight-bold">Week to Date
                                     </div>
-                                    <div class="stats-value"><span>$</span> 500.00</div>
+                                    <div class="stats-value"><span>$</span> {{ $massageCentres['week'] }}</div>
                                 </div>
                             </div>
                         </div>
@@ -322,7 +322,7 @@
                                 <div class="stats-text">
                                     <div class="stats-label font-weight-bold">Month to Date
                                     </div>
-                                    <div class="stats-value"><span>$</span> 750.00</div>
+                                    <div class="stats-value"><span>$</span> {{ $massageCentres['month'] }}</div>
                                 </div>
                             </div>
 
@@ -337,7 +337,7 @@
                                 <div class="stats-text">
                                     <div class="stats-label font-weight-bold">Year to Date
                                     </div>
-                                    <div class="stats-value"><span>$</span> 25,000.00</div>
+                                    <div class="stats-value"><span>$</span> {{ $massageCentres['year'] }}</div>
                                 </div>
                             </div>
                         </div>
