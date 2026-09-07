@@ -783,6 +783,7 @@ class GlobalMonitoringController extends Controller
             });
 
         return [
+            'free'   => (clone $escorts)->whereIn('membership', ['4'])->whereDoesntHave('activeSuspendProfile')->count() ?? 0,
             'silver'   => (clone $escorts)->whereIn('membership', ['3'])->whereDoesntHave('activeSuspendProfile')->count() ?? 0,
             'gold'     => (clone $escorts)->whereIn('membership', ['2'])->whereDoesntHave('activeSuspendProfile')->count() ?? 0,
             'platinum' => (clone $escorts)->whereIn('membership', ['1'])->whereDoesntHave('activeSuspendProfile')->count() ?? 0,
