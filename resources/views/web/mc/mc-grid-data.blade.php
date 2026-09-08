@@ -87,7 +87,7 @@
                 <div class="mc_card_content">
                     <div class="items">
                         <span class="title text_truncate">{{  get_massage_home_city($listing->user_id) }}</span>
-                        <span class="video_icon_ec">
+                        <span class="video_icon_grid">
                             @php
                                $videoCnt = checkVideoExistInMcProfile($listing->user_id);
                             @endphp

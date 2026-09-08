@@ -126,6 +126,7 @@ class EscortListingController extends Controller
             'verification'      => $request->varify_list,
             'page'              => $request->page ?? 1,
             'member_id'         => $request->member_id,
+            
         ];
     }
 
@@ -347,6 +348,7 @@ class EscortListingController extends Controller
             'escorts.purchase_id',
             'escorts.user_id',
             'escorts.gender',
+             'escorts.address',
             'escorts.city_id',
             'escorts.membership',
             //'escorts.membership_upgraded_at',
@@ -359,8 +361,10 @@ class EscortListingController extends Controller
             'escorts.state_id',
             'escorts.created_at',
             'escorts.slug',
-            'escorts.available_to'
-
+            'escorts.available_to',
+            'escorts.about',
+            'escorts.start_date',
+            'escorts.end_date',
         ];
 
 
