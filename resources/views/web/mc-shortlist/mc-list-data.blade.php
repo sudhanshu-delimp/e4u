@@ -377,7 +377,7 @@
                                 </div>
                             </div>
                             <!-- Open Times -->
-                            <div class="tab-pane fade p-2" id="open-times-{{ $listing->id }}" role="tabpanel"
+                            <div class="tab-pane table-responsive fade p-2" id="open-times-{{ $listing->id }}" role="tabpanel"
                                 aria-labelledby="open-times-tab-{{ $listing->id }}">
 
                                 <table class="table table-striped open-time-table mb-0">
