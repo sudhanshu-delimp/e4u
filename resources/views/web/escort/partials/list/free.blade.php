@@ -419,7 +419,7 @@
                             </div>
 
                             <!-- Services -->
-                            <div class="tab-pane fade p-2" id="services-{{ $escort->id }}" role="tabpanel"
+                            <div class="tab-pane table-responsive fade p-2" id="services-{{ $escort->id }}" role="tabpanel"
                                 aria-labelledby="services-tab-{{ $escort->id }}">
                                 <table class="table table-striped open-time-table mb-0">
                                     <thead class="table_heading_bgcolor_color">

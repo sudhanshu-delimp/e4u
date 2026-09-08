@@ -10341,6 +10341,7 @@
             gap: 10px;
             padding: 10px;
             border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
         }
         
         .video_icon_grid {
