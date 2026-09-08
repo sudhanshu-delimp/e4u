@@ -2788,7 +2788,7 @@ if (!function_exists('getEscortMassageDetailUrl')) {
                     $stateArr = isset($states[$modelObject->state_id]) ? $states[$modelObject->state_id] : [];
                     $stateName = isset($stateArr['stateAbbr']) ? strtolower($stateArr['stateAbbr']) : "";
                     $cityName = isset($stateArr['cities'][$modelObject->city_id]['cityName']) ? strtolower($stateArr['cities'][$modelObject->city_id]['cityName']) : "";
-                    $genderName = isset($modelObject->gender) ? strtolower($modelObject->gender) : "";
+                    $genderName = isset($modelObject->gender) ? str_replace(" ", "_", strtolower($modelObject->gender) ): "";
 
                     $url = route('escort.profile.detail.new', [
                         'county' => isset($modelObject->state->country->name) ?  strtolower($modelObject->state->country->name) : 'australia',

@@ -119,16 +119,7 @@
                                 <a class="nav-link active" id="profile-details-tab-{{ $listing->id }}"
                                     data-toggle="tab" href="#profile-details-{{ $listing->id }}" role="tab"
                                     aria-controls="profile-details-{{ $listing->id }}" aria-selected="true">
-                                     Profile Details
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" id="open-times-tab-{{ $listing->id }}" data-toggle="tab"
-                                    href="#open-times-{{ $listing->id }}" role="tab"
-                                    aria-controls="open-times-{{ $listing->id }}" aria-selected="false">
-                                    
-                                    Open Times
+                                    Profile Details
                                 </a>
                             </li>
 
@@ -136,8 +127,17 @@
                                 <a class="nav-link" id="services-tab-{{ $listing->id }}" data-toggle="tab"
                                     href="#services-{{ $listing->id }}" role="tab"
                                     aria-controls="services-{{ $listing->id }}" aria-selected="false">
-                                    
+
                                     Services
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" id="open-times-tab-{{ $listing->id }}" data-toggle="tab"
+                                    href="#open-times-{{ $listing->id }}" role="tab"
+                                    aria-controls="open-times-{{ $listing->id }}" aria-selected="false">
+
+                                    Open Times
                                 </a>
                             </li>
                         </ul>
@@ -171,27 +171,25 @@
                     <div class="tab-content" id="profileTabsContent-{{ $listing->id }}">
 
                         <!-- Profile Details -->
-                        <div class="tab-pane fade show active" id="profile-details-{{ $listing->id }}"
-                            role="tabpanel" aria-labelledby="profile-details-tab-{{ $listing->id }}">
+                        <div class="tab-pane fade show active" id="profile-details-{{ $listing->id }}" role="tabpanel"
+                            aria-labelledby="profile-details-tab-{{ $listing->id }}">
                             <div class="mc_list_header">
                                 <div>
                                     <h6 class="mc_list_title">{{ $listing->business_name }} </h6>
                                     <span class="mc_list_rating">
-                                        ( Rating :
+                                        Rating :
                                         @for ($i = 1; $i <= 5; $i++)
                                             @if (isset($listing->star_rating) && $listing->star_rating > 0 && $i <= $listing->star_rating)
                                                 <i class="fa fa-star" aria-hidden="true"></i>
                                             @else
                                                 <i class="fa fa-star-o" aria-hidden="true"></i>
                                             @endif
-                                        @endfor)
+                                        @endfor
                                     </span>
                                 </div>
 
                                 <div class="social_media_icons">
                                     <div class="social_media_wrapper">
-
-
                                         <div class="d-flex justify-content-between gap-10">
 
                                             @if (isset($social_links['facebook']) && $social_links['facebook'] != '')
@@ -220,10 +218,7 @@
 
 
                                         </div>
-
                                     </div>
-
-
                                 </div>
                             </div>
                             <div class="mc_list_meta">
@@ -413,11 +408,16 @@
                                         class="read-more-link">Read More</a>
                                 </p>
                             </div>
-
-                            <div class="mc_list_address">
-                                <img src="{{ asset('assets/app/img/gps.png') }}" alt="address"
-                                    class="custompopicon">
-                                {{ $listing->address }}
+                            <div class="all-massage-view-profile-btn">
+                                <div class="mc_list_address">
+                                    <img src="{{ asset('assets/app/img/gps.png') }}" alt="address"
+                                        class="custompopicon">
+                                    {{ $listing->address }}
+                                </div>
+                                <a href="{{ getEscortMassageDetailUrl($listing, 'massage') }}"
+                                    class="btn btn_for_profile_list_view custom-view-profile"
+                                    style="float: right;">View
+                                    Profile</a>
                             </div>
                         </div>
 
@@ -435,13 +435,13 @@
 
                         </div>
 
-                          <!-- Services -->
+                        <!-- Services -->
                         <div class="tab-pane fade" id="services-{{ $listing->id }}" role="tabpanel"
                             aria-labelledby="services-tab-{{ $listing->id }}">
 
-                                <div class="mc_list_meta">
-                                    
-                                <div class="services_card">
+                            <div class="mc_list_meta">
+
+                                <div class="services_card w-100">
                                     <spna class="icon">
                                         <svg fill="#ff3c5f" height="64px" width="64px" version="1.1"
                                             id="Layer_1" xmlns="http://www.w3.org/2000/svg"
@@ -483,7 +483,7 @@
                                         </span>
                                     </span>
                                 </div>
-                                <div class="services_card">
+                                <div class="services_card w-100">
                                     <spna class="icon">
                                         <svg fill="#ff3c5f" version="1.1" id="Layer_1" xmlns:x="&amp;ns_extend;"
                                             xmlns:i="&amp;ns_ai;" xmlns:graph="&amp;ns_graphs;"
@@ -549,7 +549,7 @@
                                         </span>
                                     </span>
                                 </div>
-                                </div>
+                            </div>
 
                         </div>
 

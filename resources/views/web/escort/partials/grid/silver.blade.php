@@ -20,7 +20,7 @@
         @if (auth()->user())
             @if ($viewerAuth->type == '0')
                 <span
-                    class="add_to_favrate custom--favourite @if (in_array($escort->id, $user_type)) {{ 'null' }}@else{{ 'fill' }} @endif"
+                    class="add_to_favrate grid-custom-favourite @if (in_array($escort->id, $user_type)) {{ 'null' }}@else{{ 'fill' }} @endif"
                     id="legboxId_{{ $escort->id }}" data-escortId="{{ $escort->id }}"
                     data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{ $escortName }}">
                     {{-- @if (!empty($user_type)) --}}
@@ -34,11 +34,11 @@
                     {{-- @endif --}}
                 </span>
             @else
-                <span class="add_to_favrate custom--favourite" data-name="{{ $escortName }}"><i class="fa fa-heart-o"
+                <span class="add_to_favrate grid-custom-favourite" data-name="{{ $escortName }}"><i class="fa fa-heart-o"
                         aria-hidden="true"></i> <span class="custom-heart-text">Add to My Legbox</span></span>
             @endif
         @else
-            <span class="add_to_favrate custom--favourite" data-escortId="{{ $escort->id }}"
+            <span class="add_to_favrate grid-custom-favourite" data-escortId="{{ $escort->id }}"
                 data-name="{{ $escortName }}"><i class="fa fa-heart-o" aria-hidden="true"></i><span
                     class="custom-heart-text">Add to My Legbox</span></span>
         @endif

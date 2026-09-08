@@ -348,6 +348,7 @@ class EscortListingController extends Controller
             'escorts.purchase_id',
             'escorts.user_id',
             'escorts.gender',
+             'escorts.address',
             'escorts.city_id',
             'escorts.membership',
             //'escorts.membership_upgraded_at',
@@ -361,7 +362,9 @@ class EscortListingController extends Controller
             'escorts.created_at',
             'escorts.slug',
             'escorts.available_to',
-            'escorts.about'
+            'escorts.about',
+            'escorts.start_date',
+            'escorts.end_date',
         ];
 
 
