@@ -218,6 +218,7 @@ class ShareholderController extends BaseController
             $activate_html = "";
             $dropdownsub = "";
             $edit = "";
+            $updatePassword = "";
 
             $view = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal" id="viewShareholderBtn" > <i class="fa fa-eye"></i>View</a>';
 
@@ -228,6 +229,7 @@ class ShareholderController extends BaseController
                 if (auth()->user()->member_id != $item->member_id) {
                     $edit = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal" id="getShareholder"> <i class="fa fa-pen"></i>Edit</a>';
                 }
+             $updatePassword = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center update_password" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i>Update Password</a>';
             }
 
             if ($item->status == 'Pending') {
@@ -251,7 +253,7 @@ class ShareholderController extends BaseController
                     $dropdown .= $view;
                 } else {
                     if ($this->editAccessEnabled) {
-                        $dropdown .= $edit . $dropdownsub .  $view;
+                        $dropdown .= $edit . $dropdownsub . $updatePassword .$view;
                     } else {
                         $dropdown .= $view;
                     }
@@ -265,7 +267,7 @@ class ShareholderController extends BaseController
                     $dropdown .= $view;
                 } else {
                     if ($this->editAccessEnabled) {
-                        $dropdown .= $dropdownsub . $edit .  $view;
+                        $dropdown .= $dropdownsub . $edit . $updatePassword. $view;
                     } else {
                         $dropdown .= $view;
                     }

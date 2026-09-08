@@ -191,6 +191,8 @@
         aria-labelledby="Edit_CompetitorLabel" aria-hidden="true"></div>
     <div class="modal fade upload-modal" id="printAgentdetails" tabindex="-1" role="dialog"
         aria-labelledby="Edit_CompetitorLabel" aria-hidden="true"></div>
+
+@includeif('admin.modal.change-password')
 @endsection
 @push('script')
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">

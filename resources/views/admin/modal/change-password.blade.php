@@ -72,6 +72,16 @@
         var passwordsMatch = false;
 
         $('#password-strength').css('display', 'none');
+        $(document).on('click', '.update_password', function() {
+            $('#updatePassword').prop('disabled', false).text('Update');
+            let id = $(this).data('id');
+            $("#user_id").val(id);
+            $('#change_Password_users').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+            $('#change_Password_users').modal('show');
+        });
 
         $(document).on('click', '#updatePassword', function(e) {
             e.preventDefault();
@@ -79,6 +89,7 @@
             var modal_new_password = $("#modal_new_password").val();
             var modal_new_password_confirmation = $("#modal_new_password_confirmation").val();
             var myform = false;
+            $('#updatePassword').prop('disabled', true).text('Updating...');
 
             let formData = $('#change_Password_form').serialize();
                 $("#divErros").html('');
@@ -95,7 +106,7 @@
                        
                     },
                     error: function(xhr) {
-                        //alert(xhr.responseJSON.message);
+                       $('#updatePassword').prop('disabled', false).text('Update');
                         if (xhr.status === 422) {
                             $("#divErros").html('');
                             let errors = xhr.responseJSON.errors;

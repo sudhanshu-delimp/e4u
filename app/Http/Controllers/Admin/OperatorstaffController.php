@@ -210,7 +210,7 @@ class OperatorstaffController extends BaseController
             $suspend_html = "";
             $activate_html = "";
             $dropdownsub = "";
-            
+            $updatePassword = "";
             //
             $edit = "";
             /*  if ($item->status != 'Suspended') {
@@ -230,6 +230,8 @@ class OperatorstaffController extends BaseController
                 if (auth()->user()->member_id != $item->member_id) {
                     $edit = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit-staff-btn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>';
                 }
+
+                 $updatePassword = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center update_password" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i>Update Password</a>';
             }    
 
             if ($item->status == 'Pending') {
@@ -253,7 +255,7 @@ class OperatorstaffController extends BaseController
                     $dropdown .= $view;
                  } else {
                     if ($this->editAccessEnabled) {
-                     $dropdown .= $edit . $dropdownsub.  $view;
+                     $dropdown .= $edit . $dropdownsub. $updatePassword .$view;
                      } else {
                         $dropdown .= $view;
                     }
@@ -267,7 +269,7 @@ class OperatorstaffController extends BaseController
                     $dropdown .= $view;
                  } else {
                     if ($this->editAccessEnabled) {
-                      $dropdown .= $dropdownsub. $edit.  $view;
+                      $dropdown .= $dropdownsub. $edit.  $updatePassword . $view;
                     } else {
                         $dropdown .= $view;
                     }

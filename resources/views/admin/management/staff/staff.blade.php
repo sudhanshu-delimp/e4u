@@ -731,15 +731,5 @@
             });
         });
 
-  
-        $(document).on('click', '.update_password', function() {
-            let id = $(this).data('id');
-            $("#user_id").val(id);
-            $('#change_Password_users').modal({
-                backdrop: 'static',
-                keyboard: false
-            });
-            $('#change_Password_users').modal('show');
-        });
     </script>
 @endpush
