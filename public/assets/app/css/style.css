@@ -2782,8 +2782,8 @@
             font-size: 14px;
             position: relative;
             background-color: var(--off-white);
-            width: 35px;
-            height: 35px;
+            width: 27px;
+            height: 27px;
             align-items: center;
             display: flex;
             justify-content: center;
@@ -2792,14 +2792,14 @@
         }
         
         .mc_list_legbox .add_to_favrate {
-            width: 35px;
-            height: 35px;
+            width: 27px;
+            height: 27px;
             font-size: 18px;
         }
         
         .add_to_favrate {
             color: var(--peach);
-            font-size: 18px;
+            font-size: 14px;
             position: relative;
         }
         /*i.fa.fa-heart {
