@@ -47,6 +47,25 @@
     align-items: center;
 }
 
+.main-photo .verify_icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: var(--off-white);
+    z-index: 10;
+    width: 100px;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: var(--radius-sm) !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-photo .verify_icon img {
+    width: 80% !important;
+}
+
 .photos-grid-container .main-photo {
     width: unset;
     height: unset;
