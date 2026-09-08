@@ -456,11 +456,11 @@
                                             @foreach ($escort->durations as $key => $duration)
                                                 <tr>
                                                     <td>{{ $duration->name }} </td>
-                                                    <td>{!! $duration->pivot->massage_price
+                                                    <td class="text-center">{!! $duration->pivot->massage_price
                                                         ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->massage_price) . '</div>'
                                                         : "<span class='if_data_not_available'>N/A</span>" !!}
                                                     </td>
-                                                    <td>{!! $duration->pivot->incall_price
+                                                    <td class="text-center">{!! $duration->pivot->incall_price
                                                         ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->incall_price) . '</div>'
                                                         : "<span class='if_data_not_available'>N/A</span>" !!}
                                                     </td>
