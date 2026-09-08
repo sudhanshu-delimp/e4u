@@ -34,6 +34,7 @@ use App\Models\MassageService;
 use App\Models\MassageSetting;
 use App\Models\MassageStatistics;
 use App\Models\MassageSuspendProfile;
+use App\Models\MassageTimeAvailability;
 use App\Models\Masseur;
 use App\Models\Pricing;
 use App\Models\Service;
@@ -947,10 +948,10 @@ class MassageController extends Controller
 
         ######### Update Availibility  ####################
         if ($request->type == 'availibility') {
-            try {
+            try 
+            {
                 $request_data = $request->all();
-
-
+                $profile = MassageProfile::where(['id' => $request->massage_id])->first();
                 if (isset($request->profile_time_avail_update) && $request->profile_time_avail_update == 'profile_time_avail_update')
                     $availability     = $this->makeAvailability($request_data);
                 else
@@ -967,6 +968,13 @@ class MassageController extends Controller
                         $record->save();
                     } else {
                         MassageAvailability::create(['massage_profile_id' => $massage_profile_id, 'availability_time' => json_encode($availability)]);
+                    }
+
+                    if($profile->purchase_id!="")
+                    {
+                        $data['massage_profile_id'] = $massage_profile_id;
+                        $data['massage_availibility'] =  $availability;
+                        MassageTimeAvailability::saveOrUpdateAvailability($profile->purchase_id, $data);
                     }
                 }
 
@@ -1038,6 +1046,7 @@ class MassageController extends Controller
                 if (!empty($masseur)) {
                     MassagerMasseur::where(['massage_profile_id' => $massage_profile_id])->delete();
                     MassagerMasseur::insert($masseur);
+                    $profile = MassageProfile::where(['id' => $massage_profile_id])->first();
                     $messures =  Masseur::whereIn('id', $masseurIds)->get();
                     if ($messures->isNotEmpty()) {
                         foreach ($messures as $messure) {
@@ -1045,6 +1054,14 @@ class MassageController extends Controller
                                 $newService = array_values(array_diff($messure->service, $messure_service));
                                 $messure->service = !empty($newService) ? $newService : null;
                                 $messure->save();
+                            }
+
+                            if($profile->purchase_id!="")
+                            {
+                                $data = [];
+                                $data['masseur_id'] = $messure->id;
+                                $data['masseur_availibility'] =  $messure->availability;
+                                MassageTimeAvailability::saveOrUpdateAvailability($profile->purchase_id, $data);
                             }
                         }
                     }

@@ -1001,6 +1001,28 @@ class MasseurController extends AppController
     }
 
 
+    public function weeklyDaysAvailibility($avail_arr)
+    {
+        $days = [
+            'monday'    => 'M',
+            'tuesday'   => 'T',
+            'wednesday' => 'W',
+            'thursday'  => 'T',
+            'friday'    => 'F',
+            'saturday'  => 'S',
+            'sunday'    => 'S',
+        ];
+
+        $result = [];
+
+        foreach ($days as $day => $letter) {
+            $isAvailable = !(isset($avail_arr[$day]['status']) && $avail_arr[$day]['status'] === 'closed');
+            $result[] = $letter . ': ' . ($isAvailable ? 'true' : 'false');
+        }
+
+        return implode(', ', $result);
+    }
+
     public function weeklyAvailibility($avail_arr)
     {
 
