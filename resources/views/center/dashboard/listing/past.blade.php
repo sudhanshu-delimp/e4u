@@ -31,7 +31,9 @@
                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         
                         <ol>
-                              
+                              <li>Use this feature to view or delete any of your past Profile listings.</li>
+                              <li>You can re-post a Profile by creating a New Listing.</li>
+                              <li>Old Profile listings will purge when you delete the Profile from your Archives or the Profile has not been active for 2 years.</li>
                         </ol>
                      </div>
                   </div>

@@ -174,14 +174,11 @@ background:#16385f;
                <div class="card collapse" id="notes" style="">
                   <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b></h3>
-                     <!-- <ol>
-                           <li>Use these help pages for explanations and guidance on managing all of your Masseur
-                              Profiles.</li>
-                           <li>You can upload four photos for each Masseur. Designate one as the Masseur’s
-                              Thumbnail.</li>
-                           <li>Activate up to eight Masseur Profiles at any one time to appear the Massage Centre
-                              Profile.</li>
-                     </ol> -->
+                     <ol>
+                           <li>Use this feature to review and make changes to your Profile.</li>
+                           <li>You can view and edit your Profile by selecting 'Action'. By selecting the Action function, you will be able to Edit and View your Profile.</li>
+                           <li>Remember, you can create as many Profiles as you like, but you can only List one at a time.</li>
+                     </ol>
                   </div>
                </div>
             </div>
@@ -197,15 +194,14 @@ background:#16385f;
                            @if($active_profile)
                            <div class="action_buttons">
                                 <div class="add--list listingActionButtons">
-                                    <div class="">
+                                    <div class="action_class">
                                           
 
-                                                <button style="padding: 10px;" class="btn btn-custom-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Listing  </button>
-                                          
-                                          
+                                          <button style="padding: 10px;" class="btn btn-custom-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Listing  </button>
                                           <button style="padding: 10px;" class="btn btn-bump-up" data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump Up  </button>
-                                          <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
-                                                data-target="#suspend_profile" id="btn_suspend_profile">Suspend Listing</button> 
+                                          <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal" data-target="#suspend_profile" id="btn_suspend_profile">Suspend Listing</button> 
+
+
                                        </div>
                                        <button class="btn brb-btn" data-toggle="modal"
                                                 data-target="#add_brb" id="btn_add_brb">Shop Closed</button>
@@ -461,6 +457,32 @@ var table = $("#massage_list").DataTable({
             d.type = 'player';
             return JSON.stringify(d);
         }
+    },
+
+    drawCallback: function (settings) {
+        var api = this.api();
+        var data = api.rows().data();
+        
+        
+        $("#btn_cancel_profile").remove();
+
+        // Find the record where is_live === 1
+        data.each(function (row) {
+            if (parseInt(row.is_live) === 1) {
+                var liveId = row.id;
+
+                var cancelButton = `
+                    <button style="padding: 10px;" class="btn btn-danger cancel_profile_modal" data-toggle="modal" data-target="#cancel_profile_modal_form" id="cancel_profile"  href="javascript:void(0)">
+                        Cancel Listing
+                    </button>
+                `;
+
+
+                
+                // Append directly AFTER the suspend button
+                $("#btn_suspend_profile").after(cancelButton);
+            }
+        });
     },
 
     columns: [
@@ -1254,6 +1276,8 @@ $("#bumpup_profile_form").on('submit', async function(e)
       }
 });
 
+// ########### End Bumpup Profile #########################
+
 function openModal(url) 
 {
     document.getElementById('modalFrame').src = url;
@@ -1289,7 +1313,132 @@ document.getElementById('iframeModal').addEventListener('hidden.bs.modal', funct
     document.getElementById('modalFrame').src = '';
 });
 
-// ########### End Bumpup Profile #########################
+
+
+
+/////// Cancel Profile ////////////////////////
+
+$('#cancel_profile_modal_form').on('show.bs.modal', function () {
+         $('#cancel_profile_button').prop('disabled', true);
+   });
+
+$(document).ready(function () 
+{
+      $('#cancelProfileId').on('change', function () {
+        var profileId = $(this).val();
+        var $creditDisplay = $('#cancelCreditCalculationLive');
+
+        if (!profileId) {
+            $('#cancel_profile_button').prop('disabled', true);
+            $creditDisplay.text('$0.00');
+            return;
+        }
+        
+        $.ajax({
+            url: "{{ route('center.calculate-cancel-refund') }}", 
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}",
+                profile_id: profileId
+            },
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    $creditDisplay.text(response.formatted_refund_amount);
+                    $('#cancel_profile_button').prop('disabled', false);
+                } else {
+                    $creditDisplay.text('$0.00');
+                    $('#cancel_profile_button').prop('disabled', true);
+                }
+            },
+            error: function () {
+                $creditDisplay.text('$0.00');
+            }
+        });
+    });
+
+
+    
+    $('#cancel_form').on('submit', async function (e) {
+        e.preventDefault();
+
+
+         var $profileSelect = $('#cancelProfileId');
+         var profileId = $profileSelect.val();
+         var creditText = $('#cancelCreditCalculationLive').text().trim().replace('$', '');
+         var creditAmount = parseFloat(creditText) || 0;
+         var $submitBtn = $('#cancel_profile');
+
+
+         if (!profileId || profileId === '') {
+            swal_error_popup('Please select a profile to cancel.');
+            $profileSelect.focus();
+            return false;
+         }
+
+         if (creditAmount <= 0) {
+            swal_error_popup('Cancellation cannot be processed because the refundable credit amount is $0.00.');
+            return false;
+         }
+
+
+        var formData = {
+            _token: "{{ csrf_token() }}",
+            action: 'cancel',
+            profile_id: $('#cancelProfileId').val()
+        };
+
+         let mess_data = {
+            'title' : 'Cancel Profile',
+            'text' : 'Do you really want to cancel this Profile?',
+         }
+
+      if(await isConfirm(mess_data))
+      {
+         swal_waiting_popup({
+               'title': 'Processing cancellation...'
+         });    
+
+         $.ajax({
+               url: "{{ route('center.action-massage-profile') }}", 
+               type: "POST",
+               data: formData,
+               dataType: "json",
+               success: function (response) 
+               {
+                  if (response.success) 
+                  {
+                     $('#cancel_profile').remove();
+                     $('#cancel_form').closest('.modal').modal('hide');
+                     $('#cancel_form')[0].reset();
+                     if ($('#cancelProfileId').hasClass('select2-hidden-accessible')) {
+                           $('#cancelProfileId').val('').trigger('change.select2');
+                     }
+
+
+                     if (typeof table !== 'undefined') {
+                           table.ajax.reload(null, false);
+                     }
+
+                     swal_success_popup(response.message);
+                  } 
+                  else 
+                  {
+                     swal_error_popup(response.message || 'Failed to cancel listing.');
+                  }
+               },
+               error: function (xhr) {
+
+                  var errorMsg = xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : 'Something went wrong!';
+                  swal_error_popup(errorMsg);
+               }
+         });
+      }
+   });
+
+});
+
+/////// End Cancel Profile ////////////////////////
        
 </script>
 @include('center.dashboard.payment_functions')

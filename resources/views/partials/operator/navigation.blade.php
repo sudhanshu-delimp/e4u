@@ -157,7 +157,7 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
                 <div class="oc-highlight-menu">   
                     <a class="dropdown-item menu-profile" href="javascript:void(0)">
                         
-                        <span>{{ auth()->user()->name }}</span> <br>{{ auth()->user()->member_id }}
+                        <span>{{ auth()->user()->name }}</span> <br> Member ID :  {{ auth()->user()->member_id }}
                     </a>
                 </div>
 

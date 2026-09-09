@@ -191,7 +191,7 @@
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in custom-nav-dropdown"
                 aria-labelledby="userDropdown">
                 <div class="highlight-menu">
-                    <a class="dropdown-item menu-profile" href="javascript:void(0)"><span>{{ auth()->user()->name }}</span> <br> {{ auth()->user()->member_id }}</a>
+                    <a class="dropdown-item menu-profile" href="javascript:void(0)"><span>{{ auth()->user()->name }}</span> <br> Member ID : {{ auth()->user()->member_id }}</a>
 
                      @if (!auth()->user()->my_agent)
                         <a class="dropdown-item" href="{{ url('/escort-dashboard/escort-agency-request') }}">
