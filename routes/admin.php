@@ -760,6 +760,7 @@ Route::prefix('reports')->name('admin.')->group(function () {
   Route::get('/order-list', [ProductOrderController::class, 'orderList'])->name('escort.orders.list');
   Route::post('/order-complete', [ProductOrderController::class, 'orderComplete'])->name('escort.order.complete');
   Route::get('/order-details', [ProductOrderController::class, 'getOrderDetails'])->name('escort.order.details');
+  Route::get('/print-order-details/{id}', [ProductOrderController::class, 'printOrderDetail'])->name('print.order.details');
 });
  
   Route::get('/concierge/visa-migration-request', [VisaMigrationRequestController::class, 'index'])->name('admin.visa.migration.index');
