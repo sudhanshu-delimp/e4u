@@ -57,9 +57,9 @@ class GenerateConciergePaymentReconciliation extends Command
 
     $this->info(
       "Generating reconciliation for: "
-        . $billStartDate->format('Y-m-d')
+        . $billStartDate->format('d-m-Y')
         . " to "
-        . $billEndDate->format('Y-m-d')
+        . $billEndDate->format('d-m-Y')
     );
 
     /*
@@ -70,11 +70,11 @@ class GenerateConciergePaymentReconciliation extends Command
 
     $alreadyGenerated = ConciergePaymentReconciliation::where(
       'bill_start_date',
-      $billStartDate->format('Y-m-d')
+      $billStartDate->format('d-m-Y')
     )
       ->where(
         'bill_end_date',
-        $billEndDate->format('Y-m-d')
+        $billEndDate->format('d-m-Y')
       )
       ->exists();
 
@@ -91,7 +91,8 @@ class GenerateConciergePaymentReconciliation extends Command
         |--------------------------------------------------------------------------
         */
 
-    $orders = ProductOrder::query()
+    $orders = ProductOrder::with(['paymentDetails', 'user'])
+      // $orders = ProductOrder::query()
       ->whereBetween('order_date', [
         $billStartDate->copy()->startOfDay(),
         $billEndDate->copy()->endOfDay(),
@@ -114,16 +115,17 @@ class GenerateConciergePaymentReconciliation extends Command
         */
 
     $grossSaleAmount = $orders->sum(function ($order) {
-      return (float) $order->total_amount;
+      return (float) $order->paymentDetails->total_payable_amount;
+    });
+
+    $supplierAmount = $orders->sum(function ($order) {
+      return (float) $order->paymentDetails->amount;
     });
 
     /*
          * Change this calculation according to your
          * actual supplier payment/business rules.
          */
-    $supplierAmount = $orders->sum(function ($order) {
-      return (float) $order->sub_total;
-    });
 
     $e4uEarning = $grossSaleAmount - $supplierAmount;
 
@@ -134,11 +136,11 @@ class GenerateConciergePaymentReconciliation extends Command
         */
 
     ConciergePaymentReconciliation::create([
-      'bill_generated_date' => Carbon::now()->format('Y-m-d H:i:s'),
+      'bill_generated_date' => Carbon::now()->format('d-m-Y H:i:s'),
 
-      'bill_start_date' => $billStartDate->format('Y-m-d'),
+      'bill_start_date' => $billStartDate->format('d-m-Y'),
 
-      'bill_end_date' => $billEndDate->format('Y-m-d'),
+      'bill_end_date' => $billEndDate->format('d-m-Y'),
 
       'service' => 'Concierge',
 

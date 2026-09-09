@@ -158,7 +158,6 @@ class ProductOrderController extends Controller
       ];
 
 
-
       $products = [];
       $order = ProductOrder::find($request->orderId);
 
