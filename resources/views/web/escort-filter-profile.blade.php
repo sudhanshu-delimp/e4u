@@ -193,7 +193,7 @@
             <!--5 items column start here -->
             <div class="wislist-filster" style="display: none;">
                 <div class="my-wishlist px-0 px-lg-4 mx-0 mx-lg-2" style="display: block;">
-                    <div class="row responsive_colums_in_lg_five_col escost_list">
+                    <div class="ec_card_conatiner">
 
                     </div>
                 </div>

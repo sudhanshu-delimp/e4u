@@ -99,11 +99,18 @@
                                         href="#services-{{ $escort->id }}" role="tab"
                                         aria-controls="services-{{ $escort->id }}" aria-selected="false">
 
-                                        Services
+                                        My Rates
                                     </a>
                                 </li>
+                                {{-- <li class="nav-item">
+                                    <a class="nav-link" id="Available-tab-{{ $escort->id }}" data-toggle="tab" href="#Available-{{ $escort->id }}"
+                                        role="tab" aria-controls="Available-{{ $escort->id }}" aria-selected="false">
+
+                                       Available Times
+                                    </a>
+                                </li> --}}
                             </ul>
-                            <div class="add_to_short_list_btn_custom">
+                            <div class="add_to_short_list_btn_custom pr-1">
                                 @if (Request::path() == 'showList')
                                     <button type="button"
                                         class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn removeshortlist"
@@ -157,22 +164,71 @@
                                         <span class="ec_other_details">
                                             <span class="give_rating_after_get_servive">
                                                 Rating :
-                                                (@for ($i = 1; $i <= 5; $i++)
+                                                @for ($i = 1; $i <= 5; $i++)
                                                     @if ($escort->star_rating && $escort->star_rating > 0 && $i <= $escort->star_rating)
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                     @else
                                                         <i class="fa fa-star-o" aria-hidden="true"></i>
                                                     @endif
-                                                @endfor)
+                                                @endfor
                                             </span>
                                             <span></span>
-                                            <span>AGE: (<span class="age">{{ $escort->age }}</span>)
+                                            <span>AGE: <span class="age">{{ $escort->age }}</span>
                                             </span>
                                         </span>
                                     </div>
 
-                                    <div class="age">
+                                     {{-- social-media icon --}}
+                                    <div class="social_media_icons">
+                                        <div class="social_media_wrapper">
+                                            <div class="s_icon ec_playbox_icon">
+                                                <a href="{{ url('playbox') }}" target="_blank"><img
+                                                        src="{{ asset('assets/app/img/MyPlaybox.png') }}"
+                                                        alt="logo"></a>
+                                                <div class="custom-tooltip">I don't have any Playbox.</div>
+                                            </div>
+                                            <div class="d-flex justify-content-between gap-10">
+                                                @if (!empty($escort->user->profile_creator) && in_array(3, $escort->user->profile_creator))
+                                                    @if ($escort->user->social_links && $escort->user->social_links['facebook'] !== null)
+                                                        <div class="s_icon">
+                                                            <a href="{{ $escort->user->social_links && $escort->user->social_links['facebook'] != '' ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}"
+                                                                target="_blank"><img
+                                                                    src="{{ asset('assets/app/img/facebook.png') }}"
+                                                                    alt="logo"></a>
+                                                        </div>
+                                                    @endif
+                                                    @if ($escort->user->social_links && $escort->user->social_links['insta'] !== null)
+                                                        <div class="s_icon">
+                                                            <a href="{{ $escort->user->social_links && $escort->user->social_links['insta'] != '' ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}"
+                                                                target="_blank"><img
+                                                                    src="{{ asset('assets/app/img/instagram.png') }}"
+                                                                    alt="logo"></a>
+                                                        </div>
+                                                    @endif
+                                                    @if ($escort->user->social_links && $escort->user->social_links['twitter'] !== null)
+                                                        <div class="s_icon">
+                                                            <a href="{{ $escort->user->social_links && $escort->user->social_links['twitter'] != '' ? $escort->user->social_links['twitter'] : 'https://x.com/' }}"
+                                                                target="_blank"><img
+                                                                    src="{{ asset('assets/app/img/twitter-x.png') }}"
+                                                                    alt="logo"></a>
+                                                        </div>
+                                                    @else
+                                                        <div class="s_icon">
+                                                            <a href="https://x.com/NMugs32853" target="_blank"><img
+                                                                    src="{{ asset('assets/app/img/twitter-x.png') }}"
+                                                                    alt="logo"></a>
+                                                        </div>
+                                                    @endif
+                                                @else
+                                                    <div class="s_icon">
+                                                        <a href="https://x.com/NMugs32853" target="_blank"><img
+                                                                src="{{ asset('assets/app/img/twitter-x.png') }}"
+                                                                alt="logo"></a>
+                                                    </div>
+                                                @endif
+                                            </div>
 
+                                        </div>
                                     </div>
                                 </div>
 
@@ -362,57 +418,12 @@
                                 </div>
 
                                 <div class="all-escort-view-profile-btn">
-                                    {{-- social-media icon --}}
-                                    <div class="social_media_icons">
-                                        <div class="social_media_wrapper">
-                                            <div class="s_icon ec_playbox_icon">
-                                                <a href="{{ url('playbox') }}" target="_blank"><img
-                                                        src="{{ asset('assets/app/img/MyPlaybox.png') }}"
-                                                        alt="logo"></a>
-                                                <div class="custom-tooltip">I don't have any Playbox.</div>
-                                            </div>
-                                            <div class="d-flex justify-content-between gap-10">
-                                                @if (!empty($escort->user->profile_creator) && in_array(3, $escort->user->profile_creator))
-                                                    @if ($escort->user->social_links && $escort->user->social_links['facebook'] !== null)
-                                                        <div class="s_icon">
-                                                            <a href="{{ $escort->user->social_links && $escort->user->social_links['facebook'] != '' ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}"
-                                                                target="_blank"><img
-                                                                    src="{{ asset('assets/app/img/facebook.png') }}"
-                                                                    alt="logo"></a>
-                                                        </div>
-                                                    @endif
-                                                    @if ($escort->user->social_links && $escort->user->social_links['insta'] !== null)
-                                                        <div class="s_icon">
-                                                            <a href="{{ $escort->user->social_links && $escort->user->social_links['insta'] != '' ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}"
-                                                                target="_blank"><img
-                                                                    src="{{ asset('assets/app/img/instagram.png') }}"
-                                                                    alt="logo"></a>
-                                                        </div>
-                                                    @endif
-                                                    @if ($escort->user->social_links && $escort->user->social_links['twitter'] !== null)
-                                                        <div class="s_icon">
-                                                            <a href="{{ $escort->user->social_links && $escort->user->social_links['twitter'] != '' ? $escort->user->social_links['twitter'] : 'https://x.com/' }}"
-                                                                target="_blank"><img
-                                                                    src="{{ asset('assets/app/img/twitter-x.png') }}"
-                                                                    alt="logo"></a>
-                                                        </div>
-                                                    @else
-                                                        <div class="s_icon">
-                                                            <a href="https://x.com/NMugs32853" target="_blank"><img
-                                                                    src="{{ asset('assets/app/img/twitter-x.png') }}"
-                                                                    alt="logo"></a>
-                                                        </div>
-                                                    @endif
-                                                @else
-                                                    <div class="s_icon">
-                                                        <a href="https://x.com/NMugs32853" target="_blank"><img
-                                                                src="{{ asset('assets/app/img/twitter-x.png') }}"
-                                                                alt="logo"></a>
-                                                    </div>
-                                                @endif
-                                            </div>
-
-                                        </div>
+                                   
+                                    <div class="ec_list_address">
+                                        <img src="{{ asset('assets/app/img/gps.png') }}" alt="address"
+                                            class="custompopicon">
+                                           
+                                            {{ $escort ? $escort->address : '' }}
                                     </div>
                                     <a href="{{ getEscortMassageDetailUrl($escort) }}"
                                         class="btn btn_for_profile_list_view custom-view-profile"
@@ -421,7 +432,7 @@
                                 </div>
 
                             </div>
-                            <div class="tab-pane fade p-2" id="services-{{ $escort->id }}" role="tabpanel"
+                            <div class="tab-pane table-responsive fade p-2" id="services-{{ $escort->id }}" role="tabpanel"
                                 aria-labelledby="services-tab-{{ $escort->id }}">
                                 <table class="table table-striped open-time-table mb-0">
                                     <thead class="table_heading_bgcolor_color">
@@ -463,6 +474,11 @@
                                         </tr>
                                     </thead>
                                 </table>
+                            </div>
+                             <!-- Available-tab -->
+                            <div class="tab-pane fade p-2" id="Available-{{ $escort->id }}" role="tabpanel"
+                                aria-labelledby="Available-tab-{{ $escort->id }}">
+                              
                             </div>
                         </div>
                     </div>

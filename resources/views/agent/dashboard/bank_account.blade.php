@@ -68,20 +68,7 @@
             </div>
             {{-- end --}}
             <div class="col-md-12">
-                <div class="row pt-2 pb-2">
-                    <div class="col-md-12 mb-2">
-                        <div class="card border-0 p-0 Summary">
-                            <div class="card-body p-0">
-                                <p class="banner-sub-heading">Agent Details</p>
-                                <ul class="mb-2">
-                                    <li><b style="color: #5D6D7E;">Name :</b>{{ $user->business_name }}</li>
-                                    <li><b style="color: #5D6D7E;">Contact :</b>{{ $user->contact_person }}</li>
-                                    <li><b style="color: #5D6D7E;">ABN :</b>{{ $user->abn }}</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="row mb-2">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="bothsearch-form">
