@@ -197,14 +197,24 @@ background:#16385f;
                                     <div class="action_class">
                                           
 
-                                          <button style="padding: 10px;" class="btn btn-custom-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Listing  </button>
-                                          <button style="padding: 10px;" class="btn btn-bump-up" data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump Up  </button>
-                                          <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal" data-target="#suspend_profile" id="btn_suspend_profile">Suspend Listing</button> 
+                                          <button style="padding: 10px;" class="btn btn-custom-success esc-tooltip-wrap" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Listing  
+
+                                          <span class="esc-tooltip-2">Extend your Listing to a <br> new end date</span>
+                                          </button>
+                                          <button style="padding: 10px;" class="btn btn-bump-up esc-tooltip-wrap" data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump Up  
+                                             <span class="esc-tooltip-2">Bump your Listing up to <br> the top of the
+                                                Listings</span>
+                                          </button>
+                                          <button style="padding: 10px;" class="btn btn-primary esc-tooltip-wrap" data-toggle="modal" data-target="#suspend_profile" id="btn_suspend_profile">Suspend Listing
+                                             <span class="esc-tooltip-2">Take down your Listing <br> for a set period</span>
+                                          </button> 
 
 
                                        </div>
-                                       <button class="btn brb-btn" data-toggle="modal"
-                                                data-target="#add_brb" id="btn_add_brb">Shop Closed</button>
+                                       <button class="btn brb-btn esc-tooltip-wrap" data-toggle="modal"
+                                                data-target="#add_brb" id="btn_add_brb">Shop Closed
+                                             <span class="esc-tooltip-2">Be Right Back display</span>
+                                             </button>
                                 </div> 
                            </div>  
                             @endif
@@ -472,8 +482,8 @@ var table = $("#massage_list").DataTable({
                 var liveId = row.id;
 
                 var cancelButton = `
-                    <button style="padding: 10px;" class="btn btn-danger cancel_profile_modal" data-toggle="modal" data-target="#cancel_profile_modal_form" id="cancel_profile"  href="javascript:void(0)">
-                        Cancel Listing
+                    <button style="padding: 10px;" class="btn btn-danger cancel_profile_modal esc-tooltip-wrap" data-toggle="modal" data-target="#cancel_profile_modal_form" id="cancel_profile"  href="javascript:void(0)">
+                        Cancel Listing <span class="esc-tooltip-2">Take down your Listing</span>
                     </button>
                 `;
 

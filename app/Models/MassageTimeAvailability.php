@@ -19,12 +19,22 @@ class MassageTimeAvailability extends Model
 ];
 
 
+    public function masseur()
+    {
+        return $this->hasOne(Masseur::class,  'id','masseur_id');
+    }
+
+
 
     public static function  saveOrUpdateAvailability($purchaseId, array $data)
     {
 
        try 
        {
+
+                Log::info($purchaseId);
+                Log::info($data);
+
                 $updateData = [];
 
                 if (isset($data['masseur_id']) || isset($data['masseur_availibility'])) {

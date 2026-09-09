@@ -2934,3 +2934,33 @@ function calculate_agent_commission($amount, $percent) {
     return ($amount * $percent) / 100;
 }
 }
+
+if (!function_exists('countOpenDays')) {
+function countOpenDays(string $startDate, string $endDate, string $scheduleJson): int 
+{
+    $schedule = json_decode($scheduleJson, true);
+    if (!$schedule) {
+        return 0;
+    }
+
+    $start = new DateTime($startDate);
+    $end = new DateTime($endDate);
+    
+    // Ensure loop includes both start and end date (inclusive range)
+    $end->modify('+1 day'); 
+    
+    $period = new DatePeriod($start, new DateInterval('P1D'), $end);
+    $openDaysCount = 0;
+
+    foreach ($period as $date) {
+        // Get day name in lowercase (e.g., "monday", "tuesday")
+        $dayOfWeek = strtolower($date->format('l')); 
+
+        if (isset($schedule[$dayOfWeek]) && $schedule[$dayOfWeek]['status'] !== 'closed') {
+            $openDaysCount++;
+        }
+    }
+
+    return $openDaysCount;
+}
+}
