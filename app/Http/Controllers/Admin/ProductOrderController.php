@@ -14,10 +14,12 @@ use App\Mail\Supplier\SendProductOrderShippedMailToSupplier;
 use App\Models\EmailLog;
 use App\Models\ProductOrder;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -71,7 +73,7 @@ class ProductOrderController extends Controller
         return  date('d-m-y, h:i A', strtotime($row->order_date));
       })
       ->addColumn('total_amount', function ($row) {
-        return   $row->paymentDetails ? $row->paymentDetails->paid_amount : '0.00';
+        return   $row->paymentDetails ?  '<div class="num_value">$<span>'.$row->paymentDetails->paid_amount.'</span></div>'  : '<div class="num_value">$<span>0.00</span></div>';
       })
       ->addColumn('agent', function ($row) {
         return  $row->createdBy ? $row->createdBy->member_id : '--';
@@ -108,14 +110,14 @@ class ProductOrderController extends Controller
           $html = 'data-toggle="modal" data-target="#active_req"';
         }
       
-        $html= '<div class="dropdown no-arrow">
+        $htmlAction= '<div class="dropdown no-arrow">
     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
     </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">';
       if($this->editAccessEnabled){ 
 
-   $html .= '
+   $htmlAction .= '
 
         <a class="dropdown-item open-status-modal"
            href="#"
@@ -171,7 +173,7 @@ class ProductOrderController extends Controller
         </a><div class="dropdown-divider"></div>';
         }
 
-        $html .= '
+        $htmlAction .= '
 
         <a class="dropdown-item view-order-details"
            href="#"
@@ -185,7 +187,7 @@ class ProductOrderController extends Controller
 
     </div>
 </div>';
-return $html;
+return $htmlAction;
       })
       ->addColumn('payment_method', function ($row) {
         return $row->payment_method ?? 'Card';
@@ -194,7 +196,7 @@ return $html;
         'server_up_time' => $this->getAppUptime(),
         'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
       ])
-      ->rawColumns(['order_status', 'action', 'payment_status'])
+      ->rawColumns(['order_status', 'action', 'payment_status','total_amount'])
       ->make(true);
   }
 
@@ -421,5 +423,14 @@ return $html;
     } catch (Exception $e) {
       Log::error($e->getMessage());
     }
+  }
+
+  public function printOrderDetail(Request $request)
+  {
+
+    $order = ProductOrder::with(['orderAddress', 'paymentDetails', 'orderItems', 'orderItems.product'])->where('id', Crypt::decrypt($request->id))->first();
+    $print = true;
+    $pdf = FacadePdf::loadView('escort.dashboard.Concierge.product-order-details', compact('order', 'print'));
+    return $pdf->stream($order->user->member_id . '_Order_Summary_' . $order->id . '.pdf');
   }
 }

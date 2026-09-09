@@ -350,7 +350,7 @@ class ProductOrderController extends Controller
         return  $row->createdBy ? $row->createdBy->member_id : '--';
       })
       ->addColumn('total_amount', function ($row) {
-        return   $row->paymentDetails ? $row->paymentDetails->paid_amount : '0.00';
+        return   $row->paymentDetails ?  '<div class="num_value">$<span>'.$row->paymentDetails->paid_amount.'</span></div>'  : '<div class="num_value">$<span>0.00</span></div>';
       })
       ->addColumn('gst_amount', function ($row) {
         return   $row->paymentDetails ? $row->paymentDetails->gst_amount : '0.00';
@@ -381,7 +381,7 @@ class ProductOrderController extends Controller
             <div class="dot-dropdown dropdown-menu dropdown-menu-right  " aria-labelledby="dropdownMenuLink" style=""><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-order-details" href="#" data-toggle="modal" data-item="' . $row->id . '" data-orderid="' . $row->order_id . '"   > <i class="fa fa-eye"></i> View Details </a></div></div>';
       })
 
-      ->rawColumns(['order_status', 'action', 'payment_status'])
+      ->rawColumns(['order_status', 'action', 'payment_status','total_amount'])
       ->make(true);
   }
 
