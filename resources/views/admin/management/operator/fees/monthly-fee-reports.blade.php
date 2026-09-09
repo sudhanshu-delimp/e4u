@@ -21,9 +21,9 @@
                         <li>Agent summary can be viewed here.</li>
                         <li>Payment authorisation procedure must be followed, for Operator to be paid:
                             <ol class="level-2">
-                                <li>if report is correct, change status to Paid.
+                                <li>If report is correct, change status to Paid.
                                 </li>
-                                <li>produce Payment Authorisation summary. Managing Director to sign off.
+                                <li>Produce Payment Authorisation summary. Managing Director to sign off.
                                 </li>
                                 <li>Payment Authorisation summary processed (by accounts staff).</li>
                             </ol>
@@ -180,7 +180,7 @@
                     <tr>
                         <td style="font-weight: bold; color: #001f4d;">Fee Total:</td>
                         <td>$<span id="payOperatorFee"></span></td>
-                        <td style="font-weight: bold; color: #001f4d;">Month:</td>
+                        <td style="font-weight: bold; color: #001f4d;">Billing Period:</td>
                         <td><span id="payMonthlyReportMonth"></span></td>
                     </tr>
                 </table>

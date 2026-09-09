@@ -142,8 +142,8 @@ class AgentMonthlyReportController extends BaseController
       $item->agent_id =  $item->agent->member_id;
       $item->agent_name =  $item->agent->business_name;
       $item->territory =  $item->state?->iso2 ?? '';
-      $formattedSpend = '<div class="num_value"><span>$</span><span>' . number_format($item->spend, 2, '.', '') . '</span></div>';
-      $formattedFees = '<div class="num_value"><span>$</span><span>' . number_format($item->fees, 2, '.', '') . '</span></div>';
+      $formattedSpend = '<div class="num_value"><span>$</span><span>' . number_format($item->spend, 2) . '</span></div>';
+      $formattedFees = '<div class="num_value"><span>$</span><span>' . number_format($item->fees, 2) . '</span></div>';
       $item->total_spend =  $formattedSpend;
       $item->total_fees =   $formattedFees;
       $status = ucfirst($item->status);
@@ -338,7 +338,7 @@ class AgentMonthlyReportController extends BaseController
         $reportData['payAgentId'] = $report->agent->member_id;
         $reportData['payMonthlyReportDate'] = $reportDate;
         $reportData['payMonthlyReportMonth'] = $reportMonth;
-        $reportData['payAgenFee'] = number_format($report->fees, 2, '.', '');
+        $reportData['payAgenFee'] = number_format($report->fees, 2);
 
 
         $response['error'] = 0;
@@ -367,7 +367,7 @@ class AgentMonthlyReportController extends BaseController
           $reportData['payAgentId'] = $report->agent->member_id;
           $reportData['payMonthlyReportDate'] = $reportDate;
           $reportData['payMonthlyReportMonth'] = $reportMonth;
-          $reportData['payAgenFee'] = number_format($report->fees, 2, '.', '');
+          $reportData['payAgenFee'] = number_format($report->fees, 2);
 
           $pdf = PDF::loadView(
             'admin.management.agents.Fees.print_monthly_pay_report',

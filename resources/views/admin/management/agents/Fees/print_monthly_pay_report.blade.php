@@ -65,7 +65,7 @@
         $payAgentId = $reportData['payAgentId'];
         $payMonthlyReportDate = $reportData['payMonthlyReportDate'];
         $payMonthlyReportMonth = $reportData['payMonthlyReportMonth'];
-        $payAgenFee = number_format($reportData['payAgenFee'], 2, '.', ''); 
+        $payAgenFee = number_format($reportData['payAgenFee'], 2); 
     @endphp    
     <!-- Body -->
 
@@ -99,5 +99,20 @@
         <p style="margin-top: 25px;">
             Managing Director: <span style="display: inline-block; border-bottom: 1px solid #000; width: 200px;"></span>
         </p>
+
+        <div style="margin-top: 0px; font-size: 14px;">
+        <hr style="margin-top: 20px; margin-bottom:30px;">
+        <p style="font-weight: bold; color: #000; margin-bottom: 20px;font-size: 16px;">Office Use Only:</p>
+
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+                <td style="padding: 5px 0;font-size: 14px;width:50%;">EFT Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td style="padding: 5px 0;font-size: 14px;width:50%;">General Ledger: ______________________________</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="padding-top: 50px;font-size: 14px;">Processed by: ______________________________________</td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

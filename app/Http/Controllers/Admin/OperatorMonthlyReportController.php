@@ -152,8 +152,8 @@ class OperatorMonthlyReportController extends BaseController
       $item->operator_member_id =  $item->operator->member_id;
       $item->agent_name =  $item->operator->business_name;
       $item->territory =  $item->operator->country?->iso3 ?? '';
-      $formattedSpend = '<div class="num_value"><span>$</span><span>' . number_format($item->spend, 2, '.', '') . '</span></div>';
-      $formattedFees = '<div class="num_value"><span>$</span><span>' . number_format($item->fees, 2, '.', '') . '</span></div>';
+      $formattedSpend = '<div class="num_value"><span>$</span><span>' . number_format($item->spend, 2) . '</span></div>';
+      $formattedFees = '<div class="num_value"><span>$</span><span>' . number_format($item->fees, 2) . '</span></div>';
       $item->total_spend =  $formattedSpend;
       $item->total_fees =   $formattedFees;
       $status = ucfirst($item->status);
@@ -192,6 +192,7 @@ class OperatorMonthlyReportController extends BaseController
         //pending
         if ($this->editAccessEnabled) {
           $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="pending"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Pending</a>';
+          $divider = '<div class="dropdown-divider"></div>';
         }
       } else if ($item->status == 'query') {
 
@@ -364,10 +365,15 @@ class OperatorMonthlyReportController extends BaseController
       if ($report) {
         $reportDate = Carbon::parse($report->report_date)->format('d-m-Y');
         $reportMonth = Carbon::parse($report->report_date)->format('F');
+
+        $reportStartDate = Carbon::parse($report->billing_period_from)->format('d-m-Y');
+        $reportEndDate = Carbon::parse($report->billing_period_to)->format('d-m-Y');
+        $reportPeriod = $reportStartDate." to ".$reportEndDate;
+
         $reportData['operatorId'] = $report->operator->member_id;
         $reportData['payMonthlyReportDate'] = $reportDate;
-        $reportData['payMonthlyReportMonth'] = $reportMonth;
-        $reportData['payOperatorFee'] = number_format($report->fees, 2, '.', '');
+        $reportData['payMonthlyReportMonth'] = $reportPeriod;
+        $reportData['payOperatorFee'] = number_format($report->fees, 2);
 
 
         $response['error'] = 0;
@@ -394,10 +400,15 @@ class OperatorMonthlyReportController extends BaseController
         if ($report) {
           $reportDate = Carbon::parse($report->report_date)->format('d-m-Y');
           $reportMonth = Carbon::parse($report->report_date)->format('F');
+
+          $reportStartDate = Carbon::parse($report->billing_period_from)->format('d-m-Y');
+          $reportEndDate = Carbon::parse($report->billing_period_to)->format('d-m-Y');
+          $reportPeriod = $reportStartDate." to ".$reportEndDate;
+
           $reportData['payOperatorId'] = $report->operator->member_id;
           $reportData['payMonthlyReportDate'] = $reportDate;
-          $reportData['payMonthlyReportMonth'] = $reportMonth;
-          $reportData['payOperatorFee'] = number_format($report->fees, 2, '.', '');
+          $reportData['payMonthlyReportMonth'] = $reportPeriod;
+          $reportData['payOperatorFee'] = number_format($report->fees, 2);
           $operatorId = $report->operator_id;
 
           $pdf = PDF::loadView(
