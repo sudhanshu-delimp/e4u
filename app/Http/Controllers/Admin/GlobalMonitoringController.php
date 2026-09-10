@@ -967,8 +967,8 @@ class GlobalMonitoringController extends Controller
                 foreach ($items as $item) {
                     $nestedData['member_id'] = $item->user->member_id;
                     $nestedData['escort_name'] = !empty($item->escort) ? $item->escort->profile_name : 'N/A';
-                    $nestedData['location'] = config("escorts.profile.states.$item->state_id.stateAbbr");;
-                    $nestedData['profile_id'] = $item->escort->id;
+                    $nestedData['location'] = config("escorts.profile.states.$item->state_id.stateAbbr");
+                    $nestedData['profile_id'] = !empty($item->escort) ? $item->escort->id : $item->purchase_id;
                     $nestedData['start_date'] = date('d-m-Y', strtotime($item->start_date));
                     $nestedData['end_date'] =   date('d-m-Y', strtotime($item->end_date));
                     $statusText = $item->status ?? 'NA';
