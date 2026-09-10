@@ -515,7 +515,7 @@
         a.back--search {
             position: fixed;
             right: 15px;
-            top: 115px;
+            top: 190px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -2797,11 +2797,8 @@
         
         .custom--favourite {
             color: var(--peach);
-            font-size: 14px;
             position: relative;
             background-color: var(--off-white);
-            width: 35px;
-            height: 35px;
             align-items: center;
             display: flex;
             justify-content: center;
@@ -2809,16 +2806,16 @@
             cursor: pointer;
         }
         
-        .mc_list_legbox .add_to_favrate {
+        .sm_fav_icon {
             width: 27px;
             height: 27px;
-            font-size: 18px;
+            font-size: 14px;
         }
         
-        .add_to_favrate {
-            color: var(--peach);
+        .lg_fav_icon {
+            width: 35px;
+            height: 35px;
             font-size: 18px;
-            position: relative;
         }
         
         .content_bottom {
@@ -3469,6 +3466,13 @@
             font-family: 'Poppins';
             font-weight: normal;
             font-size: 13px;
+        }
+        
+        .other_icons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            align-items: center;
         }
         
         .ec_playbox_icon {
@@ -7436,8 +7440,9 @@
             right: 10px;
             background: var(--off-white);
             z-index: 10;
-            width: 100px;
-            padding: 5px;
+            width: 35%;
+            height: 35px;
+            padding: 4px;
             border-radius: var(--radius-sm);
             display: flex;
             justify-content: center;
@@ -7458,8 +7463,8 @@
             font-weight: bold;
         }
         
-        .mc_list_card .verify_icon img {
-            width: 80%;
+        .mc_list_card .verify_icon>img {
+            width: auto;
             height: 100%;
             object-fit: cover;
         }
@@ -9601,9 +9606,10 @@
             position: absolute;
             right: 10px;
             bottom: 10px;
-            width: 100px;
+            width: 35%;
+            height: 35px;
             background: #fff1f4;
-            padding: 5px;
+            padding: 4px;
             display: flex;
             align-content: center;
             justify-content: center;
@@ -9611,8 +9617,8 @@
             z-index: 1;
         }
         
-        .verify-image-custom img {
-            width: 80% !important;
+        .verify-image-custom>img {
+            width: auto !important;
         }
         
         .gallery__item.gallery__item--lg {
@@ -9779,6 +9785,19 @@
             position: absolute;
             top: 0px;
             right: 35px;
+            color: #fff;
+            padding: 5px;
+            border-radius: var(--radius-sm);
+            font-size: 11px;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .lg_fav_icon span.custom-heart-text {
+            background: var(--peach);
+            position: absolute;
+            top: 1px;
+            right: 42px;
             color: #fff;
             padding: 7px;
             border-radius: var(--radius-sm);
