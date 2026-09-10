@@ -967,7 +967,6 @@ Route::post('management/fees/print-pay-detail', [AgentMonthlyReportController::c
  Route::get('management/seo', [SeoManagementController::class, 'seoManagement'])->name('admin.seo');
  Route::get('management/seo/data', [SeoManagementController::class, 'getSeoData'])->name('admin.seo.data');
  Route::post('management/seo', [SeoManagementController::class, 'saveSeoData'])->name('admin.seo.save');
- Route::post('management/seo', [SeoManagementController::class, 'saveSeoData'])->name('admin.seo.save');
 // Operator Monthly Report
 
 Route::get('management/operator/monthly-fee-reports', [OperatorMonthlyReportController::class, 'monthlyReport'])->name('admin.monthly-fee-reports');

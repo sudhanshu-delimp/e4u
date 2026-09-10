@@ -28,8 +28,8 @@ class SeoManagementRequest extends FormRequest
     {
 
         $rules = [
-            'meta_title' => 'nullable|string|max:60',
-            'meta_description' => 'nullable|string|max:160',
+            'meta_title' => 'required|string|max:60',
+            'meta_description' => 'required|string|max:160',
          
         ];
 

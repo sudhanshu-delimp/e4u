@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SeoManagementRequest;
 use App\Models\SeoMeta;
 use App\Services\ImageService;
+use App\Services\SitemapService;
 use Illuminate\Http\Request;
 
 class SeoManagementController extends Controller
@@ -18,6 +19,11 @@ class SeoManagementController extends Controller
     {
         try {
             $data = SeoMeta::where('url', $request->url)->first();
+
+            if ($data) {
+                $data->og_image = ImageService::url($data->og_image, 'original', 'seo_og_image');
+            }
+
 
             return success_response($data ?? [
                 'route_name' => $request->route_name,
@@ -37,13 +43,14 @@ class SeoManagementController extends Controller
         }
     }
 
-    public function saveSeoData(SeoManagementRequest $request){
+    public function saveSeoData(SeoManagementRequest $request, SitemapService $sitemap){
         $data = $request->all();
-
+        
         try {
             $seoMeta = SeoMeta::firstOrNew([
                 'route_name' => $data['route_name'],
             ]);
+            
 
             $seoMeta->fill(
                 [
@@ -67,7 +74,10 @@ class SeoManagementController extends Controller
                 );
             }
 
+
             $seoMeta->save();
+
+            $sitemap->sync($data);
 
             return success_response($seoMeta, 'SEO settings saved successfully.');
         } catch (\Exception $e) {

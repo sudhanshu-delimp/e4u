@@ -828,7 +828,7 @@
                                                 Meta Title
                                             </label>
                                             <div class="input-counter">
-                                                <input type="text" id="metaTitle" name="meta_title" maxlength="60" value="Buy handmade leather bags online | Acme Co.">
+                                                <input type="text" id="metaTitle" name="meta_title" maxlength="60" value=" ">
                                                 <span id="titleCount" class="counter good">
                                                         44 / 60
                                                     </span>
@@ -1047,8 +1047,7 @@
                     "warning",
                     "danger"
                 );
-                const percentage =
-                    (length / maximum) * 100;
+                const percentage = (length / maximum) * 100;
                 if (percentage >= 95) {
                     element.classList.add("danger");
                 } else if (percentage >= 80) {
@@ -1076,12 +1075,31 @@
                 $(".is-invalid").removeClass("is-invalid");
             }
 
+            function setOgImagePreview(imageUrl) {
+
+                const uploadBox = document.querySelector(".image-upload");
+                const uploadLabel = uploadBox.querySelector("label");
+
+                if (imageUrl) {
+                    uploadBox.style.backgroundImage = `url("${imageUrl}")`;
+                    uploadBox.style.backgroundSize = "cover";
+                    uploadBox.style.backgroundPosition = "center";
+                    uploadLabel.style.opacity = "0";
+                    return;
+                }
+
+                uploadBox.style.backgroundImage = "";
+                uploadLabel.style.opacity = "1";
+            }
+
             function setSeoFormData(data) {
+
                 $("#seoRouteName").val(data.route_name || "");
                 $("#seoUrl").val(data.url || selectedUrl || "");
                 $("#metaTitle").val(data.meta_title || "");
                 $("#metaDescription").val(data.meta_description || "");
                 $("#ogTitle").val(data.og_title || "");
+                setOgImagePreview(data.og_image);
                 $("#schemaScript").val(data.schema_script || "");
                 $("#robotsTxt").val(data.robots_txt || "");
                 $("input[name='sitemap_include'][type='checkbox']").prop(
@@ -1119,8 +1137,10 @@
                 const form = $(this);
                 const saveButton = $("#saveSeoBtn");
 
+                console.log(new FormData(form[0]), 'form data....');
+
                 clearValidationErrors();
-                saveButton.prop("disabled", true);
+               // saveButton.prop("disabled", true);
 
                 $.ajax({
                     url: form.attr("action"),
@@ -1132,11 +1152,11 @@
                        displaySwal(xhr);
                     },
                     error: function(xhr) {
-                        if (xhr.status === 422 && xhr.responseJSON.errors) {
+                        if (xhr.status == 422 && xhr.responseJSON.errors) {
                             $.each(xhr.responseJSON.errors, function(field, messages) {
                                 const input = $("[name='" + field + "']").last();
                                 input.addClass("is-invalid");
-                                input.after("<small class='text-danger server-error'>" + messages[0] + "</small>");
+                                input.after("<small class='text-danger server-error'>" + messages + "</small>");
                             });
                             return;
                         }
@@ -1144,7 +1164,7 @@
                        
                     },
                     complete: function() {
-                        saveButton.prop("disabled", false);
+                       // saveButton.prop("disabled", false);
                     }
                 });
             });
@@ -1186,7 +1206,6 @@
             /*  IMAGE PREVIEW  */
 
             const imageInput =  document.getElementById("ogImage");
-            const uploadBox =  document.querySelector(".image-upload");
 
             imageInput.addEventListener(
                 "change",
@@ -1195,10 +1214,7 @@
                     if (!file) return;
                     const reader = new FileReader();
                     reader.onload = function(e) {
-                        uploadBox.style.backgroundImage = `url(${e.target.result})`;
-                        uploadBox.style.backgroundSize = "cover";
-                        uploadBox.style.backgroundPosition = "center";
-                        uploadBox.querySelector("label").style.opacity = "0";
+                        setOgImagePreview(e.target.result);
                     };
 
                     reader.readAsDataURL(file);

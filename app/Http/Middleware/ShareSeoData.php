@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\SeoMeta;
+use App\Services\ImageService;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,9 @@ class ShareSeoData
        $routeName = Route::currentRouteName();
        if($routeName){
             $seo = SeoMeta::where('route_name', $routeName)->first();
+            if ($seo) {
+                $seo->og_image = ImageService::url($seo->og_image, 'original', 'seo_og_image');
+            }
             if($seo){
                 view()->share('seo', $seo);
             }
