@@ -64,7 +64,7 @@
         </div>
 
         <div class="col-sm-12 col-md-12 col-lg-12">
-            <div class="my-3 col-md-12 col-sm-12 d-flex justify-content-end gap-10">
+            <div class="my-3 col-md-12 col-sm-12 d-flex justify-content-end gap-10 js_table_total_listing_container">
                 <div class="total_listing">
                     <div><span>Total Current : </span></div>
                     <div><span id="currentCount">0</span></div>
@@ -163,7 +163,7 @@
                     $('#server_time').text(json.server_time || '--');
                     let counts = json.counts;
                     $.each(counts, function(key, value) {
-                        $(`#${key}`).text(value);
+                        $(`.js_table_total_listing_container #${key}`).text(value);
                     });
                     return json.data || [];
                 },
