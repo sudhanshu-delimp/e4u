@@ -1004,20 +1004,13 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                             </div>
                                         </div>
                                         <div class="verify_icon">
-                                            @switch($status)
-                                                @case(0)
-                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
-                                                    <span class="common_shield_tooltip">Media Pending</span>
-                                                @break
-                                                @case(1)
-                                                    <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png')}}">
-                                                    <span class="common_shield_tooltip">Media Verified</span>
-                                                @break
-                                                @case(2)
-                                                    <img src="{{ asset('assets/app/img/verify/unverified_light.png')}}">
-                                                    <span class="common_shield_tooltip">Media Unverified</span>
-                                                @break
-                                            @endswitch
+                                            @php
+                                            $profile_status = getMediaVerificationDataBigIcon($status);
+                                           
+                                            @endphp
+                                            <img src="{{ $profile_status['icon']}}">
+                                            <span class="common_shield_tooltip">{{$profile_status['label']}}</span>
+
                                         </div>
                                     </div>
                                     @endforeach

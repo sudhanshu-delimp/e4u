@@ -4,10 +4,11 @@ namespace App\Console\Commands;
 
 use App\Jobs\UpdateMeasureForActiveListing;
 use App\Models\MassagePurchase;
+use App\Models\MassageTimeAvailability;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 
 class SyncMassageProfile extends Command
 {
@@ -61,6 +62,7 @@ class SyncMassageProfile extends Command
                     
                     $massageprofile->purchase_id = $purchase->id;
                     $massageprofile->save();
+                     MassageTimeAvailability::makeProfleTimeAvalibility($massageprofile->id ,$massageprofile->purchase_id);
                 }
 
                 $this->info("=============== $key ===============");

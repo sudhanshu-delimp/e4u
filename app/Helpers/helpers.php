@@ -2462,18 +2462,18 @@ if (!function_exists('update_profile_massure')) {
     {
         switch ($status) {
             case 0:
-                $icon  = asset('assets/app/img/verify/pending-lg.png');
+                $icon  = asset('assets/app/img/verify/e4u_pending.png');
                 $label = 'Media Pending';
                 break;
 
             case 1:
-                $icon  = asset('assets/app/img/verify/verified-lg.png');
+                $icon  = asset('assets/app/img/verify/e4u_verified.png');
                 $label = 'Media Verified';
                 break;
 
             case 2:
             default:
-                $icon  = asset('assets/app/img/verify/unverified-lg.png');
+                $icon  = asset('assets/app/img/verify/unverified_dark.png');
                 $label = 'Media Unverified';
                 break;
         }
@@ -2789,7 +2789,7 @@ if (!function_exists('getEscortMassageDetailUrl')) {
                     $stateArr = isset($states[$modelObject->state_id]) ? $states[$modelObject->state_id] : [];
                     $stateName = isset($stateArr['stateAbbr']) ? strtolower($stateArr['stateAbbr']) : "";
                     $cityName = isset($stateArr['cities'][$modelObject->city_id]['cityName']) ? strtolower($stateArr['cities'][$modelObject->city_id]['cityName']) : "";
-                    $genderName = isset($modelObject->gender) ? strtolower($modelObject->gender) : "";
+                    $genderName = isset($modelObject->gender) ? str_replace(" ", "_", strtolower($modelObject->gender) ): "";
 
                     $url = route('escort.profile.detail.new', [
                         'county' => isset($modelObject->state->country->name) ?  strtolower($modelObject->state->country->name) : 'australia',
@@ -2944,4 +2944,45 @@ if (!function_exists('getSeoTaggedRoutes')) {
 
         return $result;
     }
+}
+
+if (!function_exists('calculate_agent_commission')) {
+function calculate_agent_commission($amount, $percent) {
+
+    if (!$amount || !$percent) {
+        return 0.00;
+    }
+
+    return ($amount * $percent) / 100;
+}
+}
+
+if (!function_exists('countOpenDays')) {
+function countOpenDays(string $startDate, string $endDate, string $scheduleJson): int 
+{
+    $schedule = json_decode($scheduleJson, true);
+    if (!$schedule) {
+        return 0;
+    }
+
+    $start = new DateTime($startDate);
+    $end = new DateTime($endDate);
+    
+    // Ensure loop includes both start and end date (inclusive range)
+    $end->modify('+1 day'); 
+    
+    $period = new DatePeriod($start, new DateInterval('P1D'), $end);
+    $openDaysCount = 0;
+
+    foreach ($period as $date) {
+        // Get day name in lowercase (e.g., "monday", "tuesday")
+        $dayOfWeek = strtolower($date->format('l')); 
+
+        if (isset($schedule[$dayOfWeek]) && $schedule[$dayOfWeek]['status'] !== 'closed') {
+            $openDaysCount++;
+        }
+    }
+
+    return $openDaysCount;
+}
 }

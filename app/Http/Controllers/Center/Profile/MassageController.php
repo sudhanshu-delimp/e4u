@@ -34,6 +34,7 @@ use App\Models\MassageService;
 use App\Models\MassageSetting;
 use App\Models\MassageStatistics;
 use App\Models\MassageSuspendProfile;
+use App\Models\MassageTimeAvailability;
 use App\Models\Masseur;
 use App\Models\Pricing;
 use App\Models\Service;
@@ -190,8 +191,8 @@ class MassageController extends Controller
 
             $status = "";
 
-            if ($is_live)
-                $status = '<div class="dropdown-divider ' . canManageClass() . '"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action ' . canManageClass() . '" data-row-id="' . $row->id . '"  data-row-action="cancel"  href="javascript:void(0)">   <i class="fa fa-window-close"></i> Cancel<div class="dropdown-divider"></div></a>';
+            // if ($is_live)
+            //     $status = '<div class="dropdown-divider ' . canManageClass() . '"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action ' . canManageClass() . '" data-row-id="' . $row->id . '"  data-row-action="cancel"  href="javascript:void(0)">   <i class="fa fa-window-close"></i> Cancel<div class="dropdown-divider"></div></a>';
 
 
             if (!$is_live)
@@ -947,10 +948,10 @@ class MassageController extends Controller
 
         ######### Update Availibility  ####################
         if ($request->type == 'availibility') {
-            try {
+            try 
+            {
                 $request_data = $request->all();
-
-
+                $profile = MassageProfile::where(['id' => $request->massage_id])->first();
                 if (isset($request->profile_time_avail_update) && $request->profile_time_avail_update == 'profile_time_avail_update')
                     $availability     = $this->makeAvailability($request_data);
                 else
@@ -967,6 +968,13 @@ class MassageController extends Controller
                         $record->save();
                     } else {
                         MassageAvailability::create(['massage_profile_id' => $massage_profile_id, 'availability_time' => json_encode($availability)]);
+                    }
+
+                    if($profile->purchase_id!="")
+                    {
+                        $data['massage_profile_id'] = $massage_profile_id;
+                        $data['massage_availibility'] =  $availability;
+                        MassageTimeAvailability::saveOrUpdateAvailability($profile->purchase_id, $data);
                     }
                 }
 
@@ -1038,6 +1046,7 @@ class MassageController extends Controller
                 if (!empty($masseur)) {
                     MassagerMasseur::where(['massage_profile_id' => $massage_profile_id])->delete();
                     MassagerMasseur::insert($masseur);
+                    $profile = MassageProfile::where(['id' => $massage_profile_id])->first();
                     $messures =  Masseur::whereIn('id', $masseurIds)->get();
                     if ($messures->isNotEmpty()) {
                         foreach ($messures as $messure) {
@@ -1045,6 +1054,14 @@ class MassageController extends Controller
                                 $newService = array_values(array_diff($messure->service, $messure_service));
                                 $messure->service = !empty($newService) ? $newService : null;
                                 $messure->save();
+                            }
+
+                            if($profile->purchase_id!="")
+                            {
+                                $data = [];
+                                $data['masseur_id'] = $messure->id;
+                                $data['masseur_availibility'] =  $messure->availability;
+                                MassageTimeAvailability::saveOrUpdateAvailability($profile->purchase_id, $data);
                             }
                         }
                     }
@@ -1178,7 +1195,7 @@ class MassageController extends Controller
                     );
                 }
 
-                $mess = "Your profile has been successfully cancelled, and a total refund of $" . number_format($totalRefundAmountWithGst, 2) . " has been added to your wallet.";
+                $mess = "Your Profile has been successfully cancelled, and a total refund of $" . number_format($totalRefundAmountWithGst, 2) . " has been added to your wallet.";
 
                 $data = [
                     'user' => $user,
@@ -1218,6 +1235,66 @@ class MassageController extends Controller
         }
     }
 
+
+    public function calculateProfileCancelRefund(Request $request)
+    {
+        try 
+        {
+            $userId = auth()->user()->id;
+            $profileId = $request->profile_id;
+
+            $purchases = MassagePurchase::where('massage_centre_id', $userId)
+                ->where('massage_profile_id', $profileId)
+                ->whereIn('status', ['pending', 'listed'])
+                ->get();
+
+            if ($purchases->isEmpty()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No active or pending listings found for this profile.',
+                    'total_refund_amount' => 0.00,
+                    'formatted_refund_amount' => '$0.00'
+                ], 442);
+            }
+
+            $totalRefundAmountWithGst = 0;
+
+            foreach ($purchases as $purchase) {
+                if ($purchase->status == 'listed') {
+                    $refundStartDate = Carbon::parse($purchase->start_date)->add(1, 'day')->toDateString();
+                    $refundEndDate   = Carbon::parse($purchase->end_date)->toDateString();
+                } else {
+                    $refundStartDate = Carbon::parse($purchase->start_date)->toDateString();
+                    $refundEndDate   = Carbon::parse($purchase->end_date)->toDateString();
+                }
+
+                $refundAmount = getRefundAmountForCancelProfile($purchase, $refundStartDate, $refundEndDate);
+
+                if ($refundAmount > 0) {
+                    $gstAmount = getGSTAmount($refundAmount);
+                    $refundAmountWithGst = $refundAmount + $gstAmount;
+                } else {
+                    $refundAmountWithGst = 0;
+                }
+
+                $totalRefundAmountWithGst += $refundAmountWithGst;
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Refund amount calculated successfully.',
+                'total_refund_amount' => round($totalRefundAmountWithGst, 2),
+                'formatted_refund_amount' =>  number_format($totalRefundAmountWithGst, 2, '.', ''),
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong while calculating refund.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 
 
     public function delete_massage_profile($massage_profile_data, $massage_profile_id)
@@ -1838,4 +1915,8 @@ class MassageController extends Controller
         $redirect_url = url('center-dashboard/listing/current');
         return view('center.dashboard.complete-listings', compact('redirect_url'));
     }
+
+
+
+    
 }
