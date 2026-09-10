@@ -130,7 +130,7 @@ Route::get('global-monitoring', function () {
 Route::get('massage-centre-listings', [GlobalMonitoringController::class, 'massageCenterListing'])->name('admin.massage-centre-listings');
 Route::get('/data-table-listing/{type?}', [GlobalMonitoringController::class, 'dataTableListingAjax'])->name('escort.current.list.dataTableListing');
 Route::get('/data-table-single-listing/{id?}', [GlobalMonitoringController::class, 'dataTableSingleListingAjax'])->name('escort.current.single-list.dataTableListing');
-Route::get('/get-pinup-listing', [GlobalMonitoringController::class, 'getPinupListing'])->name('admin.global_monitoring.get_pinup_listing');
+
 
 Route::post('/massage-center-listing/{type?}', [GlobalMonitoringController::class, 'massageCenterListingAjax'])->name('admin.massage.center.dataTableListing');
 
@@ -227,11 +227,9 @@ Route::get('shareholders/updates', function () {
 })->name('admin.updates');
 
 
+Route::get('/pinup-listings', [GlobalMonitoringController::class, 'pinupListing'])->name('admin.pin-up-listings');
+Route::get('/get-pinup-listing', [GlobalMonitoringController::class, 'getPinupListing'])->name('admin.global_monitoring.get_pinup_listing');
 
-
-Route::get('pinup-listings', function () {
-  return view('admin.pin-up-listings');
-})->name('admin.pin-up-listings');
 
 Route::get('database', function () {
   return view('admin.database');
@@ -977,6 +975,3 @@ Route::post('management/operator/print-monthly-report', [OperatorMonthlyReportCo
 Route::post('management/operator/query', [OperatorMonthlyReportController::class, 'viewQuery'])->name('admin.operator.view.query');
 Route::post('management/operator/pay-detail', [OperatorMonthlyReportController::class, 'viewPayOperatorRreport'])->name('admin.operator.view.pay-detail');
 Route::post('management/operator/print-pay-detail', [OperatorMonthlyReportController::class, 'printPayOperatorReport'])->name('admin.operator.print.pay-detail');
-
-
-
