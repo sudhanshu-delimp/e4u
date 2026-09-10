@@ -9563,7 +9563,7 @@
             left: 100%;
             top: 25%;
             content: '';
-            border-width: 6px;
+            border-width: 5px;
             border-style: solid;
             border-color: var(--peach) transparent transparent transparent;
             transform: rotate(270deg);
