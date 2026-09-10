@@ -910,6 +910,11 @@ class GlobalMonitoringController extends Controller
         return response()->json($dataTableData);
     }
 
+    public function pinupListing(Request $request)
+    {
+        return view('admin.pin-up-listings');
+    }
+
     public function getPinupListing(Request $request)
     {
         try {
@@ -924,7 +929,10 @@ class GlobalMonitoringController extends Controller
             $columns = [4 => 'start_date', 5 => 'end_date'];
             $orderColumn = $columns[$orderColumnIndex] ?? 'start_date';
 
-            $listing = EscortPinup::query();
+            $now = Carbon::now('UTC');
+            $listing = EscortPinup::whereHas('purchase', function ($query) {
+                $query->whereIn('status', ['listed', 'pending']);
+            });
             $listing->where('utc_end_time', '>=', Carbon::now('UTC'));
             if (!empty($search)) {
                 $listing->where(function ($q) use ($search) {
@@ -937,6 +945,17 @@ class GlobalMonitoringController extends Controller
                         });
                 });
             }
+
+            $currentCount = (clone $listing)
+                ->where('utc_start_time', '<=', $now)
+                ->count();
+
+            $upcomingCount = (clone $listing)
+                ->where('utc_start_time', '>', $now)
+                ->count();
+
+            $totalCount = $currentCount + $upcomingCount;
+
             $recordsTotal = $listing->count();
             $listing->orderBy($orderColumn, $orderDirection);
             $listing->offset($start);
@@ -969,6 +988,7 @@ class GlobalMonitoringController extends Controller
                     $data[] = $nestedData;
                 }
             }
+
             return response()->json([
                 'draw' => $draw,
                 'recordsTotal' => $recordsTotal,
@@ -976,6 +996,7 @@ class GlobalMonitoringController extends Controller
                 'data' => $data,
                 'server_up_time' => $this->getAppUptime(),
                 'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
+                'counts' => compact('currentCount', 'upcomingCount', 'totalCount')
             ]);
         } catch (Exception $e) {
             return response()->json([
