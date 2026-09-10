@@ -51,6 +51,7 @@ use App\Http\Controllers\Escort\Concierge\ProductController;
 use App\Http\Controllers\Admin\AgentMonthlyReportController;
 use App\Http\Controllers\Admin\OperatorMonthlyReportController;
 use App\Http\Controllers\Admin\VisaMigrationRequestController;
+use App\Http\Controllers\Admin\SeoManagementController;
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
@@ -961,6 +962,11 @@ Route::post('management/fees/pay-detail', [AgentMonthlyReportController::class, 
 Route::post('management/fees/print-pay-detail', [AgentMonthlyReportController::class, 'printPayAgentreport'])->name('admin.fees.print.pay-detail');
 
 
+//SEO in OC(M)
+
+ Route::get('management/seo', [SeoManagementController::class, 'seoManagement'])->name('admin.seo');
+ Route::get('management/seo/data', [SeoManagementController::class, 'getSeoData'])->name('admin.seo.data');
+ Route::post('management/seo', [SeoManagementController::class, 'saveSeoData'])->name('admin.seo.save');
 // Operator Monthly Report
 
 Route::get('management/operator/monthly-fee-reports', [OperatorMonthlyReportController::class, 'monthlyReport'])->name('admin.monthly-fee-reports');
