@@ -474,7 +474,7 @@ var table = $("#massage_list").DataTable({
         var data = api.rows().data();
         
         
-        $("#btn_cancel_profile").remove();
+        $(".cancel_profile_modal").remove();
 
         // Find the record where is_live === 1
         data.each(function (row) {
