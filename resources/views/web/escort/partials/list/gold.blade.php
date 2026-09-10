@@ -163,7 +163,7 @@
                                         <div class="ec_name">{{ $escortName }}</div>
                                         <span class="ec_other_details">
                                             <span class="give_rating_after_get_servive">
-                                                Rating :
+                                                 <span>Rating :&nbsp</span>
                                                 @for ($i = 1; $i <= 5; $i++)
                                                     @if ($escort->star_rating && $escort->star_rating > 0 && $i <= $escort->star_rating)
                                                         <i class="fa fa-star" aria-hidden="true"></i>
@@ -173,7 +173,7 @@
                                                 @endfor
                                             </span>
                                             <span></span>
-                                            <span>AGE: <span class="age">{{ $escort->age }}</span>
+                                            <span>AGE : <span class="age">{{ $escort->age }}</span>
                                             </span>
                                         </span>
                                     </div>
@@ -181,12 +181,22 @@
                                      {{-- social-media icon --}}
                                     <div class="social_media_icons">
                                         <div class="social_media_wrapper">
-                                            <div class="s_icon ec_playbox_icon">
-                                                <a href="{{ url('playbox') }}" target="_blank"><img
-                                                        src="{{ asset('assets/app/img/MyPlaybox.png') }}"
-                                                        alt="logo"></a>
-                                                <div class="custom-tooltip">I don't have any Playbox.</div>
-                                            </div>
+                                            <div class="other_icons">
+                                                <div class="s_icon ec_playbox_icon">
+                                                    <a href="{{ url('playbox') }}" target="_blank"><img
+                                                            src="{{ asset('assets/app/img/MyPlaybox.png') }}"
+                                                            alt="logo"></a>
+                                                    <div class="custom-tooltip">I don't have any Playbox.</div>
+                                                </div>
+                                                 @if(isset($escort->mainPurchase) && $escort->mainPurchase->tour_location_id!=null)
+                                                    <div class="s_icon ec_playbox_icon">
+                                                        <a href="javascript:void(0)"><img
+                                                                src="{{ asset('assets/app/img/tours.png') }}"
+                                                                alt="logo"></a>
+                                                        <div class="custom-tooltip">{{$escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left.":"On Tour, today is my last day."}}</div>
+                                                    </div>
+                                                @endif
+                                           </div>
                                             <div class="d-flex justify-content-between gap-10">
                                                 @if (!empty($escort->user->profile_creator) && in_array(3, $escort->user->profile_creator))
                                                     @if ($escort->user->social_links && $escort->user->social_links['facebook'] !== null)
@@ -420,10 +430,32 @@
                                 <div class="all-escort-view-profile-btn">
                                    
                                     <div class="ec_list_address">
-                                        <img src="{{ asset('assets/app/img/gps.png') }}" alt="address"
-                                            class="custompopicon">
+                                       
+                                        <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($escort->address) }}"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
+                                            <span class="profile_location_icon pin-location">
+                                                <svg width="30px" height="30px" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
+                                                    <!-- White Background -->
+                                                    <circle cx="600" cy="600" r="600" fill="#ffffff"/>
+
+                                                    <!-- Pin Icon -->
+                                                    <path fill="#ff3c5f"
+                                                        d="M600,0C268.629,0,0,268.629,0,600s268.629,600,600,600
+                                                        s600-268.629,600-600S931.371,0,600,0z
+                                                        M600,203.247c165.185,0,299.121,133.937,299.121,299.121
+                                                        c0,50.037-13.711,116.091-41.896,153.441L600,996.753L342.773,655.811
+                                                        c-31.029-41.123-41.895-98.199-41.895-153.441
+                                                        C300.879,337.184,434.815,203.247,600,203.247z
+                                                        M600,376.538c-69.503,0-125.83,56.327-125.83,125.83
+                                                        s56.327,125.83,125.83,125.83
+                                                        s125.83-56.327,125.83-125.83S669.503,376.538,600,376.538z"/>
+                                                </svg>
+                                                <div class="pinup-tooltip">Open Maps</div>
+                                            </span>
                                            
-                                            {{ $escort ? $escort->address : '' }}
+                                        </a>
+                                         <p class="mb-0"> {{ $escort ? $escort->address : '' }}</p>
                                     </div>
                                     <a href="{{ getEscortMassageDetailUrl($escort) }}"
                                         class="btn btn_for_profile_list_view custom-view-profile"
