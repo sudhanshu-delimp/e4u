@@ -40,6 +40,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Route;
 
 use function PHPSTORM_META\type;
 
@@ -2923,6 +2924,27 @@ if (!function_exists('getStateAbbr')) {
     }
 }
 
+if (!function_exists('getSeoTaggedRoutes')) {
+    function getSeoTaggedRoutes()
+    {
+        $result = [];
+
+        foreach (Route::getRoutes() as $route) {
+            $seoName = $route->getAction('seo_name'); // null agar seo_name nahi diya
+
+            if ($seoName) {
+                $result[] = [
+                    'route_name' => $route->getName(),   // "agent.dashboard" — stable key
+                    'uri'        => $route->uri(),        // "/" — sirf display ke liye
+                    'seo_label'  => $seoName,              // "home page"
+                    'methods'    => $route->methods(),
+                ];
+            }
+        }
+
+        return $result;
+    }
+}
 
 if (!function_exists('calculate_agent_commission')) {
 function calculate_agent_commission($amount, $percent) {
