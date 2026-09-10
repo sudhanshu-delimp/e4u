@@ -18,8 +18,6 @@ class CreateSeoMetasTable extends Migration
             $table->string('route_name')->unique();
             $table->string('seo_label')->nullable();
             $table->string('url')->nullable();
-            // Optional
-            $table->foreignId('page_type_id')->nullable()->constrained('page_types')->nullOnDelete();
 
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
@@ -29,7 +27,7 @@ class CreateSeoMetasTable extends Migration
             $table->string('og_description')->nullable();
             $table->string('og_image')->nullable();
 
-            $table->json('schema_json')->nullable();  
+            $table->json('schema_json')->nullable();
 
             // Extra content field for feature use
             $table->text('page_content')->nullable();
