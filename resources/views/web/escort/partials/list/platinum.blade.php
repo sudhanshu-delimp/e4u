@@ -177,6 +177,7 @@
                                                             alt="logo"></a>
                                                     <div class="custom-tooltip">I don't have any Playbox.</div>
                                                 </div>
+                                                
                                                  @if(isset($escort->mainPurchase) && $escort->mainPurchase->tour_location_id!=null)
                                                     <div class="s_icon ec_playbox_icon">
                                                         <a href="javascript:void(0)" ><img
