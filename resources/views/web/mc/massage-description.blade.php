@@ -235,19 +235,19 @@ margin-right: 5px;
     $galleryVideos = $listing->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
     
     $massage_user  = get_massage_parent_data($listing->user_id);
-    $capital_city  = "";
+    $capital_city = null;
     $state_name = "";
     if (isset($massage_user->state_id)) {
     $home_state = $massage_user->state_id;
     $cities = config("escorts.profile.states.{$home_state}.cities");
     $state_name = config("escorts.profile.states.{$home_state}.stateName");
-        if (is_array($cities) && !empty($cities)) {
-            $firstCityId = array_key_first($cities);
-            $cityName = $cities[$firstCityId]['cityName'] ?? null;
-            if ($cityName) {
+    if (is_array($cities) && !empty($cities)) {
+        $firstCityId = array_key_first($cities);
+        $cityName = $cities[$firstCityId]['cityName'] ?? null;
+        if ($cityName) {
             $capital_city = $state_name ? "{$cityName}, {$state_name}" : $cityName;
-            }
         }
+    }
     }
     @endphp
 
@@ -301,7 +301,7 @@ margin-right: 5px;
                                     <span class="profile_location_icon">
                                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                                     </span>
-                                    <p class="display_inline_block">{{  $listing->address ?? $capital_city }}</p>
+                                    <p class="display_inline_block">{{  ($listing->address && $listing->address!="") ? $listing->address : $capital_city }}</p>
                                 </li>
                             </ul>
                         </div>
@@ -3290,12 +3290,11 @@ $(document).on('click', '.btn-prev, .btn-next', function (e) {
 });
 
 
-
 function initMap() 
 {
-    const capital_city = '{{ $capital_city }}';
+    // Blade fallback ensures it defaults to a safe string if empty
+    const capital_city = "{{ $capital_city ?? 'New York' }}"; 
     const address = @json($listing->address ?? $capital_city);
-    const banner = "{{ $massage_banner }}";
 
     const geocoder = new google.maps.Geocoder();
 
@@ -3303,74 +3302,92 @@ function initMap()
 
         if (status === "OK") 
         {
-            const location = results[0].geometry.location;
-
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 16,
-                center: location,
-            });
-
-            const marker = new google.maps.Marker({
-                position: location,
-                map: map,
-            });
-
-            
-            const service = new google.maps.places.PlacesService(map);
-
-            service.findPlaceFromQuery({
-                query: address,
-                fields: ["name", "photos", "rating"]
-            }, function(placeResults, placeStatus) {
-
-                let imageUrl = ''  //banner fallback image
-                let placeName = capital_city;
-                let ratingHtml = "";
-
-                if (placeStatus === google.maps.places.PlacesServiceStatus.OK && placeResults[0]) 
-                {
-                    const place = placeResults[0];
-                    // console.log('place',place);
-
-                    placeName = place.name || placeName;
-
-                    if (place.rating) {
-                        ratingHtml = `<div style="margin:0; font-size:12px;"> ${getStars(place.rating)} </div>`;
-                    }
-
-                    if (place.photos && place.photos.length > 0) {
-                        imageUrl = place.photos[0].getUrl({ maxWidth: 400 });
-                    }
-                }
-
-               let g_image = "";
-               if(imageUrl!="")
-                g_image = `<img  style="width:100%; height:80px; object-fit:cover; border-radius:10px;" src=${imageUrl}  class="facebook-logo" alt="logo">`;
-               
-               const content = `<div class="location_class">  ${g_image}  ${address} ${ratingHtml} <i class="fa fa-star-half-alt"></i></div>`;
-                const infowindow = new google.maps.InfoWindow({
-                    content: content
-                });
-
-                infowindow.open(map, marker);
-            });
-
-          
-            const lat = location.lat();
-            const lng = location.lng();
-
-            if (document.getElementById("lat")) {
-                document.getElementById("lat").value = lat;
-                document.getElementById("lng").value = lng;
-            }
-
+            map_loader(results, address, capital_city);
         } 
         else 
         {
-            console.error("Geocode failed: " + status);
+            console.warn(`Geocode failed for standard address (${status}). Retrying with capital city: "${capital_city}"`);
+            
+            // Check if capital_city is actually populated before requesting
+            if (capital_city && capital_city.trim() !== "") {
+                geocoder.geocode({ address: capital_city }, function(fallbackResults, fallbackStatus) {
+                    if (fallbackStatus === "OK") {
+                        map_loader(fallbackResults, capital_city, capital_city);
+                    } else {
+                        console.error("Geocode failed for fallback capital city: " + fallbackStatus);
+                    }
+                });
+            } else {
+                console.error("Fallback skipped: capital_city is empty.");
+            }
         }
     });
 }
+
+// Accept address and capital_city as arguments
+function map_loader(results, address, capital_city)
+{
+    const location = results[0].geometry.location;
+
+    const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 16,
+        center: location,
+    });
+
+    const marker = new google.maps.Marker({
+        position: location,
+        map: map,
+    });
+
+    const service = new google.maps.places.PlacesService(map);
+
+    service.findPlaceFromQuery({
+        query: address,
+        fields: ["name", "photos", "rating"]
+    }, function(placeResults, placeStatus) {
+
+        let imageUrl = '';  // banner fallback image
+        let placeName = capital_city;
+        let ratingHtml = "";
+
+        if (placeStatus === google.maps.places.PlacesServiceStatus.OK && placeResults[0]) 
+        {
+            const place = placeResults[0];
+
+            placeName = place.name || placeName;
+
+            if (place.rating) {
+                ratingHtml = `<div style="margin:0; font-size:12px;"> ${getStars(place.rating)} </div>`;
+            }
+
+            if (place.photos && place.photos.length > 0) {
+                imageUrl = place.photos[0].getUrl({ maxWidth: 400 });
+            }
+        }
+
+        let g_image = "";
+        if (imageUrl !== "") {
+            g_image = `<img style="width:100%; height:80px; object-fit:cover; border-radius:10px;" src="${imageUrl}" class="facebook-logo" alt="logo">`;
+        }
+        
+        const content = `<div class="location_class"> ${g_image} ${address} ${ratingHtml} <i class="fa fa-star-half-alt"></i></div>`;
+        const infowindow = new google.maps.InfoWindow({
+            content: content
+        });
+
+        infowindow.open(map, marker);
+    });
+
+    const lat = location.lat();
+    const lng = location.lng();
+
+    if (document.getElementById("lat")) {
+        document.getElementById("lat").value = lat;
+        document.getElementById("lng").value = lng;
+    }
+}
+
+
 
 function getStars(rating) {
     let fullStars = Math.floor(rating);
