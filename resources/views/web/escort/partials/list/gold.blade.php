@@ -39,7 +39,7 @@
                             @if (auth()->user())
                                 @if ($viewerAuth->type == '0')
                                     <span
-                                        class="add_to_favrate custom--favourite @if (in_array($escort->id, $user_type)) {{ 'null' }}@else{{ 'fill' }} @endif legboxClass_{{ $escort->id }}"
+                                        class="add_to_favrate lg_fav_icon custom--favourite @if (in_array($escort->id, $user_type)) {{ 'null' }}@else{{ 'fill' }} @endif legboxClass_{{ $escort->id }}"
                                         id="legboxId_{{ $escort->id }}" data-escortId="{{ $escort->id }}"
                                         data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}"
                                         data-name="{{ $escortName }}">
@@ -55,13 +55,13 @@
                                         {{-- @endif --}}
                                     </span>
                                 @else
-                                    <span class="add_to_favrate custom--favourite" data-name="{{ $escortName }}"><i
+                                    <span class="add_to_favrate lg_fav_icon custom--favourite" data-name="{{ $escortName }}"><i
                                             class="fa fa-heart-o" aria-hidden="true"></i> <span
                                             class="custom-heart-text list-tool">Add to
                                             My Legbox</span></span>
                                 @endif
                             @else
-                                <span class="add_to_favrate custom--favourite" data-escortId="{{ $escort->id }}"
+                                <span class="add_to_favrate lg_fav_icon custom--favourite" data-escortId="{{ $escort->id }}"
                                     data-name="{{ $escortName }}"><i class="fa fa-heart-o"
                                         aria-hidden="true"></i><span class="custom-heart-text list-tool">Add to My
                                         Legbox</span></span>

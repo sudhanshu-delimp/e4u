@@ -66,7 +66,7 @@
                     @if (auth()->user())
                         @if (auth()->user()->type == 0)
                             <span
-                                class="add_to_favrate @if (in_array($listing->id, $logedInUpser->massageCenterLegBox->pluck('id')->toArray())) {{ 'null' }}@else{{ 'fill' }} @endif custom--favourite"
+                                class="add_to_favrate lg_fav_icon @if (in_array($listing->id, $logedInUpser->massageCenterLegBox->pluck('id')->toArray())) {{ 'null' }}@else{{ 'fill' }} @endif custom--favourite"
                                 id="legboxId_{{ $listing->id }}" data-massageId="{{ $listing->id }}"
                                 data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}"
                                 data-name="{{ $listing->business_name }} ">
