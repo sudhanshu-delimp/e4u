@@ -80,15 +80,15 @@
         </table>
         <table class="w-100 table common_modal_table" style="padding: 20px 0 0 0;">
             <tr>
-                <td style="font-weight: bold; color: #001f4d;">Agent ID:</td>
+                <td style="font-weight: bold; color: #000;">Agent ID:</td>
                 <td><span id="payAgentId">{{$payAgentId}}</span></td>
-                <td style="font-weight: bold; color: #001f4d;">Date:</td>
+                <td style="font-weight: bold; color: #000;">Date:</td>
                 <td><span id="payMonthlyReportDate">{{$payMonthlyReportDate}}</span></td>
             </tr>
             <tr>
-                <td style="font-weight: bold; color: #001f4d;">Fee Total:</td>
+                <td style="font-weight: bold; color: #000;">Fee Total:</td>
                 <td><span id="payAgenFee">${{$payAgenFee}}</span></td>
-                <td style="font-weight: bold; color: #001f4d;">Month:</td>
+                <td style="font-weight: bold; color: #000;">Month:</td>
                 <td><span id="payMonthlyReportMonth">{{$payMonthlyReportMonth}}</span></td>
             </tr>
         </table>

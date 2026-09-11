@@ -441,7 +441,6 @@ class OperatorMonthlyReportController extends BaseController
         }
       }
     } catch (Exception $e) {
-      dd($e->getMessage());
       return response()->redirectTo('/admin-dashboard/management/operator/monthly-fee-reports')->with('error', 'Error occurred while fetching the report data. Please try later.');
     }
     return response()->redirectTo('/admin-dashboard/management/operator/monthly-fee-reports')->with('error', 'Monthly fee record not found.');
