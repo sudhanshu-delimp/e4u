@@ -1584,6 +1584,48 @@ if (!function_exists('get_messure_weakly_availibility')) {
 }
 
 
+if (!function_exists('get_messure_weakly_avail')) {
+    function get_messure_weakly_avail($messure)
+    {
+        if (isset($messure->availability) && (!empty($messure->availability))) {
+            $availability = $messure->availability ? json_decode($messure->availability, true) : [];
+
+            if (empty($availability))
+                return '<tr><td colspan="2" style="background-color:#fff;border:none"><span class="na-label ">N/A</span></td></tr>';
+
+            else {
+
+                Log::info($availability);
+
+                $avail  = "";
+                foreach ($availability as $day => $data) {
+
+                    $status = $data['status'];
+
+                    if ($status == 'til_late')
+                        $time =  strtolower($data['from']) . '...' . ' Till late';
+
+
+                    else if ($data['status'] == '24_hours') {
+                        $time = strtolower($data['from']) . ' - ' . strtolower($data['to']);
+                    } else if ($data['status'] == 'custom') {
+                        $time = strtolower($data['from']) . ' - ' . strtolower($data['to']);
+                    } else if ($data['status'] == 'closed') {
+                        $time = '<span class="na-label ">N/A</span>';
+                    }
+
+                    $avail .= '<tr><td>'.ucfirst($day).'</td><td>' . $time  . '</td></tr>';
+                }
+
+                
+
+                return $avail;
+            }
+        }
+    }
+}
+
+
 if (!function_exists('get_massage_home_city')) {
     function get_massage_home_city($user_id)
     {
