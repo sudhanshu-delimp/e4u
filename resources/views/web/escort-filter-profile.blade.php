@@ -717,6 +717,9 @@
                         $('#appendGridView').hide();
                         $('#appendListView').hide();
                         $('.no--listing').hide();
+                        $('body, html').animate({
+                            scrollTop: 0
+                        }, 300);
                     }
                 },
                 success: function(response) {
