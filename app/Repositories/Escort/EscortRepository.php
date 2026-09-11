@@ -178,7 +178,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->state_name = $item->state ? $item->state->iso2 : null;
             $localTimeZone = getEscortTimezone($item);
             $currentPurchase = $item->currentPurchase;
-            $item->main_purchase_id = $currentPurchase->id;
             if ($item->enabled == 1) {
                 $item->enabled = "Active";
             } elseif ($item->enabled == 0) {

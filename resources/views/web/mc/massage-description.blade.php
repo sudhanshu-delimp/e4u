@@ -787,7 +787,7 @@ margin-right: 5px;
                             </div>
 
 
-                                <!-- /////////// Messeur Modal //////////////// -->
+                                <!-- Messeur Modal  -->
                                 <div class="modal fade product_view upload-modal masseur-modal" data-page="masseur profile"  data-massure_id="{{$masseur->id}}" id="product_view_{{$masseur->id}}" data-index="{{ $loop->index }}" data-backdrop="static" data-keyboard="false"> 
                                     <div class="modal-dialog modal-dialog-centered max-modal" >
                                     <div class="modal-content">
@@ -898,7 +898,7 @@ margin-right: 5px;
 
                                                     <div>
                                                         <div class="mc_profile_info">
-                                                            <h3 class="mb-0">{{ $masseur->name ?? 'N/A' }}</h3>
+                                                            <h3 class="ec_name">{{ $masseur->name ?? 'N/A' }}</h3>
                                                             <span>AGE : <b>{{ $masseur->age ?? 'N/A' }}</b></span>
 
                                                             <div class="massage_type">
