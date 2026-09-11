@@ -246,7 +246,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                 @if(isset($escort->mainPurchase) && $escort->mainPurchase->tour_location_id!=null)
                                     <div class="my-play-box-profile-icon">
                                         <a href="#">
-                                            <img src="{{ asset('assets/app/img/icon_tour_white.png') }}" alt="My Playbox Icon">
+                                            <img src="{{ asset('assets/app/img/icon_tour_white.png') }}" alt="Tour Icon">
                                         </a>
                                         <div class="custom-tooltip">{{$escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left.":"On Tour, today is my last day."}}</div>
                                     </div>

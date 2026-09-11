@@ -215,7 +215,6 @@ class PublicationBlogController extends Controller
             $message = $blogId ? 'Updated' : 'Created';
             return success_response($blog, "Blog {$message} successfully!");
         } catch (\Exception $e) {
-            dd($e);
             return error_response('Failed to create notification: ' . $e->getMessage(), 500);
         }
     }

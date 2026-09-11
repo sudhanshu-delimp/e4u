@@ -51,6 +51,7 @@ use App\Http\Controllers\Escort\Concierge\ProductController;
 use App\Http\Controllers\Admin\AgentMonthlyReportController;
 use App\Http\Controllers\Admin\OperatorMonthlyReportController;
 use App\Http\Controllers\Admin\VisaMigrationRequestController;
+use App\Http\Controllers\Admin\SeoManagementController;
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
@@ -129,7 +130,7 @@ Route::get('global-monitoring', function () {
 Route::get('massage-centre-listings', [GlobalMonitoringController::class, 'massageCenterListing'])->name('admin.massage-centre-listings');
 Route::get('/data-table-listing/{type?}', [GlobalMonitoringController::class, 'dataTableListingAjax'])->name('escort.current.list.dataTableListing');
 Route::get('/data-table-single-listing/{id?}', [GlobalMonitoringController::class, 'dataTableSingleListingAjax'])->name('escort.current.single-list.dataTableListing');
-Route::get('/get-pinup-listing', [GlobalMonitoringController::class, 'getPinupListing'])->name('admin.global_monitoring.get_pinup_listing');
+
 
 Route::post('/massage-center-listing/{type?}', [GlobalMonitoringController::class, 'massageCenterListingAjax'])->name('admin.massage.center.dataTableListing');
 
@@ -226,11 +227,9 @@ Route::get('shareholders/updates', function () {
 })->name('admin.updates');
 
 
+Route::get('/pinup-listings', [GlobalMonitoringController::class, 'pinupListing'])->name('admin.pin-up-listings');
+Route::get('/get-pinup-listing', [GlobalMonitoringController::class, 'getPinupListing'])->name('admin.global_monitoring.get_pinup_listing');
 
-
-Route::get('pinup-listings', function () {
-  return view('admin.pin-up-listings');
-})->name('admin.pin-up-listings');
 
 Route::get('database', function () {
   return view('admin.database');
@@ -961,6 +960,11 @@ Route::post('management/fees/pay-detail', [AgentMonthlyReportController::class, 
 Route::post('management/fees/print-pay-detail', [AgentMonthlyReportController::class, 'printPayAgentreport'])->name('admin.fees.print.pay-detail');
 
 
+//SEO in OC(M)
+
+ Route::get('management/seo', [SeoManagementController::class, 'seoManagement'])->name('admin.seo');
+ Route::get('management/seo/data', [SeoManagementController::class, 'getSeoData'])->name('admin.seo.data');
+ Route::post('management/seo', [SeoManagementController::class, 'saveSeoData'])->name('admin.seo.save');
 // Operator Monthly Report
 
 Route::get('management/operator/monthly-fee-reports', [OperatorMonthlyReportController::class, 'monthlyReport'])->name('admin.monthly-fee-reports');

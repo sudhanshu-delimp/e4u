@@ -134,6 +134,7 @@ Route::post('listing/current-listing', [MassageController::class, 'massager_curr
 Route::post('listing/past-listing', [MassageController::class, 'massager_past_listing'])->name('center.past-listing');
 
 Route::post('action-massage-profile', [MassageController::class, 'action_massage_profile'])->name('center.action-massage-profile');
+Route::post('calculate-cancel-refund', [MassageController::class, 'calculateProfileCancelRefund'])->name('center.calculate-cancel-refund');
 Route::post('duplicate-massage-profile', [MassageController::class, 'duplicate_massage_profile'])->name('center.duplicate-massage-profile');
 
 

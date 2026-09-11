@@ -40,6 +40,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Route;
 
 use function PHPSTORM_META\type;
 
@@ -1583,6 +1584,48 @@ if (!function_exists('get_messure_weakly_availibility')) {
 }
 
 
+if (!function_exists('get_messure_weakly_avail')) {
+    function get_messure_weakly_avail($messure)
+    {
+        if (isset($messure->availability) && (!empty($messure->availability))) {
+            $availability = $messure->availability ? json_decode($messure->availability, true) : [];
+
+            if (empty($availability))
+                return '<tr><td colspan="2" style="background-color:#fff;border:none"><span class="na-label ">N/A</span></td></tr>';
+
+            else {
+
+                Log::info($availability);
+
+                $avail  = "";
+                foreach ($availability as $day => $data) {
+
+                    $status = $data['status'];
+
+                    if ($status == 'til_late')
+                        $time =  strtolower($data['from']) . '...' . ' Till late';
+
+
+                    else if ($data['status'] == '24_hours') {
+                        $time = strtolower($data['from']) . ' - ' . strtolower($data['to']);
+                    } else if ($data['status'] == 'custom') {
+                        $time = strtolower($data['from']) . ' - ' . strtolower($data['to']);
+                    } else if ($data['status'] == 'closed') {
+                        $time = '<span class="na-label ">N/A</span>';
+                    }
+
+                    $avail .= '<tr><td>'.ucfirst($day).'</td><td>' . $time  . '</td></tr>';
+                }
+
+                
+
+                return $avail;
+            }
+        }
+    }
+}
+
+
 if (!function_exists('get_massage_home_city')) {
     function get_massage_home_city($user_id)
     {
@@ -2921,4 +2964,67 @@ if (!function_exists('getStateAbbr')) {
 
         return null;
     }
+}
+
+if (!function_exists('getSeoTaggedRoutes')) {
+    function getSeoTaggedRoutes()
+    {
+        $result = [];
+
+        foreach (Route::getRoutes() as $route) {
+            $seoName = $route->getAction('seo_name'); // null agar seo_name nahi diya
+
+            if ($seoName) {
+                $result[] = [
+                    'route_name' => $route->getName(),   // "agent.dashboard" — stable key
+                    'uri'        => $route->uri(),        // "/" — sirf display ke liye
+                    'seo_label'  => $seoName,              // "home page"
+                    'methods'    => $route->methods(),
+                ];
+            }
+        }
+
+        return $result;
+    }
+}
+
+if (!function_exists('calculate_agent_commission')) {
+function calculate_agent_commission($amount, $percent) {
+
+    if (!$amount || !$percent) {
+        return 0.00;
+    }
+
+    return ($amount * $percent) / 100;
+}
+}
+
+if (!function_exists('countOpenDays')) {
+function countOpenDays(string $startDate, string $endDate, string $scheduleJson): int 
+{
+    $schedule = json_decode($scheduleJson, true);
+    if (!$schedule) {
+        return 0;
+    }
+
+    $start = new DateTime($startDate);
+    $end = new DateTime($endDate);
+    
+    // Ensure loop includes both start and end date (inclusive range)
+    $end->modify('+1 day'); 
+    
+    $period = new DatePeriod($start, new DateInterval('P1D'), $end);
+    $openDaysCount = 0;
+
+    foreach ($period as $date) {
+        // Get day name in lowercase (e.g., "monday", "tuesday")
+        $dayOfWeek = strtolower($date->format('l')); 
+
+        if (isset($schedule[$dayOfWeek]) && $schedule[$dayOfWeek]['status'] !== 'closed') {
+            $openDaysCount++;
+        }
+    }
+
+    return $openDaysCount;
+}
 }
