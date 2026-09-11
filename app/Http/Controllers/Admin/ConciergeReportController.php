@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ConciergePaymentReconciliation;
 use App\Models\ProductOrder;
+use App\Models\ProductOrderItem;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -188,11 +189,11 @@ class ConciergeReportController extends Controller
 
                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">
 
-                        <a class="dropdown-item align-item-custom"
+                        <a class="dropdown-item align-item-custom approve-report"
                            href="#"
-                           data-id="' . $row->id . '"
-                           data-toggle="modal"
-                           data-target="#viewReports">
+                           data-id="' . $row->id . '"  
+                           
+                           >
 
                             <i class="fa fa-check-circle" aria-hidden="true"></i>
                             Approve
@@ -319,4 +320,42 @@ class ConciergeReportController extends Controller
       compact('columns')
     );
   }
+
+
+
+ public function getReport  (Request $request)
+{
+    $period=ConciergePaymentReconciliation::findOrFail($request->id);
+
+    $startDate = Carbon::createFromFormat(
+    'd-m-Y',
+    $period->bill_start_date
+)->format('Y-m-d');
+
+$endDate = Carbon::createFromFormat(
+    'd-m-Y',
+    $period->bill_end_date
+)->format('Y-m-d');
+
+$orderIds = ProductOrder::
+  whereDate('order_date', '>=', $startDate)
+    ->whereDate('order_date', '<=', $endDate)
+    ->pluck('id')->toArray();
+
+
+$items=ProductOrderItem::with('productOrder','product')->whereIn('order_id',$orderIds)->get();
+
+    // if (!$orders) {
+    //     return response()->json([
+    //         'status' => false,
+    //         'message' => 'Report not found.'
+    //     ]);
+    // }
+    $html = view('admin.Concierge.conserge_report',compact('items'))->render();
+
+    return response()->json([
+        'status' => true,
+        'html' => $html
+    ]);
+}
 }

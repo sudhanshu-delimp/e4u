@@ -20,4 +20,7 @@ class ProductOrderItem extends Model
 public function product(){
   return $this->belongsTo(Product::class,'product_id','id');
 }
+public function productOrder(){
+  return $this->belongsTo(ProductOrder::class,'order_id','id');
+}
 }
