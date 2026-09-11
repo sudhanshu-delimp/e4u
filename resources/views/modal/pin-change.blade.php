@@ -93,7 +93,7 @@
                     <div class="keypad-row">
                         <button class="key" id="clearSetPin">⌫</button>
                         <button class="key input_value_pin">0</button>
-                        <button class="key" id="ok">OK</button>
+                        <button class="key" id="ok">OK {{$mode}}</button>
                     </div>
                 </div>
                 @if(!empty($mode) && $mode=='pinSetup')
