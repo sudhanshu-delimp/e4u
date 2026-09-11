@@ -1144,20 +1144,11 @@ margin-right: 5px;
                                                                 <table class="table table-bordered">
                                                                     <thead class="bg-first">
                                                                         <tr>
-                                                                            <th colspan="7" class="text-center">My Availability</th>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <th style="width:14.2%">Monday</th>
-                                                                            <th style="width:14.2%">Tuesday</th>
-                                                                            <th style="width:14.2%">Wednesday</th>
-                                                                            <th style="width:14.2%">Thursday</th>
-                                                                            <th style="width:14.2%">Friday</th>
-                                                                            <th style="width:14.2%">Saturday</th>
-                                                                            <th style="width:14.2%">Sunday</th>
+                                                                            <th colspan="2" class="text-center">My Availability</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                    {!! get_messure_weakly_availibility($masseur) !!}
+                                                                    {!! get_messure_weakly_avail($masseur) !!}
                                                                     </tbody>
                                                                 </table>
                                                             </div>

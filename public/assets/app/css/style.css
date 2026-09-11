@@ -9571,7 +9571,7 @@
         .gallery_shield_tooltip::after {
             position: absolute;
             left: 100%;
-            top: 25%;
+            top: 6px;
             content: '';
             border-width: 5px;
             border-style: solid;
@@ -10407,7 +10407,7 @@
         .ec_list_about {
             padding: 10px 10px 10px;
             border-top: 1px solid var(--border-color);
-            min-height: 115px;
+            min-height: 110px;
         }
         
         .ec_list_meta {
