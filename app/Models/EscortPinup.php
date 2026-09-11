@@ -11,6 +11,7 @@ class EscortPinup extends Model
     use HasFactory;
 
     protected $fillable = [
+        'purchase_id',
         'user_id',
         'escort_id',
         'state_id',
@@ -49,6 +50,11 @@ class EscortPinup extends Model
     public function tourProfile()
     {
         return $this->hasOne(TourProfile::class, 'is_pinup', 'id');
+    }
+
+    public function purchase()
+    {
+        return $this->belongsTo(Purchase::class, 'purchase_id');
     }
 
     public function scopeActive($query)
