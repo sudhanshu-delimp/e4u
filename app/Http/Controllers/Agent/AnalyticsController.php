@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\DataTables;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AnalyticsController extends Controller
 {
@@ -146,35 +147,115 @@ class AnalyticsController extends Controller
            
         } 
         
-    public function getProfileSummary(Request $request, $id)
-    {
-      
-        $listing = MassagePurchase::with('paymentItems.payment')->where('status', 'listed')
-                            ->where('id',$id)->first();
-
-        $start_date = strtotime($listing['start_date']);
-        $end_date = strtotime($listing['end_date']);      
-        $days = round(abs($end_date - $start_date) / 86400) + 1; 
-        $masseures = false;   
-        
-        if($listing)
+        public function getProfileSummary(Request $request, $id)
         {
-            $masseures  = MassageTimeAvailability::with('masseur')
-            ->where('purchase_id',$listing['id'])
-            ->whereNotNUll('masseur_id')
-            ->get();
+        
+            $listing = MassagePurchase::with('paymentItems.payment')->where('status', 'listed')
+                                ->where('id',$id)->first();
+
+            $start_date = strtotime($listing['start_date']);
+            $end_date = strtotime($listing['end_date']);      
+            $days = round(abs($end_date - $start_date) / 86400) + 1; 
+            $masseures = false;   
             
-            Log::info($masseures);
-           
-        }        
+            if($listing)
+            {
+                $masseures  = MassageTimeAvailability::with('masseur')
+                ->where('purchase_id',$listing['id'])
+                ->whereNotNUll('masseur_id')
+                ->get();
+                
+                Log::info($masseures);
+            
+            }        
 
 
-        $html = view('agent.dashboard.Annalytics.profile_summary',compact('listing','days','masseures'))->render();
+            $html = view('agent.dashboard.Annalytics.profile_summary',compact('listing','days','masseures'))->render();
 
-        return response()->json([
-            'status' => 'success',
-            'html' => $html
-        ]);
-    }
+            return response()->json([
+                'status' => 'success',
+                'html' => $html
+            ]);
+        }
+
+
+        public function getProfilePdf(Request $request, $advertiserType)
+        {
+            $request->validate([
+                'from_date' => ['required', 'date'],
+                'to_date' => ['required', 'date', 'after_or_equal:from_date'],
+            ]);
+
+            if (!in_array($advertiserType, ['escort', 'massage'])) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Invalid advertiser type.'
+                ], 422);
+            }
+
+            $fromDate = $request->from_date;
+            $toDate = $request->to_date;
+            $type = $advertiserType == 'escort' ? '3' : '4';
+            $userIds = User::where([
+                'assigned_agent_id' => auth()->id(),
+                'type' => $type
+            ])->pluck('id')->toArray();
+
+            if ($advertiserType == 'escort') {
+
+                $escortIds = Escort::whereIn('user_id', $userIds)
+                    ->where('purchase_id', '!=', '')
+                    ->pluck('id')
+                    ->toArray();
+
+                $advertisers = Purchase::with([
+                        'escort.pinup',
+                        'paymentItems.payment'
+                    ])
+                    ->where('status', 'listed')
+                    ->whereIn('escort_id', $escortIds)
+                    ->whereDate('start_date', '>=', $fromDate)
+                    ->whereDate('end_date', '<=', $toDate)
+                    ->get();
+
+            } else {
+
+                $massageIds = MassageProfile::whereIn('user_id', $userIds)
+                    ->where('purchase_id', '!=', '')
+                    ->pluck('id')
+                    ->toArray();
+
+                $advertisers = MassagePurchase::with([
+                        'paymentItems.payment'
+                    ])
+                    ->where('status', 'listed')
+                    ->whereIn('massage_profile_id', $massageIds)
+                    ->whereDate('start_date', '>=', $fromDate)
+                    ->whereDate('end_date', '<=', $toDate)
+                    ->get();
+            }
+
+        
+            if ($advertisers->isEmpty()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'No listing found between the given date range.'
+                ], 404);
+            }
+
+            $pdf = Pdf::loadView('agent.pdf.advertiser-profiles-report', [
+                'advertisers' => $advertisers,
+                'advertiserType' => $advertiserType,
+                'fromDate' => $fromDate,
+                'toDate' => $toDate,
+            ]);
+
+            return response($pdf->output(), 200)
+                ->header('Content-Type', 'application/pdf')
+                ->header(
+                    'Content-Disposition',
+                    'inline; filename="profile-report-' . $advertiserType . '.pdf"'
+                );
+        }
 
 }

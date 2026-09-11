@@ -152,7 +152,10 @@ use Illuminate\Support\Facades\Route;
     Route::get('advertiser-profiles',function(){return view('agent.dashboard.Annalytics.advertiser-profiles');})->name('agent.advertiser-profiles');
     Route::get('analytic-profiles-list-ajax/{advertiserType}', [AnalyticsController::class, 'analytic_profiles_list_ajax'])->name('agent.analytic-profiles-list-ajax');
     Route::get('profile-summary/{id}', [AnalyticsController::class, 'getProfileSummary'])->name('agent.profile_summary');
+    Route::get('generate-profile-pdf/{id}', [AnalyticsController::class, 'getProfilePdf'])->name('agent.generate_profile_pdf');
 
+
+    
 
     //Demo
     Route::get('marketing/prospect-list/demo1', function(){

@@ -171,45 +171,46 @@
                                 <!-- Report Type -->
                                 <div class="form-group mb-4">
                                     <div class="d-flex align-items-center flex-wrap gap-20">
-                                        <p class="mb-2 font-weight-bold" style="min-width: 100px">Report Type:</p>
-                                        <div class="form-check form-check-inline">
+                                        <p class="mb-2 font-weight-bold" style="min-width: 100px">Report Type : <span class="rep_type"> Escort</span></p>
+                                        <!-- <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="reportType"
                                                 id="reportAll" value="all">
                                             <label class="form-check-label" for="reportAll">All</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
+                                        </div> -->
+                                        <!-- <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="reportType"
-                                                id="reportEscort" value="escort">
+                                                id="reportType" value="escort">
                                             <label class="form-check-label" for="reportEscort">Escort</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="reportType"
-                                                id="reportMassage" value="massage">
+                                                id="reportType" value="massage">
                                             <label class="form-check-label" for="reportMassage">Massage Centre</label>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 
                                 <div class="form-group">
                                    
                                     <div class="d-flex align-items-center flex-wrap gap-20">
-                                        <p class="mb-0 font-weight-bold" style="min-width: 100px">Period:</p>
-                                        <div class="d-flex align-items-center flex-wrap gap-20">
+                                        <p class="mb-0 font-weight-bold" style="min-width: 10px">Period :</p>
+                                        <div class="d-flex align-items-center flex-wrap gap-10">
                                             <!-- Entire Radio -->
-                                        <div class="form-check">
+
+                                        <!-- <div class="form-check">
                                             <input class="form-check-input" type="radio" name="period"
                                                 id="periodEntire" value="entire">
                                             <label class="form-check-label" for="periodEntire">Entire</label>
-                                        </div>
+                                        </div> -->
 
-                                        <div class="form-group d-flex align-items-center gap-10 mb-0">
-                                            <label for="fromDate" class="form-check-label">From: </label>
-                                            <input type="date" class="form-control" id="fromDate" name="fromDate">
-                                        </div>
-                                        <div class="form-group d-flex align-items-center gap-10 mb-0">
-                                            <label for="toDate" class="form-check-label">To:</label>
-                                            <input type="date" class="form-control" id="toDate" name="toDate">
-                                        </div>
+                                                <div class="form-group d-flex align-items-center gap-10 mb-0">
+                                                    <label for="fromDate" class="form-check-label">From: </label>
+                                                    <input type="date" class="form-control" id="fromDate" name="fromDate">
+                                                </div>
+                                                <div class="form-group d-flex align-items-center gap-10 mb-0">
+                                                    <label for="toDate" class="form-check-label">To:</label>
+                                                    <input type="date" class="form-control" id="toDate" name="toDate">
+                                                </div>
                                         </div>
                                     </div>
                                 </div>
@@ -220,9 +221,9 @@
                                 <!-- Footer -->
                                 <div class="modal-footer justify-content-end">
                                    
-                                    <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
-                                     <button type="button" class="btn-success-modal" data-dismiss="modal"
-                                        id="close_change">View</button>
+                                    <button type="button" class="btn-cancel-modal" id="print_report">Print</button>
+                                     <!-- <button type="button" class="btn-success-modal" data-dismiss="modal"
+                                        id="close_change">View</button> -->
                                 </div>
                             </div>
                         </div>
@@ -566,6 +567,8 @@
 
  $("select[name='advertiser_type']").on("change", function() {
       var url = $(this).val();
+      let selectedText = $(this).find(':selected').text();
+      $('.rep_type').text(selectedText);
       table.ajax.url(url).load();
    });
 
@@ -580,7 +583,7 @@
         var memberName = button.data('membername');
         var location = button.data('location');
 
-        // Update the modal's content
+      
         var modal = $(this);
         modal.find('#modal-member-id').text(memberId ?? 'N/A');
         modal.find('#modal-member-name').text(memberName ?? 'Member');
@@ -590,6 +593,7 @@
      
 
 $(document).ready(function () {
+
     $(document).on('click', '.open-summary-modal', function (e) {
         e.preventDefault();
         
@@ -619,13 +623,74 @@ $(document).ready(function () {
         });
     });
 
-    // Optional: Clean up DOM when modal is closed
+   
     $(document).on('hidden.bs.modal', '#profile_summary', function () {
         $(this).remove();
     });
+
+
+
+    $('#print_report').on('click', async function () {
+
+        let fromDate = $('#fromDate').val();
+        let toDate = $('#toDate').val();
+
+        if (!fromDate) {
+            $('#fromDate').focus();
+            swal_error_warning('Profile Report','Please select From date.');
+            return;
+        }
+
+        if (!toDate) {
+            $('#toDate').focus();
+            swal_error_warning('Profile Report','Please select To date.');
+            return;
+        }
+
+        if (fromDate > toDate) {
+            swal_error_warning('Profile Report','From date cannot be greater than To date.');
+            $('#fromDate').focus();
+            return;
+        }
+
+        let url = $('#advertiserFilter').val();
+        let advertiserType = url.split('/').pop();
+
+        let requestUrl = "{{ route('agent.generate_profile_pdf', ['id' => '__TYPE__']) }}"
+            .replace('__TYPE__', advertiserType) + `?from_date=${fromDate}&to_date=${toDate}`;
+
+        try {
+            let response = await fetch(requestUrl, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json, application/pdf'
+                }
+            });
+
+            let contentType = response.headers.get('content-type') || '';
+            if (response.ok && contentType.includes('application/pdf')) {
+                let blob = await response.blob();
+                let pdfUrl = URL.createObjectURL(blob);
+                window.open(pdfUrl, '_blank');
+                return;
+            }
+
+            let data = await response.json();
+            if (data.errors) {
+                let firstKey = Object.keys(data.errors)[0];
+                swal_error_warning(data.errors[firstKey][0]);
+            } else {
+                swal_error_warning('Profile Report', data.message || 'Unable to generate report.');
+            }
+
+        } catch (error) {
+            console.error('Report Generation Error:', error);
+            swal_error_warning('Profile Report', 'Something went wrong. Please try again.');
+        }
+    });                          
+
+
 });
-
-
-
-    </script>
+</script>
 @endpush

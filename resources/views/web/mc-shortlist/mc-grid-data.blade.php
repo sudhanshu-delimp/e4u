@@ -67,9 +67,9 @@
                         <span class="title text_truncate">{{  get_massage_home_city($listing->user_id) }}</span>
                         <span class="video_icon_grid ">
                             @php
-                               $videoCnt = checkVideoExistInMcProfile($listing->user_id);
+                               $videoCnt = $listing->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
                             @endphp
-                            @if($videoCnt > '0')
+                            @if($videoCnt->count()>0)
                              <div class="video_tooltip">Massage Centres has video to view.</div>
                                <span class="video_icons">
                                 <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none"

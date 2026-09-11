@@ -59,9 +59,9 @@
                         <div class="video_icon">
                             <a href="#">
                                 @php
-                                    $videoCnt = checkVideoExistInMcProfile($listing->user_id);
+                                $videoCnt = $listing->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
                                 @endphp
-                                @if ($videoCnt > '0')
+                                 @if($videoCnt->count()>0)
                                     <img src="{{ asset('assets/app/img/video_play.svg') }}">
                                 @endif
                                 <span class="custom--tooltip">Massage Centres has video to view</span>
