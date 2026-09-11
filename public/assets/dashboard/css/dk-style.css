@@ -7632,8 +7632,8 @@ input:checked+.slider:before {
 }
 
 .na-label {
-    background-color: #f55b5d3b;
-    color: #F26464;
+    background-color: #ff3c5f30;
+    color: var(--peach);
     padding: 2px 8px;
     border-radius: 15px;
     font-size: 14px !important;

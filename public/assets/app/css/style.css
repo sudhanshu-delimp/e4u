@@ -3618,7 +3618,7 @@
         }
         
         .open-time-table.table-striped tbody tr:nth-of-type(odd) {
-            background-color: #f3f3f3 !important;
+            background-color: #fff1f4 !important;
         }
         
         .open-time-table.table-striped tbody td {
@@ -6599,17 +6599,25 @@
         
         .mc_avail_table th {
             font-size: 13px !important;
-            text-align: center;
+            text-align: left;
+        }
+        
+        .masseur-modal .modal-content {
+            border-radius: var(--radius-md);
+        }
+        
+        .masseur-modal .modal-header {
+            border-radius: 10px 10px 0px 0px !important;
         }
         
         .mc_avail_table td {
             font-size: 12px !important;
-            text-align: center;
+            text-align: left;
         }
         
         .mc_avail_table .na-label {
             font-size: 12px !important;
-            text-align: center;
+            text-align: left;
         }
         
         .mc_profile_img,

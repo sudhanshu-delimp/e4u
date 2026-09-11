@@ -58,7 +58,7 @@
   }
 
 .mc_avail_table table td {
-    padding: 5px 0px !important;
+    padding: 0.38rem 1rem !important;
 }
 .masseurs_modals{
     max-width: 1000px !important;
@@ -1148,16 +1148,10 @@ margin-right: 5px;
 
                                                         </div>
                                                         <!-- Open Times -->
-                                                        <div class="tab-pane fade table-responsive p-2" id="open-times-{{ $masseur->id }}" role="tabpanel"
+                                                        <div class="tab-pane fade p-2" id="open-times-{{ $masseur->id }}" role="tabpanel"
                                                             aria-labelledby="open-times-tab-{{ $masseur->id }}">
-
-                                                            <div class="table-responsive-sm mc_avail_table">
-                                                                <table class="table table-bordered">
-                                                                    <thead class="bg-first">
-                                                                        <tr>
-                                                                            <th colspan="2" class="text-center">My Availability</th>
-                                                                        </tr>
-                                                                    </thead>
+                                                            <div class="table-responsive mc_avail_table">
+                                                                <table class="table table-striped open-time-table mb-0 text-left">                                                                    
                                                                     <tbody>
                                                                     {!! get_messure_weakly_avail($masseur) !!}
                                                                     </tbody>
