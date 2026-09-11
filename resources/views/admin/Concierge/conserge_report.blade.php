@@ -26,6 +26,26 @@
                   <div class="num_value">$<span>40.00</div>
               </td>
           </tr>
+@forelse ($items as $item)
+     <tr>
+              <td>{{$item->product->code}}</td>
+              <td>{{$item->productOrder->user->member_id}}</td>
+              <td class="text-center">{{$item->productOrder->user->member_id}}</td>
+              <td class="text-center">{{$item->productOrder->delivery_type}}</td>
+              <td>
+                  <div class="num_value">$<span>{{$item->amount}}</div>
+              </td>
+              <td>
+                  <div class="num_value">$<span>10</div>
+              </td>
+              <td>
+                  <div class="num_value">$<span>{{$item->amount-10}}</div>
+              </td>
+          </tr>
+@empty
+    <p>Not found</p>
+@endforelse
+          
 
           <tr>
               <td></td>

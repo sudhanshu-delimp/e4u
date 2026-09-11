@@ -7,20 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductOrderItem extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    protected $fillable = [
+  protected $fillable = [
     'order_id',
     'product_id',
     'quantity',
     'price',
     'total',
-];
+  ];
 
-public function product(){
-  return $this->belongsTo(Product::class,'product_id','id');
-}
-public function productOrder(){
-  return $this->belongsTo(ProductOrder::class,'order_id','id');
-}
+  public function product()
+  {
+    return $this->belongsTo(Product::class, 'product_id', 'id');
+  }
+  public function productOrder()
+  {
+    return $this->belongsTo(ProductOrder::class, 'order_id', 'id');
+  }
+  
 }

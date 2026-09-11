@@ -343,7 +343,7 @@ $orderIds = ProductOrder::
     ->pluck('id')->toArray();
 
 
-$items=ProductOrderItem::with('productOrder','product')->whereIn('order_id',$orderIds)->get();
+$items=ProductOrderItem::with('productOrder','productOrder.user','product')->whereIn('order_id',$orderIds)->get();
 
     // if (!$orders) {
     //     return response()->json([
