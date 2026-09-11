@@ -500,9 +500,53 @@
                             </div>
 
                             <!-- Available-tab -->
-                            <div class="tab-pane fade p-2" id="Available-{{ $escort->id }}" role="tabpanel"
+                            <div class="tab-pane fade table-responsive p-2" id="Available-{{ $escort->id }}" role="tabpanel"
                                 aria-labelledby="Available-tab-{{ $escort->id }}">
-                              
+                                        
+                                        {{-- <table class="table table-striped open-time-table mb-0">
+                                            <thead class="table_heading_bgcolor_color">
+                                                <tr>
+                                                    <th class="text-left">Day</th>
+                                                    <th class="text-left">Time</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            @php
+                                            $days = [
+                                                'Monday' => 'monday',
+                                                'Tuesday' => 'tuesday',
+                                                'Wednesday' => 'wednesday',
+                                                'Thursday' => 'thursday',
+                                                'Friday' => 'friday',
+                                                'Saturday' => 'saturday',
+                                                'Sunday' => 'sunday'
+                                            ];
+                                            @endphp
+                                            @foreach($days as $cDay => $day)
+                                                <tr>
+                                                    <td>{{$cDay}}</td>
+                                                    <td>
+                                                        @if(!empty($availability->availability_time[$day]))
+                                                        
+                                                            @if($availability->availability_time[$day] == 'til_ate')
+
+                                                            {{ Carbon\Carbon::parse($availability->{$day.'_from'})->format('h:i A') }} ... Til Late
+                                                            @else
+                                                                {{ $availability->availability_time[$day]; }} 
+                                                            @endif
+                                                            
+
+                                                        @elseif(!empty($availability->{$day.'_from'}) && !empty($availability->{$day.'_to'}))
+                                                            {{ ($availability) ? Carbon\Carbon::parse($availability->{$day.'_from'})->format('h:i A'): '' }} - {{ ($availability) ? Carbon\Carbon::parse($availability->{$day.'_to'})->format('h:i A') : ''}}
+                                                        @else
+                                                            Unavailable
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table> --}}
+                                    
                             </div>
 
                         </div>
