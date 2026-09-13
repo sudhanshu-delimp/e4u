@@ -221,7 +221,7 @@ class StaffController extends BaseController
                     $edit = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit-staff-btn" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>';
                 }
 
-                $updatePassword = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center update_password" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i>Update Password</a>';
+                $updatePassword = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center update_password" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i>Reset Password</a>';
             }
 
 
@@ -246,7 +246,7 @@ class StaffController extends BaseController
                     $dropdown .= $view;
                 } else {
                     if ($this->editAccessEnabled) {
-                        $dropdown .= $edit . $dropdownsub .  $updatePassword . $view;
+                        $dropdown .= $edit . $updatePassword. $dropdownsub  . $view;
                     } else {
                         $dropdown .= $view;
                     }
