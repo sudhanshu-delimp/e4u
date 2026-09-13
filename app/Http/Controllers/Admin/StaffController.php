@@ -398,7 +398,7 @@ class StaffController extends BaseController
                 } catch (Exception $e) {
                     Log::error('Password update email sending failed: ' . $e->getMessage());
                 }
-             return response()->json(["status" => true, "message" => 'Password updated successfully!'], 200);    
+             return response()->json(["status" => true, "message" => 'Password reset successfully!'], 200);    
             }
            
         }
