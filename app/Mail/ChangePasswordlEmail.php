@@ -19,7 +19,7 @@ class ChangePasswordlEmail extends Mailable
     public function build()
     {
         return $this->from(env('MAIL_FROM_ADDRESS'))
-                ->subject('Password Update Notification') 
+                ->subject('Reset Password Notification') 
                 ->markdown('emails.user_change_password_email')
                 ->with('user', $this->body);
     }

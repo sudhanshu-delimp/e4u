@@ -73,7 +73,7 @@
 
         $('#password-strength').css('display', 'none');
         $(document).on('click', '.update_password', function() {
-            $('#updatePassword').prop('disabled', false).text('Update');
+            $('#updatePassword').prop('disabled', false).text('Reset Password');
             let id = $(this).data('id');
             $("#user_id").val(id);
             $('#change_Password_users').modal({
@@ -106,7 +106,7 @@
                        
                     },
                     error: function(xhr) {
-                       $('#updatePassword').prop('disabled', false).text('Update');
+                       $('#updatePassword').prop('disabled', false).text('Reset Password');
                         if (xhr.status === 422) {
                             $("#divErros").html('');
                             let errors = xhr.responseJSON.errors;
