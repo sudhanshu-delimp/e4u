@@ -87,7 +87,7 @@ function swal_success_popup(message, title='', redirect = null) {
 function swal_error_popup(message) {
 
   Swal.fire({
-    title: (message) ? message : 'Action could not performed',
+    message: (message) ? message : 'Action could not performed',
     icon: "error",
     draggable: true,
     allowOutsideClick: false,

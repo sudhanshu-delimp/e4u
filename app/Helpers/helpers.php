@@ -1595,7 +1595,7 @@ if (!function_exists('get_messure_weakly_avail')) {
 
             else {
 
-                Log::info($availability);
+                // Log::info($availability);
 
                 $avail  = "";
                 foreach ($availability as $day => $data) {
@@ -1611,7 +1611,7 @@ if (!function_exists('get_messure_weakly_avail')) {
                     } else if ($data['status'] == 'custom') {
                         $time = strtolower($data['from']) . ' - ' . strtolower($data['to']);
                     } else if ($data['status'] == 'closed') {
-                        $time = '<span class="na-label ">N/A</span>';
+                        $time = '<span class="na-label ">Not Available</span>';
                     }
 
                     $avail .= '<tr><td>'.ucfirst($day).'</td><td>' . $time  . '</td></tr>';

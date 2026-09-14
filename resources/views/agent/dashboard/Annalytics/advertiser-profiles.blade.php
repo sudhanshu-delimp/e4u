@@ -171,45 +171,46 @@
                                 <!-- Report Type -->
                                 <div class="form-group mb-4">
                                     <div class="d-flex align-items-center flex-wrap gap-20">
-                                        <p class="mb-2 font-weight-bold" style="min-width: 100px">Report Type:</p>
-                                        <div class="form-check form-check-inline">
+                                        <p class="mb-2 font-weight-bold" style="min-width: 100px">Report Type : <span class="rep_type"> Escort</span></p>
+                                        <!-- <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="reportType"
                                                 id="reportAll" value="all">
                                             <label class="form-check-label" for="reportAll">All</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
+                                        </div> -->
+                                        <!-- <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="reportType"
-                                                id="reportEscort" value="escort">
+                                                id="reportType" value="escort">
                                             <label class="form-check-label" for="reportEscort">Escort</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="reportType"
-                                                id="reportMassage" value="massage">
+                                                id="reportType" value="massage">
                                             <label class="form-check-label" for="reportMassage">Massage Centre</label>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 
                                 <div class="form-group">
                                    
                                     <div class="d-flex align-items-center flex-wrap gap-20">
-                                        <p class="mb-0 font-weight-bold" style="min-width: 100px">Period:</p>
-                                        <div class="d-flex align-items-center flex-wrap gap-20">
+                                        <p class="mb-0 font-weight-bold" style="min-width: 10px">Period :</p>
+                                        <div class="d-flex align-items-center flex-wrap gap-10">
                                             <!-- Entire Radio -->
-                                        <div class="form-check">
+
+                                        <!-- <div class="form-check">
                                             <input class="form-check-input" type="radio" name="period"
                                                 id="periodEntire" value="entire">
                                             <label class="form-check-label" for="periodEntire">Entire</label>
-                                        </div>
+                                        </div> -->
 
-                                        <div class="form-group d-flex align-items-center gap-10 mb-0">
-                                            <label for="fromDate" class="form-check-label">From: </label>
-                                            <input type="date" class="form-control" id="fromDate" name="fromDate">
-                                        </div>
-                                        <div class="form-group d-flex align-items-center gap-10 mb-0">
-                                            <label for="toDate" class="form-check-label">To:</label>
-                                            <input type="date" class="form-control" id="toDate" name="toDate">
-                                        </div>
+                                                <div class="form-group d-flex align-items-center gap-10 mb-0">
+                                                    <label for="fromDate" class="form-check-label">From: </label>
+                                                    <input type="date" class="form-control" id="fromDate" name="fromDate">
+                                                </div>
+                                                <div class="form-group d-flex align-items-center gap-10 mb-0">
+                                                    <label for="toDate" class="form-check-label">To:</label>
+                                                    <input type="date" class="form-control" id="toDate" name="toDate">
+                                                </div>
                                         </div>
                                     </div>
                                 </div>
@@ -220,9 +221,9 @@
                                 <!-- Footer -->
                                 <div class="modal-footer justify-content-end">
                                    
-                                    <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
-                                     <button type="button" class="btn-success-modal" data-dismiss="modal"
-                                        id="close_change">View</button>
+                                    <button type="button" class="btn-cancel-modal" id="print_report">Print</button>
+                                     <!-- <button type="button" class="btn-success-modal" data-dismiss="modal"
+                                        id="close_change">View</button> -->
                                 </div>
                             </div>
                         </div>
@@ -268,211 +269,7 @@
     </div>
 </div>
 
-    {{-- end --}}
 
-
-    {{-- activity_summary --}}
-
-    <div class="modal fade upload-modal bd-example-modal-lg" id="activity_summary" tabindex="-1" role="dialog"
-        aria-labelledby="activity_summaryLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="activity_summary"><img
-                            src="{{ asset('assets/dashboard/img/profile-summary.png') }}" class="custompopicon">Activity
-                        Summary - E60165 </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table border="1" cellpadding="10" cellspacing="0" width="100%"
-                        style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
-
-
-                        <!-- Table Headings -->
-                        <tr style="background-color: #0c223d; color: white; font-weight: bold; text-align:center">
-                            <td style="text-align:center;">Period</td>
-                            <td style="text-align:center;">Profile Views</td>
-                            <td style="text-align:center;">Media Views</td>
-                            <td style="text-align:center;">Playbox Views</td>
-                            <td style="text-align:center;">Legbox</td>
-                        </tr>
-
-                        <!-- Row 1 -->
-                        <tr>
-                            <td style="font-weight: bold; background:#0c223d; color:#fff;">This Week:
-                            </td>
-                            <td style="text-align:center;">15</td>
-                            <td style="text-align:center;">12</td>
-                            <td style="text-align:center;">10</td>
-                            <td style="text-align:center;">2</td>
-                        </tr>
-
-                        <!-- Row 2 -->
-                        <tr>
-                            <td style="font-weight: bold; background:#0c223d; color:#fff;">Year to Date:
-                            </td>
-                            <td style="text-align:center;">259</td>
-                            <td style="text-align:center;">198</td>
-                            <td style="text-align:center;">201</td>
-                            <td style="text-align:center;">42</td>
-                        </tr>
-                        <!-- Table Headings -->
-                        <tr style="background-color: #0c223d; color: white; font-weight: bold; text-align:center">
-                            <td style="border-bottom:0px"></td>
-                            <td style="text-align:center;">Recommendations</td>
-                            <td style="text-align:center;">Reviews</td>
-                            <td style="text-align:center;">Reports</td>
-                            <td style="text-align:center;">Social Media</td>
-                        </tr>
-                        <!-- Row 1 -->
-                        <tr>
-                            <td style="font-weight: bold;  background:#0c223d; color:#fff;">This Week:
-                            </td>
-                            <td style="text-align:center;">6</td>
-                            <td style="text-align:center;">1</td>
-                            <td style="text-align:center;">1</td>
-                            <td style="text-align:center;">4</td>
-                        </tr>
-
-                        <!-- Row 2 -->
-                        <tr>
-                            <td style="font-weight: bold;  background:#0c223d; color:#fff;">Year to Date:
-                            </td>
-                            <td style="text-align:center;">84</td>
-                            <td style="text-align:center;">6</td>
-                            <td style="text-align:center;">12</td>
-                            <td style="text-align:center;">125</td>
-                        </tr>
-                        <!-- Footer Row -->
-                    </table>
-                    <div class="modal-footer justify-content-end mt-3">
-                       
-                        <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
-                        <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
-                            id="close_change">Ok</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- end --}}
-
-
-
-    {{-- profile_summary --}}
-    <div class="modal fade upload-modal bd-example-modal-lg" id="profile_summary" tabindex="-1" role="dialog"
-        aria-labelledby="profile_summaryLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="profile_summary"><img
-                            src="{{ asset('assets/dashboard/img/profile-summary.png') }}" class="custompopicon">Profile
-                        Summary - E60165</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="table-responsive profile_summary">
-                        <table cellpadding="8" cellspacing="0" width="100%"
-                            style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
-
-                            <thead>
-                                <!-- Table Headings -->
-                                <tr style="background-color: #0c223d; color: white; font-weight: bold; text-align:center">
-                                    <td style="text-align:center;">Masseur ID</td>
-                                    <td style="text-align:center;">Start Date</td>
-                                    <td style="text-align:center;">Finish Date</td>
-                                    <td style="text-align:center;">Days</td>
-                                    <td style="text-align:center; width:110px">Listing Fee</td>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <!-- Main Row -->
-                                <tr>
-                                    <td style="text-align:center; font-weight:bold;"></td>
-                                    <td style="text-align:center;">01-01-2025</td>
-                                    <td style="text-align:center;">15-04-2025</td>
-                                    <td style="text-align:center;">104</td>
-                                    <td style="text-align:right;"><div class="num_value">$<span>3,120.00 </span></div></td>
-                                </tr>
-
-                                <!-- Sub Rows -->
-                                <tr style="background:#f9f9f9;">
-                                    <td style="text-align:center;">001</td>
-                                    <td style="text-align:center;">01-01-2025</td>
-                                    <td style="text-align:center;">28-01-2025</td>
-                                    <td style="text-align:center;">15</td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td style="text-align:center;">002</td>
-                                    <td style="text-align:center;">29-01-2025</td>
-                                    <td style="text-align:center;">23-02-2025</td>
-                                    <td style="text-align:center;">26</td>
-                                    <td></td>
-                                </tr>
-
-                                <tr style="background:#f9f9f9;">
-                                    <td style="text-align:center;">003</td>
-                                    <td style="text-align:center;">29-01-2025</td>
-                                    <td style="text-align:center;">23-02-2025</td>
-                                    <td style="text-align:center;">26</td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td style="text-align:center;">004</td>
-                                    <td style="text-align:center;">24-02-2025</td>
-                                    <td style="text-align:center;">05-03-2025</td>
-                                    <td style="text-align:center;">10</td>
-                                    <td></td>
-                                </tr>
-
-                                <tr style="background:#f9f9f9;">
-                                    <td style="text-align:center;">005</td>
-                                    <td style="text-align:center;">06-03-2025</td>
-                                    <td style="text-align:center;">31-03-2025</td>
-                                    <td style="text-align:center;">26</td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td style="text-align:center;">006</td>
-                                    <td style="text-align:center;">01-04-2025</td>
-                                    <td style="text-align:center;">15-04-2025</td>
-                                    <td style="text-align:center;">15</td>
-                                    <td></td>
-                                </tr>
-
-                                <!-- Footer -->
-                                <tr style="font-weight:bold;">
-                                    <td colspan="3" style="text-align:right;">Total days Masseurs:</td>
-                                    <td style="text-align:center;">104</td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="modal-footer justify-content-end mt-3">
-                        
-                        <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
-                        <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
-                            id="close_change">Ok</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{-- end --}}
 @endsection
 @push('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
@@ -566,6 +363,8 @@
 
  $("select[name='advertiser_type']").on("change", function() {
       var url = $(this).val();
+      let selectedText = $(this).find(':selected').text();
+      $('.rep_type').text(selectedText);
       table.ajax.url(url).load();
    });
 
@@ -580,7 +379,7 @@
         var memberName = button.data('membername');
         var location = button.data('location');
 
-        // Update the modal's content
+      
         var modal = $(this);
         modal.find('#modal-member-id').text(memberId ?? 'N/A');
         modal.find('#modal-member-name').text(memberName ?? 'Member');
@@ -590,6 +389,7 @@
      
 
 $(document).ready(function () {
+
     $(document).on('click', '.open-summary-modal', function (e) {
         e.preventDefault();
         
@@ -619,13 +419,106 @@ $(document).ready(function () {
         });
     });
 
-    // Optional: Clean up DOM when modal is closed
+
+    $(document).on('click', '.open-activity-modal', function (e) {
+        e.preventDefault();
+        
+        let purchaseId = $(this).data('id');
+        let advertiser_type = $(this).data('advertiser_type');
+        let url = "{{ route('agent.activity_summary', ':id') }}".replace(':id', purchaseId);
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: {
+            advertiser_type: advertiser_type
+            },
+            dataType: 'json',
+            beforeSend: function () {
+              
+                $('#profile_activity_summary').remove();
+            },
+            success: function (response) {
+                if (response.status === 'success') {
+                    // Append new modal HTML to body
+                    $('body').append(response.html);
+                    $('#profile_activity_summury').modal('show');
+                }
+            },
+            error: function (xhr) {
+                console.error('Failed to load profile summary modal:', xhr);
+            }
+        });
+    });
+
+   
     $(document).on('hidden.bs.modal', '#profile_summary', function () {
         $(this).remove();
     });
+
+
+
+    $('#print_report').on('click', async function () {
+
+        let fromDate = $('#fromDate').val();
+        let toDate = $('#toDate').val();
+
+        if (!fromDate) {
+            $('#fromDate').focus();
+            swal_error_warning('Profile Report','Please select From date.');
+            return;
+        }
+
+        if (!toDate) {
+            $('#toDate').focus();
+            swal_error_warning('Profile Report','Please select To date.');
+            return;
+        }
+
+        if (fromDate > toDate) {
+            swal_error_warning('Profile Report','From date cannot be greater than To date.');
+            $('#fromDate').focus();
+            return;
+        }
+
+        let url = $('#advertiserFilter').val();
+        let advertiserType = url.split('/').pop();
+
+        let requestUrl = "{{ route('agent.generate_profile_pdf', ['id' => '__TYPE__']) }}"
+            .replace('__TYPE__', advertiserType) + `?from_date=${fromDate}&to_date=${toDate}`;
+
+        try {
+            let response = await fetch(requestUrl, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json, application/pdf'
+                }
+            });
+
+            let contentType = response.headers.get('content-type') || '';
+            if (response.ok && contentType.includes('application/pdf')) {
+                let blob = await response.blob();
+                let pdfUrl = URL.createObjectURL(blob);
+                window.open(pdfUrl, '_blank');
+                return;
+            }
+
+            let data = await response.json();
+            if (data.errors) {
+                let firstKey = Object.keys(data.errors)[0];
+                swal_error_warning(data.errors[firstKey][0]);
+            } else {
+                swal_error_warning('Profile Report', data.message || 'Unable to generate report.');
+            }
+
+        } catch (error) {
+            console.error('Report Generation Error:', error);
+            swal_error_warning('Profile Report', 'Something went wrong. Please try again.');
+        }
+    });                          
+
+
 });
-
-
-
-    </script>
+</script>
 @endpush

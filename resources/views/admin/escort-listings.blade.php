@@ -348,5 +348,62 @@
         }
 
     }, 1000);
+
+
+    $(document).ready(function() {
+        function checkAndApplyResponsive() {
+            if ($(window).width() < 1500) {
+                if (!$('.massage_table_class').hasClass('table-responsive')) {
+                    $('.massage_table_class').addClass('table-responsive');
+                }
+            } else {
+                $('.massage_table_class').removeClass('table-responsive');
+            }
+        }
+
+        // Initial check
+        checkAndApplyResponsive();
+
+        // Recheck on window resize
+        $(window).resize(function() {
+            checkAndApplyResponsive();
+        });
+    });
+
+    var purchaseId = 0;
+    $("#SetPinModal").on('show.bs.modal', function(event) {
+        let button = $(event.relatedTarget);
+        let modalObject = $(this);
+        purchaseId = button.data('purchase-id');
+
+        modalObject.find('input[name="action"]').val('suspendListedProfile');
+    });
+
+    var suspendListedProfile = function() {
+        let pinModalElement = $('#SetPinModal');
+        $.ajax({
+            url: `{{ route('admin.suspend_listed_profile', '_PURCHASE_') }}`.replace('_PURCHASE_',
+                purchaseId),
+            method: 'GET',
+            dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            beforeSend: function() {
+                showLoadingPopup('Processing Payment', 'Do not refresh or close this page.');
+            },
+            success: function(response, textStatus, xhr) {
+                pinModalElement.find('#pinDisplaySet').text('');
+                pinModalElement.modal('hide');
+                Swal.close();
+                displaySwal(xhr);
+
+            },
+            error: function(xhr) {
+                Swal.close();
+                displaySwal(xhr);
+            }
+        });
+    }
 </script>
 @endpush
