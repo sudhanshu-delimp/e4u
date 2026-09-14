@@ -123,6 +123,10 @@
 
                                         <span class="text-danger error-text visa_enquiry_type_error"></span>
                                     </div>
+                                    
+                                </div>
+                                 <div class="inner-field-row">
+                                    
                                     {{-- Passport Country --}}
                                     <div class="form-group">
                                         <label for="passport_country">
@@ -139,10 +143,6 @@
                                         <span class="text-danger error-text passport_country_error"></span>
 
                                     </div>
-
-                                   
-
-
                                     <div class="form-group ">
                                         <label>Your contact preference</label>
                                         <div class="option-list mt-2">
@@ -185,7 +185,7 @@
 
                                         <span class="text-danger error-text advice_area_error"></span>
                                     </div>
-                                </div>
+                                 </div>
                                 <div class="inner-field-row">
                                      {{-- Comments --}}
                                     <div class="form-group">
