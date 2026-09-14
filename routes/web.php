@@ -244,14 +244,12 @@ Route::middleware('auth')->group(function () {
             return view('user.dashboard.notebox.list');
         })->name('user.list');
 
-        Route::get('/notebox/edit', function () {
-            return view('user.dashboard.notebox.edit-notebox');
-        })->name('user.edit-notebox');
-
 
         Route::get('/notebox/new', [NoteBoxController::class, 'index'])->name('user.new');
-        Route::get('/notebox/my-reports', [NoteBoxController::class, 'myReports'])->name('user.my-notebox-reports');
-        Route::post('add-report', [NoteBoxController::class, 'storeReport'])->name('notebox.store');
+        Route::get('/notebox/edit/{id}', [NoteBoxController::class, 'editNotebox'])->name('user.edit-notebox');
+        Route::get('/notebox/my-reports', [NoteBoxController::class, 'myNotesBox'])->name('user.my-notebox-reports');
+        Route::post('add-notesbox', [NoteBoxController::class, 'storeNotesBox'])->name('user.notebox.store');
+        Route::post('update-notesbox', [NoteBoxController::class, 'updateNotesBox'])->name('user.notebox.update');
         
 
         Route::get('/punterbox/my-report', function () {

@@ -735,29 +735,47 @@
 
       function previewAttachment(event) {
 
-    var file = $(event.target)[0].files[0];
-    var previewWrap = $('#previewWrap');
-    var previewImg = $('#previewImg');
-    var uploadState = $('#uploadState');
+         var file = $(event.target)[0].files[0];
+         var previewWrap = $('#previewWrap');
+         var previewImg = $('#previewImg');
+         var uploadState = $('#uploadState');
 
-    if (!file) {
-        previewImg.attr('src', '');
-        previewWrap.addClass('hide-img');
-        uploadState.removeClass('hide-img');
-        return;
-    }
+         if (!file) {
+            previewImg.attr('src', '');
+            previewWrap.addClass('hide-img');
+            uploadState.removeClass('hide-img');
+            return;
+         }
 
-    var reader = new FileReader();
+         // 4MB validation
+         var maxSize = 4 * 1024 * 1024; // 4MB
 
-    reader.onload = function(e) {
-        previewImg.attr('src', e.target.result);
+         if (file.size > maxSize) {
+            Swal.fire({
+               icon: 'error',
+               title: 'File too large',
+               text: 'Image size must not exceed 4MB.'
+            });
 
-        previewWrap.removeClass('hide-img');
-        uploadState.addClass('hide-img');
-    };
+            $(event.target).val('');
+            previewImg.attr('src', '');
+            previewWrap.addClass('hide-img');
+            uploadState.removeClass('hide-img');
 
-    reader.readAsDataURL(file);
-}
+            return;
+         }
+
+         var reader = new FileReader();
+
+         reader.onload = function(e) {
+            previewImg.attr('src', e.target.result);
+
+            previewWrap.removeClass('hide-img');
+            uploadState.addClass('hide-img');
+         };
+
+         reader.readAsDataURL(file);
+      }
 
       $(document).ready(function() {
 
@@ -813,7 +831,7 @@
             submitBtn.prop('disabled', true).text('Submitting...');
 
             $.ajax({
-               url: "{{ route('notebox.store') }}",
+               url: "{{ route('user.notebox.store') }}",
                type: "POST",
                data: formData,
                processData: false,

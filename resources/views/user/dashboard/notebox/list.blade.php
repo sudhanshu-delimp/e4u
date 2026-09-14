@@ -8,6 +8,9 @@
       list-style: none;
       color: rgb(248, 0, 0)
    }
+   td {
+      vertical-align: middle !important;
+   }
 </style>
 @endsection
 @section('content')
@@ -304,8 +307,8 @@
         <div class="details-content p-3 bg-light border rounded">
 
             <div class="mb-3 d-flex justify-content-end">
-                <button class="btn-sm btn-cancel-modal close_report_btn" type="button">
-                    Close
+                <button class="btn-sm close_report_btn bg-transparent" type="button">
+                    <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Close" style=" border-radius: 50%; width: 50px; height: 41px;">
                 </button>
             </div>
 
@@ -316,7 +319,7 @@
 
                     <tr>
                         <th>REF:</th>
-                        <td class="border-0">${data.ref ?? 'N/A'}</td>
+                        <td class="border-0">#${data.id ?? 'N/A'}</td>
 
                         <th>Stage Name:</th>
                         <td class="border-0">${data.stage_name ?? 'N/A'}</td>
@@ -381,25 +384,20 @@
                     <tr>
                         <th>Rating:</th>
                         <td class="border-0">${data.rating ?? 'N/A'}</td>
-
-                        <th>Status:</th>
-                        <td class="border-0">${data.status ?? 'N/A'}</td>
-                    </tr>
-
-                    <tr>
                         <th>Platform:</th>
                         <td class="border-0">${data.platform ?? 'N/A'}</td>
+                    </tr>
 
+                    <tr>
                         <th>Profile Link:</th>
                         <td class="border-0">${data.profile_link ?? 'N/A'}</td>
-                    </tr>
-                   
-                    <tr>
-                        <th>Summary:</th>
+                         <th>Summary:</th>
                         <td colspan="3" class="border-0">
                             ${data.summary_of_encounter ?? 'N/A'}
                         </td>
                     </tr>
+                   
+               
 
                      ${data.profile_pic ? `
                      <tr>

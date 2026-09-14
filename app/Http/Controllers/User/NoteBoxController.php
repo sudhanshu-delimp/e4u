@@ -15,7 +15,7 @@ class NoteBoxController extends Controller
         return view('user.dashboard.notebox.new');
     }
 
-    public function storeReport(Request $request)
+    public function storeNotesBox(Request $request)
     {
         $validated = $request->validate([
             // Required fields
@@ -69,15 +69,16 @@ class NoteBoxController extends Controller
     }
 
 
-    public function myReports()
+    public function myNotesBox()
     {
         $reports = NoteBox::orderBy('id', 'desc')
             ->get()
             ->map(function ($row) {
                 if ($row->profile_pic) {
-                    $row->profile_pic = 
+                    $row->profile_pic =
                         '/escorts/uploads/notebox/' . $row->profile_pic;
                 }
+                
                 $row->actions = '
                 <div class="dropdown no-arrow text-center">
                     <a class="dropdown-toggle" href="#" role="button"
@@ -90,7 +91,7 @@ class NoteBoxController extends Controller
                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">
                        
                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 edit_report"
-                            href="">
+                             href="' . route('user.edit-notebox', [$row->id]) . '">
                             <i class="fa fa-pen"></i> Edit
                         </a>
                         <div class="dropdown-divider"></div>
@@ -120,6 +121,88 @@ class NoteBoxController extends Controller
                 ->count(),
             'this_year' => NoteBox::whereYear('created_at', now()->year)->count(),
             'all_time' => NoteBox::count(),
+        ]);
+    }
+
+    public function editNotebox($id)
+    {
+        $report = NoteBox::findOrFail($id);
+        return view('user.dashboard.notebox.edit-notebox', compact('report'));
+    }
+
+    public function updateNotesBox(Request $request)
+    {
+        $validated = $request->validate([
+            // Required fields
+            'escort_type' => 'required',
+            'stage_name' => 'required|string|max:255',
+            'mobile' => 'required',
+            'advertised_price_per_hour' => 'required',
+            'state' => 'required',
+            'location' => 'required',
+            'summary_of_encounter' => 'required|string',
+            'status_type' => 'required',
+            'rating' => 'required',
+
+            // Optional fields
+            'meeting_type' => 'nullable',
+            'extras_charged' => 'nullable',
+            'photos_authenticity' => 'nullable',
+            'ethnicity' => 'nullable',
+            'nationality' => 'nullable',
+            'estimated_age' => 'nullable',
+            'body_shape' => 'nullable',
+            'overall_looks' => 'nullable',
+            'overall_personality' => 'nullable',
+            'bd' => 'nullable',
+            'blowjob' => 'nullable',
+            'oral_on_escort' => 'nullable',
+            'anal_sex' => 'nullable',
+            'overall_performance' => 'nullable',
+            'met_profile_undertakings' => 'nullable',
+            'drug_consumption' => 'nullable',
+            'platform' => 'nullable',
+            'profile_link' => 'nullable',
+
+            // Optional image
+            'profile_pic' => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
+        ]);
+
+        $noteBox = NoteBox::findOrFail($request->notebox_id);
+
+        /*
+     * Update image only if a new image is uploaded.
+     * Otherwise, keep the existing image.
+     */
+        if ($request->hasFile('profile_pic')) {
+
+            // Delete old image if it exists
+            if (!empty($noteBox->profile_pic)) {
+                Storage::disk('escorts')->delete(
+                    'uploads/notebox/' . $noteBox->profile_pic
+                );
+            }
+
+            $file = $request->file('profile_pic');
+
+            $filename = time() . '_' . $file->getClientOriginalName();
+
+            Storage::disk('escorts')->put(
+                'uploads/notebox/' . $filename,
+                file_get_contents($file)
+            );
+
+            $validated['profile_pic'] = $filename;
+        } else {
+            // Keep existing image
+            unset($validated['profile_pic']);
+        }
+
+        $noteBox->update($validated);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Note box updated successfully.'
         ]);
     }
 }
