@@ -73,6 +73,9 @@ class EscortPinup extends Model
                     $suspendQuery->where('utc_start_date', '<=', Carbon::now('UTC'))
                         ->where('utc_end_date', '>=', Carbon::now('UTC'));
                 });
+                $escortQuery->whereHas('mainPurchase', function ($purchaseQuery) {
+                    $purchaseQuery->where('status', 'listed');
+                });
             })
             ->orderBy('utc_end_time', 'desc')
             ->first();

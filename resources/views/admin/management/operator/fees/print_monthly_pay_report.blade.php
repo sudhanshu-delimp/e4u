@@ -24,7 +24,7 @@
         $payOperatorId = $reportData['payOperatorId'];
         $payMonthlyReportDate = $reportData['payMonthlyReportDate'];
         $payMonthlyReportMonth = $reportData['payMonthlyReportMonth'];
-        $payOperatorFee = number_format($reportData['payOperatorFee'], 2, '.', '');
+        $payOperatorFee = number_format($reportData['payOperatorFee'], 2);
     @endphp
     <!-- Body -->
 
@@ -46,8 +46,8 @@
         </tr>
         <tr>
             <td style="font-weight: bold; color:  #000;">Fee Total:</td>
-            <td><span id="payAgenFee">${{ $payOperatorFee }}</span></td>
-            <td style="font-weight: bold; color:  #000;">Month:</td>
+            <td style="text-align:right;"><span id="payAgenFee">${{ $payOperatorFee }}</span></td>
+            <td style="font-weight: bold; color:  #000;">Billing Period:</td>
             <td><span id="payMonthlyReportMonth">{{ $payMonthlyReportMonth }}</span></td>
         </tr>
     </table>

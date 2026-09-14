@@ -700,7 +700,10 @@
                     } else {
                         toggleSkeleton(grid = false, list = true, pagination = true, cusPagi = false);
                     }
-
+                    
+                    $('body, html').animate({
+                        scrollTop: 0
+                    }, 400);
                 },
                 success: function(res) {
                     $('.mc_card_container').html(res.grid);

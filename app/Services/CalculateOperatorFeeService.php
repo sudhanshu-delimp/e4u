@@ -7,6 +7,7 @@ use App\Models\AgentMonthlyReport;
 use App\Models\Operator;
 use App\Models\OperatorMonthlyReport;
 use App\Models\OperatorMonthlyReportQuery;
+use App\Models\VariablAgentOperator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -27,6 +28,13 @@ class CalculateOperatorFeeService
         try {
             $report = OperatorMonthlyReport::where('id', $reportId)->first();
 
+            $variable =  VariablAgentOperator::where('fee_for', 'operator')->first();
+            $operatorCommission = 2;
+            if ($variable) {
+                $operatorCommission = (is_null($variable->amount)) ? 2 : $variable->amount;
+                $amountType = $variable->amount_type;
+            }
+
             $billingStartDate = $report->billing_period_from;
             $billingEndDate = $report->billing_period_to;
             $agentMemberId = $report->agent?->member_id ?? '';
@@ -36,7 +44,7 @@ class CalculateOperatorFeeService
             $agentIds = explode(",", $report->agent_ids);
             if (count($agentIds) > 0) {
                 foreach ($agentIds as $agentId) {
-                    $details[$agentId] = $this->calculateFee($agentId, $billingStartDate, $billingEndDate)->toArray();
+                    $details[$agentId] = $this->calculateFee($agentId, $billingStartDate, $billingEndDate, $operatorCommission)->toArray();
                 }
             }
         } catch (Exception $e) {
@@ -50,7 +58,7 @@ class CalculateOperatorFeeService
      * @param integer $reportId
      * @param return object
      */
-    public function calculateFee($agentId, $billingStartDate, $billingEndDate)
+    public function calculateFee($agentId, $billingStartDate, $billingEndDate, $operatorCommission = 2)
     {
         $result = collect();
         $agentMemberId = "";
@@ -95,9 +103,12 @@ class CalculateOperatorFeeService
                 if ($commissions->isNotEmpty()) {
 
                     $agentMemberId = $commissions[0]->agent?->member_id ?? '';
-                    $result = $commissions->groupBy('user_id')->map(function ($records) {
+                    $result = $commissions->groupBy('user_id')->map(function ($records) use( $operatorCommission) {
 
                         $first = $records->first();
+                        $total_purchase_amount = number_format($records->sum('purchase_amount'), 2, '.', '');
+                        //$total_commission_amount = number_format($records->sum('total_commission_amount'), 2, '.', '');
+                        $total_commission_amount = number_format((($total_purchase_amount * $operatorCommission) / 100), '2', '.', '');
                         return [
                             'user_id' => $first->user_id,
                             'user_type' => $first->user_type,
@@ -116,8 +127,8 @@ class CalculateOperatorFeeService
                                 ? $first->agent->name
                                 : $first->agent->business_name,
 
-                            'total_purchase_amount' => number_format($records->sum('purchase_amount'), 2, '.', ''),
-                            'total_commission_amount' => number_format($records->sum('total_commission_amount'), 2, '.', ''),
+                            'total_purchase_amount' =>$total_purchase_amount,
+                            'total_commission_amount' => $total_commission_amount,
                             'total_days' => $records->sum(function ($record) {
 
                                 if (in_array($record->items->item_type, [
@@ -153,7 +164,7 @@ class CalculateOperatorFeeService
         if ($result->isNotEmpty()) {
 
             $result = $result->groupBy('user_type');
-            $feeDetails = $this->calculateFeeDetails($commissions);
+            $feeDetails = $this->calculateFeeDetails($commissions, $operatorCommission);
             
             foreach ($result as $userType => $rows) {
                
@@ -185,9 +196,9 @@ class CalculateOperatorFeeService
         return $result;
     }
 
-    private function calculateFeeDetails($reports)
+    private function calculateFeeDetails($reports, $operatorCommission = 2)
     {
-        $result = $reports->groupBy('user_id')->map(function ($rows) {
+        $result = $reports->groupBy('user_id')->map(function ($rows) use($operatorCommission) {
 
             $summary = [
                 'P' => ['days' => 0, 'purchase' => 0, 'commission' => 0],
@@ -208,7 +219,8 @@ class CalculateOperatorFeeService
                 }
 
                 $purchase   = (float)$row->purchase_amount;
-                $commission = (float)$row->total_commission_amount;
+                //$commission = (float)$row->total_commission_amount;
+                $commission = number_format((($purchase * $operatorCommission) / 100), '2', '.', '');
 
 
 

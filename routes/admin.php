@@ -975,3 +975,8 @@ Route::post('management/operator/print-monthly-report', [OperatorMonthlyReportCo
 Route::post('management/operator/query', [OperatorMonthlyReportController::class, 'viewQuery'])->name('admin.operator.view.query');
 Route::post('management/operator/pay-detail', [OperatorMonthlyReportController::class, 'viewPayOperatorRreport'])->name('admin.operator.view.pay-detail');
 Route::post('management/operator/print-pay-detail', [OperatorMonthlyReportController::class, 'printPayOperatorReport'])->name('admin.operator.print.pay-detail');
+
+Route::post('/management/update-password', [StaffController::class, 'updatePassword'])->name('admin.update.password');
+
+
+

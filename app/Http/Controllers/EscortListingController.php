@@ -378,6 +378,7 @@ class EscortListingController extends Controller
             ->with([
                 'currentActivePinup',
                 'activeBumpup',
+                'availability',
                 'mainPurchase',
                 'latestActiveBrb:id,profile_id,selected_time',
                 'gallary' => function ($q) {
