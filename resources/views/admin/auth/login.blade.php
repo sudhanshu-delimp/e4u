@@ -313,8 +313,7 @@
    function getCurrentState(location) {
 
       return $.ajax({
-            url: '{{ route('
-            user.current.state ') }}',
+            url: `{{ route('user.current.state') }}`,
             method: 'POST',
             data: {
                _token: '{{ csrf_token() }}',
