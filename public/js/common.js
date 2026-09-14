@@ -307,6 +307,7 @@ function showAlert(title, message, type, confirm = false) {
   return Swal.fire(options);
 
 }
+
 var showLoadingPopup = function (title = 'Processing', text = 'Please wait...') {
   Swal.fire({
     title,
