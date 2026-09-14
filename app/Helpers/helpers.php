@@ -1595,7 +1595,7 @@ if (!function_exists('get_messure_weakly_avail')) {
 
             else {
 
-                Log::info($availability);
+                // Log::info($availability);
 
                 $avail  = "";
                 foreach ($availability as $day => $data) {

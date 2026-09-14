@@ -128,7 +128,7 @@ class AnalyticsController extends Controller
                                                         </a>
                                                         <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
 
-                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#activity_summary">
+                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 open-activity-modal" data-advertiser_type="'.$advertiserType.'" href="#"   data-id="'. $row->id.'" >
                                                                 <i class="fa fa-file-alt"></i> Activity Summary</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#current_location" data-membername="'.$row->advertiser->profile_name.'" data-memberid="'.$row->advertiser->user->member_id.'" data-location="'. $current_state.'"> <i class="fa fa-map-marker"></i> Current Location</a>
@@ -177,6 +177,49 @@ class AnalyticsController extends Controller
                 'html' => $html
             ]);
         }
+
+        public function getActivitySummary(Request $request, $id)
+        {
+        
+            $advertiserType = $request->advertiser_type;
+            if($advertiserType=='massage')
+            {
+
+            }  
+
+            if($advertiserType=='escort')
+            {
+
+            }  
+
+            // $listing = MassagePurchase::with('paymentItems.payment')->where('status', 'listed')
+            //                     ->where('id',$id)->first();
+
+            // $start_date = strtotime($listing['start_date']);
+            // $end_date = strtotime($listing['end_date']);      
+            // $days = round(abs($end_date - $start_date) / 86400) + 1; 
+            // $masseures = false;   
+            
+            // if($listing)
+            // {
+            //     $masseures  = MassageTimeAvailability::with('masseur')
+            //     ->where('purchase_id',$listing['id'])
+            //     ->whereNotNUll('masseur_id')
+            //     ->get();
+                
+            //     Log::info($masseures);
+            
+            // }        
+
+
+            $html = view('agent.dashboard.Annalytics.profile_activity_summury')->render();
+
+            return response()->json([
+                'status' => 'success',
+                'html' => $html
+            ]);
+        }
+
 
 
         public function getProfilePdf(Request $request, $advertiserType)

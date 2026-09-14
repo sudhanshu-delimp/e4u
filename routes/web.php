@@ -906,6 +906,7 @@ Route::post('/remove-short-list', [MassageCentre::class, 'removeShortList'])->na
 Route::post('/review-massage/{id}', [MassageCentre::class, 'SaveReviewMassage'])->name('web.review-massage');
 Route::post('/clear-short-list', [MassageCentre::class, 'clearShortList'])->name('web.clear-short-list');
 Route::get('get-user-location', [MassageCentre::class, 'get_user_location'])->name('web.user_location');
+Route::post('make-massage-centres-log', [MassageCentre::class, 'make_massage_centres_log'])->name('web.make-massage-centres-log');
 
 
 

@@ -269,211 +269,7 @@
     </div>
 </div>
 
-    {{-- end --}}
 
-
-    {{-- activity_summary --}}
-
-    <div class="modal fade upload-modal bd-example-modal-lg" id="activity_summary" tabindex="-1" role="dialog"
-        aria-labelledby="activity_summaryLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="activity_summary"><img
-                            src="{{ asset('assets/dashboard/img/profile-summary.png') }}" class="custompopicon">Activity
-                        Summary - E60165 </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table border="1" cellpadding="10" cellspacing="0" width="100%"
-                        style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
-
-
-                        <!-- Table Headings -->
-                        <tr style="background-color: #0c223d; color: white; font-weight: bold; text-align:center">
-                            <td style="text-align:center;">Period</td>
-                            <td style="text-align:center;">Profile Views</td>
-                            <td style="text-align:center;">Media Views</td>
-                            <td style="text-align:center;">Playbox Views</td>
-                            <td style="text-align:center;">Legbox</td>
-                        </tr>
-
-                        <!-- Row 1 -->
-                        <tr>
-                            <td style="font-weight: bold; background:#0c223d; color:#fff;">This Week:
-                            </td>
-                            <td style="text-align:center;">15</td>
-                            <td style="text-align:center;">12</td>
-                            <td style="text-align:center;">10</td>
-                            <td style="text-align:center;">2</td>
-                        </tr>
-
-                        <!-- Row 2 -->
-                        <tr>
-                            <td style="font-weight: bold; background:#0c223d; color:#fff;">Year to Date:
-                            </td>
-                            <td style="text-align:center;">259</td>
-                            <td style="text-align:center;">198</td>
-                            <td style="text-align:center;">201</td>
-                            <td style="text-align:center;">42</td>
-                        </tr>
-                        <!-- Table Headings -->
-                        <tr style="background-color: #0c223d; color: white; font-weight: bold; text-align:center">
-                            <td style="border-bottom:0px"></td>
-                            <td style="text-align:center;">Recommendations</td>
-                            <td style="text-align:center;">Reviews</td>
-                            <td style="text-align:center;">Reports</td>
-                            <td style="text-align:center;">Social Media</td>
-                        </tr>
-                        <!-- Row 1 -->
-                        <tr>
-                            <td style="font-weight: bold;  background:#0c223d; color:#fff;">This Week:
-                            </td>
-                            <td style="text-align:center;">6</td>
-                            <td style="text-align:center;">1</td>
-                            <td style="text-align:center;">1</td>
-                            <td style="text-align:center;">4</td>
-                        </tr>
-
-                        <!-- Row 2 -->
-                        <tr>
-                            <td style="font-weight: bold;  background:#0c223d; color:#fff;">Year to Date:
-                            </td>
-                            <td style="text-align:center;">84</td>
-                            <td style="text-align:center;">6</td>
-                            <td style="text-align:center;">12</td>
-                            <td style="text-align:center;">125</td>
-                        </tr>
-                        <!-- Footer Row -->
-                    </table>
-                    <div class="modal-footer justify-content-end mt-3">
-                       
-                        <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
-                        <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
-                            id="close_change">Ok</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- end --}}
-
-
-
-    {{-- profile_summary --}}
-    <div class="modal fade upload-modal bd-example-modal-lg" id="profile_summary" tabindex="-1" role="dialog"
-        aria-labelledby="profile_summaryLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="profile_summary"><img
-                            src="{{ asset('assets/dashboard/img/profile-summary.png') }}" class="custompopicon">Profile
-                        Summary - E60165</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="table-responsive profile_summary">
-                        <table cellpadding="8" cellspacing="0" width="100%"
-                            style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
-
-                            <thead>
-                                <!-- Table Headings -->
-                                <tr style="background-color: #0c223d; color: white; font-weight: bold; text-align:center">
-                                    <td style="text-align:center;">Masseur ID</td>
-                                    <td style="text-align:center;">Start Date</td>
-                                    <td style="text-align:center;">Finish Date</td>
-                                    <td style="text-align:center;">Days</td>
-                                    <td style="text-align:center; width:110px">Listing Fee</td>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <!-- Main Row -->
-                                <tr>
-                                    <td style="text-align:center; font-weight:bold;"></td>
-                                    <td style="text-align:center;">01-01-2025</td>
-                                    <td style="text-align:center;">15-04-2025</td>
-                                    <td style="text-align:center;">104</td>
-                                    <td style="text-align:right;"><div class="num_value">$<span>3,120.00 </span></div></td>
-                                </tr>
-
-                                <!-- Sub Rows -->
-                                <tr style="background:#f9f9f9;">
-                                    <td style="text-align:center;">001</td>
-                                    <td style="text-align:center;">01-01-2025</td>
-                                    <td style="text-align:center;">28-01-2025</td>
-                                    <td style="text-align:center;">15</td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td style="text-align:center;">002</td>
-                                    <td style="text-align:center;">29-01-2025</td>
-                                    <td style="text-align:center;">23-02-2025</td>
-                                    <td style="text-align:center;">26</td>
-                                    <td></td>
-                                </tr>
-
-                                <tr style="background:#f9f9f9;">
-                                    <td style="text-align:center;">003</td>
-                                    <td style="text-align:center;">29-01-2025</td>
-                                    <td style="text-align:center;">23-02-2025</td>
-                                    <td style="text-align:center;">26</td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td style="text-align:center;">004</td>
-                                    <td style="text-align:center;">24-02-2025</td>
-                                    <td style="text-align:center;">05-03-2025</td>
-                                    <td style="text-align:center;">10</td>
-                                    <td></td>
-                                </tr>
-
-                                <tr style="background:#f9f9f9;">
-                                    <td style="text-align:center;">005</td>
-                                    <td style="text-align:center;">06-03-2025</td>
-                                    <td style="text-align:center;">31-03-2025</td>
-                                    <td style="text-align:center;">26</td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td style="text-align:center;">006</td>
-                                    <td style="text-align:center;">01-04-2025</td>
-                                    <td style="text-align:center;">15-04-2025</td>
-                                    <td style="text-align:center;">15</td>
-                                    <td></td>
-                                </tr>
-
-                                <!-- Footer -->
-                                <tr style="font-weight:bold;">
-                                    <td colspan="3" style="text-align:right;">Total days Masseurs:</td>
-                                    <td style="text-align:center;">104</td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="modal-footer justify-content-end mt-3">
-                        
-                        <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
-                        <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
-                            id="close_change">Ok</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{-- end --}}
 @endsection
 @push('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
@@ -615,6 +411,38 @@ $(document).ready(function () {
 
                     // Trigger/Open Bootstrap Modal
                     $('#profile_summary').modal('show');
+                }
+            },
+            error: function (xhr) {
+                console.error('Failed to load profile summary modal:', xhr);
+            }
+        });
+    });
+
+
+    $(document).on('click', '.open-activity-modal', function (e) {
+        e.preventDefault();
+        
+        let purchaseId = $(this).data('id');
+        let advertiser_type = $(this).data('advertiser_type');
+        let url = "{{ route('agent.activity_summary', ':id') }}".replace(':id', purchaseId);
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: {
+            advertiser_type: advertiser_type
+            },
+            dataType: 'json',
+            beforeSend: function () {
+              
+                $('#profile_activity_summary').remove();
+            },
+            success: function (response) {
+                if (response.status === 'success') {
+                    // Append new modal HTML to body
+                    $('body').append(response.html);
+                    $('#profile_activity_summury').modal('show');
                 }
             },
             error: function (xhr) {
