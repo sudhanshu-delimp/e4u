@@ -15,9 +15,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\DataTables;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\LogService;
 
 class AnalyticsController extends Controller
 {
+
+        public $logService;
+
+        public function __construct( LogService $logService)
+        {
+            $this->logService = $logService;
+
+        }
 
         public function analytic_profiles_list_ajax($advertiserType)
         {
@@ -182,37 +191,19 @@ class AnalyticsController extends Controller
         {
         
             $advertiserType = $request->advertiser_type;
+            
             if($advertiserType=='massage')
             {
-
+               $views = $this->logService->getMassageProfileViews();
             }  
 
             if($advertiserType=='escort')
             {
-
+                $views = $this->logService->getMassageProfileViews();
             }  
 
-            // $listing = MassagePurchase::with('paymentItems.payment')->where('status', 'listed')
-            //                     ->where('id',$id)->first();
-
-            // $start_date = strtotime($listing['start_date']);
-            // $end_date = strtotime($listing['end_date']);      
-            // $days = round(abs($end_date - $start_date) / 86400) + 1; 
-            // $masseures = false;   
-            
-            // if($listing)
-            // {
-            //     $masseures  = MassageTimeAvailability::with('masseur')
-            //     ->where('purchase_id',$listing['id'])
-            //     ->whereNotNUll('masseur_id')
-            //     ->get();
-                
-            //     Log::info($masseures);
-            
-            // }        
-
-
-            $html = view('agent.dashboard.Annalytics.profile_activity_summury')->render();
+        
+            $html = view('agent.dashboard.Annalytics.profile_activity_summury',compact('views'))->render();
 
             return response()->json([
                 'status' => 'success',

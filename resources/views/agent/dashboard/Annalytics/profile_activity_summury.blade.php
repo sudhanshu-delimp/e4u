@@ -29,8 +29,8 @@
                         <tr>
                             <td style="font-weight: bold; background:#0c223d; color:#fff;">This Week:
                             </td>
-                            <td style="text-align:center;">15</td>
-                            <td style="text-align:center;">12</td>
+                            <td style="text-align:center;">{{ $views['this_week']['profile_views'] ?? 0 }}</td>
+                            <td style="text-align:center;">{{ $views['this_week']['media_views'] ?? 0 }}</td>
                             <td style="text-align:center;">10</td>
                             <td style="text-align:center;">2</td>
                         </tr>
@@ -39,8 +39,8 @@
                         <tr>
                             <td style="font-weight: bold; background:#0c223d; color:#fff;">Year to Date:
                             </td>
-                            <td style="text-align:center;">259</td>
-                            <td style="text-align:center;">198</td>
+                            <td style="text-align:center;">{{ $views['year_to_date']['profile_views'] ?? 0 }}</td>
+                            <td style="text-align:center;">{{ $views['year_to_date']['media_views'] ?? 0 }}</td>
                             <td style="text-align:center;">201</td>
                             <td style="text-align:center;">42</td>
                         </tr>

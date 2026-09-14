@@ -89,13 +89,51 @@ class LogService
     }
 
 
+    public function getMassageProfileViews()
+    {
+        
+        $baseQuery = Visitor::whereNotNull('massage_profile_id')
+            ->where('page', 'massage-detail-page');
+
+        $thisWeekQuery = (clone $baseQuery)
+            ->whereBetween('created_at', [
+                Carbon::now()->startOfWeek(),
+                Carbon::now()->endOfWeek(),
+            ]);
+
+        $ytdQuery = (clone $baseQuery)
+            ->whereBetween('created_at', [
+                Carbon::now()->startOfYear(),
+                Carbon::now()->endOfDay(),
+            ]);
+
+        return [
+            'this_week' => [
+                'profile_views' => (clone $thisWeekQuery)
+                    ->where('is_massage_profile_media_visit', '0')
+                    ->count(),
+
+                'media_views' => (clone $thisWeekQuery)
+                    ->where('is_massage_profile_media_visit', '1')
+                    ->count(),
+            ],
+
+            'year_to_date' => [
+                'profile_views' => (clone $ytdQuery)
+                    ->where('is_massage_profile_media_visit', '0')
+                    ->count(),
+
+                'media_views' => (clone $ytdQuery)
+                    ->where('is_massage_profile_media_visit', '1')
+                    ->count(),
+            ],
+        ];
+    
+    }
+
 
     public  function make_massage_profile_visit_log($request)
     {
-
-        Log::info('make_massage_profile_visit_log');
-        Log::info($request);
-
          try 
          {
             $data = $this->getVisitorCountry();
