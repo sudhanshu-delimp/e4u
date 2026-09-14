@@ -96,7 +96,7 @@
                      <div class="col-md-3 mb-3">
                         <label class="form-label fw-semibold" for="state">State <span style="color:#FF3C5F;">*</span></label>
                         <select class="form-control" required="required" name="state" id="state">
-                           <option value="" selected="">Choose</option>
+                           <option value=""  selected="">Choose</option>
                            @foreach ($states as $key => $state)
                               <option value="{{ $key }}" {{$profile_data && $profile_data->state_id == $key ? 'selected' : ''}}>{{ $state['stateName'] }}</option>
                            @endforeach

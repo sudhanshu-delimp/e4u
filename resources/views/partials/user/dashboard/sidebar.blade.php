@@ -188,7 +188,8 @@
         <div id="Management" class="collapse  @if (in_array(request()->segment(2), ['advertiser-list', 'calculate-reckoner','edit-my-reports']) ||
                 in_array(request()->segment(3), [
                     'escort',
-                    'massage','list','new','my-report','dashboard','add-report'                ])) show @endif"
+                    'massage','list','new','my-report','dashboard','add-report']) ||
+        request()->is('user-dashboard/notebox/edit/*')) show @endif"
             data-parent="#accordionSidebar">
             <div class="collapse-inner">
 
@@ -234,14 +235,15 @@
                     <span>Notebox</span>
                 </a>
                 <div id="Fees" class="collapse @if (request()->segment(3) == 'list' ||
-                        request()->segment(3) == 'new') show @endif;"
+                        request()->segment(3) == 'new' ||
+                        request()->is('user-dashboard/notebox/edit/*')) show @endif;"
                     data-parent="#Management">
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
                         <a class="collapse-item" href="{{ route('user.list') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/notebox.png') }}">
-                            <span style="{{ request()->segment(3) == 'list' ? 'color: #e5365a;' : '' }}">My Noteboxes</span>
+                            <span style="{{ request()->segment(3) == 'list' ||  request()->is('user-dashboard/notebox/edit/*') ? 'color: #e5365a;' : '' }}">My Noteboxes</span>
                         </a>
 
                         <a class="collapse-item" href="{{ route('user.notebox.new') }}">
