@@ -32,7 +32,7 @@
                             <h2>Lodge your enquiry with us here</h2>
                             <p>If you have industry experience or you are well connected to Advertisers,
                                 then
-                                becoming an Escorts4U Agent may be for you. Earn additional income as an Agent. We will
+                                becoming an Escorts4U Agent may be for you. <br><br> Earn additional income as an Agent. We will
                                 assist you in every regard to earn.
                                 Register and we will be in touch to go over what being an Agent can do for you.
                                 See also <span><a href="{{ url('help-for-agents') }}" class="termsandconditions_text_color"

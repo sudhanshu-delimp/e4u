@@ -473,11 +473,11 @@ class PaymentController extends Controller
                 }
 
                 if (!in_array($action, ['extend'])) {
-                    $escortDetail->start_date = $item['start_date'];
-                    $escortDetail->end_date = $item['end_date'];
-                    $escortDetail->utc_start_time = $utcSartTime;
-                    $escortDetail->utc_end_time = $utcEndTime;
-                    $escortDetail->membership = $item['membership'];
+                    $escortDetail->start_date = empty($escortDetail->start_date) ? $item['start_date'] : $escortDetail->start_date;
+                    $escortDetail->end_date = empty($escortDetail->end_date) ? $item['end_date'] : $escortDetail->end_date;
+                    $escortDetail->utc_start_time = empty($escortDetail->utc_start_time) ? $utcSartTime : $escortDetail->utc_start_time;
+                    $escortDetail->utc_end_time = empty($escortDetail->utc_end_time) ? $utcEndTime : $escortDetail->utc_end_time;
+                    $escortDetail->membership = empty($escortDetail->membership) ? $item['membership'] : $escortDetail->membership;
                     $escortDetail->save();
                 }
 

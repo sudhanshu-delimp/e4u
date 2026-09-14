@@ -396,7 +396,7 @@
     </div>
 
 
-
+@includeif('admin.modal.change-password')
 
 
 @endsection
@@ -730,5 +730,6 @@
                 $("#position").prop("disabled", true);
             });
         });
+
     </script>
 @endpush

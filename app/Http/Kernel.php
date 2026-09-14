@@ -23,6 +23,9 @@ class Kernel extends HttpKernel
     \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
     \App\Http\Middleware\LastOnlineAt::class,
 
+    //this below middleware use for SEO
+    //\App\Http\Middleware\ShareSeoData::class,
+
 
     //\ipinfo\ipinfolaravel\ipinfolaravel::class
   ];
@@ -95,5 +98,6 @@ class Kernel extends HttpKernel
         'staff' => \App\Http\Middleware\StaffAuth::class,
         'shareholder' => \App\Http\Middleware\ShareholderAuth::class,
         'view.only' => \App\Http\Middleware\ViewOnlyMiddleware::class,
+        'seo' => \App\Http\Middleware\ShareSeoData::class,
     ];
 }

@@ -481,11 +481,11 @@
                             <span>Travel</span>
                         </a>
 
-                        <a class="collapse-item {{ request()->segment(2) == 'visa' ? 'menu-active' : '' }}"
+                       {{--  <a class="collapse-item {{ request()->segment(2) == 'visa' ? 'menu-active' : '' }}"
                             href="{{ route('center.visa') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/visa.png') }}">
                             <span>Visa &amp; Migration</span>
-                        </a>
+                        </a> --}}
 
                     </div>
                 </div>

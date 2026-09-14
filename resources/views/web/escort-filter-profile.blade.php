@@ -718,6 +718,10 @@
                         $('#appendListView').hide();
                         $('.no--listing').hide();
                     }
+                    
+                    $('body, html').animate({
+                        scrollTop: 0
+                    }, 400);
                 },
                 success: function(response) {
 

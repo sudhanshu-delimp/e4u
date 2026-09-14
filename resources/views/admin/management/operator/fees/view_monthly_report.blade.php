@@ -65,12 +65,12 @@
                             <td>{{ $esortReport['details']['P']['days'] ?? 0 }}</td>
                             <td class="text-left">
                                 <div class="num_value">
-                                    $<span>{{ number_format($esortReport['details']['P']['purchase'], 2, '.', '') ?? 0.0 }}</span>
+                                    $<span>{{ number_format($esortReport['details']['P']['purchase'], 2) ?? 0.0 }}</span>
                                 </div>
                             </td>
                             <td class="text-left">
                                 <div class="num_value">
-                                    $<span>{{ number_format($esortReport['details']['P']['commission'], 2, '.', '') ?? 0 }}</span>
+                                    $<span>{{ number_format($esortReport['details']['P']['commission'], 2) ?? 0 }}</span>
                                 </div>
                             </td>
                         </tr>
@@ -82,12 +82,12 @@
                             <td>{{ $esortReport['details']['G']['days'] ?? 0 }}</td>
                             <td class="text-left">
                                 <div class="num_value">
-                                    $<span>{{ number_format($esortReport['details']['G']['purchase'], 2, '.', '') ?? 0 }}</span>
+                                    $<span>{{ number_format($esortReport['details']['G']['purchase'], 2) ?? 0 }}</span>
                                 </div>
                             </td>
                             <td class="text-left">
                                 <div class="num_value">
-                                    $<span>{{ number_format($esortReport['details']['G']['commission'], 2, '.', '') ?? 0 }}</span>
+                                    $<span>{{ number_format($esortReport['details']['G']['commission'], 2) ?? 0 }}</span>
                                 </div>
                             </td>
                         </tr>
@@ -99,12 +99,12 @@
                             <td>{{ $esortReport['details']['S']['days'] ?? 0 }}</td>
                             <td class="text-left">
                                 <div class="num_value">
-                                    $<span>{{ number_format($esortReport['details']['S']['purchase'], 2, '.', '') ?? 0 }}</span>
+                                    $<span>{{ number_format($esortReport['details']['S']['purchase'], 2) ?? 0 }}</span>
                                 </div>
                             </td>
                             <td class="text-left">
                                 <div class="num_value">
-                                    $<span>{{ number_format($esortReport['details']['S']['commission'], 2, '.', '') ?? 0 }}</span>
+                                    $<span>{{ number_format($esortReport['details']['S']['commission'], 2) ?? 0 }}</span>
                                 </div>
                             </td>
                         </tr>
@@ -116,12 +116,12 @@
                             <td>{{ $esortReport['details']['PU']['days'] ?? 0 }}</td>
                             <td class="text-left">
                                 <div class="num_value">
-                                    $<span>{{ number_format($esortReport['details']['PU']['purchase'], 2, '.', '') ?? 0 }}</span>
+                                    $<span>{{ number_format($esortReport['details']['PU']['purchase'], 2) ?? 0 }}</span>
                                 </div>
                             </td>
                             <td class="text-left">
                                 <div class="num_value">
-                                    $<span>{{ number_format($esortReport['details']['PU']['commission'], 2, '.', '') ?? 0 }}</span>
+                                    $<span>{{ number_format($esortReport['details']['PU']['commission'], 2) ?? 0 }}</span>
                                 </div>
                             </td>
                         </tr>
@@ -134,12 +134,12 @@
                             <td>{{ $esortReport['details']['EBU']['days'] ?? 0 }}</td>
                             <td class="text-left">
                                 <div class="num_value">
-                                    $<span>{{ number_format($esortReport['details']['EBU']['purchase'], 2, '.', '') ?? 0 }}</span>
+                                    $<span>{{ number_format($esortReport['details']['EBU']['purchase'], 2) ?? 0 }}</span>
                                 </div>
                             </td>
                             <td class="text-left">
                                 <div class="num_value">
-                                    $<span>{{ number_format($esortReport['details']['EBU']['commission'], 2, '.', '') ?? 0 }}</span>
+                                    $<span>{{ number_format($esortReport['details']['EBU']['commission'], 2) ?? 0 }}</span>
                                 </div>
                             </td>
                         </tr>
@@ -152,13 +152,13 @@
                             <td
                                 style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
                                 <div class="num_value">
-                                    $<span>{{ number_format($esortReport['total_purchase_amount'], 2, '.', '') }}</span>
+                                    $<span>{{ number_format($esortReport['total_purchase_amount'], 2) }}</span>
                                 </div>
                             </td>
                             <td
                                 style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
                                 <div class="num_value">
-                                    $<span>{{ number_format($esortReport['total_commission_amount'], 2, '.', '') }}</span>
+                                    $<span>{{ number_format($esortReport['total_commission_amount'], 2) }}</span>
                                 </div>
                             </td>
                         </tr>
@@ -180,12 +180,12 @@
                         </td>
                         <td
                             style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
-                            <div class="num_value">$<span>{{ number_format($totalEscortSpent, 2, '.', '') }}</span>
+                            <div class="num_value">$<span>{{ number_format($totalEscortSpent, 2) }}</span>
                             </div>
                         </td>
                         <td
                             style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
-                            <div class="num_value">$<span>{{ number_format($totalEscortAgenFee, 2, '.', '') }}</span>
+                            <div class="num_value">$<span>{{ number_format($totalEscortAgenFee, 2) }}</span>
                             </div>
                         </td>
                     </tr>
@@ -216,12 +216,12 @@
                             <td>{{ $massgeReport['total_days'] }}</td>
                             <td class="text-left">
                                 <div class="num_value">
-                                    $<span>{{ number_format($massgeReport['total_purchase_amount'], 2, '.', '') }}
+                                    $<span>{{ number_format($massgeReport['total_purchase_amount'], 2) }}
                                     </span></div>
                             </td>
                             <td class="text-left">
                                 <div class="num_value">
-                                    $<span>{{ number_format($massgeReport['total_commission_amount'], 2, '.', '') }}</span>
+                                    $<span>{{ number_format($massgeReport['total_commission_amount'], 2) }}</span>
                                 </div>
                             </td>
                         </tr>
@@ -241,12 +241,12 @@
                         </td>
                         <td
                             style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
-                            <div class="num_value">$<span>{{ number_format($totalMassageSpent, 2, '.', '') }}</span>
+                            <div class="num_value">$<span>{{ number_format($totalMassageSpent, 2) }}</span>
                             </div>
                         </td>
                         <td
                             style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
-                            <div class="num_value">$<span>{{ number_format($totalMassageAgenFee, 2, '.', '') }}</span>
+                            <div class="num_value">$<span>{{ number_format($totalMassageAgenFee, 2) }}</span>
                             </div>
                         </td>
                     </tr>
@@ -258,8 +258,8 @@
         <tfoot>
             @php
                 $totalDays = $totalMassageDays + $totalEscortDays;
-                $totalSpent = number_format($totalMassageSpent + $totalEscortSpent, 2, '.', '');
-                $totalAgenFee = number_format($totalMassageAgenFee + $totalEscortAgenFee, 2, '.', '');
+                $totalSpent = $totalMassageSpent + $totalEscortSpent;
+                $totalAgenFee = $totalMassageAgenFee + $totalEscortAgenFee;
             @endphp
 
             {{-- Start Total Advertisers --}}
@@ -274,11 +274,11 @@
                     {{ $totalDays }}</td>
                 <td
                     style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
-                    <div class="num_value">$<span>{{ number_format($totalSpent, 2, '.', '') }}</span></div>
+                    <div class="num_value">$<span>{{ number_format($totalSpent, 2) }}</span></div>
                 </td>
                 <td
                     style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
-                    <div class="num_value">$<span>{{ number_format($totalAgenFee, 2, '.', '') }}</span></div>
+                    <div class="num_value">$<span>{{ number_format($totalAgenFee, 2) }}</span></div>
                 </td>
             </tr>
             {{-- Start Total Advertisers --}}

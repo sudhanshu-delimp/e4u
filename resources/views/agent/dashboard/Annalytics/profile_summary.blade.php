@@ -5,7 +5,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="profile_summary"><img
                             src="{{ asset('assets/dashboard/img/profile-summary.png') }}" class="custompopicon">Profile
-                        Summary - E60165</h5>
+                        Summary - {{  $listing->user?->member_id  }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -13,8 +13,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="table-responsive profile_summary">
-                        <table cellpadding="8" cellspacing="0" width="100%"
-                            style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
+                        <table  cellpadding="8" cellspacing="0" width="100%"
+                            style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;" class="table-striped">
 
                             <thead>
                                 <!-- Table Headings -->
@@ -31,65 +31,44 @@
                                 <!-- Main Row -->
                                 <tr>
                                     <td style="text-align:center; font-weight:bold;"></td>
-                                    <td style="text-align:center;">01-01-2025</td>
-                                    <td style="text-align:center;">15-04-2025</td>
-                                    <td style="text-align:center;">104</td>
-                                    <td style="text-align:right;"><div class="num_value">$<span>3,120.00 </span></div></td>
+                                    <td style="text-align:center;">{{  date('d-m-Y',strtotime($listing['start_date'])) }}</td>
+                                    <td style="text-align:center;">{{  date('d-m-Y',strtotime($listing['end_date'])) }}</td>
+                                    <td style="text-align:center;">{{ $days }}</td>
+                                    <td style="text-align:right;"><div class="num_value">$<span>{{  $listing['paid_rate']  }} </span></div></td>
                                 </tr>
 
-                                <!-- Sub Rows -->
-                                <tr style="background:#f9f9f9;">
-                                    <td style="text-align:center;">001</td>
-                                    <td style="text-align:center;">01-01-2025</td>
-                                    <td style="text-align:center;">28-01-2025</td>
-                                    <td style="text-align:center;">15</td>
-                                    <td></td>
-                                </tr>
 
-                                <tr>
-                                    <td style="text-align:center;">002</td>
-                                    <td style="text-align:center;">29-01-2025</td>
-                                    <td style="text-align:center;">23-02-2025</td>
-                                    <td style="text-align:center;">26</td>
-                                    <td></td>
-                                </tr>
 
-                                <tr style="background:#f9f9f9;">
-                                    <td style="text-align:center;">003</td>
-                                    <td style="text-align:center;">29-01-2025</td>
-                                    <td style="text-align:center;">23-02-2025</td>
-                                    <td style="text-align:center;">26</td>
-                                    <td></td>
-                                </tr>
+                                @if($masseures && count($masseures)>0)
 
-                                <tr>
-                                    <td style="text-align:center;">004</td>
-                                    <td style="text-align:center;">24-02-2025</td>
-                                    <td style="text-align:center;">05-03-2025</td>
-                                    <td style="text-align:center;">10</td>
-                                    <td></td>
-                                </tr>
+                                    @php
+                                        $totalAllDays = 0; 
+                                    @endphp
+                                
+                                    @foreach($masseures as $masseure)
+                                    @php
+                                    $openDays = countOpenDays($listing['start_date'], $listing['end_date'], $masseure->masseur_availibility);
+                                    $totalAllDays += $openDays; 
+                                    @endphp
+                                    <tr >
+                                        <td style="text-align:center;">{{ isset($masseure->masseur->member_id) ? $masseure->masseur->member_id  : 'NA' }}</td>
+                                        <td style="text-align:center;">{{  date('d-m-Y',strtotime($listing['start_date'])) }}</td>
+                                        <td style="text-align:center;">{{  date('d-m-Y',strtotime($listing['end_date'])) }}</td>
+                                        <td style="text-align:center;"> {{  countOpenDays($listing['start_date'], $listing['end_date'], $masseure->masseur_availibility) }}</td>
+                                        <td></td>
+                                    </tr>
+                                    @endforeach
+                                
+                                @endif
+                              
+                               
 
-                                <tr style="background:#f9f9f9;">
-                                    <td style="text-align:center;">005</td>
-                                    <td style="text-align:center;">06-03-2025</td>
-                                    <td style="text-align:center;">31-03-2025</td>
-                                    <td style="text-align:center;">26</td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td style="text-align:center;">006</td>
-                                    <td style="text-align:center;">01-04-2025</td>
-                                    <td style="text-align:center;">15-04-2025</td>
-                                    <td style="text-align:center;">15</td>
-                                    <td></td>
-                                </tr>
+                                
 
                                 <!-- Footer -->
                                 <tr style="font-weight:bold;">
                                     <td colspan="3" style="text-align:right;">Total days Masseurs:</td>
-                                    <td style="text-align:center;">104</td>
+                                    <td style="text-align:center;">{{ $totalAllDays }}</td>
                                     <td></td>
                                 </tr>
                             </tbody>
@@ -98,7 +77,7 @@
 
                     <div class="modal-footer justify-content-end mt-3">
                         
-                        <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
+                        <button type="button" class="btn-cancel-modal"  onclick="printProfileSummary()">Print</button>
                         <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
                             id="close_change">Ok</button>
                     </div>
@@ -106,3 +85,79 @@
             </div>
         </div>
     </div>
+
+
+
+<script>
+function printProfileSummary() {
+    var printContents = document.getElementById('profile_summary').querySelector('.modal-content').outerHTML;
+    var originalTitle = document.title;
+    document.title = "Profile_Summary_{{ $listing->user?->member_id }}";
+    var existingFrame = document.getElementById('printFrame');
+    if (existingFrame) {
+        existingFrame.remove();
+    }
+
+    // Create hidden iframe
+    var iframe = document.createElement('iframe');
+    iframe.id = 'printFrame';
+    iframe.style.position = 'fixed';
+    iframe.style.right = '0';
+    iframe.style.bottom = '0';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = '0';
+
+    document.body.appendChild(iframe);
+
+    var doc = iframe.contentWindow.document;
+
+    doc.write('<html><head><title>Profile_Summary_{{ $listing->user?->member_id }}</title>');
+    doc.write('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">');
+    doc.write('<style>');
+    doc.write(`
+        @page { 
+            margin: 0; 
+        }
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #fff !important; 
+            padding: 20px; 
+        }
+        img, .custompopicon, .modal-footer, .close { 
+            display: none !important; 
+        }
+        table { 
+            width: 100% !important; 
+            border-collapse: collapse !important; 
+        }
+        thead tr, .modal-header { 
+            background-color: #0c223d !important; 
+            color: #ffffff !important; 
+            -webkit-print-color-adjust: exact; 
+            print-color-adjust: exact; 
+        }
+        thead td, thead th { 
+            color: #ffffff !important; 
+            font-weight: bold; 
+        }
+        .table-striped tbody tr:nth-of-type(odd) { 
+            background-color: rgba(0,0,0,.05) !important; 
+        }
+        th, td { 
+            padding: 8px !important; 
+            border-bottom: 1px solid #dee2e6; 
+        }
+    `);
+    doc.write('</style></head><body>');
+    doc.write(printContents);
+    doc.write('</body></html>');
+    doc.close();
+
+    setTimeout(function () {
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+        document.title = originalTitle;
+    }, 500);
+}
+</script>

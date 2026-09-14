@@ -4,29 +4,34 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
 <style type="text/css">
-.parsley-errors-list {
-    list-style: none;
-    color: rgb(248, 0, 0);
-}
-#cke_1_contents {
-    height: 150px !important;
-}
-.timer_section, .customPaginationContainer {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-}
-.customPaginationContainer {
-    margin-top: 10px;
-}
-#pinUpListingTable_paginate{
-    
-            display: flex;
-            align-items: center;
-            justify-content: space-between
-}
+    .parsley-errors-list {
+        list-style: none;
+        color: rgb(248, 0, 0);
+    }
+
+    #cke_1_contents {
+        height: 150px !important;
+    }
+
+    .timer_section,
+    .customPaginationContainer {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .customPaginationContainer {
+        margin-top: 10px;
+    }
+
+    #pinUpListingTable_paginate {
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between
+    }
 </style>
 @endsection
 
@@ -36,15 +41,15 @@
         <div class="d-sm-flex align-items-center justify-content-between col-md-12">
             <div class="custom-heading-wrapper">
                 <h1 class="h1">Pin Up Listings</h1>
-                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>                     </span>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b> </span>
             </div>
-             @if (request('from') == 'dashboard')
+            @if (request('from') == 'dashboard')
             <div class="back-to-dashboard">
                 <a href="{{ url()->previous() ?? route('dashboard.home') }}">
                     <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
                 </a>
             </div>
-             @endif 
+            @endif
         </div>
         <div class="col-md-12 mb-4">
             <div class="card collapse" id="notes">
@@ -59,10 +64,18 @@
         </div>
 
         <div class="col-sm-12 col-md-12 col-lg-12">
-            <div class="my-3 col-md-12 col-sm-12 d-flex justify-content-end">
+            <div class="my-3 col-md-12 col-sm-12 d-flex justify-content-end gap-10 js_table_total_listing_container">
+                <div class="total_listing">
+                    <div><span>Total Current : </span></div>
+                    <div><span id="currentCount">0</span></div>
+                </div>
+                <div class="total_listing">
+                    <div><span>Total Upcoming : </span></div>
+                    <div><span id="upcomingCount">0</span></div>
+                </div>
                 <div class="total_listing">
                     <div><span>Total Listings : </span></div>
-                    <div><span id="total_listings">0</span></div>
+                    <div><span id="totalCount">0</span></div>
                 </div>
             </div>
 
@@ -81,21 +94,21 @@
                         </tr>
                     </thead>
                     <tbody class="table-content">
-                       
+
                     </tbody>
-                     <tr>
-                            <th colspan="10" class="border-0"></th>
-                        </tr>
+                    <tr>
+                        <th colspan="10" class="border-0"></th>
+                    </tr>
                     <tfoot class="bg-first t-foot">
                         <tr>
                             <th colspan="3">
-                                    Server time: <span id="server_time">--</span>
+                                Server time: <span id="server_time">--</span>
                             </th>
                             <th colspan="1" class="text-center">
-                                    Refresh time:<span id="refresh_time">--</span>
+                                Refresh time:<span id="refresh_time">--</span>
                             </th>
                             <th colspan="4" class="text-right">
-                                    Up time: <span id="server_up_time">--</span>
+                                Up time: <span id="server_up_time">--</span>
                             </th>
                         </tr>
                     </tfoot>
@@ -119,81 +132,102 @@
 @push('script')
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
-let table;
-let refreshInterval = 15;
-let counter = refreshInterval;
+    let table;
+    let refreshInterval = 15;
+    let counter = refreshInterval;
 
-// Update countdown display
-function updateCounter() {
-    document.getElementById('refresh_time').innerText = counter;
-}
+    // Update countdown display
+    function updateCounter() {
+        document.getElementById('refresh_time').innerText = counter;
+    }
 
-$(document).ready(function () {
-    // Initialize DataTable
-    table = $("#pinUpListingTable").DataTable({
-        language: {
-            search: "Search: _INPUT_",
-            searchPlaceholder: "Search by Member ID or Profile Name"
-        },
-        processing: true,
-        serverSide: true,
-        lengthChange: true,
-        searching: true,
-        pageLength: 10,
-       
-        ajax: {
-            url: `{{ route('admin.global_monitoring.get_pinup_listing') }}`,
-            type: 'GET',
-            dataSrc: function (json) {
-                $('#total_listings').text(json.recordsTotal || 0);
-                $('#server_up_time').text(json.server_up_time || '--');
-                $('#server_time').text(json.server_time || '--');
-                return json.data || [];
+    $(document).ready(function() {
+        // Initialize DataTable
+        table = $("#pinUpListingTable").DataTable({
+            language: {
+                search: "Search: _INPUT_",
+                searchPlaceholder: "Search by Member ID or Profile Name"
             },
-            error: function (xhr) {
-                let message = 'Something went wrong while fetching data.';
-                if (xhr.responseJSON && xhr.responseJSON.error) {
-                    message = xhr.responseJSON.error;
+            processing: true,
+            serverSide: true,
+            lengthChange: true,
+            searching: true,
+            pageLength: 10,
+
+            ajax: {
+                url: `{{ route('admin.global_monitoring.get_pinup_listing') }}`,
+                type: 'GET',
+                dataSrc: function(json) {
+                    $('#total_listings').text(json.recordsTotal || 0);
+                    $('#server_up_time').text(json.server_up_time || '--');
+                    $('#server_time').text(json.server_time || '--');
+                    let counts = json.counts;
+                    $.each(counts, function(key, value) {
+                        $(`.js_table_total_listing_container #${key}`).text(value);
+                    });
+                    return json.data || [];
+                },
+                error: function(xhr) {
+                    let message = 'Something went wrong while fetching data.';
+                    if (xhr.responseJSON && xhr.responseJSON.error) {
+                        message = xhr.responseJSON.error;
+                    }
+                    alert(message);
                 }
-                alert(message);
+            },
+            drawCallback: function(settings) {
+                const $info = $('#pinUpListingTable_info');
+                const $paginate = $('#pinUpListingTable_paginate');
+                const $timerSection = $('.timer_section');
+                const $customContainer = $('.customPaginationContainer');
+
+                if ($info.length && $paginate.length && $customContainer.length) {
+                    $customContainer.empty().append($info).append($paginate);
+                }
+
+                // keep it directly below timer
+                $customContainer.insertAfter($timerSection);
+            },
+            columns: [{
+                    data: 'member_id'
+                },
+                {
+                    data: 'profile_id'
+                },
+                {
+                    data: 'escort_name'
+                },
+                {
+                    data: 'location'
+                },
+                {
+                    data: 'start_date'
+                },
+                {
+                    data: 'end_date'
+                },
+                {
+                    data: 'status'
+                },
+                {
+                    data: 'option',
+                    name: 'option',
+                    orderable: false
+                },
+            ]
+        });
+
+        // Auto-refresh every 15 sec
+        setInterval(() => {
+            counter--;
+            updateCounter();
+            if (counter <= 0) {
+                table.ajax.reload(null, false);
+                counter = refreshInterval;
             }
-        },
-        drawCallback: function (settings) {
-            const $info = $('#pinUpListingTable_info');
-            const $paginate = $('#pinUpListingTable_paginate');
-            const $timerSection = $('.timer_section');
-            const $customContainer = $('.customPaginationContainer');
+        }, 1000);
 
-            if ($info.length && $paginate.length && $customContainer.length) {
-                $customContainer.empty().append($info).append($paginate);
-            }
-
-            // keep it directly below timer
-            $customContainer.insertAfter($timerSection);
-        },
-        columns: [
-            { data: 'member_id' },
-            { data: 'profile_id' },
-            { data: 'escort_name' },
-            { data: 'location' },
-            { data: 'start_date' },
-            { data: 'end_date' },
-            { data: 'status' },
-            { data: 'option', name: 'option', orderable: false },
-        ]
-    });
-
-    // Auto-refresh every 15 sec
-    setInterval(() => {
-        counter--;
         updateCounter();
-        if (counter <= 0) {
-            table.ajax.reload(null, false);
-            counter = refreshInterval;
-        }
-    }, 1000);
-
-    updateCounter();
-});
+    });
 </script>
 @endpush

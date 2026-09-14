@@ -6,10 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Escort;
 use App\Models\MassageProfile;
 use App\Models\MassagePurchase;
+use App\Models\MassageTimeAvailability;
+use App\Models\Masseur;
 use App\Models\Purchase;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\DataTables;
 
 class AnalyticsController extends Controller
@@ -82,16 +85,8 @@ class AnalyticsController extends Controller
                 })
 
                 ->addColumn('lsiting_fee', function ($row) use($advertiserType)  {
-                    if($advertiserType=='escort')
-                    {
-                            
-                        $fee = formatCurrency($row->paid_rate);
-                    }
-                    else
-                    {
-                        $fee = formatCurrency($row->final_amount);
-                    }
-
+                   
+                    $fee = formatCurrency($row->paid_rate);
                     $lsiting_fee = '<div class="num_value"><x-curFormat/><span>'.$fee .'</span></div>';
                     return $lsiting_fee;
 
@@ -111,15 +106,20 @@ class AnalyticsController extends Controller
 
                      if($advertiserType=='escort')
                      {
+                        $massager_masseures ="";
                         $state_id = $row->advertiser?->user?->current_state_id;
                         $current_state = !empty($state_id) ? (config("escorts.profile.states.{$state_id}.stateName") ?? null) : config("escorts.profile.states.{$row->advertiser?->user?->state_id}.stateName");
                      }
                      else
                      {
                         $current_state = config("escorts.profile.states.{$row->advertiser?->user?->state_id}.stateName");
+                         $massager_masseures = ' <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 open-summary-modal" href="#" data-id="'. $row->id.'" > <i class="fa fa-file-alt"></i>
+                                                                Profile Summary</a>';
                      }
                                 
-                    
+
+                       
                         $actionBtn = '
                                 <div class="dropdown no-arrow">
                                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -131,11 +131,7 @@ class AnalyticsController extends Controller
                                                                 <i class="fa fa-file-alt"></i> Activity Summary</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#current_location" data-membername="'.$row->advertiser->profile_name.'" data-memberid="'.$row->advertiser->user->member_id.'" data-location="'. $current_state.'"> <i class="fa fa-map-marker"></i> Current Location</a>
-                                                            <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 open-summary-modal" href="#" data-id="'. $row->id.'" > <i class="fa fa-file-alt"></i>
-                                                                Profile Summary</a>
-
-                                                        </div>
+                                                            '. $massager_masseures.'</div>
                                 </div>
                             ';
 
@@ -153,7 +149,27 @@ class AnalyticsController extends Controller
     public function getProfileSummary(Request $request, $id)
     {
       
-        $html = view('agent.dashboard.Annalytics.profile_summary')->render();
+        $listing = MassagePurchase::with('paymentItems.payment')->where('status', 'listed')
+                            ->where('id',$id)->first();
+
+        $start_date = strtotime($listing['start_date']);
+        $end_date = strtotime($listing['end_date']);      
+        $days = round(abs($end_date - $start_date) / 86400) + 1; 
+        $masseures = false;   
+        
+        if($listing)
+        {
+            $masseures  = MassageTimeAvailability::with('masseur')
+            ->where('purchase_id',$listing['id'])
+            ->whereNotNUll('masseur_id')
+            ->get();
+            
+            Log::info($masseures);
+           
+        }        
+
+
+        $html = view('agent.dashboard.Annalytics.profile_summary',compact('listing','days','masseures'))->render();
 
         return response()->json([
             'status' => 'success',

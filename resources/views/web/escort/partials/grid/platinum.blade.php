@@ -24,7 +24,7 @@
         @if (auth()->user())
             @if ($viewerAuth->type == '0')
                 <span
-                    class="add_to_favrate @if (in_array($escort->id, $user_type)) {{ 'null' }}@else{{ 'fill' }} @endif custom--favourite"
+                    class="add_to_favrate grid-custom-favourite @if (in_array($escort->id, $user_type)) {{ 'null' }}@else{{ 'fill' }} @endif custom--favourite"
                     id="legboxId_{{ $escort->id }}" data-escortId="{{ $escort->id }}"
                     data-userId="{{ $viewerAuth ? $viewerAuth->id : 'NA' }}" data-name="{{ $escort->name }} ">
                     {{-- @if (!empty($user_type)) --}}

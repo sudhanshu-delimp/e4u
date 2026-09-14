@@ -18,8 +18,7 @@ class AlterPurchaseIdToSuspendProfiles extends Migration
         Schema::table('suspend_profiles', function (Blueprint $table) {
             $table->integer('purchase_id')
                 ->nullable()
-                ->after('updated_by')
-                ->comment('Stores the current active purchase id that belogs to the escort profile.');
+                ->after('updated_by');
         });
     }
 

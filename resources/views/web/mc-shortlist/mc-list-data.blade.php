@@ -365,11 +365,32 @@
                                 </div>
                                 
                                 <div class="all-massage-view-profile-btn">
-                                    <div class="mc_list_address">
-                                        <img src="{{ asset('assets/app/img/gps.png') }}" alt="address"
-                                            class="custompopicon">
-                                        {{ $listing->address }}
-                                    </div>
+                                    <div class="mc_list_address">                                       
+                                    <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($listing->address) }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer">
+                                        <span class="profile_location_icon pin-location">
+                                            <svg width="30px" height="30px" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
+                                                <!-- White Background -->
+                                                <circle cx="600" cy="600" r="600" fill="#ffffff"/>
+
+                                                <!-- Pin Icon -->
+                                                <path fill="#ff3c5f"
+                                                    d="M600,0C268.629,0,0,268.629,0,600s268.629,600,600,600
+                                                    s600-268.629,600-600S931.371,0,600,0z
+                                                    M600,203.247c165.185,0,299.121,133.937,299.121,299.121
+                                                    c0,50.037-13.711,116.091-41.896,153.441L600,996.753L342.773,655.811
+                                                    c-31.029-41.123-41.895-98.199-41.895-153.441
+                                                    C300.879,337.184,434.815,203.247,600,203.247z
+                                                    M600,376.538c-69.503,0-125.83,56.327-125.83,125.83
+                                                    s56.327,125.83,125.83,125.83
+                                                    s125.83-56.327,125.83-125.83S669.503,376.538,600,376.538z"/>
+                                            </svg>
+                                            <div class="pinup-tooltip">Open Maps</div>
+                                        </span>                                        
+                                    </a>
+                                    <p class="mb-0">  {{ $listing->address }}</p>
+                                </div>
                                     <a href="{{ getEscortMassageDetailUrl($listing, 'massage') }}"
                                         class="btn btn_for_profile_list_view custom-view-profile"
                                         style="float: right;">View

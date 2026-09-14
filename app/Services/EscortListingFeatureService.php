@@ -75,6 +75,7 @@ class EscortListingFeatureService
         $utcEnd = $localEnd->copy()->setTimezone('UTC');
 
         $escortPinUp = EscortPinup::create([
+            'purchase_id' => $escortDetail->currentPurchase->id,
             'user_id' => $escortDetail->user->id,
             'escort_id' => $escortDetail->id,
             'state_id' => $escortDetail->state_id,

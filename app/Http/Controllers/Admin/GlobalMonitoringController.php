@@ -910,6 +910,11 @@ class GlobalMonitoringController extends Controller
         return response()->json($dataTableData);
     }
 
+    public function pinupListing(Request $request)
+    {
+        return view('admin.pin-up-listings');
+    }
+
     public function getPinupListing(Request $request)
     {
         try {
@@ -924,7 +929,10 @@ class GlobalMonitoringController extends Controller
             $columns = [4 => 'start_date', 5 => 'end_date'];
             $orderColumn = $columns[$orderColumnIndex] ?? 'start_date';
 
-            $listing = EscortPinup::query();
+            $now = Carbon::now('UTC');
+            $listing = EscortPinup::whereHas('purchase', function ($query) {
+                $query->whereIn('status', ['listed', 'pending']);
+            });
             $listing->where('utc_end_time', '>=', Carbon::now('UTC'));
             if (!empty($search)) {
                 $listing->where(function ($q) use ($search) {
@@ -937,6 +945,17 @@ class GlobalMonitoringController extends Controller
                         });
                 });
             }
+
+            $currentCount = (clone $listing)
+                ->where('utc_start_time', '<=', $now)
+                ->count();
+
+            $upcomingCount = (clone $listing)
+                ->where('utc_start_time', '>', $now)
+                ->count();
+
+            $totalCount = $currentCount + $upcomingCount;
+
             $recordsTotal = $listing->count();
             $listing->orderBy($orderColumn, $orderDirection);
             $listing->offset($start);
@@ -947,9 +966,9 @@ class GlobalMonitoringController extends Controller
             if (!empty($items)) {
                 foreach ($items as $item) {
                     $nestedData['member_id'] = $item->user->member_id;
-                    $nestedData['escort_name'] = $item->escort->profile_name;
-                    $nestedData['location'] = config("escorts.profile.states.$item->state_id.stateAbbr");;
-                    $nestedData['profile_id'] = $item->escort->id;
+                    $nestedData['escort_name'] = !empty($item->escort) ? $item->escort->profile_name : 'N/A';
+                    $nestedData['location'] = config("escorts.profile.states.$item->state_id.stateAbbr");
+                    $nestedData['profile_id'] = !empty($item->escort) ? $item->escort->id : 'escort: ' . $item->escort_id;
                     $nestedData['start_date'] = date('d-m-Y', strtotime($item->start_date));
                     $nestedData['end_date'] =   date('d-m-Y', strtotime($item->end_date));
                     $statusText = $item->status ?? 'NA';
@@ -963,12 +982,13 @@ class GlobalMonitoringController extends Controller
                     </a>
                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                     aria-labelledby="dropdownMenuLink" style="">
-                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" target="_blank" href="' . route('profile.description', $item->escort_id) . '"> <i class="fa fa-eye"></i> View Listing </a>
+                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" target="_blank" href="' . route('preview.escort', $item->escort->slug) . '"> <i class="fa fa-eye"></i> View Listing </a>
                     </div>
                     </div>';
                     $data[] = $nestedData;
                 }
             }
+
             return response()->json([
                 'draw' => $draw,
                 'recordsTotal' => $recordsTotal,
@@ -976,6 +996,7 @@ class GlobalMonitoringController extends Controller
                 'data' => $data,
                 'server_up_time' => $this->getAppUptime(),
                 'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
+                'counts' => compact('currentCount', 'upcomingCount', 'totalCount')
             ]);
         } catch (Exception $e) {
             return response()->json([

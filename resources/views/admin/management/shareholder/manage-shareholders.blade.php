@@ -138,6 +138,8 @@
             </div>
         </div>
     </div>
+
+@includeif('admin.modal.change-password')
 @endsection
 
 @push('script')

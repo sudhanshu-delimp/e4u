@@ -340,10 +340,11 @@ class EscortListingController extends Controller
         $locationCityId = $params['city_id'];
         $filterGenderId = $params['gender'];
 
+        //if you add any feature you must add column inside this.
+
         $escortSelectColumns = [
             'escorts.id',
             'escorts.name',
-            'escorts.city_id',
             'escorts.enabled',
             'escorts.purchase_id',
             'escorts.user_id',
@@ -351,7 +352,6 @@ class EscortListingController extends Controller
              'escorts.address',
             'escorts.city_id',
             'escorts.membership',
-            //'escorts.membership_upgraded_at',
             'escorts.age',
             'escorts.star_rating',
             'escorts.massage_price',
@@ -365,6 +365,9 @@ class EscortListingController extends Controller
             'escorts.about',
             'escorts.start_date',
             'escorts.end_date',
+            'escorts.created_at',
+            'escorts.updated_at',
+            'escorts.utc_end_time',
         ];
 
 
@@ -375,6 +378,7 @@ class EscortListingController extends Controller
             ->with([
                 'currentActivePinup',
                 'activeBumpup',
+                'mainPurchase',
                 'latestActiveBrb:id,profile_id,selected_time',
                 'gallary' => function ($q) {
                     $q->wherePivot('position', 1)
@@ -402,6 +406,9 @@ class EscortListingController extends Controller
         );
 
         $escorts = $query->get();
+
+
+   
 
         $escorts->each(function ($escort) {
             $duration = $escort->oneHourDuration->first();

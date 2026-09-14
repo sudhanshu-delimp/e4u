@@ -428,7 +428,7 @@
     </div>
 
 
-
+@includeif('admin.modal.change-password')
 
 
 @endsection
