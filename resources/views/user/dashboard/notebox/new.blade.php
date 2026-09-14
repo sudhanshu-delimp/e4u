@@ -599,7 +599,7 @@
                   </div>
                   <div class="row">
                      <div class="col-md-6 mb-3">
-                        <label class="form-label fw-semibold" for="summary_of_encounter">Summary of encounter <span style="color:#FF3C5F;">*</span></label>
+                        <label class="form-label fw-semibold" for="summary_of_encounter">Summary of encounter</label>
                         <textarea class="form-control" name="summary_of_encounter" id="summary_of_encounter" style="min-height: 200px;" placeholder="Write a short summary of your experience..."></textarea>
                      </div>
 
