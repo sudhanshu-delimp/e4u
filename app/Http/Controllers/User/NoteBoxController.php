@@ -34,7 +34,6 @@ class NoteBoxController extends Controller
             'advertised_price_per_hour' => 'required',
             'state' => 'required',
             'location' => 'required',
-            'summary_of_encounter' => 'required|string',
             'status_type' => 'required',
             'rating' => 'required',
 
@@ -151,7 +150,6 @@ class NoteBoxController extends Controller
             'advertised_price_per_hour' => 'required',
             'state' => 'required',
             'location' => 'required',
-            'summary_of_encounter' => 'required|string',
             'status_type' => 'required',
             'rating' => 'required',
 
