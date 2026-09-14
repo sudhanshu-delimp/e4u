@@ -50,7 +50,7 @@ class VisaMigrationMcRequest extends FormRequest
 
       'visa_enquiry_type' => [
         'required',
-        'in:020,601,651,500,485,417,462',
+        'in:020,601,651,820,500,485,417,462',
       ],
 
       'comments' => [
