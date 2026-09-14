@@ -105,8 +105,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="Available-tab-{{ $escort->id }}" data-toggle="tab" href="#Available-{{ $escort->id }}"
                                         role="tab" aria-controls="Available-{{ $escort->id }}" aria-selected="false">
-
-                                       Available Times
+                                       My Availability
                                     </a>
                                 </li>
                             </ul>
