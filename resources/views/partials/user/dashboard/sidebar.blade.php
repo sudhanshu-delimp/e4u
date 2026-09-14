@@ -244,7 +244,7 @@
                             <span style="{{ request()->segment(3) == 'list' ? 'color: #e5365a;' : '' }}">My Noteboxes</span>
                         </a>
 
-                        <a class="collapse-item" href="{{ route('user.new') }}">
+                        <a class="collapse-item" href="{{ route('user.notebox.new') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/add-note.png') }}">
                             <span style="{{ request()->segment(3) == 'new' ? 'color: #e5365a;' : '' }}">Add Notebox</span>
                         </a>

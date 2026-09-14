@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Escort;
 use App\Models\Notebox;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -10,9 +11,16 @@ use Illuminate\Support\Facades\Storage;
 class NoteBoxController extends Controller
 {
 
-    public function index(Request $request)
+    public function index(Request $request, $profile_id = null)
     {
-        return view('user.dashboard.notebox.new');
+        $profile_data = null;
+        if ($profile_id) {
+            $profile_data = Escort::findOrFail($profile_id);
+        }
+
+        $states = config('escorts.profile.states');
+        $genders = config('escorts.profile.genders');
+        return view('user.dashboard.notebox.new', compact('profile_data', 'states','genders'));
     }
 
     public function storeNotesBox(Request $request)
@@ -78,7 +86,7 @@ class NoteBoxController extends Controller
                     $row->profile_pic =
                         '/escorts/uploads/notebox/' . $row->profile_pic;
                 }
-                
+
                 $row->actions = '
                 <div class="dropdown no-arrow text-center">
                     <a class="dropdown-toggle" href="#" role="button"
@@ -203,6 +211,25 @@ class NoteBoxController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Note box updated successfully.'
+        ]);
+    }
+
+    public function deleteNotesBox($id)
+    {
+        $noteBox = NoteBox::findOrFail($id);
+
+        // Delete the associated image if it exists
+        if (!empty($noteBox->profile_pic)) {
+            Storage::disk('escorts')->delete(
+                'uploads/notebox/' . $noteBox->profile_pic
+            );
+        }
+
+        $noteBox->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Note box deleted successfully.'
         ]);
     }
 }

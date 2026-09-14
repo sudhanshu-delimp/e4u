@@ -6,7 +6,8 @@
 <style type="text/css">
    .parsley-errors-list {
       list-style: none;
-      color: rgb(248, 0, 0)
+      color: rgb(248, 0, 0);
+       padding-left: 0px !important;
    }
 
    .hide-img {

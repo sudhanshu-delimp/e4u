@@ -308,7 +308,7 @@
 
             <div class="mb-3 d-flex justify-content-end">
                 <button class="btn-sm close_report_btn bg-transparent" type="button">
-                    <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Close" style=" border-radius: 50%; width: 50px; height: 41px;">
+                    <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Close" class="custompopicon">
                 </button>
             </div>
 
@@ -405,7 +405,7 @@
                         <td colspan="3" class="border-0">
                            <img src="${data.profile_pic}"
                                  alt="Profile Image"
-                                 style="width: 120px; height: 120px; object-fit: cover; border-radius: 6px;">
+                                 style="width: 70px; height: 70px; object-fit: cover; border-radius: 6px;">
                         </td>
                      </tr>
                      ` : ''}
@@ -421,12 +421,12 @@
       e.preventDefault();
 
       let id = $(this).data('id');
-      let url = "{{ route('user.my-report.delete', ':id') }}";
+      let url = "{{ route('user.notebox.delete', ':id') }}";
       url = url.replace(':id', id);
 
       Swal.fire({
          title: 'Are you sure?',
-         text: 'This action will permanently remove the report.',
+         text: 'This action will permanently remove this note box.',
          icon: 'warning',
          showCancelButton: true,
          confirmButtonColor: '#d33',
