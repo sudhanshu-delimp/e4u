@@ -39,6 +39,7 @@ class NoteBoxController extends Controller
 
             // Optional fields
             'meeting_type' => 'nullable',
+            'summary_of_encounter' => 'nullable',
             'extras_charged' => 'nullable',
             'photos_authenticity' => 'nullable',
             'ethnicity' => 'nullable',
@@ -155,6 +156,7 @@ class NoteBoxController extends Controller
 
             // Optional fields
             'meeting_type' => 'nullable',
+            'summary_of_encounter' => 'nullable',
             'extras_charged' => 'nullable',
             'photos_authenticity' => 'nullable',
             'ethnicity' => 'nullable',
