@@ -20,6 +20,7 @@ class NoteBoxController extends Controller
 
         $states = config('escorts.profile.states');
         $genders = config('escorts.profile.genders');
+       
         return view('user.dashboard.notebox.new', compact('profile_data', 'states','genders'));
     }
 
@@ -135,7 +136,9 @@ class NoteBoxController extends Controller
     public function editNotebox($id)
     {
         $report = NoteBox::findOrFail($id);
-        return view('user.dashboard.notebox.edit-notebox', compact('report'));
+        $states = config('escorts.profile.states');
+        $genders = config('escorts.profile.genders');
+        return view('user.dashboard.notebox.edit-notebox', compact('report', 'states', 'genders'));
     }
 
     public function updateNotesBox(Request $request)
