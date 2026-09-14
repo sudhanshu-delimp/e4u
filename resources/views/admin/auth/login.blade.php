@@ -3,40 +3,45 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
 <style>
    .swal-button {
-   background-color: #242a2c;
-   align-items: center;
+      background-color: #242a2c;
+      align-items: center;
    }
 
    .swal-footer {
-  display: flex;
-  justify-content: center; /* horizontally center */
-  align-items: center;     /* vertically center */
-  padding: 20px;           /* optional spacing */
-}
-
-.swal-button-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.swal-button--ok {
-  /* background-color: #3085d6; */
-  color: #fff;
-  border: none;
-  padding: 10px 25px;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-}
-.swal-button:not([disabled]):hover {
-    background-color: #ff3c5f;
-}
-
-   .otp-verify-btn{
-          padding: 20px 20px 23px !important;
+      display: flex;
+      justify-content: center;
+      /* horizontally center */
+      align-items: center;
+      /* vertically center */
+      padding: 20px;
+      /* optional spacing */
    }
-   #email-error{
+
+   .swal-button-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+   }
+
+   .swal-button--ok {
+      /* background-color: #3085d6; */
+      color: #fff;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+   }
+
+   .swal-button:not([disabled]):hover {
+      background-color: #ff3c5f;
+   }
+
+   .otp-verify-btn {
+      padding: 20px 20px 23px !important;
+   }
+
+   #email-error {
       color: red;
       font-size: 14px;
       padding: 10px;
@@ -44,168 +49,168 @@
 </style>
 <section>
 
-<div class="container">
-         <section class="common_login_page">
-            <div class="row">
-               <div class="col-md-6 order-md-0 order-sm-1 order-1">
-                  <div class="welcone_login_page_heading">
-                     <h1>Welcome to</h1>
-                  </div>
+   <div class="container">
+      <section class="common_login_page">
+         <div class="row">
+            <div class="col-md-6 order-md-0 order-sm-1 order-1">
+               <div class="welcone_login_page_heading">
+                  <h1>Welcome to</h1>
+               </div>
 
-                  <h2 class="welcome_sub_login_heading">Admin Login</h2>
-                  @if($errors->has('message'))
-                  <div class="alert alert-danger text-center">
-                     {{ $errors->first('message') }}
-                  </div>
-                  @endif
-                  <form id="admin_login" action="{{ route('admin.login')}}" method="post">
-                    @csrf
-                    <input type="hidden" name="type_admin" value="1">
-                    <input type="hidden" name="type_staff" value="2">
-                    <input type="hidden" name="type" value="1">
-                    <input type="hidden" name="current_state_id" id="current_state_id" value="">
-                        <div class="form-group label_margin_zero_for_login">
-                           <label for="email">Email Address</label>
-                            <div class="input-group custom-fields">                                
-                                <span class="input-group-text ">
-                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
-                                       xmlns="http://www.w3.org/2000/svg">
-                                       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                       <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                             stroke-linejoin="round"></g>
-                                       <g id="SVGRepo_iconCarrier">
-                                             <path
-                                                d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7"
-                                                stroke="#495057" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round"></path>
-                                             <rect x="3" y="5" width="18" height="14" rx="2"
-                                                stroke="#495057" stroke-width="2" stroke-linecap="round"></rect>
-                                       </g>
-                                    </svg>
-                                 </span>
+               <h2 class="welcome_sub_login_heading">Admin Login</h2>
+               @if($errors->has('message'))
+               <div class="alert alert-danger text-center">
+                  {{ $errors->first('message') }}
+               </div>
+               @endif
+               <form id="admin_login" action="{{ route('admin.login')}}" method="post">
+                  @csrf
+                  <input type="hidden" name="type_admin" value="1">
+                  <input type="hidden" name="type_staff" value="2">
+                  <input type="hidden" name="type" value="1">
+                  <input type="hidden" name="current_state_id" id="current_state_id" value="">
+                  <div class="form-group label_margin_zero_for_login">
+                     <label for="email">Email Address</label>
+                     <div class="input-group custom-fields">
+                        <span class="input-group-text ">
+                           <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                              <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                 stroke-linejoin="round"></g>
+                              <g id="SVGRepo_iconCarrier">
+                                 <path
+                                    d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7"
+                                    stroke="#495057" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                 <rect x="3" y="5" width="18" height="14" rx="2"
+                                    stroke="#495057" stroke-width="2" stroke-linecap="round"></rect>
+                              </g>
+                           </svg>
+                        </span>
 
-                                 <input type="email" value="{{ old('email') }}" required class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Email Address" data-parsley-errors-container="#email-errors" data-parsley-required-message="Email is required">
-                                 <div class="termsandconditions_text_color">
-                                    @error('email')
-                                    {{ $message }}
-                                    @enderror
-                                 </div>
-                            </div>
-                            <div id="email-errors"></div>
+                        <input type="email" value="{{ old('email') }}" required class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Email Address" data-parsley-errors-container="#email-errors" data-parsley-required-message="Email is required">
+                        <div class="termsandconditions_text_color">
+                           @error('email')
+                           {{ $message }}
+                           @enderror
                         </div>
-                         <div class="form-group label_margin_zero_for_login" style="position: relative;">
-                           <label for="exampleInputPassword1">{{ __('Password') }}</label>
-                           <div class="input-group custom-fields">
-                                
-                                <span class="input-group-text">
-                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                            stroke-linejoin="round"></g>
-                                        <g id="SVGRepo_iconCarrier">
-                                            <path
-                                                d="M12 14.5V16.5M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288"
-                                                stroke="#495057" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round"></path>
-                                        </g>
-                                    </svg>
-                                </span>
-                                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Please Enter Your Password" name="password" required autocomplete="new-password" data-parsley-errors-container="#password-errors" data-parsley-required-message="@lang('errors/validation/required.password')" data-parsley-pattern-message="@lang('errors/validation/valid.password')">
-                                 <div class="termsandconditions_text_color">
-                                    <!-- error sms here -->
-                                    @error('password')
-                                    {{ $message }}
-                                    @enderror
-                                       
-                                 </div>
-                                 <span toggle="#exampleInputPassword1" class="toggle-password" style="
+                     </div>
+                     <div id="email-errors"></div>
+                  </div>
+                  <div class="form-group label_margin_zero_for_login" style="position: relative;">
+                     <label for="exampleInputPassword1">{{ __('Password') }}</label>
+                     <div class="input-group custom-fields">
+
+                        <span class="input-group-text">
+                           <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                              <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                 stroke-linejoin="round"></g>
+                              <g id="SVGRepo_iconCarrier">
+                                 <path
+                                    d="M12 14.5V16.5M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288"
+                                    stroke="#495057" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                              </g>
+                           </svg>
+                        </span>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Please Enter Your Password" name="password" required autocomplete="new-password" data-parsley-errors-container="#password-errors" data-parsley-required-message="@lang('errors/validation/required.password')" data-parsley-pattern-message="@lang('errors/validation/valid.password')">
+                        <div class="termsandconditions_text_color">
+                           <!-- error sms here -->
+                           @error('password')
+                           {{ $message }}
+                           @enderror
+
+                        </div>
+                        <span toggle="#exampleInputPassword1" class="toggle-password" style="
                                     position: absolute;
                                     top: 10px;
                                     right: 15px;
                                     cursor: pointer;">
-                                    <i class="fa fa-eye" id="toggleEyeIcon"></i>
-                                 </span>
-                           
-                              </div>
-                              <div id="password-errors"></div>
-                         </div>
-                        <div id="formerror">
-                        </div>
-                       <div class="row login-bottom-des">
-                           <div class="col-md-7 align-self-center">
-                            <a href="#" id="forgotpassword"> Forgot Password?</a>
-                           </div>
-                           <div class="col-md-5 align-self-center text-left text-md-right">
-                                <button type="submit" id="submit_button" class="btn site_btn_primary">Login    
-                              </button>       
-                           </div>
-                       </div>
-                        
-                       
-                       <div class="common_login_note">
-                           {{-- login note from component --}}
-                           <x-login-notes />
-                       </div>
-                  </form>
-               </div>
-               <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2 common_login_img">
-                  <img src="{{ asset('assets/app/img/admin-login.jpg')}}" class="img-fluid">
-               </div>
+                           <i class="fa fa-eye" id="toggleEyeIcon"></i>
+                        </span>
+
+                     </div>
+                     <div id="password-errors"></div>
+                  </div>
+                  <div id="formerror">
+                  </div>
+                  <div class="row login-bottom-des">
+                     <div class="col-md-7 align-self-center">
+                        <a href="#" id="forgotpassword"> Forgot Password?</a>
+                     </div>
+                     <div class="col-md-5 align-self-center text-left text-md-right">
+                        <button type="submit" id="submit_button" class="btn site_btn_primary">Login
+                        </button>
+                     </div>
+                  </div>
+
+
+                  <div class="common_login_note">
+                     {{-- login note from component --}}
+                     <x-login-notes />
+                  </div>
+               </form>
             </div>
-         </section>
+            <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2 common_login_img">
+               <img src="{{ asset('assets/app/img/admin-login.jpg')}}" class="img-fluid">
+            </div>
+         </div>
+      </section>
 
       <div class="modal fade upload-modal" id="comman_modal" style="display: none">
-        <div class="modal-dialog modal-dialog-centered">
-           <div class="modal-content">
-            <input type="hidden" value="0" id="forgot_password">
-              <form id="forgotPasswordSend" method="post" action="" >
-                 @csrf
-                 <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title text-white"><img src="{{asset('assets/app/img/2fa.png')}}" class="custompopicon" alt="logo"> Reset Password</h5>
-                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                       <span aria-hidden="true">
-                       <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                       </span>
-                       </button>
-                 </div>
-                 <div class="modal-body forgot_pass pb-1">
-                    <div class="form-group label_margin_zero_for_login">
-                       <div class="row text-center" style="">
-                          <div class="col-md-12">
-                             <a href="#"><img src="{{ asset('assets/app/img/e4u_forget.png') }}" class="img-fluid" alt="logo"></a>
-                          </div>
-                       </div>
-                       <h4 class="welcome_sub_login_heading text-center pt-4 pb-2"><strong>Reset Password</strong></h4>
-                       <p class="text-center pb-2">We will send you a reset password link to your email.</p>
-                       <input type="txt" required class="form-control email-val" name="email" id="email" aria-describedby="emailHelp" placeholder="Email Address" data-parsley-required-message="Your Email is required" value="{{ old('email') }}">
-                       <div id="email-error"></div>
-                       <div class="termsandconditions_text_color">
-                          @error('email')
+         <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+               <input type="hidden" value="0" id="forgot_password">
+               <form id="forgotPasswordSend" method="post" action="">
+                  @csrf
+                  <div class="modal-header main_bg_color border-0">
+                     <h5 class="modal-title text-white"><img src="{{asset('assets/app/img/2fa.png')}}" class="custompopicon" alt="logo"> Reset Password</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                           <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                        </span>
+                     </button>
+                  </div>
+                  <div class="modal-body forgot_pass pb-1">
+                     <div class="form-group label_margin_zero_for_login">
+                        <div class="row text-center" style="">
+                           <div class="col-md-12">
+                              <a href="#"><img src="{{ asset('assets/app/img/e4u_forget.png') }}" class="img-fluid" alt="logo"></a>
+                           </div>
+                        </div>
+                        <h4 class="welcome_sub_login_heading text-center pt-4 pb-2"><strong>Reset Password</strong></h4>
+                        <p class="text-center pb-2">We will send you a reset password link to your email.</p>
+                        <input type="txt" required class="form-control email-val" name="email" id="email" aria-describedby="emailHelp" placeholder="Email Address" data-parsley-required-message="Your Email is required" value="{{ old('email') }}">
+                        <div id="email-error"></div>
+                        <div class="termsandconditions_text_color">
+                           @error('email')
 
-                                   {{ $message }}
-                          @enderror
-                          <input type="hidden" name="url" value="{{ route('admin.forgot')}}">
-                          
+                           {{ $message }}
+                           @enderror
+                           <input type="hidden" name="url" value="{{ route('admin.forgot')}}">
 
-                       </div>
-                    </div>
-                 </div>
-                 <div class="modal-footer forgot_pass pt-0 pb-4">
-                       <button type="submit" class="btn main_bg_color site_btn_primary" id="sendSubmit">Send</button>
-                 </div>
 
-              </form>
-           </div>
-        </div>
-     </div>
-    <div class="modal fade upload-modal" id="recovery_modal" style="display: none">
+                        </div>
+                     </div>
+                  </div>
+                  <div class="modal-footer forgot_pass pt-0 pb-4">
+                     <button type="submit" class="btn main_bg_color site_btn_primary" id="sendSubmit">Send</button>
+                  </div>
+
+               </form>
+            </div>
+         </div>
+      </div>
+      <div class="modal fade upload-modal" id="recovery_modal" style="display: none">
          <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                <div class="modal-header">
                   <h5 class="modal-title "> <img src="{{asset('assets/img/account-recovery.png')}}" class="custompopicon" alt="Account Recovery">Account Recovery</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true"><img src="{{asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                     <span aria-hidden="true"><img src="{{asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                   </button>
                </div>
 
@@ -215,24 +220,24 @@
                         <a href="#"><img src="{{ asset('assets/app/img/tick.png')}}" class="img-fluid" alt="logo"></a>
                      </div>
                   </div>
-                  
-                   <div class="col-12 my-2 text-center">
-                        <h5 id="task_desc" class="popu_heading_style">Your password has been reset. We have sent a password link to your nominated email account:</h5>           
-                        <p class="comman_msg text-center font-weight-bold"></p>
-                     </div>
-              </div>
-              <div class="modal-footer" style="justify-content: center;">
+
+                  <div class="col-12 my-2 text-center">
+                     <h5 id="task_desc" class="popu_heading_style">Your password has been reset. We have sent a password link to your nominated email account:</h5>
+                     <p class="comman_msg text-center font-weight-bold"></p>
+                  </div>
+               </div>
+               <div class="modal-footer" style="justify-content: center;">
                   <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
-              </div>
+               </div>
             </div>
          </div>
       </div>
 
-   @include('modal.two-step-verification')
-</div>
+      @include('modal.two-step-verification')
+   </div>
 
 </section>
-                    
+
 @endsection
 @push('script')
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
@@ -240,16 +245,16 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
    $(function() {
-        $('#admin_login').parsley({
-    
-        });
-   });
-    
-   $(function() {
-        $('#forgotPasswordSend').parsley({
+      $('#admin_login').parsley({
 
-        });
-    });
+      });
+   });
+
+   $(function() {
+      $('#forgotPasswordSend').parsley({
+
+      });
+   });
    document.getElementById('email').focus();
 
    //update location
@@ -257,131 +262,133 @@
    $(document).ready(async function() {
 
       try {
-            const selectedLocation = await getCurrentLocation();
+         const selectedLocation = await getCurrentLocation();
 
-            console.log(selectedLocation);
+         console.log(selectedLocation);
 
-            await getCurrentState(selectedLocation);
+         await getCurrentState(selectedLocation);
 
       } catch (error) {
-            console.error(error);
+         console.error(error);
 
-            if (error.message) {
-               alert(error.message);
-            }
+         if (error.message) {
+            alert(error.message);
+         }
       }
 
    });
 
    /**
-   * Get current user location
-   */
+    * Get current user location
+    */
    function getCurrentLocation() {
       return new Promise((resolve, reject) => {
-            if (!navigator.geolocation) {
-               reject(new Error('Geolocation is not supported by this browser.'));
-               return;
-            }
+         if (!navigator.geolocation) {
+            reject(new Error('Geolocation is not supported by this browser.'));
+            return;
+         }
 
-            navigator.geolocation.getCurrentPosition(
-               function(position) {
-                  resolve({
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude,
-                        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
-                  });
-               },
-               function(error) {
-                  reject(error);
-               }, {
-                  enableHighAccuracy: true,
-                  timeout: 10000,
-                  maximumAge: 0
-               }
-            );
+         navigator.geolocation.getCurrentPosition(
+            function(position) {
+               resolve({
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude,
+                  timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+               });
+            },
+            function(error) {
+               reject(error);
+            }, {
+               enableHighAccuracy: true,
+               timeout: 15000,
+               maximumAge: 300000
+            }
+         );
       })
    }
    /**
-   * Get current state from server
-   */
+    * Get current state from server
+    */
 
    function getCurrentState(location) {
 
       return $.ajax({
-                url: '{{ route('user.current.state') }}',
-               method: 'POST',
-               data: {
-                   _token: '{{ csrf_token() }}',
-                  data: location
-               }
-            })
-            .done(function(response) {
+            url: '{{ route('
+            user.current.state ') }}',
+            method: 'POST',
+            data: {
+               _token: '{{ csrf_token() }}',
+               data: location
+            }
+         })
+         .done(function(response) {
 
-               console.log(response);
+            console.log(response);
 
-               if (!response?.data?.state) {
-                  alert('Your location not found');
-                  return;
-               }
+            if (!response?.data?.state) {
+               alert('Your location not found');
+               return;
+            }
 
-               $('#current_state_id').val(response.data.state);
+            $('#current_state_id').val(response.data.state);
 
-            })
-            .fail(function(xhr, status, error) {
-               console.error('Error in location filter:', error);
-            });
+         })
+         .fail(function(xhr, status, error) {
+            console.error('Error in location filter:', error);
+         });
 
    }
 
 
 
 
-$(document).ready(function() {
-   $("body").on("click","#forgotpassword",function(e){
+   $(document).ready(function() {
+      $("body").on("click", "#forgotpassword", function(e) {
          e.preventDefault();
          $("#comman_modal").modal('show');
-         $("body").on("submit","#forgotPasswordSend",function(e){
-                e.preventDefault();
-                var form = $(this);
-                $('#forgot_password').val('1');
-                send2FAotp($('.email-val').val()); 
-            });
-            
-         function send2FAotp(email)
-         {
+         $("body").on("submit", "#forgotPasswordSend", function(e) {
+            e.preventDefault();
+            var form = $(this);
+            $('#forgot_password').val('1');
+            send2FAotp($('.email-val').val());
+         });
+
+         function send2FAotp(email) {
             $('#email-error').html('');
             var token = $('input[name="_token"]').attr('value');
             $.ajax({
-            url: "{{route('send-otp-for-pin-change')}}",
-            type: 'POST',
-            data: {email:email},
-            dataType: "JSON",
-            
-            headers: {
+               url: "{{route('send-otp-for-pin-change')}}",
+               type: 'POST',
+               data: {
+                  email: email
+               },
+               dataType: "JSON",
+
+               headers: {
                   'X-CSRF-Token': token
-            },
-            success: function(data) {
-                  if(data.status == true){
+               },
+               success: function(data) {
+                  if (data.status == true) {
                      $('#sendOtp_modal').modal('show');
                      $('#comman_modal').modal('hide');
-                  }else{
+                  } else {
                      $('#email-error').html(data.message);
                   }
-            },
-            error: function(data) {
-   
-            }
-            });
-         }      
-   });
+               },
+               error: function(data) {
 
-   $("body").on("click", "#sendOtpSubmit", function(e) {
+               }
+            });
+         }
+      });
+
+      $("body").on("click", "#sendOtpSubmit", function(e) {
          e.preventDefault();
          let form = $("#SendOtp")[0];
          let data = new FormData(form);
          var url = "{{ route('web.checkOTP')}}";
-         data.append('forget_password' , $('#forgot_password').val());
-         data.append('email' , $('.email-val').val());
+         data.append('forget_password', $('#forgot_password').val());
+         data.append('email', $('.email-val').val());
          var token = $('input[name="_token"]').attr('value');
 
          $.ajax({
@@ -394,226 +401,232 @@ $(document).ready(function() {
             headers: {
                'X-CSRF-Token': token
             },
-            beforeSend: function () {
+            beforeSend: function() {
                $('#sendOtpSubmit').prop('disabled', true);
                $('#sendOtpSubmit').html('Verifying...');
-            }, 
+            },
             success: function(data) {
-               if(data.error ==  false){
+               if (data.error == false) {
                   var form = $(this);
                   var url = "{{ route('web.sendMail.admin')}}";
                   var data = new FormData($('#forgotPasswordSend')[0]);
                   var token = $('input[name="_token"]').attr('value');
-                     $.ajax({
-                           url: url,
-                           type: 'POST',
-                           data: data,
-                           dataType: "JSON",
-                           contentType: false,
-                           processData: false,
-                           headers: {
-                              'X-CSRF-Token': token
-                           },
-                           beforeSend: function () {
-                              $('#sendSubmit').prop('disabled', true);
-                              $('#sendSubmit').html('<div class="spinner-border spinner-border-sm"></div> Sending...');
-                           },
-                           success: function(data) {
-                              if(data.error == true) {
-                                 $("#comman_modal").modal('hide');
-                                 $(".comman_msg").text(data.email);
-                                 $("#recovery_modal").modal('show');
-                                 $('#sendSubmit').prop('disabled', false);
-                                 $('#sendSubmit').html('Send');
-                                 $('.email-val').val('');
-                                 $('#sendOtp_modal').modal('hide');
-                                 $('#sendOtpSubmit').prop('disabled', false);
-                                 $('#sendOtpSubmit').html('Verify');
-                                 $('#otp').val('');
-                              }
-                              if(data.error == false) { 
-                                 $("#errorNew ul").remove();
-                                 $("#errorNew").append("<ul class='parsley-errors-list filled'><li class='parsley-required'>User does not exist</li></ul>");
-                                 $('#sendSubmit').prop('disabled', false);
-                                 $('#sendSubmit').html('Send');
-                              }
-                           },
-                           error: function(data) {
+                  $.ajax({
+                     url: url,
+                     type: 'POST',
+                     data: data,
+                     dataType: "JSON",
+                     contentType: false,
+                     processData: false,
+                     headers: {
+                        'X-CSRF-Token': token
+                     },
+                     beforeSend: function() {
+                        $('#sendSubmit').prop('disabled', true);
+                        $('#sendSubmit').html('<div class="spinner-border spinner-border-sm"></div> Sending...');
+                     },
+                     success: function(data) {
+                        if (data.error == true) {
+                           $("#comman_modal").modal('hide');
+                           $(".comman_msg").text(data.email);
+                           $("#recovery_modal").modal('show');
+                           $('#sendSubmit').prop('disabled', false);
+                           $('#sendSubmit').html('Send');
+                           $('.email-val').val('');
+                           $('#sendOtp_modal').modal('hide');
+                           $('#sendOtpSubmit').prop('disabled', false);
+                           $('#sendOtpSubmit').html('Verify');
+                           $('#otp').val('');
+                        }
+                        if (data.error == false) {
+                           $("#errorNew ul").remove();
+                           $("#errorNew").append("<ul class='parsley-errors-list filled'><li class='parsley-required'>User does not exist</li></ul>");
+                           $('#sendSubmit').prop('disabled', false);
+                           $('#sendSubmit').html('Send');
+                        }
+                     },
+                     error: function(data) {
 
-                           }
-                     }); 
-               }else if (data.error === true && !('type' in data)) {
-                     $('.otp-input').val('');
-                     $('.first_input').val('').focus().select();
-                     $("#senderror").html('');
-                     $("#senderror").append(
-                        "<ul class='parsley-errors-list filled'>" +
-                           "<li class='parsley-required'>Your have entered invalid OTP.</li>" +
-                        "</ul>"
-                     );
+                     }
+                  });
+               } else if (data.error === true && !('type' in data)) {
+                  $('.otp-input').val('');
+                  $('.first_input').val('').focus().select();
+                  $("#senderror").html('');
+                  $("#senderror").append(
+                     "<ul class='parsley-errors-list filled'>" +
+                     "<li class='parsley-required'>Your have entered invalid OTP.</li>" +
+                     "</ul>"
+                  );
 
-                     $('#otp').val('');
-                     $('#sendOtpSubmit').prop('disabled', false);
-                     $('#sendOtpSubmit').html('Verify');
-               }else{
-                    if(data.type == 1) {
-                        window.location.href = "{{ route('admin.index') }}";
-                    } 
+                  $('#otp').val('');
+                  $('#sendOtpSubmit').prop('disabled', false);
+                  $('#sendOtpSubmit').html('Verify');
+               } else {
+                  if (data.type == 1) {
+                     window.location.href = "{{ route('admin.index') }}";
+                  }
                }
             },
             error: function(data) {
-                let errorsHtml = '<div class="alert alert-danger"><ul>';
+               let errorsHtml = '<div class="alert alert-danger"><ul>';
                $.each(data.responseJSON.errors, function(key, value) {
                   //errorsHtml = '<div class="alert alert-danger"><ul>';
                   errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
                });
                $('#sendOtpSubmit').prop('disabled', false);
-                     $('#sendOtpSubmit').html('Verify');
+               $('#sendOtpSubmit').html('Verify');
                errorsHtml += '</ul></di>';
                $('#senderror').html(errorsHtml);
                $('.otp-input').val('');
                $('.first_input').val('').focus().select();
             }
          });
-      }); 
+      });
 
       var loginFormViewer = $("#admin_login");
 
       loginFormViewer.submit(function(e) {
-   
-      e.preventDefault();
-      swal_waiting_popup({});
 
-      var form = $(this);
-      var url = form.attr('action');
-      var formData = new FormData($("#admin_login")[0]);
-      var token = $('input[name="_token"]').attr('value');
+         e.preventDefault();
+         swal_waiting_popup({});
 
-        $.ajax({
-         url: url,
-         type: 'POST',
-         data: formData,
-         dataType: "JSON",
-         contentType: false,
-         processData: false,
-         headers: {
+         var form = $(this);
+         var url = form.attr('action');
+         var formData = new FormData($("#admin_login")[0]);
+         var token = $('input[name="_token"]').attr('value');
+
+         $.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            dataType: "JSON",
+            contentType: false,
+            processData: false,
+            headers: {
                'X-CSRF-Token': token
-         },
+            },
             success: function(data) {
-                $('#formerror').html('');
-                 Swal.close();
-                var ph = data.phone;
-                $("#phoneId").attr('value',ph);
-                if(data.error == 1) {
-                  $('body').on("click","#resendOtpSubmit",function(){
-                        $("#admin_login").submit();
-                        /*$('#senderror').html("<p class='text-center text-success'> Your verification code has been resent to your nominated preference. "+data.phone+"</p>");*/
-                        var message = "{{ config('common.resend_2fa_verification_code_msg') }}";
-                        $('#senderror').html("<p class='text-center text-success'>" + message + "</p>");
-                     });
-                     
-                   
-                     setTimeout(() => {
-                     $("#sendOtp_modal").modal({backdrop: 'static', keyboard: false});
-                     }, 300);
-
-                     
-                    $("body").on("submit","#SendOtp",function(e){
-                        e.preventDefault();
-                        var form = $(this);
-                         $('#sendOtpSubmit').attr('disabled', true);
-                        $('.wait-loader').css({'display':'block'});
-                        // var url = form.attr('action');
-                        var url = "{{ route('web.checkOTP')}}";
-                        
-                        var data = new FormData($('#SendOtp')[0]);
-                        var phone = data.phone;
-                        //data.append("phone",phone );
-                        var token = $('input[name="_token"]').attr('value');
-                  
-                        $.ajax({
-                           url: url,
-                           type: 'POST',
-                           data: data,
-                           dataType: "JSON",
-                           contentType: false,
-                           processData: false,
-                           headers: {
-                              'X-CSRF-Token': token
-                           },
-                           success: function(data) {
-                              if(data.error == true) {
-                              window.location.href = "{{ route('admin.index') }}";
-                              }
-                           },
-                           error: function(data) {
-                              $('#sendOtpSubmit').attr('disabled', false);
-                              $('.wait-loader').css({'display':'none'});
-                              let errorsHtml = '<div class="alert alert-danger"><ul>';
-                              $.each(data.responseJSON.errors, function(key, value) {
-                             
-                              errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
-                              });
-
-                              errorsHtml += '</ul></di>';
-                              $('#senderror').html(errorsHtml);
-                           }
-                        });  
-               
+               $('#formerror').html('');
+               Swal.close();
+               var ph = data.phone;
+               $("#phoneId").attr('value', ph);
+               if (data.error == 1) {
+                  $('body').on("click", "#resendOtpSubmit", function() {
+                     $("#admin_login").submit();
+                     /*$('#senderror').html("<p class='text-center text-success'> Your verification code has been resent to your nominated preference. "+data.phone+"</p>");*/
+                     var message = "{{ config('common.resend_2fa_verification_code_msg') }}";
+                     $('#senderror').html("<p class='text-center text-success'>" + message + "</p>");
                   });
-                } 
-                
-         },
-         error: function(data) {
-            swal({
+
+
+                  setTimeout(() => {
+                     $("#sendOtp_modal").modal({
+                        backdrop: 'static',
+                        keyboard: false
+                     });
+                  }, 300);
+
+
+                  $("body").on("submit", "#SendOtp", function(e) {
+                     e.preventDefault();
+                     var form = $(this);
+                     $('#sendOtpSubmit').attr('disabled', true);
+                     $('.wait-loader').css({
+                        'display': 'block'
+                     });
+                     // var url = form.attr('action');
+                     var url = "{{ route('web.checkOTP')}}";
+
+                     var data = new FormData($('#SendOtp')[0]);
+                     var phone = data.phone;
+                     //data.append("phone",phone );
+                     var token = $('input[name="_token"]').attr('value');
+
+                     $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: data,
+                        dataType: "JSON",
+                        contentType: false,
+                        processData: false,
+                        headers: {
+                           'X-CSRF-Token': token
+                        },
+                        success: function(data) {
+                           if (data.error == true) {
+                              window.location.href = "{{ route('admin.index') }}";
+                           }
+                        },
+                        error: function(data) {
+                           $('#sendOtpSubmit').attr('disabled', false);
+                           $('.wait-loader').css({
+                              'display': 'none'
+                           });
+                           let errorsHtml = '<div class="alert alert-danger"><ul>';
+                           $.each(data.responseJSON.errors, function(key, value) {
+
+                              errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
+                           });
+
+                           errorsHtml += '</ul></di>';
+                           $('#senderror').html(errorsHtml);
+                        }
+                     });
+
+                  });
+               }
+
+            },
+            error: function(data) {
+               swal({
                   title: "Oops!",
                   text: data.responseJSON.message,
                   icon: "error",
                   closeModal: true,
                   buttons: {
                      cancel: false,
-                     ok:true,
+                     ok: true,
                   },
                });
-                Swal.close();
+               Swal.close();
                let errorsHtml = '<div class="alert alert-danger"><ul>';
                $.each(data.responseJSON.errors, function(key, value) {
-               
-                errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
+
+                  errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
                });
 
                errorsHtml += '</ul></di>';
                $('#formerror').html(errorsHtml);
-         }
+            }
+         });
       });
-    });
 
-   
+
    });
 
 
 
-   document.addEventListener("DOMContentLoaded", function () {
+   document.addEventListener("DOMContentLoaded", function() {
       const toggleIcon = document.querySelector(".toggle-password");
       const passwordInput = document.querySelector("#exampleInputPassword1");
       const eyeIcon = document.querySelector("#toggleEyeIcon");
 
-      toggleIcon.addEventListener("click", function () {
+      toggleIcon.addEventListener("click", function() {
          const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
          passwordInput.setAttribute("type", type);
          eyeIcon.classList.toggle("fa-eye");
          eyeIcon.classList.toggle("fa-eye-slash");
       });
    });
-   $(document).off('click' , '#resendOtpSubmit');
-   $(document).on('click' , '#resendOtpSubmit' , function(){
+   $(document).off('click', '#resendOtpSubmit');
+   $(document).on('click', '#resendOtpSubmit', function() {
       send2FAotp($('.email-val').val());
    });
 
-   $('#sendOtp_modal').off('hidden.bs.modal').on('hidden.bs.modal', function () {
+   $('#sendOtp_modal').off('hidden.bs.modal').on('hidden.bs.modal', function() {
       $('#forgot_password').val(0);
       $("#senderror").html('');
    });
-
 </script>
 @endpush
