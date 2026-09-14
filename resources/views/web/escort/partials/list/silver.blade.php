@@ -482,6 +482,7 @@
                                             <th class="text-left">Service</th>
                                             <th>Massage</th>
                                             <th class="text-center">Incalls</th>
+                                            <th class="text-center">Outcalls</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -497,6 +498,10 @@
                                                         ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->incall_price) . '</div>'
                                                         : "<span class='if_data_not_available'>N/A</span>" !!}
                                                     </td>
+                                                    <td class="text-center">{!! $duration->pivot->outcall_price
+                                                        ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->outcall_price) . '</div>'
+                                                        : "<span class='if_data_not_available'>N/A</span>" !!}
+                                                    </td>
                                                 </tr>
                                                 @if ($loop->index == 5)
                                                     @break
@@ -506,7 +511,7 @@
                                     </tbody>
                                     <thead class="table_heading_bgcolor_color available_footer">
                                         <tr>
-                                            <th class="payment_accept_text_color" scope="col" colspan="3">Available: <span
+                                            <th class="payment_accept_text_color" scope="col" colspan="4">Available: <span
                                                     class="date_from_available">{{ date('d-m-Y', strtotime($escort->start_date)) }}</span>
                                                 to <span
                                                     class="date_from_available">{{ date('d-m-Y', strtotime($escort->end_date)) }}</span>
