@@ -873,20 +873,6 @@
                         confirmButtonColor: '#FF3C5F'
                      });
 
-                     // Reset form
-                     form[0].reset();
-
-                     // Reset image preview
-                     // $('#previewImg')
-                     //    .attr('src', '')
-                     //    .addClass('hide-img');
-
-                     // $('#previewWrap')
-                     //    .addClass('hide-img')
-                     //    .removeClass('d-flex');
-
-                     // $('#uploadState').removeClass('hide-img');
-
                   } else {
 
                      Swal.fire({
