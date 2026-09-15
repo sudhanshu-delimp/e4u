@@ -89,11 +89,17 @@ class LogService
     }
 
 
-    public function getMassageProfileViews()
+    public function getProfileViews($advertiserType,$profile_id)
     {
         
-        $baseQuery = Visitor::whereNotNull('massage_profile_id')
-            ->where('page', 'massage-detail-page');
+        if($advertiserType == 'massage')
+        $page = 'massage-detail-page';
+        else
+        $page = 'escort-detail-page';
+
+        $baseQuery = Visitor::whereNotNull('listing_profile_id')
+            ->where('listing_profile_id',$profile_id)
+            ->where('page', $page);
 
         $thisWeekQuery = (clone $baseQuery)
             ->whereBetween('created_at', [
@@ -110,21 +116,21 @@ class LogService
         return [
             'this_week' => [
                 'profile_views' => (clone $thisWeekQuery)
-                    ->where('is_massage_profile_media_visit', '0')
+                    ->where('is_profile_media_visit', '0')
                     ->count(),
 
                 'media_views' => (clone $thisWeekQuery)
-                    ->where('is_massage_profile_media_visit', '1')
+                    ->where('is_profile_media_visit', '1')
                     ->count(),
             ],
 
             'year_to_date' => [
                 'profile_views' => (clone $ytdQuery)
-                    ->where('is_massage_profile_media_visit', '0')
+                    ->where('is_profile_media_visit', '0')
                     ->count(),
 
                 'media_views' => (clone $ytdQuery)
-                    ->where('is_massage_profile_media_visit', '1')
+                    ->where('is_profile_media_visit', '1')
                     ->count(),
             ],
         ];
@@ -137,29 +143,33 @@ class LogService
          try 
          {
             $data = $this->getVisitorCountry();
-            $massage_profile_id = isset($request['massage_profile_id']) ? $request['massage_profile_id'] : '';
+            $type = isset($request['type']) ? $request['type'] : '';
+            $listing_profile_id = isset($request['profile_id']) ? $request['profile_id'] : '';
             $visitorUuid = isset($request['visitorUuid']) ? $request['visitorUuid'] : '';
-            $is_massage_profile_media_visit = isset($request['is_massage_profile_media_visit']) ? $request['is_massage_profile_media_visit'] : '0';
+            $is_profile_media_visit = isset($request['is_profile_media_visit']) ? $request['is_profile_media_visit'] : '0';
 
+            if($type=='massage')
             $page = 'massage-detail-page';
+            else
+            $page = 'escort-detail-page';    
 
-            if ($data && $massage_profile_id!="" && $visitorUuid!="") 
+            if ($data && $listing_profile_id!="" && $visitorUuid!="") 
             {
                 $now = Carbon::now(config('app.escort_server_timezone'));
 
-                if($massage_profile_id!="" && $is_massage_profile_media_visit=='0')
+                if($listing_profile_id!="" && $is_profile_media_visit=='0')
                 {
                     $query = Visitor::where('page', $page)
-                    ->where('massage_profile_id', $massage_profile_id)
+                    ->where('listing_profile_id', $listing_profile_id)
                     ->where('visitorUuid', $visitorUuid)
                     ->where('created_at', '>=', $now->copy()->subDay());
                 }
 
-                if($massage_profile_id!="" && $is_massage_profile_media_visit=='1')
+                if($listing_profile_id!="" && $is_profile_media_visit=='1')
                 {
                     $query = Visitor::where('page', $page)
-                    ->where('massage_profile_id', $massage_profile_id)
-                    ->where('is_massage_profile_media_visit', $is_massage_profile_media_visit)
+                    ->where('listing_profile_id', $listing_profile_id)
+                    ->where('is_profile_media_visit', $is_profile_media_visit)
                     ->where('visitorUuid', $visitorUuid)
                     ->where('created_at', '>=', $now->copy()->subDay());
                 }
@@ -186,11 +196,11 @@ class LogService
                     'idle'       => $now->format('Y-m-d h:i:s a'),
                     'origin'     => $this->getVisitorCountry()[0],
                     'date'       => $now,
-                    'massage_profile_id' => $massage_profile_id,
+                    'listing_profile_id' => $listing_profile_id,
                 ];
 
-                if($is_massage_profile_media_visit=='1')
-                $datas['is_massage_profile_media_visit'] = '1';
+                if($is_profile_media_visit=='1')
+                $datas['is_profile_media_visit'] = '1';
 
                 if ($visitor) {
                     $visitor->update($datas);

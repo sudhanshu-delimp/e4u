@@ -282,22 +282,10 @@ auth()->check() && auth()->user()->viewer_settings?->listings_preferences_view =
 @push('scripts')
 <script>
     window.authUser = {
-        isLoggedIn: {
-            {
-                auth() - > check() ? 'true' : 'false'
-            }
-        },
-        auth_user_type: {
-            {
-                auth() - > check() ? auth() - > user() - > type : 'false'
-            }
-        },
-        myLegboxDisabled: {
-            {
-                auth() - > check() && auth() - > user() - > viewer_settings ? - > features_enable_my_legbox == 0 ? 'true' : 'false'
-            }
-        },
-    };
+            isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
+            auth_user_type: {{ auth()->check() ? auth()->user()->type : 'false' }},
+            myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false' }},
+        };
 
     //This is Global Massage Request for use resuffling
     const viewType = "{{ $listingsPreferencesView }}";
@@ -387,18 +375,19 @@ auth()->check() && auth()->user()->viewer_settings?->listings_preferences_view =
 
         } else {
 
-            @if(auth() - > user() && auth() - > user() - > type != 0)
-            $(".my_legbox_title").text(
-                'My Legbox is only available to Viewers. Please log in or Register to access your Legbox.'
-            );
-            $(".my_legbox_footer").show();
-            @else
-            $(".my_legbox_title").text(
-                'My Legbox is only available to Viewers. Please log in or Register to access your Legbox.'
-            );
-            $(".my_legbox_footer").show();
-            @endif
-            $('#my_legbox').modal('show');
+                @if (auth()->user() && auth()->user()->type != 0)
+                    $(".my_legbox_title").text(
+                        'My Legbox is only available to Viewers. Please log in or Register to access your Legbox.'
+                    );
+                    $(".my_legbox_footer").show();
+                @else
+                    $(".my_legbox_title").text(
+                        'My Legbox is only available to Viewers. Please log in or Register to access your Legbox.'
+                    );
+                    $(".my_legbox_footer").show();
+                @endif
+                $('#my_legbox').modal('show');
+
 
             var login_url = "{{ route('viewer.login', ':id') }}";
             var loginurl = login_url.replace(':id', 'legboxId=' + Eid);

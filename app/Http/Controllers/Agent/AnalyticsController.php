@@ -117,11 +117,13 @@ class AnalyticsController extends Controller
                      if($advertiserType=='escort')
                      {
                         $massager_masseures ="";
+                        $profile_id = $row->escort_id;
                         $state_id = $row->advertiser?->user?->current_state_id;
                         $current_state = !empty($state_id) ? (config("escorts.profile.states.{$state_id}.stateName") ?? null) : config("escorts.profile.states.{$row->advertiser?->user?->state_id}.stateName");
                      }
                      else
                      {
+                        $profile_id = $row->escort_id;
                         $current_state = config("escorts.profile.states.{$row->advertiser?->user?->state_id}.stateName");
                          $massager_masseures = ' <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 open-summary-modal" href="#" data-id="'. $row->id.'" > <i class="fa fa-file-alt"></i>
@@ -137,7 +139,7 @@ class AnalyticsController extends Controller
                                                         </a>
                                                         <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
 
-                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 open-activity-modal" data-advertiser_type="'.$advertiserType.'" href="#"   data-id="'. $row->id.'" >
+                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 open-activity-modal" data-advertiser_type="'.$advertiserType.'" data-profile_id="'.$profile_id.'" href="#"   data-id="'. $row->id.'" >
                                                                 <i class="fa fa-file-alt"></i> Activity Summary</a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#current_location" data-membername="'.$row->advertiser->profile_name.'" data-memberid="'.$row->advertiser->user->member_id.'" data-location="'. $current_state.'"> <i class="fa fa-map-marker"></i> Current Location</a>
@@ -191,15 +193,18 @@ class AnalyticsController extends Controller
         {
         
             $advertiserType = $request->advertiser_type;
+            $profile_id     = $request->profile_id;
             
+
+
             if($advertiserType=='massage')
             {
-               $views = $this->logService->getMassageProfileViews();
+               $views = $this->logService->getProfileViews($advertiserType,$profile_id);
             }  
 
             if($advertiserType=='escort')
             {
-                $views = $this->logService->getMassageProfileViews();
+                $views = $this->logService->getProfileViews($advertiserType,$profile_id);
             }  
 
         

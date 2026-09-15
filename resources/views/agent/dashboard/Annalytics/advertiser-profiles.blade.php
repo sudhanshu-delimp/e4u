@@ -424,6 +424,7 @@ $(document).ready(function () {
         e.preventDefault();
         
         let purchaseId = $(this).data('id');
+        let profile_id = $(this).data('profile_id');
         let advertiser_type = $(this).data('advertiser_type');
         let url = "{{ route('agent.activity_summary', ':id') }}".replace(':id', purchaseId);
 
@@ -431,7 +432,8 @@ $(document).ready(function () {
             url: url,
             type: 'GET',
             data: {
-            advertiser_type: advertiser_type
+            advertiser_type: advertiser_type,
+            profile_id : profile_id
             },
             dataType: 'json',
             beforeSend: function () {

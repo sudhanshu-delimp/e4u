@@ -2458,8 +2458,10 @@ $('#review-submitted-popup .close').on('click', function() {
 
             console.log("ok=" + url);
 
-
+           
         });
+
+         make_escort_centres_log();
 
     });
     $("#home-tab").click(function () {
@@ -2556,6 +2558,15 @@ $('#review-submitted-popup .close').on('click', function() {
 </script>
 
 <script>
+
+let visitorUuid = localStorage.getItem('visitor_uuid');
+
+if (!visitorUuid) {
+    visitorUuid = crypto.randomUUID();
+    localStorage.setItem('visitor_uuid', visitorUuid);
+}
+
+
   $('#myCarousel').carousel({
     interval: false
   });
@@ -2720,6 +2731,39 @@ function saveEscortAjaxStats(formData, url, type)
         }
     });
 }
+
+function make_escort_centres_log(is_profile_media_visit='0')
+{
+
+    let profile_id = "{{ $escort->id}}";
+
+    console.log('profile_id', profile_id);
+    console.log('visitorUuid', visitorUuid);
+    console.log('is_profile_media_visit', is_profile_media_visit);
+
+    $.ajax({
+        url: "{{ route('web.make-massage-centres-log') }}",
+        type: "POST",
+        data: {
+            profile_id: profile_id,
+            type:'escort',
+            is_profile_media_visit:is_profile_media_visit,
+            visitorUuid: visitorUuid,
+            _token: "{{ csrf_token() }}"
+        },
+        success: function (response) {
+            // console.log('Log generated successfully:', response);
+        },
+        error: function (xhr) {
+            console.log('Error generating log:', xhr.responseText);
+        }
+    });
+}
+
+$('#exampleModal').on('shown.bs.modal', function () {
+    make_escort_centres_log(is_profile_media_visit='1');
+});
+
 
 </script>
 <script>

@@ -3238,7 +3238,7 @@ $(document).on('click', '.main-gallery-image', function () {
 });
 
 $('#exampleModal').on('shown.bs.modal', function () {
-    make_massage_centres_log(is_massage_profile_media_visit='1');
+    make_massage_centres_log(is_profile_media_visit='1');
 });
 
 
@@ -3262,7 +3262,7 @@ function generateLog(massure_id, page)
     });
 }
 
-function make_massage_centres_log(is_massage_profile_media_visit='0')
+function make_massage_centres_log(is_profile_media_visit='0')
 {
 
     let massage_profile_id = "{{ $listing->id}}";
@@ -3275,8 +3275,9 @@ function make_massage_centres_log(is_massage_profile_media_visit='0')
         url: "{{ route('web.make-massage-centres-log') }}",
         type: "POST",
         data: {
-            massage_profile_id: massage_profile_id,
-            is_massage_profile_media_visit:is_massage_profile_media_visit,
+            type:'massage',
+            profile_id: massage_profile_id,
+            is_profile_media_visit:is_profile_media_visit,
             visitorUuid: visitorUuid,
             _token: "{{ csrf_token() }}"
         },
