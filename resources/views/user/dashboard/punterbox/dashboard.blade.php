@@ -77,7 +77,7 @@
                 <div class="card-body">
                    <h3 class="NotesHeader"><b>Notes:</b></h3>
                     <ol>
-                        <li>The Punterbox register <b>(Punterbox)</b> is a free service to all Viewers. You can use
+                        <li>The Punterbox register (<b>Punterbox</b>) is a free service to all Viewers. You can use
                             the Punterbox service at any time. Your details, when you undertake a search, are
                             kept confidential.</li>
                         <li>You can only search for an Escort by their mobile number. Search your next
@@ -97,21 +97,7 @@
     </div>
     <!-- Page Heading -->
 
-    <div class="row">
-        {{-- <div class="col-lg-6 col-sm-12">
-      <div class="add-punterbox-report">
-         <form action="">
-            <label class="search-label">Search by mobile number (no spaces)</label>
-            <div class="input-group mb-3">
-               <input type="text" class="form-control" placeholder="Search..." aria-label="Search by mobile" aria-describedby="button-search">
-               <div class="input-group-append">
-                  <button class="btn btn-search" type="button" id="button-search">Search</button>
-               </div>
-            </div>
-         </form>
-       </div>
-   </div> --}}
-        <div class="col-md-12">
+        <div class="col-md-12 common-card">
 
             <div class="table-responsive">
                 <table id="myReportListTable" class="table">
@@ -130,7 +116,6 @@
                 </table>
             </div>
         </div>
-    </div>
     <!--middle content end here-->
 </div>
 @endsection
@@ -266,14 +251,13 @@
                                     <td class="border-0">${data.ref ?? 'N/A'}</td>
                                     <th>Incident Date:</th>
                                     <td class="border-0">${formatDate(data.incident_date) ?? 'N/A'}</td>
-                                </tr>
-                                <tr>
                                     <th>Escorts's name:</th>
                                     <td class="border-0">${data.escorts_name ?? 'N/A'}</td>
-                                    <th>Incident Type:</th>
-                                    <td class="border-0">${data.incident_nature ?? 'N/A'}</td>
                                 </tr>
                                 <tr>
+                                   
+                                    <th>Incident Type:</th>
+                                    <td class="border-0">${data.incident_nature ?? 'N/A'}</td>
                                     <th>Report Date:</th>
                                     <td class="border-0">${formatDate(data.created_at) ?? 'N/A'}</td>
                                     <th>Location:</th>
@@ -284,14 +268,13 @@
                                     <td class="border-0">${data.escorts_email ?? 'N/A'}</td>
                                     <th>Rating:</th>
                                     <td class="border-0">${data.rating ?? 'N/A'}</td>
-                                </tr>
-                                <tr>
                                      <th>Platform:</th>
                                     <td  class="border-0">${data.platform ?? 'N/A'}</td>
+                                </tr>
+                                <tr>                                    
                                      <th>Profile Link:</th>
                                     <td  class="border-0">${data.profile_link ?? 'N/A'}</td>
-                                </tr>
-                                <tr>
+                                
                                     <th>Summary of Incident:</th>
                                     <td  class="border-0">${data.what_happened ?? 'N/A'}</td>
                                 </tr>

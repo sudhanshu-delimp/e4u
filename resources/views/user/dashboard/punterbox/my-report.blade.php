@@ -49,59 +49,60 @@
         </div>
     </div>
         <!-- Page Heading -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="stats-container">
-                    <div class="stat-card-wrapper">
-                        <div class="stat-card">
-                            <div class="stat-top">
-                                <div class="stat-icon"><i class="fas fa-calendar-day"></i></div>
-                                <div class="stat-label ">Today</div>
+        {{-- <div class="row"> --}}
+            <div class="col-md-12 common-card mb-3">
+                    <div class="stats-card-grid">
+                        <div class="stats-card">
+                            <div class="stats-details">
+                                <div class="stats-icon">
+                                    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"></path> </g></svg>
+                                </div>
+                                <div class="stat-text">                                    
+                                    <div class="stats-label ">Today</div>                                
+                                    <div class="stats-value today_report">0</div>
+                                </div>
                             </div>
-                            <div class="stat-number today_report">0</div>
                         </div>
 
-                        <div class="stat-card">
-                            <div class="stat-top">
-                                <div class="stat-icon"><i class="fas fa-calendar-week"></i></div>
-                                <div class="stat-label">This Month</div>
+                        <div class="stats-card">
+                            <div class="stats-details">
+                                 <div class="stats-icon">
+                                    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"></path> </g></svg>
+                                </div>
+                                <div class="stat-text">                                
+                                    <div class="stats-label">This Month</div>                            
+                                    <div class="stats-value month_report">0</div>
+                                </div>
                             </div>
-                            <div class="stat-number month_report">0</div>
                         </div>
 
-                        <div class="stat-card">
-                            <div class="stat-top">
-                                <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
-                                <div class="stat-label ">This Year</div>
+                        <div class="stats-card">
+                            <div class="stats-details">
+                                 <div class="stats-icon">
+                                    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"></path> </g></svg>
+                                </div>
+                                <div class="stat-text">                                
+                                    <div class="stats-label ">This Year</div>                            
+                                    <div class="stats-value year_report">0</div>
+                                </div>
                             </div>
-                            <div class="stat-number year_report">0</div>
                         </div>
 
-                        <div class="stat-card">
-                            <div class="stat-top">
-                                <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
-                                <div class="stat-label">All Time</div>
+                        <div class="stats-card">
+                            <div class="stats-details">
+                                 <div class="stats-icon">
+                                    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"></path> </g></svg>
+                                </div>
+                                <div class="stat-text">                                
+                                    <div class="stats-label">All Time</div>                           
+                                    <div class="stats-value all_time_report">0</div>
+                                </div>
                             </div>
-                            <div class="stat-number all_time_report">0</div>
                         </div>
                     </div>
-                </div>
+                
             </div>
-            {{-- <div class="col-lg-6 col-sm-12">
-         <div class="add-punterbox-report">
-            <form action="">
-               <label class="search-label">Search by mobile number (no spaces)</label>
-               <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Search..." aria-label="Search by mobile" aria-describedby="button-search">
-                  <div class="input-group-append">
-                     <button class="btn btn-search" type="button" id="button-search">Search</button>
-                  </div>
-               </div>
-            </form>
-          </div>
-      </div>
-       --}}
-            <div class="col-md-12">
+            <div class="col-md-12 common-card">
                 <div class="table-responsive">
                     <table id="myReportListTable" class="table">
                         <thead class="bg-first">
@@ -121,7 +122,7 @@
                     </table>
                 </div>
             </div>
-        </div>
+        {{-- </div> --}}
         <!--middle content end here-->
     </div>
 @endsection

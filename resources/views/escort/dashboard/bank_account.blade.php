@@ -197,7 +197,7 @@
                <h3 class="NotesHeader"><b>Notes:</b> </h3>
                <ol>
                   <li>Use this feature for displaying your Bank Account details for an Electronic
-                     Funds Transfer <b>(EFT)</b>. By using this feature for an EFT payment, you remove
+                     Funds Transfer (<b>EFT</b>). By using this feature for an EFT payment, you remove
                      the risk of having your bank account app open</li>
                   <li>You can set up, update and add additional bank accounts by clicking the 'Add
                      New' button. SMS 2FA authentification is applied for any changes to your Bank
@@ -214,7 +214,7 @@
       <div class="col-lg-12 col-md-12 col-sm-12">
 
          <div class="bothsearch-form d-flex gap-20">
-            <button type="button" class="create-tour-sec dctour pay-id-modal" data-toggle="modal">PayID</button> 
+            <button type="button" class="create-tour-sec dctour pay-id-modal" data-toggle="modal">View Pay ID</button> 
             <button type="button" class="create-tour-sec dctour" id="change_pin_modal">Change PIN</button>
             <button type="button" class="create-tour-sec dctour" data-toggle="modal"  id="commission-modal" data-target="#commission-report2">Add New Account</button>
          </div>
@@ -222,7 +222,7 @@
    </div>
 
    <div class="row">
-      <div class="col-md-12 mt-2">
+      <div class="col-md-12 mt-2 common-card">
          <div class="table-responsive">
             <table class="table w-100" id="bankAccountTable">
                <thead class="table-bg">

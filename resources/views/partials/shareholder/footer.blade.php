@@ -22,11 +22,12 @@
                         </h5>
                     </div>
                     <div class="modal-footer justify-content-center pt-0">
-                        <button class="btn-cancel-modal" type="button" data-dismiss="modal">Cancel</button>
+                       
                         <form method="POST" action="{{ route('admin.logout') }}">
                             @csrf
                             <button type="submit" class="btn-success-modal">Logout</button>
                         </form>
+                         <button class="btn-cancel-modal" type="button" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
             </div>

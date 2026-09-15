@@ -55,11 +55,12 @@
    <!-- Page Heading -->
    <div class="row">
       <div class="col-md-12">
-         <div>
+         <div class="common-card">
             <form class="common-form" id="notebox-form" novalidate>
-               <div class="common-card">
-                  <div class="row">
-                     <div class="col-md-3 mb-3">
+               <div class="row inner-row">
+                  <div class="col-lg-12">
+                     <div class="inner-field-row">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="escort_type">Escort Type <span style="color:#FF3C5F;">*</span></label>
                         <select class="form-control" required="required" name="escort_type" id="escort_type">
                            <option value="" selected="">Choose</option>
@@ -68,13 +69,13 @@
                            @endforeach
                         </select>
                      </div>
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="stage_name">Stage Name <span style="color:#FF3C5F;">*</span> </label>
                         <input type="text" class="form-control" name="stage_name"  value="{{$profile_data && $profile_data->name ? $profile_data->name : ''}}" id="stage_name" required="required">
                      </div>
 
 
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="mobile">Mobile <span style="color:#FF3C5F;">*</span></label>
                         <input type="text" class="form-control" maxlength="10"  value="{{$profile_data && $profile_data->user ? $profile_data->user->phone : ''}}" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" id="mobile" name="mobile" required="required">
                      </div>
@@ -85,15 +86,13 @@
 
                         $incallPrice = $duration?->pivot?->incall_price;
                      @endphp
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="advertised_price_per_hour">Advertised price per hour <span style="color:#FF3C5F;">*</span> </label>
                         <input type="text" class="form-control" id="advertised_price_per_hour" value="{{$incallPrice}}" name="advertised_price_per_hour"   required="required">
 
                      </div>
-                  </div>
-
-                  <div class="row">
-                     <div class="col-md-3 mb-3">
+                  
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="state">State <span style="color:#FF3C5F;">*</span></label>
                         <select class="form-control" required="required" name="state" id="state">
                            <option value=""  selected="">Choose</option>
@@ -102,12 +101,12 @@
                            @endforeach
                         </select>
                      </div>
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="location">Location</label>
                         <input type="text" class="form-control" name="location" id="location" value="{{$profile_data && $profile_data->address ? $profile_data->address : ''}}" required="required">
                      </div>
 
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="meeting_type">Meeting type </label>
                         <select class="form-control" name="meeting_type" id="meeting_type">
                            <option value="" selected="">Choose</option>
@@ -123,7 +122,7 @@
                            <option value="ttm">Threesome (TTM)</option>
                         </select>
                      </div>
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="extras_charged">Extras charged</label>
                         <select class="form-control" name="extras_charged" id="extras_charged">
                            <option value="" selected="">Choose</option>
@@ -132,7 +131,7 @@
                         </select>
                      </div>
 
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="photos_authenticity">Photos authenticity </label>
                         <select class="form-control" name="photos_authenticity" id="photos_authenticity">
                            <option value="" selected="">Choose</option>
@@ -144,7 +143,7 @@
                            <option value="no-photos-available">No photos available</option>
                         </select>
                      </div>
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="ethnicity">Ethnicity</label>
                         <select class="form-control" name="ethnicity" id="ethnicity">
                            <option value="" selected="">Choose</option>
@@ -160,7 +159,7 @@
                         </select>
                      </div>
 
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="nationality">Nationality </label>
                         <select class="form-control" name="nationality" id="nationality">
                            <option value="" selected="">Choose</option>
@@ -413,7 +412,7 @@
                      </div>
 
 
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="estimated_age">Estimated age</label>
                         <select class="form-control" name="estimated_age" id="estimated_age">
                            <option value="" selected="">Choose</option>
@@ -426,10 +425,7 @@
                            <option value="over-45">Over 45</option>
                         </select>
                      </div>
-                  </div>
-
-                  <div class="row">
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="body_shape">Body shape </label>
                         <select class="form-control" name="body_shape" id="body_shape">
                            <option value="" selected="">Choose</option>
@@ -442,7 +438,7 @@
                            <option value="slim">Slim</option>
                         </select>
                      </div>
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="overall_looks">Overall looks</label>
                         <select class="form-control" name="overall_looks" id="overall_looks">
                            <option value="" selected="">Choose</option>
@@ -462,7 +458,7 @@
                         </select>
                      </div>
 
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for='overall_personality'>Overall personality</label>
                         <select class="form-control" name="overall_personality" id="overall_personality">
                            <option value="" selected="">Choose</option>
@@ -488,7 +484,7 @@
                         </select>
                      </div>
 
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="bd">B&D </label>
                         <select class="form-control" name="bd" id="bd">
                            <option value="" selected="">Choose</option>
@@ -498,11 +494,7 @@
                         </select>
                      </div>
 
-                  </div>
-
-
-                  <div class="row">
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="blowjob">Blowjob </label>
                         <select class="form-control" name="blowjob" id="blowjob">
                            <option value="" selected="">Choose</option>
@@ -514,7 +506,7 @@
                            <option value="unsure">Unsure</option>
                         </select>
                      </div>
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="oral_on_escort"> Oral on Escort</label>
                         <select class="form-control" name="oral_on_escort" id="oral_on_escort">
                            <option value="" selected="">Choose</option>
@@ -528,7 +520,7 @@
                         </select>
                      </div>
 
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="anal_sex">Anal sex</label>
                         <select class="form-control" name="anal_sex" id="anal_sex">
                            <option value="" selected="">Choose</option>
@@ -545,7 +537,7 @@
                         </select>
                      </div>
 
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="overall_performance">Overall performance</label>
                         <select class="form-control" name="overall_performance" id="overall_performance">
                            <option value="" selected="">Choose</option>
@@ -563,10 +555,7 @@
                         </select>
                      </div>
 
-                  </div>
-
-                  <div class="row">
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="met_profile_undertakings">Met Profile undertakings </label>
                         <select class="form-control" name="met_profile_undertakings" id="met_profile_undertakings">
                            <option value="" selected="">Choose</option>
@@ -574,7 +563,7 @@
                            <option value="no">No</option>
                         </select>
                      </div>
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="drug_consumption"> Drug consumption</label>
                         <select class="form-control" name="drug_consumption" id="drug_consumption">
                            <option value="" selected="">Choose</option>
@@ -586,47 +575,17 @@
                         </select>
                      </div>
 
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="platform">Platform</label>
                         <input name="platform" id="platform" class="form-control" type="text" placeholder="If known">
                      </div>
 
-                     <div class="col-md-3 mb-3">
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="profile_link">Profile link</label>
                         <input name="profile_link" class="form-control" id="profile_link" type="text" placeholder="If known (may be referred to as a link or a Membership ID or Ref)">
                      </div>
-
-                  </div>
-                  <div class="row">
-                     <div class="col-md-6 mb-3">
-                        <label class="form-label fw-semibold" for="summary_of_encounter">Summary of encounter</label>
-                        <textarea class="form-control" name="summary_of_encounter" id="summary_of_encounter" style="min-height: 200px;" placeholder="Write a short summary of your experience..."></textarea>
-                     </div>
-
-
-
-                     <div class="col-md-6 mb-3">
-                        <label class="form-label fw-semibold" for="attachmentInput">Profile Pic</label>
-                        <div class="border border-2 border-dashed rounded-3 p-3 text-center d-flex flex-column justify-content-center"
-                           style="border-style:dashed !important; background-color:#f8f9fa; height:180px; overflow:hidden;">
-
-                           <!-- Preview state -->
-                           <div id="previewWrap" class="h-100 d-flex align-items-center justify-content-center hide-img">
-                              <img id="previewImg" src="" alt="Preview" class="img-fluid rounded" style="max-height:150px; max-width:100%; object-fit:contain;">
-                           </div>
-
-                           <!-- Empty state -->
-                           <div id="uploadState">
-                              <i id="uploadIcon" class="fa-solid fa-cloud-arrow-up fs-3 mb-2 d-block" style="color:#FF3C5F;"></i>
-                              <div id="fileNameText" class="text-secondary small mb-2">Drag & drop a file, or</div>
-                              <input type="file" id="attachmentInput" name="profile_pic" accept="image/*" class="form-control form-control-sm w-auto d-inline-block mx-auto" onchange="previewAttachment(event)">
-                           </div>
-                        </div>
-                        <div class="form-text mt-1">Max size 4MB. JPG / PNG allowed.</div>
-                     </div>
-                  </div>
-                  <div class="row">
-                     <div class="col-md-6 mb-3">
+                     
+                     <div class="form-group">
                         <label class="form-label fw-semibold" for="status_type">Status Type <span style="color:#FF3C5F;">*</span></label>
                         <select class="form-control" required="required" name="status_type" id="status_type">
                            <option value="" selected="">Choose</option>
@@ -636,8 +595,55 @@
                            <option value="waste-of-time">Waste of time</option>
                         </select>
                      </div>
+                  </div>
+                   <div class="inner-field-row">  
+                     
+                     <div class="form-group">
+                        <label class="form-label" for="summary_of_encounter">Summary of encounter</label>
+                        <textarea class="form-control custom-texarea" name="summary_of_encounter" id="summary_of_encounter"  placeholder="Write a short summary of your experience..."></textarea>
+                     </div>
+                     <div class="form-group">
+                        <label class="form-label fw-semibold" for="attachmentInput">Profile Pic</label>
+                        <label for="attachmentInput" class="file-upload-box">
 
-                     <div class="col-md-6 mb-3">
+                           <!-- Preview state -->
+                           <div id="previewWrap" class="h-100 d-flex align-items-center justify-content-center hide-img">
+                              <img id="previewImg" src="" alt="Preview" class="img-fluid rounded" style="max-height:150px; max-width:100%; object-fit:contain;">
+                           </div>
+
+                           <!-- Empty state -->
+                           <div id="uploadState">
+                              {{-- <i id="uploadIcon" class="fa-solid fa-cloud-arrow-up fs-3 mb-2 d-block" style="color:#FF3C5F;"></i> --}}
+                              {{-- <div id="fileNameText" class="text-secondary small mb-2">Drag & drop a file, or</div> --}}
+                              <input type="file" id="attachmentInput" name="profile_pic" accept="image/*" class="form-control file-input" onchange="previewAttachment(event)">
+                           </div>
+                            <div class="upload-content">
+                              <div class="upload-icon">
+                                    <svg width="25px" height="25px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+                                       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                       <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+
+                                       <g id="SVGRepo_iconCarrier">
+                                          <path stroke="#ff3c5f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v9m0-9l3 3m-3-3l-3 3m8.5 2c1.519 0 2.5-1.231 2.5-2.75 0-1.264-.854-2.33-2.016-2.65A5 5 0 008.37 8.108a3.5 3.5 0 00-1.87 6.746">
+                                          </path>
+                                       </g>
+
+                                    </svg>
+                              </div>
+                              <span class="upload-title">Upload a file</span>
+                              <span class="upload-text" id="fileNameText">
+                                    Drag & drop your file here or <strong>browse</strong>
+                              </span>
+                              <span class="upload-hint">Max size 4MB. JPG or PNG Allowed</span>
+                           </div>
+                        </label>
+                        
+                     </div>
+
+                   </div>
+                    <div class="inner-field-row">
+                     
+                     <div class="form-group">
                         <div class="form-check form-check-inline">
                            <label class="form-label fw-semibold d-block">Rating <span style="color:#FF3C5F;">*</span></label>
                            <div class="d-flex flex-wrap">
@@ -686,11 +692,13 @@
                         </div>
 
                      </div>
+                    </div>
                   </div>
 
-                  <div class="d-flex gap-3">
-                     <button type="submit" class="save_profile_btn mr-2">Submit</button>
-                     <button type="reset" class="btn btn-outline-secondary px-4">Reset</button>
+                  <div class="common-footer">
+                     <button type="submit" class="common-save-btn mr-2">Submit</button>
+                     <button type="reset" class="common-reset-btn">Reset</button>
+                  </div>
                   </div>
                </div>
             </form>
