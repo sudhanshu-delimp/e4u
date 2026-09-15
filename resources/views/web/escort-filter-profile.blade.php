@@ -910,7 +910,8 @@
                 navigator.geolocation.getCurrentPosition(
                     position => resolve({
                         lat: position.coords.latitude,
-                        lng: position.coords.longitude
+                        lng: position.coords.longitude,
+                        accuracy: position.coords.accuracy
                     }),
                     error => reject(error), {
                         enableHighAccuracy: false,

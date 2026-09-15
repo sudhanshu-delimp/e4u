@@ -437,7 +437,7 @@
         try {
             const selectedLocation = await getCurrentLocation();
 
-            console.log(selectedLocation);
+            console.log(`selectedLocation : ${JSON.stringify(selectedLocation)}`);
 
             await getCurrentState(selectedLocation);
 
@@ -467,13 +467,14 @@
                     resolve({
                         lat: position.coords.latitude,
                         lng: position.coords.longitude,
-                        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+                        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                        accuracy: position.coords.accuracy
                     });
                 },
                 function(error) {
                     reject(error);
                 }, {
-                    enableHighAccuracy: true,
+                    enableHighAccuracy: false,
                     timeout: 15000,
                     maximumAge: 300000
                 }
