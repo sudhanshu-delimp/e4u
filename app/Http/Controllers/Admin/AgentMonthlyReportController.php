@@ -55,6 +55,25 @@ class AgentMonthlyReportController extends BaseController
    */
   public function monthlyReport()
   {
+        $billingStartDate = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('Y-m-d');
+        $billingEndDate = Carbon::now()->subMonthNoOverflow()->endOfMonth()->format('Y-m-d');
+        $reportDate = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('m-Y');
+     $reports = AgentCommission::select(
+                'agent_id',
+                DB::raw('SUM(total_commission_amount) as total_commission'),
+                DB::raw('SUM(purchase_amount) as total_purchase')
+            )->with('agent', function ($query) {
+                $query->select(['id', 'member_id', 'email', 'business_name', 'state_id'])
+                    ->with('state', function ($queryState) {
+                        $queryState->select(['id', 'name', 'iso2', 'country_id']);
+                    });
+            })
+                ->whereBetween('commission_date', [$billingStartDate." 00:00:00", $billingEndDate." 23:59:59"])
+                ->groupBy('agent_id')
+                ->get();
+
+      //dd( $reports->toArray());
+
     return  view('admin.management.agents.Fees.monthly-report');
   }
 

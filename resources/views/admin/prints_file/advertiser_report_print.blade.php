@@ -148,7 +148,11 @@
     <div class="row">
         <div class="col-6">
             <strong>Item No:</strong>
-            #{{ $report->id }}{{ $report->advertiser_id }}
+            @if($report->advertiser_type == 'escort')
+            {{ $report->escort->slug ?? ''}}
+            @else
+            {{ $report->massage->slug ?? '' }}
+            @endif
         </div>
 
         <div class="col-6">
