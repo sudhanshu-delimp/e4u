@@ -1,1086 +1,1098 @@
 @extends('layouts.web')
 @section('style')
-    <style>
-       
-        #page_loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(12, 34, 61, 0.7);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+<style>
+    #page_loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(12, 34, 61, 0.7);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .loader {
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #ff3c5f;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 0.8s linear infinite;
+    }
+
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
         }
 
-        .loader {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #ff3c5f;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 0.8s linear infinite;
+        100% {
+            transform: rotate(360deg);
         }
+    }
+
+    .page-link-custom {
+        background: #0C223d;
+        color: #fff;
+        padding: 6px 12px;
+        display: inline-block;
+        border-radius: 4px;
+        text-decoration: none;
+    }
+
+    .page-link-custom.active-page {
+        background: #F2F2F2;
+        color: #ff3c5f;
+        font-weight: bold;
+    }
 
 
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
+    .brb--content {
+        background: #ff3c5f85;
+        position: absolute;
+        top: 9rem;
+        padding: 10px;
+        width: 100%;
+        z-index: 2;
+    }
 
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        .page-link-custom {
-            background: #0C223d;
-            color: #fff;
-            padding: 6px 12px;
-            display: inline-block;
-            border-radius: 4px;
-            text-decoration: none;
-        }
-
-        .page-link-custom.active-page {
-            background: #F2F2F2;
-            color: #ff3c5f;
-            font-weight: bold;
-        }
-
-
-        .brb--content {
-            background: #ff3c5f85;
-            position: absolute;
-            top: 9rem;
-            padding: 10px;
-            width: 100%;
-            z-index: 2;
-        }
-
-        .brb--wrappr {
-            color: #fff;
-            font-size: 12px;
-            text-align: center;
-        }
-    </style>
+    .brb--wrappr {
+        color: #fff;
+        font-size: 12px;
+        text-align: center;
+    }
+</style>
 @endsection
 
 @section('content')
-    <section class="">
+<section class="">
 
-        @include('web.mc.mc-filter')
+    @include('web.mc.mc-filter')
 
-        <div class="container my-4">
+    <div class="container my-4">
 
-            <div class="row">
-
-
-                <!-- ////// Include the Skeleton Grid Type ////////// -->
-                @include('web.mc.mc-grid-skeleton')
+        <div class="row">
 
 
-                <!-- ////// Include the Skeleton List Type ////////// -->
-                @include('web.mc.mc-list-skeleton')
+            <!-- ////// Include the Skeleton Grid Type ////////// -->
+            @include('web.mc.mc-grid-skeleton')
 
-                <!-- ////// Grid View ///////////////// -->
-                <div class="col-sm-12" id="grid_view">
-                    <h2 class="mc_view_title">
 
-                        <span class="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" fill="none">
-                                <path d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                        </span>
-                        Grid View
-                    </h2>
-                    <div class="mc_card_container"></div>
+            <!-- ////// Include the Skeleton List Type ////////// -->
+            @include('web.mc.mc-list-skeleton')
 
-                </div>
+            <!-- ////// Grid View ///////////////// -->
+            <div class="col-sm-12" id="grid_view">
+                <h2 class="mc_view_title">
 
-                <!-- ////// List View ///////////////// -->
-                <div class="col-sm-12" id="list_view">
-                    <h2 class="mc_view_title">
-                        <span class="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 27 24">
-                                <path d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663"
-                                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                        </span>
-                        List View
-                    </h2>
-                    <div class="mc_list_container"></div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="no--listing">
-                        <div class="no-listing-icon">
-                            <img src="{{ asset('assets/app/img/no-results.png') }}" alt="">
-                        </div>
+                    <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" fill="none">
+                            <path d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </span>
+                    Grid View
+                </h2>
+                <div class="mc_card_container"></div>
 
-                        <div class="no-listing-content">
-                            <h3>No Listings Found</h3>
-                            <p>
-                                We couldn't find any listings matching your search criteria.
-                                Try adjusting your filters or search options.
-                            </p>                            
-                        </div>
+            </div>
+
+            <!-- ////// List View ///////////////// -->
+            <div class="col-sm-12" id="list_view">
+                <h2 class="mc_view_title">
+                    <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 24">
+                            <path d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663"
+                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </span>
+                    List View
+                </h2>
+                <div class="mc_list_container"></div>
+            </div>
+            <div class="col-sm-12">
+                <div class="no--listing">
+                    <div class="no-listing-icon">
+                        <img src="{{ asset('assets/app/img/no-results.png') }}" alt="">
+                    </div>
+
+                    <div class="no-listing-content">
+                        <h3>No Listings Found</h3>
+                        <p>
+                            We couldn't find any listings matching your search criteria.
+                            Try adjusting your filters or search options.
+                        </p>
                     </div>
                 </div>
+            </div>
 
 
 
 
-                {{-- <div id="page_loader">
+            {{-- <div id="page_loader">
                     <div class="loader"></div>
                 </div> --}}
 
-            </div>
-
-            <!-- ////// Pagination ///////////////// -->
-            @include('web.partials.pagination-skelton')
-            <div id="common_pagination"></div>
-            <!-- ////// End Pagination ///////////////// -->
-
         </div>
 
+        <!-- ////// Pagination ///////////////// -->
+        @include('web.partials.pagination-skelton')
+        <div id="common_pagination"></div>
+        <!-- ////// End Pagination ///////////////// -->
+
+    </div>
 
 
-        <div class="modal fade upload-modal hh" id="add_wishlist" style="display: none">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"><img
-                                src="{{ asset('assets/app/img/my-legbox.png') }}" class="custompopicon"> <span
-                                class="popup_modal_title_new">Add To Shortlist</span></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">
-                                <img src="{{ asset('assets/app/img/newcross.png') }}"
-                                    class="img-fluid img_resize_in_smscreen">
-                            </span>
-                        </button>
-                    </div>
-                    <div class="modal-body pb-0" style="padding: 15px 0px;">
-                        <h1 class="custom_modal_text user_short_list" style="text-align: center;">
-                            <span id="Lname">[MC Name]</span>
-                            has been added to your Shortlist.
-                        </h1>
-                    </div>
-                    <div class="modal-footer pt-0" style="justify-content: center;">
-                        <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal"
-                            id="close">Ok</button>
-                    </div>
+
+    <div class="modal fade upload-modal hh" id="add_wishlist" style="display: none">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><img
+                            src="{{ asset('assets/app/img/my-legbox.png') }}" class="custompopicon"> <span
+                            class="popup_modal_title_new">Add To Shortlist</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0" style="padding: 15px 0px;">
+                    <h1 class="custom_modal_text user_short_list" style="text-align: center;">
+                        <span id="Lname">[MC Name]</span>
+                        has been added to your Shortlist.
+                    </h1>
+                </div>
+                <div class="modal-footer pt-0" style="justify-content: center;">
+                    <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal"
+                        id="close">Ok</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="modal fade upload-modal hh" id="clear_wishlist" style="display: none">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        <img src="{{ asset('assets/dashboard/img/short-list-profile.png') }}" class="custompopicon">
+                        <span class="popup_modal_title_new"> Clear Shortlist</span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0">
+                    <h1 class="my-4 custom_modal_text" style="text-align: center;">
+                        Are you sure you want to clear the shortlist?
+                    </h1>
+                </div>
+                <div class="modal-footer pt-0" style="justify-content: center;">
+                    <button type="button" class="btn-success-modal  yes_clear_short_list" id="close">Yes</button>
+                    <button type="button" class="btn-success-modal " data-dismiss="modal" id="close">No</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade upload-modal hh" id="clear_wishlist_confirmation" style="display: none">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        <img src="{{ asset('assets/dashboard/img/short-list-profile.png') }}" class="custompopicon">
+                        <span class="popup_modal_title_new"> Clear Shortlist</span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0">
+                    <h5 class="my-4 custom_modal_text clear_wishlist_confirmation_text">
+
+                    </h5>
+                </div>
+                <div class="modal-footer pt-0" style="justify-content: center;">
+                    <button type="button" class="btn-success-modal" data-dismiss="modal" id="close">ok</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <div class="modal fade upload-modal hh" id="my_legbox" style="display: none">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> <img
+                            src="{{ asset('assets/app/img/my-legbox.png') }}" class="custompopicon"> <span
+                            class=" popup_modal_title_new">My Legbox</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5 class="custom_modal_text">
+                        <span id="Lname">My Legbox is only available to Viewers. Please
+                            log in
+                            or Register to access your Legbox.</span>
+                    </h5>
+                </div>
+                <div class="modal-footer my_legbox_footer pt-0" style="justify-content: center;">
+                    <a href="{{ route('viewer.login') }}" type="button"
+                        class="btn-cancel-modal text-decoration-none text-white" id="loginUrl">Login</a>
+                    <a href="{{ route('register') }}" type="button"
+                        class="btn-success-modal text-decoration-none text-white" id="regUrl">Register</a>
                 </div>
 
             </div>
         </div>
-
-
-        <div class="modal fade upload-modal hh" id="clear_wishlist" style="display: none">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                            <img src="{{ asset('assets/dashboard/img/short-list-profile.png') }}" class="custompopicon">
-                            <span class="popup_modal_title_new"> Clear Shortlist</span>
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">
-                                <img src="{{ asset('assets/app/img/newcross.png') }}"
-                                    class="img-fluid img_resize_in_smscreen">
-                            </span>
-                        </button>
-                    </div>
-                    <div class="modal-body pb-0">
-                        <h1 class="my-4 custom_modal_text" style="text-align: center;">
-                            Are you sure you want to clear the shortlist?
-                        </h1>
-                    </div>
-                    <div class="modal-footer pt-0" style="justify-content: center;">
-                        <button type="button" class="btn-success-modal  yes_clear_short_list" id="close">Yes</button>
-                        <button type="button" class="btn-success-modal " data-dismiss="modal" id="close">No</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="modal fade upload-modal hh" id="clear_wishlist_confirmation" style="display: none">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                            <img src="{{ asset('assets/dashboard/img/short-list-profile.png') }}" class="custompopicon">
-                            <span class="popup_modal_title_new"> Clear Shortlist</span>
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">
-                                <img src="{{ asset('assets/app/img/newcross.png') }}"
-                                    class="img-fluid img_resize_in_smscreen">
-                            </span>
-                        </button>
-                    </div>
-                    <div class="modal-body pb-0">
-                        <h5 class="my-4 custom_modal_text clear_wishlist_confirmation_text">
-
-                        </h5>
-                    </div>
-                    <div class="modal-footer pt-0" style="justify-content: center;">
-                        <button type="button" class="btn-success-modal" data-dismiss="modal"id="close">ok</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-
-
-        <div class="modal fade upload-modal hh" id="my_legbox" style="display: none">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"> <img
-                                src="{{ asset('assets/app/img/my-legbox.png') }}" class="custompopicon"> <span
-                                class=" popup_modal_title_new">My Legbox</span></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">
-                                <img src="{{ asset('assets/app/img/newcross.png') }}"
-                                    class="img-fluid img_resize_in_smscreen">
-                            </span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <h5 class="custom_modal_text">
-                            <span id="Lname">My Legbox is only available to Viewers. Please
-                                log in
-                                or Register to access your Legbox.</span>
-                        </h5>
-                    </div>
-                    <div class="modal-footer my_legbox_footer pt-0" style="justify-content: center;">
-                        <a href="{{ route('viewer.login') }}" type="button"
-                            class="btn-cancel-modal text-decoration-none text-white" id="loginUrl">Login</a>
-                        <a href="{{ route('register') }}" type="button"
-                            class="btn-success-modal text-decoration-none text-white" id="regUrl">Register</a>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <input type="hidden" id="activeView">
-    </section>
+    </div>
+    <input type="hidden" id="activeView">
+</section>
 @endsection
 @php
-    $listingsPreferencesView =
-        auth()->check() && auth()->user()->viewer_settings?->listings_preferences_view == 2 ? 'list' : 'grid';
+$listingsPreferencesView =
+auth()->check() && auth()->user()->viewer_settings?->listings_preferences_view == 2 ? 'list' : 'grid';
 @endphp
 
 
 @push('scripts')
-    <script>
-        window.authUser = {
-            isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
-            auth_user_type: {{ auth()->check() ? auth()->user()->type : 'false' }},
-            myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false' }},
-        };
+<script>
+    window.authUser = {
+        isLoggedIn: {
+            {
+                auth() - > check() ? 'true' : 'false'
+            }
+        },
+        auth_user_type: {
+            {
+                auth() - > check() ? auth() - > user() - > type : 'false'
+            }
+        },
+        myLegboxDisabled: {
+            {
+                auth() - > check() && auth() - > user() - > viewer_settings ? - > features_enable_my_legbox == 0 ? 'true' : 'false'
+            }
+        },
+    };
 
-        //This is Global Massage Request for use resuffling
-        const viewType = "{{ $listingsPreferencesView }}";
-        var globalMassageRequest = {
-            page: 1,
-            filter_by_location: {},
-            filter_by_feild: {},
-            view_type: 'null',
-            url_param: {},
-        };
+    //This is Global Massage Request for use resuffling
+    const viewType = "{{ $listingsPreferencesView }}";
+    var globalMassageRequest = {
+        page: 1,
+        filter_by_location: {},
+        filter_by_feild: {},
+        view_type: 'null',
+        url_param: {},
+    };
 
 
-        $(document).on('click', '.add_to_favrate', function() {
-            if (window.authUser.myLegboxDisabled && window.authUser.auth_user_type == '0') {
-                swal_error_warning('My Legbox',
-                    'Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.'
-                );
+    $(document).on('click', '.add_to_favrate', function() {
+        if (window.authUser.myLegboxDisabled && window.authUser.auth_user_type == '0') {
+            swal_error_warning('My Legbox',
+                'Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.'
+            );
+            return false;
+        }
+
+        var name = $(this).attr('data-name');
+        var Eid = $(this).attr('data-massageId');
+        var Uid = $(this).attr('data-userId');
+        var cidcl = $(this).attr('class');
+        var cid = cidcl.split(' ');
+
+        if (cid.includes('fill')) {
+            $(this).removeClass('fill');
+            $(this).addClass('null');
+            $('.legboxClass_' + Eid).html(
+                "<i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i><span class='custom-heart-text remove-tool'>Remove from My Legbox</span>"
+            );
+            $('#legboxId_' + Eid).html(
+                "<i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i><span class='custom-heart-text'>Remove from My Legbox</span>"
+            );
+
+            $('#legboxIdList_' + Eid).html(
+                "<i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i><span class='custom-heart-text'>Remove from My Legbox</span>"
+            );
+
+            var url = "{{ route('user.save.massage.legbox', ':id') }}";
+            url = url.replace(':id', Eid);
+            $('.user_short_list').html(`<span id="Lname">${name}</span> has been added to your Legbox.`);
+            $('#add_wishlist').find('.popup_modal_title_new').text('My Legbox');
+            $('#add_wishlist').modal('show');
+            $.ajax({
+                type: "post",
+                url: url,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+
+                }
+            });
+
+        } else if (cid.includes('null')) {
+            $(this).removeClass('null');
+            $(this).addClass('fill');
+
+            $('.legboxClass_' + Eid).html(
+                "<i class='fa fa-heart-o' aria-hidden='true'></i><span class='custom-heart-text list-tool'>Add to My Legbox</span>"
+            );
+            $('#legboxId_' + Eid).html(
+                "<i class='fa fa-heart-o' aria-hidden='true'></i><span class='custom-heart-text'>Add to My Legbox</span>"
+            );
+            $('#legboxIdList_' + Eid).html(
+                "<i class='fa fa-heart-o' aria-hidden='true'></i><span class='custom-heart-text'>Add to My Legbox</span>"
+            );
+
+            var url = "{{ route('user.delete.massage.legbox', ':id') }} ";
+            url = url.replace(':id', Eid);
+            $('.user_short_list').html(`<span id="Lname">${name}</span> has been removed from your Legbox.`);
+            $('#add_wishlist').find('.popup_modal_title_new').text('My Legbox');
+            $('#add_wishlist').modal('show');
+            $.ajax({
+                type: "post",
+                url: url,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    // console.log(data);
+
+                }
+            });
+
+        } else {
+
+            @if(auth() - > user() && auth() - > user() - > type != 0)
+            $(".my_legbox_title").text(
+                'My Legbox is only available to Viewers. Please log in or Register to access your Legbox.'
+            );
+            $(".my_legbox_footer").show();
+            @else
+            $(".my_legbox_title").text(
+                'My Legbox is only available to Viewers. Please log in or Register to access your Legbox.'
+            );
+            $(".my_legbox_footer").show();
+            @endif
+            $('#my_legbox').modal('show');
+
+            var login_url = "{{ route('viewer.login', ':id') }}";
+            var loginurl = login_url.replace(':id', 'legboxId=' + Eid);
+            var loginurl2 = loginurl.replace(':path', 'path=' + window.location.pathname);
+
+
+
+            var regurl = "{{ route('register', ':id') }}";
+            //{{-- loginurl = loginurl.replace(':id','legboxId='+Eid) --}}
+            regurl = regurl.replace(':id', 'legboxId=' + Eid)
+            $('#loginUrl').attr('href', loginurl2)
+            $('#regUrl').attr('href', regurl)
+        }
+
+
+    });
+
+
+    //SHS
+
+    var activeView = '{{ $listingsPreferencesView }}';
+    globalMassageRequest.view_type = activeView;
+
+    if (globalMassageRequest.view_type == 'list') {
+        $('#view_grid').removeClass('view-active');
+        $('#view_list').addClass('view-active active');
+        $('#activeView').val(activeView);
+    }
+
+    if (globalMassageRequest.view_type == 'grid') {
+        $('#view_list').removeClass('view-active');
+        $('#view_grid').addClass('view-active active');
+        $('#activeView').val(activeView);
+    }
+
+    async function fetchLocationFromServer(lat, lng) {
+        try {
+            const data = await $.ajax({
+                url: "{{ route('web.user_location') }}",
+                type: "GET",
+                data: {
+                    latitude: lat,
+                    longitude: lng
+                }
+            });
+            return data;
+
+        } catch (error) {
+            console.error(error);
+            return {
+                state: null,
+                city: null
+            };
+        }
+    }
+
+    function toggleSkeleton(grid = false, list = false, pagination = false, cusPagi = false) {
+        $('#grid-skeleton').toggle(grid);
+        $('#list-skeleton').toggle(list);
+        $('#skl-pagination').toggle(pagination);
+        $('.custom-pagination').toggle(cusPagi);
+    }
+
+    function toggleViewTitle(show = true) {
+        $('#grid_view .mc_view_title, #list_view .mc_view_title').toggle(show);
+    }
+
+    function toggleView(grid = true, list = false) {
+        $('#grid_view').toggle(grid);
+        $('#list_view').toggle(list);
+    }
+
+    function toggleContainer(grid = true, list = false) {
+        $('.mc_card_container').toggle(grid);
+        $('.mc_list_container').toggle(list);
+    }
+
+
+    $('#view_grid').on('click', function() {
+        activeView = 'grid';
+
+        $('#activeView').val('grid');
+        toggleContainer(grid = true, list = false);
+        toggleSkeleton(grid = true, list = false, pagination = true, cusPagi = false);
+
+        //set view type in global varaiable
+        globalMassageRequest.view_type = 'grid';
+
+        setTimeout(async function() {
+            toggleSkeleton(grid = false, list = false, pagination = false, cusPagi = true);
+            toggleViewTitle(true);
+            toggleView(grid = true, list = false);
+
+        }, 500);
+        $('.view-active').removeClass('view-active');
+        $(this).addClass('view-active active');
+
+    });
+
+    $('#view_list').on('click', function() {
+        activeView = 'list';
+        $('#activeView').val('list');
+
+        toggleContainer(grid = false, list = true);
+        //hide show 
+        toggleSkeleton(grid = false, list = true, pagination = true, cusPagi = false);
+
+        //set view type in global varaiable
+        globalMassageRequest.view_type = 'list';
+
+        setTimeout(async function() {
+            toggleSkeleton(grid = false, list = false, pagination = false, cusPagi = true);
+            toggleViewTitle(true);
+            toggleView(grid = false, list = true);
+
+        }, 500);
+        $('.view-active').removeClass('view-active active');
+        $(this).addClass('view-active active');
+
+    });
+
+    $(document).on('click', '.custom-pagination a', async function(e) {
+        e.preventDefault();
+
+        let url = $(this).attr('href');
+        if (!url || url === '#') return;
+
+        let page = getParameterByName('page', url);
+        if (!page) page = 1;
+        globalMassageRequest.page = page;
+        await loadData();
+    });
+
+
+    const massageRouteStates = escortRouteStates = @json(config('escorts.profile.states'));
+
+    const massageBaseUrl = "{{ config('constants.massage_list_base_slug') }}";
+    let preserveInitialMassageLocationUrl = true;
+
+    function getMassageRouteMemberId(selectedCity) {
+        const segments = window.location.pathname.split('/').filter(Boolean);
+        const lastSegment = segments[segments.length - 1] || '';
+        const routeOffset = String(segments[1] || '').toLowerCase() === 'australia' ? 2 : 1;
+        const currentState = segments[routeOffset] || '';
+        const currentCity = segments[routeOffset + 1] || '';
+
+
+        if (!/^M[\w-]+$/i.test(lastSegment) || !selectedCity) {
+            return null;
+        }
+
+        if (currentState !== selectedCity.state || currentCity !== selectedCity.city) {
+            return null;
+        }
+
+        return lastSegment;
+    }
+
+    function getMassageListingPath() {
+        const segments = window.location.pathname.split('/').filter(Boolean);
+
+        const hasCountrySegment = String(segments[1] || '').toLowerCase() === 'australia';
+        const routeOffset = hasCountrySegment ? 2 : 1;
+        const urlState = String(segments[routeOffset] || '').toLowerCase();
+        const urlCity = String(segments[routeOffset + 1] || '').toLowerCase();
+        const selectedCityId = String($('#profile_city').val() || '');
+        const currentMemberId = segments[routeOffset + 2] || '';
+
+
+        const pathSegments = [massageBaseUrl];
+
+        let selectedState = null;
+        let selectedCity = null;
+        let cityIds = null;
+
+        Object.entries(massageRouteStates).some(function([stateId, state]) {
+
+            const stateAbbr = String(state.stateAbbr || '').toLowerCase();
+            const cities = state.cities || {};
+
+            if (selectedCityId) {
+                return Object.entries(cities).some(function([cityId, city]) {
+                    if (String(cityId) !== selectedCityId) {
+                        return false;
+                    }
+
+                    selectedState = {
+                        id: stateId,
+                        abbr: stateAbbr
+                    };
+                    selectedCity = {
+                        stateId: stateId,
+                        cityId: cityId,
+                        state: stateAbbr,
+                        city: String(city.cityName || '').toLowerCase()
+                    };
+                    cityIds = cityId;
+
+                    return true;
+                });
+            }
+
+            if (!preserveInitialMassageLocationUrl) {
                 return false;
             }
 
-            var name = $(this).attr('data-name');
-            var Eid = $(this).attr('data-massageId');
-            var Uid = $(this).attr('data-userId');
-            var cidcl = $(this).attr('class');
-            var cid = cidcl.split(' ');
-
-            if (cid.includes('fill')) {
-                $(this).removeClass('fill');
-                $(this).addClass('null');
-                $('.legboxClass_' + Eid).html(
-                    "<i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i><span class='custom-heart-text remove-tool'>Remove from My Legbox</span>"
-                );
-                $('#legboxId_' + Eid).html(
-                    "<i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i><span class='custom-heart-text'>Remove from My Legbox</span>"
-                );
-
-                $('#legboxIdList_' + Eid).html(
-                    "<i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i><span class='custom-heart-text'>Remove from My Legbox</span>"
-                );
-
-                var url = "{{ route('user.save.massage.legbox', ':id') }}";
-                url = url.replace(':id', Eid);
-                $('.user_short_list').html(`<span id="Lname">${name}</span> has been added to your Legbox.`);
-                $('#add_wishlist').find('.popup_modal_title_new').text('My Legbox');
-                $('#add_wishlist').modal('show');
-                $.ajax({
-                    type: "post",
-                    url: url,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-
-                    }
-                });
-
-            } else if (cid.includes('null')) {
-                $(this).removeClass('null');
-                $(this).addClass('fill');
-
-                $('.legboxClass_' + Eid).html(
-                    "<i class='fa fa-heart-o' aria-hidden='true'></i><span class='custom-heart-text list-tool'>Add to My Legbox</span>"
-                );
-                $('#legboxId_' + Eid).html(
-                    "<i class='fa fa-heart-o' aria-hidden='true'></i><span class='custom-heart-text'>Add to My Legbox</span>"
-                );
-                $('#legboxIdList_' + Eid).html(
-                    "<i class='fa fa-heart-o' aria-hidden='true'></i><span class='custom-heart-text'>Add to My Legbox</span>"
-                );
-
-                var url = "{{ route('user.delete.massage.legbox', ':id') }} ";
-                url = url.replace(':id', Eid);
-                $('.user_short_list').html(`<span id="Lname">${name}</span> has been removed from your Legbox.`);
-                $('#add_wishlist').find('.popup_modal_title_new').text('My Legbox');
-                $('#add_wishlist').modal('show');
-                $.ajax({
-                    type: "post",
-                    url: url,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        // console.log(data);
-
-                    }
-                });
-
-            } else {
-
-                @if (auth()->user() && auth()->user()->type != 0)
-                    $(".my_legbox_title").text(
-                        'My Legbox is only available to Viewers. Please log in or Register to access your Legbox.'
-                    );
-                    $(".my_legbox_footer").show();
-                @else
-                    $(".my_legbox_title").text(
-                        'My Legbox is only available to Viewers. Please log in or Register to access your Legbox.'
-                    );
-                    $(".my_legbox_footer").show();
-                @endif
-                $('#my_legbox').modal('show');
-
-                var login_url = "{{ route('viewer.login', ':id') }}";
-                var loginurl = login_url.replace(':id', 'legboxId=' + Eid);
-                var loginurl2 = loginurl.replace(':path', 'path=' + window.location.pathname);
-
-
-
-                var regurl = "{{ route('register', ':id') }}";
-                //{{-- loginurl = loginurl.replace(':id','legboxId='+Eid) --}}
-                regurl = regurl.replace(':id', 'legboxId=' + Eid)
-                $('#loginUrl').attr('href', loginurl2)
-                $('#regUrl').attr('href', regurl)
+            // Match state from URL
+            if (stateAbbr !== urlState) {
+                return false;
             }
 
+            selectedState = {
+                id: stateId,
+                abbr: stateAbbr
+            };
 
-        });
+            if (urlCity) {
+                Object.entries(cities).some(function([cityId, city]) {
 
+                    const cityName = String(city.cityName || '').toLowerCase();
 
-        //SHS
-
-        var activeView = '{{ $listingsPreferencesView }}';
-        globalMassageRequest.view_type = activeView;
-
-        if (globalMassageRequest.view_type == 'list') {
-            $('#view_grid').removeClass('view-active');
-            $('#view_list').addClass('view-active active');
-            $('#activeView').val(activeView);
-        }
-
-        if (globalMassageRequest.view_type == 'grid') {
-            $('#view_list').removeClass('view-active');
-            $('#view_grid').addClass('view-active active');
-            $('#activeView').val(activeView);
-        }
-
-        async function fetchLocationFromServer(lat, lng) {
-            try {
-                const data = await $.ajax({
-                    url: "{{ route('web.user_location') }}",
-                    type: "GET",
-                    data: {
-                        latitude: lat,
-                        longitude: lng
-                    }
-                });
-                return data;
-
-            } catch (error) {
-                console.error(error);
-                return {
-                    state: null,
-                    city: null
-                };
-            }
-        }
-
-        function toggleSkeleton(grid = false, list = false, pagination = false, cusPagi = false) {
-            $('#grid-skeleton').toggle(grid);
-            $('#list-skeleton').toggle(list);
-            $('#skl-pagination').toggle(pagination);
-            $('.custom-pagination').toggle(cusPagi);
-        }
-
-        function toggleViewTitle(show = true) {
-            $('#grid_view .mc_view_title, #list_view .mc_view_title').toggle(show);
-        }
-
-        function toggleView(grid = true, list = false) {
-            $('#grid_view').toggle(grid);
-            $('#list_view').toggle(list);
-        }
-
-        function toggleContainer(grid = true, list = false) {
-            $('.mc_card_container').toggle(grid);
-            $('.mc_list_container').toggle(list);
-        }
-
-
-        $('#view_grid').on('click', function() {
-            activeView = 'grid';
-
-            $('#activeView').val('grid');
-            toggleContainer(grid = true, list = false);
-            toggleSkeleton(grid = true, list = false, pagination = true, cusPagi = false);
-
-            //set view type in global varaiable
-            globalMassageRequest.view_type = 'grid';
-
-            setTimeout(async function() {
-                toggleSkeleton(grid = false, list = false, pagination = false, cusPagi = true);
-                toggleViewTitle(true);
-                toggleView(grid = true, list = false);
-
-            }, 500);
-            $('.view-active').removeClass('view-active');
-            $(this).addClass('view-active active');
-
-        });
-
-        $('#view_list').on('click', function() {
-            activeView = 'list';
-            $('#activeView').val('list');
-
-            toggleContainer(grid = false, list = true);
-            //hide show 
-            toggleSkeleton(grid = false, list = true, pagination = true, cusPagi = false);
-
-            //set view type in global varaiable
-            globalMassageRequest.view_type = 'list';
-
-            setTimeout(async function() {
-                toggleSkeleton(grid = false, list = false, pagination = false, cusPagi = true);
-                toggleViewTitle(true);
-                toggleView(grid = false, list = true);
-
-            }, 500);
-            $('.view-active').removeClass('view-active active');
-            $(this).addClass('view-active active');
-
-        });
-
-        $(document).on('click', '.custom-pagination a', async function(e) {
-            e.preventDefault();
-
-            let url = $(this).attr('href');
-            if (!url || url === '#') return;
-
-            let page = getParameterByName('page', url);
-            if (!page) page = 1;
-            globalMassageRequest.page = page;
-            await loadData();
-        });
-
-
-        const massageRouteStates = escortRouteStates = @json(config('escorts.profile.states'));
-
-        const massageBaseUrl = "{{ config('constants.massage_list_base_slug') }}";
-        let preserveInitialMassageLocationUrl = true;
-
-        function getMassageRouteMemberId(selectedCity) {
-            const segments = window.location.pathname.split('/').filter(Boolean);
-            const lastSegment = segments[segments.length - 1] || '';
-            const routeOffset = String(segments[1] || '').toLowerCase() === 'australia' ? 2 : 1;
-            const currentState = segments[routeOffset] || '';
-            const currentCity = segments[routeOffset + 1] || '';
-
-
-            if (!/^M[\w-]+$/i.test(lastSegment) || !selectedCity) {
-                return null;
-            }
-
-            if (currentState !== selectedCity.state || currentCity !== selectedCity.city) {
-                return null;
-            }
-
-            return lastSegment;
-        }
-
-        function getMassageListingPath() {
-            const segments = window.location.pathname.split('/').filter(Boolean);
-
-            const hasCountrySegment = String(segments[1] || '').toLowerCase() === 'australia';
-            const routeOffset = hasCountrySegment ? 2 : 1;
-            const urlState = String(segments[routeOffset] || '').toLowerCase();
-            const urlCity = String(segments[routeOffset + 1] || '').toLowerCase();
-            const selectedCityId = String($('#profile_city').val() || '');
-            const currentMemberId = segments[routeOffset + 2] || '';
-
-
-            const pathSegments = [massageBaseUrl];
-
-            let selectedState = null;
-            let selectedCity = null;
-            let cityIds = null;
-
-            Object.entries(massageRouteStates).some(function([stateId, state]) {
-
-                const stateAbbr = String(state.stateAbbr || '').toLowerCase();
-                const cities = state.cities || {};
-
-                if (selectedCityId) {
-                    return Object.entries(cities).some(function([cityId, city]) {
-                        if (String(cityId) !== selectedCityId) {
-                            return false;
-                        }
-
-                        selectedState = {
-                            id: stateId,
-                            abbr: stateAbbr
-                        };
+                    if (cityName === urlCity) {
                         selectedCity = {
                             stateId: stateId,
                             cityId: cityId,
                             state: stateAbbr,
-                            city: String(city.cityName || '').toLowerCase()
+                            city: cityName
                         };
                         cityIds = cityId;
 
                         return true;
-                    });
-                }
-
-                if (!preserveInitialMassageLocationUrl) {
-                    return false;
-                }
-
-                // Match state from URL
-                if (stateAbbr !== urlState) {
-                    return false;
-                }
-
-                selectedState = {
-                    id: stateId,
-                    abbr: stateAbbr
-                };
-
-                if (urlCity) {
-                    Object.entries(cities).some(function([cityId, city]) {
-
-                        const cityName = String(city.cityName || '').toLowerCase();
-
-                        if (cityName === urlCity) {
-                            selectedCity = {
-                                stateId: stateId,
-                                cityId: cityId,
-                                state: stateAbbr,
-                                city: cityName
-                            };
-                            cityIds = cityId;
-
-                            return true;
-                        }
-
-                        return false;
-                    });
-                }
-
-                if (!selectedCity) {
-                    cityIds = Object.keys(cities)[0] || null;
-                }
-
-
-                return true;
-            });
-
-            if (selectedCity || (preserveInitialMassageLocationUrl && hasCountrySegment)) {
-                pathSegments.push('australia');
-            }
-
-            if (selectedCity || (preserveInitialMassageLocationUrl && selectedState)) {
-                pathSegments.push(selectedState.abbr);
-
-                if (selectedCity) {
-                    pathSegments.push(selectedCity.city);
-                }
-
-                const memberId = getMassageRouteMemberId(
-                    selectedCity || {
-                        state: selectedState.abbr
                     }
-                );
 
-                if (memberId) {
-                    pathSegments.push(memberId);
-                }
+                    return false;
+                });
+            }
+
+            if (!selectedCity) {
+                cityIds = Object.keys(cities)[0] || null;
             }
 
 
-            // ==========================================
-            // Backend filter
-            // ==========================================
+            return true;
+        });
 
-            globalMassageRequest.filter_by_feild = Object.assign({}, globalMassageRequest.filter_by_feild, {
-                profile_city: cityIds,
-                massage_id: currentMemberId
-            });
+        if (selectedCity || (preserveInitialMassageLocationUrl && hasCountrySegment)) {
+            pathSegments.push('australia');
+        }
 
-            return '/' + pathSegments.join('/');
+        if (selectedCity || (preserveInitialMassageLocationUrl && selectedState)) {
+            pathSegments.push(selectedState.abbr);
+
+            if (selectedCity) {
+                pathSegments.push(selectedCity.city);
+            }
+
+            const memberId = getMassageRouteMemberId(
+                selectedCity || {
+                    state: selectedState.abbr
+                }
+            );
+
+            if (memberId) {
+                pathSegments.push(memberId);
+            }
         }
 
 
-        /* ===============================
-           AJAX LOAD FUNCTION
-        =============================== */
+        // ==========================================
+        // Backend filter
+        // ==========================================
 
-        async function loadData(requestParam = globalMassageRequest, showLoader = true) {
+        globalMassageRequest.filter_by_feild = Object.assign({}, globalMassageRequest.filter_by_feild, {
+            profile_city: cityIds,
+            massage_id: currentMemberId
+        });
 
-            let requestUrl = getMassageListingPath();
-
-
-            let ajaxReq = null;
-            let currentUrl = window.location.href;
-
-
-            if (ajaxReq) {
-                ajaxReq.abort();
-            }
-
-            history.replaceState({}, '', requestUrl);
-
-            ajaxReq = $.ajax({
-                url: "{{ route('mc-ajax-list') }}",
-                data: requestParam,
-                beforeSend: function() {
-                    toggleViewTitle(false);
-                    toggleContainer(grid = false, list = false);
-                    if (requestParam.view_type == 'grid') {
-                        toggleSkeleton(grid = true, list = false, pagination = true, cusPagi = false);
-
-                    } else {
-                        toggleSkeleton(grid = false, list = true, pagination = true, cusPagi = false);
-                    }
-                    
-                    $('body, html').animate({
-                        scrollTop: 0
-                    }, 400);
-                },
-                success: function(res) {
-                    $('.mc_card_container').html(res.grid);
-                    $('.mc_list_container').html(res.list);
-                    $('.total_count').html(res.total_count);
-                    if (res.total_count == 0) {
-                        $('.no--listing').show();
-                    } else {
-                        $('.no--listing').hide();
-                    }
-
-                    $('#common_pagination').html(res.pagination);
-
-                    //show heading
-                    toggleViewTitle(true);
+        return '/' + pathSegments.join('/');
+    }
 
 
-                    if (requestParam.view_type == 'grid') {
-                        toggleContainer(grid = true, list = false);
-                        toggleView(grid = true, list = false);
-                    } else {
-                        toggleContainer(grid = false, list = true);
-                        toggleView(grid = false, list = true);
-                    }
-                },
-                complete: function() {
-                    toggleSkeleton(grid = false, list = false, pagination = false, cusPagi = true);
-                }
-            });
+    /* ===============================
+       AJAX LOAD FUNCTION
+    =============================== */
+
+    async function loadData(requestParam = globalMassageRequest, showLoader = true) {
+
+        let requestUrl = getMassageListingPath();
+
+
+        let ajaxReq = null;
+        let currentUrl = window.location.href;
+
+
+        if (ajaxReq) {
+            ajaxReq.abort();
         }
 
+        history.replaceState({}, '', requestUrl);
+
+        ajaxReq = $.ajax({
+            url: "{{ route('mc-ajax-list') }}",
+            data: requestParam,
+            beforeSend: function() {
+                toggleViewTitle(false);
+                toggleContainer(grid = false, list = false);
+                if (requestParam.view_type == 'grid') {
+                    toggleSkeleton(grid = true, list = false, pagination = true, cusPagi = false);
+
+                } else {
+                    toggleSkeleton(grid = false, list = true, pagination = true, cusPagi = false);
+                }
+
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 400);
+            },
+            success: function(res) {
+                $('.mc_card_container').html(res.grid);
+                $('.mc_list_container').html(res.list);
+                $('.total_count').html(res.total_count);
+                if (res.total_count == 0) {
+                    $('.no--listing').show();
+                } else {
+                    $('.no--listing').hide();
+                }
+
+                $('#common_pagination').html(res.pagination);
+
+                //show heading
+                toggleViewTitle(true);
 
 
-        ///////  Short List /////////////
+                if (requestParam.view_type == 'grid') {
+                    toggleContainer(grid = true, list = false);
+                    toggleView(grid = true, list = false);
+                } else {
+                    toggleContainer(grid = false, list = true);
+                    toggleView(grid = false, list = true);
+                }
+            },
+            complete: function() {
+                toggleSkeleton(grid = false, list = false, pagination = false, cusPagi = true);
+            }
+        });
+    }
 
-        $(document).on('click', '.m_wishlist', function() {
-            $('#page_loader').show();
-            var wishlist_id = $(this).data('id');
-            var wishlist_footer_id = 'wishlist_footer_id' + wishlist_id;
-            var list_button_wrap_id = 'list_button_wrap_id' + wishlist_id;
 
-            var listbuton = `<button type="button" class="m_removelist  custom-sort-filter btn_for_profile_list_view  fill_platinum_btn shortlist" data-id="${wishlist_id}">
+
+    ///////  Short List /////////////
+
+    $(document).on('click', '.m_wishlist', function() {
+        $('#page_loader').show();
+        var wishlist_id = $(this).data('id');
+        var wishlist_footer_id = 'wishlist_footer_id' + wishlist_id;
+        var list_button_wrap_id = 'list_button_wrap_id' + wishlist_id;
+
+        var listbuton = `<button type="button" class="m_removelist  custom-sort-filter btn_for_profile_list_view  fill_platinum_btn shortlist" data-id="${wishlist_id}">
                               <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.75 3.25H8.24999C7.52064 3.25 6.82117 3.53973 6.30545 4.05546C5.78972 4.57118 5.49999 5.27065 5.49999 6V20C5.49898 20.1377 5.53587 20.2729 5.60662 20.391C5.67738 20.5091 5.77926 20.6054 5.90112 20.6695C6.02298 20.7335 6.16012 20.7627 6.2975 20.754C6.43488 20.7453 6.56721 20.6989 6.67999 20.62L12 16.91L17.32 20.62C17.4467 20.7063 17.5967 20.7516 17.75 20.75C17.871 20.7486 17.9903 20.7213 18.1 20.67C18.2203 20.6041 18.3208 20.5072 18.3911 20.3894C18.4615 20.2716 18.499 20.1372 18.5 20V6C18.5 5.27065 18.2103 4.57118 17.6945 4.05546C17.1788 3.53973 16.4793 3.25 15.75 3.25Z" fill="#ffffff"></path> </g></svg> Remove from Shortlist
                                 </button>`;
 
-            $.ajax({
-                url: "{{ route('web.store-short-list') }}",
-                type: 'POST',
-                data: {
-                    wishlist_id: wishlist_id,
-                    _token: $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(res) {
-                    $('#page_loader').hide();
-                    let response = res;
-                    if (response.status) {
-                        $('#session_count').html(response.session_count);
-                        $('#' + list_button_wrap_id).html(listbuton);
-                        $('#' + wishlist_footer_id).html(
-                            '<a href="javascript:void(0)" data-id="' + wishlist_id +
-                            '" class="m_removelist"  >Remove to Shortlist</a>');
-                        $('.user_short_list').html(
-                            `<span id="Lname">${response.data.profile_name}</span> has been added to your Shortlist.`
-                        );
-                        $('#add_wishlist').modal('show');
+        $.ajax({
+            url: "{{ route('web.store-short-list') }}",
+            type: 'POST',
+            data: {
+                wishlist_id: wishlist_id,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(res) {
+                $('#page_loader').hide();
+                let response = res;
+                if (response.status) {
+                    $('#session_count').html(response.session_count);
+                    $('#' + list_button_wrap_id).html(listbuton);
+                    $('#' + wishlist_footer_id).html(
+                        '<a href="javascript:void(0)" data-id="' + wishlist_id +
+                        '" class="m_removelist"  >Remove to Shortlist</a>');
+                    $('.user_short_list').html(
+                        `<span id="Lname">${response.data.profile_name}</span> has been added to your Shortlist.`
+                    );
+                    $('#add_wishlist').modal('show');
 
-                    }
                 }
-            });
-
+            }
         });
 
-        $(document).on('click', '.m_removelist', function() {
-            $('#page_loader').show();
-            var wishlist_id = $(this).data('id');
+    });
 
-            var wishlist_footer_id = 'wishlist_footer_id' + wishlist_id;
-            var list_button_wrap_id = 'list_button_wrap_id' + wishlist_id;
+    $(document).on('click', '.m_removelist', function() {
+        $('#page_loader').show();
+        var wishlist_id = $(this).data('id');
 
-            var listbuton = `<button type="button" class="m_wishlist custom-sort-filter btn_for_profile_list_view  fill_platinum_btn shortlist" data-id="${wishlist_id}">
+        var wishlist_footer_id = 'wishlist_footer_id' + wishlist_id;
+        var list_button_wrap_id = 'list_button_wrap_id' + wishlist_id;
+
+        var listbuton = `<button type="button" class="m_wishlist custom-sort-filter btn_for_profile_list_view  fill_platinum_btn shortlist" data-id="${wishlist_id}">
                                   <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#fff" stroke-width="0.168"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M17.75 20.75C17.5974 20.747 17.4487 20.702 17.32 20.62L12 16.91L6.68 20.62C6.56249 20.6915 6.42757 20.7294 6.29 20.7294C6.15243 20.7294 6.01751 20.6915 5.9 20.62C5.78491 20.5607 5.68741 20.4722 5.61722 20.3634C5.54703 20.2546 5.50661 20.1293 5.5 20V6C5.5 5.27065 5.78973 4.57118 6.30546 4.05546C6.82118 3.53973 7.52065 3.25 8.25 3.25H15.75C16.4793 3.25 17.1788 3.53973 17.6945 4.05546C18.2103 4.57118 18.5 5.27065 18.5 6V20C18.5005 20.1362 18.4634 20.2698 18.3929 20.3863C18.3223 20.5027 18.2209 20.5974 18.1 20.66C17.9927 20.7189 17.8724 20.7498 17.75 20.75ZM12 15.25C12.1532 15.2484 12.3033 15.2938 12.43 15.38L17 18.56V6C17 5.66848 16.8683 5.35054 16.6339 5.11612C16.3995 4.8817 16.0815 4.75 15.75 4.75H8.25C7.91848 4.75 7.60054 4.8817 7.36612 5.11612C7.1317 5.35054 7 5.66848 7 6V18.56L11.57 15.38C11.6967 15.2938 11.8468 15.2484 12 15.25Z" fill="#ffffff"></path> </g></svg> Add to Shortlist
                                 </button>`;
 
-            $.ajax({
-                url: "{{ route('web.remove-short-list') }}",
-                type: 'POST',
-                data: {
-                    wishlist_id: wishlist_id,
-                    _token: $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(res) {
-                    $('#page_loader').hide();
-                    let response = res;
-                    if (response.status) {
-                        $('#session_count').html(response.session_count);
-                        $('#' + wishlist_footer_id).html(
-                            '<a href="javascript:void(0)" data-id="' + wishlist_id +
-                            '" class="m_wishlist">Add to Shortlist</a>');
-                        $('#' + list_button_wrap_id).html(listbuton);
-                        $('.user_short_list').html(
-                            `<span id="Lname">${response.data.profile_name}</span> has been remove from your Shortlist.`
-                        );
-                        $('#add_wishlist').modal('show');
+        $.ajax({
+            url: "{{ route('web.remove-short-list') }}",
+            type: 'POST',
+            data: {
+                wishlist_id: wishlist_id,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(res) {
+                $('#page_loader').hide();
+                let response = res;
+                if (response.status) {
+                    $('#session_count').html(response.session_count);
+                    $('#' + wishlist_footer_id).html(
+                        '<a href="javascript:void(0)" data-id="' + wishlist_id +
+                        '" class="m_wishlist">Add to Shortlist</a>');
+                    $('#' + list_button_wrap_id).html(listbuton);
+                    $('.user_short_list').html(
+                        `<span id="Lname">${response.data.profile_name}</span> has been remove from your Shortlist.`
+                    );
+                    $('#add_wishlist').modal('show');
 
-                    }
                 }
-            });
-
+            }
         });
 
+    });
 
 
-        /////// Short List ///////////////
-        $(document).on('click', '.upper_filter', async function(e) {
-            e.preventDefault();
-            preserveInitialMassageLocationUrl = false;
-            globalMassageRequest.filter_by_location = {
-                locationByRadio: $('input[name="locationByRadio"]:checked').val(),
+
+    /////// Short List ///////////////
+    $(document).on('click', '.upper_filter', async function(e) {
+        e.preventDefault();
+        preserveInitialMassageLocationUrl = false;
+        globalMassageRequest.filter_by_location = {
+            locationByRadio: $('input[name="locationByRadio"]:checked').val(),
+            by_name_member: $('#by_name_member').val(),
+            set_lat: $('#set_lat').val(),
+            set_lng: $('#set_lng').val(),
+            per_page: $('#per_page').val()
+        }
+
+        await loadData();
+    });
+
+
+    /////// Per Page ///////////////
+    $(document).on('change', '#per_page', async function(e) {
+        e.preventDefault();
+        preserveInitialMassageLocationUrl = false;
+        let val = $(this).val();
+        globalMassageRequest.filter_by_location = {
+            locationByRadio: $('input[name="locationByRadio"]:checked').val(),
+            set_lat: $('#set_lat').val(),
+            set_lng: $('#set_lng').val(),
+            per_page: val,
+        }
+
+        await loadData();
+    });
+
+
+    $(document).on('click', '.lower_filter', async function(e) {
+        e.preventDefault();
+        preserveInitialMassageLocationUrl = false;
+
+        globalMassageRequest.filter_by_feild = {
+            profile_state: $('#profile_state').val(),
+            profile_city: $('#profile_city').val(),
+            masseur_types: $('#masseur_types').val(),
+            profile_age: $('#profile_age').val(),
+            profile_price: $('#profile_price').val(),
+            massage_services: $('#massage_services').val(),
+            other_services: $('#other_services').val(),
+            verification: $('#verification').val()
+        };
+
+        await loadData();
+    });
+
+    //reset the filter
+    $(document).on('click', '.reset_form_filter', async function(e) {
+        e.preventDefault();
+        preserveInitialMassageLocationUrl = false;
+        let locByRad = $('input[name="locationByRadio"]:checked').val();
+        let letVal = $('#set_lat').val();
+        let lngVal = $('#set_lng').val();
+        $('#filterForm')[0].reset();
+        //again set the location radio button to previous value
+        $(`input[name="locationByRadio"][value="${locByRad}"]`).prop('checked', true);
+        $('#profile_city').val('');
+        globalMassageRequest = {
+            filter_by_feild: {
+                profile_state: '',
+                profile_city: '',
+                masseur_types: '',
+                profile_age: '',
+                profile_price: '',
+                massage_services: '',
+                other_services: '',
+                verification: ''
+            },
+            filter_by_location: {
+                locationByRadio: locByRad,
                 by_name_member: $('#by_name_member').val(),
-                set_lat: $('#set_lat').val(),
-                set_lng: $('#set_lng').val(),
+                set_lat: letVal,
+                set_lng: lngVal,
                 per_page: $('#per_page').val()
+            },
+            view_type: activeView,
+            page: 1
+        };
+
+        //fetch data after reset serach feature.
+        await loadData();
+    });
+
+    const TEN_MINUTES = 10 * 60 * 1000; // 2 min
+    setInterval(async function() {
+        await loadData(globalMassageRequest, false);
+    }, TEN_MINUTES);
+
+
+    //////// Clear Short List /////////
+    $(document).on('click', '.clear_short_list', async function(e) {
+        var count = parseInt($('#session_count').text().trim(), 10);
+        if (count > 0) {
+            $('#clear_wishlist').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        }
+    });
+
+    $(document).on('click', '.yes_clear_short_list', async function(e) {
+        $.ajax({
+            url: "{{ route('web.clear-short-list') }}",
+            type: 'POST',
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(res) {
+                $('#clear_wishlist').modal('hide');
+                $('#session_count').html('0');
+                let response = res;
+                if (response.status) {
+                    $('.clear_wishlist_confirmation_text').html(response.message);
+                    $('#clear_wishlist_confirmation').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                }
+            }
+        });
+    })
+
+    function getParameterByName(name, url) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+        let results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    async function updateLocationFields() {
+        let selectedLocation = $('input[name="locationByRadio"]:checked').attr('id');
+
+        if (selectedLocation === 'yourLocation') {
+            //make disable all city
+            $('#profile_city').val('').prop('disabled', true);
+            //get storage location.
+            const location = await getLocation();
+
+            if (location) {
+                $("#set_lat").val(location?.lat || '');
+                $("#set_lng").val(location?.lng || '');
             }
 
-            await loadData();
-        });
-
-
-        /////// Per Page ///////////////
-        $(document).on('change', '#per_page', async function(e) {
-            e.preventDefault();
-            preserveInitialMassageLocationUrl = false;
-            let val = $(this).val();
             globalMassageRequest.filter_by_location = {
-                locationByRadio: $('input[name="locationByRadio"]:checked').val(),
                 set_lat: $('#set_lat').val(),
                 set_lng: $('#set_lng').val(),
-                per_page: val,
-            }
-
-            await loadData();
-        });
-
-
-        $(document).on('click', '.lower_filter', async function(e) {
-            e.preventDefault();
-            preserveInitialMassageLocationUrl = false;
-
-            globalMassageRequest.filter_by_feild = {
-                profile_state: $('#profile_state').val(),
-                profile_city: $('#profile_city').val(),
-                masseur_types: $('#masseur_types').val(),
-                profile_age: $('#profile_age').val(),
-                profile_price: $('#profile_price').val(),
-                massage_services: $('#massage_services').val(),
-                other_services: $('#other_services').val(),
-                verification: $('#verification').val()
+                locationByRadio: $('input[name="locationByRadio"]:checked').val(),
+                per_page: $('#per_page').val(),
             };
+        } else {
+            //make emable all city
+            $('#profile_city').prop('disabled', false);
 
-            await loadData();
-        });
+            $("#set_lat").val('');
+            $("#set_lng").val('');
 
-        //reset the filter
-        $(document).on('click', '.reset_form_filter', async function(e) {
-            e.preventDefault();
-            preserveInitialMassageLocationUrl = false;
-            let locByRad = $('input[name="locationByRadio"]:checked').val();
-            let letVal = $('#set_lat').val();
-            let lngVal = $('#set_lng').val();
-            $('#filterForm')[0].reset();
-            //again set the location radio button to previous value
-            $(`input[name="locationByRadio"][value="${locByRad}"]`).prop('checked', true);
-            $('#profile_city').val('');
-            globalMassageRequest = {
-                filter_by_feild: {
-                    profile_state: '',
-                    profile_city: '',
-                    masseur_types: '',
-                    profile_age: '',
-                    profile_price: '',
-                    massage_services: '',
-                    other_services: '',
-                    verification: ''
-                },
-                filter_by_location: {
-                    locationByRadio: locByRad,
-                    by_name_member: $('#by_name_member').val(),
-                    set_lat: letVal,
-                    set_lng: lngVal,
-                    per_page: $('#per_page').val()
-                },
-                view_type: activeView,
-                page: 1
+            globalMassageRequest.filter_by_location = {
+                set_lat: '',
+                set_lng: '',
+                locationByRadio: $('input[name="locationByRadio"]:checked').val(),
+                per_page: $('#per_page').val(),
             };
+        }
 
-            //fetch data after reset serach feature.
-            await loadData();
+        //fetch first time data.
+        await loadData();
+    }
+    // Run on page load (default selected radio)
+    (async function() {
+        await updateLocationFields();
+        // Save location in background
+        updateLocation();
+    })();
+
+    // Run when radio changes
+    $(document).on('change', 'input[name="locationByRadio"]', async function() {
+        preserveInitialMassageLocationUrl = false;
+        await updateLocationFields();
+        let selectValue = $(this).val();
+    });
+
+    /////// Accordion’s open-close state in local storage ////////
+    document.addEventListener('DOMContentLoaded', function() {
+        const collapseEl = document.getElementById('collapseSearch');
+        const savedState = localStorage.getItem('collapseSearchState');
+        if (savedState === 'open') {
+            collapseEl.classList.add('show');
+        } else {
+            collapseEl.classList.remove('show');
+        }
+        $(collapseEl).on('shown.bs.collapse', function() {
+            localStorage.setItem('collapseSearchState', 'open');
         });
 
-        const TEN_MINUTES = 10 * 60 * 1000; // 2 min
-        setInterval(async function() {
-            await loadData(globalMassageRequest, false);
-        }, TEN_MINUTES);
+        $(collapseEl).on('hidden.bs.collapse', function() {
+            localStorage.setItem('collapseSearchState', 'closed');
+        });
+
+    });
+
+    //local manage latitude and longitude.
+    const LOCATION_KEY = 'user_location';
+    const LOCATION_EXPIRE = 30 * 60 * 1000; // 30 Minutes
 
 
-        //////// Clear Short List /////////
-        $(document).on('click', '.clear_short_list', async function(e) {
-            var count = parseInt($('#session_count').text().trim(), 10);
-            if (count > 0) {
-                $('#clear_wishlist').modal({
-                    backdrop: 'static',
-                    keyboard: false
-                });
+    function getCurrentLocation() {
+        return new Promise((resolve, reject) => {
+
+            if (!navigator.geolocation) {
+                return reject('Geolocation not supported');
             }
-        });
 
-        $(document).on('click', '.yes_clear_short_list', async function(e) {
-            $.ajax({
-                url: "{{ route('web.clear-short-list') }}",
-                type: 'POST',
-                data: {
-                    _token: $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(res) {
-                    $('#clear_wishlist').modal('hide');
-                    $('#session_count').html('0');
-                    let response = res;
-                    if (response.status) {
-                        $('.clear_wishlist_confirmation_text').html(response.message);
-                        $('#clear_wishlist_confirmation').modal({
-                            backdrop: 'static',
-                            keyboard: false
-                        });
-                    }
+            navigator.geolocation.getCurrentPosition(
+                position => resolve({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                    accuracy: position.coords.accuracy
+                }),
+                error => reject(error), {
+                    enableHighAccuracy: false,
+                    timeout: 5000,
+                    maximumAge: LOCATION_EXPIRE
                 }
-            });
-        })
-
-        function getParameterByName(name, url) {
-            name = name.replace(/[\[\]]/g, '\\$&');
-            let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-            let results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, ' '));
-        }
-
-        async function updateLocationFields() {
-            let selectedLocation = $('input[name="locationByRadio"]:checked').attr('id');
-
-            if (selectedLocation === 'yourLocation') {
-                //make disable all city
-                $('#profile_city').val('').prop('disabled', true);
-                //get storage location.
-                const location = await getLocation();
-
-                if (location) {
-                    $("#set_lat").val(location?.lat || '');
-                    $("#set_lng").val(location?.lng || '');
-                }
-
-                globalMassageRequest.filter_by_location = {
-                    set_lat: $('#set_lat').val(),
-                    set_lng: $('#set_lng').val(),
-                    locationByRadio: $('input[name="locationByRadio"]:checked').val(),
-                    per_page: $('#per_page').val(),
-                };
-            } else {
-                //make emable all city
-                $('#profile_city').prop('disabled', false);
-
-                $("#set_lat").val('');
-                $("#set_lng").val('');
-
-                globalMassageRequest.filter_by_location = {
-                    set_lat: '',
-                    set_lng: '',
-                    locationByRadio: $('input[name="locationByRadio"]:checked').val(),
-                    per_page: $('#per_page').val(),
-                };
-            }
-
-            //fetch first time data.
-            await loadData();
-        }
-        // Run on page load (default selected radio)
-        (async function() {
-            await updateLocationFields();
-            // Save location in background
-            updateLocation();
-        })();
-
-        // Run when radio changes
-        $(document).on('change', 'input[name="locationByRadio"]', async function() {
-            preserveInitialMassageLocationUrl = false;
-            await updateLocationFields();
-            let selectValue = $(this).val();
-        });
-
-        /////// Accordion’s open-close state in local storage ////////
-        document.addEventListener('DOMContentLoaded', function() {
-            const collapseEl = document.getElementById('collapseSearch');
-            const savedState = localStorage.getItem('collapseSearchState');
-            if (savedState === 'open') {
-                collapseEl.classList.add('show');
-            } else {
-                collapseEl.classList.remove('show');
-            }
-            $(collapseEl).on('shown.bs.collapse', function() {
-                localStorage.setItem('collapseSearchState', 'open');
-            });
-
-            $(collapseEl).on('hidden.bs.collapse', function() {
-                localStorage.setItem('collapseSearchState', 'closed');
-            });
+            );
 
         });
+    }
 
-        //local manage latitude and longitude.
-        const LOCATION_KEY = 'user_location';
-        const LOCATION_EXPIRE = 30 * 60 * 1000; // 30 Minutes
+    //update locaiton Background
+    async function updateLocation() {
+        try {
+            const location = await getCurrentLocation();
 
+            localStorage.setItem(LOCATION_KEY, JSON.stringify({
+                ...location,
+                updated_at: Date.now()
+            }));
 
-        function getCurrentLocation() {
-            return new Promise((resolve, reject) => {
-
-                if (!navigator.geolocation) {
-                    return reject('Geolocation not supported');
-                }
-
-                navigator.geolocation.getCurrentPosition(
-                    position => resolve({
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    }),
-                    error => reject(error), {
-                        enableHighAccuracy: false,
-                        timeout: 5000,
-                        maximumAge: LOCATION_EXPIRE
-                    }
-                );
-
-            });
+        } catch (e) {
+            console.log(e);
         }
+    }
 
-        //update locaiton Background
-        async function updateLocation() {
-            try {
-                const location = await getCurrentLocation();
-
-                localStorage.setItem(LOCATION_KEY, JSON.stringify({
-                    ...location,
-                    updated_at: Date.now()
-                }));
-
-            } catch (e) {
-                console.log(e);
-            }
+    //Get Stored Location
+    async function getLocation() {
+        let location = JSON.parse(localStorage.getItem(LOCATION_KEY));
+        // No location found
+        if (!location) {
+            updateLocation(); // background
+            return null;
         }
-
-        //Get Stored Location
-        async function getLocation() {
-            let location = JSON.parse(localStorage.getItem(LOCATION_KEY));
-            // No location found
-            if (!location) {
-                updateLocation(); // background
-                return null;
-            }
-            // Expired
-            if ((Date.now() - location.updated_at) > LOCATION_EXPIRE) {
-                updateLocation(); // refresh in background
-            }
-            return location;
+        // Expired
+        if ((Date.now() - location.updated_at) > LOCATION_EXPIRE) {
+            updateLocation(); // refresh in background
         }
+        return location;
+    }
 
-        $('.btn-search').on('click', function() {
-            $('.btn-search i').toggleClass('rotate-180');
-        })
-    </script>
+    $('.btn-search').on('click', function() {
+        $('.btn-search i').toggleClass('rotate-180');
+    })
+</script>
 @endpush
