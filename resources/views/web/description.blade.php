@@ -195,15 +195,6 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                     <h3 class="display_inline_block" style="color: white;">{{ $escortName }}</h3>
                                 @endif
                             </div>
-                            @if(auth()->user() && auth()->user()->type == '0')
-                            <div class="social_media_icons">
-                                <div class="s_icon ec_playbox_icon" style="background:#ff3c5f; width:45px; height:45px;">
-                                    <a href="{{route('user.notebox.new',[$escort->id])}}" target="_blank"><img src="{{asset('assets/app/img/notebo-whitex.png')}}" alt="logo"></a>
-                                    <div class="custom-tooltip">Add to My Notebox.</div>
-                                </div>
-                            </div>
-                           
-                            @endif
                             
                         </div>
                         {{-- profile phone --}}
@@ -285,7 +276,16 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                 </ul>
                             </div>
 
-                            <div class="profile_page_location_and_id">
+                            <div class="profile_page_location_and_id d-flex gap-10">
+                                    
+                                @if(auth()->user() && auth()->user()->type == '0')
+                                    <div class="social_media_icons">
+                                        <div class="my-play-box-profile-icon" >
+                                            <a href="{{route('user.notebox.new',[$escort->id])}}" target="_blank"><img src="{{asset('assets/app/img/notebo-whitex.png')}}" alt="logo"></a>
+                                            <div class="custom-tooltip">Add to My Notebox.</div>
+                                        </div>
+                                    </div>                            
+                                @endif
                                 <ul>
                                     <li>
                                         <span class="profile_location_icon"> <i class="fa fa-id-card"></i></span>
