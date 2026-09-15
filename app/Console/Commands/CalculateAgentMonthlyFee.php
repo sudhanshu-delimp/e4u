@@ -67,6 +67,8 @@ class CalculateAgentMonthlyFee extends Command
         //$billingStartDate = '2026-08-01';
         //$billingEndDate = '2026-08-31';
         //$reportDate = '08-2026';
+
+        //$this->info("billingStartDate: $billingStartDate ,  billingEndDate  $billingEndDate");die;
         
         $monthName = Carbon::parse($billingStartDate)->format('F');
         
@@ -92,7 +94,7 @@ class CalculateAgentMonthlyFee extends Command
                 ->groupBy('agent_id')
                 ->get();
 
-             //Log::info("Monthly agent fee email not sent: " . json_encode($reports->toArray()));die;
+            // Log::info("Monthly agent fee email not sent: " . json_encode($reports->toArray()));die;
 
 
             if ($reports->count() > 0) {
@@ -173,6 +175,7 @@ class CalculateAgentMonthlyFee extends Command
 
             //$billingStartDate = '2026-06-01';
             //$billingEndDate   = '2026-06-30';
+          
 
             $reports = AgentMonthlyReport::query()
                 ->join($userTableName, $userTableName . '.id', '=', $agentMonthlyTableName . '.agent_id')

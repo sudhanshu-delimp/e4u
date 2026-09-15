@@ -635,7 +635,8 @@
 
                 },
                 columns: [{
-                        data: 'id',
+                       // data: 'id',
+                        data: 'slug',
                         name: 'id',
                         searchable: true,
                         orderable: true,
