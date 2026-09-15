@@ -267,12 +267,12 @@
                                     <th>Escorts's email:</th>
                                     <td class="border-0">${data.escorts_email ?? 'N/A'}</td>
                                     <th>Rating:</th>
-                                    <td class="border-0">${data.rating ?? 'N/A'}</td>
+                                    <td class="border-0" style="color:green;">${data.rating ?? 'N/A'}</td>
                                      <th>Platform:</th>
                                     <td  class="border-0">${data.platform ?? 'N/A'}</td>
                                 </tr>
                                 <tr>                                    
-                                     <th>Profile Link:</th>
+                                    <th>Profile Link:</th>
                                     <td  class="border-0">${data.profile_link ?? 'N/A'}</td>
                                 
                                     <th>Summary of Incident:</th>
