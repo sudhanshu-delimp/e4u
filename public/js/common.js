@@ -87,7 +87,7 @@ function swal_success_popup(message, title='', redirect = null) {
 function swal_error_popup(message) {
 
   Swal.fire({
-    title: (message) ? message : 'Action could not performed',
+    message: (message) ? message : 'Action could not performed',
     icon: "error",
     draggable: true,
     allowOutsideClick: false,
@@ -307,6 +307,7 @@ function showAlert(title, message, type, confirm = false) {
   return Swal.fire(options);
 
 }
+
 var showLoadingPopup = function (title = 'Processing', text = 'Please wait...') {
   Swal.fire({
     title,

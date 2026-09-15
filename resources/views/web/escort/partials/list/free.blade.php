@@ -103,13 +103,12 @@
                                         My Rates
                                     </a>
                                 </li>
-                                {{-- <li class="nav-item">
+                                <li class="nav-item">
                                     <a class="nav-link" id="Available-tab-{{ $escort->id }}" data-toggle="tab" href="#Available-{{ $escort->id }}"
                                         role="tab" aria-controls="Available-{{ $escort->id }}" aria-selected="false">
-
-                                       Available Times
+                                       My Availability
                                     </a>
-                                </li> --}}
+                                </li>
                             </ul>
                             <div class="add_to_shortlist_btn manage_btn_gor_gold_in_responsive pr-1">
                                 @if (Request::path() == 'showList')
@@ -460,6 +459,7 @@
                                             <th class="text-left">Service</th>
                                             <th>Massage</th>
                                             <th class="text-center">Incalls</th>
+                                            <th class="text-center">Outcalls</th>
                                         </tr>
                                     </thead>                                    
                                         <tbody>
@@ -475,6 +475,10 @@
                                                             ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->incall_price) . '</div>'
                                                             : "<span class='if_data_not_available'>N/A</span>" !!}
                                                         </td>
+                                                        <td class="text-center">{!! $duration->pivot->outcall_price
+                                                            ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->outcall_price) . '</div>'
+                                                            : "<span class='if_data_not_available'>N/A</span>" !!}
+                                                        </td>
                                                     </tr>
                                                     @if ($loop->index == 5)
                                                         @break
@@ -484,7 +488,7 @@
                                         </tbody>
                                         <thead class="table_heading_bgcolor_color available_footer">
                                             <tr>
-                                                <th class="payment_accept_text_color" scope="col" colspan="3">Available: <span
+                                                <th class="payment_accept_text_color" scope="col" colspan="4">Available: <span
                                                         class="date_from_available">{{ date('d-m-Y', strtotime($escort->start_date)) }}</span>
                                                     to <span
                                                         class="date_from_available">{{ date('d-m-Y', strtotime($escort->end_date)) }}</span>
@@ -494,9 +498,58 @@
                                 </table>
                             </div>
                              <!-- Available-tab -->
-                            <div class="tab-pane fade p-2" id="Available-{{ $escort->id }}" role="tabpanel"
-                                aria-labelledby="Available-tab-{{ $escort->id }}">
-                              
+                            <div class="tab-pane fade table-responsive p-2" id="Available-{{ $escort->id }}"
+                                role="tabpanel" aria-labelledby="Available-tab-{{ $escort->id }}">
+
+                                <table class="table table-striped open-time-table mb-0">
+                                    <thead class="table_heading_bgcolor_color">
+                                        <tr>
+                                            <th class="text-left">Day</th>
+                                            <th class="text-left">Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                            $days = [
+                                                'Monday' => 'monday',
+                                                'Tuesday' => 'tuesday',
+                                                'Wednesday' => 'wednesday',
+                                                'Thursday' => 'thursday',
+                                                'Friday' => 'friday',
+                                                'Saturday' => 'saturday',
+                                                'Sunday' => 'sunday',
+                                            ];
+
+                                            $availability = $escort->availability;
+                                        @endphp
+                                        @foreach ($days as $cDay => $day)
+                                            <tr>
+                                                <td>{{ $cDay }}</td>
+                                                <td>
+                                                    @php
+                                                        $availabilityTime =
+                                                            $availability->availability_time[$day] ?? null;
+                                                        $from = $availability->{$day . '_from'} ?? null;
+                                                        $to = $availability->{$day . '_to'} ?? null;
+                                                    @endphp
+
+                                                    @if ($availabilityTime === 'til_ate' && $from)
+                                                        {{ Carbon\Carbon::parse($from)->format('h:i A') }} ... Til Late
+                                                    @elseif(!empty($availabilityTime))
+                                                        {{ $availabilityTime }}
+                                                    @elseif($from && $to)
+                                                        {{ Carbon\Carbon::parse($from)->format('h:i A') }}
+                                                        -
+                                                        {{ Carbon\Carbon::parse($to)->format('h:i A') }}
+                                                    @else
+                                                        Unavailable
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
                             </div>
                         </div>
                 </div>

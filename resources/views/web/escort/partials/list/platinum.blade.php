@@ -46,14 +46,16 @@
                                         {{-- @endif --}}
                                     </span>
                                 @else
-                                    <span class="add_to_favrate lg_fav_icon custom--favourite" data-name="{{ $escortName }}"><i
-                                            class="fa fa-heart-o" aria-hidden="true"></i><span
-                                            class="custom-heart-text list-tool">Add to My Legbox </span></span>
+                                    <span class="add_to_favrate lg_fav_icon custom--favourite"
+                                        data-name="{{ $escortName }}"><i class="fa fa-heart-o"
+                                            aria-hidden="true"></i><span class="custom-heart-text list-tool">Add to My
+                                            Legbox </span></span>
                                 @endif
                             @else
-                                <span class="add_to_favrate lg_fav_icon custom--favourite" data-escortId="{{ $escort->id }}"
-                                    data-name="{{ $escortName }}"><i class="fa fa-heart-o"
-                                        aria-hidden="true"></i><span class="custom-heart-text list-tool">Add to My
+                                <span class="add_to_favrate lg_fav_icon custom--favourite"
+                                    data-escortId="{{ $escort->id }}" data-name="{{ $escortName }}"><i
+                                        class="fa fa-heart-o" aria-hidden="true"></i><span
+                                        class="custom-heart-text list-tool">Add to My
                                         Legbox</span></span>
                             @endif
                         </div>
@@ -80,39 +82,50 @@
                         @endif
                     </div>
                     {{-- end --}}
-                    
+
                     <div class="all-escort-view-profile-box">
                         <div class="ec_tab_header">
                             <ul class="nav nav-tabs" id="profileTabs-{{ $escort->id }}" role="tablist">
 
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="profile-details-tab-{{ $escort->id }}" data-toggle="tab"
-                                        href="#profile-details-{{ $escort->id }}" role="tab" aria-controls="profile-details-{{ $escort->id }}"
-                                        aria-selected="true">
+                                    <a class="nav-link active" id="profile-details-tab-{{ $escort->id }}"
+                                        data-toggle="tab" href="#profile-details-{{ $escort->id }}" role="tab"
+                                        aria-controls="profile-details-{{ $escort->id }}" aria-selected="true">
                                         Profile Details
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="services-tab-{{ $escort->id }}" data-toggle="tab" href="#services-{{ $escort->id }}"
-                                        role="tab" aria-controls="services-{{ $escort->id }}" aria-selected="false">
+                                    <a class="nav-link" id="services-tab-{{ $escort->id }}" data-toggle="tab"
+                                        href="#services-{{ $escort->id }}" role="tab"
+                                        aria-controls="services-{{ $escort->id }}" aria-selected="false">
 
                                         My Rates
                                     </a>
                                 </li>
-                                {{-- <li class="nav-item">
-                                    <a class="nav-link" id="Available-tab-{{ $escort->id }}" data-toggle="tab" href="#Available-{{ $escort->id }}"
-                                        role="tab" aria-controls="Available-{{ $escort->id }}" aria-selected="false">
-
-                                       Available Times
+                                <li class="nav-item">
+                                    <a class="nav-link" id="Available-tab-{{ $escort->id }}" data-toggle="tab"
+                                        href="#Available-{{ $escort->id }}" role="tab"
+                                        aria-controls="Available-{{ $escort->id }}" aria-selected="false">
+                                        My Availability
                                     </a>
-                                </li> --}}
+                                </li>
                             </ul>
                             <div class="add_to_shortlist_btn manage_btn_gor_gold_in_responsive pr-1">
                                 @if (Request::path() == 'showList')
                                     <button type="button"
                                         class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn removeshortlist custom-sort-filter"
                                         data-name="{{ $escortName }}" data-escortId="{{ $escort->id }}">
-                                        <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.75 3.25H8.24999C7.52064 3.25 6.82117 3.53973 6.30545 4.05546C5.78972 4.57118 5.49999 5.27065 5.49999 6V20C5.49898 20.1377 5.53587 20.2729 5.60662 20.391C5.67738 20.5091 5.77926 20.6054 5.90112 20.6695C6.02298 20.7335 6.16012 20.7627 6.2975 20.754C6.43488 20.7453 6.56721 20.6989 6.67999 20.62L12 16.91L17.32 20.62C17.4467 20.7063 17.5967 20.7516 17.75 20.75C17.871 20.7486 17.9903 20.7213 18.1 20.67C18.2203 20.6041 18.3208 20.5072 18.3911 20.3894C18.4615 20.2716 18.499 20.1372 18.5 20V6C18.5 5.27065 18.2103 4.57118 17.6945 4.05546C17.1788 3.53973 16.4793 3.25 15.75 3.25Z" fill="#ffffff"></path> </g></svg>
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                stroke-linejoin="round"></g>
+                                            <g id="SVGRepo_iconCarrier">
+                                                <path
+                                                    d="M15.75 3.25H8.24999C7.52064 3.25 6.82117 3.53973 6.30545 4.05546C5.78972 4.57118 5.49999 5.27065 5.49999 6V20C5.49898 20.1377 5.53587 20.2729 5.60662 20.391C5.67738 20.5091 5.77926 20.6054 5.90112 20.6695C6.02298 20.7335 6.16012 20.7627 6.2975 20.754C6.43488 20.7453 6.56721 20.6989 6.67999 20.62L12 16.91L17.32 20.62C17.4467 20.7063 17.5967 20.7516 17.75 20.75C17.871 20.7486 17.9903 20.7213 18.1 20.67C18.2203 20.6041 18.3208 20.5072 18.3911 20.3894C18.4615 20.2716 18.499 20.1372 18.5 20V6C18.5 5.27065 18.2103 4.57118 17.6945 4.05546C17.1788 3.53973 16.4793 3.25 15.75 3.25Z"
+                                                    fill="#ffffff"></path>
+                                            </g>
+                                        </svg>
                                         Remove from Shortlist</button>
                                 @else
                                     <button type="button"
@@ -120,11 +133,15 @@
                                         id="escort_{{ $escort->id }}" data-name="{{ $escortName }}"
                                         data-escortId="{{ $escort->id }}"
                                         data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
-                                        <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#fff" stroke-width="0.168">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg" stroke="#fff" stroke-width="0.168">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                stroke-linejoin="round"></g>
                                             <g id="SVGRepo_iconCarrier">
-                                                <path d="M17.75 20.75C17.5974 20.747 17.4487 20.702 17.32 20.62L12 16.91L6.68 20.62C6.56249 20.6915 6.42757 20.7294 6.29 20.7294C6.15243 20.7294 6.01751 20.6915 5.9 20.62C5.78491 20.5607 5.68741 20.4722 5.61722 20.3634C5.54703 20.2546 5.50661 20.1293 5.5 20V6C5.5 5.27065 5.78973 4.57118 6.30546 4.05546C6.82118 3.53973 7.52065 3.25 8.25 3.25H15.75C16.4793 3.25 17.1788 3.53973 17.6945 4.05546C18.2103 4.57118 18.5 5.27065 18.5 6V20C18.5005 20.1362 18.4634 20.2698 18.3929 20.3863C18.3223 20.5027 18.2209 20.5974 18.1 20.66C17.9927 20.7189 17.8724 20.7498 17.75 20.75ZM12 15.25C12.1532 15.2484 12.3033 15.2938 12.43 15.38L17 18.56V6C17 5.66848 16.8683 5.35054 16.6339 5.11612C16.3995 4.8817 16.0815 4.75 15.75 4.75H8.25C7.91848 4.75 7.60054 4.8817 7.36612 5.11612C7.1317 5.35054 7 5.66848 7 6V18.56L11.57 15.38C11.6967 15.2938 11.8468 15.2484 12 15.25Z" fill="#ffffff"></path>
+                                                <path
+                                                    d="M17.75 20.75C17.5974 20.747 17.4487 20.702 17.32 20.62L12 16.91L6.68 20.62C6.56249 20.6915 6.42757 20.7294 6.29 20.7294C6.15243 20.7294 6.01751 20.6915 5.9 20.62C5.78491 20.5607 5.68741 20.4722 5.61722 20.3634C5.54703 20.2546 5.50661 20.1293 5.5 20V6C5.5 5.27065 5.78973 4.57118 6.30546 4.05546C6.82118 3.53973 7.52065 3.25 8.25 3.25H15.75C16.4793 3.25 17.1788 3.53973 17.6945 4.05546C18.2103 4.57118 18.5 5.27065 18.5 6V20C18.5005 20.1362 18.4634 20.2698 18.3929 20.3863C18.3223 20.5027 18.2209 20.5974 18.1 20.66C17.9927 20.7189 17.8724 20.7498 17.75 20.75ZM12 15.25C12.1532 15.2484 12.3033 15.2938 12.43 15.38L17 18.56V6C17 5.66848 16.8683 5.35054 16.6339 5.11612C16.3995 4.8817 16.0815 4.75 15.75 4.75H8.25C7.91848 4.75 7.60054 4.8817 7.36612 5.11612C7.1317 5.35054 7 5.66848 7 6V18.56L11.57 15.38C11.6967 15.2938 11.8468 15.2484 12 15.25Z"
+                                                    fill="#ffffff"></path>
                                             </g>
                                         </svg>
                                         @if (!empty($escortId))
@@ -141,19 +158,19 @@
                                 @endif
                             </div>
                         </div>
-                        
+
                         <div class="tab-content" id="profileTabsContent">
 
                             <!-- Profile Details -->
-                            <div class="tab-pane fade show active" id="profile-details-{{ $escort->id }}" role="tabpanel"
-                                aria-labelledby="profile-details-tab">
+                            <div class="tab-pane fade show active" id="profile-details-{{ $escort->id }}"
+                                role="tabpanel" aria-labelledby="profile-details-tab">
                                 <div class="ec_list_header">
                                     <div class="">
                                         <div class="ec_name">{{ $escortName }}</div>
                                         <span class="ec_other_details">
                                             <span class="give_rating_after_get_servive">
                                                 <span>Rating :&nbsp</span>
-                                            @for ($i = 1; $i <= 5; $i++)
+                                                @for ($i = 1; $i <= 5; $i++)
                                                     @if ($escort->star_rating && $escort->star_rating > 0 && $i <= $escort->star_rating)
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                     @else
@@ -177,17 +194,19 @@
                                                             alt="logo"></a>
                                                     <div class="custom-tooltip">I don't have any Playbox.</div>
                                                 </div>
-                                                
-                                                 @if(isset($escort->mainPurchase) && $escort->mainPurchase->tour_location_id!=null)
+
+                                                @if (isset($escort->mainPurchase) && $escort->mainPurchase->tour_location_id != null)
                                                     <div class="s_icon ec_playbox_icon">
-                                                        <a href="javascript:void(0)" ><img
+                                                        <a href="javascript:void(0)"><img
                                                                 src="{{ asset('assets/app/img/tours.png') }}"
                                                                 alt="logo"></a>
-                                                        <div class="custom-tooltip">{{$escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left.":"On Tour, today is my last day."}}</div>
+                                                        <div class="custom-tooltip">
+                                                            {{ $escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left." : 'On Tour, today is my last day.' }}
+                                                        </div>
                                                     </div>
                                                 @endif
-                                           </div>
-                                            
+                                            </div>
+
                                             <div class="d-flex justify-content-between gap-10">
                                                 @if (!empty($escort->user->profile_creator) && in_array(3, $escort->user->profile_creator))
                                                     @if ($escort->user->social_links && $escort->user->social_links['facebook'] !== null)
@@ -419,19 +438,18 @@
                                 </div>
 
                                 <div class="all-escort-view-profile-btn">
-                                   <div class="ec_list_address">
-                                       
+                                    <div class="ec_list_address">
+
                                         <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($escort->address) }}"
-                                            target="_blank"
-                                            rel="noopener noreferrer">
+                                            target="_blank" rel="noopener noreferrer">
                                             <span class="profile_location_icon pin-location">
-                                                <svg width="30px" height="30px" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
+                                                <svg width="30px" height="30px" viewBox="0 0 1200 1200"
+                                                    xmlns="http://www.w3.org/2000/svg">
                                                     <!-- White Background -->
-                                                    <circle cx="600" cy="600" r="600" fill="#ffffff"/>
+                                                    <circle cx="600" cy="600" r="600" fill="#ffffff" />
 
                                                     <!-- Pin Icon -->
-                                                    <path fill="#ff3c5f"
-                                                        d="M600,0C268.629,0,0,268.629,0,600s268.629,600,600,600
+                                                    <path fill="#ff3c5f" d="M600,0C268.629,0,0,268.629,0,600s268.629,600,600,600
                                                         s600-268.629,600-600S931.371,0,600,0z
                                                         M600,203.247c165.185,0,299.121,133.937,299.121,299.121
                                                         c0,50.037-13.711,116.091-41.896,153.441L600,996.753L342.773,655.811
@@ -439,13 +457,13 @@
                                                         C300.879,337.184,434.815,203.247,600,203.247z
                                                         M600,376.538c-69.503,0-125.83,56.327-125.83,125.83
                                                         s56.327,125.83,125.83,125.83
-                                                        s125.83-56.327,125.83-125.83S669.503,376.538,600,376.538z"/>
+                                                        s125.83-56.327,125.83-125.83S669.503,376.538,600,376.538z" />
                                                 </svg>
                                                 <div class="pinup-tooltip">Open Maps</div>
                                             </span>
-                                           
+
                                         </a>
-                                         <p class="mb-0"> {{ $escort ? $escort->address : '' }}</p>
+                                        <p class="mb-0"> {{ $escort ? $escort->address : '' }}</p>
                                     </div>
                                     <a href="{{ getEscortMassageDetailUrl($escort) }}"
                                         class="btn btn_for_profile_list_view custom-view-profile"
@@ -456,14 +474,15 @@
                             </div>
 
                             <!-- Services -->
-                            <div class="tab-pane table-responsive fade p-2" id="services-{{ $escort->id }}" role="tabpanel"
-                                aria-labelledby="services-tab-{{ $escort->id }}">
+                            <div class="tab-pane table-responsive fade p-2" id="services-{{ $escort->id }}"
+                                role="tabpanel" aria-labelledby="services-tab-{{ $escort->id }}">
                                 <table class="table table-striped open-time-table mb-0">
                                     <thead class="table_heading_bgcolor_color">
                                         <tr>
                                             <th class="text-left">Service</th>
                                             <th>Massage</th>
                                             <th class="text-center">Incalls</th>
+                                            <th class="text-center">Outcalls</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -479,6 +498,10 @@
                                                         ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->incall_price) . '</div>'
                                                         : "<span class='if_data_not_available'>N/A</span>" !!}
                                                     </td>
+                                                    <td class="text-center">{!! $duration->pivot->outcall_price
+                                                        ? "<div class='public-num-value-table'> <span>$ </span>" . number_format($duration->pivot->outcall_price) . '</div>'
+                                                        : "<span class='if_data_not_available'>N/A</span>" !!}
+                                                    </td>
                                                 </tr>
                                                 @if ($loop->index == 5)
                                                     @break
@@ -488,9 +511,9 @@
                                     </tbody>
                                     <thead class="table_heading_bgcolor_color available_footer">
                                         <tr>
-                                            <th class="payment_accept_text_color" scope="col" colspan="3">
+                                            <th class="payment_accept_text_color" scope="col" colspan="4">
                                                 Available: <span
-                                                    class="date_from_available">{{ date('d-m-Y', strtotime($escort->start_date) ) }}</span>
+                                                    class="date_from_available">{{ date('d-m-Y', strtotime($escort->start_date)) }}</span>
                                                 to <span
                                                     class="date_from_available">{{ date('d-m-Y', strtotime($escort->end_date)) }}</span>
                                             </th>
@@ -500,18 +523,18 @@
                             </div>
 
                             <!-- Available-tab -->
-                            <div class="tab-pane fade table-responsive p-2" id="Available-{{ $escort->id }}" role="tabpanel"
-                                aria-labelledby="Available-tab-{{ $escort->id }}">
-                                        
-                                        {{-- <table class="table table-striped open-time-table mb-0">
-                                            <thead class="table_heading_bgcolor_color">
-                                                <tr>
-                                                    <th class="text-left">Day</th>
-                                                    <th class="text-left">Time</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            @php
+                            <div class="tab-pane fade table-responsive p-2" id="Available-{{ $escort->id }}"
+                                role="tabpanel" aria-labelledby="Available-tab-{{ $escort->id }}">
+
+                                <table class="table table-striped open-time-table mb-0">
+                                    <thead class="table_heading_bgcolor_color">
+                                        <tr>
+                                            <th class="text-left">Day</th>
+                                            <th class="text-left">Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
                                             $days = [
                                                 'Monday' => 'monday',
                                                 'Tuesday' => 'tuesday',
@@ -519,34 +542,39 @@
                                                 'Thursday' => 'thursday',
                                                 'Friday' => 'friday',
                                                 'Saturday' => 'saturday',
-                                                'Sunday' => 'sunday'
+                                                'Sunday' => 'sunday',
                                             ];
-                                            @endphp
-                                            @foreach($days as $cDay => $day)
-                                                <tr>
-                                                    <td>{{$cDay}}</td>
-                                                    <td>
-                                                        @if(!empty($availability->availability_time[$day]))
-                                                        
-                                                            @if($availability->availability_time[$day] == 'til_ate')
 
-                                                            {{ Carbon\Carbon::parse($availability->{$day.'_from'})->format('h:i A') }} ... Til Late
-                                                            @else
-                                                                {{ $availability->availability_time[$day]; }} 
-                                                            @endif
-                                                            
+                                            $availability = $escort->availability;
+                                        @endphp
+                                        @foreach ($days as $cDay => $day)
+                                            <tr>
+                                                <td>{{ $cDay }}</td>
+                                                <td>
+                                                    @php
+                                                        $availabilityTime =
+                                                            $availability->availability_time[$day] ?? null;
+                                                        $from = $availability->{$day . '_from'} ?? null;
+                                                        $to = $availability->{$day . '_to'} ?? null;
+                                                    @endphp
 
-                                                        @elseif(!empty($availability->{$day.'_from'}) && !empty($availability->{$day.'_to'}))
-                                                            {{ ($availability) ? Carbon\Carbon::parse($availability->{$day.'_from'})->format('h:i A'): '' }} - {{ ($availability) ? Carbon\Carbon::parse($availability->{$day.'_to'})->format('h:i A') : ''}}
-                                                        @else
-                                                            Unavailable
-                                                        @endif
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                            </tbody>
-                                        </table> --}}
-                                    
+                                                    @if ($availabilityTime === 'til_ate' && $from)
+                                                        {{ Carbon\Carbon::parse($from)->format('h:i A') }} ... Til Late
+                                                    @elseif(!empty($availabilityTime))
+                                                        {{ $availabilityTime }}
+                                                    @elseif($from && $to)
+                                                        {{ Carbon\Carbon::parse($from)->format('h:i A') }}
+                                                        -
+                                                        {{ Carbon\Carbon::parse($to)->format('h:i A') }}
+                                                    @else
+                                                        Unavailable
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
                             </div>
 
                         </div>

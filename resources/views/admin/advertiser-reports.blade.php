@@ -442,7 +442,7 @@ $(document).ready(function() {
         e.preventDefault();
         
         var printReportId = $("#printReportId").val();
-        var printUrl = "{{route('admin.print.single-member-reports')}}?report_id="+printReportId;
+        var printUrl = "{{route('')}}?report_id="+printReportId;
         location.href = printUrl;
     });
 

@@ -140,6 +140,8 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
                     break;
             }
 
+            $item->statusOriginal = $item->status;
+
             $listingStatusClass = getStatusBadgeClass(strtolower($listingStatus));
             $item->statusBtn = "<span class='custom_badge {$listingStatusClass}'>{$listingStatus}</span>";
             $item->status = $item->statusBtn;
@@ -153,7 +155,7 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
 
             $item->is_bumpup = !empty($isBumpUped) ? true : false;
             $item->statusOriginal = $item->status;
-            $item->slug = $item->escort->slug;
+            $item->slug = $slug;
             //$item->escort_id = $item->escort_id;
             $item->escort_id = $slug;
             $item->member_id = $item->escort->member_id;

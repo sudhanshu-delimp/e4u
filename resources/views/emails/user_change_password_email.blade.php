@@ -30,7 +30,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Update Password - {{ $type }}</title>
+    <title>Reset Password - {{ $type }}</title>
 </head>
 
 
@@ -52,7 +52,7 @@
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
                                         <h1
                                             style="margin: 0; font-size: 16px; font-weight: bold; color:#ffffff; text-align: right;">
-                                            Update Password - {{ $type }} </h1>
+                                            Reset Password - {{ $type }} </h1>
                                         <span style="font-size: 13px; color: #cccccc;">
                                             Member ID: {{ $user['member_id'] ?? '' }}</span>
                                     </td>
@@ -64,8 +64,7 @@
                     <tr>
                         <td style="padding: 30px;">
                             <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{ $name }},</p>
-                            <p style="font-size: 16px; margin: 20px 0 15px 0;">Your password has been updated by the
-                                Administrator. Please use the following credentials to log in:</p>
+                            <p style="font-size: 16px; margin: 20px 0 15px 0;">Your password has been reset by the administrator. Please use the following credentials to log in:</p>
                             <!-- Details Table -->
                             <table width="100%" cellpadding="5" cellspacing="0"
                                 style="border-collapse: collapse; font-size: 15px; color: #2b3d50;">

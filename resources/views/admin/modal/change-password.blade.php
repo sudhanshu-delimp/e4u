@@ -13,7 +13,7 @@
                 <h5 class="modal-title" id="changePasswordLabel">
                     <img src="{{ asset('assets/dashboard/img/reset-password.png') }}" alt=""
                         class="custompopicon">
-                    Change Password
+                    Reset Password
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -56,7 +56,7 @@
 
                 <div class="modal-footer justify-content-end pt-0">
 
-                    <button type="button" id="updatePassword" class="btn-success-modal">Update Password</button>
+                    <button type="button" id="updatePassword" class="btn-success-modal">Reset Password</button>
                 </div>
             </form>
             <div class="mt-3" id="divErros"></div>
@@ -73,7 +73,7 @@
 
         $('#password-strength').css('display', 'none');
         $(document).on('click', '.update_password', function() {
-            $('#updatePassword').prop('disabled', false).text('Update');
+            $('#updatePassword').prop('disabled', false).text('Reset Password');
             let id = $(this).data('id');
             $("#user_id").val(id);
             $('#change_Password_users').modal({
@@ -106,7 +106,7 @@
                        
                     },
                     error: function(xhr) {
-                       $('#updatePassword').prop('disabled', false).text('Update');
+                       $('#updatePassword').prop('disabled', false).text('Reset Password');
                         if (xhr.status === 422) {
                             $("#divErros").html('');
                             let errors = xhr.responseJSON.errors;

@@ -145,9 +145,8 @@
                 paging: true,
                 processing: false,
                 serverSide: false,
-
                 lengthMenu: paginateRange,
-pageLength: paginateLength,
+                pageLength: paginateLength,
                 ordering: true,
                 columnDefs: [{
                         targets: 5,
