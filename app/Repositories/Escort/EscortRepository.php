@@ -135,6 +135,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 ->where('profile_name', '!=', null)
                 ->where(function ($query) use ($search) {
                     $query->where('profile_name', 'LIKE', "%{$search}%")
+                     ->orWhere('slug', 'LIKE', "%{$search}%")
                         ->orWhereHas('user', function ($q) use ($search) {
                             $q->where('member_id', 'LIKE', "%{$search}%");
                         });
@@ -169,6 +170,8 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $playmates = $item->playmates->count();
             $s = explode('/', $_SERVER['REQUEST_URI']);
             $item->sn = ($start + $i);
+            $slug = isset($item->slug) ? $item->slug : $item->id;
+            $item->slug = $slug;
             $item->name = $item->name ? $item->name : "NA";
             $item->member_id = $item->user->member_id;
             $item->days_number = $item->days_number;

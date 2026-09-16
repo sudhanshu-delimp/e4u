@@ -197,7 +197,7 @@
             {{-- box start --}}
             <div class="col-lg-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
-                    <a href="{{ route('user.list') }}?from=dashboard" class="disabled-link">
+                    <a href="{{ route('user.list') }}?from=dashboard" >
                         <div class="box-icon">
                             <img src="{{ asset('assets/dashboard/img/MyNotebox.png') }}" alt="Logs & Status">
                         </div>

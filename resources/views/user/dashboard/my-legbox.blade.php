@@ -76,13 +76,13 @@
                                 <li>The My Legbox feature is a list only of your favourite Escorts. Please note, the
                                     Notifications feature is enabled, according to your settings, by default. You can enable
                                     or disable Notifications exclusively with an Escort. Go to ‘Action’.</li>
-                                <li>Use the <a href="{{ route('user.new') }}" class="custom_links_design">Notebox</a>
+                                <li>Use the <a href="{{ route('user.notebox.new') }}" class="custom_links_design">Notebox</a>
                                     feature to
                                     record your experience with an Escort you have added to My Legbox.</li>
                             @else
                                 <li>The My Legbox feature is a list only of your favourite Massage Centres. Please note
                                     Notifications do not apply to Massage Centres.</li>
-                                <li>Use the <a href="{{ route('user.new') }}" class="custom_links_design">Notebox</a>
+                                <li>Use the <a href="{{ route('user.notebox.new') }}" class="custom_links_design">Notebox</a>
                                     feature to
                                     record your experience with a Massage Centre you have added to My Legbox.</li>
                             @endif
@@ -95,8 +95,8 @@
         <!-- Page Heading -->
 
         <!-- My Escort Legbox -->
-        <div class="row my-2" style="display: {{ $escortDisplayType }}">
-            <div class="col-md-12 mb-4">
+        <div class="row" style="display: {{ $escortDisplayType }}">
+            <div class="col-md-12 mb-3 common-card">
                 <div class="mb-3 d-flex align-items-center justify-content-between flex-wrap gap-10">
                     <h2 class="h2">Escort Legbox</h2>
                     <div class="total_listing">
@@ -130,8 +130,8 @@
         {{-- escort list legbox --}}
 
         <!-- My massage Legbox -->
-        <div class="row my-2" style="display: {{ $massageDisplayType }}">
-            <div class="col-md-12 mb-4">
+        <div class="row " style="display: {{ $massageDisplayType }}">
+            <div class="col-md-12 mb-3 common-card">
                 <div class="mb-3 d-flex align-items-center justify-content-between flex-wrap gap-10">
                     <h2 class="h2">Massage Center Legbox</h2>
                     <div class="total_listing">

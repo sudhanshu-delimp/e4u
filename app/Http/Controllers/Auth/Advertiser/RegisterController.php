@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Repositories\State\StateInterface;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Http\Requests\StoreAdvertiserRegisterRequest;
+use App\Services\WalletService;
 
 class RegisterController extends Controller
 {
@@ -40,24 +41,25 @@ class RegisterController extends Controller
     protected $redirectTo = RouteServiceProvider::Dashboard;
     protected $state;
     protected $user;
+    protected $walletService;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(User $user, StateInterface $state)
+    public function __construct(User $user, StateInterface $state, WalletService $walletService,)
     {
         $this->middleware('guest');
         $this->state = $state;
         $this->user = $user;
-
+        $this->walletService = $walletService;
     }
 
     public function index()
     {
         $state = $this->state->allByCountryId();
 
-        return view('auth.advertiser.register',compact('state'));
+        return view('auth.advertiser.register', compact('state'));
     }
 
     /**
@@ -67,27 +69,28 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
 
-     /**
-      * Get a validator for an incoming registration request.
-      *
-      * @param  array  $data
-      * @return \Illuminate\Contracts\Validation\Validator
-      */
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
 
-     /**
+    /**
      * Check if agent_id exists in the users table.
      *
      * @param int $agent_id
      * @return int
      */
 
-    
 
-    protected function getAgentIdIfExist($data){
+
+    protected function getAgentIdIfExist($data)
+    {
         if ($data['agent_id']) {
             $agent = User::where('member_id', $data['agent_id'])->where('type', '5')->first();
             return $agent ? $agent->member_id : null;
-        }else{
+        } else {
             return null;
         }
     }
@@ -105,8 +108,8 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'enabled' => 1,
             'viewer_contact_type' => ["2"],
-            'tour_permissition_type' => ["1","2"],
-            'profile_creator' => ["1","2"]
+            'tour_permissition_type' => ["1", "2"],
+            'profile_creator' => ["1", "2"]
         ]);
     }
 
@@ -132,22 +135,38 @@ class RegisterController extends Controller
             'create_at' => date('d-m-Y'),
             'member_id' => $user->member_id,
         ];
-       
+
         //3 is Escote and 4 is Massage Center
-        if($request->type == 3){
+        if ($request->type == 3) {
             event(new EscortRegister((object)$userDataForEvent));
-        }elseif($request->type == 4){
+        } elseif ($request->type == 4) {
             event(new MassageRegister((object)$userDataForEvent));
         }
-       
 
-        if($user) {
+
+        $launchDate = Carbon::parse(config('common.launch_date'), config('common.local_timezone'))->utc();
+        $promotionEndDate = $launchDate->copy()->addDays(30);
+
+        if ($user->created_at->between($launchDate, $promotionEndDate)) {
+            $creditAmount = $user->type == 3 ? 300 : 900;
+            $this->walletService->credit(
+                $user,
+                $creditAmount,
+                $user,
+                'Registered Account',
+                [
+                    'user_id' => $user->id
+                ]
+            );
+        }
+
+        if ($user) {
             $error = 1;
             $phone = $user->phone;
             $pwd = $user->password;
             $otp = $this->user->generateOTP();
             $user->otp = $otp;
-            if(!empty($request->agent_id)) {
+            if (!empty($request->agent_id)) {
                 $agent = User::where('member_id', $request->agent_id)->where('type', '5')->first();
                 $user->assigned_agent_id = $agent->id;
                 $user->agent_assign_date = date('Y-m-d H:i:s');
@@ -158,23 +177,21 @@ class RegisterController extends Controller
 
             PasswordSecurity::create([
                 'user_id' => $user->id,
-                'password_expiry_days' =>30,
+                'password_expiry_days' => 30,
                 //'status' =>1,
                 'password_updated_at' => Carbon::now(),
             ]);
 
-            $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
+            $msg = "Hello! Your one time user code is " . $otp . ". If you did not request this, you can ignore this text message.";
             $sendotp = new SendSms();
-            $output = $sendotp->send($phone,$msg);
-            return response()->json(compact('error','phone'));
+            $output = $sendotp->send($phone, $msg);
+            return response()->json(compact('error', 'phone'));
         } else {
             $error = 0;
             return response()->json(compact('error'));
         }
-
-
     }
-    
+
     // public function register(StoreAdvertiserRegisterRequest $request)
     // {
     //     dd($request->all());

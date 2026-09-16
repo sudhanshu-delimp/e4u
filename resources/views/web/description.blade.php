@@ -186,7 +186,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                 <div class="{{($isPinupActive)?'pinup-wrapper':''}} member_type">
                                         <img src="{{ $membershipImage }}">
                                         <div class="pinup-tooltip">I am your Pin Up this week!</div>
-                                </div> 
+                                </div>
                                 @endif
 
                                 @if(strlen($escortName) <= 250)
@@ -276,7 +276,16 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                 </ul>
                             </div>
 
-                            <div class="profile_page_location_and_id">
+                            <div class="profile_page_location_and_id d-flex gap-10">
+                                    
+                                @if(auth()->user() && auth()->user()->type == '0')
+                                    <div class="social_media_icons">
+                                        <div class="my-play-box-profile-icon" >
+                                            <a href="{{route('user.notebox.new',[$escort->id])}}" target="_blank"><img src="{{asset('assets/app/img/notebo-whitex.png')}}" alt="logo"></a>
+                                            <div class="custom-tooltip">Add to My Notebox.</div>
+                                        </div>
+                                    </div>                            
+                                @endif
                                 <ul>
                                     <li>
                                         <span class="profile_location_icon"> <i class="fa fa-id-card"></i></span>
@@ -2449,8 +2458,10 @@ $('#review-submitted-popup .close').on('click', function() {
 
             console.log("ok=" + url);
 
-
+           
         });
+
+         make_escort_centres_log();
 
     });
     $("#home-tab").click(function () {
@@ -2547,6 +2558,15 @@ $('#review-submitted-popup .close').on('click', function() {
 </script>
 
 <script>
+
+let visitorUuid = localStorage.getItem('visitor_uuid');
+
+if (!visitorUuid) {
+    visitorUuid = crypto.randomUUID();
+    localStorage.setItem('visitor_uuid', visitorUuid);
+}
+
+
   $('#myCarousel').carousel({
     interval: false
   });
@@ -2711,6 +2731,39 @@ function saveEscortAjaxStats(formData, url, type)
         }
     });
 }
+
+function make_escort_centres_log(is_profile_media_visit='0')
+{
+
+    let profile_id = "{{ $escort->id}}";
+
+    console.log('profile_id', profile_id);
+    console.log('visitorUuid', visitorUuid);
+    console.log('is_profile_media_visit', is_profile_media_visit);
+
+    $.ajax({
+        url: "{{ route('web.make-massage-centres-log') }}",
+        type: "POST",
+        data: {
+            profile_id: profile_id,
+            type:'escort',
+            is_profile_media_visit:is_profile_media_visit,
+            visitorUuid: visitorUuid,
+            _token: "{{ csrf_token() }}"
+        },
+        success: function (response) {
+            // console.log('Log generated successfully:', response);
+        },
+        error: function (xhr) {
+            console.log('Error generating log:', xhr.responseText);
+        }
+    });
+}
+
+$('#exampleModal').on('shown.bs.modal', function () {
+    make_escort_centres_log(is_profile_media_visit='1');
+});
+
 
 </script>
 <script>

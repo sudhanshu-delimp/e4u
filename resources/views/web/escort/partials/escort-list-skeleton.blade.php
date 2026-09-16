@@ -64,7 +64,7 @@
     }
 
     .sk-tab.services {
-        width: 100px;
+        width: 120px;
     }
 
     .sk-shortlist {
@@ -311,9 +311,8 @@
                         <!-- TOP TABS -->
 
                         <div class="sk-list-top">
-
-                            <div class="sk-tab shimmer"></div>
-
+                            <div class="sk-tab services shimmer"></div>
+                            <div class="sk-tab services shimmer"></div>
                             <div class="sk-tab services shimmer"></div>
 
                             <div class="sk-shortlist shimmer"></div>

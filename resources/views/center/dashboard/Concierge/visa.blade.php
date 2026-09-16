@@ -42,12 +42,183 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">    
             <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
+                <form id="assistanceRequestForm" class="common-form">
+                    @csrf
+                    <div class="common-card">
+                        <div class="row inner-row">
+                            <div class="col-lg-12">
+                                <div class="card-top">
+                                    <div class="card-heading">
+                                        <h2>Request for Assistance</h2>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-md-12">
-                                <h2 class="pb-2 pt-2"><b>Partnership</b> </h2>
+                                <div class="inner-field-row">
+
+
+                                    @php
+                                        $nameParts = preg_split('/\s+/', trim(Auth::user()->name));
+                                        $firstName = $nameParts[0] ?? '';
+                                        $lastName = count($nameParts) > 1 ? implode(' ', array_slice($nameParts, 1)) : '';
+                                    @endphp
+                                    <div class="form-group">
+                                        <label for="business_name"><b>Business Name</b></label>
+                                        <input id="business_name" placeholder="Business Name" name="business_name"
+                                            type="text" class="form-control">
+
+                                        <span class="text-danger error-text business_name_error"></span>
+                                    </div>
+
+
+                                    {{-- Email --}}
+                                    <div class="form-group">
+                                        <label for="email"><b>Email Address</b></label>
+                                        <input id="email" placeholder="Email" name="email" type="email"
+                                            class="form-control" value="{{ Auth::user()->email }}">
+
+                                        <span class="text-danger error-text email_error"></span>
+                                    </div>
+
+                                    {{-- Mobile --}}
+                                    <div class="form-group">
+                                        <label for="mobile"><b>Mobile Number</b></label>
+                                        <input id="mobile" placeholder="Mobile" name="mobile" type="text"
+                                            value="{{ Auth::user()->phone }}" class="form-control">
+
+                                        <span class="text-danger error-text mobile_error"></span>
+                                    </div>
+                                    
+
+                                    {{-- Visa Enquiry --}}
+                                    <div class="form-group">
+                                        <label for="visa_enquiry_type">
+                                            <b>Visa enquiry type</b>
+                                        </label>
+
+                                        <select class="form-control" id="visa_enquiry_type" name="visa_enquiry_type">
+
+                                            <option value="">--- Select ----------</option>
+                                            <option value="020">020 Bridging Visa</option>
+                                            <option value="601">601 Electronic Travel Authority</option>
+                                            <option value="651">651 eVisitor Visa</option>
+                                            <option value="820">820 Partner Visa</option>
+                                            <option value="500">500 Student Visa</option>
+                                            <option value="485">485 Temporary Graduate Visa</option>
+                                            <option value="417">417 Working Holiday Visa</option>
+                                            <option value="462">462 Work and Holiday Visa</option>
+
+                                        </select>
+
+                                        <span class="text-danger error-text visa_enquiry_type_error"></span>
+                                    </div>
+                                </div>
+                                <div class="inner-field-row">
+                                  
+
+                                    {{-- Passport Country --}}
+                                    <div class="form-group">
+                                        <label for="passport_country">
+                                            <b>Passport country of issue</b>
+                                        </label>
+
+                                        <input id="passport_country" placeholder="Country of issue eg Thailand"
+                                            name="passport_country" type="text" class="form-control">
+
+                                        <p class="cp-hint">
+                                            <i>You can disclose this information during your discussion with us if you prefer
+                                            </i></i>
+                                        </p>
+                                        <span class="text-danger error-text passport_country_error"></span>
+
+                                    </div>
+
+    
+                                    {{-- Contact Preference --}}
+                                    <div class="form-group">
+                                        <div>
+                                            <label><b>Your contact preference</b></label>
+                                        </div>
+                                          <div class="option-list mt-2">
+                                        <div class="form-check form-check-inline">
+                                            <input name="contact_pref[]" class="form-check-input" type="checkbox" id="pref_Email"
+                                                value="email">
+                                            <label class="form-check-label" for="pref_Email">Email</label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <input name="contact_pref[]" class="form-check-input" type="checkbox" id="pref_Mobile"
+                                                value="mobile">
+                                            <label class="form-check-label" for="pref_Mobile">Mobile</label>
+                                        </div>
+                                          </div>
+                                        <span class="text-danger error-text contact_pref_error"></span>
+                                    </div>
+                                    
+                                    {{-- Advice Area --}}
+                                    <div class="form-group custom-radio mb-0">
+                                        <label>
+                                            <b>Indicate which area of advice you are enquiring about</b>
+                                        </label>
+                                     <div class="option-list mt-2">
+                                         <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" id="advice_visa" name="advice_area" value="visa" checked>
+
+                                            <label class="form-check-label" for="advice_visa">Visa</label>
+                                         </div>
+                                   
+                                          <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" id="advice_education" name="advice_area" value="visa_education">
+
+                                            <label for="advice_education" class="form-check-label">
+                                                Visa & Education Course
+                                            </label>
+                                          </div>
+                                     </div>
+
+                                        <span class="text-danger error-text advice_area_error"></span>
+                                    </div>
+
+                                </div>
+                                
+                                <div class="inner-field-row">
+                                    
+                                    {{-- Comments --}}
+                                    <div class="form-group">
+                                        <label for="comments">
+                                            <b>Comments</b>
+                                            
+                                        </label>
+
+                                        <textarea class="form-control" id="comments" name="comments" style="height: 100px;padding-top:10px;"> </textarea>
+                                        <p class="cp-hint">
+                                            <i>Please provide any additional information that may assist</i>
+                                        </p>
+                                        <span class="text-danger error-text comments_error"></span>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="common-footer">
+                                <button type="submit" class="common-save-btn" id="submitAssistanceRequest">
+                                    Send request
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div id="accordion" class="myacording-design mb-5 mt-5">
+                    <div class="card common-card">
+                        <div class="card-header">
+                            <a class="card-link" data-toggle="collapse" href="#Partnership" aria-expanded="true">
+                                Partnership
+                            </a>
+                        </div>
+                        <div id="Partnership" class="collapse" data-parent="#accordion" style="">
+                            <div class="card-body pb-0">
+                                <p ><b>Partnership</b></p>
                                 <p>Escorts4U has partnered with PEAMS Australia Pty Ltd <span>(<b>Partner</b>)</span> a
                                     leading provider of
                                     Visa, Migration and Education placement services <span>(<b>Services</b>)</span> to
@@ -55,170 +226,20 @@
                                     assist you with compliance under the <i>Migration Act 1958 (Cth)</i>, whilst at the same
                                     time
                                     ensuring your visa type and status suits your needs whilst you are in Australia.</p>
+                                
+
+                                <p ><b>Available services</b></p>
+                                <p>The following Services are available through our Partner:</p>
+
+                                <ol>
+                                    <li>Visa and Migration advice including applications, renewals and ongoing assistance</li>
+                                    <li>Education course selection advice including ongoing assistance</li>
+                                </ol>
+
                             </div>
                         </div>
                     </div>
-                </div>
-                <form id="assistanceRequestForm">
-                    @csrf
-
-                    <div class="row">
-                        <div class="col-md-9">
-
-                            <h2 class="pb-2"><b>Available services</b></h2>
-                            <p>The following Services are available through our Partner:</p>
-
-                            <ul>
-                                <li>Visa and Migration advice including applications, renewals and ongoing assistance</li>
-                                <li>Education course selection advice including ongoing assistance</li>
-                            </ul>
-
-                            <h2 class="pb-2"><b>Request for assistance</b></h2>
-
-                            {{-- Contact Preference --}}
-                            <div class="form-group">
-                                <div>
-                                    <label><b>Your contact preference</b></label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input name="contact_pref[]" class="form-check-input" type="checkbox" id="pref_Email"
-                                        value="email">
-                                    <label class="form-check-label" for="pref_Email">Email</label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input name="contact_pref[]" class="form-check-input" type="checkbox" id="pref_Mobile"
-                                        value="mobile">
-                                    <label class="form-check-label" for="pref_Mobile">Mobile</label>
-                                </div>
-                                <br>
-                                <span class="text-danger error-text contact_pref_error"></span>
-                            </div>
-
-                            <b>Your details:</b>
-                            <div class="mt-2">
-
-                                @php
-                                    $nameParts = preg_split('/\s+/', trim(Auth::user()->name));
-                                    $firstName = $nameParts[0] ?? '';
-                                    $lastName = count($nameParts) > 1 ? implode(' ', array_slice($nameParts, 1)) : '';
-                                @endphp
-                                <div class="form-group">
-                                    <label for="business_name"><b>Business Name</b></label>
-                                    <input id="business_name" placeholder="Business Name" name="business_name"
-                                        type="text" class="form-control">
-
-                                    <span class="text-danger error-text business_name_error"></span>
-                                </div>
-
-
-                                {{-- Email --}}
-                                <div class="form-group">
-                                    <label for="email"><b>Email Address</b></label>
-                                    <input id="email" placeholder="Email" name="email" type="email"
-                                        class="form-control" value="{{ Auth::user()->email }}">
-
-                                    <span class="text-danger error-text email_error"></span>
-                                </div>
-
-                                {{-- Mobile --}}
-                                <div class="form-group">
-                                    <label for="mobile"><b>Mobile Number</b></label>
-                                    <input id="mobile" placeholder="Mobile" name="mobile" type="text"
-                                        value="{{ Auth::user()->phone }}" class="form-control">
-
-                                    <span class="text-danger error-text mobile_error"></span>
-                                </div>
-
-                            </div>
-
-                            {{-- Passport Country --}}
-                            <div class="form-group">
-                                <label for="passport_country">
-                                    <b>Passport country of issue</b>
-                                </label>
-
-                                <input id="passport_country" placeholder="Country of issue eg Thailand"
-                                    name="passport_country" type="text" class="form-control">
-
-
-                                <span>
-                                    <i>
-                                        You can disclose this information during your discussion with us if you prefer
-                                    </i>
-                                </span><br>
-                                <span class="text-danger error-text passport_country_error"></span>
-
-                            </div>
-
-                            {{-- Advice Area --}}
-                            <div class="form-group custom-radio mb-0">
-                                <label>
-                                    <b>Indicate which area of advice you are enquiring about</b>
-                                </label>
-                                <br>
-
-                                <input type="radio" id="advice_visa" name="advice_area" value="visa" checked>
-
-                                <label class="m-0" for="advice_visa">Visa</label>
-
-                                <br>
-
-                                <input type="radio" id="advice_education" name="advice_area" value="visa_education">
-
-                                <label for="advice_education">
-                                    Visa & Education Course
-                                </label>
-
-                                <br>
-
-                                <span class="text-danger error-text advice_area_error"></span>
-                            </div>
-
-                            {{-- Visa Enquiry --}}
-                            <div class="form-group">
-                                <label for="visa_enquiry_type">
-                                    <b>Visa enquiry type</b>
-                                </label>
-
-                                <select class="form-control" id="visa_enquiry_type" name="visa_enquiry_type">
-
-                                    <option value="">--- Select ----------</option>
-                                    <option value="020">020 Bridging Visa</option>
-                                    <option value="601">601 Electronic Travel Authority</option>
-                                    <option value="651">651 eVisitor Visa</option>
-                                    <option value="500">500 Student Visa</option>
-                                    <option value="485">485 Temporary Graduate Visa</option>
-                                    <option value="417">417 Working Holiday Visa</option>
-                                    <option value="462">462 Work and Holiday Visa</option>
-
-                                </select>
-
-                                <span class="text-danger error-text visa_enquiry_type_error"></span>
-                            </div>
-
-                            {{-- Comments --}}
-                            <div class="form-group">
-                                <label for="comments">
-                                    <b>Comments</b>
-                                    (<i>Please provide any additional information that may assist</i>)
-                                </label>
-
-                                <textarea class="form-control" id="comments" name="comments" rows="3"></textarea>
-
-                                <span class="text-danger error-text comments_error"></span>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <button type="submit" class="new-btn-sec btn btn-primary shadow-none" id="submitAssistanceRequest">
-                        Send request
-                    </button>
-                </form>
-                <div id="accordion" class="myacording-design mb-5 mt-5">
-                    <div class="card w-75">
+                    <div class="card common-card">
                         <div class="card-header">
                             <a class="card-link" data-toggle="collapse" href="#Other-important-information"
                                 aria-expanded="true">
@@ -250,7 +271,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card w-75">
+                    <div class="card common-card">
                         <div class="card-header">
                             <a class="card-link" data-toggle="collapse" href="#Confidentiality" aria-expanded="true">
                                 Confidentiality
@@ -272,7 +293,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card w-75">
+                    <div class="card common-card">
                         <div class="card-header">
                             <a class="card-link" data-toggle="collapse" href="#Contact-details" aria-expanded="true">
                                 Contact details

@@ -138,7 +138,7 @@ table td,th{
                             Report Type
                             </th>
                             <th scope="col">
-                            Advertiser ID 
+                            Viewer ID 
                             </th>
                             <th scope="col">
                             Stage Name
@@ -188,17 +188,17 @@ table td,th{
                               <tbody>
                                 <tr >
                                   <th>Item No:</th>
-                                  <td class="report_ref">#30</td>
+                                  <td class="report_ref"></td>
                                   <th>Member ID:</th>
-                                  <td class="report_member_id">14-05-2025</td>
+                                  <td class="report_member_id"></td>
                                   {{-- <th>Date:</th>
                                   <td class="report_date">14-05-2025</td> --}}
                                 </tr>
                                 <tr>
                                   <th>Report Type:</th>
-                                  <td class="report_type">14-05-2025</td>
+                                  <td class="report_type"></td>
                                   <th>Advertiser ID:</th>
-                                  <td class="report_advertiser_id">14-05-2025</td>
+                                  <td class="report_advertiser_id"></td>
                                   
                                   {{-- <th>Viewer ID:</th>
                                   <td class="report_viewer_id">14-05-2025</td> --}}
@@ -207,9 +207,9 @@ table td,th{
                                 </tr>
                                 <tr>
                                   <th>Stage Name:</th>
-                                  <td class="report_stage_name">WA - Perth</td>
+                                  <td class="report_stage_name"></td>
                                   <th>Date Created:</th>
-                                  <td class="report_date">14-05-2025</td>
+                                  <td class="report_date"></td>
                                   {{-- <th>Mobile :</th>
                                   <td class="report_mobile">WA - Perth</td> --}}
                                   {{-- <th>Mobile:</th>
@@ -222,7 +222,7 @@ table td,th{
                                   {{-- <th>Home State:</th>
                                   <td  class="report_home_state">WA</td> --}}
                                   <th>Viewer ID:</th>
-                                  <td class="report_viewer_id">14-05-2025</td>
+                                  <td class="report_viewer_id"></td>
                                   <th>Status:</th>
                                   <td colspan="3" class="report_status">Current</td>
                                 </tr>
@@ -442,7 +442,7 @@ $(document).ready(function() {
         e.preventDefault();
         
         var printReportId = $("#printReportId").val();
-        var printUrl = "{{route('admin.print.single-member-reports')}}?report_id="+printReportId;
+        var printUrl = "{{route('')}}?report_id="+printReportId;
         location.href = printUrl;
     });
 
@@ -571,7 +571,8 @@ $(document).ready(function() {
 
                     if(response.data.advertiser_type=='escort')
                     {
-                        $(".report_ref").text('#'+response.data.id +''+ response.data.advertiser_id);
+                        //$(".report_ref").text('#'+response.data.id +''+ response.data.advertiser_id);
+                        $(".report_ref").text(response.data.escort.slug);
                         $(".report_date").text(response.data.formatted_created_at);
                         $(".report_member_id").text(response.data.escort.user.member_id);
                         $(".report_escort_id").text(response.data.advertiser_id);
@@ -587,7 +588,8 @@ $(document).ready(function() {
                     }
                     else
                     {
-                        $(".report_ref").text('#'+response.data.id +''+ response.data.advertiser_id);
+                        //$(".report_ref").text('#'+response.data.id +''+ response.data.advertiser_id);
+                        $(".report_ref").text(response.data.massage.slug);
                         $(".report_date").text(response.data.formatted_created_at);
                         $(".report_member_id").text(response.data.massage.user.member_id);
                         $(".report_escort_id").text(response.data.advertiser_id);
@@ -648,7 +650,7 @@ $(document).ready(function() {
                 { data: 'ref', name: 'ref' },
                 { data: 'member_id', name: 'member_id' },
                 { data: 'report_type', name: 'report_type' },
-                { data: 'advertiser_id', name: 'advertiser_id' },
+                { data: 'viewer_id', name: 'viewer_id' },
                 // { data: 'mobile', name: 'mobile' },
                 // { data: 'home_state', name: 'home_state' },
                 { data: 'stage_name', name: 'stage_name' },

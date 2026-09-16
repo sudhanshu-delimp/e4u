@@ -3123,7 +3123,8 @@ $(document).on('click', '.open_review_box', function (e) {
 
 
 
-$(document).ready(function () {
+$(document).ready(function () 
+{
  
     function showModal(currentModal, nextIndex) {
         let modals = $('.masseur-modal');
@@ -3152,41 +3153,44 @@ $(document).ready(function () {
 
     
 
+        
+    $(document).on('click', '.btn-next', function () {
+        let currentModal = $(this).closest('.masseur-modal');
+        let index = parseInt(currentModal.data('index'));
+
+        let newIndex = index + 1;
+
+        showModal(currentModal, newIndex);
+
+        // Get the new modal
+        let newModal = $('.masseur-modal').eq(newIndex);
+
+        let massure_id = newModal.data('massure_id');
+        let page = "masseur profile";
+
+        generateLog(massure_id, page);
+    });
     
-   $(document).on('click', '.btn-next', function () {
-    let currentModal = $(this).closest('.masseur-modal');
-    let index = parseInt(currentModal.data('index'));
+    $(document).on('click', '.btn-prev', function () {
 
-    let newIndex = index + 1;
+        let currentModal = $(this).closest('.masseur-modal');
+        let index = parseInt(currentModal.data('index'));
 
-    showModal(currentModal, newIndex);
+        let newIndex = index - 1;
 
-    // Get the new modal
-    let newModal = $('.masseur-modal').eq(newIndex);
+        showModal(currentModal, newIndex);
 
-    let massure_id = newModal.data('massure_id');
-    let page = "masseur profile";
+        // Get NEW modal
+        let newModal = $('.masseur-modal').eq(newIndex);
 
-    generateLog(massure_id, page);
-});
-    
-  $(document).on('click', '.btn-prev', function () {
+        let massure_id = newModal.data('massure_id');
+        let page = "masseur profile";
 
-    let currentModal = $(this).closest('.masseur-modal');
-    let index = parseInt(currentModal.data('index'));
+        generateLog(massure_id, page);
+    });
 
-    let newIndex = index - 1;
 
-    showModal(currentModal, newIndex);
-
-    // Get NEW modal
-    let newModal = $('.masseur-modal').eq(newIndex);
-
-    let massure_id = newModal.data('massure_id');
-    let page = "masseur profile";
-
-    generateLog(massure_id, page);
-});
+    make_massage_centres_log();
 
 });
 
@@ -3229,7 +3233,12 @@ $(document).on('click', '.main-gallery-image', function () {
     let massure_id = $(this).data('massure_id');
     let page = "massure media";
    generateLog(massure_id,page);
+   
 
+});
+
+$('#exampleModal').on('shown.bs.modal', function () {
+    make_massage_centres_log(is_profile_media_visit='1');
 });
 
 
@@ -3252,6 +3261,36 @@ function generateLog(massure_id, page)
         }
     });
 }
+
+function make_massage_centres_log(is_profile_media_visit='0')
+{
+
+    let massage_profile_id = "{{ $listing->id}}";
+
+    // console.log('massage_profile_id', massage_profile_id);
+    // console.log('visitorUuid', visitorUuid);
+    // console.log('is_massage_profile_media_visit', is_massage_profile_media_visit);
+
+    $.ajax({
+        url: "{{ route('web.make-massage-centres-log') }}",
+        type: "POST",
+        data: {
+            type:'massage',
+            profile_id: massage_profile_id,
+            is_profile_media_visit:is_profile_media_visit,
+            visitorUuid: visitorUuid,
+            _token: "{{ csrf_token() }}"
+        },
+        success: function (response) {
+            // console.log('Log generated successfully:', response);
+        },
+        error: function (xhr) {
+            console.log('Error generating log:', xhr.responseText);
+        }
+    });
+}
+
+
 function updateNavButtons(modal, index, total) {
 
     let prevBtn = modal.find('.btn-prev');
@@ -3297,8 +3336,6 @@ function initMap()
         else 
         {
             console.warn(`Geocode failed for standard address (${status}). Retrying with capital city: "${capital_city}"`);
-            
-            // Check if capital_city is actually populated before requesting
             if (capital_city && capital_city.trim() !== "") {
                 geocoder.geocode({ address: capital_city }, function(fallbackResults, fallbackStatus) {
                     if (fallbackStatus === "OK") {
@@ -3314,7 +3351,7 @@ function initMap()
     });
 }
 
-// Accept address and capital_city as arguments
+
 function map_loader(results, address, capital_city)
 {
     const location = results[0].geometry.location;
@@ -3336,7 +3373,7 @@ function map_loader(results, address, capital_city)
         fields: ["name", "photos", "rating"]
     }, function(placeResults, placeStatus) {
 
-        let imageUrl = '';  // banner fallback image
+        let imageUrl = '';  
         let placeName = capital_city;
         let ratingHtml = "";
 
