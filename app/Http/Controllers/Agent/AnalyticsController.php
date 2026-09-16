@@ -41,19 +41,20 @@ class AnalyticsController extends Controller
             $search = request()->get('search')['value'];
             $today = Carbon::now();
             switch ($advertiserType) {
+
                 case 'escort': {
                         $escortIds = Escort::whereIn('user_id', $userIds)->where('purchase_id','!=',"")->pluck('id')->toArray();
                         $advertisers = Purchase::with('escort.pinup','paymentItems.payment')->where('status', 'listed')->whereIn('escort_id',$escortIds)->get();
                     }
                     break;
+
                 case 'massage': {
                         $massageIds = MassageProfile::whereIn('user_id', $userIds)->where('purchase_id','!=',"")->pluck('id')->toArray();
-                        $advertisers = MassagePurchase::with('paymentItems.payment')->where('status', 'listed')
-                            ->whereIn('massage_profile_id',$massageIds)->get();
-                            
+                        $advertisers = MassagePurchase::with('paymentItems.payment')->where('status', 'listed')->whereIn('massage_profile_id',$massageIds)->get();  
                     }
                     break;
-                default:
+
+                    default:
                     # code...
                     break;
             }
@@ -66,7 +67,7 @@ class AnalyticsController extends Controller
                 return DataTables::of($advertisers)
                
                 ->addColumn('member_id', function ($row) {
-                     return $row->advertiser->user->member_id .'--'.$row->id;
+                     return $row->advertiser->user->member_id .'--'.$row->id.'--'.$row->advertiser->id;
                 })
                 ->addColumn('name', function ($row) {
                     return $row->advertiser->profile_name ?? '';
@@ -123,7 +124,7 @@ class AnalyticsController extends Controller
                      }
                      else
                      {
-                        $profile_id = $row->escort_id;
+                        $profile_id = $row->massage_profile_id;
                         $current_state = config("escorts.profile.states.{$row->advertiser?->user?->state_id}.stateName");
                          $massager_masseures = ' <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 open-summary-modal" href="#" data-id="'. $row->id.'" > <i class="fa fa-file-alt"></i>
@@ -195,25 +196,35 @@ class AnalyticsController extends Controller
             $advertiserType = $request->advertiser_type;
             $profile_id     = $request->profile_id;
             
+            $views = [] ;
+            $advertiserType = strtolower(trim($advertiserType));
+            if (in_array($advertiserType, ['massage', 'escort'])) 
+            $views = $this->logService->getProfileViews($advertiserType,$profile_id);
+           
 
+            $html = view('agent.dashboard.Annalytics.profile_activity_summury', compact('views'))->render();
 
-            if($advertiserType=='massage')
-            {
-               $views = $this->logService->getProfileViews($advertiserType,$profile_id);
-            }  
+            Log::info('views========');
+            Log::info($views);
 
-            if($advertiserType=='escort')
-            {
-                $views = $this->logService->getProfileViews($advertiserType,$profile_id);
-            }  
-
-        
-            $html = view('agent.dashboard.Annalytics.profile_activity_summury',compact('views'))->render();
 
             return response()->json([
                 'status' => 'success',
                 'html' => $html
-            ]);
+            ])->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', '0');
+
+
+           
+
+        
+            // $html = view('agent.dashboard.Annalytics.profile_activity_summury',compact('views'))->render();
+
+            // return response()->json([
+            //     'status' => 'success',
+            //     'html' => $html
+            // ]);
         }
 
 

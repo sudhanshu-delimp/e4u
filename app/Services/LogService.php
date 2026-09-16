@@ -2,6 +2,12 @@
 
 namespace App\Services;
 
+use App\Models\Escort;
+use App\Models\MassageProfile;
+use App\Models\MyLegbox;
+use App\Models\MyMassageLegbox;
+use App\Models\ReportEscortProfile;
+use App\Models\Reviews;
 use App\Models\Visitor;
 use Carbon\Carbon;
 use Exception;
@@ -91,48 +97,61 @@ class LogService
 
     public function getProfileViews($advertiserType,$profile_id)
     {
-        
-        if($advertiserType == 'massage')
-        $page = 'massage-detail-page';
+           
+        if($advertiserType=='massage')
+        {
+            $page = 'massage-detail-page';
+            $profile     = MassageProfile::where('id', $profile_id)->first();
+            $legboxModel = MyMassageLegbox::where('massage_id', $profile_id);
+            $reviewModel = Reviews::where('advertiser_id', $profile_id)->where('advertiser_type','massage');
+            $reportModel = ReportEscortProfile::where('advertiser_id', $profile_id)->where('advertiser_type','massage');
+
+            
+            
+        }
         else
-        $page = 'escort-detail-page';
+        {
+            $page = 'escort-detail-page';  
+            $profile     = Escort::where('id', $profile_id)->first();  
+            $legboxModel = MyLegbox::where('escort_id', $profile_id);
+            $reviewModel = Reviews::where('advertiser_id', $profile_id)->where('advertiser_type','escort');
+            $reportModel = ReportEscortProfile::where('advertiser_id', $profile_id)->where('advertiser_type','escort');
 
-        $baseQuery = Visitor::whereNotNull('listing_profile_id')
-            ->where('listing_profile_id',$profile_id)
-            ->where('page', $page);
+        }  
 
-        $thisWeekQuery = (clone $baseQuery)
-            ->whereBetween('created_at', [
-                Carbon::now()->startOfWeek(),
-                Carbon::now()->endOfWeek(),
-            ]);
 
-        $ytdQuery = (clone $baseQuery)
-            ->whereBetween('created_at', [
-                Carbon::now()->startOfYear(),
-                Carbon::now()->endOfDay(),
-            ]);
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek   = Carbon::now()->endOfWeek();
+        $startOfYear = Carbon::now()->startOfYear();
+        $endOfDay    = Carbon::now()->endOfDay();
+
+        
+        $thisWeekVisitor = Visitor::where('listing_profile_id', $profile_id)
+        ->where('page', $page)
+        ->whereBetween('created_at', [$startOfWeek, $endOfWeek]);
+
+        $ytdVisitor = Visitor::where('listing_profile_id', $profile_id)
+        ->where('page', $page)
+        ->whereBetween('created_at', [$startOfYear, $endOfDay]);
+
 
         return [
-            'this_week' => [
-                'profile_views' => (clone $thisWeekQuery)
-                    ->where('is_profile_media_visit', '0')
-                    ->count(),
+                'member_id' => ($profile->user->member_id) ? $profile->user->member_id : '',
+                'this_week' => [
+                    'profile_views' => (clone $thisWeekVisitor)->where('is_profile_media_visit', '0')->count(),
+                    'media_views'   => (clone $thisWeekVisitor)->where('is_profile_media_visit', '1')->count(),
+                    'legbox_count'  => (clone $legboxModel)->whereBetween('created_at', [$startOfWeek, $endOfWeek])->count(),
+                    'review_count'  => (clone $reviewModel)->whereBetween('created_at', [$startOfWeek, $endOfWeek])->count(),
+                    'report_count'  => (clone $reportModel)->whereBetween('created_at', [$startOfWeek, $endOfWeek])->count(),
+                ],
 
-                'media_views' => (clone $thisWeekQuery)
-                    ->where('is_profile_media_visit', '1')
-                    ->count(),
-            ],
-
-            'year_to_date' => [
-                'profile_views' => (clone $ytdQuery)
-                    ->where('is_profile_media_visit', '0')
-                    ->count(),
-
-                'media_views' => (clone $ytdQuery)
-                    ->where('is_profile_media_visit', '1')
-                    ->count(),
-            ],
+                'year_to_date' => [
+                    'profile_views' => (clone $ytdVisitor)->where('is_profile_media_visit', '0')->count(),
+                    'media_views'   => (clone $ytdVisitor)->where('is_profile_media_visit', '1')->count(),
+                    'legbox_count'  => (clone $legboxModel)->whereBetween('created_at', [$startOfYear, $endOfDay])->count(),
+                    'review_count'  => (clone $reviewModel)->whereBetween('created_at', [$startOfYear, $endOfDay])->count(),
+                    'report_count'  => (clone $reportModel)->whereBetween('created_at', [$startOfYear, $endOfDay])->count(),
+                ],
         ];
     
     }
