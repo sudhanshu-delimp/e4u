@@ -97,7 +97,7 @@
                                 View the Profile and Add Playmates.</li>
                             @if ($type != 'past')
                                 <li>
-                                    To display your Playmates avatar in any Profile, select <strong>Add Playmates</strong>
+                                    To display your Playmates avatar in any Profile, select 'Add Playmates'
                                     from Action.
                                     You can add multiple Playmates. Only your Playmates in the Location the Profile is
                                     listed at the time

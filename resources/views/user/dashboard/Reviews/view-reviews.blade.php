@@ -92,7 +92,6 @@
                 </div>
             </div>            
         </div>
-
         <div class="col-lg-12 common-card mb-3">
             <div class="table-responsive custom-badge">
                 <table class="table w-100" id="EscortReviewTable">

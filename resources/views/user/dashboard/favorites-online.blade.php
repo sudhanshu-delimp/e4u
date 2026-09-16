@@ -37,7 +37,7 @@
 </div>
 <div class="row">
     <!-- Followers Online (Legbox) -->
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-4 common-card">
         <div class="table-responsive">
             <table class="table table-bordered">
             <thead style="background-color: #0C223D; color: #ffffff;">

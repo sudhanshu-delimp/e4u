@@ -61,9 +61,8 @@
             </div>
         </div>
 
-        <div class="row my-2">
             <!-- My Legbox -->
-            <div class="col-md-12 mb-4">
+            <div class="col-lg-12">
                 <div class="mb-2 d-flex align-items-center justify-content-end flex-wrap gap-10">
 
                     <div class="total_listing">
@@ -71,6 +70,9 @@
                         <div><span class="total_viewer_legbox">0</span></div>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-12 common-card">
+                
                 <div class="table-responsive custom-responsive">
                     <table id="viewerTable" class="table custom--newtable" width="100%">
                         <thead class="bg-first">
@@ -98,7 +100,6 @@
                     </table>
                 </div>
             </div>
-        </div>
     </div>
     {{-- Escort Profile Not Found Modal --}}
     <div class="modal fade upload-modal" id="escortProfileModal" tabindex="-1" role="dialog"
