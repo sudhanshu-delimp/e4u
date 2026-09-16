@@ -52,3 +52,4 @@ public/avatars/*
 laravel.log
 .DS_Store
 /public/sitemap.xml
+public/sitemap.xml
