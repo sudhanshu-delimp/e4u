@@ -181,14 +181,13 @@
                                     </div>
                                  </div>                                
                             </div>
-                            <div class="common-footer col-lg-12">
+                            <div class="common-footer">
                                 <button type="submit" class="common-save-btn">Add Report</button>
 
                                 <p class="cp-hint pl-2 mt-3">
                                     <small><i>Your report will remain <em>Pending</em> until approved by our
                                             Operations team.</i></small>
                                 </p>
-
                             </div>
                     </form>
                 </div>

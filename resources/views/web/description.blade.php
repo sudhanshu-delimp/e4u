@@ -281,7 +281,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                 @if(auth()->user() && auth()->user()->type == '0')
                                     <div class="social_media_icons">
                                         <div class="my-play-box-profile-icon" >
-                                            <a href="{{route('user.notebox.new',[$escort->id])}}" target="_blank"><img src="{{asset('assets/app/img/notebo-whitex.png')}}" alt="logo"></a>
+                                            <a href="{{route('user.notebox.new',[$escort->id])}}"><img src="{{asset('assets/app/img/notebo-whitex.png')}}" alt="logo"></a>
                                             <div class="custom-tooltip">Add to My Notebox.</div>
                                         </div>
                                     </div>                            

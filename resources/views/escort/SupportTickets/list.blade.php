@@ -46,8 +46,7 @@
             </div>
         </div>
         {{-- end --}}
-        <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 common-card">
                 <div class="box-body table-responsive">
                     <table class="table" id="supportTicketsTable">
                         <thead id="table-sec" class="table-bg">
@@ -60,16 +59,12 @@
                                 <th>Date Created</th>
                                 <th>Document</th>
                                 <th>Status</th>
-                                <!--<th>Joined E4U</th>-->
                                 <th>Action</th>
                             </tr>
                         </thead>
-                    </table>
-                    <div>
-                    </div>
+                    </table>             
                 </div>
             </div>
-        </div>
         <!--right side bar start from here-->
     </div>
 

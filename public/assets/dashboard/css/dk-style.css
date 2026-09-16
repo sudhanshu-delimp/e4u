@@ -10023,12 +10023,14 @@ button:disabled {
     text-align: center;
     font-size: 14px;
     font-weight: 500;
+    border-radius: var(--radius-sm);
 }
 
 .total_listing>div:first-child {
     background-color: var(--blue--text);
-    color: #fff;
+    color: var(--white);
     padding: 10px;
+    border-radius: 2px 0px 0px 2px;
 }
 
 .total_listing>div:last-child {

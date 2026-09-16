@@ -45,105 +45,31 @@
                 {{-- my viewers --}}
             
 
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                    <div class="col-sm-12 mb-4">
                         <div class="bothsearch-form" style="gap: 10px;">
                             <button type="button" class="create-tour-sec" data-toggle="modal" data-target="#new-ban">Send
                                 Notification</button>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="table-responsive">
-                            <!-- <table id="sendNotificationTable" class="table display" width="100%">
-                                <thead class="table-bg">
+                    <div class="col-md-12 common-card ">
+                        <div class="table-responsive"> 
+                            <table id="viewerTable" class="table custom--newtable" width="100%">
+                                <thead class="bg-first">
                                     <tr>
-                                        <th>
-                                            <div class="ckbox">
-                                                <input type="checkbox" id="checkbox1">
-                                            </div>
-                                        </th>
-                                        <th>Viewer Name</th>
-                                        <th>Tagged</th>
-                                        <th>
-                                            Home State
-
-                                        </th>
-
+                                        <th>Viewer Name </th>
+                                        <th>Tagged </th>
+                                        <th>Home State</th>
                                         <th>Contact Method</th>
-                                        <th>Notification</th>
+                                        <th>Notifications</th>
                                         <th>Block Viewer</th>
+                                    
                                     </tr>
                                 </thead>
-                                <tbody class="table-content">
-                                    <tr>
-                                        <td>
-                                            <div class="ckbox">
-                                                <input type="checkbox" id="checkbox1">
-                                            </div>
-                                        </td>
-                                        <td><img src="{{ asset('assets/app/img/profile-img.png') }}"
-                                                class="img-profile rounded-circle playmats-img ">Skusta clee</td>
-                                        <td>10-10-2025</td>
-                                        <td>SA</td>
-                                        <td>Email</td>
-                                        <td>By email</td>
-                                        <td>
-                                            <div class="custom-control custom-switch">
-                                                <input type="checkbox" class="custom-control-input" id="customSwitch_1">
-                                                <label class="custom-control-label" for="customSwitch_1"></label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="ckbox">
-                                                <input type="checkbox" id="checkbox1">
-                                            </div>
-                                        </td>
-                                        <td><img src="{{ asset('assets/app/img/profile-img.png') }}"
-                                                class="img-profile rounded-circle playmats-img ">Johny Bravo</td>
-                                        <td>11-10-20254</td>
-                                        <td>WA</td>
-                                        <td>Mobile</td>
-                                        <td>Mobile</td>
-                                        <td>
-                                            <div class="custom-control custom-switch">
-                                                <input type="checkbox" class="custom-control-input" id="customSwitch_2">
-                                                <label class="custom-control-label" for="customSwitch_2"></label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table> -->
-
-                    <table id="viewerTable" class="table custom--newtable" width="100%">
-                        <thead class="bg-first">
-                            <tr>
-                                <th>Viewer Name </th>
-                                <th>Tagged </th>
-                                <th>Home State</th>
-                                <th>Contact Method</th>
-                                <th>Notifications</th>
-                                <th>Block Viewer</th>
-                             
-                            </tr>
-                        </thead>
-                       <tbody class="table-content">
-                    </tbody>
-                    </table>
-
-
-
-
-
+                            <tbody class="table-content">
+                            </tbody>
+                            </table>
                         </div>
                     </div>
-                </div>
-
-
-
-                {{-- end --}}
-                <!--middle content-->
               
             </div>
         </div>

@@ -75,7 +75,7 @@
         </div>
 
         <!-- DataTable -->
-        <div class="col-md-12">
+        <div class="col-md-12 common-card">
             <div class="table-responsive">
                 <table id="myReportTable" class="table display nowrap num_table" width="100%">
                     <thead class="bg-first">
@@ -241,14 +241,14 @@
                                     <td class="border-0">${data.ref ?? 'N/A'}</td>
                                     <th>Incident Date:</th>
                                     <td class="border-0">${formatDate(data.incident_date) ?? 'N/A'}</td>
+                                     <th>Offender's Name:</th>
+                                    <td class="border-0">${data.offender_name ?? 'N/A'}</td>
                                 </tr>
                                 <tr>
-                                    <th>Offender's Name:</th>
-                                    <td class="border-0">${data.offender_name ?? 'N/A'}</td>
+                                   
                                     <th>Incident Type:</th>
                                     <td class="border-0">${data.incident_nature ?? 'N/A'}</td>
-                                </tr>
-                                <tr>
+                               
                                     <th>Report Date:</th>
                                     <td class="border-0">${formatDate(data.created_at) ?? 'N/A'}</td>
                                     <th>Location:</th>
@@ -258,9 +258,8 @@
                                     <th>Offender's Email:</th>
                                     <td class="border-0">${data.offender_email ?? 'N/A'}</td>
                                     <th>Rating:</th>
-                                    <td class="border-0">${data.rating ?? 'N/A'}</td>
-                                </tr>
-                                <tr>
+                                    <td class="border-0" style="color:green;">${data.rating ?? 'N/A'}</td>
+                               
                                     <th>Status:</th>
                                      <td class="border-0">
                                         ${data.status ? data.status.replace(/<[^>]*>/g, '') : 'N/A'}
