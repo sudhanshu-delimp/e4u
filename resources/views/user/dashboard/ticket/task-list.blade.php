@@ -82,8 +82,9 @@
         </div>
 
         <!-- Page Heading -->
-        <div class="row">
-            <div class="col-md-12 d-flex align-items-center justify-content-between flex-wrap gap-10">
+        
+            <div class="row">
+                <div class="col-md-12 d-flex align-items-center justify-content-between flex-wrap gap-10">
                 <div class="mb-2 d-flex align-items-center justify-content-between flex-wrap gap-10">
                     <div class="total_listing">
                         <div><span>In Progress Task : </span></div>
@@ -112,7 +113,8 @@
                         Task</button>
                 </div>
             </div>
-            <div class="col-md-12">
+            </div>
+            <div class="col-md-12 common-card mt-3">
                 <div class="table-responsive">
                     <table id="taskListTable" class="table table-bordered">
                         <thead class="bg-first">
@@ -127,7 +129,7 @@
                     </table>
                 </div>
             </div>
-        </div>
+        
     </div>
 
     <!-- open tour section button -->
