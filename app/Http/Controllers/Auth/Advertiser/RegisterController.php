@@ -153,7 +153,7 @@ class RegisterController extends Controller
                 $user,
                 $creditAmount,
                 $user,
-                'Register Account.',
+                'Registered Account',
                 [
                     'user_id' => $user->id
                 ]

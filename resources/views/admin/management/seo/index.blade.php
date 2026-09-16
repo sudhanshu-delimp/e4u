@@ -953,7 +953,7 @@
                                         </label>
                                     </section>
                                     <!-- Robots.txt -->
-                                    <section class="side-card">
+                                    {{-- <section class="side-card">
                                         <div class="side-heading">
                                             <div class="section-icon">
                                                 <i class="fa-solid fa-robot"></i>
@@ -961,7 +961,7 @@
                                             <h2>Robots.txt</h2>
                                         </div>
                                         <textarea class="schema-code" id="robotsTxt" name="robots_txt" rows="8"></textarea>
-                                    </section>
+                                    </section> --}}
                                 
                                     
                                     <!-- SEO Tip -->

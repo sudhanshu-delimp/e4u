@@ -59,7 +59,7 @@ class SeoManagementController extends Controller
                     'meta_description' => $data['meta_description'] ?? null,
                     'og_title' => $data['og_title'] ?? null,
                     'schema_script' => $data['schema_script'] ?? null,
-                    'robots_txt' => $data['robots_txt'] ?? null,
+                  //  'robots_txt' => $data['robots_txt'] ?? null,
                     'sitemap_include' => $data['sitemap_include'],
                 ]
             );

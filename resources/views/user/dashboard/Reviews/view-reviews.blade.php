@@ -100,8 +100,8 @@
                         <tr>
                             <th>Member ID</th>
                             <th>Date</th>
-                            <th>Rating</th>
-                            <th>Status</th>
+                            <th class="text-center">Rating</th>
+                            <th class="text-center">Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -223,13 +223,15 @@ pageLength: paginateLength,
                     {
                         data: 'rating',
                         name: 'rating',
-                        orderable: false
+                        orderable: false,
+                         class: 'text-center'
                     },
                     {
                         data: 'status',
                         name: 'status',
                         orderable: false,
-                        searchable: false
+                        searchable: false,
+                         class: 'text-center'
                     },
                     {
                         data: 'action',
