@@ -46,8 +46,7 @@
         {{-- end --}}
 
         <!--middle content-->
-        <div class="row ">
-            <div class="col-12">
+            <div class="col-lg-12 common-card">
                 <div class="table-responsive">
                     <table class="table w-100" id="productsHistoryTable">
                         <thead class="table-bg">
@@ -72,7 +71,6 @@
                     </table>
                 </div>
             </div>
-        </div>
         <!-- End of Main Content -->
 
         <!-- Footer -->
