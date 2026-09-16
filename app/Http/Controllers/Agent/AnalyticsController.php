@@ -200,13 +200,10 @@ class AnalyticsController extends Controller
             $advertiserType = strtolower(trim($advertiserType));
             if (in_array($advertiserType, ['massage', 'escort'])) 
             $views = $this->logService->getProfileViews($advertiserType,$profile_id);
-           
-
             $html = view('agent.dashboard.Annalytics.profile_activity_summury', compact('views'))->render();
 
-            Log::info('views========');
-            Log::info($views);
-
+            // Log::info('views========');
+            // Log::info($views);
 
             return response()->json([
                 'status' => 'success',
@@ -214,17 +211,6 @@ class AnalyticsController extends Controller
             ])->header('Cache-Control', 'no-cache, no-store, must-revalidate')
             ->header('Pragma', 'no-cache')
             ->header('Expires', '0');
-
-
-           
-
-        
-            // $html = view('agent.dashboard.Annalytics.profile_activity_summury',compact('views'))->render();
-
-            // return response()->json([
-            //     'status' => 'success',
-            //     'html' => $html
-            // ]);
         }
 
 

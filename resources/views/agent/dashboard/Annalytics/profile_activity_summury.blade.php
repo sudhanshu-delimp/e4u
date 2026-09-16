@@ -59,20 +59,20 @@
                         <tr>
                             <td style="font-weight: bold;  background:#0c223d; color:#fff;">This Week:
                             </td>
-                            <td style="text-align:center;">6</td>
+                            <td style="text-align:center;">0</td>
                             <td style="text-align:center;">{{ isset($views['this_week']['review_count']) ? $views['this_week']['review_count'] : 0 }}</td>
                             <td style="text-align:center;">{{ isset($views['this_week']['report_count']) ? $views['this_week']['report_count'] : 0 }}</td>
-                            <td style="text-align:center;">4</td>
+                            <td style="text-align:center;">{{ isset($views['this_week']['social_media_count']) ? $views['this_week']['social_media_count'] : 0 }} </td>
                         </tr>
 
                         <!-- Row 2 -->
                         <tr>
                             <td style="font-weight: bold;  background:#0c223d; color:#fff;">Year to Date:
                             </td>
-                            <td style="text-align:center;">84</td>
+                            <td style="text-align:center;">0</td>
                             <td style="text-align:center;">{{ isset($views['year_to_date']['review_count']) ? $views['year_to_date']['review_count'] : 0 }}</td>
                             <td style="text-align:center;">{{ isset($views['year_to_date']['report_count']) ? $views['year_to_date']['report_count'] : 0 }}</td>
-                            <td style="text-align:center;">125</td>
+                            <td style="text-align:center;">{{ isset($views['year_to_date']['social_media_count']) ? $views['year_to_date']['social_media_count'] : 0 }}</td>
                         </tr>
                         <!-- Footer Row -->
                     </table>

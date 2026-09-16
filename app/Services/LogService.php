@@ -8,6 +8,7 @@ use App\Models\MyLegbox;
 use App\Models\MyMassageLegbox;
 use App\Models\ReportEscortProfile;
 use App\Models\Reviews;
+use App\Models\SocialMediaVisitor;
 use App\Models\Visitor;
 use Carbon\Carbon;
 use Exception;
@@ -103,6 +104,7 @@ class LogService
             $page = 'massage-detail-page';
             $profile     = MassageProfile::where('id', $profile_id)->first();
             $legboxModel = MyMassageLegbox::where('massage_id', $profile_id);
+            $socialMediaModel = SocialMediaVisitor::where('listing_profile_id', $profile_id)->where('page', $page);
             $reviewModel = Reviews::where('advertiser_id', $profile_id)->where('advertiser_type','massage');
             $reportModel = ReportEscortProfile::where('advertiser_id', $profile_id)->where('advertiser_type','massage');
 
@@ -116,6 +118,7 @@ class LogService
             $legboxModel = MyLegbox::where('escort_id', $profile_id);
             $reviewModel = Reviews::where('advertiser_id', $profile_id)->where('advertiser_type','escort');
             $reportModel = ReportEscortProfile::where('advertiser_id', $profile_id)->where('advertiser_type','escort');
+            $socialMediaModel = SocialMediaVisitor::where('listing_profile_id', $profile_id)->where('page', $page);
 
         }  
 
@@ -124,6 +127,9 @@ class LogService
         $endOfWeek   = Carbon::now()->endOfWeek();
         $startOfYear = Carbon::now()->startOfYear();
         $endOfDay    = Carbon::now()->endOfDay();
+
+        Log::info($startOfYear);
+        Log::info($endOfDay);
 
         
         $thisWeekVisitor = Visitor::where('listing_profile_id', $profile_id)
@@ -143,6 +149,7 @@ class LogService
                     'legbox_count'  => (clone $legboxModel)->whereBetween('created_at', [$startOfWeek, $endOfWeek])->count(),
                     'review_count'  => (clone $reviewModel)->whereBetween('created_at', [$startOfWeek, $endOfWeek])->count(),
                     'report_count'  => (clone $reportModel)->whereBetween('created_at', [$startOfWeek, $endOfWeek])->count(),
+                    'social_media_count'  => (clone $socialMediaModel)->whereBetween('created_at', [$startOfWeek, $endOfWeek])->count(),
                 ],
 
                 'year_to_date' => [
@@ -151,6 +158,7 @@ class LogService
                     'legbox_count'  => (clone $legboxModel)->whereBetween('created_at', [$startOfYear, $endOfDay])->count(),
                     'review_count'  => (clone $reviewModel)->whereBetween('created_at', [$startOfYear, $endOfDay])->count(),
                     'report_count'  => (clone $reportModel)->whereBetween('created_at', [$startOfYear, $endOfDay])->count(),
+                    'social_media_count'  => (clone $socialMediaModel)->whereBetween('created_at', [$startOfYear, $endOfDay])->count(),
                 ],
         ];
     
@@ -225,6 +233,75 @@ class LogService
                     $visitor->update($datas);
                 } else {
                    $visitor =  Visitor::create(array_merge($datas, [
+                        'landed' => $now->format('Y-m-d h:i:s a'),
+                        'visitorUuid' => $visitorUuid,
+                    ]));
+                }
+
+                return $visitor;
+            }
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
+            return false;
+        }
+    }
+
+
+    public  function make_social_media_log($request)
+    {
+         try 
+         {
+            $data = $this->getVisitorCountry();
+            $type = isset($request['type']) ? $request['type'] : '';
+            $listing_profile_id = isset($request['profile_id']) ? $request['profile_id'] : '';
+            $visitorUuid = isset($request['visitorUuid']) ? $request['visitorUuid'] : '';
+            $social_link = isset($request['social_link']) ? $request['social_link'] : '0';
+
+            if($type=='massage')
+            $page = 'massage-detail-page';
+            else
+            $page = 'escort-detail-page';    
+
+            if ($data && $listing_profile_id!="" && $visitorUuid!="") 
+            {
+                $now = Carbon::now(config('app.escort_server_timezone'));
+                $query = SocialMediaVisitor::where('page', $page)
+                    ->where('listing_profile_id', $listing_profile_id)
+                    ->where('visitorUuid', $visitorUuid)
+                    ->where('social_link', $social_link)
+                    ->where('created_at', '>=', $now->copy()->subDay());
+               
+
+                if (auth()->check()) {
+                    $query->where('user_id', auth()->id());
+                } else {
+                    $query->whereNull('user_id');
+                }
+
+                $visitor =    $query->latest('created_at')->first();
+
+                $datas = [
+                    'page'       => $page,
+                    'social_link'=> $social_link,
+                    'ip_address' => $this->getUserIp(),
+                    'device'     => $this->getBrowser(),
+                    'platform'   => $this->getBrowser(),
+                    'country'    => $data[0],
+                    'city'       => $data[2],
+                    'state'      => $data[1],
+                    'user_type'  => auth()->check() ? 'user' : 'guest',
+                    'user_id'    => auth()->id(),
+                    'idle'       => $now->format('Y-m-d h:i:s a'),
+                    'origin'     => $this->getVisitorCountry()[0],
+                    'date'       => $now,
+                    'listing_profile_id' => $listing_profile_id,
+                ];
+
+               
+                if ($visitor) {
+                    $visitor->update($datas);
+                } else {
+                   $visitor =  SocialMediaVisitor::create(array_merge($datas, [
                         'landed' => $now->format('Y-m-d h:i:s a'),
                         'visitorUuid' => $visitorUuid,
                     ]));
