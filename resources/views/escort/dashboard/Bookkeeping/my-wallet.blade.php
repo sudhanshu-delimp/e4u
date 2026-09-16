@@ -364,7 +364,7 @@
                 },
                 {
                     data: 'description',
-                    name: 'id',
+                    name: 'description',
                     searchable: true,
                     orderable: false,
                     defaultContent: 'NA'
@@ -391,7 +391,7 @@
                     defaultContent: 'NA'
                 },
             ],
-            order: [1, 'desc'],
+            order: [0, 'desc'],
             pageLength: {{ $datatable_entries }},
             lengthMenu: [{{ config('app.paginate_range') }}],
         });
