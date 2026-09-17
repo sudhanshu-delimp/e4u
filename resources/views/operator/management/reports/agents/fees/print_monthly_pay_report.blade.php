@@ -14,46 +14,8 @@
 
     <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.2') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-responsive.css?v1.2') }}" rel="stylesheet">
-    <style>
-        .heading {
-            display: block;
-            font-size: 1rem;
-            font-weight: 500;
-            line-height: 1px;
-        }
+   
 
-        @page {
-            size: A4;
-        }
-
-        h2 {
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        h6 {
-            font-size: 16px;
-        }
-
-        .table td {
-            vertical-align: middle;
-        }
-
-        table td {
-             padding: .45rem .75rem .55rem !important;
-            color: #333 !important;
-            font-size: 12px;
-        }
-
-        table th {
-            padding: .45rem .75rem .55rem !important;
-            font-size: 12px;
-            font-weight: 500;
-            vertical-align: middle;
-            font-family: 'Poppins', sans-serif;
-        }
-    </style>
 </head>
 <body style="margin:0;width:100%">
     @php

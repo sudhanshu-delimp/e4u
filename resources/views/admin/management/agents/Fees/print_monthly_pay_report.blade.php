@@ -12,46 +12,6 @@
         href="https://fonts.googleapis.com/css2?family=wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
     <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.2') }}" rel="stylesheet">
-
-    <style>
-        .heading {
-            display: block;
-            font-size: 1rem;
-            font-weight: 500;
-            line-height: 1px;
-        }
-
-        @page {
-            size: A4;
-        }
-
-        h2 {
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        h6 {
-            font-size: 16px;
-        }
-
-        .table td {
-            vertical-align: middle;
-        }
-
-         table td {
-             padding: .45rem .75rem .55rem !important;
-            color: #333 !important;
-            font-size: 12px;
-        }
-
-        table th {
-            padding: .45rem .75rem .55rem !important;
-            font-size: 12px;
-            font-weight: 500;
-            vertical-align: middle;
-            font-family: 'Poppins', sans-serif;
-        }
-    </style>
 </head>
 <body style="margin:0;width:100%">
     @php
@@ -78,15 +38,15 @@
         </table>
         <table class="w-100 table common_modal_table" style="padding: 20px 0 0 0;">
             <tr>
-                <td style="font-weight: bold; color: #000;">Agent ID:</td>
+                <td style="font-weight: bold; color: #000 !important;">Agent ID:</td>
                 <td><span id="payAgentId">{{$payAgentId}}</span></td>
-                <td style="font-weight: bold; color: #000;">Date:</td>
+                <td style="font-weight: bold; color: #000 !important;">Date:</td>
                 <td><span id="payMonthlyReportDate">{{$payMonthlyReportDate}}</span></td>
             </tr>
             <tr>
-                <td style="font-weight: bold; color: #000;">Fee Total:</td>
+                <td style="font-weight: bold; color: #001f4d !important;">Fee Total:</td>
                 <td><span id="payAgenFee">${{$payAgenFee}}</span></td>
-                <td style="font-weight: bold; color: #000;">Month:</td>
+                <td style="font-weight: bold; color: #001f4d !important;">Month:</td>
                 <td><span id="payMonthlyReportMonth">{{$payMonthlyReportMonth}}</span></td>
             </tr>
         </table>
