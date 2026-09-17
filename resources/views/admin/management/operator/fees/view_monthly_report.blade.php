@@ -290,7 +290,7 @@
 <!-- opr_accordian_table JS -->
 <script>
     $(document).ready(function() {
-        $("#reportendDate").html('Fee Report (Period Ending: {{ $reportEndDate }})');
+        $("#reportendDate").html('Operator Montly Fee Report (Period Ending: {{ $reportEndDate }})');
     });
     document.querySelectorAll('.accordion-toggle').forEach(toggle => {
         toggle.addEventListener('click', () => {

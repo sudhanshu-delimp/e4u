@@ -211,7 +211,7 @@
                                                 Listings View page.</i></p>
                                     </div>
                                 </div>
-                                
+
 
                                 <!-- Listings Preferences -->
                                 <div class="form-group common-card">
@@ -310,32 +310,20 @@
                                             Your default setting is:
                                         </span>
 
+                                        @php
+                                            $showEntries = $setting->viewer_settings->show_entries ?? 25;
+                                        @endphp
+
                                         <select class="entries-select" name="show_entries">
-                                            <option value="10"
-                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->show_entries == '10' ? 'selected' : '' }}>
-                                                10
-                                            </option>
-                                            <option value="25"
-                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->show_entries == '25' ? 'selected' : '' }}>
-                                                25
-                                            </option>
+                                            @foreach (explode(',', config('app.paginate_range')) as $value)
+                                                @php $value = trim($value); @endphp
 
-                                            <option value="50"
-                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->show_entries == '50' ? 'selected' : '' }}>
-                                                50
-                                            </option>
-
-                                            <option value="75"
-                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->show_entries == '75' ? 'selected' : '' }}>
-                                                75
-                                            </option>
-
-                                            <option value="100"
-                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->show_entries == '100' ? 'selected' : '' }}>
-                                                100
-                                            </option>
+                                                <option value="{{ $value }}"
+                                                    {{ $showEntries == $value ? 'selected' : '' }}>
+                                                    {{ $value }}
+                                                </option>
+                                            @endforeach
                                         </select>
-
                                     </div>
 
                                     <div class="card-note">
