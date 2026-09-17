@@ -118,7 +118,7 @@ class MonthlyReportController extends BaseController
       $item->total_fees =   $formattedFees;
       $status = ucfirst($item->status);
       $statusName = str_replace('_', " ", $status);
-      $item->status_name = '<span class="custom_badge ' . getStatusBadgeClass($status) . '">' . ucwords($statusName) . ' </span>';
+      $item->status_name = '<span class="custom_badge_lg ' . getStatusBadgeClass($status) . '">' . ucwords($statusName) . ' </span>';
 
       $item->report_pproved_date =  "";
       $item->approved_by =  $item->approved_by;
