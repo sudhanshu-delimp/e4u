@@ -271,7 +271,7 @@
                   name: 'id'
                },
                {
-                  data: 'name',
+                  data: 'name_with_tag',
                   name: 'name'
                },
                {
