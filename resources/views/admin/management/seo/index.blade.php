@@ -64,9 +64,11 @@
 
             padding: 18px;
 
-            min-height: 850px;
+            height: 100vh;
 
             box-shadow: 0 4px 20px rgba(16, 39, 70, 0.06);
+
+            overflow-y: scroll;
         }
 
 
@@ -953,7 +955,7 @@
                                         </label>
                                     </section>
                                     <!-- Robots.txt -->
-                                    <section class="side-card">
+                                    {{-- <section class="side-card">
                                         <div class="side-heading">
                                             <div class="section-icon">
                                                 <i class="fa-solid fa-robot"></i>
@@ -961,7 +963,7 @@
                                             <h2>Robots.txt</h2>
                                         </div>
                                         <textarea class="schema-code" id="robotsTxt" name="robots_txt" rows="8"></textarea>
-                                    </section>
+                                    </section> --}}
                                 
                                     
                                     <!-- SEO Tip -->

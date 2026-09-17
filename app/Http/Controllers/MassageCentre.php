@@ -1283,5 +1283,15 @@ class MassageCentre extends Controller
       else
       return response()->json([ 'status' => false,'message' => 'error occured while generating log.']);             
     }
+
+
+    public function make_social_media_log(Request $request)
+    {
+      $log  = $this->logService->make_social_media_log($request->all());  
+      if($log)
+      return response()->json(['status' => true,'message' => 'Log generate successfully.']);
+      else
+      return response()->json([ 'status' => false,'message' => 'error occured while generating log.']);             
+    }
    
 }

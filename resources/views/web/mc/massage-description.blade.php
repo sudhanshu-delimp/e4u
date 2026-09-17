@@ -311,7 +311,7 @@ margin-right: 5px;
 
                                 @if(isset($social_links['facebook']) && $social_links['facebook']!="")
                                     <li class="social-media-profile">
-                                        <a href="{{$social_links['facebook']}}" target="_blank">
+                                        <a class="log_social_media" href="{{$social_links['facebook']}}" target="_blank">
                                             <img src="{{ asset('../assets/app/img/facebook.png') }}" class="facebook-logo" alt="logo">
                                         </a>
                                     </li>
@@ -319,7 +319,7 @@ margin-right: 5px;
 
                                 @if(isset($social_links['insta']) && $social_links['insta']!="")
                                     <li class="social-media-profile">
-                                        <a href="{{$social_links['insta']}}" target="_blank">
+                                        <a class="log_social_media" href="{{$social_links['insta']}}" target="_blank">
                                             <img src="{{ asset('../assets/app/img/instagram.png') }}" class="instagram-logo" alt="logo">
                                         </a>
                                     </li>
@@ -328,7 +328,7 @@ margin-right: 5px;
 
                         
                                 <li class="social-media-profile">
-                                    <a href="{{ $twitter_link  }}" target="_blank">
+                                    <a class="log_social_media" href="{{ $twitter_link  }}" target="_blank">
                                         <img src="{{ asset('../assets/app/img/twitter-x.png') }}" class="twitter-x-logo" alt="logo">
                                     </a>
                                 </li>
@@ -342,7 +342,7 @@ margin-right: 5px;
                                         <span class="profile_location_icon">
                                             <i class="fa fa-id-card" aria-hidden="true"></i>
                                         </span>
-                                        <p class="display_inline_block">Member ID: {{   get_massage_member_id($listing->user_id) }}</p>
+                                        <p class="log_social_media" class="display_inline_block">Member ID: {{   get_massage_member_id($listing->user_id) }}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -3241,6 +3241,33 @@ $('#exampleModal').on('shown.bs.modal', function () {
     make_massage_centres_log(is_profile_media_visit='1');
 });
 
+
+$(document).on('click', '.log_social_media', function () {
+
+    let profile_id = "{{ $listing->id}}";
+    let social_link = $(this).attr('href');   
+    console.log('profile_id', profile_id);
+    console.log('visitorUuid', visitorUuid);
+    console.log('href=======>',$(this).attr('href'));
+
+     $.ajax({
+        url: "{{ route('web.make-social-media-log') }}",
+        type: "POST",
+        data: {
+            profile_id: profile_id,
+            type:'massage',
+            social_link:social_link,
+            visitorUuid: visitorUuid,
+            _token: "{{ csrf_token() }}"
+        },
+        success: function (response) {
+            // console.log('Log generated successfully:', response);
+        },
+        error: function (xhr) {
+            console.log('Error generating log:', xhr.responseText);
+        }
+    });
+});
 
 function generateLog(massure_id, page)
 {

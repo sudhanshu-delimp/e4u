@@ -909,6 +909,7 @@ Route::post('/review-massage/{id}', [MassageCentre::class, 'SaveReviewMassage'])
 Route::post('/clear-short-list', [MassageCentre::class, 'clearShortList'])->name('web.clear-short-list');
 Route::get('get-user-location', [MassageCentre::class, 'get_user_location'])->name('web.user_location');
 Route::post('make-massage-centres-log', [MassageCentre::class, 'make_massage_centres_log'])->name('web.make-massage-centres-log');
+Route::post('make-social-media-log', [MassageCentre::class, 'make_social_media_log'])->name('web.make-social-media-log');
 
 
 

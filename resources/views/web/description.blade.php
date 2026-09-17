@@ -258,20 +258,20 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                     @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
                                         @if($escort->user->social_links && $escort->user->social_links['facebook'] !== null)
                                             <li class="selected-from-profile">
-                                                <a href="{{ ($escort->user->social_links && $escort->user->social_links['facebook'] != '') ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}" target="_blank">
+                                                <a class="log_social_media" href="{{ ($escort->user->social_links && $escort->user->social_links['facebook'] != '') ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}" target="_blank">
                                                 <img src="{{asset('assets/app/img/facebook.png')}}" class="twitter-x-logo" alt="logo"></a>
                                             </li>
                                         @endif
                                         @if($escort->user->social_links && $escort->user->social_links['insta'] !== null)
-                                            <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><img src="{{asset('assets/app/img/instagram.png')}}" class="twitter-x-logo" alt="logo"></a></li>
+                                            <li class="selected-from-profile"><a class="log_social_media" href="{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><img src="{{asset('assets/app/img/instagram.png')}}" class="twitter-x-logo" alt="logo"></a></li>
                                         @endif
                                         @if($escort->user->social_links && $escort->user->social_links['twitter'] !== null)
-                                            <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo"></a></li>
+                                            <li class="selected-from-profile"><a class="log_social_media" href="{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo"></a></li>
                                         @else
-                                            <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
+                                            <li class="by-default"><a class="log_social_media" href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
                                         @endif
                                     @else
-                                        <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
+                                        <li class="by-default"><a class="log_social_media"  href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
                                     @endif
                                 </ul>
                             </div>
@@ -281,7 +281,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                 @if(auth()->user() && auth()->user()->type == '0')
                                     <div class="social_media_icons">
                                         <div class="my-play-box-profile-icon" >
-                                            <a href="{{route('user.notebox.new',[$escort->id])}}" target="_blank"><img src="{{asset('assets/app/img/notebo-whitex.png')}}" alt="logo"></a>
+                                            <a href="{{route('user.notebox.new',[$escort->id])}}"><img src="{{asset('assets/app/img/notebo-whitex.png')}}" alt="logo"></a>
                                             <div class="custom-tooltip">Add to My Notebox.</div>
                                         </div>
                                     </div>                            
@@ -2555,9 +2555,7 @@ $('#review-submitted-popup .close').on('click', function() {
         console.log(cid[1] + "-" + Eid);
         console.log(cidcl);
     });
-</script>
 
-<script>
 
 let visitorUuid = localStorage.getItem('visitor_uuid');
 
@@ -2716,6 +2714,38 @@ $('#exampleModal').on('shown.bs.modal', function () {
     let url = "{{ route('save.escort.stats')}}";
     saveEscortAjaxStats(formData, url, 'GET');
 });
+
+
+$(document).on('click', '.log_social_media', function () {
+
+    let profile_id = "{{ $escort->id}}";  
+    let social_link = $(this).attr('href');   
+    console.log('profile_id', profile_id);
+    console.log('visitorUuid', visitorUuid);
+    console.log('href=======>',$(this).attr('href'));
+
+     $.ajax({
+        url: "{{ route('web.make-social-media-log') }}",
+        type: "POST",
+        data: {
+            profile_id: profile_id,
+            type:'escort',
+            social_link:social_link,
+            visitorUuid: visitorUuid,
+            _token: "{{ csrf_token() }}"
+        },
+        success: function (response) {
+            // console.log('Log generated successfully:', response);
+        },
+        error: function (xhr) {
+            console.log('Error generating log:', xhr.responseText);
+        }
+    });
+
+
+
+});
+
 
 function saveEscortAjaxStats(formData, url, type)
 {

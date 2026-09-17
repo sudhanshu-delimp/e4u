@@ -216,7 +216,7 @@ Account details, including the initial setup.</li>
       <div class="col-lg-12 col-md-12 col-sm-12">
 
          <div class="bothsearch-form d-flex gap-20">
-            <button type="button" class="create-tour-sec dctour pay-id-modal" >PayID</button>
+            <button type="button" class="create-tour-sec dctour pay-id-modal" >View Pay ID</button>
             <button type="button" class="create-tour-sec dctour" id="change_pin_modal">Change PIN</button>
             <button type="button" class="create-tour-sec dctour" data-toggle="modal"  id="commission-modal" data-target="#commission-report2">Add New Account</button>
          </div>
@@ -224,7 +224,7 @@ Account details, including the initial setup.</li>
    </div>
 
    <div class="row">
-      <div class="col-md-12 mt-2">
+      <div class="col-md-12 mt-2 common-card">
          <div id="" class="table-responsive-xl">
             <table class="table" id="bankAccountTable">
                <thead class="table-bg">

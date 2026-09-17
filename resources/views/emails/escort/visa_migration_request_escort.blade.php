@@ -39,7 +39,7 @@
                             <p style="margin: 0 0 15px 0;"><b>Dear {{ $data['member_name'] }},</b></p>
 
                             <p style="margin: 15px 0; text-align: justify">
-                                Your request for Visa services assistance has been processed. Please allow
+                                Your request for Visa Services assistance has been processed. Please allow
                                 24 hours for a team member to make contact with you through your selected
                                 preferred method.
                                 If you have not been contacted by a member of the team with 24 hours,
