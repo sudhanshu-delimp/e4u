@@ -945,3 +945,29 @@ Route::get($ecortBaseSlug.'/{county}/{state}/{city}/{gender}/{member_id}/{profil
 Route::get($massageBaseSlug .'/{county}/{state}/{city?}/{member_id}/{profile}', [MassageCentre::class, 'massageProfile'])->name('web.massage-profile.new');
 
 Route::get('supplier-login', [App\Http\Controllers\Admin\AuthController::class, 'showOperatorLoginForm'])->name('supplier.login');
+
+
+// routes/web.php
+Route::get('/robots.txt', function () {
+    if (app()->environment() !== 'production') {
+        // Staging/dev pe pura site block — Google isko kabhi index na kare
+        return response("User-agent: *\nDisallow: /", 200)
+            ->header('Content-Type', 'text/plain');
+    }
+
+    $lines = [
+        //"User-agent: *",
+        "Allow: /",
+        //"Disallow: /admin",
+        //"Disallow: /login",
+        //"Disallow: /register",
+       // "Disallow: /password/*",
+        //"Disallow: /dashboard",
+       // "Disallow: /api/*",
+     //   "",
+        "Sitemap: " . url('/sitemap.xml'),
+    ];
+
+    return response(implode("\n", $lines), 200)
+        ->header('Content-Type', 'text/plain');
+});
