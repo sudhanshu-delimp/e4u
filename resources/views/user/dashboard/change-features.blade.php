@@ -84,28 +84,6 @@
                                     </div>
 
                                     <div class="option-list">
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="feature_alerts"
-                                                name="features_push_notifications_from_escorts" value="1"
-                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_push_notifications_from_escorts == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="feature_alerts">Receive Alert
-                                                Notifications from Escorts</label>
-                                        </div>
-
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="feature_chatting"
-                                                name="features_direct_chatting_with_escorts" value="1"
-                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_direct_chatting_with_escorts == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="feature_chatting">Participate in direct
-                                                chatting with Escorts</label>
-                                        </div>
-
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="feature_reviews"
-                                                name="features_write_reviews" value="1"
-                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_write_reviews == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="feature_reviews">Write Reviews</label>
-                                        </div>
 
                                         <div class="custom-control custom-switch">
                                             <input type="checkbox" class="custom-control-input" id="feature_legbox"
@@ -121,6 +99,27 @@
                                                 {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_enable_my_notebox == '1' ? 'checked' : '' }}>
                                             <label class="custom-control-label" for="feature_notebox">Enable My
                                                 Notebox</label>
+                                        </div>
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="feature_chatting"
+                                                name="features_direct_chatting_with_escorts" value="1"
+                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_direct_chatting_with_escorts == '1' ? 'checked' : '' }}>
+                                            <label class="custom-control-label" for="feature_chatting">Enable Chat with Advertisers</label>
+                                        </div>
+                                        
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="feature_alerts"
+                                                name="features_push_notifications_from_escorts" value="1"
+                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_push_notifications_from_escorts == '1' ? 'checked' : '' }}>
+                                            <label class="custom-control-label" for="feature_alerts">Receive Alert Notifications from Advertisers</label>
+                                        </div>
+
+
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="feature_reviews"
+                                                name="features_write_reviews" value="1"
+                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_write_reviews == '1' ? 'checked' : '' }}>
+                                            <label class="custom-control-label" for="feature_reviews">Write Reviews</label>
                                         </div>
                                     </div>
                                     <div class="card-note">
