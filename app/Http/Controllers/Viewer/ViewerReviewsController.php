@@ -144,25 +144,13 @@ class ViewerReviewsController extends Controller
             })
             ->addColumn('action', function ($row) {
 
-                $statusActionHtml = '
-                    <div class="dropdown no-arrow text-center">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                            aria-labelledby="dropdownMenuLink">';
+                 return ' <a href="javascript:void(0);" class="toggle-details toggle-report" data-id="'.$row->id.'" id="dropdownMenuLink">
+                                <i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="View"></i>
+                            </a>';
 
-                    // Always show View option
-                    $statusActionHtml .= '
-                            <a class="dropdown-item view_member_report toggle-report d-flex justify-content-start gap-10 align-items-center"
-                                href="#" data-id="'.$row->id.'">
-                                <i class="fa fa-eye text-dark"></i> View
-                            </a>
-                        </div>
-                    </div>';
+                
 
-                return $statusActionHtml;
+                
             })
             ->rawColumns(['action','rating','status'])
              ->with([

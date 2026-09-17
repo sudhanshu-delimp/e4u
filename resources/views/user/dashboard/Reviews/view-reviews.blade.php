@@ -21,6 +21,17 @@
             color: var(--blue--text);
             padding: 5px !important;
         }
+
+   .toggle-report i {
+        display: inline-block;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+   
+    .toggle-report-active {
+        color: #e83e8c !important; 
+        transform: rotate(90deg);  
+    }
     </style>
 @endsection
 @section('content')
@@ -276,105 +287,282 @@ pageLength: paginateLength,
             })
 
             // Toggle child rows
+            // $('#EscortReviewTable tbody').on('click', '.toggle-report', function(e) {
+            //     e.preventDefault();
+            //     var tr = $(this).closest('tr');
+            //     var row = escortReviewTable.row(tr);
+            //     var dataId = $(this).data("id");
+            //     let routeUrl = "{{ route('user.get-single-user-review-details', ':id') }}".replace(':id', dataId);
+            //     let reviewId = dataId;
+
+            //     viewReviewReportAjax(row, reviewId, routeUrl, $(this));
+            //     console.log(row.id);
+
+            // });
+
+            // function viewReviewReportAjax(row, review_id, routeUrl, obj) {
+            //     const reportId = $(this).data('id');
+
+            //     $.ajax({
+            //         url: routeUrl, // replace with your actual route
+            //         method: 'GET',
+            //         success: function(response) {
+
+            //             var childHtml = ``;
+
+            //             if (response.error == false) {
+            //                 // if (row.child.isShown()) {
+            //                 //     row.child.hide();
+            //                 //     obj.html('<i class="fa fa-eye mr-2"></i> View');
+            //                 // } else {
+            //                 // Replace below with dynamic HTML if needed
+            //                 if (response.data.advertiser_type == 'escort') {
+            //                     childHtml = `
+            //                 <div class="card p-3 border-0">
+            //                     <div class="d-flex justify-content-between">
+            //                         <h5 class="font-weight-bold text-blue-primary">Review Details</h5>
+            //                         <button class="btn-cancel-modal toggle-report-hide" style="font-size: 12px; padding: 5px 10px;" > Close </button>
+            //                     </div>
+            //                     <table class="table mb-0 num_view_table">
+            //                         <tr>
+            //                             <th>Escort ID:</th><td class="border-0">` + response.data.escort.user
+            //                         .member_id + `</td>
+            //                             <th>Escort’s Name:</th>
+            //                             <td class="border-0">` + response.data.escort.name + `</td>
+            //                             <th>Mobile:</th>
+            //                             <td class="border-0">` + response.data.escort.user.phone + `</td>
+            //                         </tr>
+            //                         <tr>
+                                        
+            //                             <th>Home State:</th>
+            //                             <td class="border-0">` + response.data.escort.user.state.name + `</td>                                   
+            //                             <th>Status:</th>
+            //                             <td class="border-0">` + capitalizeFirstLetter(response.data.status) + `</td>
+            //                             <th>Comments:</th>
+            //                             <td class="border-0">` + response.data.description + `</td>
+            //                         </tr>
+            //                     </table>
+            //                 </div>
+            //             `;
+            //                 } else {
+            //                     childHtml = `
+            //                 <div class="card p-3 border-0">
+            //                     <div class="d-flex justify-content-between">
+            //                         <h5 class="font-weight-bold text-blue-primary">Review Details</h5>
+            //                         <button class="btn-cancel-modal toggle-report-hide" style="font-size: 12px; padding: 5px 10px;" > Close </button>
+            //                     </div>
+            //                     <table class="table mb-0 num_view_table">
+            //                         <tr>
+            //                             <th>Member ID:</th><td class="border-0">` + response.data.massage.user
+            //                         .member_id + `</td>
+            //                             <th>Business Name:</th>
+            //                             <td class="border-0">` + response.data.massage.business_name + `</td>
+                                  
+            //                             <th>Mobile:</th>
+            //                             <td class="border-0">` + response.data.massage.user.phone + `</td>
+                                        
+            //                         </tr>
+            //                         <tr>
+            //                             <th>Home State:</th>
+            //                             <td class="border-0">` + response.data.massage.user.state.name + `</td>
+            //                             <th>Status:</th>
+            //                             <td class="border-0">` + capitalizeFirstLetter(response.data.status) + `</td>
+            //                             <th>Comments:</th>
+            //                             <td class="border-0">` + response.data.description + `</td>
+            //                         </tr>
+            //                     </table>
+            //                 </div>
+            //             `;
+            //                 }
+            //                 row.child(childHtml).show();
+            //                 //obj.html('<i class="fa fa-times mr-2"></i> Close');
+            //                 obj.html('<i class="fa fa-eye mr-2"></i> View');
+            //                 // }
+            //             }
+            //         },
+            //         error: function(xhr) {
+            //             console.error('Failed to fetch data');
+            //             $('#view-listing .modal-body').html('<p class="text-danger">Error loading data...</p>');
+            //         }
+            //     });
+            // }
+
+
             $('#EscortReviewTable tbody').on('click', '.toggle-report', function(e) {
                 e.preventDefault();
-                var tr = $(this).closest('tr');
+
+                var obj = $(this);
+                var tr = obj.closest('tr');
                 var row = escortReviewTable.row(tr);
-                var dataId = $(this).data("id");
-                let routeUrl = "{{ route('user.get-single-user-review-details', ':id') }}".replace(':id', dataId);
-                let reviewId = dataId;
 
-                viewReviewReportAjax(row, reviewId, routeUrl, $(this));
-                console.log(row.id);
+                var dataId = obj.data('id');
 
+                // Already open -> Slide Up
+                if (row.child.isShown()) {
+
+                    var childTr = tr.next('tr');
+
+                    childTr.find('td').stop(true, true).slideUp(250, function() {
+
+                        row.child.hide();
+                        tr.removeClass('shown');
+
+                        // Reset icon back to normal dark search icon
+                        obj.find('i')
+                            .removeClass('toggle-report-active')
+                            .attr('title', 'View');
+                    });
+
+                    return;
+                }
+
+                // Not open -> load and show
+                let routeUrl = "{{ route('user.get-single-user-review-details', ':id') }}"
+                    .replace(':id', dataId);
+
+                viewReviewReportAjax(row, dataId, routeUrl, obj);
             });
 
+
             function viewReviewReportAjax(row, review_id, routeUrl, obj) {
-                const reportId = $(this).data('id');
 
                 $.ajax({
-                    url: routeUrl, // replace with your actual route
+                    url: routeUrl,
                     method: 'GET',
+
                     success: function(response) {
 
-                        var childHtml = ``;
-
                         if (response.error == false) {
-                            // if (row.child.isShown()) {
-                            //     row.child.hide();
-                            //     obj.html('<i class="fa fa-eye mr-2"></i> View');
-                            // } else {
-                            // Replace below with dynamic HTML if needed
+
+                            var childHtml = '';
+
                             if (response.data.advertiser_type == 'escort') {
+
                                 childHtml = `
-                            <div class="card p-3 border-0">
-                                <div class="d-flex justify-content-between">
-                                    <h5 class="font-weight-bold text-blue-primary">Review Details</h5>
-                                    <button class="btn-cancel-modal toggle-report-hide" style="font-size: 12px; padding: 5px 10px;" > Close </button>
-                                </div>
-                                <table class="table mb-0 num_view_table">
-                                    <tr>
-                                        <th>Escort ID:</th><td class="border-0">` + response.data.escort.user
-                                    .member_id + `</td>
-                                        <th>Escort’s Name:</th>
-                                        <td class="border-0">` + response.data.escort.name + `</td>
-                                        <th>Mobile:</th>
-                                        <td class="border-0">` + response.data.escort.user.phone + `</td>
-                                    </tr>
-                                    <tr>
-                                        
-                                        <th>Home State:</th>
-                                        <td class="border-0">` + response.data.escort.user.state.name + `</td>                                   
-                                        <th>Status:</th>
-                                        <td class="border-0">` + capitalizeFirstLetter(response.data.status) + `</td>
-                                        <th>Comments:</th>
-                                        <td class="border-0">` + response.data.description + `</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        `;
+                                    <div class="card p-3 border-0">
+
+                                        <div class="d-flex justify-content-between">
+                                            <h5 class="font-weight-bold text-blue-primary">
+                                                Review Details
+                                            </h5>
+
+                                          
+                                        </div>
+
+                                        <table class="table mb-0 num_view_table">
+                                            <tr>
+                                                <th>Escort ID:</th>
+                                                <td class="border-0">
+                                                    ${response.data.escort.user.member_id}
+                                                </td>
+
+                                                <th>Escort’s Name:</th>
+                                                <td class="border-0">
+                                                    ${response.data.escort.name}
+                                                </td>
+
+                                                <th>Mobile:</th>
+                                                <td class="border-0">
+                                                    ${response.data.escort.user.phone}
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>Home State:</th>
+                                                <td class="border-0">
+                                                    ${response.data.escort.user.state.name}
+                                                </td>
+
+                                                <th>Status:</th>
+                                                <td class="border-0">
+                                                    ${capitalizeFirstLetter(response.data.status)}
+                                                </td>
+
+                                                <th>Comments:</th>
+                                                <td class="border-0">
+                                                    ${response.data.description}
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+                                `;
+
                             } else {
+
                                 childHtml = `
-                            <div class="card p-3 border-0">
-                                <div class="d-flex justify-content-between">
-                                    <h5 class="font-weight-bold text-blue-primary">Review Details</h5>
-                                    <button class="btn-cancel-modal toggle-report-hide" style="font-size: 12px; padding: 5px 10px;" > Close </button>
-                                </div>
-                                <table class="table mb-0 num_view_table">
-                                    <tr>
-                                        <th>Member ID:</th><td class="border-0">` + response.data.massage.user
-                                    .member_id + `</td>
-                                        <th>Business Name:</th>
-                                        <td class="border-0">` + response.data.massage.business_name + `</td>
-                                  
-                                        <th>Mobile:</th>
-                                        <td class="border-0">` + response.data.massage.user.phone + `</td>
-                                        
-                                    </tr>
-                                    <tr>
-                                        <th>Home State:</th>
-                                        <td class="border-0">` + response.data.massage.user.state.name + `</td>
-                                        <th>Status:</th>
-                                        <td class="border-0">` + capitalizeFirstLetter(response.data.status) + `</td>
-                                        <th>Comments:</th>
-                                        <td class="border-0">` + response.data.description + `</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        `;
+                                    <div class="card p-3 border-0">
+
+                                        <div class="d-flex justify-content-between">
+                                            <h5 class="font-weight-bold text-blue-primary">
+                                                Review Details
+                                            </h5>
+
+                                         
+                                        </div>
+
+                                        <table class="table mb-0 num_view_table">
+                                            <tr>
+                                                <th>Member ID:</th>
+                                                <td class="border-0">
+                                                    ${response.data.massage.user.member_id}
+                                                </td>
+
+                                                <th>Business Name:</th>
+                                                <td class="border-0">
+                                                    ${response.data.massage.business_name}
+                                                </td>
+
+                                                <th>Mobile:</th>
+                                                <td class="border-0">
+                                                    ${response.data.massage.user.phone}
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>Home State:</th>
+                                                <td class="border-0">
+                                                    ${response.data.massage.user.state.name}
+                                                </td>
+
+                                                <th>Status:</th>
+                                                <td class="border-0">
+                                                    ${capitalizeFirstLetter(response.data.status)}
+                                                </td>
+
+                                                <th>Comments:</th>
+                                                <td class="border-0">
+                                                    ${response.data.description}
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+                                `;
                             }
+
                             row.child(childHtml).show();
-                            //obj.html('<i class="fa fa-times mr-2"></i> Close');
-                            obj.html('<i class="fa fa-eye mr-2"></i> View');
-                            // }
+
+                            var childTr = row.child();
+
+                            childTr.find('td')
+                                .hide()
+                                .stop(true, true)
+                                .slideDown(250);
+
+                            // Active icon
+                            obj.find('i')
+                                .addClass('toggle-report-active')
+                                .attr('title', 'Close');
                         }
                     },
+
                     error: function(xhr) {
                         console.error('Failed to fetch data');
-                        $('#view-listing .modal-body').html('<p class="text-danger">Error loading data...</p>');
                     }
                 });
             }
+
 
             $(document).on('click', '#saveReviewInfo', function(e) {
                 e.preventDefault();
