@@ -345,12 +345,17 @@
                         A-Alert confirming your request with a reference. If you have not been contacted by a
                         member of the team within 24 hours (of a business day), please raise a Support Ticket
                         quoting the reference.  
-                        <br>
-                        <br>
-                        <p class="mb-0"><b>Date sent: </b> {{ \Carbon\Carbon::now('Australia/Perth')->format('d-m-Y') }}</p>
+                       
+                       
                         </h5>
                          
                     </div>
+                    
+                <div class="modal-footer justify-content-between">
+                        <p class="mb-0 custom_modal_text"><b>Date sent: </b> {{ \Carbon\Carbon::now('Australia/Perth')->format('d-m-Y') }}
+                        </p>
+                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
