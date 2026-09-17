@@ -75,9 +75,8 @@
                         <h3 class="NotesHeader"><b>Notes:</b></h3>
                         
                         <ol>
-                            <li>Use this feature to enable and disable your feature preferences.</li>
-                            <li>Please note that for an Advertiser to participate in any of these features, they must
-                                have enabled the corresponding feature in their preference settings.</li>
+                            <li>Click the card to view information.</li>
+                            <li>Some features can be changed here as well as from the relevant subject page. Where you make a change, the relevant subject page will be updated.</li>
                             <li>Note also the default setting for 2FA authentification.</li>
                         </ol>
                     </div>
@@ -86,24 +85,9 @@
         </div>
 
         <div class="row">
+            
             {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
-                <div class="my-custom-box shadow-sm">
-                    <a href="{{ route('user.favorites-online') }}">
-                        <div class="box-icon">
-                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_favorites.png') }}"
-                                alt="Favorites Online">
-                        </div>
-                        <h2>
-                            Favorites Online
-                        </h2>
-                    </a>
-
-                </div>
-            </div>
-            {{-- end --}}
-            {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
+            <div class="col-lg-3 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ route('user.my-legbox', ['escort']) }}?from=dashboard">
                         <div class="box-icon">
@@ -117,8 +101,24 @@
                 </div>
             </div>
             {{-- end --}}
+            
             {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
+            <div class="col-lg-3 box-wrapper">
+                <div class="my-custom-box shadow-sm">
+                    <a href="{{ route('user.list') }}?from=dashboard" >
+                        <div class="box-icon">
+                            <img src="{{ asset('assets/dashboard/img/MyNotebox.png') }}" alt="Logs & Status">
+                        </div>
+                        <h2>
+                            My Notebox
+                        </h2>
+                    </a>
+
+                </div>
+            </div>
+            {{-- end --}}
+            {{-- box start --}}
+            <div class="col-lg-3 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ route('user.punterbox.dashboard') }}?from=dashboard">
                         <div class="box-icon">
@@ -132,8 +132,24 @@
                 </div>
             </div>
             {{-- end --}}
+            
             {{-- box start --}}
-            {{-- <div class="col-lg-4 box-wrapper">
+            <div class="col-lg-3 box-wrapper">
+                <div class="my-custom-box shadow-sm">
+                    <a href="{{ route('viewer.task-list') }}">
+                        <div class="box-icon">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_tasklist.png') }}" alt="Task List">
+                        </div>
+                        <h2>
+                            Task List
+                        </h2>
+                    </a>
+
+                </div>
+            </div>
+            {{-- end --}}
+            {{-- box start --}}
+            {{-- <div class="col-lg-3 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ route('user.viewer-statistics') }}">
                     <div class="box-icon">
@@ -149,7 +165,39 @@
             </div> --}}
             {{-- end --}}
             {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
+            <div class="col-lg-3 box-wrapper">
+                <div class="my-custom-box shadow-sm">
+                    <a href="{{ route('user.favorites-online') }}">
+                        <div class="box-icon">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_favorites.png') }}"
+                                alt="Favorites Online">
+                        </div>
+                        <h2>
+                            Favorites Online
+                        </h2>
+                    </a>
+
+                </div>
+            </div>
+            {{-- end --}}
+            {{-- box start --}}
+            <div class="col-lg-3 box-wrapper">
+                <div class="my-custom-box shadow-sm">
+                    <a href="{{ route('user.logs-and-statistics') }}">
+                        <div class="box-icon">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_logs-stats.png') }}" alt="Logs & Status">
+                        </div>
+                        <h2>
+                            Logs & Status
+                        </h2>
+                    </a>
+
+                </div>
+            </div>
+            {{-- end --}}
+            
+            {{-- box start --}}
+            <div class="col-lg-3 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ route('user.my-statistics') }}">
                         <div class="box-icon">
@@ -165,52 +213,7 @@
             </div>
             {{-- end --}}
             {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
-                <div class="my-custom-box shadow-sm">
-                    <a href="{{ route('viewer.task-list') }}">
-                        <div class="box-icon">
-                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_tasklist.png') }}" alt="Task List">
-                        </div>
-                        <h2>
-                            Task List
-                        </h2>
-                    </a>
-
-                </div>
-            </div>
-            {{-- end --}}
-            {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
-                <div class="my-custom-box shadow-sm">
-                    <a href="{{ route('user.logs-and-statistics') }}">
-                        <div class="box-icon">
-                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_logs-stats.png') }}" alt="Logs & Status">
-                        </div>
-                        <h2>
-                            Logs & Status
-                        </h2>
-                    </a>
-
-                </div>
-            </div>
-            {{-- end --}}
-            {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
-                <div class="my-custom-box shadow-sm">
-                    <a href="{{ route('user.list') }}?from=dashboard" >
-                        <div class="box-icon">
-                            <img src="{{ asset('assets/dashboard/img/MyNotebox.png') }}" alt="Logs & Status">
-                        </div>
-                        <h2>
-                            My Notebox
-                        </h2>
-                    </a>
-
-                </div>
-            </div>
-            {{-- end --}}
-            {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
+            <div class="col-lg-3 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ url('user-dashboard/submitticket') }}?from=dashboard">
                         <div class="box-icon">
