@@ -7,8 +7,28 @@
     <title>Agent Montly Fee Report</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.2') }}" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900" rel="stylesheet">
     <style>
+        @media print {
+            body,
+            table,
+            table th,
+            table td,
+            table th *,
+            table td * {
+                font-family: "Poppins", sans-serif;
+                border-top: 0px;
+                border-bottom: 0px;
+            }
+        }
+
+        table th,
+        table td {
+            font-family: "Poppins", sans-serif;
+        }
+
         .heading {
             display: block;
             font-size: 1rem;
@@ -44,7 +64,7 @@
             font-size: 12px;
             font-weight: 500;
             vertical-align: middle;
-            font-family: 'Poppins', sans-serif;
+           font-family: "Poppins", sans-serif;
         }
     </style>
 </head>
@@ -95,13 +115,13 @@
                                 <table class="table mb-0 common_accordian_table">
                                     <thead class="table-bg modal-thaed">
                                         <tr>
-                                            <th>Member ID</th>
-                                            <th>Name</th>
-                                            <th>Territory</th>
-                                            <th>Type</th>
-                                            <th>Days</th>
-                                            <th>Spend</th>
-                                            <th>Fee</th>
+                                            <td class="font-weight-bold">Member ID</td>
+                                            <td class="font-weight-bold">Name</td>
+                                            <td class="font-weight-bold">Territory</td>
+                                            <td class="font-weight-bold">Type</td>
+                                            <td class="font-weight-bold text-right">Days</td>
+                                            <td class="font-weight-bold text-right">Spend</td>
+                                            <td class="font-weight-bold text-right">Fee</td>
                                         </tr>
                                     </thead>
                                     <tbody id="accordionParent">
