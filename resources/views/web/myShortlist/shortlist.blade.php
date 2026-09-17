@@ -1368,5 +1368,44 @@
             $('.btn-search i').toggleClass('rotate-180');
         })
 
+
+        $(document).on('click', '.log_social_media', function () {
+
+            let profile_id = "{{ $escort->id}}";  
+            let social_link = $(this).attr('href');   
+            console.log('profile_id', profile_id);
+            console.log('visitorUuid', visitorUuid);
+            console.log('href=======>',$(this).attr('href'));
+
+            $.ajax({
+                url: "{{ route('web.make-social-media-log') }}",
+                type: "POST",
+                data: {
+                    profile_id: profile_id,
+                    type:'escort',
+                    social_link:social_link,
+                    visitorUuid: visitorUuid,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function (response) {
+                    // console.log('Log generated successfully:', response);
+                },
+                error: function (xhr) {
+                    console.log('Error generating log:', xhr.responseText);
+                }
+            });
+
+
+
+        });
+
+
+        let visitorUuid = localStorage.getItem('visitor_uuid');
+
+        if (!visitorUuid) {
+            visitorUuid = crypto.randomUUID();
+            localStorage.setItem('visitor_uuid', visitorUuid);
+        }
+
     </script>
 @endpush
