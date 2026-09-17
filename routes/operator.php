@@ -30,7 +30,7 @@ Route::post('check-bank-otp',[OperatorController::class,'checkOTP'])->name('agen
 Route::post('delete-agent-bank',[OperatorController::class,'deleteOperatorBank'])->name('operator.delete-operator-bank');
 Route::get('bank-details',[OperatorController::class,'BankDataTable'])->name('operator.bankDetail.dataTable');
 //Route::get('/agents-monthly-report', [OperatorController::class, 'agentMonthlyreport'])->name('operator.agents-monthly-report');
-Route::get('/operator-monthly-report', [OperatorController::class, 'e4uMonthlyreport'])->name('operator.operator-monthly-report');
+//Route::get('/operator-monthly-report', [OperatorController::class, 'e4uMonthlyreport'])->name('operator.operator-monthly-report');
 
 /** Operator Staff */
 Route::get('/management/staff', [OperatorstaffController::class, 'staff_list'])->name('operator.operator.staff');
@@ -50,7 +50,7 @@ Route::post('notification-seen', [NotificationController::class, 'makeNotificati
 
 //Route::get('/agents-monthly-report', [AgentMonthlyReportController::class, 'agentMonthlyreport'])->name('operator.agents-monthly-report');
 
-//Agent Monthly repors
+//Agent Monthly Repors
 Route::get('management/reports/agents-monthly-report', [AgentMonthlyReportController::class, 'agentMonthlyreport'])->name('operator.agents-monthly-report');
 
 Route::get('management/fees/monthly-report-list', [AgentMonthlyReportController::class, 'monthlyReportAjax'])->name('operator.agents.fees.monthly-report-ajax');
@@ -60,3 +60,6 @@ Route::post('management/fees/print-monthly-report', [AgentMonthlyReportControlle
 Route::post('management/fees/query', [AgentMonthlyReportController::class, 'viewQuery'])->name('operator.agents.fees.view.query');
 Route::post('management/fees/pay-detail', [AgentMonthlyReportController::class, 'viewPayAgentreport'])->name('operator.agents.fees.view.pay-detail');
 Route::post('management/fees/print-pay-detail', [AgentMonthlyReportController::class, 'printPayAgentreport'])->name('operator.agents.fees.print.pay-detail');
+
+//Operator Monthly Repors
+Route::get('management/reports/operator-monthly-report', [OperatorController::class, 'e4uMonthlyreport'])->name('operator.operator-monthly-report');

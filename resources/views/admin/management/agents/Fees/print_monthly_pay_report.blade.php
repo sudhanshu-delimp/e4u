@@ -11,10 +11,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
-
-    <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.2') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-responsive.css?v1.2') }}" rel="stylesheet">
+
     <style>
         .heading {
             display: block;
@@ -40,8 +38,8 @@
             vertical-align: middle;
         }
 
-        table td {
-            padding: .75rem;
+         table td {
+             padding: .45rem .75rem .55rem !important;
             color: #333 !important;
             font-size: 12px;
         }
@@ -69,7 +67,7 @@
     @endphp    
     <!-- Body -->
 
-        <table class="table mb-0 common_accordian_table" style="background-color:#0c223d;">
+        <table class="table mb-0 common_accordian_table" style="background-color:#000;">
             <tr>
                 <td style="text-align: left !important;"> <span>
                         <img src="{{ $base64 }}" style="width: 25px;">
@@ -104,13 +102,13 @@
         <hr style="margin-top: 20px; margin-bottom:30px;">
         <p style="font-weight: bold; color: #000; margin-bottom: 20px;font-size: 16px;">Office Use Only:</p>
 
-        <table style="width: 100%; border-collapse: collapse;">
+        <table style="width: 100%; border:0 !important;">
             <tr>
-                <td style="padding: 5px 0;font-size: 14px;width:50%;">EFT Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td style="padding: 5px 0;font-size: 14px;width:50%;">General Ledger: ______________________________</td>
+                <td style="padding: 5px 0;font-size: 14px;width:50%; border:0 !important;">EFT Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td style="padding: 5px 0;font-size: 14px;width:50%; border:0 !important;">General Ledger: ______________________________</td>
             </tr>
             <tr>
-                <td colspan="2" style="padding-top: 50px;font-size: 14px;">Processed by: ______________________________________</td>
+                <td colspan="2" style="padding-top: 50px;font-size: 14px; border:0 !important;">Processed by: ______________________________________</td>
             </tr>
         </table>
     </div>

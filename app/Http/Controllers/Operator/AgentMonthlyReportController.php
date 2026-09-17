@@ -49,8 +49,8 @@ class AgentMonthlyReportController extends BaseController
                 ->get();
 
       //dd( $reports->toArray());
-     return  view('operator.management.reports.agents.fees.monthly-report');
-     //return view('operator.dashboard.reports.agents-monthly-report');
+     //return  view('operator.management.reports.agents.fees.monthly-report');
+     return view('operator.dashboard.reports.agents-monthly-report');
   }
 
 
@@ -150,7 +150,7 @@ class AgentMonthlyReportController extends BaseController
       $item->total_fees =   $formattedFees;
       $status = ucfirst($item->status);
       $statusName = str_replace('_', " ", $status);
-      $item->status_name = '<span class="custom_badge ' . getStatusBadgeClass($status) . '">' . ucwords($statusName) . ' </span>';
+      $item->status_name = '<span class="custom_badge_lg ' . getStatusBadgeClass($status) . '">' . ucwords($statusName) . ' </span>';
 
       $item->report_pproved_date = "N/A";
       $item->approved_by =  $item->approved_by;
@@ -224,7 +224,7 @@ class AgentMonthlyReportController extends BaseController
       $feeData = $calculateServiceObj->calculateFee($id);
 
       if ($feeData->isNotEmpty()) {
-        return view('agent.dashboard.Fees.view_monthly_report', compact('feeData'));
+        return view('operator.management.reports.agents.fees.view_monthly_report', compact('feeData'));
       }
     }
     return "";
@@ -280,13 +280,13 @@ class AgentMonthlyReportController extends BaseController
       //return view('agent.dashboard.Fees.print_monthly_report', compact('feeData'));
       if ($feeData->isNotEmpty()) {
         $pdf = PDF::loadView(
-          'admin.management.agents.Fees.print_monthly_report',
+          'operator.management.reports.agents.fees.print_monthly_report',
           ['feeData' => $feeData]
         )->setOption(['isRemoteEnabled' => true]);
         return $pdf->stream('monthly_agent_fee_report.pdf');
       }
     }
-    return response()->redirectTo('/admin-dashboard/management/agent/monthly-report')->with('error', 'Monthly fee record not found.');
+    return response()->redirectTo('/operator-dashboard/management/reports/agents-monthly-report')->with('error', 'Monthly fee record not found.');
   }
 
   /**
@@ -308,7 +308,7 @@ class AgentMonthlyReportController extends BaseController
       ->get();
 
       if ($queryData->isNotEmpty()) {
-        return view('admin.management.agents.Fees.view_query', compact('queryData'));
+        return view('operator.management.reports.agents.fees.view_query', compact('queryData'));
       }
     }
     return "";
@@ -366,15 +366,15 @@ class AgentMonthlyReportController extends BaseController
           $reportData['payAgenFee'] = number_format($report->fees, 2);
 
           $pdf = PDF::loadView(
-            'admin.management.agents.Fees.print_monthly_pay_report',
+            'operator.management.reports.agents.fees.print_monthly_pay_report',
             ['reportData' => $reportData]
           )->setOption(['isRemoteEnabled' => true]);
           return $pdf->stream('monthly_agent_payment_authorisation_report.pdf');
         }
       }
     } catch (Exception $e) {
-      return response()->redirectTo('/admin-dashboard/management/agent/monthly-report')->with('error', 'Error occurred while fetching the report data. Please try later.');
+      return response()->redirectTo('/operator-dashboard/management/reports/agents-monthly-report')->with('error', 'Error occurred while fetching the report data. Please try later.');
     }
-    return response()->redirectTo('/admin-dashboard/management/agent/monthly-report')->with('error', 'Monthly fee record not found.');
+    return response()->redirectTo('/operator-dashboard/management/reports/agents-monthly-report')->with('error', 'Monthly fee record not found.');
   }
 }

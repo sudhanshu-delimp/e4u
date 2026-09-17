@@ -15,8 +15,8 @@
     $cnt = 0;
 @endphp
 @if ($esortReports->isNotEmpty() || $massgeReports->isNotEmpty())
-    <table class="table table-bordered mb-0 common_accordian_table">
-        <thead class="table-bg modal-thaed">
+    <table class="table table-bordered mb-0 opr_accordian_table">
+        <thead class="opr-table-bg modal-thaed">
             <tr>
                 <th>Member ID</th>
                 <th>Name</th>

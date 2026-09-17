@@ -41,7 +41,7 @@
         }
 
         table td {
-            padding: .75rem;
+             padding: .45rem .75rem .55rem !important;
             color: #333 !important;
             font-size: 12px;
         }
@@ -57,7 +57,7 @@
 </head>
 <body style="margin:0;width:100%">
     @php
-        $path = public_path('/assets/dashboard/img/auth.png');
+        $path = public_path('/assets/dashboard/img/operator/secure-payment.png');
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
@@ -69,7 +69,7 @@
     @endphp    
     <!-- Body -->
 
-        <table class="table mb-0 common_accordian_table" style="background-color:#0c223d;">
+        <table class="table mb-0 common_accordian_table" style="background-color:#003c3e;">
             <tr>
                 <td style="text-align: left !important;"> <span>
                         <img src="{{ $base64 }}" style="width: 25px;">
@@ -104,13 +104,13 @@
         <hr style="margin-top: 20px; margin-bottom:30px;">
         <p style="font-weight: bold; color: #000; margin-bottom: 20px;font-size: 16px;">Office Use Only:</p>
 
-        <table style="width: 100%; border-collapse: collapse;">
+        <table style="width: 100%; border:0 !important;">
             <tr>
-                <td style="padding: 5px 0;font-size: 14px;width:50%;">EFT Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td style="padding: 5px 0;font-size: 14px;width:50%;">General Ledger: ______________________________</td>
+                <td style="padding: 5px 0;font-size: 14px;width:50%; border:0 !important;">EFT Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td style="padding: 5px 0;font-size: 14px;width:50%; border:0 !important;">General Ledger: ______________________________</td>
             </tr>
             <tr>
-                <td colspan="2" style="padding-top: 50px;font-size: 14px;">Processed by: ______________________________________</td>
+                <td colspan="2" style="padding-top: 50px;font-size: 14px; border:0 !important;">Processed by: ______________________________________</td>
             </tr>
         </table>
     </div>

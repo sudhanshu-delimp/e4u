@@ -9,7 +9,7 @@
 
         }
     </style>
-    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 opr-console">
         <!--middle content end here-->
 
         {{-- Page Heading --}}
@@ -88,10 +88,10 @@
             <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
+                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/report.png') }}"
                                 class="custompopicon"><span id="reportendDate">Fee Report<span></h5>
                         <a href="" class="close" data-dismiss="modal" aria-label="Close">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
+                            <img src="{{ asset('assets/dashboard/img/operator/close.png') }}" class="opr-close-btn">
                         </a>
                     </div>
                     <div class="modal-body">
@@ -100,11 +100,11 @@
                         <!-- End content area -->
                     </div>
                     <div class="modal-footer">
-                        <form action="{{ route('admin.print.monthly.fee') }}" method="post" target="_blank">
+                        <form action="{{ route('operator.agents.print.monthly.fee') }}" method="post" target="_blank">
                             {{ csrf_field() }}
                             <input type="hidden" name="fee_print_id" id="fee_print_id" value="">
-                            <button type="submit" class="print-btn m-0">🖨️ Print Report</button>
-                            <button type="button" class="btn-cancel-modal" data-dismiss="modal"
+                            <button type="submit" class="btn-success-modal">🖨️ Print Report</button>
+                            <button type="button" class="btn-success-modal" data-dismiss="modal"
                                 aria-label="Close">Close</button>
                         </form>
                         {{--  <button type="button" class="btn-success-modal" data-dismiss="modal">Query</button>
@@ -122,7 +122,7 @@
                         <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
                                 class="custompopicon"><span id="reportendDate">Query<span></h5>
                         <a href="" class="close" data-dismiss="modal" aria-label="Close">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
+                            <img src="{{ asset('assets/dashboard/img/operator/close.png') }}" class="opr-close-btn">
                         </a>
                     </div>
                     <div class="modal-body">
@@ -136,7 +136,7 @@
                         </form>
                         <div class="modal-footer">
                             <button type="button" class="print-btn m-0" id="submitQuery">Submit</button>
-                            <button type="button" class="btn-cancel-modal" data-dismiss="modal"
+                            <button type="button" class="btn-success-modal" data-dismiss="modal"
                                 aria-label="Close">Close</button>
                         </div>
                     </div>
@@ -153,7 +153,7 @@
                         <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
                                 class="custompopicon"><span id="reportendDate">Query<span></h5>
                         <a href="" class="close" data-dismiss="modal" aria-label="Close">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
+                            <img src="{{ asset('assets/dashboard/img/operator/close.png') }}" class="opr-close-btn">
                         </a>
                     </div>
                     <div class="modal-body">
@@ -162,7 +162,7 @@
                         <!-- End content area -->
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn-cancel-modal" data-dismiss="modal"
+                        <button type="button" class="btn-success-modal" data-dismiss="modal"
                             aria-label="Close">Close</button>
                     </div>
                 </div>
@@ -178,11 +178,11 @@
                     <!-- Header -->
                     <div class="modal-header">
 
-                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/auth.png') }}"
+                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/secure-payment.png') }}"
                                 class="custompopicon">
                             Payment Authorisation</h5>
                         <a href="" class="close" data-dismiss="modal" aria-label="Close">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
+                            <img src="{{ asset('assets/dashboard/img/operator/close.png') }}" class="opr-close-btn">
                         </a>
                     </div>
                     <!-- Body -->
@@ -216,11 +216,11 @@
                         <hr style="margin: 20px 0;">
 
                         <div style="text-align: right;">
-                            <form action="{{ route('admin.fees.print.pay-detail') }}" method="post" target="_blank">
+                            <form action="{{ route('operator.agents.fees.print.pay-detail') }}" method="post" target="_blank">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="monthly_report_id" id="monthly_report_id" value="">
                                 <button type="submit" class="btn-success-modal">Print</button>
-                                <button type="button" class="btn-cancel-modal" data-dismiss="modal">
+                                <button type="button" class="btn-success-modal" data-dismiss="modal">
                                     Close
                                 </button>
                             </form>
@@ -339,7 +339,7 @@
                 $(document).on('click', '#getMontlyViewReportPage', function() {
                     let id = $(this).data('id');
                     let agent_id = $(this).data('agent_id');
-                    var url = "{{ route('admin.fees.view.detail') }}";
+                    var url = "{{ route('operator.agents.fees.view.detail') }}";
                     $.ajax({
                         url: url,
                         method: 'POST',
@@ -396,7 +396,7 @@
                 $(document).on('click', '.getSubmittedQuery', function() {
                     let id = $(this).data('id');
                     let agent_id = $(this).data('agent_id');
-                    var url = "{{ route('admin.fees.view.query') }}";
+                    var url = "{{ route('operator.agents.fees.view.query') }}";
                     $.ajax({
                         url: url,
                         method: 'POST',
@@ -426,7 +426,7 @@
                     let status = $(this).data('status');
                     $('#monthly_report_id').val(id);
                     //$('#fee_status').val(status);
-                    var url = "{{ route('admin.fees.view.pay-detail') }}";
+                    var url = "{{ route('operator.agents.fees.view.pay-detail') }}";
 
                     $.ajax({
                         url: url,
@@ -461,7 +461,7 @@
                         'action': 'Update',
                         'text': 'Are you sure you want to update status?'
                     })) {
-                    var url = "{{ route('admin.fees.update.status.detail') }}";
+                    var url = "{{ route('operator.agents.fees.update.status.detail') }}";
                     url = url.replace(':id', id);
                     url = url.replace(':status', status);
                     $.ajax({

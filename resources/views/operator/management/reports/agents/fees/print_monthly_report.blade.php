@@ -62,7 +62,7 @@
         $totalEscortAgenFee = 0;
         $agentId = isset($feeData['agent_member_id']) ? $feeData['agent_member_id'] : '';
 
-        $path = public_path('/assets/dashboard/img/admin-report.png');
+        $path = public_path('/assets/dashboard/img/operator/report.png');
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
@@ -72,7 +72,7 @@
         <table style="border:none;width: 100%;">
             <tr>
                 <td style="border:none;width: 100%;">
-                    <table class="table mb-0 common_accordian_table" style="background-color:#0c223d;">
+                    <table class="table mb-0 common_accordian_table" style="background-color:#003c3e;">
                         <tr>
                             <td style="text-align: left !important;"> <span>
                                     <img src="{{ $base64 }}" style="width: 25px;">
@@ -89,11 +89,9 @@
                     <table class="table" style="border: 1px solid #ccc;padding: 0;">
                         <tr>
                             <td style="width: 100%;padding: 10px 5px 20px 5px;">
-
-
-
-                                <table class="table mb-0 common_accordian_table">
-                                    <thead class="table-bg modal-thaed">
+                               <table class="table table-bordered mb-0 opr_accordian_table">
+                                <thead class="opr-table-bg modal-thaed">
+                                        
                                         <tr>
                                             <th>Member ID</th>
                                             <th>Name</th>
