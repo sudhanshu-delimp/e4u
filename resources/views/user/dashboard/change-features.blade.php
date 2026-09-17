@@ -84,28 +84,6 @@
                                     </div>
 
                                     <div class="option-list">
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="feature_alerts"
-                                                name="features_push_notifications_from_escorts" value="1"
-                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_push_notifications_from_escorts == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="feature_alerts">Receive Alert
-                                                Notifications from Escorts</label>
-                                        </div>
-
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="feature_chatting"
-                                                name="features_direct_chatting_with_escorts" value="1"
-                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_direct_chatting_with_escorts == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="feature_chatting">Participate in direct
-                                                chatting with Escorts</label>
-                                        </div>
-
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="feature_reviews"
-                                                name="features_write_reviews" value="1"
-                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_write_reviews == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="feature_reviews">Write Reviews</label>
-                                        </div>
 
                                         <div class="custom-control custom-switch">
                                             <input type="checkbox" class="custom-control-input" id="feature_legbox"
@@ -121,6 +99,27 @@
                                                 {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_enable_my_notebox == '1' ? 'checked' : '' }}>
                                             <label class="custom-control-label" for="feature_notebox">Enable My
                                                 Notebox</label>
+                                        </div>
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="feature_chatting"
+                                                name="features_direct_chatting_with_escorts" value="1"
+                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_direct_chatting_with_escorts == '1' ? 'checked' : '' }}>
+                                            <label class="custom-control-label" for="feature_chatting">Enable Chat with Advertisers</label>
+                                        </div>
+                                        
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="feature_alerts"
+                                                name="features_push_notifications_from_escorts" value="1"
+                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_push_notifications_from_escorts == '1' ? 'checked' : '' }}>
+                                            <label class="custom-control-label" for="feature_alerts">Receive Alert Notifications from Advertisers</label>
+                                        </div>
+
+
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="feature_reviews"
+                                                name="features_write_reviews" value="1"
+                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_write_reviews == '1' ? 'checked' : '' }}>
+                                            <label class="custom-control-label" for="feature_reviews">Write Reviews</label>
                                         </div>
                                     </div>
                                     <div class="card-note">
@@ -211,7 +210,7 @@
                                                 Listings View page.</i></p>
                                     </div>
                                 </div>
-                                
+
 
                                 <!-- Listings Preferences -->
                                 <div class="form-group common-card">
@@ -310,32 +309,20 @@
                                             Your default setting is:
                                         </span>
 
+                                        @php
+                                            $showEntries = $setting->viewer_settings->show_entries ?? 25;
+                                        @endphp
+
                                         <select class="entries-select" name="show_entries">
-                                            <option value="10"
-                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->show_entries == '10' ? 'selected' : '' }}>
-                                                10
-                                            </option>
-                                            <option value="25"
-                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->show_entries == '25' ? 'selected' : '' }}>
-                                                25
-                                            </option>
+                                            @foreach (explode(',', config('app.paginate_range')) as $value)
+                                                @php $value = trim($value); @endphp
 
-                                            <option value="50"
-                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->show_entries == '50' ? 'selected' : '' }}>
-                                                50
-                                            </option>
-
-                                            <option value="75"
-                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->show_entries == '75' ? 'selected' : '' }}>
-                                                75
-                                            </option>
-
-                                            <option value="100"
-                                                {{ isset($setting->viewer_settings) && $setting->viewer_settings->show_entries == '100' ? 'selected' : '' }}>
-                                                100
-                                            </option>
+                                                <option value="{{ $value }}"
+                                                    {{ $showEntries == $value ? 'selected' : '' }}>
+                                                    {{ $value }}
+                                                </option>
+                                            @endforeach
                                         </select>
-
                                     </div>
 
                                     <div class="card-note">
