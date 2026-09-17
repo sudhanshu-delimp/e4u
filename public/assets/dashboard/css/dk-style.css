@@ -14211,5 +14211,18 @@ details[open]>summary:first-of-type {
     }
 }
 
+.custom_badge_lg {
+    padding: 7px 8px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    line-height: 1;
+    white-space: nowrap;
+    min-width: 124px;
+    display: inline-block;
+    text-align: center;
+}
+
 
 /* end */
