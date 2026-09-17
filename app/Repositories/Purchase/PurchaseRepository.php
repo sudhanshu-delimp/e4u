@@ -45,12 +45,12 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
     public function paginatedList($start, $limit, $order_key, $dir, $columns, $search = null, $user_id, $conditions = [], $conditionsIn = [])
     {
         // $order_field = $this->getOrderPurchase($order_key, $conditionsIn);
-       
+
 
         $order_field = $columns[$order_key]['name'];
         $searchables = $this->getSearchableFields($columns);
         $searchables[] = 'slug';
-        
+
         $table = $this->model->getTable();
         $query = $this->model
             ->where($conditions)
@@ -71,7 +71,7 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
                     if (count($conditionsIn) > 0 && isset($conditionsIn['column']) && isset($conditionsIn['condition'])) {
                         $sub_query->where(function ($q) use ($search) {
                             $q->where('profile_name', 'LIKE', "%{$search}%")
-                             ->orWhere('slug', 'LIKE', "%{$search}%")
+                                ->orWhere('slug', 'LIKE', "%{$search}%")
                                 ->orWhereHas('user', function ($q) use ($search) {
                                     $q->where('member_id', 'LIKE', "%{$search}%");
                                 });
@@ -154,7 +154,6 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             $slug = isset($item->escort->slug) ? $item->escort->slug : $item->escort_id;
 
             $item->is_bumpup = !empty($isBumpUped) ? true : false;
-            $item->statusOriginal = $item->status;
             $item->slug = $slug;
             //$item->escort_id = $item->escort_id;
             $item->escort_id = $slug;

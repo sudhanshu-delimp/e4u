@@ -32,7 +32,7 @@
         <div class="d-sm-flex align-items-center justify-content-between col-md-12">
             <div class="custom-heading-wrapper">
                 <h1 class="h1">Massage Centre Listings</h1>
-                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>                     </span>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b> </span>
             </div>
             @if (request('from') == 'dashboard')
             <div class="back-to-dashboard">
@@ -63,19 +63,19 @@
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12 ">
             <div class="row my-3">
-                 <div class="col-lg-12 d-flex justify-content-between" style="gap: 20px;">
-                <a class="nav-link collapse-item btn-switch" href="{{ route('admin.escort-listings') }}">
-                    Switch to Escort Listings
-                </a>
-                <div class="d-flex justify-content-end" style="gap: 50px;">
+                <div class="col-lg-12 d-flex justify-content-between" style="gap: 20px;">
+                    <a class="nav-link collapse-item btn-switch" href="{{ route('admin.escort-listings') }}">
+                        Switch to Escort Listings
+                    </a>
+                    <div class="d-flex justify-content-end" style="gap: 50px;">
 
-                    <div class="total_listing">
-                        <div><span>Total Listings : </span></div>
-                        <div><span class="totalListing">4,456</span></div>
+                        <div class="total_listing">
+                            <div><span>Total Listings : </span></div>
+                            <div><span class="totalListing">4,456</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
             <div class="massage_table_class">
                 <table class="table" id="listings" style="width:100%;">
                     <thead class="table-bg">
@@ -168,135 +168,117 @@
     </script>
 
     <script type="text/javascript">
-        $(document).ready(function(e) {
-            ajaxReload();
-            let countdown = 15;
-            setInterval(() => {
-                countdown--;
-                $(".refreshSeconds").text(' ' + countdown);
+        var table = $("#listings").DataTable({
+            language: {
+                search: "Search: _INPUT_",
+                searchPlaceholder: "Search by Member ID or Profile Name"
+            },
+            processing: true,
+            serverSide: true,
+            paging: true,
+            lengthChange: true,
+            info: true,
+            searching: true,
+            bStateSave: true,
 
-                if (countdown <= 0) {
+            lengthMenu: [
+                [10, 25, 50, 100],
+                [10, 25, 50, 100]
+            ],
+            pageLength: 10,
+            order: [8, 'DESC'],
+            stateSave: false,
 
-                    $('#listings').DataTable().ajax.reload(null, false);
-                    countdown = 15;
+            ajax: {
+                url: "{{ route('admin.massage.center.dataTableListing') }}",
+                type: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: function(d) {
+                    d.type = 'player';
+                    return JSON.stringify(d);
+                },
+                dataSrc: function(json) {
+                    $(".totalListing").text(json.current_listing_count || 0);
+                    $(".serverTime").text(json.server_time);
+                    $(".uptimeClass").html(json.server_up_time);
+                    return json.data;
                 }
+            },
 
-            }, 1000);
+            columns: [{
+                    data: 'member_id',
+                    name: 'member_id',
+                },
+                {
+                    data: 'member',
+                    name: 'member'
+                },
+                {
+                    data: 'listing',
+                    name: 'listing',
+                    orderable: false,
+                    sortable: false
+                },
+                {
+                    data: 'profile_name',
+                    name: 'profile_name',
+                    orderable: false
+                },
+                {
+                    data: 'masseurs',
+                    name: 'masseurs',
+                    orderable: false
+                },
+                {
+                    data: 'start_date',
+                    name: 'start_date',
+                    orderable: false
+                },
+                {
+                    data: 'end_date',
+                    name: 'end_date',
+                    orderable: false
+                },
+                {
+                    data: 'days',
+                    name: 'days',
+                    orderable: true
+                },
+                {
+                    data: 'left_days',
+                    name: 'left_days',
+                    orderable: true
+                },
+                {
+                    data: 'status',
+                    name: 'status',
+                    orderable: false,
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                }
+            ],
 
-            $('#customSearch').on('keyup', function() {
-                $('#listings').DataTable().search(this.value).draw();
-            });
         });
 
-        let isInitialLoad = true;
+        let countdown = 15;
+        setInterval(() => {
+            countdown--;
+            $(".refreshSeconds").text(' ' + countdown);
 
-        function ajaxReload() {
+            if (countdown <= 0) {
+                table.draw();
+                countdown = 15;
 
-            var table = $("#listings").DataTable({
-                language: {
-                    search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by Member ID or Profile Name"
-                },
-                processing: true,
-                serverSide: true,
-                paging: true,
-                lengthChange: true,
-                info: true,
-                searching: true,
-                bStateSave: false,
+            }
 
-                lengthMenu: [
-                    [10, 25, 50, 100],
-                    [10, 25, 50, 100]
-                ],
-                pageLength: 10,
-                order: [8, 'DESC'],
-                stateSave: false,
-
-                ajax: {
-                    url: "{{ route('admin.massage.center.dataTableListing') }}",
-                    type: "POST",
-                    contentType: "application/json",
-                    dataType: "json",
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    data: function(d) {
-                        d.type = 'player';
-                        return JSON.stringify(d);
-                    },
-                    dataSrc: function(json) {
-                        if (isInitialLoad) {
-                            $(".totalListing").text(json.current_listing_count || 0);
-                            $(".serverTime").text(json.server_time);
-                            $(".uptimeClass").html(json.server_up_time);
-                            isInitialLoad = false;
-                        }
-
-                        return json.data;
-                    }
-                },
-
-                columns: [{
-                        data: 'member_id',
-                        name: 'member_id',
-                    },
-                    {
-                        data: 'member',
-                        name: 'member'
-                    },
-                    {
-                        data: 'listing',
-                        name: 'listing',
-                        orderable: false,
-                        sortable: false
-                    },
-                    {
-                        data: 'profile_name',
-                        name: 'profile_name',
-                        orderable: false
-                    },
-                    {
-                        data: 'masseurs',
-                        name: 'masseurs',
-                        orderable: false
-                    },
-                    {
-                        data: 'start_date',
-                        name: 'start_date',
-                        orderable: false
-                    },
-                    {
-                        data: 'end_date',
-                        name: 'end_date',
-                        orderable: false
-                    },
-                    {
-                        data: 'days',
-                        name: 'days',
-                        orderable: true
-                    },
-                    {
-                        data: 'left_days',
-                        name: 'left_days',
-                        orderable: true
-                    },
-                    {
-                        data: 'status',
-                        name: 'status',
-                        orderable: false,
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                    }
-                ],
-
-            });
-            table.state.clear();
-
-        }
+        }, 1000);
 
         $(document).on('click', '.view-listing', function(e) {
             e.preventDefault(); // prevent default link behavior
@@ -370,6 +352,7 @@
                     showLoadingPopup('Processing Payment', 'Do not refresh or close this page.');
                 },
                 success: function(response, textStatus, xhr) {
+                    table.draw();
                     pinModalElement.find('#pinDisplaySet').text('');
                     pinModalElement.modal('hide');
                     Swal.close();
