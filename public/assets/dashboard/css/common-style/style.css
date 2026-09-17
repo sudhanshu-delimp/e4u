@@ -323,8 +323,8 @@ form.v-form-design .form-group {
 .common-reset-btn {
     border: 0;
     border: 1px solid #e1e7ee;
-    background: var(--white);
-    color: var(--body-text-color);
+    background: var(--peach);
+    color: var(--white);
     min-width: 145px;
     padding: 14px 27px;
     border-radius: 8px;
@@ -340,8 +340,7 @@ form.v-form-design .form-group {
 
 .common-reset-btn:hover {
     transform: translateY(-1px);
-    background: #f7f9fb;
-    border-color: #ccd5df;
+    background-color: #e73556;
 }
 
 .entries-setting {

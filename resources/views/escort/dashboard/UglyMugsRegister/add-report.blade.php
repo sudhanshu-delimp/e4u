@@ -129,24 +129,23 @@
                                         <textarea class="form-control what_happened" name="what_happened" rows="4"></textarea>
                                     </div>
                                 </div>
-                                <div class="inner-field-row">
-                                    
+                                <div class="inner-field-row">                                   
                         
                                     <div class="form-group">
                                          <label class="required d-block">Rating</label>
                                         <div class="radio-options mt-1">
-                                        <div class="form-check d-flex align-items-center">
-                                            <input class="form-check-input" type="radio" name="rating" value="Do Not Book" id="rate1">
-                                            <label class="form-check-label" for="rate1">Do not book</label>
-                                        </div>
-                                        <div class="form-check d-flex align-items-center">
-                                            <input class="form-check-input" type="radio" name="rating" value="Exercise Caution" id="rate2">
-                                            <label class="form-check-label" for="rate2">Exercise caution</label>
-                                        </div>
-                                        <div class="form-check d-flex align-items-center">
-                                            <input class="form-check-input" type="radio" value="Safe" name="rating" id="rate3">
-                                            <label class="form-check-label" for="rate3">Safe</label>
-                                        </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="rating" value="Do Not Book" id="rate1">
+                                                <label class="form-check-label" for="rate1">Do not book</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="rating" value="Exercise Caution" id="rate2">
+                                                <label class="form-check-label" for="rate2">Exercise caution</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" value="Safe" name="rating" id="rate3">
+                                                <label class="form-check-label" for="rate3">Safe</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

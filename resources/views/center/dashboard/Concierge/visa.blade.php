@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">    
+        <div class="row">
             <div class="col-md-12">
                 <form id="assistanceRequestForm" class="common-form">
                     @csrf
@@ -51,6 +51,19 @@
                         <div class="row inner-row">
                             <div class="col-lg-12">
                                 <div class="card-top">
+                                    <div class="card-icon">
+                                        <svg fill="#ff3c5f" width="40px" height="40px" viewBox="0 0 16 16"
+                                            id="request-send-16px" xmlns="http://www.w3.org/2000/svg">
+                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                            </g>
+                                            <g id="SVGRepo_iconCarrier">
+                                                <path id="Path_44" data-name="Path 44"
+                                                    d="M-18,11a2,2,0,0,0,2-2,2,2,0,0,0-2-2,2,2,0,0,0-2,2A2,2,0,0,0-18,11Zm0-3a1,1,0,0,1,1,1,1,1,0,0,1-1,1,1,1,0,0,1-1-1A1,1,0,0,1-18,8Zm2.5,4h-5A2.5,2.5,0,0,0-23,14.5,1.5,1.5,0,0,0-21.5,16h7A1.5,1.5,0,0,0-13,14.5,2.5,2.5,0,0,0-15.5,12Zm1,3h-7a.5.5,0,0,1-.5-.5A1.5,1.5,0,0,1-20.5,13h5A1.5,1.5,0,0,1-14,14.5.5.5,0,0,1-14.5,15ZM-7,2.5v5A2.5,2.5,0,0,1-9.5,10h-2.793l-1.853,1.854A.5.5,0,0,1-14.5,12a.493.493,0,0,1-.191-.038A.5.5,0,0,1-15,11.5v-2a.5.5,0,0,1,.5-.5.5.5,0,0,1,.5.5v.793l1.146-1.147A.5.5,0,0,1-12.5,9h3A1.5,1.5,0,0,0-8,7.5v-5A1.5,1.5,0,0,0-9.5,1h-7A1.5,1.5,0,0,0-18,2.5v3a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5v-3A2.5,2.5,0,0,1-16.5,0h7A2.5,2.5,0,0,1-7,2.5Zm-7.854,3.646L-12.707,4H-14.5a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5h3a.5.5,0,0,1,.191.038.506.506,0,0,1,.271.271A.5.5,0,0,1-11,3.5v3a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5V4.707l-2.146,2.147A.5.5,0,0,1-14.5,7a.5.5,0,0,1-.354-.146A.5.5,0,0,1-14.854,6.146Z"
+                                                    transform="translate(23)"></path>
+                                            </g>
+                                        </svg>
+                                    </div>
                                     <div class="card-heading">
                                         <h2>Request for Assistance</h2>
                                     </div>
@@ -63,7 +76,8 @@
                                     @php
                                         $nameParts = preg_split('/\s+/', trim(Auth::user()->name));
                                         $firstName = $nameParts[0] ?? '';
-                                        $lastName = count($nameParts) > 1 ? implode(' ', array_slice($nameParts, 1)) : '';
+                                        $lastName =
+                                            count($nameParts) > 1 ? implode(' ', array_slice($nameParts, 1)) : '';
                                     @endphp
                                     <div class="form-group">
                                         <label for="business_name"><b>Business Name</b></label>
@@ -91,7 +105,7 @@
 
                                         <span class="text-danger error-text mobile_error"></span>
                                     </div>
-                                    
+
 
                                     {{-- Visa Enquiry --}}
                                     <div class="form-group">
@@ -117,7 +131,7 @@
                                     </div>
                                 </div>
                                 <div class="inner-field-row">
-                                  
+
 
                                     {{-- Passport Country --}}
                                     <div class="form-group">
@@ -129,68 +143,71 @@
                                             name="passport_country" type="text" class="form-control">
 
                                         <p class="cp-hint">
-                                            <i>You can disclose this information during your discussion with us if you prefer
+                                            <i>You can disclose this information during your discussion with us if you
+                                                prefer
                                             </i></i>
                                         </p>
                                         <span class="text-danger error-text passport_country_error"></span>
 
                                     </div>
 
-    
+
                                     {{-- Contact Preference --}}
                                     <div class="form-group">
                                         <div>
                                             <label><b>Your contact preference</b></label>
                                         </div>
-                                          <div class="option-list mt-2">
-                                        <div class="form-check form-check-inline">
-                                            <input name="contact_pref[]" class="form-check-input" type="checkbox" id="pref_Email"
-                                                value="email">
-                                            <label class="form-check-label" for="pref_Email">Email</label>
-                                        </div>
+                                        <div class="option-list mt-2">
+                                            <div class="form-check form-check-inline">
+                                                <input name="contact_pref[]" class="form-check-input" type="checkbox"
+                                                    id="pref_Email" value="email">
+                                                <label class="form-check-label" for="pref_Email">Email</label>
+                                            </div>
 
-                                        <div class="form-check form-check-inline">
-                                            <input name="contact_pref[]" class="form-check-input" type="checkbox" id="pref_Mobile"
-                                                value="mobile">
-                                            <label class="form-check-label" for="pref_Mobile">Mobile</label>
+                                            <div class="form-check form-check-inline">
+                                                <input name="contact_pref[]" class="form-check-input" type="checkbox"
+                                                    id="pref_Mobile" value="mobile">
+                                                <label class="form-check-label" for="pref_Mobile">Mobile</label>
+                                            </div>
                                         </div>
-                                          </div>
                                         <span class="text-danger error-text contact_pref_error"></span>
                                     </div>
-                                    
+
                                     {{-- Advice Area --}}
                                     <div class="form-group custom-radio mb-0">
                                         <label>
                                             <b>Indicate which area of advice you are enquiring about</b>
                                         </label>
-                                     <div class="option-list mt-2">
-                                         <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" id="advice_visa" name="advice_area" value="visa" checked>
+                                        <div class="option-list mt-2">
+                                            <div class="form-check form-check-inline">
+                                                <input type="radio" class="form-check-input" id="advice_visa"
+                                                    name="advice_area" value="visa" checked>
 
-                                            <label class="form-check-label" for="advice_visa">Visa</label>
-                                         </div>
-                                   
-                                          <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" id="advice_education" name="advice_area" value="visa_education">
+                                                <label class="form-check-label" for="advice_visa">Visa</label>
+                                            </div>
 
-                                            <label for="advice_education" class="form-check-label">
-                                                Visa & Education Course
-                                            </label>
-                                          </div>
-                                     </div>
+                                            <div class="form-check form-check-inline">
+                                                <input type="radio" class="form-check-input" id="advice_education"
+                                                    name="advice_area" value="visa_education">
+
+                                                <label for="advice_education" class="form-check-label">
+                                                    Visa & Education Course
+                                                </label>
+                                            </div>
+                                        </div>
 
                                         <span class="text-danger error-text advice_area_error"></span>
                                     </div>
 
                                 </div>
-                                
+
                                 <div class="inner-field-row">
-                                    
+
                                     {{-- Comments --}}
                                     <div class="form-group">
                                         <label for="comments">
                                             <b>Comments</b>
-                                            
+
                                         </label>
 
                                         <textarea class="form-control" id="comments" name="comments" style="height: 100px;padding-top:10px;"> </textarea>
@@ -200,7 +217,7 @@
                                         <span class="text-danger error-text comments_error"></span>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                             <div class="common-footer">
                                 <button type="submit" class="common-save-btn" id="submitAssistanceRequest">
                                     Send request
@@ -218,7 +235,7 @@
                         </div>
                         <div id="Partnership" class="collapse" data-parent="#accordion" style="">
                             <div class="card-body pb-0">
-                                <p ><b>Partnership</b></p>
+                                <p><b>Partnership</b></p>
                                 <p>Escorts4U has partnered with PEAMS Australia Pty Ltd <span>(<b>Partner</b>)</span> a
                                     leading provider of
                                     Visa, Migration and Education placement services <span>(<b>Services</b>)</span> to
@@ -226,13 +243,14 @@
                                     assist you with compliance under the <i>Migration Act 1958 (Cth)</i>, whilst at the same
                                     time
                                     ensuring your visa type and status suits your needs whilst you are in Australia.</p>
-                                
 
-                                <p ><b>Available services</b></p>
+
+                                <p><b>Available services</b></p>
                                 <p>The following Services are available through our Partner:</p>
 
                                 <ol>
-                                    <li>Visa and Migration advice including applications, renewals and ongoing assistance</li>
+                                    <li>Visa and Migration advice including applications, renewals and ongoing assistance
+                                    </li>
                                     <li>Education course selection advice including ongoing assistance</li>
                                 </ol>
 
@@ -317,27 +335,45 @@
             </div>
         </div>
         <!--middle content end here-->
+        
     </div>
     <div class="modal fade upload-modal " id="visa_migration_request" data-backdrop="static" data-keyboard="false"
         role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        <svg fill="#ff3c5f" width="35px" height="35px" class="pr-2" viewBox="0 0 16 16"
+                            id="request-send-16px" xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path id="Path_44" data-name="Path 44"
+                                    d="M-18,11a2,2,0,0,0,2-2,2,2,0,0,0-2-2,2,2,0,0,0-2,2A2,2,0,0,0-18,11Zm0-3a1,1,0,0,1,1,1,1,1,0,0,1-1,1,1,1,0,0,1-1-1A1,1,0,0,1-18,8Zm2.5,4h-5A2.5,2.5,0,0,0-23,14.5,1.5,1.5,0,0,0-21.5,16h7A1.5,1.5,0,0,0-13,14.5,2.5,2.5,0,0,0-15.5,12Zm1,3h-7a.5.5,0,0,1-.5-.5A1.5,1.5,0,0,1-20.5,13h5A1.5,1.5,0,0,1-14,14.5.5.5,0,0,1-14.5,15ZM-7,2.5v5A2.5,2.5,0,0,1-9.5,10h-2.793l-1.853,1.854A.5.5,0,0,1-14.5,12a.493.493,0,0,1-.191-.038A.5.5,0,0,1-15,11.5v-2a.5.5,0,0,1,.5-.5.5.5,0,0,1,.5.5v.793l1.146-1.147A.5.5,0,0,1-12.5,9h3A1.5,1.5,0,0,0-8,7.5v-5A1.5,1.5,0,0,0-9.5,1h-7A1.5,1.5,0,0,0-18,2.5v3a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5v-3A2.5,2.5,0,0,1-16.5,0h7A2.5,2.5,0,0,1-7,2.5Zm-7.854,3.646L-12.707,4H-14.5a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5h3a.5.5,0,0,1,.191.038.506.506,0,0,1,.271.271A.5.5,0,0,1-11,3.5v3a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5V4.707l-2.146,2.147A.5.5,0,0,1-14.5,7a.5.5,0,0,1-.354-.146A.5.5,0,0,1-14.854,6.146Z"
+                                    transform="translate(23)"></path>
+                            </g>
+                        </svg>
+
                         Visa Services - Request Confirmation
                     </h5>
+
                     <button type="button" class="close text-white" data-dismiss="modal">
                         <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
                     </button>
                 </div>
-                <div class="modal-body">
-                    <p align="justify">Your Request for Visa services assistant has been received. You will also receive an
+                <div class="modal-body text-justify">
+                    <h5 class="my-0 custom_modal_text text-justify">
+                        Your Request for Visa Services assistance has been received. You will also receive an
                         A-Alert confirming your request with a reference. If you have not been contacted by a
                         member of the team within 24 hours (of a business day), please raise a Support Ticket
-                        quoting the reference. </p>
-                    <br>
-                    <span><b>Date sent: </b> {{ \Carbon\Carbon::now('Australia/Perth')->format('d-m-Y') }}</span>
+                        quoting the reference.                        
+                    </h5>
 
+                </div>
+                <div class="modal-footer justify-content-between">
+                        <p class="mb-0 custom_modal_text"><b>Date sent: </b> {{ \Carbon\Carbon::now('Australia/Perth')->format('d-m-Y') }}
+                        </p>
+                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

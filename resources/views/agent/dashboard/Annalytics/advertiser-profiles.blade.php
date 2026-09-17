@@ -433,12 +433,14 @@ $(document).ready(function () {
             type: 'GET',
             data: {
             advertiser_type: advertiser_type,
-            profile_id : profile_id
+            profile_id : profile_id,
+            _t: new Date().getTime()
             },
             dataType: 'json',
             beforeSend: function () {
               
-                $('#profile_activity_summary').remove();
+               $('#profile_activity_summury, #profile_activity_summary').remove();
+               $('.modal-backdrop').remove();
             },
             success: function (response) {
                 if (response.status === 'success') {
@@ -518,9 +520,16 @@ $(document).ready(function () {
             console.error('Report Generation Error:', error);
             swal_error_warning('Profile Report', 'Something went wrong. Please try again.');
         }
-    });                          
-
-
+    }); 
 });
+
+
+
+
+
+   
+
+
+
 </script>
 @endpush

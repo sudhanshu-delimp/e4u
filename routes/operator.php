@@ -5,6 +5,7 @@ use App\Http\Controllers\Operator\OperatorstaffController;
 use App\Http\Controllers\User\Dashboard\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Operator\AgentMonthlyReportController;
 
 //Route::get('operator-login', [App\Http\Controllers\Admin\AuthController::class,'showOperatorLoginForm'])->name('operator.login');
 Route::get('/', [OperatorController::class, 'index'])->name('operator.index');
@@ -28,8 +29,8 @@ Route::post('save-bank-details',[OperatorController::class,'saveBankDetails'])->
 Route::post('check-bank-otp',[OperatorController::class,'checkOTP'])->name('agent.checkOTP');
 Route::post('delete-agent-bank',[OperatorController::class,'deleteOperatorBank'])->name('operator.delete-operator-bank');
 Route::get('bank-details',[OperatorController::class,'BankDataTable'])->name('operator.bankDetail.dataTable');
-Route::get('/agents-monthly-report', [OperatorController::class, 'agentMonthlyreport'])->name('operator.agents-monthly-report');
-Route::get('/operator-monthly-report', [OperatorController::class, 'e4uMonthlyreport'])->name('operator.operator-monthly-report');
+//Route::get('/agents-monthly-report', [OperatorController::class, 'agentMonthlyreport'])->name('operator.agents-monthly-report');
+//Route::get('/operator-monthly-report', [OperatorController::class, 'e4uMonthlyreport'])->name('operator.operator-monthly-report');
 
 /** Operator Staff */
 Route::get('/management/staff', [OperatorstaffController::class, 'staff_list'])->name('operator.operator.staff');
@@ -46,3 +47,19 @@ Route::get('back-to-parent', [App\Http\Controllers\Admin\ImpersonateController::
 
 Route::get('get-notification', [NotificationController::class, 'getNotification'])->name('operator.get-notification');
 Route::post('notification-seen', [NotificationController::class, 'makeNotificationSeen'])->name('operator.notification-seen');
+
+//Route::get('/agents-monthly-report', [AgentMonthlyReportController::class, 'agentMonthlyreport'])->name('operator.agents-monthly-report');
+
+//Agent Monthly Repors
+Route::get('management/reports/agents-monthly-report', [AgentMonthlyReportController::class, 'agentMonthlyreport'])->name('operator.agents-monthly-report');
+
+Route::get('management/fees/monthly-report-list', [AgentMonthlyReportController::class, 'monthlyReportAjax'])->name('operator.agents.fees.monthly-report-ajax');
+Route::post('management/fees/view-monthly-report', [AgentMonthlyReportController::class, 'viewMonthlyReport'])->name('operator.agents.fees.view.detail');
+Route::post('management/fees/update-monthly-report', [AgentMonthlyReportController::class, 'updateMonthlyReportStatus'])->name('operator.agents.fees.update.status.detail');
+Route::post('management/fees/print-monthly-report', [AgentMonthlyReportController::class, 'printMonthlyFee'])->name('operator.agents.print.monthly.fee');
+Route::post('management/fees/query', [AgentMonthlyReportController::class, 'viewQuery'])->name('operator.agents.fees.view.query');
+Route::post('management/fees/pay-detail', [AgentMonthlyReportController::class, 'viewPayAgentreport'])->name('operator.agents.fees.view.pay-detail');
+Route::post('management/fees/print-pay-detail', [AgentMonthlyReportController::class, 'printPayAgentreport'])->name('operator.agents.fees.print.pay-detail');
+
+//Operator Monthly Repors
+Route::get('management/reports/operator-monthly-report', [OperatorController::class, 'e4uMonthlyreport'])->name('operator.operator-monthly-report');

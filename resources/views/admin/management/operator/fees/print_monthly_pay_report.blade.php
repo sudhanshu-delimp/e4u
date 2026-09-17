@@ -28,7 +28,7 @@
     @endphp
     <!-- Body -->
 
-    <table class="table mb-0 common_accordian_table" style="background-color:#0c223d;">
+    <table class="table mb-0 common_accordian_table" style="background-color:#000;">
         <tr>
             <td style="text-align: left !important;"> <span>
                     <img src="{{ $base64 }}" style="width: 25px;">
