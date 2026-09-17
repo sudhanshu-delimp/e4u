@@ -113,7 +113,7 @@
             <span>Management</span>
         </a>
         <!-- Manage People -->
-        <div id="Management" class="collapse  @if (in_array(request()->segment(3), ['staff', 'agent']) || in_array(request()->segment(2), ['agents-monthly-report', 'operator-monthly-report'])) show @endif"
+        <div id="Management" class="collapse  @if (in_array(request()->segment(3), ['staff', 'agent']) || in_array(request()->segment(4), ['agents-monthly-report', 'operator-monthly-report'])) show @endif"
             data-parent="#accordionSidebar">
             <div class="collapse-inner">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse"
@@ -157,14 +157,14 @@
                     <span>Reports</span>
                 </a>
 
-                <div id="Reports-Tab" class="collapse @if (request()->segment(2) == 'agents-monthly-report' || request()->segment(2) == 'operator-monthly-report') show @endif"
+                <div id="Reports-Tab" class="collapse @if (request()->segment(4) == 'agents-monthly-report' || request()->segment(2) == 'operator-monthly-report') show @endif"
                     aria-labelledby="headingProfile" data-parent="#Management">
 
                     <div class="collapse-inner rounded mb-2">
                         <a class="collapse-item" href="{{ route('operator.agents-monthly-report') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                             <span
-                                style="{{ request()->segment(2) == 'agents-monthly-report' ? 'color: #f5841f;' : '' }}">Agents
+                                style="{{ request()->segment(4) == 'agents-monthly-report' ? 'color: #f5841f;' : '' }}">Agents
                                 Monthly</span>
                         </a>
 
