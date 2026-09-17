@@ -96,9 +96,8 @@
                 </div>
             </div>
         </div>
-        <div class="row my-2">
             <!-- My Legbox -->
-            <div class="col-md-12 mb-4">
+            <div class="col-md-12 mb-4 common-card">
                 <div class="mb-3 d-flex align-items-center justify-content-end flex-wrap gap-10">
                     <div class="total_listing">
                         <div><span>Total Viewers Legbox : </span></div>
@@ -129,7 +128,6 @@
                     </table>
                 </div>
             </div>
-        </div>
         <!--middle content end here-->
         {{-- Massage operation Profile Success Modal --}}
         <div class="modal fade upload-modal" id="massageProfileModal" tabindex="-1" role="dialog"

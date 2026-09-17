@@ -45,8 +45,10 @@
                         </div>
                     </div>
                 </div>
-               @include('partials.snippet.agent_request_form')  
             </div>
+        </div>
+        <div class="col-lg-12 common-card">
+               @include('partials.snippet.agent_request_form')  
         </div>
     <!--middle content end here-->
 </div>
