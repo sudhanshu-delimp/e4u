@@ -315,7 +315,7 @@
                                         @endphp
 
                                         <select class="entries-select" name="show_entries">
-                                            @foreach (explode(',', env('PAGINATE_RANGE')) as $value)
+                                            @foreach (explode(',', config('app.paginate_range')) as $value)
                                                 @php $value = trim($value); @endphp
 
                                                 <option value="{{ $value }}"
