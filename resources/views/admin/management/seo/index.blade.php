@@ -64,9 +64,11 @@
 
             padding: 18px;
 
-            min-height: 850px;
+            height: 100vh;
 
             box-shadow: 0 4px 20px rgba(16, 39, 70, 0.06);
+
+            overflow-y: scroll;
         }
 
 

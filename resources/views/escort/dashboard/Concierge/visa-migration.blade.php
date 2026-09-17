@@ -52,6 +52,9 @@
                         <div class="row inner-row">
                             <div class="col-lg-12">
                                 <div class="card-top">
+                                    <div class="card-icon">
+                                        <svg fill="#ff3c5f" width="40px" height="40px" viewBox="0 0 16 16" id="request-send-16px" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="Path_44" data-name="Path 44" d="M-18,11a2,2,0,0,0,2-2,2,2,0,0,0-2-2,2,2,0,0,0-2,2A2,2,0,0,0-18,11Zm0-3a1,1,0,0,1,1,1,1,1,0,0,1-1,1,1,1,0,0,1-1-1A1,1,0,0,1-18,8Zm2.5,4h-5A2.5,2.5,0,0,0-23,14.5,1.5,1.5,0,0,0-21.5,16h7A1.5,1.5,0,0,0-13,14.5,2.5,2.5,0,0,0-15.5,12Zm1,3h-7a.5.5,0,0,1-.5-.5A1.5,1.5,0,0,1-20.5,13h5A1.5,1.5,0,0,1-14,14.5.5.5,0,0,1-14.5,15ZM-7,2.5v5A2.5,2.5,0,0,1-9.5,10h-2.793l-1.853,1.854A.5.5,0,0,1-14.5,12a.493.493,0,0,1-.191-.038A.5.5,0,0,1-15,11.5v-2a.5.5,0,0,1,.5-.5.5.5,0,0,1,.5.5v.793l1.146-1.147A.5.5,0,0,1-12.5,9h3A1.5,1.5,0,0,0-8,7.5v-5A1.5,1.5,0,0,0-9.5,1h-7A1.5,1.5,0,0,0-18,2.5v3a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5v-3A2.5,2.5,0,0,1-16.5,0h7A2.5,2.5,0,0,1-7,2.5Zm-7.854,3.646L-12.707,4H-14.5a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5h3a.5.5,0,0,1,.191.038.506.506,0,0,1,.271.271A.5.5,0,0,1-11,3.5v3a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5V4.707l-2.146,2.147A.5.5,0,0,1-14.5,7a.5.5,0,0,1-.354-.146A.5.5,0,0,1-14.854,6.146Z" transform="translate(23)"></path> </g></svg>
+                                    </div>
                                     <div class="card-heading">
                                         <h2>Request for Assistance</h2>
                                     </div>
@@ -319,27 +322,39 @@
             </div>
         </div>
         <!--middle content end here-->
+        
     </div>
     <div class="modal fade upload-modal " id="visa_migration_request" data-backdrop="static" data-keyboard="false"
         role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">
-                        Visa Services - Request Confirmation
-                    </h5>
+                    <h5 class="modal-title" id="exampleModalLabel">
+                            <svg fill="#ff3c5f" width="35px" height="35px" class="pr-2" viewBox="0 0 16 16" id="request-send-16px" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="Path_44" data-name="Path 44" d="M-18,11a2,2,0,0,0,2-2,2,2,0,0,0-2-2,2,2,0,0,0-2,2A2,2,0,0,0-18,11Zm0-3a1,1,0,0,1,1,1,1,1,0,0,1-1,1,1,1,0,0,1-1-1A1,1,0,0,1-18,8Zm2.5,4h-5A2.5,2.5,0,0,0-23,14.5,1.5,1.5,0,0,0-21.5,16h7A1.5,1.5,0,0,0-13,14.5,2.5,2.5,0,0,0-15.5,12Zm1,3h-7a.5.5,0,0,1-.5-.5A1.5,1.5,0,0,1-20.5,13h5A1.5,1.5,0,0,1-14,14.5.5.5,0,0,1-14.5,15ZM-7,2.5v5A2.5,2.5,0,0,1-9.5,10h-2.793l-1.853,1.854A.5.5,0,0,1-14.5,12a.493.493,0,0,1-.191-.038A.5.5,0,0,1-15,11.5v-2a.5.5,0,0,1,.5-.5.5.5,0,0,1,.5.5v.793l1.146-1.147A.5.5,0,0,1-12.5,9h3A1.5,1.5,0,0,0-8,7.5v-5A1.5,1.5,0,0,0-9.5,1h-7A1.5,1.5,0,0,0-18,2.5v3a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5v-3A2.5,2.5,0,0,1-16.5,0h7A2.5,2.5,0,0,1-7,2.5Zm-7.854,3.646L-12.707,4H-14.5a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5h3a.5.5,0,0,1,.191.038.506.506,0,0,1,.271.271A.5.5,0,0,1-11,3.5v3a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5V4.707l-2.146,2.147A.5.5,0,0,1-14.5,7a.5.5,0,0,1-.354-.146A.5.5,0,0,1-14.854,6.146Z" transform="translate(23)"></path> </g></svg>
+                                    
+                             Visa Services - Request Confirmation
+                        </h5>
+                    
                     <button type="button" class="close text-white" data-dismiss="modal">
                         <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
                     </button>
                 </div>
-                <div class="modal-body">
-                    <p align="justify">Your Request for Visa services assistant has been received. You will also receive an
+                <div class="modal-body text-justify" >
+                        <h5 class="my-0 custom_modal_text text-justify">
+                           Your Request for  Visa Services assistance has been received. You will also receive an
                         A-Alert confirming your request with a reference. If you have not been contacted by a
                         member of the team within 24 hours (of a business day), please raise a Support Ticket
-                        quoting the reference. </p>
-                    <br>
-                    <span><b>Date sent: </b> {{ \Carbon\Carbon::now('Australia/Perth')->format('d-m-Y') }}</span>
-
+                        quoting the reference.  
+                       
+                       
+                        </h5>
+                         
+                    </div>
+                    
+                <div class="modal-footer justify-content-between">
+                        <p class="mb-0 custom_modal_text"><b>Date sent: </b> {{ \Carbon\Carbon::now('Australia/Perth')->format('d-m-Y') }}
+                        </p>
+                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
