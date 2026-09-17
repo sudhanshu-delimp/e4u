@@ -36,7 +36,7 @@
                                 your changes, click the ‘Update Notebox’ button.
                             </li>
                             <li>Noteboxes are closed publications for Viewers only. Each Notebox contains personal
-                                information about the Escort. E4U does not make Noteboxes available to other Punters.</li>
+                                information about the Escort. E4U does not make Noteboxes available to other Members.</li>
                         </ol>
                     </div>
                 </div>
@@ -70,26 +70,37 @@
                                             required="required" value="{{ $report->stage_name }}">
                                     </div>
 
+                                     <div class="form-group">
+                                        <label class="form-label fw-semibold" for="member_id">Member ID <span style="color:#FF3C5F;">*</span> </label>
+                                        <input type="text" class="form-control" name="member_id" value="{{$report && $report->member_id ? $report->member_id : ''}}" id="member_id" required="required">
+                                    </div>
+
                                     <input type="hidden" name="notebox_id" value="{{ $report->id }}">
 
                                     <div class="form-group">
                                         <label class="form-label" for="mobile">Mobile <span
                                                 style="color:#FF3C5F;">*</span></label>
-                                        <input type="text" class="form-control" maxlength="10"
-                                            onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"
+                                        <input type="text" class="form-control"
+                                           oninput="
+                                            this.value = this.value.replace(/[^0-9 ]/g, '');
+                                            let digits = this.value.replace(/\s/g, '');
+                                            if (digits.length > 10) {
+                                                this.value = this.value.slice(0, -1);
+                                            }" 
                                             id="mobile" name="mobile" required="required"
-                                            value="{{ removeSpaceFromString($report->getOriginal('mobile')) }}">
+                                            value="{{ $report->getOriginal('mobile') }}">
                                     </div>
 
                                     <div class="form-group">
                                         <label class="form-label fw-semibold" for="advertised_price_per_hour">Advertised
                                             price
                                             per hour <span style="color:#FF3C5F;">*</span> </label>
-                                        <input type="text" class="form-control" id="advertised_price_per_hour"
+                                        <input type="text" class="form-control currency-input" id="advertised_price_per_hour"
                                             name="advertised_price_per_hour" required="required"
-                                            value="{{ $report->advertised_price_per_hour }}">
+                                           value="{{ $report->advertised_price_per_hour !== null && $report->advertised_price_per_hour !== '' ? number_format($report->advertised_price_per_hour, 2) : '' }}" inputmode="decimal">
 
                                     </div>
+                                    
                                     <div class="form-group">
                                         <label class="form-label fw-semibold" for="state">State <span
                                                 style="color:#FF3C5F;">*</span></label>
@@ -1384,12 +1395,16 @@
 
                             if (response.success) {
 
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Success',
-                                    text: response.message,
-                                    confirmButtonColor: '#FF3C5F'
-                                });
+                              Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: response.message,
+                                confirmButtonColor: '#FF3C5F'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = "{{ route('user.list') }}";
+                                }
+                            });
 
                             } else {
 

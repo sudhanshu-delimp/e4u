@@ -26,11 +26,16 @@ class NoteBoxController extends Controller
 
     public function storeNotesBox(Request $request)
     {
+        $request->merge([
+            'mobile' => preg_replace('/\s+/', '', $request->mobile),
+            'advertised_price_per_hour' => str_replace(',', '', $request->advertised_price_per_hour),
+        ]);
+
         $validated = $request->validate([
             // Required fields
             'escort_type' => 'required',
             'stage_name' => 'required|string|max:255',
-            'mobile' => 'required',
+            'mobile' => 'required|regex:/^\+?[1-9]\d{1,14}$/',
             'advertised_price_per_hour' => 'required',
             'state' => 'required',
             'location' => 'required',
@@ -39,6 +44,7 @@ class NoteBoxController extends Controller
 
             // Optional fields
             'meeting_type' => 'nullable',
+            'member_id' => 'nullable',
             'summary_of_encounter' => 'nullable',
             'extras_charged' => 'nullable',
             'photos_authenticity' => 'nullable',
@@ -73,7 +79,7 @@ class NoteBoxController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Note box submitted successfully.'
+            'message' => 'Notebox submitted successfully.'
         ]);
     }
 
@@ -143,6 +149,11 @@ class NoteBoxController extends Controller
 
     public function updateNotesBox(Request $request)
     {
+        $request->merge([
+            'mobile' => preg_replace('/\s+/', '', $request->mobile),
+            'advertised_price_per_hour' => str_replace(',', '', $request->advertised_price_per_hour),
+        ]);
+
         $validated = $request->validate([
             // Required fields
             'escort_type' => 'required',
@@ -213,7 +224,7 @@ class NoteBoxController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Note box updated successfully.'
+            'message' => 'Notebox updated successfully.'
         ]);
     }
 
@@ -232,7 +243,7 @@ class NoteBoxController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Note box deleted successfully.'
+            'message' => 'Notebox deleted successfully.'
         ]);
     }
 }

@@ -240,6 +240,7 @@ Route::middleware('auth')->group(function () {
         Route::post('update-my-reports', [PunterBoxController::class, 'updateMyReportByAjax'])->name('user.update-my-reports');
         Route::delete('my-report/{id}', [PunterBoxController::class, 'destroy'])->name('user.my-report.delete');
         Route::get('num-dashboard', [PunterBoxController::class, 'showReportOnDashboardAjax'])->name('user.punterboxdashboard');
+        
         Route::get('/notebox/list', function () {
             return view('user.dashboard.notebox.list');
         })->name('user.list');
