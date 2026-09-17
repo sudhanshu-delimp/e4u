@@ -16,6 +16,11 @@
         .escort-ratings {
             justify-content: center;
         }
+        .table.num_view_table th {
+            font-weight: bold;
+            color: var(--blue--text);
+            padding: 5px !important;
+        }
     </style>
 @endsection
 @section('content')
@@ -302,25 +307,24 @@ pageLength: paginateLength,
                             // Replace below with dynamic HTML if needed
                             if (response.data.advertiser_type == 'escort') {
                                 childHtml = `
-                            <div class="card p-3">
+                            <div class="card p-3 border-0">
                                 <div class="d-flex justify-content-between">
                                     <h5 class="font-weight-bold text-blue-primary">Review Details</h5>
-                                    <button class="btn-success-modal toggle-report-hide" style="font-size: 12px; padding: 5px 10px;" > Close </button>
+                                    <button class="btn-cancel-modal toggle-report-hide" style="font-size: 12px; padding: 5px 10px;" > Close </button>
                                 </div>
-                                <table class="table mb-0">
+                                <table class="table mb-0 num_view_table">
                                     <tr>
                                         <th>Escort ID:</th><td class="border-0">` + response.data.escort.user
                                     .member_id + `</td>
                                         <th>Escort’s Name:</th>
                                         <td class="border-0">` + response.data.escort.name + `</td>
-                                    </tr>
-                                    <tr>
                                         <th>Mobile:</th>
                                         <td class="border-0">` + response.data.escort.user.phone + `</td>
-                                        <th>Home State:</th>
-                                        <td class="border-0">` + response.data.escort.user.state.name + `</td>
                                     </tr>
                                     <tr>
+                                        
+                                        <th>Home State:</th>
+                                        <td class="border-0">` + response.data.escort.user.state.name + `</td>                                   
                                         <th>Status:</th>
                                         <td class="border-0">` + capitalizeFirstLetter(response.data.status) + `</td>
                                         <th>Comments:</th>
@@ -331,25 +335,25 @@ pageLength: paginateLength,
                         `;
                             } else {
                                 childHtml = `
-                            <div class="card p-3">
+                            <div class="card p-3 border-0">
                                 <div class="d-flex justify-content-between">
                                     <h5 class="font-weight-bold text-blue-primary">Review Details</h5>
-                                    <button class="btn-success-modal toggle-report-hide" style="font-size: 12px; padding: 5px 10px;" > Close </button>
+                                    <button class="btn-cancel-modal toggle-report-hide" style="font-size: 12px; padding: 5px 10px;" > Close </button>
                                 </div>
-                                <table class="table mb-0">
+                                <table class="table mb-0 num_view_table">
                                     <tr>
                                         <th>Member ID:</th><td class="border-0">` + response.data.massage.user
                                     .member_id + `</td>
                                         <th>Business Name:</th>
                                         <td class="border-0">` + response.data.massage.business_name + `</td>
-                                    </tr>
-                                    <tr>
+                                  
                                         <th>Mobile:</th>
                                         <td class="border-0">` + response.data.massage.user.phone + `</td>
-                                        <th>Home State:</th>
-                                        <td class="border-0">` + response.data.massage.user.state.name + `</td>
+                                        
                                     </tr>
                                     <tr>
+                                        <th>Home State:</th>
+                                        <td class="border-0">` + response.data.massage.user.state.name + `</td>
                                         <th>Status:</th>
                                         <td class="border-0">` + capitalizeFirstLetter(response.data.status) + `</td>
                                         <th>Comments:</th>
