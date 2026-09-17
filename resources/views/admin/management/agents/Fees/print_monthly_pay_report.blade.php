@@ -44,9 +44,9 @@
                 <td><span id="payMonthlyReportDate">{{$payMonthlyReportDate}}</span></td>
             </tr>
             <tr>
-                <td style="font-weight: bold; color: #001f4d !important;">Fee Total:</td>
+                <td style="font-weight: bold; color: #000 !important;">Fee Total:</td>
                 <td><span id="payAgenFee">${{$payAgenFee}}</span></td>
-                <td style="font-weight: bold; color: #001f4d !important;">Month:</td>
+                <td style="font-weight: bold; color: #000 !important;">Month:</td>
                 <td><span id="payMonthlyReportMonth">{{$payMonthlyReportMonth}}</span></td>
             </tr>
         </table>
