@@ -487,7 +487,7 @@
                                         <option value="lovely">Lovely</option>
                                         <option value="nut-case">Nut case</option>
                                         <option value="outgoing">Outgoing</option>
-                                        <option value="overrates">Overrates</option>
+                                        <option value="overrates">Over rates</option>
                                         <option value="pleasant">Pleasant</option>
                                         <option value="quiet">Quiet</option>
                                         <option value="rude">Rude</option>
@@ -578,6 +578,7 @@
                                     <label class="form-label fw-semibold" for="drug_consumption"> Drug consumption</label>
                                     <select class="form-control" name="drug_consumption" id="drug_consumption">
                                         <option value="" selected="">Choose</option>
+                                        <option value="no">No</option>
                                         <option value="yes-meth">Yes, meth</option>
                                         <option value="yes-poppers">Yes, poppers</option>
                                         <option value="yes-meth-and-poppers">Yes, meth and poppers</option>

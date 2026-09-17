@@ -903,7 +903,7 @@
                                             <option {{ $report->overall_personality == 'outgoing' ? 'selected' : '' }}
                                                 value="outgoing">Outgoing</option>
                                             <option {{ $report->overall_personality == 'overrates' ? 'selected' : '' }}
-                                                value="overrates">Overrates</option>
+                                                value="overrates">Over rates</option>
                                             <option {{ $report->overall_personality == 'pleasant' ? 'selected' : '' }}
                                                 value="pleasant">Pleasant</option>
                                             <option {{ $report->overall_personality == 'quiet' ? 'selected' : '' }}
@@ -1064,6 +1064,9 @@
                                             <option {{ $report->drug_consumption == '' ? 'selected' : '' }}
                                                 value="">
                                                 Choose</option>
+                                                   <option {{ $report->drug_consumption == 'no' ? 'selected' : '' }}
+                                                value="no">No</option>
+                            
                                             <option {{ $report->drug_consumption == 'yes-meth' ? 'selected' : '' }}
                                                 value="yes-meth">Yes, meth</option>
                                             <option {{ $report->drug_consumption == 'yes-poppers' ? 'selected' : '' }}

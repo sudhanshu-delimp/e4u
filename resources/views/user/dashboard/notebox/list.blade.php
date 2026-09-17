@@ -311,16 +311,16 @@
 
          console.log( format_show(row.data()));
 
-            // row.child(
-            //    '<div class="child-wrapper" style="display:none;">' +
-            //    format_show(row.data()) +
-            //    '</div>'
-            // ).show();
+            row.child(
+               '<div class="child-wrapper" style="display:none;">' +
+               format_show(row.data()) +
+               '</div>'
+            ).show();
 
-            // row.child().find('.child-wrapper').slideDown(250);
+            row.child().find('.child-wrapper').slideDown(250);
 
-            // tr.addClass('shown');
-            // $(this).addClass('open');
+            tr.addClass('shown');
+            $(this).addClass('open');
          }
       });
 
