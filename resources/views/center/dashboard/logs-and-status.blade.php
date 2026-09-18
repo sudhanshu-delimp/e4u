@@ -34,11 +34,10 @@
                 <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
             </div>
         </div>
-        
-        <div class="row mt-4">
+
             <!-- Logs & Status -->
             @if ($logAndStatus)
-                <div class="col-md-6 mb-4">
+                <div class="col-md-6 mb-4 common-card">
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead style="background-color: #0C223D; color: #ffffff;">
@@ -79,7 +78,6 @@
                     </div>
                 </div>
             @endif
-        </div>
     </div>
     </div>
     {{-- reset password expiry date modal  --}}
