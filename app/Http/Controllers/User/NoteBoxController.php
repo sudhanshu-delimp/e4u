@@ -20,22 +20,55 @@ class NoteBoxController extends Controller
 
         $states = config('escorts.profile.states');
         $genders = config('escorts.profile.genders');
-       
-        return view('user.dashboard.notebox.new', compact('profile_data', 'states','genders'));
+
+        $exist_profile = null;
+        $notebox_exist = null;
+
+        if ($profile_data) {
+            $exist_profile = $profile_data->gallary()
+                ->wherePivotIn('position', [1])
+                ->first();
+            $notebox_exist =  Notebox::where('member_id' , $profile_data->user->member_id)->first();
+        }
+
+
+        if ($notebox_exist) {
+            return redirect()
+                ->route('user.edit-notebox', $notebox_exist->id)
+                ->with('notebox_exists', true);
+        }
+    
+        return view('user.dashboard.notebox.new', compact('profile_data', 'states', 'genders', 'exist_profile'));
     }
 
     public function storeNotesBox(Request $request)
     {
+        $request->merge([
+            'mobile' => preg_replace('/\s+/', '', $request->mobile),
+            'advertised_price_per_hour' => str_replace(',', '', $request->advertised_price_per_hour),
+        ]);
+
+        $notebox_exist =  Notebox::where('member_id' , $request->member_id)->first(); //E50126
+
+        if ($notebox_exist) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Notebox Already Exists',
+                'data' => $notebox_exist
+            ]);
+        }
+
         $validated = $request->validate([
             // Required fields
             'escort_type' => 'required',
             'stage_name' => 'required|string|max:255',
-            'mobile' => 'required',
+            'mobile' => 'required|regex:/^\+?[1-9]\d{1,14}$/',
             'advertised_price_per_hour' => 'required',
             'state' => 'required',
             'location' => 'required',
             'status_type' => 'required',
             'rating' => 'required',
+            'member_id' => 'required',
 
             // Optional fields
             'meeting_type' => 'nullable',
@@ -66,14 +99,19 @@ class NoteBoxController extends Controller
             $file = $request->file('profile_pic');
             $filename = time() . '_' . $file->getClientOriginalName();
             Storage::disk('escorts')->put('uploads/notebox/' . $filename, file_get_contents($file));
-            $validated['profile_pic'] = $filename;
+            $validated['profile_pic'] = '/escorts/uploads/notebox/' . $filename;
+        } else if($request->existing_profile_pic) {
+            $validated['profile_pic'] = '/' . $request->existing_profile_pic;
+        }else{
+             $validated['profile_pic'] = null;
         }
+
 
         NoteBox::create($validated);
 
         return response()->json([
             'success' => true,
-            'message' => 'Note box submitted successfully.'
+            'message' => 'Notebox submitted successfully.'
         ]);
     }
 
@@ -85,7 +123,7 @@ class NoteBoxController extends Controller
             ->map(function ($row) {
                 if ($row->profile_pic) {
                     $row->profile_pic =
-                        '/escorts/uploads/notebox/' . $row->profile_pic;
+                        $row->profile_pic;
                 }
 
                 $row->actions = '
@@ -143,6 +181,11 @@ class NoteBoxController extends Controller
 
     public function updateNotesBox(Request $request)
     {
+        $request->merge([
+            'mobile' => preg_replace('/\s+/', '', $request->mobile),
+            'advertised_price_per_hour' => str_replace(',', '', $request->advertised_price_per_hour),
+        ]);
+
         $validated = $request->validate([
             // Required fields
             'escort_type' => 'required',
@@ -153,6 +196,7 @@ class NoteBoxController extends Controller
             'location' => 'required',
             'status_type' => 'required',
             'rating' => 'required',
+            'member_id' => 'required',
 
             // Optional fields
             'meeting_type' => 'nullable',
@@ -203,17 +247,17 @@ class NoteBoxController extends Controller
                 file_get_contents($file)
             );
 
-            $validated['profile_pic'] = $filename;
+            $validated['profile_pic'] = '/escorts/uploads/notebox/' . $filename;
         } else {
             // Keep existing image
-            unset($validated['profile_pic']);
+            $validated['profile_pic'] = $request->existing_profile_pic;
         }
 
         $noteBox->update($validated);
 
         return response()->json([
             'success' => true,
-            'message' => 'Note box updated successfully.'
+            'message' => 'Notebox updated successfully.'
         ]);
     }
 
@@ -232,7 +276,7 @@ class NoteBoxController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Note box deleted successfully.'
+            'message' => 'Notebox deleted successfully.'
         ]);
     }
 }

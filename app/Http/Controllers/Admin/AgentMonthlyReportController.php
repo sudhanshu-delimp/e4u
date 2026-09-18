@@ -247,7 +247,7 @@ class AgentMonthlyReportController extends BaseController
       $feeData = $calculateServiceObj->calculateFee($id);
 
       if ($feeData->isNotEmpty()) {
-        return view('agent.dashboard.Fees.view_monthly_report', compact('feeData'));
+        return view('admin.management.agents.Fees.view_monthly_report', compact('feeData'));
       }
     }
     return "";

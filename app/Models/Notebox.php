@@ -13,7 +13,8 @@ class Notebox extends Model
     protected $fillable = [
         'escort_type',
         'stage_name',
-        'mobile',
+        'member_id'
+,        'mobile',
         'advertised_price_per_hour',
         'state',
         'location',
