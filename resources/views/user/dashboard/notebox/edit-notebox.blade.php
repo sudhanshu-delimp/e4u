@@ -139,7 +139,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label fw-semibold" for="location">Location</label>
+                                    <label class="form-label fw-semibold" for="location">Location <span style="color:#FF3C5F;">*</span></label>
                                     <input type="text" class="form-control" name="location" id="location"
                                         required="required" value="{{ $report->location }}">
                                 </div>
