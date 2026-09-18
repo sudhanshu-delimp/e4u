@@ -154,6 +154,7 @@ pinupFrom.on('submit', function (e) {
                             }
                         });
                     }
+                    pinupFrom.attr('action', `${window.App.baseUrl}escort-dashboard/pinup-register/validate`);
                 }
             }
             pinupFromButton.prop('disabled', false);

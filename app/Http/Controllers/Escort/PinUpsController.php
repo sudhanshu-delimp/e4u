@@ -225,55 +225,6 @@ class PinUpsController extends AppController
                 ]);
             }
 
-
-            // $escortId = $data['pinup_profile_id'];
-            // $escortDetail = getEscortDetail($escortId);
-
-            // $profileTimezone = config("escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone");
-
-            // [$startDate, $endDate] = explode('|', $data['pinup_week']);
-
-            // $localStart = Carbon::createFromFormat(
-            //     'Y-m-d',
-            //     $startDate,
-            //     $profileTimezone
-            // )->startOfDay();
-
-            // $localEnd = Carbon::createFromFormat(
-            //     'Y-m-d',
-            //     $endDate,
-            //     $profileTimezone
-            // )->endOfDay();
-
-            // $utcStart = $localStart->copy()->setTimezone('UTC');
-            // $utcEnd = $localEnd->copy()->setTimezone('UTC');
-
-            // $escortPinup = EscortPinup::create([
-            //     'user_id' => auth()->id(),
-            //     'escort_id' => $escortDetail->id,
-            //     'state_id' => $escortDetail->state_id,
-            //     'city_id' => $escortDetail->city_id,
-            //     'start_date' => $startDate,
-            //     'end_date' => $endDate,
-            //     'utc_start_time' => $utcStart,
-            //     'utc_end_time' => $utcEnd,
-            // ]);
-
-
-            // if ($request->tour_location_id) {
-
-            //     TourLocation::where('id', $request->tour_location_id)
-            //         ->update([
-            //             'is_pinup' => '1'
-            //         ]);
-
-            //     TourProfile::where([
-            //         'tour_location_id' => $request->tour_location_id,
-            //         'escort_id' => $escortId
-            //     ])->update([
-            //         'is_pinup' => $escortPinup->id
-            //     ]);
-            // }
             $escortPinup = $this->featureService->registerPinUp($request);
             if ($request->filled('payment_token')) {
                 $paymentId = decrypt($request->payment_token);
