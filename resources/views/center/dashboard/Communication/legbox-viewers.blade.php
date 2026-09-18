@@ -97,13 +97,15 @@
             </div>
         </div>
             <!-- My Legbox -->
-            <div class="col-md-12 mb-4 common-card">
-                <div class="mb-3 d-flex align-items-center justify-content-end flex-wrap gap-10">
+            <div class="col-md-12">
+                <div class="mb-3 d-flex align-items-center justify-content-end flex-wrap gap-10 col-md-12">
                     <div class="total_listing">
                         <div><span>Total Viewers Legbox : </span></div>
                         <div><span id="totalViewerLegboxList">0</span></div>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-12 mb-4 common-card">
                 <div class="table-responsive">
                     <table class="table w-100" id="legboxNotificationTable">
                         <thead class="table-bg">

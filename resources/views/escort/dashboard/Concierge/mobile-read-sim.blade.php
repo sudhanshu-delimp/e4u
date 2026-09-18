@@ -193,7 +193,7 @@
                                     <textarea class="form-control what_happened" name="comments" id="exampleFormControlTextarea1" rows="7"
                                         placeholder="Up to 300 character">{{ old('comments') }}</textarea>
                                     <p class="cp-hint mb-0">
-                                        <small><i>please provide any
+                                        <small><i>Please provide any
                                                 additional information to assist us</i> </small>
                                     </p>
                                 </div>

@@ -221,7 +221,7 @@ background:#16385f;
 
 
 
-                     <div class="tab-content">
+                     <div class="tab-content common-card">
                         <div class="tab-pane fade active show" id="tab3warning">
                            <div class="row pb-3">
 

@@ -94,66 +94,46 @@
          </div>
          {{-- start content --}}
 
-            
-         <div class="row">
-            <div class="col-md-12">
-               <div class="panel with-nav-tabs panel-warning">
-                  <div class="panel-body">
-                     <div class="tab-content">
-                        <div class="tab-pane fade active show" id="tab3warning">
-                           <div class="row pb-3">
+            <div class="col-md-12 d-flex align-items-center justify-content-between flex-wrap gap-10 mb-3">
 
-                           <div class="col-md-12 d-flex align-items-center justify-content-between flex-wrap gap-10">
-
-                                 <div class="mb-2 d-flex align-items-center justify-content-between flex-wrap gap-10">
-                                       <div class="total_listing">
-                                          <div><span>Current Active : </span></div>
-                                          <div><span class="current_active">fetching...</span></div>
-                                       </div>
-                                       
-                                 </div>
-                                
-                                
-                                    <div class="text-center small d-flex justify-content-end align-items-center gap-10 flex-wrap">
-                                          <a  href="./create-new-masseur" id="new_task" name="submit" class="btn btn-sm btn-primary shadow-none create-tour-sec">Add Masseure</a>
-                                    </div>
-                            </div>
-                           </div>
-
-
-                           <div class="table-responsive-xl">
-
-
-                              <table class="table mb-3" id="masseurs_list">
-                                 <thead class="table-bg">
-                                    <tr>
-                                  
-                                    <th scope="col">Member ID</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Stage Name</th>
-                                    <th scope="col">Mobile</th>
-                                    <th scope="col">Nationality</th>
-                                    <th scope="col">Ethnicity</th>
-                                    <th scope="col">Created Date</th>
-                                    <th scope="col">Default Listing</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col" class="text-center">Action</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody class="table-content">
-                                       
-                                 </tbody>
-                              </table>
-                           </div>
+                  <div class="mb-2 d-flex align-items-center justify-content-between flex-wrap gap-10">
+                        <div class="total_listing">
+                           <div><span>Current Active : </span></div>
+                           <div><span class="current_active">fetching...</span></div>
                         </div>
-                     </div>
+                        
                   </div>
-               </div>
+               
+               
+                     <div class="text-center small d-flex justify-content-end align-items-center gap-10 flex-wrap">
+                           <a  href="./create-new-masseur" id="new_task" name="submit" class="btn btn-sm btn-primary shadow-none create-tour-sec">Add Masseure</a>
+                     </div>
             </div>
-         </div>
+           <div class="col-lg-12 common-card">
+             <div class="table-responsive-xl">
+                  <table class="table mb-3" id="masseurs_list">
+                     <thead class="table-bg">
+                        <tr>
+                        
+                        <th scope="col">Member ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Stage Name</th>
+                        <th scope="col">Mobile</th>
+                        <th scope="col">Nationality</th>
+                        <th scope="col">Ethnicity</th>
+                        <th scope="col">Created Date</th>
+                        <th scope="col">Default Listing</th>
+                        <th scope="col">Status</th>
+                        <th scope="col" class="text-center">Action</th>
+                        </tr>
+                     </thead>
+                     <tbody class="table-content">
+                           
+                     </tbody>
+                  </table>
+               </div>
+           </div>
 
-         {{-- end --}}
-      </div>
    </div>
    <!-- End of Main Content -->
    <!-- Footer -->
