@@ -13,6 +13,26 @@
     .hide-img {
         display: none !important;
     }
+    
+    .currency-input-wrapper {
+        position: relative;
+    }
+
+    .currency-symbol {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #0c223d;
+        font-size: 14px;
+        font-weight: 500;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .currency-input-wrapper .currency-input {
+        padding-left: 30px;
+    }
 </style>
 @endsection
 @section('content')
@@ -96,11 +116,14 @@
                                     <label class="form-label fw-semibold" for="advertised_price_per_hour">Advertised
                                         price
                                         per hour <span style="color:#FF3C5F;">*</span> </label>
-                                    <input type="text" class="form-control currency-input" id="advertised_price_per_hour"
-                                        name="advertised_price_per_hour" required="required"
-                                        value="{{ $report->advertised_price_per_hour !== null && $report->advertised_price_per_hour !== '' ? number_format($report->advertised_price_per_hour, 2) : '' }}" inputmode="decimal">
-
+                                         <div class="currency-input-wrapper">
+                                            <span class="currency-symbol">$</span>
+                                            <input type="text" class="form-control currency-input" id="advertised_price_per_hour"
+                                            name="advertised_price_per_hour" required="required"
+                                            value="{{ $report->advertised_price_per_hour !== null && $report->advertised_price_per_hour !== '' ? number_format($report->advertised_price_per_hour, 2) : '' }}" inputmode="decimal">
+                                         </div>
                                 </div>
+                                
 
                                 <div class="form-group">
                                     <label class="form-label fw-semibold" for="state">State <span
