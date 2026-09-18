@@ -12,6 +12,12 @@
    td {
       vertical-align: middle !important;
    }
+
+   .table.num_view_table th {
+      font-weight: bold;
+      color: var(--blue--text);
+      padding: 5px !important;
+   }
 </style>
 @endsection
 @section('content')
@@ -197,8 +203,6 @@
             type: "GET",
 
             dataSrc: function(json) {
-               console.log("Received Data:", json);
-
                $(".today_report").text(json.today);
                $(".month_report").text(json.this_month);
                $(".year_report").text(json.this_year);
@@ -308,9 +312,6 @@
             $(this).removeClass('open');
 
          } else {
-
-         console.log( format_show(row.data()));
-
             row.child(
                '<div class="child-wrapper" style="display:none;">' +
                format_show(row.data()) +
@@ -339,118 +340,147 @@
          });
       });
 
+      const states = @json(config('escorts.profile.states'));
+      const gender = @json(config('escorts.profile.genders'));
+
+      function getFullStateName(stateId) {
+         return states[stateId]?.stateName ?? 'N/A';
+      }
+
+      function getGenderName(genderID) {
+         return gender[genderID] ?? 'N/A';
+      }
 
       function format_show(data) {
 
+
          let profileImage = '';
+         if (data.profile_pic) {
+            profileImage = `
+            <tr>
+                <td colspan="6" class="border-0">
+                    <img src="${data.profile_pic}"
+                         alt="Profile Image"
+                         style="width: 70px; height: 70px; object-fit: cover; border-radius: 6px;">
+                </td>
+            </tr>
+        `;
+         } else {
+            profileImage = `
+            <tr>
+                <td colspan="6" class="border-0">
+                    <div class="no-image-placeholder">
+                        <img src="{{ asset('assets/dashboard/img/no-image-light.png') }}"
+                             alt="No Image"
+                             class="no-image"
+                             style="width: 70px; height: 70px; object-fit: cover; border-radius: 6px;">
+                    </div>
+                </td>
+            </tr>
+        `;
+         }
 
          return `
         <div class="details-content p-3 bg-light border rounded">
 
             <div class="mb-3 d-flex justify-content-between align-items-center">
-             ${data.profile_pic ? `
-                     <tr>
-                        <td colspan="3" class="border-0">
-                           <img src="${data.profile_pic}"
-                                 alt="Profile Image"
-                                 style="width: 70px; height: 70px; object-fit: cover; border-radius: 6px;">
-                        </td>
-                     </tr>
-                     ` : ''}
+               
+                   ${profileImage}
                 <button class="btn-sm close_report_btn bg-transparent" type="button">
-                    <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Close" class="custompopicon">
+                    <img src="{{ asset('assets/dashboard/img/crossimg.png') }}"
+                         alt="Close"
+                         class="custompopicon">
                 </button>
             </div>
 
-            <table class="table mb-0">
+            <table class="table mb-0 num_view_table">
                 <tbody>
-                    ${profileImage}
-
                     <tr>
                         <th>REF:</th>
                         <td class="border-0">#${data.id ?? 'N/A'}</td>
 
                         <th>Stage Name:</th>
                         <td class="border-0">${data.stage_name ?? 'N/A'}</td>
-                    </tr>
 
-                    <tr>
                         <th>Member ID:</th>
                         <td class="border-0">${data.member_id ?? 'N/A'}</td>
-                         <th>Mobile:</th>
+                    </tr>
+
+                    <tr>
+                        <th>Member Type:</th>
+                        <td class="border-0">${getGenderName(data.escort_type)}</td>
+
+                        <th>Mobile:</th>
                         <td class="border-0">${data.mobile ?? 'N/A'}</td>
-                    </tr>
 
-                    <tr>
-            
                         <th>Price:</th>
-                        <td class="border-0">${data.advertised_price_per_hour ?? 'N/A'}</td>
-                              <th>State:</th>
-                        <td class="border-0">${data.state ?? 'N/A'}</td>
+                        <td class="border-0">$${data.advertised_price_per_hour ?? 'N/A'}</td>
+
+                       
                     </tr>
 
                     <tr>
-                  
+                     <th>State:</th>
+                        <td class="border-0">${getFullStateName(data.state)}</td>
 
                         <th>Location:</th>
                         <td class="border-0">${data.location ?? 'N/A'}</td>
-                              <th>Meeting Type:</th>
+
+                        <th>Meeting Type:</th>
                         <td class="border-0">${data.meeting_type ?? 'N/A'}</td>
+
                     </tr>
 
                     <tr>
-               
-                        <th>Extras Charged:</th>
+                     <th>Extras Charged:</th>
                         <td class="border-0">${data.extras_charged ?? 'N/A'}</td>
-                              <th>Photos Authenticity:</th>
+                        <th>Photos Authenticity:</th>
                         <td class="border-0">${data.photos_authenticity ?? 'N/A'}</td>
-                    </tr>
 
-                    <tr>
-            
                         <th>Ethnicity:</th>
                         <td class="border-0">${data.ethnicity ?? 'N/A'}</td>
-                        <th>Nationality:</th>
-                        <td class="border-0">${data.nationality ?? 'N/A'}</td>
+
+                        
                     </tr>
 
                     <tr>
-      
+                    <th>Nationality:</th>
+                        <td class="border-0">${data.nationality ?? 'N/A'}</td>
                         <th>Estimated Age:</th>
                         <td class="border-0">${data.estimated_age ?? 'N/A'}</td>
-                         <th>Body Shape:</th>
+
+                        <th>Body Shape:</th>
                         <td class="border-0">${data.body_shape ?? 'N/A'}</td>
+
                     </tr>
 
                     <tr>
-                        <th>Overall Looks:</th>
+                     <th>Overall Looks:</th>
                         <td class="border-0">${data.overall_looks ?? 'N/A'}</td>
-                         <th>Overall Personality:</th>
+                        <th>Overall Personality:</th>
                         <td class="border-0">${data.overall_personality ?? 'N/A'}</td>
-                    </tr>
 
-                    <tr>
                         <th>Review Status:</th>
                         <td class="border-0">${data.status_type ?? 'N/A'}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Platform:</th>
+                        <td class="border-0">${data.platform ?? 'N/A'}</td>
+
+                        <th>Profile Link:</th>
+                        <td class="border-0">${data.profile_link ?? 'N/A'}</td>
                          <th>Rating:</th>
                         <td class="border-0">${data.rating ?? 'N/A'}</td>
                     </tr>
 
                     <tr>
-                       
-                        <th>Platform:</th>
-                        <td class="border-0">${data.platform ?? 'N/A'}</td>
-                         <th>Profile Link:</th>
-                        <td class="border-0">${data.profile_link ?? 'N/A'}</td>
-                    </tr>
-
-                    <tr>
-                         <th>Summary:</th>
-                        <td colspan="3" class="border-0">
+                        <th>Summary:</th>
+                        <td colspan="5" class="border-0">
                             ${data.summary_of_encounter ?? 'N/A'}
                         </td>
                     </tr>
-                  
+
                 </tbody>
             </table>
         </div>
@@ -491,7 +521,7 @@
                      title: 'Success!',
                      text: response.message,
                      confirmButtonText: 'OK',
-                      confirmButtonColor: "#3085d6",
+                     confirmButtonColor: "#3085d6",
                   });
                   $('#myNoteBoxReportListTable').DataTable().ajax.reload(null, false);
                }
