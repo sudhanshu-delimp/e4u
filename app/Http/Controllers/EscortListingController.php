@@ -5,20 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Escort;
+use App\Models\State;
+use App\Repositories\Escort\EscortInterface;
+use App\Repositories\Service\ServiceInterface;
+use App\Services\SeoResolver;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Pagination\LengthAwarePaginator;
-use App\Repositories\Service\ServiceInterface;
-use App\Repositories\Escort\EscortInterface;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
-use App\Models\State;
-use Exception;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class EscortListingController extends Controller
 {
@@ -291,7 +292,13 @@ class EscortListingController extends Controller
         //     'limit' => 25,
         // ]);
 
-        //modify request paramter according gender and location wise value.
+
+        $path = trim(str_replace('find_escorts', '', request()->path()), '/');
+        //use For Escirt SEO in the lisging page.
+        $seo = (object) SeoResolver::resolve('escorts', $path);
+
+
+ 
         $this->modifyRequestParamter($request);
 
         //get shortlist ids
@@ -510,7 +517,8 @@ class EscortListingController extends Controller
             'memberTotalCount',
             'all_services_tag',
             'viewType',
-            'count_session'
+            'count_session',
+            'seo'
         ));
     }
 
