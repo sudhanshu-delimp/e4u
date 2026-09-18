@@ -135,7 +135,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label fw-semibold" for="location">Location</label>
+                                    <label class="form-label fw-semibold" for="location">Location <span style="color:#FF3C5F;">*</span></label>
                                     <input type="text" class="form-control" name="location" id="location" value="{{$profile_data && $profile_data->address ? $profile_data->address : ''}}" required="required">
                                 </div>
 
