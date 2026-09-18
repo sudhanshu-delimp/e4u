@@ -1604,7 +1604,7 @@
 
                             <div class="common-footer">
                                 <button type="submit" class="common-save-btn mr-2">Submit</button>
-                                <button type="reset" class="common-reset-btn">Reset</button>
+                                <!-- <button type="reset" class="common-reset-btn">Reset</button> -->
                             </div>
                         </div>
                     </div>
