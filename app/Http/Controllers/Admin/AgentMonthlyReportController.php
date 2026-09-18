@@ -167,7 +167,7 @@ class AgentMonthlyReportController extends BaseController
       $item->total_fees =   $formattedFees;
       $status = ucfirst($item->status);
       $statusName = str_replace('_', " ", $status);
-      $item->status_name = '<span class="custom_badge ' . getStatusBadgeClass($status) . '">' . ucwords($statusName) . ' </span>';
+      $item->status_name = '<span class="custom_badge_lg ' . getStatusBadgeClass($status) . '">' . ucwords($statusName) . ' </span>';
 
       $item->report_pproved_date = "N/A";
       $item->approved_by =  $item->approved_by;
@@ -247,7 +247,7 @@ class AgentMonthlyReportController extends BaseController
       $feeData = $calculateServiceObj->calculateFee($id);
 
       if ($feeData->isNotEmpty()) {
-        return view('agent.dashboard.Fees.view_monthly_report', compact('feeData'));
+        return view('admin.management.agents.Fees.view_monthly_report', compact('feeData'));
       }
     }
     return "";

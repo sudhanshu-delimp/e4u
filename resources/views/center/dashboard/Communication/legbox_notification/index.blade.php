@@ -49,7 +49,7 @@
                                 data-target="#createNotification">New Notification</button>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 common-card">
                         <div class="panel with-nav-tabs panel-warning">
                             <div class="panel-body">
                                 <div class="tab-content">

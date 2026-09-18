@@ -36,7 +36,7 @@
                     <div class="d-sm-flex align-items-center justify-content-between">
                         <div class="custom-heading-wrapper">
                             <h1 class="h1">Profile Information </h1>
-<span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span> </h6>
+                            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span> </h6>
                         </div>
                         @if (request('from') == 'dashboard')
                             <div class="back-to-dashboard">
@@ -47,6 +47,7 @@
                         @endif
                     </div>
                 </div>
+
                 <div class="col-md-12 mb-4">
                     <div class="card collapse" id="notes" style="">
                         <div class="card-body">
@@ -67,6 +68,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-md-12">
                     <div id="accordion" class="myacording-design">
                         <div class="card">

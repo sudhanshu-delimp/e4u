@@ -7,46 +7,58 @@
     <title>Operator Montly Fee Report</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.2') }}" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900" rel="stylesheet">
     <style>
+        @media print {
+            body,
+            table,
+            table th,
+            table td,
+            table th *,
+            table td * {
+                font-family: "Poppins", sans-serif;
+                border-top: 0px;
+                border-bottom: 0px;
+            }
+        }
+        table th,
+        table td {
+            font-family: "Poppins", sans-serif;
+        }
+        .heading {
+            display: block;
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1px;
+        }
         @page {
             size: A4;
-            margin: 20px;
         }
-
-
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;"
-        }
-
         h2 {
             font-size: 16px;
             font-weight: bold;
         }
-
         h6 {
             font-size: 16px;
         }
-
         .table td {
             vertical-align: middle;
         }
-
         table td {
             padding: .75rem;
             color: #333 !important;
             font-size: 12px;
         }
-
         table th {
             padding: .45rem .75rem .55rem !important;
             font-size: 12px;
             font-weight: 500;
             vertical-align: middle;
-            font-family: 'Poppins', sans-serif;
+           font-family: "Poppins", sans-serif;
         }
+        .font-weight-bold{color:#fff !important;}
     </style>
 </head>
 
@@ -91,13 +103,13 @@
                                 <table class="table mb-0 common_accordian_table">
                                     <thead class="table-bg modal-thaed">
                                         <tr>
-                                            <th>Agent ID</th>
-                                            <th>Name</th>
-                                            <th>Territory</th>
-                                            <th>Type</th>
-                                            <th>Days</th>
-                                            <th>Spend</th>
-                                            <th>Fee</th>
+                                            <td class="font-weight-bold">Agent ID</th>
+                                            <td class="font-weight-bold">Name</th>
+                                            <td class="font-weight-bold">Territory</th>
+                                           <td class="font-weight-bold">Type</th>
+                                            <td class="font-weight-bold text-right">Days</th>
+                                            <td class="font-weight-bold text-right">Spend</th>
+                                           <td class="font-weight-bold text-right">Fee</th>
                                         </tr>
                                     </thead>
                                     <tbody id="accordionParent">

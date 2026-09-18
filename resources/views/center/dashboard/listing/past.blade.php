@@ -39,8 +39,7 @@
                   </div>
                </div>
          </div>
-         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 common-card">
                <div class="table-responsive custom-table-responsive">
                   <table id="currentListings" class="table  custom--common-table" width="100%">
                         <thead class="table-bg">
@@ -62,7 +61,6 @@
                   </table>
                </div>
             </div>
-         </div>
       </div>  
       {{-- end here --}}
    </div>
