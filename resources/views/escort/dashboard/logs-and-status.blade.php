@@ -124,165 +124,166 @@
         </div>
     </div>
 
-    <div class="row mt-2">
-        <div class="col-md-6 mb-4">
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead style="background-color: #0C223D; color: #ffffff;">
-                        <tr>
-                            <th colspan="3" class="text-center">Followers Online (Legbox)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-map-marker-alt"></i></td>
-                            <td>In my Location</td>
-                            <td class="text-center">{{$result['same_state_count']}}</td>
-                        </tr>
-                        <tr>
-                            <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-globe"></i></td>
-                            <td>Outside my Location</td>
-                            <td class="text-center">{{$result['outside_state_count']}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="col-lg-12 common-card">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead style="background-color: #0C223D; color: #ffffff;">
+                                <tr>
+                                    <th colspan="3" class="text-center">Followers Online (Legbox)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-map-marker-alt"></i></td>
+                                    <td>In my Location</td>
+                                    <td class="text-center">{{$result['same_state_count']}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-globe"></i></td>
+                                    <td>Outside my Location</td>
+                                    <td class="text-center">{{$result['outside_state_count']}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Finance -->
+                <div class="col-md-6 mb-4">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead style="background-color: #0C223D; color: #ffffff;">
+                                <tr>
+                                    <th colspan="3" class="text-center">My Wallet</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-credit-card"></i></td>
+                                    <td>Credit</td>
+                                    <td class="text-center"> {{ str_replace('$', '$ ', formatCurrency($user->wallet->balance)) }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-gift"></i></td>
+                                    <td>Loyalty days</td>
+                                    <td class="text-center">{{$user->wallet->earn_days .' '. ($user->wallet->earn_days > 1 ? 'Days':'Day')}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Logs & Status -->
+                @if ($logAndStatus)
+                <div class="col-md-6 mb-4">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead style="background-color: #0C223D; color: #ffffff;">
+                                <tr>
+                                    <th colspan="4" class="text-center">Logs & Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-sign-in-alt"></i></td>
+                                    <td>Login count</td>
+                                    <td class="text-center" colspan="2">{{ $logAndStatus->login_count ?? '' }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="icon-col" style="width:70px;text-align:center;"><i class="far fa-clock"></i></td>
+                                    <td>Last login</td>
+                                    <td class="text-center" colspan="2">{{ $getLastLoginTime ?? '' }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-map"></i></td>
+                                    <td>Home State</td>
+                                    <td class="text-center" colspan="2">{{ $state ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-key"></i></td>
+                                    <td>Password expiry</td>
+                                    <td class="text-center" id="passwordExpiryText">{{ $passwordExpiryText ?? '' }}</td>
+                                    <td class="text-center">
+                                        <button type="submit" class="save_profile_btn" data-target="#resetPasswordDate"
+                                            data-toggle="modal">Change</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                @endif
+
+
+                <div class="col-md-6 mb-4">
+                    <div class="table-responsive">
+                        <table class="table table-bordered playmate-table mb-0">
+                            <thead style="background-color: #0C223D; color: #ffffff;">
+                                <tr>
+                                    <th colspan="3" class="text-center ">
+                                        My Playmates
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr class="playmate-total-row">
+                                    <td class="icon-col" style="width:70px;text-align:center;">
+                                        <i class="fas fa-users"></i>
+                                    </td>
+
+                                    <td>
+                                        Total Playmates
+                                    </td>
+
+                                    <td class="text-center">
+                                        <span class="playmate-count" id="playmate-total-count">
+                                            @php
+                                                $playmateCount = $user->playmateHistory->unique('playmate_id')->count();
+                                                echo $playmateCount;
+                                            @endphp
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="icon-col align-middle" style="width:70px;text-align:center;">
+                                        <i class="fas fa-user-friends"></i>
+                                    </td>
+
+                                    <td colspan="2">
+                                        <div class="playmate-list">
+                                            @foreach($user->playmateHistory->unique('playmate_id') as $item)
+
+                                            <div class="playmate-icon">
+
+                                                <a href="javascript:void(0)"
+                                                    class="remove-playmate"
+                                                    data-id="{{ $item->id }}"
+                                                    data-escort_id="{{ $item->escort_id }}"
+                                                    data-playmate_id="{{ $item->playmate_id }}">
+                                                    <span class="playmate-tooltip">{{ $item->playmate->name }}</span>
+                                                    <img
+                                                        src="{{ $item->playmate->DefaultImage ? asset($item->playmate->DefaultImage) : asset('assets/app/img/icons-profile.png') }}"
+                                                        alt="Playmate">
+                                                </a>
+                                            </div>
+                                            @endforeach
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!-- Finance -->
-        <div class="col-md-6 mb-4">
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead style="background-color: #0C223D; color: #ffffff;">
-                        <tr>
-                            <th colspan="3" class="text-center">My Wallet</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-credit-card"></i></td>
-                            <td>Credit</td>
-                            <td class="text-center"> {{ str_replace('$', '$ ', formatCurrency($user->wallet->balance)) }}</td>
-                        </tr>
-                        <tr>
-                            <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-gift"></i></td>
-                            <td>Loyalty days</td>
-                            <td class="text-center">{{$user->wallet->earn_days .' '. ($user->wallet->earn_days > 1 ? 'Days':'Day')}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- Logs & Status -->
-        @if ($logAndStatus)
-        <div class="col-md-6 mb-4">
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead style="background-color: #0C223D; color: #ffffff;">
-                        <tr>
-                            <th colspan="4" class="text-center">Logs & Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-sign-in-alt"></i></td>
-                            <td>Login count</td>
-                            <td class="text-center" colspan="2">{{ $logAndStatus->login_count ?? '' }}</td>
-                        </tr>
-                        <tr>
-                            <td class="icon-col" style="width:70px;text-align:center;"><i class="far fa-clock"></i></td>
-                            <td>Last login</td>
-                            <td class="text-center" colspan="2">{{ $getLastLoginTime ?? '' }}</td>
-                        </tr>
-                        <tr>
-                            <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-map"></i></td>
-                            <td>Home State</td>
-                            <td class="text-center" colspan="2">{{ $state ?? '' }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="icon-col" style="width:70px;text-align:center;"><i class="fas fa-key"></i></td>
-                            <td>Password expiry</td>
-                            <td class="text-center" id="passwordExpiryText">{{ $passwordExpiryText ?? '' }}</td>
-                            <td class="text-center">
-                                <button type="submit" class="save_profile_btn" data-target="#resetPasswordDate"
-                                    data-toggle="modal">Change</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        @endif
-
-
-        <div class="col-md-6 mb-4">
-            <div class="table-responsive">
-                <table class="table table-bordered playmate-table mb-0">
-                    <thead style="background-color: #0C223D; color: #ffffff;">
-                        <tr>
-                            <th colspan="3" class="text-center ">
-                                My Playmates
-                            </th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-
-                        <tr class="playmate-total-row">
-                            <td class="icon-col" style="width:70px;text-align:center;">
-                                <i class="fas fa-users"></i>
-                            </td>
-
-                            <td>
-                                Total Playmates
-                            </td>
-
-                            <td class="text-center">
-                                <span class="playmate-count" id="playmate-total-count">
-                                    @php
-                                        $playmateCount = $user->playmateHistory->unique('playmate_id')->count();
-                                        echo $playmateCount;
-                                    @endphp
-                                </span>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="icon-col align-middle" style="width:70px;text-align:center;">
-                                <i class="fas fa-user-friends"></i>
-                            </td>
-
-                            <td colspan="2">
-                                <div class="playmate-list">
-                                    @foreach($user->playmateHistory->unique('playmate_id') as $item)
-
-                                    <div class="playmate-icon">
-
-                                        <a href="javascript:void(0)"
-                                            class="remove-playmate"
-                                            data-id="{{ $item->id }}"
-                                            data-escort_id="{{ $item->escort_id }}"
-                                            data-playmate_id="{{ $item->playmate_id }}">
-                                            <span class="playmate-tooltip">{{ $item->playmate->name }}</span>
-                                            <img
-                                                src="{{ $item->playmate->DefaultImage ? asset($item->playmate->DefaultImage) : asset('assets/app/img/icons-profile.png') }}"
-                                                alt="Playmate">
-                                        </a>
-                                    </div>
-                                    @endforeach
-
-                                </div>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-    </div>
 </div>
 {{-- reset password expiry date modal  --}}
 <div class="modal fade upload-modal" id="resetPasswordDate" tabindex="-1" role="dialog"

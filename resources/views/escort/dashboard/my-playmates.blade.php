@@ -39,9 +39,8 @@
                 </div>
             </div>
         </div>
-        <div class="row my-2">
             <!-- My Playmates -->
-            <div class="col-md-12 mb-4">
+            <div class="col-md-12 mb-4 common-card">
                 <div class="table-responsive">
                     <table class="table w-100" id="playmateListTable" style="border: none;">
                         <thead style="background-color: #0C223D; color: #ffffff;">
@@ -58,7 +57,6 @@
                     </table>
                 </div>
             </div>
-        </div>
         <div class="modal fade upload-modal" id="playmates_listings" tabindex="-1" role="dialog"
             aria-labelledby="extendProfileTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static"
             aria-modal="true">
