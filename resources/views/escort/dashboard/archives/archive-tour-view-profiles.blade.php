@@ -42,7 +42,8 @@
             </div>
          </div>
       </div>
-      <div class="col-md-12">
+   </div>
+      <div class="col-md-12 common-card">
          <div class="row">
             <div class=" col-12 mb-4">
                @if($type==='current')
@@ -155,7 +156,6 @@
                </div>
             </div>
          </div>
-         <div class="row">
             <div class="col-md-12">
                <div class="table-responsive" id="sailorTableArea">
                   <table id="sailorTable" class="table w-100" width="100%">
@@ -177,7 +177,6 @@
                   </table>
                </div>
             </div>
-         </div>
       </div>
       @include('escort.dashboard.NewTour.modal.checkout')
       @include('escort.dashboard.NewTour.modal.register_pinup')

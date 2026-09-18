@@ -57,8 +57,7 @@
         </div>
     </div>
     <!-- Page Heading -->
-    <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 common-card">
             <div class="table-responsive pl-1 pt-3 list-sec" id="sailorTableArea">
                 <table id="sailorTable" class="table table-striped" width="100%">
                     <thead>
@@ -78,7 +77,6 @@
                 </table>
             </div>
         </div>
-    </div>
 </div>
 @include('escort.dashboard.tourSchedule.modal.summary')
 @include('escort.dashboard.tourSchedule.modal.cancel')

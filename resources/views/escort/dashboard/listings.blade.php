@@ -91,8 +91,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 common-card">
                     <div class="table-responsive">
                         <table id="listings" class="table w-100 custom--common-table">
                             <thead id="table-sec" class="table-bg">
@@ -124,7 +123,6 @@
                         </table>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 </div>
