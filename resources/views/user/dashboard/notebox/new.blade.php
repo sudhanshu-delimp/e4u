@@ -622,6 +622,7 @@
                                     </label>
 
                                     <input type="hidden"
+                                        id="existing_profile_pic"
                                         name="existing_profile_pic"
                                         value="{{ $exist_profile?->path ?? '' }}">
 
@@ -715,7 +716,7 @@
 
                         <div class="common-footer">
                             <button type="submit" class="common-save-btn mr-2">Submit</button>
-                            <button type="reset" class="common-reset-btn">Reset</button>
+                            <button type="reset" class="common-reset-btn resetImgBtn">Reset</button>
                         </div>
                     </div>
             </div>
@@ -763,7 +764,7 @@
 
 
     function previewAttachment(event) {
-
+        $('#previewImg').removeClass('d-none');
         var file = $(event.target)[0].files[0];
         var previewWrap = $('#previewWrap');
         var previewImg = $('#previewImg');
@@ -960,6 +961,12 @@
             return false;
         });
 
+    });
+
+    $('.resetImgBtn').on('click', function(){
+        $('.upload-icon').removeClass('d-none');
+        $('#previewImg').addClass('d-none');
+        $('#existing_profile_pic').val('');
     });
 </script>
 @endpush
