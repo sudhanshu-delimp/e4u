@@ -51,7 +51,7 @@ class EscortListingFeatureService
     public function registerPinUp(?Request $request = null, array $data = [])
     {
         $escortId = $this->getValue($request, $data, 'pinup_profile_id');
-        //$tour_location_id = $this->getValue($request, $data, 'tour_location_id');
+        $tour_location_id = $this->getValue($request, $data, 'tour_location_id');
         $pinup_week = $this->getValue($request, $data, 'pinup_week');
         $escortDetail = getEscortDetail($escortId);
 
@@ -87,36 +87,36 @@ class EscortListingFeatureService
         ]);
 
 
-        // if ($tour_location_id) {
+        if ($tour_location_id) {
 
-        //     TourLocation::where('id', $tour_location_id)
-        //         ->update([
-        //             'is_pinup' => '1'
-        //         ]);
+            TourLocation::where('id', $tour_location_id)
+                ->update([
+                    'is_pinup' => '1'
+                ]);
 
-        //     TourProfile::where([
-        //         'tour_location_id' => $tour_location_id,
-        //         'escort_id' => $escortId
-        //     ])->update([
-        //         'is_pinup' => $escortPinUp->id
-        //     ]);
-        // }
+            TourProfile::where([
+                'tour_location_id' => $tour_location_id,
+                'escort_id' => $escortId
+            ])->update([
+                'is_pinup' => $escortPinUp->id
+            ]);
+        } else {
+            $currentPurchase = $escortDetail->currentPurchase;
 
-        $currentPurchase = $escortDetail->currentPurchase;
+            if ($currentPurchase->tour_location_id) {
+                $tour_location = $currentPurchase->tour_location;
 
-        if ($currentPurchase->tour_location_id) {
-            $tour_location = $currentPurchase->tour_location;
+                $tour_location->is_pinup = '1';
+                $tour_location->save();
 
-            $tour_location->is_pinup = '1';
-            $tour_location->save();
+                $tour_location_profile = $tour_location->profiles()
+                    ->where('escort_id', $escortId)
+                    ->first();
 
-            $tour_location_profile = $tour_location->profiles()
-                ->where('escort_id', $escortId)
-                ->first();
-
-            if ($tour_location_profile) {
-                $tour_location_profile->is_pinup = $escortPinUp->id;
-                $tour_location_profile->save();
+                if ($tour_location_profile) {
+                    $tour_location_profile->is_pinup = $escortPinUp->id;
+                    $tour_location_profile->save();
+                }
             }
         }
 
