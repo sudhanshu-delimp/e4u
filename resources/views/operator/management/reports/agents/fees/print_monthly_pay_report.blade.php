@@ -100,25 +100,25 @@
                 <td><span id="payMonthlyReportMonth">{{$payMonthlyReportMonth}}</span></td>
             </tr>
         </table>
-        <p>
+        <p style="font-size: 14px;">
             The Fee for the month is authorised for payment into the
             Operator’s nominated Bank Account for the Agent.
         </p>
-        <p style="margin-top: 25px;">
+        <p style="margin-top: 25px;font-size: 14px;">
             Managing Director: <span style="display: inline-block; border-bottom: 1px solid #000; width: 200px;"></span>
         </p>
 
         <div style="margin-top: 0px; font-size: 14px;">
         <hr style="margin-top: 20px; margin-bottom:30px;">
-        <p style="font-weight: bold; color: #000; margin-bottom: 20px;font-size: 16px;">Office Use Only:</p>
+        <p style="font-weight: bold; color: #000; margin-bottom: 20px;font-size: 14px;">Office Use Only:</p>
 
-        <table style="width: 100%; border:0 !important;">
+        <table style="width: 100%; border:0 !important;font-size: 14px;">
             <tr>
                 <td style="padding: 5px 0;font-size: 14px;width:50%; border:0 !important;">EFT Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                 <td style="padding: 5px 0;font-size: 14px;width:50%; border:0 !important;">General Ledger: ______________________________</td>
             </tr>
             <tr>
-                <td colspan="2" style="padding-top: 50px;font-size: 14px; border:0 !important;">Processed by: ______________________________________</td>
+                <td colspan="2" style="width:100%;padding: 50px 0;font-size: 14px; border:0 !important;text-align:left;">Processed by: ______________________________________</td>
             </tr>
         </table>
     </div>

@@ -58,7 +58,8 @@
             vertical-align: middle;
            font-family: "Poppins", sans-serif;
         }
-        .font-weight-bold{color:#fff !important;}
+        .font-weight-bold{color:#fff !important; border: 0.5px solid #fff !important;}
+     
     </style>
 </head>
 

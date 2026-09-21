@@ -5,10 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Agent Montly Fee Report</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.2') }}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900" rel="stylesheet">
 
     <style>
+        @media print {
+            body,
+            table,
+            table th,
+            table td,
+            table th *,
+            table td * {
+                font-family: "Poppins", sans-serif;
+                border-top: 0px;
+                border-bottom: 0px;
+            }
+        }
+
+        table th,
+        table td {
+            font-family: "Poppins", sans-serif;
+        }
         .heading {
             display: block;
             font-size: 1rem;
@@ -19,6 +39,7 @@
         @page {
             size: A4;
         }
+
 
         h2 {
             font-size: 16px;
@@ -44,8 +65,12 @@
             font-size: 12px;
             font-weight: 500;
             vertical-align: middle;
-            font-family: 'Poppins', sans-serif;
+           font-family: "Poppins", sans-serif;
         }
+        .opr-table-bg {
+            background-color: rgb(0, 60, 62);color: #fff;border:0 !important;
+        }
+        .opr_accordian_table{color:#fff !important;border:1px solid #fff !important;}
     </style>
 </head>
 
@@ -69,9 +94,9 @@
 
     @endphp
     @if ($esortReports->isNotEmpty() || $massgeReports->isNotEmpty())
-        <table style="border:none;width: 100%;">
+        <table style="border:0 !important;width: 100%;">
             <tr>
-                <td style="border:none;width: 100%;">
+                <td style="border:0;width: 100%;">
                     <table class="table mb-0 common_accordian_table" style="background-color:#003c3e;">
                         <tr>
                             <td style="text-align: left !important;"> <span>
@@ -86,10 +111,10 @@
                             </td>
                         </tr>
                     </table>
-                    <table class="table" style="border: 1px solid #ccc;padding: 0;">
+                    <table class="table" style="border: 0px solid #ccc !important;padding: 0;">
                         <tr>
                             <td style="width: 100%;padding: 10px 5px 20px 5px;">
-                               <table class="table table-bordered mb-0 opr_accordian_table">
+                               <table class="table mb-0 opr_accordian_table">
                                 <thead class="opr-table-bg modal-thaed">
                                         
                                         <tr>
@@ -97,9 +122,9 @@
                                             <th>Name</th>
                                             <th>Territory</th>
                                             <th>Type</th>
-                                            <th>Days</th>
-                                            <th>Spend</th>
-                                            <th>Fee</th>
+                                            <th style="text-align: right;">Days</th>
+                                            <th style="text-align: right;">Spend</th>
+                                            <th style="text-align: right;">Fee</th>
                                         </tr>
                                     </thead>
                                     <tbody id="accordionParent">

@@ -66,7 +66,8 @@
             vertical-align: middle;
            font-family: "Poppins", sans-serif;
         }
-        .font-weight-bold{color:#fff !important;}
+        .font-weight-bold{color:#fff !important;border-right: 0.5px solid #fff !important;}
+        
     </style>
 </head>
 
@@ -113,7 +114,7 @@
 
 
 
-                                <table class="table mb-0 common_accordian_table">
+                                <table class="table mb-0 common_accordian_table"> 
                                     <thead class="table-bg modal-thaed">
                                         <tr>
                                             <td class="font-weight-bold">Member ID</td>
