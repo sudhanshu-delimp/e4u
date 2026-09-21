@@ -52,9 +52,9 @@ class ProductOrderController extends Controller
   public function makeOrderPayment(Request $request, PinPaymentService $pinPaymentService)
   {
     try {
-            $completedBy =  $request->isImpersonated ? $request->impersonatedId : $this->account->id;
+      $completedBy =  $request->isImpersonated ? $request->impersonatedId : $this->account->id;
 
- 
+
       DB::beginTransaction();
 
       $data = $request->all();
@@ -177,6 +177,7 @@ class ProductOrderController extends Controller
             'product_id' => $productId,
             'quantity' => $details['qty'],
             'price' => $details['price'],
+            'selling_price' => Product::where('id', $productId)->value('selling_price'),
             'total' => $details['price'] * $details['qty'],
           ];
           array_push($products, $orderItem);
@@ -293,9 +294,9 @@ class ProductOrderController extends Controller
             'ref_no'          => now()->format('Ymd') . rand(100, 999),
             'amount'          => $calculatedSubtotal,
             'gst_amount' => $gst_amount,
-            'paid_amount'          => $paidAmount,
-            'wallet_amount'  => $walletAmount,
-            'net_amount'  => $netAmount,
+            'paid_amount' => $paidAmount,
+            'wallet_amount' => $walletAmount,
+            'net_amount' => $netAmount,
             'total_payable_amount'  => $total_payable_amount,
             'delivery_charge'  => $deliveryCharges,
             'currency'        => "AUD",
@@ -325,6 +326,7 @@ class ProductOrderController extends Controller
     }
   }
 
+
   public function orders(Request $request)
   {
     try {
@@ -350,7 +352,7 @@ class ProductOrderController extends Controller
         return  $row->createdBy ? $row->createdBy->member_id : '--';
       })
       ->addColumn('total_amount', function ($row) {
-        return   $row->paymentDetails ?  '<div class="num_value">$<span>'.$row->paymentDetails->paid_amount.'</span></div>'  : '<div class="num_value">$<span>0.00</span></div>';
+        return   $row->paymentDetails ?  '<div class="num_value">$<span>' . $row->paymentDetails->paid_amount . '</span></div>'  : '<div class="num_value">$<span>0.00</span></div>';
       })
       ->addColumn('gst_amount', function ($row) {
         return   $row->paymentDetails ? $row->paymentDetails->gst_amount : '0.00';
@@ -381,7 +383,7 @@ class ProductOrderController extends Controller
             <div class="dot-dropdown dropdown-menu dropdown-menu-right  " aria-labelledby="dropdownMenuLink" style=""><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-order-details" href="#" data-toggle="modal" data-item="' . $row->id . '" data-orderid="' . $row->order_id . '"   > <i class="fa fa-eye"></i> View Details </a></div></div>';
       })
 
-      ->rawColumns(['order_status', 'action', 'payment_status','total_amount'])
+      ->rawColumns(['order_status', 'action', 'payment_status', 'total_amount'])
       ->make(true);
   }
 
