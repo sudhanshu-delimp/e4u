@@ -26,36 +26,36 @@
                 'country' => [
                     'title' => 'Find Escorts in {country} | YourSite',
                     'description' => 'Browse verified escorts across {country}. Genuine profiles, updated daily.',
-                    'og_image' => url('assets/app/img/shutterstock_338759729.png'),
+                    'og_image' => app()->runningInConsole() ? '' : asset('assets/app/img/shutterstock_338759729.png'),
                 ],
 
                 'country_gender' => [
                     'title' => 'Book {gender} Escort Services in {country} | Escorts4U',
                     'description' => 'Find {gender} escorts across {country}. Verified profiles, updated daily.',
-                    'og_image' => url('assets/app/img/shutterstock_338759729.png'),
+                    'og_image' => app()->runningInConsole() ? '' : asset('assets/app/img/shutterstock_338759729.png'),
                 ],
                 'city' => [
                     'title' => 'Book {city} Escorts | Services Available | Escorts4U',
                     'description' => 'Find top-rated escorts in {city}. Verified profiles, real reviews.',
-                    'og_image' => url('assets/app/img/shutterstock_338759729.png'),
+                    'og_image' => app()->runningInConsole() ? '' : asset('assets/app/img/shutterstock_338759729.png'),
                 ],
                 'city_gender' => [
                     'title' => '{city} {gender} Escorts | Book Now | Escorts4U',
                     'description' => 'Browse {gender} escorts in {city}, {country}. Updated listings, verified profiles.',
-                    'og_image' => url('assets/app/img/shutterstock_338759729.png'),
+                    'og_image' => app()->runningInConsole() ? '' : asset('assets/app/img/shutterstock_338759729.png'),
                 ],
 
                 'listing' => [
                     'title'       => '{name} - {gender} Escort in {city} | YourSite',
                     'description' => "View {name}'s profile - {gender} escort based in {city}, {state}.",
-                    'og_image' => url('assets/app/img/shutterstock_338759729.png'),
+                    'og_image' => app()->runningInConsole() ? '' : asset('assets/app/img/shutterstock_338759729.png'),
 
                 ],
 
                 'profile' => [
                     'title' => '{name} - Profile {profileId} | YourSite',
                     'description' => 'Detailed profile of {name}, {gender} escort in {city}.',
-                    'og_image' => url('assets/app/img/shutterstock_338759729.png'),
+                    'og_image' => app()->runningInConsole() ? '' : asset('assets/app/img/shutterstock_338759729.png'),
                 ],
             ],  
         ],
