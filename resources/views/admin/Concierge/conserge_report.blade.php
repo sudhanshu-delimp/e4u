@@ -11,7 +11,7 @@
           </tr>
       </thead>
       <tbody>
-          <tr>
+          {{-- <tr>
               <td>CM01</td>
               <td>E60125</td>
               <td class="text-center">WA</td>
@@ -25,808 +25,116 @@
               <td>
                   <div class="num_value">$<span>40.00</div>
               </td>
-          </tr>
-@forelse ($items as $item)
-     <tr>
-              <td>{{$item->product->code}}</td>
-              <td>{{$item->productOrder->user->member_id}}</td>
-              <td class="text-center">{{$item->productOrder->user->member_id}}</td>
-              <td class="text-center">{{$item->productOrder->delivery_type}}</td>
-              <td>
-                  <div class="num_value">$<span>{{$item->amount}}</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>{{$item->amount-10}}</div>
-              </td>
-          </tr>
-@empty
-    <p>Not found</p>
-@endforelse
-          
+          </tr> --}}
+          @forelse ($items->groupBy(fn($item) => $item->product->code) as $productCode => $productItems)
 
-          <tr>
-              <td></td>
-              <td>E50148</td>
-              <td class="text-center">SA</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
+              {{-- Product Items --}}
+              @foreach ($productItems as $item)
+                  <tr>
+                      <td>{{ $item->product->code }}</td>
+                      <td>{{ $item->productOrder->user->member_id }}</td>
+                      <td class="text-center">
+                          {{ $item->productOrder->user->state->name }}
+                      </td>
+                      <td class="text-center">
+                          {{ $item->productOrder->delivery_type }}
+                      </td>
+                      <td>
+                          <div class="num_value">
+                              $<span>{{ number_format($item->price, 2) }}</span>
+                          </div>
+                      </td>
+                      <td>
+                          <div class="num_value">
+                              $<span>{{ number_format($item->retail_price, 2) }}</span>
+                          </div>
+                      </td>
+                      <td>
+                          <div class="num_value">
+                              $<span>
+                                  {{ number_format($item->price - $item->retail_price, 2) }}
+                              </span>
+                          </div>
+                      </td>
+                  </tr>
+              @endforeach
 
-          <tr>
-              <td></td>
-              <td>E20248</td>
-              <td class="text-center">NSW</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
+              {{-- Product Subtotal --}}
+              <tr>
+                  <td colspan="4" class="text-right">
+                      <strong> Subtotal:</strong>
+                  </td>
 
-          <tr>
-              <td></td>
-              <td>M40125</td>
-              <td class="text-center">Qld</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-          <tr>
-              <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
+                  <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                      <div class="num_value">
+                          $<span>{{ number_format($productItems->sum('price'), 2) }}</span>
+                      </div>
+                  </td>
 
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>105.00</div>
-              </td>
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>160.00</div>
-              </td>
-          </tr>
+                  <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                      <div class="num_value">
+                          $<span>{{ number_format($productItems->sum('retail_price'), 2) }}</span>
+                      </div>
+                  </td>
+
+                  <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                      <div class="num_value">
+                          $<span>
+                              {{ number_format($productItems->sum('price') - $productItems->sum('retail_price'), 2) }}
+                          </span>
+                      </div>
+                  </td>
+              </tr>
+
+          @empty
+              <tr>
+                  <td colspan="7" class="text-center">
+                      Not found
+                  </td>
+              </tr>
+          @endforelse
 
 
-          {{-- 2nd --}}
-          <tr>
-              <td>CM02</td>
-              <td>E60125</td>
-              <td class="text-center">WA</td>
-              <td class="text-center">Door</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>E50148</td>
-              <td class="text-center">SA</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>E20248</td>
-              <td class="text-center">NSW</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>M40125</td>
-              <td class="text-center">Qld</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-          <tr>
-              <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
-
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>105.00</div>
-              </td>
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>160.00</div>
-              </td>
-          </tr>
-          {{-- 3rd --}}
-          <tr>
-              <td>CM03</td>
-              <td>E60125</td>
-              <td class="text-center">WA</td>
-              <td class="text-center">Door</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>E50148</td>
-              <td class="text-center">SA</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>E20248</td>
-              <td class="text-center">NSW</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>M40125</td>
-              <td class="text-center">Qld</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-          <tr>
-              <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
-
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>105.00</div>
-              </td>
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>160.00</div>
-              </td>
-          </tr>
-
-          {{-- 4th --}}
-          <tr>
-              <td>CM04</td>
-              <td>E60125</td>
-              <td class="text-center">WA</td>
-              <td class="text-center">Door</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>E50148</td>
-              <td class="text-center">SA</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>E20248</td>
-              <td class="text-center">NSW</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>M40125</td>
-              <td class="text-center">Qld</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-          <tr>
-              <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
-
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>105.00</div>
-              </td>
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>160.00</div>
-              </td>
-          </tr>
-
-          {{-- 5th --}}
-          <tr>
-              <td>CM05</td>
-              <td>E60125</td>
-              <td class="text-center">WA</td>
-              <td class="text-center">Door</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>E50148</td>
-              <td class="text-center">SA</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>E20248</td>
-              <td class="text-center">NSW</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>M40125</td>
-              <td class="text-center">Qld</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-          <tr>
-              <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
-
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>105.00</div>
-              </td>
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>160.00</div>
-              </td>
-          </tr>
-          {{-- 6th --}}
-          <tr>
-              <td>CM06</td>
-              <td>E60125</td>
-              <td class="text-center">WA</td>
-              <td class="text-center">Door</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>E50148</td>
-              <td class="text-center">SA</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>E20248</td>
-              <td class="text-center">NSW</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>M40125</td>
-              <td class="text-center">Qld</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-          <tr>
-              <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
-
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>105.00</div>
-              </td>
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>160.00</div>
-              </td>
-          </tr>
-          {{-- 7th --}}
-          <tr>
-              <td>CM07</td>
-              <td>E60125</td>
-              <td class="text-center">WA</td>
-              <td class="text-center">Door</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>E50148</td>
-              <td class="text-center">SA</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>E20248</td>
-              <td class="text-center">NSW</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>M40125</td>
-              <td class="text-center">Qld</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-          <tr>
-              <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
-
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>105.00</div>
-              </td>
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>160.00</div>
-              </td>
-          </tr>
-          {{-- 8th --}}
-          <tr>
-              <td>CM08</td>
-              <td>E60125</td>
-              <td class="text-center">WA</td>
-              <td class="text-center">Door</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>E50148</td>
-              <td class="text-center">SA</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>E20248</td>
-              <td class="text-center">NSW</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>M40125</td>
-              <td class="text-center">Qld</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-          <tr>
-              <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
-
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>105.00</div>
-              </td>
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>160.00</div>
-              </td>
-          </tr>
-          {{-- 9th --}}
-          <tr>
-              <td>CM09</td>
-              <td>E60125</td>
-              <td class="text-center">WA</td>
-              <td class="text-center">Door</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>E50148</td>
-              <td class="text-center">SA</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>E20248</td>
-              <td class="text-center">NSW</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>M40125</td>
-              <td class="text-center">Qld</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-          <tr>
-              <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
-
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>105.00</div>
-              </td>
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>160.00</div>
-              </td>
-          </tr>
-          {{-- 10th --}}
-          <tr>
-              <td>CM10</td>
-              <td>E60125</td>
-              <td class="text-center">WA</td>
-              <td class="text-center">Door</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>E50148</td>
-              <td class="text-center">SA</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>E20248</td>
-              <td class="text-center">NSW</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-
-          <tr>
-              <td></td>
-              <td>M40125</td>
-              <td class="text-center">Qld</td>
-              <td class="text-center">Post</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr>
-          <tr>
-              <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
-
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>105.00</div>
-              </td>
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-              <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>160.00</div>
-              </td>
-          </tr>
 
       </tbody>
 
       <tfoot>
-          <!-- ========= total ========= -->
+          <!-- ========= Total ========= -->
           <tr>
               <td class="mt-5" colspan="7"></td>
           </tr>
 
-          <tr>
-              <td colspan="4" class="text-right"><strong>Total:</strong></td>
+          @php
+              $totalPrice = $items->sum('price');
+              $totalRetailPrice = $items->sum('retail_price');
+              $totalProfit = $totalPrice - $totalRetailPrice;
+          @endphp
 
-              <td style="border-top: 2px solid#444; border-bottom:6px double #444;font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>2,000.00 </div>
+          <tr>
+              <td colspan="4" class="text-right">
+                  <strong>Total:</strong>
               </td>
-              <td style="border-top: 2px solid#444; border-bottom:6px double #444;font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>$ 400.00</div>
-              </td>
-              <td style="border-top: 2px solid#444; border-bottom:6px double #444;font-weight:bold; text-align:left;">
-                  <div class="num_value">$<span>1,600.00
+
+              <td
+                  style="border-top: 2px solid #444; border-bottom: 6px double #444; font-weight:bold; text-align:left;">
+                  <div class="num_value">
+                      $<span>{{ number_format($totalPrice, 2) }}</span>
                   </div>
               </td>
-          </tr>
 
+              <td
+                  style="border-top: 2px solid #444; border-bottom: 6px double #444; font-weight:bold; text-align:left;">
+                  <div class="num_value">
+                      $<span>{{ number_format($totalRetailPrice, 2) }}</span>
+                  </div>
+              </td>
+
+              <td
+                  style="border-top: 2px solid #444; border-bottom: 6px double #444; font-weight:bold; text-align:left;">
+                  <div class="num_value">
+                      $<span>{{ number_format($totalProfit, 2) }}</span>
+                  </div>
+              </td>
+          </tr><br>
       </tfoot>
   </table>

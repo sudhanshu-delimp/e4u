@@ -6,6 +6,7 @@ use App\Models\ConciergePaymentReconciliation;
 use App\Models\ProductOrder;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class GenerateConciergePaymentReconciliation extends Command
 {
@@ -49,7 +50,7 @@ class GenerateConciergePaymentReconciliation extends Command
         */
 
     $reportMonth = Carbon::now()
-      ->subMonth()
+      // ->subMonth()
       ->startOfMonth();
 
     $billStartDate = $reportMonth->copy()->startOfMonth();
@@ -91,7 +92,7 @@ class GenerateConciergePaymentReconciliation extends Command
         |--------------------------------------------------------------------------
         */
 
-    $orders = ProductOrder::with(['paymentDetails', 'user','orderItems'])
+    $orders = ProductOrder::with(['paymentDetails', 'user', 'orderItems'])
       // $orders = ProductOrder::query()
       ->whereBetween('order_date', [
         $billStartDate->copy()->startOfDay(),
@@ -115,11 +116,19 @@ class GenerateConciergePaymentReconciliation extends Command
         */
 
     $grossSaleAmount = $orders->sum(function ($order) {
-      return (float) $order->orderItems->price;
+      return $order->orderItems->sum(function ($item) {
+        Log::info(' Price: ' . $item->price);
+
+        return (float) $item->price;
+      });
     });
 
     $supplierAmount = $orders->sum(function ($order) {
-      return (float) $order->orderItems->selling_price;
+      return $order->orderItems->sum(function ($item) {
+        Log::info('Retail Price: ' . $item->retail_price);
+
+        return (float) $item->retail_price;
+      });      // return (float) $order->orderItems->retail_price;
     });
 
     /*
