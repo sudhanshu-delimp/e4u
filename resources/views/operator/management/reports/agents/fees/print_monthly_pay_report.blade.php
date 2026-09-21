@@ -23,42 +23,34 @@
                 border-bottom: 0px;
             }
         }
-
         table th,
         table td {
             font-family: "Poppins", sans-serif;
         }
-
         .heading {
             display: block;
             font-size: 1rem;
             font-weight: 500;
             line-height: 1px;
         }
-
         @page {
             size: A4;
         }
-
         h2 {
             font-size: 16px;
             font-weight: bold;
         }
-
         h6 {
             font-size: 16px;
         }
-
         .table td {
             vertical-align: middle;
         }
-
         table td {
             padding: .75rem;
             color: #333 !important;
             font-size: 12px;
         }
-
         table th {
             padding: .45rem .75rem .55rem !important;
             font-size: 12px;
@@ -68,10 +60,12 @@
         }
         .font-weight-bold{color:#fff !important;}
     </style>
+   
+
 </head>
 <body style="margin:0;width:100%">
     @php
-        $path = public_path('/assets/dashboard/img/auth.png');
+        $path = public_path('/assets/dashboard/img/operator/secure-payment.png');
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
@@ -83,7 +77,7 @@
     @endphp    
     <!-- Body -->
 
-        <table class="table mb-0 common_accordian_table" style="background-color:#000;">
+        <table class="table mb-0 common_accordian_table" style="background-color:#003c3e;">
             <tr>
                 <td style="text-align: left !important;"> <span>
                         <img src="{{ $base64 }}" style="width: 25px;">
@@ -94,15 +88,15 @@
         </table>
         <table class="w-100 table common_modal_table" style="padding: 20px 0 0 0;">
             <tr>
-                <td style="font-weight: bold; color: #000 !important;">Agent ID:</td>
+                <td style="font-weight: bold; color: #000;">Agent ID:</td>
                 <td style="text-align:right;"><span id="payAgentId">{{$payAgentId}}</span></td>
-                <td style="font-weight: bold; color: #000 !important;">Date:</td>
+                <td style="font-weight: bold; color: #000;">Date:</td>
                 <td><span id="payMonthlyReportDate">{{$payMonthlyReportDate}}</span></td>
             </tr>
             <tr>
-                <td style="font-weight: bold; color: #000 !important;">Fee Total:</td>
+                <td style="font-weight: bold; color: #000;">Fee Total:</td>
                 <td style="text-align:right;"><span id="payAgenFee">${{$payAgenFee}}</span></td>
-                <td style="font-weight: bold; color: #000 !important;">Month:</td>
+                <td style="font-weight: bold; color: #000;">Month:</td>
                 <td><span id="payMonthlyReportMonth">{{$payMonthlyReportMonth}}</span></td>
             </tr>
         </table>
@@ -111,17 +105,17 @@
             Operator’s nominated Bank Account for the Agent.
         </p>
         <p style="margin-top: 25px;font-size: 14px;">
-        Managing Director: <span style="display: inline-block; border-bottom: 1px solid #000; width: 250px;"></span>
-    </p>
+            Managing Director: <span style="display: inline-block; border-bottom: 1px solid #000; width: 200px;"></span>
+        </p>
 
-    <div style="margin-top: 0px; font-size: 14px;">
+        <div style="margin-top: 0px; font-size: 14px;">
         <hr style="margin-top: 20px; margin-bottom:30px;">
         <p style="font-weight: bold; color: #000; margin-bottom: 20px;font-size: 14px;">Office Use Only:</p>
 
         <table style="width: 100%; border:0 !important;font-size: 14px;">
             <tr>
-                <td style="padding: 5px 0;font-size: 14px;width:50%;border:0 !important;">EFT Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td style="padding: 5px 0;font-size: 14px;width:50%;border:0 !important;">General Ledger: ______________________________</td>
+                <td style="padding: 5px 0;font-size: 14px;width:50%; border:0 !important;">EFT Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td style="padding: 5px 0;font-size: 14px;width:50%; border:0 !important;">General Ledger: ______________________________</td>
             </tr>
             <tr>
                 <td colspan="2" style="width:100%;padding: 50px 0;font-size: 14px; border:0 !important;text-align:left;">Processed by: ______________________________________</td>

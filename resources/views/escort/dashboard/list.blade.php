@@ -118,8 +118,7 @@
     </div>
 
     <div id="content">
-        <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 common-card">
                 <div class="box-body">
                     @if ($type != 'past')
                     <div>
@@ -201,7 +200,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
     <!--middle content end here-->
     <!--right side bar start from here-->

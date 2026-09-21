@@ -205,7 +205,7 @@
         order: [
             [5, 'asc']
         ],
-        bStateSave: false,
+        bStateSave: true,
         processing: true,
         serverSide: true,
         paging: true,
@@ -393,6 +393,7 @@
                 showLoadingPopup('Processing Payment', 'Do not refresh or close this page.');
             },
             success: function(response, textStatus, xhr) {
+                table.draw();
                 pinModalElement.find('#pinDisplaySet').text('');
                 pinModalElement.modal('hide');
                 Swal.close();

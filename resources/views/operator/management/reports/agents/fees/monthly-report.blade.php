@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.operator')
 @section('style')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 @endsection
@@ -9,41 +9,48 @@
 
         }
     </style>
-    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 opr-console">
         <!--middle content end here-->
 
         {{-- Page Heading --}}
         <div class="row">
-            <div class="col-md-12 custom-heading-wrapper">
-                <h1 class="h1">Agents Monthly Report</h1>
-                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
-            </div>
+            <div class="col-md-12 operator-heading-wrapper">
+            <h1 class="h1">Agents Monthly Report</h1>
+            <span class="oprhelpNote" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+        </div>
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
                         <p class="notes"><b>Notes:</b> </p>
                         
-                        <ol>
-                            <li>The following definitions are from the Agent Agreement and apply for the purpose of
-                                calculating the Fee:
-                                <ol class="level-2">
-                                    <li><b>Fees</b> mean the fees calculated pursuant to Item 5 of Schedule 1 and payable
-                                        pursuant to clause 9.1.
-                                    </li>
-                                    <li><b>Monthly Report</b> means the online report summarising all the activities for
-                                        that
-                                        month for Signed Up Advertisers which the calculation of the Fees for that month
-                                        will be based on.
-                                    </li>
-                                </ol>
-                            </li>
-                            <li>The Fees are paid to the Operator upon the Agent having approved them. Where there
-                                is a query raised by an Agent in respect of the Monthly Report, the Fee corresponding
-                                to the Query will be separated from the Report and remain in escrow until the query is
-                                resolved.
-                            </li>
-                            <li>Fees are exclusive of GST.</li>
-                        </ol>
+                       <ol>
+                        <li>The following definitions are from the Agent Agreement and apply for the purpose of
+                            calculating the Fee:
+                            <ol class="level-2">
+                                <li><b>Fees</b> mean the fees calculated pursuant to Item 5 of Schedule 1 and payable
+                                    pursuant to clause 9.1.
+                                </li>
+                                <li> <b>Monthly Report</b> means the online report summarising all the activities for that
+                                    month for Signed Up Advertisers which the calculation of the Fees for that month
+                                    will be based on.
+                                </li>
+                            </ol>
+                        </li>
+                        <li>The Fees will be paid to the Agent within seven Business Days of the Agent Monthly
+                            Report having been approved, provided the Agent:
+                            <ol class="level-2">
+                                <li>has confirmed the correctness of the Monthly Report within three days; and
+                                </li>
+                                <li>where a query is raised in respect of the Monthly Report, the Fee corresponding
+                                    to the Query will be separated from the Report and remain in escrow until the query
+                                    is resolved (<b>Resolved Query</b>); and
+                                </li>
+                                <li>a Resolved Query will be included in the following Monthly Report.</li>
+                            </ol>
+                        </li>
+                        <li>All Fees paid to the Agent under the Agent Agreement will be paid into your nominated
+                            Bank Account, as the Operator. Fees are inclusive of GST.</li>
+                    </ol>
                     </div>
                 </div>
             </div>
@@ -53,8 +60,8 @@
             <div class="col-md-12">
 
                 <div class="table-responsive-xl">
-                    <table class="table " id="commissionStatementTable">
-                        <thead class="table-bg">
+                    <table class="table my_opr_table" id="commissionStatementTable">
+                        <thead class="opr-table-bg">
                             <tr>
                                 <th>Report Date</th>
                                 <th>Billing Period</th>
@@ -76,15 +83,15 @@
         </div>
 
         {{-- View Report --}}
-        <div class="modal fade upload-modal" id="viewMonthlyReportModel" tabindex="-1" role="dialog"
+        <div class="modal fade opr-modal" id="viewMonthlyReportModel" tabindex="-1" role="dialog"
             aria-labelledby="viewMonthlyReportModelLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
+                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/report.png') }}"
                                 class="custompopicon"><span id="reportendDate">Fee Report<span></h5>
                         <a href="" class="close" data-dismiss="modal" aria-label="Close">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
+                            <img src="{{ asset('assets/dashboard/img/operator/close.png') }}" class="opr-close-btn">
                         </a>
                     </div>
                     <div class="modal-body">
@@ -93,11 +100,11 @@
                         <!-- End content area -->
                     </div>
                     <div class="modal-footer">
-                        <form action="{{ route('admin.print.monthly.fee') }}" method="post" target="_blank">
+                        <form action="{{ route('operator.agents.print.monthly.fee') }}" method="post" target="_blank">
                             {{ csrf_field() }}
                             <input type="hidden" name="fee_print_id" id="fee_print_id" value="">
-                            <button type="submit" class="print-btn m-0">🖨️ Print Report</button>
-                            <button type="button" class="btn-cancel-modal" data-dismiss="modal"
+                            <button type="submit" class="btn-success-modal">🖨️ Print Report</button>
+                            <button type="button" class="btn-success-modal" data-dismiss="modal"
                                 aria-label="Close">Close</button>
                         </form>
                         {{--  <button type="button" class="btn-success-modal" data-dismiss="modal">Query</button>
@@ -107,7 +114,7 @@
             </div>
         </div>
         {{-- Raise query --}}
-        <div class="modal fade upload-modal" id="raiseQueryModel" tabindex="-1" role="dialog"
+        <div class="modal fade opr-modal" id="raiseQueryModel" tabindex="-1" role="dialog"
             aria-labelledby="raiseQueryModelLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
@@ -115,7 +122,7 @@
                         <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
                                 class="custompopicon"><span id="reportendDate">Query<span></h5>
                         <a href="" class="close" data-dismiss="modal" aria-label="Close">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
+                            <img src="{{ asset('assets/dashboard/img/operator/close.png') }}" class="opr-close-btn">
                         </a>
                     </div>
                     <div class="modal-body">
@@ -129,7 +136,7 @@
                         </form>
                         <div class="modal-footer">
                             <button type="button" class="print-btn m-0" id="submitQuery">Submit</button>
-                            <button type="button" class="btn-cancel-modal" data-dismiss="modal"
+                            <button type="button" class="btn-success-modal" data-dismiss="modal"
                                 aria-label="Close">Close</button>
                         </div>
                     </div>
@@ -137,7 +144,7 @@
             </div>
         </div>
         {{-- view query --}}
-        <div class="modal fade upload-modal" id="viewMonthlyQueryModel" tabindex="-1" role="dialog"
+        <div class="modal fade opr-modal" id="viewMonthlyQueryModel" tabindex="-1" role="dialog"
             aria-labelledby="viewMonthlyQueryModelLabel" aria-hidden="true" data-backdrop="static"
             data-keyboard="false">
             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
@@ -146,7 +153,7 @@
                         <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
                                 class="custompopicon"><span id="reportendDate">Query<span></h5>
                         <a href="" class="close" data-dismiss="modal" aria-label="Close">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
+                            <img src="{{ asset('assets/dashboard/img/operator/close.png') }}" class="opr-close-btn">
                         </a>
                     </div>
                     <div class="modal-body">
@@ -155,7 +162,7 @@
                         <!-- End content area -->
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn-cancel-modal" data-dismiss="modal"
+                        <button type="button" class="btn-success-modal" data-dismiss="modal"
                             aria-label="Close">Close</button>
                     </div>
                 </div>
@@ -164,18 +171,18 @@
 
         {{-- Payment Authorisation --}}
 
-        <div class="modal fade upload-modal" id="payAgentreport" tabindex="-1" role="dialog"
+        <div class="modal fade  opr-modal" id="payAgentreport" tabindex="-1" role="dialog"
             aria-labelledby="payAgentreportLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <!-- Header -->
                     <div class="modal-header">
 
-                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/auth.png') }}"
+                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/secure-payment.png') }}"
                                 class="custompopicon">
                             Payment Authorisation</h5>
                         <a href="" class="close" data-dismiss="modal" aria-label="Close">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
+                            <img src="{{ asset('assets/dashboard/img/operator/close.png') }}" class="opr-close-btn">
                         </a>
                     </div>
                     <!-- Body -->
@@ -183,15 +190,15 @@
 
                         <table class="w-100 table common_modal_table">
                             <tr>
-                                <td style="font-weight: bold; color: #000;">Agent ID:</td>
-                                <td style="text-align:right;"><span id="payAgentId"></span></td>
-                                <td style="font-weight: bold; color: #000;">Date:</td>
+                                <td style="font-weight: bold; color: #001f4d;">Agent ID:</td>
+                                <td><span id="payAgentId"></span></td>
+                                <td style="font-weight: bold; color: #001f4d;">Date:</td>
                                 <td><span id="payMonthlyReportDate"></span></td>
                             </tr>
                             <tr>
-                                <td style="font-weight: bold; color: #000;">Fee Total:</td>
-                                <td style="text-align:right;">$<span id="payAgenFee"></span></td>
-                                <td style="font-weight: bold; color: #000;">Month:</td>
+                                <td style="font-weight: bold; color: #001f4d;">Fee Total:</td>
+                                <td>$<span id="payAgenFee"></span></td>
+                                <td style="font-weight: bold; color: #001f4d;">Month:</td>
                                 <td><span id="payMonthlyReportMonth"></span></td>
                             </tr>
                         </table>
@@ -209,11 +216,11 @@
                         <hr style="margin: 20px 0;">
 
                         <div style="text-align: right;">
-                            <form action="{{ route('admin.fees.print.pay-detail') }}" method="post" target="_blank">
+                            <form action="{{ route('operator.agents.fees.print.pay-detail') }}" method="post" target="_blank">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="monthly_report_id" id="monthly_report_id" value="">
                                 <button type="submit" class="btn-success-modal">Print</button>
-                                <button type="button" class="btn-cancel-modal" data-dismiss="modal">
+                                <button type="button" class="btn-success-modal" data-dismiss="modal">
                                     Close
                                 </button>
                             </form>
@@ -243,7 +250,7 @@
                     bStateSave: false,
 
                     ajax: {
-                        url: "{{ route('admin.fees.monthly-report-ajax') }}",
+                        url: "{{ route('operator.agents.fees.monthly-report-ajax') }}",
                         data: function(d) {
                             d.type = 'player';
                         }
@@ -332,7 +339,7 @@
                 $(document).on('click', '#getMontlyViewReportPage', function() {
                     let id = $(this).data('id');
                     let agent_id = $(this).data('agent_id');
-                    var url = "{{ route('admin.fees.view.detail') }}";
+                    var url = "{{ route('operator.agents.fees.view.detail') }}";
                     $.ajax({
                         url: url,
                         method: 'POST',
@@ -389,7 +396,7 @@
                 $(document).on('click', '.getSubmittedQuery', function() {
                     let id = $(this).data('id');
                     let agent_id = $(this).data('agent_id');
-                    var url = "{{ route('admin.fees.view.query') }}";
+                    var url = "{{ route('operator.agents.fees.view.query') }}";
                     $.ajax({
                         url: url,
                         method: 'POST',
@@ -419,7 +426,7 @@
                     let status = $(this).data('status');
                     $('#monthly_report_id').val(id);
                     //$('#fee_status').val(status);
-                    var url = "{{ route('admin.fees.view.pay-detail') }}";
+                    var url = "{{ route('operator.agents.fees.view.pay-detail') }}";
 
                     $.ajax({
                         url: url,
@@ -454,7 +461,7 @@
                         'action': 'Update',
                         'text': 'Are you sure you want to update status?'
                     })) {
-                    var url = "{{ route('admin.fees.update.status.detail') }}";
+                    var url = "{{ route('operator.agents.fees.update.status.detail') }}";
                     url = url.replace(':id', id);
                     url = url.replace(':status', status);
                     $.ajax({

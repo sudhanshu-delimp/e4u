@@ -11268,7 +11268,7 @@ border-top: 5px solid var(--peach);
 }
 
 .statistics-icon {
-    background-color: var(--blue--text);
+    background-color: var(--light-pink);
     border-radius: 50%;
     max-width: 35px;
     min-width: 35px;
@@ -11277,13 +11277,13 @@ border-top: 5px solid var(--peach);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--blue--text) !important;
+    color: var(--peach) !important;
 }
 
 .statistics-icon img {
     width: 15px;
     height: 15px;
-    filter: invert(34%) sepia(53%) saturate(7480%) hue-rotate(338deg) brightness(100%) contrast(101%);
+    filter: invert(34%) sepia(100%) saturate(7480%) hue-rotate(338deg) brightness(100%) contrast(101%);
 }
 
 
@@ -14209,6 +14209,19 @@ details[open]>summary:first-of-type {
     .product-card-wrapper {
         grid-template-columns: repeat(1, 1fr);
     }
+}
+
+.custom_badge_lg {
+    padding: 7px 8px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    line-height: 1;
+    white-space: nowrap;
+    min-width: 124px;
+    display: inline-block;
+    text-align: center;
 }
 
 
