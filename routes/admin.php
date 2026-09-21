@@ -50,6 +50,7 @@ use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Escort\Concierge\ProductController;
 use App\Http\Controllers\Admin\AgentMonthlyReportController;
 use App\Http\Controllers\Admin\OperatorMonthlyReportController;
+use App\Http\Controllers\Admin\ConciergeReportController;
 use App\Http\Controllers\Admin\VisaMigrationRequestController;
 use App\Http\Controllers\Admin\SeoManagementController;
 
@@ -846,13 +847,19 @@ Route::get('support-services/summary', function () {
   return view('admin.support-services.summary');
 })->name('admin.summary');
 
-Route::get('/management/concierge-payments', function () {
-  return view('admin.Concierge.payment-reconciliation');
-})->name('admin.concierge-payments');
+
+Route::get('/management/concierge-payments', [ConciergeReportController::class, 'index'])->name('admin.concierge-payments');
+Route::get('/management/concierge', [ConciergeReportController::class, 'index'])->name('admin.concierge-reports.index');
+
+
+// function () {
+//   return view('admin.Concierge.payment-reconciliation');
+// }
 
 Route::get('/management/application', function () {
   return view('admin.management.logs.application');
 })->name('admin.application');
+
 
 Route::get('/management/revision', function () {
   return view('admin.management.logs.revision');
