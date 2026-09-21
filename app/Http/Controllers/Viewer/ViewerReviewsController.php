@@ -148,9 +148,6 @@ class ViewerReviewsController extends Controller
                                 <i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="View"></i>
                             </a>';
 
-                
-
-                
             })
             ->rawColumns(['action','rating','status'])
              ->with([
