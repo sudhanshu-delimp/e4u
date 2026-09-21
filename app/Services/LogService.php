@@ -128,8 +128,8 @@ class LogService
         $startOfYear = Carbon::now()->startOfYear();
         $endOfDay    = Carbon::now()->endOfDay();
 
-        Log::info($startOfYear);
-        Log::info($endOfDay);
+        // Log::info($startOfYear);
+        // Log::info($endOfDay);
 
         
         $thisWeekVisitor = Visitor::where('listing_profile_id', $profile_id)

@@ -88,9 +88,7 @@ class AnalyticsController extends Controller
                 ->addColumn('pin_up', function ($row) use($advertiserType) {
                     if($advertiserType=='escort')
                     return isset($row->advertiser->escort->pinup)
-                    && count($row->advertiser->escort->pinup) > 0
-                    ? 'Yes'
-                    : 'No';
+                    && count($row->advertiser->escort->pinup) > 0 ? 'Yes' : 'No';
                     else
                     return '--';
                 })
@@ -145,8 +143,7 @@ class AnalyticsController extends Controller
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#current_location" data-membername="'.$row->advertiser->profile_name.'" data-memberid="'.$row->advertiser->user->member_id.'" data-location="'. $current_state.'"> <i class="fa fa-map-marker"></i> Current Location</a>
                                                             '. $massager_masseures.'</div>
-                                </div>
-                            ';
+                                </div>';
 
                     return $actionBtn;
                 })

@@ -183,15 +183,15 @@
 
                         <table class="w-100 table common_modal_table">
                             <tr>
-                                <td style="font-weight: bold; color: #001f4d;">Agent ID:</td>
-                                <td><span id="payAgentId"></span></td>
-                                <td style="font-weight: bold; color: #001f4d;">Date:</td>
+                                <td style="font-weight: bold; color: #000;">Agent ID:</td>
+                                <td style="text-align:right;"><span id="payAgentId"></span></td>
+                                <td style="font-weight: bold; color: #000;">Date:</td>
                                 <td><span id="payMonthlyReportDate"></span></td>
                             </tr>
                             <tr>
-                                <td style="font-weight: bold; color: #001f4d;">Fee Total:</td>
-                                <td>$<span id="payAgenFee"></span></td>
-                                <td style="font-weight: bold; color: #001f4d;">Month:</td>
+                                <td style="font-weight: bold; color: #000;">Fee Total:</td>
+                                <td style="text-align:right;">$<span id="payAgenFee"></span></td>
+                                <td style="font-weight: bold; color: #000;">Month:</td>
                                 <td><span id="payMonthlyReportMonth"></span></td>
                             </tr>
                         </table>
