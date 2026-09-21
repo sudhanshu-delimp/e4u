@@ -296,10 +296,17 @@
 
 
 @if (!@$print)
+    @php
+        if (auth()->user()->type == 4) {
+            $route = route('center.print.order.details', Crypt::encrypt($order->id));
+        } elseif (auth()->user()->type == 3) {
+            $route = route('escort.print.order.details', Crypt::encrypt($order->id));
+        } elseif (auth()->user()->type == 1) {
+            $route = route('admin.print.order.details', Crypt::encrypt($order->id));
+        }
+    @endphp
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary"> <a
-                href="{{ auth()->user()->type == 4 ? route('center.print.order.details', Crypt::encrypt($order->id)) : route('escort.print.order.details', Crypt::encrypt($order->id)) }}"
-                target="_blank">
+        <button type="button" class="btn btn-primary"> <a target="_blank" href="{{ $route }}">
                 🖨️ Print
             </a>
         </button>
