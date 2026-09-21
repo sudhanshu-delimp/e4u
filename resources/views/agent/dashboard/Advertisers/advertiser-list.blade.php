@@ -430,9 +430,24 @@
         <div class="modal-dialog modal-dialog-centered modal-lg " role="document">
             <div class="modal-content basic-modal">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="viewAccountModal"><img
-                            src="{{ asset('assets/dashboard/img/transaction.png') }}" alt="alert"
-                            style="width:29px;">
+                    <h5 class="modal-title" id="viewAccountModal">
+                        <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                                    </g>
+
+                                                    <g id="SVGRepo_iconCarrier">
+
+                                                        <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        </path>
+
+                                                        <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        </path>
+
+                                                    </g>
+
+                                                </svg>
                         Summary
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
