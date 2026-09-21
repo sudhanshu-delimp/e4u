@@ -318,7 +318,7 @@
 
 
                                         {{-- Show Entries --}}
-                                        <div class="form-group common-card disabled-link">
+                                        <div class="form-group common-card disa bled-link">
                                             <div class="card-top">
                                                 <div class="card-icon">
                                                     <svg viewBox="0 0 24 24" fill="none">
@@ -343,32 +343,20 @@
                                                 <span class="entries-label">
                                                     Your default setting is:
                                                 </span>
+   @php
+                                            $showEntries = $setting->agent_settings->show_entries ?? 25;
+                                        @endphp
 
-                                                <select class="entries-select" name="show_entries">
-                                                    <option value="10"
-                                                        {{ isset($setting->agent_settings) && $setting->agent_settings->show_entries == '10' ? 'selected' : '' }}>
-                                                        10
-                                                    </option>
-                                                    <option value="25"
-                                                        {{ isset($setting->agent_settings) && $setting->agent_settings->show_entries == '25' ? 'selected' : '' }}>
-                                                        25
-                                                    </option>
+                                        <select class="entries-select" name="show_entries">
+                                            @foreach (explode(',', env('PAGINATE_RANGE')) as $value)
+                                                @php $value = trim($value); @endphp
 
-                                                    <option value="50"
-                                                        {{ isset($setting->agent_settings) && $setting->agent_settings->show_entries == '50' ? 'selected' : '' }}>
-                                                        50
-                                                    </option>
-
-                                                    <option value="75"
-                                                        {{ isset($setting->agent_settings) && $setting->agent_settings->show_entries == '75' ? 'selected' : '' }}>
-                                                        75
-                                                    </option>
-
-                                                    <option value="100"
-                                                        {{ isset($setting->agent_settings) && $setting->agent_settings->show_entries == '100' ? 'selected' : '' }}>
-                                                        100
-                                                    </option>
-                                                </select>
+                                                <option value="{{ $value }}"
+                                                    {{ $showEntries == $value ? 'selected' : '' }}>
+                                                    {{ $value }}
+                                                </option>
+                                            @endforeach
+                                        </select>
 
                                             </div>
 
