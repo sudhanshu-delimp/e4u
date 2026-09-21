@@ -280,7 +280,7 @@
                             <img src="{{ asset('assets/dashboard/img/menu-icon/my-report.png') }}">
                             <span
                                 style="{{ request()->segment(3) == 'my-report' || request()->is('user-dashboard/edit-my-reports/*') ? 'color: #e5365a;' : '' }}">My
-                                Report</span>
+                                Reports</span>
                         </a>
 
                     </div>

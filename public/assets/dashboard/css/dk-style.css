@@ -5,6 +5,7 @@
     --black-body: #212529;
     --peach: #ff3c5f;
     --blue--text--default: #2B3D50;
+    --light-pink: #fff0f4;
     /* status */
     --active--status: rgb(80, 220, 150);
     --dispatch--status: rgb(72, 185, 208);
@@ -3775,7 +3776,7 @@ button.btn:focus {
     position: absolute;
     bottom: 0px;
     right: 0px;
-    background: var(--blue--text);
+    background: var(--light-pink);
     width: 100px;
     height: 35px;
     display: flex;
@@ -11265,6 +11266,45 @@ border-top: 5px solid var(--peach);
     font-size: 16px;
     font-weight: 700;
     color: var(--peach) !important;
+}
+
+.history_avtar {
+    background-color: var(--light-pink);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--white);
+    height: 85px;
+    width: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.history_avtar img {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+}
+
+.history_info {
+    color: #858796;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.custom_card_footer {
+    background-color: transparent;
+    border-top: 0px;
+    display: flex;
+    justify-content: end;
+    gap: 20px;
+    padding: 0px;
+}
+
+.history_info .devider {
+    border: 1px solid #ccc;
+    margin: 0px 10px;
+    font-size: 10px;
 }
 
 .statistics-icon {

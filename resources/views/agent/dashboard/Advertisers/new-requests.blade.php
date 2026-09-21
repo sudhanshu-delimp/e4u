@@ -1,6 +1,20 @@
 @extends('layouts.agent')
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+<style>
+   .statement-accordian .card .card-header a:after {
+  
+    position: absolute;
+    right: 0%;
+    top: 30%;
+    font-size: 22px;
+    background: var(--light-pink);
+    padding: 10px 14px;
+    line-height: 20px;
+    border-radius: var(--radius-full);
+    color: var(--peach) !important;
+}
+</style>
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -44,12 +58,9 @@
    @endif
 
 
-   <div class="col-md-12 pt-4">
-      <div id="data-container">
+      <div id="data-container" class="mt-2">
          @include('agent.dashboard.Advertisers.agent-requests-list')
       </div>
-   </div>
-</div>
 </div>
 
 <div id="popupContainer"></div>

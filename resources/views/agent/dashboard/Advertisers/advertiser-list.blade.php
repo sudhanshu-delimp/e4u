@@ -52,7 +52,7 @@
                         <div class="col-md-12 mb-4">
                             <div class="card collapse" id="notes">
                                 <div class="card-body">
-                                   <h3 class="NotesHeader"><b>Notes:</b></h3>
+                                    <h3 class="NotesHeader"><b>Notes:</b></h3>
                                     <ol>
                                         <li>
                                             You can access all of your Advertisers here. The report 'Earnings' column is
@@ -76,7 +76,27 @@
                         </div>
                     </div>
                     {{-- End Heading --}}
+                    <div class="row my-3">
+                        <div class="col-lg-12 d-flex justify-content-end" style="gap: 20px;">
+                        
+                            <div class="d-flex justify-content-end" style="gap: 20px;">
 
+                                <div class="total_listing">
+                                    <div><span>Escorts : </span></div>
+                                    <div><span class="">01</span></div>
+                                </div>
+                                <div class="total_listing">
+                                    <div><span>Centres : </span></div>
+                                    <div><span class="">0</span></div>
+                                </div>
+                                <div class="total_listing">
+                                    <div><span>Total Advertisers : </span></div>
+                                    <div><span class="">01</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             <div class="table-responsive">
@@ -341,48 +361,7 @@
         </div>
     </div>
 
-    <!-- View Account Modal -->
-    <div class="modal upload-modal fade" id="viewAccountModal" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-white"> <img src="{{ asset('assets/dashboard/img/view-task.png') }}"
-                            class="custompopicon"> View Account</h5>
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img
-                                src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <th><b>Name</b></th>
-                                    <td>Carla Brasil</td>
-                                </tr>
-                                <tr>
-                                    <th><b>Email</b></th>
-                                    <td>carla@gmail.com</td>
-                                </tr>
-                                <tr>
-                                    <th><b>Phone</b></th>
-                                    <td>0438 028 728</td>
-                                </tr>
-                                <tr>
-                                    <th><b>Joined</b></th>
-                                    <td>01-01-2026</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn-cancel-modal" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+ 
     <!-- Edit Account Modal -->
     <div class="modal upload-modal fade" id="editAccountModal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -442,6 +421,82 @@
             </div>
         </div>
     </div>
+
+    <!--- Summary Modal --->
+
+
+    <div class="modal fade upload-modal" id="viewAccountModal" tabindex="-1" role="dialog"
+        aria-labelledby="viewAccountModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg " role="document">
+            <div class="modal-content basic-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewAccountModal"><img
+                            src="{{ asset('assets/dashboard/img/transaction.png') }}" alt="alert"
+                            style="width:29px;">
+                        Summary
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div id="listingModalContent">
+                                 {{-- @endif
+                            @if (!empty($print))
+                            <h3>Transaction Summary</h3>
+                            @endif --}}
+                                <table
+                                    style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
+                                    <tbody>
+                                        <tr style="text-align:left; border: 1px solid #ccc; padding: 8px;">
+                                            <td colspan="2">
+                                                <img src="{{ asset('assets/dashboard/img/no-image-light.png') }}" alt="thumbnail" style="width:100px;">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:left; border: 1px solid #ccc; padding: 8px;">
+                                                <strong>Member ID</strong></td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">E20118</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Name</strong></td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">Kendra Kayy</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Mobile</strong></td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">1438 028 740</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Email</strong></td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">Kendra740@e4u.com.au</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Home State</strong></td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">NSW</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Appointed</strong></td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">12-01-2026</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn-success-modal nex_sterp_btn print_payment_summary text-white"
+                        target="_blank">🖨️ Print Summary</a>
+                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('script')
@@ -465,7 +520,7 @@
                 searching: true,
                 bStateSave: false,
                 lengthMenu: paginateRange,
-pageLength: paginateLength,
+                pageLength: paginateLength,
                 ajax: {
                     url: "{{ route('agent.accepted_advertiser_datatable') }}",
                     type: 'GET',
@@ -545,6 +600,7 @@ pageLength: paginateLength,
                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" style="height:auto !important;">
                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)"  onclick="return switchAccount('${row.switch_account_route}', '${row.switch_confirm_message}');">
                     <i class="fa fa-random"></i> Switch To</a>
+                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#viewAccountModal"><i class="fa fa-eye"></i>Summary</a>
                    <!--a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#createProfileModal"><i class="fa fa-plus"></i> Create Profile</a>
                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#editProfileModal"><i class="fa fa-pen"></i> Edit Profile</a>
                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="/agent/profile/list/${row.member_id}"><i class="fa fa-list"></i> List Profile</a>
@@ -556,7 +612,7 @@ pageLength: paginateLength,
                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#manageMasseursModal"><i class="fa fa-user"></i> Manage Masseurs</a>
                    <div class="dropdown-divider"></div>
                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#editAccountModal"><i class="fa fa-pen"></i> Edit Account</a>
-                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#viewAccountModal"><i class="fa fa-eye"></i>View Account</a>
+                   
                    <div class="dropdown-divider"></div>
                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#printSummaryModal"><i class="fa fa-print"></i> Print</a>
                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="/agent/message/send?member_id=${row.member_id}"><i class="fa fa-comment"></i> Message</a -->
@@ -572,7 +628,7 @@ pageLength: paginateLength,
                 order: [
                     [0, 'desc']
                 ],
-                 
+
             });
         });
 
