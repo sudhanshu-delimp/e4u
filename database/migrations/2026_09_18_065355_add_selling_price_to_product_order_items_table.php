@@ -14,7 +14,7 @@ class AddSellingPriceToProductOrderItemsTable extends Migration
      public function up(): void
     {
         Schema::table('product_order_items', function (Blueprint $table) {
-            $table->decimal('selling_price', 10, 2)
+            $table->decimal('retail_price', 10, 2)
                   ->nullable()
                   ->after('price');
         });
@@ -23,7 +23,7 @@ class AddSellingPriceToProductOrderItemsTable extends Migration
     public function down(): void
     {
         Schema::table('product_order_items', function (Blueprint $table) {
-            $table->dropColumn('selling_price');
+            $table->dropColumn('retail_price');
         });
     }
 }

@@ -323,27 +323,18 @@ class ConciergeReportController extends Controller
 
 
 
- public function getReport  (Request $request)
-{
-    $period=ConciergePaymentReconciliation::findOrFail($request->id);
+  public function getReport(Request $request)
+  {
+    $period = ConciergePaymentReconciliation::findOrFail($request->id);
 
-    $startDate = Carbon::createFromFormat(
-    'd-m-Y',
-    $period->bill_start_date
-)->format('Y-m-d');
+    $startDate = Carbon::createFromFormat('d-m-Y', $period->bill_start_date)->format('Y-m-d');
+    $endDate = Carbon::createFromFormat('d-m-Y',  $period->bill_end_date)->format('Y-m-d');
 
-$endDate = Carbon::createFromFormat(
-    'd-m-Y',
-    $period->bill_end_date
-)->format('Y-m-d');
-
-$orderIds = ProductOrder::
-  whereDate('order_date', '>=', $startDate)
-    ->whereDate('order_date', '<=', $endDate)
-    ->pluck('id')->toArray();
+    $orderIds = ProductOrder::whereDate('order_date', '>=', $startDate)  ->whereDate('order_date', '<=', $endDate)
+      ->pluck('id')->toArray();
 
 
-$items=ProductOrderItem::with('productOrder','productOrder.user','product')->whereIn('order_id',$orderIds)->get();
+    $items = ProductOrderItem::with('productOrder', 'productOrder.user', 'product')->whereIn('order_id', $orderIds)->get();
 
     // if (!$orders) {
     //     return response()->json([
@@ -351,11 +342,11 @@ $items=ProductOrderItem::with('productOrder','productOrder.user','product')->whe
     //         'message' => 'Report not found.'
     //     ]);
     // }
-    $html = view('admin.Concierge.conserge_report',compact('items'))->render();
+    $html = view('admin.Concierge.conserge_report', compact('items'))->render();
 
     return response()->json([
-        'status' => true,
-        'html' => $html
+      'status' => true,
+      'html' => $html
     ]);
-}
+  }
 }

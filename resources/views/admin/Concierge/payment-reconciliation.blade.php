@@ -90,7 +90,11 @@
         </div>
     </div>
     {{-- end --}}
-
+<div id="reportLoader" class="text-center d-none">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
     {{-- end --}}
 @endsection
 @push('script')
@@ -160,34 +164,43 @@
             columns: @json($columns)
         });
 
-        $(document).on('click', '.approve-report', function(e) {
-            e.preventDefault();
-            let id = $(this).data('id');
+   $(document).on('click', '.approve-report', function(e) {
+    e.preventDefault();
 
-            $.ajax({
-                url: "{{ route('admin.report.details') }}",
-                type: "GET",
-                data: {
-                    id: id
-                },
-                beforeSend: function() {
-                    // loader
-                },
-                success: function(response) {
-                    if (response.status) {
-                        $('#viewReports .modal-body').html(response.html);
-                        const modalElement = document.getElementById('viewReports');
-                        const modal = new bootstrap.Modal(modalElement);
-                        modal.show();
+    let id = $(this).data('id');
 
-                    } else {
-                        alert(response.message);
-                    }
-                },
-                error: function(xhr) {
-                    console.log(xhr.responseText);
-                }
-            });
-        });
+    $.ajax({
+        url: "{{ route('admin.report.details') }}",
+        type: "GET",
+        data: {
+            id: id
+        },
+
+        beforeSend: function() {
+            $('#reportLoader').removeClass('d-none');
+        },
+
+        success: function(response) {
+            if (response.status) {
+                $('#viewReports .modal-body').html(response.html);
+
+                const modalElement = document.getElementById('viewReports');
+                const modal = new bootstrap.Modal(modalElement);
+                modal.show();
+            } else {
+                alert(response.message);
+            }
+        },
+
+        error: function(xhr) {
+            console.log(xhr.responseText);
+            alert('Something went wrong. Please try again.');
+        },
+
+        complete: function() {
+            $('#reportLoader').addClass('d-none');
+        }
+    });
+});
     </script>
 @endpush
