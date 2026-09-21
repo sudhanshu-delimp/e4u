@@ -92,7 +92,7 @@ class GenerateConciergePaymentReconciliation extends Command
         |--------------------------------------------------------------------------
         */
 
-    $orders = ProductOrder::with(['paymentDetails', 'user','orderItems'])
+    $orders = ProductOrder::with(['paymentDetails', 'user', 'orderItems'])
       // $orders = ProductOrder::query()
       ->whereBetween('order_date', [
         $billStartDate->copy()->startOfDay(),
@@ -120,15 +120,15 @@ class GenerateConciergePaymentReconciliation extends Command
         Log::info(' Price: ' . $item->price);
 
         return (float) $item->price;
-    }); 
+      });
     });
 
     $supplierAmount = $orders->sum(function ($order) {
- return $order->orderItems->sum(function ($item) {
+      return $order->orderItems->sum(function ($item) {
         Log::info('Retail Price: ' . $item->retail_price);
 
         return (float) $item->retail_price;
-    });      // return (float) $order->orderItems->retail_price;
+      });      // return (float) $order->orderItems->retail_price;
     });
 
     /*
