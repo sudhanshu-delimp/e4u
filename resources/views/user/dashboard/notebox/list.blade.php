@@ -361,7 +361,7 @@
                 <td colspan="6" class="border-0">
                     <img src="${data.profile_pic}"
                          alt="Profile Image"
-                         style="width: 70px; height: 70px; object-fit: cover; border-radius: 6px;">
+                         style="width: 120px; height: 120px; object-fit: cover; border-radius: 6px;">
                 </td>
             </tr>
         `;
@@ -373,7 +373,7 @@
                         <img src="{{ asset('assets/dashboard/img/no-image-light.png') }}"
                              alt="No Image"
                              class="no-image"
-                             style="width: 70px; height: 70px; object-fit: cover; border-radius: 6px;">
+                             style="width: 120px; height: 120px; object-fit: cover; border-radius: 6px;">
                     </div>
                 </td>
             </tr>
@@ -385,7 +385,10 @@
 
             <div class="mb-3 d-flex justify-content-between align-items-center">
                
-                   ${profileImage}
+                  <div class="notebox-profile">
+                      ${profileImage}
+                      <span class="custom-tooltip  data-toggle="modal" data-target="#">Click to view </span>
+                     </div>
                 <button class="btn-sm close_report_btn bg-transparent" type="button">
                     <img src="{{ asset('assets/dashboard/img/crossimg.png') }}"
                          alt="Close"
