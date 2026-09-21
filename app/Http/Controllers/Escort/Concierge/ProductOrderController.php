@@ -177,7 +177,7 @@ class ProductOrderController extends Controller
             'product_id' => $productId,
             'quantity' => $details['qty'],
             'price' => $details['price'],
-            'selling_price' => Product::where('id', $productId)->value('selling_price'),
+            'retail_price' => Product::where('id', $productId)->value('retail_price'),
             'total' => $details['price'] * $details['qty'],
           ];
           array_push($products, $orderItem);
@@ -254,7 +254,7 @@ class ProductOrderController extends Controller
       $completedBy =  $request->isImpersonated ? $request->impersonatedId : $this->account->id;
 
       $metadata = [
-        'console' => 'Escort Console (E20189)',
+        'console' =>  (Auth::user()->type == 4 ? 'Massage Centre Console' : "Escort Console") . " (".Auth::user()->member_id.")",
         'type' => 'product-purchase',
         'order_id' => $order->id,
         'user_id' => Auth::user()->id,
