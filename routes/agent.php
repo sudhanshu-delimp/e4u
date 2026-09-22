@@ -179,7 +179,7 @@ use Illuminate\Support\Facades\Route;
      })->name('agent.advertiser-list'); */
     Route::get('/advertiser-list', [AgentRequestController::class, 'advertiserList'])->name('agent.advertiser-list');
     Route::get('/accepted_advertiser_datatable', [AgentRequestController::class, 'accepted_advertiser_datatable'])->name('agent.accepted_advertiser_datatable');
-
+    Route::get('/print-advertiser-report/{id}', [AgentRequestController::class, 'printReport'])->name('agent.printReport');
     //Fee summary
     Route::get('fees/summary', [FeesSummaryController::class, 'feesSummary'])->name('agent.fees.summary');
     Route::get('single-advertiser-fees-summary', [FeesSummaryController::class, 'singleAdvertiserFeeSummary'])->name('single-advertiser-summary');

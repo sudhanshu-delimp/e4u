@@ -16,6 +16,7 @@ use App\Models\AdvertiserAgentRequest;
 use App\Http\Requests\Agent\AgentRequest;
 use App\Models\AdvertiserAgentRequestUser;
 use Illuminate\Support\Facades\Cache;
+use PDF;
 use Carbon\Carbon;
 
 class AgentRequestController extends Controller
@@ -570,19 +571,6 @@ class AgentRequestController extends Controller
 
     public function accepted_advertiser_paginatedList($start, $limit, $order_key, $dir)
     {
-        // $query = AdvertiserAgentRequest::whereHas('advertiser_agent_request_user', function ($q) {
-        //         $q->where('status', '=', 1)
-        //         ->where('receiver_agent_id', auth()->id());
-        //     })
-        //      ->with([
-        //         'user',
-        //         'user.state',
-        //         'advertiser_agent_request_user' => function ($q) {
-        //             $q->where('status', '!=', 0)
-        //             ->where('receiver_agent_id', auth()->id());
-        //         },
-        //     ]);
-
         $query  = User::with('state')->where('assigned_agent_id', auth()->id())->where('is_agent_assign', '1');
 
         $search = request()->input('search.value');
@@ -603,7 +591,12 @@ class AgentRequestController extends Controller
 
         $totalRequest = $query->count();
         $requestList = $query->offset($start)->limit($limit)->get();
-
+   
+        $typeCounts = array_count_values($requestList->pluck('type')->toArray());
+        $request_count = [
+            'MC'     => $typeCounts[4] ?? 0,
+            'Escort' => $typeCounts[3] ?? 0,
+        ];
         foreach ($requestList as $item) {
             $item->joined_date =  isset($item->created_at) ? date('d-m-Y', strtotime($item->created_at)) : 'NA';
             $item->appointed_date =  isset($item->agent_assign_date) ? date('d-m-Y', strtotime($item->agent_assign_date)) : 'NA';
@@ -621,7 +614,7 @@ class AgentRequestController extends Controller
 
         }
 
-        return [$requestList, $totalRequest];
+        return [$requestList, $totalRequest, $request_count];
     }
 
     public function advertiserList()
@@ -634,7 +627,7 @@ class AgentRequestController extends Controller
     ################### accepted_advertiser_datatable ##############################
     public function accepted_advertiser_datatable()
     {
-        list($result, $count) = $this->accepted_advertiser_paginatedList(
+        list($result, $count, $request_count) = $this->accepted_advertiser_paginatedList(
             request()->get('start'),
             request()->get('length'),
             (request()->get('order')[0]['column']),
@@ -644,9 +637,16 @@ class AgentRequestController extends Controller
             "draw"            => intval(request()->input('draw')),
             "recordsTotal"    => intval($count),
             "recordsFiltered" => intval($count),
+            'requestCount'    => $request_count,
             "data"            => $result
         );
 
         return response()->json($data);
+    }
+
+    public function printReport(Request $request, $id){
+        $escort_info = User::with('state')->findOrFail($id);
+        $pdf = PDF::loadView('agent.dashboard.advertiser-summary', compact('escort_info',));
+        return $pdf->stream($escort_info->member_id . '_Advertiser _Summary_' . $escort_info->id . '.pdf');
     }
 }
