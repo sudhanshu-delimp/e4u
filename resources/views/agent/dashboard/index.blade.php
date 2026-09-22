@@ -36,7 +36,22 @@
    <div class="row mb-4">
       
       {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
+      <div class="col-lg-3 box-wrapper">
+          <div class="my-custom-box shadow-sm">
+              <a href="{{ route('agent.advertiser-list') }}?from=dashboard">
+                  <div class="box-icon">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-advertisers.png') }}" alt="My Advertisers">
+                  </div>
+                  <h2>
+                     My Advertisers
+                  </h2>
+              </a>
+
+          </div>
+      </div>
+      {{-- end --}}
+      {{-- box start --}}
+      <div class="col-lg-3 box-wrapper">
           <div class="my-custom-box shadow-sm">
               <a href="{{ route('agent.my.appointment.list') }}">
                   <div class="box-icon">
@@ -52,7 +67,7 @@
       {{-- end --}}
       
       {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
+      <div class="col-lg-3 box-wrapper">
           <div class="my-custom-box shadow-sm">
               <a href="{{ route('agent.task-list') }}">
                   <div class="box-icon">
@@ -67,7 +82,36 @@
       </div>
       {{-- end --}}
       {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
+      <div class="col-lg-3 box-wrapper">
+          <div class="my-custom-box shadow-sm">
+              <a href="{{ route('agent.advertisers') }}">
+                  <div class="box-icon">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-advertisers.png') }}" alt="Advertisers ">
+                  </div>
+                  <h2>
+                    Top Advertisers
+                  </h2>
+              </a>
+
+          </div>
+      </div>
+      {{-- end --}}
+      {{-- box start --}}
+      <div class="col-lg-3 box-wrapper">
+          <div class="my-custom-box shadow-sm">
+              <a href="{{ route('Fees.my-income') }}">
+                  <div class="box-icon">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-income.png') }}" alt="My Income">
+                  </div>
+                  <h2>
+                      My Income
+                  </h2>
+              </a>
+
+          </div>
+      </div>
+      {{-- box start --}}
+      <div class="col-lg-3 box-wrapper">
           <div class="my-custom-box shadow-sm">
               <a href="{{ route('agent.my-statistics') }}">
                   <div class="box-icon">
@@ -82,83 +126,22 @@
       </div>
       {{-- end --}}
       {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-          <div class="my-custom-box shadow-sm">
-              <a href="{{ route('agent.advertiser-list') }}?from=dashboard">
-                  <div class="box-icon">
-                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-advertisers.png') }}" alt="My Advertisers">
-                  </div>
-                  <h2>
-                     My Advertisers
-                  </h2>
-              </a>
-
-          </div>
-      </div>
-      {{-- end --}}
-      {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-          <div class="my-custom-box shadow-sm">
-              <a href="{{ route('agent.advertisers') }}">
-                  <div class="box-icon">
-                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-advertisers.png') }}" alt="Advertisers ">
-                  </div>
-                  <h2>
-                     Advertisers (Summary) 
-                  </h2>
-              </a>
-
-          </div>
-      </div>
-      {{-- end --}}
-      
-      {{-- end --}}
-      {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
+      <div class="col-lg-3 box-wrapper">
          <div class="my-custom-box shadow-sm">
              <a href="{{ route('agent.marketing.database.centres') }}?from=dashboard">
                  <div class="box-icon">
                      <img src="{{ asset('assets/dashboard/img/boxicon/icon_logs-stats.png') }}" alt=" Database (Centers)">
                  </div>
                  <h2>
-                  Database (Centers)
+                  Database Centers
                  </h2>
              </a>
 
          </div>
      </div>
      {{-- end --}}
-      {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-          <div class="my-custom-box shadow-sm">
-              <a href="{{ route('Fees.my-income') }}">
-                  <div class="box-icon">
-                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-income.png') }}" alt="My Income">
-                  </div>
-                  <h2>
-                      My Income
-                  </h2>
-              </a>
-
-          </div>
-      </div>
-     
-      {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-          <div class="my-custom-box shadow-sm">
-              <a href="{{ url('submit_ticket') }}?from=dashboard">
-                  <div class="box-icon">
-                      <img src="{{ asset('assets/dashboard/img/boxicon/icon_support-tickets.png') }}" alt="Support Tickets">
-                  </div>
-                  <h2>
-                     Support Tickets
-                  </h2>
-              </a>
-
-          </div>
-      </div>
-      {{-- end --}}{{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
+     {{-- box start --}}
+      <div class="col-lg-3 box-wrapper">
           <div class="my-custom-box shadow-sm">
               <a href="{{ route('agent.logs-and-status') }}">
                   <div class="box-icon">
@@ -166,6 +149,22 @@
                   </div>
                   <h2>
                      Logs & Status
+                  </h2>
+              </a>
+
+          </div>
+      </div>
+      {{-- end --}}
+     
+      {{-- box start --}}
+      <div class="col-lg-3 box-wrapper">
+          <div class="my-custom-box shadow-sm">
+              <a href="{{ url('submit_ticket') }}?from=dashboard">
+                  <div class="box-icon">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/icon_support-tickets.png') }}" alt="Support Tickets">
+                  </div>
+                  <h2>
+                     Support Tickets
                   </h2>
               </a>
 

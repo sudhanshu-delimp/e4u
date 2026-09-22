@@ -50,6 +50,7 @@ use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Escort\Concierge\ProductController;
 use App\Http\Controllers\Admin\AgentMonthlyReportController;
 use App\Http\Controllers\Admin\OperatorMonthlyReportController;
+use App\Http\Controllers\Admin\ConciergeReportController;
 use App\Http\Controllers\Admin\VisaMigrationRequestController;
 use App\Http\Controllers\Admin\SeoManagementController;
 
@@ -754,6 +755,7 @@ Route::prefix('reports')->name('admin.')->group(function () {
   Route::get('/order-list', [ProductOrderController::class, 'orderList'])->name('escort.orders.list');
   Route::post('/order-complete', [ProductOrderController::class, 'orderComplete'])->name('escort.order.complete');
   Route::get('/order-details', [ProductOrderController::class, 'getOrderDetails'])->name('escort.order.details');
+  Route::get('/print-order-details/{id}', [ProductOrderController::class, 'printOrderDetail'])->name('print.order.details');
 });
 
 Route::get('/concierge/visa-migration-request', [VisaMigrationRequestController::class, 'index'])->name('admin.visa.migration.index');
@@ -846,13 +848,20 @@ Route::get('support-services/summary', function () {
   return view('admin.support-services.summary');
 })->name('admin.summary');
 
-Route::get('/management/concierge-payments', function () {
-  return view('admin.Concierge.payment-reconciliation');
-})->name('admin.concierge-payments');
+
+Route::get('/management/concierge-payments', [ConciergeReportController::class, 'index'])->name('admin.concierge-payments');
+Route::get('/management/concierge', [ConciergeReportController::class, 'index'])->name('admin.concierge-reports.index');
+Route::get('/management/concierge/report', [ConciergeReportController::class, 'getReport'])->name('admin.report.details');
+
+
+// function () {
+//   return view('admin.Concierge.payment-reconciliation');
+// }
 
 Route::get('/management/application', function () {
   return view('admin.management.logs.application');
 })->name('admin.application');
+
 
 Route::get('/management/revision', function () {
   return view('admin.management.logs.revision');

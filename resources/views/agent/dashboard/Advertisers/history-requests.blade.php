@@ -119,7 +119,6 @@ text-align: center;
       });
    });
 
-
    document.getElementById('searchForm').addEventListener('keydown', function(event) {
       if (event.key === 'Enter') {
          event.preventDefault();
