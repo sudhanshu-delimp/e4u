@@ -21,9 +21,16 @@
    <!--middle content end here-->
    {{-- Page Heading   --}}
    <div class="row">
-      <div class="custom-heading-wrapper col-lg-12">
-         <h1 class="h1">New Requests</h1>
-         <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+      <div class="d-flex align-items-center justify-content-between col-md-12">
+            <div class="custom-heading-wrapper">
+               <h1 class="h1">New Requests</h1>
+               <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+            </div>
+            <div class="back-to-dashboard">
+               <a href="{{ url()->previous() ?? route('dashboard.home') }}">
+                  <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+               </a>
+            </div>
       </div>
       <div class="col-md-12 mb-4">
          <div class="card collapse" id="notes" style="">

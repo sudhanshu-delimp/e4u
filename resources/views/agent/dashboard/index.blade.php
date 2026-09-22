@@ -53,7 +53,7 @@
       {{-- box start --}}
       <div class="col-lg-3 box-wrapper">
           <div class="my-custom-box shadow-sm">
-              <a href="{{ route('agent.my.appointment.list') }}">
+              <a href="{{ route('agent.my.appointment.list') }}?from=dashboard">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-appointments.png') }}" alt="My Appointments">
                   </div>
@@ -69,7 +69,7 @@
       {{-- box start --}}
       <div class="col-lg-3 box-wrapper">
           <div class="my-custom-box shadow-sm">
-              <a href="{{ route('agent.task-list') }}">
+              <a href="{{ route('agent.task-list') }}?from=dashboard">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/agent/task-list.png') }}" alt="Task List">
                   </div>
@@ -82,9 +82,9 @@
       </div>
       {{-- end --}}
       {{-- box start --}}
-      <div class="col-lg-3 box-wrapper">
+      <div class="col-lg-3 box-wrapper disabled-link">
           <div class="my-custom-box shadow-sm">
-              <a href="{{ route('agent.advertisers') }}">
+              <a href="{{ route('agent.advertisers') }}?from=dashboard">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-advertisers.png') }}" alt="Advertisers ">
                   </div>
@@ -99,7 +99,21 @@
       {{-- box start --}}
       <div class="col-lg-3 box-wrapper">
           <div class="my-custom-box shadow-sm">
-              <a href="{{ route('Fees.my-income') }}">
+              <a href="{{ route('Fees.monthly-report') }}?from=dashboard">
+                  <div class="box-icon">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/monthly-report.png') }}" alt="Monthly Report">
+                  </div>
+                  <h2>
+                     Monthly Report
+                  </h2>
+              </a>
+
+          </div>
+      </div>
+      {{-- box start --}}
+      <div class="col-lg-3 box-wrapper">
+          <div class="my-custom-box shadow-sm">
+              <a href="{{ route('Fees.my-income') }}?from=dashboard">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-income.png') }}" alt="My Income">
                   </div>
@@ -113,7 +127,7 @@
       {{-- box start --}}
       <div class="col-lg-3 box-wrapper">
           <div class="my-custom-box shadow-sm">
-              <a href="{{ route('agent.my-statistics') }}">
+              <a href="{{ route('agent.my-statistics') }}?from=dashboard">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-statistics.png') }}" alt=" My Statistics">
                   </div>
@@ -128,9 +142,24 @@
       {{-- box start --}}
       <div class="col-lg-3 box-wrapper">
          <div class="my-custom-box shadow-sm">
+             <a href="{{ route('agent.new-requests') }}?from=dashboard">
+                 <div class="box-icon">
+                     <img src="{{ asset('assets/dashboard/img/boxicon/new-request.png') }}" alt=" New Requests">
+                 </div>
+                 <h2>
+                  New Requests
+                 </h2>
+             </a>
+
+         </div>
+     </div>
+     {{-- end --}}
+      {{-- box start --}}
+      <div class="col-lg-3 box-wrapper">
+         <div class="my-custom-box shadow-sm">
              <a href="{{ route('agent.marketing.database.centres') }}?from=dashboard">
                  <div class="box-icon">
-                     <img src="{{ asset('assets/dashboard/img/boxicon/icon_logs-stats.png') }}" alt=" Database (Centers)">
+                     <img src="{{ asset('assets/dashboard/img/boxicon/icon_logs-stats.png') }}" alt=" Database Centers">
                  </div>
                  <h2>
                   Database Centers
@@ -143,7 +172,7 @@
      {{-- box start --}}
       <div class="col-lg-3 box-wrapper">
           <div class="my-custom-box shadow-sm">
-              <a href="{{ route('agent.logs-and-status') }}">
+              <a href="{{ route('agent.logs-and-status') }}?from=dashboard">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/agent/logs-and-statistics.png') }}" alt="Logs & Status">
                   </div>
@@ -155,7 +184,21 @@
           </div>
       </div>
       {{-- end --}}
-     
+       {{-- box start --}}
+      <div class="col-lg-3 box-wrapper disabled-link">
+          <div class="my-custom-box shadow-sm">
+              <a href="{{ route('agent.agent-messages') }}?from=dashboard">
+                  <div class="box-icon">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/messages.png') }}" alt="Messages">
+                  </div>
+                  <h2>
+                     Messages
+                  </h2>
+              </a>
+
+          </div>
+      </div>
+      {{-- end --}}
       {{-- box start --}}
       <div class="col-lg-3 box-wrapper">
           <div class="my-custom-box shadow-sm">
@@ -174,120 +217,6 @@
   </div>
 
 
-
-
-   <div class="row agent-dash d-none">
-      <div class="col-lg-8 pr-2">
-         <div class="sec-one">
-            <h2 class="h5 mt-2 mb-4 text-gray-800 font-weight-bold">My Statistics</h2>
-            <div class="row">
-               <div class="col-md-3">
-                  <div class="card static-sec">
-                     <div class="card-body">
-                        <div class="text-xs font-weight-bold mb-1 text-muted">My Escorts</div>
-                        <div class="row no-gutters align-items-center">
-                           <div class="col mr-2">
-                              <div class="h2 mb-0 font-weight-bold text-gray-800">25</div>
-                           </div>
-                           <div class="col-auto">
-                              <img src="{{ asset('assets/app/img/account-multiple.png')}}">
-                           </div>
-                        </div>
-                     </div>
-                     <!-- end card-body -->
-                  </div>
-               </div>
-               <div class="col-md-3 pl-0">
-                  <div class="card static-sec-2">
-                     <div class="card-body">
-                        <div class="text-xs font-weight-bold mb-1 text-muted">My Massage Centres</div>
-                        <div class="row no-gutters align-items-center">
-                           <div class="col mr-2">
-                              <div class="h2 mb-0 font-weight-bold text-gray-800">125</div>
-                           </div>
-                           <div class="col-auto">
-                              <img src="{{ asset('assets/app/img/account-multiple-1.png')}}">
-                           </div>
-                        </div>
-                     </div>
-                     <!-- end card-body -->
-                  </div>
-               </div>
-               <div class="col-md-3 pl-0">
-                  <div class="card static-sec">
-                     <div class="card-body">
-                        <div class="text-xs font-weight-bold mb-1 text-muted">Escort Profiles Posted</div>
-                        <div class="row no-gutters align-items-center">
-                           <div class="col mr-2">
-                              <div class="h2 mb-0 font-weight-bold text-gray-800">32</div>
-                           </div>
-                           <div class="col-auto">
-                              <img src="{{ asset('assets/app/img/account-multiple-2.png')}}">
-                           </div>
-                        </div>
-                     </div>
-                     <!-- end card-body -->
-                  </div>
-               </div>
-               <div class="col-md-3 pl-0">
-                  <div class="card static-sec-2">
-                     <div class="card-body">
-                        <div class="text-xs font-weight-bold mb-1 text-muted">Massage Profiles Posted</div>
-                        <div class="row no-gutters align-items-center">
-                           <div class="col mr-2">
-                              <div class="h2 mb-0 font-weight-bold text-gray-800">125</div>
-                           </div>
-                           <div class="col-auto">
-                              <img src="{{ asset('assets/app/img/account-multiple-3.png')}}">
-                           </div>
-                        </div>
-                     </div>
-                     <!-- end card-body -->
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <div class="col-lg-4">
-         <div class="sec-one pb-4">
-            <h2 class="h5 mt-2 mb-4 text-gray-800 font-weight-bold">My Income</h2>
-            <div class="row pb-1">
-               <div class="col-md-6 pr-0">
-                  <div class="card">
-                     <div class="card-body pl-2 pr-2 pt-4 pb-4 mt-1">
-                        <div class="row no-gutters align-items-center">
-                           <div class="col mr-2">
-                              <div class="text-xs font-weight-bold mb-1 text-muted">Today’s Income</div>
-                              <div class="h6 mb-0 font-weight-bold text-gray-800">$ 580.00</div>
-                           </div>
-                           <div class="col-6">
-                              <img src="{{ asset('assets/app/img/account-multiple-4.png')}}" class="img-fluid">
-                           </div>
-                        </div>
-                     </div>
-                     <!-- end card-body -->
-                  </div>
-               </div>
-               <div class="col-md-6">
-                  <div class="card">
-                     <div class="card-body pl-2 pr-2 pt-4 pb-4 mt-1">
-                        <div class="row no-gutters align-items-center">
-                           <div class="col mr-2">
-                              <div class="text-xs font-weight-bold mb-1 text-muted">Month to Date</div>
-                              <div class="h6 mb-0 font-weight-bold text-gray-800">$ 3588.00</div>
-                           </div>
-                           <div class="col-6">
-                              <img src="{{ asset('assets/app/img/account-multiple-4.png')}}" class="img-fluid">
-                           </div>
-                        </div>
-                     </div>
-                     <!-- end card-body -->
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
 </div>
 <div class="modal fade upload-modal" id="new-ban" tabindex="-1" role="dialog" aria-labelledby="new-ban" aria-hidden="true" data-backdrop="static">
    <div class="modal-dialog modal-dialog-centered" role="document">
