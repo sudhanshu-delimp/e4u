@@ -55,22 +55,19 @@
 
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+
 <style>
-<<<<<<< Updated upstream
 .avatar_img img{
 width: 60px;
 height: 60px;
 }
- </style>  
-=======
 .gm-style-iw-chr button {display: none !important;}
 
 .location_class {
 text-align: center;
 }
-</style>  
+ </style>  
 
->>>>>>> Stashed changes
 @endsection
 
 
@@ -122,18 +119,13 @@ text-align: center;
       });
    });
 
-<<<<<<< Updated upstream
-document.getElementById('searchForm').addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-    }
-});
-=======
+
    document.getElementById('searchForm').addEventListener('keydown', function(event) {
       if (event.key === 'Enter') {
          event.preventDefault();
       }
    });
+
 
 
 
@@ -252,6 +244,6 @@ $(document).ready(function()
 });
 
 ////////  End Google Map Script //////////////
->>>>>>> Stashed changes
+
 </script>
 @endpush

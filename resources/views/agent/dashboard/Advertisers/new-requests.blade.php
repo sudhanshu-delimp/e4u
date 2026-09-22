@@ -1,8 +1,6 @@
 @extends('layouts.agent')
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
-<<<<<<< Updated upstream
-=======
 <style>
    .statement-accordian .card .card-header a:after {
   
@@ -17,20 +15,12 @@
     color: var(--peach) !important;
 }
 
-
-.gm-style-iw-c button.gm-ui-hover-effect,
-.gm-style-iw-ch button,
-button[aria-label="Close"],
-button[title="Close"] {
-    display: none !important;
-}
-
 .location_class {
 text-align: center;
-
 }
+
+
 </style>
->>>>>>> Stashed changes
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -74,12 +64,9 @@ text-align: center;
    @endif
 
 
-   <div class="col-md-12 pt-4">
-      <div id="data-container">
+      <div id="data-container" class="mt-2">
          @include('agent.dashboard.Advertisers.agent-requests-list')
       </div>
-   </div>
-</div>
 </div>
 
 <div id="popupContainer"></div>
@@ -197,6 +184,7 @@ text-align: center;
          event.preventDefault();
       }
    });
+
 
 
    //////// Google Map Script //////////////
@@ -322,8 +310,8 @@ text-align: center;
       }
 
    });
-   
-   //////// End Google Map Script //////////////
+
+   //////// Google Map Script //////////////
 
 </script>
 @endpush

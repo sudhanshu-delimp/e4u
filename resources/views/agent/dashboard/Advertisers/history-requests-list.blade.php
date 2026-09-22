@@ -32,10 +32,10 @@
     $contact_by = [];
 
     if ($list->contact_by_email) {
-        $contact_by[] = '<span class="ml-2">By Email</span>';
+        $contact_by[] = '<span >By Email</span>';
     }
     if ($list->contact_by_mobile) {
-        $contact_by[] = '<span class="ml-2">By Mobile</span>';
+        $contact_by[] = '<span >By Mobile</span>';
     }
 
     $capital_city = null;
@@ -88,76 +88,64 @@
 
    <!-- ================ Modal Popup ================================ -->
     <div class="modal fade upload-modal" id="agent_modal_{{$list->id}}" tabindex="-1" role="dialog" aria-labelledby="Edit_CompetitorLabel" aria-hidden="true"  data-backdrop="static" data-keyboard="false" >
-   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-      <div class="modal-content basic-modal">
-         <div class="modal-header">
-            <h5 class="modal-title" id="Agent_Name">
-              
-               <img src="{{ $head_icon  }}" style="width:40px; margin-right:10px;" alt="Request Accepted">
-                Request : {{$status}}
-            </h5>
-
-         
-
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-            </button>
-         </div>
-         <div class="modal-body pb-0">
-            <div class="card mb-4 border-0">
-               <div class="card-body">
-                  <div class="row">
-                     <div class="col mt-0">
-                        <div class="d-flex align-items-center">
-                           <div class="avatar avatar-xl pr-3 mt-1 avatar_img">
-                              <img src="{{ $list->user->avatar_img ? asset('avatars/' . $list->user->avatar_img) : asset('assets/img/default_user.png') }}" alt="Face 1">
-                           </div>
-                           <div class="ms-3 name">
-                              <h5 class="primery_color normal_heading mb-0" data-toggle="modal" data-target="#Agent_Name"><a class="collapse-item" href="#">
-                                 <b>{{ $list->first_name.' ' .$list->last_name  }}</b>
-                              </a></h5>
-                              <h6 class="text-muted mb-0 small">
-                                 Member ID : {{$list->user->member_id}}
-                                 <span class="px-3" >Ref : {{$list->ref_number}}</span>
-                                 <span >Request Date : {{date('d-m-Y',strtotime($list->created_at))}}</span>
-                                
-
-                              </h6>
-                           </div>
-                        </div>
-                     </div>
+      <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+         <div class="modal-content basic-modal">
+            <div class="modal-header">
+               <h5 class="modal-title" id="Agent_Name">              
+                  <img src="{{ $head_icon  }}" style="width:35px; margin-right:10px;" alt="Request Accepted">
+                  Request : {{$status}}
+               </h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <div class="d-flex align-items-center gap-20">
+                  <div class="avatar_img history_avtar">
+                     <img src="{{ $list->user->avatar_img ? asset('avatars/' . $list->user->avatar_img) : asset('assets/dashboard/img/no-image-light.png') }}" alt="Face 1">
                   </div>
-                  <div class="card-body pt-4">
-                     <div class="row">
-                        <div class="col-md-12 list-sec pt-3">
-                           <h6><b>Mobile :</b> <span class="ml-2">{{$list->mobile_number}}</span></h6>
-                           <h6><b>Email :</b> <span>{{$list->user->email}}</span></h6>
-                           <h6><b>Home State :</b> <span class="ml-2">{{($list->user->state->iso2 ? $list->user->state->iso2 : 'NA')}}</span></h6>
-                           <h6><b>Contact Method :</b> 
+                  <div class="name">
+                     <h5 class="primery_color normal_heading mb-0"><a class="collapse-item" href="#">
+                        <b>{{ $list->first_name.' ' .$list->last_name  }}</b>
+                     </a></h5>
+                     <span class="history_info">
+                        <span>Member ID : {{$list->user->member_id}}</span>
+                        <span class="devider"></span>
+                        <span>Ref : {{$list->ref_number}}</span>
+                        <span class="devider"></span>
+                        <span >Request Date : {{date('d-m-Y',strtotime($list->created_at))}}</span>
+                        
+
+                     </span>
+                  </div>
+               </div>
+               <hr />
+               <div class="table-responsive">
+                  <table class="table">
+                     <tr>
+                        <th class="border py-2 font-weight-bold">Mobile</th>
+                        <td class="border py-2">{{$list->mobile_number}}</td>
+                     </tr>
+                     <tr>
+                        <th class="border py-2 font-weight-bold">Email</th>
+                        <td class="border py-2">{{$list->user->email}}</td>
+                     </tr>
+                     <tr>
+                        <th class="border py-2 font-weight-bold">Home State</th>
+                        <td class="border py-2">{{($list->user->state->iso2 ? $list->user->state->iso2 : 'NA')}}</td>
+                     </tr>
+                     <tr>
+                        <th class="border py-2 font-weight-bold">Contact Method</th>
+                        <td class="border py-2">
                            @php
                               if ($list->contact_by_mobile && !$list->contact_by_email) {
-                                 echo '<span class="ml-2">By Mobile</span>';
+                                 echo '<span >By Mobile</span>';
                               } elseif ($list->contact_by_email && !$list->contact_by_mobile) {
-                                 echo '<span class="ml-2">By Email</span>';
+                                 echo '<span >By Email</span>';
                               } elseif ($list->contact_by_email && $list->contact_by_mobile) {
-                                 echo '<span class="ml-2">By Mobile or By Email</span>';
+                                 echo '<span >By Mobile or By Email</span>';
                               }
                            @endphp
-<<<<<<< Updated upstream
-                        </h6>
-                        <h6>
-                           <b>Comments:</b> 
-                           <span class="text-justify">{{$list->comments}} </span>
-                        </h6>
-                        </div>
-                        
-                     </div>
-                     <div class="row">
-                        <div class="col-lg-12 text-right">
-                           <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>
-                        </div>
-                     </div>
-=======
                         </td>
                      </tr>
                      <tr>
@@ -186,13 +174,14 @@
                      </tr>
                   </table>
                   <div>
->>>>>>> Stashed changes
                   </div>
                </div>
+            </div>         
+            <div class="modal-footer">
+               <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>                 
             </div>
          </div>
       </div>
-   </div>
     </div>
 
     
