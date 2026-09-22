@@ -469,6 +469,12 @@ class EscortListingController extends Controller
         $currentItems = $result->forPage($page, $perPage)->values();
         $grouped = $currentItems->groupBy('membership'); // this value pass inside the blade template
 
+
+        //dd($result);
+        //For use Next and previuse
+        $escortIds = $result->pluck('id');
+        session(['escort_ids' => $escortIds->values()->all()]);
+
         $paginator = new LengthAwarePaginator(
             $currentItems,
             $result->count(),

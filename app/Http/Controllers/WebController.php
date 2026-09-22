@@ -1110,7 +1110,10 @@ class WebController extends Controller
             $filterEscorts = $filterEscorts->sortBy('id')->values();
         }
 
-        list($next, $previous) = $this->escort->getlinks($id, $city, $membershipId, $filterEscorts);
+        $links = $this->escort->getlinks($id, $city, $membershipId, $filterEscorts);
+        $next = $links['next'];
+        $previous = $links['previous'];
+        
         $availability = $escort ? $escort->availability : null;
 
         /*new functionality*/
@@ -1403,9 +1406,16 @@ class WebController extends Controller
             $filterEscorts = $filterEscorts->sortBy('id')->values();
         }
         $next = $previous = null;
+
+       // dd($id, $city, $membershipId, $filterEscorts);
+        
         if (str_contains($previousSlug, 'escort-profile') || str_contains($previousSlug, $ecortBaseSlug)) {
-            list($next, $previous) = $this->escort->getlinks($id, $city, $membershipId, $filterEscorts);
+            $links = $this->escort->getlinks($id);
+            $next = $links['next'];
+            $previous = $links['previous'];
         }
+      
+
         $availability = $escort ? $escort->availability : null;
 
         /*new functionality*/

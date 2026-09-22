@@ -462,6 +462,9 @@ class MassageCentre extends Controller
 
         $currentItems = $final->forPage($page, $per_page)->values();
 
+        // This code use for jump next previus. 
+        $massageOnlyIds = $final->pluck('id');
+        session(['massage_ids' => $massageOnlyIds->values()->all()]);
 
         $listings = new LengthAwarePaginator(
             $currentItems,
@@ -712,8 +715,8 @@ class MassageCentre extends Controller
             $relatedSlugs = $relatedMassges->pluck('massageprofile.slug')->filter()->toArray();
         }
         //$ids = $request->ids ? json_decode($request->ids, true) : [];
-
-        $ids = $relatedIds;
+        $massageIds = session('massage_ids', []);
+        $ids = $massageIds;
         if (!$id) {
             return redirect(route('find.massage.centre'));
         }
