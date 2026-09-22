@@ -2966,6 +2966,28 @@ if (!function_exists('getStateAbbr')) {
     }
 }
 
+
+if (!function_exists('getStateAbbrName')) {
+    function getStateAbbrName($fullStateName)
+    {
+        $states = config('escorts.profile.states');
+
+        foreach ($states as $stateId => $state) {
+            if (strcasecmp($state['stateAbbr'], $fullStateName) !== 0) {
+                continue;
+            }
+
+            $state['stateId'] = $stateId;
+
+            return $state['stateName'];
+        }
+
+        return null;
+    }
+}
+
+
+
 if (!function_exists('getSeoTaggedRoutes')) {
     function getSeoTaggedRoutes()
     {

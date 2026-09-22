@@ -4,7 +4,7 @@
         'default_country' => 'Australia',
         'escorts' => [
             'levels' => [
-                0 => 'country',
+                0 => 'escort_page',
                 1 => 'country',
                 2 => 'country_gender',
                 3 => 'city',
@@ -14,6 +14,7 @@
             ],
             
             'segment_map' => [
+                'escort_page'    => ['country'],
                 'country'        => ['country'],
                 'country_gender' => ['country', 'gender'],
                 'city'           => ['country', 'state', 'city'],
@@ -23,38 +24,44 @@
             ],
             
             'templates' => [
+                'escort_page' => [
+                    'title' => 'Find Independent Escort Services | Book Now | Escorts4U',
+                    'description' => 'Find and book Independent private Escort Services. Explore 100% verified profiles with real photos, detailed service lists, and immediate availability.',
+                    'og_image' => app()->runningInConsole() ? '' : asset('assets/app/img/shutterstock_338759729.png'),
+                ],
+
                 'country' => [
-                    'title' => 'Find Escorts in {country} | YourSite',
-                    'description' => 'Browse verified escorts across {country}. Genuine profiles, updated daily.',
+                    'title' => 'Find Escort Services in {country} | Book Now | Escorts4U',
+                    'description' => 'Find and book Independent Escort Services in {country}. Explore 100% verified profiles with real photos, detailed service lists, and immediate availability.',
                     'og_image' => app()->runningInConsole() ? '' : asset('assets/app/img/shutterstock_338759729.png'),
                 ],
 
                 'country_gender' => [
                     'title' => 'Book {gender} Escort Services in {country} | Escorts4U',
-                    'description' => 'Find {gender} escorts across {country}. Verified profiles, updated daily.',
+                    'description' => 'Find and book {gender} Escort Services in Australia. Explore 100% verified profiles with real photos, detailed service lists, and immediate availability.',
                     'og_image' => app()->runningInConsole() ? '' : asset('assets/app/img/shutterstock_338759729.png'),
                 ],
                 'city' => [
                     'title' => 'Book {city} Escorts | Services Available | Escorts4U',
-                    'description' => 'Find top-rated escorts in {city}. Verified profiles, real reviews.',
+                    'description' => 'Find and book {city} Escorts in {country}. Explore 100% verified profiles with real photos, detailed service lists, and immediate availability.',
                     'og_image' => app()->runningInConsole() ? '' : asset('assets/app/img/shutterstock_338759729.png'),
                 ],
                 'city_gender' => [
-                    'title' => '{city} {gender} Escorts | Book Now | Escorts4U',
-                    'description' => 'Browse {gender} escorts in {city}, {country}. Updated listings, verified profiles.',
+                    'title' => '{city} {gender} Escorts Listings| Escorts4U',
+                    'description' => 'Find and book {city} {gender} Escorts in {country}. Explore 100% verified profiles with real photos, detailed service lists, and immediate availability.',
                     'og_image' => app()->runningInConsole() ? '' : asset('assets/app/img/shutterstock_338759729.png'),
                 ],
 
                 'listing' => [
-                    'title'       => '{name} - {gender} Escort in {city} | YourSite',
-                    'description' => "View {name}'s profile - {gender} escort based in {city}, {state}.",
+                    'title'       => '{city} {gender} Escorts Listings| Escorts4U',
+                    'description' => "Find and book {city} {gender} Escorts in {country}. Explore 100% verified profiles with real photos, detailed service lists, and immediate availability.",
                     'og_image' => app()->runningInConsole() ? '' : asset('assets/app/img/shutterstock_338759729.png'),
 
                 ],
 
                 'profile' => [
-                    'title' => '{name} - Profile {profileId} | YourSite',
-                    'description' => 'Detailed profile of {name}, {gender} escort in {city}.',
+                    'title' => '{city} {gender} Escorts | Escorts4U | {pro_name}',
+                    'description' => 'Book {pro_name}, a verified {city} {gender} escorts. Explore a 100% verified profile with real photos, services, and immediate availability.',
                     'og_image' => app()->runningInConsole() ? '' : asset('assets/app/img/shutterstock_338759729.png'),
                 ],
             ],  
@@ -62,36 +69,54 @@
 
         'massage' => [
             'levels' => [
-                0 => 'country',
+                0 => 'massage_page',
                 1 => 'country',
-                2 => 'city',
-                3 => 'listing',
-                4 => 'profile',
+                2 => 'state',
+                3 => 'city',
+                4 => 'listing',
+                5 => 'profile',
             ],
 
             'segment_map' => [
+                'massage_page' => ['country'],
                 'country' => ['country'],
+                'state'   => ['country', 'state'],
                 'city'    => ['country', 'state', 'city'],
                 'listing' => ['country', 'state', 'city', 'listingId'],
-                'profile' => ['country', 'state', 'city', 'listingId', 'profileId'],
+                'profile' => ['country', 'state', 'city', 'listingId', 'MprofileId'],
             ],
 
             'templates' => [
+                'massage_page' => [
+                    'title' => 'Massage Centers in {country} | YourSite',
+                    'description' => 'Browse verified massage centers across {country}. Updated listings daily.',
+                    'og_image' => app()->runningInConsole() ? '' : asset('assets/app/img/shutterstock_338759729.png'),
+                ],
+
                 'country' => [
                     'title' => 'Massage Centers in {country} | YourSite',
                     'description' => 'Browse verified massage centers across {country}. Updated listings daily.',
+                    'og_image' => app()->runningInConsole() ? '' : asset('assets/app/img/shutterstock_338759729.png'),
                 ],
                 'state' => [
                     'title' => 'Massage Centers in {state}, {country} | YourSite',
                     'description' => 'Find massage centers across {state}, {country}. Verified listings.',
+                    'og_image' => app()->runningInConsole() ? '' : asset('assets/app/img/shutterstock_338759729.png'),
                 ],
                 'city' => [
                     'title' => 'Massage Centers in {city}, {state}, {country} | YourSite',
                     'description' => 'Find top-rated massage centers in {city}. Verified listings, real reviews.',
+                    'og_image' => app()->runningInConsole() ? '' : asset('assets/app/img/shutterstock_338759729.png'),
                 ],
                 'listing' => [
                     'title' => '{name} - Massage Center in {city} | YourSite',
                     'description' => 'Detailed listing of {name}, massage center in {city}.',
+                    'og_image' => app()->runningInConsole() ? '' : asset('assets/app/img/shutterstock_338759729.png'),
+                ],
+                'profile' => [
+                    'title' => '{mc_pro_name} - Massage Center in {city} | YourSite',
+                    'description' => 'Detailed listing of {mc_pro_name}, massage center in {city}.',
+                    'og_image' => app()->runningInConsole() ? '' : asset('assets/app/img/shutterstock_338759729.png'),
                 ],
             ],
         ],

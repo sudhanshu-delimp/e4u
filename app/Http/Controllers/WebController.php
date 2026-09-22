@@ -2,42 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Models\User;
+use App\Http\Controllers\Controller;
+use App\Models\Add_to_list;
+use App\Models\Add_to_massage_shortlist;
+use App\Models\AttemptLogin;
 use App\Models\City;
-use App\Models\State;
-use App\Models\Escort;
 use App\Models\Country;
-use App\Models\Payment;
-use App\Models\Pricing;
-use App\Models\Reviews;
+use App\Models\Escort;
 use App\Models\EscortBrb;
 use App\Models\EscortLike;
-use App\Models\Add_to_list;
-use App\Models\MassageLike;
-use Illuminate\Support\Arr;
-use App\Models\AttemptLogin;
-use App\Models\LoginAttempt;
-use Illuminate\Http\Request;
-use App\Models\SuspendProfile;
-use App\Models\PublicationAlert;
-use Illuminate\Support\Facades\DB;
-use App\Models\ReportEscortProfile;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Session;
-use App\Models\Add_to_massage_shortlist;
 use App\Models\EscortViewerInteractions;
-
-use App\Repositories\Page\PageInterface;
-use App\Repositories\Escort\EscortInterface;
-use App\Repositories\Service\ServiceInterface;
-use Illuminate\Pagination\LengthAwarePaginator;
-use App\Repositories\Escort\EscortMediaInterface;
+use App\Models\LoginAttempt;
+use App\Models\MassageLike;
+use App\Models\Payment;
+use App\Models\Pricing;
+use App\Models\PublicationAlert;
+use App\Models\ReportEscortProfile;
+use App\Models\Reviews;
+use App\Models\State;
+use App\Models\SuspendProfile;
+use App\Models\User;
 use App\Repositories\Escort\AvailabilityInterface;
+use App\Repositories\Escort\EscortInterface;
+use App\Repositories\Escort\EscortMediaInterface;
 use App\Repositories\MassageProfile\MassageProfileInterface;
+use App\Repositories\Page\PageInterface;
+use App\Repositories\Service\ServiceInterface;
+use App\Services\SeoResolver;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\Component;
 
 class WebController extends Controller
@@ -1544,7 +1544,12 @@ class WebController extends Controller
         if (empty($backToSearchButton)) {
             $backToSearchButton = route('find.all');
         }
-        return view('web.description', compact('categoryOneServices', 'categoryTwoServices', 'categoryThreeServices', 'path', 'media', 'escortLike', 'lp', 'dp', 'user_type', 'next', 'previous', 'escort', 'availability', 'backToSearchButton', 'user', 'viewType', 'reviews', 'spamReportAdvertiser'));
+
+        //SEO code 
+         $path = trim(str_replace('find_escorts', '', request()->path()), '/');
+        //use For Escirt SEO in the lisging page.
+        $seo = (object) SeoResolver::resolve('escorts', $path);
+        return view('web.description', compact('categoryOneServices', 'categoryTwoServices', 'categoryThreeServices', 'path', 'media', 'escortLike', 'lp', 'dp', 'user_type', 'next', 'previous', 'escort', 'availability', 'backToSearchButton', 'user', 'viewType', 'reviews', 'spamReportAdvertiser', 'seo'));
     }
 
     public function getServiceChunks($array = [], $chunkLenth = 3)

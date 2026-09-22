@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Escort;
+use App\Models\MassageProfile;
 
 class SeoResolver
 {
@@ -15,6 +16,7 @@ class SeoResolver
     }
 
     protected static function fill($template, $values){
+
         return preg_replace_callback('/\{(\w+)\}/', function ($m) use ($values) {
             return $values[$m[1]] ?? '';
         }, $template);
@@ -23,7 +25,7 @@ class SeoResolver
     protected static function formatValue($key, $raw)
     {
         return match ($key) {
-            'state' => strtoupper($raw),
+            'state' => trim((string) $raw),
             'listingId', 'profileId' => $raw, // as-is, case-sensitive IDs
             default => ucfirst(str_replace('-', ' ', $raw)),
         };
@@ -43,6 +45,7 @@ class SeoResolver
 
         $segmentMap = config("seo_templates.{$module}.segment_map.{$level}", []);
         $template   = config("seo_templates.{$module}.templates.{$level}");
+       
 
 
         $values = [];
@@ -51,19 +54,27 @@ class SeoResolver
         }
 
 
-        if (!empty($values['listingId'])) {
-            $values['name'] = $values['listingId'] ?? '';
+
+        if (!empty($values['profileId'])) {
+           $listing = Escort::where('slug', $values['profileId'])->first();
+            if($listing){
+                 $values['pro_name'] = $listing->name ?? '';
+            }
+        }
+
+        //For Massage Center
+
+        if (!empty($values['MprofileId'])){
+            $msPro = MassageProfile::where('slug', $values['MprofileId'])->first();
+            if($msPro){
+                $values['mc_pro_name'] = $msPro->business_name ?? '';
+            }
         }
 
 
         
-
-        if (!empty($values['profile'])) {
-            $listing = Escort::where('slug', $values['profile'])->first();
-            if($listing){
-                 $values['name'] = $listing->name ?? '';
-            }
-           
+        if (!empty($values['listingId'])) {
+             $values['name'] = $values['listingId'] ?? '';
         }
 
 
@@ -72,6 +83,16 @@ class SeoResolver
         }
 
 
+      
+        if (!empty($values['state'])) {
+            $values['state'] = getStateAbbrName(strtoupper($values['state']));
+        }
+
+        if(!empty($values['gender'])) {
+            if(mb_strlen($values['gender']) <= 3){
+                $values['gender'] = getStateAbbrName(strtoupper($values['gender']));
+            }
+        }
 
         return (object) [
             'meta_title' => self::fill($template['title'], $values),
