@@ -124,7 +124,7 @@ table td,th{
                     <thead class="table-bg">
                         <tr>
                             <th scope="col">
-                            Item No
+                            Profile ID
 
                             </th>
                             {{-- <th scope="col">
@@ -187,7 +187,7 @@ table td,th{
                             <table class="table border-0 table-report-info">
                               <tbody>
                                 <tr >
-                                  <th>Item No:</th>
+                                  <th>Profile ID:</th>
                                   <td class="report_ref"></td>
                                   <th>Member ID:</th>
                                   <td class="report_member_id"></td>
