@@ -1031,7 +1031,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                         <div class="col-12 remove_padding_for_carousel  profile--thumb--sec">
                                             @php $status = $media->varified ?? "0"; @endphp
                                         
-                                            <img src="{{ asset($media->path) }}" class="d-block w-100" title=" " alt="..." data-toggle="modal" data-target="#exampleModal" data-id="{{$media->id}}">
+                                            <img src="{{ asset($media->path) }}" class="d-block w-100" title=" " alt="{{$escort['name'] ?? ''}}" data-toggle="modal" data-target="#exampleModal" data-id="{{$media->id}}">
                                             <a href="" class="custom-tooltip text-decoration-none text-white" data-toggle="modal" data-target="#exampleModal">Click to view My Media</a>
                                             </div>
                                         </div>

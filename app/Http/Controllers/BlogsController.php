@@ -53,6 +53,9 @@ class BlogsController extends Controller
         //     ->orderBy('id', 'asc')
         //     ->first();
 
+        //SEO content
+       // $seo = PublicationBlog::select('')
+
         if ($blogDetail) {
             return view('web.pages.blog.blogs-single', compact('blogDetail'));
         }
