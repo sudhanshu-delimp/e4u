@@ -119,16 +119,14 @@ class GenerateConciergePaymentReconciliation extends Command
       return $order->orderItems->sum(function ($item) {
         Log::info(' Price: ' . $item->price);
 
-        return (float) $item->price;
+        return (float) $item->total;
       });
     });
 
     $supplierAmount = $orders->sum(function ($order) {
       return $order->orderItems->sum(function ($item) {
-        Log::info('Retail Price: ' . $item->retail_price);
-
-        return (float) $item->retail_price;
-      });      // return (float) $order->orderItems->retail_price;
+        return (float) $item->retail_price*$item->quantity;
+      });     
     });
 
     /*

@@ -138,3 +138,5 @@
           </tr><br>
       </tfoot>
   </table>
+
+  <input type="hidden" id="report_id" value="{{$report_id}}">

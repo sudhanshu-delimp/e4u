@@ -330,7 +330,7 @@ class ConciergeReportController extends Controller
     $startDate = Carbon::createFromFormat('d-m-Y', $period->bill_start_date)->format('Y-m-d');
     $endDate = Carbon::createFromFormat('d-m-Y',  $period->bill_end_date)->format('Y-m-d');
 
-    $orderIds = ProductOrder::whereDate('order_date', '>=', $startDate)  ->whereDate('order_date', '<=', $endDate)
+    $orderIds = ProductOrder::whereDate('order_date', '>=', $startDate)->whereDate('order_date', '<=', $endDate)
       ->pluck('id')->toArray();
 
 
@@ -342,11 +342,33 @@ class ConciergeReportController extends Controller
     //         'message' => 'Report not found.'
     //     ]);
     // }
-    $html = view('admin.Concierge.conserge_report', compact('items'))->render();
+    $report_id=$request->id;
+    $html = view('admin.Concierge.conserge_report', compact('items','report_id'))->render();
 
     return response()->json([
       'status' => true,
       'html' => $html
+    ]);
+  }
+
+
+  public function approveReport(Request $request)
+  {
+    $report = ConciergePaymentReconciliation::find($request->id);
+
+    if (!$report) {
+      return response()->json([
+        'status' => false,
+        'message' => 'Report not found.'
+      ]);
+    }
+
+    $report->status = 'Reconciled';
+    $report->save();
+
+    return response()->json([
+      'status' => true,
+      'message' => 'Report Reconciled successfully.'
     ]);
   }
 }

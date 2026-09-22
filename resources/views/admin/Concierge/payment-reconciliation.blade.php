@@ -76,13 +76,13 @@
 
                 <div class="modal-body">
 
-                  
+
                 </div>
 
 
                 <div class="modal-footer">
                     <button type="button" class="btn-cancel-modal">Print</button>
-                    <button type="button" class="btn-success-modal" data-dismiss="modal">Approved</button>
+                    <button type="button" class="btn btn-success confirm-approve-report">Approved</button>
 
                     {{-- <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button> --}}
                 </div>
@@ -90,11 +90,11 @@
         </div>
     </div>
     {{-- end --}}
-<div id="reportLoader" class="text-center d-none">
-    <div class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
+    <div id="reportLoader" class="text-center d-none">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
     </div>
-</div>
     {{-- end --}}
 @endsection
 @push('script')
@@ -164,43 +164,81 @@
             columns: @json($columns)
         });
 
-   $(document).on('click', '.approve-report', function(e) {
-    e.preventDefault();
+        $(document).on('click', '.approve-report', function(e) {
+            e.preventDefault();
 
-    let id = $(this).data('id');
+            let id = $(this).data('id');
+            $.ajax({
+                url: "{{ route('admin.report.details') }}",
+                type: "GET",
+                data: {
+                    id: id
+                },
 
-    $.ajax({
-        url: "{{ route('admin.report.details') }}",
-        type: "GET",
-        data: {
-            id: id
-        },
+                beforeSend: function() {
+                    $('#reportLoader').removeClass('d-none');
+                },
 
-        beforeSend: function() {
-            $('#reportLoader').removeClass('d-none');
-        },
+                success: function(response) {
+                    if (response.status) {
+                        $('#viewReports .modal-body').html(response.html);
 
-        success: function(response) {
-            if (response.status) {
-                $('#viewReports .modal-body').html(response.html);
+                        const modalElement = document.getElementById('viewReports');
+                        const modal = new bootstrap.Modal(modalElement);
+                        modal.show();
+                    } else {
+                        alert(response.message);
+                    }
+                },
 
-                const modalElement = document.getElementById('viewReports');
-                const modal = new bootstrap.Modal(modalElement);
-                modal.show();
-            } else {
-                alert(response.message);
-            }
-        },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                    alert('Something went wrong. Please try again.');
+                },
 
-        error: function(xhr) {
-            console.log(xhr.responseText);
-            alert('Something went wrong. Please try again.');
-        },
+                complete: function() {
+                    $('#reportLoader').addClass('d-none');
+                }
+            });
+        });
 
-        complete: function() {
-            $('#reportLoader').addClass('d-none');
-        }
-    });
-});
+
+
+
+        $(document).on('click', '.confirm-approve-report', function(e) {
+            e.preventDefault();
+
+            let id = $(this).data('id');
+ 
+            $.ajax({
+                url: "{{ route('admin.report.approve') }}",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    id: id
+                },
+
+                beforeSend: function() {
+                    $('#reportLoader').removeClass('d-none');
+                },
+
+                success: function(response) {
+                    if (response.status) {
+                        alert(response.message);
+                    } else {
+                        alert(response.message);
+                    }
+                },
+
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                    alert('Something went wrong. Please try again.');
+                },
+
+                complete: function() {
+                    $('#reportLoader').addClass('d-none');
+                }
+            });
+        });
     </script>
 @endpush
