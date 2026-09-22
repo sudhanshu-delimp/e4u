@@ -9,9 +9,16 @@
                         <div id="listingModalContent">
                        
                             <h3>Advertiser Summary</h3>
-                             <div>
-                                <div style="border: 1px solid #ccc; padding: 8px; text-align:left;"><img src="avatars/{{$escort_info->avatar_img}}" id="escort-thumbnail" alt="thumbnail" style="width:100px;"></div>
-                                </div>
+                            <div style="border: 1px solid #ccc; padding: 8px; text-align:left;">
+                                <img
+                                    src="{{ $escort_info->avatar_img
+                                        ? asset('avatars/' . $escort_info->avatar_img)
+                                        : asset('assets/dashboard/img/no-image-light.png') }}"
+                                    id="escort-thumbnail"
+                                    alt="thumbnail"
+                                    style="width:100px;"
+                                >
+                            </div>
                             <table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
                                 <tbody>
                                     <tr>
