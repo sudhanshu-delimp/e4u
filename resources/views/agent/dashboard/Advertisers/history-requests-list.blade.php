@@ -37,6 +37,25 @@
     if ($list->contact_by_mobile) {
         $contact_by[] = '<span class="ml-2">By Mobile</span>';
     }
+
+    $capital_city = null;
+    $state_name = "";
+    if (isset($list->state_id)) {
+    $home_state = $list->state_id;
+    $cities = config("escorts.profile.states.{$home_state}.cities");
+    $state_name = config("escorts.profile.states.{$home_state}.stateName");
+    if (is_array($cities) && !empty($cities)) {
+        $firstCityId = array_key_first($cities);
+        $cityName = $cities[$firstCityId]['cityName'] ?? null;
+        if ($cityName) {
+            $capital_city = $state_name ? "{$cityName}, {$state_name}" : $cityName;
+        }
+    }
+    }
+
+
+
+
     @endphp
     <div class="col-lg-4">
         
@@ -124,6 +143,7 @@
                                  echo '<span class="ml-2">By Mobile or By Email</span>';
                               }
                            @endphp
+<<<<<<< Updated upstream
                         </h6>
                         <h6>
                            <b>Comments:</b> 
@@ -137,6 +157,36 @@
                            <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>
                         </div>
                      </div>
+=======
+                        </td>
+                     </tr>
+                     <tr>
+                        <th class="border py-2 font-weight-bold">Comments</th>
+                        <td class="border py-2 text-justify">{{$list->comments}}</td>
+                     </tr>
+                     <tr>
+                        <th class="border py-2 font-weight-bold">Address</th>
+                        <td class="border py-2">{{  $capital_city }}</td>
+                     </tr>
+                     <tr>
+                        <td colspan="2" class="border">
+                           <div id="modal_map_{{ $list->id }}" 
+                              class="modal-map-container" 
+                              data-address="{{ $capital_city }}" 
+                              style="width: 100%; height: 200px; background: #f8f9fa;">
+
+                              <div class="map-loader d-flex align-items-center justify-content-center h-100 flex-column">
+                                 <div class="spinner-border text-primary spinner-border-sm mb-2" role="status"></div>
+                                 <span class="text-muted small">Loading Map...</span>
+                              </div>
+
+
+                           </div>
+                        </td>
+                     </tr>
+                  </table>
+                  <div>
+>>>>>>> Stashed changes
                   </div>
                </div>
             </div>
@@ -162,3 +212,5 @@
 </div>
 </div>
 @endif
+
+

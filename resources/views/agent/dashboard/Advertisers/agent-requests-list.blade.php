@@ -13,6 +13,22 @@
     if ($list->contact_by_mobile) {
         $contact_by[] = '<span class="ml-2">By Mobile</span>';
     }
+
+    $capital_city = null;
+    $state_name = "";
+    if (isset($list->state_id)) {
+    $home_state = $list->state_id;
+    $cities = config("escorts.profile.states.{$home_state}.cities");
+    $state_name = config("escorts.profile.states.{$home_state}.stateName");
+    if (is_array($cities) && !empty($cities)) {
+        $firstCityId = array_key_first($cities);
+        $cityName = $cities[$firstCityId]['cityName'] ?? null;
+        if ($cityName) {
+            $capital_city = $state_name ? "{$cityName}, {$state_name}" : $cityName;
+        }
+    }
+    }
+
     @endphp
 
     <div class="col-lg-4 col-md-6 col-sm-12">
@@ -66,6 +82,7 @@
                                     <h6><b>Contact Method :</b>
 
                                         @php
+<<<<<<< Updated upstream
                                         if ($list->contact_by_mobile && !$list->contact_by_email) {
                                             echo '<span class="ml-2">By Mobile</span>';
                                         } elseif ($list->contact_by_email && !$list->contact_by_mobile) {
@@ -94,6 +111,50 @@
                                     <input type="button" value="Reject" class=" btn-cancel-modal shadow-none float-right reject" name="reject[]" id="{{$list->id}}">
                                 </div>
                             </div>
+=======
+                                            if ($list->contact_by_mobile && !$list->contact_by_email) {
+                                                echo '<span>By Mobile</span>';
+                                            } elseif ($list->contact_by_email && !$list->contact_by_mobile) {
+                                                echo '<span>By Email</span>';
+                                            } elseif ($list->contact_by_email && $list->contact_by_mobile) {
+                                                echo '<span>By Mobile or By Email</span>';
+                                            }
+                                        @endphp
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="border py-2 font-weight-bold">Comments</th>
+                                    <td class="border py-2">{{$list->comments}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="border py-2 font-weight-bold">Address</th>
+                                    <td class="border py-2">{{  $capital_city }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="border">
+
+                                            <div id="modal_map_{{ $list->id }}" 
+                                                class="modal-map-container" 
+                                                data-address="{{ $capital_city }}" 
+                                                style="width: 100%; height: 200px; background: #f8f9fa;">
+
+                                                    <div class="map-loader d-flex align-items-center justify-content-center h-100 flex-column">
+                                                        <div class="spinner-border text-primary spinner-border-sm mb-2" role="status"></div>
+                                                        <span class="text-muted small">Loading Map...</span>
+                                                    </div>
+                                            </div>
+
+
+
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="card-footer custom_card_footer">
+                             <input type="button" value="Accept" class="btn-success-modal float-right accept" name="accept[]" id="{{$list->id}}">
+                             <input type="button" value="Reject" class=" btn-cancel-modal shadow-none float-right reject" name="reject[]" id="{{$list->id}}">
+>>>>>>> Stashed changes
                         </div>
                     </div>
                 </div>

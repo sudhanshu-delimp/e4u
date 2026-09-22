@@ -56,11 +56,21 @@
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 <style>
+<<<<<<< Updated upstream
 .avatar_img img{
 width: 60px;
 height: 60px;
 }
  </style>  
+=======
+.gm-style-iw-chr button {display: none !important;}
+
+.location_class {
+text-align: center;
+}
+</style>  
+
+>>>>>>> Stashed changes
 @endsection
 
 
@@ -70,6 +80,8 @@ height: 60px;
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_map.api_key') }}&libraries=places&callback=initMap" async defer></script>
+
 @endpush
 
 @push('script')
@@ -110,10 +122,136 @@ height: 60px;
       });
    });
 
+<<<<<<< Updated upstream
 document.getElementById('searchForm').addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
         event.preventDefault();
     }
 });
+=======
+   document.getElementById('searchForm').addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+         event.preventDefault();
+      }
+   });
+
+
+
+   
+////////  Google Map Script //////////////
+
+$(document).ready(function() 
+{
+    
+   $('.upload-modal').on('shown.bs.modal', function () {  
+        const modal = $(this);
+        const mapDiv = modal.find('.modal-map-container');
+        
+        if (mapDiv.length === 0) return;
+
+        const mapId = mapDiv.attr('id');
+        const address = mapDiv.data('address');
+        const capitalCity = mapDiv.data('capital-city') || address;
+
+       
+        if (!mapDiv.data('rendered')) {
+            loadGoogleMapWithPlaces(mapId, address, capitalCity);
+            mapDiv.data('rendered', true);
+        } else {
+            if (mapDiv.data('mapInstance')) {
+                const map = mapDiv.data('mapInstance');
+                google.maps.event.trigger(map, 'resize');
+                if (mapDiv.data('mapCenter')) {
+                    map.setCenter(mapDiv.data('mapCenter'));
+                }
+            }
+        }
+   });
+
+
+    function loadGoogleMapWithPlaces(elementId, address, capitalCity) 
+    {
+
+         const mapElement = document.getElementById(elementId);
+         if (!mapElement) return;
+         const geocoder = new google.maps.Geocoder();
+
+         geocoder.geocode({ address: address }, function(results, status) {
+            if (status === "OK" && results[0]) {
+                  const location = results[0].geometry.location;
+
+                  const map = new google.maps.Map(mapElement, {
+                     zoom: 16,
+                     center: location,
+                     mapTypeControl: false,
+                     streetViewControl: false
+                  });
+
+                  const marker = new google.maps.Marker({
+                     position: location,
+                     map: map,
+                  });
+               
+                  $(mapElement).data('mapInstance', map);$(mapElement).data('mapCenter', location);
+                  setTimeout(() => {
+                     google.maps.event.trigger(map, "resize");
+                     map.setCenter(location);
+                  }, 300);
+
+            
+                  const service = new google.maps.places.PlacesService(map);
+
+                  service.findPlaceFromQuery({
+                     query: address,
+                     fields: ["name", "photos", "rating"]
+                  }, function(placeResults, placeStatus) {
+
+                     let imageUrl = '';  
+                     let placeName = capitalCity;
+                     let ratingHtml = "";
+
+                     if (placeStatus === google.maps.places.PlacesServiceStatus.OK && placeResults && placeResults[0]) {
+                        const place = placeResults[0];
+
+                        placeName = place.name || placeName;
+
+                        if (place.rating) {
+                              ratingHtml = `<div style="margin:0; font-size:12px;">Rating: ${place.rating} ⭐</div>`;
+                        }
+
+                        if (place.photos && place.photos.length > 0) {
+                              imageUrl = place.photos[0].getUrl({ maxWidth: 400 });
+                        }
+                     }
+
+                     let g_image = "";
+                     if (imageUrl !== "") {
+                        g_image = `<img style="width:100%; height:80px; object-fit:cover; border-radius:10px; margin-bottom:5px;" src="${imageUrl}" alt="location logo">`;
+                     }
+                     
+                     
+                     const content = `<div class="location_class" style="max-width:200px;"> ${g_image} <b>${address}</b></div>`;
+                     const infowindow = new google.maps.InfoWindow({
+                        content: content
+                     });
+
+            
+                     infowindow.open(map, marker);
+                     marker.addListener("click", () => {
+                        infowindow.open(map, marker);
+                     });
+                  });
+
+            } else {
+                  mapElement.innerHTML = `<div class="p-3 text-center text-muted">Map location not found for: ${address}</div>`;
+            }
+         });
+    }
+
+
+});
+
+////////  End Google Map Script //////////////
+>>>>>>> Stashed changes
 </script>
 @endpush
