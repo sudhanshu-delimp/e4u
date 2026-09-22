@@ -40,7 +40,7 @@
                  <div class="statistics-card shadow-sm">
                      <div class="statistics-text">
                          <div class="statistics-label font-weight-bold">New today</div>
-                         <div class="statistics-value">4</div>
+                         <div class="statistics-value">{{$advertiser_membership_today}}</div>
                      </div>
                      <div class="statistics-icon">
                          <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
@@ -51,7 +51,7 @@
                      <div class="statistics-text">
                          <div class="statistics-label font-weight-bold">New this week
                          </div>
-                         <div class="statistics-value">7</div>
+                         <div class="statistics-value">{{$advertiser_membership_week}}</div>
                      </div>
                      <div class="statistics-icon">
                          <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
@@ -62,7 +62,7 @@
                      <div class="statistics-text">
                          <div class="statistics-label font-weight-bold">New this month
                          </div>
-                         <div class="statistics-value">25</div>
+                         <div class="statistics-value">{{$advertiser_membership_month}}</div>
                      </div>
                      <div class="statistics-icon">
                          <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
@@ -73,7 +73,7 @@
                      <div class="statistics-text">
                          <div class="statistics-label font-weight-bold">Total
                          </div>
-                         <div class="statistics-value">423</div>
+                         <div class="statistics-value">{{$advertiser_membership_total}}</div>
                      </div>
                      <div class="statistics-icon">
                          <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
@@ -91,7 +91,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">New today
                        </div>
-                        <div class="statistics-value">1</div>
+                        <div class="statistics-value">{{$escort_membership_today}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
@@ -102,7 +102,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">New this week
                         </div>
-                        <div class="statistics-value">3</div>
+                        <div class="statistics-value">{{$escort_membership_week}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
@@ -113,7 +113,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">New this month
                         </div>
-                        <div class="statistics-value">10</div>
+                        <div class="statistics-value">{{$escort_membership_month}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
@@ -124,7 +124,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">Total
                         </div>
-                        <div class="statistics-value">78</div>
+                        <div class="statistics-value">{{$escort_membership_total}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
@@ -143,7 +143,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">New today
                        </div>
-                        <div class="statistics-value">3</div>
+                        <div class="statistics-value">{{$massage_membership_today}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
@@ -154,7 +154,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">New this week
                         </div>
-                        <div class="statistics-value">4</div>
+                        <div class="statistics-value">{{$massage_membership_week}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
@@ -165,7 +165,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">New this month
                         </div>
-                        <div class="statistics-value">15</div>
+                        <div class="statistics-value">{{$massage_membership_month}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
@@ -176,7 +176,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">Total
                         </div>
-                        <div class="statistics-value">345</div>
+                        <div class="statistics-value">{{$massage_membership_total}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
@@ -201,7 +201,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">New today
                        </div>
-                        <div class="statistics-value">4</div>
+                        <div class="statistics-value">{{$advertiser_profile_today}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
@@ -212,7 +212,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">New this week
                         </div>
-                        <div class="statistics-value">7</div>
+                        <div class="statistics-value">{{$advertiser_profile_week}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
@@ -223,7 +223,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">New this month
                         </div>
-                        <div class="statistics-value">25</div>
+                        <div class="statistics-value">{{$advertiser_profile_month}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
@@ -234,7 +234,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label font-weight-bold">Total
                         </div>
-                        <div class="statistics-value">423</div>
+                        <div class="statistics-value">{{$advertiser_profile_total}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
@@ -252,7 +252,7 @@
                    <div class="statistics-text">
                        <div class="statistics-label font-weight-bold">New today
                       </div>
-                       <div class="statistics-value">1</div>
+                       <div class="statistics-value">{{$escort_profile_today}}</div>
                    </div>
                    <div class="statistics-icon">
                        <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
@@ -263,7 +263,7 @@
                    <div class="statistics-text">
                        <div class="statistics-label font-weight-bold">New this week
                        </div>
-                       <div class="statistics-value">3</div>
+                       <div class="statistics-value">{{$escort_profile_week}}</div>
                    </div>
                    <div class="statistics-icon">
                        <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
@@ -274,7 +274,7 @@
                    <div class="statistics-text">
                        <div class="statistics-label font-weight-bold">New this month
                        </div>
-                       <div class="statistics-value">10</div>
+                       <div class="statistics-value">{{$escort_profile_month}}</div>
                    </div>
                    <div class="statistics-icon">
                        <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
@@ -285,7 +285,7 @@
                    <div class="statistics-text">
                        <div class="statistics-label font-weight-bold">Total
                        </div>
-                       <div class="statistics-value">78</div>
+                       <div class="statistics-value">{{$escort_profile_total}}</div>
                    </div>
                    <div class="statistics-icon">
                        <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
@@ -304,7 +304,7 @@
                    <div class="statistics-text">
                        <div class="statistics-label font-weight-bold">New today
                       </div>
-                       <div class="statistics-value">3</div>
+                       <div class="statistics-value">{{$massage_profile_today}}</div>
                    </div>
                    <div class="statistics-icon">
                        <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
@@ -315,7 +315,7 @@
                    <div class="statistics-text">
                        <div class="statistics-label font-weight-bold">New this week
                        </div>
-                       <div class="statistics-value">4</div>
+                       <div class="statistics-value">{{$massage_profile_week}}</div>
                    </div>
                    <div class="statistics-icon">
                        <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
@@ -326,7 +326,7 @@
                    <div class="statistics-text">
                        <div class="statistics-label font-weight-bold">New this month
                        </div>
-                       <div class="statistics-value">15</div>
+                       <div class="statistics-value">{{$massage_profile_month}}</div>
                    </div>
                    <div class="statistics-icon">
                        <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
@@ -337,7 +337,7 @@
                    <div class="statistics-text">
                        <div class="statistics-label font-weight-bold">Total
                        </div>
-                       <div class="statistics-value">345</div>
+                       <div class="statistics-value">{{$massage_profile_total}}</div>
                    </div>
                    <div class="statistics-icon">
                        <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
