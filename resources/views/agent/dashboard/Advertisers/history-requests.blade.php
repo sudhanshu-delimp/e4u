@@ -55,12 +55,7 @@
 
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
-<style>
-.avatar_img img{
-width: 60px;
-height: 60px;
-}
- </style>  
+
 @endsection
 
 
@@ -110,10 +105,10 @@ height: 60px;
       });
    });
 
-document.getElementById('searchForm').addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-    }
-});
+   document.getElementById('searchForm').addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+         event.preventDefault();
+      }
+   });
 </script>
 @endpush

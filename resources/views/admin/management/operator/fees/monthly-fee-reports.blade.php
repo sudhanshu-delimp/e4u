@@ -172,15 +172,15 @@
 
                 <table class="w-100 table opr_modal_table">
                     <tr>
-                        <td style="font-weight: bold; color: #001f4d;">Operator ID: </td>
-                        <td><span id="payOperatorId"></span></td>
-                        <td style="font-weight: bold; color: #001f4d;">Date:</td>
+                        <td style="font-weight: bold; color: #000;">Operator ID: </td>
+                        <td style="text-align:right;"><span id="payOperatorId"></span></td>
+                        <td style="font-weight: bold; color: #000;">Date:</td>
                         <td><span id="payMonthlyReportDate"></span></td>
                     </tr>
                     <tr>
-                        <td style="font-weight: bold; color: #001f4d;">Fee Total:</td>
-                        <td>$<span id="payOperatorFee"></span></td>
-                        <td style="font-weight: bold; color: #001f4d;">Billing Period:</td>
+                        <td style="font-weight: bold; color: #000;">Fee Total:</td>
+                        <td style="text-align:right;">$<span id="payOperatorFee"></span></td>
+                        <td style="font-weight: bold; color: #000;">Billing Period:</td>
                         <td><span id="payMonthlyReportMonth"></span></td>
                     </tr>
                 </table>

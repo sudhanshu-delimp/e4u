@@ -3050,3 +3050,13 @@ function countOpenDays(string $startDate, string $endDate, string $scheduleJson)
     return $openDaysCount;
 }
 }
+
+
+if (!function_exists('formatBSBNumber')) {
+    function formatBSBNumber($number)
+    {
+        $number = preg_replace('/\D/', '', $number);
+
+        return implode('-', str_split($number, 3));
+    }
+}
