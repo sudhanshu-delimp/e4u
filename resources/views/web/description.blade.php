@@ -304,6 +304,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
     <div class="container-fluid px-0 next-preview-fixed position-relative">
         <div class="d-flex d-flex justify-content-between">
              @if($previous)
+        
             <div class="previous_btn_profile next_previous_btn_pogision  previousDisableButtonCss">
                 <a href="{{ str_contains(url()->full(), '?no-prev-page=') ? '#' : $previous}}" class="btn_ank">
                 <span class="previous_icon">
@@ -312,10 +313,32 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                 <span class="previous_text remove_in_sm">Previous</span>
                 </a>
             </div>
+
+            @else
+
+            <div class="previous_btn_profile next_previous_btn_pogision  previousDisableButtonCss" style="pointer-events: none; opacity: 0.5; cursor: not-allowed;">
+                <a href="#" class="btn_ank" >
+                <span class="previous_icon">
+                    <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path opacity="0.4" d="M13.2602 15.5302L9.74023 12.0002L13.2602 8.47021" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                </span>
+                <span class="previous_text remove_in_sm">Previous</span>
+                </a>
+            </div>
+
              @endif
             @if($next)
             <div class="next_btn_profile next_previous_btn_pogision nextDisableButtonCss" >
                 <a href="{{ str_contains(url()->full(), '?no-next-page=') ? '#' : $next}}" class="btn_ank">
+                <span class="previous_text remove_in_sm">Next</span>
+                <span class="previous_icon">
+                    <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path opacity="0.4" d="M10.7402 15.5302L14.2602 12.0002L10.7402 8.47021" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                </span>
+                </a>
+            </div>
+            @else
+
+            <div class="next_btn_profile next_previous_btn_pogision nextDisableButtonCss" style="pointer-events: none; opacity: 0.5; cursor: not-allowed;" >
+                <a href="#" class="btn_ank">
                 <span class="previous_text remove_in_sm">Next</span>
                 <span class="previous_icon">
                     <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path opacity="0.4" d="M10.7402 15.5302L14.2602 12.0002L10.7402 8.47021" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
