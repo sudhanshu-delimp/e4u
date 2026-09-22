@@ -42,11 +42,11 @@ class AddNewAgent extends FormRequest
 
         return [
             'business_name'   => 'required|string|max:255',
-            'business_number' => 'digits_between:10,15|unique:users,business_number,' . $agentId,
+            'business_number' => 'nullable|digits:8|unique:users,business_number,' . $agentId,
             'contact_person'  => 'required|string|max:255',
             'phone'           => 'required|min:10|max:14|unique:users,phone,' . $agentId,
-            'email'           => 'required|email|max:255|unique:users,email,' . $agentId,
-            'email2'          => 'required|email|max:255|unique:users,email2,' . $agentId,
+            'email'           => 'required|email:rfc,filter|max:255|unique:users,email,' . $agentId,
+            'email2'          => 'required|email:rfc,filter|max:255|unique:users,email2,' . $agentId,
             'state_id'        => 'required|exists:states,id',
             'agreement_date'  => 'required|date',
             'commission_advertising_type'  => 'required',

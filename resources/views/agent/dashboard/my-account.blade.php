@@ -226,7 +226,7 @@
                                             <div class="form-group">
                                                 <label for="membership_num">Agreement Date</label>
                                                 <p class="input_not_edit">
-                                                    {{ $user->agent_detail ? date('d-m-Y', strtotime($user->agent_detail)) : '' }}
+                                                    {{ isset($user->agent_detail->agreement_date) ? date('d-m-Y', strtotime($user->agent_detail->agreement_date)) : '' }}
                                                 </p>
                                             </div>
                                             <div class="form-group">
@@ -256,17 +256,18 @@
                                     
                                         <div class="col-lg-12 mt-4">
                                             <div class="form-group">
-                                                <label>You can retrieve your Agent Agreement by
+                                               
                                                     @if ($user->agent_detail && $user->agent_detail->agreement_file != '')
+                                                     <label>You can retrieve your Agent Agreement by
                                                         <a download="true"
                                                             href="{{ asset('storage/' . $user->agent_detail->agreement_file) }}"
                                                             class="custom_links_design">
                                                             <span style="color: #FF3C5F;">clicking here.</span>
-                                                        </a>
+                                                        </a></label>
                                                     @else
-                                                        <a download="true" href="#" class="custom_links_design">
-                                                            <span style="color: #FF3C5F;">clicking here.</span>
-                                                        </a>
+                                                    <a href="javascript:void(0)" class="custom_links_design" title="The agreement file has not been uploaded.">
+                                             <span style="color: #FF3C5F;">Agreement file not uploaded.</span>
+                                          </a>
                                                     @endif
 
 
