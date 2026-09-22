@@ -59,8 +59,12 @@
 
     {{-- this is common modal you can use same for all  View Report --}}
 
-    <div class="modal fade upload-modal" id="viewReports" tabindex="-1" role="dialog" aria-labelledby="viewReportsLabel"
-        aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal fade upload-modal" id="viewReports"
+     tabindex="-1"
+     aria-labelledby="viewReportsLabel"
+     aria-hidden="true"
+     data-bs-backdrop="static"
+     data-bs-keyboard="false">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -81,10 +85,9 @@
 
 
                 <div class="modal-footer">
-                    <button type="button" class="btn-cancel-modal">Print</button>
+                    <button type="button" class="btn-canc el-modal">Print</button>
                     <button type="button" class="btn btn-success confirm-approve-report">Approved</button>
-
-                    {{-- <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button> --}}
+                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -92,7 +95,7 @@
     {{-- end --}}
     <div id="reportLoader" class="text-center d-none">
         <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
+            <span class="visually-hidden"></span>
         </div>
     </div>
     {{-- end --}}
@@ -164,15 +167,16 @@
             columns: @json($columns)
         });
 
-        $(document).on('click', '.approve-report', function(e) {
+        $(document).on('click', '.report-action', function(e) {
             e.preventDefault();
 
             let id = $(this).data('id');
+            let type = $(this).data('type');
             $.ajax({
                 url: "{{ route('admin.report.details') }}",
                 type: "GET",
                 data: {
-                    id: id
+                    id: id,
                 },
 
                 beforeSend: function() {
@@ -182,9 +186,17 @@
                 success: function(response) {
                     if (response.status) {
                         $('#viewReports .modal-body').html(response.html);
-
+                        if(type=="view")
+                        {
+                          $(".confirm-approve-report").addClass('d-none');
+                        }else{
+                           $(".confirm-approve-report").removeClass('d-none');
+                        }
                         const modalElement = document.getElementById('viewReports');
-                        const modal = new bootstrap.Modal(modalElement);
+                        const modal = new bootstrap.Modal(modalElement, {
+                            backdrop: 'static',
+                            keyboard: false
+                        });
                         modal.show();
                     } else {
                         alert(response.message);
@@ -208,7 +220,7 @@
         $(document).on('click', '.confirm-approve-report', function(e) {
             e.preventDefault();
 
-            let id = $(this).data('id');
+            let id = $("#report_id").val();
  
             $.ajax({
                 url: "{{ route('admin.report.approve') }}",

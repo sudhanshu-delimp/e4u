@@ -173,73 +173,70 @@ class ConciergeReportController extends Controller
         */
         ->addColumn('action', function ($row) {
 
+          $isReconciled = $row->status === 'reconciled';
+
           return '
-                <div class="dropdown no-arrow">
+        <div class="dropdown no-arrow">
 
-                    <a class="dropdown-toggle"
-                       href="#"
-                       role="button"
-                       data-toggle="dropdown"
-                       aria-haspopup="true"
-                       aria-expanded="false">
+            <a class="dropdown-toggle"
+               href="#"
+               role="button"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">
 
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
 
-                    </a>
+            </a>
 
-                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">
+            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">
 
-                        <a class="dropdown-item align-item-custom approve-report"
-                           href="#"
-                           data-id="' . $row->id . '"  
-                           
-                           >
+                <a class="dropdown-item align-item-custom report-action"
+                   href="#"
+                    data-type="approve"
+                   data-id="' . $row->id . '">
 
-                            <i class="fa fa-check-circle" aria-hidden="true"></i>
-                            Approve
+                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                    Approve
+                </a>
 
-                        </a>
+                <div class="dropdown-divider"></div>
 
-                        <div class="dropdown-divider"></div>
+                <a class="dropdown-item align-item-custom  ' . ($isReconciled ? 'report-action' : 'disabled') . '"
+                   href="' . ($isReconciled ? '#' : 'javascript:void(0);') . '"
+                   data-id="' . $row->id . '"
+                   data-type="view"
+                    >
 
-                        <a class="dropdown-item align-item-custom"
-                           href="#"
-                           data-id="' . $row->id . '"
-                           data-toggle="modal"
-                           data-target="#viewReports">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                    View Report
+                </a>
 
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                            View Report
+                <div class="dropdown-divider"></div>
 
-                        </a>
+                <a class="dropdown-item align-item-custom"
+                   href="#"
+                   data-id="' . $row->id . '">
 
-                        <div class="dropdown-divider"></div>
+                    <i class="fa fa-at" aria-hidden="true"></i>
+                    Email
+                </a>
 
-                        <a class="dropdown-item align-item-custom"
-                           href="#"
-                           data-id="' . $row->id . '">
+                <div class="dropdown-divider"></div>
 
-                            <i class="fa fa-at" aria-hidden="true"></i>
-                            Email
+                <a class="dropdown-item align-item-custom"
+                   href="#"
+                   data-id="' . $row->id . '"
+                   data-toggle="modal"
+                   data-target="#viewReports">
 
-                        </a>
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                    View Supplier
+                </a>
 
-                        <div class="dropdown-divider"></div>
-
-                        <a class="dropdown-item align-item-custom"
-                           href="#"
-                           data-id="' . $row->id . '"
-                           data-toggle="modal"
-                           data-target="#viewReports">
-
-                            <i class="fa fa-eye" aria-hidden="true"></i>
-                            View Supplier
-
-                        </a>
-
-                    </div>
-                </div>
-            ';
+            </div>
+        </div>
+    ';
         })
 
         ->rawColumns([
@@ -342,8 +339,8 @@ class ConciergeReportController extends Controller
     //         'message' => 'Report not found.'
     //     ]);
     // }
-    $report_id=$request->id;
-    $html = view('admin.Concierge.conserge_report', compact('items','report_id'))->render();
+    $report_id = $request->id;
+    $html = view('admin.Concierge.conserge_report', compact('items', 'report_id'))->render();
 
     return response()->json([
       'status' => true,
@@ -363,12 +360,19 @@ class ConciergeReportController extends Controller
       ]);
     }
 
-    $report->status = 'Reconciled';
+    if ($report->status === 'reconciled') {
+      return response()->json([
+        'status' => false,
+        'message' => 'This report is already reconciled.'
+      ]);
+    }
+
+    $report->status = 'reconciled';
     $report->save();
 
     return response()->json([
       'status' => true,
-      'message' => 'Report Reconciled successfully.'
+      'message' => 'Report reconciled successfully.'
     ]);
   }
 }
