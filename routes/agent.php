@@ -239,11 +239,7 @@ Route::get('forms',function(){
     // })->name('Fees.summary');
 
 
-
-
-Route::get('my-statistics',function(){
-    return view('agent.dashboard.my-statistics');
-})->name('agent.my-statistics');
+Route::get('my-statistics',[AgentController::class,'myStatistics'])->name('agent.my-statistics');
 
 Route::get('advertisers',function(){
     return view('agent.dashboard.advertisers');
