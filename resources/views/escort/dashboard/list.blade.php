@@ -678,9 +678,9 @@
             ],
             order: [4, 'asc'],
             pageLength: `{{$datatable_entries}}`,
-            lengthMenu: [`{{config('app.paginate_range')}}`],
+            lengthMenu: `{{config('app.paginate_range')}}`.split(','),
         });
-        //    $('#sailorTable_filter label').append('<i class="fa fa-search "></i>');
+
 
         $('#profile_state_id').change(function() {
             var stateId = $(this).val();
@@ -752,12 +752,6 @@
 
     });
 
-    // var formatDateLocal = function(date) {
-    //     let y = date.getFullYear();
-    //     let m = String(date.getMonth() + 1).padStart(2, '0');
-    //     let d = String(date.getDate()).padStart(2, '0');
-    //     return `${y}-${m}-${d}`;
-    // }
 
     var getDateAfter = function(dateStr, after = 1) {
         let [day, month, year] = dateStr.split('-');

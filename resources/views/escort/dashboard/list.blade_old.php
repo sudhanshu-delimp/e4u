@@ -708,8 +708,8 @@
                     },
                 ],
                 order: [8, 'asc'],
-                pageLength: {{$datatable_entries }},
-                lengthMenu: [{{ config('app.paginate_range') }}],  
+                pageLength: `{{$datatable_entries}}`,
+            lengthMenu: `{{config('app.paginate_range')}}`.split(','), 
             });
             //    $('#sailorTable_filter label').append('<i class="fa fa-search "></i>');
 

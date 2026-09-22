@@ -186,8 +186,8 @@
             paging: true,
             processing: false,
             serverSide: false,
-            pageLength: {{$datatable_entries }},
-            lengthMenu: [{{ config('app.paginate_range') }}],   
+            pageLength: `{{$datatable_entries}}`,
+        lengthMenu: `{{config('app.paginate_range')}}`.split(','),  
             ordering: true,
             columnDefs: [{
                     targets: 5,

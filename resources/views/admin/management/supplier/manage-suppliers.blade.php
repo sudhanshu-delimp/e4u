@@ -1,205 +1,205 @@
 @extends('layouts.admin')
 @section('style')
 <style>
-    form label{
+    form label {
         margin-bottom: 0px;
     }
 </style>
 @stop
 @section('content')
-    @php
-        $securityLevel = isset(auth()->user()->staff_detail->security_level)
-            ? auth()->user()->staff_detail->security_level
-            : 0;
-        $addAccess = staffPageAccessPermission($securityLevel, 'add');
-        $addAccessEnabled = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+@php
+$securityLevel = isset(auth()->user()->staff_detail->security_level)
+? auth()->user()->staff_detail->security_level
+: 0;
+$addAccess = staffPageAccessPermission($securityLevel, 'add');
+$addAccessEnabled = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
 
-        $editAccess = staffPageAccessPermission($securityLevel, 'edit');
-        $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
-    @endphp
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-        <!-- Main Content -->
-        <div id="content">
-            <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-                <!--middle content-->
-                <div class="row">
-                    <div class="custom-heading-wrapper col-md-12">
-                        <h1 class="h1">Manage Suppliers</h1>
-                        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
-                            style="font-size:16px"><b>Help?</b> </span>
-                    </div>
-                    <div class="col-md-12 mb-4">
-                        <div class="card collapse" id="notes">
-                            <div class="card-body">
-                                <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                <ol>
-                                    <li>Create and manage Suppliers here.</li>
-                                    <li>Manage status of Suppliers.</li>
-                                </ol>
-                            </div>
+$editAccess = staffPageAccessPermission($securityLevel, 'edit');
+$editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+@endphp
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+    <!-- Main Content -->
+    <div id="content">
+        <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+            <!--middle content-->
+            <div class="row">
+                <div class="custom-heading-wrapper col-md-12">
+                    <h1 class="h1">Manage Suppliers</h1>
+                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
+                        style="font-size:16px"><b>Help?</b> </span>
+                </div>
+                <div class="col-md-12 mb-4">
+                    <div class="card collapse" id="notes">
+                        <div class="card-body">
+                            <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                            <ol>
+                                <li>Create and manage Suppliers here.</li>
+                                <li>Manage status of Suppliers.</li>
+                            </ol>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel with-nav-tabs panel-warning">
-                            <div class="panel-body">
-                                <div class="tab-content">
-                                    <div class="tab-pane fade active show" id="tab3warning">
-                                        <div class="row pb-3">
-                                            @if ($addAccessEnabled)
-                                                <div class="col-md-12 col-sm-12">
-                                                    <div class="bothsearch-form" style="gap: 10px;">
-                                                        <button type="button" class="create-tour-sec dctour"
-                                                            data-toggle="modal" data-target="#addNewSupplier">Add New
-                                                            Merchant</button>
-                                                    </div>
-                                                </div>
-                                            @endif
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel with-nav-tabs panel-warning">
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade active show" id="tab3warning">
+                                    <div class="row pb-3">
+                                        @if ($addAccessEnabled)
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="bothsearch-form" style="gap: 10px;">
+                                                <button type="button" class="create-tour-sec dctour"
+                                                    data-toggle="modal" data-target="#addNewSupplier">Add New
+                                                    Merchant</button>
+                                            </div>
                                         </div>
-                                        <div class="table-responsive">
-                                            <table class="table w-100" id="ManageSupplierTable">
-                                                <thead class="table-bg">
-                                                    <tr>
-                                                        <th scope="col">Merchant ID</th>
-                                                        <th scope="col">Merchant</th>
-                                                        <th scope="col">Location</th>
-                                                        <th scope="col">Mobile</th>
-                                                        <th scope="col">Email</th>
-                                                        <th scope="col">Status</th>
-                                                        <th scope="col">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="table-content">
-                                           
-                                                </tbody>
+                                        @endif
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table w-100" id="ManageSupplierTable">
+                                            <thead class="table-bg">
+                                                <tr>
+                                                    <th scope="col">Merchant ID</th>
+                                                    <th scope="col">Merchant</th>
+                                                    <th scope="col">Location</th>
+                                                    <th scope="col">Mobile</th>
+                                                    <th scope="col">Email</th>
+                                                    <th scope="col">Status</th>
+                                                    <th scope="col">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="table-content">
 
-                                            </table>
-                                        </div>
+                                            </tbody>
+
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="col-sm-12 col-md-12 col-lg-12">
+                </div>
+                <!-- <div class="col-sm-12 col-md-12 col-lg-12">
                                            <div class="timer_section">
                                               <p>Server time: <span class="serverTime">{{ getServertime() }}</span></p>
                                               <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
                                               <p>Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></p>
                                            </div>
                                         </div> -->
-                </div>
-            </div>
-            <!--middle content end here-->
-        </div>
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span> </span>
-                </div>
-            </div>
-        </footer>
-        <!-- End of Footer -->
-    </div>
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Add Supplier From -->
-    <div class="modal fade upload-modal" id="addNewSupplier" tabindex="-1" role="dialog"
-        aria-labelledby="addNewMerchantLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addNewMerchant"> <img
-                            src="{{ asset('assets/dashboard/img/add-agent.png') }}" class="custompopicon"> Add New
-                        Merchant</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @include('admin.management.supplier.add_supplier', ['supplier' => []])
-                </div>
             </div>
         </div>
+        <!--middle content end here-->
     </div>
-    <!-- End of add supplier form -->
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span> </span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
+</div>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
 
-
-    <!-- Edit Merchant popup form -->
-    <div class="modal fade upload-modal" id="editSupplierModel" tabindex="-1" role="dialog"
-        aria-labelledby="edit_merchant_dataLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="edit_merchant_data">
-                        <img src="{{ asset('assets/dashboard/img/update-agent.png') }}" class="custompopicon">
-                        Update Merchant Details
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen">
-                        </span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @include('admin.management.supplier.edit_supplier', ['supplier' => []])
-                </div>
+<!-- Add Supplier From -->
+<div class="modal fade upload-modal" id="addNewSupplier" tabindex="-1" role="dialog"
+    aria-labelledby="addNewMerchantLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addNewMerchant"> <img
+                        src="{{ asset('assets/dashboard/img/add-agent.png') }}" class="custompopicon"> Add New
+                    Merchant</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                            class="img-fluid img_resize_in_smscreen"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @include('admin.management.supplier.add_supplier', ['supplier' => []])
             </div>
         </div>
     </div>
+</div>
+<!-- End of add supplier form -->
 
-    {{-- view merchant modal popup --}}
 
-    <!-- View Merchant popupform -->
-    <div class="modal fade upload-modal" id="viewSupplierPopUpModel" tabindex="-1" role="dialog"
-        aria-labelledby="view_merchant_dataLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-
-                <!-- Header -->
-                <div class="modal-header">
-                    <h5 class="modal-title" id="view_merchant_dataLabel">
-                        <img src="{{ asset('assets/dashboard/img/view-merchant.png') }}" class="custompopicon"
-                            alt="View Merchant">
-                        View Account
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen">
-                        </span>
-                    </button>
-                </div>
-                <!-- Body -->
-                <div class="modal-body pb-0">
-                     <div class="modal-content" id="modalViewSupplierContent"></div>
-                    {{-- @include('admin.management.supplier.view_supplier', ['supplier' => []]) --}}
-                </div>
-
+<!-- Edit Merchant popup form -->
+<div class="modal fade upload-modal" id="editSupplierModel" tabindex="-1" role="dialog"
+    aria-labelledby="edit_merchant_dataLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="edit_merchant_data">
+                    <img src="{{ asset('assets/dashboard/img/update-agent.png') }}" class="custompopicon">
+                    Update Merchant Details
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <img src="{{ asset('assets/app/img/newcross.png') }}"
+                            class="img-fluid img_resize_in_smscreen">
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @include('admin.management.supplier.edit_supplier', ['supplier' => []])
             </div>
         </div>
     </div>
-    {{-- end --}}
-    <div class="modal fade upload-modal" id="viewAgentdetails" tabindex="-1" role="dialog"
-        aria-labelledby="Edit_CompetitorLabel" aria-hidden="true"></div>
-    <div class="modal fade upload-modal" id="printAgentdetails" tabindex="-1" role="dialog"
-        aria-labelledby="Edit_CompetitorLabel" aria-hidden="true"></div>
+</div>
+
+{{-- view merchant modal popup --}}
+
+<!-- View Merchant popupform -->
+<div class="modal fade upload-modal" id="viewSupplierPopUpModel" tabindex="-1" role="dialog"
+    aria-labelledby="view_merchant_dataLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="view_merchant_dataLabel">
+                    <img src="{{ asset('assets/dashboard/img/view-merchant.png') }}" class="custompopicon"
+                        alt="View Merchant">
+                    View Account
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <img src="{{ asset('assets/app/img/newcross.png') }}"
+                            class="img-fluid img_resize_in_smscreen">
+                    </span>
+                </button>
+            </div>
+            <!-- Body -->
+            <div class="modal-body pb-0">
+                <div class="modal-content" id="modalViewSupplierContent"></div>
+                {{-- @include('admin.management.supplier.view_supplier', ['supplier' => []]) --}}
+            </div>
+
+        </div>
+    </div>
+</div>
+{{-- end --}}
+<div class="modal fade upload-modal" id="viewAgentdetails" tabindex="-1" role="dialog"
+    aria-labelledby="Edit_CompetitorLabel" aria-hidden="true"></div>
+<div class="modal fade upload-modal" id="printAgentdetails" tabindex="-1" role="dialog"
+    aria-labelledby="Edit_CompetitorLabel" aria-hidden="true"></div>
 
 @includeif('admin.modal.change-password')
 @endsection
 @push('script')
-    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
-    </script>
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+</script>
 
-    <script>
-         $(document).ready(function() {
+<script>
+    $(document).ready(function() {
         var table = $("#ManageSupplierTable").DataTable({
             language: {
                 search: "Search: _INPUT_",
@@ -278,11 +278,8 @@
             order: [
                 [1, 'desc']
             ],
-            lengthMenu: [
-                [10, 25, 50, 100],
-                [10, 25, 50, 100]
-            ],
-            pageLength: 10,
+            pageLength: `{{$datatable_entries}}`,
+            lengthMenu: `{{config('app.paginate_range')}}`.split(','),
         });
 
         /*** Edit the supplier */
@@ -380,119 +377,119 @@
         });
 
         /*** View the Supplier */
-            $(document).on('click', '#viewSupplierBtn', function() {
-                let id = $(this).data('id');
-                $.ajax({
-                    url: BASE_URL + "/admin-dashboard/view-supplier/" + id,
-                    type: 'GET',
+        $(document).on('click', '#viewSupplierBtn', function() {
+            let id = $(this).data('id');
+            $.ajax({
+                url: BASE_URL + "/admin-dashboard/view-supplier/" + id,
+                type: 'GET',
+                success: function(response) {
+                    if ($.trim(response) === "") {
+                        swal_error_popup("Supplier data not found");
+                    } else {
+                        $('#modalViewSupplierContent').html(response);
+                        $('#viewSupplierPopUpModel').modal('show');
+                    }
+                },
+                error: function() {
+                    alert("Error loading form");
+                }
+            });
+        });
+
+        /*** Suspend supplier */
+        $(document).on('click', '.account-suspend-btn', async function(e) {
+            if (await isConfirm({
+                    'action': 'Suspend',
+                    'text': 'Are you sure you want to suspend this account?'
+                })) {
+                swal_waiting_popup({
+                    'title': 'Suspending Account'
+                });
+                ajaxRequest({
+                    url: "{{ route('admin.suspend-supplier') }}",
+                    method: 'POST',
+                    data: {
+                        id: $(this).data('id'),
+                        request_type: 'suspend'
+                    },
                     success: function(response) {
-                        if ($.trim(response) === "") {
-                            swal_error_popup("Supplier data not found");
+                        console.log(response)
+                        if (response.status) {
+                            swal_success_popup(response.message);
+                            table.ajax.reload(null, false);
                         } else {
-                            $('#modalViewSupplierContent').html(response);
-                            $('#viewSupplierPopUpModel').modal('show');
+                            swal_error_popup(response.message);
                         }
                     },
-                    error: function() {
-                        alert("Error loading form");
+                    error: function(xhr) {
+                        swal_error_popup('Error occured whiile making request');
                     }
                 });
-            });
+            }
+        });
 
-            /*** Suspend supplier */
-            $(document).on('click', '.account-suspend-btn', async function(e) {
-                if (await isConfirm({
-                        'action': 'Suspend',
-                        'text': 'Are you sure you want to suspend this account?'
-                    })) {
-                    swal_waiting_popup({
-                        'title': 'Suspending Account'
-                    });
-                    ajaxRequest({
-                        url: "{{ route('admin.suspend-supplier') }}",
-                        method: 'POST',
-                        data: {
-                            id: $(this).data('id'),
-                            request_type: 'suspend'
-                        },
-                        success: function(response) {
-                            console.log(response)
-                            if (response.status) {
-                                swal_success_popup(response.message);
-                                table.ajax.reload(null, false);
-                            } else {
-                                swal_error_popup(response.message);
-                            }
-                        },
-                        error: function(xhr) {
-                            swal_error_popup('Error occured whiile making request');
-                        }
-                    });
-                }
-            });
+        /* Approve supplier */
+        $(document).on('click', '.approve_account', async function(e) {
+            if (await isConfirm({
+                    'action': 'Approve',
+                    'text': 'Are you sure you want to approve this account?'
+                })) {
+                swal_waiting_popup({
+                    'title': 'Approving Account'
+                });
+                $.ajax({
+                    url: "{{ route('admin.approve_supplier_account') }}",
+                    method: 'POST',
+                    data: {
+                        'user_id': $(this).attr('data-id'),
+                        'status': '1'
+                    },
+                    success: function(response) {
+                        table.ajax.reload(null, false);
+                        Swal.close();
+                        $('#staffViewModal').modal('hide');
+                        $('#staffEditModal').modal('hide');
+                        swal_success_popup(response.message);
+                    },
+                    error: function(xhr) {
 
-            /* Approve supplier */
-            $(document).on('click', '.approve_account', async function(e) {
-                if (await isConfirm({
-                        'action': 'Approve',
-                        'text': 'Are you sure you want to approve this account?'
-                    })) {
-                    swal_waiting_popup({
-                        'title': 'Approving Account'
-                    });
-                    $.ajax({
-                        url: "{{ route('admin.approve_supplier_account') }}",
-                        method: 'POST',
-                        data: {
-                            'user_id': $(this).attr('data-id'),
-                            'status': '1'
-                        },
-                        success: function(response) {
-                            table.ajax.reload(null, false);
-                            Swal.close();
-                            $('#staffViewModal').modal('hide');
-                            $('#staffEditModal').modal('hide');
-                            swal_success_popup(response.message);
-                        },
-                        error: function(xhr) {
+                        Swal.close();
+                        $('#staffViewModal').modal('hide');
+                        $('#staffEditModal').modal('hide');
+                        swal_error_popup(xhr.responseJSON.message);
+                    }
+                });
+            }
+        });
 
-                            Swal.close();
-                            $('#staffViewModal').modal('hide');
-                            $('#staffEditModal').modal('hide');
-                            swal_error_popup(xhr.responseJSON.message);
-                        }
-                    });
-                }
-            });
-
-            /*** Activate supplier Account */
-            $(document).on('click', '.active-account-btn', async function(e) {
-                if (await isConfirm({
-                        'action': 'Activate',
-                        'text': 'Are you sure you want to activate this account?'
-                    })) {
-                    swal_waiting_popup({
-                        'title': 'Activating Account'
-                    });
-                    $.ajax({
-                        url: "{{ route('admin.active-supplier-account') }}",
-                        method: 'POST',
-                        data: {
-                            'user_id': $(this).attr('data-id'),
-                            'status': '1'
-                        },
-                        success: function(response) {
-                            table.ajax.reload(null, false);
-                            Swal.close();
-                            swal_success_popup(response.message);
-                        },
-                        error: function(xhr) {
-                            Swal.close();
-                            swal_error_popup(xhr.responseJSON.message);
-                        }
-                    });
-                }
-            })
-      });       
-    </script>
+        /*** Activate supplier Account */
+        $(document).on('click', '.active-account-btn', async function(e) {
+            if (await isConfirm({
+                    'action': 'Activate',
+                    'text': 'Are you sure you want to activate this account?'
+                })) {
+                swal_waiting_popup({
+                    'title': 'Activating Account'
+                });
+                $.ajax({
+                    url: "{{ route('admin.active-supplier-account') }}",
+                    method: 'POST',
+                    data: {
+                        'user_id': $(this).attr('data-id'),
+                        'status': '1'
+                    },
+                    success: function(response) {
+                        table.ajax.reload(null, false);
+                        Swal.close();
+                        swal_success_popup(response.message);
+                    },
+                    error: function(xhr) {
+                        Swal.close();
+                        swal_error_popup(xhr.responseJSON.message);
+                    }
+                });
+            }
+        })
+    });
+</script>
 @endpush

@@ -26,11 +26,11 @@
         line-height: 29px;
         color: #0C223D;
     }
-    .details-row div {
-    word-break: break-word;
-    overflow-wrap: break-word;
-}
 
+    .details-row div {
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
 </style>
 <div id="wrapper">
     <div id="content-wrapper" class="d-flex flex-column">
@@ -42,7 +42,7 @@
                         <h1 class="h1">Feedback</h1>
                         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                     </div>
-                    
+
                     <div class="col-md-12 mb-4">
                         <div class="card collapse" id="notes">
                             <div class="card-body">
@@ -57,7 +57,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="row">
                     <div class="col-md-12 mb-4">
@@ -332,13 +332,10 @@ confirm-popup
                 }
             ],
 
-            lengthMenu: [
-                [10, 25, 50, 100],
-                [10, 25, 50, 100]
-            ],
+            pageLength: `{{$datatable_entries}}`,
+            lengthMenu: `{{config('app.paginate_range')}}`.split(','),
 
-             order: [],
-            pageLength: 10
+            order: [],
         });
 
 
@@ -370,7 +367,7 @@ confirm-popup
                     $(".head_modal_title").html("Feedback Updated");
                     $('.comman_msg').html("The feedback status has been successfully changed to Completed.");
                     $('#comman_modal').modal('show');
-                    
+
                 }
             })
         });

@@ -215,8 +215,8 @@
             },
                 drawCallback: function (settings) {
             },
-            pageLength: {{$datatable_entries }},
-            lengthMenu: [{{ config('app.paginate_range') }}],   
+            pageLength: `{{$datatable_entries}}`,
+            lengthMenu: `{{config('app.paginate_range')}}`.split(','),  
             columns: [
                 { data: 'ref', name: 'ref' },
                 { data: 'escort_name', name: 'escort_name' },
