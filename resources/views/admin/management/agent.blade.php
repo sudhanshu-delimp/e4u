@@ -463,7 +463,7 @@
 
                                  <div class="col-6 mb-3">
                                        <label class="form-label" for="business_number">Business Number</label>
-                                       <input type="text" class="form-control rounded-0"  name="business_number" id="business_number" value="${(rowData.business_number ? removeAnythingExceptNumber(rowData.business_number) : '')}">
+                                       <input type="text" class="form-control rounded-0 formatMobile"  name="business_number" id="business_number" value="${(rowData.business_number ? removeAnythingExceptNumber(rowData.business_number) : '')}">
                                        <span class="text-danger error-business_number"></span>
                                  </div>
 

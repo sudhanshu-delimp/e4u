@@ -592,9 +592,55 @@
             display: flex;
             flex-direction: column;
 
-            gap: 5px;
+            gap: 12px;
         }
 
+        .page-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .page-group-toggle {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 8px 10px;
+            border: none;
+            background: #f8f9fb;
+            color: #7c8798;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .page-group-toggle .caret {
+            transition: transform 0.2s ease;
+            font-size: 12px;
+            color: #7c8798;
+        }
+
+        .page-group-toggle.is-open .caret {
+            transform: rotate(90deg);
+        }
+
+        .page-sub-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            overflow: hidden;
+            transition: max-height 0.2s ease, opacity 0.2s ease;
+        }
+
+        .page-sub-group.is-collapsed {
+            display: none;
+        }
 
         /* Page Item */
 
@@ -627,6 +673,9 @@
             transition: all 0.2s ease;
         }
 
+        .page-sub-item {
+            padding-left: 18px;
+        }
 
         /* Icon */
 
@@ -797,14 +846,26 @@
                                 <aside class="search-panel">
                                     <!-- Page List -->
                                     <div class="page-list" id="pageList">
-                                        @if(getSeoTaggedRoutes())
-                                            @foreach (getSeoTaggedRoutes() as $item)
-                                            <button type="button" class="page-item" data-route-name="{{$item['route_name']}}" data-url-name="{{$item['uri']}}">
-                                                <span class="page-name">{{$item['seo_label']}}</span>
-                                            </button>
+                                        @php $seoGroupedRoutes = getSeoGroupedRoutes(); @endphp
+                                        @if($seoGroupedRoutes)
+                                            @foreach (['Header', 'Footer', 'Other'] as $groupName)
+                                                @if (isset($seoGroupedRoutes[$groupName]) && !empty($seoGroupedRoutes[$groupName]))
+                                                    <div class="page-group">
+                                                        <button type="button" class="page-group-toggle {{ $loop->first ? 'is-open' : '' }}" data-group-name="{{ $groupName }}">
+                                                            <span>{{ $groupName }}</span>
+                                                            <span class="caret">›</span>
+                                                        </button>
+                                                        <div class="page-sub-group {{ $loop->first ? '' : 'is-collapsed' }}">
+                                                            @foreach ($seoGroupedRoutes[$groupName] as $item)
+                                                                <button type="button" class="page-item page-sub-item" data-route-name="{{ $item['route_name'] }}" data-url-name="{{ $item['uri'] }}">
+                                                                    <span class="page-name">{{ $item['seo_label'] }}</span>
+                                                                </button>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             @endforeach
                                         @endif
-                                    
                                     </div>
                                 </aside>
                                 <!--  CONTENT  -->
@@ -1169,6 +1230,26 @@
                        // saveButton.prop("disabled", false);
                     }
                 });
+            });
+
+            /*  GROUP TOGGLE  */
+            $(".page-group-toggle").on("click", function() {
+                const $toggle = $(this);
+                const $group = $toggle.closest(".page-group");
+                const $submenu = $group.find(".page-sub-group");
+                const isOpen = $toggle.hasClass("is-open");
+
+                $(".page-group-toggle").not($toggle).removeClass("is-open");
+                $(".page-sub-group").not($submenu).addClass("is-collapsed");
+
+                if (isOpen) {
+                    $toggle.removeClass("is-open");
+                    $submenu.addClass("is-collapsed");
+                    return;
+                }
+
+                $toggle.addClass("is-open");
+                $submenu.removeClass("is-collapsed");
             });
 
             /*  PAGE SELECTION  */

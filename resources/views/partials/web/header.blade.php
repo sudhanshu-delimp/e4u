@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en">
 
+
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -10,7 +12,7 @@
     {{-- <meta name="google-site-verification" content="tzqUkr_jX_neI5MlPldK2ai6CErqC0OOKQCvJ85xJeA" /> --}}
     <!-- Bootstrap CSS -->
     <link rel="shortcut icon" href="{{ asset('assets/app/img/favicon.ico') }}" />
-    <title>{{ !empty($seo-> meta_title) ? $seo->meta_title : 'E4U - Escort Directory' }}</title>
+    <title>{{ !empty($seo->meta_title) ? $seo->meta_title : 'E4U - Escort Directory' }}</title>
 
     @if(!empty($seo->meta_description))
     <meta name="description" content="{{ $seo->meta_description }}">

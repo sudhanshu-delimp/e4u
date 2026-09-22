@@ -1492,7 +1492,7 @@ margin-right: 5px;
                                                 <div class="col-12 remove_padding_for_carousel">
                                                     <img src="{{ $image['url'] }}" data-id="{{$image['image_data']['id']}}"
                                                         class="d-block w-100"
-                                                        alt="Gallery Image"
+                                                        alt="{{$listing['business_name'] ?? ''}}"
                                                         data-toggle="modal"
                                                         data-target="#exampleModal">  
                                                 </div>

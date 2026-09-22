@@ -292,7 +292,9 @@ Route::post('contact-us-send', [ContactUsController::class, 'sendContact'])->nam
 
 
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])
+->name('home')->seo_name('Home Page')->middleware('seo');
+
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'intendedRedirect'])->name('dashboard');
 
