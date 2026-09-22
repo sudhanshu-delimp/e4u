@@ -3010,6 +3010,88 @@ if (!function_exists('getSeoTaggedRoutes')) {
     }
 }
 
+if (!function_exists('getSeoGroupedRoutes')) {
+    function getSeoGroupedRoutes()
+    {
+        $grouped = [
+            'Header' => [],
+            'Footer' => [],
+            'Other' => [],
+        ];
+
+        foreach (getSeoTaggedRoutes() as $item) {
+            $group = getSeoRouteMenuGroup($item['route_name'] ?? '', $item['uri'] ?? '', $item['seo_label'] ?? '');
+            $grouped[$group][] = $item;
+        }
+
+        foreach (['Header', 'Footer', 'Other'] as $groupName) {
+            if (empty($grouped[$groupName])) {
+                unset($grouped[$groupName]);
+            }
+        }
+
+        return $grouped;
+    }
+}
+
+if (!function_exists('getSeoRouteMenuGroup')) {
+    function getSeoRouteMenuGroup($routeName = '', $uri = '', $seoLabel = '')
+    {
+        $needle = strtolower($routeName . ' ' . $uri . ' ' . $seoLabel);
+
+        $headerRoutes = [
+            'page.agents',
+            'page.escorts4u',
+            'page.e4u-verified',
+            'page.centres',
+            'page.playbox',
+            'page.help.for.agents',
+            'page.help.for.massage.centres',
+            'page.help.for.viewers',
+            'page.accommodation',
+            'page.email-hosting',
+            'page.mobile-read-sim',
+            'page.professional-product',
+            'page.travel',
+            'page.visa-migration',
+            'home',
+            'page.become-pin-up',
+        ];
+
+        $footerRoutes = [
+            'pages.abbreviations',
+            'pages.etiquette',
+            'faqs',
+            'parent.control',
+            'feedbackpage',
+            'web.help-for-advertisers',
+            'web.cookie-policy',
+            'pages.terms-conditions',
+            'alerts',
+            'contactus.index',
+            'blogs.index',
+            'about agents',
+            'about playbox',
+            'about escort e4u',
+            'about e4u verified',
+        ];
+
+        foreach ($headerRoutes as $route) {
+            if (str_contains($needle, strtolower($route))) {
+                return 'Header';
+            }
+        }
+
+        foreach ($footerRoutes as $route) {
+            if (str_contains($needle, strtolower($route))) {
+                return 'Footer';
+            }
+        }
+
+        return 'Other';
+    }
+}
+
 if (!function_exists('calculate_agent_commission')) {
 function calculate_agent_commission($amount, $percent) {
 
