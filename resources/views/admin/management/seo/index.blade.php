@@ -54,21 +54,17 @@
 
 
         /*  SEARCH PANEL  */
-
         .search-panel {
             background: white;
-
             border: 1px solid #e7e9ee;
-
             border-radius: 14px;
-
             padding: 18px;
 
-            height: 100vh;
+            min-height: 150px;
+            overflow-y: auto;
+            overflow-x: hidden;
 
             box-shadow: 0 4px 20px rgba(16, 39, 70, 0.06);
-
-            overflow-y: scroll;
         }
 
 
@@ -610,12 +606,12 @@
             padding: 8px 10px;
             border: none;
             background: #f8f9fb;
-            color: #7c8798;
+            color: #0c223d;
             border-radius: 8px;
-            font-size: 11px;
+            font-size: 15px;
             font-weight: 700;
             letter-spacing: 0.06em;
-            text-transform: uppercase;
+            text-transform: capitalize;
             cursor: pointer;
             text-align: left;
         }
@@ -853,7 +849,9 @@
                                                     <div class="page-group">
                                                         <button type="button" class="page-group-toggle {{ $loop->first ? 'is-open' : '' }}" data-group-name="{{ $groupName }}">
                                                             <span>{{ $groupName }}</span>
-                                                            <span class="caret">›</span>
+                                                            <span class="caret">
+                                                                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 6L15 12L9 18" stroke="#0c223d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                                                            </span>
                                                         </button>
                                                         <div class="page-sub-group {{ $loop->first ? '' : 'is-collapsed' }}">
                                                             @foreach ($seoGroupedRoutes[$groupName] as $item)
