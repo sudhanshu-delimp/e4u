@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
 <style>
     .swal-button {
-    background-color: #242a2c;
+        background-color: #242a2c;
     }
 </style>
 @stop
@@ -14,18 +14,18 @@
     <div id="content">
         <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <!--middle content-->
-             {{-- Page Heading   --}}
+            {{-- Page Heading   --}}
             <div class="row">
                 <div class="custom-heading-wrapper col-md-12">
-                   <h1 class="h1">Manage User</h1>
+                    <h1 class="h1">Manage User</h1>
                     <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
                 </div>
                 <div class="col-md-12 mb-4">
                     <div class="card collapse" id="notes" style="">
-                    <div class="card-body">
-                       <h3 class="NotesHeader"><b>Notes:</b></h3>
-                        <ol></ol>
-                    </div>
+                        <div class="card-body">
+                            <h3 class="NotesHeader"><b>Notes:</b></h3>
+                            <ol></ol>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -83,12 +83,12 @@
         </div>
     </div>
     <!-- End of Main Content -->
-    
+
 </div>
 <!-- End of Page Wrapper -->
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
-<i class="fas fa-angle-up"></i>
+    <i class="fas fa-angle-up"></i>
 </a>
 <div class="modal fade upload-modal" id="Competitor" tabindex="-1" role="dialog" aria-labelledby="CompetitorLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -96,14 +96,14 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="Competitor"> <img src="{{ asset('assets/dashboard/img/change-security.png')}}" class="custompopicon">Change Security Level</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                    <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
             </div>
             <div class="modal-body pb-0">
-              <p class="py-4 mb-0"> You’re about to change <b>Ewan Dev</b> Security Level from <b>Admin</b> to <b>Staff</b></p>
+                <p class="py-4 mb-0"> You’re about to change <b>Ewan Dev</b> Security Level from <b>Admin</b> to <b>Staff</b></p>
             </div>
             <div class="modal-footer">
-          <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn-success-modal">Confirm</button>
             </div>
         </div>
@@ -118,21 +118,22 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
-   var table = $("#logOfficeTable").DataTable({
-    language: {
-        search: "Search: _INPUT_",
-        searchPlaceholder: "Search by ID..."
-    },
-    info: true,
-    paging: true,
-    lengthChange: true,
-    searching: true,
-    bStateSave: true,
-    order: [[1, 'desc']],
-    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-    pageLength: 10
-});
-
- </script>
+    var table = $("#logOfficeTable").DataTable({
+        language: {
+            search: "Search: _INPUT_",
+            searchPlaceholder: "Search by ID..."
+        },
+        info: true,
+        paging: true,
+        lengthChange: true,
+        searching: true,
+        bStateSave: true,
+        order: [
+            [1, 'desc']
+        ],
+        pageLength: `{{$datatable_entries}}`,
+        lengthMenu: `{{config('app.paginate_range')}}`.split(','),
+    });
+</script>
 
 @endsection

@@ -168,8 +168,8 @@
             table = $('#playmateListTable').DataTable({
                 serverSide: true,
                 processing: true,
-                pageLength: {{$datatable_entries }},
-                lengthMenu: [{{ config('app.paginate_range') }}],   
+                pageLength: `{{$datatable_entries}}`,
+            lengthMenu: `{{config('app.paginate_range')}}`.split(','),   
                 "language": {
                     "zeroRecords": "There is no record of the search criteria you entered.",
                     searchPlaceholder: "Search by Profile Name"
