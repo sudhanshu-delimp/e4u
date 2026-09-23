@@ -26,38 +26,11 @@ class BlogsController extends Controller
             $blogDetail->blog_image = asset(ImageService::url($blogDetail->blog_image, 'original', 'publication_blog'));
         }
 
-
-        //Next page
-        // $previousBlog = PublicationBlog::where(function ($query) use ($blogDetail) {
-        //                 $query->where(function ($q) use ($blogDetail) {
-        //                     $q->whereDate('created_at', $blogDetail->created_at)
-        //                         ->where('id', '<', $blogDetail->id);
-        //                 })
-        //                     ->orWhere('created_at', '<', $blogDetail->created_at);
-        //             })
-        //     ->where('status', 'Published')
-        //     ->orderBy('created_at', 'desc')
-        //     ->orderBy('id', 'desc')
-        //     ->first();
-
-        // Next Blog 
-        // $nextBlog = PublicationBlog::where(function ($query) use ($blogDetail) {
-        //             $query->where(function ($q) use ($blogDetail) {
-        //                 $q->whereDate('created_at', $blogDetail->created_at)
-        //                     ->where('id', '>', $blogDetail->id);
-        //             })
-        //                 ->orWhere('created_at', '>', $blogDetail->created_at);
-        //         })
-        //     ->where('status', 'Published')
-        //     ->orderBy('created_at', 'asc')
-        //     ->orderBy('id', 'asc')
-        //     ->first();
-
         //SEO content
-       // $seo = PublicationBlog::select('')
+        $seo = PublicationBlog::where('slug', $slug)->select('meta_title', 'meta_description')->first();
 
         if ($blogDetail) {
-            return view('web.pages.blog.blogs-single', compact('blogDetail'));
+            return view('web.pages.blog.blogs-single', compact('blogDetail', 'seo'));
         }
         abort(404);
     }
@@ -66,10 +39,6 @@ class BlogsController extends Controller
     {
         $month = $request->get('month');
         $search = $request->get('search');
-
-
-        
-  
 
         try {
 
