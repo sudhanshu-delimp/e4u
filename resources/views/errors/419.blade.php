@@ -524,26 +524,7 @@
 
 
             <!-- BUTTONS -->
-            <div class="error-actions">   
-
-                <a href="javascript:location.reload();" class="error-btn btn-outline">
-
-                   <svg viewBox="0 0 24 24"
-                         fill="none"
-                         stroke="currentColor"
-                         stroke-width="2">
-
-                        <path d="M20 11a8.1 8.1 0 0 0-15.5-2"></path>
-
-                        <path d="M4 5v4h4"></path>
-
-                        <path d="M4 13a8.1 8.1 0 0 0 15.5 2"></path>
-
-                        <path d="M20 19v-4h-4"></path>
-
-                    </svg> Refresh Page
-
-                </a>
+            <div class="error-actions">  
                  <a href="{{ route('home') }}" class="error-btn btn-primary">
 
                     <svg viewBox="0 0 24 24"
