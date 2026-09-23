@@ -52,7 +52,7 @@
                             </div>
 
                             <div class="card-heading">
-                                <h2>Escorts Membership</h2>
+                                <h2>Escort Memberships</h2>
                             </div>
                         </div>
                          <hr class="custom-hr">
@@ -101,7 +101,7 @@
                             </div>
 
                             <div class="card-heading">
-                                <h2>Centres Membership</h2>
+                                <h2>Centre Memberships</h2>
                             </div>
                         </div>
                          <hr class="custom-hr">
@@ -150,7 +150,7 @@
                             </div>
 
                             <div class="card-heading">
-                                <h2>Advertisers Membership</h2>
+                                <h2>Advertiser Memberships</h2>
                             </div>
                         </div>
                          <hr class="custom-hr">
