@@ -272,7 +272,7 @@
                                                     @if ($user->agent_detail && $user->agent_detail->agreement_file != '')
                                                      <label>You can retrieve your Agent Agreement by
                                                         <a href="{{ asset('storage/' . $user->agent_detail->agreement_file) }}"
-                                                            class="custom_links_design">
+                                                            class="custom_links_design" target="_blank">
                                                             <span style="color: #FF3C5F;">clicking here.</span>
                                                         </a></label>
                                                     @else
