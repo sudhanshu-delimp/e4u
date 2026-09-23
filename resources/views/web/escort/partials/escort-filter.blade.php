@@ -5,14 +5,27 @@
                 aria-controls="collapseSearch" bis_skin_checked="1">
                 <h2>
                     <span class="pub_filter_icon">
-                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" class="icon_esc" xmlns="http://www.w3.org/2000/svg">
-                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                    <g id="SVGRepo_iconCarrier">
-                                        <path d="M15 7C15 8.65685 13.6569 10 12 10C10.3431 10 9 8.65685 9 7C9 5.34315 10.3431 4 12 4C13.6569 4 15 5.34315 15 7Z" stroke="#ff3c5f" stroke-width="2"></path>
-                                        <path d="M5 19.5C5 15.9101 7.91015 13 11.5 13H12.5C16.0899 13 19 15.9101 19 19.5V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V19.5Z" stroke="#ff3c5f" stroke-width="2"></path>
+                        <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            fill="#000000">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <title>filter_line</title>
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="Business" transform="translate(-720.000000, 0.000000)">
+                                        <g id="filter_line" transform="translate(720.000000, 0.000000)">
+                                            <path
+                                                d="M24,0 L24,24 L0,24 L0,0 L24,0 Z M12.5934901,23.257841 L12.5819402,23.2595131 L12.5108777,23.2950439 L12.4918791,23.2987469 L12.4918791,23.2987469 L12.4767152,23.2950439 L12.4056548,23.2595131 C12.3958229,23.2563662 12.3870493,23.2590235 12.3821421,23.2649074 L12.3780323,23.275831 L12.360941,23.7031097 L12.3658947,23.7234994 L12.3769048,23.7357139 L12.4804777,23.8096931 L12.4953491,23.8136134 L12.4953491,23.8136134 L12.5071152,23.8096931 L12.6106902,23.7357139 L12.6232938,23.7196733 L12.6232938,23.7196733 L12.6266527,23.7031097 L12.609561,23.275831 C12.6075724,23.2657013 12.6010112,23.2592993 12.5934901,23.257841 L12.5934901,23.257841 Z M12.8583906,23.1452862 L12.8445485,23.1473072 L12.6598443,23.2396597 L12.6498822,23.2499052 L12.6498822,23.2499052 L12.6471943,23.2611114 L12.6650943,23.6906389 L12.6699349,23.7034178 L12.6699349,23.7034178 L12.678386,23.7104931 L12.8793402,23.8032389 C12.8914285,23.8068999 12.9022333,23.8029875 12.9078286,23.7952264 L12.9118235,23.7811639 L12.8776777,23.1665331 C12.8752882,23.1545897 12.8674102,23.1470016 12.8583906,23.1452862 L12.8583906,23.1452862 Z M12.1430473,23.1473072 C12.1332178,23.1423925 12.1221763,23.1452606 12.1156365,23.1525954 L12.1099173,23.1665331 L12.0757714,23.7811639 C12.0751323,23.7926639 12.0828099,23.8018602 12.0926481,23.8045676 L12.108256,23.8032389 L12.3092106,23.7104931 L12.3186497,23.7024347 L12.3186497,23.7024347 L12.3225043,23.6906389 L12.340401,23.2611114 L12.337245,23.2485176 L12.337245,23.2485176 L12.3277531,23.2396597 L12.1430473,23.1473072 Z"
+                                                id="MingCute" fill-rule="nonzero"> </path>
+                                            <path
+                                                d="M3,4.5 C3,3.67157 3.67157,3 4.5,3 L19.5,3 C20.3284,3 21,3.67157 21,4.5 L21,6.58579 C21,7.11622 20.7893,7.62493 20.4142,8 L15,13.4142 L15,20.8382 C15,21.6559 14.1395,22.1878 13.4081,21.8221 L9.69098,19.9635 C9.2675,19.7518 9,19.319 9,18.8455 L9,13.4142 L3.58579,8 C3.21071,7.62493 3,7.11622 3,6.58579 L3,4.5 Z M5,5 L5,6.58579 L10.5607,12.1464 C10.842,12.4278 11,12.8093 11,13.2071 L11,18.382 L13,19.382 L13,13.2071 C13,12.8093 13.158,12.4278 13.4393,12.1464 L19,6.58579 L19,5 L5,5 Z"
+                                                fill="#ff3c5f"> </path>
+                                        </g>
                                     </g>
-                                </svg>
+                                </g>
+                            </g>
+                        </svg>
                     </span> Find Escorts
                 </h2>
                 <i class="fa fa-angle-down"></i>
@@ -453,42 +466,45 @@
                                                 </div>
                                                 {{-- grid and list filter Btn --}}
                                                 <div class="grd_lst_filter_btn">
-                                                    <div class="grid_list_icon_box display_inline_block grid--btn view-toggle" class="{{ $viewType == 'grid' ? 'active' : '' }}"
-                                                            id="grid-modal">
-                                                       
-                                                            <span class="custom-toltip">Grid View</span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25"
-                                                                height="25" viewBox="0 0 30 30" fill="none">
-                                                                <path
-                                                                    d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z"
-                                                                    stroke="#0C223D" stroke-width="3"
-                                                                    stroke-linecap="round" stroke-linejoin="round" />
-                                                                <path
-                                                                    d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z"
-                                                                    stroke="#0C223D" stroke-width="3"
-                                                                    stroke-linecap="round" stroke-linejoin="round" />
-                                                                <path
-                                                                    d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z"
-                                                                    stroke="#0C223D" stroke-width="3"
-                                                                    stroke-linecap="round" stroke-linejoin="round" />
-                                                                <path
-                                                                    d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z"
-                                                                    stroke="#0C223D" stroke-width="3"
-                                                                    stroke-linecap="round" stroke-linejoin="round" />
-                                                            </svg>
-                                                        
+                                                    <div class="grid_list_icon_box display_inline_block grid--btn view-toggle"
+                                                        class="{{ $viewType == 'grid' ? 'active' : '' }}"
+                                                        id="grid-modal">
+
+                                                        <span class="custom-toltip">Grid View</span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="25"
+                                                            height="25" viewBox="0 0 30 30" fill="none">
+                                                            <path
+                                                                d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z"
+                                                                stroke="#0C223D" stroke-width="3"
+                                                                stroke-linecap="round" stroke-linejoin="round" />
+                                                            <path
+                                                                d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z"
+                                                                stroke="#0C223D" stroke-width="3"
+                                                                stroke-linecap="round" stroke-linejoin="round" />
+                                                            <path
+                                                                d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z"
+                                                                stroke="#0C223D" stroke-width="3"
+                                                                stroke-linecap="round" stroke-linejoin="round" />
+                                                            <path
+                                                                d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z"
+                                                                stroke="#0C223D" stroke-width="3"
+                                                                stroke-linecap="round" stroke-linejoin="round" />
+                                                        </svg>
+
                                                     </div>
-                                                    <div class="grid_list_icon_box display_inline_block list-btn view-toggle" class="{{ $viewType == 'list' ? 'active' : '' }}" id="grid-list">
-                                                        
-                                                            <span class="custom-toltip">List View</span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25"
-                                                                height="25" viewBox="0 0 27 24" fill="none">
-                                                                <path
-                                                                    d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663"
-                                                                    stroke="#0C223D" stroke-width="3"
-                                                                    stroke-linecap="round" stroke-linejoin="round" />
-                                                            </svg>
-                                                        
+                                                    <div class="grid_list_icon_box display_inline_block list-btn view-toggle"
+                                                        class="{{ $viewType == 'list' ? 'active' : '' }}"
+                                                        id="grid-list">
+
+                                                        <span class="custom-toltip">List View</span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="25"
+                                                            height="25" viewBox="0 0 27 24" fill="none">
+                                                            <path
+                                                                d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663"
+                                                                stroke="#0C223D" stroke-width="3"
+                                                                stroke-linecap="round" stroke-linejoin="round" />
+                                                        </svg>
+
                                                     </div>
                                                 </div>
                                                 {{-- end --}}

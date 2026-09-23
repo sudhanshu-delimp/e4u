@@ -211,10 +211,10 @@
                 </div>
 
                 <div class="col-lg-4 delimp_copyright order-last order-md-0">
-                    <span class="rta_logo">
+                    <a href="https://rtalabel.org/?content=validate&rating=RTA-5042-1996-1400-1577-RTA" target="_blank" class="rta_logo">
                         <img src="{{ asset('assets/app/img/rta-logo.png') }}" alt="RESTRICTED TO ADULTS">
                         <span class="tooltip">Restricted to adults.</span>
-                    </span>
+                    </a>
                     <span><img
                             src="{{ asset('assets/app/img/delimp-technology.png') }}"
                             alt="Delimp Technology Pvt. Ltd."> Built by <a href="https://delimp.com/" target="_blank">

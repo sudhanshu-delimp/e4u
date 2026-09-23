@@ -12,6 +12,14 @@
         #Agent_Agreement .modal-dialog {
             max-width: 1000px !important;
         }
+        div.myacording-design .card .card-body ul li, div.myacording-design .card .card-body p {
+  border-top: 0px;
+  font-family: 'Poppins';
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 28px;
+  text-align: left !important
+}
     </style>
 @endsection
 @section('content')
@@ -113,8 +121,10 @@
                                                 <input type="txt" class="form-control" id="mobileno"
                                                     aria-describedby="emailHelp" name="abn" required placeholder="ABN"
                                                     data-parsley-required-message="Your ABN is required" value="{{ $user->abn }}"
-                                                    maxlength="14"
+                                                    maxlength="11"
+                                                    pattern="\d{11}"
                                                     oninput="this.value = this.value.replace(/[^0-9 ]/g, '').replace(/\s+/g, ' ')"
+                                                    data-parsley-pattern-message="ABN number must be exactly 11 digits"
                                                     data-parsley-type-message="Enter only numbers">
                                                 <span id="abn-errors"></span>
                                                 <div class="termsandconditions_text_color">
@@ -134,10 +144,12 @@
                                                 <input type="txt" class="form-control" id="mobileno"
                                                     aria-describedby="emailHelp" name="business_number" maxlength="12" required
                                                     placeholder="Business Number"
-                                                    data-parsley-required-message="Your Business Number is required"
+                                                    data-parsley-required-message="Your business number is required"
                                                     value="{{ $user->business_number }}"
+                                                     pattern="\d{8}"
                                                     oninput="this.value = this.value.replace(/[^0-9 ]/g, '').replace(/\s+/g, ' ')"
-                                                    data-parsley-type-message="Enter only numbers">
+                                                    data-parsley-type-message="Enter only numbers"
+                                                    data-parsley-pattern-message="Business number must be exactly 8 digits">
                                                 <span id="business_number-errors"></span>
                                                 <div class="termsandconditions_text_color">
                                                     @error('business_number')

@@ -199,11 +199,13 @@ class AdvertiserReportContoller extends Controller
                             ->orWhere('report_status', 'like', "%{$search}%")
 
                             ->orWhereHas('escort', function ($escort) use ($search) {
-                                $escort->where('name', 'like', "%{$search}%");
+                                $escort->where('name', 'like', "%{$search}%")
+                                ->orWhere('slug', 'like', "%{$search}%");
                             })
 
                             ->orWhereHas('massage', function ($massage) use ($search) {
-                                $massage->where('profile_name', 'like', "%{$search}%");
+                                $massage->where('profile_name', 'like', "%{$search}%")
+                                ->orWhere('slug', 'like', "%{$search}%");
                             })
 
                             ->orWhereHas('escort.user', function ($user) use ($search) {
