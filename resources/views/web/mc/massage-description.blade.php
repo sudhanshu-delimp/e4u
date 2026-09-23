@@ -361,7 +361,7 @@ margin-right: 5px;
         <div class="d-flex d-flex justify-content-between">
             <div class="previous_btn_profile next_previous_btn_pogision {{ $prevId ? '' : 'previousDisableButtonCss' }}">
             @if($prevList)
-            <a href="{{ getEscortMassageDetailUrl($prevList, 'massage') }}" class="btn_ank">
+            <a href="{{ getAdvertiserDetailUrl($prevList, 'massage') }}" class="btn_ank">
             @else 
                 <a  href="{{$baseUrl.config("constants.massage_list_base_slug")}}" class="btn_ank">
             @endif
@@ -375,7 +375,7 @@ margin-right: 5px;
             <div class="next_btn_profile next_previous_btn_pogision {{ $nextId ? '' : 'previousDisableButtonCss' }}">
                                 
         @if($nextList)
-            <a href="{{getEscortMassageDetailUrl($nextList, 'massage')}}" class="btn_ank">
+            <a href="{{getAdvertiserDetailUrl($nextList, 'massage')}}" class="btn_ank">
         @else 
             <a  href="javascript:void(0)" class="btn_ank">
          @endif
