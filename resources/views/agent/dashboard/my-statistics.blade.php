@@ -74,11 +74,17 @@
                                 </div>
                                 <div class="stats-value">{{$escort_membership_month}}</div>
                             </div>
+
+                            <div class="stats-detail">
+                                <div class="stats-label">New this year
+                                </div>
+                                <div class="stats-value">0</div>
+                            </div>
                         </div>
 
                         <div class="card-note">
                             <div class="stats-detail">
-                                <div class="stats-label">Total
+                                <div class="stats-label"> Ongoing Total
                                 </div>
                                 <div class="stats-value">{{$escort_membership_total}}</div>
                             </div>
@@ -123,11 +129,17 @@
                                 </div>
                                 <div class="stats-value">{{$massage_membership_month}}</div>
                             </div>
+
+                            <div class="stats-detail">
+                                <div class="stats-label">New this year
+                                </div>
+                                <div class="stats-value">0</div>
+                            </div>
                         </div>
 
                         <div class="card-note">
                             <div class="stats-detail">
-                                <div class="stats-label">Total
+                                <div class="stats-label"> Ongoing Total
                                 </div>
                                 <div class="stats-value">{{$massage_membership_total}}</div>
                             </div>
@@ -172,11 +184,17 @@
                                 </div>
                                 <div class="stats-value">{{$advertiser_membership_month}}</div>
                             </div>
+
+                            <div class="stats-detail">
+                                <div class="stats-label">New this year
+                                </div>
+                                <div class="stats-value">0</div>
+                            </div>
                         </div>
 
                         <div class="card-note">
                             <div class="stats-detail">
-                                <div class="stats-label">Total
+                                <div class="stats-label"> Ongoing Total
                                 </div>
                                 <div class="stats-value">{{$advertiser_membership_total}}</div>
                             </div>
@@ -211,7 +229,7 @@
                             </div>
 
                             <div class="card-heading">
-                                <h2>Escorts Profile</h2>
+                                <h2>Escort Profiles</h2>
                             </div>
                         </div>
                          <hr class="custom-hr">
@@ -233,11 +251,18 @@
                                 </div>
                                 <div class="stats-value">{{$escort_profile_month}}</div>
                             </div>
+                            
+
+                            <div class="stats-detail">
+                                <div class="stats-label">New this year
+                                </div>
+                                <div class="stats-value">0</div>
+                            </div>
                         </div>
 
                         <div class="card-note">
                             <div class="stats-detail">
-                                <div class="stats-label">Total
+                                <div class="stats-label"> Ongoing Total
                                 </div>
                                 <div class="stats-value">{{$escort_profile_total}}</div>
                             </div>
@@ -272,7 +297,7 @@
                             </div>
 
                             <div class="card-heading">
-                                <h2>Centres Profile</h2>
+                                <h2>Centre Profiles</h2>
                             </div>
                         </div>
                          <hr class="custom-hr">
@@ -294,11 +319,18 @@
                                 </div>
                                 <div class="stats-value">{{$massage_profile_month}}</div>
                             </div>
+                            
+
+                            <div class="stats-detail">
+                                <div class="stats-label">New this year
+                                </div>
+                                <div class="stats-value">0</div>
+                            </div>
                         </div>
 
                         <div class="card-note">
                             <div class="stats-detail">
-                                <div class="stats-label">Total
+                                <div class="stats-label"> Ongoing Total
                                 </div>
                                 <div class="stats-value">{{$massage_profile_total}}</div>
                             </div>
@@ -333,7 +365,7 @@
                             </div>
 
                             <div class="card-heading">
-                                <h2>Adevertisers Profile</h2>
+                                <h2>Adevertiser Profiles</h2>
                             </div>
                         </div>
                          <hr class="custom-hr">
@@ -355,11 +387,18 @@
                                 </div>
                                 <div class="stats-value">{{$advertiser_profile_month}}</div>
                             </div>
+                            
+
+                            <div class="stats-detail">
+                                <div class="stats-label">New this year
+                                </div>
+                                <div class="stats-value">0</div>
+                            </div>
                         </div>
 
                         <div class="card-note">
                             <div class="stats-detail">
-                                <div class="stats-label">Total
+                                <div class="stats-label"> Ongoing Total
                                 </div>
                                 <div class="stats-value">{{$advertiser_profile_total}}</div>
                             </div>
