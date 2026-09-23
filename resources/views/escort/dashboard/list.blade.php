@@ -681,7 +681,6 @@
             lengthMenu: `{{config('app.paginate_range')}}`.split(','),
         });
 
-
         $('#profile_state_id').change(function() {
             var stateId = $(this).val();
             console.log("id =" + $(this).val());
