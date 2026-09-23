@@ -59,19 +59,15 @@
 
     {{-- this is common modal you can use same for all  View Report --}}
 
-    <div class="modal fade upload-modal" id="viewReports"
-     tabindex="-1"
-     aria-labelledby="viewReportsLabel"
-     aria-hidden="true"
-     data-bs-backdrop="static"
-     data-bs-keyboard="false">
+    <div class="modal fade upload-modal" id="viewReports" tabindex="-1" aria-labelledby="viewReportsLabel"
+        aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
 
 
                     <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
-                            class="custompopicon"> Payments Report Product - [Supplier name] (Period Ending 30-06-2025)
+                            class="custompopicon"> <span id="modal-title"></span>
                     </h5>
                     <a href="" class="close" data-dismiss="modal" aria-label="Close">
                         <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
@@ -85,8 +81,8 @@
 
 
                 <div class="modal-footer">
-                    <button type="button" class="btn-canc el-modal">Print</button>
-                    <button type="button" class="btn btn-success confirm-approve-report">Approved</button>
+                    <button type="button" class="btn-canc el-modal print-action"> Print </button>
+                    <button type="button" class="btn btn-success confirm-approve-report">Approve</button>
                     <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -166,6 +162,16 @@
 
             columns: @json($columns)
         });
+        $(document).on('click', '.print-action', function(e) {
+            e.preventDefault();
+
+            let id = $("#report_id").val();
+            let type = "pdf";
+
+            let url = "{{ route('admin.report.details') }}?id=" + id + "&type=" + type;
+
+            window.open(url, '_blank');
+        });
 
         $(document).on('click', '.report-action', function(e) {
             e.preventDefault();
@@ -185,12 +191,12 @@
 
                 success: function(response) {
                     if (response.status) {
+                        $("#modal-title").text(response.period);
                         $('#viewReports .modal-body').html(response.html);
-                        if(type=="view")
-                        {
-                          $(".confirm-approve-report").addClass('d-none');
-                        }else{
-                           $(".confirm-approve-report").removeClass('d-none');
+                        if (type == "view") {
+                            $(".confirm-approve-report").addClass('d-none');
+                        } else {
+                            $(".confirm-approve-report").removeClass('d-none');
                         }
                         const modalElement = document.getElementById('viewReports');
                         const modal = new bootstrap.Modal(modalElement, {
@@ -199,13 +205,25 @@
                         });
                         modal.show();
                     } else {
-                        alert(response.message);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Info!',
+                            text: response.message,
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
                     }
                 },
 
                 error: function(xhr) {
                     console.log(xhr.responseText);
-                    alert('Something went wrong. Please try again.');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Info!',
+                        text: "Something went wrong. Please try again.",
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
                 },
 
                 complete: function() {
@@ -221,7 +239,7 @@
             e.preventDefault();
 
             let id = $("#report_id").val();
- 
+
             $.ajax({
                 url: "{{ route('admin.report.approve') }}",
                 type: "POST",
@@ -236,15 +254,33 @@
 
                 success: function(response) {
                     if (response.status) {
-                        alert(response.message);
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Updated!',
+                            text: response.message,
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
                     } else {
-                        alert(response.message);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Info!',
+                            text: response.message,
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
                     }
                 },
 
                 error: function(xhr) {
-                    console.log(xhr.responseText);
-                    alert('Something went wrong. Please try again.');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Info!',
+                        text: "Something went wrong. Please try again.",
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
                 },
 
                 complete: function() {

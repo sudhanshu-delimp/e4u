@@ -6,8 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\ConciergePaymentReconciliation;
 use App\Models\ProductOrder;
 use App\Models\ProductOrderItem;
+use App\Models\Supplier;
+use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\DataTables;
 
 class ConciergeReportController extends Controller
@@ -320,32 +325,62 @@ class ConciergeReportController extends Controller
 
 
 
-  public function getReport(Request $request)
+  public function getReport(Request $request, $type = "")
   {
-    $period = ConciergePaymentReconciliation::findOrFail($request->id);
 
-    $startDate = Carbon::createFromFormat('d-m-Y', $period->bill_start_date)->format('Y-m-d');
-    $endDate = Carbon::createFromFormat('d-m-Y',  $period->bill_end_date)->format('Y-m-d');
+    try {
 
-    $orderIds = ProductOrder::whereDate('order_date', '>=', $startDate)->whereDate('order_date', '<=', $endDate)
-      ->pluck('id')->toArray();
+      $period = ConciergePaymentReconciliation::findOrFail($request->id);
+
+      if ($period && $period->service) {
+
+        $configKey = match ($period->service) {
+          'product' => 'app.product_supplier_email',
+          'sim'     => 'app.sim_supplier_email',
+          'email'   => 'app.email_supplier_email',
+          'visa'    => 'app.visa_supplier_email',
+          default   => null,
+        };
+
+        if ($configKey) {
+          $supplier = User::with('supplierBankDetails')
+            ->where('type', "10")
+            ->where('email', config($configKey))
+            ->first();
+            
+        }
+      }
+      $startDate = Carbon::createFromFormat('d-m-Y', $period->bill_start_date)->format('Y-m-d');
+      $endDate = Carbon::createFromFormat('d-m-Y',  $period->bill_end_date)->format('Y-m-d');
+
+      $orderIds = ProductOrder::whereDate('order_date', '>=', $startDate)->whereDate('order_date', '<=', $endDate)->pluck('id')->toArray();
+
+      $items = ProductOrderItem::with('productOrder', 'productOrder.user', 'product')->whereIn('order_id', $orderIds)->get();
+
+      // if (!$orders) {
+      //     return response()->json([
+      //         'status' => false,
+      //         'message' => 'Report not found.'
+      //     ]);
+      // }
+      $report_id = $request->id;
+      $period = "Payments Report Product - Supplier Name (Period Ending " . date('d-m-Y', strtotime($endDate)) . ")";
+      if ($request->type == "pdf") {
+        $pdf = Pdf::loadView('admin.Concierge.conserge_report', compact('items', 'report_id'));
+        return $pdf->stream('report-' . $report_id . '.pdf');
+      }
 
 
-    $items = ProductOrderItem::with('productOrder', 'productOrder.user', 'product')->whereIn('order_id', $orderIds)->get();
+      $html = view('admin.Concierge.conserge_report', compact('items', 'report_id', 'supplier'))->render();
 
-    // if (!$orders) {
-    //     return response()->json([
-    //         'status' => false,
-    //         'message' => 'Report not found.'
-    //     ]);
-    // }
-    $report_id = $request->id;
-    $html = view('admin.Concierge.conserge_report', compact('items', 'report_id'))->render();
-
-    return response()->json([
-      'status' => true,
-      'html' => $html
-    ]);
+      return response()->json([
+        'status' => true,
+        'html' => $html,
+        'period' => $period
+      ]);
+    } catch (Exception $e) {
+      Log::info($e->getMessage());
+    }
   }
 
 

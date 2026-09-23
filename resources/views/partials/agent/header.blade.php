@@ -62,9 +62,9 @@
 
     @section('style')
     @show
-    <script>
-     var BASE_URL = "{{ url('/') }}";
+     <script>
+        var BASE_URL = "{{ url('/') }}";
         var paginateRange = [{{ config('app.paginate_range') }}];
-        var paginateLength="{{Auth::user()->agent_settings->show_entries??25}}";
+        var paginateLength = "{{ Auth::user()->agent_settings->show_entries ?? config('app.paginate_length') }}";
     </script>
 </head>

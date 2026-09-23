@@ -1,4 +1,10 @@
+<head>
+  <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/dashboard/css/dk-style.css?v1.2') }}" rel="stylesheet">
+</head>
+<!-- Bootstrap CSS -->
 
+<!-- Bootstrap JS -->
 <table class="table table-bordered reconciliation_table">
     <thead class="table-bg">
         <tr>
@@ -146,4 +152,36 @@
 </table>
 
 <input type="hidden" id="report_id" value="{{ $report_id }}">
+<br>
+<div class="supplier-payment-summary" >
+    <h2>Supplier Payment Summary</h2>
 
+    <table class="summary-table" style="width: 100%">
+        <tbody>
+            <tr>
+                <td class="label"><strong>Supplier:</strong></td>
+                <td>{{$supplier->name}}</td>
+            </tr>
+
+            <tr>  
+                <td class="label"><strong>Payment:</strong></td>
+                <td>${{number_format($totalRetailPrice, 2)}}</td>
+            </tr>
+
+            <tr>
+                <td class="label"><strong> Account:</strong></td>
+                <td> {{$supplier->supplierBankDetails->account_name}}</td>
+            </tr>
+
+            <tr>
+                <td class="label"><strong>BSB:</strong></td>
+                <td>{{$supplier->supplierBankDetails->bsb}}</td>
+            </tr>
+
+            <tr>
+                <td class="label"><strong>Account:</strong></td>
+                <td>{{$supplier->supplierBankDetails->account_number}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
