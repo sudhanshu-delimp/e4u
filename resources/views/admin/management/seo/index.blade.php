@@ -844,7 +844,7 @@
                                     <div class="page-list" id="pageList">
                                         @php $seoGroupedRoutes = getSeoGroupedRoutes(); @endphp
                                         @if($seoGroupedRoutes)
-                                            @foreach (['Header', 'Footer', 'Other'] as $groupName)
+                                            @foreach (['Header', 'Footer'] as $groupName)
                                                 @if (isset($seoGroupedRoutes[$groupName]) && !empty($seoGroupedRoutes[$groupName]))
                                                     <div class="page-group">
                                                         <button type="button" class="page-group-toggle {{ $loop->first ? 'is-open' : '' }}" data-group-name="{{ $groupName }}">

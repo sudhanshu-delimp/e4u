@@ -3016,18 +3016,31 @@ if (!function_exists('getSeoGroupedRoutes')) {
         $grouped = [
             'Header' => [],
             'Footer' => [],
-            'Other' => [],
         ];
 
         foreach (getSeoTaggedRoutes() as $item) {
-            $group = getSeoRouteMenuGroup($item['route_name'] ?? '', $item['uri'] ?? '', $item['seo_label'] ?? '');
+            $group = getSeoRouteMenuGroup(
+                $item['route_name'] ?? '',
+                $item['uri'] ?? '',
+                $item['seo_label'] ?? ''
+            );
+
+            if ($group === null || !isset($grouped[$group])) {
+                continue;
+            }
+
             $grouped[$group][] = $item;
         }
 
-        foreach (['Header', 'Footer', 'Other'] as $groupName) {
+        foreach (['Header', 'Footer'] as $groupName) {
             if (empty($grouped[$groupName])) {
                 unset($grouped[$groupName]);
+                continue;
             }
+
+            usort($grouped[$groupName], function ($a, $b) {
+                return strcasecmp($a['seo_label'] ?? '', $b['seo_label'] ?? '');
+            });
         }
 
         return $grouped;
@@ -3037,58 +3050,58 @@ if (!function_exists('getSeoGroupedRoutes')) {
 if (!function_exists('getSeoRouteMenuGroup')) {
     function getSeoRouteMenuGroup($routeName = '', $uri = '', $seoLabel = '')
     {
-        $needle = strtolower($routeName . ' ' . $uri . ' ' . $seoLabel);
+        $seoName = trim((string) $seoLabel);
 
-        $headerRoutes = [
-            'page.agents',
-            'page.escorts4u',
-            'page.e4u-verified',
-            'page.centres',
-            'page.playbox',
-            'page.help.for.agents',
-            'page.help.for.massage.centres',
-            'page.help.for.viewers',
-            'page.accommodation',
-            'page.email-hosting',
-            'page.mobile-read-sim',
-            'page.professional-product',
-            'page.travel',
-            'page.visa-migration',
-            'home',
-            'page.become-pin-up',
-        ];
+        if ($seoName !== '') {
+            $headerLabels = [
+                'About Agents',
+                'About E4U Verified',
+                'About Escort E4U',
+                'About Playbox',
+                'Accommodation',
+                'Advertiser Login',
+                'Become A Pin Up',
+                'Email Hosting',
+                'Mobile SIM Service',
+                'Products',
+                'Travel Services',
+            ];
 
-        $footerRoutes = [
-            'pages.abbreviations',
-            'pages.etiquette',
-            'faqs',
-            'parent.control',
-            'feedbackpage',
-            'web.help-for-advertisers',
-            'web.cookie-policy',
-            'pages.terms-conditions',
-            'alerts',
-            'contactus.index',
-            'blogs.index',
-            'about agents',
-            'about playbox',
-            'about escort e4u',
-            'about e4u verified',
-        ];
+            $footerLabels = [
+                'Abbreviations',
+                'Alerts',
+                'Blog Page',
+                'Contact Us',
+                'Cookie Policy',
+                'Etiquette',
+                'Faq Page',
+                'Feedback Page',
+                'Help for Agents',
+                'Help for Escorts',
+                'Help for Massage Centres',
+                'Help for Viewer',
+                'Parent Control Page',
+                'Terms Conditions',
+                'Visa & Education',
+            ];
 
-        foreach ($headerRoutes as $route) {
-            if (str_contains($needle, strtolower($route))) {
-                return 'Header';
+            $seoNameLower = strtolower($seoName);
+
+            foreach ($headerLabels as $label) {
+                if (strtolower($label) === $seoNameLower) {
+                    return 'Header';
+                }
             }
+
+            foreach ($footerLabels as $label) {
+                if (strtolower($label) === $seoNameLower) {
+                    return 'Footer';
+                }
+            }
+
+            return null;
         }
 
-        foreach ($footerRoutes as $route) {
-            if (str_contains($needle, strtolower($route))) {
-                return 'Footer';
-            }
-        }
-
-        return 'Other';
     }
 }
 
