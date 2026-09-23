@@ -55,7 +55,7 @@
                                 <h2>Escorts Membership</h2>
                             </div>
                         </div>
-
+                         <hr class="custom-hr">
                         <div class="common-stars">
                             <div class="stats-detail">
                                 <div class="stats-label">New today
@@ -104,7 +104,7 @@
                                 <h2>Centres Membership</h2>
                             </div>
                         </div>
-
+                         <hr class="custom-hr">
                         <div class="common-stars">
                             <div class="stats-detail">
                                 <div class="stats-label">New today
@@ -153,16 +153,16 @@
                                 <h2>Advertisers Membership</h2>
                             </div>
                         </div>
-
+                         <hr class="custom-hr">
                         <div class="common-stars">
                             <div class="stats-detail">
-                                <div class="stats-label">New this week
+                                <div class="stats-label">New today
                                 </div>
                                 <div class="stats-value">{{$advertiser_membership_today}}</div>
                             </div>
 
                             <div class="stats-detail">
-                                <div class="stats-label">New this month
+                                <div class="stats-label">New this week
                                 </div>
                                 <div class="stats-value">{{$advertiser_membership_week}}</div>
                             </div>
@@ -214,16 +214,16 @@
                                 <h2>Escorts Profile</h2>
                             </div>
                         </div>
-
+                         <hr class="custom-hr">
                         <div class="common-stars">
                             <div class="stats-detail">
-                                <div class="stats-label">New this week
+                                <div class="stats-label">New today
                                 </div>
                                 <div class="stats-value">{{$escort_profile_today}}</div>
                             </div>
 
                             <div class="stats-detail">
-                                <div class="stats-label">New this month
+                                <div class="stats-label">New this week
                                 </div>
                                 <div class="stats-value">{{$escort_profile_week}}</div>
                             </div>
@@ -275,7 +275,7 @@
                                 <h2>Centres Profile</h2>
                             </div>
                         </div>
-
+                         <hr class="custom-hr">
                         <div class="common-stars">
                             <div class="stats-detail">
                                 <div class="stats-label">New today
@@ -336,7 +336,7 @@
                                 <h2>Adevertisers Profile</h2>
                             </div>
                         </div>
-
+                         <hr class="custom-hr">
                         <div class="common-stars">
                             <div class="stats-detail">
                                 <div class="stats-label">New today
