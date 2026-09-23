@@ -42,7 +42,7 @@ class AddNewAgent extends FormRequest
 
         return [
             'business_name'   => 'required|string|max:255',
-            'business_number' => 'nullable|digits:8|unique:users,business_number,' . $agentId,
+            'business_number' => 'digits_between:8,12|unique:users,business_number,' . $agentId,
             'contact_person'  => 'required|string|max:255',
             'phone'           => 'required|min:10|max:14|unique:users,phone,' . $agentId,
             'email'           => 'required|email:rfc,filter|max:255|unique:users,email,' . $agentId,
