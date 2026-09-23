@@ -558,7 +558,7 @@
                                      <span class="text-danger error-commission_advertising_percent"></span>
                                  </div>
                                  <div class="col-6 mb-3">
-                                       <label class="form-label" for="commission_registration_amount">Massage Centre(Registration)</label>
+                                       <label class="form-label" for="commission_registration_amount">Massage Centre (Registration)</label>
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
                                              <div class="input-group-text form-control left-sign" >$</div>
@@ -893,7 +893,7 @@
                                      <span class="text-danger error-commission_advertising_percent"></span>
                                  </div>
                                  <div class="col-6 mb-3">
-                                       <label class="form-label" for="commission_registration_amount">Massage Centre(Registration)</label>
+                                       <label class="form-label" for="commission_registration_amount">Massage Centre (Registration)</label>
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
                                              <div class="input-group-text form-control left-sign" >$</div>

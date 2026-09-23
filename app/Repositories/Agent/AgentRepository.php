@@ -286,7 +286,8 @@ class AgentRepository extends BaseRepository implements AgentInterface
                         ? date('Y-m-d', strtotime($data['agreement_date']))
                         : null,
 
-                    'term' => $data['term'] ?? null,
+                    //'term' => $data['term'] ?? null,
+                    'term' => preg_replace('/(?<=\d)(?=[a-zA-Z])/', ' ',$data['term']),
                     'option_peroid' => $data['option_peroid'] ?? null,
                     'option_exercised' => $data['option_exercised'] ?? null,
                     'commission_advertising_percent' => $data['commission_advertising_percent'] ?? null,
