@@ -182,7 +182,7 @@
 
     <!-- Product Image Modal -->
     <div class="modal fade upload-modal " id="viewProfile" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-dialog modal-md modal-dialog-centered">
             <div class="modal-content">
 
                 <div class="modal-header">

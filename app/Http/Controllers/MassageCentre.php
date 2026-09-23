@@ -29,6 +29,7 @@ use App\Repositories\Message\MessageMediaInterface;
 use App\Repositories\Service\ServiceInterface;
 use App\Repositories\Thumbnail\ThumbnailInterface;
 use App\Services\LogService;
+use App\Services\SeoResolver;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -73,13 +74,17 @@ class MassageCentre extends Controller
     }
 
 
-    public function  massageList()
+    public function  massageList(Request $request)
     {
+
+        $path = trim(str_replace('find_massage_centres', '', request()->path()), '/');
+        //use For Escirt SEO in the lisging page.
+        $seo = (object) SeoResolver::resolve('massage', $path);
         $clickTab = 0;
         if (Auth::user() && auth()->user()->type == 0) {
             $clickTab = 1;
         }
-        return view('web.mc.massage-centre-list', compact('clickTab'));
+        return view('web.mc.massage-centre-list', compact('clickTab', 'seo'));
     }
 
 
@@ -457,6 +462,9 @@ class MassageCentre extends Controller
 
         $currentItems = $final->forPage($page, $per_page)->values();
 
+        // This code use for jump next previus. 
+        $massageOnlyIds = $final->pluck('id');
+        session(['massage_ids' => $massageOnlyIds->values()->all()]);
 
         $listings = new LengthAwarePaginator(
             $currentItems,
@@ -707,8 +715,8 @@ class MassageCentre extends Controller
             $relatedSlugs = $relatedMassges->pluck('massageprofile.slug')->filter()->toArray();
         }
         //$ids = $request->ids ? json_decode($request->ids, true) : [];
-
-        $ids = $relatedIds;
+        $massageIds = session('massage_ids', []);
+        $ids = $massageIds;
         if (!$id) {
             return redirect(route('find.massage.centre'));
         }
@@ -785,7 +793,11 @@ class MassageCentre extends Controller
             $star_rating = 0;
         }
 
-        return view('web.mc.massage-description', compact('listing', 'durations', 'massage_durations', 'reviews', 'spamReportAdvertiser', 'lp', 'dp', 'massageLike', 'nextId', 'prevId', 'ids', 'star_rating', 'prevSlug', 'nextSlug', 'prevList', 'nextList'));
+        $path = trim(str_replace('find_massage_centres', '', request()->path()), '/');
+        //use For Escirt SEO in the lisging page.
+        $seo = (object) SeoResolver::resolve('massage', $path);
+  
+        return view('web.mc.massage-description', compact('listing', 'durations', 'massage_durations', 'reviews', 'spamReportAdvertiser', 'lp', 'dp', 'massageLike', 'nextId', 'prevId', 'ids', 'star_rating', 'prevSlug', 'nextSlug', 'prevList', 'nextList', 'seo'));
     }
 
 
