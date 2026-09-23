@@ -229,7 +229,7 @@
                             </div>
 
                             <div class="card-heading">
-                                <h2>Escorts Profile</h2>
+                                <h2>Escort Profiles</h2>
                             </div>
                         </div>
                          <hr class="custom-hr">
@@ -297,7 +297,7 @@
                             </div>
 
                             <div class="card-heading">
-                                <h2>Centres Profile</h2>
+                                <h2>Centre Profiles</h2>
                             </div>
                         </div>
                          <hr class="custom-hr">
@@ -365,7 +365,7 @@
                             </div>
 
                             <div class="card-heading">
-                                <h2>Adevertisers Profile</h2>
+                                <h2>Adevertiser Profiles</h2>
                             </div>
                         </div>
                          <hr class="custom-hr">
