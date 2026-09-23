@@ -34,6 +34,10 @@ use App\Http\Requests\Escort\UpdateRequestAboutMe;
 use App\Repositories\Escort\AvailabilityInterface;
 use App\Http\Requests\Escort\UpdateRequestReadMore;
 use App\Http\Requests\Escort\StoreAvailabilityRequest;
+use App\Models\Escort;
+use App\Models\MassageProfile;
+use App\Models\MassagePurchase;
+use App\Models\Purchase;
 
 class AgentController extends BaseController
 {
@@ -814,5 +818,186 @@ class AgentController extends BaseController
             ->get();
 
         return $notifications;
+    }
+
+
+    public function myStatistics(Request $request)
+    {
+
+        // =========================
+        // Memberships - Escorts
+        // =========================
+        $escort_membership_today = Purchase::whereDate('created_at', today())->count();
+
+        $escort_membership_week = Purchase::whereBetween('created_at', [
+            now()->startOfWeek(),
+            now()->endOfWeek()
+        ])->count();
+
+        $escort_membership_month = Purchase::whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->count();
+
+        $escort_membership_total = Purchase::whereYear('created_at', now()->year)->count();
+
+        // =========================
+        // Memberships - Massage Centres
+        // =========================
+        $massage_membership_today = MassagePurchase::whereDate('created_at', today())->count();
+
+        $massage_membership_week = MassagePurchase::whereBetween('created_at', [
+            now()->startOfWeek(),
+            now()->endOfWeek()
+        ])->count();
+
+        $massage_membership_month = MassagePurchase::whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->count();
+
+        $massage_membership_total = MassagePurchase::whereYear('created_at', now()->year)->count();
+
+
+        // =========================
+        // Memberships - Advertisers
+        // =========================
+
+        $advertiser_membership_today =  $escort_membership_today + $massage_membership_today;
+        $advertiser_membership_week  =   $escort_membership_week + $massage_membership_week;
+        $advertiser_membership_month =  $massage_membership_month + $escort_membership_month;
+        $advertiser_membership_total =  $massage_membership_total + $escort_membership_total;
+
+
+
+
+        // =========================
+        // Profiles - Escorts
+        // =========================
+
+        $usersIds = User::where('status', 1)
+            ->whereIn('type', ['3'])
+            ->pluck('id');
+
+        // Profiles - Escorts
+        $escort_profile_today = Escort::whereIn('user_id', $usersIds)
+            ->where('default_setting', 0)
+            ->whereHas('purchase', fn($q) => $q->where('status', 'listed')
+                ->whereDate('created_at', today()))
+            ->count();
+
+        $escort_profile_week = Escort::whereIn('user_id', $usersIds)
+            ->where('default_setting', 0)
+            ->whereHas(
+                'purchase',
+                fn($q) => $q->where('status', 'listed')
+                    ->whereBetween('created_at', [
+                        now()->startOfWeek(),
+                        now()->endOfWeek()
+                    ])
+            )
+            ->count();
+
+        $escort_profile_month = Escort::whereIn('user_id', $usersIds)
+            ->where('default_setting', 0)
+            ->whereHas(
+                'purchase',
+                fn($q) => $q->where('status', 'listed')
+                    ->whereMonth('created_at', now()->month)
+                    ->whereYear('created_at', now()->year)
+            )
+            ->count();
+
+        $escort_profile_total = Escort::whereIn('user_id', $usersIds)
+            ->where('default_setting', 0)
+            ->whereHas(
+                'purchase',
+                fn($q) => $q->where('status', 'listed')
+                    ->whereYear('created_at', now()->year)
+            )
+            ->count();
+
+
+        // =========================
+        // Profiles - Massage Centres
+        // =========================
+
+        $mcUsersIds = User::where('status', 1)
+            ->whereIn('type', ['4'])
+            ->pluck('id');
+
+        // Profiles - Escorts
+        $massage_profile_today = MassageProfile::whereIn('user_id', $mcUsersIds)
+            ->where('default_setting', 0)
+            ->whereHas('purchase', fn($q) => $q->where('status', 'listed')
+                ->whereDate('created_at', today()))
+            ->count();
+
+        $massage_profile_week = MassageProfile::whereIn('user_id', $mcUsersIds)
+            ->where('default_setting', 0)
+            ->whereHas(
+                'purchase',
+                fn($q) => $q->where('status', 'listed')
+                    ->whereBetween('created_at', [
+                        now()->startOfWeek(),
+                        now()->endOfWeek()
+                    ])
+            )
+            ->count();
+
+        $massage_profile_month = MassageProfile::whereIn('user_id', $mcUsersIds)
+            ->where('default_setting', 0)
+            ->whereHas(
+                'purchase',
+                fn($q) => $q->where('status', 'listed')
+                    ->whereMonth('created_at', now()->month)
+                    ->whereYear('created_at', now()->year)
+            )
+            ->count();
+
+        $massage_profile_total = MassageProfile::whereIn('user_id', $mcUsersIds)
+            ->where('default_setting', 0)
+            ->whereHas(
+                'purchase',
+                fn($q) => $q->where('status', 'listed')
+                    ->whereYear('created_at', now()->year)
+            )
+            ->count();
+
+        $advertiser_profile_today =  $massage_profile_today + $escort_profile_today;
+        $advertiser_profile_week  =  $massage_profile_week + $escort_profile_week;
+        $advertiser_profile_month =  $massage_profile_month + $escort_profile_month;
+        $advertiser_profile_total =  $massage_profile_total + $escort_profile_total;
+
+
+        return view('agent.dashboard.my-statistics', compact(
+            'advertiser_membership_today',
+            'advertiser_membership_week',
+            'advertiser_membership_month',
+            'advertiser_membership_total',
+
+            'escort_membership_today',
+            'escort_membership_week',
+            'escort_membership_month',
+            'escort_membership_total',
+
+            'massage_membership_today',
+            'massage_membership_week',
+            'massage_membership_month',
+            'massage_membership_total',
+
+            'advertiser_profile_today',
+            'advertiser_profile_week',
+            'advertiser_profile_month',
+            'advertiser_profile_total',
+
+            'escort_profile_today',
+            'escort_profile_week',
+            'escort_profile_month',
+            'escort_profile_total',
+
+            'massage_profile_today',
+            'massage_profile_week',
+            'massage_profile_month',
+            'massage_profile_total'
+        ));
     }
 }

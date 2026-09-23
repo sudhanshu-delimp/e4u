@@ -30,33 +30,48 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
     public function getlinks($escort_id, $city = null, $membershipId = null, $filterEscortsCollection = null)
     {
+        // this is latest code
         $next = null;
         $previous = null;
+        $escortIds = session('escort_ids', []);
+        $position = array_search($escort_id, $escortIds);
 
-        foreach ($filterEscortsCollection as $key => $profile) {
-            $currentExists =  $profile->where('id', $escort_id)->first();
+        $previousEId = $escortIds[$position - 1] ?? null;
+        $nextEId = $escortIds[$position + 1] ?? null;
+        $previous = getEscortDetail($previousEId) ?? null;
+        $next = getEscortDetail($nextEId) ?? null;
+       // dd($previous,$next);
 
-            if ($currentExists && $currentExists->id == $profile->id) {
-                if ($key >= 0 && $key < count($filterEscortsCollection) - 1) {
-                    $next = $filterEscortsCollection[$key + 1];
-                }
 
-                if ($key > 0) {
-                    $previous = $filterEscortsCollection[$key - 1];
-                }
-            }
-        }
+
+        // this is old code.
+        // foreach ($filterEscortsCollection as $key => $profile) {
+        //     $currentExists =  $profile->where('id', $escort_id)->first();
+
+        //     if ($currentExists && $currentExists->id == $profile->id) {
+        //         if ($key >= 0 && $key < count($filterEscortsCollection) - 1) {
+        //             $next = $filterEscortsCollection[$key + 1];
+        //         }
+
+        //         if ($key > 0) {
+        //             $previous = $filterEscortsCollection[$key - 1];
+        //         }
+        //     }
+        // }
 
         # Note : ?no-next-page query handle in blade file for disable buttons purpose
         /*  return [
             $next ? route('profile.description', [$next->id, $city, $membershipId]) : '?no-next-page',
             $previous ? route('profile.description', [$previous->id, $city, $membershipId]) : '?no-prev-page',
         ]; */
-        return [
-            $next ? getEscortMassageDetailUrl($next) : '?no-next-page',
-            $previous ? getEscortMassageDetailUrl($previous) : '?no-prev-page',
-        ];
-    }
+            $next = $next ? getEscortMassageDetailUrl($next) : null;
+            $previous = $previous ? getEscortMassageDetailUrl($previous) : null;
+
+            return [
+                'next' => $next,
+                'previous' => $previous,
+            ];
+        }
 
 
     public function paginatedByEscortId($start, $limit, $order_key, $dir, $columns, $search = null, $escort_id = null, $stateId = null)

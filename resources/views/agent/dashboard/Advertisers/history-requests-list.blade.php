@@ -37,6 +37,25 @@
     if ($list->contact_by_mobile) {
         $contact_by[] = '<span >By Mobile</span>';
     }
+
+    $capital_city = null;
+    $state_name = "";
+    if (isset($list->state_id)) {
+    $home_state = $list->state_id;
+    $cities = config("escorts.profile.states.{$home_state}.cities");
+    $state_name = config("escorts.profile.states.{$home_state}.stateName");
+    if (is_array($cities) && !empty($cities)) {
+        $firstCityId = array_key_first($cities);
+        $cityName = $cities[$firstCityId]['cityName'] ?? null;
+        if ($cityName) {
+            $capital_city = $state_name ? "{$cityName}, {$state_name}" : $cityName;
+        }
+    }
+    }
+
+
+
+
     @endphp
     <div class="col-lg-4">
         
@@ -135,11 +154,22 @@
                      </tr>
                      <tr>
                         <th class="border py-2 font-weight-bold">Address</th>
-                        <td class="border py-2">Main Street Capital</td>
+                        <td class="border py-2">{{  $capital_city }}</td>
                      </tr>
                      <tr>
                         <td colspan="2" class="border">
-                          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3313.9865807510487!2d151.2099951!3d-33.83845670000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12aef2a9f0cedd%3A0xdf638593999a897b!2sMain%20Street%20Capital!5e0!3m2!1sen!2sin!4v1789984607796!5m2!1sen!2sin" width="100%" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                           <div id="modal_map_{{ $list->id }}" 
+                              class="modal-map-container" 
+                              data-address="{{ $capital_city }}" 
+                              style="width: 100%; height: 200px; background: #f8f9fa;">
+
+                              <div class="map-loader d-flex align-items-center justify-content-center h-100 flex-column">
+                                 <div class="spinner-border text-primary spinner-border-sm mb-2" role="status"></div>
+                                 <span class="text-muted small">Loading Map...</span>
+                              </div>
+
+
+                           </div>
                         </td>
                      </tr>
                   </table>
@@ -171,3 +201,5 @@
 </div>
 </div>
 @endif
+
+
