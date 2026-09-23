@@ -110,7 +110,7 @@
                         </div>
                     </div>
                     <div class="card-body p-0 Dash-table task_table">
-                        <div class="table-responsive">
+                        <div class="table-responsive common-card" >
                             <table class="table table-bordered ">
                                 <thead class="bg-first">
                                     <tr>

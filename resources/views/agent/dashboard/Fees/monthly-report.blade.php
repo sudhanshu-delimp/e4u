@@ -67,7 +67,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                <div class="table-responsive-xl">
+                <div class="table-responsive-xl common-card">
                     <table class="table " id="commissionStatementTable">
                         <thead class="table-bg">
                             <tr>
