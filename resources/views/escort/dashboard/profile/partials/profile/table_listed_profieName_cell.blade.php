@@ -1,6 +1,11 @@
-<div class="profile_list"><i class="fa fa-user" aria-hidden="true"></i> <span class="profile_label">Profile Name</span> {{$item->profile_name }}
-
-
+@php
+$localTimeZone = getEscortTimezone($item);
+$currentPurchase = $item->currentPurchase;
+$isExtended = $item->isListingExtended();
+$itemArray = $item->toArray();
+@endphp
+<div class="profile_list"><i class="fa fa-user" aria-hidden="true"></i> <span class="profile_label">Profile Name</span>
+    {{$item->profile_name }}
 </div>
 <div class="profile_list">
     <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -38,7 +43,7 @@
 
         @if($item->is_bumpup)
         <sup class="bumpup_icon listing-tag-tooltip mr-1">Bumped Up
-            <small class="listing-tag-tooltip-desc">From {{getEscortLocalTime($isBumpUped->utc_start_time, $localTimeZone)->format('d-m-Y h:i A')}} to {{getEscortLocalTime($isBumpUped->utc_end_time, $localTimeZone)->format('d-m-Y h:i A')}}</small>
+            <small class="listing-tag-tooltip-desc">From {{getEscortLocalTime($item->activeBumpup->utc_start_time, $localTimeZone)->format('d-m-Y h:i A')}} to {{getEscortLocalTime($item->activeBumpup->utc_end_time, $localTimeZone)->format('d-m-Y h:i A')}}</small>
         </sup>
         @endif
 

@@ -327,7 +327,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $listingStatusClass = getStatusBadgeClass(strtolower($listingStatus));
             $item->statusBtn = "<span class='custom_badge {$listingStatusClass}'>{$listingStatus}</span>";
             $item->statusText = $listingStatus;
-            $item->render_profile_name = view('escort.dashboard.profile.partials.profile.table_listed_profieName_cell', compact('item', 'currentPurchase', 'isExtended', 'itemArray'))->render();
+            $item->render_profile_name = view('escort.dashboard.profile.partials.profile.table_listed_profieName_cell', compact('item'))->render();
             $item->render_stage_name = view('escort.dashboard.profile.partials.profile.table_listed_stageName_cell', compact('item'))->render();
             $i++;
         }
