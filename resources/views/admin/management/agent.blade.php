@@ -572,14 +572,14 @@
 
                                  <!-- ==================== File Uploads ==================== -->
                                  <div class="col-6 mb-3">
-                                       <label class="form-label" for="agreement_file">Agreement File</label>
+                                       <label class="form-label" for="agreement_file">Upload Agreement File</label>
                                        <input type="file" name="agreement_file" id="agreement_file">
                                        <div id="file_preview" class="mt-2"></div>
                                        ${agreement_file ? `<div class="mt-2">${agreement_file}</div>` : ''}
                                  </div>
 
                                   <div class="col-6 mb-3">
-                                       <label class="form-label" for="signature_file">Upload Signature</label>
+                                       <label class="form-label" for="signature_file">Upload Signature File</label>
                                        <input type="file" name="signature_file" id="signature_file" accept="image/*">
                                        <div id="signature_preview" class="mt-2"></div>
                                        ${signature_file ? `<div class="mt-2">${signature_file}</div>` : ''}
@@ -906,13 +906,13 @@
 
                                        <!-- ==================== File Uploads ==================== -->
                                        <div class="col-6 mb-3">
-                                             <label class="form-label" for="agreement_file">Agreement File</label>
+                                             <label class="form-label" for="agreement_file">Upload Agreement File</label>
                                              <input type="file" name="agreement_file" id="agreement_file">
                                              <div id="file_preview" class="mt-2"></div>
                                        </div>
 
                                        <div class="col-6 mb-3">
-                                             <label class="form-label" for="signature_file">Upload Signature</label>
+                                             <label class="form-label" for="signature_file">Upload Signature File</label>
                                              <input type="file" name="signature_file" id="signature_file" accept="image/*">
                                              <div id="signature_preview" class="mt-2"></div>
                                        </div>
