@@ -894,7 +894,6 @@ class AgentController extends BaseController
         $advertiser_membership_today        =  $escort_membership_today + $massage_membership_today;
         $advertiser_membership_week         =  $escort_membership_week + $massage_membership_week;
         $advertiser_membership_month        =  $massage_membership_month + $escort_membership_month;
-        $advertiser_membership_month        =  $massage_membership_month + $escort_membership_month;
         $advertiser_membership_years_total  = $massage_membership_years_total + $escort_membership_years_total;
         $advertiser_ongoing_total           =  $massage_membership_ongoing_total + $escort_membership_ongoing_total;
 
