@@ -274,8 +274,7 @@
                     assets / dashboard / img / unblock.png ') }}');
             }
 
-            let url = '{{ route('
-            massage - center.viewer - interaction.update ') }}';
+            let url = '{{ route("massage-center.viewer-interaction.update") }}';
             return ajaxCall(url, data, $(this));
 
         });
@@ -287,8 +286,7 @@
             let massageId = $(this).attr('data-massage-id');
             const currentStatus = $this.data('status'); // disable or enable
             const newStatus = currentStatus === 'disable' ? 'enable' : 'disable';
-            let url = '{{ route('
-            massage - center.viewer - interaction.update ') }}';
+            let url = '{{ route("massage-center.viewer-interaction.update") }}';
 
             let data = {
                 'viewer_id': viewerId,
@@ -317,8 +315,7 @@
             let massageId = $(this).attr('data-massage-id');
             const currentStatus = $this.data('status');
             const newStatus = currentStatus === 'disable' ? 'enable' : 'disable';
-            let url = '{{ route('
-            massage - center.viewer - interaction.update ') }}';
+            let url = '{{ route("massage-center.viewer-interaction.update") }}';
 
             let data = {
                 'viewer_id': viewerId,
