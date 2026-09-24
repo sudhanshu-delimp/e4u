@@ -3,8 +3,8 @@
 <style>
    td,
    th {
-       vertical-align: middle !important;
-       text-align: center;
+      vertical-align: middle !important;
+      text-align: center;
    }
 </style>
 @endsection
@@ -12,36 +12,36 @@
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!--middle content-->
    <div class="row">
-      
+
       <div class=" custom-heading-wrapper col-md-12">
-        <h1 class="h1">Tours</h1>
-        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
-     </div>
-     <div class="col-md-12 mb-4">
+         <h1 class="h1">Tours</h1>
+         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
+      </div>
+      <div class="col-md-12 mb-4">
          <div class="card collapse" id="notes">
-             <div class="card-body">
-                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                 <ol>
-                     <li>Values are determined by the number of days into the financial year.</li>
-                     <li>Total Last Year compared to Current Year.</li>
-                     <li>Total Tours includes Current Year expressed as a percentage deviation.</li>
-                     <li>Base equals the total Tours as at the 30th June, for the given period.</li>
-                 </ol>
-             </div>
+            <div class="card-body">
+               <h3 class="NotesHeader"><b>Notes:</b> </h3>
+               <ol>
+                  <li>Values are determined by the number of days into the financial year.</li>
+                  <li>Total Last Year compared to Current Year.</li>
+                  <li>Total Tours includes Current Year expressed as a percentage deviation.</li>
+                  <li>Base equals the total Tours as at the 30th June, for the given period.</li>
+               </ol>
+            </div>
          </div>
-     </div>
-    <div class="col-md-12"> 
-        <div class="row mb-3">
+      </div>
+      <div class="col-md-12">
+         <div class="row mb-3">
             <div class="col-lg-4 col-md-12 col-sm-12"></div>
             <div class="col-lg-8 col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
-              
-                <div class="total_listing">
-                    <div><span>Current Tours : </span></div>
-                    <div><span>4,456</span></div>
-                </div>
+
+               <div class="total_listing">
+                  <div><span>Current Tours : </span></div>
+                  <div><span>4,456</span></div>
+               </div>
             </div>
-        </div>
-        <div class="table-responsive membership--inner">
+         </div>
+         <div class="table-responsive membership--inner">
             <table class="table table-bordered text-center mb-0" id="tourStatisticTable">
                <colgroup>
                   <col style="width: 7%;">
@@ -93,13 +93,13 @@
 
                   <tr id="hideAlltr">
                      <td colspan="14" style="text-align: left; font-weight: bold;">
-                           <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>Total Summary</span> <i class="fa fa-chevron-down"></i></div>
+                        <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>Total Summary</span> <i class="fa fa-chevron-down"></i></div>
                      </td>
                   </tr>
                   <!-- GROUP 1: ACT -->
                   <tr data-toggle="toggle-row" data-target=".group-1" data-parent="#collapse-accordion" style="cursor: pointer;">
                      <td>
-                           <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>ACT</span> <i class="fa fa-chevron-down"></i></div>
+                        <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>ACT</span> <i class="fa fa-chevron-down"></i></div>
                      </td>
                      <td>All</td>
                      <td>152</td>
@@ -201,7 +201,7 @@
                   <!-- GROUP 2: NSW -->
                   <tr data-toggle="toggle-row" data-target=".group-2" data-parent="#collapse-accordion" style="cursor: pointer;">
                      <td>
-                           <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>NSW</span> <i class="fa fa-chevron-down"></i></div>
+                        <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>NSW</span> <i class="fa fa-chevron-down"></i></div>
                      </td>
                      <td>All</td>
                      <td>152</td>
@@ -303,7 +303,7 @@
                   <!-- GROUP 3: Vic -->
                   <tr data-toggle="toggle-row" data-target=".group-3" data-parent="#collapse-accordion" style="cursor: pointer;">
                      <td>
-                           <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>Vic</span> <i class="fa fa-chevron-down"></i></div>
+                        <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>Vic</span> <i class="fa fa-chevron-down"></i></div>
                      </td>
                      <td>All</td>
                      <td>152</td>
@@ -405,7 +405,7 @@
                   <!-- GROUP 4: Qld -->
                   <tr data-toggle="toggle-row" data-target=".group-4" data-parent="#collapse-accordion" style="cursor: pointer;">
                      <td>
-                           <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>Qld</span> <i class="fa fa-chevron-down"></i></div>
+                        <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>Qld</span> <i class="fa fa-chevron-down"></i></div>
                      </td>
                      <td>All</td>
                      <td>152</td>
@@ -507,7 +507,7 @@
                   <!-- GROUP 5: SA -->
                   <tr data-toggle="toggle-row" data-target=".group-5" data-parent="#collapse-accordion" style="cursor: pointer;">
                      <td>
-                           <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>SA</span> <i class="fa fa-chevron-down"></i></div>
+                        <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>SA</span> <i class="fa fa-chevron-down"></i></div>
                      </td>
                      <td>All</td>
                      <td>152</td>
@@ -609,7 +609,7 @@
                   <!-- GROUP 6: WA -->
                   <tr data-toggle="toggle-row" data-target=".group-6" data-parent="#collapse-accordion" style="cursor: pointer;">
                      <td>
-                           <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>WA</span> <i class="fa fa-chevron-down"></i></div>
+                        <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>WA</span> <i class="fa fa-chevron-down"></i></div>
                      </td>
                      <td>All</td>
                      <td>152</td>
@@ -712,7 +712,7 @@
                   <!-- GROUP 7: Tas -->
                   <tr data-toggle="toggle-row" data-target=".group-7" data-parent="#collapse-accordion" style="cursor: pointer;">
                      <td>
-                           <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>Tas</span> <i class="fa fa-chevron-down"></i></div>
+                        <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>Tas</span> <i class="fa fa-chevron-down"></i></div>
                      </td>
                      <td>All</td>
                      <td>152</td>
@@ -815,7 +815,7 @@
                   <!-- GROUP 8: NT -->
                   <tr data-toggle="toggle-row" data-target=".group-8" data-parent="#collapse-accordion" style="cursor: pointer;">
                      <td>
-                           <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>NT</span> <i class="fa fa-chevron-down"></i></div>
+                        <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>NT</span> <i class="fa fa-chevron-down"></i></div>
                      </td>
                      <td>All</td>
                      <td>152</td>
@@ -937,15 +937,15 @@
 
             </table>
          </div>
-     </div>
+      </div>
 
-     <div class="col-md-12">
-        <div class="timer_section">
-                <p>Server time: <span>10:23:51 am</span></p>
-                <p>Refresh time:<span> 15 seconds</span></p>
-                <p>Up time: <span>214 days & 09 hours 12 minutes</span></p>
-            </div>
-       </div>
+      <div class="col-md-12">
+         <div class="timer_section">
+            <p>Server time: <span>10:23:51 am</span></p>
+            <p>Refresh time:<span> 15 seconds</span></p>
+            <p>Up time: <span>214 days & 09 hours 12 minutes</span></p>
+         </div>
+      </div>
    </div>
 </div>
 @endsection
@@ -956,62 +956,63 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
-  $(document).ready(function() {
-            let isHidden = false;
+   $(document).ready(function() {
+      let isHidden = false;
 
-            $('#hideAlltr').on('click', function() {
-                const $chevron = $(this).find('i');
+      $('#hideAlltr').on('click', function() {
+         const $chevron = $(this).find('i');
 
-                if (!isHidden) {
-                    // Hide only visible rows, and mark them
-                    $('#hideAlltr').nextAll('tr:visible').addClass('user-hidden').hide();
-                    $chevron.removeClass('fa-chevron-down').addClass('fa-chevron-up');
-                    isHidden = true;
-                } else {
-                    // Show only those rows that were hidden by this action
-                    $('tr.user-hidden').removeClass('user-hidden').show();
-                    $chevron.removeClass('fa-chevron-up').addClass('fa-chevron-down');
-                    isHidden = false;
-                }
-            });
-        });
+         if (!isHidden) {
+            // Hide only visible rows, and mark them
+            $('#hideAlltr').nextAll('tr:visible').addClass('user-hidden').hide();
+            $chevron.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+            isHidden = true;
+         } else {
+            // Show only those rows that were hidden by this action
+            $('tr.user-hidden').removeClass('user-hidden').show();
+            $chevron.removeClass('fa-chevron-up').addClass('fa-chevron-down');
+            isHidden = false;
+         }
+      });
+   });
 
-        $(document).ready(function() {
-            $('.collapse-row').hide(); // 🔒 Hide all groups initially
+   $(document).ready(function() {
+      $('.collapse-row').hide(); // 🔒 Hide all groups initially
 
-            $('[data-toggle="toggle-row"]').on('click', function() {
-                const targetClass = $(this).data('target');
-                const $icon = $(this).find('i.fa');
-                const isVisible = $(targetClass).is(':visible');
+      $('[data-toggle="toggle-row"]').on('click', function() {
+         const targetClass = $(this).data('target');
+         const $icon = $(this).find('i.fa');
+         const isVisible = $(targetClass).is(':visible');
 
-                $('.collapse-row').not(targetClass).hide();
-                $('[data-toggle="toggle-row"] i.fa').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+         $('.collapse-row').not(targetClass).hide();
+         $('[data-toggle="toggle-row"] i.fa').removeClass('fa-chevron-up').addClass('fa-chevron-down');
 
-                if (!isVisible) {
-                    $(targetClass).show();
-                    $icon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
-                } else {
-                    $(targetClass).hide();
-                }
-            });
-        });
+         if (!isVisible) {
+            $(targetClass).show();
+            $icon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+         } else {
+            $(targetClass).hide();
+         }
+      });
+   });
 </script>
 <script>
    var table = $("#profileStatisticTable").DataTable({
-    language: {
-        search: "Search: _INPUT_",
-        searchPlaceholder: "Search by Name..."
-    },
-    info: true,
-    paging: true,
-    lengthChange: true,
-    searching: true,
-    bStateSave: true,
-    order: [[1, 'desc']],
-    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-    pageLength: 10
-});
-
- </script>
+      language: {
+         search: "Search: _INPUT_",
+         searchPlaceholder: "Search by Name..."
+      },
+      info: true,
+      paging: true,
+      lengthChange: true,
+      searching: true,
+      bStateSave: true,
+      order: [
+         [1, 'desc']
+      ],
+      pageLength: `{{$datatable_entries}}`,
+      lengthMenu: `{{config('app.paginate_range')}}`.split(','),
+   });
+</script>
 
 @endpush

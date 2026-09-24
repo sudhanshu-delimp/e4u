@@ -168,7 +168,7 @@
                             </td>
                         </tr>
                     </tbody>
-                     <tr>
+                    <tr>
                         <th colspan="9" class="border-0"></th>
                     </tr>
                     <tfoot class="bg-first t-foot">
@@ -195,12 +195,12 @@
         let countdown = 15;
         setInterval(() => {
             countdown--;
-            $(".refreshSeconds").text(' '+countdown);
+            $(".refreshSeconds").text(' ' + countdown);
 
             if (countdown <= 0) {
                 $('#mediaverifyTable').DataTable().ajax.reload(null, false);
                 countdown = 15;
-                
+
             }
 
         }, 1000);
@@ -297,11 +297,8 @@
                 },
             ],
             order: [],
-            lengthMenu: [
-                [10, 25, 50, 100],
-                [10, 25, 50, 100]
-            ],
-            pageLength: 10,
+            pageLength: `{{$datatable_entries}}`,
+            lengthMenu: `{{config('app.paginate_range')}}`.split(','),
         });
     }
 
@@ -483,32 +480,32 @@
     });
 
 
-   $(document).on('click', '.view-centre-btn', function () {
+    $(document).on('click', '.view-centre-btn', function() {
 
-    let mc_id = $(this).data('id');
+        let mc_id = $(this).data('id');
 
-    $.ajax({
-        url: "{{ route('admin.masseurs_media-verification-list') }}",
-        type: "POST",
-        data: {
-            id: mc_id
-        },
+        $.ajax({
+            url: "{{ route('admin.masseurs_media-verification-list') }}",
+            type: "POST",
+            data: {
+                id: mc_id
+            },
 
-        success: function (response) {
+            success: function(response) {
 
-            let html = '';
+                let html = '';
 
-            if (!response.data || response.data.length === 0) {
-                html = `<tr><td colspan="5">No data found</td></tr>`;
-            } else {
+                if (!response.data || response.data.length === 0) {
+                    html = `<tr><td colspan="5">No data found</td></tr>`;
+                } else {
 
-                response.data.forEach(function (item) {
+                    response.data.forEach(function(item) {
 
-                    let tooltipWrapper = '';
+                        let tooltipWrapper = '';
 
-                    // Only for Approved / Rejected
-                    if (item.status !== '0') {
-                        tooltipWrapper = `
+                        // Only for Approved / Rejected
+                        if (item.status !== '0') {
+                            tooltipWrapper = `
                             <div class="e4u-tooltip">
                                 <span class="custom_badge ${item.status_class}">
                                     ${item.status_text}
@@ -516,16 +513,16 @@
                                 ${item.tooltip}
                             </div>
                         `;
-                    } else {
-                        // Pending (no tooltip)
-                        tooltipWrapper = `
+                        } else {
+                            // Pending (no tooltip)
+                            tooltipWrapper = `
                             <span class="custom_badge ${item.status_class}">
                                 ${item.status_text}
                             </span>
                         `;
-                    }
+                        }
 
-                    html += `
+                        html += `
                         <tr>
                             <td>${item.id}</td>
                             <td>${item.date}</td>
@@ -536,23 +533,23 @@
                             </td>
                         </tr>
                     `;
-                });
-            }
+                    });
+                }
 
-            $('#viewCentreTableBody').html(html);
-        },
+                $('#viewCentreTableBody').html(html);
+            },
 
-        error: function (xhr) {
-            console.log('Error:', xhr.responseText);
+            error: function(xhr) {
+                console.log('Error:', xhr.responseText);
 
-            $('#viewCentreTableBody').html(`
+                $('#viewCentreTableBody').html(`
                 <tr>
                     <td colspan="4">Something went wrong</td>
                 </tr>
             `);
-        }
+            }
+        });
     });
-});
 
     $(document).on('click', '.view-tag-btn', function() {
 
@@ -582,7 +579,7 @@
     });
 
     let profile_id = null;
-    let masseur_member_id = null ;
+    let masseur_member_id = null;
     let profile_verification_id = null;
 
     $(document).on('click', '.view-masseur-image-btn', function() {
@@ -615,7 +612,7 @@
                 $('.view_img_gallery_masseur .thumbnail').html(res.thumbnail);
                 $('.view_img_gallery_masseur .other_images').html(res.gallery);
                 $('.view_img_gallery_masseur .verification').html(res.verification);
-                checkMasseurPrintBtn();  
+                checkMasseurPrintBtn();
             }
         });
 
@@ -623,23 +620,23 @@
 
 
 
-function checkMasseurPrintBtn() {
+    function checkMasseurPrintBtn() {
 
-    let hasImages = $('.other_images .verify_icon_wrapper img').length > 0;
+        let hasImages = $('.other_images .verify_icon_wrapper img').length > 0;
 
-    if (hasImages) {
-        $('.printMasseursImgBtn')
-            .removeClass('disabled')
-            .css('pointer-events', 'auto')
-            .attr('aria-disabled', 'false');
-    } else {
-        $('.printMasseursImgBtn')
-            .addClass('disabled')
-            .css('pointer-events', 'none')
-            .attr('aria-disabled', 'true');
+        if (hasImages) {
+            $('.printMasseursImgBtn')
+                .removeClass('disabled')
+                .css('pointer-events', 'auto')
+                .attr('aria-disabled', 'false');
+        } else {
+            $('.printMasseursImgBtn')
+                .addClass('disabled')
+                .css('pointer-events', 'none')
+                .attr('aria-disabled', 'true');
+        }
     }
-}
-        
+
     $(document).on('click', '.masseurs-approve-btn', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -658,7 +655,7 @@ function checkMasseurPrintBtn() {
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
-                changeMediaVerificationStatusForMasseurs(id, 1,masseur_member_id);
+                changeMediaVerificationStatusForMasseurs(id, 1, masseur_member_id);
             }
         });
     });
@@ -667,7 +664,7 @@ function checkMasseurPrintBtn() {
     $(document).on('click', '.approveMasseursBtn', function(e) {
         e.preventDefault();
         e.stopPropagation();
-       
+
         if (!profile_verification_id) {
             console.log("ID missing");
             return;
@@ -681,7 +678,7 @@ function checkMasseurPrintBtn() {
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
-                changeMediaVerificationStatusForMasseurs(profile_verification_id, 1,$('.member_id').html());
+                changeMediaVerificationStatusForMasseurs(profile_verification_id, 1, $('.member_id').html());
             }
         });
     });
@@ -689,7 +686,7 @@ function checkMasseurPrintBtn() {
     $(document).on('click', '.rejectMasseursBtn', function(e) {
         e.preventDefault();
         e.stopPropagation();
-       
+
         if (!profile_verification_id) {
             console.log("ID missing");
             return;
@@ -703,7 +700,7 @@ function checkMasseurPrintBtn() {
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
-                changeMediaVerificationStatusForMasseurs(profile_verification_id, 2,$('.member_id').html());
+                changeMediaVerificationStatusForMasseurs(profile_verification_id, 2, $('.member_id').html());
             }
         });
     });
@@ -711,7 +708,7 @@ function checkMasseurPrintBtn() {
 
     $(document).off('click', '.masseurs-reject-btn');
     $(document).on('click', '.masseurs-reject-btn', function() {
-       
+
         let id = $(this).data('verification-id');
         let masseur_member_id = $(this).data('masseur_member-id');
         if (!id) {
@@ -726,13 +723,13 @@ function checkMasseurPrintBtn() {
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
-                changeMediaVerificationStatusForMasseurs(id, 2 , masseur_member_id);
+                changeMediaVerificationStatusForMasseurs(id, 2, masseur_member_id);
             }
         });
     });
 
     function changeMediaVerificationStatusForMasseurs(mediaVerificationId, status, masseur_member_id) {
-        
+
         $.ajax({
             url: "{{ route('admin.update-masseurs-media-verification') }}",
             method: "POST",

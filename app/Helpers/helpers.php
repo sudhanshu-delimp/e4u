@@ -1614,10 +1614,10 @@ if (!function_exists('get_messure_weakly_avail')) {
                         $time = '<span class="na-label ">Not Available</span>';
                     }
 
-                    $avail .= '<tr><td>'.ucfirst($day).'</td><td>' . $time  . '</td></tr>';
+                    $avail .= '<tr><td>' . ucfirst($day) . '</td><td>' . $time  . '</td></tr>';
                 }
 
-                
+
 
                 return $avail;
             }
@@ -2820,8 +2820,8 @@ if (!function_exists('getStateCityIds')) {
     }
 }
 
-if (!function_exists('getEscortMassageDetailUrl')) {
-    function getEscortMassageDetailUrl($modelObject, $type = "escort")
+if (!function_exists('getAdvertiserDetailUrl')) {
+    function getAdvertiserDetailUrl($modelObject, $type = "escort")
     {
         $url = "javascript:void(0)";
         $states = config('escorts.profile.states');
@@ -2831,7 +2831,7 @@ if (!function_exists('getEscortMassageDetailUrl')) {
                     $stateArr = isset($states[$modelObject->state_id]) ? $states[$modelObject->state_id] : [];
                     $stateName = isset($stateArr['stateAbbr']) ? strtolower($stateArr['stateAbbr']) : "";
                     $cityName = isset($stateArr['cities'][$modelObject->city_id]['cityName']) ? strtolower($stateArr['cities'][$modelObject->city_id]['cityName']) : "";
-                    $genderName = isset($modelObject->gender) ? str_replace(" ", "_", strtolower($modelObject->gender) ): "";
+                    $genderName = isset($modelObject->gender) ? str_replace(" ", "_", strtolower($modelObject->gender)) : "";
 
                     $url = route('escort.profile.detail.new', [
                         'county' => isset($modelObject->state->country->name) ?  strtolower($modelObject->state->country->name) : 'australia',
@@ -3016,18 +3016,31 @@ if (!function_exists('getSeoGroupedRoutes')) {
         $grouped = [
             'Header' => [],
             'Footer' => [],
-            'Other' => [],
         ];
 
         foreach (getSeoTaggedRoutes() as $item) {
-            $group = getSeoRouteMenuGroup($item['route_name'] ?? '', $item['uri'] ?? '', $item['seo_label'] ?? '');
+            $group = getSeoRouteMenuGroup(
+                $item['route_name'] ?? '',
+                $item['uri'] ?? '',
+                $item['seo_label'] ?? ''
+            );
+
+            if ($group === null || !isset($grouped[$group])) {
+                continue;
+            }
+
             $grouped[$group][] = $item;
         }
 
-        foreach (['Header', 'Footer', 'Other'] as $groupName) {
+        foreach (['Header', 'Footer'] as $groupName) {
             if (empty($grouped[$groupName])) {
                 unset($grouped[$groupName]);
+                continue;
             }
+
+            usort($grouped[$groupName], function ($a, $b) {
+                return strcasecmp($a['seo_label'] ?? '', $b['seo_label'] ?? '');
+            });
         }
 
         return $grouped;
@@ -3037,100 +3050,101 @@ if (!function_exists('getSeoGroupedRoutes')) {
 if (!function_exists('getSeoRouteMenuGroup')) {
     function getSeoRouteMenuGroup($routeName = '', $uri = '', $seoLabel = '')
     {
-        $needle = strtolower($routeName . ' ' . $uri . ' ' . $seoLabel);
+        $seoName = trim((string) $seoLabel);
 
-        $headerRoutes = [
-            'page.agents',
-            'page.escorts4u',
-            'page.e4u-verified',
-            'page.centres',
-            'page.playbox',
-            'page.help.for.agents',
-            'page.help.for.massage.centres',
-            'page.help.for.viewers',
-            'page.accommodation',
-            'page.email-hosting',
-            'page.mobile-read-sim',
-            'page.professional-product',
-            'page.travel',
-            'page.visa-migration',
-            'home',
-            'page.become-pin-up',
-        ];
+        if ($seoName !== '') {
+            $headerLabels = [
+                'About Agents',
+                'About E4U Verified',
+                'About Escort E4U',
+                'About Playbox',
+                'Accommodation',
+                'Advertiser Login',
+                'Become A Pin Up',
+                'Email Hosting',
+                'Mobile SIM Service',
+                'Products',
+                'Travel Services',
+            ];
 
-        $footerRoutes = [
-            'pages.abbreviations',
-            'pages.etiquette',
-            'faqs',
-            'parent.control',
-            'feedbackpage',
-            'web.help-for-advertisers',
-            'web.cookie-policy',
-            'pages.terms-conditions',
-            'alerts',
-            'contactus.index',
-            'blogs.index',
-            'about agents',
-            'about playbox',
-            'about escort e4u',
-            'about e4u verified',
-        ];
+            $footerLabels = [
+                'Abbreviations',
+                'Alerts',
+                'Blog Page',
+                'Contact Us',
+                'Cookie Policy',
+                'Etiquette',
+                'Faq Page',
+                'Feedback Page',
+                'Help for Agents',
+                'Help for Escorts',
+                'Help for Massage Centres',
+                'Help for Viewer',
+                'Parent Control Page',
+                'Terms Conditions',
+                'Visa & Education',
+            ];
 
-        foreach ($headerRoutes as $route) {
-            if (str_contains($needle, strtolower($route))) {
-                return 'Header';
+            $seoNameLower = strtolower($seoName);
+
+            foreach ($headerLabels as $label) {
+                if (strtolower($label) === $seoNameLower) {
+                    return 'Header';
+                }
             }
+
+            foreach ($footerLabels as $label) {
+                if (strtolower($label) === $seoNameLower) {
+                    return 'Footer';
+                }
+            }
+
+            return null;
         }
 
-        foreach ($footerRoutes as $route) {
-            if (str_contains($needle, strtolower($route))) {
-                return 'Footer';
-            }
-        }
-
-        return 'Other';
     }
 }
 
 if (!function_exists('calculate_agent_commission')) {
-function calculate_agent_commission($amount, $percent) {
+    function calculate_agent_commission($amount, $percent)
+    {
 
-    if (!$amount || !$percent) {
-        return 0.00;
+        if (!$amount || !$percent) {
+            return 0.00;
+        }
+
+        return ($amount * $percent) / 100;
     }
-
-    return ($amount * $percent) / 100;
-}
 }
 
 if (!function_exists('countOpenDays')) {
-function countOpenDays(string $startDate, string $endDate, string $scheduleJson): int 
-{
-    $schedule = json_decode($scheduleJson, true);
-    if (!$schedule) {
-        return 0;
-    }
-
-    $start = new DateTime($startDate);
-    $end = new DateTime($endDate);
-    
-    // Ensure loop includes both start and end date (inclusive range)
-    $end->modify('+1 day'); 
-    
-    $period = new DatePeriod($start, new DateInterval('P1D'), $end);
-    $openDaysCount = 0;
-
-    foreach ($period as $date) {
-        // Get day name in lowercase (e.g., "monday", "tuesday")
-        $dayOfWeek = strtolower($date->format('l')); 
-
-        if (isset($schedule[$dayOfWeek]) && $schedule[$dayOfWeek]['status'] !== 'closed') {
-            $openDaysCount++;
+    function countOpenDays(string $startDate, string $endDate, string $scheduleJson): int
+    {
+        $schedule = json_decode($scheduleJson, true);
+        if (!$schedule) {
+            return 0;
         }
-    }
 
-    return $openDaysCount;
-}
+        $start = new DateTime($startDate);
+        $end = new DateTime($endDate);
+
+        // Ensure loop includes both start and end date (inclusive range)
+        $end->modify('+1 day');
+
+        $period = new DatePeriod($start, new DateInterval('P1D'), $end);
+        $openDaysCount = 0;
+
+        foreach ($period as $date) {
+            // Get day name in lowercase (e.g., "monday", "tuesday")
+            $dayOfWeek = strtolower($date->format('l'));
+
+            if (isset($schedule[$dayOfWeek]) && $schedule[$dayOfWeek]['status'] !== 'closed') {
+                $openDaysCount++;
+            }
+        }
+
+        return $openDaysCount;
+    }
 }
 
 

@@ -216,7 +216,7 @@
                         </div>
                     </div>
                     <div class="card-body p-0 Dash-table task_table">
-                        <div class="table-full-width table-responsive">
+                        <div class="table-full-width table-responsive common-card">
                             <table class="table table-bordered " id="taskList">
                                 <thead style="background-color: #0C223D; color: #ffffff;">
                                     <tr>

@@ -75,7 +75,7 @@
                 @endif
             </div>
 
-           <a href="{{  getEscortMassageDetailUrl($listing, 'massage') }}" class="mc_card_link">
+           <a href="{{  getAdvertiserDetailUrl($listing, 'massage') }}" class="mc_card_link">
                 
 
                 <div class="mc_profile_img">

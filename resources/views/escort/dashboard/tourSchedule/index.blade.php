@@ -45,38 +45,38 @@
         <div class="col-md-12 mb-4">
             <div class="card collapse" id="notes" style="">
                 <div class="card-body">
-                   <h3 class="NotesHeader"><b>Notes:</b></h3>
+                    <h3 class="NotesHeader"><b>Notes:</b></h3>
 
                     <ol>
                         <li>All of your Tours are listed here for a twelve month period. To View a Tour that is older than 12 months, <a href="{{url('escort-dashboard/list-tour/past')}}" class="custom_links_design">click here</a>.</li>
                         <li>Click the Action function to View Tour and add a Pin Up for any of the Locations within your Tour, or Tour Summary for a summary of all of the important elements of your Tour, including the current leg of the Tour.</li>
-                        <li>Click 'Open' to view each of the Tour legs and the Status.  Select the Action feature to Cancel a Tour leg.</li>
+                        <li>Click 'Open' to view each of the Tour legs and the Status. Select the Action feature to Cancel a Tour leg.</li>
                     </ol>
                 </div>
             </div>
         </div>
     </div>
     <!-- Page Heading -->
-        <div class="col-md-12 common-card">
-            <div class="table-responsive pl-1 pt-3 list-sec" id="sailorTableArea">
-                <table id="sailorTable" class="table table-striped" width="100%">
-                    <thead>
-                        <tr>
-                            <th>Open</th>
-                            <th>ID</th>
-                            <th>Tour Name</th>
-                            <th>Locations</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Days</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
+    <div class="col-md-12 common-card">
+        <div class="table-responsive pl-1 pt-3 list-sec" id="sailorTableArea">
+            <table id="sailorTable" class="table table-striped" width="100%">
+                <thead>
+                    <tr>
+                        <th>Open</th>
+                        <th>ID</th>
+                        <th>Tour Name</th>
+                        <th>Locations</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Days</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
+    </div>
 </div>
 @include('escort.dashboard.tourSchedule.modal.summary')
 @include('escort.dashboard.tourSchedule.modal.cancel')
@@ -91,8 +91,8 @@
         table = $('#sailorTable').DataTable({
             serverSide: true,
             processing: true,
-            pageLength: {{$datatable_entries }},
-            lengthMenu: [{{ config('app.paginate_range') }}],   
+            pageLength: `{{$datatable_entries}}`,
+            lengthMenu: `{{config('app.paginate_range')}}`.split(','),
             "language": {
                 "zeroRecords": "There is no record of the search criteria you entered.",
                 searchPlaceholder: "Search by ID or Profile Name"

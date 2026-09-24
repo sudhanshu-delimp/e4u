@@ -466,8 +466,8 @@
                 },
             ],
             order: [],
-            pageLength: {{$datatable_entries }},
-            lengthMenu: [{{ config('app.paginate_range') }}],   
+            pageLength: `{{$datatable_entries}}`,
+            lengthMenu: `{{config('app.paginate_range')}}`.split(','),  
         });
 
         // Event delegation for dynamic action buttons

@@ -79,7 +79,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 mt-2">
-                        <div id="table-sec" class="table-responsive-xl">
+                        <div id="table-sec" class="table-responsive-xl common-card">
                             <table class="table" id="bankAccountTable">
                                 <thead class="table-bg">
                                     <tr>
@@ -93,6 +93,7 @@
                                 </thead>
                             </table>
                         </div>
+                        
                     </div>
                 </div>
             </div>
