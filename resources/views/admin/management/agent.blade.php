@@ -386,10 +386,10 @@
                 const agent_details = (rowData.agent_detail && Object.keys(rowData.agent_detail).length >
                     0) ? rowData.agent_detail : null;
                 const agreement_file = agent_details?.agreement_file ?
-                    `<a href="{{ asset('storage') }}/${agent_details.agreement_file}" target="_blank">Download Agreement</a>` :
+                    `<a href="{{ asset('storage') }}/${agent_details.agreement_file}" target="_blank" title="Click here to download agreement file" id="downloadAgreement">Download File</a> <a href="javascript:void(0)" style="margin-left:50px;" title="Click here to delete agreement file" class="deleteUploadedFile" data-id="${rowData.id}" data-type="agreement" id="deleteAgreement">Delete File</a>` :
                     '';
                 const signature_file = agent_details?.signature_file ?
-                    `<a href="{{ asset('storage') }}/${agent_details.signature_file}" target="_blank">Download Signature</a>` :
+                    `<a href="{{ asset('storage') }}/${agent_details.signature_file}" target="_blank" title="Click here to download agreement file" id="downloadSignature">Download Signature</a> <a href="javascript:void(0)" style="margin-left:50px;" title="Click here to delete signature file" class="deleteUploadedFile" data-id="${rowData.id}" data-type="signature" id="deleteSignature">Delete File</a>` :
                     '';
                 const signature_image = agent_details?.signature_file ?
                     "{{ asset('storage') }}/" + agent_details.signature_file : '';
@@ -583,7 +583,7 @@
                                        <input type="file" name="signature_file" id="signature_file" accept="image/*">
                                        <div id="signature_preview" class="mt-2"></div>
                                        ${signature_file ? `<div class="mt-2">${signature_file}</div>` : ''}
-                                       ${signature_image ? `<div class="mt-2"><img src="${signature_image}" alt="Signature" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; border-radius: 4px;"></div>` : ''}
+                                       ${signature_image ? `<div class="mt-2"><img src="${signature_image}" alt="Signature" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; border-radius: 4px;" id="signatureImage"></div>` : ''}
                                      
                                   </div>
 
@@ -1002,7 +1002,49 @@
 
             ////////// End Submit Form ////////////////////////
 
+            /* Delete agreement or signature file */
+        $(document).on('click', '.deleteUploadedFile', async function(e) {
 
+           
+            if (await isConfirm({
+                    'action': 'Delete',
+                    'text': ' Are you sure want to delete this file.'
+                })) {
+                swal_waiting_popup({
+                    'title': 'Deleting the file'
+                });
+                var userId = $(this).attr('data-id');
+                var type = $(this).attr('data-type');
+                $.ajax({
+                    url: "{{ route('admin.agent.delete.file') }}",
+                    method: 'POST',
+                    data: {
+                        'userId': userId,
+                        'type': type
+                    },
+                    success: function(response, textStatus, xhr) {
+                        console.log("response:", response.message);
+                        table.ajax.reload(null, false);
+                        Swal.close();
+                        if(response.status) {
+                            displaySwal(xhr);
+                            if(type == 'agreement') {
+                                $("#deleteAgreement, #downloadAgreement").hide();
+                            } else {
+                                $("#downloadSignature, #deleteSignature, #signatureImage").hide();
+                            }
+                        } else {
+                            displaySwal(xhr);  
+                        }
+                    },
+                    error: function(xhr) {
+                        Swal.close();
+                        //swal_error_popup(xhr.responseJSON.message);
+                         displaySwal(xhr);  
+                    }
+                });
+            }
+        })
 
 
 
@@ -1117,5 +1159,7 @@
                 minDate: 0
             });
         });
+
+        
     </script>
 @endpush
