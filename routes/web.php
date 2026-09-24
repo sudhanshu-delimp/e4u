@@ -293,7 +293,7 @@ Route::post('contact-us-send', [ContactUsController::class, 'sendContact'])->nam
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])
-->name('home')->seo_name('Home Page')->middleware('seo');
+->name('home')->seo_name('Home')->seo_group('Landing')->middleware('seo');
 
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'intendedRedirect'])->name('dashboard');
@@ -363,14 +363,14 @@ Route::get('/escort-clear-short-list', [App\Http\Controllers\EscortListingContro
 
 /********** ADMIN **********/
 Route::get('admin-login', [App\Http\Controllers\Admin\AuthController::class, 'showLoginForm'])
-->name('admin.login')->seo_name('Admin Login Page')->middleware('seo');
+->name('admin.login')->seo_name('Admin')->seo_group('Footer Login')->middleware('seo');
 
 Route::post('/admin-login', [App\Http\Controllers\Admin\AuthController::class, 'login']);
 Route::post('/admin-logout', [App\Http\Controllers\Admin\AuthController::class, 'logout'])->name('admin.logout');
 
 /********** Operator **********/
 Route::get('operator-login', [App\Http\Controllers\Admin\AuthController::class, 'showOperatorLoginForm'])
-->name('operator.login')->seo_name('Operator Login')->middleware('seo');
+->name('operator.login')->seo_name('Operator')->seo_group('Footer Login')->middleware('seo');
 
 Route::post('/operator-login', [App\Http\Controllers\Admin\AuthController::class, 'operatorLogin']);
 Route::post('/operator-logout', [App\Http\Controllers\Admin\AuthController::class, 'OperatorLogout'])->name('operator.logout');
@@ -378,7 +378,7 @@ Route::post('/operator-logout', [App\Http\Controllers\Admin\AuthController::clas
 
 /********** Shareholder Login **********/
 Route::get('/shareholder-login', [App\Http\Controllers\Admin\AuthController::class, 'showShareholderLoginForm'])
-->name('shareholder.login')->seo_name('Shareholder Login')->middleware('seo');
+->name('shareholder.login')->seo_name('Shareholder')->seo_group('Footer Login')->middleware('seo');
 
 
 /************ END ************/
@@ -535,7 +535,7 @@ Route::get('/escorts4U', [PageController::class, 'escorts4U'])
 
 
 Route::get('/e4u-verified', [PageController::class, 'e4uVerified'])
-->name('page.e4u-verified')->seo_name('About E4U Verified')->seo_group('About')->middleware('seo');
+->name('page.e4u-verified')->seo_name('E4U Verified')->seo_group('About')->middleware('seo');
 
 Route::get('/accommodation', [PageController::class, 'accommodation'])
 ->name('page.accommodation')->seo_name('Accommodation')->seo_group('Concierge')->middleware('seo');
@@ -561,7 +561,8 @@ Route::get('/cookie-policy', [PageController::class, 'cookePolicy'])
 
 
 
-Route::get('/pin-up/{escort_id}', [PinUpsController::class, 'index'])->name('web.pinup');
+Route::get('/pin-up/{escort_id}', [PinUpsController::class, 'index'])->name('web.pinup')
+->seo_name('Pin Up')->seo_group('Landing')->middleware('seo');
 
 
 Route::get('/blogs', [BlogsController::class, 'index'])
