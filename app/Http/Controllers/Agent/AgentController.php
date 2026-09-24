@@ -865,7 +865,7 @@ class AgentController extends BaseController
         // =========================
         // Memberships - Massage Centres
         // =========================
-        
+
         $massage_membership_today = $user::where('assigned_agent_id',  $user_id)->where('type',  '4' )->whereDate('agent_assign_date', today())->count();
 
         $massage_membership_week = $user::where('assigned_agent_id',  $user_id)->where('type',  '4' )->whereBetween('agent_assign_date', [
@@ -1070,7 +1070,8 @@ class AgentController extends BaseController
             'massage_profile_today',
             'massage_profile_week',
             'massage_profile_month',
-            'massage_profile_year_total'
+            'massage_profile_year_total',
+            'massage_profile_ongoing_total'
         ));
     }
 }

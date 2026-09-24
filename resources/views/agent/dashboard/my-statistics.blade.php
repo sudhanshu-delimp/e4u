@@ -332,7 +332,7 @@
                             <div class="stats-detail">
                                 <div class="stats-label"> Ongoing Total
                                 </div>
-                                <div class="stats-value">{{$massage_profile_year_total}}</div>
+                                <div class="stats-value">{{$massage_profile_ongoing_total}}</div>
                             </div>
                         </div>
                     </div>
@@ -409,5 +409,4 @@
         </div>
     </div>
 @endsection
-@section('script')
-@endsection
+
