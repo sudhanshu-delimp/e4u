@@ -76,14 +76,14 @@ Route::middleware('guest')->group(function () {
         return redirect('/');
     })->name('login');
     Route::get('/advertiser-login', [AdvertiserLoginController::class, 'index'])
-    ->name('advertiser.login')->seo_name('Advertiser Login')->middleware('seo');
+    ->name('advertiser.login')->seo_name('Advertiser')->seo_group('Login')->middleware('seo');
     Route::get('/viewer-login', [AdvertiserLoginController::class, 'indexViewer'])
-    ->name('viewer.login')->seo_name('Viewer Login')->middleware('seo');
+    ->name('viewer.login')->seo_name('Viewer')->seo_group('Login')->middleware('seo');
     //Route::get('/agent-login', [AdvertiserLoginController::class,'indexAgent'])->name('agent.login');
     Route::match(array('GET', 'POST'), '/agent-login', [AdvertiserLoginController::class, 'indexAgent'])
-    ->name('agent.login')->seo_name('Agent Login')->middleware('seo');
+    ->name('agent.login')->seo_name('Agent')->seo_group('Login')->middleware('seo');
     Route::get('/register', [GuestRegisterController::class, 'showRegistrationForm'])
-    ->name('register')->seo_name('Register')->middleware('seo');
+    ->name('register')->seo_name('Viewer')->seo_group('Register')->middleware('seo');
     Route::post('/register', [RegisterController::class, 'register']);
     Route::get('/staff-login', [AdvertiserLoginController::class, 'indexStaff'])
     ->name('staff.login')->seo_name('Staff Login')->middleware('seo');
@@ -287,7 +287,7 @@ Route::put('support_tickets/withdraw/{id}', [SupportTicketsController::class, 'w
 Route::post('support_tickets/save_message', [SupportTicketsController::class, 'save_message'])->name('support-ticket.saveMessage');
 
 Route::get('contact-us', [ContactUsController::class, 'index'])
-->name('contactus.index')->seo_name('Contact Us')->middleware('seo');
+->name('contactus.index')->seo_name('Contact Us')->seo_group('Community')->middleware('seo');
 Route::post('contact-us-send', [ContactUsController::class, 'sendContact'])->name('contactus.send');
 
 
@@ -305,20 +305,22 @@ Route::get('state-list', [App\Http\Controllers\StateController::class, 'stateLis
 
 //Route::get('/escorts', [App\Http\Controllers\HomeController::class, 'intendedRedirect'])->name('dashboard');
 
-Route::get('/dmca', [App\Http\Controllers\HomeController::class, 'noticeDmca'])->name('notice.dmca');
-Route::get('/influencer', [InfluencerController::class, 'becomeInfluencer'])->name('become.influencer');
+Route::get('/dmca', [App\Http\Controllers\HomeController::class, 'noticeDmca'])
+->name('notice.dmca')->seo_name('DMCA Notices')->seo_group('Bottom Footer')->middleware('seo');
+Route::get('/influencer', [InfluencerController::class, 'becomeInfluencer'])
+->name('become.influencer')->seo_name('Influencer')->seo_group('Community')->middleware('seo');
 Route::post('/save-influencer', [InfluencerController::class, 'store'])->name('store.influencer');
 
 
 
 /********** Advertiser **********/
 Route::get('/agent-register', [AgentRegisterController::class, 'index'])
-->name('agent.register')->seo_name('Agent Register Page')->middleware('seo');
+->name('agent.register')->seo_name('Agent')->seo_group('Register')->middleware('seo');
 
 Route::post('/agent-register', [AgentRegisterController::class, 'register']);
 
 Route::get('/advertiser-register', [AdvertiserRegisterController::class, 'index'])
-->name('advertiser.register')->seo_name('Advertiser Register')->middleware('seo');
+->name('advertiser.register')->seo_name('Advertiser')->seo_group('Register')->middleware('seo');
 
 Route::post('/advertiser-register', [AdvertiserRegisterController::class, 'register']);
 Route::post('/check-otp', [AdvertiserLoginController::class, 'checkOTP'])->name('web.checkOTP');
@@ -427,48 +429,49 @@ Route::post('/advertiser-spam-report', [AdvertiserSpamReportController::class, '
 Route::get('/page/{slug}', [App\Http\Controllers\WebController::class, 'showFooterLink'])->name('page.show');
 Route::get('/acceptable-usage-policy', function () {
     return view('web.pages.acceptable-use-policy');
-});
-
+})->name('acceptable-usage-policy')->seo_name('Acceptable Usage Policy')->seo_group('Legal')->middleware('seo');
 
 
 
 // Other Pages
 Route::get('alerts', [WebController::class, 'alerts'])
-->name('alerts')->seo_name('Alerts')->middleware('seo');
+->name('alerts')->seo_name('Alerts')->seo_group('Community')->middleware('seo');
 
-Route::get('/acceptable-usages-policy', function () {
-    return view('web.pages.acceptable-usages-policy');
-});
+// Route::get('/acceptable-usages-policy', function () {
+//     return view('web.pages.acceptable-usages-policy');
+// })->name('acceptable-usages-policy')->seo_name('Acceptable Usage Policy')->seo_group('Legal')->middleware('seo');
+
+
 Route::get('/copyright-statement', function () {
     return view('web.pages.copyright-statement');
-});
+})->name('copyright-statement')->seo_name('Copyright Statement')->seo_group('Legal')->middleware('seo');
 Route::get('/covid-19-statement', function () {
     return view('web.pages.covid-19-statement');
-});
+})->name('covid-19-statement')->seo_name('Covid-19 Statement')->seo_group('Legal')->middleware('seo');
 Route::get('/disclaimer-statement', function () {
     return view('web.pages.disclaimer-statement');
-});
+})->name('disclaimer-statement')->seo_name('Disclaimer Statement')->seo_group('Legal')->middleware('seo');
 Route::get('/law-enforcement', function () {
     return view('web.pages.law-enforcement');
-});
+})->name('law-enforcement')->seo_name('Law Enforcement')->seo_group('Legal')->middleware('seo');
 Route::get('/privacy-policy', function () {
     return view('web.pages.privacy-policy');
-});
+})->name('privacy-policy')->seo_name('Privacy Policy')->seo_group('Legal')->middleware('seo');
 Route::get('/privacy-collection-notice', function () {
     return view('web.pages.privacy-collection-notice');
-});
+})->name('privacy-collection-notice')->seo_name('Privacy Collection Notice')->seo_group('Legal')->middleware('seo');
 Route::get('/refund-policy', function () {
     return view('web.pages.refund-policy');
-});
+})->name('refund-policy')->seo_name('Refund Policy')->seo_group('Legal')->middleware('seo');
 Route::get('/spam-policy', function () {
     return view('web.pages.spam-policy');
-});
+})->name('spam-policy')->seo_name('Spam Policy')->seo_group('Legal')->middleware('seo');
 
 Route::get('/terms-conditions', [PageController::class, 'termsConditions'])
-->name('pages.terms-conditions')->seo_name('Terms Conditions')->middleware('seo');
+->name('pages.terms-conditions')->seo_name('Terms & Conditions')->seo_group('Legal')->middleware('seo');
 
 Route::get('/abbreviations', [PageController::class, 'abbreviations'])
-->name('pages.abbreviations')->seo_name('Abbreviations')->middleware('seo');
+->name('pages.abbreviations')->seo_name('Abbreviations')->seo_group('Community')->middleware('seo');
 
 
 // Route::get('/abbreviations', function () {
@@ -479,7 +482,7 @@ Route::get('/abbreviations', [PageController::class, 'abbreviations'])
 //Route::get('/contact-us', function() { return view('web.pages.contact-us'); })
 
 Route::get('/etiquette', [PageController::class, 'etiquette'])
-->name('pages.etiquette')->seo_name('Etiquette')->middleware('seo');
+->name('pages.etiquette')->seo_name('Etiquette')->seo_group('Community')->middleware('seo');
 
 
 // Route::get('/etiquette', function () {
@@ -488,73 +491,73 @@ Route::get('/etiquette', [PageController::class, 'etiquette'])
 
 
 Route::get('/faqs', [PageController::class, 'faqPage'])
-->name('faqs')->seo_name('Faq Page')->middleware('seo');
+->name('faqs')->seo_name('FAQs')->seo_group('Community')->middleware('seo');
 
 Route::get('/parent-control', [PageController::class, 'parentControl'])
-->name('parent.control')->seo_name('Parent Control Page')->middleware('seo');
+->name('parent.control')->seo_name('Parent Control')->seo_group('Bottom Footer')->middleware('seo');
 
 Route::get('/feedback', [PageController::class, 'feedbackPage'])
-->name('feedbackPage')->seo_name('Feedback Page')->middleware('seo');
+->name('feedbackPage')->seo_name('Feedback')->seo_group('Community')->middleware('seo');
 
 Route::get('/thankyou', [PageController::class, 'thankyouPage'])->name('feedback.thankyou');
 
 
 Route::get('help-for-escorts', [App\Http\Controllers\WebController::class, 'help_for_escort'])
-->name('web.help-for-advertisers')->seo_name('Help For Escorts')->middleware('seo');
+->name('web.help-for-advertisers')->seo_name('Help for Escorts')->seo_group('Community')->middleware('seo');
 
 //Route::get('/help-for-escorts', function() { return view('web.pages.help-for-advertisers'); })->name('web.help-for-advertisers');
 
 Route::get('/help-for-agents', [PageController::class, 'helpForAgents'])
-->name('page.help.for.agents')->seo_name('Help for Agents')->middleware('seo');
+->name('page.help.for.agents')->seo_name('Help for Agents')->seo_group('Community')->middleware('seo');
 
 Route::get('/help-for-massage-centres', [PageController::class, 'helpForMassageCentres'])
-->name('page.help.for.massage.centres')->seo_name('Help for Massage Centres')->middleware('seo');
+->name('page.help.for.massage.centres')->seo_name('Help for Massage Centres')->seo_group('Community')->middleware('seo');
 
 Route::get('/help-for-viewers', [PageController::class, 'helpForViewers'])
-->name('page.help.for.viewers')->seo_name('Help for Viewer')->middleware('seo');
+->name('page.help.for.viewers')->seo_name('Help for Viewers')->seo_group('Community')->middleware('seo');
 
 
 
 Route::get('/become-a-pin-up', [PageController::class, 'becomePinUp'])
-->name('page.become-pin-up')->seo_name('Become A Pin Up')->middleware('seo');
+->name('page.become-pin-up')->seo_name('Become A Pin Up')->seo_group('About')->middleware('seo');
 
 Route::get('/agents', [PageController::class, 'agents'])
-->name('page.agents')->seo_name('About Agents')->middleware('seo');;
+->name('page.agents')->seo_name('Agents')->seo_group('About')->middleware('seo');
 
 Route::get('/centres', [PageController::class, 'centres'])
-->name('page.centres')->seo_name('Advertiser Login')->middleware('seo');;
+->name('page.centres')->seo_name('Massage Centres')->seo_group('About')->middleware('seo');
 
 Route::get('/playbox', [PageController::class, 'playbox'])
-->name('page.playbox')->seo_name('About Playbox')->middleware('seo');
+->name('page.playbox')->seo_name('My Playbox')->seo_group('About')->middleware('seo');
 
 Route::get('/escorts4U', [PageController::class, 'escorts4U'])
-->name('page.escorts4U')->seo_name('About Escort E4U')->middleware('seo');
+->name('page.escorts4U')->seo_name('Escorts4U')->seo_group('About')->middleware('seo');
 
 
 Route::get('/e4u-verified', [PageController::class, 'e4uVerified'])
-->name('page.e4u-verified')->seo_name('About E4U Verified')->middleware('seo');
+->name('page.e4u-verified')->seo_name('About E4U Verified')->seo_group('About')->middleware('seo');
 
 Route::get('/accommodation', [PageController::class, 'accommodation'])
-->name('page.accommodation')->seo_name('Accommodation')->middleware('seo');
+->name('page.accommodation')->seo_name('Accommodation')->seo_group('Concierge')->middleware('seo');
 
 Route::get('/email-hosting', [PageController::class, 'emailHosting'])
-->name('page.email-hosting')->seo_name('Email Hosting')->middleware('seo');
+->name('page.email-hosting')->seo_name('Email Hosting')->seo_group('Concierge')->middleware('seo');
 
 Route::get('/mobile-read-sim', [PageController::class, 'mobileReadSim'])
-->name('page.mobile-read-sim')->seo_name('Mobile SIM Service')->middleware('seo');
+->name('page.mobile-read-sim')->seo_name('Mobile SIM')->seo_group('Concierge')->middleware('seo');
 
 Route::get('/professional-product', [PageController::class, 'professionalProduct'])
-->name('page.professional-product')->seo_name('Products')->middleware('seo');
+->name('page.professional-product')->seo_name('Products')->seo_group('Concierge')->middleware('seo');
 
 Route::get('/travel', [PageController::class, 'travel'])
-->name('page.travel')->seo_name('Travel Services')->middleware('seo');
+->name('page.travel')->seo_name('Travel')->seo_group('Concierge')->middleware('seo');
 
 
 Route::get('/visa-migration', [PageController::class, 'visaMigration'])
-->name('page.visa-migration')->seo_name('Visa & Education')->middleware('seo');
+->name('page.visa-migration')->seo_name('Visa & Migration')->seo_group('Concierge')->middleware('seo');
 
 Route::get('/cookie-policy', [PageController::class, 'cookePolicy'])
-->name('web.cookie-policy')->seo_name('Cookie Policy')->middleware('seo');
+->name('web.cookie-policy')->seo_name('Cookie Policy')->seo_group('Legal')->middleware('seo');
 
 
 
@@ -562,7 +565,7 @@ Route::get('/pin-up/{escort_id}', [PinUpsController::class, 'index'])->name('web
 
 
 Route::get('/blogs', [BlogsController::class, 'index'])
-->name('blogs.index')->seo_name('Blog Page')->middleware('seo');
+->name('blogs.index')->seo_name('Blog')->seo_group('Community')->middleware('seo');
 
 Route::post('/blogs-list', [BlogsController::class, 'blogsList'])->name('blogs.list');
 

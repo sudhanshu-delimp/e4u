@@ -616,6 +616,13 @@
             text-align: left;
         }
 
+        .page-sub-group-toggle {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            padding: 7px 10px;
+        }
+
         .page-group-toggle .caret {
             transition: transform 0.2s ease;
             font-size: 12px;
@@ -632,6 +639,7 @@
             gap: 5px;
             overflow: hidden;
             transition: max-height 0.2s ease, opacity 0.2s ease;
+            padding-left: 20px;
         }
 
         .page-sub-group.is-collapsed {
@@ -844,21 +852,41 @@
                                     <div class="page-list" id="pageList">
                                         @php $seoGroupedRoutes = getSeoGroupedRoutes(); @endphp
                                         @if($seoGroupedRoutes)
-                                            @foreach (['Header', 'Footer'] as $groupName)
-                                                @if (isset($seoGroupedRoutes[$groupName]) && !empty($seoGroupedRoutes[$groupName]))
+                                            @foreach ($seoGroupedRoutes as $groupName => $groupRoutes)
+                                                @if (!empty($groupRoutes))
                                                     <div class="page-group">
-                                                        <button type="button" class="page-group-toggle {{ $loop->first ? 'is-open' : '' }}" data-group-name="{{ $groupName }}">
+                                                        <button type="button" class="page-group-toggle" data-group-name="{{ $groupName }}">
                                                             <span>{{ $groupName }}</span>
                                                             <span class="caret">
                                                                 <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 6L15 12L9 18" stroke="#0c223d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
                                                             </span>
                                                         </button>
-                                                        <div class="page-sub-group {{ $loop->first ? '' : 'is-collapsed' }}">
-                                                            @foreach ($seoGroupedRoutes[$groupName] as $item)
-                                                                <button type="button" class="page-item page-sub-item" data-route-name="{{ $item['route_name'] }}" data-url-name="{{ $item['uri'] }}">
-                                                                    <span class="page-name">{{ $item['seo_label'] }}</span>
-                                                                </button>
-                                                            @endforeach
+                                                        <div class="page-sub-group is-collapsed">
+                                                            @if (array_values($groupRoutes) === $groupRoutes)
+                                                                @foreach ($groupRoutes as $item)
+                                                                    <button type="button" class="page-item page-sub-item" data-route-name="{{ $item['route_name'] }}" data-url-name="{{ $item['uri'] }}">
+                                                                        <span class="page-name">{{ $item['seo_label'] }}</span>
+                                                                    </button>
+                                                                @endforeach
+                                                            @else
+                                                                @foreach ($groupRoutes as $subGroupName => $subGroupRoutes)
+                                                                    <div class="page-group page-sub-group-nested">
+                                                                        <button type="button" class="page-group-toggle page-sub-group-toggle" data-group-name="{{ $groupName }}-{{ $subGroupName }}">
+                                                                            <span>{{ $subGroupName }}</span>
+                                                                            <span class="caret">
+                                                                                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 6L15 12L9 18" stroke="#0c223d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                                                                            </span>
+                                                                        </button>
+                                                                        <div class="page-sub-group is-collapsed">
+                                                                            @foreach ($subGroupRoutes as $item)
+                                                                                <button type="button" class="page-item page-sub-item" data-route-name="{{ $item['route_name'] }}" data-url-name="{{ $item['uri'] }}">
+                                                                                    <span class="page-name">{{ $item['seo_label'] }}</span>
+                                                                                </button>
+                                                                            @endforeach
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 @endif
@@ -1234,11 +1262,35 @@
             $(".page-group-toggle").on("click", function() {
                 const $toggle = $(this);
                 const $group = $toggle.closest(".page-group");
-                const $submenu = $group.find(".page-sub-group");
+                const $submenu = $group.children(".page-sub-group").first();
+                const isNested = $toggle.hasClass("page-sub-group-toggle");
                 const isOpen = $toggle.hasClass("is-open");
 
-                $(".page-group-toggle").not($toggle).removeClass("is-open");
-                $(".page-sub-group").not($submenu).addClass("is-collapsed");
+                if (! $submenu.length) {
+                    return;
+                }
+
+                if (isNested) {
+                    const $siblingNestedGroups = $group.siblings(".page-sub-group-nested");
+
+                    $siblingNestedGroups.find("> .page-group-toggle.page-sub-group-toggle").not($toggle).removeClass("is-open");
+                    $siblingNestedGroups.find("> .page-sub-group").not($submenu).addClass("is-collapsed");
+
+                    if (isOpen) {
+                        $toggle.removeClass("is-open");
+                        $submenu.addClass("is-collapsed");
+                        return;
+                    }
+
+                    $toggle.addClass("is-open");
+                    $submenu.removeClass("is-collapsed");
+                    return;
+                }
+
+                const $topLevelGroups = $("#pageList > .page-group");
+
+                $topLevelGroups.not($group).find("> .page-group-toggle").removeClass("is-open");
+                $topLevelGroups.not($group).find("> .page-sub-group").addClass("is-collapsed");
 
                 if (isOpen) {
                     $toggle.removeClass("is-open");

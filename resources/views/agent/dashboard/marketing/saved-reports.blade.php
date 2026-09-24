@@ -201,7 +201,7 @@
         <!-- Trigger Button -->
 
         <!-- Main DataTable (Your Reports Table) -->
-        <div class="table-responsive-xl">
+        <div class="table-responsive-xl common-card">
             <table class="table mb-3" id="save_report_table">
                 <thead class="table-bg">
                     <tr>
