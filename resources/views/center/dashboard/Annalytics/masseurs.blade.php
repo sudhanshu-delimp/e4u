@@ -48,8 +48,9 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-12 common-card">
-        <div class="table-responsive">
+    <div class="row">
+        <div class="col-sm-12 ">
+        <div class="table-responsive common-card">
             <table class="w-100 table table-bordered" id="masseursStatisticsTable" style="">
                 <thead class="table-bg">
                     <tr>
@@ -75,6 +76,7 @@
                 </tbody>
             </table>
         </div>
+    </div>
     </div>
 
 </div>
