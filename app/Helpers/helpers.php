@@ -3015,6 +3015,7 @@ if (!function_exists('getSeoGroupedRoutes')) {
     function getSeoGroupedRoutes()
     {
         $grouped = [];
+        $footerSubGroups = ['Legal', 'Community', 'Bottom Footer'];
 
         foreach (getSeoTaggedRoutes() as $item) {
             $group = $item['seo_group'] ?? getSeoRouteMenuGroup(
@@ -3027,7 +3028,7 @@ if (!function_exists('getSeoGroupedRoutes')) {
                 continue;
             }
 
-            if (in_array($group, ['Legal', 'Community', 'Bottom Footer'], true)) {
+            if (in_array($group, $footerSubGroups, true)) {
                 $grouped['Footer'][$group][] = $item;
                 continue;
             }
@@ -3035,13 +3036,38 @@ if (!function_exists('getSeoGroupedRoutes')) {
             $grouped[$group][] = $item;
         }
 
+        $sortItemsByLabelOrder = function (&$items, $orderedLabels = []) {
+            if (!is_array($items)) {
+                return;
+            }
+
+            $orderMap = [];
+            foreach ($orderedLabels as $index => $label) {
+                $orderMap[strtolower((string) $label)] = $index;
+            }
+
+            usort($items, function ($a, $b) use ($orderMap) {
+                $aLabel = strtolower((string) ($a['seo_label'] ?? ''));
+                $bLabel = strtolower((string) ($b['seo_label'] ?? ''));
+
+                $aIndex = $orderMap[$aLabel] ?? PHP_INT_MAX;
+                $bIndex = $orderMap[$bLabel] ?? PHP_INT_MAX;
+
+                if ($aIndex === $bIndex) {
+                    return strcasecmp($a['seo_label'] ?? '', $b['seo_label'] ?? '');
+                }
+
+                return $aIndex <=> $bIndex;
+            });
+        };
+
         $preferredGroupOrder = ['About', 'Concierge', 'Footer', 'Login', 'Register'];
         $groupItemOrder = [
-            'About' => ['About E4U Verified','Agents','Become A Pin Up','Escorts4U','Massage Centres','My Playbox',],
-            'Concierge' => ['Accommodation','Email Hosting','Mobile SIM','Products','Travel','Visa & Migration',],
-            'Footer' => ['Bottom Footer','Community','Legal',],
-            'Login' => ['Advertiser','Agent','Viewer',],
-            'Register' => ['Advertiser','Agent','Viewer',],
+            'About' => ['About E4U Verified', 'Agents', 'Become A Pin Up', 'Escorts4U', 'Massage Centres', 'My Playbox'],
+            'Concierge' => ['Accommodation', 'Email Hosting', 'Mobile SIM', 'Products', 'Travel', 'Visa & Migration'],
+            'Footer' => ['Bottom Footer', 'Community', 'Legal'],
+            'Login' => ['Advertiser', 'Agent', 'Viewer'],
+            'Register' => ['Advertiser', 'Agent', 'Viewer'],
         ];
         $subGroupItemOrder = [
             'Legal' => [
@@ -3077,7 +3103,7 @@ if (!function_exists('getSeoGroupedRoutes')) {
         $orderedGroups = [];
 
         foreach ($preferredGroupOrder as $groupName) {
-            if (!isset($grouped[$groupName])) {
+            if (!array_key_exists($groupName, $grouped)) {
                 continue;
             }
 
@@ -3085,33 +3111,12 @@ if (!function_exists('getSeoGroupedRoutes')) {
 
             if ($groupName === 'Footer' && is_array($items)) {
                 foreach ($items as $subGroupName => $subItems) {
-                    usort($subItems, function ($a, $b) use ($subGroupName, $subGroupItemOrder) {
-                        $orderedLabels = $subGroupItemOrder[$subGroupName] ?? [];
-                        $orderMap = [];
-
-                        foreach ($orderedLabels as $index => $label) {
-                            $orderMap[strtolower($label)] = $index;
-                        }
-
-                        $aLabel = strtolower((string) ($a['seo_label'] ?? ''));
-                        $bLabel = strtolower((string) ($b['seo_label'] ?? ''));
-
-                        $aIndex = $orderMap[$aLabel] ?? PHP_INT_MAX;
-                        $bIndex = $orderMap[$bLabel] ?? PHP_INT_MAX;
-
-                        if ($aIndex === $bIndex) {
-                            return strcasecmp($a['seo_label'] ?? '', $b['seo_label'] ?? '');
-                        }
-
-                        return $aIndex <=> $bIndex;
-                    });
-
-                    $items[$subGroupName] = $subItems;
+                    $sortItemsByLabelOrder($items[$subGroupName], $subGroupItemOrder[$subGroupName] ?? []);
                 }
 
                 $footerOrderMap = [];
                 foreach ($groupItemOrder['Footer'] ?? [] as $index => $label) {
-                    $footerOrderMap[strtolower($label)] = $index;
+                    $footerOrderMap[strtolower((string) $label)] = $index;
                 }
 
                 uksort($items, function ($a, $b) use ($footerOrderMap) {
@@ -3125,47 +3130,23 @@ if (!function_exists('getSeoGroupedRoutes')) {
                     return $aIndex <=> $bIndex;
                 });
             } else {
-                usort($items, function ($a, $b) use ($groupName, $groupItemOrder) {
-                    $orderedLabels = $groupItemOrder[$groupName] ?? [];
-                    $orderMap = [];
-
-                    foreach ($orderedLabels as $index => $label) {
-                        $orderMap[strtolower($label)] = $index;
-                    }
-
-                    $aLabel = strtolower((string) ($a['seo_label'] ?? ''));
-                    $bLabel = strtolower((string) ($b['seo_label'] ?? ''));
-
-                    $aIndex = $orderMap[$aLabel] ?? PHP_INT_MAX;
-                    $bIndex = $orderMap[$bLabel] ?? PHP_INT_MAX;
-
-                    if ($aIndex === $bIndex) {
-                        return strcasecmp($a['seo_label'] ?? '', $b['seo_label'] ?? '');
-                    }
-
-                    return $aIndex <=> $bIndex;
-                });
+                $sortItemsByLabelOrder($items, $groupItemOrder[$groupName] ?? []);
             }
 
             $orderedGroups[$groupName] = $items;
         }
 
         foreach ($grouped as $groupName => $items) {
-            if (isset($orderedGroups[$groupName])) {
+            if (array_key_exists($groupName, $orderedGroups)) {
                 continue;
             }
 
             if ($groupName === 'Footer' && is_array($items)) {
                 foreach ($items as $subGroupName => $subItems) {
-                    usort($subItems, function ($a, $b) {
-                        return strcasecmp($a['seo_label'] ?? '', $b['seo_label'] ?? '');
-                    });
-                    $items[$subGroupName] = $subItems;
+                    $sortItemsByLabelOrder($items[$subGroupName], $subGroupItemOrder[$subGroupName] ?? []);
                 }
             } else {
-                usort($items, function ($a, $b) {
-                    return strcasecmp($a['seo_label'] ?? '', $b['seo_label'] ?? '');
-                });
+                $sortItemsByLabelOrder($items, $groupItemOrder[$groupName] ?? []);
             }
 
             $orderedGroups[$groupName] = $items;
