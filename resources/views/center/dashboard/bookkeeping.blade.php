@@ -243,8 +243,8 @@
    </div>
 
    <div class="row">
-      <div class="col-md-12 mt-2 common-card">
-         <div id="" class="table-responsive-xl">
+      <div class="col-md-12 mt-2 ">
+         <div id="" class="table-responsive-xl common-card">
             <table class="table" id="bankAccountTable">
                <thead class="table-bg">
                   <tr>

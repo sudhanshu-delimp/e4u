@@ -439,6 +439,18 @@ if (!function_exists('getMassageTimezone')) {
     }
 }
 
+
+if (!function_exists('getAccountTimezone')) {
+
+    function getAccountTimezone($account)
+    {
+        $agent  = User::where('id', $account->id)->first();
+        $home_state = $agent->state_id;
+        $accountTimezone = config("agent.states.$home_state.timeZone");
+        return $accountTimezone;
+    }
+}
+
 if (!function_exists('getMassageLocalTime')) {
 
     function getMassageLocalTime($utcTime, $localTimeZone)

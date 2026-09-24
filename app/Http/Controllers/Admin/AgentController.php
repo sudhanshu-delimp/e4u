@@ -10,6 +10,9 @@ use App\Models\VariablAgentOperator;
 use App\Repositories\Agent\AgentInterface;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
+use Exception;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
 
 class AgentController extends BaseController
 {
@@ -271,9 +274,50 @@ class AgentController extends BaseController
     {  
         return view('admin.management.agents.agents-monthly-report');
     }
-    
 
-    
+    /**
+     * Delete Agreement or signature file
+     */
+    public function deleteAgentFile(Request $request)
+    {
+        $userId = $request->filled('userId') ? $request->userId: null;
+        $type = $request->filled('type') ? $request->type: null;
 
+        $user = User::where('id', $userId)->with('agent_detail')->first();
+        $agent = $user->agent_detail ?? null;
+        if ($agent) {
+            $filePath = ($type == "agreement") ? $agent->agreement_file : $agent->signature_file;
+            if ($filePath) {
+                $res = $this->deleteFile(public_path('storage/'.$filePath));
+                if ($res) {
+                    if($type == "agreement") {
+                        $agent->agreement_file = null;
+                    } else {
+                         $agent->signature_file = null;
+                    }
+                    $agent->save();
+                    return response()->json(['status' => true, 'message' => 'File deleted successfully.'], 200);
+                }
+            }
+        }
+
+        return response()->json(['status' => false, 'message' => 'Something went wrong. Please try later.'], 422);
+    }
+
+    protected function deleteFile($file)
+    {
+        try {
+            if (File::exists($file)) {
+            // Give write permission to the file
+            //chmod($file, 0777);
+
+                unlink($file);
+                return true;
+            }
+        } catch (Exception $e) {
+            log::info("Agent agreement/signature file not deleted : ".$e->getMessage());
+        }
+        return false;
+    }
     
 }
