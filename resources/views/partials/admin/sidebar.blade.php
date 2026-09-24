@@ -853,7 +853,7 @@
                         'set-fees',
                         'fee-discount',
                         'manage-user',
-                        'memberships',
+                        'memberships','report-credit',
                         'product',
                         'sim',
                         'legbox-report',
@@ -1715,10 +1715,15 @@
                             <img src="{{ asset('assets/dashboard/img/menu-icon/statistic.png') }}">
                             <span>Statistics</span>
                         </a>
-                        <div id="statisticsMenu" class="collapse @if (in_array(request()->segment(3), ['tours', 'profile', 'product', 'memberships', 'email', 'sim'])) show @endif "
+                        <div id="statisticsMenu" class="collapse @if (in_array(request()->segment(3), ['report-credit', 'tours', 'profile', 'product', 'memberships', 'email', 'sim'])) show @endif "
                             data-parent="#Management">
 
 
+                            <a class="collapse-item" href="{{ route('admin.report-credit') }}">
+                                <img src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
+                                <span
+                                    style="{{ request()->segment(3) == 'report-credit' ? 'color: #FF3C5F;' : '' }}">Credit</span>
+                            </a>
                             <a class="collapse-item" href="{{ route('admin.email') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
                                 <span
