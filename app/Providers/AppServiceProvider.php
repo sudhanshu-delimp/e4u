@@ -75,5 +75,10 @@ class AppServiceProvider extends ServiceProvider
             $this->action['seo_name'] = $label;
             return $this; 
         });
+
+        Route::macro('seo_group', function (string $group) {
+            $this->action['seo_group'] = $group;
+            return $this;
+        });
     }
 }
