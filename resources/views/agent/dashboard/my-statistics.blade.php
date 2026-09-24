@@ -78,7 +78,7 @@
                             <div class="stats-detail">
                                 <div class="stats-label">New this year
                                 </div>
-                                <div class="stats-value">0</div>
+                                <div class="stats-value">{{$escort_membership_years_total}}</div>
                             </div>
                         </div>
 
@@ -86,7 +86,7 @@
                             <div class="stats-detail">
                                 <div class="stats-label"> Ongoing Total
                                 </div>
-                                <div class="stats-value">{{$escort_membership_total}}</div>
+                                <div class="stats-value">{{$escort_membership_ongoing_total}}</div>
                             </div>
                         </div>
                     </div>
@@ -133,7 +133,7 @@
                             <div class="stats-detail">
                                 <div class="stats-label">New this year
                                 </div>
-                                <div class="stats-value">0</div>
+                                <div class="stats-value">{{$massage_membership_years_total}}</div>
                             </div>
                         </div>
 
@@ -141,7 +141,7 @@
                             <div class="stats-detail">
                                 <div class="stats-label"> Ongoing Total
                                 </div>
-                                <div class="stats-value">{{$massage_membership_total}}</div>
+                                <div class="stats-value">{{$massage_membership_ongoing_total}}</div>
                             </div>
                         </div>
                     </div>
@@ -188,7 +188,7 @@
                             <div class="stats-detail">
                                 <div class="stats-label">New this year
                                 </div>
-                                <div class="stats-value">0</div>
+                                <div class="stats-value">{{$advertiser_membership_years_total}}</div>
                             </div>
                         </div>
 
@@ -196,7 +196,7 @@
                             <div class="stats-detail">
                                 <div class="stats-label"> Ongoing Total
                                 </div>
-                                <div class="stats-value">{{$advertiser_membership_total}}</div>
+                                <div class="stats-value">{{$advertiser_ongoing_total}}</div>
                             </div>
                         </div>
                     </div>
@@ -256,7 +256,7 @@
                             <div class="stats-detail">
                                 <div class="stats-label">New this year
                                 </div>
-                                <div class="stats-value">0</div>
+                                <div class="stats-value">{{$escort_profile_year_total}}</div>
                             </div>
                         </div>
 
@@ -264,7 +264,7 @@
                             <div class="stats-detail">
                                 <div class="stats-label"> Ongoing Total
                                 </div>
-                                <div class="stats-value">{{$escort_profile_total}}</div>
+                                <div class="stats-value">{{$escort_profile_ongoing_total}}</div>
                             </div>
                         </div>
                     </div>
@@ -324,7 +324,7 @@
                             <div class="stats-detail">
                                 <div class="stats-label">New this year
                                 </div>
-                                <div class="stats-value">0</div>
+                                <div class="stats-value">{{$massage_profile_year_total}}</div>
                             </div>
                         </div>
 
@@ -332,7 +332,7 @@
                             <div class="stats-detail">
                                 <div class="stats-label"> Ongoing Total
                                 </div>
-                                <div class="stats-value">{{$massage_profile_total}}</div>
+                                <div class="stats-value">{{$massage_profile_year_total}}</div>
                             </div>
                         </div>
                     </div>
@@ -392,7 +392,7 @@
                             <div class="stats-detail">
                                 <div class="stats-label">New this year
                                 </div>
-                                <div class="stats-value">0</div>
+                                <div class="stats-value">{{$advertiser_profile_year_total}}</div>
                             </div>
                         </div>
 
@@ -400,16 +400,13 @@
                             <div class="stats-detail">
                                 <div class="stats-label"> Ongoing Total
                                 </div>
-                                <div class="stats-value">{{$advertiser_profile_total}}</div>
+                                <div class="stats-value">{{$advertiser_profile_ongoing_total}}</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
     </div>
 @endsection
 @section('script')
