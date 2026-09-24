@@ -12,7 +12,7 @@
                 <div class="card-body">
                 <h3 class="NotesHeader"><b>Notes:</b> </h3> 
                     <ol class=" mb-0">
-                        <li>By completing these settings, the information set out under Our rates will by default appear in your Profile creator.</li>
+                        <li>By completing these settings, the information set out under Our Rates will by default appear in your Profile creator.</li>
                                         <li>You can over ride these settings when creating a Profile, provided you have enabled
                                             the <a href="{{ route('centre.notifications-and-features') }}" class="custom_links_design">feature</a>.</li>
                     </ol>
