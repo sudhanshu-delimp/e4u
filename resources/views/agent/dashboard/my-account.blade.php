@@ -120,12 +120,16 @@
                                                 <label for="my_name" class="my-agent">ABN</label>
                                                 <input type="txt" class="form-control" id="mobileno"
                                                     aria-describedby="emailHelp" name="abn" required placeholder="ABN"
-                                                    data-parsley-required-message="Your ABN is required" value="{{ $user->abn }}"
+                                                    data-parsley-required-message="Your ABN is required" 
+                                                    value="{{ $user->getRawOriginal('abn') }}" 
+                                                    
                                                     maxlength="11"
                                                     pattern="\d{11}"
-                                                    oninput="this.value = this.value.replace(/[^0-9 ]/g, '').replace(/\s+/g, ' ')"
                                                     data-parsley-pattern-message="ABN number must be exactly 11 digits"
-                                                    data-parsley-type-message="Enter only numbers">
+                                                    data-parsley-type-message="Enter only numbers" 
+                                                     onBlur="this.value = this.value.replace(/\D/g, '')" 
+                                                      oninput="this.value = this.value.replace(/\D/g, '')" 
+                                                      onClick="this.value = this.value.replace(/\D/g, '')">
                                                 <span id="abn-errors"></span>
                                                 <div class="termsandconditions_text_color">
                                                     @error('abn')
@@ -145,11 +149,13 @@
                                                     aria-describedby="emailHelp" name="business_number" maxlength="12" required
                                                     placeholder="Business Number"
                                                     data-parsley-required-message="Your business number is required"
-                                                    value="{{ $user->business_number }}"
-                                                     pattern="\d{8}"
-                                                    oninput="this.value = this.value.replace(/[^0-9 ]/g, '').replace(/\s+/g, ' ')"
+                                                    value="{{ $user->getRawOriginal('business_number') }}"
+                                                    pattern="\d{8,12}"
                                                     data-parsley-type-message="Enter only numbers"
-                                                    data-parsley-pattern-message="Business number must be exactly 8 digits">
+                                                    data-parsley-pattern-message="The business number must be between 8 and 12 digits" 
+                                                    oninput="this.value = this.value.replace(/\D/g, '')" 
+                                                    onBlur="this.value = this.value.replace(/\D/g, '')" 
+                                                    onClick="this.value = this.value.replace(/\D/g, '')">
                                                 <span id="business_number-errors"></span>
                                                 <div class="termsandconditions_text_color">
                                                     @error('business_number')
@@ -165,18 +171,20 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="mobileno">Mobile</label>
-                                                <input type="txt" class="form-control input_not_edit" id="mobileno"
+                                                {{-- <input type="txt" class="form-control input_not_edit" id="mobileno"
                                                     aria-describedby="emailHelp" name="phone" data-parsley-maxlength="12"
                                                     required placeholder="Mobile Number"
                                                     data-parsley-required-message="Your mobile number is required"
                                                     value="{{ $user->phone }}" disabled data-parsley-pattern="^[0-9 ]+$"
-                                                    data-parsley-type-message="Enter only mobile numbers" dis>
+                                                    data-parsley-type-message="Enter only mobile numbers">
                                                 <span id="phone-errors"></span>
                                                 <div class="termsandconditions_text_color">
                                                     @error('phone')
                                                         <strong>{{ $message }}</strong>
                                                     @enderror
-                                                </div>
+                                                   
+                                                </div> --}}
+                                                 <p class="input_not_edit">{{ $user->phone }}</p>
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">{{ __('Email') }}</label>
@@ -346,6 +354,121 @@
                         </div>
                     </div>
                 </div>
+                {{-- Start Signature --}}
+                <div class="card common-card">
+                    <div class="card-header">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#signature_opt">
+                            Signature
+                        </a>
+                    </div>
+                <div id="signature_opt" class="collapse {{(request()->has('show') && request()->query('show') == 1) ? 'show' : ''}}" data-parent="#accordion">
+                        <div class="card-body">
+                            <form id="frmSignature" name="frmSignature" class="common-form" novalidate="" enctype="multipart/form-data">
+                                <input type="hidden" name="_token">
+                                <input type="hidden" name="userId" value="{{ $user->id}}">
+                                <input type="hidden" name="type" value="signature">
+                                <div class="row inner-row">
+                                    <div class="col-lg-12">
+                                        <div class="card-top">
+                                            <div class="card-icon">
+                                            <svg fill="#ff3c5f"
+                                                height="64px"
+                                                width="64px"
+                                                version="1.1"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 64 64">
+                                                <g>
+                                                    <path d="M8 47
+                                                            C15 42, 16 25, 22 20
+                                                            C25 17, 28 19, 26 24
+                                                            C24 29, 17 37, 18 41
+                                                            C19 45, 27 43, 32 37
+                                                            C37 31, 38 20, 42 18
+                                                            C45 16, 47 19, 45 24
+                                                            C43 29, 36 38, 38 42
+                                                            C40 46, 47 40, 51 35
+                                                            C53 32, 56 33, 54 37
+                                                            C51 43, 45 49, 39 48
+                                                            C34 47, 33 43, 34 38
+                                                            C30 44, 24 49, 18 48
+                                                            C12 47, 11 43, 13 37"
+                                                        fill="rgb(255, 60, 95)"
+                                                        stroke="#ff3c5f"
+                                                        stroke-width="2.5"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"/>
+
+                                                    <path d="M10 52
+                                                            C22 50, 37 52, 55 50"
+                                                        fill="rgb(255, 60, 95)"
+                                                        stroke="#ff3c5f"
+                                                        stroke-width="2"
+                                                        stroke-linecap="round"/>
+                                                </g>
+                                            </svg>
+                                            </div>
+
+                                            <div class="card-heading">
+                                                <h2>Signature</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <div class="col-lg-4">
+                                            <div class="inner-field-row">
+                                                <div class="form-group">
+                                                    <label for="membership_num">Upload Signature File</label>
+                                                    <input type="file"
+                                                        name="signature_file"
+                                                        id="signature_file"
+                                                        accept=".jpg,.jpeg,.png"
+                                                        data-parsley-required-message="Please choose a file"
+                                                        data-parsley-extension="png,jpg,jpeg"
+                                                        data-parsley-error-message="Only PNG, JPG, or JPEG images are allowed."
+                                                        required>
+                                                    <span id="signature_file-errors"></span>
+                                                    <div class="termsandconditions_text_color">
+                                                        @error('signature_file')
+                                                            <strong>{{ $message }}</strong>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                       </div>
+                                        <div class="col-lg-8">
+
+                                         <div class="row" id="deleteSignature">
+                                        @if ($user->agent_detail && $user->agent_detail->signature_file != '')
+                                         <div class="col-lg-12 mt-4">
+                                            <div class="mt-2">
+                                                <img src="{{ asset('storage/' . $user->agent_detail->signature_file) }}" alt="Signature" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; border-radius: 4px;" id="signatureImage">
+                                            </div>
+                                            </div>
+                                            <div class="col-lg-12 mt-4">
+                                                <div class="form-group">
+                                                    <a href="{{ asset('storage/' . $user->agent_detail->signature_file) }}"
+                                                        class="custom_links_design" target="_blank">
+                                                        <span style="color: #FF3C5F;">Download File</span>
+                                                    </a>
+                                                    <a href="javascript:void(0)" style="margin-left:50px;" title="Click here to delete signature file" class="deleteUploadedFile" data-id="{{$user->id}}" data-type="signature" >Delete File</a>
+                                                </div>
+                                            </div>
+                                            @endif
+                                        </div>
+                                         <div class="col-lg-12 mt-4">
+                                            <div class="mt-2" id="previewSignatureImage"></div>
+                                         </div>
+                                   </div>
+                                     <div class="common-footer">
+                                    <input type="submit" value="Save" class="common-save-btn" name="submit">
+                                </div>
+                                </div>
+                              
+                            </form>
+                        </div>
+                    </div>
+                </div>
+             </div>
+                {{-- End Signatue--}}
             </div>
            
         </div>
@@ -379,9 +502,89 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
     <script type="text/javascript">
-        $('#userProfile').parsley({
+        $('#userProfile').parsley({});
+        $('#frmSignature').parsley({});
 
-        });
+        window.Parsley.addValidator('extension', {
+        validateString: function(value, requirement) {
+            var fileExtension = value.split('.').pop().toLowerCase();
+            var allowedExtensions = requirement.replace(/\s/g, '').split(',');
+            return allowedExtensions.indexOf(fileExtension) !== -1;
+        },
+        messages: {
+            en: 'Only PNG, JPG, or JPEG images are allowed.'
+        }
+    });
+
+        /* Delete agreement or signature file */
+        $(document).on('click', '.deleteUploadedFile', async function(e) {
+
+            if (await isConfirm({
+                    'action': 'Delete',
+                    'text': ' Are you sure want to delete this file.'
+                })) {
+                swal_waiting_popup({
+                    'title': 'Deleting the file'
+                });
+                var userId = $(this).attr('data-id');
+                var type = $(this).attr('data-type');
+                $.ajax({
+                    url: "{{ route('agent.delete.file') }}",
+                    method: 'POST',
+                    data: {
+                        'userId': userId,
+                        'type': type
+                    },
+                    success: function(response, textStatus, xhr) {
+                        Swal.close();
+                        if(response.status) {
+                            displaySwal(xhr);
+                            if(type == 'agreement') {
+                                $("#deleteAgreement, #downloadAgreement").hide();
+                            } else {
+                                $("#deleteSignature").hide();
+                            }
+                        } else {
+                            displaySwal(xhr);  
+                        }
+                    },
+                    error: function(xhr) {
+                        Swal.close();
+                        //swal_error_popup(xhr.responseJSON.message);
+                         displaySwal(xhr);  
+                    }
+                });
+            }
+        })
+
+        $(document).on('submit', 'form[name="frmSignature"]', function(e) {
+           
+                e.preventDefault();
+                let form = $(this);
+                let formData = new FormData(this);
+                swal_waiting_popup({
+                    'title': 'Saving Agent Details'
+                });
+                //  return false
+
+                $.ajax({
+                    url: "{{ route('agent.upload.file') }}",
+                    method: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        Swal.close();
+                        window.location.href = "{{ route('agent.account.edit').'?show=1' }}";
+                        swal_success_popup(response.message);
+                    },
+                    error: function(xhr) {
+                        Swal.close();
+                        swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+                    }
+                });
+            });
+
 
 
 

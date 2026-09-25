@@ -303,21 +303,5 @@ class AgentController extends BaseController
 
         return response()->json(['status' => false, 'message' => 'Something went wrong. Please try later.'], 422);
     }
-
-    protected function deleteFile($file)
-    {
-        try {
-            if (File::exists($file)) {
-            // Give write permission to the file
-            //chmod($file, 0777);
-
-                unlink($file);
-                return true;
-            }
-        } catch (Exception $e) {
-            log::info("Agent agreement/signature file not deleted : ".$e->getMessage());
-        }
-        return false;
-    }
     
 }

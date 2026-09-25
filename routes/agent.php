@@ -357,7 +357,8 @@ Route::post('fees/print-monthly-report', [MonthlyReportController::class, 'print
 Route::post('fees/query', [MonthlyReportController::class, 'viewQuery'])->name('agent.fees.view.query');
 
 Route::get('fees/my-income', [MonthlyReportController::class, 'myIncome'])->name('Fees.my-income');
-
+Route::post('/agent/delete-file', [AgentAccountController::class, 'deleteAgentFile'])->name('agent.delete.file');
+Route::post('/agent/upload-file', [AgentAccountController::class, 'uploadFile'])->name('agent.upload.file');
 
 
 

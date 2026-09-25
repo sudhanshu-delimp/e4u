@@ -342,7 +342,7 @@ class AgentRepository extends BaseRepository implements AgentInterface
     public function sendApprovalEmail($user, $plainPassword)
     {
         $user['plainPassword'] = $plainPassword;
-        logErrorLocal($user);
+        //logErrorLocal($user);
         try {
           Mail::to($user->email)->send(new agentApprovalEmail($user));
         } catch (Exception $e) {

@@ -21,6 +21,8 @@ use App\Repositories\Escort\EscortInterface;
 use App\Http\Requests\StoreAgentBankDetailRequest;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Repositories\AgentBank\AgentBankDetailInterface;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
 
 
 class AgentAccountController extends BaseController
@@ -40,7 +42,6 @@ class AgentAccountController extends BaseController
         $this->escort = $escort;
         $this->user = $user;
         $this->agentBankDetail = $agentBankDetail;
-
     }
 
     public function index()
@@ -115,17 +116,17 @@ class AgentAccountController extends BaseController
         //
     }
 
-   
+
     public function edit()
     {
-        $user = User::with('agent_detail')->where('id',auth()->user()->id)->first();
+        $user = User::with('agent_detail')->where('id', auth()->user()->id)->first();
         return view('agent.dashboard.my-account', compact('user'));
     }
     public function editPassword()
     {
 
         $user = $this->user->find(auth()->user()->id);
-        return view('agent.dashboard.change-password',compact('user'));
+        return view('agent.dashboard.change-password', compact('user'));
     }
     public function bankDetails()
     {
@@ -135,13 +136,14 @@ class AgentAccountController extends BaseController
         // $arr = [];
 
         //dd($arr);
-        return view('agent.dashboard.bank_account',compact('user'));
+        return view('agent.dashboard.bank_account', compact('user'));
     }
 
-   
 
-    public function generateOTP(){
-        $otp = mt_rand(1000,9999);
+
+    public function generateOTP()
+    {
+        $otp = mt_rand(1000, 9999);
         return $otp;
     }
 
@@ -196,7 +198,7 @@ class AgentAccountController extends BaseController
 
     // }
 
-   
+
 
 
     public function deleteAgentBank(Request $request)
@@ -207,7 +209,6 @@ class AgentAccountController extends BaseController
         } else {
             return $this->validationError($deleted['message']);
         }
-
     }
 
 
@@ -216,21 +217,21 @@ class AgentAccountController extends BaseController
 
         $data = [];
         $data = [
-                'business_name' => $request->business_name,
-                'abn' => removeSpaceFromString($request->abn),
-                'business_address' => $request->business_address,
-                'business_number' => removeSpaceFromString($request->business_number),
-                'contact_person' => $request->contact_person,
-                'email2' => $request->email2,
-                'contact_type' => $request->contact_type,
-                // 'city_id'=>$request->city_id,
-                // 'country_id'=>$request->country_id,
-                // 'state_id'=>$request->state_id,
-                // business_name ,abn ,business_address ,business_number,contact_person,email2
+            'business_name' => $request->business_name,
+            'abn' => removeSpaceFromString($request->abn),
+            'business_address' => $request->business_address,
+            'business_number' => removeSpaceFromString($request->business_number),
+            'contact_person' => $request->contact_person,
+            'email2' => $request->email2,
+            'contact_type' => $request->contact_type,
+            // 'city_id'=>$request->city_id,
+            // 'country_id'=>$request->country_id,
+            // 'state_id'=>$request->state_id,
+            // business_name ,abn ,business_address ,business_number,contact_person,email2
         ];
 
         $error = true;
-        if($this->user->store($data, auth()->user()->id)) {
+        if ($this->user->store($data, auth()->user()->id)) {
             $error = false;
         }
         return response()->json(compact('error'));
@@ -252,10 +253,10 @@ class AgentAccountController extends BaseController
         // return response()->json(compact('error'));
         $user = $this->user->find(auth()->user()->id);
         $error = true;
-        if(!Hash::check($request->password, $user->password)){
-           //'Return error with current passowrd is not match';
-           $error = false;
-        }else{
+        if (!Hash::check($request->password, $user->password)) {
+            //'Return error with current passowrd is not match';
+            $error = false;
+        } else {
             //'Write here your update password code';
             // $user->passwordSecurity->password_expiry_days = $request->password_expiry_days;
             // $user->passwordSecurity->password_notification = $request->password_notification;
@@ -266,10 +267,6 @@ class AgentAccountController extends BaseController
                 'password' => Hash::make($request->new_password),
             ];
             $this->user->store($data, auth()->user()->id);
-
-
-
-
         }
 
         return response()->json(compact('error'));
@@ -279,12 +276,12 @@ class AgentAccountController extends BaseController
         $user = $this->user->find(auth()->user()->id);
         $error = true;
 
-            //'Write here your update password code';
-            $user->passwordSecurity->password_expiry_days = $request->password_expiry_days;
-            $user->passwordSecurity->password_notification = $request->password_notification;
-            $user->passwordSecurity->password_updated_at = Carbon::now();
-            $user->passwordSecurity->save();
-            // dd( $request->all());
+        //'Write here your update password code';
+        $user->passwordSecurity->password_expiry_days = $request->password_expiry_days;
+        $user->passwordSecurity->password_notification = $request->password_notification;
+        $user->passwordSecurity->password_updated_at = Carbon::now();
+        $user->passwordSecurity->save();
+        // dd( $request->all());
         return response()->json(compact('error'));
     }
 
@@ -338,9 +335,9 @@ class AgentAccountController extends BaseController
 
         return response()->json(compact('template', 'message'));
     }
-    public function BankDataTable() 
+    public function BankDataTable()
     {
-        list($agentBankDetail, $count, $primary_account,$primary_bank_acc_id) = $this->agentBankDetail->paginatedByAgentBankDetail(
+        list($agentBankDetail, $count, $primary_account, $primary_bank_acc_id) = $this->agentBankDetail->paginatedByAgentBankDetail(
             request()->get('start'),
             request()->get('length'),
             request()->get('order')[0]['column'],
@@ -369,22 +366,21 @@ class AgentAccountController extends BaseController
         $data = $request->all();
         $resposne = $this->user->changeUserPassword($data);
 
-        if($resposne['status'])
-        return $this->successResponse($resposne['message']);
+        if ($resposne['status'])
+            return $this->successResponse($resposne['message']);
         else
-        return $this->validationError($resposne['message']);
+            return $this->validationError($resposne['message']);
     }
 
 
 
 
-    public function saveBankDetails(StoreAgentBankDetailRequest $request ,$id = null)
+    public function saveBankDetails(StoreAgentBankDetailRequest $request, $id = null)
     {
 
 
-        if($request->bankId=="")
-         {
-             $data = [
+        if ($request->bankId == "") {
+            $data = [
                 'bank_name' => $request->bank_name,
                 'bsb' => removeSpaceFromString($request->bsb),
                 'account_name' => $request->account_name,
@@ -394,10 +390,8 @@ class AgentAccountController extends BaseController
                 'replace' => $request->replace,
             ];
             $resposne = $this->agentBankDetail->saveAgentBankDetails($data);
-         }
-        else
-        {
-             $data = [
+        } else {
+            $data = [
                 'bank_name' => $request->bank_name,
                 'bsb' => removeSpaceFromString($request->bsb),
                 'account_name' => $request->account_name,
@@ -407,16 +401,79 @@ class AgentAccountController extends BaseController
                 'bankId' => $request->bankId,
                 'replace' => $request->replace,
             ];
-           $resposne = $this->agentBankDetail->updateAgentBankDetails($data);
+            $resposne = $this->agentBankDetail->updateAgentBankDetails($data);
         }
-           
-        
-        if($resposne['status'])
-        return $this->successResponse($resposne['message']);
+
+
+        if ($resposne['status'])
+            return $this->successResponse($resposne['message']);
         else
-        return $this->validationError($resposne['message']);
+            return $this->validationError($resposne['message']);
+    }
 
-    
+    /**
+     * Delete Agreement or signature file
+     */
+    public function deleteAgentFile(Request $request)
+    {
+        $userId = $request->filled('userId') ? $request->userId : null;
+        $type = $request->filled('type') ? $request->type : null;
 
+        $user = User::where('id', $userId)->with('agent_detail')->first();
+        $agent = $user->agent_detail ?? null;
+        if ($agent) {
+            $filePath = ($type == "agreement") ? $agent->agreement_file : $agent->signature_file;
+            if ($filePath) {
+                $res = $this->deleteFile(public_path('storage/' . $filePath));
+                if ($res) {
+                    if ($type == "agreement") {
+                        $agent->agreement_file = null;
+                    } else {
+                        $agent->signature_file = null;
+                    }
+                    $agent->save();
+                    return response()->json(['status' => true, 'message' => 'File deleted successfully.'], 200);
+                }
+            }
+        }
+
+        return response()->json(['status' => false, 'message' => 'Something went wrong. Please try later.'], 422);
+    }
+
+    /**
+     * Upload Agreement or signature file
+     */
+    public function uploadFile(Request $request)
+    {
+        // Signature file upload
+        $file =  $request->signature_file;
+        $userId = $request->filled('userId') ? $request->userId : null;
+        $type = $request->filled('type') ? $request->type : null;
+
+        $user = User::where('id', $userId)->with('agent_detail')->first();
+        $agent = $user->agent_detail ?? null;
+        if ($agent && !empty($file)) {
+            if ($type == "agreement") {
+                $filename = time() . '_agreement.' . $file->getClientOriginalExtension();
+            } else {
+                $filename = time() . '_signature.' . $file->getClientOriginalExtension();
+            }
+
+            $file->storeAs('public/agent_files', $filename);
+            $fileName = 'agent_files/' . $filename;
+            $filePath = public_path('storage/' . $fileName);
+
+            if (File::exists($filePath)) {
+                if ($type == "agreement") {
+                    $agent->agreement_file = $fileName;
+                } else {
+                    $agent->signature_file = $fileName;
+                }
+                 $agent->save();
+                return response()->json(['status' => true, 'signatureName' => $filename, 'message' => 'File uploaded successfully.'], 200);
+            }
+        }
+
+        return response()->json(['status' => false, 'signatureName' => '', 'message' => 'Something went wrong. Please try later.'], 422);
     }
 }
