@@ -278,20 +278,18 @@ $commissionRegistrationType = $commissionfee[1]['amount_type'];
                                 maxlength="10" value="{{ $feeAdvertising }}">
                             <span class="text-danger error-commission_advertising_percent"></span>
                         </div>
-
-
-
+                        
                         <div class="col-6 mb-3">
-                            <label lass="form-label" for="commission_registration_type">Amount Type</label>
-                            <select class="form-control rounded-0" name="commission_registration_type"
-                                id="commission_registration_type">
+                            <label lass="form-label" for="advertising_commission_type">Amount Type</label>
+                            <select class="form-control rounded-0" name="advertising_commission_type"
+                                id="advertising_commission_type">
                                 {{-- <option value="">Amount Type</option> --}}
                                 <option value="percent" selected>
                                     Percent</option>
                                 {{-- <option value="fixed"{{ $commissionAdvertisingType == 'fixed' ? 'selected' : '' }}>Fixed
                                 </option> --}}
                             </select>
-                            <span class="text-danger error-commission_registration_type"></span>
+                            <span class="text-danger error-advertising_commission_type"></span>
                         </div>
                         <div class="col-6 mb-3">
                             <label class="form-label" for="commission_massage_centre_percent">Massage Centre
@@ -303,9 +301,9 @@ $commissionRegistrationType = $commissionfee[1]['amount_type'];
                         </div>
 
                         <div class="col-6 mb-3">
-                            <label lass="form-label" for="commission_registration_type">Amount Type</label>
-                            <select class="form-control rounded-0" name="commission_registration_type"
-                                id="commission_registration_type">
+                            <label lass="form-label" for="massge_centre_commission_type">Amount Type</label>
+                            <select class="form-control rounded-0" name="massge_centre_commission_type"
+                                id="massge_centre_commission_type">
                                 {{-- <option value="">Amount Type</option> --}}
                                 <option value="fixed" selected>
                                     Fixed</option>
@@ -313,7 +311,7 @@ $commissionRegistrationType = $commissionfee[1]['amount_type'];
                                 Fixed
                                 </option> --}}
                             </select>
-                            <span class="text-danger error-commission_registration_type"></span>
+                            <span class="text-danger error-massge_centre_commission_type"></span>
                         </div>
 
                     </div>
