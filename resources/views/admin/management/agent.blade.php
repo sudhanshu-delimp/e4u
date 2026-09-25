@@ -34,205 +34,7 @@
             padding: 10px .75rem !important;
         }
 
-        /* ==============================
-   Documents Upload
-================================= */
 
-.documents-upload-wrapper {
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    background: #fff;
-    padding: 24px;
-}
-
-.documents-upload-header h6 {
-    font-size: 18px;
-    font-weight: 600;
-    color: #102a43;
-}
-
-.document-upload-card {
-    height: 100%;
-    padding: 20px;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    background: #fff;
-    transition: all 0.2s ease;
-}
-
-.document-upload-card:hover {
-    border-color: #d9dee5;
-    box-shadow: 0 4px 14px rgba(16, 42, 67, 0.06);
-}
-
-
-/* Header */
-
-.document-card-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
-}
-
-.document-icon {
-    width: 42px;
-    height: 42px;
-    min-width: 42px;
-    border-radius: 10px;
-    background: #fff0f3;
-    color: #ff3c5f;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 18px;
-}
-
-.document-card-header h6 {
-    color: #102a43;
-    font-size: 15px;
-    font-weight: 600;
-}
-
-.document-card-header p {
-    color: #7b8794;
-    font-size: 12px;
-}
-
-
-/* Upload Area */
-
-.document-upload-area {
-    position: relative;
-
-    min-height: 145px;
-    width: 100%;
-
-    border: 2px dashed #d8dee7;
-    border-radius: 10px;
-    background: #fafbfc;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    cursor: pointer;
-
-    transition: all 0.2s ease;
-}
-
-.document-upload-area:hover {
-    border-color: #ff3c5f;
-    background: #fff8fa;
-}
-
-.upload-icon {
-    width: 42px;
-    height: 42px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: #ff3c5f;
-    font-size: 28px;
-
-    margin-bottom: 8px;
-}
-
-.upload-title {
-    color: #102a43;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.upload-subtitle {
-    margin-top: 4px;
-    color: #8795a1;
-    font-size: 11px;
-}
-
-
-/* Hide native file input but keep functionality */
-
-.document-file-input {
-    position: absolute;
-    inset: 0;
-
-    width: 100%;
-    height: 100%;
-
-    opacity: 0;
-    cursor: pointer;
-}
-
-
-/* Existing File */
-
-.existing-file {
-    padding: 10px 12px;
-
-    border: 1px solid #edf0f3;
-    border-radius: 8px;
-
-    background: #f8fafc;
-}
-
-
-/* Signature */
-
-.signature-existing {
-    margin-top: 14px;
-}
-
-.signature-existing-label {
-    margin-bottom: 7px;
-
-    color: #6b7280;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-
-.signature-image-box {
-    min-height: 90px;
-
-    padding: 10px;
-
-    border: 1px solid #edf0f3;
-    border-radius: 8px;
-
-    background: #fafbfc;
-
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.signature-image-box img {
-    max-width: 200px;
-    max-height: 80px;
-
-    object-fit: contain;
-}
-
-
-/* Mobile */
-
-@media (max-width: 767px) {
-
-    .documents-upload-wrapper {
-        padding: 16px;
-    }
-
-    .document-upload-card {
-        padding: 16px;
-    }
-
-}
     </style>
 @stop
 @section('content')
@@ -774,7 +576,7 @@
                                  </div>
         
 
-                                 <!-- ==================== File Uploads ==================== -->
+                                 <!-- File Uploads  -->
 
                                 <div class="col-12 mb-3">
                                     <div class="documents-upload-wrapper">
@@ -791,7 +593,7 @@
 
                                         <div class="row">
 
-                                            <!-- ==================== Agreement File ==================== -->
+                                            <!-- Agreement File -->
                                             <div class="col-md-6 mb-4">
                                                 <div class="document-upload-card">
 
@@ -806,35 +608,37 @@
                                                     <!-- Upload Area -->
                                                     <label
                                                         for="agreement_file"
-                                                        class="document-upload-area"
+                                                        class="file-upload-box"
                                                     >
-                                                        <div class="upload-icon">
-                                                              <svg width="25px" height="25px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
-
+                                                        <div class="upload-icon" >
+                                                            <svg width="25px" height="25px" viewBox="0 0 24 24"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="none">
                                                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                                    stroke-linejoin="round"></g>
 
                                                                 <g id="SVGRepo_iconCarrier">
-                                                                    <path stroke="#ff3c5f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v9m0-9l3 3m-3-3l-3 3m8.5 2c1.519 0 2.5-1.231 2.5-2.75 0-1.264-.854-2.33-2.016-2.65A5 5 0 008.37 8.108a3.5 3.5 0 00-1.87 6.746">
+                                                                    <path stroke="#ff3c5f" stroke-linecap="round"
+                                                                        stroke-linejoin="round" stroke-width="2"
+                                                                        d="M12 10v9m0-9l3 3m-3-3l-3 3m8.5 2c1.519 0 2.5-1.231 2.5-2.75 0-1.264-.854-2.33-2.016-2.65A5 5 0 008.37 8.108a3.5 3.5 0 00-1.87 6.746">
                                                                     </path>
                                                                 </g>
 
                                                             </svg>
                                                         </div>
-
-                                                        <span class="upload-title">
-                                                            Choose Agreement File
+                                                        <span class="upload-title"> Choose Agreement File</span>
+                                                        <span class="upload-text">
+                                                            Drag &amp; drop your file here or <strong>browse</strong>
                                                         </span>
-
-                                                        <span class="upload-subtitle">
-                                                            PDF, DOC, DOCX up to 10MB
-                                                        </span>
+                                                        <span class="upload-hint">Only PDF, DOC, DOCX up to 10MB are
+                                                            allowed.</span>
+                                                        
 
                                                         <input
                                                             type="file"
                                                             name="agreement_file"
                                                             id="agreement_file"
-                                                            class="document-file-input"
+                                                            class="file-input"
                                                         >
                                                         
                                                     </label>
@@ -853,7 +657,7 @@
                                             </div>
 
 
-                                            <!-- ==================== Signature File ==================== -->
+                                            <!--  Signature File -->
                                             <div class="col-md-6 mb-4">
                                                 <div class="document-upload-card">
 
@@ -869,36 +673,38 @@
                                                     <!-- Upload Area -->
                                                     <label
                                                         for="signature_file"
-                                                        class="document-upload-area"
+                                                        class="file-upload-box"
                                                     >
-                                                        <div class="upload-icon">
-                                                            <svg width="25px" height="25px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
-
+                                                        <div class="upload-icon" >
+                                                            <svg width="25px" height="25px" viewBox="0 0 24 24"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="none">
                                                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                                    stroke-linejoin="round"></g>
 
                                                                 <g id="SVGRepo_iconCarrier">
-                                                                    <path stroke="#ff3c5f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v9m0-9l3 3m-3-3l-3 3m8.5 2c1.519 0 2.5-1.231 2.5-2.75 0-1.264-.854-2.33-2.016-2.65A5 5 0 008.37 8.108a3.5 3.5 0 00-1.87 6.746">
+                                                                    <path stroke="#ff3c5f" stroke-linecap="round"
+                                                                        stroke-linejoin="round" stroke-width="2"
+                                                                        d="M12 10v9m0-9l3 3m-3-3l-3 3m8.5 2c1.519 0 2.5-1.231 2.5-2.75 0-1.264-.854-2.33-2.016-2.65A5 5 0 008.37 8.108a3.5 3.5 0 00-1.87 6.746">
                                                                     </path>
                                                                 </g>
 
                                                             </svg>
                                                         </div>
 
-                                                        <span class="upload-title">
-                                                            Choose Signature File
-                                                        </span>
-
-                                                        <span class="upload-subtitle">
-                                                            PNG, JPG up to 5MB
-                                                        </span>
+                                                        <span class="upload-title">Choose Signature File</span>
+                                                    <span class="upload-text">
+                                                        Drag &amp; drop your file here or <strong>browse</strong>
+                                                    </span>
+                                                    <span class="upload-hint">Only PNG, JPG, or JPEG images are
+                                                        allowed.</span>
 
                                                         <input
                                                             type="file"
                                                             name="signature_file"
                                                             id="signature_file"
                                                             accept="image/*"
-                                                            class="document-file-input"
+                                                             class="file-input"
                                                         >
                                                       
                                                     </label>
@@ -1255,19 +1061,124 @@
                                  </div>
 
                                        <!-- ==================== File Uploads ==================== -->
-                                       <div class="col-6 mb-3">
-                                             <label class="form-label" for="agreement_file">Upload Agreement File</label>
-                                             <input type="file" name="agreement_file" id="agreement_file">
-                                             <div id="file_preview" class="mt-2"></div>
-                                              <span class="text-danger error-agreement_file"></span>
+                                       <div class="col-12 mb-3">
+                                            <div class="documents-upload-wrapper">
+
+                                                <!-- Section Header -->
+                                                <div class="documents-upload-header mb-4">
+                                                    <h6 class="mb-1 text-blue-primary">
+                                                        Documents & Files
+                                                    </h6>
+                                                    <p class="mb-0 text-muted small">
+                                                        Upload or manage your agreement and signature files.
+                                                    </p>
+                                                </div>
+                                                <div class="row">
+                                                    <!-- Agreement File -->
+                                                    <div class="col-6 mb-4">
+                                                        <div class="document-upload-card">
+                                                            <div class="document-card-header">
+                                                                <div>
+                                                                    <h6 class="mb-1">
+                                                                        Agreement File
+                                                                    </h6>
+                                                                </div>
+                                                            </div>
+
+                                                            <label for="agreement_file" class="file-upload-box">
+                                                                <div class="upload-icon" >
+                                                                    <svg width="25px" height="25px" viewBox="0 0 24 24"
+                                                                        xmlns="http://www.w3.org/2000/svg" fill="none">
+                                                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                                            stroke-linejoin="round"></g>
+
+                                                                        <g id="SVGRepo_iconCarrier">
+                                                                            <path stroke="#ff3c5f" stroke-linecap="round"
+                                                                                stroke-linejoin="round" stroke-width="2"
+                                                                                d="M12 10v9m0-9l3 3m-3-3l-3 3m8.5 2c1.519 0 2.5-1.231 2.5-2.75 0-1.264-.854-2.33-2.016-2.65A5 5 0 008.37 8.108a3.5 3.5 0 00-1.87 6.746">
+                                                                            </path>
+                                                                        </g>
+
+                                                                    </svg>
+                                                                </div>
+                                                                <span class="upload-title"> Choose Agreement File</span>
+                                                                <span class="upload-text">
+                                                                    Drag &amp; drop your file here or <strong>browse</strong>
+                                                                </span>
+                                                                <span class="upload-hint">Only PDF, DOC, DOCX up to 10MB are
+                                                                    allowed.</span>
+                                                                <input type="file" class="file-input" name="agreement_file" id="agreement_file">
+                                                            </label>
+                                                            
+                                                            <div id="file_preview" class="mt-2"></div>
+                                                            <span class="text-danger error-agreement_file"></span>
+                                                            
+                                                            </div>
+                                                    </div>
+                                                    <!--  Signature File -->
+                                                        <div class="col-md-6 mb-4">
+                                                            <div class="document-upload-card">
+
+                                                                <div class="document-card-header">
+                                                                
+                                                                    <div>
+                                                                        <h6 class="mb-1">
+                                                                            Signature File
+                                                                        </h6>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Upload Area -->
+                                                                <label
+                                                                    for="signature_file"
+                                                                    class="file-upload-box"
+                                                                >
+                                                                    <div class="upload-icon" >
+                                                                        <svg width="25px" height="25px" viewBox="0 0 24 24"
+                                                                            xmlns="http://www.w3.org/2000/svg" fill="none">
+                                                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                                                stroke-linejoin="round"></g>
+
+                                                                            <g id="SVGRepo_iconCarrier">
+                                                                                <path stroke="#ff3c5f" stroke-linecap="round"
+                                                                                    stroke-linejoin="round" stroke-width="2"
+                                                                                    d="M12 10v9m0-9l3 3m-3-3l-3 3m8.5 2c1.519 0 2.5-1.231 2.5-2.75 0-1.264-.854-2.33-2.016-2.65A5 5 0 008.37 8.108a3.5 3.5 0 00-1.87 6.746">
+                                                                                </path>
+                                                                            </g>
+
+                                                                        </svg>
+                                                                    </div>
+
+                                                                    <span class="upload-title">Choose Signature File</span>
+                                                                <span class="upload-text">
+                                                                    Drag &amp; drop your file here or <strong>browse</strong>
+                                                                </span>
+                                                                <span class="upload-hint">Only PNG, JPG, or JPEG images are
+                                                                    allowed.</span>
+
+                                                                    <input
+                                                                        type="file"
+                                                                        name="signature_file"
+                                                                        id="signature_file"
+                                                                        accept="image/*"
+                                                                        class="file-input"
+                                                                    >
+                                                                
+                                                                </label>
+                                                                <span class="text-danger error-signature_file"></span>
+                                                                <!-- New Signature Preview -->
+                                                                <div id="signature_preview" class="mt-3"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                        </div>
 
-                                       <div class="col-6 mb-3">
-                                             <label class="form-label" for="signature_file">Upload Signature File</label>
-                                             <input type="file" name="signature_file" id="signature_file" accept="image/*">
-                                             <div id="signature_preview" class="mt-2"></div>
-                                             <span class="text-danger error-signature_file"></span>
-                                       </div>
+
+
+
 
                                     </div>
 
