@@ -263,40 +263,45 @@
         </a>
         <div id="Administration" class="collapse  
         @if (in_array(request()->segment(2), [ 
-        'advertiser-profiles','advertiser-social-media','toursummary','prospets-memberships','agent-messages', 'guidelines', 'forms',
+        'advertiser-profiles','advertiser-social-media', 'advertiser-statistics','toursummary','prospets-memberships','agent-messages', 'guidelines', 'forms',
             'abbreviations','classification-laws','help','laws','ticket-list'
         ]) || in_array(request()->segment(1), ['submit_ticket'])) show @endif"
             data-parent="#accordionSidebar">
             <div class="collapse-inner">
 
                 {{-- Analytics --}}
-                <a class="nav-link collapsed disabled-link" href="#" data-toggle="collapse" data-target="#Analytics"
+                <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#Analytics"
                     aria-expanded="false" aria-controls="collapseTwo">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
 
                     <span>Analytics</span>
                 </a>
-                 {{-- <div id="Analytics" class="collapse @if (request()->segment(2) == 'advertiser-profiles' ||
+                  <div id="Analytics" class="collapse @if (request()->segment(2) == 'advertiser-profiles' ||
                         request()->segment(2) == 'advertiser-social-media' ||
                         request()->segment(2) == 'toursummary' ||
+                        request()->segment(2) == 'advertiser-statistics' ||
                         request()->segment(2) == 'prospets-memberships') show @endif;"
                     data-parent="#Administration">
 
                     <div class="py-0 collapse-inner rounded mb-2">
-                        <a class="collapse-item" href="{{ route('agent.advertiser-profiles') }}">
+                        <!-- <a class="collapse-item" href="{{ route('agent.advertiser-profiles') }}">
                             <img src="{{ asset('assets/app/img/user.png') }}">
                             <span
                                 style="{{ request()->segment(2) == 'advertiser-profiles' ? 'color: #e5365a;' : '' }}">Profile
                                 Summary</span>
+                        </a> -->
+                          <a class="collapse-item" href="{{ route('agent.my-statistics') }}">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-statistics-light.png') }}">
+                            <span style="{{ request()->segment(2) == 'advertiser-statistics' ? 'color: #e5365a;' : '' }}">Advertiser Statistics</span>
                         </a>
 
-                        <a class="collapse-item" href="{{ route('agent.toursummary') }}">
+                        <!-- <a class="collapse-item" href="{{ route('agent.toursummary') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/tour-summary.png') }}">
                             <span style="{{ request()->segment(2) == 'toursummary' ? 'color: #e5365a;' : '' }}">Tour
                                 Summary</span>
-                        </a>
+                        </a> -->
                     </div>
-                </div>  --}}
+                </div>  
                 {{-- end --}}
 
                 {{-- Communication --}}
