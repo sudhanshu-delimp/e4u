@@ -219,15 +219,51 @@ $commissionRegistrationType = $commissionfee[1]['amount_type'];
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 my-2">
-                            <h6 class="border-bottom pb-1 text-blue-primary">Upload Agreement</h6>
-                        </div>
-                        <div class="col-6 mb-3">
-                            <input type="file" name="agreement_file" id="agreement_file">
-                            <span class="text-danger error-agreement_file"></span>
-                        </div>
+                        <div class="col-lg-12 mb-3">
+                            <div class="documents-upload-wrapper">
+                                <!-- Section Header -->
+                                <div class="documents-upload-header mb-4">
+                                    <h6 class="mb-1 text-blue-primary">
+                                        Upload Agreement
+                                    </h6>
+                                    <p class="mb-0 text-muted small">
+                                        Upload or manage your agreement files.
+                                    </p>
+                                </div>
+                                <label for="agreement_file" class="file-upload-box">
+                                                        
+                                    <div class="upload-content" >
+                                        <div class="upload-icon" >
+                                            <svg width="25px" height="25px" viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
 
-                        <div class="col-6 mb-3 my-auto text-right" id="file_preview"></div>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path stroke="#ff3c5f" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M12 10v9m0-9l3 3m-3-3l-3 3m8.5 2c1.519 0 2.5-1.231 2.5-2.75 0-1.264-.854-2.33-2.016-2.65A5 5 0 008.37 8.108a3.5 3.5 0 00-1.87 6.746">
+                                                    </path>
+                                                </g>
+
+                                            </svg>
+                                        </div>
+                                        <span class="upload-title">Upload a file</span>
+                                        <span class="upload-text">
+                                            Drag &amp; drop your file here or <strong>browse</strong>
+                                        </span>
+                                        <span class="upload-hint">Only PNG, JPG, or JPEG images are
+                                            allowed.</span>
+                                    </div>
+                                    <input type="file" name="agreement_file" class="file-input" id="agreement_file">
+                                </label>
+                                <div class="mt-3" id="file_preview"></div>
+                            </div>                           
+                            <span class="text-danger error-agreement_file"></span>
+                             
+                        </div>
+                        
                     </div>
                     <div class="row">
 
@@ -250,7 +286,7 @@ $commissionRegistrationType = $commissionfee[1]['amount_type'];
                             <select class="form-control rounded-0" name="commission_registration_type"
                                 id="commission_registration_type">
                                 {{-- <option value="">Amount Type</option> --}}
-                                <option value="percent" {{ $commissionAdvertisingType == 'percent' ? 'selected' : '' }}>
+                                <option value="percent" selected>
                                     Percent</option>
                                 {{-- <option value="fixed"{{ $commissionAdvertisingType == 'fixed' ? 'selected' : '' }}>Fixed
                                 </option> --}}
@@ -271,8 +307,8 @@ $commissionRegistrationType = $commissionfee[1]['amount_type'];
                             <select class="form-control rounded-0" name="commission_registration_type"
                                 id="commission_registration_type">
                                 {{-- <option value="">Amount Type</option> --}}
-                                <option value="percent" {{ $commissionRegistrationType == 'percent' ? 'selected' : '' }}>
-                                    Percent</option>
+                                <option value="fixed" selected>
+                                    Fixed</option>
                                 {{-- <option value="fixed"{{ $commissionRegistrationType == 'fixed' ? 'selected' : '' }}>
                                 Fixed
                                 </option> --}}
