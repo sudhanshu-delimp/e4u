@@ -281,11 +281,11 @@
         });
 
         // 🟠 Auto Open Ticket if ID in URL
-        @if(request() - > segment(3) && is_numeric(request() - > segment(3)))
+        @if(request() -> segment(3) && is_numeric(request() -> segment(3)))
         $("#conversation_modal").modal('show');
         _load_conversations({
             {
-                request() - > segment(3)
+                request() -> segment(3)
             }
         });
         @endif

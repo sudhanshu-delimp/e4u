@@ -457,11 +457,11 @@ label.cabinet input.file {
     align-items: flex-start;
     gap: 22px;
     padding: 20px;
-    border: 1px solid var(--pink-border-color);
+    border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
-    background: linear-gradient(135deg, #fffafd, #fff);
+    background: #fff;
     margin-bottom: 30px;
-    box-shadow: 0px 0px 6px -2px #ccc;
+    box-shadow: 0 8px 25px rgba(20, 45, 70, 0.07);
 }
 
 .card#notes,
@@ -842,7 +842,7 @@ label.cabinet input.file {
     width: 100%;
     border: 0;
     background: transparent;
-    padding: 20px 25px;
+    padding: 20px 25px 20px 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;

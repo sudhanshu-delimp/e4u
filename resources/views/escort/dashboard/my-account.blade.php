@@ -52,7 +52,7 @@
                 <div id="commanAlert" class="alert d-none rounded" role="alert"></div>
             </div>
              <div class="col-md-12 mt-4">
-            <div id="accordion" class="myacording-design mb-5 col-lg-12">
+            <div id="accordion" class="myacording-design mb-5">
                 <div class="card common-card">
                     <div class="card-header">
                         <a class="collapsed card-link" data-toggle="collapse" href="#additional_information">
