@@ -13,7 +13,9 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Str;
 
 class ConciergeReportController extends Controller
 {
@@ -88,7 +90,7 @@ class ConciergeReportController extends Controller
         ->addColumn('bill_generated_date', function ($row) {
 
           return $row->bill_generated_date
-            ? Carbon::parse($row->bill_generated_date)->format('Y-m-d')
+            ? Carbon::parse($row->bill_generated_date)->format('d-m-Y')
             : 'NA';
         })
 
@@ -103,9 +105,9 @@ class ConciergeReportController extends Controller
             return 'NA';
           }
 
-          return Carbon::parse($row->bill_start_date)->format('M d, Y')
+          return Carbon::parse($row->bill_start_date)->format('d-m-Y')
             . ' - ' .
-            Carbon::parse($row->bill_end_date)->format('M d, Y');
+            Carbon::parse($row->bill_end_date)->format('d-m-Y');
         })
 
         /*
@@ -127,10 +129,7 @@ class ConciergeReportController extends Controller
         */
         ->addColumn('gross_sale_amount', function ($row) {
 
-          return number_format(
-            (float) ($row->gross_sale_amount ?? 0),
-            2
-          );
+          return '<div class="num_value">$<span>' . number_format((float) ($row->gross_sale_amount ?? 0), 2) . '</span></div>';
         })
 
         /*
@@ -140,10 +139,7 @@ class ConciergeReportController extends Controller
         */
         ->addColumn('supplier_amount', function ($row) {
 
-          return number_format(
-            (float) ($row->supplier_amount ?? 0),
-            2
-          );
+          return '<div class="num_value">$<span>' . number_format((float) ($row->supplier_amount ?? 0), 2) . '</span></div>';
         })
 
         /*
@@ -152,11 +148,7 @@ class ConciergeReportController extends Controller
         |--------------------------------------------------------------------------
         */
         ->addColumn('e4u_earning', function ($row) {
-
-          return number_format(
-            (float) ($row->e4u_earning ?? 0),
-            2
-          );
+          return '<div class="num_value">$<span>' . number_format((float) ($row->e4u_earning ?? 0), 2) . '</span></div>';
         })
 
         /*
@@ -179,6 +171,21 @@ class ConciergeReportController extends Controller
         ->addColumn('action', function ($row) {
 
           $isReconciled = $row->status === 'reconciled';
+
+          $configKey = match ($row->service) {
+            'product' => 'app.product_supplier_email',
+            'sim'     => 'app.sim_supplier_email',
+            'email'   => 'app.email_supplier_email',
+            'visa'    => 'app.visa_supplier_email',
+            default   => null,
+          };
+
+          if ($configKey) {
+            $supplier = User::with('supplierBankDetails')
+              ->where('type', "10")
+              ->where('email', config($configKey))
+              ->first();
+          }
 
           return '
         <div class="dropdown no-arrow">
@@ -219,25 +226,20 @@ class ConciergeReportController extends Controller
 
                 <div class="dropdown-divider"></div>
 
-                <a class="dropdown-item align-item-custom"
+                <a class="dropdown-item align-item-custom   ' . ($isReconciled ? 'send-supplier-pdf' : 'disabled') . '"
                    href="#"
                    data-id="' . $row->id . '">
-
-                    <i class="fa fa-at" aria-hidden="true"></i>
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
                     Email
                 </a>
 
                 <div class="dropdown-divider"></div>
 
-                <a class="dropdown-item align-item-custom"
-                   href="#"
-                   data-id="' . $row->id . '"
-                   data-toggle="modal"
-                   data-target="#viewReports">
-
-                    <i class="fa fa-eye" aria-hidden="true"></i>
-                    View Supplier
-                </a>
+                <a class="dropdown-item align-item-custom view-supplier" ' .
+            'href="#" ' .
+            'data-supplier="' . htmlspecialchars(json_encode($supplier, JSON_HEX_APOS | JSON_HEX_QUOT), ENT_QUOTES, 'UTF-8') . '">' .
+            '                    <i class="fa fa-eye" aria-hidden="true"></i>
+ View Supplier</a>
 
             </div>
         </div>
@@ -245,7 +247,10 @@ class ConciergeReportController extends Controller
         })
 
         ->rawColumns([
-          'action'
+          'action',
+          'e4u_earning',
+          'supplier_amount',
+          'gross_sale_amount'
         ])
 
         ->make(true);
@@ -331,9 +336,11 @@ class ConciergeReportController extends Controller
     try {
 
       $period = ConciergePaymentReconciliation::findOrFail($request->id);
+      $orderIds = [];
+      $startDate = Carbon::createFromFormat('d-m-Y', $period->bill_start_date)->format('Y-m-d');
+      $endDate = Carbon::createFromFormat('d-m-Y',  $period->bill_end_date)->format('Y-m-d');
 
       if ($period && $period->service) {
-
         $configKey = match ($period->service) {
           'product' => 'app.product_supplier_email',
           'sim'     => 'app.sim_supplier_email',
@@ -347,31 +354,48 @@ class ConciergeReportController extends Controller
             ->where('type', "10")
             ->where('email', config($configKey))
             ->first();
-            
         }
       }
-      $startDate = Carbon::createFromFormat('d-m-Y', $period->bill_start_date)->format('Y-m-d');
-      $endDate = Carbon::createFromFormat('d-m-Y',  $period->bill_end_date)->format('Y-m-d');
 
       $orderIds = ProductOrder::whereDate('order_date', '>=', $startDate)->whereDate('order_date', '<=', $endDate)->pluck('id')->toArray();
-
-      $items = ProductOrderItem::with('productOrder', 'productOrder.user', 'product')->whereIn('order_id', $orderIds)->get();
-
-      // if (!$orders) {
-      //     return response()->json([
-      //         'status' => false,
-      //         'message' => 'Report not found.'
-      //     ]);
-      // }
+      // $items = ProductOrderItem::with('productOrder', 'productOrder.user', 'product')->whereIn('order_id', $orderIds)->get();
+      $items = ProductOrderItem::with([
+        'productOrder.user.state', // Prevents N+1 query inside Blade
+        'product'
+      ])
+        ->whereHas('productOrder', function ($q) use ($startDate, $endDate) {
+          $q->whereBetween('order_date', [$startDate, $endDate]);
+        })
+        ->get();
+      $type = $request->type ?? "";
       $report_id = $request->id;
-      $period = "Payments Report Product - Supplier Name (Period Ending " . date('d-m-Y', strtotime($endDate)) . ")";
-      if ($request->type == "pdf") {
-        $pdf = Pdf::loadView('admin.Concierge.conserge_report', compact('items', 'report_id'));
+      $title = Str::ucfirst($period->service);
+      $periodTitle = "Payments Report {$title} - " . ($supplier->name ?? '') . " (Period Ending " . date('d-m-Y', strtotime($endDate)) . ")";
+      if ($type == "pdf") {
+
+        $pdf = Pdf::loadView('admin.Concierge.conserge_report', compact('items', 'report_id', 'supplier', 'type', 'periodTitle'));
         return $pdf->stream('report-' . $report_id . '.pdf');
+      } else if ($type == "send") {
+
+
+        $pdf = Pdf::loadView('admin.Concierge.conserge_report', compact('items', 'report_id', 'supplier', 'type', 'periodTitle'));
+        // 2. Send email with attached PDF
+        Mail::send('emails.supplier.supplier-report', ['supplier' => $supplier], function ($message) use ($supplier, $pdf) {
+          $message->to("ashish.kumar+34@delimp.com")
+            ->subject('Supplier Report Summary')
+            ->attachData($pdf->output(), "supplier_report_{$supplier->id}.pdf", [
+              'mime' => 'application/pdf',
+            ]);
+        });
+
+        return response()->json([
+          'status' => 'success',
+          'message' => 'PDF report successfully sent to ' . $supplier->email
+        ]);
       }
 
 
-      $html = view('admin.Concierge.conserge_report', compact('items', 'report_id', 'supplier'))->render();
+      $html = view('admin.Concierge.conserge_report', compact('items', 'report_id', 'supplier', 'type', 'periodTitle'))->render();
 
       return response()->json([
         'status' => true,
@@ -387,7 +411,6 @@ class ConciergeReportController extends Controller
   public function approveReport(Request $request)
   {
     $report = ConciergePaymentReconciliation::find($request->id);
-
     if (!$report) {
       return response()->json([
         'status' => false,
@@ -410,4 +433,77 @@ class ConciergeReportController extends Controller
       'message' => 'Report reconciled successfully.'
     ]);
   }
+  public function supplierDetails(Request $request)
+  {
+    $supplier = User::find($request->id);
+
+    if (!$supplier) {
+      return response()->json([
+        'status' => false,
+        'message' => 'supplier not found.'
+      ]);
+    }
+
+
+
+    return response()->json([
+      'status' => true,
+      'data' => $supplier,
+    ]);
+  }
+
+  // public function supplierReportEmail(Request $request)
+  // {
+  //   $request->validate(['id' => 'required|exists:concierge_payment_reconciliation,id']);
+  //   try {
+
+  //     $period = ConciergePaymentReconciliation::findOrFail($request->id);
+  //     $orderIds = [];
+  //     $startDate = Carbon::createFromFormat('d-m-Y', $period->bill_start_date)->format('Y-m-d');
+  //     $endDate = Carbon::createFromFormat('d-m-Y',  $period->bill_end_date)->format('Y-m-d');
+
+  //     if ($period && $period->service) {
+  //       $configKey = match ($period->service) {
+  //         'product' => 'app.product_supplier_email',
+  //         'sim'     => 'app.sim_supplier_email',
+  //         'email'   => 'app.email_supplier_email',
+  //         'visa'    => 'app.visa_supplier_email',
+  //         default   => null,
+  //       };
+
+  //       if ($configKey) {
+  //         $supplier = User::with('supplierBankDetails')
+  //           ->where('type', "10")
+  //           ->where('email', config($configKey))
+  //           ->first();
+  //       }
+  //     }
+
+  //     $orderIds = ProductOrder::whereDate('order_date', '>=', $startDate)->whereDate('order_date', '<=', $endDate)->pluck('id')->toArray();
+  //     $items = ProductOrderItem::with('productOrder', 'productOrder.user', 'product')->whereIn('order_id', $orderIds)->get();
+  //     $report_id = $request->id;
+  //     // 1. Generate PDF from view
+  //           $period = "Payments Report Product - $supplier->name (Period Ending " . date('d-m-Y', strtotime($endDate)) . ")";
+
+  //     $pdf = Pdf::loadView('admin.Concierge.conserge_report', compact('items', 'report_id', 'supplier'));
+  //     // 2. Send email with attached PDF
+  //     Mail::send('emails.supplier.supplier-report', ['supplier' => $supplier], function ($message) use ($supplier, $pdf) {
+  //       $message->to("ashish.kumar+34@delimp.com")
+  //         ->subject('Supplier Report Summary')
+  //         ->attachData($pdf->output(), "supplier_report_{$supplier->id}.pdf", [
+  //           'mime' => 'application/pdf',
+  //         ]);
+  //     });
+
+  //     return response()->json([
+  //       'status' => 'success',
+  //       'message' => 'PDF report successfully sent to ' . $supplier->email
+  //     ]);
+  //   } catch (\Exception $e) {
+  //     return response()->json([
+  //       'status' => 'error',
+  //       'message' => 'Email failed: ' . $e->getMessage()
+  //     ], 500);
+  //   }
+  // }
 }

@@ -89,12 +89,55 @@
         </div>
     </div>
     {{-- end --}}
-    <div id="reportLoader" class="text-center d-none">
-        <div class="spinner-border" role="status">
-            <span class="visually-hidden"></span>
+
+    {{-- end --}}
+    <!-- Supplier Details Modal -->
+    <div class="modal fade upload-modal" id="supplierModal" tabindex="-1" aria-labelledby="supplierModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
+                            class="custompopicon"> <span id="modal-title"></span>
+                    </h5>
+                    <a href="" class="close" data-dismiss="modal" aria-label="Close">
+                        <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
+                    </a>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row mb-2">
+                        <strong class="col-sm-4">Name:</strong>
+                        <span class="col-sm-8" id="supplier_name"></span>
+                    </div>
+                    <div class="row mb-2">
+                        <strong class="col-sm-4">Address:</strong>
+                        <span class="col-sm-8" id="supplier_address"></span>
+                    </div>
+                    <div class="row mb-2">
+                        <strong class="col-sm-4 text-nowrap">Business Number:</strong>
+                        <span class="col-sm-8" id="supplier_business_number"></span>
+                    </div>
+                    <div class="row mb-2">
+                        <strong class="col-sm-4">Email:</strong>
+                        <span class="col-sm-8" id="supplier_email"></span>
+                    </div>
+                    <div class="row mb-2">
+                        <strong class="col-sm-4">ABN:</strong>
+                        <span class="col-sm-8" id="supplier_abn"></span>
+                    </div>
+                    <div class="row mb-2">
+                        <strong class="col-sm-4">Contact:</strong>
+                        <span class="col-sm-8" id="supplier_contact"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
-    {{-- end --}}
 @endsection
 @push('script')
     <!-- opr_accordian_table JS -->
@@ -173,31 +216,63 @@
             window.open(url, '_blank');
         });
 
+        $(document).on('click', '.view-supplier', function(e) {
+            e.preventDefault();
+
+            let response = $(this).data('supplier');
+            // Map fetched response data to modal elements
+            $('#supplier_name').text(response.name || 'N/A');
+            $('#supplier_address').text(response.business_address || 'N/A');
+            $('#supplier_business_number').text(response.business_number || 'N/A');
+            $('#supplier_email').text(response.email || 'N/A');
+            $('#supplier_abn').text(response.abn || 'N/A');
+            $('#supplier_contact').text(response.phone || 'N/A');
+
+
+            const modalElement = document.getElementById('supplierModal');
+            const modal = new bootstrap.Modal(modalElement, {
+                backdrop: 'static',
+                keyboard: false
+            });
+            modal.show();
+
+        });
         $(document).on('click', '.report-action', function(e) {
             e.preventDefault();
 
             let id = $(this).data('id');
             let type = $(this).data('type');
+
             $.ajax({
                 url: "{{ route('admin.report.details') }}",
                 type: "GET",
                 data: {
                     id: id,
                 },
-
                 beforeSend: function() {
-                    $('#reportLoader').removeClass('d-none');
+                    Swal.fire({
+                        title: 'Loading Report...',
+                        text: 'Please wait while we fetch and prepare your PDF report.',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
                 },
-
                 success: function(response) {
                     if (response.status) {
+                        // Close loading alert before showing modal
+                        Swal.close();
+
                         $("#modal-title").text(response.period);
                         $('#viewReports .modal-body').html(response.html);
+
                         if (type == "view") {
                             $(".confirm-approve-report").addClass('d-none');
                         } else {
                             $(".confirm-approve-report").removeClass('d-none');
                         }
+
                         const modalElement = document.getElementById('viewReports');
                         const modal = new bootstrap.Modal(modalElement, {
                             backdrop: 'static',
@@ -214,7 +289,6 @@
                         });
                     }
                 },
-
                 error: function(xhr) {
                     console.log(xhr.responseText);
                     Swal.fire({
@@ -225,13 +299,11 @@
                         showConfirmButton: false
                     });
                 },
-
                 complete: function() {
-                    $('#reportLoader').addClass('d-none');
+                    // Additional cleanup if needed
                 }
             });
         });
-
 
 
 
@@ -249,7 +321,14 @@
                 },
 
                 beforeSend: function() {
-                    $('#reportLoader').removeClass('d-none');
+                    Swal.fire({
+                        title: 'Approving Report...',
+                        text: 'Please wait while we process the report approval.',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
                 },
 
                 success: function(response) {
@@ -257,17 +336,18 @@
 
                         Swal.fire({
                             icon: 'success',
-                            title: 'Updated!',
-                            text: response.message,
+                            title: 'Approved!',
+                            text: response.message ||
+                                'The report has been successfully approved.',
                             timer: 1500,
                             showConfirmButton: false
                         });
                     } else {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Info!',
-                            text: response.message,
-                            timer: 1500,
+                            title: 'Error!',
+                            text: response.message || 'Failed to approve the report.',
+                            timer: 2000,
                             showConfirmButton: false
                         });
                     }
@@ -276,15 +356,62 @@
                 error: function(xhr) {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Info!',
-                        text: "Something went wrong. Please try again.",
-                        timer: 1500,
+                        title: 'Error!',
+                        text: xhr.responseJSON?.message ||
+                            "Something went wrong. Please try again.",
+                        timer: 2000,
                         showConfirmButton: false
                     });
                 },
 
                 complete: function() {
-                    $('#reportLoader').addClass('d-none');
+                    // Swal.close();
+                }
+            });
+        });
+
+
+        $(document).on('click', '.send-supplier-pdf', function(e) {
+            e.preventDefault();
+
+            let id = $(this).data('id');
+
+            // Show a loading spinner while the server processes and emails the PDF
+            Swal.fire({
+                title: 'Sending PDF Report...',
+                text: 'Please wait while the PDF is generated and emailed to the supplier.',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            $.ajax({
+                url: "{{ route('admin.report.details') }}", // Update to your PDF sending route
+                type: 'GET',
+                data: {
+                    id: id,
+                    type: "send",
+                },
+                dataType: 'json',
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Sent!',
+                        text: response.message ||
+                            'The PDF report has been successfully sent to the supplier.',
+                        confirmButtonColor: '#3085d6'
+                    });
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed to Send',
+                        text: xhr.responseJSON?.message ||
+                            'Could not send the PDF report to the supplier.',
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#d33'
+                    });
                 }
             });
         });

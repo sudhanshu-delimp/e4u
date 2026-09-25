@@ -853,6 +853,7 @@ Route::get('/management/concierge-payments', [ConciergeReportController::class, 
 Route::get('/management/concierge', [ConciergeReportController::class, 'index'])->name('admin.concierge-reports.index');
 Route::get('/management/concierge/report/{type?}', [ConciergeReportController::class, 'getReport'])->name('admin.report.details');
 Route::post('/management/concierge/report/approve', [ConciergeReportController::class, 'approveReport'])->name('admin.report.approve');
+// Route::post('/management/concierge/supplier/report/email', [ConciergeReportController::class, 'supplierReportEmail'])->name('admin.send.supplier.pdf');
 
 
 // function () {
