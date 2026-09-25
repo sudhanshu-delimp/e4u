@@ -836,7 +836,9 @@
                                                             id="agreement_file"
                                                             class="document-file-input"
                                                         >
+                                                        
                                                     </label>
+                                                    <span class="text-danger error-agreement_file"></span>
                                                     
                                                     <!-- Existing Agreement / Preview -->
                                                     <div id="file_preview" class="mt-3"></div>
@@ -898,8 +900,9 @@
                                                             accept="image/*"
                                                             class="document-file-input"
                                                         >
+                                                      
                                                     </label>
-
+                                                      <span class="text-danger error-signature_file"></span>
                                                     <!-- New Signature Preview -->
                                                     <div id="signature_preview" class="mt-3"></div>
 
@@ -1256,12 +1259,14 @@
                                              <label class="form-label" for="agreement_file">Upload Agreement File</label>
                                              <input type="file" name="agreement_file" id="agreement_file">
                                              <div id="file_preview" class="mt-2"></div>
+                                              <span class="text-danger error-agreement_file"></span>
                                        </div>
 
                                        <div class="col-6 mb-3">
                                              <label class="form-label" for="signature_file">Upload Signature File</label>
                                              <input type="file" name="signature_file" id="signature_file" accept="image/*">
                                              <div id="signature_preview" class="mt-2"></div>
+                                             <span class="text-danger error-signature_file"></span>
                                        </div>
 
                                     </div>

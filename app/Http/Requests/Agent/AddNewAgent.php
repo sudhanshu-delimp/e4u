@@ -74,6 +74,8 @@ class AddNewAgent extends FormRequest
             ],
             //'abn' => 'nullable|digits_between:10,20',
             'abn' => 'required|digits:11',
+            'agreement_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'signature_file' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
         ];
     }
 
