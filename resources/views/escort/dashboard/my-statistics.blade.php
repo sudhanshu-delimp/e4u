@@ -123,7 +123,6 @@
                             </div>
                         </div>
                     </div>
-
                     
                     <div class="common-card">
                         <div class="card-top">

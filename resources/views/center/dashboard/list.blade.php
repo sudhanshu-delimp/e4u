@@ -192,7 +192,7 @@
 
          <div class="row">
             <div class="col-md-12">
-               <div class="panel with-nav-tabs panel-warning">
+               <div class="panel with-nav-tabs panel-warning common-card">
                   <div class="panel-body">
 
                      @if($active_profile)
@@ -225,7 +225,7 @@
 
 
 
-                     <div class="tab-content common-card">
+                     <div class="tab-content">
                         <div class="tab-pane fade active show" id="tab3warning">
                            <div class="row pb-3">
 

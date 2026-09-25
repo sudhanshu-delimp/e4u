@@ -439,6 +439,18 @@ if (!function_exists('getMassageTimezone')) {
     }
 }
 
+
+if (!function_exists('getAccountTimezone')) {
+
+    function getAccountTimezone($account)
+    {
+        $agent  = User::where('id', $account->id)->first();
+        $home_state = $agent->state_id;
+        $accountTimezone = config("agent.states.$home_state.timeZone");
+        return $accountTimezone;
+    }
+}
+
 if (!function_exists('getMassageLocalTime')) {
 
     function getMassageLocalTime($utcTime, $localTimeZone)
@@ -3015,7 +3027,7 @@ if (!function_exists('getSeoGroupedRoutes')) {
     function getSeoGroupedRoutes()
     {
         $grouped = [];
-        $footerSubGroups = ['Legal', 'Community', 'Bottom Footer'];
+        $footerSubGroups = ['Legal', 'Community', 'Bottom Footer', 'Footer Login'];
 
         foreach (getSeoTaggedRoutes() as $item) {
             $group = $item['seo_group'] ?? getSeoRouteMenuGroup(
@@ -3029,7 +3041,8 @@ if (!function_exists('getSeoGroupedRoutes')) {
             }
 
             if (in_array($group, $footerSubGroups, true)) {
-                $grouped['Footer'][$group][] = $item;
+                $footerGroup = $group === 'Footer Login' ? 'Login' : $group;
+                $grouped['Footer'][$footerGroup][] = $item;
                 continue;
             }
 
@@ -3061,11 +3074,12 @@ if (!function_exists('getSeoGroupedRoutes')) {
             });
         };
 
-        $preferredGroupOrder = ['About', 'Concierge', 'Footer', 'Login', 'Register'];
+        $preferredGroupOrder = ['About', 'Concierge', 'Footer', 'Landing', 'Login', 'Register'];
         $groupItemOrder = [
-            'About' => ['About E4U Verified', 'Agents', 'Become A Pin Up', 'Escorts4U', 'Massage Centres', 'My Playbox'],
+            'About' => ['Agents', 'Become A Pin Up', 'E4U Verified', 'Escorts4U', 'Massage Centres', 'My Playbox'],
             'Concierge' => ['Accommodation', 'Email Hosting', 'Mobile SIM', 'Products', 'Travel', 'Visa & Migration'],
-            'Footer' => ['Bottom Footer', 'Community', 'Legal'],
+            'Footer' => ['Bottom Footer', 'Community', 'Legal', 'Login'],
+            'Landing' => ['Home', 'Pin Up'],
             'Login' => ['Advertiser', 'Agent', 'Viewer'],
             'Register' => ['Advertiser', 'Agent', 'Viewer'],
         ];
@@ -3098,6 +3112,7 @@ if (!function_exists('getSeoGroupedRoutes')) {
                 'Influencer',
             ],
             'Bottom Footer' => ['DMCA Notices', 'Parent Control'],
+            'Login' => ['Admin', 'Operator', 'Shareholder'],
         ];
 
         $orderedGroups = [];
@@ -3172,7 +3187,7 @@ if (!function_exists('getSeoRouteMenuGroup')) {
                     'massage centres',
                     'about playbox',
                     'my playbox',
-                    'about e4u verified',
+                    'e4u verified',
                     'become a pin up',
                 ],
                 'Concierge' => [
@@ -3299,7 +3314,7 @@ if (!function_exists('getSeoRouteMenuGroup')) {
 
         $legacyHeaderLabels = [
             'About Agents',
-            'About E4U Verified',
+            'E4U Verified',
             'About Escort E4U',
             'About Playbox',
             'Accommodation',

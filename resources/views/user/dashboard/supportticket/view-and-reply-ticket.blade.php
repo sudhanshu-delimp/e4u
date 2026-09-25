@@ -70,8 +70,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12 common-card">
-                <div class="box-body table-responsive">
+            <div class="col-md-12">
+                <div class="box-body table-responsive common-card">
                     <table class="table w-100" id="supportTicketsTable">
                         <thead id="table-sec" class="table-bg">
                             <tr>
