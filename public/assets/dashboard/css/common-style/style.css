@@ -842,7 +842,7 @@ label.cabinet input.file {
     width: 100%;
     border: 0;
     background: transparent;
-    padding: 20px 25px;
+    padding: 20px 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
