@@ -627,11 +627,9 @@
                                                             </svg>
                                                         </div>
                                                         <span class="upload-title"> Choose Agreement File</span>
-                                                        <span class="upload-text">
-                                                            Drag &amp; drop your file here or <strong>browse</strong>
-                                                        </span>
-                                                        <span class="upload-hint">Only PDF, DOC, DOCX up to 10MB are
-                                                            allowed.</span>
+                                                        
+                                                        <span class="upload-hint"> <span class="upload-text"> <strong>browse</strong>
+                                                        </span>Only PNG, JPG, JPEG, PDF, DOC, DOCX up to 10MB are allowed.</span>
                                                         
 
                                                         <input
@@ -693,11 +691,8 @@
                                                         </div>
 
                                                         <span class="upload-title">Choose Signature File</span>
-                                                    <span class="upload-text">
-                                                        Drag &amp; drop your file here or <strong>browse</strong>
-                                                    </span>
-                                                    <span class="upload-hint">Only PNG, JPG, or JPEG images are
-                                                        allowed.</span>
+                                                    
+                                                    <span class="upload-hint"><span class="upload-text"><strong>browse</strong></span> Only PNG, JPG, or JPEG images up to 2MB are allowed.</span>
 
                                                         <input
                                                             type="file"
@@ -1103,11 +1098,9 @@
                                                                     </svg>
                                                                 </div>
                                                                 <span class="upload-title"> Choose Agreement File</span>
-                                                                <span class="upload-text">
-                                                                    Drag &amp; drop your file here or <strong>browse</strong>
-                                                                </span>
-                                                                <span class="upload-hint">Only PDF, DOC, DOCX up to 10MB are
-                                                                    allowed.</span>
+                                                                
+                                                                <span class="upload-hint"><span class="upload-text"> <strong>browse</strong>
+                                                        </span>Only PNG, JPG, JPEG, PDF, DOC, DOCX up to 10MB are allowed.</span>
                                                                 <input type="file" class="file-input" name="agreement_file" id="agreement_file">
                                                             </label>
                                                             
@@ -1152,11 +1145,9 @@
                                                                     </div>
 
                                                                     <span class="upload-title">Choose Signature File</span>
-                                                                <span class="upload-text">
-                                                                    Drag &amp; drop your file here or <strong>browse</strong>
-                                                                </span>
-                                                                <span class="upload-hint">Only PNG, JPG, or JPEG images are
-                                                                    allowed.</span>
+                                                               
+                                                                <span class="upload-hint"> <span class="upload-text"><strong>browse</strong>
+                                                                </span> Only PNG, JPG, or JPEG images up to 2MB are allowed.</span>
 
                                                                     <input
                                                                         type="file"

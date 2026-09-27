@@ -461,25 +461,14 @@
                                                         </svg>
                                                     </div>
                                                     <span class="upload-title">Upload a file</span>
-                                                    <span class="upload-text">
-                                                        Drag &amp; drop your file here or <strong>browse</strong>
-                                                    </span>
-                                                    <span class="upload-hint">Only PNG, JPG, or JPEG images are
+                                                    <span class="upload-hint"><span class="upload-text"> <strong>browse</strong>
+                                                    </span> Only PNG, JPG, or JPEG images up to 2MB are
                                                         allowed.</span>
                                                 </div>
                                                 <input type="file" name="signature_file" id="signature_file"
-                                                    class="file-input" accept=".jpg,.jpeg,.png"
-                                                    data-parsley-required-message="Please choose a file"
-                                                    data-parsley-extension="png,jpg,jpeg"
-                                                    data-parsley-error-message="Only PNG, JPG, or JPEG images are allowed."
-                                                    required>
+                                                    class="file-input">
                                             </label>
-                                            <span id="signature_file-errors"></span>
-                                            <div class="termsandconditions_text_color">
-                                                @error('signature_file')
-                                                    <strong>{{ $message }}</strong>
-                                                @enderror
-                                            </div>
+                                            <span id="signature_file-errors" class="text-danger error-signature_file"></span>
                                         </div>
                                         
                                     </div>
@@ -635,7 +624,18 @@
                 },
                 error: function(xhr) {
                     Swal.close();
-                    swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+                    if (xhr.status === 422) {
+                            $('span.text-danger').text('');
+                            let errors = xhr.responseJSON.errors;
+                            $.each(errors, function(field, messages) {
+                                console.log("messages:"+messages[0]);
+                                $('.error-' + field).text(messages[0]);
+                            });
+                        } else {
+                            swal_error_popup(xhr.responseJSON.message ||
+                                'Something went wrong');
+                        }
+                   // swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
                 }
             });
         });

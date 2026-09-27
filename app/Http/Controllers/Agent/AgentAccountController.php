@@ -23,6 +23,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Repositories\AgentBank\AgentBankDetailInterface;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 
 class AgentAccountController extends BaseController
@@ -450,6 +451,20 @@ class AgentAccountController extends BaseController
         $userId = $request->filled('userId') ? $request->userId : null;
         $type = $request->filled('type') ? $request->type : null;
 
+       $validator = Validator::make($request->all(), [
+        'signature_file' => 'required|file|mimes:jpg,jpeg,png|max:2048',
+            ], [
+                'signature_file.max' => 'The signature file must not be larger than 2 MB.',
+                'signature_file.mimes' => 'The signature file must be a JPG, JPEG, or PNG file.',
+                'signature_file.file' => 'The signature file could not be uploaded.',
+            ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'The signature file must be a JPG, JPEG, or PNG file and file must not be larger than 2 MB.',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
         $user = User::where('id', $userId)->with('agent_detail')->first();
         $agent = $user->agent_detail ?? null;
         if ($agent && !empty($file)) {
