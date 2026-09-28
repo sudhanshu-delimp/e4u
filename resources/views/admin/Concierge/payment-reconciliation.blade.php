@@ -263,8 +263,15 @@
                     if (response.status) {
                         // Close loading alert before showing modal
                         Swal.close();
+                        if (response.report_status == "reconciled") {
+                            $(".confirm-approve-report").text("Approved");
+                            $(".confirm-approve-report").attr('disabled', true);
+                        } else {
+                            $(".confirm-approve-report").text("Approve");
+                            $(".confirm-approve-report").attr('disabled', false);
+                        }
 
-                        $("#modal-title").text(response.period);
+                        $("#modal-title").text(response.periodTitle);
                         $('#viewReports .modal-body').html(response.html);
 
                         if (type == "view") {
@@ -366,6 +373,17 @@
 
                 complete: function() {
                     // Swal.close();
+                    $("#viewReports").hide();
+
+                    setTimeout(function() {
+                        $('.modal-backdrop').remove();
+                        $('body').removeClass('modal-open');
+                        $('body').css({
+                            'padding-right': '',
+                            'overflow': ''
+                        });
+                    }, 300);
+
                 }
             });
         });

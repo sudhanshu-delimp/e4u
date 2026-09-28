@@ -358,15 +358,15 @@ class ConciergeReportController extends Controller
       }
 
       $orderIds = ProductOrder::whereDate('order_date', '>=', $startDate)->whereDate('order_date', '<=', $endDate)->pluck('id')->toArray();
-      // $items = ProductOrderItem::with('productOrder', 'productOrder.user', 'product')->whereIn('order_id', $orderIds)->get();
-      $items = ProductOrderItem::with([
-        'productOrder.user.state', // Prevents N+1 query inside Blade
-        'product'
-      ])
-        ->whereHas('productOrder', function ($q) use ($startDate, $endDate) {
-          $q->whereBetween('order_date', [$startDate, $endDate]);
-        })
-        ->get();
+      $items = ProductOrderItem::with('productOrder', 'productOrder.user', 'product')->whereIn('order_id', $orderIds)->get();
+      // $items = ProductOrderItem::with([
+      //   'productOrder.user.state', // Prevents N+1 query inside Blade
+      //   'product'
+      // ])
+      //   ->whereHas('productOrder', function ($q) use ($startDate, $endDate) {
+      //     $q->whereBetween('order_date', [$startDate, $endDate]);
+      //   })
+      //   ->get();
       $type = $request->type ?? "";
       $report_id = $request->id;
       $title = Str::ucfirst($period->service);
@@ -376,7 +376,6 @@ class ConciergeReportController extends Controller
         $pdf = Pdf::loadView('admin.Concierge.conserge_report', compact('items', 'report_id', 'supplier', 'type', 'periodTitle'));
         return $pdf->stream('report-' . $report_id . '.pdf');
       } else if ($type == "send") {
-
 
         $pdf = Pdf::loadView('admin.Concierge.conserge_report', compact('items', 'report_id', 'supplier', 'type', 'periodTitle'));
         // 2. Send email with attached PDF
@@ -400,7 +399,8 @@ class ConciergeReportController extends Controller
       return response()->json([
         'status' => true,
         'html' => $html,
-        'period' => $period
+        'report_status' => $period->status,
+          'periodTitle' => $periodTitle
       ]);
     } catch (Exception $e) {
       Log::info($e->getMessage());
