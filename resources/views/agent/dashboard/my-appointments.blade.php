@@ -912,6 +912,11 @@
             var marker = new google.maps.Marker({
                 position: defaultCenter,
                 map: map,
+                icon: {
+                url: "{{ asset('assets/app/img/google_pin_white.png') }}",
+                scaledSize: new google.maps.Size(70, 70),
+                anchor: new google.maps.Point(24, 64)
+             },
                 draggable: true
             });
 
