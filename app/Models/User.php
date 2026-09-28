@@ -820,6 +820,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(AgentDetail::class,  'id', 'agent_id');
     }
+    public function supplierBankDetails()
+    {
+        return $this->hasOne(SupplierBankDetail::class,'user_id','id');
+    }
 
     public function loginAttempts()
     {

@@ -182,7 +182,7 @@
                                 <th scope="col" class="text-c enter font-weight-bold">Description </th>
                                 <th scope="col" class="text-c enter font-weight-bold">Unit Price<sup>(1)</sup></th>
                                 <th scope="col" class="text-c enter font-weight-bold">Qty</th>
-                                <th scope="col" class="text-c enter font-weight-bold">Total
+                                <th scope="col" class="text-c enter font-weight-bold">Total (Excl GST)
                                 </th>
 
                             </tr>
@@ -419,9 +419,9 @@
                                 <tr>
                                     <th>Code</th>
                                     <th>Product</th>
-                                    <th>Unit Price</th>
+                                    <th>Unit Price </th>
                                     <th>Qty</th>
-                                    <th>Total</th>
+                                    <th>Total (Excl GST)</th>
                                 </tr>
                             </thead>
                             <tbody class="transaction_summary">
