@@ -439,9 +439,7 @@
         const escortId = $(this).data('id');
 
         $.ajax({
-            url: '{{ route('
-            escort.current.single - list.dataTableListing ') }}/' +
-            escortId, // replace with your actual route
+            url: "{{ route('escort.current.single-list.dataTableListing') }}/" + escortId, // replace with your actual route
             method: 'GET',
             success: function(response) {
 
