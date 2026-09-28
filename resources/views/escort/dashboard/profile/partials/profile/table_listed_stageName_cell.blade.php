@@ -1,0 +1,2 @@
+<div class="profile_list"><i class="fa fa-user" aria-hidden="true"></i> <span class="profile_label">Stage Name</span> {{$item->name}} </div>
+<div class="profile_list"><i class="fa fa-phone" aria-hidden="true"></i> <span class="profile_label">Mobile</span> {{$item->phone}}</div>

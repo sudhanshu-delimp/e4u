@@ -49,8 +49,8 @@
                 </div>
             </div>
             <div class="col-lg-12">
-                <div class="table-responsive-xl">
-                    <table class="table mb-3" id="databaseCentreTable">
+                <div class="table-responsive-xl common-card">
+                    <table class="table mb-3 " id="databaseCentreTable">
                         <thead class="table-bg">
                             <tr>
                                 <th>Uploaded</th>

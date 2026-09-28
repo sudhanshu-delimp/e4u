@@ -193,7 +193,7 @@ class PurchaseRepository extends BaseRepository implements PurchaseInterface
             //$endpoint = ['profile' => $item->escort->slug];
             //$profileUrl = route('escort.profile.detail', $endpoint);
 
-            $profileUrl = getEscortMassageDetailUrl($item->escort);
+            $profileUrl = getAdvertiserDetailUrl($item->escort);
             $item->profileUrl = $profileUrl;
 
 

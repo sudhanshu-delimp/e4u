@@ -583,7 +583,7 @@
         var status = $(this).attr('data-review-status');
 
         $.ajax({
-            url: `{{ route('user.user-review-status-update ') }}`, 
+            url: `{{ route('user.user-review-status-update') }}`, 
             method: 'POST',
             data: {
                 'review_id': reviewId,

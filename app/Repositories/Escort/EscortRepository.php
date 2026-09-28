@@ -40,7 +40,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
         $nextEId = $escortIds[$position + 1] ?? null;
         $previous = getEscortDetail($previousEId) ?? null;
         $next = getEscortDetail($nextEId) ?? null;
-       // dd($previous,$next);
+        // dd($previous,$next);
 
 
 
@@ -64,14 +64,14 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $next ? route('profile.description', [$next->id, $city, $membershipId]) : '?no-next-page',
             $previous ? route('profile.description', [$previous->id, $city, $membershipId]) : '?no-prev-page',
         ]; */
-            $next = $next ? getEscortMassageDetailUrl($next) : null;
-            $previous = $previous ? getEscortMassageDetailUrl($previous) : null;
+        $next = $next ? getAdvertiserDetailUrl($next) : null;
+        $previous = $previous ? getAdvertiserDetailUrl($previous) : null;
 
-            return [
-                'next' => $next,
-                'previous' => $previous,
-            ];
-        }
+        return [
+            'next' => $next,
+            'previous' => $previous,
+        ];
+    }
 
 
     public function paginatedByEscortId($start, $limit, $order_key, $dir, $columns, $search = null, $escort_id = null, $stateId = null)
@@ -150,7 +150,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 ->where('profile_name', '!=', null)
                 ->where(function ($query) use ($search) {
                     $query->where('profile_name', 'LIKE', "%{$search}%")
-                     ->orWhere('slug', 'LIKE', "%{$search}%")
+                        ->orWhere('slug', 'LIKE', "%{$search}%")
                         ->orWhereHas('user', function ($q) use ($search) {
                             $q->where('member_id', 'LIKE', "%{$search}%");
                         });
@@ -243,13 +243,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="' . $item->id . '"  data-toggle="modal" data-target="#pinupSummary"><i class="fa fa-hand-pointer"></i>Pin Up Summary</a><div class="dropdown-divider"></div>';
             }
 
-            // if($item->membership_number > 1 && $item->left_listing_days > 0){
-            //     $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="' . $item->id . '" data-membership="' . $item->membership_number . '"  data-toggle="modal" data-target="#upgrade_modal"><i class="fa fa-wrench"></i>Upgrade</a><div class="dropdown-divider"></div>';
-            // }
-
-            /* $item->action .= ' <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('profile.description', $item->id) . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
-            $item->action .= '</div>';*/
-            $profileUrl = getEscortMassageDetailUrl($item);
+            $profileUrl = getAdvertiserDetailUrl($item);
             $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . $profileUrl  . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
 
             $isExtended = $item->isListingExtended();
@@ -348,6 +342,8 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $listingStatusClass = getStatusBadgeClass(strtolower($listingStatus));
             $item->statusBtn = "<span class='custom_badge {$listingStatusClass}'>{$listingStatus}</span>";
             $item->statusText = $listingStatus;
+            $item->render_profile_name = view('escort.dashboard.profile.partials.profile.table_listed_profieName_cell', compact('item'))->render();
+            $item->render_stage_name = view('escort.dashboard.profile.partials.profile.table_listed_stageName_cell', compact('item'))->render();
             $i++;
         }
 

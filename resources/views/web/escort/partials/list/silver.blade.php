@@ -13,7 +13,7 @@
                  <div class="EC__list_card">
                      {{-- 1st --}}
                      <div class="all-escort-profile-pic">
-                         <a href="{{ getEscortMassageDetailUrl($escort) }}">
+                         <a href="{{ getAdvertiserDetailUrl($escort) }}">
                              @if ($escort->latestActiveBrb)
                                  <div class="brb--content">
                                      <div class="brb--wrappr">
@@ -428,7 +428,7 @@
                                     <strong>About Me</strong><br>
                                     <p class="list_view_profile_pera_font_size">{!! $limitText !!}
                                         @if (strlen($plainTextAbout) > 200)
-                                            <a href=" {{ getEscortMassageDetailUrl($escort) }}"
+                                            <a href=" {{ getAdvertiserDetailUrl($escort) }}"
                                                 class="h6 text-danger">Read
                                                 More</a>
                                         @endif
@@ -465,7 +465,7 @@
                                         </a>
                                          <p class="mb-0"> {{ $escort ? $escort->address : '' }}</p>
                                     </div>
-                                    <a href="{{ getEscortMassageDetailUrl($escort) }}"
+                                    <a href="{{ getAdvertiserDetailUrl($escort) }}"
                                         class="btn btn_for_profile_list_view custom-view-profile"
                                         style="float: right;">View
                                         Profile</a>

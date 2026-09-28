@@ -46,7 +46,8 @@
                                 <h2>Escorts</h2>
                             </div>
                         </div>
-
+                        
+                        <hr class="custom-hr">
                         <div class="common-stars">
                             <div class="stats-detail">
                                     <div class="stats-label">Today's Income
@@ -85,7 +86,8 @@
                                 <h2>Centres</h2>
                             </div>
                         </div>
-
+                        
+                        <hr class="custom-hr">
                         <div class="common-stars">
                             <div class="stats-detail">
                                     <div class="stats-label">Today's Income
@@ -124,7 +126,8 @@
                                 <h2>Advertisers</h2>
                             </div>
                         </div>
-
+                        
+                        <hr class="custom-hr">
                         <div class="common-stars">
                             <div class="stats-detail">
                                     <div class="stats-label">Today's Income
