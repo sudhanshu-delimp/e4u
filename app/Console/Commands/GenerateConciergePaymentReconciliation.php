@@ -50,7 +50,7 @@ class GenerateConciergePaymentReconciliation extends Command
         */
 
     $reportMonth = Carbon::now()
-      // ->subMonth()
+      ->subMonth()
       ->startOfMonth();
 
     $billStartDate = $reportMonth->copy()->startOfMonth();
