@@ -3,15 +3,15 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
 <style>
    .swal-button {
-   background-color: #242a2c;
+      background-color: #242a2c;
    }
 </style>
 @stop
 @section('content')
 @php
-   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
-   $editAccess = staffPageAccessPermission($securityLevel, 'edit');
-   $editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+$securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
+$editAccess = staffPageAccessPermission($securityLevel, 'edit');
+$editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
 @endphp
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
@@ -25,19 +25,19 @@
             </div>
             <div class="col-md-12 mb-4">
                <div class="card collapse" id="notes">
-                   <div class="card-body">
-                       <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                       <ol>
+                  <div class="card-body">
+                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                     <ol>
                         <li>A SIM request is to be actioned within 24 hours of receipt.</li>
                         <li>An email requesting the SIM has also been sent to <a href="mailto:admin@e4u.com.au" class="custom_links_design">admin@e4u.com.au</a>.</li>
                         <li>Ensure the SIM details are entered up in the SIM Register.</li>
-                      </ol>
-                   </div>
+                     </ol>
+                  </div>
                </div>
-           </div>
+            </div>
          </div>
          <div class="row mb-3">
-           <div class="col-md-12">
+            <div class="col-md-12">
                <div class="table-responsive custom-badge">
                   <table class="table" id="MobileRequestTable">
                      <thead class="table-bg">
@@ -61,11 +61,11 @@
                            <td>Level 2, 310 Main Street, Brisbane</td>
                            <td>E40161 04052025 04 003</td>
                            <td><span class="custom_badge badge_pending">Pending</span></td>
-                           <td class="text-center"> 
-                               @if($editAccessEnabled)
+                           <td class="text-center">
+                              @if($editAccessEnabled)
                               <div class="dropdown no-arrow">
                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                  </a>
                                  <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
                                     <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#"> <i class="fa fa-hourglass-half "></i> Pending</a>
@@ -88,11 +88,11 @@
                            <td>Level 2, 310 Main Street, Adelaide</td>
                            <td>E50167 03052025 05 002</td>
                            <td><span class="custom_badge badge_onHold">On Hold</span></td>
-                           <td class="text-center"> 
-                               @if($editAccessEnabled)
+                           <td class="text-center">
+                              @if($editAccessEnabled)
                               <div class="dropdown no-arrow">
                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                  </a>
                                  <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
                                     <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#"> <i class="fa fa-hourglass-half "></i> Pending</a>
@@ -115,11 +115,11 @@
                            <td>Level 2, 310 Main Street, Perth</td>
                            <td>E60112 02052025 06 001</td>
                            <td><span class="custom_badge badge_completed">Completed</span></td>
-                           <td class="text-center"> 
-                               @if($editAccessEnabled)
+                           <td class="text-center">
+                              @if($editAccessEnabled)
                               <div class="dropdown no-arrow">
                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                  </a>
                                  <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
                                     <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#"> <i class="fa fa-hourglass-half "></i> Pending</a>
@@ -137,34 +137,34 @@
                      </tbody>
                   </table>
                </div>
-           </div>
-         </div>   
+            </div>
+         </div>
       </div>
-        
+
    </div>
    <!-- End of Main Content -->
 </div>
 <!-- End of Page Wrapper -->
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
-<i class="fas fa-angle-up"></i>
+   <i class="fas fa-angle-up"></i>
 </a>
 
 
 <div class="modal fade upload-modal" id="active_req" tabindex="-1" aria-labelledby="active_reqLabel" aria-modal="true" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content">
-   <div class="modal-header">
-      <h5 class="modal-title" id="active_req"><img src="{{ asset('assets/dashboard/img/order-tracking.png')}}" alt="alert" class="custompopicon"> Tracking Details
-      </h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-      </button>
-   </div>
-      <div class="modal-body pb-0">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="active_req"><img src="{{ asset('assets/dashboard/img/order-tracking.png')}}" alt="alert" class="custompopicon"> Tracking Details
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
+         </div>
+         <div class="modal-body pb-0">
             <form>
                <div class="row">
-                  
+
                   <div class="col-12 mb-3">
                      <label for="Traking ID">Traking ID</label>
                      <input type="text" class="form-control rounded-0" placeholder="Enter traking id ">
@@ -182,18 +182,18 @@
 {{-- confirm_popup --}}
 <div class="modal fade upload-modal" id=" " tabindex="-1" aria-labelledby="confirm_popupLabel" aria-modal="true" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content">
-   <div class="modal-header">
-      <h5 class="modal-title" id="confirm_popup"><img src="{{ asset('assets/dashboard/img/unblock.png')}}" alt="alert" class="custompopicon"> Confirmation
-      </h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-      </button>
-   </div>
-      <div class="modal-body pb-0">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="confirm_popup"><img src="{{ asset('assets/dashboard/img/unblock.png')}}" alt="alert" class="custompopicon"> Confirmation
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
+         </div>
+         <div class="modal-body pb-0">
             <h5 class="custom_modal_text">
                The order has been completed.
-           </h5>
+            </h5>
          </div>
          <div class="modal-footer justify-content-center">
             <button type="button" class="btn-success-modal" data-dismiss="modal">Yes</button>
@@ -207,24 +207,24 @@
 {{-- reject_popup --}}
 <div class="modal fade upload-modal" id="reject_popup" tabindex="-1" aria-labelledby="reject_popupLabel" aria-modal="true" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content">
+      <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title" id="reject_popup"><img src="{{ asset('assets/dashboard/img/block.png')}}" alt="alert" class="custompopicon"> Deactivate SIM Account
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+               <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
          </div>
          <div class="modal-body pb-0">
             <h5 class="custom_modal_text">
                Are you sure you want to deactivate account?
-           </h5>
+            </h5>
          </div>
          <div class="modal-footer justify-content-center">
             <button type="button" class="btn-success-modal" data-dismiss="modal">Confirm</button>
             <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
          </div>
-      </div>      
+      </div>
    </div>
 </div>
 {{-- end --}}
@@ -232,12 +232,12 @@
 
 
 @push('script')
-  
+
 
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
-      var table = $("#MobileRequestTable").DataTable({
+   var table = $("#MobileRequestTable").DataTable({
       language: {
          search: "Search: _INPUT_",
          searchPlaceholder: "Search by Member ID"
@@ -247,16 +247,17 @@
       lengthChange: true,
       searching: true,
       bStateSave: true,
-      order: [[1, 'desc']],
-      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-      pageLength: 10,
+      order: [
+         [1, 'desc']
+      ],
+      pageLength: `{{$datatable_entries}}`,
+      lengthMenu: `{{config('app.paginate_range')}}`.split(','),
 
-        columnDefs: [{
-            targets: 7,
-            orderable: false
-        }]
+      columnDefs: [{
+         targets: 7,
+         orderable: false
+      }]
    });
+</script>
 
- </script>
-  
 @endpush

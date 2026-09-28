@@ -96,7 +96,7 @@
 
         <!-- My Escort Legbox -->
         <div class="row" style="display: {{ $escortDisplayType }}">
-            <div class="col-md-12 mb-3 common-card">
+            <div class="col-md-12 mb-3 ">
                 <div class="mb-3 d-flex align-items-center justify-content-between flex-wrap gap-10">
                     <h2 class="h2">Escort Legbox</h2>
                     <div class="total_listing">
@@ -104,7 +104,7 @@
                         <div><span id="totalEscortList">{{ count($escorts) }}</span></div>
                     </div>
                 </div>
-                <div class="table-responsive">
+                <div class="table-responsive common-card">
                     <table id="escortCenterlegboxTable" class="table  display escortCenterlegboxTableClass w-100">
                         <thead class="bg-first">
                             <tr>
@@ -131,7 +131,7 @@
 
         <!-- My massage Legbox -->
         <div class="row " style="display: {{ $massageDisplayType }}">
-            <div class="col-md-12 mb-3 common-card">
+            <div class="col-md-12 mb-3">
                 <div class="mb-3 d-flex align-items-center justify-content-between flex-wrap gap-10">
                     <h2 class="h2">Massage Center Legbox</h2>
                     <div class="total_listing">
@@ -139,7 +139,8 @@
                         <div><span id="totalMassageList">1</span></div>
                     </div>
                 </div>
-                <table id="massagelistTable" class="table w-100">
+                <div class="common-card">
+                <table id="massagelistTable" class="table w-100 ">
                     <thead class="bg-first">
                         <tr>
                             <th>Member ID</th>
@@ -158,6 +159,7 @@
 
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
         {{-- end massage list --}}

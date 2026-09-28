@@ -54,21 +54,17 @@
 
 
         /*  SEARCH PANEL  */
-
         .search-panel {
             background: white;
-
             border: 1px solid #e7e9ee;
-
             border-radius: 14px;
-
             padding: 18px;
 
-            height: 100vh;
+            min-height: 150px;
+            overflow-y: auto;
+            overflow-x: hidden;
 
             box-shadow: 0 4px 20px rgba(16, 39, 70, 0.06);
-
-            overflow-y: scroll;
         }
 
 
@@ -592,9 +588,63 @@
             display: flex;
             flex-direction: column;
 
-            gap: 5px;
+            gap: 12px;
         }
 
+        .page-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .page-group-toggle {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 8px 10px;
+            border: none;
+            background: #f8f9fb;
+            color: #0c223d;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: capitalize;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .page-sub-group-toggle {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            padding: 7px 10px;
+        }
+
+        .page-group-toggle .caret {
+            transition: transform 0.2s ease;
+            font-size: 12px;
+            color: #7c8798;
+        }
+
+        .page-group-toggle.is-open .caret {
+            transform: rotate(90deg);
+        }
+
+        .page-sub-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            overflow: hidden;
+            transition: max-height 0.2s ease, opacity 0.2s ease;
+            padding-left: 20px;
+        }
+
+        .page-sub-group.is-collapsed {
+            display: none;
+        }
 
         /* Page Item */
 
@@ -627,6 +677,9 @@
             transition: all 0.2s ease;
         }
 
+        .page-sub-item {
+            padding-left: 18px;
+        }
 
         /* Icon */
 
@@ -797,14 +850,48 @@
                                 <aside class="search-panel">
                                     <!-- Page List -->
                                     <div class="page-list" id="pageList">
-                                        @if(getSeoTaggedRoutes())
-                                            @foreach (getSeoTaggedRoutes() as $item)
-                                            <button type="button" class="page-item" data-route-name="{{$item['route_name']}}" data-url-name="{{$item['uri']}}">
-                                                <span class="page-name">{{$item['seo_label']}}</span>
-                                            </button>
+                                        @php $seoGroupedRoutes = getSeoGroupedRoutes(); @endphp
+                                        @if($seoGroupedRoutes)
+                                            @foreach ($seoGroupedRoutes as $groupName => $groupRoutes)
+                                                @if (!empty($groupRoutes))
+                                                    <div class="page-group">
+                                                        <button type="button" class="page-group-toggle" data-group-name="{{ $groupName }}">
+                                                            <span>{{ $groupName }}</span>
+                                                            <span class="caret">
+                                                                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 6L15 12L9 18" stroke="#0c223d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                                                            </span>
+                                                        </button>
+                                                        <div class="page-sub-group is-collapsed">
+                                                            @if (array_values($groupRoutes) === $groupRoutes)
+                                                                @foreach ($groupRoutes as $item)
+                                                                    <button type="button" class="page-item page-sub-item" data-route-name="{{ $item['route_name'] }}" data-url-name="{{ $item['uri'] }}">
+                                                                        <span class="page-name">{{ $item['seo_label'] }}</span>
+                                                                    </button>
+                                                                @endforeach
+                                                            @else
+                                                                @foreach ($groupRoutes as $subGroupName => $subGroupRoutes)
+                                                                    <div class="page-group page-sub-group-nested">
+                                                                        <button type="button" class="page-group-toggle page-sub-group-toggle" data-group-name="{{ $groupName }}-{{ $subGroupName }}">
+                                                                            <span>{{ $subGroupName }}</span>
+                                                                            <span class="caret">
+                                                                                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 6L15 12L9 18" stroke="#0c223d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                                                                            </span>
+                                                                        </button>
+                                                                        <div class="page-sub-group is-collapsed">
+                                                                            @foreach ($subGroupRoutes as $item)
+                                                                                <button type="button" class="page-item page-sub-item" data-route-name="{{ $item['route_name'] }}" data-url-name="{{ $item['uri'] }}">
+                                                                                    <span class="page-name">{{ $item['seo_label'] }}</span>
+                                                                                </button>
+                                                                            @endforeach
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             @endforeach
                                         @endif
-                                    
                                     </div>
                                 </aside>
                                 <!--  CONTENT  -->
@@ -1169,6 +1256,50 @@
                        // saveButton.prop("disabled", false);
                     }
                 });
+            });
+
+            /*  GROUP TOGGLE  */
+            $(".page-group-toggle").on("click", function() {
+                const $toggle = $(this);
+                const $group = $toggle.closest(".page-group");
+                const $submenu = $group.children(".page-sub-group").first();
+                const isNested = $toggle.hasClass("page-sub-group-toggle");
+                const isOpen = $toggle.hasClass("is-open");
+
+                if (! $submenu.length) {
+                    return;
+                }
+
+                if (isNested) {
+                    const $siblingNestedGroups = $group.siblings(".page-sub-group-nested");
+
+                    $siblingNestedGroups.find("> .page-group-toggle.page-sub-group-toggle").not($toggle).removeClass("is-open");
+                    $siblingNestedGroups.find("> .page-sub-group").not($submenu).addClass("is-collapsed");
+
+                    if (isOpen) {
+                        $toggle.removeClass("is-open");
+                        $submenu.addClass("is-collapsed");
+                        return;
+                    }
+
+                    $toggle.addClass("is-open");
+                    $submenu.removeClass("is-collapsed");
+                    return;
+                }
+
+                const $topLevelGroups = $("#pageList > .page-group");
+
+                $topLevelGroups.not($group).find("> .page-group-toggle").removeClass("is-open");
+                $topLevelGroups.not($group).find("> .page-sub-group").addClass("is-collapsed");
+
+                if (isOpen) {
+                    $toggle.removeClass("is-open");
+                    $submenu.addClass("is-collapsed");
+                    return;
+                }
+
+                $toggle.addClass("is-open");
+                $submenu.removeClass("is-collapsed");
             });
 
             /*  PAGE SELECTION  */

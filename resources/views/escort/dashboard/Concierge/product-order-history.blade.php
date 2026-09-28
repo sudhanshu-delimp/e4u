@@ -119,8 +119,8 @@
                 var table = $("#productsHistoryTable").DataTable({
                     processing: true,
                     serverSide: true,
-                    pageLength: {{$datatable_entries }},
-                    lengthMenu: [{{ config('app.paginate_range') }}],   
+                    pageLength: `{{$datatable_entries}}`,
+            lengthMenu: `{{config('app.paginate_range')}}`.split(','), 
                     ajax: {
                         url: "{{ auth()->user()->type == 4 ? route('center.order.list') : route('escort.order.list') }}",
                         type: 'GET'

@@ -61,7 +61,7 @@
         {{-- end --}}
         <div class="row">
             <div class="col-md-12">
-                <div class="box-body table-responsive">
+                <div class="box-body table-responsive common-card">
                     <table class="table" id="supportTicketsTable">
                         <thead id="table-sec" class="table-bg">
                         <tr>

@@ -71,7 +71,7 @@ class AddNewOperator extends FormRequest
                 'numeric',
                 'min:0',
                 function ($attribute, $value, $fail) use ($request) {
-                    if ($request->commission_registration_type === 'percent' && $value > 100) {
+                    if ($request->massge_centre_commission_type === 'percent' && $value > 100) {
                         $fail('The registration commission percentage cannot be greater than 100 if the amount type is Percent.');
                     }
                 },

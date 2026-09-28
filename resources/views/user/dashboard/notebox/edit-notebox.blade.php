@@ -1553,11 +1553,11 @@
                                             <img id="previewImg"
                                                 src="{{$report->profile_pic }}"
                                                 alt="Profile Pic" class="img-fluid rounded"
-                                                style="max-height:81px; max-width:100%; width:auto; height:auto; object-fit:contain;">
+                                                style="max-height:120px; max-width:100%; width:auto; height:auto; object-fit:contain;">
                                             @else
                                             <img id="previewImg" src="" alt="Profile Pic"
                                                 class="img-fluid rounded"
-                                                style="max-height:81px; max-width:100%; width:auto; height:auto; object-fit:contain;">
+                                                style="max-height:120px; max-width:100%; width:auto; height:auto; object-fit:contain;">
                                             @endif
 
                                         </div>

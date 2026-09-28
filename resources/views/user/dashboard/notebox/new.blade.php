@@ -656,7 +656,7 @@
                                                 src="{{ !empty($exist_profile?->path) ? asset($exist_profile->path) : '' }}"
                                                 alt="Preview"
                                                 class="img-fluid rounded"
-                                                style="max-height:70px; max-width:100%; object-fit:contain;">
+                                                style="max-height:120px; max-width:100%; object-fit:contain;">
 
                                         </div>
 

@@ -50,7 +50,7 @@
                     </div>
                 @endif
 
-                <a href="{{ getEscortMassageDetailUrl($listing, 'massage') }}" class="mc_card_link"> <img
+                <a href="{{ getAdvertiserDetailUrl($listing, 'massage') }}" class="mc_card_link"> <img
                         src="{{ $massage_thumb }}" alt=""></a>
                 <span class="verify_icon">
                     @php
@@ -404,7 +404,7 @@
                                 <p class="mc_list_desc">
                                     {{ Str::limit(strip_tags($listing->about_us_box), 140) }}
 
-                                    <a href="{{ getEscortMassageDetailUrl($listing, 'massage') }}"
+                                    <a href="{{ getAdvertiserDetailUrl($listing, 'massage') }}"
                                         class="read-more-link">Read More</a>
                                 </p>
                             </div>
@@ -436,7 +436,7 @@
                                     <p class="mb-0">  {{ $listing->address }}</p>
                                 </div>
 
-                                <a href="{{ getEscortMassageDetailUrl($listing, 'massage') }}"
+                                <a href="{{ getAdvertiserDetailUrl($listing, 'massage') }}"
                                     class="btn btn_for_profile_list_view custom-view-profile"
                                     style="float: right;">View
                                     Profile</a>

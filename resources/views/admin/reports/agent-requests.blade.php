@@ -3,98 +3,103 @@
 <style>
    td,
    th {
-       vertical-align: middle !important;
+      vertical-align: middle !important;
    }
-   #agentRequestreportTable td {
-    white-space: normal !important;
-    word-break: break-word;
-}
-.avatar img {
-   width: 60px; height: 60px;
-   border-radius: 50%;
-}
-.d_request_agent_modal td{
 
-   /* padding: 0px; */
-}
-.dataTables_processing{   
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
-}
+   #agentRequestreportTable td {
+      white-space: normal !important;
+      word-break: break-word;
+   }
+
+   .avatar img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+   }
+
+   .d_request_agent_modal td {
+
+      /* padding: 0px; */
+   }
+
+   .dataTables_processing {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+   }
 </style>
 {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"> --}}
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!--middle content-->
-   <div class="row">      
-      
-      <div class="d-sm-flex align-items-center justify-content-between col-md-12">
-            <div class="custom-heading-wrapper">
-                <h1 class="h1">Agent Requests</h1>
-                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>                     </span>
-            </div>
-             @if (request('from') == 'dashboard')
-            <div class="back-to-dashboard">
-                <a href="{{ url()->previous() ?? route('dashboard.home') }}">
-                    <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
-                </a>
-            </div>
-             @endif 
-        </div>
+   <div class="row">
 
-     <div class="col-md-12 ">
-         <div class="card collapse  mb-4" id="notes">
-             <div class="card-body">
-                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                 <ol>
-                     <li>Agent Requests logged by Advertisers are summarised here.</li>
-                     <li>The Operations Team can action a Request.</li>
-                 </ol>
-             </div>
+      <div class="d-sm-flex align-items-center justify-content-between col-md-12">
+         <div class="custom-heading-wrapper">
+            <h1 class="h1">Agent Requests</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b> </span>
          </div>
-     </div>
-         <div class="col-md-12"> 
-           <div class="d-flex justify-content-end">
+         @if (request('from') == 'dashboard')
+         <div class="back-to-dashboard">
+            <a href="{{ url()->previous() ?? route('dashboard.home') }}">
+               <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+            </a>
+         </div>
+         @endif
+      </div>
+
+      <div class="col-md-12 ">
+         <div class="card collapse  mb-4" id="notes">
+            <div class="card-body">
+               <h3 class="NotesHeader"><b>Notes:</b> </h3>
+               <ol>
+                  <li>Agent Requests logged by Advertisers are summarised here.</li>
+                  <li>The Operations Team can action a Request.</li>
+               </ol>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-12">
+         <div class="d-flex justify-content-end">
             <div class="total_listing mb-3">
                <div><span>Total Appointments : </span></div>
                <div><span class="totalCompletedTask"></span></div>
             </div>
-           </div>
-        <div class="table-responsive">
+         </div>
+         <div class="table-responsive">
             <table class="table w-100" id="agentRequestreportTable">
-                 <thead class="table-bg">
-                   <tr>
-                    <th>Ref</th>
-                    <th>Request Date</th>
-                    <th>Member ID</th>
-                    <th>Mobile</th>
-                    <th>Home State</th>
-                    {{-- <th>Status</th> --}}
-                    <th>Accepted Date</th>
-                    <th>Action</th>
-                   </tr>
-                </thead>
-                  <tbody>
-                  </tbody>
-                     <tr>
-                        <th colspan="7" class="border-0"></th>
-                    </tr>
-                    <tfoot class="bg-first t-foot">
-                        <tr>
-                            <th colspan="3" class="text-left border-0">Server time: <span class="serverTime">{{date('d-m-Y h:i a')}}</span></th>
-                            <th colspan="1" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span></th>
-                            <th colspan="3" class="text-right border-0" style="text-align:right!important;">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
-                        </tr>
-                    </tfoot>
+               <thead class="table-bg">
+                  <tr>
+                     <th>Ref</th>
+                     <th>Request Date</th>
+                     <th>Member ID</th>
+                     <th>Mobile</th>
+                     <th>Home State</th>
+                     {{-- <th>Status</th> --}}
+                     <th>Accepted Date</th>
+                     <th>Action</th>
+                  </tr>
+               </thead>
+               <tbody>
+               </tbody>
+               <tr>
+                  <th colspan="7" class="border-0"></th>
+               </tr>
+               <tfoot class="bg-first t-foot">
+                  <tr>
+                     <th colspan="3" class="text-left border-0">Server time: <span class="serverTime">{{date('d-m-Y h:i a')}}</span></th>
+                     <th colspan="1" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span></th>
+                     <th colspan="3" class="text-right border-0" style="text-align:right!important;">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
+                  </tr>
+               </tfoot>
             </table>
-        </div>
-     </div>
+         </div>
+      </div>
    </div>
-   
-   
+
+
    <!--right side bar end-->
 </div>
 
@@ -103,7 +108,7 @@
 
 <div class="modal fade upload-modal" id="confirmationPopup" tabindex="-1" role="dialog" aria-labelledby="confirmationPopup" aria-hidden="true" data-backdrop="static"></div>
 
- @endsection
+@endsection
 @push('script')
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
@@ -112,71 +117,109 @@
 
 <script>
    $(document).ready(function() {
-    let countSet = false;
+      let countSet = false;
       var table = $("#agentRequestreportTable").DataTable({
-        processing: true,
-        serverSide: true,
-        lengthChange: true,
-        searching: true,
-        bStateSave: false,
+         processing: true,
+         serverSide: true,
+         lengthChange: true,
+         searching: true,
+         bStateSave: false,
 
-        ajax: {
+         ajax: {
             url: "{{ route('admin.dataTable') }}",
             type: 'GET',
-            data: function (d) {
-                d.type = 'player';
+            data: function(d) {
+               d.type = 'player';
             },
-            dataSrc: function (json) {
-            $(".serverTime").text(json.server_time);
-            $(".uptimeClass").html(json.server_up_time);
+            dataSrc: function(json) {
+               $(".serverTime").text(json.server_time);
+               $(".uptimeClass").html(json.server_up_time);
 
-            return json.data;
-         }
-        },
+               return json.data;
+            }
+         },
 
-        columns: [
-            { data: 'ref_number', name: 'ref_number', orderable: true, defaultContent: 'NA' },
-            { data: 'requested_at', name: 'requested_at', orderable: true, defaultContent: 'NA' },
-            { data: 'user_member_id', name: 'user_member_id', orderable: true, defaultContent: 'NA' },
-            { data: 'phone', name: 'phone', orderable: true, defaultContent: 'NA' },
-            { data: 'country_code', name: 'country_code', orderable: true, defaultContent: 'NA' },
+         columns: [{
+               data: 'ref_number',
+               name: 'ref_number',
+               orderable: true,
+               defaultContent: 'NA'
+            },
+            {
+               data: 'requested_at',
+               name: 'requested_at',
+               orderable: true,
+               defaultContent: 'NA'
+            },
+            {
+               data: 'user_member_id',
+               name: 'user_member_id',
+               orderable: true,
+               defaultContent: 'NA'
+            },
+            {
+               data: 'phone',
+               name: 'phone',
+               orderable: true,
+               defaultContent: 'NA'
+            },
+            {
+               data: 'country_code',
+               name: 'country_code',
+               orderable: true,
+               defaultContent: 'NA'
+            },
             // { data: 'view_status', name: 'view_status', orderable: false, defaultContent: 'NA' },
-            { data: 'accepted_date', name: 'accepted_date', orderable: false, defaultContent: 'NA' },
-            { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA', class: 'text-center' },
-        ],
+            {
+               data: 'accepted_date',
+               name: 'accepted_date',
+               orderable: false,
+               defaultContent: 'NA'
+            },
+            {
+               data: 'action',
+               name: 'action',
+               orderable: false,
+               searchable: false,
+               defaultContent: 'NA',
+               class: 'text-center'
+            },
+         ],
 
-        
-        lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-        order: [[1, 'desc']],
-        pageLength: 10,
-    });
-    
 
-    $('#agentRequestreportTable').on('init.dt', function () {
-    $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search by Member ID or Agent ID');
-    });
+         pageLength: `{{$datatable_entries}}`,
+         lengthMenu: `{{config('app.paginate_range')}}`.split(','),
+         order: [
+            [1, 'desc']
+         ],
+      });
 
-    table.on('xhr.dt', function (e, settings, json, xhr) {
-        if(!countSet){
+
+      $('#agentRequestreportTable').on('init.dt', function() {
+         $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search by Member ID or Agent ID');
+      });
+
+      table.on('xhr.dt', function(e, settings, json, xhr) {
+         if (!countSet) {
             $('.totalCompletedTask').text(json.data.length);
-            countSet = true; 
-        }
-    });
-
-    
+            countSet = true;
+         }
+      });
 
 
 
-    ///////// View Status ///////////
 
-     $(document).on('click', '.current_status', function(e) {
-     e.preventDefault();
-     var requestId = $(this).data('id');
-     var rowData = table.row($(this).parents('tr')).data();
-     let statusData = rowData.list_arr;
-     let statusRows = [];
-      for (let i = 0; i < statusData.agent_id.length; i++) {
-              statusRows +=  `<tr>
+
+      ///////// View Status ///////////
+
+      $(document).on('click', '.current_status', function(e) {
+         e.preventDefault();
+         var requestId = $(this).data('id');
+         var rowData = table.row($(this).parents('tr')).data();
+         let statusData = rowData.list_arr;
+         let statusRows = [];
+         for (let i = 0; i < statusData.agent_id.length; i++) {
+            statusRows += `<tr>
                   <td>${statusData.agent_id[i]}</td>
                   <td>${statusData.agent_mobile[i]}</td>
                   <td>${statusData.agent_status[i]}</td>
@@ -184,8 +227,8 @@
             `;
          }
 
-     console.log(statusRows);
-     var modal_html =`<div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+         console.log(statusRows);
+         var modal_html = `<div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
                            <div class="modal-content">
                               <div class="modal-header">
                                  <h5 class="modal-title" id="confirmationPopup"> <img src="{{asset('assets/dashboard/img/status.png')}}" style="width:40px; margin-right:10px;" alt="Current Status">  Current Status : Ref - ${rowData.ref_number}</h5>
@@ -219,29 +262,29 @@
 
          $('#confirmationPopup').html(modal_html);
          $('#confirmationPopup').modal('show');
-       });
-
-   
-
-    var requestId = $(this).data('id');
-    var rowData = table.row($(this).parents('tr')).data();
+      });
 
 
-    ///////////////  View Agent Detail /////////////////////////
+
+      var requestId = $(this).data('id');
+      var rowData = table.row($(this).parents('tr')).data();
 
 
-    $(document).on('click', '.notiification-confirmation', function(e) {
+      ///////////////  View Agent Detail /////////////////////////
 
-       e.preventDefault();
-       var requestId = $(this).data('id');
-       var rowData = table.row($(this).parents('tr')).data();
-       let statusData = rowData.list_arr;
-       let agent_user_id = [];
-       for (let i = 0; i < statusData.agent_user_id.length; i++) {
-              agent_user_id.push(statusData.agent_user_id[i]);
-        }
 
-        var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
+      $(document).on('click', '.notiification-confirmation', function(e) {
+
+         e.preventDefault();
+         var requestId = $(this).data('id');
+         var rowData = table.row($(this).parents('tr')).data();
+         let statusData = rowData.list_arr;
+         let agent_user_id = [];
+         for (let i = 0; i < statusData.agent_user_id.length; i++) {
+            agent_user_id.push(statusData.agent_user_id[i]);
+         }
+
+         var modal_html = `<div class="modal-dialog modal-dialog-centered" role="document">
                            <div class="modal-content">
                               <div class="modal-header">
                                  <h5 class="modal-title" id="confirmationPopup"> <img src="{{asset('assets/dashboard/img/create-notification.png')}}" class="custompopicon" alt="Request Accepted"> Follow-up Notification</h5>
@@ -263,77 +306,72 @@
                         </div>`;
 
 
-        ////////// Send Notification ////////////////////////
-       
-     let title = `A request to appoint an Agent in your Territory remains outstanding.
+         ////////// Send Notification ////////////////////////
+
+         let title = `A request to appoint an Agent in your Territory remains outstanding.
              Please visit <a href="{{ env('APP_URL') . '/agent-dashboard/Advertisers/new-requests' }}">New Requests</a> to acknowledge.`;
-      
-       ajaxRequest({
-               url: "{{ route('admin.send-notiification') }}",
-               method : 'POST',
-               data: {
-                  to_user: agent_user_id,
-                  title:title,
-                  message: (typeof message !== 'undefined' && message) ? message : '',
-                  notification_listing_type: 2,
-                  notification_type: 'agent_follow_up',
-               },
-               
-               success: function(response) {
-                  console.log(response);
-                  if (response.success) {
-                      $('#confirmationPopup').html(modal_html);
-                      $('#confirmationPopup').modal('show');
-                  }
-                  else
-                  {
-                   Swal.fire('Error', response.message , 'error');
-                  }
-               },
-               error: function(xhr) {
-                 const response = xhr.responseJSON;
-                  if (response && response.errors) {
-                     const firstError = Object.values(response.errors)[0][0]; 
-                     Swal.fire('Validation Error', firstError, 'error');
-                  } else {
-                     Swal.fire('Error', 'Something went wrong', 'error');
-                  }
+
+         ajaxRequest({
+            url: "{{ route('admin.send-notiification') }}",
+            method: 'POST',
+            data: {
+               to_user: agent_user_id,
+               title: title,
+               message: (typeof message !== 'undefined' && message) ? message : '',
+               notification_listing_type: 2,
+               notification_type: 'agent_follow_up',
+            },
+
+            success: function(response) {
+               console.log(response);
+               if (response.success) {
+                  $('#confirmationPopup').html(modal_html);
+                  $('#confirmationPopup').modal('show');
+               } else {
+                  Swal.fire('Error', response.message, 'error');
                }
-            });
+            },
+            error: function(xhr) {
+               const response = xhr.responseJSON;
+               if (response && response.errors) {
+                  const firstError = Object.values(response.errors)[0][0];
+                  Swal.fire('Validation Error', firstError, 'error');
+               } else {
+                  Swal.fire('Error', 'Something went wrong', 'error');
+               }
+            }
+         });
 
 
-       ///////// End End Notification /////////////////////                
-    });
+         ///////// End End Notification /////////////////////                
+      });
 
-    $(document).on('click', '.view-agent-details', function(e) {
-    e.preventDefault();
+      $(document).on('click', '.view-agent-details', function(e) {
+         e.preventDefault();
 
-    var requestId = $(this).data('id');
-    var rowData = table.row($(this).parents('tr')).data();
+         var requestId = $(this).data('id');
+         var rowData = table.row($(this).parents('tr')).data();
 
-    
-    
-     let user_img = "{{ asset('assets/img/default_user.png') }}";
-     let avatar_base = "{{ asset('avatars') }}/";
 
-    if (rowData.user.avatar_img !== "" && rowData.user.avatar_img !== null) 
-    {
-      user_img = avatar_base + rowData.user.avatar_img;
-    }
-      
 
-    let contact_data = "";
-   if (rowData.contact_by_mobile && !rowData.contact_by_email) {
-   contact_data = "By Mobile";
-   } 
-   else if (rowData.contact_by_email && !rowData.contact_by_mobile) {
-   contact_data = "By Email";
-   } 
-   else if (rowData.contact_by_email && rowData.contact_by_mobile) {
-   contact_data = "By Mobile or By Email";
-   }
+         let user_img = "{{ asset('assets/img/default_user.png') }}";
+         let avatar_base = "{{ asset('avatars') }}/";
 
-    var modal_html = `<div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+         if (rowData.user.avatar_img !== "" && rowData.user.avatar_img !== null) {
+            user_img = avatar_base + rowData.user.avatar_img;
+         }
+
+
+         let contact_data = "";
+         if (rowData.contact_by_mobile && !rowData.contact_by_email) {
+            contact_data = "By Mobile";
+         } else if (rowData.contact_by_email && !rowData.contact_by_mobile) {
+            contact_data = "By Email";
+         } else if (rowData.contact_by_email && rowData.contact_by_mobile) {
+            contact_data = "By Mobile or By Email";
+         }
+
+         var modal_html = `<div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
        <div class="modal-content basic-modal">
           <div class="modal-header">
            
@@ -389,32 +427,32 @@
           </div>
        </div>
     </div>`;
-    $('#viewAgentdetails').html(modal_html);
-    $('#viewAgentdetails').modal('show');
-   });
+         $('#viewAgentdetails').html(modal_html);
+         $('#viewAgentdetails').modal('show');
+      });
 
    });
- </script>
+</script>
 
-<script>   					
+<script>
    $(document).ready(function(e) {
       let countdown = 15;
       setInterval(() => {
-            countdown--;
-            $(".refreshSeconds").text(' '+countdown);
+         countdown--;
+         $(".refreshSeconds").text(' ' + countdown);
 
-            if (countdown <= 0) {
-               $('#agentRequestreportTable').DataTable().ajax.reload(null, false);
-               countdown = 15;
-               
-            }
+         if (countdown <= 0) {
+            $('#agentRequestreportTable').DataTable().ajax.reload(null, false);
+            countdown = 15;
+
+         }
 
       }, 1000);
 
       $('#customSearch').on('keyup', function() {
-            $('#agentRequestreportTable').DataTable().search(this.value).draw();
+         $('#agentRequestreportTable').DataTable().search(this.value).draw();
       });
    })
-</script> 
+</script>
 
 @endpush

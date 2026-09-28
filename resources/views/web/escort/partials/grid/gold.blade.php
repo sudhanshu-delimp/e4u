@@ -46,7 +46,7 @@
         @endif
     </div>
 
-    <a class="ec_card_link" href="{{ getEscortMassageDetailUrl($escort) }}">
+    <a class="ec_card_link" href="{{ getAdvertiserDetailUrl($escort) }}">
 
         @if ($escort->latestActiveBrb)
             <div class="brb--content">

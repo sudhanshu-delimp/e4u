@@ -37,44 +37,46 @@
 
             <!-- Logs & Status -->
             @if ($logAndStatus)
-                <div class="col-md-6 mb-4 common-card">
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead style="background-color: #0C223D; color: #ffffff;">
-                                <tr>
-                                    <th colspan="4" class="text-center">Logs & Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="icon-col"><i class="fas fa-sign-in-alt"></i></td>
-                                    <td>Login count</td>
-                                    <td class="text-center" colspan="2">{{ $logAndStatus->login_count ?? '' }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="icon-col"><i class="fas fa-clock"></i></td>
-                                    <td>Last login</td>
-                                    <td class="text-center" colspan="2">
-                                        {{ $getLastLoginTime ?? '' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="icon-col"><i class="fas fa-map"></i></td>
-                                    <td> Home State</td>
-                                    <td class="text-center" colspan="2">{{ $state ?? '' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="icon-col"><i class="fas fa-key"></i></td>
-                                    <td>Password expiry</td>
-                                    <td class="text-center" id="passwordExpiryText">{{ $passwordExpiryText ?? '' }}</td>
-                                    <td class="text-center">
-                                        <button type="submit" class="save_profile_btn" data-target="#resetPasswordDate"
-                                            data-toggle="modal">Change</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <div class="row">
+                    <div class="col-md-6 mb-4 ">
+                        <div class="table-responsive common-card">
+                            <table class="table table-bordered">
+                                <thead style="background-color: #0C223D; color: #ffffff;">
+                                    <tr>
+                                        <th colspan="4" class="text-center">Logs & Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="icon-col"><i class="fas fa-sign-in-alt"></i></td>
+                                        <td>Login count</td>
+                                        <td class="text-center" colspan="2">{{ $logAndStatus->login_count ?? '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="icon-col"><i class="fas fa-clock"></i></td>
+                                        <td>Last login</td>
+                                        <td class="text-center" colspan="2">
+                                            {{ $getLastLoginTime ?? '' }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="icon-col"><i class="fas fa-map"></i></td>
+                                        <td> Home State</td>
+                                        <td class="text-center" colspan="2">{{ $state ?? '' }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="icon-col"><i class="fas fa-key"></i></td>
+                                        <td>Password expiry</td>
+                                        <td class="text-center" id="passwordExpiryText">{{ $passwordExpiryText ?? '' }}</td>
+                                        <td class="text-center">
+                                            <button type="submit" class="save_profile_btn" data-target="#resetPasswordDate"
+                                                data-toggle="modal">Change</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             @endif
