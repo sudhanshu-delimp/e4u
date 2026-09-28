@@ -344,7 +344,7 @@
                             <span style="{{ request()->segment(2) == 'view-reviews' ? 'color: #e5365a;' : '' }}">My
                                 Reviews</span>
                         </a>
-                        <a class="collapse-item disabled-link @if (isset(auth()->user()->viewer_settings) &&
+                        <a class="collapse-item @if (isset(auth()->user()->viewer_settings) &&
                                 auth()->user()->viewer_settings->features_direct_chatting_with_escorts != '1') inactive_li @endif"
                             href="{{ route('user.viewer-messages') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">

@@ -1187,6 +1187,22 @@ label.cabinet input.file {
     text-decoration: none;
 }
 
+.messages_btn a span {
+    background: var(--peach);
+    padding: 6px 10px;
+    color: #fff;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.messages_btn a span:hover {
+    background-color: var(--blue--text);
+}
+
 .current-avatar-card .delete_avatar {
     border: 0;
 }
@@ -1795,6 +1811,9 @@ label.cabinet input.file {
 @media (max-width: 480px) {
     .notification-page {
         padding: 16px;
+    }
+    .messages_btn {
+        display: none;
     }
     .notification-header {
         flex-direction: column;
