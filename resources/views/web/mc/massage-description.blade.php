@@ -3394,12 +3394,17 @@ function map_loader(results, address, capital_city)
     const marker = new google.maps.Marker({
         position: location,
         map: map,
-        label: {
-        text: "E4U",          
-        color: "#FFFFFF",  
-        fontSize: "10px",   
-        fontWeight: "bold"  
-    }
+        icon: {
+            url: "{{ asset('assets/app/img/google_pin_white.png') }}",
+            scaledSize: new google.maps.Size(70, 70),
+            anchor: new google.maps.Point(24, 64)
+        },
+        // label: {
+        // text: "E4U",          
+        // color: "#FFFFFF",  
+        // fontSize: "10px",   
+        // fontWeight: "bold"  
+        // }
     });
 
     const service = new google.maps.places.PlacesService(map);
