@@ -58,7 +58,6 @@
 
     @endphp
     <div class="col-lg-4">
-        
         <div class="card mb-4 shadow-sm border-0" > 
             <div class="card-body p-4" style="background:<?php echo $listBG;?>"> 
                 <div class="d-flex align-items-end justify-content-between">
@@ -183,9 +182,7 @@
          </div>
       </div>
     </div>
-
-    
-<!-- ================ Modal Popup ================================ -->
+   <!-- ================ Modal Popup ================================ -->
     @endforeach
 </div>
 

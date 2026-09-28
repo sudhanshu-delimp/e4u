@@ -50,7 +50,7 @@ class GenerateConciergePaymentReconciliation extends Command
         */
 
     $reportMonth = Carbon::now()
-      // ->subMonth()
+      ->subMonth()
       ->startOfMonth();
 
     $billStartDate = $reportMonth->copy()->startOfMonth();
@@ -119,16 +119,14 @@ class GenerateConciergePaymentReconciliation extends Command
       return $order->orderItems->sum(function ($item) {
         Log::info(' Price: ' . $item->price);
 
-        return (float) $item->price;
+        return (float) $item->total;
       });
     });
 
     $supplierAmount = $orders->sum(function ($order) {
       return $order->orderItems->sum(function ($item) {
-        Log::info('Retail Price: ' . $item->retail_price);
-
-        return (float) $item->retail_price;
-      });      // return (float) $order->orderItems->retail_price;
+        return (float) $item->retail_price*$item->quantity;
+      });     
     });
 
     /*
@@ -151,7 +149,7 @@ class GenerateConciergePaymentReconciliation extends Command
 
       'bill_end_date' => $billEndDate->format('d-m-Y'),
 
-      'service' => 'Concierge',
+      'service' => 'product',
 
       'gross_sale_amount' => $grossSaleAmount,
 

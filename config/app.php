@@ -256,4 +256,9 @@ return [
   'paginate_length' =>  env('PAGINATE_LENGTH', 25),
   'peams_mail' =>  env('PEAMS_EMAIL'),
 
+  'product_supplier_email' => env('ORDER_CONDOM_MAIL'),
+  'sim_supplier_email'     => env('SIM_SUPPLIER_EMAIL'),
+  'email_supplier_email'   => env('EMAIL_SUPPLIER_EMAIL'),
+  'visa_supplier_email'    => env('PEAMS_EMAIL'),
+
 ];
