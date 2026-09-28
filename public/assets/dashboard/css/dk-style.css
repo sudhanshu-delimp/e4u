@@ -3774,8 +3774,8 @@ button.btn:focus {
 
 .lg_icon_wrapper .lg_verify_icon {
     position: absolute;
-    bottom: 0px;
-    right: 0px;
+    bottom: 10px;
+    right: 10px;
     background: var(--light-pink);
     width: 100px;
     height: 35px;
@@ -3783,6 +3783,7 @@ button.btn:focus {
     align-items: center;
     justify-content: center;
     padding: 5px;
+    border-radius: var(--radius-sm);
 }
 
 .lg_icon_wrapper .lg_verify_icon img {
@@ -11730,9 +11731,10 @@ border-top: 5px solid var(--peach);
     border-radius: 20px !important;
 }
 
-.d_custom_home_img .lg_verify_icon {
+
+/* .d_custom_home_img .lg_verify_icon {
     border-radius: 0px 0px 20px 0px;
-}
+} */
 
 .pinup-summary-img {
     aspect-ratio: 191 / 140;
