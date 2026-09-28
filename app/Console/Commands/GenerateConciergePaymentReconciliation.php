@@ -149,7 +149,7 @@ class GenerateConciergePaymentReconciliation extends Command
 
       'bill_end_date' => $billEndDate->format('d-m-Y'),
 
-      'service' => 'Concierge',
+      'service' => 'product',
 
       'gross_sale_amount' => $grossSaleAmount,
 
