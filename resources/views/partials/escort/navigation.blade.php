@@ -17,8 +17,7 @@
                         class="user-values">{{ \Illuminate\Support\Str::limit(auth()->user()->name, 12, '..') }}</span>
                 </span>
                 <span>
-                    <span class="separator">|</span> <b>Membership ID : </b><span
-                        class="user-values">
+                    <span class="separator">|</span> <b>Membership ID : </b><span class="user-values">
                         {{ auth()->user()->member_id }}
                     </span>
                 </span>
@@ -54,7 +53,7 @@
                     <span class="separator">|</span> <b>Location time : </b><span
                         class="user-values live_current_time">00:00 AM</span>
                 </span>
-               
+
 
             </div>
         </div>
@@ -77,13 +76,13 @@
 
             </div>
         </form>
-        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">                               
-            @if(session()->has('parent_user_id') && session('switch_for') == 'admin_to_any' && session('is_impersonated') === true)
-                <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>   
+        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
+            @if (session()->has('parent_user_id') && session('switch_for') == 'admin_to_any' && session('is_impersonated') === true)
+                <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>
                 <a class="nav-link" href="{{ route('admin.back-to-parent') }}" title="">
-            <span class="switch-profile">
-                <img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="Switch back to your account"/>
-            </span>
+                    <span class="switch-profile">
+                        <img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="Switch back to your account" />
+                    </span>
                 </a>
             @endif
         </li>
@@ -110,34 +109,75 @@
             </div>
         </li>
 
+        <!-- Messages btn -->
+        <li class="nav-item messages_btn">
+            <a class="nav-link" href="{{ route('escort.dashboard.agent-messages') }}" role="button">
+                <span>
+                    <svg width="22px" height="22px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1"
+                        xmlns="http://www.w3.org/2000/svg" fill="#fff" stroke="#fff">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <defs>
+                                <style>
+                                    .cls-1 {
+                                        fill: none;
+                                        stroke: #fff;
+                                        stroke-miterlimit: 10;
+                                        stroke-width: 1.91px;
+                                    }
+                                </style>
+                            </defs>
+                            <path class="cls-1"
+                                d="M18.68,8.16V15.8a2.86,2.86,0,0,1-2.86,2.86H13.91v2.86L8.18,18.66H4.36A2.86,2.86,0,0,1,1.5,15.8V8.16A2.86,2.86,0,0,1,4.36,5.3H15.82A2.86,2.86,0,0,1,18.68,8.16Z">
+                            </path>
+                            <path class="cls-1"
+                                d="M18.68,14.84h1A2.86,2.86,0,0,0,22.5,12V4.34a2.86,2.86,0,0,0-2.86-2.86H8.18A2.86,2.86,0,0,0,5.32,4.34v1">
+                            </path>
+                            <line class="cls-1" x1="5.32" y1="11.98" x2="7.23" y2="11.98"></line>
+                            <line class="cls-1" x1="9.14" y1="11.98" x2="11.05" y2="11.98"></line>
+                            <line class="cls-1" x1="12.95" y1="11.98" x2="14.86" y2="11.98"></line>
+                        </g>
+                    </svg> Messages
+                </span>
+            </a>
+        </li>
+        <!--- End --->
+
 
 
         <!-- //////// Notification ///////////// -->
-         <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">     
-                                 
-                               @if(session()->has('parent_massage_id') && session('switch_for') == 'massage_to_massage' && session('is_impersonated') === true)  
-                                <span class="esc-tooltip esc-tooltip-support">Switch to Parent Account</span> 
-                            <a class="nav-link" href="{{ route('center.back-to-parent') }}">
-                                <span class="switch-profile"><img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="switch-profile"/></span>
-                            </a>
-                            @endif
+        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
 
-                             @if(session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true)
-                             <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>   
-                             <a class="nav-link" href="{{ route('agent.back-to-parent') }}" title="">
-                            <span class="switch-profile">
-                               <img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="Switch back to your account"/>
+            @if (session()->has('parent_massage_id') &&
+                    session('switch_for') == 'massage_to_massage' &&
+                    session('is_impersonated') === true)
+                <span class="esc-tooltip esc-tooltip-support">Switch to Parent Account</span>
+                <a class="nav-link" href="{{ route('center.back-to-parent') }}">
+                    <span class="switch-profile"><img src="{{ asset('assets/dashboard/img/switch.png') }}"
+                            alt="switch-profile" /></span>
+                </a>
+            @endif
 
-                            </span>
-                             </a>
-                            @endif
-                        </li>
+            @if (session()->has('parent_agent_id') &&
+                    session('switch_for') == 'agent_to_massage' &&
+                    session('is_impersonated') === true)
+                <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>
+                <a class="nav-link" href="{{ route('agent.back-to-parent') }}" title="">
+                    <span class="switch-profile">
+                        <img src="{{ asset('assets/dashboard/img/switch.png') }}"
+                            alt="Switch back to your account" />
+
+                    </span>
+                </a>
+            @endif
+        </li>
 
         <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
             <span class="esc-tooltip esc-tooltip-support">Support Tickets</span>
             <a class="nav-link dropdown-toggle support_notify_bell" href="#" id="ticketNotificationDropdown"
-                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip"
-                title="">
+                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                data-toggle="tooltip" title="">
                 <i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>
             </a>
 
@@ -191,14 +231,16 @@
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in custom-nav-dropdown"
                 aria-labelledby="userDropdown">
                 <div class="highlight-menu">
-                    <a class="dropdown-item menu-profile" href="javascript:void(0)"><span>{{ auth()->user()->name }}</span> <br> Member ID : {{ auth()->user()->member_id }}</a>
+                    <a class="dropdown-item menu-profile"
+                        href="javascript:void(0)"><span>{{ auth()->user()->name }}</span> <br> Member ID :
+                        {{ auth()->user()->member_id }}</a>
 
-                     @if (!auth()->user()->my_agent)
+                    @if (!auth()->user()->my_agent)
                         <a class="dropdown-item" href="{{ url('/escort-dashboard/escort-agency-request') }}">
                         @else
                             <a class="dropdown-item" href="#">
                     @endif
-                   
+
 
                     @if (auth()->user()->my_agent)
                         <span class="user-values"
@@ -207,7 +249,7 @@
                     @else
                         My Agent : <span class="request-active req"> Request one</span>
                     @endif
-                    
+
                     </a>
                 </div>
                 <div class="dropdown-item account-toggle d-flex justify-content-between align-items-center">
@@ -227,7 +269,8 @@
                         Change password
                     </a>
                     <a class="dropdown-item" href="{{ route('escort.profile') }}">
-                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
+                        <img class="profile_icons"
+                            src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
                         New Profile
                     </a>
                     <a class="dropdown-item" href="{{ url('escort-dashboard/create-tour') }}">
@@ -241,12 +284,12 @@
                         Support Ticket
                     </a>
                 </div>
-                
+
                 {{-- <div class="dropdown-divider"></div> --}}
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
                     Logout
-                </a> 
+                </a>
             </div>
         </li>
 

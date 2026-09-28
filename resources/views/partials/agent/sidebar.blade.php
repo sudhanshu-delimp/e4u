@@ -269,14 +269,14 @@
             data-parent="#accordionSidebar">
             <div class="collapse-inner">
 
-                {{-- Analytics --}}
-                <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#Analytics"
+                {{-- Statistics --}}
+                <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#Statistics"
                     aria-expanded="false" aria-controls="collapseTwo">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
 
-                    <span>Analytics</span>
+                    <span>Statistics</span>
                 </a>
-                  <div id="Analytics" class="collapse @if (request()->segment(2) == 'advertiser-profiles' ||
+                  <div id="Statistics" class="collapse @if (request()->segment(2) == 'advertiser-profiles' ||
                         request()->segment(2) == 'advertiser-social-media' ||
                         request()->segment(2) == 'toursummary' ||
                         request()->segment(2) == 'advertiser-statistics' ||
@@ -292,7 +292,7 @@
                         </a> -->
                           <a class="collapse-item" href="{{ route('agent.my-statistics') }}">
                             <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-statistics-light.png') }}">
-                            <span style="{{ request()->segment(2) == 'advertiser-statistics' ? 'color: #e5365a;' : '' }}">Advertiser Statistics</span>
+                            <span style="{{ request()->segment(2) == 'advertiser-statistics' ? 'color: #e5365a;' : '' }}">Advertiser</span>
                         </a>
 
                         <!-- <a class="collapse-item" href="{{ route('agent.toursummary') }}">
@@ -331,7 +331,7 @@
                                 style="{{ request()->segment(2) == 'guidelines' ? 'color: #e5365a;' : '' }}">Guidelines</span>
                         </a>
                         <!-- Messages -->
-                        <a class="collapse-item disabled-link" href="{{ route('agent.agent-messages') }}">
+                        <a class="collapse-item" href="{{ route('agent.agent-messages') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
                             <span
                                 style="{{ request()->segment(2) == 'agent-messages' ? 'color: #e5365a;' : '' }}">Messages</span>

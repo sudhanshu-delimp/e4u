@@ -27,7 +27,7 @@
     </div>
     <div class="row">
         {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        <div class="col-lg-3 box-wrapper">
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('admin.escort-listings') }}?from=dashboard">
                     <div class="box-icon">
@@ -42,7 +42,7 @@
         </div>
         {{-- end --}}
         {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        <div class="col-lg-3 box-wrapper">
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('admin.massage-centre-listings') }}?from=dashboard">
                     <div class="box-icon">
@@ -58,7 +58,7 @@
         {{-- end --}}
         
         {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        <div class="col-lg-3 box-wrapper">
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('admin.pin-up-listings') }}?from=dashboard">
                     <div class="box-icon">
@@ -74,7 +74,7 @@
         {{-- end --}}
         
         {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        <div class="col-lg-3 box-wrapper">
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('admin.agent-requests') }}?from=dashboard">
                     <div class="box-icon">
@@ -89,7 +89,7 @@
         </div>
         {{-- end --}}
         {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        <div class="col-lg-3 box-wrapper">
             <div class="my-custom-box shadow-sm">
                 <a  href="{{ route('admin.registrations-reports') }}?from=dashboard">
                     <div class="box-icon">
@@ -104,7 +104,7 @@
         </div>
         {{-- end --}}
         {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        <div class="col-lg-3 box-wrapper">
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('admin.logged-in-users') }}?from=dashboard">
                     <div class="box-icon">
@@ -119,7 +119,7 @@
         </div>
         {{-- end --}}
         {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        <div class="col-lg-3 box-wrapper">
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('admin.support-ticket.list') }}?from=dashboard">
                     <div class="box-icon">
@@ -134,7 +134,7 @@
         </div>
         {{-- end --}}
         {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        <div class="col-lg-3 box-wrapper">
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('admin.global.notification.index') }}?from=dashboard">
                     <div class="box-icon">
@@ -149,7 +149,7 @@
         </div>
         {{-- end --}}
         {{-- box start --}}
-        <div class="col-lg-4 box-wrapper">
+        <div class="col-lg-3 box-wrapper">
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('admin.payment.transaction_summary') }}?from=dashboard">
                     <div class="box-icon">
