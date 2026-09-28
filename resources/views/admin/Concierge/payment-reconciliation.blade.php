@@ -384,6 +384,7 @@
                         });
                     }, 300);
 
+table.ajax.reload(null, false);
                 }
             });
         });
