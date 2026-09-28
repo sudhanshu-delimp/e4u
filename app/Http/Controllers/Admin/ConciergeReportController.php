@@ -380,7 +380,7 @@ class ConciergeReportController extends Controller
         $pdf = Pdf::loadView('admin.Concierge.conserge_report', compact('items', 'report_id', 'supplier', 'type', 'periodTitle'));
         // 2. Send email with attached PDF
         Mail::send('emails.supplier.supplier-report', ['supplier' => $supplier], function ($message) use ($supplier, $pdf) {
-          $message->to("ashish.kumar+34@delimp.com")
+          $message->to($supplier->email)
             ->subject('Supplier Report Summary')
             ->attachData($pdf->output(), "supplier_report_{$supplier->id}.pdf", [
               'mime' => 'application/pdf',
