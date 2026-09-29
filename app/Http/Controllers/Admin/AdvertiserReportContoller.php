@@ -199,11 +199,13 @@ class AdvertiserReportContoller extends Controller
                             ->orWhere('report_status', 'like', "%{$search}%")
 
                             ->orWhereHas('escort', function ($escort) use ($search) {
-                                $escort->where('name', 'like', "%{$search}%");
+                                $escort->where('name', 'like', "%{$search}%")
+                                ->orWhere('slug', 'like', "%{$search}%");
                             })
 
                             ->orWhereHas('massage', function ($massage) use ($search) {
-                                $massage->where('profile_name', 'like', "%{$search}%");
+                                $massage->where('profile_name', 'like', "%{$search}%")
+                                ->orWhere('slug', 'like', "%{$search}%");
                             })
 
                             ->orWhereHas('escort.user', function ($user) use ($search) {
@@ -226,11 +228,13 @@ class AdvertiserReportContoller extends Controller
             ->addColumn('ref', function ($row) {
 
                 if ($row->advertiser_type == 'escort') {
-                    return $row->id . (optional($row->escort)->id ?? '');
+                   // return $row->id . (optional($row->escort)->id ?? '');
+                    return (optional($row->escort)->slug ?? '');
                 }
 
                 if ($row->advertiser_type == 'massage') {
-                    return $row->id . (optional($row->massage)->id ?? '');
+                    //return $row->id . (optional($row->massage)->id ?? '');
+                     return (optional($row->massage)->slug ?? '');
                 }
 
                 return $row->id;
@@ -251,7 +255,7 @@ class AdvertiserReportContoller extends Controller
 
             ->addColumn('report_type', fn($row) => formatStringTitleCase($row->report_tag) ?? '-')
 
-            ->addColumn('advertiser_id', function ($row) {
+            ->addColumn('viewer_id', function ($row) {
                 return optional($row->viewer)->member_id ?? '-';
             })
 
@@ -434,14 +438,14 @@ class AdvertiserReportContoller extends Controller
 
                 $query->when($advertiserType === 'escort', function ($q) {
                     $q->with([
-                        'escort:id,user_id,city_id,state_id,name',
+                        'escort:id,user_id,city_id,state_id,name,slug',
                         'escort.user:id,member_id,phone,state_id,city_id',
                     ]);
                 });
 
                 $query->when($advertiserType === 'massage', function ($q) {
                     $q->with([
-                        'massage:id,user_id,city_id,state_id,name',
+                        'massage:id,user_id,city_id,state_id,name,slug',
                         'massage.user:id,member_id,phone,state_id,city_id',
                     ]);
                 });
@@ -511,14 +515,14 @@ class AdvertiserReportContoller extends Controller
 
                 $query->when($advertiserType === 'escort', function ($q) {
                     $q->with([
-                        'escort:id,user_id,city_id,state_id,name',
+                        'escort:id,user_id,city_id,state_id,name,slug',
                         'escort.user:id,member_id,phone,state_id,city_id',
                     ]);
                 });
 
                 $query->when($advertiserType === 'massage', function ($q) {
                     $q->with([
-                        'massage:id,user_id,city_id,state_id,name',
+                        'massage:id,user_id,city_id,state_id,name,slug',
                         'massage.user:id,member_id,phone,state_id,city_id',
                     ]);
                 });

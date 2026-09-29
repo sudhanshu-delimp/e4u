@@ -27,11 +27,11 @@ class UpdateMassageRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => [
-                'required',
-                'email',
-                Rule::unique('users', 'email')->ignore(auth()->id())
-            ],
+            // 'email' => [
+            //     'required',
+            //     'email',
+            //     Rule::unique('users', 'email')->ignore(auth()->id())
+            // ],
 
             'phone' => [
                 'required',

@@ -14,10 +14,12 @@ use App\Mail\Supplier\SendProductOrderShippedMailToSupplier;
 use App\Models\EmailLog;
 use App\Models\ProductOrder;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -26,6 +28,29 @@ use Yajra\DataTables\DataTables;
 class ProductOrderController extends Controller
 {
 
+ protected $viewAccessEnabled;
+    protected $editAccessEnabled;
+    protected $addAccessEnabled;
+    protected $sidebar;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $user = auth()->user();   // works here
+            // Now do everything that needs user data
+            $securityLevel = isset($user->staff_detail->security_level) ? $user->staff_detail->security_level : 0;
+
+            $viewAccess = staffPageAccessPermission($securityLevel, 'view');
+            $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+            $addAccess = staffPageAccessPermission($securityLevel, 'add');
+            $this->sidebar = staffPageAccessPermission($securityLevel, 'sidebar');
+
+            $this->viewAccessEnabled  = isset($viewAccess['yesNo']) && $viewAccess['yesNo'] == 'yes';
+            $this->editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+            $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+            return $next($request);
+        });
+    }
 
   public function orders(Request $request)
   {
@@ -48,7 +73,7 @@ class ProductOrderController extends Controller
         return  date('d-m-y, h:i A', strtotime($row->order_date));
       })
       ->addColumn('total_amount', function ($row) {
-        return   $row->paymentDetails ? $row->paymentDetails->paid_amount : '0.00';
+        return   $row->paymentDetails ?  '<div class="num_value">$<span>'.$row->paymentDetails->paid_amount.'</span></div>'  : '<div class="num_value">$<span>0.00</span></div>';
       })
       ->addColumn('agent', function ($row) {
         return  $row->createdBy ? $row->createdBy->member_id : '--';
@@ -84,14 +109,15 @@ class ProductOrderController extends Controller
         if (strtolower($row->delivery_type) === 'post') {
           $html = 'data-toggle="modal" data-target="#active_req"';
         }
-        // dd($html);
-        return '<div class="dropdown no-arrow">
+      
+        $htmlAction= '<div class="dropdown no-arrow">
     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-    </a>
+    </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">';
+      if($this->editAccessEnabled){ 
 
-    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">
+   $htmlAction .= '
 
         <a class="dropdown-item open-status-modal"
            href="#"
@@ -144,9 +170,10 @@ class ProductOrderController extends Controller
            data-toggle="modal"
            data-target="#active_req">
             <i class="fa fa-times-circle"></i> Reject Order
-        </a>
+        </a><div class="dropdown-divider"></div>';
+        }
 
-        <div class="dropdown-divider"></div>
+        $htmlAction .= '
 
         <a class="dropdown-item view-order-details"
            href="#"
@@ -160,6 +187,7 @@ class ProductOrderController extends Controller
 
     </div>
 </div>';
+return $htmlAction;
       })
       ->addColumn('payment_method', function ($row) {
         return $row->payment_method ?? 'Card';
@@ -168,7 +196,7 @@ class ProductOrderController extends Controller
         'server_up_time' => $this->getAppUptime(),
         'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
       ])
-      ->rawColumns(['order_status', 'action', 'payment_status'])
+      ->rawColumns(['order_status', 'action', 'payment_status','total_amount'])
       ->make(true);
   }
 
@@ -395,5 +423,14 @@ class ProductOrderController extends Controller
     } catch (Exception $e) {
       Log::error($e->getMessage());
     }
+  }
+
+  public function printOrderDetail(Request $request)
+  {
+
+    $order = ProductOrder::with(['orderAddress', 'paymentDetails', 'orderItems', 'orderItems.product'])->where('id', Crypt::decrypt($request->id))->first();
+    $print = true;
+    $pdf = FacadePdf::loadView('escort.dashboard.Concierge.product-order-details', compact('order', 'print'));
+    return $pdf->stream($order->user->member_id . '_Order_Summary_' . $order->id . '.pdf');
   }
 }

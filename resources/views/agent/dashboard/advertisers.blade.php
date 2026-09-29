@@ -6,7 +6,7 @@
             <!-- Page Heading -->
             <div class="d-flex align-items-center justify-content-between col-md-12">
                 <div class="custom-heading-wrapper">
-                    <h1 class="h1">Advertisers (summary)</h1>
+                    <h1 class="h1">Top Advertisers</h1>
                     <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
                         aria-expanded="true"><b>Help?</b></span>
                 </div>
@@ -22,7 +22,7 @@
                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
                             <li>View your top Advertisers here.</li>
-                            <li>To view any of these summaries in detail, go to the relevant page in the Side bar Menu.</li>
+                            <li>To view any of these summaries in detail, go to the relevant page in the Side Bar Menu.</li>
                         </ol>
                     </div>
                 </div>

@@ -14,7 +14,7 @@
         <div class="d-sm-flex align-items-center justify-content-between col-md-12">
             <div class="custom-heading-wrapper">
                 <h1 class="h1">Punterbox Reports</h1>
-                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>                     </span>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b> </span>
             </div>
 
         </div>
@@ -366,12 +366,9 @@
             paging: true,
             processing: true,
             serverSide: true,
-            pageLength: 10,
             order: [],
-            lengthMenu: [
-                [10, 20, 50, 100],
-                [10, 20, 50, 100]
-            ],
+            pageLength: `{{$datatable_entries}}`,
+            lengthMenu: `{{config('app.paginate_range')}}`.split(','),
             ordering: true,
             columnDefs: [{
                 targets: 5,

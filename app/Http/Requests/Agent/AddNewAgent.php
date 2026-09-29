@@ -42,11 +42,11 @@ class AddNewAgent extends FormRequest
 
         return [
             'business_name'   => 'required|string|max:255',
-            'business_number' => 'digits_between:10,15|unique:users,business_number,' . $agentId,
+            'business_number' => 'digits_between:8,12|unique:users,business_number,' . $agentId,
             'contact_person'  => 'required|string|max:255',
             'phone'           => 'required|min:10|max:14|unique:users,phone,' . $agentId,
-            'email'           => 'required|email|max:255|unique:users,email,' . $agentId,
-            'email2'          => 'required|email|max:255|unique:users,email2,' . $agentId,
+            'email'           => 'required|email:rfc,filter|max:255|unique:users,email,' . $agentId,
+            'email2'          => 'required|email:rfc,filter|max:255|unique:users,email2,' . $agentId,
             'state_id'        => 'required|exists:states,id',
             'agreement_date'  => 'required|date',
             'commission_advertising_type'  => 'required',
@@ -74,6 +74,8 @@ class AddNewAgent extends FormRequest
             ],
             //'abn' => 'nullable|digits_between:10,20',
             'abn' => 'required|digits:11',
+            'agreement_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:10240',
+            'signature_file' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
         ];
     }
 
@@ -95,7 +97,11 @@ class AddNewAgent extends FormRequest
             'commission_registration_amount.numeminric'  => 'The registration commission must be a number.',
             'commission_advertising_percent.min'  => 'The advertising commission must be at least 0.',
             'commission_registration_amount.min'  => 'The registration commission must be at least 0.',
-            'abn.digits_between' => 'The ABN must contain only digits (0-9) and be between 10 and 20 digits long.'
+            'abn.digits_between' => 'The ABN must contain only digits (0-9) and be between 10 and 20 digits long.',
+            'agreement_file.mimes' => 'The agreement file must be a PDF, JPG, JPEG, PNG, DOC, or DOCX file.',
+            'agreement_file.max' => 'The agreement file size must not exceed 10MB.',
+            'signature_file.mimes' => 'The signature file must be a JPG, JPEG, or PNG file.',
+            'signature_file.max' => 'The signature file size must not exceed 2MB.',
         ];
     }
 }

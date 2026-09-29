@@ -35,5 +35,6 @@ return [
 
     'otp_resend_seconds' => env('OTP_RESEND_SECONDS', 60),
     'local_timezone' => env('LOCAL_TIMEZONE'),
-    'discount_after_days' => env('DISCOUNT_AFTER_DAYS', 21)
+    'discount_after_days' => env('DISCOUNT_AFTER_DAYS', 21),
+    'launch_date' => env('LAUNCH_DATE')
 ];

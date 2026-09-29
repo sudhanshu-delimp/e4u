@@ -40,6 +40,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Route;
 
 use function PHPSTORM_META\type;
 
@@ -438,6 +439,18 @@ if (!function_exists('getMassageTimezone')) {
     }
 }
 
+
+if (!function_exists('getAccountTimezone')) {
+
+    function getAccountTimezone($account)
+    {
+        $agent  = User::where('id', $account->id)->first();
+        $home_state = $agent->state_id;
+        $accountTimezone = config("agent.states.$home_state.timeZone");
+        return $accountTimezone;
+    }
+}
+
 if (!function_exists('getMassageLocalTime')) {
 
     function getMassageLocalTime($utcTime, $localTimeZone)
@@ -479,6 +492,7 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
 
     function getRealTimeGeolocationOfUsers($lat, $lng)
     {
+
         try {
             $apiKey = config('services.google_map.api_key'); // env('GOOGLE_MAPS_API_KEY');
 
@@ -487,7 +501,7 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
 
             $response = Http::get($geoUrl);
 
-            $state = 'Unknown';
+            $state = '';
 
             if ($response->successful()) {
                 foreach ($response['results'][0]['address_components'] as $component) {
@@ -498,18 +512,18 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
                 }
             }
 
-            $stateFromDb = State::where('name', $state)->first();
+            //$stateFromDb = State::where('name', $state)->first();
 
-            $stateCapital = config('escorts.profile.states')[$stateFromDb->id] ?? null;
+            $stateCapital = getStateAbbr($state);
 
             $timezone = $stateCapital ? $stateCapital['timeZone'] : "UTC";
 
             $parms = [
                 'geo_state' => $state,
-                'state' => $stateFromDb ? $stateFromDb->id : null,
+                'state' => $stateCapital ? $stateCapital['stateId'] : null,
                 'city' => $stateCapital ? array_key_first($stateCapital['cities']) : null,
                 'home_state' => auth()->user() ? auth()->user()->home_state : null,
-                'current_location' => $stateFromDb->iso2,
+                'current_location' => $stateCapital['stateAbbr'],
                 'timezone' => $timezone,
                 'current_time' => now($timezone)->format('h:i A')
             ];
@@ -1322,6 +1336,7 @@ if (!function_exists('getStatusBadgeClass')) {
     function getStatusBadgeClass($status)
     {
         $statusMap = [
+            'Expired'           => 'badge_suspended',
             'Published'         => 'badge_published',
             'Suspended'         => 'badge_suspended',
             'Removed'           => 'badge_suspended',
@@ -1573,6 +1588,48 @@ if (!function_exists('get_messure_weakly_availibility')) {
                 }
 
                 $avail .= '</tr>';
+
+                return $avail;
+            }
+        }
+    }
+}
+
+
+if (!function_exists('get_messure_weakly_avail')) {
+    function get_messure_weakly_avail($messure)
+    {
+        if (isset($messure->availability) && (!empty($messure->availability))) {
+            $availability = $messure->availability ? json_decode($messure->availability, true) : [];
+
+            if (empty($availability))
+                return '<tr><td colspan="2" style="background-color:#fff;border:none"><span class="na-label ">N/A</span></td></tr>';
+
+            else {
+
+                // Log::info($availability);
+
+                $avail  = "";
+                foreach ($availability as $day => $data) {
+
+                    $status = $data['status'];
+
+                    if ($status == 'til_late')
+                        $time =  strtolower($data['from']) . '...' . ' Till late';
+
+
+                    else if ($data['status'] == '24_hours') {
+                        $time = strtolower($data['from']) . ' - ' . strtolower($data['to']);
+                    } else if ($data['status'] == 'custom') {
+                        $time = strtolower($data['from']) . ' - ' . strtolower($data['to']);
+                    } else if ($data['status'] == 'closed') {
+                        $time = '<span class="na-label ">Not Available</span>';
+                    }
+
+                    $avail .= '<tr><td>' . ucfirst($day) . '</td><td>' . $time  . '</td></tr>';
+                }
+
+
 
                 return $avail;
             }
@@ -2014,7 +2071,7 @@ if (!function_exists('getRefundAmountForCancelProfile')) {
             return 0;
         }
 
-      
+
         $refundAmount = 0;
         $startDayNumber = $purchaseStart->diffInDays($refundStart) + 1;
 
@@ -2027,7 +2084,7 @@ if (!function_exists('getRefundAmountForCancelProfile')) {
             $currentDay = $startDayNumber + $i;
 
             ######## Check whether this date was already refunded/suspended. 
-            $alreadyRefunded = MassageSuspendProfile::where(['massage_profile_id'=>$purchase->massage_profile_id,'purchase_id'=>$purchase->id])
+            $alreadyRefunded = MassageSuspendProfile::where(['massage_profile_id' => $purchase->massage_profile_id, 'purchase_id' => $purchase->id])
                 ->whereDate('start_date', '<=', $currentDate)
                 ->whereDate('end_date', '>=', $currentDate)
                 ->exists();
@@ -2459,18 +2516,18 @@ if (!function_exists('update_profile_massure')) {
     {
         switch ($status) {
             case 0:
-                $icon  = asset('assets/app/img/verify/pending-lg.png');
+                $icon  = asset('assets/app/img/verify/e4u_pending.png');
                 $label = 'Media Pending';
                 break;
 
             case 1:
-                $icon  = asset('assets/app/img/verify/verified-lg.png');
+                $icon  = asset('assets/app/img/verify/e4u_verified.png');
                 $label = 'Media Verified';
                 break;
 
             case 2:
             default:
-                $icon  = asset('assets/app/img/verify/unverified-lg.png');
+                $icon  = asset('assets/app/img/verify/unverified_dark.png');
                 $label = 'Media Unverified';
                 break;
         }
@@ -2775,8 +2832,8 @@ if (!function_exists('getStateCityIds')) {
     }
 }
 
-if (!function_exists('getEscortMassageDetailUrl')) {
-    function getEscortMassageDetailUrl($modelObject, $type = "escort")
+if (!function_exists('getAdvertiserDetailUrl')) {
+    function getAdvertiserDetailUrl($modelObject, $type = "escort")
     {
         $url = "javascript:void(0)";
         $states = config('escorts.profile.states');
@@ -2786,7 +2843,7 @@ if (!function_exists('getEscortMassageDetailUrl')) {
                     $stateArr = isset($states[$modelObject->state_id]) ? $states[$modelObject->state_id] : [];
                     $stateName = isset($stateArr['stateAbbr']) ? strtolower($stateArr['stateAbbr']) : "";
                     $cityName = isset($stateArr['cities'][$modelObject->city_id]['cityName']) ? strtolower($stateArr['cities'][$modelObject->city_id]['cityName']) : "";
-                    $genderName = isset($modelObject->gender) ? strtolower($modelObject->gender) : "";
+                    $genderName = isset($modelObject->gender) ? str_replace(" ", "_", strtolower($modelObject->gender)) : "";
 
                     $url = route('escort.profile.detail.new', [
                         'county' => isset($modelObject->state->country->name) ?  strtolower($modelObject->state->country->name) : 'australia',
@@ -2899,5 +2956,458 @@ function getAustraliaTime($dateTimeUTC, $format = null)
 
 function get_massage_purchase_id($id)
 {
-    return MassageProfile::select('id')->where('id',$id)->first();
+    return MassageProfile::select('id')->where('id', $id)->first();
+}
+
+if (!function_exists('getStateAbbr')) {
+    function getStateAbbr($fullStateName)
+    {
+        $states = config('escorts.profile.states');
+
+        foreach ($states as $stateId => $state) {
+            if (strcasecmp($state['stateName'], $fullStateName) !== 0) {
+                continue;
+            }
+
+            $state['stateId'] = $stateId;
+
+            return $state;
+        }
+
+        return null;
+    }
+}
+
+
+if (!function_exists('getStateAbbrName')) {
+    function getStateAbbrName($fullStateName)
+    {
+        $states = config('escorts.profile.states');
+
+        foreach ($states as $stateId => $state) {
+            if (strcasecmp($state['stateAbbr'], $fullStateName) !== 0) {
+                continue;
+            }
+
+            $state['stateId'] = $stateId;
+
+            return $state['stateName'];
+        }
+
+        return null;
+    }
+}
+
+
+
+if (!function_exists('getSeoTaggedRoutes')) {
+    function getSeoTaggedRoutes()
+    {
+        $result = [];
+
+        foreach (Route::getRoutes() as $route) {
+            $seoName = $route->getAction('seo_name');
+
+            if ($seoName) {
+                $result[] = [
+                    'route_name' => $route->getName(),
+                    'uri'        => $route->uri(),
+                    'seo_label'  => $seoName,
+                    'seo_group'  => $route->getAction('seo_group'),
+                    'methods'    => $route->methods(),
+                ];
+            }
+        }
+
+        return $result;
+    }
+}
+
+if (!function_exists('getSeoGroupedRoutes')) {
+    function getSeoGroupedRoutes()
+    {
+        $grouped = [];
+        $footerSubGroups = ['Legal', 'Community', 'Bottom Footer', 'Footer Login'];
+
+        foreach (getSeoTaggedRoutes() as $item) {
+            $group = $item['seo_group'] ?? getSeoRouteMenuGroup(
+                $item['route_name'] ?? '',
+                $item['uri'] ?? '',
+                $item['seo_label'] ?? ''
+            );
+
+            if ($group === null || $group === '') {
+                continue;
+            }
+
+            if (in_array($group, $footerSubGroups, true)) {
+                $footerGroup = $group === 'Footer Login' ? 'Login' : $group;
+                $grouped['Footer'][$footerGroup][] = $item;
+                continue;
+            }
+
+            $grouped[$group][] = $item;
+        }
+
+        $sortItemsByLabelOrder = function (&$items, $orderedLabels = []) {
+            if (!is_array($items)) {
+                return;
+            }
+
+            $orderMap = [];
+            foreach ($orderedLabels as $index => $label) {
+                $orderMap[strtolower((string) $label)] = $index;
+            }
+
+            usort($items, function ($a, $b) use ($orderMap) {
+                $aLabel = strtolower((string) ($a['seo_label'] ?? ''));
+                $bLabel = strtolower((string) ($b['seo_label'] ?? ''));
+
+                $aIndex = $orderMap[$aLabel] ?? PHP_INT_MAX;
+                $bIndex = $orderMap[$bLabel] ?? PHP_INT_MAX;
+
+                if ($aIndex === $bIndex) {
+                    return strcasecmp($a['seo_label'] ?? '', $b['seo_label'] ?? '');
+                }
+
+                return $aIndex <=> $bIndex;
+            });
+        };
+
+        $preferredGroupOrder = ['About', 'Concierge', 'Footer', 'Landing', 'Login', 'Register'];
+        $groupItemOrder = [
+            'About' => ['Agents', 'Become A Pin Up', 'E4U Verified', 'Escorts4U', 'Massage Centres', 'My Playbox'],
+            'Concierge' => ['Accommodation', 'Email Hosting', 'Mobile SIM', 'Products', 'Travel', 'Visa & Migration'],
+            'Footer' => ['Bottom Footer', 'Community', 'Legal', 'Login'],
+            'Landing' => ['Home', 'Pin Up'],
+            'Login' => ['Advertiser', 'Agent', 'Viewer'],
+            'Register' => ['Advertiser', 'Agent', 'Viewer'],
+        ];
+        $subGroupItemOrder = [
+            'Legal' => [
+                'Acceptable Usage Policy',
+                'Cookie Policy',
+                'Copyright Statement',
+                'Covid-19 Statement',
+                'Disclaimer Statement',
+                'Law Enforcement',
+                'Privacy Collection Notice',
+                'Privacy Policy',
+                'Refund Policy',
+                'Spam Policy',
+                'Terms & Conditions',
+            ],
+            'Community' => [
+                'Abbreviations',
+                'Alerts',
+                'Blog',
+                'Contact Us',
+                'Etiquette',
+                'FAQs',
+                'Feedback',
+                'Help for Agents',
+                'Help for Escorts',
+                'Help for Massage Centres',
+                'Help for Viewers',
+                'Influencer',
+            ],
+            'Bottom Footer' => ['DMCA Notices', 'Parent Control'],
+            'Login' => ['Admin', 'Operator', 'Shareholder'],
+        ];
+
+        $orderedGroups = [];
+
+        foreach ($preferredGroupOrder as $groupName) {
+            if (!array_key_exists($groupName, $grouped)) {
+                continue;
+            }
+
+            $items = $grouped[$groupName];
+
+            if ($groupName === 'Footer' && is_array($items)) {
+                foreach ($items as $subGroupName => $subItems) {
+                    $sortItemsByLabelOrder($items[$subGroupName], $subGroupItemOrder[$subGroupName] ?? []);
+                }
+
+                $footerOrderMap = [];
+                foreach ($groupItemOrder['Footer'] ?? [] as $index => $label) {
+                    $footerOrderMap[strtolower((string) $label)] = $index;
+                }
+
+                uksort($items, function ($a, $b) use ($footerOrderMap) {
+                    $aIndex = $footerOrderMap[strtolower((string) $a)] ?? PHP_INT_MAX;
+                    $bIndex = $footerOrderMap[strtolower((string) $b)] ?? PHP_INT_MAX;
+
+                    if ($aIndex === $bIndex) {
+                        return strcmp((string) $a, (string) $b);
+                    }
+
+                    return $aIndex <=> $bIndex;
+                });
+            } else {
+                $sortItemsByLabelOrder($items, $groupItemOrder[$groupName] ?? []);
+            }
+
+            $orderedGroups[$groupName] = $items;
+        }
+
+        foreach ($grouped as $groupName => $items) {
+            if (array_key_exists($groupName, $orderedGroups)) {
+                continue;
+            }
+
+            if ($groupName === 'Footer' && is_array($items)) {
+                foreach ($items as $subGroupName => $subItems) {
+                    $sortItemsByLabelOrder($items[$subGroupName], $subGroupItemOrder[$subGroupName] ?? []);
+                }
+            } else {
+                $sortItemsByLabelOrder($items, $groupItemOrder[$groupName] ?? []);
+            }
+
+            $orderedGroups[$groupName] = $items;
+        }
+
+        return $orderedGroups;
+    }
+}
+
+if (!function_exists('getSeoRouteMenuGroup')) {
+    function getSeoRouteMenuGroup($routeName = '', $uri = '', $seoLabel = '')
+    {
+        $routeNameLower = strtolower(trim((string) $routeName));
+        $seoName = trim((string) $seoLabel);
+
+        if ($seoName !== '') {
+            $groupMap = [
+                'About' => [
+                    'agents',
+                    'about agents',
+                    'escorts4u',
+                    'about escort e4u',
+                    'massage centres',
+                    'about playbox',
+                    'my playbox',
+                    'e4u verified',
+                    'become a pin up',
+                ],
+                'Concierge' => [
+                    'accommodation',
+                    'email hosting',
+                    'mobile sim',
+                    'mobile sim service',
+                    'products',
+                    'travel',
+                    'travel services',
+                    'visa & education',
+                    'visa & migration',
+                ],
+                'Legal' => [
+                    'acceptable usage policy',
+                    'cookie policy',
+                    'copyright statement',
+                    'covid-19 statement',
+                    'disclaimer statement',
+                    'law enforcement',
+                    'privacy policy',
+                    'privacy collection notice',
+                    'refund policy',
+                    'spam policy',
+                    'terms conditions',
+                    'terms & conditions',
+                ],
+                'Community' => [
+                    'abbreviations',
+                    'alerts',
+                    'blog page',
+                    'contact us',
+                    'etiquette',
+                    'faq page',
+                    'faqs',
+                    'feedback page',
+                    'help for agents',
+                    'help for escorts',
+                    'help for massage centres',
+                    'help for viewer',
+                    'help for viewers',
+                    'influencer',
+                ],
+                'Bottom Footer' => [
+                    'dmca notices',
+                    'parent control page',
+                    'parent control',
+                ],
+                'Login' => [
+                    'advertiser',
+                    'advertiser login',
+                    'viewer',
+                    'viewer login',
+                    'agent',
+                    'agent login',
+                ],
+                'Register' => [
+                    'register',
+                    'advertiser register',
+                    'viewer register',
+                    'agent register',
+                ],
+            ];
+
+            $seoNameLower = strtolower($seoName);
+
+            foreach ($groupMap as $groupName => $labels) {
+                foreach ($labels as $label) {
+                    if ($seoNameLower === strtolower($label)) {
+                        return $groupName;
+                    }
+                }
+            }
+        }
+
+        $routeGroupMap = [
+            'About' => [
+                'page.agents',
+                'page.centres',
+                'page.playbox',
+                'page.escorts4u',
+                'page.e4u-verified',
+            ],
+            'Concierge' => [
+                'page.accommodation',
+                'page.email-hosting',
+                'page.mobile-read-sim',
+                'page.professional-product',
+                'page.travel',
+                'page.visa-migration',
+            ],
+            'Community' => [
+                'alerts',
+                'contactus.index',
+                'faqs',
+                'page.help.for.agents',
+                'page.help.for.massage.centres',
+                'page.help.for.viewers',
+                'become.influencer',
+            ],
+            'Bottom Footer' => [
+                'notice.dmca',
+                'parent.control',
+            ],
+            'Login' => [
+                'advertiser.login',
+                'viewer.login',
+                'agent.login',
+            ],
+            'Register' => [
+                'register',
+                'advertiser.register',
+                'agent.register',
+            ],
+        ];
+
+        foreach ($routeGroupMap as $groupName => $routeNames) {
+            foreach ($routeNames as $routeNameToMatch) {
+                if ($routeNameLower === strtolower($routeNameToMatch)) {
+                    return $groupName;
+                }
+            }
+        }
+
+        $legacyHeaderLabels = [
+            'About Agents',
+            'E4U Verified',
+            'About Escort E4U',
+            'About Playbox',
+            'Accommodation',
+            'Advertiser Login',
+            'Become A Pin Up',
+            'Email Hosting',
+            'Mobile SIM Service',
+            'Products',
+            'Travel Services',
+        ];
+
+        $legacyFooterLabels = [
+            'Abbreviations',
+            'Alerts',
+            'Blog Page',
+            'Contact Us',
+            'Cookie Policy',
+            'Etiquette',
+            'Faq Page',
+            'Feedback Page',
+            'Help for Agents',
+            'Help for Escorts',
+            'Help for Massage Centres',
+            'Help for Viewer',
+            'Parent Control Page',
+            'Terms Conditions',
+            'Visa & Education',
+        ];
+
+        foreach ($legacyHeaderLabels as $label) {
+            if (strtolower($label) === strtolower($seoName)) {
+                return 'Header';
+            }
+        }
+
+        foreach ($legacyFooterLabels as $label) {
+            if (strtolower($label) === strtolower($seoName)) {
+                return 'Footer';
+            }
+        }
+
+        return null;
+    }
+}
+
+if (!function_exists('calculate_agent_commission')) {
+    function calculate_agent_commission($amount, $percent)
+    {
+
+        if (!$amount || !$percent) {
+            return 0.00;
+        }
+
+        return ($amount * $percent) / 100;
+    }
+}
+
+if (!function_exists('countOpenDays')) {
+    function countOpenDays(string $startDate, string $endDate, string $scheduleJson): int
+    {
+        $schedule = json_decode($scheduleJson, true);
+        if (!$schedule) {
+            return 0;
+        }
+
+        $start = new DateTime($startDate);
+        $end = new DateTime($endDate);
+
+        // Ensure loop includes both start and end date (inclusive range)
+        $end->modify('+1 day');
+
+        $period = new DatePeriod($start, new DateInterval('P1D'), $end);
+        $openDaysCount = 0;
+
+        foreach ($period as $date) {
+            // Get day name in lowercase (e.g., "monday", "tuesday")
+            $dayOfWeek = strtolower($date->format('l'));
+
+            if (isset($schedule[$dayOfWeek]) && $schedule[$dayOfWeek]['status'] !== 'closed') {
+                $openDaysCount++;
+            }
+        }
+
+        return $openDaysCount;
+    }
+}
+
+
+if (!function_exists('formatBSBNumber')) {
+    function formatBSBNumber($number)
+    {
+        $number = preg_replace('/\D/', '', $number);
+
+        return implode('-', str_split($number, 3));
+    }
 }

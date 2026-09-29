@@ -5,6 +5,7 @@
     --black-body: #212529;
     --peach: #ff3c5f;
     --blue--text--default: #2B3D50;
+    --light-pink: #fff0f4;
     /* status */
     --active--status: rgb(80, 220, 150);
     --dispatch--status: rgb(72, 185, 208);
@@ -93,6 +94,10 @@
 .wallet_details .card-body {
     padding: 10px !important;
     background-color: #f3f3f3;
+}
+
+.common_list_design li {
+    padding-left: 20px;
 }
 
 .wallet_details .card-body h5 {
@@ -729,7 +734,7 @@ span.menu-active {
     background: #EFF0F6;
     padding: 13px;
     border-radius: 40px;
-    width: 42px;
+    width: 42px !important;
     height: 40px;
 }
 
@@ -1802,8 +1807,8 @@ button.btn:focus {
 /* Add money section */
 
 .add-money-box {
-    background: #f7f9fc;
-    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
     padding: 20px;
 }
 
@@ -3769,15 +3774,16 @@ button.btn:focus {
 
 .lg_icon_wrapper .lg_verify_icon {
     position: absolute;
-    bottom: 0px;
-    right: 0px;
-    background: var(--blue--text);
+    bottom: 10px;
+    right: 10px;
+    background: var(--light-pink);
     width: 100px;
     height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 5px;
+    border-radius: var(--radius-sm);
 }
 
 .lg_icon_wrapper .lg_verify_icon img {
@@ -3826,16 +3832,16 @@ button.btn:focus {
 
 .mcs_media_tooltip {
     position: absolute;
-    left: 35px;
-    top: 2px;
+    left: 37px;
+    top: 0px;
     z-index: 999;
     width: max-content;
     background: var(--peach);
     color: #fff;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 500;
     padding: 5px;
-    border-radius: 3px;
+    border-radius: 5px;
     cursor: pointer;
     display: none;
 }
@@ -6584,10 +6590,11 @@ div.myacording-design .card .card-header a.collapsed:after {
 div.myacording-design .card .card-body ol li,
 div.myacording-design .card .card-body ul li,
 div.myacording-design .card .card-body p {
-    margin-bottom: 0px;
+    border-top: 0px;
     font-family: 'Poppins';
     font-weight: normal;
-    font-size: 16px;
+    font-size: clamp(14px, 4vw, 16px);
+    line-height: 28px;
 }
 
 .accordian_wrapper p {
@@ -7627,8 +7634,8 @@ input:checked+.slider:before {
 }
 
 .na-label {
-    background-color: #f55b5d3b;
-    color: #F26464;
+    background-color: #ff3c5f30;
+    color: var(--peach);
     padding: 2px 8px;
     border-radius: 15px;
     font-size: 14px !important;
@@ -10018,12 +10025,14 @@ button:disabled {
     text-align: center;
     font-size: 14px;
     font-weight: 500;
+    border-radius: var(--radius-sm);
 }
 
 .total_listing>div:first-child {
     background-color: var(--blue--text);
-    color: #fff;
+    color: var(--white);
     padding: 10px;
+    border-radius: 2px 0px 0px 2px;
 }
 
 .total_listing>div:last-child {
@@ -11225,11 +11234,11 @@ border-top: 5px solid var(--peach);
 }
 
 .statistics-card {
-    border-radius: 5px;
+    border-radius: var(--radius-sm);
     padding: 16px;
     margin: 10px 0px;
     background-color: #fff;
-    border: 1px solid #0c223d40;
+    border: 1px solid var(--border-color);
     color: var(--blue--text) !important;
     width: 100%;
     min-width: 250px;
@@ -11260,8 +11269,47 @@ border-top: 5px solid var(--peach);
     color: var(--peach) !important;
 }
 
+.history_avtar {
+    background-color: var(--light-pink);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--white);
+    height: 85px;
+    width: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.history_avtar img {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+}
+
+.history_info {
+    color: #858796;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.custom_card_footer {
+    background-color: transparent;
+    border-top: 0px;
+    display: flex;
+    justify-content: end;
+    gap: 20px;
+    padding: 0px;
+}
+
+.history_info .devider {
+    border: 1px solid #ccc;
+    margin: 0px 10px;
+    font-size: 10px;
+}
+
 .statistics-icon {
-    background-color: var(--blue--text);
+    background-color: var(--light-pink);
     border-radius: 50%;
     max-width: 35px;
     min-width: 35px;
@@ -11270,13 +11318,13 @@ border-top: 5px solid var(--peach);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--blue--text) !important;
+    color: var(--peach) !important;
 }
 
 .statistics-icon img {
     width: 15px;
     height: 15px;
-    filter: invert(34%) sepia(53%) saturate(7480%) hue-rotate(338deg) brightness(100%) contrast(101%);
+    filter: invert(34%) sepia(100%) saturate(7480%) hue-rotate(338deg) brightness(100%) contrast(101%);
 }
 
 
@@ -11683,9 +11731,10 @@ border-top: 5px solid var(--peach);
     border-radius: 20px !important;
 }
 
-.d_custom_home_img .lg_verify_icon {
+
+/* .d_custom_home_img .lg_verify_icon {
     border-radius: 0px 0px 20px 0px;
-}
+} */
 
 .pinup-summary-img {
     aspect-ratio: 191 / 140;
@@ -12093,21 +12142,6 @@ border-top: 5px solid var(--peach);
     display: block;
 }
 
-button {
-    margin: 0px;
-    padding: 10px 20px;
-    border: none;
-    background: #0c223d;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-}
-
 .playmates-tab h2 {
     font-size: 24px;
     color: var(--blue--text);
@@ -12297,6 +12331,40 @@ button:disabled {
 
 .profile--thumb--sec img {
     cursor: pointer;
+}
+
+.notebox-profile {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+
+/* Tooltip */
+
+.notebox-profile .custom-tooltip {
+    visibility: hidden;
+    opacity: 0;
+    background-color: var(--peach);
+    color: #fff;
+    text-align: center;
+    padding: 5px 7px;
+    border-radius: var(--radius-md);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s;
+    z-index: 10;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.notebox-profile:hover .custom-tooltip {
+    visibility: visible;
+    opacity: 1;
 }
 
 
@@ -13063,21 +13131,6 @@ details[open]>summary:first-of-type {
 
 .step-content.active {
     display: block;
-}
-
-button {
-    margin: 0px;
-    padding: 10px 20px;
-    border: none;
-    background: #0c223d;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:disabled {
-    background: #ccc;
-    cursor: not-allowed;
 }
 
 .playmates-tab h2 {
@@ -14232,6 +14285,19 @@ details[open]>summary:first-of-type {
     .product-card-wrapper {
         grid-template-columns: repeat(1, 1fr);
     }
+}
+
+.custom_badge_lg {
+    padding: 7px 8px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    line-height: 1;
+    white-space: nowrap;
+    min-width: 124px;
+    display: inline-block;
+    text-align: center;
 }
 
 

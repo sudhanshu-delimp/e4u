@@ -42,6 +42,13 @@
     transform: rotate(270deg) translate(50%, 100%);
 }
 
+.custom-hr {
+    height: 1px !important;
+    border: 0;
+    background-color: var(--border-color) !important;
+    margin: 16px 0 !important;
+}
+
 .verify_icon:hover .common_media_tooltip {
     display: block;
 }
@@ -49,11 +56,6 @@
 form.v-form-design .form-group {
     margin-bottom: 0px !important;
 }
-
-
-/* =========================
-   GRID
-========================= */
 
 .common-grid {
     display: grid;
@@ -81,11 +83,6 @@ form.v-form-design .form-group {
     grid-column: span 3;
     min-height: 280px;
 }
-
-
-/* =========================
-   CARD HEADER
-========================= */
 
 .card-top {
     display: flex;
@@ -117,7 +114,7 @@ form.v-form-design .form-group {
 .card-heading h2 {
     margin: 0;
     color: var(--primacy-color);
-    font-size: 20px;
+    font-size: 18px;
     line-height: 1.25;
     font-weight: 700;
 }
@@ -128,11 +125,6 @@ form.v-form-design .form-group {
     font-size: 13px;
     line-height: 1.65;
 }
-
-
-/* =========================
-   SWITCH OPTIONS
-========================= */
 
 .option-list {
     margin: 30px 0px;
@@ -188,11 +180,6 @@ form.v-form-design .form-group {
     left: 22px;
 }
 
-
-/* =========================
-   NOTE
-========================= */
-
 .card-note {
     margin-top: auto;
     padding-top: 16px;
@@ -228,11 +215,6 @@ form.v-form-design .form-group {
 .card-note p i {
     color: var(--note-color) !important;
 }
-
-
-/* =========================
-   RADIO BUTTONS
-========================= */
 
 .radio-options {
     margin: 30px 0px;
@@ -281,11 +263,6 @@ form.v-form-design .form-group {
     left: 4px;
 }
 
-
-/* =========================
-   FOOTER / SAVE
-========================= */
-
 .common-footer {
     margin-top: 10px;
     padding-top: 20px;
@@ -305,14 +282,35 @@ form.v-form-design .form-group {
     justify-content: center;
     gap: 10px;
     cursor: pointer;
-    box-shadow: 0 5px 12px rgba(245, 29, 82, 0.18);
     transition: 0.2s ease;
 }
 
 .common-save-btn:hover {
     transform: translateY(-1px);
-    box-shadow: 0 7px 15px rgba(245, 29, 82, 0.25);
     background-color: var(--secondary-color);
+}
+
+.common-reset-btn {
+    border: 0;
+    border: 1px solid #e1e7ee;
+    background: var(--peach);
+    color: var(--white);
+    min-width: 145px;
+    padding: 14px 27px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.common-reset-btn:hover {
+    transform: translateY(-1px);
+    background-color: #e73556;
 }
 
 .entries-setting {
@@ -355,11 +353,6 @@ form.v-form-design .form-group {
     font-size: 15px;
     font-style: italic;
 }
-
-
-/* =========================================
-   Password Fields
-========================================= */
 
 .password-card {
     display: flex;
@@ -464,11 +457,11 @@ label.cabinet input.file {
     align-items: flex-start;
     gap: 22px;
     padding: 20px;
-    border: 1px solid var(--pink-border-color);
+    border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
-    background: linear-gradient(135deg, #fffafd, #fff);
+    background: #fff;
     margin-bottom: 30px;
-    box-shadow: 0px 0px 6px -2px #ccc;
+    box-shadow: 0 8px 25px rgba(20, 45, 70, 0.07);
 }
 
 .card#notes,
@@ -849,7 +842,7 @@ label.cabinet input.file {
     width: 100%;
     border: 0;
     background: transparent;
-    padding: 20px 25px;
+    padding: 20px 25px 20px 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1098,11 +1091,6 @@ label.cabinet input.file {
     box-shadow: 0 5px 14px rgba(245, 47, 91, 0.22);
 }
 
-
-/* =========================================================
-           Common Modal - Success Content
-           ========================================================= */
-
 .common-modal .common-modal-success-content {
     text-align: center;
     padding: 8px 10px 4px;
@@ -1137,11 +1125,6 @@ label.cabinet input.file {
     padding-top: 4px;
     padding-bottom: 24px;
 }
-
-
-/* =========================================================
-           Common Modal - Confirmation
-           ========================================================= */
 
 .common-modal .common-modal-confirm-content {
     text-align: center;
@@ -1204,6 +1187,22 @@ label.cabinet input.file {
     text-decoration: none;
 }
 
+.messages_btn a span {
+    background: var(--peach);
+    padding: 6px 10px;
+    color: #fff;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.messages_btn a span:hover {
+    background-color: var(--blue--text);
+}
+
 .current-avatar-card .delete_avatar {
     border: 0;
 }
@@ -1242,13 +1241,21 @@ label.cabinet input.file {
     color: var(--label-color);
     font-size: 14px;
     font-weight: 600;
+    text-transform: capitalize;
+}
+
+.what_happened {
+    height: 85px !important;
+    padding-top: 10px !important;
 }
 
 .common-form .input_not_edit {
-    line-height: 48px;
+    line-height: 48px !important;
     background: #f2f2f2;
     overflow: hidden;
     margin-bottom: 0px;
+    color: var(--label-color);
+    font-size: 14px !important;
 }
 
 .common-form .form-control::placeholder {
@@ -1274,9 +1281,159 @@ label.cabinet input.file {
     flex-wrap: wrap;
 }
 
+.common-form .inner-field-row .form-group .custom-texarea {
+    min-height: 170px;
+    padding-top: 10px;
+}
+
 .common-form .inner-field-row .form-group {
     width: 100%;
     margin-bottom: 0px !important;
+}
+
+.documents-upload-wrapper {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #fff;
+    padding: 24px;
+}
+
+.documents-upload-header h6 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #102a43;
+}
+
+.document-upload-card {
+    height: 100%;
+    padding: 20px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #fff;
+    transition: all 0.2s ease;
+}
+
+.document-upload-card:hover {
+    border-color: #d9dee5;
+    box-shadow: 0 4px 14px rgba(16, 42, 67, 0.06);
+}
+
+
+/* Header */
+
+.document-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.document-icon {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 10px;
+    background: #fff0f3;
+    color: #ff3c5f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.document-card-header h6 {
+    color: #102a43;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.document-card-header p {
+    color: #7b8794;
+    font-size: 12px;
+}
+
+.file-upload-box {
+    position: relative;
+    width: 100%;
+    min-height: 170px;
+    padding: 20px;
+    border: 1px dashed #d9dce5;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-sizing: border-box;
+    margin-top: 8px;
+}
+
+.file-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upload-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #252733;
+    margin-bottom: 6px;
+}
+
+.upload-text {
+    font-size: 12px;
+    color: #777b87;
+    line-height: 1.5;
+}
+
+.upload-text strong {
+    color: #ff3c5f;
+    font-weight: 600;
+}
+
+.upload-hint {
+    font-size: 10px;
+    color: #a0a4ae;
+    margin-top: 8px;
+}
+
+.signature-image-box {
+    min-height: 90px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: #fafbfc;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.signature-image-box img {
+    max-width: 200px;
+    max-height: 80px;
+    object-fit: contain;
+}
+
+.existing-file {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: #fafbfc;
+    margin-top: 10px;
 }
 
 .inner-row .card-top {
@@ -1285,10 +1442,150 @@ label.cabinet input.file {
     padding-bottom: 15px;
 }
 
+.stats-card-grid {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 24px;
+}
 
-/* =========================
-   RESPONSIVE
-========================= */
+.stats-card {
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    margin: 10px 0px;
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    color: var(--blue--text) !important;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 20px;
+    flex: 0 1 0;
+    min-width: 300px;
+}
+
+.stats-details {
+    display: flex;
+    justify-content: flex-start;
+    flex: 1;
+    align-items: center;
+    gap: 15px;
+}
+
+.stats-details .stats-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--blue--text);
+    width: max-content;
+}
+
+.stats-details .stats-value {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--peach) !important;
+}
+
+.stats-icon {
+    background-color: var(--light-pink);
+    border-radius: var(--radius-full);
+    max-width: 45px;
+    min-width: 45px;
+    width: 100%;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--blue--text) !important;
+}
+
+.common-stars {
+    padding-bottom: 15px;
+}
+
+.stats-detail {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    align-items: center;
+    gap: 15px;
+    padding: 3px 10px;
+}
+
+.stats-detail .stats-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--blue--text);
+    width: max-content;
+}
+
+.stats-detail .stats-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--peach) !important;
+}
+
+.wallet-summary-card {
+    min-width: 220px;
+    padding: 13px 18px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 6px 20px rgba(9, 37, 68, 0.06);
+}
+
+.wallet-summary-icon {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    flex-shrink: 0;
+}
+
+.balance .wallet-summary-icon {
+    background: var(--light-pink);
+}
+
+.reward .wallet-summary-icon {
+    background: #fff0f3;
+    color: var(--peach);
+}
+
+.wallet-summary-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.wallet-summary-icon svg path {
+    stroke: var(--peach);
+}
+
+.wallet-summary-label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+.wallet-summary-value {
+    display: block;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.balance .wallet-summary-value {
+    color: #28a745;
+}
+
+.reward .wallet-summary-value {
+    color: var(--peach);
+}
 
 @media (max-width: 1200px) {
     .notification-title-row h1 {
@@ -1515,6 +1812,9 @@ label.cabinet input.file {
     .notification-page {
         padding: 16px;
     }
+    .messages_btn {
+        display: none;
+    }
     .notification-header {
         flex-direction: column;
     }
@@ -1538,5 +1838,20 @@ label.cabinet input.file {
     }
     .common-save-btn {
         width: 100%;
+    }
+    .stats-card {
+        flex: 1;
+        min-width: 100%;
+    }
+    .stats-details {
+        display: flex;
+        justify-content: center;
+        flex: 1;
+        align-items: center;
+        gap: 10px;
+        flex-direction: column;
+    }
+    .stat-text {
+        text-align: center;
     }
 }

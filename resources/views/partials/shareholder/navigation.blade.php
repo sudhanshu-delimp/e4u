@@ -154,7 +154,7 @@ $businessName = isset(auth()->user()->business_name) ? auth()->user()->business_
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in custom-nav-dropdown"
                 aria-labelledby="userDropdown">
                    <div class="highlight-menu">
-                        <a class="dropdown-item menu-profile" href="javascript:void(0)"><span>{{ $name }}</span> <br>{{ auth()->user()->member_id }}</a>
+                        <a class="dropdown-item menu-profile" href="javascript:void(0)"><span>{{ $name }}</span>  <br> Member ID : {{ auth()->user()->member_id }}</a>
                     </div>
 
                      

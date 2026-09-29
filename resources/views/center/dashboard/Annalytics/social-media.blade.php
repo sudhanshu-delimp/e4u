@@ -36,9 +36,9 @@
    
     
   
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="table-responsive-xl">
+        <div class="row">
+            <div class="col-lg-12 ">
+            <div class="table-responsive-xl common-card">
                 <table id="socialMediaTable" class="table table-bordered display dataTable no-footer" width="100%">
                     <thead class="bg-first">
                     <tr>
@@ -88,8 +88,8 @@
                 </table>
             </div> 
         </div>
-    </div>
   
+        </div>
 
     
 

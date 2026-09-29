@@ -37,7 +37,7 @@
                     <h3 class="NotesHeader"><b>Notes:</b></h3>
                      <ol>
                         <li>This list includes only your favourite Massage Centres.</li>
-                        <li>Use the Notebox to record your experience. <a href="{{ route('user.new') }}" class="custom_links_design">Add Notebox</a></li>
+                        <li>Use the Notebox to record your experience. <a href="{{ route('user.notebox.new') }}" class="custom_links_design">Add Notebox</a></li>
                         <li>Notifications do not apply to Massage Centres.</li>
                       </ol>
                   </div>

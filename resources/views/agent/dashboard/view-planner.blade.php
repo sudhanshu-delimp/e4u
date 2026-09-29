@@ -41,10 +41,11 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                       <h3 class="NotesHeader"><b>Notes:</b></h3>
-                        
+                       <h3 class="NotesHeader"><b>Notes:</b></h3>                        
                         <ol>
-
+                            <li>Use this feature to view all of your appointments.</li>
+                            <li>You can arrange your calendar by Month, Week or Day.  The default is by Month.</li>
+                            <li>To view the appointment summary, click the appointment in the calendar.  You can print the summary.</li>
                         </ol>
                     </div>
                 </div>

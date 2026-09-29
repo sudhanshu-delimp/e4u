@@ -477,7 +477,12 @@
    let agent_pending_status = sessionStorage.getItem('agent_pending_status');
    if (agent_pending_status) {
          let formattedMessage = agent_pending_status.replace(/\n/g, '<br>');
-         swal_success_popup(formattedMessage);
+        //  swal_success_popup(formattedMessage);
+         Swal.fire({
+            title: "Success",
+            html: formattedMessage,
+            icon: "success"
+          });
             sessionStorage.removeItem('agent_pending_status');
    }
 

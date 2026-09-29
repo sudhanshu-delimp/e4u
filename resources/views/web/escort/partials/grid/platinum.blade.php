@@ -24,7 +24,7 @@
         @if (auth()->user())
             @if ($viewerAuth->type == '0')
                 <span
-                    class="add_to_favrate @if (in_array($escort->id, $user_type)) {{ 'null' }}@else{{ 'fill' }} @endif custom--favourite"
+                    class="add_to_favrate grid-custom-favourite @if (in_array($escort->id, $user_type)) {{ 'null' }}@else{{ 'fill' }} @endif custom--favourite"
                     id="legboxId_{{ $escort->id }}" data-escortId="{{ $escort->id }}"
                     data-userId="{{ $viewerAuth ? $viewerAuth->id : 'NA' }}" data-name="{{ $escort->name }} ">
                     {{-- @if (!empty($user_type)) --}}
@@ -38,16 +38,16 @@
                     {{-- @endif --}}
                 </span>
             @else
-                <span class="add_to_favrate custom--favourite" data-name="{{ $escortName }}"><i class="fa fa-heart-o"
+                <span class="add_to_favrate grid-custom-favourite" data-name="{{ $escortName }}"><i class="fa fa-heart-o"
                         aria-hidden="true"></i> <span class="custom-heart-text">Add to My Legbox</span></span>
             @endif
         @else
-            <span class="add_to_favrate custom--favourite" data-escortId="{{ $escort->id }}"
+            <span class="add_to_favrate grid-custom-favourite" data-escortId="{{ $escort->id }}"
                 data-name="{{ $escortName }}"><i class="fa fa-heart-o" aria-hidden="true"></i><span
                     class="custom-heart-text">Add to My Legbox</span></span>
         @endif
     </div>
-    <a class="ec_card_link" href="{{ getEscortMassageDetailUrl($escort) }}">
+    <a class="ec_card_link" href="{{ getAdvertiserDetailUrl($escort) }}">
         @if ($escort->latestActiveBrb)
             <div class="brb--content">
                 <div class="brb--wrappr">
@@ -68,9 +68,9 @@
 
         <div class="ec_card_content">
             <div class="items">
-                <span class="title ">{{ $escort->city ? $escort->city->name : '' }}
+                <span class="title">{{ $escort->city ? $escort->city->name : '' }}
                     {{ $escort->age ? ' - ' . $escort->age : '' }} </span>
-                <span class="video_icon_ec">
+                <span class="video_icon_grid">
                     @if ($escort->escort_videos->isNotEmpty())
                         <div class="video_tooltip">Escort has video to view</div>
                         <span class="video_icons">
@@ -161,7 +161,6 @@
             {{-- end --}}
             <div class="items custom-gender-type-icon">
                 <span class="title">Available to:</span>
-                <span class="image_height_width_for_col_six decs">
                 <span class="d-flex gap-1 position-relative">
                     @if ($escort->available_to)
                         @foreach ($escort->available_to as $key => $available_to)
@@ -174,7 +173,6 @@
                         @endforeach
                     @endif
                 </span>
-            </span>
             </div>
 
         </div>

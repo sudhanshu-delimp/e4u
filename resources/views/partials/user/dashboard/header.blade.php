@@ -66,7 +66,7 @@
         
     </style>
     <script>
-      var paginateLength="{{Auth::user()->viewer_settings->show_entries??25}}";
+      var paginateLength="{{Auth::user()->viewer_settings->show_entries??config('app.paginate_length')}}";
         var paginateRange = [{{ config('app.paginate_range') }}];
             // var paginateLength = {{ config('app.paginate_length') }};
     </script>

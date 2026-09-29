@@ -145,7 +145,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="skl_wrapper hidden" id="grid-skeleton">
-                @for($i = 1; $i <= 10; $i++)
+                @for($i = 1; $i <= 25; $i++)
                 <div class="skl-card">
                     <!-- skl-Top skl-Title -->
                     <div class="skl-top">

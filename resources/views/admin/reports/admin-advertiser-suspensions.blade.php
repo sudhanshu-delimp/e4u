@@ -141,57 +141,6 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
-   $(document).ready(function() {
-
-
-      // $('#customSearch').on('keyup', function() {
-      //    $('#advertiserSuspenstionTable').DataTable().search(this.value).draw();
-      // });
-
-      // $(document).on('click', '.viewEscortSuspendedProfile', function(e) {
-      //    e.preventDefault(); // prevent default link behavior
-
-      //    const escortId = $(this).attr('data-escort-id');
-      //    var profileUrl = '{{route("profile.description","_id")}}'.replace('_id', escortId);
-
-      //    $("#escortPopupModalBodyIframe").attr('src', profileUrl)
-      // });
-
-   });
-
-   $(document).on('click', '.reinstateEscortSuspendedProfile', async function(e) {
-      e.preventDefault();
-      const buttonElement = $(this);
-      const advertiser = $("select[name='advertiser_type']").val()?.split('/').pop();
-      const purchaseId = buttonElement.data('purchase-id');
-
-      if (await isConfirm({
-            'action': 'Reinstate',
-            'text': 'Do you want to reinstate this Advertiser Listing?'
-         })) {
-         $.ajax({
-            url: `{{route('admin.reinstate.listing', ['type' => '__ADVERTISER__', 'purchase' => '__PURCHASE__'])}}`.replace('__ADVERTISER__', advertiser).replace('__PURCHASE__', purchaseId),
-            type: 'PATCH',
-            headers: {
-               'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            beforeSend: function() {
-               showLoadingPopup('Processing Reinstate...', 'Do not refresh or close this page.');
-            },
-            success: function(response, status, xhr) {
-               console.log(response);
-               Swal.close();
-               displaySwal(xhr);
-            },
-            error: function(xhr, status, error) {
-               Swal.close();
-               displaySwal(xhr);
-            }
-         });
-
-      }
-   })
-
    var table = $('#advertiserSuspenstionTable').DataTable({
       language: {
          search: "Search: _INPUT_",
@@ -275,6 +224,41 @@
       }
 
    }, 1000);
+
+
+   $(document).on('click', '.reinstateEscortSuspendedProfile', async function(e) {
+      e.preventDefault();
+      const buttonElement = $(this);
+      const advertiser = $("select[name='advertiser_type']").val()?.split('/').pop();
+      const purchaseId = buttonElement.data('purchase-id');
+
+      if (await isConfirm({
+            'action': 'Reinstate',
+            'text': 'Do you want to reinstate this Advertiser Listing?'
+         })) {
+         $.ajax({
+            url: `{{route('admin.reinstate.listing', ['type' => '__ADVERTISER__', 'purchase' => '__PURCHASE__'])}}`.replace('__ADVERTISER__', advertiser).replace('__PURCHASE__', purchaseId),
+            type: 'PATCH',
+            headers: {
+               'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            beforeSend: function() {
+               showLoadingPopup('Processing Reinstate...', 'Do not refresh or close this page.');
+            },
+            success: function(response, status, xhr) {
+               console.log(response);
+               table.draw();
+               Swal.close();
+               displaySwal(xhr);
+            },
+            error: function(xhr, status, error) {
+               Swal.close();
+               displaySwal(xhr);
+            }
+         });
+
+      }
+   })
 </script>
 
 @endpush

@@ -168,8 +168,8 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="email">Email</label>
-                                                        <input type="text" class="form-control form-back" placeholder=" "
-                                                            name="email" aria-describedby="emailHelp"
+                                                        <input type="text" class="form-control form-back input_not_edit" placeholder=" "
+                                                            name="email" aria-describedby="emailHelp" disabled
                                                             value="{{ $escort->email }}">
                                                     </div>
                                                     <div class="form-group">

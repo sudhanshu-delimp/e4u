@@ -122,7 +122,7 @@ background:#16385f;
 
 
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 ">
-   <div class="row">
+    <div class="row">
         <div class="col-md-12 custom-heading-wrapper">
             <h1 class="h1">Add New Listing</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
@@ -145,9 +145,8 @@ background:#16385f;
 
     </div>
     <!-- Progress Bar -->
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="custom_progress_wrapper">
+            <div class="col-lg-12 common-card mb-3">
+                <div class="">
                     <div class="custom_pro_container">
                         <div class="progress_line" id="custom_progress"></div>
 
@@ -171,125 +170,126 @@ background:#16385f;
                        <button style="display: none;" id="next">Next</button> 
                 </div>
             </div>
-        </div>
         {{-- end --}}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="listing-container">
+            <div class="col-md-12 common-card">
+                {{-- <div class="listing-container"> --}}
+                    <div class="card-top mb-4">
+                        <div class="card-icon">
+                            <svg width="64px" height="64px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="info-circle"> <g> <circle cx="12" cy="12" data-name="--Circle" fill="none" id="_--Circle" r="10" stroke="#ff3c5f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle> <line fill="none" stroke="#ff3c5f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="12" x2="12" y1="12" y2="16"></line> <line fill="none" stroke="#ff3c5f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="12" x2="12" y1="8" y2="8"></line> </g> </g> </g> </g></svg>
+                        </div>
 
-                <form id="socials_link" action="#" method="POST" enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    <!-- Header -->
-                    <div class="listing-header d-flex justify-content-between gap-20 align-items-center mb-3">
-                        <h6 class="my-3" style="font-weight: 600; color:#0c223d;">Please wait while geolocation completes before you create a New Listing.</h6>
-                        
-                    </div>
-            
-                    <!-- Listings Area -->
-                    <div class="listing_area">
-                        <div class="eachListing">
-                            <span class="removeCross" title="Click to remove">
-                                <img src="{{ asset('assets/dashboard/img/crossimg.png') }}">
-                            </span>
-            
-                            <div class="listing-row">
-                                <!-- Choose Profile -->
-                                <div class="listing-field">
-                                    <label>Choose Profile:</label>
-                                    <select name="massage_id[]" required>
-                                        <option value="">Select One</option>
-                                        @foreach($profiles as $profile)
-                                            <option value="{{$profile->id}}">{{$profile->profile_name}}</option>
-                                        @endforeach 
-                                    </select>
-                                </div>
-            
-                               
-                                <div class="listing-field">
-                                    <label>Start Date:</label>
-                                    <input type="text" name="start_date[]" class="profile_start js_datepicker" onkeydown="return false" required>
-                                    <span class="start-date-error date-error" style="color:red; font-size:12px;"></span>
-                                
-                                </div>
-            
-                              
-                                <div class="listing-field">
-                                    <label>End Date:</label>
-                                    <input type="text" name="end_date[]" class="profile_end js_datepicker" onkeydown="return false" required>
-                                    <span class="end-date-error date-error" style="color:red; font-size:12px;"></span>
-                                </div>
-            
-                                
-                            </div>
+                        <div class="card-heading">
+                            <h2>Please wait while geolocation completes before you create a New Listing.</h2>
                         </div>
                     </div>
-            
-                    <!-- Footer -->
-                    <div class="listing-footer" style="text-align:right; margin-top:20px;">
-                        <button type="button" class="save_profile_btn" id="escort-form-submit-btn" disabled="true">Proceed to Checkout</button>
-                    </div>
-                </form>
+                    <form id="socials_link" action="#" method="POST" class="common-form" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <!-- Header -->
+                        
+                        <!-- Listings Area -->
+                        <div class="listing_area">
+                            <div class="eachListing">
+                                <span class="removeCross" title="Click to remove">
+                                    <img src="{{ asset('assets/dashboard/img/crossimg.png') }}">
+                                </span>
+                
+                                <div class="listing-row">
+                                    <!-- Choose Profile -->
+                                    <div class="listing-field">
+                                        <label>Choose Profile:</label>
+                                        <select name="massage_id[]" class="form-control" required >
+                                            <option value="">Select One</option>
+                                            @foreach($profiles as $profile)
+                                                <option value="{{$profile->id}}">{{$profile->profile_name}}</option>
+                                            @endforeach 
+                                        </select>
+                                    </div>
+                
+                                
+                                    <div class="listing-field">
+                                        <label>Start Date:</label>
+                                        <input type="text" name="start_date[]" class="profile_start js_datepicker form-control" onkeydown="return false" required>
+                                        <span class="start-date-error date-error" style="color:red; font-size:12px;"></span>
+                                    
+                                    </div>
+                
+                                
+                                    <div class="listing-field">
+                                        <label>End Date:</label>
+                                        <input type="text" name="end_date[]" class="profile_end js_datepicker form-control" onkeydown="return false" required>
+                                        <span class="end-date-error date-error" style="color:red; font-size:12px;"></span>
+                                    </div>
+                
+                                    
+                                </div>
+                            </div>
+                        </div>
+                
+                        <!-- Footer -->
+                        <div class="listing-footer" style="text-align:right; margin-top:20px;">
+                            <button type="button" class="save_profile_btn" id="escort-form-submit-btn" disabled="true">Proceed to Checkout</button>
+                        </div>
+                    </form>
 
+                {{-- </div> --}}
+                
             </div>
-            
+        
+    </div>
+
+
+    <!-- Payment Summary Modal -->
+    <div id="summaryModal" class="customModal">
+
+            <div class="summary-container">
+            <div class="summary-header">
+            <span>Transaction Summary</span>
+            <span class="member-id"> <span class="pr-2 "><i class="fa fa-user"></i></span> Member ID: {{auth()->user()->member_id}}</span>
+            </div>
+
+            <table class="summary-table" >
+                        <thead>
+                            <tr>
+                            <th>Listing</th>
+                            <th>Stage Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Days</th>
+                            <th>Rate</th>
+                            <th>Full Fee</th>
+                            <th>Discount</th>
+                            <th>Discounted Fee</th>
+                            </tr>
+                        </thead>
+                        <tbody id="summaryBody"></tbody>
+            </table>
+
+
+            <form name="purchase_listing" id="purchase_listing" method="post">
+                <div class="pay-area">
+                    <input type="hidden" name="no_of_days" id="no_of_days">
+                    <input type="hidden" name="total_discount" id="total_discount">
+                    <input type="hidden" name="total_fee" id="total_fee">
+                    <input type="hidden" name="listing_start_date" id="listing_start_date">
+                    <input type="hidden" name="listing_end_date" id="listing_end_date">
+                    <input type="hidden" name="membership_id" id="membership_id">
+                    <input type="hidden" name="massage_profile_id" id="massage_profile_id">
+                    <input type="hidden" name="rate" id="rate">
+                    <input type="hidden" name="total_rate" id="total_rate">
+                    <input type="hidden" name="discountRate" id="discountRate">
+                    <input type="hidden" name="applied_discount" id="applied_discount">
+                    
+                    
+                
+                    
+                    <button type="button" class="close-btn">Close</button>
+                    <button type="button" class="pay-btn">Checkout</button>
+                </div>
+            </form>
+
+
         </div>
     </div>
-    
-</div>
-
-
-<!-- Payment Summary Modal -->
-<div id="summaryModal" class="customModal">
-
-        <div class="summary-container">
-        <div class="summary-header">
-        <span>Transaction Summary</span>
-        <span class="member-id"> <span class="pr-2 "><i class="fa fa-user"></i></span> Member ID: {{auth()->user()->member_id}}</span>
-        </div>
-
-        <table class="summary-table" >
-                    <thead>
-                        <tr>
-                        <th>Listing</th>
-                        <th>Stage Name</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Days</th>
-                        <th>Rate</th>
-                        <th>Full Fee</th>
-                        <th>Discount</th>
-                        <th>Discounted Fee</th>
-                        </tr>
-                    </thead>
-                    <tbody id="summaryBody"></tbody>
-        </table>
-
-
-        <form name="purchase_listing" id="purchase_listing" method="post">
-            <div class="pay-area">
-                <input type="hidden" name="no_of_days" id="no_of_days">
-                <input type="hidden" name="total_discount" id="total_discount">
-                <input type="hidden" name="total_fee" id="total_fee">
-                <input type="hidden" name="listing_start_date" id="listing_start_date">
-                <input type="hidden" name="listing_end_date" id="listing_end_date">
-                <input type="hidden" name="membership_id" id="membership_id">
-                <input type="hidden" name="massage_profile_id" id="massage_profile_id">
-                <input type="hidden" name="rate" id="rate">
-                <input type="hidden" name="total_rate" id="total_rate">
-                <input type="hidden" name="discountRate" id="discountRate">
-                <input type="hidden" name="applied_discount" id="applied_discount">
-                
-                
-              
-                
-                <button type="button" class="close-btn">Close</button>
-                <button type="button" class="pay-btn">Checkout</button>
-            </div>
-        </form>
-
-
-     </div>
-</div>
 
 
 

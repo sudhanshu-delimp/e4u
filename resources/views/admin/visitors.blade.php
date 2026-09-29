@@ -4,26 +4,30 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
 <style type="text/css">
-.parsley-errors-list {
-    list-style: none;
-    color: rgb(248, 0, 0)
-}
+    .parsley-errors-list {
+        list-style: none;
+        color: rgb(248, 0, 0)
+    }
 
 
-#cke_1_contents {
-    height: 150px !important;
-}
-#listings_paginate span{
-display: contents;
-}
- table.dataTable thead th, table.dataTable tfoot th {
-            font-weight: normal !important;
-        }
-        #visitorTable_paginate{
-            display: flex;
-            align-items: center;
-            justify-content: space-between
-        }
+    #cke_1_contents {
+        height: 150px !important;
+    }
+
+    #listings_paginate span {
+        display: contents;
+    }
+
+    table.dataTable thead th,
+    table.dataTable tfoot th {
+        font-weight: normal !important;
+    }
+
+    #visitorTable_paginate {
+        display: flex;
+        align-items: center;
+        justify-content: space-between
+    }
 </style>
 @endsection
 @section('content')
@@ -31,17 +35,17 @@ display: contents;
     <!--middle content-->
     <div class="row">
         <div class="col-md-12 custom-heading-wrapper">
-                <h1 class="h1"> Visitors</h1>
-                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
-                        style="font-size:16px"><b>Help?</b> </span>
-        </div>            
+            <h1 class="h1"> Visitors</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
+                style="font-size:16px"><b>Help?</b> </span>
+        </div>
         <div class="col-md-12 mb-4">
             <div class="card collapse" id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
                     <ol>
                         <li>All Visitors to the Website are displayed in this table. Users to the Website are displayed
-                        under 'Logged in Users'.</li>
+                            under 'Logged in Users'.</li>
                         <li>You have no Action options for Visitors.</li>
                     </ol>
 
@@ -49,11 +53,11 @@ display: contents;
             </div>
         </div>
     </div>
-    <div class="row">    
+    <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12 ">
-            <div class="my-3">                
+            <div class="my-3">
                 <div class="col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
-                  
+
                     <div class="total_listing">
                         <div><span>Total Visitors : </span></div>
                         <div><span class="totalVisitors">56</span></div>
@@ -65,17 +69,17 @@ display: contents;
                     <thead class="table-bg">
                         <tr>
                             <th scope="col">
-                            Date
+                                Date
 
                             </th>
                             <th scope="col">
-                            Landed
+                                Landed
                             </th>
                             <th scope="col">
-                            Idle
+                                Idle
                             </th>
                             <th scope="col">
-                            Origin
+                                Origin
                             </th>
                             <th scope="col">IP Address</th>
                             <th scope="col">Platform</th>
@@ -91,12 +95,12 @@ display: contents;
                             <td class="theme-color">123.176.113.164</td>
                             <td class="theme-color">Firefox</td>
                             <td class="theme-color">/all-escorts-list?city=7408</td>
-                            
+
                         </tr>
                     </tbody>
-                     <tr>
-                            <th colspan="10" class="border-0"></th>
-                        </tr>
+                    <tr>
+                        <th colspan="10" class="border-0"></th>
+                    </tr>
                     <tfoot class="bg-first">
                         <tr>
                             <th colspan="2" class="text-left ">Server time: <span class="serverTime">10:23:51 am</span></th>
@@ -109,14 +113,14 @@ display: contents;
                     <p>Server time: <span class="serverTime">10:23:51 am</span></p>
                     <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
                     <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
-                </div>
-                <div class="customPaginationContainer mt-4 d-flex justify-content-between"></div>
-                <nav aria-label="Page navigation example" class="customPagination">
-                </nav> --}}
             </div>
+            <div class="customPaginationContainer mt-4 d-flex justify-content-between"></div>
+            <nav aria-label="Page navigation example" class="customPagination">
+            </nav> --}}
         </div>
-       
     </div>
+
+</div>
 </div>
 <div class="modal fade upload-modal" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="view-listingLabel"
     aria-hidden="true">
@@ -136,46 +140,46 @@ display: contents;
                     <div class="row">
                         <div class="col-12 mb-3">
                             <div id="listingModalContent">
-                            <table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
-                                <tbody>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Member ID</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">M60178</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Member</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">Lins Massage</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Listing</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">Perth</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Profile Name</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">Perth 01</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Masseurs</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">4</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Listed Date</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">23-05-2025</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>De-listed Date</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">17-06-2025</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Days</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">14</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Days Left</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">15</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                <table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="border: 1px solid #ccc; padding: 8px;"><strong>Member ID</strong></td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">M60178</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid #ccc; padding: 8px;"><strong>Member</strong></td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">Lins Massage</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid #ccc; padding: 8px;"><strong>Listing</strong></td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">Perth</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid #ccc; padding: 8px;"><strong>Profile Name</strong></td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">Perth 01</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid #ccc; padding: 8px;"><strong>Masseurs</strong></td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">4</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid #ccc; padding: 8px;"><strong>Listed Date</strong></td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">23-05-2025</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid #ccc; padding: 8px;"><strong>De-listed Date</strong></td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">17-06-2025</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid #ccc; padding: 8px;"><strong>Days</strong></td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">14</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid #ccc; padding: 8px;"><strong>Days Left</strong></td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">15</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
                             </div>
                         </div>
@@ -194,7 +198,6 @@ display: contents;
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
-
     $(document).ready(function(e) {
         ajaxReload();
         let countdown = 15;
@@ -213,7 +216,7 @@ display: contents;
             $('#visitorTable').DataTable().search(this.value).draw();
         });
     })
-    
+
 
     function ajaxReload() {
         var visitorTable = $('#visitorTable').DataTable({
@@ -228,11 +231,11 @@ display: contents;
             info: true,
             searching: true,
             bStateSave: true,
-            order: [[1, 'desc']],
-            lengthMenu: [
-                [10, 25, 50, 100], [10, 25, 50, 100]
+            order: [
+                [1, 'desc']
             ],
-            pageLength: 10,
+            pageLength: `{{$datatable_entries}}`,
+            lengthMenu: `{{config('app.paginate_range')}}`.split(','),
             ajax: {
                 url: "{{ route('admin.visitors-by-ajax') }}",
                 type: "GET",
@@ -257,37 +260,59 @@ display: contents;
                 $(".dataTables_empty").text('There are currently no Visitors.')
             },
 
-            columns: [
-                { data: 'date', name: 'date' },
-                { data: 'landed', name: 'landed' },
-                { data: 'idle', name: 'idle' },
-                { data: 'origin', name: 'origin' },
-                { data: 'ip', name: 'ip', orderable: false  },
-                { data: 'platform', name: 'platform', orderable: false  },
-                { data: 'page', name: 'page', orderable: false  }
+            columns: [{
+                    data: 'date',
+                    name: 'date'
+                },
+                {
+                    data: 'landed',
+                    name: 'landed'
+                },
+                {
+                    data: 'idle',
+                    name: 'idle'
+                },
+                {
+                    data: 'origin',
+                    name: 'origin'
+                },
+                {
+                    data: 'ip',
+                    name: 'ip',
+                    orderable: false
+                },
+                {
+                    data: 'platform',
+                    name: 'platform',
+                    orderable: false
+                },
+                {
+                    data: 'page',
+                    name: 'page',
+                    orderable: false
+                }
             ]
         });
     }
-$(document).ready(function () {
-            function checkAndApplyResponsive() {
-                if ($(window).width() < 1500) {
-                    if (!$('.visitor_table_class').hasClass('table-responsive')) {
-                        $('.visitor_table_class').addClass('table-responsive');
-                    }
-                } else {
-                    $('.visitor_table_class').removeClass('table-responsive');
+    $(document).ready(function() {
+        function checkAndApplyResponsive() {
+            if ($(window).width() < 1500) {
+                if (!$('.visitor_table_class').hasClass('table-responsive')) {
+                    $('.visitor_table_class').addClass('table-responsive');
                 }
+            } else {
+                $('.visitor_table_class').removeClass('table-responsive');
             }
+        }
 
-            // Initial check
+        // Initial check
+        checkAndApplyResponsive();
+
+        // Recheck on window resize
+        $(window).resize(function() {
             checkAndApplyResponsive();
-
-            // Recheck on window resize
-            $(window).resize(function () {
-                checkAndApplyResponsive();
-            });
         });
-// admin.visitors-by-ajax
-
- </script>
+    });
+    // admin.visitors-by-ajax
+</script>
 @endpush

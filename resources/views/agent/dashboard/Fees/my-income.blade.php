@@ -10,19 +10,19 @@
                     <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
                         aria-expanded="true"><b>Help?</b></span>
                 </div>
-                <div class="back-to-dashboard">
-
-                    @if (request('from') == 'dashboard')
+    
+                @if (request('from') == 'dashboard')
+                    <div class="back-to-dashboard">
                         <a href="{{ route('agent.dashboard') }}">
                             <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
                         </a>
-                    @endif
-                </div>
+                    </div>
+                @endif
             </div>
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                       <h3 class="NotesHeader"><b>Notes:</b></h3>
+                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
                             <li>You can view your Income according to the period displayed.</li>
                             <li>For an expanded summary of income, go to <a href="{{ route('agent.fees.summary') }}"
@@ -32,164 +32,132 @@
                 </div>
             </div>
         </div>
-
         {{-- end --}}
-        {{-- 1st row --}}
-        <div class="col-lg-12 card-wrapper">
-            <div class="row p-4 rounded my-2" style="background-color: #c2cfe052;">
-                {{-- 1st --}}
-                <div class="col-lg-12">
-                    <h4 class="font-weight-bold" style="color: var(--blue--text);">My Income (Advertisers)
-                    </h4>
-                </div>
-                <div class="col-lg-12 card-list-wrapper">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
-                        <div class="statistics-text">
-                            <div class="statistics-label font-weight-bold">Today's Income
+        <div class="row">
+            <div class="col-md-12">
+                <div class="common-grid">
+                    <div class="common-card">
+                        <div class="card-top">
+                            <div class="card-icon">
+                               <svg fill="#ff3c5f" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 32 32" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g id="money_4"> <g> <path d="M32,22.327c0-1.705-1.387-3.093-3.092-3.093c-0.637,0-1.227,0.199-1.717,0.528h-0.002c0,0.003-0.002,0.003-0.002,0.005 c-0.207,0.142-0.398,0.301-0.566,0.485l0.008,0.008c-0.641,0.576-1.666,1.543-2.41,2.423c-0.16-0.412-0.404-0.787-0.717-1.093 c-3.053-2.688-6.723-3.78-10.93-3.78c-1.377,0-2.705,0.149-3.961,0.424c-0.037-0.457-0.063-0.735-0.063-0.735H0.359 c0,0-0.359,2.998-0.359,6.694c0,3.697,0.359,6.694,0.359,6.694h8.189c0,0,0.072-0.78,0.15-1.893 c1.219-0.205,2.465,0.116,3.908,1.012c1.828,1.195,4.08,1.902,6.518,1.902c2.472,0,4.594-0.729,6.36-1.955l0.002,0.002 c0.019-0.015,0.041-0.031,0.068-0.052c0.5-0.353,0.973-0.741,1.413-1.168c0.347-0.354,0.814-0.807,1.519-1.495 c2.361-2.32,2.652-2.781,2.652-2.781s-0.007,0.002-0.009,0.002C31.668,23.909,32,23.159,32,22.327z M30.121,23.54 c-0.414,0.41-2.166,2.215-2.639,2.678c-1.229,1.207-1.801,1.771-2.072,2.084l-0.004-0.006c-0.188,0.168-0.385,0.322-0.586,0.47 c-1.584,1.071-3.557,1.711-5.695,1.711c-2.158,0-4.146-0.647-5.736-1.735h-0.012c-1.375-0.841-2.988-1.354-4.584-1.197 c0.063-1.103,0.115-2.312,0.115-3.349c0-1.44-0.1-3.211-0.193-4.567c1.215-0.274,2.512-0.428,3.857-0.428 c4.12,0,7.762,1.362,9.995,3.495c0.263,0.293,0.429,0.679,0.429,1.101c0,0.916-0.744,1.658-1.658,1.658 c-0.035,0-0.067-0.009-0.103-0.011l-0.004,0.021c-0.854-0.03-2.188-0.389-4.442-1.25l-0.513,1.34 c2.384,0.91,3.953,1.318,5.066,1.347v-0.01c1.395-0.005,2.572-0.933,2.955-2.201v0.002c0.482-0.801,2.287-2.472,3.312-3.383 l0.002,0.002c0.011-0.011,0.021-0.019,0.027-0.026c0.19-0.171,0.354-0.313,0.473-0.416c0.216-0.136,0.44-0.193,0.798-0.193 c0.914,0,1.655,0.744,1.655,1.656C30.564,22.786,30.363,23.219,30.121,23.54z"></path> <path d="M21.973,18.611c5.105,0,9.26-4.153,9.26-9.259s-4.152-9.26-9.26-9.26c-5.106,0-9.26,4.154-9.26,9.26 S16.865,18.611,21.973,18.611z M21.973,1.706c4.215,0,7.646,3.432,7.646,7.646c0,4.214-3.432,7.646-7.646,7.646 c-4.217,0-7.646-3.432-7.646-7.646C14.327,5.137,17.756,1.706,21.973,1.706z"></path> <path d="M19.545,9.04c0.197,0.23,0.48,0.441,0.848,0.637c0.365,0.193,0.855,0.338,1.467,0.43 c0.174,0.029,0.348,0.066,0.521,0.115c0.178,0.045,0.338,0.109,0.486,0.188c0.146,0.08,0.268,0.176,0.361,0.287 c0.094,0.109,0.141,0.242,0.141,0.393c0,0.18-0.09,0.324-0.27,0.438c-0.184,0.111-0.406,0.166-0.682,0.166 c-0.209,0-0.396-0.016-0.559-0.049c-0.158-0.031-0.309-0.082-0.439-0.15c-0.132-0.068-0.262-0.154-0.389-0.26 c-0.125-0.104-0.254-0.227-0.385-0.371h-1.51v2.266h1.51v-0.338c0.072,0.037,0.146,0.072,0.225,0.104 c0.072,0.033,0.15,0.066,0.229,0.102v0.885h1.51v-0.681c0.324-0.021,0.625-0.09,0.9-0.205c0.277-0.113,0.518-0.266,0.719-0.453 c0.201-0.186,0.359-0.404,0.475-0.652s0.174-0.516,0.174-0.803c0-0.15-0.025-0.346-0.082-0.588 c-0.053-0.24-0.178-0.486-0.371-0.734c-0.191-0.248-0.477-0.477-0.846-0.689c-0.371-0.213-0.869-0.365-1.494-0.459 c-1.008-0.15-1.51-0.459-1.51-0.926c0-0.166,0.078-0.32,0.24-0.465c0.162-0.143,0.396-0.215,0.695-0.215 c0.209,0,0.391,0.018,0.545,0.053c0.154,0.037,0.297,0.09,0.426,0.156c0.129,0.068,0.252,0.154,0.367,0.26 c0.115,0.104,0.232,0.225,0.355,0.361h1.52V5.577h-1.508V5.9c-0.18-0.109-0.383-0.195-0.605-0.26V4.82H21.1v0.713 c-0.295,0.043-0.564,0.129-0.812,0.254s-0.463,0.283-0.646,0.475c-0.185,0.189-0.326,0.408-0.427,0.652 c-0.103,0.244-0.151,0.502-0.151,0.777c0,0.186,0.031,0.4,0.092,0.641C19.219,8.572,19.348,8.81,19.545,9.04z"></path> </g> </g> </g> </g></svg>
                             </div>
-                            <div class="statistics-value"><span>$</span> 950.00</div>
-                        </div>
-                        <div class="statistics-icon">
-                            <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
-                        </div>
-                    </div>
 
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
-                        <div class="statistics-text">
-                            <div class="statistics-label font-weight-bold">Week to Date
+                            <div class="card-heading">
+                                <h2>Escorts</h2>
                             </div>
-                            <div class="statistics-value"><span>$</span> 2,500.00</div>
                         </div>
-                        <div class="statistics-icon">
-                            <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
-                        </div>
-                    </div>
+                        
+                        <hr class="custom-hr">
+                        <div class="common-stars">
+                            <div class="stats-detail">
+                                    <div class="stats-label">Today's Income
+                                    </div>
+                                    <div class="stats-value"><span>$</span> {{ $escorts['today'] }}</div>                        
+                            </div>
 
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
-                        <div class="statistics-text">
-                            <div class="statistics-label font-weight-bold">Month to Date
+                            <div class="stats-detail">
+                                    <div class="stats-label">Week to Date
+                                    </div>
+                                    <div class="stats-value"><span>$</span> {{ $escorts['week'] }}</div>                        
                             </div>
-                            <div class="statistics-value"><span>$</span> 5,500.00</div>
-                        </div>
-                        <div class="statistics-icon">
-                            <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
-                        </div>
-                    </div>
 
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
-                        <div class="statistics-text">
-                            <div class="statistics-label font-weight-bold">Year to Date
+                            <div class="stats-detail">
+                                    <div class="stats-label">Month to Date
+                                    </div>
+                                    <div class="stats-value"><span>$</span> {{ $escorts['month'] }}</div>                        
                             </div>
-                            <div class="statistics-value"><span>$</span> 75,5000.00</div>
                         </div>
-                        <div class="statistics-icon">
-                            <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
-                        </div>
-                    </div>
-                </div>
-                {{-- 2nd --}}
-                <div class="col-lg-12">
-                    <h4 class="font-weight-bold" style="color: var(--blue--text);">My Income (Escorts)
 
-                    </h4>
-                </div>
+                        <div class="card-note">
+                            <div class="stats-detail">
+                                    <div class="stats-label">Year to Date
+                                    </div>
+                                    <div class="stats-value"><span>$</span> {{ $escorts['year'] }}</div>                        
+                            </div>
+                        </div>
+                    </div>
+                    <div class="common-card">
+                        <div class="card-top">
+                            <div class="card-icon">
+                           <svg fill="#ff3c5f" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 32 32" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g id="money_4"> <g> <path d="M32,22.327c0-1.705-1.387-3.093-3.092-3.093c-0.637,0-1.227,0.199-1.717,0.528h-0.002c0,0.003-0.002,0.003-0.002,0.005 c-0.207,0.142-0.398,0.301-0.566,0.485l0.008,0.008c-0.641,0.576-1.666,1.543-2.41,2.423c-0.16-0.412-0.404-0.787-0.717-1.093 c-3.053-2.688-6.723-3.78-10.93-3.78c-1.377,0-2.705,0.149-3.961,0.424c-0.037-0.457-0.063-0.735-0.063-0.735H0.359 c0,0-0.359,2.998-0.359,6.694c0,3.697,0.359,6.694,0.359,6.694h8.189c0,0,0.072-0.78,0.15-1.893 c1.219-0.205,2.465,0.116,3.908,1.012c1.828,1.195,4.08,1.902,6.518,1.902c2.472,0,4.594-0.729,6.36-1.955l0.002,0.002 c0.019-0.015,0.041-0.031,0.068-0.052c0.5-0.353,0.973-0.741,1.413-1.168c0.347-0.354,0.814-0.807,1.519-1.495 c2.361-2.32,2.652-2.781,2.652-2.781s-0.007,0.002-0.009,0.002C31.668,23.909,32,23.159,32,22.327z M30.121,23.54 c-0.414,0.41-2.166,2.215-2.639,2.678c-1.229,1.207-1.801,1.771-2.072,2.084l-0.004-0.006c-0.188,0.168-0.385,0.322-0.586,0.47 c-1.584,1.071-3.557,1.711-5.695,1.711c-2.158,0-4.146-0.647-5.736-1.735h-0.012c-1.375-0.841-2.988-1.354-4.584-1.197 c0.063-1.103,0.115-2.312,0.115-3.349c0-1.44-0.1-3.211-0.193-4.567c1.215-0.274,2.512-0.428,3.857-0.428 c4.12,0,7.762,1.362,9.995,3.495c0.263,0.293,0.429,0.679,0.429,1.101c0,0.916-0.744,1.658-1.658,1.658 c-0.035,0-0.067-0.009-0.103-0.011l-0.004,0.021c-0.854-0.03-2.188-0.389-4.442-1.25l-0.513,1.34 c2.384,0.91,3.953,1.318,5.066,1.347v-0.01c1.395-0.005,2.572-0.933,2.955-2.201v0.002c0.482-0.801,2.287-2.472,3.312-3.383 l0.002,0.002c0.011-0.011,0.021-0.019,0.027-0.026c0.19-0.171,0.354-0.313,0.473-0.416c0.216-0.136,0.44-0.193,0.798-0.193 c0.914,0,1.655,0.744,1.655,1.656C30.564,22.786,30.363,23.219,30.121,23.54z"></path> <path d="M21.973,18.611c5.105,0,9.26-4.153,9.26-9.259s-4.152-9.26-9.26-9.26c-5.106,0-9.26,4.154-9.26,9.26 S16.865,18.611,21.973,18.611z M21.973,1.706c4.215,0,7.646,3.432,7.646,7.646c0,4.214-3.432,7.646-7.646,7.646 c-4.217,0-7.646-3.432-7.646-7.646C14.327,5.137,17.756,1.706,21.973,1.706z"></path> <path d="M19.545,9.04c0.197,0.23,0.48,0.441,0.848,0.637c0.365,0.193,0.855,0.338,1.467,0.43 c0.174,0.029,0.348,0.066,0.521,0.115c0.178,0.045,0.338,0.109,0.486,0.188c0.146,0.08,0.268,0.176,0.361,0.287 c0.094,0.109,0.141,0.242,0.141,0.393c0,0.18-0.09,0.324-0.27,0.438c-0.184,0.111-0.406,0.166-0.682,0.166 c-0.209,0-0.396-0.016-0.559-0.049c-0.158-0.031-0.309-0.082-0.439-0.15c-0.132-0.068-0.262-0.154-0.389-0.26 c-0.125-0.104-0.254-0.227-0.385-0.371h-1.51v2.266h1.51v-0.338c0.072,0.037,0.146,0.072,0.225,0.104 c0.072,0.033,0.15,0.066,0.229,0.102v0.885h1.51v-0.681c0.324-0.021,0.625-0.09,0.9-0.205c0.277-0.113,0.518-0.266,0.719-0.453 c0.201-0.186,0.359-0.404,0.475-0.652s0.174-0.516,0.174-0.803c0-0.15-0.025-0.346-0.082-0.588 c-0.053-0.24-0.178-0.486-0.371-0.734c-0.191-0.248-0.477-0.477-0.846-0.689c-0.371-0.213-0.869-0.365-1.494-0.459 c-1.008-0.15-1.51-0.459-1.51-0.926c0-0.166,0.078-0.32,0.24-0.465c0.162-0.143,0.396-0.215,0.695-0.215 c0.209,0,0.391,0.018,0.545,0.053c0.154,0.037,0.297,0.09,0.426,0.156c0.129,0.068,0.252,0.154,0.367,0.26 c0.115,0.104,0.232,0.225,0.355,0.361h1.52V5.577h-1.508V5.9c-0.18-0.109-0.383-0.195-0.605-0.26V4.82H21.1v0.713 c-0.295,0.043-0.564,0.129-0.812,0.254s-0.463,0.283-0.646,0.475c-0.185,0.189-0.326,0.408-0.427,0.652 c-0.103,0.244-0.151,0.502-0.151,0.777c0,0.186,0.031,0.4,0.092,0.641C19.219,8.572,19.348,8.81,19.545,9.04z"></path> </g> </g> </g> </g></svg>
+                            </div>
 
+                            <div class="card-heading">
+                                <h2>Centres</h2>
+                            </div>
+                        </div>
+                        
+                        <hr class="custom-hr">
+                        <div class="common-stars">
+                            <div class="stats-detail">
+                                    <div class="stats-label">Today's Income
+                                    </div>
+                                    <div class="stats-value"><span>$</span> {{ $massageCentres['today'] }}</div>                        
+                            </div>
 
-                <div class="col-lg-12 card-list-wrapper">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
-                        <div class="statistics-text">
-                            <div class="statistics-label font-weight-bold">Today's Income
+                            <div class="stats-detail">
+                                    <div class="stats-label">Week to Date
+                                    </div>
+                                    <div class="stats-value"><span>$</span> {{ $massageCentres['week'] }}</div>                        
                             </div>
-                            <div class="statistics-value"><span>$</span> 450.00</div>
-                        </div>
-                        <div class="statistics-icon">
-                            <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
-                        </div>
-                    </div>
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
-                        <div class="statistics-text">
-                            <div class="statistics-label font-weight-bold">Week to Date
-                            </div>
-                            <div class="statistics-value"><span>$</span> 1,500.00</div>
-                        </div>
-                        <div class="statistics-icon">
-                            <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
-                        </div>
-                    </div>
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
-                        <div class="statistics-text">
-                            <div class="statistics-label font-weight-bold">Month to Date
-                            </div>
-                            <div class="statistics-value"><span>$</span> 2,500.00</div>
-                        </div>
-                        <div class="statistics-icon">
-                            <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
-                        </div>
-                    </div>
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
-                        <div class="statistics-text">
-                            <div class="statistics-label font-weight-bold">Year to Date
-                            </div>
-                            <div class="statistics-value"><span>$</span> 55,000.00</div>
-                        </div>
-                        <div class="statistics-icon">
-                            <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
-                        </div>
-                    </div>
-                </div>
 
-                {{-- 3rd --}}
-                <div class="col-lg-12">
-                    <h4 class="font-weight-bold" style="color: var(--blue--text);">My Income (Massage Centres)
+                            <div class="stats-detail">
+                                    <div class="stats-label">Month to Date
+                                    </div>
+                                    <div class="stats-value"><span>$</span> {{ $massageCentres['month'] }}</div>                        
+                            </div>
+                        </div>
 
-                    </h4>
-                </div>
-                <div class="col-lg-12 card-list-wrapper">
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
-                        <div class="statistics-text">
-                            <div class="statistics-label font-weight-bold">Today's Income
+                        <div class="card-note">
+                            <div class="stats-detail">
+                                    <div class="stats-label">Year to Date
+                                    </div>
+                                    <div class="stats-value"><span>$</span> {{ $massageCentres['year'] }}</div>                        
                             </div>
-                            <div class="statistics-value"><span>$</span> 150.00</div>
-                        </div>
-                        <div class="statistics-icon">
-                            <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
                         </div>
                     </div>
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
-                        <div class="statistics-text">
-                            <div class="statistics-label font-weight-bold">Week to Date
+                    <div class="common-card">
+                        <div class="card-top">
+                            <div class="card-icon">
+                               <svg fill="#ff3c5f" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 32 32" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g id="money_4"> <g> <path d="M32,22.327c0-1.705-1.387-3.093-3.092-3.093c-0.637,0-1.227,0.199-1.717,0.528h-0.002c0,0.003-0.002,0.003-0.002,0.005 c-0.207,0.142-0.398,0.301-0.566,0.485l0.008,0.008c-0.641,0.576-1.666,1.543-2.41,2.423c-0.16-0.412-0.404-0.787-0.717-1.093 c-3.053-2.688-6.723-3.78-10.93-3.78c-1.377,0-2.705,0.149-3.961,0.424c-0.037-0.457-0.063-0.735-0.063-0.735H0.359 c0,0-0.359,2.998-0.359,6.694c0,3.697,0.359,6.694,0.359,6.694h8.189c0,0,0.072-0.78,0.15-1.893 c1.219-0.205,2.465,0.116,3.908,1.012c1.828,1.195,4.08,1.902,6.518,1.902c2.472,0,4.594-0.729,6.36-1.955l0.002,0.002 c0.019-0.015,0.041-0.031,0.068-0.052c0.5-0.353,0.973-0.741,1.413-1.168c0.347-0.354,0.814-0.807,1.519-1.495 c2.361-2.32,2.652-2.781,2.652-2.781s-0.007,0.002-0.009,0.002C31.668,23.909,32,23.159,32,22.327z M30.121,23.54 c-0.414,0.41-2.166,2.215-2.639,2.678c-1.229,1.207-1.801,1.771-2.072,2.084l-0.004-0.006c-0.188,0.168-0.385,0.322-0.586,0.47 c-1.584,1.071-3.557,1.711-5.695,1.711c-2.158,0-4.146-0.647-5.736-1.735h-0.012c-1.375-0.841-2.988-1.354-4.584-1.197 c0.063-1.103,0.115-2.312,0.115-3.349c0-1.44-0.1-3.211-0.193-4.567c1.215-0.274,2.512-0.428,3.857-0.428 c4.12,0,7.762,1.362,9.995,3.495c0.263,0.293,0.429,0.679,0.429,1.101c0,0.916-0.744,1.658-1.658,1.658 c-0.035,0-0.067-0.009-0.103-0.011l-0.004,0.021c-0.854-0.03-2.188-0.389-4.442-1.25l-0.513,1.34 c2.384,0.91,3.953,1.318,5.066,1.347v-0.01c1.395-0.005,2.572-0.933,2.955-2.201v0.002c0.482-0.801,2.287-2.472,3.312-3.383 l0.002,0.002c0.011-0.011,0.021-0.019,0.027-0.026c0.19-0.171,0.354-0.313,0.473-0.416c0.216-0.136,0.44-0.193,0.798-0.193 c0.914,0,1.655,0.744,1.655,1.656C30.564,22.786,30.363,23.219,30.121,23.54z"></path> <path d="M21.973,18.611c5.105,0,9.26-4.153,9.26-9.259s-4.152-9.26-9.26-9.26c-5.106,0-9.26,4.154-9.26,9.26 S16.865,18.611,21.973,18.611z M21.973,1.706c4.215,0,7.646,3.432,7.646,7.646c0,4.214-3.432,7.646-7.646,7.646 c-4.217,0-7.646-3.432-7.646-7.646C14.327,5.137,17.756,1.706,21.973,1.706z"></path> <path d="M19.545,9.04c0.197,0.23,0.48,0.441,0.848,0.637c0.365,0.193,0.855,0.338,1.467,0.43 c0.174,0.029,0.348,0.066,0.521,0.115c0.178,0.045,0.338,0.109,0.486,0.188c0.146,0.08,0.268,0.176,0.361,0.287 c0.094,0.109,0.141,0.242,0.141,0.393c0,0.18-0.09,0.324-0.27,0.438c-0.184,0.111-0.406,0.166-0.682,0.166 c-0.209,0-0.396-0.016-0.559-0.049c-0.158-0.031-0.309-0.082-0.439-0.15c-0.132-0.068-0.262-0.154-0.389-0.26 c-0.125-0.104-0.254-0.227-0.385-0.371h-1.51v2.266h1.51v-0.338c0.072,0.037,0.146,0.072,0.225,0.104 c0.072,0.033,0.15,0.066,0.229,0.102v0.885h1.51v-0.681c0.324-0.021,0.625-0.09,0.9-0.205c0.277-0.113,0.518-0.266,0.719-0.453 c0.201-0.186,0.359-0.404,0.475-0.652s0.174-0.516,0.174-0.803c0-0.15-0.025-0.346-0.082-0.588 c-0.053-0.24-0.178-0.486-0.371-0.734c-0.191-0.248-0.477-0.477-0.846-0.689c-0.371-0.213-0.869-0.365-1.494-0.459 c-1.008-0.15-1.51-0.459-1.51-0.926c0-0.166,0.078-0.32,0.24-0.465c0.162-0.143,0.396-0.215,0.695-0.215 c0.209,0,0.391,0.018,0.545,0.053c0.154,0.037,0.297,0.09,0.426,0.156c0.129,0.068,0.252,0.154,0.367,0.26 c0.115,0.104,0.232,0.225,0.355,0.361h1.52V5.577h-1.508V5.9c-0.18-0.109-0.383-0.195-0.605-0.26V4.82H21.1v0.713 c-0.295,0.043-0.564,0.129-0.812,0.254s-0.463,0.283-0.646,0.475c-0.185,0.189-0.326,0.408-0.427,0.652 c-0.103,0.244-0.151,0.502-0.151,0.777c0,0.186,0.031,0.4,0.092,0.641C19.219,8.572,19.348,8.81,19.545,9.04z"></path> </g> </g> </g> </g></svg>
                             </div>
-                            <div class="statistics-value"><span>$</span> 500.00</div>
-                        </div>
-                        <div class="statistics-icon">
-                            <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
-                        </div>
-                    </div>
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
-                        <div class="statistics-text">
-                            <div class="statistics-label font-weight-bold">Month to Date
+
+                            <div class="card-heading">
+                                <h2>Advertisers</h2>
                             </div>
-                            <div class="statistics-value"><span>$</span> 750.00</div>
                         </div>
-                        <div class="statistics-icon">
-                            <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
-                        </div>
-                    </div>
-                    <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
-                        <div class="statistics-text">
-                            <div class="statistics-label font-weight-bold">Year to Date
+                        
+                        <hr class="custom-hr">
+                        <div class="common-stars">
+                            <div class="stats-detail">
+                                    <div class="stats-label">Today's Income
+                                    </div>
+                                    <div class="stats-value"><span>$</span> {{ $advertisers['today'] }}</div>                        
                             </div>
-                            <div class="statistics-value"><span>$</span> 25,000.00</div>
+
+                            <div class="stats-detail">
+                                    <div class="stats-label">Week to Date
+                                    </div>
+                                    <div class="stats-value"><span>$</span> {{ $advertisers['week'] }}</div>                        
+                            </div>
+
+                            <div class="stats-detail">
+                                    <div class="stats-label">Month to Date
+                                    </div>
+                                    <div class="stats-value"><span>$</span> {{ $advertisers['month'] }}</div>                        
+                            </div>
                         </div>
-                        <div class="statistics-icon">
-                            <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
+
+                        <div class="card-note">
+                            <div class="stats-detail">
+                                    <div class="stats-label">Year to Date
+                                    </div>
+                                    <div class="stats-value"><span>$</span> {{ $advertisers['year'] }}</div>                        
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            {{-- end --}}
-
-
         </div>
     @endsection
     @section('script')

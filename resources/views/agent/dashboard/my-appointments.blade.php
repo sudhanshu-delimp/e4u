@@ -162,7 +162,11 @@
                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         
                         <ol>
-
+                            <li>Use this feature to create appointments with your potential new Advertiser or any subsequent appointment with your Advertiser.</li>
+                            <li>Select the New Appointment button to add a new appointment to your Planner.</li>
+                            <li>Select the Action feature to Edit, View, reschedule of close off your appointment.</li>
+                            <li>Select the View Planner button to view all of your appointments.</li>
+                            <li>Appointments will always be listed according to the priority you have set for the appointment.</li>
                         </ol>
                     </div>
                 </div>
@@ -212,7 +216,7 @@
                         </div>
                     </div>
                     <div class="card-body p-0 Dash-table task_table">
-                        <div class="table-full-width table-responsive">
+                        <div class="table-full-width table-responsive common-card">
                             <table class="table table-bordered " id="taskList">
                                 <thead style="background-color: #0C223D; color: #ffffff;">
                                     <tr>
@@ -908,6 +912,11 @@
             var marker = new google.maps.Marker({
                 position: defaultCenter,
                 map: map,
+                icon: {
+                url: "{{ asset('assets/app/img/google_pin_white.png') }}",
+                scaledSize: new google.maps.Size(70, 70),
+                anchor: new google.maps.Point(24, 64)
+             },
                 draggable: true
             });
 

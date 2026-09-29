@@ -44,8 +44,7 @@
     </div>
 
     <!--middle content-->
-    <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 common-card">
             <div class="table-responsive">
                 <table class="table w-100" id="transactionSummaryTable">
                     <thead class="table-bg">
@@ -64,7 +63,6 @@
                 </table>
             </div>
         </div>
-    </div>
 </div>
 
 @include('escort.dashboard.Bookkeeping.modal.transaction-summary')
@@ -85,8 +83,8 @@
     table = $('#transactionSummaryTable').DataTable({
         serverSide: true,
         processing: true,
-        pageLength: {{$datatable_entries }},
-        lengthMenu: [{{ config('app.paginate_range') }}],   
+        pageLength: `{{$datatable_entries}}`,
+            lengthMenu: `{{config('app.paginate_range')}}`.split(','),  
         "language": {
             "zeroRecords": "There is no record of the search criteria you entered.",
             searchPlaceholder: "Search by Ref, Service Type, Card"

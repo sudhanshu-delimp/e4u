@@ -28,13 +28,19 @@ class Purchase extends Model
 
     public function paymentItems()
     {
-        return $this->morphMany(PaymentItem::class, 'item');
+        return $this->morphOne(PaymentItem::class, 'item');
+    }
+
+    public function pinup()
+    {
+        return $this->hasMany(EscortPinup::class, 'purchase_id');
     }
 
     public function suspendProfile()
     {
         return $this->hasMany(SuspendProfile::class, 'purchase_id');
     }
+
 
     public function upcomingSuspends()
     {

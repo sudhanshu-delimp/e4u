@@ -3,10 +3,10 @@
     id="accordionSidebar">
     <!-- Sidebar - Brand -->
     <!-- <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
-      <img src="{{ asset('assets/app/img/logo.svg') }} " alt="">
+      <img src="{{ asset('assets/images/escorts4u-logo.svg') }} " alt="">
       </a> -->
     <a class="sidebar-brand text-left pb-1" href="{{ route('home') }}">
-        <img src="{{ asset('assets/app/img/logo.svg') }}" class="mb-3 e4u_logo" alt=""><br>
+        <img src="{{ asset('assets/images/escorts4u-logo.svg') }}" class="mb-3 e4u_logo" alt=""><br>
 
     </a>
     <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-2">Viewer Console</span>
@@ -188,7 +188,8 @@
         <div id="Management" class="collapse  @if (in_array(request()->segment(2), ['advertiser-list', 'calculate-reckoner','edit-my-reports']) ||
                 in_array(request()->segment(3), [
                     'escort',
-                    'massage','list','new','my-report','dashboard','add-report'                ])) show @endif"
+                    'massage','list','new','my-report','dashboard','add-report']) ||
+        request()->is('user-dashboard/notebox/edit/*')) show @endif"
             data-parent="#accordionSidebar">
             <div class="collapse-inner">
 
@@ -228,29 +229,30 @@
                 {{-- end --}}
 
                 {{-- fee --}}
-                <a class="nav-link disabled-link collapsed @if (isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_enable_my_notebox != '1') inactive_li @endif" href="#" data-toggle="collapse" data-target="#Fees">
+                <a class="nav-link collapsed @if (isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_enable_my_notebox != '1') inactive_li @endif" href="#" data-toggle="collapse" data-target="#Fees">
                     <img class="mr-2 pl-1 cstm--icon" src="{{ asset('assets/dashboard/img/MyNotebox.png') }}"
                 style="filter: brightness(0) saturate(100%) invert(99%) sepia(5%) saturate(0%) hue-rotate(101deg) brightness(110%) contrast(100%);">
                     <span>Notebox</span>
                 </a>
-                {{-- <div id="Fees" class="collapse @if (request()->segment(3) == 'list' ||
-                        request()->segment(3) == 'new') show @endif;"
+                <div id="Fees" class="collapse @if (request()->segment(3) == 'list' ||
+                        request()->segment(3) == 'new' ||
+                        request()->is('user-dashboard/notebox/edit/*')) show @endif;"
                     data-parent="#Management">
 
                     <div class="py-0 collapse-inner rounded mb-2">
 
                         <a class="collapse-item" href="{{ route('user.list') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/notebox.png') }}">
-                            <span style="{{ request()->segment(3) == 'list' ? 'color: #e5365a;' : '' }}">My Noteboxes</span>
+                            <span style="{{ request()->segment(3) == 'list' ||  request()->is('user-dashboard/notebox/edit/*') ? 'color: #e5365a;' : '' }}">My Noteboxes</span>
                         </a>
 
-                        <a class="collapse-item" href="{{ route('user.new') }}">
+                        <a class="collapse-item" href="{{ route('user.notebox.new') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/add-note.png') }}">
                             <span style="{{ request()->segment(3) == 'new' ? 'color: #e5365a;' : '' }}">Add Notebox</span>
                         </a>
 
                     </div>
-                </div> --}}
+                </div> 
                 {{-- end --}}
                 {{-- Punterbox --}}
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Punterbox">
@@ -278,7 +280,7 @@
                             <img src="{{ asset('assets/dashboard/img/menu-icon/my-report.png') }}">
                             <span
                                 style="{{ request()->segment(3) == 'my-report' || request()->is('user-dashboard/edit-my-reports/*') ? 'color: #e5365a;' : '' }}">My
-                                Report</span>
+                                Reports</span>
                         </a>
 
                     </div>
@@ -342,7 +344,7 @@
                             <span style="{{ request()->segment(2) == 'view-reviews' ? 'color: #e5365a;' : '' }}">My
                                 Reviews</span>
                         </a>
-                        <a class="collapse-item disabled-link @if (isset(auth()->user()->viewer_settings) &&
+                        <a class="collapse-item @if (isset(auth()->user()->viewer_settings) &&
                                 auth()->user()->viewer_settings->features_direct_chatting_with_escorts != '1') inactive_li @endif"
                             href="{{ route('user.viewer-messages') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">

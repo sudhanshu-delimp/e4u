@@ -5,17 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agent Montly Fee Report</title>
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.2') }}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900" rel="stylesheet">
+        <style>
+        @media print {
+            body,
+            table,
+            table th,
+            table td,
+            table th *,
+            table td * {
+                font-family: "Poppins", sans-serif;
+                border-top: 0px;
+                border-bottom: 0px;
+            }
+        }
 
-    <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.2') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-responsive.css?v1.2') }}" rel="stylesheet">
-    <style>
+        table th,
+        table td {
+            font-family: "Poppins", sans-serif;
+        }
+
         .heading {
             display: block;
             font-size: 1rem;
@@ -51,8 +64,9 @@
             font-size: 12px;
             font-weight: 500;
             vertical-align: middle;
-            font-family: 'Poppins', sans-serif;
+           font-family: "Poppins", sans-serif;
         }
+        .font-weight-bold{color:#fff !important;}
     </style>
 </head>
 <body style="margin:0;width:100%">
@@ -65,11 +79,11 @@
         $payAgentId = $reportData['payAgentId'];
         $payMonthlyReportDate = $reportData['payMonthlyReportDate'];
         $payMonthlyReportMonth = $reportData['payMonthlyReportMonth'];
-        $payAgenFee = number_format($reportData['payAgenFee'], 2, '.', ''); 
+        $payAgenFee = number_format($reportData['payAgenFee'], 2); 
     @endphp    
     <!-- Body -->
 
-        <table class="table mb-0 common_accordian_table" style="background-color:#0c223d;">
+        <table class="table mb-0 common_accordian_table" style="background-color:#000;">
             <tr>
                 <td style="text-align: left !important;"> <span>
                         <img src="{{ $base64 }}" style="width: 25px;">
@@ -80,24 +94,39 @@
         </table>
         <table class="w-100 table common_modal_table" style="padding: 20px 0 0 0;">
             <tr>
-                <td style="font-weight: bold; color: #001f4d;">Agent ID:</td>
-                <td><span id="payAgentId">{{$payAgentId}}</span></td>
-                <td style="font-weight: bold; color: #001f4d;">Date:</td>
+                <td style="font-weight: bold; color: #000 !important;">Agent ID:</td>
+                <td style="text-align:right;"><span id="payAgentId">{{$payAgentId}}</span></td>
+                <td style="font-weight: bold; color: #000 !important;">Date:</td>
                 <td><span id="payMonthlyReportDate">{{$payMonthlyReportDate}}</span></td>
             </tr>
             <tr>
-                <td style="font-weight: bold; color: #001f4d;">Fee Total:</td>
-                <td><span id="payAgenFee">${{$payAgenFee}}</span></td>
-                <td style="font-weight: bold; color: #001f4d;">Month:</td>
+                <td style="font-weight: bold; color: #000 !important;">Fee Total:</td>
+                <td style="text-align:right;"><span id="payAgenFee">${{$payAgenFee}}</span></td>
+                <td style="font-weight: bold; color: #000 !important;">Month:</td>
                 <td><span id="payMonthlyReportMonth">{{$payMonthlyReportMonth}}</span></td>
             </tr>
         </table>
-        <p>
+        <p style="font-size: 14px;">
             The Fee for the month is authorised for payment into the
             Operator’s nominated Bank Account for the Agent.
         </p>
-        <p style="margin-top: 25px;">
-            Managing Director: <span style="display: inline-block; border-bottom: 1px solid #000; width: 200px;"></span>
-        </p>
+        <p style="margin-top: 25px;font-size: 14px;">
+        Managing Director: <span style="display: inline-block; border-bottom: 1px solid #000; width: 250px;"></span>
+    </p>
+
+    <div style="margin-top: 0px; font-size: 14px;">
+        <hr style="margin-top: 20px; margin-bottom:30px;">
+        <p style="font-weight: bold; color: #000; margin-bottom: 20px;font-size: 14px;">Office Use Only:</p>
+
+        <table style="width: 100%; border:0 !important;font-size: 14px;">
+            <tr>
+                <td style="padding: 5px 0;font-size: 14px;width:50%;border:0 !important;">EFT Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td style="padding: 5px 0;font-size: 14px;width:50%;border:0 !important;">General Ledger: ______________________________</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="width:100%;padding: 50px 0;font-size: 14px; border:0 !important;text-align:left;">Processed by: ______________________________________</td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

@@ -23,4 +23,15 @@ class EscortBankDetail extends Model
         $clean = removeSpaceFromString($value);
         $this->attributes['account_number'] = $clean;
     }
+
+      public function getBsbAttribute($value)
+    {
+        return formatBSBNumber($value);
+    }
+
+    public function setBsbAttribute($value)
+    {
+        $clean = removeSpaceFromString($value);
+        $this->attributes['bsb'] = $clean;
+    }
 }

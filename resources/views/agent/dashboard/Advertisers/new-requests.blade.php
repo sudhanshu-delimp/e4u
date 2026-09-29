@@ -1,15 +1,45 @@
 @extends('layouts.agent')
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+<style>
+   .statement-accordian .card .card-header a:after {
+  
+    position: absolute;
+    right: 0%;
+    top: 30%;
+    font-size: 22px;
+    background: var(--light-pink);
+    padding: 10px 14px;
+    line-height: 20px;
+    border-radius: var(--radius-full);
+    color: var(--peach) !important;
+}
+
+.location_class {
+text-align: center;
+}
+
+
+</style>
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!--middle content end here-->
    {{-- Page Heading   --}}
    <div class="row">
-      <div class="custom-heading-wrapper col-lg-12">
-         <h1 class="h1">New Requests</h1>
-         <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+      <div class="d-flex align-items-center justify-content-between col-md-12">
+            <div class="custom-heading-wrapper">
+               <h1 class="h1">New Requests</h1>
+               <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+            </div>
+            
+            @if (request('from') == 'dashboard')
+               <div class="back-to-dashboard">
+                  <a href="{{ route('agent.dashboard') }}">
+                        <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+                  </a>
+               </div>
+            @endif
       </div>
       <div class="col-md-12 mb-4">
          <div class="card collapse" id="notes" style="">
@@ -44,12 +74,9 @@
    @endif
 
 
-   <div class="col-md-12 pt-4">
-      <div id="data-container">
+      <div id="data-container" class="mt-2">
          @include('agent.dashboard.Advertisers.agent-requests-list')
       </div>
-   </div>
-</div>
 </div>
 
 <div id="popupContainer"></div>
@@ -57,6 +84,7 @@
 
 @endsection
 @push('script')
+<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_map.api_key') }}&libraries=places&callback=initMap" async defer></script>
 
 <script>
 
@@ -166,5 +194,139 @@
          event.preventDefault();
       }
    });
+
+
+
+   //////// Google Map Script //////////////
+   $(document).ready(function() 
+   {
+      $('.collapse').on('shown.bs.collapse', function () {
+         
+            const collapseContainer = $(this);
+            const mapDiv = collapseContainer.find('.modal-map-container');
+            
+            if (mapDiv.length === 0) return;
+
+            const mapId = mapDiv.attr('id');
+            const address = mapDiv.data('address');
+
+            if (!mapDiv.data('rendered')) {
+                  loadAccordionMapWithLoader(mapId, address);
+                  mapDiv.data('rendered', true);
+            } 
+            else 
+            {
+                  if (mapDiv.data('mapInstance')) {
+                     const map = mapDiv.data('mapInstance');
+                     google.maps.event.trigger(map, 'resize');
+                     if (mapDiv.data('mapCenter')) {
+                        map.setCenter(mapDiv.data('mapCenter'));
+                     }
+                  }
+            }
+      });
+
+
+      function loadAccordionMapWithLoader(elementId, address) 
+      {
+            const mapElement = document.getElementById(elementId);
+            if (!mapElement) return;
+
+            if (!address || address.trim() === '') {
+               mapElement.innerHTML = `<div class="d-flex align-items-center justify-content-center h-100 text-muted small">Address not available</div>`;
+               return;
+            }
+
+            const geocoder = new google.maps.Geocoder();
+
+            geocoder.geocode({ address: address }, function(results, status) {
+               if (status === "OK" && results[0]) {
+                     const location = results[0].geometry.location;
+
+                     const map = new google.maps.Map(mapElement, {
+                        zoom: 15,
+                        center: location,
+                        mapTypeControl: false,
+                        streetViewControl: false,
+                        zoomControl: true
+                     });
+
+                  
+                     const marker = new google.maps.Marker({
+                        position: location,
+                        map: map,
+                        title: address,
+                        icon: {
+                        url: "{{ asset('assets/app/img/google_pin_white.png') }}",
+                        scaledSize: new google.maps.Size(70, 70),
+                        anchor: new google.maps.Point(24, 64)
+                        },
+                     });
+
+                     $(mapElement).data('mapInstance', map);$(mapElement).data('mapCenter', location);
+
+                  
+                     setTimeout(() => {
+                        google.maps.event.trigger(map, "resize");
+                        map.setCenter(location);
+                     }, 200);
+
+               
+                     const service = new google.maps.places.PlacesService(map);
+
+                     service.findPlaceFromQuery({
+                        query: address,
+                        fields: ["name", "photos", "rating"]
+                     }, function(placeResults, placeStatus) {
+
+                        let imageUrl = '';  
+                        let ratingHtml = "";
+
+                        if (placeStatus === google.maps.places.PlacesServiceStatus.OK && placeResults && placeResults[0]) {
+                           const place = placeResults[0];
+
+                           if (place.rating) {
+                                 ratingHtml = `<div style="margin:2px 0 0 0; font-size:12px; color:#f39c12;">Rating: ${place.rating} ★</div>`;
+                           }
+
+                           if (place.photos && place.photos.length > 0) {
+                                 imageUrl = place.photos[0].getUrl({ maxWidth: 400 });
+                           }
+                        }
+
+                        let g_image = "";
+                        if (imageUrl !== "") {
+                           g_image = `<img style="width:100%; height:80px; object-fit:cover; border-radius:8px; margin-bottom:6px;" src="${imageUrl}" alt="location preview">`;
+                        }
+                        
+                        const content = `
+                           <div class="location_class" style="max-width:200px;">
+                                 ${g_image}
+                                 <div style="font-weight:600; font-size:13px; color:#333;">${address}</div>
+                                 ${ratingHtml}
+                           </div>`;
+
+                        const infowindow = new google.maps.InfoWindow({
+                           content: content,
+                           headerDisabled: true
+                        });
+
+                        infowindow.open(map, marker);
+
+                        marker.addListener("click", () => {
+                           infowindow.open(map, marker);
+                        });
+                     });
+
+               } else {
+                     mapElement.innerHTML = `<div class="d-flex align-items-center justify-content-center h-100 text-muted small">Location map not available for: ${address}</div>`;
+               }
+            });
+      }
+
+   });
+
+   //////// Google Map Script //////////////
+
 </script>
 @endpush

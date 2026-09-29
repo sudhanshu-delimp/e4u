@@ -69,7 +69,7 @@
                                 </svg>
                                 <h1> Advertiser Registration</h1>
                             </div>
-                            <h2>Registration with us is free</h2>
+                            <h2>Registration is free</h2>
                             <p>There are no Fees when you create an Account. Fees only apply when you
                                 post a Profile or Tour
                                 where you are charged according to the number of days and the Membership Type you select.

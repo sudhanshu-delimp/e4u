@@ -44,29 +44,19 @@
     </style>
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 register-pin-up">
-    <!--middle content start here-->
-     <!-- Page Heading -->
-     <div class="row">
-        <div class="custom-heading-wrapper col-md-12">
-            <h1 class="h1">View & Reply</h1>
-            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>                     </span>
-        </div>
-        <div class="col-md-12 mb-4">
-            <div class="card collapse" id="notes" style="">
-                <div class="card-body">
-                   <h3 class="NotesHeader"><b>Notes:</b></h3>
-                    <ol>
-                        <li>You will receive a Notification, located in the Support Ticket Alert (top menu bar), when you have an unread Support Ticket message.</li>
-                        <li>Use the <a href="{{ route('user.viewer-messages')}}" class="custom_links_design">Messaging</a> service for communication with other Users (if available).</li>
-                        
-                    </ol>
-                </div>
+    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 register-pin-up">
+        <!--middle content start here-->
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="custom-heading-wrapper col-md-12">
+                <h1 class="h1">View & Reply</h1>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>
+                </span>
             </div>
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
                             <li>You will receive a Notification, located in the Support Ticket Alert (top menu bar), when
                                 you have an unread Support Ticket message.</li>
@@ -81,8 +71,8 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="box-body table-responsive">
-                    <table class="table" id="supportTicketsTable">
+                <div class="box-body table-responsive common-card">
+                    <table class="table w-100" id="supportTicketsTable">
                         <thead id="table-sec" class="table-bg">
                             <tr>
                                 <th>Ticket ID </th>
@@ -97,12 +87,9 @@
                             </tr>
                         </thead>
                     </table>
-                    <div>
-                    </div>
                 </div>
             </div>
         </div>
-        <!--middle content end here-->
     </div>
 
     <div class="modal fade upload-modal" id="conversation_modal" tabindex="-1" role="dialog"
@@ -143,15 +130,6 @@
     </div>
 @endsection
 @push('script')
-    <!-- file upload plugin start here -->
-    <!-- file upload plugin end here -->
-    <!-- <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script> -->
-
-
-
-
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script>
@@ -174,7 +152,7 @@
                 serverSide: true,
                 lengthChange: true,
                 lengthMenu: paginateRange,
-pageLength: paginateLength,
+                pageLength: paginateLength,
                 ajax: {
                     url: "{{ route('support-ticket.dataTable') }}",
                     type: 'GET',

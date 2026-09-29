@@ -23,9 +23,9 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.3') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-responsive.css?v1.2') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/common-style/style.css?v1.02') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.4') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/dk-responsive.css?v1.4') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/common-style/style.css?v1.06') }}" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="{{ asset('assets/app/vendor/file-upload/css/jquery.fileupload.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/app/vendor/file-upload/css/jquery.fileupload-ui.css') }}" />
@@ -62,9 +62,9 @@
 
     @section('style')
     @show
-    <script>
-     var BASE_URL = "{{ url('/') }}";
+     <script>
+        var BASE_URL = "{{ url('/') }}";
         var paginateRange = [{{ config('app.paginate_range') }}];
-        var paginateLength="{{Auth::user()->agent_settings->show_entries??25}}";
+        var paginateLength = "{{ Auth::user()->agent_settings->show_entries ?? config('app.paginate_length') }}";
     </script>
 </head>

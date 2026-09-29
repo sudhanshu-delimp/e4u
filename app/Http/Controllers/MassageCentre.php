@@ -12,12 +12,14 @@ use App\Models\MassagePurchase;
 use App\Models\MassageReviews;
 use App\Models\MassagerMasseur;
 use App\Models\MassageService;
+use App\Models\MassageViewerInteractions;
 use App\Models\Masseur;
 use App\Models\ReportMassageProfile;
 use App\Models\Reviews;
 use App\Models\Service;
 use App\Models\State;
 use App\Models\User;
+use App\Models\Visitor;
 use App\Repositories\Duration\MassageDurationInterface;
 use App\Repositories\MassageProfile\MassageAvailabilityInterface;
 use App\Repositories\MassageProfile\MassageProfileInterface;
@@ -26,18 +28,18 @@ use App\Repositories\Message\MessageInterface;
 use App\Repositories\Message\MessageMediaInterface;
 use App\Repositories\Service\ServiceInterface;
 use App\Repositories\Thumbnail\ThumbnailInterface;
+use App\Services\LogService;
+use App\Services\SeoResolver;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use App\Models\MassageViewerInteractions;
-use App\Models\Visitor;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Collection;
 
 class MassageCentre extends Controller
 {
@@ -52,11 +54,12 @@ class MassageCentre extends Controller
     protected $massage_profile;
     protected $reviews;
     protected $model_massage_profile;
+    public $logService;
 
 
 
 
-    public function __construct(MassageReviewInterface $reviews, MassageProfileInterface $massage_profile, MessageInterface $massage, MessageMediaInterface $media, ThumbnailInterface $thumbnail,  ServiceInterface $service, MassageDurationInterface $duration, MassageAvailabilityInterface $massage_availability)
+    public function __construct(MassageReviewInterface $reviews, MassageProfileInterface $massage_profile, MessageInterface $massage, MessageMediaInterface $media, ThumbnailInterface $thumbnail,  ServiceInterface $service, MassageDurationInterface $duration, MassageAvailabilityInterface $massage_availability, LogService $logService)
     {
         $this->massage = $massage;
         $this->massage_availability = $massage_availability;
@@ -66,16 +69,22 @@ class MassageCentre extends Controller
         $this->massage_profile = $massage_profile;
         $this->reviews = $reviews;
         $this->model_massage_profile = new MassageProfile;
+        $this->logService = $logService;
+
     }
 
 
-    public function  massageList()
+    public function  massageList(Request $request)
     {
+
+        $path = trim(str_replace('find_massage_centres', '', request()->path()), '/');
+        //use For Escirt SEO in the lisging page.
+        $seo = (object) SeoResolver::resolve('massage', $path);
         $clickTab = 0;
         if (Auth::user() && auth()->user()->type == 0) {
             $clickTab = 1;
         }
-        return view('web.mc.massage-centre-list', compact('clickTab'));
+        return view('web.mc.massage-centre-list', compact('clickTab', 'seo'));
     }
 
 
@@ -453,6 +462,9 @@ class MassageCentre extends Controller
 
         $currentItems = $final->forPage($page, $per_page)->values();
 
+        // This code use for jump next previus. 
+        $massageOnlyIds = $final->pluck('id');
+        session(['massage_ids' => $massageOnlyIds->values()->all()]);
 
         $listings = new LengthAwarePaginator(
             $currentItems,
@@ -703,8 +715,8 @@ class MassageCentre extends Controller
             $relatedSlugs = $relatedMassges->pluck('massageprofile.slug')->filter()->toArray();
         }
         //$ids = $request->ids ? json_decode($request->ids, true) : [];
-
-        $ids = $relatedIds;
+        $massageIds = session('massage_ids', []);
+        $ids = $massageIds;
         if (!$id) {
             return redirect(route('find.massage.centre'));
         }
@@ -781,7 +793,11 @@ class MassageCentre extends Controller
             $star_rating = 0;
         }
 
-        return view('web.mc.massage-description', compact('listing', 'durations', 'massage_durations', 'reviews', 'spamReportAdvertiser', 'lp', 'dp', 'massageLike', 'nextId', 'prevId', 'ids', 'star_rating', 'prevSlug', 'nextSlug', 'prevList', 'nextList'));
+        $path = trim(str_replace('find_massage_centres', '', request()->path()), '/');
+        //use For Escirt SEO in the lisging page.
+        $seo = (object) SeoResolver::resolve('massage', $path);
+  
+        return view('web.mc.massage-description', compact('listing', 'durations', 'massage_durations', 'reviews', 'spamReportAdvertiser', 'lp', 'dp', 'massageLike', 'nextId', 'prevId', 'ids', 'star_rating', 'prevSlug', 'nextSlug', 'prevList', 'nextList', 'seo'));
     }
 
 
@@ -1219,7 +1235,7 @@ class MassageCentre extends Controller
 
         try {
 
-            $data = $this->getVisitorCountry();
+            $data = $this->logService->getVisitorCountry();
             $masseur = $request->masseur_id;
             $page = $request->page;
             if ($data) {
@@ -1243,16 +1259,16 @@ class MassageCentre extends Controller
 
                 $datas = [
                     'page'       => $page,
-                    'ip_address' => $this->getUserIp(),
-                    'device'     => $this->getBrowser(),
-                    'platform'   => $this->getBrowser(),
+                    'ip_address' => $this->logService->getUserIp(),
+                    'device'     => $this->logService->getBrowser(),
+                    'platform'   => $this->logService->getBrowser(),
                     'country'    => $data[0],
                     'city'       => $data[2],
                     'state'      => $data[1],
                     'user_type'  => auth()->check() ? 'user' : 'guest',
                     'user_id'    => auth()->id(),
                     'idle'       => $now->format('Y-m-d h:i:s a'),
-                    'origin'     => $this->getVisitorCountry()[0],
+                    'origin'     => $this->logService->getVisitorCountry()[0],
                     'date'       => $now,
                     'masseur_id' => $masseur,
                 ];
@@ -1270,78 +1286,24 @@ class MassageCentre extends Controller
         }
     }
 
-    public function getUserIp()
+
+    public function make_massage_centres_log(Request $request)
     {
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-            // IP from shared internet
-            $ip = $_SERVER['HTTP_CLIENT_IP'];
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            // IP passed from proxy
-            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-            // Sometimes multiple IPs are returned, get the first one
-            $ip = explode(',', $ip)[0];
-        } else {
-            // Remote IP
-            $ip = $_SERVER['REMOTE_ADDR'];
-        }
-        return $ip;
-    }
-
-    public function getVisitorCountry()
-    {
-        $ip = $this->getUserIp();
-
-        // Check if IP and Country are already stored in session
-        if (Session::has('visitor_ip') && Session::get('visitor_ip') === $ip && Session::has('visitor_country') && Session::has('visitor_city') && Session::has('visitor_region')) {
-            return [Session::get('visitor_country'), Session::get('visitor_state'), Session::get('visitor_city'), Session::get('visitor_region')];
-        }
-        // If not in session, fetch from API
-        $response = Http::get("http://ip-api.com/json/{$ip}");
-
-        $data = $response->json();
-        $visitorState = null;
-        $visitorCountry = null;
-        $visitorCity = null;
-        $visitorRegion = null;
-        if ($data && isset($data['status']) && $data['status'] === 'success') {
-            $visitorCountry = $data['country'];
-            $visitorState   = $data['regionName'];
-            $visitorCity   = $data['city'];
-            $visitorRegion   = $data['region'];
-
-            // Store in session for later use
-            Session::put('visitor_ip', $ip);
-            Session::put('visitor_country', $visitorCountry);
-            Session::put('visitor_state', $visitorState);
-            Session::put('visitor_city', $visitorCity);
-            Session::put('visitor_region', $visitorRegion);
-        }
-
-        return [$visitorCountry, $visitorState, $visitorCity, $visitorRegion];
+      $log  = $this->logService->make_massage_profile_visit_log($request->all());  
+      if($log)
+      return response()->json(['status' => true,'message' => 'Log generate successfully.']);
+      else
+      return response()->json([ 'status' => false,'message' => 'error occured while generating log.']);             
     }
 
 
-    public function getBrowser()
+    public function make_social_media_log(Request $request)
     {
-        $userAgent = $_SERVER['HTTP_USER_AGENT'];
-        $browser = "Unknown Browser";
-
-        if (preg_match('/MSIE (\\d+\\.\\d+)/i', $userAgent, $matches)) {
-            $browser = "Internet Explorer";
-        } elseif (preg_match('/Trident.*rv:(\\d+\\.\\d+)/i', $userAgent, $matches)) {
-            $browser = "Internet Explorer";
-        } elseif (preg_match('/Edg\\/([0-9\\.]+)/i', $userAgent, $matches)) {
-            $browser = "Microsoft Edge";
-        } elseif (preg_match('/OPR\\/([0-9\\.]+)/i', $userAgent, $matches)) {
-            $browser = "Opera";
-        } elseif (preg_match('/Chrome\\/([0-9\\.]+)/i', $userAgent, $matches)) {
-            $browser = "Google Chrome";
-        } elseif (preg_match('/Safari\\/([0-9\\.]+)/i', $userAgent, $matches)) {
-            $browser = "Apple Safari";
-        } elseif (preg_match('/Firefox\\/([0-9\\.]+)/i', $userAgent, $matches)) {
-            $browser = "Mozilla Firefox";
-        }
-
-        return $browser;
+      $log  = $this->logService->make_social_media_log($request->all());  
+      if($log)
+      return response()->json(['status' => true,'message' => 'Log generate successfully.']);
+      else
+      return response()->json([ 'status' => false,'message' => 'error occured while generating log.']);             
     }
+   
 }

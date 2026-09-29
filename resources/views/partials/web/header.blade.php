@@ -1,23 +1,53 @@
 <!doctype html>
 <html lang="en">
 
+
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="RATING" content="RTA-5042-1996-1400-1577-RTA" />
 
     {{-- <meta name="google-site-verification" content="tzqUkr_jX_neI5MlPldK2ai6CErqC0OOKQCvJ85xJeA" /> --}}
     <!-- Bootstrap CSS -->
     <link rel="shortcut icon" href="{{ asset('assets/app/img/favicon.ico') }}" />
-    <title> E4U - Escort Directory</title>
+    <title>{{ !empty($seo->meta_title) ? $seo->meta_title : 'E4U - Escort Directory' }}</title>
+    <meta name="RATING" content="RTA-5042-1996-1400-1577-RTA">
+    @if(!empty($seo->meta_description))
+    <meta name="description" content="{{ $seo->meta_description }}">
+    @endif
+
+    {{-- Open Graph --}}
+    <meta property="og:title" content="{{ !empty($seo->og_title) ? $seo->og_title : (!empty($seo->meta_title) ? $seo->meta_title : 'E4U - Escort Directory') }}">
+
+    @if(!empty($seo->og_description) || !empty($seo->meta_description))
+        <meta property="og:description" content="{{ $seo->og_description ?? $seo->meta_description }}">
+    @endif
+
+    @if(!empty($seo->og_image))
+        <meta property="og:image" content="{{ Str::startsWith($seo->og_image, ['http://', 'https://']) ? $seo->og_image : asset($seo->og_image) }}">
+    @endif
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+
+  
+
+    {{-- Schema markup (JSON-LD) — only render if valid data exists --}}
+    @if(!empty($seo->schema_script))
+        <script type="application/ld+json">
+            {!! $seo->schema_script !!}
+        </script>
+    @endif
+
+
     <link rel="stylesheet" href="{{ asset('assets/app/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.structure.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 
     <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-style.css?v2.09') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v3.02') }}" rel="stylesheet">
     <!-- jquery ui cdn -->
 
     <!-- google fonts -->
@@ -44,15 +74,17 @@
     <!-- font awsome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v3.07') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v3.03') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v1.09') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v4.03') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v3.08') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v2.04') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
 
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/parsley/src/parsley.css') }}">
+
+  
     @section('style')
     @show
      @if(isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] != '127.0.0.1')

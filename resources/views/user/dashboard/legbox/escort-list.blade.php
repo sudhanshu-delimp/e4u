@@ -27,7 +27,7 @@
                      <li>The My Legbox feature is a list only of your favourite Escorts. Please note, the
                         Notifications feature is enabled, according to your settings, by default. You can enable
                         or disable Notifications exclusively with an Escort. Go to Action.</li>
-                     <li>Use the <a href="{{ route('user.new') }}" class="custom_links_design">Notebox</a> feature to record your experience with an Escort you have added to
+                     <li>Use the <a href="{{ route(user.notebox.new') }}" class="custom_links_design">Notebox</a> feature to record your experience with an Escort you have added to
                         My Legbox.</li>
                  </ol>
               </div>

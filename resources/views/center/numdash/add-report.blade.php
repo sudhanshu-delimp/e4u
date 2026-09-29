@@ -23,160 +23,142 @@
         <h1 class="h1">Add Report</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
       </div>
-      <div class="col-md-12 mv-4">
-         <div class="row collapse" id="notes">
-            <div class="col-md-12 mb-4">
-               <div class="card">
-                  <div class="card-body">
-                     <h3 class="NotesHeader"><b>Notes:</b></h3>
-                     <ol>
-                        <li>
-                          The NUM register (<b>NUM</b>) is a free service to all Escorts. You can use the NUM service
-                          at any time.
-                        </li>
-                        <li>
-                          Complete the form to add an incident to the NUM. When completing the form please
-                          ensure all of the details are correct and you have selected the correct option under
-                          Incident Nature to describe the incident as well as for Rating. Please ensure your report
-                          complies with the <a href="{{ route('escort.code-of-conduct') }}" class="custom_links_design">Code of Conduct</a>.
-                        </li>
-                        <li>
-                          The NUM is a closed publication for Escorts only. Each entry contains personal reports,
-                          provided by Escorts, of incidents involving problem clients. The NUM makes these
-                          reports available to help other Escorts avoid problem clients, and as an extension of
-                          the “word of mouth” warnings given by Escorts between each other.
-                        </li>
-                        <li>
-                          Incident Nature filter meanings:
-                          <ol class="level-2">
-                            <li><strong>Time waster:</strong> A client who did not turn up at an agreed time, or keeps
-                            putting off the appointment, promising to come at a later time but never turns up.</li>
-                            <li><strong>Con man:</strong> A client that did not pay you for the agreed time for your
-                            companionship.</li>
-                            <li><strong>Dangerous:</strong> A client who is aggressive toward you, usually language based,
-                            or undertakes dangerous behaviour such as using drugs in your presence.</li>
-                            <li><strong>Assault:</strong> A client who has assaulted you.</li>
-                            </ol>
-                        </li>
-                        <li>
-                          E4U makes no claims:
-                          <ol class="level-2">
-                            <li>as to the accuracy or legitimacy of the allegations; and</li>
-                            <li>nor do we investigate the authenticity of the Reports (provided in confidence by Escorts).</li>
-                          </ol>
-                        </li>
-                      </ol>                      
-                  </div>
-               </div>
+        <div class="col-md-12 mb-4 collapse" id="notes">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="NotesHeader"><b>Notes:</b></h3>
+                    <ol>
+                    <li>
+                        The NUM register (<b>NUM</b>) is a free service to all Escorts. You can use the NUM service
+                        at any time.
+                    </li>
+                    <li>
+                        Complete the form to add an incident to the NUM. When completing the form please
+                        ensure all of the details are correct and you have selected the correct option under
+                        Incident Nature to describe the incident as well as for Rating. Please ensure your report
+                        complies with the <a href="{{ route('escort.code-of-conduct') }}" class="custom_links_design">Code of Conduct</a>.
+                    </li>
+                    <li>
+                        The NUM is a closed publication for Escorts only. Each entry contains personal reports,
+                        provided by Escorts, of incidents involving problem clients. The NUM makes these
+                        reports available to help other Escorts avoid problem clients, and as an extension of
+                        the “word of mouth” warnings given by Escorts between each other.
+                    </li>
+                    <li>
+                        Incident Nature filter meanings:
+                        <ol class="level-2">
+                        <li><strong>Time waster:</strong> A client who did not turn up at an agreed time, or keeps
+                        putting off the appointment, promising to come at a later time but never turns up.</li>
+                        <li><strong>Con man:</strong> A client that did not pay you for the agreed time for your
+                        companionship.</li>
+                        <li><strong>Dangerous:</strong> A client who is aggressive toward you, usually language based,
+                        or undertakes dangerous behaviour such as using drugs in your presence.</li>
+                        <li><strong>Assault:</strong> A client who has assaulted you.</li>
+                        </ol>
+                    </li>
+                    <li>
+                        E4U makes no claims:
+                        <ol class="level-2">
+                        <li>as to the accuracy or legitimacy of the allegations; and</li>
+                        <li>nor do we investigate the authenticity of the Reports (provided in confidence by Escorts).</li>
+                        </ol>
+                    </li>
+                    </ol>                      
+                </div>
             </div>
-         </div>
-         <!-- Report Form -->
-         <div class="row">
-            <div class="col-md-9 add-punterbox-report">
-               <form id="ugly_mug_registration" enctype="multipart/form-data" method="POST" action="route('escort.store-report')">
-                  <div class="form-group">
-                      <label class="required">Incident Date</label>
-                      <input type="date" class="form-control" name="incident_date">
-                  </div>
-                    {{-- <div class="col-lg-6">
-                        <div class="form-group row"> 
-                            <label class="col-sm-4" for="exampleFormControlSelect1"><span style="color:red">* </span>Stage Name:</label>
-                            <div class="col-sm-6">
-                                <input type="txt" class="form-control form-control-sm removebox_shdow" placeholder="Name" required name="name" value="" data-parsley-required-message="Please enter name">
+        </div>
+   </div>
+            <div class=" col-md-12 common-card add-punterbox-report">
+               <form class="common-form" id="ugly_mug_registration" enctype="multipart/form-data" method="POST" action="route('escort.store-report')">
+                  <div class="row inner-row">
+                        <div class="col-lg-12">
+                            <div class="inner-field-row">
+                                <div class="form-group">
+                                    <label class="required">Incident Date</label>
+                                    <input type="date" class="form-control" name="incident_date">
+                                </div>
+                                <div class="form-group">
+                                    <label class="required">Incident State</label>
+                                    <select class="form-control" name="incident_state" >
+                                        <option selected>Please Choose</option>
+                                        @foreach ($states as $key => $state)
+                                            <option value="{{ $key }}" {{$key == auth()->user()->state_id ? 'selected' : ''}}>{{ $state['stateName'] }}</option>
+                                        @endforeach
+                                        </select>
+                                </div>
+                    
+                                <div class="form-group">
+                                    <label class="required">Incident Location</label>
+                                    <input type="text" class="form-control" name="incident_location" placeholder="Which city were you in">
+                                </div>
+                    
+                                <div class="form-group">
+                                    <label>Offender's Name</label>
+                                    <input type="text" class="form-control" name="offender_name" placeholder="If known">
+                                </div>
+                    
+                                <div class="form-group">
+                                    <label class="required">Offender's Mobile</label>
+                                    <input type="tel" class="form-control" maxlength="10" min="10" name="offender_mobile" placeholder="No spaces or any other characters - just numbers" oninput="this.value = this.value.replace(/\D/g,'');">
+                                </div>
+                    
+                                <div class="form-group">
+                                    <label>Offender's Email</label>
+                                    <input type="email" class="form-control" name="offender_email" placeholder="If known">
+                                </div>
+                    
+                                <div class="form-group">
+                                    <label class="required">Incident Type</label>
+                                    <select class="form-control" name="incident_nature">
+                                        <option >Please Choose</option>
+                                        <option value="Time Waster" >Time Waster</option>
+                                        <option value="Con Man">Con Man</option>
+                                        <option value="Dangerous">Dangerous</option>
+                                        <option value="Assault">Assault</option>
+                                    </select>
+                                </div>
+                    
+                                
+                    
+                                
+                            </div>
+                            <div class="inner-field-row">
+                                <div class="form-group">
+                                    <label class="required">What Happened</label>
+                                    <textarea class="form-control what_happened" name="what_happened" rows="4"></textarea>
+                                </div>
+                            </div>
+                            <div class="inner-field-row">
+                                <div class="form-group">
+                                    <label class="required d-block">Rating</label>
+                                    <div class="radio-options mt-1">
+                                        
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="rating" value="Do Not Book" id="rate1">
+                                            <label class="form-check-label" for="rate1">Do not book</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="rating" value="Exercise Caution" id="rate2">
+                                            <label class="form-check-label" for="rate2">Exercise caution</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" value="Safe" name="rating" id="rate3">
+                                            <label class="form-check-label" for="rate3">Safe</label>
+                                        </div>
+                                    </div>    
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-4" for="exampleFormControlSelect1"><span style="color:red">* </span> State:</label>
-                            <div class="col-sm-6">
-                                <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp" id="stateId" name="state_id" data-parsley-errors-container="#state-errors" required data-parsley-required-message="Select State">
-                                    <option value="">-Select-</option>
-                                    @foreach(config('escorts.profile.states') as $key => $state)
-                                    <option value="{{$key}}">{{ $state['stateName'] }}</option>
-                                    @endforeach
-                                </select>
-                                <span id="state-errors"></span>
-                            </div>
+                        <div class="common-footer">
+                            <button type="submit" class="common-save-btn">Add Report</button>
+                            <p class="cp-hint pl-2 mt-3">
+                                    <small><i>Your report will remain Pending  until approved by our Operations team.</i></small>
+                                </p>
                         </div>
-                    </div> --}}
-                  <div class="form-group">
-                      <label class="required">Incident State</label>
-                      <select class="custom-select" name="incident_state" >
-                        <option selected>Please Choose</option>
-                        @foreach ($states as $key => $state)
-                              <option value="{{ $key }}" {{$key == auth()->user()->state_id ? 'selected' : ''}}>{{ $state['stateName'] }}</option>
-                        @endforeach
-                          </select>
                   </div>
-      
-                  <div class="form-group">
-                      <label class="required">Incident Location</label>
-                      <input type="text" class="form-control" name="incident_location" placeholder="Which city were you in">
-                  </div>
-      
-                  <div class="form-group">
-                      <label>Offender's Name</label>
-                      <input type="text" class="form-control" name="offender_name" placeholder="If known">
-                  </div>
-      
-                  <div class="form-group">
-                      <label class="required">Offender's Mobile</label>
-                      <input type="tel" class="form-control" maxlength="10" min="10" name="offender_mobile" placeholder="No spaces or any other characters - just numbers" oninput="this.value = this.value.replace(/\D/g,'');">
-                  </div>
-      
-                  <div class="form-group">
-                      <label>Offender's Email</label>
-                      <input type="email" class="form-control" name="offender_email" placeholder="If known">
-                  </div>
-      
-                  <div class="form-group">
-                      <label class="required">Incident Type</label>
-                      <select class="custom-select" name="incident_nature">
-                        <option >Please Choose</option>
-                        <option value="Time Waster" >Time Waster</option>
-                        <option value="Con Man">Con Man</option>
-                        <option value="Dangerous">Dangerous</option>
-                        <option value="Assault">Assault</option>
-                     </select>
-                  </div>
-      
-                  {{-- <div class="form-group">
-                      <label>Platform</label>
-                      <input type="text" class="form-control" name="platform" placeholder="If known">
-                  </div>
-      
-                  <div class="form-group">
-                      <label>Profile Link</label>
-                      <input type="text" class="form-control" name="profile_link" placeholder="Link or Membership ID or Ref">
-                  </div> --}}
-      
-                  <div class="form-group">
-                      <label class="required">What Happened</label>
-                      <textarea class="form-control" name="what_happened" rows="4"></textarea>
-                  </div>
-      
-                  <div class="form-group">
-                      <label class="required d-block">Rating</label>
-                      <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" type="radio" name="rating" value="Do Not Book" id="rate1">
-                          <label class="form-check-label" for="rate1">Do not book</label>
-                      </div>
-                      <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" type="radio" name="rating" value="Exercise Caution" id="rate2">
-                          <label class="form-check-label" for="rate2">Exercise caution</label>
-                      </div>
-                      <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" type="radio" value="Safe" name="rating" id="rate3">
-                          <label class="form-check-label" for="rate3">Safe</label>
-                      </div>
-                  </div>
-      
-                  <button type="submit" class="save_profile_btn">Add Report</button>
-                 <div class="mt-2">
-                     <small>Your report will remain <i style="color: #6c757d">Pending</i>  until approved by our Operations team.</small>
-                 </div>
+                  
               </form>
             </div>
-         </div>
    </div>
    <!--middle content end here-->
 </div>

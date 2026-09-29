@@ -5,7 +5,7 @@
             <td class="" align="center">
                 <a href="{{ $url }}" style="display: inline-block;" class="header_logo">
                     @if (trim($slot) === 'E4U')
-                        <img src="{{ asset('assets/app/img/logo.png') }}" class="logo" alt="E4U Logo">
+                        <img src="{{ asset('assets/images/escorts4u-logo.png') }}" class="logo" alt="E4U Logo">
                     @else
                         {{ $slot }}
                     @endif

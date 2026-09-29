@@ -116,7 +116,11 @@
                            <h3 class="NotesHeader"><b>Notes:</b></h3>
                             
                             <ol>
-
+                                <li>Use this feature to create a new Profile. You can create as many Profiles as you want but only List one at a time.</li>
+                                <li>This page will auto load with your data saved in Our Information. You can edit any of the pre-loaded data. Where data is edited, you will be asked if you want to save the changes to your Our Information data. If you don't, Our Information will remain unchanged, and the edited data will be saved to the new Profile.</li>
+                                <li>When creating your new Profile, we recommend you adopt a protocol that will help you identify the Profile, especially if you have other Centres.</li>
+                                <li>Media Verification status is an automatic process. You can upload any media and attach it to a Profile. Uploaded photos will automatically by assigned the Verification status 'Pending'. You have 48 hours to upload your Verification Image, otherwise the status will automatically change to 'Unverified'. When Media is Verified by E4U, all Media uploaded and which is Pending or Unverified, will be updated to 'Verified', including any photos displayed in a Listed Profile.  Media for Masseurs is actioned independently of the Centre's Media.</li>
+                                <li>We recommend your Media are photos of the business, like your reception, shop front and shower area for example.  Your Media for Masseurs should be verifiable for the Masseur.</li>
                             </ol>
                         </div>
                     </div>

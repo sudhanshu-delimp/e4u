@@ -59,6 +59,10 @@
  .swal2-popup{
             width: auto !important;
         }
+
+.table tbody td {
+    padding: 10px 8px;
+}
 </style>
 
 
@@ -186,7 +190,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                 <div class="{{($isPinupActive)?'pinup-wrapper':''}} member_type">
                                         <img src="{{ $membershipImage }}">
                                         <div class="pinup-tooltip">I am your Pin Up this week!</div>
-                                </div> 
+                                </div>
                                 @endif
 
                                 @if(strlen($escortName) <= 250)
@@ -246,7 +250,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                 @if(isset($escort->mainPurchase) && $escort->mainPurchase->tour_location_id!=null)
                                     <div class="my-play-box-profile-icon">
                                         <a href="#">
-                                            <img src="{{ asset('assets/app/img/icon_tour_white.png') }}" alt="My Playbox Icon">
+                                            <img src="{{ asset('assets/app/img/icon_tour_white.png') }}" alt="Tour Icon">
                                         </a>
                                         <div class="custom-tooltip">{{$escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left.":"On Tour, today is my last day."}}</div>
                                     </div>
@@ -258,25 +262,34 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                     @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
                                         @if($escort->user->social_links && $escort->user->social_links['facebook'] !== null)
                                             <li class="selected-from-profile">
-                                                <a href="{{ ($escort->user->social_links && $escort->user->social_links['facebook'] != '') ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}" target="_blank">
+                                                <a class="log_social_media" href="{{ ($escort->user->social_links && $escort->user->social_links['facebook'] != '') ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}" target="_blank">
                                                 <img src="{{asset('assets/app/img/facebook.png')}}" class="twitter-x-logo" alt="logo"></a>
                                             </li>
                                         @endif
                                         @if($escort->user->social_links && $escort->user->social_links['insta'] !== null)
-                                            <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><img src="{{asset('assets/app/img/instagram.png')}}" class="twitter-x-logo" alt="logo"></a></li>
+                                            <li class="selected-from-profile"><a class="log_social_media" href="{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><img src="{{asset('assets/app/img/instagram.png')}}" class="twitter-x-logo" alt="logo"></a></li>
                                         @endif
                                         @if($escort->user->social_links && $escort->user->social_links['twitter'] !== null)
-                                            <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo"></a></li>
+                                            <li class="selected-from-profile"><a class="log_social_media" href="{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo"></a></li>
                                         @else
-                                            <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
+                                            <li class="by-default"><a class="log_social_media" href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
                                         @endif
                                     @else
-                                        <li class="by-default"><a href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
+                                        <li class="by-default"><a class="log_social_media"  href="https://x.com/NMugs32853" target="_blank"><img src="{{asset('assets/app/img/twitter-x.png')}}" class="twitter-x-logo" alt="logo" ></a></li>
                                     @endif
                                 </ul>
                             </div>
 
-                            <div class="profile_page_location_and_id">
+                            <div class="profile_page_location_and_id d-flex gap-10">
+                                    
+                                @if(auth()->user() && auth()->user()->type == '0')
+                                    <div class="social_media_icons">
+                                        <div class="my-play-box-profile-icon" >
+                                            <a href="{{route('user.notebox.new',[$escort->id])}}"><img src="{{asset('assets/app/img/notebo-whitex.png')}}" alt="logo"></a>
+                                            <div class="custom-tooltip">Add to My Notebox.</div>
+                                        </div>
+                                    </div>                            
+                                @endif
                                 <ul>
                                     <li>
                                         <span class="profile_location_icon"> <i class="fa fa-id-card"></i></span>
@@ -295,6 +308,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
     <div class="container-fluid px-0 next-preview-fixed position-relative">
         <div class="d-flex d-flex justify-content-between">
              @if($previous)
+        
             <div class="previous_btn_profile next_previous_btn_pogision  previousDisableButtonCss">
                 <a href="{{ str_contains(url()->full(), '?no-prev-page=') ? '#' : $previous}}" class="btn_ank">
                 <span class="previous_icon">
@@ -303,10 +317,32 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                 <span class="previous_text remove_in_sm">Previous</span>
                 </a>
             </div>
+
+            @else
+
+            <div class="previous_btn_profile next_previous_btn_pogision  previousDisableButtonCss" style="pointer-events: none; opacity: 0.5; cursor: not-allowed;">
+                <a href="#" class="btn_ank" >
+                <span class="previous_icon">
+                    <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path opacity="0.4" d="M13.2602 15.5302L9.74023 12.0002L13.2602 8.47021" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                </span>
+                <span class="previous_text remove_in_sm">Previous</span>
+                </a>
+            </div>
+
              @endif
             @if($next)
             <div class="next_btn_profile next_previous_btn_pogision nextDisableButtonCss" >
                 <a href="{{ str_contains(url()->full(), '?no-next-page=') ? '#' : $next}}" class="btn_ank">
+                <span class="previous_text remove_in_sm">Next</span>
+                <span class="previous_icon">
+                    <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path opacity="0.4" d="M10.7402 15.5302L14.2602 12.0002L10.7402 8.47021" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                </span>
+                </a>
+            </div>
+            @else
+
+            <div class="next_btn_profile next_previous_btn_pogision nextDisableButtonCss" style="pointer-events: none; opacity: 0.5; cursor: not-allowed;" >
+                <a href="#" class="btn_ank">
                 <span class="previous_text remove_in_sm">Next</span>
                 <span class="previous_icon">
                     <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path opacity="0.4" d="M10.7402 15.5302L14.2602 12.0002L10.7402 8.47021" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
@@ -456,7 +492,25 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                             </tbody>
                             <thead class="table_heading_bgcolor_color">
                                 <tr>
-                                    <th class="payment_accept_text_color" scope="col" colspan="4">Payment ($AUS):
+                                    <th class="payment_accept_text_color" scope="col" colspan="4"> 
+                                        <svg fill="#ff3c5f" height="28px" width="28px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 511.999 511.999" xml:space="preserve">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <g>
+                                                <g>
+                                                    <path d="M256.298,101.846c-92.85,0-206.983,143.686-206.983,260.579c0,44.352,15.783,79.881,46.928,105.612 c35.323,29.174,89.169,43.962,160.054,43.962c70.625,0,124.319-14.906,159.567-44.319c31.069-25.916,46.82-61.673,46.82-106.262 C462.685,244.98,348.887,101.846,256.298,101.846z M264.276,302.614c23.697,12.525,53.196,28.124,53.196,59.042 c0,27.843-18.793,51.339-44.341,58.603v7.908c0,9.18-7.448,16.628-16.628,16.628c-9.18,0-16.628-7.448-16.628-16.628v-7.908 c-25.548-7.264-44.341-30.76-44.341-58.603c0-9.18,7.448-16.628,16.628-16.628c9.18,0,16.628,7.448,16.628,16.628 c0,15.285,12.428,27.713,27.713,27.713s27.713-12.428,27.713-27.713c0-10.89-18.036-20.417-35.486-29.64 c-23.697-12.525-53.196-28.124-53.196-59.042c0-27.843,18.793-51.339,44.341-58.603v-7.908c0-9.18,7.448-16.628,16.628-16.628 c9.18,0,16.628,7.448,16.628,16.628v7.908c25.548,7.264,44.341,30.76,44.341,58.603c0,9.18-7.448,16.628-16.628,16.628 c-9.18,0-16.628-7.448-16.628-16.628c0-15.285-12.428-27.713-27.713-27.713s-27.713,12.428-27.713,27.713 C228.791,283.864,246.825,293.391,264.276,302.614z">
+                                                    </path>
+                                                </g>
+                                            </g>
+                                            <g>
+                                                <g>
+                                                    <path d="M347.037,20.547c-7.686-3.941-17.126-1.354-21.705,5.976c-6.95,11.14-16.639,13.932-23.545,14.311 c-12.016,0.855-24.087-5.25-32.454-15.816C256.752,9.115,236.844,0,214.728,0c-22.116,0-42.024,9.115-54.604,25.017 c-3.746,4.72-4.634,11.085-2.338,16.66c1.859,4.508,10.991,25.543,26.151,46.511c23.911-12.465,48.487-19.6,72.36-19.6 c23.868,0,48.444,7.139,72.347,19.615c15.169-20.974,24.306-42.019,26.166-46.528C358.1,33.678,354.722,24.498,347.037,20.547z">
+                                                    </path>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg> &nbsp; Payment ($AUS):
                                         {{ config("escorts.profile.Payments.$escort->payment_type") }}
                                     </th>
                                 </tr>
@@ -999,25 +1053,18 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                         <div class="col-12 remove_padding_for_carousel  profile--thumb--sec">
                                             @php $status = $media->varified ?? "0"; @endphp
                                         
-                                            <img src="{{ asset($media->path) }}" class="d-block w-100" title=" " alt="..." data-toggle="modal" data-target="#exampleModal" data-id="{{$media->id}}">
+                                            <img src="{{ asset($media->path) }}" class="d-block w-100" title=" " alt="{{$escort['name'] ?? ''}}" data-toggle="modal" data-target="#exampleModal" data-id="{{$media->id}}">
                                             <a href="" class="custom-tooltip text-decoration-none text-white" data-toggle="modal" data-target="#exampleModal">Click to view My Media</a>
                                             </div>
                                         </div>
                                         <div class="verify_icon">
-                                            @switch($status)
-                                                @case(0)
-                                                    <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png')}}">
-                                                    <span class="common_shield_tooltip">Media Pending</span>
-                                                @break
-                                                @case(1)
-                                                    <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png')}}">
-                                                    <span class="common_shield_tooltip">Media Verified</span>
-                                                @break
-                                                @case(2)
-                                                    <img src="{{ asset('assets/app/img/verify/unverified_light.png')}}">
-                                                    <span class="common_shield_tooltip">Media Unverified</span>
-                                                @break
-                                            @endswitch
+                                            @php
+                                            $profile_status = getMediaVerificationDataBigIcon($status);
+                                           
+                                            @endphp
+                                            <img src="{{ $profile_status['icon']}}">
+                                            <span class="common_shield_tooltip">{{$profile_status['label']}}</span>
+
                                         </div>
                                     </div>
                                     @endforeach
@@ -1468,7 +1515,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                 <div class="accordion-container-new">
                     <div class="set">
                         <a class="pb-1 pt-1 d-flex align-items-center d-flex justify-content-between">
-                            Deposit <i class="fa fa-angle-down"></i>
+                            Deposit Policy <i class="fa fa-angle-down"></i>
                         </a>
                         <div class="content">                        
                             <div class="accodien_manage_padding_content">
@@ -2456,8 +2503,10 @@ $('#review-submitted-popup .close').on('click', function() {
 
             console.log("ok=" + url);
 
-
+           
         });
+
+         make_escort_centres_log();
 
     });
     $("#home-tab").click(function () {
@@ -2551,9 +2600,16 @@ $('#review-submitted-popup .close').on('click', function() {
         console.log(cid[1] + "-" + Eid);
         console.log(cidcl);
     });
-</script>
 
-<script>
+
+let visitorUuid = localStorage.getItem('visitor_uuid');
+
+if (!visitorUuid) {
+    visitorUuid = crypto.randomUUID();
+    localStorage.setItem('visitor_uuid', visitorUuid);
+}
+
+
   $('#myCarousel').carousel({
     interval: false
   });
@@ -2704,6 +2760,38 @@ $('#exampleModal').on('shown.bs.modal', function () {
     saveEscortAjaxStats(formData, url, 'GET');
 });
 
+
+$(document).on('click', '.log_social_media', function () {
+
+    let profile_id = "{{ $escort->id}}";  
+    let social_link = $(this).attr('href');   
+    console.log('profile_id', profile_id);
+    console.log('visitorUuid', visitorUuid);
+    console.log('href=======>',$(this).attr('href'));
+
+     $.ajax({
+        url: "{{ route('web.make-social-media-log') }}",
+        type: "POST",
+        data: {
+            profile_id: profile_id,
+            type:'escort',
+            social_link:social_link,
+            visitorUuid: visitorUuid,
+            _token: "{{ csrf_token() }}"
+        },
+        success: function (response) {
+            // console.log('Log generated successfully:', response);
+        },
+        error: function (xhr) {
+            console.log('Error generating log:', xhr.responseText);
+        }
+    });
+
+
+
+});
+
+
 function saveEscortAjaxStats(formData, url, type)
 {
     $.ajax({
@@ -2718,6 +2806,39 @@ function saveEscortAjaxStats(formData, url, type)
         }
     });
 }
+
+function make_escort_centres_log(is_profile_media_visit='0')
+{
+
+    let profile_id = "{{ $escort->id}}";
+
+    console.log('profile_id', profile_id);
+    console.log('visitorUuid', visitorUuid);
+    console.log('is_profile_media_visit', is_profile_media_visit);
+
+    $.ajax({
+        url: "{{ route('web.make-massage-centres-log') }}",
+        type: "POST",
+        data: {
+            profile_id: profile_id,
+            type:'escort',
+            is_profile_media_visit:is_profile_media_visit,
+            visitorUuid: visitorUuid,
+            _token: "{{ csrf_token() }}"
+        },
+        success: function (response) {
+            // console.log('Log generated successfully:', response);
+        },
+        error: function (xhr) {
+            console.log('Error generating log:', xhr.responseText);
+        }
+    });
+}
+
+$('#exampleModal').on('shown.bs.modal', function () {
+    make_escort_centres_log(is_profile_media_visit='1');
+});
+
 
 </script>
 <script>

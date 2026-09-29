@@ -72,12 +72,7 @@
             </div>
         </div>
         <!-- Page Heading -->
-            <div class="row">
-                <div class="col-lg-12 p-0">
-                    <!-- Card Body -->
-                    <div class="card-body">
-                        <div class="mb-2 row">
-                            <div class="col-md-12 d-flex align-items-center justify-content-between flex-wrap gap-10">
+                            <div class="col-md-12 d-flex align-items-center justify-content-between flex-wrap gap-10 mb-3">
                                 <div class="mb-2 d-flex align-items-center justify-content-between flex-wrap gap-10">
                                     <div class="total_listing">
                                         <div><span>In Progress Task : </span></div>
@@ -92,15 +87,6 @@
                                         <div><span class="totalCompletedTask">11</span></div>
                                     </div>
                                 </div>
-                                
-                                {{-- <button type="submit" id="edit_task" name="submit"
-                                    class="btn btn-sm btn-primary shadow-none create-tour-sec">Edit Task</button>
-                                    <button type="submit" id="complete_task" name="submit"
-                                    class="btn btn-sm btn-primary shadow-none create-tour-sec">Complete Task</button>--}}
-                                {{-- <button type="submit" id="view_task" name="submit"
-                                    class="btn btn-sm btn-primary shadow-none create-tour-sec">View Task</button> --}}
-                                {{-- <button type="submit" id="open_task" name="submit"
-                                    class="btn btn-sm btn-primary shadow-none create-tour-sec">Open Task</button> --}}
                                 <div class="text-center small d-flex justify-content-end align-items-center gap-10 flex-wrap">
                                     
                                     <span class="mr-2 text-uppercase font-weight-bold">Importance:</span>
@@ -112,18 +98,8 @@
                                     class="btn btn-sm btn-primary shadow-none create-tour-sec">New Task</button>
                                 </div>
                             </div>
-                        </div>
-                        {{-- <div class="d-flex align-items-center mt-4 justify-content-between">
-                            <label class="font-weight-bold mb-0">Task</label>
-                            <div class="text-center ">
-                                <label class="font-weight-bold mb-0" style="margin-left: 220px;">Status</label>
-                            </div>
-                            <div class="text-center">
-                                <label class="font-weight-bold mb-0" style="margin-right: 35px">Action</label>
-                            </div>
-                        </div> --}}
-                        {{-- $tasks --}}
-                        <div class="card-body p-0 Dash-table task_table">
+
+                            <div class="col-lg-12 common-card">
                             <div class="table-responsive">
                                 <table class="table" >
                                     <thead class="bg-first">
@@ -142,7 +118,7 @@
                             <div class="d-flex justify-content-end mt-4 custome_paginator">
                                 {{-- {!! $tasks->links() !!} --}}
                             </div>
-                        </div>
+                            </div>
                     </div>
                 </div>
             </div>

@@ -10,6 +10,9 @@ use App\Models\VariablAgentOperator;
 use App\Repositories\Agent\AgentInterface;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
+use Exception;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
 
 class AgentController extends BaseController
 {
@@ -139,6 +142,7 @@ class AgentController extends BaseController
             
             $suspend_html = "";
             $activate_html ="";
+            $updatePassword = "";
 
             if($item->status!='Suspended')
             $suspend_html = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center account-suspend-btn" href="javascript:void(0)" data-id='.$item->id.'>   <i class="fa fa-ban"></i> Suspend</a>
@@ -153,11 +157,15 @@ class AgentController extends BaseController
             $view_html = '<a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="javascript:void(0)" data-id='.$item->id.'>  <i class="fa fa-eye "></i> View Account</a>';
 
              if ($this->editAccessEnabled) {
+             if($item->status=='Suspended' || $item->status=='Active') {
+             $updatePassword = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center update_password" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i>Reset Password</a><div class="dropdown-divider"></div>';
+             }
+
             $dropdown = '<div class="dropdown no-arrow ml-3">
                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                              </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">'.$activate_html.$edit_html.$suspend_html.$view_html.'</div>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">'.$activate_html.$edit_html.$updatePassword.$suspend_html.$view_html.'</div>
                                           </div>';
              } else {
                 $dropdown = '<div class="dropdown no-arrow ml-3">
@@ -266,9 +274,34 @@ class AgentController extends BaseController
     {  
         return view('admin.management.agents.agents-monthly-report');
     }
-    
 
-    
+    /**
+     * Delete Agreement or signature file
+     */
+    public function deleteAgentFile(Request $request)
+    {
+        $userId = $request->filled('userId') ? $request->userId: null;
+        $type = $request->filled('type') ? $request->type: null;
 
+        $user = User::where('id', $userId)->with('agent_detail')->first();
+        $agent = $user->agent_detail ?? null;
+        if ($agent) {
+            $filePath = ($type == "agreement") ? $agent->agreement_file : $agent->signature_file;
+            if ($filePath) {
+                $res = $this->deleteFile(public_path('storage/'.$filePath));
+                if ($res) {
+                    if($type == "agreement") {
+                        $agent->agreement_file = null;
+                    } else {
+                         $agent->signature_file = null;
+                    }
+                    $agent->save();
+                    return response()->json(['status' => true, 'message' => 'File deleted successfully.'], 200);
+                }
+            }
+        }
+
+        return response()->json(['status' => false, 'message' => 'Something went wrong. Please try later.'], 422);
+    }
     
 }

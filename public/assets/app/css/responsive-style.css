@@ -4,6 +4,17 @@
                             .next-preview-fixed>div>div {
                                 top: -60px !important;
                             }
+                            .ec_other_details {
+                                display: flex;
+                                font-size: 12px;
+                                font-weight: 500;
+                                flex-direction: column;
+                                margin: 0px !important;
+                            }
+                            .ec_other_details span:nth-child(2) {
+                                border: 1px solid #e7e9ee;
+                                margin: 5px 0;
+                            }
                             .btn.my_legbox {
                                 width: 100%;
                             }
@@ -39,6 +50,14 @@
                             .navbar-light .navbar-nav .header_login_btn,
                             .navbar-light .navbar-nav .header_reg_btn {
                                 width: max-content;
+                            }
+                            .all-escort-profile-pic {
+                                position: relative;
+                                height: 400px;
+                                width: 100%;
+                                object-fit: cover;
+                                grid-column: 1;
+                                grid-row: 1;
                             }
                             #WelcomeEscortPopup li {
                                 font-size: 14px;
@@ -95,6 +114,10 @@
                             .mc_list_meta span {
                                 display: flex;
                                 flex-wrap: wrap;
+                                flex-direction: column;
+                            }
+                            .mc_list_meta .services_card {
+                                width: 100%;
                             }
                             /* ec profile listing */
                             .padding_20_all_side_service_provider_list_view {
@@ -529,6 +552,46 @@
                             .custom--service-tag .grid_list_part {
                                 width: 100%;
                             }
+                            .mc_tab_header {
+                                flex-wrap: wrap;
+                            }
+                            .mc_tab_header .nav-item {
+                                text-align: center;
+                                flex: 1;
+                                line-height: 16px;
+                            }
+                            .mc_tab_header .nav.nav-tabs {
+                                display: flex;
+                                justify-content: space-between;
+                                gap: 5px 25px;
+                            }
+                            .ec_tab_header {
+                                display: flex;
+                                align-items: normal;
+                                justify-content: space-between;
+                                background: var(--off-white);
+                                border-radius: 10px 10px 0px 0px;
+                                flex-direction: column;
+                                gap: 5px;
+                                width: 100%;
+                                padding: 5px;
+                            }
+                            .ec_tab_header .nav-tabs {
+                                border-bottom: 0px;
+                                justify-content: space-between;
+                            }
+                            .mc_list_card {
+                                padding: 0px;
+                            }
+                            .mc_list_content {
+                                border: none;
+                            }
+                            .all-escort-view-profile-box {
+                                border: none !important;
+                            }
+                            .EC__list_card {
+                                padding: 0px;
+                            }
                         }
                         
                         @media (max-width:768px) {
@@ -551,10 +614,6 @@
                                 justify-content: space-between;
                                 gap: 10px;
                             }
-                            .mc_list_card {
-                                display: grid;
-                                grid-template-columns: 1fr;
-                            }
                             .slect__btn_tab>div {
                                 flex: unset;
                                 width: 47%;
@@ -574,7 +633,10 @@
                                 display: flex;
                                 flex-direction: column !important;
                                 gap: 10px;
-                                padding: 0px clamp(10px, 2vw, 20px);
+                                padding: 10px;
+                            }
+                            .ec_tab_header {
+                                background-color: transparent;
                             }
                             .all-escort-view-profile-btn {
                                 margin: 10px 0px;
@@ -585,11 +647,10 @@
                                 padding: 15px;
                             }
                             .EC__list_card {
-                                display: grid;
-                                grid-template-columns: 1fr;
+                                display: flex;
+                                flex-direction: column;
                                 gap: 15px;
                                 align-items: start;
-                                padding: 0px;
                             }
                             .mc_list_content {
                                 padding: clamp(10px, 2vw, 20px);
@@ -602,6 +663,27 @@
                                 flex-wrap: wrap;
                             }
                             .social_media_profile {
+                                width: 100%;
+                            }
+                            .mc_list_card {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 15px;
+                                align-items: start;
+                            }
+                            .mc_tab_header .nav-item,
+                            .ec_tab_header .nav-item {
+                                padding: 2px;
+                            }
+                            .mc_tab_header .nav-link,
+                            .ec_tab_header .nav-link {
+                                padding: 5px 10px;
+                            }
+                            .m_wishlist,
+                            .m_removelist {
+                                border-radius: var(--radius-sm);
+                                padding: 10px !important;
+                                font-size: 14px;
                                 width: 100%;
                             }
                         }
@@ -641,11 +723,6 @@
                         }
                         
                         @media(min-width:769px) and (max-width:1024px) {
-                            .mc_list_card {
-                                display: grid;
-                                grid-template-columns: 1fr 1fr;
-                                padding: 10px;
-                            }
                             .EC__list_card {
                                 display: grid;
                                 grid-template-columns: 1fr 1fr;

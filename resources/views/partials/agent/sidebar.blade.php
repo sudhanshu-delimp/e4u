@@ -3,7 +3,7 @@
     id="accordionSidebar">
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand text-left pb-1" href="{{ asset('/') }}">
-        <img src="{{ asset('assets/app/img/logo.svg') }} " alt="" class="mb-3 e4u_logo">
+        <img src="{{ asset('assets/images/escorts4u-logo.svg') }} " alt="" class="mb-3 e4u_logo">
     </a>
 
     <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-2">Agent Console </span>
@@ -263,22 +263,23 @@
         </a>
         <div id="Administration" class="collapse  
         @if (in_array(request()->segment(2), [ 
-        'advertiser-profiles','advertiser-social-media','toursummary','prospets-memberships','agent-messages', 'guidelines', 'forms',
+        'advertiser-profiles','advertiser-social-media', 'advertiser-statistics','toursummary','prospets-memberships','agent-messages', 'guidelines', 'forms',
             'abbreviations','classification-laws','help','laws','ticket-list'
         ]) || in_array(request()->segment(1), ['submit_ticket'])) show @endif"
             data-parent="#accordionSidebar">
             <div class="collapse-inner">
 
-                {{-- Analytics --}}
-                <a class="nav-link collapsed disabled-link" href="#" data-toggle="collapse" data-target="#Analytics"
+                {{-- Statistics --}}
+                <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#Statistics"
                     aria-expanded="false" aria-controls="collapseTwo">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
 
-                    <span>Analytics</span>
+                    <span>Statistics</span>
                 </a>
-                {{-- <div id="Analytics" class="collapse @if (request()->segment(2) == 'advertiser-profiles' ||
+                  <div id="Statistics" class="collapse @if (request()->segment(2) == 'advertiser-profiles' ||
                         request()->segment(2) == 'advertiser-social-media' ||
                         request()->segment(2) == 'toursummary' ||
+                        request()->segment(2) == 'advertiser-statistics' ||
                         request()->segment(2) == 'prospets-memberships') show @endif;"
                     data-parent="#Administration">
 
@@ -289,14 +290,18 @@
                                 style="{{ request()->segment(2) == 'advertiser-profiles' ? 'color: #e5365a;' : '' }}">Profile
                                 Summary</span>
                         </a>
+                          <a class="collapse-item" href="{{ route('agent.my-statistics') }}">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-statistics-light.png') }}">
+                            <span style="{{ request()->segment(2) == 'advertiser-statistics' ? 'color: #e5365a;' : '' }}">Advertiser</span>
+                        </a>
 
-                        <a class="collapse-item" href="{{ route('agent.toursummary') }}">
+                        <!-- <a class="collapse-item" href="{{ route('agent.toursummary') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/tour-summary.png') }}">
                             <span style="{{ request()->segment(2) == 'toursummary' ? 'color: #e5365a;' : '' }}">Tour
                                 Summary</span>
-                        </a>
+                        </a> -->
                     </div>
-                </div> --}}
+                </div>  
                 {{-- end --}}
 
                 {{-- Communication --}}
@@ -326,7 +331,7 @@
                                 style="{{ request()->segment(2) == 'guidelines' ? 'color: #e5365a;' : '' }}">Guidelines</span>
                         </a>
                         <!-- Messages -->
-                        <a class="collapse-item disabled-link" href="{{ route('agent.agent-messages') }}">
+                        <a class="collapse-item" href="{{ route('agent.agent-messages') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
                             <span
                                 style="{{ request()->segment(2) == 'agent-messages' ? 'color: #e5365a;' : '' }}">Messages</span>
@@ -358,11 +363,11 @@
                                 style="{{ request()->segment(2) == 'classification-laws' ? 'color: #e5365a;' : '' }}">Classification
                                 laws</span>
                         </a>
-                        <a class="collapse-item" href="{{ route('agent.help') }}">
+                        {{-- <a class="collapse-item" href="{{ route('agent.help') }}">
                             <img src="{{ asset('assets/app/img/helptips.png') }}">
                             <span style="{{ request()->segment(2) == 'help' ? 'color: #e5365a;' : '' }}">Help &
                                 Tips</span>
-                        </a>
+                        </a> --}}
                         <a class="collapse-item" href="{{ route('agent.laws') }}">
                             <img src="{{ asset('assets/app/img/gavel.png') }}">
                             <span style="{{ request()->segment(2) == 'laws' ? 'color: #e5365a;' : '' }}">Local

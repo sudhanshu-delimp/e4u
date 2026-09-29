@@ -19,6 +19,7 @@ class AgentMonthlyReport extends Model
         'fees',
         'status',
         'report_approved',
+        'approved_by',
         'created_by',
         'updated_by'
     ];

@@ -3,15 +3,15 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
 <style>
    .swal-button {
-   background-color: #242a2c;
+      background-color: #242a2c;
    }
 </style>
 @stop
 @section('content')
 @php
-   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
-   $editAccess = staffPageAccessPermission($securityLevel, 'edit');
-   $editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+$securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
+$editAccess = staffPageAccessPermission($securityLevel, 'edit');
+$editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
 @endphp
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
@@ -21,13 +21,13 @@
          <div class="row">
             <div class="custom-heading-wrapper col-md-12">
                <h1 class="h1">Manage Emails</h1>
-                  <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span>
+               <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span>
             </div>
             <div class="col-md-12 mb-4">
                <div class="card collapse" id="notes">
-                     <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                        <ol>
+                  <div class="card-body">
+                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                     <ol>
                         <li>Manage the allocation of Email accounts here.</li>
                         <li>Renew the term of an Advertiser's Email.</li>
                         <li>When establishing a new Email account, attend to the following:
@@ -37,19 +37,19 @@
                               <li>activate the email.</li>
                            </ol>
                         </li>
-                        </ol>
-                     </div>
+                     </ol>
+                  </div>
                </div>
             </div>
-         </div> 
-          <div class="row">
+         </div>
+         <div class="row">
             <div class="col-md-12 col-sm-12 d-flex justify-content-end my-3">
-                  
+
                <div class="total_listing">
-                   <div><span>Active Email Accounts : </span></div>
-                   <div><span class="totalListing">02</span></div>
+                  <div><span>Active Email Accounts : </span></div>
+                  <div><span class="totalListing">02</span></div>
                </div>
-           </div>
+            </div>
             <div class="col-md-12">
                <div class="table-responsive custom-badge">
                   <table class="table table-bordered " id="EmailRequestTable">
@@ -74,11 +74,11 @@
                            <td>E60125</a></td>
                            <td>12 months</td>
                            <td><span class="custom_badge badge_pending">Pending</span></td>
-                           <td class="text-center"> 
-                               @if($editAccessEnabled)
+                           <td class="text-center">
+                              @if($editAccessEnabled)
                               <div class="dropdown no-arrow">
                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                  </a>
                                  <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
                                     <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#" data-target="#confirm_popup" data-toggle="modal"> <i class="fa fa-circle"></i> Activate</a>
@@ -101,11 +101,11 @@
                            <td>E60125</a></td>
                            <td>12 months</td>
                            <td><span class="custom_badge badge_onHold">On Hold</span></td>
-                           <td class="text-center"> 
-                               @if($editAccessEnabled)
+                           <td class="text-center">
+                              @if($editAccessEnabled)
                               <div class="dropdown no-arrow">
                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                  </a>
                                  <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
                                     <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#" data-target="#confirm_popup" data-toggle="modal"> <i class="fa fa-circle"></i> Activate</a>
@@ -117,7 +117,7 @@
                                     <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#" data-toggle="modal" data-target="#reject_popup"> <i class="fa fa-fw fa-ban"></i> Deactivate </a>
                                  </div>
                               </div>
-                               @endif
+                              @endif
                            </td>
                         </tr>
                         <tr>
@@ -128,11 +128,11 @@
                            <td>E60125</a></td>
                            <td>12 months</td>
                            <td><span class="custom_badge badge_active">Active</span></td>
-                           <td class="text-center"> 
-                               @if($editAccessEnabled)
+                           <td class="text-center">
+                              @if($editAccessEnabled)
                               <div class="dropdown no-arrow">
                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                  </a>
                                  <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
                                     <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#" data-target="#confirm_popup" data-toggle="modal"> <i class="fa fa-circle"></i> Activate</a>
@@ -144,14 +144,14 @@
                                     <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#" data-toggle="modal" data-target="#reject_popup"> <i class="fa fa-fw fa-ban"></i> Deactivate </a>
                                  </div>
                               </div>
-                               @endif
+                              @endif
                            </td>
                         </tr>
                      </tbody>
                   </table>
-               </div>   
-            </div>   
-         </div>                 
+               </div>
+            </div>
+         </div>
       </div>
    </div>
    <!-- End of Main Content -->
@@ -159,7 +159,7 @@
 <!-- End of Content Wrapper -->
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
-<i class="fas fa-angle-up"></i>
+   <i class="fas fa-angle-up"></i>
 </a>
 
 
@@ -168,82 +168,82 @@
 <!-- Edit Modal -->
 <div class="modal fade upload-modal" id="edit_req" tabindex="-1" aria-labelledby="edit_reqLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-     <div class="modal-content">
-       <div class="modal-header">
-         <h5 class="modal-title" id="edit_reqLabel">
-           <img src="{{ asset('assets/dashboard/img/edit-task.png')}}" alt="edit" class="custompopicon"> Edit Email Record
-         </h5>
-         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-           <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-         </button>
-       </div>
-       <div class="modal-body pb-0">
-         <form id="editForm">
-           <div class="row">
-             <div class="col-6 mb-3">
-               <label for="editEmail">Email Address</label>
-               <input type="email" id="editEmail" class="form-control rounded-0" placeholder="Enter email">
-             </div>
-             <div class="col-6 mb-3">
-               <label for="editActivation">Activation Date</label>
-               <input type="date" id="editActivation" class="form-control rounded-0">
-             </div>
-             <div class="col-6 mb-3">
-               <label for="editMember">Member ID</label>
-               <input type="text" id="editMember" class="form-control rounded-0" placeholder="Enter member ID">
-             </div>
-             <div class="col-6 mb-3">
-               <label for="editTerm">Term (Months)</label>
-               <input type="number" id="editTerm" class="form-control rounded-0" placeholder="e.g. 12">
-             </div>
-           </div>
-         </form>
-       </div>
-       <div class="modal-footer">
-         <button type="submit" form="editForm" class="btn-success-modal">Save Changes</button>
-       </div>
-     </div>
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="edit_reqLabel">
+               <img src="{{ asset('assets/dashboard/img/edit-task.png')}}" alt="edit" class="custompopicon"> Edit Email Record
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
+         </div>
+         <div class="modal-body pb-0">
+            <form id="editForm">
+               <div class="row">
+                  <div class="col-6 mb-3">
+                     <label for="editEmail">Email Address</label>
+                     <input type="email" id="editEmail" class="form-control rounded-0" placeholder="Enter email">
+                  </div>
+                  <div class="col-6 mb-3">
+                     <label for="editActivation">Activation Date</label>
+                     <input type="date" id="editActivation" class="form-control rounded-0">
+                  </div>
+                  <div class="col-6 mb-3">
+                     <label for="editMember">Member ID</label>
+                     <input type="text" id="editMember" class="form-control rounded-0" placeholder="Enter member ID">
+                  </div>
+                  <div class="col-6 mb-3">
+                     <label for="editTerm">Term (Months)</label>
+                     <input type="number" id="editTerm" class="form-control rounded-0" placeholder="e.g. 12">
+                  </div>
+               </div>
+            </form>
+         </div>
+         <div class="modal-footer">
+            <button type="submit" form="editForm" class="btn-success-modal">Save Changes</button>
+         </div>
+      </div>
    </div>
 </div>
 {{-- end --}}
 <!-- Renew Modal -->
 <div class="modal fade upload-modal" id="renew_req" tabindex="-1" aria-labelledby="renew_reqLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-     <div class="modal-content">
-       <div class="modal-header">
-         <h5 class="modal-title" id="renew_reqLabel">
-            <img src="{{ asset('assets/dashboard/img/renew.png')}}" alt="alert" class="custompopicon"> Renew Email Record
-         </h5>
-         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-           <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-         </button>
-       </div>
-       <div class="modal-body pb-0">
-         <form id="renewForm">
-           <div class="row">
-             <div class="col-12 mb-3">
-               <label for="renewStatus">Status</label>
-               <select id="renewStatus" class="form-control rounded-0">
-                 <option value="active">Active</option>
-                 <option value="inactive">Inactive</option>
-               </select>
-               <small class="text-muted">If status was inactive, it will be changed back to Active</small>
-             </div>
-             <div class="col-6 mb-3">
-               <label for="renewTerm">Term (Months)</label>
-               <input type="number" id="renewTerm" class="form-control rounded-0" placeholder="e.g. 6" required>
-             </div>
-             <div class="col-6 mb-3">
-               <label for="renewActivation">Activation Date</label>
-               <input type="date" id="renewActivation" class="form-control rounded-0" required>
-             </div>
-           </div>
-         </form>
-       </div>
-       <div class="modal-footer">
-         <button type="submit" form="renewForm" class="btn-success-modal">Renew</button>
-       </div>
-     </div>
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="renew_reqLabel">
+               <img src="{{ asset('assets/dashboard/img/renew.png')}}" alt="alert" class="custompopicon"> Renew Email Record
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
+         </div>
+         <div class="modal-body pb-0">
+            <form id="renewForm">
+               <div class="row">
+                  <div class="col-12 mb-3">
+                     <label for="renewStatus">Status</label>
+                     <select id="renewStatus" class="form-control rounded-0">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                     </select>
+                     <small class="text-muted">If status was inactive, it will be changed back to Active</small>
+                  </div>
+                  <div class="col-6 mb-3">
+                     <label for="renewTerm">Term (Months)</label>
+                     <input type="number" id="renewTerm" class="form-control rounded-0" placeholder="e.g. 6" required>
+                  </div>
+                  <div class="col-6 mb-3">
+                     <label for="renewActivation">Activation Date</label>
+                     <input type="date" id="renewActivation" class="form-control rounded-0" required>
+                  </div>
+               </div>
+            </form>
+         </div>
+         <div class="modal-footer">
+            <button type="submit" form="renewForm" class="btn-success-modal">Renew</button>
+         </div>
+      </div>
    </div>
 </div>
 <!-- End Renew Modal -->
@@ -251,18 +251,18 @@
 {{-- confirm_popup --}}
 <div class="modal fade upload-modal" id="confirm_popup" tabindex="-1" aria-labelledby="confirm_popupLabel" aria-modal="true" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content">
-   <div class="modal-header">
-      <h5 class="modal-title" id="confirm_popup"><img src="{{ asset('assets/dashboard/img/unblock.png')}}" alt="alert" class="custompopicon"> Completed
-      </h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-      </button>
-   </div>
-      <div class="modal-body pb-0">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="confirm_popup"><img src="{{ asset('assets/dashboard/img/unblock.png')}}" alt="alert" class="custompopicon"> Completed
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
+         </div>
+         <div class="modal-body pb-0">
             <h5 class="custom_modal_text">
                The order has been completed.
-           </h5>
+            </h5>
          </div>
          <div class="modal-footer justify-content-center">
             <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
@@ -275,18 +275,18 @@
 {{-- reject_popup --}}
 <div class="modal fade upload-modal" id="reject_popup" tabindex="-1" aria-labelledby="reject_popupLabel" aria-modal="true" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content">
-   <div class="modal-header">
-      <h5 class="modal-title" id="reject_popup"><img src="{{ asset('assets/dashboard/img/block.png')}}" alt="alert" class="custompopicon"> Rejected
-      </h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-      </button>
-   </div>
-      <div class="modal-body pb-0">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="reject_popup"><img src="{{ asset('assets/dashboard/img/block.png')}}" alt="alert" class="custompopicon"> Rejected
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
+         </div>
+         <div class="modal-body pb-0">
             <h5 class="custom_modal_text">
                E4U has rejected the Request.
-           </h5>
+            </h5>
          </div>
          <div class="modal-footer justify-content-center">
             <button type="button" class="btn-success-modal" data-dismiss="modal">Confirm</button>
@@ -297,12 +297,12 @@
 </div>
 {{-- end --}}
 @push('script')
-  
+
 
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
-      var table = $("#EmailRequestTable").DataTable({
+   var table = $("#EmailRequestTable").DataTable({
       language: {
          search: "Search: _INPUT_",
          searchPlaceholder: "Search by Member ID"
@@ -312,16 +312,17 @@
       lengthChange: true,
       searching: true,
       bStateSave: true,
-      order: [[1, 'desc']],
-      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-      pageLength: 10,
+      order: [
+         [1, 'desc']
+      ],
+      pageLength: `{{$datatable_entries}}`,
+      lengthMenu: `{{config('app.paginate_range')}}`.split(','),
 
-        columnDefs: [{
-            targets: 7,
-            orderable: false
-        }]
+      columnDefs: [{
+         targets: 7,
+         orderable: false
+      }]
    });
+</script>
 
- </script>
-  
 @endpush

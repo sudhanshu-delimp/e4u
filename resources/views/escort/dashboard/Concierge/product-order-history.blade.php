@@ -33,9 +33,11 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-1" style="font-size: 20px;"><b>Notes:</b> </p>
+                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
-
+                            <li>View all of your Orders here.</li>
+                            <li>To print the Oder off, select View from the Action options and then Print.</li>
+                            <li>The Order is also summarised in the Transaction Summary report.</li>
                         </ol>
                     </div>
                 </div>
@@ -44,8 +46,7 @@
         {{-- end --}}
 
         <!--middle content-->
-        <div class="row ">
-            <div class="col-12">
+            <div class="col-lg-12 common-card">
                 <div class="table-responsive">
                     <table class="table w-100" id="productsHistoryTable">
                         <thead class="table-bg">
@@ -70,7 +71,6 @@
                     </table>
                 </div>
             </div>
-        </div>
         <!-- End of Main Content -->
 
         <!-- Footer -->
@@ -119,8 +119,8 @@
                 var table = $("#productsHistoryTable").DataTable({
                     processing: true,
                     serverSide: true,
-                    pageLength: {{$datatable_entries }},
-                    lengthMenu: [{{ config('app.paginate_range') }}],   
+                    pageLength: `{{$datatable_entries}}`,
+            lengthMenu: `{{config('app.paginate_range')}}`.split(','), 
                     ajax: {
                         url: "{{ auth()->user()->type == 4 ? route('center.order.list') : route('escort.order.list') }}",
                         type: 'GET'

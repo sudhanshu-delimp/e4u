@@ -15,6 +15,7 @@ use App\Http\Requests\MassageProfile\PurchaseListingRequest;
 use App\Http\Requests\MassageProfile\StoreMasssageMediaRequest;
 use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
 use App\Http\Requests\UpdateEscortRequest;
+use App\Mail\MessageCentr\MassageProfileCancellationEmail;
 use App\Models\AgentCommission;
 use App\Models\Duration;
 use App\Models\EscortCovidReport;
@@ -33,6 +34,7 @@ use App\Models\MassageService;
 use App\Models\MassageSetting;
 use App\Models\MassageStatistics;
 use App\Models\MassageSuspendProfile;
+use App\Models\MassageTimeAvailability;
 use App\Models\Masseur;
 use App\Models\Pricing;
 use App\Models\Service;
@@ -60,6 +62,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -119,6 +122,7 @@ class MassageController extends Controller
         ])
             ->where('user_id', auth()->user()->id)
             ->where('default_setting', 0);
+
         /*  if($request->isImpersonated) {
                 $massage = $massage->where('created_by', $request->impersonatedId);
             } */
@@ -126,11 +130,6 @@ class MassageController extends Controller
             ->orderByDesc('is_active')
             ->orderBy('id', 'desc')
             ->get();
-
-
-
-
-
 
         $home_state = auth()->user()->state_id;
         $localTimeZone  = config("escorts.profile.states.$home_state.timeZone");
@@ -192,8 +191,8 @@ class MassageController extends Controller
 
             $status = "";
 
-            if ($is_live)
-                $status = '<div class="dropdown-divider ' . canManageClass() . '"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action ' . canManageClass() . '" data-row-id="' . $row->id . '"  data-row-action="cancel"  href="javascript:void(0)">   <i class="fa fa-window-close"></i> Cancel<div class="dropdown-divider"></div></a>';
+            // if ($is_live)
+            //     $status = '<div class="dropdown-divider ' . canManageClass() . '"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center massage_action ' . canManageClass() . '" data-row-id="' . $row->id . '"  data-row-action="cancel"  href="javascript:void(0)">   <i class="fa fa-window-close"></i> Cancel<div class="dropdown-divider"></div></a>';
 
 
             if (!$is_live)
@@ -230,22 +229,26 @@ class MassageController extends Controller
             //  <div class="dropdown-divider"></div>           
             //<a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#viewMasseur">  <i class="fa fa-eye "></i> View Profile</a>
 
+            $json_enc = $row->mainPurchase
+                ? json_decode(json_encode($row->mainPurchase), true)
+                : null;
+
+
+            $listingStatus = ($row->mainPurchase && $row->mainPurchase->activeSuspendProfile->count() > 0) ? 'Suspended' : (($is_live) ? 'Active' : 'Inactive');
+            $listingStatusClass = getStatusBadgeClass(strtolower($listingStatus));
             return [
                 'is_live' => $is_live ? 1 : 0,
                 'id' => $row->id,
                 'profile_name' => $profile_name,
                 'business_name' => $row->business_name,
                 'business_no' => $row->business_no,
-                'phone' => $row->phone,
+                'phone' => $row->phone ?? null,
                 'created_at' => date('d M Y', strtotime($row->created_at)),
-                'status' => ($is_live) ? '<span class="custom_badge badge_active">Active</span>' : '<span class="custom_badge badge_inactive">Inactive</span>',
+                'status' => "<span class='custom_badge {$listingStatusClass}'>{$listingStatus}</span>",
                 'action' => $action
 
             ];
         });
-
-
-
 
 
         return response()->json([
@@ -687,14 +690,14 @@ class MassageController extends Controller
             ];
 
             $message = 'Business information updated successfully.';
-            
-            if ($data =  MassageProfile::find($request->massage_id)->update($input)){
-                 $error = false;
-                  // create or update slug
-                  $massCenter = MassageProfile::where('id', $request->massage_id)->first();
-                  $slug = (new \App\Services\SlugService)->createUpdateSlug($massCenter);
+
+            if ($data =  MassageProfile::find($request->massage_id)->update($input)) {
+                $error = false;
+                // create or update slug
+                $massCenter = MassageProfile::where('id', $request->massage_id)->first();
+                $slug = (new \App\Services\SlugService)->createUpdateSlug($massCenter);
             }
-               
+
             massage_profile_complete_status($request->massage_id);
         }
         ######### End Update profile  #####################
@@ -945,10 +948,10 @@ class MassageController extends Controller
 
         ######### Update Availibility  ####################
         if ($request->type == 'availibility') {
-            try {
+            try 
+            {
                 $request_data = $request->all();
-
-
+                $profile = MassageProfile::where(['id' => $request->massage_id])->first();
                 if (isset($request->profile_time_avail_update) && $request->profile_time_avail_update == 'profile_time_avail_update')
                     $availability     = $this->makeAvailability($request_data);
                 else
@@ -965,6 +968,13 @@ class MassageController extends Controller
                         $record->save();
                     } else {
                         MassageAvailability::create(['massage_profile_id' => $massage_profile_id, 'availability_time' => json_encode($availability)]);
+                    }
+
+                    if($profile->purchase_id!="")
+                    {
+                        $data['massage_profile_id'] = $massage_profile_id;
+                        $data['massage_availibility'] =  $availability;
+                        MassageTimeAvailability::saveOrUpdateAvailability($profile->purchase_id, $data);
                     }
                 }
 
@@ -1036,6 +1046,7 @@ class MassageController extends Controller
                 if (!empty($masseur)) {
                     MassagerMasseur::where(['massage_profile_id' => $massage_profile_id])->delete();
                     MassagerMasseur::insert($masseur);
+                    $profile = MassageProfile::where(['id' => $massage_profile_id])->first();
                     $messures =  Masseur::whereIn('id', $masseurIds)->get();
                     if ($messures->isNotEmpty()) {
                         foreach ($messures as $messure) {
@@ -1043,6 +1054,14 @@ class MassageController extends Controller
                                 $newService = array_values(array_diff($messure->service, $messure_service));
                                 $messure->service = !empty($newService) ? $newService : null;
                                 $messure->save();
+                            }
+
+                            if($profile->purchase_id!="")
+                            {
+                                $data = [];
+                                $data['masseur_id'] = $messure->id;
+                                $data['masseur_availibility'] =  $messure->availability;
+                                MassageTimeAvailability::saveOrUpdateAvailability($profile->purchase_id, $data);
                             }
                         }
                     }
@@ -1144,12 +1163,12 @@ class MassageController extends Controller
 
                     //Log::info(' $refundAmountWithGst============>'. $refundAmountWithGst);
 
-                    if($purchase->status=='pending')
-                    $credit_tag = 'Cancel Extended Profile Listing.';
+                    if ($purchase->status == 'pending')
+                        $credit_tag = 'Cancel Extended Profile Listing.';
                     else
-                    $credit_tag = 'Cancel Profile Listing.';    
-                
-                    
+                        $credit_tag = 'Cancel Profile Listing.';
+
+
 
                     $profileTimezone = config("escorts.profile.states.$home_state.timeZone");
                     $utc_date_time =  Carbon::now($profileTimezone)->startOfDay()->utc();
@@ -1175,8 +1194,22 @@ class MassageController extends Controller
                         ]
                     );
                 }
-                            
-               $mess = "Your profile has been successfully cancelled, and a total refund of $" . number_format($totalRefundAmountWithGst, 2) . " has been added to your wallet.";
+
+                $mess = "Your Profile has been successfully cancelled, and a total refund of $" . number_format($totalRefundAmountWithGst, 2) . " has been added to your wallet.";
+
+                $data = [
+                    'user' => $user,
+                    'massageProfile' => $massage,
+                    'refundAmount' => $totalRefundAmountWithGst,
+                ];
+
+                try {
+                    Mail::to($user->email)->send(
+                        new MassageProfileCancellationEmail($data)
+                    );
+                } catch (Exception $e) {
+                    Log::info($e->getMessage());
+                }
             }
             ########## End Cancel Profile ###############
 
@@ -1202,6 +1235,66 @@ class MassageController extends Controller
         }
     }
 
+
+    public function calculateProfileCancelRefund(Request $request)
+    {
+        try 
+        {
+            $userId = auth()->user()->id;
+            $profileId = $request->profile_id;
+
+            $purchases = MassagePurchase::where('massage_centre_id', $userId)
+                ->where('massage_profile_id', $profileId)
+                ->whereIn('status', ['pending', 'listed'])
+                ->get();
+
+            if ($purchases->isEmpty()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No active or pending listings found for this profile.',
+                    'total_refund_amount' => 0.00,
+                    'formatted_refund_amount' => '$0.00'
+                ], 442);
+            }
+
+            $totalRefundAmountWithGst = 0;
+
+            foreach ($purchases as $purchase) {
+                if ($purchase->status == 'listed') {
+                    $refundStartDate = Carbon::parse($purchase->start_date)->add(1, 'day')->toDateString();
+                    $refundEndDate   = Carbon::parse($purchase->end_date)->toDateString();
+                } else {
+                    $refundStartDate = Carbon::parse($purchase->start_date)->toDateString();
+                    $refundEndDate   = Carbon::parse($purchase->end_date)->toDateString();
+                }
+
+                $refundAmount = getRefundAmountForCancelProfile($purchase, $refundStartDate, $refundEndDate);
+
+                if ($refundAmount > 0) {
+                    $gstAmount = getGSTAmount($refundAmount);
+                    $refundAmountWithGst = $refundAmount + $gstAmount;
+                } else {
+                    $refundAmountWithGst = 0;
+                }
+
+                $totalRefundAmountWithGst += $refundAmountWithGst;
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Refund amount calculated successfully.',
+                'total_refund_amount' => round($totalRefundAmountWithGst, 2),
+                'formatted_refund_amount' =>  number_format($totalRefundAmountWithGst, 2, '.', ''),
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong while calculating refund.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 
 
     public function delete_massage_profile($massage_profile_data, $massage_profile_id)
@@ -1244,14 +1337,14 @@ class MassageController extends Controller
             if ($massage) {
                 $newMassage = $massage->replicate();
                 $newMassage->profile_name = $new_profile_name;
-                $newMassage->slug =null;
+                $newMassage->slug = null;
                 $newMassage->save();
 
                 ########### Create Slug ############
                 $slug = new SlugService();
                 $slug->createUpdateSlug($newMassage);
 
-    
+
                 $new_massage_profile_id = $newMassage->id;
 
                 if ($new_massage_profile_id != "") {
@@ -1503,16 +1596,17 @@ class MassageController extends Controller
     public function  massager_current_listing(Request $request)
     {
         $today = Carbon::today();
-        $massagers = MassagePurchase::with([
-            'brb' => function ($query) {
-                $query->where('brb_time', '>', Carbon::now('UTC'))
-                    ->where('active', 'Y')
-                    ->orderBy('brb_time', 'desc');
-            },
-            'massageprofile',
-            'user:id,status',
-            'activeUpcomingSuspend'
-        ])
+        $massagers = MassagePurchase::whereDoesntHave('activeSuspendProfile')
+            ->with([
+                'brb' => function ($query) {
+                    $query->where('brb_time', '>', Carbon::now('UTC'))
+                        ->where('active', 'Y')
+                        ->orderBy('brb_time', 'desc');
+                },
+                'massageprofile',
+                'user:id,status',
+                'activeUpcomingSuspend'
+            ])
             ->where('massage_centre_id', auth()->user()->id)
             ->whereIn('status', ['listed', 'pending'])
             /* ->when($request->isImpersonated, function ($query) use ($request) {
@@ -1821,4 +1915,8 @@ class MassageController extends Controller
         $redirect_url = url('center-dashboard/listing/current');
         return view('center.dashboard.complete-listings', compact('redirect_url'));
     }
+
+
+
+    
 }

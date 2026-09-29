@@ -20,12 +20,60 @@ use PDF;
 
 class AgentMonthlyReportController extends BaseController
 {
+    protected $viewAccessEnabled;
+    protected $editAccessEnabled;
+    protected $addAccessEnabled;
+    protected $sidebar;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $user = auth()->user();   // works here
+            // Now do everything that needs user data
+            $securityLevel = isset($user->staff_detail->security_level) ? $user->staff_detail->security_level : 0;
+
+            $viewAccess = staffPageAccessPermission($securityLevel, 'view');
+            $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+            $addAccess = staffPageAccessPermission($securityLevel, 'add');
+            $this->sidebar = staffPageAccessPermission($securityLevel, 'sidebar');
+
+            $this->viewAccessEnabled  = isset($viewAccess['yesNo']) && $viewAccess['yesNo'] == 'yes';
+            $this->editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+            $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+
+            if (isset($this->sidebar['management']['yesNo']) && $this->sidebar['management']['yesNo'] == 'no') {
+                return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
+            }
+
+            return $next($request);
+        });
+    }
+
 
   /**
    *  View the monthly fee reports list
    */
   public function monthlyReport()
   {
+        $billingStartDate = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('Y-m-d');
+        $billingEndDate = Carbon::now()->subMonthNoOverflow()->endOfMonth()->format('Y-m-d');
+        $reportDate = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('m-Y');
+     $reports = AgentCommission::select(
+                'agent_id',
+                DB::raw('SUM(total_commission_amount) as total_commission'),
+                DB::raw('SUM(purchase_amount) as total_purchase')
+            )->with('agent', function ($query) {
+                $query->select(['id', 'member_id', 'email', 'business_name', 'state_id'])
+                    ->with('state', function ($queryState) {
+                        $queryState->select(['id', 'name', 'iso2', 'country_id']);
+                    });
+            })
+                ->whereBetween('commission_date', [$billingStartDate." 00:00:00", $billingEndDate." 23:59:59"])
+                ->groupBy('agent_id')
+                ->get();
+
+      //dd( $reports->toArray());
+
     return  view('admin.management.agents.Fees.monthly-report');
   }
 
@@ -113,13 +161,13 @@ class AgentMonthlyReportController extends BaseController
       $item->agent_id =  $item->agent->member_id;
       $item->agent_name =  $item->agent->business_name;
       $item->territory =  $item->state?->iso2 ?? '';
-      $formattedSpend = '<div class="num_value"><span>$</span><span>' . number_format($item->spend, 2, '.', '') . '</span></div>';
-      $formattedFees = '<div class="num_value"><span>$</span><span>' . number_format($item->fees, 2, '.', '') . '</span></div>';
+      $formattedSpend = '<div class="num_value"><span>$</span><span>' . number_format($item->spend, 2) . '</span></div>';
+      $formattedFees = '<div class="num_value"><span>$</span><span>' . number_format($item->fees, 2) . '</span></div>';
       $item->total_spend =  $formattedSpend;
       $item->total_fees =   $formattedFees;
       $status = ucfirst($item->status);
       $statusName = str_replace('_', " ", $status);
-      $item->status_name = '<span class="custom_badge ' . getStatusBadgeClass($status) . '">' . ucwords($statusName) . ' </span>';
+      $item->status_name = '<span class="custom_badge_lg ' . getStatusBadgeClass($status) . '">' . ucwords($statusName) . ' </span>';
 
       $item->report_pproved_date = "N/A";
       $item->approved_by =  $item->approved_by;
@@ -141,17 +189,20 @@ class AgentMonthlyReportController extends BaseController
         $divider = '<div class="dropdown-divider"></div>'; */
       } else if ($item->status == 'approved') {
         //Query
+        if ($this->editAccessEnabled) {
         $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="paid"  id="viewPayAgentreport"><i class="fa fa-star"></i>Pay</a>';
         $divider = '<div class="dropdown-divider"></div>';
+        }
 
       } else if ($item->status == 'paid') {
         //Query
         //$dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Query</a>';
       } else if ($item->status == 'query') {
-        //Approve
+       if ($this->editAccessEnabled) {
 
          $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" id="openQueryModel"><i class="fa fa-search-minus"></i></i>Reply Query</a>';
         $divider = '<div class="dropdown-divider"></div>'; 
+       }
       } else if ($item->status == 'query_resolved') {
         //Approve
         /* $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
@@ -196,7 +247,7 @@ class AgentMonthlyReportController extends BaseController
       $feeData = $calculateServiceObj->calculateFee($id);
 
       if ($feeData->isNotEmpty()) {
-        return view('agent.dashboard.Fees.view_monthly_report', compact('feeData'));
+        return view('admin.management.agents.Fees.view_monthly_report', compact('feeData'));
       }
     }
     return "";
@@ -306,7 +357,7 @@ class AgentMonthlyReportController extends BaseController
         $reportData['payAgentId'] = $report->agent->member_id;
         $reportData['payMonthlyReportDate'] = $reportDate;
         $reportData['payMonthlyReportMonth'] = $reportMonth;
-        $reportData['payAgenFee'] = number_format($report->fees, 2, '.', '');
+        $reportData['payAgenFee'] = number_format($report->fees, 2);
 
 
         $response['error'] = 0;
@@ -335,7 +386,7 @@ class AgentMonthlyReportController extends BaseController
           $reportData['payAgentId'] = $report->agent->member_id;
           $reportData['payMonthlyReportDate'] = $reportDate;
           $reportData['payMonthlyReportMonth'] = $reportMonth;
-          $reportData['payAgenFee'] = number_format($report->fees, 2, '.', '');
+          $reportData['payAgenFee'] = number_format($report->fees, 2);
 
           $pdf = PDF::loadView(
             'admin.management.agents.Fees.print_monthly_pay_report',

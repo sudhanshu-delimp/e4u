@@ -49,8 +49,13 @@
                             </p>
 
                             <div style="margin-bottom: 25px;">
-                                <p style="margin: 5px 0;"><strong>First Name: </strong> {{ $data['first_name'] }}</p>
-                                <p style="margin: 5px 0;"><strong>Last Name: </strong> {{ $data['last_name'] }}</p>
+                                @if ($data['console'] == 'EC')
+                                    <p style="margin: 5px 0;"><strong>First Name: </strong> {{ $data['first_name'] }}
+                                    </p>
+                                    <p style="margin: 5px 0;"><strong>Last Name: </strong> {{ $data['last_name'] }}</p>
+                                @else
+                                    <p style="margin: 5px 0;"><strong>Business Name: </strong> {{ $data['business_name'] }}</p>
+                                @endif
                                 <p style="margin: 5px 0;"><strong>Email: </strong> {{ $data['email'] }}</p>
                                 <p style="margin: 5px 0;"><strong>Mobile: </strong> {{ $data['mobile'] }}</p>
                                 <p style="margin: 5px 0;"><strong>Preferred Contact
@@ -74,7 +79,8 @@
                                 <strong>Comments:</strong>
                             </p>
 
-                            <div style="margin-top: 8px; padding: 12px 15px; background-color: #f7f7f7; border: 1px solid #e0e0e0; border-radius: 4px;">
+                            <div
+                                style="margin-top: 8px; padding: 12px 15px; background-color: #f7f7f7; border: 1px solid #e0e0e0; border-radius: 4px;">
                                 {{ $data['comments'] ?: 'No additional comments provided.' }}
                             </div>
                             <br>

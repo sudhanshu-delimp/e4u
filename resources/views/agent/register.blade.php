@@ -32,7 +32,7 @@
                             <h2>Lodge your enquiry with us here</h2>
                             <p>If you have industry experience or you are well connected to Advertisers,
                                 then
-                                becoming an Escorts4U Agent may be for you. Earn additional income as an Agent. We will
+                                becoming an Escorts4U Agent may be for you. <br><br> Earn additional income as an Agent. We will
                                 assist you in every regard to earn.
                                 Register and we will be in touch to go over what being an Agent can do for you.
                                 See also <span><a href="{{ url('help-for-agents') }}" class="termsandconditions_text_color"
@@ -537,7 +537,7 @@
 
                         if (data.error == 1 && data.status === 'Pending') {
                             sessionStorage.setItem('agent_pending_status',
-                                'Your account has been successfully created but is currently inactive.\n \nYou will receive an email notification once it has been activated.'
+                                'Your account has been successfully created but is currently inactive.\n You will receive an email notification once it has been activated.'
                                 );
                             window.location.href = "{{ route('agent.login') }}";
                             return false;
@@ -632,7 +632,7 @@
                     },
                     error: function(data) {
                         Swal.close();
-                        console.log("error: b", data.responseJSON.errors);
+                        // console.log("error: b", data.responseJSON.errors);
                         var errorsHtml = '<ul><li>';
                         $.each(data.responseJSON.errors, function(key, value) {
                             console.log("key=", key);

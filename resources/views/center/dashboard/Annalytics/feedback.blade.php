@@ -19,82 +19,66 @@
                 </div>
              </div>
           </div>
-       </div> 
-       
-        <div class="row">
-            <div class="col-lg-12">                
-                <div class="row p-4 rounded my-2" style="background-color: #c2cfe052;">                  
-                    
-                    <div class="col-lg-12 card-list-wrapper"> 
-                        <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
-                            <div class="statistics-text">
-                                <div class="statistics-label">Reviews Today
-                                </div>
-                                <div class="statistics-value">125</div>
+       </div>
+
+
+
+         <div class="row">
+            <div class="col-lg-4">
+                <div class="common-grid">
+                    <div class="common-card">
+                        <div class="card-top">
+                            <div class="card-icon">
+                            <svg width="24px" height="24px" fill="#ff3c5f" version="1.1" baseProfile="tiny" id="Layer_1" xmlns:x="&amp;ns_extend;" xmlns:i="&amp;ns_ai;" xmlns:graph="&amp;ns_graphs;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" viewBox="0 0 42 42" xml:space="preserve">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path d="M6.5,25.5v4c0.016,2.812,1.344,2.375,2.328,1.531L14.5,25.91v2.59c0,2.43,0.56,3,3,3h9c0,0,5.209,6.125,5.25,6.084 c0.75,0.916,2.781,0.604,2.75-1.084v-5h3c2.45,0,3-0.609,3-3v-15c0-2.4-0.59-3-3-3h-10v-2c0-2.47-0.46-3-3-3h-21c-2.36,0-3,0.51-3,3 v13c0,2.439,0.55,4,3,4H6.5z M31.5,28.5v4.721l-4-4.721h-9c-0.75,0-1-0.27-1-1v-13c0-0.67,0.31-1,1-1h18c0.689,0,1,0.37,1,0.94V27.5 c0,0.721-0.359,1-1,1H31.5z">
+                                </path>
+                            </g>
+                        </svg>
                             </div>
-                            <div class="statistics-icon">
-                                <img src="{{ asset('assets/dashboard/img/comment.png') }}" alt="icon">
-                            </div>
-                        </div>
-                    
-                        <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
-                            <div class="statistics-text">
-                                <div class="statistics-label">Reviews This Week
-                                </div>
-                                <div class="statistics-value">35</div>
-                            </div>
-                            <div class="statistics-icon">
-                                <img src="{{ asset('assets/dashboard/img/comment.png') }}" alt="icon">
+                            <div class="card-heading">
+                                <h2>Feedback</h2>
                             </div>
                         </div>
-                    
-                        <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
-                            <div class="statistics-text">
-                                <div class="statistics-label"> Year to Date
+                        <hr class="custom-hr">
+                        <div class="commom-stars">
+                            <div class="stats-detail">
+                                <div class="stats-label">Reviews Today
                                 </div>
-                                <div class="statistics-value">125</div>
+                                <div class="stats-value">125</div>
                             </div>
-                            <div class="statistics-icon">
-                                <img src="{{ asset('assets/dashboard/img/calendar.png') }}" alt="icon">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 card-list-wrapper"> 
-                        <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
-                            <div class="statistics-text">
-                                <div class="statistics-label">Recommendations Today
+                            <div class="stats-detail">
+                                <div class="stats-label">Reviews This Week
                                 </div>
-                                <div class="statistics-value">125</div>
+                                <div class="stats-value">35</div>
                             </div>
-                            <div class="statistics-icon">
-                                <img src="{{ asset('assets/dashboard/img/good-quality.png') }}" alt="icon">
-                            </div>
-                        </div>
-                    
-                        <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
-                            <div class="statistics-text">
-                                <div class="statistics-label">Recommendations This Week
+                            <div class="stats-detail">
+                                <div class="stats-label">Year to Date
+
                                 </div>
-                                <div class="statistics-value">35</div>
+                                <div class="stats-value">125</div>
                             </div>
-                            <div class="statistics-icon">
-                                <img src="{{ asset('assets/dashboard/img/good-quality.png') }}" alt="icon">
-                            </div>
-                        </div>
-                    
-                        <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
-                            <div class="statistics-text">
-                                <div class="statistics-label"> Year to Date
+                             <hr class="custom-hr">
+                            <div class="stats-detail">
+                                <div class="stats-label">Recommendations Today
                                 </div>
-                                <div class="statistics-value">125</div>
+                                <div class="stats-value">125</div>
                             </div>
-                            <div class="statistics-icon">
-                                <img src="{{ asset('assets/dashboard/img/calendar.png') }}" alt="icon">
+                            <div class="stats-detail">
+                                <div class="stats-label">Recommendations This Week
+                                </div>
+                                <div class="stats-value">35</div>
+                            </div>
+                            <div class="stats-detail">
+                                <div class="stats-label">Year to Date
+                                </div>
+                                <div class="stats-value">125</div>
                             </div>
                         </div>
                     </div>
-                    <!-- Card End -->
-                </div> 
+                </div>
             </div>
         </div>
     </div>

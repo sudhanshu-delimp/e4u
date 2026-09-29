@@ -3,15 +3,15 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
 <style>
    .swal-button {
-   background-color: #242a2c;
+      background-color: #242a2c;
    }
 </style>
 @stop
 @section('content')
 @php
-   $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
-   $editAccess = staffPageAccessPermission($securityLevel, 'edit');
-   $editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+$securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->user()->staff_detail->security_level: 0;
+$editAccess = staffPageAccessPermission($securityLevel, 'edit');
+$editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
 @endphp
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
@@ -21,28 +21,28 @@
          <div class="row">
             <div class="custom-heading-wrapper col-md-12">
                <h1 class="h1">Email Requests</h1>
-                  <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span>
+               <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span>
             </div>
             <div class="col-md-12 mb-4">
                <div class="card collapse" id="notes">
-                     <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                        <ol>
-                           <li>An email request is to be actioned within 24 hours of receipt.</li>
-                           <li>An email notification has also been sent to <a href="mailto:admin@e4u.com.au" class="custom_links_design">admin@e4u.com.au</a>.</li>
-                           <li>When establishing the Email account, ensure:
-                              <ol class="level-2">
-                                 <li>the Member and Email details are entered up in the Email Register before
-                                    completing this page.</li>
-                                 <li>Activate account.</li>
-                              </ol>
-                           </li>
-                        </ol>
-                     </div>
+                  <div class="card-body">
+                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                     <ol>
+                        <li>An email request is to be actioned within 24 hours of receipt.</li>
+                        <li>An email notification has also been sent to <a href="mailto:admin@e4u.com.au" class="custom_links_design">admin@e4u.com.au</a>.</li>
+                        <li>When establishing the Email account, ensure:
+                           <ol class="level-2">
+                              <li>the Member and Email details are entered up in the Email Register before
+                                 completing this page.</li>
+                              <li>Activate account.</li>
+                           </ol>
+                        </li>
+                     </ol>
+                  </div>
                </div>
             </div>
-         </div> 
-          <div class="row">
+         </div>
+         <div class="row">
             <div class="col-md-12">
                <div class="table-responsive custom-badge">
                   <table class="table" id="EmailRequestTable">
@@ -67,11 +67,11 @@
                            <td><a href="mailto:julie.1996@gmail.com">julie.1996@gmail.com</a></td>
                            <td>E40161 04052025 04 003</td>
                            <td><span class="custom_badge badge_pending">Pending</span></td>
-                           <td class="text-center"> 
+                           <td class="text-center">
                               @if($editAccessEnabled)
                               <div class="dropdown no-arrow">
                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                  </a>
                                  <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
                                     <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#"> <i class="fa fa-hourglass-half "></i> Pending</a>
@@ -94,11 +94,11 @@
                            <td><a href="mailto:mary.1995@gmail.com">mary.1995@gmail.com</a></td>
                            <td>E50167 03052025 05 002</td>
                            <td><span class="custom_badge badge_onHold">On Hold</span></td>
-                           <td class="text-center"> 
-                               @if($editAccessEnabled)
+                           <td class="text-center">
+                              @if($editAccessEnabled)
                               <div class="dropdown no-arrow">
                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                  </a>
                                  <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
                                     <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#"> <i class="fa fa-hourglass-half "></i> Pending</a>
@@ -110,7 +110,7 @@
                                     <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#" data-toggle="modal" data-target="#reject_popup"> <i class="fa fa-fw fa-ban"></i> Rejected </a>
                                  </div>
                               </div>
-                               @endif
+                              @endif
                            </td>
                         </tr>
                         <tr>
@@ -121,11 +121,11 @@
                            <td><a href="mailto:jane.1999@gmail.com">jane.1999@gmail.com</a></td>
                            <td>E60112 02052025 06 001</td>
                            <td><span class="custom_badge badge_active">Active</span></td>
-                           <td class="text-center"> 
+                           <td class="text-center">
                               @if($editAccessEnabled)
                               <div class="dropdown no-arrow">
                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                  </a>
                                  <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
                                     <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#"> <i class="fa fa-hourglass-half "></i> Pending</a>
@@ -137,14 +137,14 @@
                                     <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#" data-toggle="modal" data-target="#reject_popup"> <i class="fa fa-fw fa-ban"></i> Rejected </a>
                                  </div>
                               </div>
-                               @endif
+                              @endif
                            </td>
                         </tr>
                      </tbody>
                   </table>
-               </div>   
-            </div>   
-         </div>                 
+               </div>
+            </div>
+         </div>
       </div>
    </div>
    <!-- End of Main Content -->
@@ -152,7 +152,7 @@
 <!-- End of Content Wrapper -->
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
-<i class="fas fa-angle-up"></i>
+   <i class="fas fa-angle-up"></i>
 </a>
 
 
@@ -160,18 +160,18 @@
 
 <div class="modal fade upload-modal" id="active_req" tabindex="-1" aria-labelledby="active_reqLabel" aria-modal="true" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content">
-   <div class="modal-header">
-      <h5 class="modal-title" id="active_req"><img src="{{ asset('assets/dashboard/img/published.png')}}" alt="alert" class="custompopicon"> Active
-      </h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-      </button>
-   </div>
-      <div class="modal-body pb-0">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="active_req"><img src="{{ asset('assets/dashboard/img/published.png')}}" alt="alert" class="custompopicon"> Active
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
+         </div>
+         <div class="modal-body pb-0">
             <form>
                <div class="row">
-                  
+
                   <div class="col-12 mb-3">
                      <label for="email">Email</label>
                      <input type="email" class="form-control rounded-0" placeholder="Enter your email ">
@@ -193,18 +193,18 @@
 {{-- confirm_popup --}}
 <div class="modal fade upload-modal" id="confirm_popup" tabindex="-1" aria-labelledby="confirm_popupLabel" aria-modal="true" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content">
-   <div class="modal-header">
-      <h5 class="modal-title" id="confirm_popup"><img src="{{ asset('assets/dashboard/img/unblock.png')}}" alt="alert" class="custompopicon"> Completed
-      </h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-      </button>
-   </div>
-      <div class="modal-body pb-0">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="confirm_popup"><img src="{{ asset('assets/dashboard/img/unblock.png')}}" alt="alert" class="custompopicon"> Completed
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
+         </div>
+         <div class="modal-body pb-0">
             <h5 class="custom_modal_text">
                The order has been completed.
-           </h5>
+            </h5>
          </div>
          <div class="modal-footer justify-content-center">
             <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
@@ -217,18 +217,18 @@
 {{-- reject_popup --}}
 <div class="modal fade upload-modal" id="reject_popup" tabindex="-1" aria-labelledby="reject_popupLabel" aria-modal="true" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content">
-   <div class="modal-header">
-      <h5 class="modal-title" id="reject_popup"><img src="{{ asset('assets/dashboard/img/block.png')}}" alt="alert" class="custompopicon"> Deactivate Email Account
-      </h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-      </button>
-   </div>
-      <div class="modal-body pb-0">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="reject_popup"><img src="{{ asset('assets/dashboard/img/block.png')}}" alt="alert" class="custompopicon"> Deactivate Email Account
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
+         </div>
+         <div class="modal-body pb-0">
             <h5 class="custom_modal_text">
-              Are you sure you want to deactivate account?
-           </h5>
+               Are you sure you want to deactivate account?
+            </h5>
          </div>
          <div class="modal-footer justify-content-center">
             <button type="button" class="btn-success-modal" data-dismiss="modal">Confirm</button>
@@ -239,12 +239,12 @@
 </div>
 {{-- end --}}
 @push('script')
-  
+
 
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
-      var table = $("#EmailRequestTable").DataTable({
+   var table = $("#EmailRequestTable").DataTable({
       language: {
          search: "Search: _INPUT_",
          searchPlaceholder: "Search by Member ID"
@@ -254,16 +254,17 @@
       lengthChange: true,
       searching: true,
       bStateSave: true,
-      order: [[1, 'desc']],
-      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-      pageLength: 10,
+      order: [
+         [1, 'desc']
+      ],
+      pageLength: `{{$datatable_entries}}`,
+      lengthMenu: `{{config('app.paginate_range')}}`.split(','),
 
-        columnDefs: [{
-            targets: 7,
-            orderable: false
-        }]
+      columnDefs: [{
+         targets: 7,
+         orderable: false
+      }]
    });
+</script>
 
- </script>
-  
 @endpush

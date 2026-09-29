@@ -75,6 +75,7 @@ class EscortListingFeatureService
         $utcEnd = $localEnd->copy()->setTimezone('UTC');
 
         $escortPinUp = EscortPinup::create([
+            'purchase_id' => $escortDetail->currentPurchase->id,
             'user_id' => $escortDetail->user->id,
             'escort_id' => $escortDetail->id,
             'state_id' => $escortDetail->state_id,
@@ -99,6 +100,24 @@ class EscortListingFeatureService
             ])->update([
                 'is_pinup' => $escortPinUp->id
             ]);
+        } else {
+            $currentPurchase = $escortDetail->currentPurchase;
+
+            if ($currentPurchase->tour_location_id) {
+                $tour_location = $currentPurchase->tour_location;
+
+                $tour_location->is_pinup = '1';
+                $tour_location->save();
+
+                $tour_location_profile = $tour_location->profiles()
+                    ->where('escort_id', $escortId)
+                    ->first();
+
+                if ($tour_location_profile) {
+                    $tour_location_profile->is_pinup = $escortPinUp->id;
+                    $tour_location_profile->save();
+                }
+            }
         }
 
         return $escortPinUp;

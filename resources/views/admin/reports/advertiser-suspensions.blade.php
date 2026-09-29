@@ -140,24 +140,6 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
-   $(document).ready(function() {
-
-
-      // $('#customSearch').on('keyup', function() {
-      //    $('#advertiserSuspenstionTable').DataTable().search(this.value).draw();
-      // });
-
-      // $(document).on('click', '.viewEscortSuspendedProfile', function(e) {
-      //    e.preventDefault(); // prevent default link behavior
-
-      //    const escortId = $(this).attr('data-escort-id');
-      //    var profileUrl = '{{route("profile.description","_id")}}'.replace('_id', escortId);
-
-      //    $("#escortPopupModalBodyIframe").attr('src', profileUrl)
-      // });
-
-   });
-
    var table = $('#advertiserSuspenstionTable').DataTable({
       language: {
          search: "Search: _INPUT_",

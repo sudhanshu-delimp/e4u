@@ -124,5 +124,55 @@ class PageController
     {
         return view('web.pages.terms-conditions');
     }
+
+    public function faqPage()
+    {
+      return view('web.pages.faqs');
+    }
+
+    public function parentControl()
+    {
+        return view('web.pages.parent-control');
+    }
+
+    public function feedbackPage()
+    {
+        return view('web.pages.feedback');
+    }
+
+    public function thankyouPage()
+    {
+        return view('web.pages.thankyou');
+    }
+
+    public function abbreviations()
+    {
+         return view('web.pages.abbreviations');
+    }
+
+    public function etiquette()
+    {
+        return view('web.pages.etiquette');
+    }
+
+    public function helpForAgents()
+    {
+        return view('web.pages.help-for-agents');
+    }
+
+    public function helpForMassageCentres()
+    {   
+        return view('web.pages.help-for-massage-centres');
+    }
+
+    public function helpForViewers()
+    {
+         return view('web.pages.help-for-viewers');
+    }
+
+    public function cookePolicy()
+    {
+        return view('web.pages.cookie-policy');
+    }
     
 }

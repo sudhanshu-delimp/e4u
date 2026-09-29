@@ -1,42 +1,43 @@
 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm  pl-3 pl-lg-5 pr-3 pr-lg-5 justify-navbar db-custom-topbar">
-                    
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    {{-- logged in user data --}}
-                    <div class="topbar-logged-in-user-data d-flex">
-                        {{-- <div class="pr-5">
-                            <img src="{{ asset('assets/app/img/logo.svg') }}" alt="">
+<nav
+    class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm  pl-3 pl-lg-5 pr-3 pr-lg-5 justify-navbar db-custom-topbar">
+
+    <!-- Sidebar Toggle (Topbar) -->
+    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+        <i class="fa fa-bars"></i>
+    </button>
+    {{-- logged in user data --}}
+    <div class="topbar-logged-in-user-data d-flex">
+        {{-- <div class="pr-5">
+                            <img src="{{ asset('assets/images/escorts4u-logo.svg') }}" alt="">
                         </div> --}}
-                        <div class="d-user-info">
-                           <div class="escort_header_top_menu">
-                                <span>
-                                    <b>Welcome back :  </b><span class="user-values">{{auth()->user()->name }}</span>  
-                                </span>
-                                <span>
-                                    <span class="separator">|</span>
-                                    <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span>
-                                </span>
-                                <span><span class="separator">|</span>
-                                     <b>Location time :  </b><span class="user-values live_current_time"></span>
-                                </span>
+        <div class="d-user-info">
+            <div class="escort_header_top_menu">
+                <span>
+                    <b>Welcome back : </b><span class="user-values">{{ auth()->user()->name }}</span>
+                </span>
+                <span>
+                    <span class="separator">|</span>
+                    <b>Membership ID : </b><span class="user-values">{{ auth()->user()->member_id }}</span>
+                </span>
+                <span><span class="separator">|</span>
+                    <b>Location time : </b><span class="user-values live_current_time"></span>
+                </span>
 
-                                <span>
-                                    <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>                                     
-                                </span>
-                                
-                                <span><span class="separator">|</span>
-                                    <b>Current Location :  </b><span class="user-values live_current_location"></span>                                   
-                                </span>
+                <span>
+                    <b>Home State : </b><span class="user-values">{{ auth()->user()->home_state }} </span>
+                </span>
 
-                           </div>
-                        </div>
-                    </div>
-                    {{-- end --}}
-                    <!-- Topbar Search -->
-                    {{-- <form
+                <span><span class="separator">|</span>
+                    <b>Current Location : </b><span class="user-values live_current_location"></span>
+                </span>
+
+            </div>
+        </div>
+    </div>
+    {{-- end --}}
+    <!-- Topbar Search -->
+    {{-- <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group dk-border-radius">
                             <div class="input-group-append">
@@ -50,160 +51,200 @@
                         </div>
                     </form> --}}
 
-                    <!-- Topbar Navbar -->
-                    <div class="navbar-nav">
+    <!-- Topbar Navbar -->
+    <div class="navbar-nav">
 
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <form class="form-inline navbar-search form-inline-custom d-none" style="width: 22rem;">
-                            <div class="input-group dk-border-radius">
-                                <div class="input-group-append">
-                                    <button class="btn" type="button">
-                                        <i class="fas fa-search fa-sm"></i>
-                                    </button>
-                                </div>
-                                <input type="text" class="form-control border-0 small" placeholder="Enter keywords..."
-                                       aria-label="Search" aria-describedby="basic-addon2">
-                
-                            </div>
-                        </form>
-                        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">                               
-            @if(session()->has('parent_user_id') && session('switch_for') == 'admin_to_any' && session('is_impersonated') === true)
-                <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>   
+        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+        <form class="form-inline navbar-search form-inline-custom d-none" style="width: 22rem;">
+            <div class="input-group dk-border-radius">
+                <div class="input-group-append">
+                    <button class="btn" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+                <input type="text" class="form-control border-0 small" placeholder="Enter keywords..."
+                    aria-label="Search" aria-describedby="basic-addon2">
+
+            </div>
+        </form>
+        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
+            @if (session()->has('parent_user_id') && session('switch_for') == 'admin_to_any' && session('is_impersonated') === true)
+                <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>
                 <a class="nav-link" href="{{ route('admin.back-to-parent') }}" title="">
-            <span class="switch-profile">
-                <img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="Switch back to your account"/>
-            </span>
+                    <span class="switch-profile">
+                        <img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="Switch back to your account" />
+                    </span>
                 </a>
             @endif
         </li>
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
-                        
-                       
+        <li class="nav-item dropdown no-arrow d-sm-none">
+            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+            </a>
+            <!-- Dropdown - Messages -->
+            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                aria-labelledby="searchDropdown">
+                <form class="form-inline mr-auto w-100 navbar-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </li>
 
-                        <!-- //////// Notification ///////////// -->
+        <!-- Messages btn -->
+        <li class="nav-item messages_btn">
+            <a class="nav-link" href="{{ route('user.viewer-messages') }}" role="button">
+                <span>
+                    <svg width="22px" height="22px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1"
+                        xmlns="http://www.w3.org/2000/svg" fill="#fff" stroke="#fff">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <defs>
+                                <style>
+                                    .cls-1 {
+                                        fill: none;
+                                        stroke: #fff;
+                                        stroke-miterlimit: 10;
+                                        stroke-width: 1.91px;
+                                    }
+                                </style>
+                            </defs>
+                            <path class="cls-1"
+                                d="M18.68,8.16V15.8a2.86,2.86,0,0,1-2.86,2.86H13.91v2.86L8.18,18.66H4.36A2.86,2.86,0,0,1,1.5,15.8V8.16A2.86,2.86,0,0,1,4.36,5.3H15.82A2.86,2.86,0,0,1,18.68,8.16Z">
+                            </path>
+                            <path class="cls-1"
+                                d="M18.68,14.84h1A2.86,2.86,0,0,0,22.5,12V4.34a2.86,2.86,0,0,0-2.86-2.86H8.18A2.86,2.86,0,0,0,5.32,4.34v1">
+                            </path>
+                            <line class="cls-1" x1="5.32" y1="11.98" x2="7.23" y2="11.98"></line>
+                            <line class="cls-1" x1="9.14" y1="11.98" x2="11.05" y2="11.98"></line>
+                            <line class="cls-1" x1="12.95" y1="11.98" x2="14.86" y2="11.98"></line>
+                        </g>
+                    </svg> Messages
+                </span>
+            </a>
+        </li>
+        <!--- End --->
 
-                        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
-                            <span class="esc-tooltip esc-tooltip-support">Support Tickets</span>
-                            <a class="nav-link dropdown-toggle support_notify_bell" href="#" id="ticketNotificationDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" title="">
-                                <i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>
-                            </a>
-                            
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                    aria-labelledby="ticketNotificationDropdown">
-                                    <h6 class="dropdown-header">Support Ticket Alert</h6>
-                                    <div class="support_notify_html">
+        <!-- //////// Notification ///////////// -->
 
-                                       <div class="text-center">No new notification</div>
+        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
+            <span class="esc-tooltip esc-tooltip-support">Support Tickets</span>
+            <a class="nav-link dropdown-toggle support_notify_bell" href="#" id="ticketNotificationDropdown"
+                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                data-toggle="tooltip" title="">
+                <i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>
+            </a>
 
-                                    </div>
-                            </div>
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="ticketNotificationDropdown">
+                <h6 class="dropdown-header">Support Ticket Alert</h6>
+                <div class="support_notify_html">
 
-                        </li>
+                    <div class="text-center">No new notification</div>
 
-                        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
-                                <span class="esc-tooltip esc-tooltip-support">Alert Centre</span>
-                            <a class="nav-link dropdown-toggle alert_notify_bell " href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="top-icon-bg fas fa-bell fa-fw"></i>
-                            </a>
-                          
+                </div>
+            </div>
 
-                                <div class="dropdown-list  dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                    aria-labelledby="alertsDropdown">
-                                    <h6 class="dropdown-header">Alerts Center dd</h6>
-                                    <div class="alert_notify_html">
+        </li>
 
-                                       <div class="text-center">No new notification</div>
-
-                                    </div>
-                                </div>
-                        </li>
-
-                        <!-- //////// End Notification ///////////// -->
+        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
+            <span class="esc-tooltip esc-tooltip-support">Alert Centre</span>
+            <a class="nav-link dropdown-toggle alert_notify_bell " href="#" id="alertsDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="top-icon-bg fas fa-bell fa-fw"></i>
+            </a>
 
 
+            <div class="dropdown-list  dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header">Alerts Center dd</h6>
+                <div class="alert_notify_html">
 
-                        <div class=" d-none d-sm-block"></div>
+                    <div class="text-center">No new notification</div>
 
-                        <!-- Nav Item - User Information -->
-                            <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img class="img-profile rounded-circle avatarName" src="{{ !auth()->user()->avatar_img ? asset('assets/dashboard/img/undraw_profile.svg') : asset('avatars/'.auth()->user()->avatar_img) }}">
-                                </a>
-                                <!-- Dropdown - User Information -->
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in custom-nav-dropdown"
-                                    aria-labelledby="userDropdown">
-                                     <div class="highlight-menu">
-                                        <a class="dropdown-item menu-profile" href="javascript:void(0)">
-                                           <span>{{auth()->user()->name }}</span> <br> {{auth()->user()->member_id }}
-                                        </a>
-                                       
-                                     </div> 
-                                     
-                                      
-                                
-                                
-                                <div class="dropdown-item account-toggle d-flex justify-content-between align-items-center">
-                                    <span>My account
-                                    </span>
-                                    <i class="fas fa-chevron-down chevron-icon"></i>
-                                </div>
+                </div>
+            </div>
+        </li>
 
-                                <div class="collapse" id="accountMenu">  
-                                    <a class="dropdown-item" href="/user-dashboard/change-features">
-                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/setting.png') }}">
-                                        Change Features
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('user.change.password')}}">
-                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
-                                        Change Password
-                                    </a>
-                                    
-                                    <a class="dropdown-item @if(isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_enable_my_legbox!='1') inactive_li @endif" href="/user-dashboard/my-legbox-list">
-                                    <img class="profile_icons" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyLegbox.png')}}">
-                                        My Legbox
-                                    </a>
-                                    
-                                    <a class="dropdown-item disabled-link @if(isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_enable_my_notebox!='1') inactive_li @endif" href="/user-dashboard/notebox/list">
-                                        <img class="profile_icons" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyNotebox.png')}}">
-                                        My Notebox
-                                    </a>
-                                    
-                                    <a class="dropdown-item " href="{{ route('user.punterbox.dashboard')}}">
-                                        <img class="profile_icons" src="{{asset('assets/dashboard/img/boxicon/icon_punterbox.png')}}">
-                                        Punterbox
-                                    </a>
-                                </div>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
-                                        Logout
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
+        <!-- //////// End Notification ///////////// -->
 
-                </nav>
-                <!-- End of Topbar -->
+
+
+        <div class=" d-none d-sm-block"></div>
+
+        <!-- Nav Item - User Information -->
+        <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img class="img-profile rounded-circle avatarName"
+                    src="{{ !auth()->user()->avatar_img ? asset('assets/dashboard/img/undraw_profile.svg') : asset('avatars/' . auth()->user()->avatar_img) }}">
+            </a>
+            <!-- Dropdown - User Information -->
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in custom-nav-dropdown"
+                aria-labelledby="userDropdown">
+                <div class="highlight-menu">
+                    <a class="dropdown-item menu-profile" href="javascript:void(0)">
+                        <span>{{ auth()->user()->name }}</span> <br> Member ID : {{ auth()->user()->member_id }}
+                    </a>
+
+                </div>
+
+
+
+
+                <div class="dropdown-item account-toggle d-flex justify-content-between align-items-center">
+                    <span>My account
+                    </span>
+                    <i class="fas fa-chevron-down chevron-icon"></i>
+                </div>
+
+                <div class="collapse" id="accountMenu">
+                    <a class="dropdown-item" href="/user-dashboard/change-features">
+                        <img class="profile_icons"
+                            src="{{ asset('assets/dashboard/img/profile-icons/setting.png') }}">
+                        Change Features
+                    </a>
+                    <a class="dropdown-item" href="{{ route('user.change.password') }}">
+                        <img class="profile_icons"
+                            src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
+                        Change Password
+                    </a>
+
+                    <a class="dropdown-item @if (isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_enable_my_legbox != '1') inactive_li @endif"
+                        href="/user-dashboard/my-legbox-list">
+                        <img class="profile_icons"
+                            src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyLegbox.png') }}">
+                        My Legbox
+                    </a>
+
+                    <a class="dropdown-item @if (isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_enable_my_notebox != '1') inactive_li @endif"
+                        href="/user-dashboard/notebox/list">
+                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/MyNotebox.png') }}">
+                        My Notebox
+                    </a>
+
+                    <a class="dropdown-item " href="{{ route('user.punterbox.dashboard') }}">
+                        <img class="profile_icons"
+                            src="{{ asset('assets/dashboard/img/boxicon/icon_punterbox.png') }}">
+                        Punterbox
+                    </a>
+                </div>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
+                    Logout
+                </a>
+            </div>
+        </li>
+        </ul>
+
+</nav>
+<!-- End of Topbar -->

@@ -30,7 +30,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <div class="table-responsive">
+                <div class="table-responsive common-card">
                     <table class="table" id="FormsTable" style="width: 100%">
                         <thead class="table-bg">
                             <tr>

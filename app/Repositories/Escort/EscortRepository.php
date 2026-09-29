@@ -30,31 +30,46 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
     public function getlinks($escort_id, $city = null, $membershipId = null, $filterEscortsCollection = null)
     {
+        // this is latest code
         $next = null;
         $previous = null;
+        $escortIds = session('escort_ids', []);
+        $position = array_search($escort_id, $escortIds);
 
-        foreach ($filterEscortsCollection as $key => $profile) {
-            $currentExists =  $profile->where('id', $escort_id)->first();
+        $previousEId = $escortIds[$position - 1] ?? null;
+        $nextEId = $escortIds[$position + 1] ?? null;
+        $previous = getEscortDetail($previousEId) ?? null;
+        $next = getEscortDetail($nextEId) ?? null;
+        // dd($previous,$next);
 
-            if ($currentExists && $currentExists->id == $profile->id) {
-                if ($key >= 0 && $key < count($filterEscortsCollection) - 1) {
-                    $next = $filterEscortsCollection[$key + 1];
-                }
 
-                if ($key > 0) {
-                    $previous = $filterEscortsCollection[$key - 1];
-                }
-            }
-        }
+
+        // this is old code.
+        // foreach ($filterEscortsCollection as $key => $profile) {
+        //     $currentExists =  $profile->where('id', $escort_id)->first();
+
+        //     if ($currentExists && $currentExists->id == $profile->id) {
+        //         if ($key >= 0 && $key < count($filterEscortsCollection) - 1) {
+        //             $next = $filterEscortsCollection[$key + 1];
+        //         }
+
+        //         if ($key > 0) {
+        //             $previous = $filterEscortsCollection[$key - 1];
+        //         }
+        //     }
+        // }
 
         # Note : ?no-next-page query handle in blade file for disable buttons purpose
         /*  return [
             $next ? route('profile.description', [$next->id, $city, $membershipId]) : '?no-next-page',
             $previous ? route('profile.description', [$previous->id, $city, $membershipId]) : '?no-prev-page',
         ]; */
+        $next = $next ? getAdvertiserDetailUrl($next) : null;
+        $previous = $previous ? getAdvertiserDetailUrl($previous) : null;
+
         return [
-            $next ? getEscortMassageDetailUrl($next) : '?no-next-page',
-            $previous ? getEscortMassageDetailUrl($previous) : '?no-prev-page',
+            'next' => $next,
+            'previous' => $previous,
         ];
     }
 
@@ -135,6 +150,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 ->where('profile_name', '!=', null)
                 ->where(function ($query) use ($search) {
                     $query->where('profile_name', 'LIKE', "%{$search}%")
+                        ->orWhere('slug', 'LIKE', "%{$search}%")
                         ->orWhereHas('user', function ($q) use ($search) {
                             $q->where('member_id', 'LIKE', "%{$search}%");
                         });
@@ -169,6 +185,8 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $playmates = $item->playmates->count();
             $s = explode('/', $_SERVER['REQUEST_URI']);
             $item->sn = ($start + $i);
+            $slug = isset($item->slug) ? $item->slug : $item->id;
+            $item->slug = $slug;
             $item->name = $item->name ? $item->name : "NA";
             $item->member_id = $item->user->member_id;
             $item->days_number = $item->days_number;
@@ -177,7 +195,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->city_name = $item->city ? $item->city->name : null;
             $item->state_name = $item->state ? $item->state->iso2 : null;
             $localTimeZone = getEscortTimezone($item);
-            $mainPurchase = $item->mainPurchase;
+            $currentPurchase = $item->currentPurchase;
             if ($item->enabled == 1) {
                 $item->enabled = "Active";
             } elseif ($item->enabled == 0) {
@@ -186,7 +204,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 $item->enabled = "Draft";
             }
 
-            if (!empty($item->mainPurchase) && $item->mainPurchase->activeSuspendProfile->count() > 0) {
+            if (!empty($currentPurchase) && $currentPurchase->activeSuspendProfile->count() > 0) {
                 $listingStatus = 'Suspended';
             } else {
                 $listingStatus = ((!empty($item->utc_start_time)) && $item->utc_start_time > now()) ? 'Upcoming' : (((!empty($item->utc_start_time)) && $item->utc_end_time > now()) ? 'Active' : 'Inactive');
@@ -221,17 +239,11 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', ['id' => $item->id, 'tab' => 'my-playmates']) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i>Add Playmates</a><div class="dropdown-divider"></div>';
             }
 
-            if ($item->latestActivePinup && empty($item->mainPurchase->activeUpcomingSuspend)) {
+            if ($item->latestActivePinup && empty($currentPurchase->activeUpcomingSuspend)) {
                 $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="' . $item->id . '"  data-toggle="modal" data-target="#pinupSummary"><i class="fa fa-hand-pointer"></i>Pin Up Summary</a><div class="dropdown-divider"></div>';
             }
 
-            // if($item->membership_number > 1 && $item->left_listing_days > 0){
-            //     $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="' . $item->id . '" data-membership="' . $item->membership_number . '"  data-toggle="modal" data-target="#upgrade_modal"><i class="fa fa-wrench"></i>Upgrade</a><div class="dropdown-divider"></div>';
-            // }
-
-            /* $item->action .= ' <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('profile.description', $item->id) . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
-            $item->action .= '</div>';*/
-            $profileUrl = getEscortMassageDetailUrl($item);
+            $profileUrl = getAdvertiserDetailUrl($item);
             $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . $profileUrl  . '" data-id="' . $item->id . '"><i class="fa fa-eye"></i>View Profile</a></div>';
 
             $isExtended = $item->isListingExtended();
@@ -243,7 +255,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
             $item->pro_name = '<span id="brb_' . $item->id . '">' . $item->profile_name;
             /*Tour */
-            if ($mainPurchase && $mainPurchase->tour_location_id != null) {
+            if ($currentPurchase && $currentPurchase->tour_location_id != null) {
                 $item->pro_name .= '<sup class="tour_icon listing-tag-tooltip ml-1">Tour
                 <small class="listing-tag-tooltip-desc">Listed from ' . date("d-m-Y", strtotime($item->start_date)) . " to " . date("d-m-Y", strtotime($item->end_date)) . '</small>
                 </sup>';
@@ -256,9 +268,9 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 </sup>';
             }
             /*Upgrade */
-            if ($mainPurchase && $mainPurchase->parent_id > 0) {
+            if ($currentPurchase && $currentPurchase->parent_id > 0) {
                 $item->pro_name .= '<sup class="upgrade_icon listing-tag-tooltip ml-1">Upgraded
-                <small class="listing-tag-tooltip-desc">Upgraded from ' . $mainPurchase->previous_membership_type . ' to ' . $mainPurchase->membership_type . ' on ' . getEscortLocalTime($item->updated_at, $item->time_zone)->format('d-m-Y') . '.</small>
+                <small class="listing-tag-tooltip-desc">Upgraded from ' . $currentPurchase->previous_membership_type . ' to ' . $currentPurchase->membership_type . ' on ' . getEscortLocalTime($item->updated_at, $item->time_zone)->format('d-m-Y') . '.</small>
                 </sup>';
                 $item->tour = true;
             }
@@ -275,14 +287,14 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 </sup>';
             }
             /*Suspend */
-            if (!empty($item->mainPurchase->activeUpcomingSuspend) || $item->user->status == "Suspended") {
+            if (!empty($currentPurchase->activeUpcomingSuspend) || $item->user->status == "Suspended") {
                 if ($item->user->status == "Suspended") {
                     $item->pro_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
                 <small class="listing-tag-tooltip-desc">Your membership has been Suspended due to a Report</small>
                 </sup>';
                 } else {
                     $item->pro_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">Suspended
-                <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($item->mainPurchase->activeUpcomingSuspend->start_date)) . " to " . date("d-m-Y", strtotime($item->mainPurchase->activeUpcomingSuspend->end_date)) . '</small>
+                <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($currentPurchase->activeUpcomingSuspend->start_date)) . " to " . date("d-m-Y", strtotime($currentPurchase->activeUpcomingSuspend->end_date)) . '</small>
                 </sup>';
                 }
             }
@@ -320,7 +332,9 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
 
             $item->start_date_formatted = $item->start_date;
+
             $item->end_date_formatted = $item->end_date;
+
             $item->pro_name .= '</span>';
             $badgeClass = getStatusBadgeClass(strtolower($item->enabled));
             $item->enabled = "<span class='custom_badge {$badgeClass}'>{$item->enabled}</span>";
@@ -328,6 +342,8 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $listingStatusClass = getStatusBadgeClass(strtolower($listingStatus));
             $item->statusBtn = "<span class='custom_badge {$listingStatusClass}'>{$listingStatus}</span>";
             $item->statusText = $listingStatus;
+            $item->render_profile_name = view('escort.dashboard.profile.partials.profile.table_listed_profieName_cell', compact('item'))->render();
+            $item->render_stage_name = view('escort.dashboard.profile.partials.profile.table_listed_stageName_cell', compact('item'))->render();
             $i++;
         }
 

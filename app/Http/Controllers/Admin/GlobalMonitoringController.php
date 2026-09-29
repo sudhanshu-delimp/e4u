@@ -438,7 +438,7 @@ class GlobalMonitoringController extends Controller
             // $profile_url = ['id' => $row->massageprofile->id, 'ids' => '[]'];
             $profile_url = ['profile' => $row->massageprofile->slug];
             $actionBtn .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"  
-                href="' .  getEscortMassageDetailUrl($row->massageprofile, 'massage') . '" target="_blank"> 
+                href="' .  getAdvertiserDetailUrl($row->massageprofile, 'massage') . '" target="_blank"> 
                 <i class="fa fa-eye "></i> View</a>';
             if ($row->status == 'listed') {
                 $actionBtn .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center border-top" href="#" data-toggle="modal" data-target="#SetPinModal" data-purchase-id="' . $row->id . '"><i class="fa fa-ban "></i> Suspend 
@@ -783,11 +783,12 @@ class GlobalMonitoringController extends Controller
             });
 
         return [
+            'free'   => (clone $escorts)->whereIn('membership', ['4'])->whereDoesntHave('activeSuspendProfile')->count() ?? 0,
             'silver'   => (clone $escorts)->whereIn('membership', ['3'])->whereDoesntHave('activeSuspendProfile')->count() ?? 0,
             'gold'     => (clone $escorts)->whereIn('membership', ['2'])->whereDoesntHave('activeSuspendProfile')->count() ?? 0,
             'platinum' => (clone $escorts)->whereIn('membership', ['1'])->whereDoesntHave('activeSuspendProfile')->count() ?? 0,
             'current_suspend' => (clone $escorts)->whereHas('activeSuspendProfile')->count(),
-            'total' => (clone $escorts)->whereIn('membership', ['1', '2', '3'])->count() ?? 0,
+            'total' => (clone $escorts)->whereIn('membership', ['1', '2', '3', '4'])->count() ?? 0,
         ];
     }
 
@@ -830,7 +831,7 @@ class GlobalMonitoringController extends Controller
             $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
         }, 'pinup', 'suspendProfile'])->first();
 
-    $escort = $escortProfile->toArray();
+        $escort = $escortProfile->toArray();
 
 
         $dataTableData = [];
@@ -882,7 +883,7 @@ class GlobalMonitoringController extends Controller
                 $memberId = isset($escort['user']['member_id']) ? $escort['user']['member_id'] : '';
                 $dataTableData = [
                     //'profileurl' => route('profile.description', $escort['id']),
-                    'profileurl' => getEscortMassageDetailUrl($escortProfile),
+                    'profileurl' => getAdvertiserDetailUrl($escortProfile),
                     'id' => $escort['id'],
                     'member_id' => $memberId,
                     'member' => $escort['name'],
@@ -909,6 +910,11 @@ class GlobalMonitoringController extends Controller
         return response()->json($dataTableData);
     }
 
+    public function pinupListing(Request $request)
+    {
+        return view('admin.pin-up-listings');
+    }
+
     public function getPinupListing(Request $request)
     {
         try {
@@ -923,7 +929,10 @@ class GlobalMonitoringController extends Controller
             $columns = [4 => 'start_date', 5 => 'end_date'];
             $orderColumn = $columns[$orderColumnIndex] ?? 'start_date';
 
-            $listing = EscortPinup::query();
+            $now = Carbon::now('UTC');
+            $listing = EscortPinup::whereHas('purchase', function ($query) {
+                $query->whereIn('status', ['listed', 'pending']);
+            });
             $listing->where('utc_end_time', '>=', Carbon::now('UTC'));
             if (!empty($search)) {
                 $listing->where(function ($q) use ($search) {
@@ -936,6 +945,17 @@ class GlobalMonitoringController extends Controller
                         });
                 });
             }
+
+            $currentCount = (clone $listing)
+                ->where('utc_start_time', '<=', $now)
+                ->count();
+
+            $upcomingCount = (clone $listing)
+                ->where('utc_start_time', '>', $now)
+                ->count();
+
+            $totalCount = $currentCount + $upcomingCount;
+
             $recordsTotal = $listing->count();
             $listing->orderBy($orderColumn, $orderDirection);
             $listing->offset($start);
@@ -946,9 +966,9 @@ class GlobalMonitoringController extends Controller
             if (!empty($items)) {
                 foreach ($items as $item) {
                     $nestedData['member_id'] = $item->user->member_id;
-                    $nestedData['escort_name'] = $item->escort->profile_name;
-                    $nestedData['location'] = config("escorts.profile.states.$item->state_id.stateAbbr");;
-                    $nestedData['profile_id'] = $item->escort->id;
+                    $nestedData['escort_name'] = !empty($item->escort) ? $item->escort->profile_name : 'N/A';
+                    $nestedData['location'] = config("escorts.profile.states.$item->state_id.stateAbbr");
+                    $nestedData['profile_id'] = !empty($item->escort) ? $item->escort->id : 'escort: ' . $item->escort_id;
                     $nestedData['start_date'] = date('d-m-Y', strtotime($item->start_date));
                     $nestedData['end_date'] =   date('d-m-Y', strtotime($item->end_date));
                     $statusText = $item->status ?? 'NA';
@@ -962,12 +982,13 @@ class GlobalMonitoringController extends Controller
                     </a>
                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                     aria-labelledby="dropdownMenuLink" style="">
-                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" target="_blank" href="' . route('profile.description', $item->escort_id) . '"> <i class="fa fa-eye"></i> View Listing </a>
+                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" target="_blank" href="' . route('preview.escort', $item->escort->slug) . '"> <i class="fa fa-eye"></i> View Listing </a>
                     </div>
                     </div>';
                     $data[] = $nestedData;
                 }
             }
+
             return response()->json([
                 'draw' => $draw,
                 'recordsTotal' => $recordsTotal,
@@ -975,6 +996,7 @@ class GlobalMonitoringController extends Controller
                 'data' => $data,
                 'server_up_time' => $this->getAppUptime(),
                 'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
+                'counts' => compact('currentCount', 'upcomingCount', 'totalCount')
             ]);
         } catch (Exception $e) {
             return response()->json([

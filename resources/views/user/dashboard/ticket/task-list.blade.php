@@ -71,9 +71,10 @@
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
                        <h3 class="NotesHeader"><b>Notes:</b></h3>
-
                         <ol>
-
+                            <li>Use this feature to record tasks that you need to perform.  It serves as a basic reminder service for you, like for example, if you are intending to meet with an Escort or Massage Centre, or for any other task that comes to your attention.</li>
+                            <li>Select the Action feature to Edit or View your Task.</li>
+                            <li>Tasks will always be listed according to the priority you have set for the Task.</li>
                         </ol>
                     </div>
                 </div>
@@ -81,8 +82,9 @@
         </div>
 
         <!-- Page Heading -->
-        <div class="row">
-            <div class="col-md-12 d-flex align-items-center justify-content-between flex-wrap gap-10">
+        
+            <div class="row">
+                <div class="col-md-12 d-flex align-items-center justify-content-between flex-wrap gap-10">
                 <div class="mb-2 d-flex align-items-center justify-content-between flex-wrap gap-10">
                     <div class="total_listing">
                         <div><span>In Progress Task : </span></div>
@@ -111,7 +113,8 @@
                         Task</button>
                 </div>
             </div>
-            <div class="col-md-12">
+            </div>
+            <div class="col-md-12 common-card mt-3">
                 <div class="table-responsive">
                     <table id="taskListTable" class="table table-bordered">
                         <thead class="bg-first">
@@ -126,7 +129,7 @@
                     </table>
                 </div>
             </div>
-        </div>
+        
     </div>
 
     <!-- open tour section button -->

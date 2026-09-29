@@ -111,21 +111,22 @@ class OperatorController extends BaseController
      * View operator list
      */
     public function operator_list()
-    { $commissionfee = VariablAgentOperator::all()->toArray();
+    {
+        $commissionfee = VariablAgentOperator::all()->toArray();
         $countryNotAssignToOperator = (new Operator)->getCountryNotAssignToOperator();
         $fees = VariablAgentOperator::get();
         $feeMassage = "";
         $feeAdvertising = "";
 
-        if($fees->count() > 0) {
-            $msFee = $fees->where('id',2)->first();
-            if($msFee) {
-               $feeMassage = $msFee->amount; 
+        if ($fees->count() > 0) {
+            $msFee = $fees->where('id', 2)->first();
+            if ($msFee) {
+                $feeMassage = $msFee->amount;
             }
 
-            $advFee = $fees->where('id',1)->first();
-            if($advFee) {
-               $feeAdvertising = $advFee->amount; 
+            $advFee = $fees->where('id', 1)->first();
+            if ($advFee) {
+                $feeAdvertising = $advFee->amount;
             }
         }
         return view('admin.management.operator.operator-manage', compact('feeMassage', 'feeAdvertising', 'countryNotAssignToOperator', 'commissionfee'));
@@ -195,11 +196,17 @@ class OperatorController extends BaseController
                 break;
         }
 
-       $total_operators = $operator->count();
+        $total_operators = $operator->count();
         $operators = $operator->offset($start)->limit($limit)->get();
         $i = 1;
         foreach ($operators as $key => $item) {
-        
+            $countryId = $item->country_id;
+            $totalAgents = User::where('type', '5')
+                ->whereHas('state', function ($query) use ($countryId) {
+                    $query->where('country_id', $countryId);
+                })
+                ->count();
+
             $logAndStatus = $item->LoginStatus;
             $item->last_login = ((isset($item->account_setting) && ($item->account_setting->last_login != NULL)) ? convert_aus_date_time_format($item->account_setting->last_login) : 'NA');
             $item->login_count = (isset($logAndStatus->login_count) && $logAndStatus->login_count > 0) ? $logAndStatus->login_count : 0;
@@ -207,10 +214,10 @@ class OperatorController extends BaseController
             $item->member_id = isset($item->member_id) ? $item->member_id : 'NA';
             $item->territory = isset($item->country->name) ? $item->country->name : 'NA';
             $item->email = isset($item->email) ? $item->email : 'NA';
-            $item->totalAgents = 0;
+            $item->totalAgents = $totalAgents;
             $item->company_name = isset($item->name) ? $item->name : 'NA';
             $item->point_of_contact = 'NA';
-             $item->point_of_contact = isset($item->operator_detail->point_of_contact) ?$item->operator_detail->point_of_contact : 'NA';
+            $item->point_of_contact = isset($item->operator_detail->point_of_contact) ? $item->operator_detail->point_of_contact : 'NA';
 
             $suspend_html = "";
             $activate_html = "";
@@ -231,7 +238,7 @@ class OperatorController extends BaseController
 
             if ($item->status == 'Pending') {
                 $dropdownsub .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center approve_account" href="javascript:void(0)" data-id=' . $item->id . '> <i class="fa fa-check"></i>Approve</a><div class="dropdown-divider"></div>';
-    
+
                 if (auth()->user()->member_id == $item->member_id) {
                     $dropdown .= $view;
                 } else {
@@ -271,7 +278,7 @@ class OperatorController extends BaseController
             }
 
             $dropdown .= '</div></div>';
-            $item->status_name = '<span class="custom_badge '.getStatusBadgeClass($item->status).'">'.$item->status.' </span>';
+            $item->status_name = '<span class="custom_badge ' . getStatusBadgeClass($item->status) . '">' . $item->status . ' </span>';
 
             $item->action = $dropdown;
             $i++;

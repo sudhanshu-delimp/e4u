@@ -24,7 +24,7 @@ class AgentBankDetail extends Model
 
     public function getBsbAttribute($value)
     {
-        return formatMobileNumber($value);
+        return formatBSBNumber($value);
     }
 
     public function setBsbAttribute($value)

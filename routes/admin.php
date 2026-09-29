@@ -49,7 +49,11 @@ use App\Http\Controllers\Admin\ImpersonateController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Escort\Concierge\ProductController;
 use App\Http\Controllers\Admin\AgentMonthlyReportController;
+use App\Http\Controllers\Admin\OperatorMonthlyReportController;
+use App\Http\Controllers\Admin\ConciergeReportController;
 use App\Http\Controllers\Admin\VisaMigrationRequestController;
+use App\Http\Controllers\Admin\SeoManagementController;
+use App\Http\Controllers\Admin\StatisticsController;
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
@@ -128,7 +132,7 @@ Route::get('global-monitoring', function () {
 Route::get('massage-centre-listings', [GlobalMonitoringController::class, 'massageCenterListing'])->name('admin.massage-centre-listings');
 Route::get('/data-table-listing/{type?}', [GlobalMonitoringController::class, 'dataTableListingAjax'])->name('escort.current.list.dataTableListing');
 Route::get('/data-table-single-listing/{id?}', [GlobalMonitoringController::class, 'dataTableSingleListingAjax'])->name('escort.current.single-list.dataTableListing');
-Route::get('/get-pinup-listing', [GlobalMonitoringController::class, 'getPinupListing'])->name('admin.global_monitoring.get_pinup_listing');
+
 
 Route::post('/massage-center-listing/{type?}', [GlobalMonitoringController::class, 'massageCenterListingAjax'])->name('admin.massage.center.dataTableListing');
 
@@ -225,11 +229,9 @@ Route::get('shareholders/updates', function () {
 })->name('admin.updates');
 
 
+Route::get('/pinup-listings', [GlobalMonitoringController::class, 'pinupListing'])->name('admin.pin-up-listings');
+Route::get('/get-pinup-listing', [GlobalMonitoringController::class, 'getPinupListing'])->name('admin.global_monitoring.get_pinup_listing');
 
-
-Route::get('pinup-listings', function () {
-  return view('admin.pin-up-listings');
-})->name('admin.pin-up-listings');
 
 Route::get('database', function () {
   return view('admin.database');
@@ -280,23 +282,11 @@ Route::get('management/dashboard', function () {
   return view('admin.management.management');
 })->name('admin.management');
 
-Route::get('management/monthly-fee-reports', function () {
-  return view('admin.management.operator.monthly-fee-reports');
-})->name('admin.monthly-fee-reports');
-
-
-
-Route::get('management/commission-summary', function () {
+Route::get('management/operator/commission-summary', function () {
   return view('admin.management.operator.commission-summary');
 })->name('admin.commission-summary');
 
-Route::get('management/tours', function () {
-  return view('admin.management.statistics.tours');
-})->name('admin.tours');
 
-Route::get('management/profile', function () {
-  return view('admin.management.statistics.profile');
-})->name('admin.profile');
 
 Route::get('/management/statistics/num', function () {
   return view('admin.management.statistics.num');
@@ -476,6 +466,7 @@ Route::post('/add-agent', [AgentController::class, 'add_agent'])->name('admin.ad
 Route::post('/check-agent-email', [AgentController::class, 'check_agent_email'])->name('admin.check-agent-email');
 Route::post('/approve-agent-account', [AgentController::class, 'approve_agent_account'])->name('admin.approve-agent-account');
 Route::post('/active-agent-account', [AgentController::class, 'activate_user'])->name('admin.active-agent-account');
+Route::post('/agent/delete-file', [AgentController::class, 'deleteAgentFile'])->name('admin.agent.delete.file');
 
 Route::get('agent_list_data_table', [AgentController::class, 'agent_data_list'])->name('admin.agent_list_data_table');
 
@@ -760,6 +751,7 @@ Route::prefix('reports')->name('admin.')->group(function () {
   Route::get('/order-list', [ProductOrderController::class, 'orderList'])->name('escort.orders.list');
   Route::post('/order-complete', [ProductOrderController::class, 'orderComplete'])->name('escort.order.complete');
   Route::get('/order-details', [ProductOrderController::class, 'getOrderDetails'])->name('escort.order.details');
+  Route::get('/print-order-details/{id}', [ProductOrderController::class, 'printOrderDetail'])->name('print.order.details');
 });
 
 Route::get('/concierge/visa-migration-request', [VisaMigrationRequestController::class, 'index'])->name('admin.visa.migration.index');
@@ -793,17 +785,22 @@ Route::get('/management/memberships', function () {
   return view('admin.management.memberships');
 })->name('admin.memberships');
 
-Route::get('/management/product', function () {
-  return view('admin.management.statistics.product');
-})->name('admin.product');
 
-Route::get('/management/email', function () {
-  return view('admin.management.statistics.email');
-})->name('admin.email');
 
-Route::get('/management/sim', function () {
-  return view('admin.management.statistics.sim');
-})->name('admin.sim');
+Route::prefix('management')
+  ->name('management.')
+  ->group(function () {
+    Route::prefix('statistics')->name('statistics.')->group(function () {
+      Route::get('/report-credit', [StatisticsController::class, 'creditReport'])->name('credit');
+      Route::get('/report-email', [StatisticsController::class, 'emailReport'])->name('email');
+      Route::get('/report-membership', [StatisticsController::class, 'membershipReport'])->name('membership');
+      Route::get('/report-product', [StatisticsController::class, 'productReport'])->name('product');
+      Route::get('/report-profile', [StatisticsController::class, 'profileReport'])->name('profile');
+      Route::get('/report-sim', [StatisticsController::class, 'simReport'])->name('sim');
+      Route::get('/report-tours', [StatisticsController::class, 'tourReport'])->name('tour');
+    });
+  });
+
 
 Route::get('/reports/credit', function () {
   return view('admin.reports.credit');
@@ -852,13 +849,22 @@ Route::get('support-services/summary', function () {
   return view('admin.support-services.summary');
 })->name('admin.summary');
 
-Route::get('/management/concierge-payments', function () {
-  return view('admin.Concierge.payment-reconciliation');
-})->name('admin.concierge-payments');
+
+Route::get('/management/concierge-payments', [ConciergeReportController::class, 'index'])->name('admin.concierge-payments');
+Route::get('/management/concierge', [ConciergeReportController::class, 'index'])->name('admin.concierge-reports.index');
+Route::get('/management/concierge/report/{type?}', [ConciergeReportController::class, 'getReport'])->name('admin.report.details');
+Route::post('/management/concierge/report/approve', [ConciergeReportController::class, 'approveReport'])->name('admin.report.approve');
+// Route::post('/management/concierge/supplier/report/email', [ConciergeReportController::class, 'supplierReportEmail'])->name('admin.send.supplier.pdf');
+
+
+// function () {
+//   return view('admin.Concierge.payment-reconciliation');
+// }
 
 Route::get('/management/application', function () {
   return view('admin.management.logs.application');
 })->name('admin.application');
+
 
 Route::get('/management/revision', function () {
   return view('admin.management.logs.revision');
@@ -964,3 +970,22 @@ Route::post('management/fees/print-monthly-report', [AgentMonthlyReportControlle
 Route::post('management/fees/query', [AgentMonthlyReportController::class, 'viewQuery'])->name('admin.fees.view.query');
 Route::post('management/fees/pay-detail', [AgentMonthlyReportController::class, 'viewPayAgentreport'])->name('admin.fees.view.pay-detail');
 Route::post('management/fees/print-pay-detail', [AgentMonthlyReportController::class, 'printPayAgentreport'])->name('admin.fees.print.pay-detail');
+
+
+//SEO in OC(M)
+
+Route::get('management/seo', [SeoManagementController::class, 'seoManagement'])->name('admin.seo');
+Route::get('management/seo/data', [SeoManagementController::class, 'getSeoData'])->name('admin.seo.data');
+Route::post('management/seo', [SeoManagementController::class, 'saveSeoData'])->name('admin.seo.save');
+// Operator Monthly Report
+
+Route::get('management/operator/monthly-fee-reports', [OperatorMonthlyReportController::class, 'monthlyReport'])->name('admin.monthly-fee-reports');
+Route::get('management/operator/monthly-report-list', [OperatorMonthlyReportController::class, 'monthlyReportAjax'])->name('admin.operator.monthly-report-ajax');
+Route::post('management/operator/view-monthly-report', [OperatorMonthlyReportController::class, 'viewMonthlyReport'])->name('admin.operator.view.monthly.detail');
+Route::post('management/operator/update-monthly-report', [OperatorMonthlyReportController::class, 'updateMonthlyReportStatus'])->name('admin.operator.update.status.detail');
+Route::post('management/operator/print-monthly-report', [OperatorMonthlyReportController::class, 'printMonthlyFee'])->name('admin.print.monthly.operator.report');
+Route::post('management/operator/query', [OperatorMonthlyReportController::class, 'viewQuery'])->name('admin.operator.view.query');
+Route::post('management/operator/pay-detail', [OperatorMonthlyReportController::class, 'viewPayOperatorRreport'])->name('admin.operator.view.pay-detail');
+Route::post('management/operator/print-pay-detail', [OperatorMonthlyReportController::class, 'printPayOperatorReport'])->name('admin.operator.print.pay-detail');
+
+Route::post('/management/update-password', [StaffController::class, 'updatePassword'])->name('admin.update.password');

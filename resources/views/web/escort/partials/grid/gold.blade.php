@@ -21,7 +21,7 @@
         @if (auth()->user())
             @if ($viewerAuth->type == '0')
                 <span
-                    class="add_to_favrate @if (in_array($escort->id, $user_type)) {{ 'null' }}@else{{ 'fill' }} @endif custom--favourite"
+                    class="add_to_favrate grid-custom-favourite @if (in_array($escort->id, $user_type)) {{ 'null' }}@else{{ 'fill' }} @endif custom--favourite"
                     id="legboxId_{{ $escort->id }}" data-escortId="{{ $escort->id }}"
                     data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{ $escortName }}">
                     {{-- @if (!empty($user_type)) --}}
@@ -35,18 +35,18 @@
                     {{-- @endif --}}
                 </span>
             @else
-                <span class="add_to_favrate custom--favourite" data-name="{{ $escortName }}"><i class="fa fa-heart-o"
+                <span class="add_to_favrate grid-custom-favourite" data-name="{{ $escortName }}"><i class="fa fa-heart-o"
                         aria-hidden="true" title="Add to Legbox"></i> <span class="custom-heart-text">Add to My
                         Legbox</span></span>
             @endif
         @else
-            <span class="add_to_favrate custom--favourite" data-escortId="{{ $escort->id }}"
+            <span class="add_to_favrate grid-custom-favourite" data-escortId="{{ $escort->id }}"
                 data-name="{{ $escortName }}"><i class="fa fa-heart-o" aria-hidden="true"></i><span
                     class="custom-heart-text">Add to My Legbox</span></span>
         @endif
     </div>
 
-    <a class="ec_card_link" href="{{ getEscortMassageDetailUrl($escort) }}">
+    <a class="ec_card_link" href="{{ getAdvertiserDetailUrl($escort) }}">
 
         @if ($escort->latestActiveBrb)
             <div class="brb--content">
@@ -69,7 +69,7 @@
                 <span class="title">{{ $escort->city ? $escort->city->name : '' }}
                     {{ $escort->age ? ' - ' . $escort->age : '' }}</span>
                 
-                <span class="video_icon_ec">
+                <span class="video_icon_grid">
                     @if ($escort->escort_videos->isNotEmpty())
                         <div class="video_tooltip">Escort has video to view</div>
                          <span class="video_icons">

@@ -55,7 +55,7 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-          <img src="{{ asset('assets/app/img/logo.svg') }}" class="img-fluid mb-2" alt="E4U Logo">
+          <img src="{{ asset('assets/images/escorts4u-logo.svg') }}" class="img-fluid mb-2" alt="E4U Logo">
           <h5 class="card-title">Top Up Credit</h5>
           <p class="h4 mb-3">AU$100.00</p>
           <button class="save_profile_btn btn-block" onclick="selectAmount(100)">Continue</button>
@@ -66,7 +66,7 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-          <img src="{{ asset('assets/app/img/logo.svg') }}" class="img-fluid mb-2" alt="E4U Logo">
+          <img src="{{ asset('assets/images/escorts4u-logo.svg') }}" class="img-fluid mb-2" alt="E4U Logo">
           <h5 class="card-title">Top Up Credit</h5>
           <p class="h4 mb-3">AU$250.00</p>
           <button class="save_profile_btn btn-block" onclick="selectAmount(250)">Continue</button>
@@ -77,7 +77,7 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-          <img src="{{ asset('assets/app/img/logo.svg') }}" class="img-fluid mb-2" alt="E4U Logo">
+          <img src="{{ asset('assets/images/escorts4u-logo.svg') }}" class="img-fluid mb-2" alt="E4U Logo">
           <h5 class="card-title">Top Up Credit</h5>
           <p class="h4 mb-3">AU$500.00</p>
           <button class="save_profile_btn btn-block" onclick="selectAmount(500)">Continue</button>
@@ -88,7 +88,7 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-          <img src="{{ asset('assets/app/img/logo.svg') }}" class="img-fluid mb-2" alt="E4U Logo">
+          <img src="{{ asset('assets/images/escorts4u-logo.svg') }}" class="img-fluid mb-2" alt="E4U Logo">
           <h5 class="card-title">Top Up Credit</h5>
           <input type="number" class="form-control mb-2" placeholder="Enter Amount" id="customAmount">
           <button class="save_profile_btn btn-block" onclick="customAmountSelected()">Continue</button>

@@ -11,6 +11,7 @@ class EscortPinup extends Model
     use HasFactory;
 
     protected $fillable = [
+        'purchase_id',
         'user_id',
         'escort_id',
         'state_id',
@@ -51,6 +52,11 @@ class EscortPinup extends Model
         return $this->hasOne(TourProfile::class, 'is_pinup', 'id');
     }
 
+    public function purchase()
+    {
+        return $this->belongsTo(Purchase::class, 'purchase_id');
+    }
+
     public function scopeActive($query)
     {
         return $query->where('utc_start_time', '<=', Carbon::now('UTC'))
@@ -66,6 +72,9 @@ class EscortPinup extends Model
                 $escortQuery->whereDoesntHave('suspendProfile', function ($suspendQuery) {
                     $suspendQuery->where('utc_start_date', '<=', Carbon::now('UTC'))
                         ->where('utc_end_date', '>=', Carbon::now('UTC'));
+                });
+                $escortQuery->whereHas('mainPurchase', function ($purchaseQuery) {
+                    $purchaseQuery->where('status', 'listed');
                 });
             })
             ->orderBy('utc_end_time', 'desc')

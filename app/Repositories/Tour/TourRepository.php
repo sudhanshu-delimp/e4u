@@ -9,6 +9,7 @@ use App\Models\TourLocation;
 
 use Carbon\Carbon;
 
+use function PHPUnit\Framework\isEmpty;
 
 class TourRepository extends BaseRepository implements TourInterface
 {
@@ -172,6 +173,24 @@ class TourRepository extends BaseRepository implements TourInterface
     {
         $i = 1;
         foreach ($result as $key => $item) {
+
+            $pinUpLocations = $item->tourProfiles()
+                ->whereNotNull('tour_profiles.is_pinup')
+                ->whereHas('escortPinup', function ($query) {
+                    $query->where('utc_end_time', '>=', Carbon::now('UTC'));
+                })
+                ->with('escortPinup.state')
+                ->get()
+                ->pluck('escortPinup.state.name')
+                ->filter()
+                ->unique()
+                ->values()
+                ->toArray();
+
+            $item->name_with_tag = $item->name;
+            $item->name_with_tag .= !empty($pinUpLocations) ? '<span><sup class="pinup_icon listing-tag-tooltip ml-1">Pin Up
+                <small class="listing-tag-tooltip-desc">' . implode(', ', $pinUpLocations) . '</small>
+                </sup></span>' : ' ';
             $item->locations_numbers = $item->locations->count();
             $item->days_number = $item->days_number;
             $is_checkout = $item->tourPurchase->count();

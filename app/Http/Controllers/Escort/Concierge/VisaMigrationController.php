@@ -7,6 +7,7 @@ use App\Http\Requests\VisaMigrationRequest;
 use App\Mail\Escort\VisaMigrationMailToPeams;
 use App\Mail\Escort\VisaMigrationRequestMail;
 use App\Models\VisaMigration;
+use App\Services\VisaMigrationService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,7 @@ class VisaMigrationController extends Controller
   {
     return view('escort.dashboard.Concierge.visa-migration');
   }
-  public function store(VisaMigrationRequest $request)
+  public function store(VisaMigrationRequest $request, VisaMigrationService $visaMigrationService)
   {
     try {
 
@@ -31,53 +32,29 @@ class VisaMigrationController extends Controller
       $mailData['ref'] = $created->id;
       $mailData['member_id'] = Auth::user()->member_id;
 
-      $mailData['member_name'] = Auth::user()->name;
-
-
+      $mailData['member_name'] = !empty($created->first_name) ? $created->first_name . " " . $created->last_name : Auth::user()->name;
+      $mailData['console'] = "EC";
 
       if ($created) {
-
-        Mail::to(Auth::user()->email)->send(new VisaMigrationRequestMail($mailData));
-        $contactPreferences = json_decode($created->contact_preference, true) ?? [];
-
-        $preferredContactMethod = collect($contactPreferences)
-          ->map(fn($method) => ucfirst($method))
-          ->implode(' and ');
-        $mailData['preferred_contact_method'] = $preferredContactMethod;
-        $mailData['email'] = $created->email;
-
-        $mailData['mobile'] =   preg_replace('/\s+/', '', $created->mobile);;
-        $mailData['visa_enquiry_type'] =   config('escorts.visa_types.' . $created->visa_enquiry_type, $created->visa_enquiry_type);;
-        $mailData['comments'] = $created->comments;
-        $mailData['area_type'] = $created->area_type;
-        $mailData['passport_country'] = $created->passport_country;
-        $mailData['business_name'] = $created->business_name??'';
-        $mailData['first_name'] = $created->first_name;
-        $mailData['last_name'] = $created->last_name;
-
-        // $peamsMail = "ashish.kumar+56@delimp.com";
-        $peamsMail = config("app.peams_mail");
-
-        $e4uEmail = config('app.e4u_mail');
-        // $e4uEmail = "ashish.kumar@delimp.com";
-
-        Mail::to($peamsMail)->cc([$e4uEmail])->send(new VisaMigrationMailToPeams($mailData));
+        $response =   $visaMigrationService->sendEmailToPeams($created, $mailData);
+        if ($response) {
+          return response()->json([
+            'status' => true,
+            'message' => 'Your request has been submitted successfully.',
+          ], 200);
+        } else {
+          return response()->json([
+            'status' => false,
+            'message' => 'Unable to send the email to PEAMS & E4U. Please check the recipient email addresses and try again.',
+          ], 419);
+        }
       }
-      return response()->json([
-        'status' => true,
-        'message' => 'Your request has been submitted successfully.',
-      ], 201);
     } catch (\Exception $th) {
-
-      Log::error('Visa Migration Request Error', [
-        'message' => $th->getMessage(),
-        'trace' => $th->getTraceAsString(),
-      ]);
 
       return response()->json([
         'status' => false,
-        'message' => 'Something went wrong while submitting your request. Please try again.',
-      ], 500);
+        'message' => $th->getMessage(),
+      ], 419);
     }
   }
 }

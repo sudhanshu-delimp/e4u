@@ -179,6 +179,9 @@ class AgentCommission extends Model
             //Log::info("agentCommission:" . json_encode($agentCommission));
             if ($agentCommission['commission'] > 0 && !empty($agentCommission['amount_type']) && $agentCommission['agent_id'] > 0) {
                 if ($massageEscortPurchase) {
+
+                    $massageEscortPurchase->agent_commission_percent = $agentCommission['commission'];
+                    $massageEscortPurchase->save();
                     $massageEscortPurchase->commissions()->create([
                         'agent_id' => $agentCommission['agent_id'],
                         'user_id' => $userId,

@@ -3,10 +3,11 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
 <style>
    .swal-button {
-   background-color: #242a2c;
+      background-color: #242a2c;
    }
+
    #cke_1_contents {
-   height: 150px !important;
+      height: 150px !important;
    }
 </style>
 @stop
@@ -18,7 +19,7 @@
             <div class="row">
                <div class="custom-heading-wrapper col-md-12">
                   <h1 class="h1">Escort (Notifications)</h1>
-                  <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>                  
+                  <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                </div>
                <div class="col-md-12 mb-4">
                   <div class="card collapse" id="notes">
@@ -30,7 +31,7 @@
                      </div>
                   </div>
                </div>
-            </div> 
+            </div>
             <div class="row">
                <div class="col-md-12">
                   <div class="bothsearch-form mb-3">
@@ -49,7 +50,7 @@
                                           <th scope="col">Ref
                                           </th>
                                           <th scope="col">Start</th>
-                                         
+
                                           <th scope="col">Finish</th>
                                           <th scope="col">Type</th>
                                           <th scope="col">Status</th>
@@ -63,20 +64,20 @@
                                           <td class="theme-color">09-06-2025</td>
                                           <td class="theme-color">Adhoc</td>
                                           <td class="theme-color">Published</td>
-                                         
+
                                           <td class="theme-color text-center">
                                              <div class="dropdown no-arrow">
                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                   <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                                 </a>
                                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-fw fa-times"></i> Removed  </a>
+                                                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-fw fa-times"></i> Removed </a>
                                                    <div class="dropdown-divider"></div>
-                                                   
-                                                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" > <i class="fa fa-eye"></i> View </a>
+
+                                                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-eye"></i> View </a>
                                                    <div class="dropdown-divider"></div>
-                                                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" > <i class="fa fa-fw fa-print" ></i> Print </a>
-                                                   
+                                                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-fw fa-print"></i> Print </a>
+
                                                 </div>
                                              </div>
                                           </td>
@@ -101,13 +102,13 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title" id="createNotification">  <img src="{{ asset('assets/dashboard/img/create-notification.png') }}" class="custompopicon"> Create Notification</h5>
+            <h5 class="modal-title" id="createNotification"> <img src="{{ asset('assets/dashboard/img/create-notification.png') }}" class="custompopicon"> Create Notification</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+               <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
          </div>
          <div class="modal-body pb-0">
-         <form>
+            <form>
                <div class="row">
 
                   <!-- Auto-generated Date (readonly) -->
@@ -122,54 +123,54 @@
 
                   <!-- Start Date -->
                   <div class="col-12 mb-3">
-                  <input type="text" onfocus="(this.type='date')" placeholder="Start Date" class="form-control rounded-0" />
+                     <input type="text" onfocus="(this.type='date')" placeholder="Start Date" class="form-control rounded-0" />
 
                   </div>
 
                   <!-- Finish Date -->
                   <div class="col-12 mb-3">
-                  <input type="text" onfocus="(this.type='date')" placeholder="Finish Date" class="form-control rounded-0" />
+                     <input type="text" onfocus="(this.type='date')" placeholder="Finish Date" class="form-control rounded-0" />
 
                   </div>
                   <!-- Type Field (fixed Adhoc Content) -->
-                     <div class="col-12 mb-3">
-                           <select id="type" onchange="toggleFields()" class="form-control rounded-0">
-                           <option value="">-- Select Type --</option>
-                           <option value="adhoc">Adhoc</option>
-                           <option value="template">Template</option>
-                           <option value="notice">Notice</option>
-                        </select>
-                     </div>
-                     <div id="manualContent" style="display: none;" class="col-12 mb-3">
-                        <textarea id="content" placeholder="Add your content here..." class="form-control rounded-0"></textarea>
-                     </div>
-               
-                  <div id="templateSelect" style="display: none;" class="col-12 mb-3">
-                        <select id="templateList" class="form-control rounded-0">
-                           <option value="">-- Choose a Template --</option>
-                           <option selected disabled>Select Template</option>
-                        <option value="t1">Check out our Visa services. Go to Concierge and select- Visa.</option>
-                       <option value="t2">Check out of Mobile SIM service. Go to Concierge and select - Visa.</option>
-                       <option value="t3">Did you know you can order product online? Go to Concierge and select - Product.</option>
-                       <option value="t4">Discounts apply when you spend a certain amount with us. Check out our Loyalty Program.</option>
-                       <option value="t5">Want to save on Fees, become an Influencer.</option>
-                       <option value="t6">Need an email account? We can help you. Simply go to Concierge and select Email.</option>
-                       <option value="t7">Did you know you can book your flights online with us? Simply go to Concierge and select Travel.</option>
-                       <option value="t8">Did you know you can book your accommodation online with us? Simply go to Concierge and select Accommodation.</option>
-                        
-                        </select>
+                  <div class="col-12 mb-3">
+                     <select id="type" onchange="toggleFields()" class="form-control rounded-0">
+                        <option value="">-- Select Type --</option>
+                        <option value="adhoc">Adhoc</option>
+                        <option value="template">Template</option>
+                        <option value="notice">Notice</option>
+                     </select>
                   </div>
-                 
-                     <!-- Notice Section -->
-                     <div id="noticeSection" class="col-12 mb-3" style="display: none;">
-                        <input type="text" id="memberId" class="form-control" placeholder="Member Id e.g. 123456">
-                  </div> 
-                  
+                  <div id="manualContent" style="display: none;" class="col-12 mb-3">
+                     <textarea id="content" placeholder="Add your content here..." class="form-control rounded-0"></textarea>
+                  </div>
+
+                  <div id="templateSelect" style="display: none;" class="col-12 mb-3">
+                     <select id="templateList" class="form-control rounded-0">
+                        <option value="">-- Choose a Template --</option>
+                        <option selected disabled>Select Template</option>
+                        <option value="t1">Check out our Visa services. Go to Concierge and select- Visa.</option>
+                        <option value="t2">Check out of Mobile SIM service. Go to Concierge and select - Visa.</option>
+                        <option value="t3">Did you know you can order product online? Go to Concierge and select - Product.</option>
+                        <option value="t4">Discounts apply when you spend a certain amount with us. Check out our Loyalty Program.</option>
+                        <option value="t5">Want to save on Fees, become an Influencer.</option>
+                        <option value="t6">Need an email account? We can help you. Simply go to Concierge and select Email.</option>
+                        <option value="t7">Did you know you can book your flights online with us? Simply go to Concierge and select Travel.</option>
+                        <option value="t8">Did you know you can book your accommodation online with us? Simply go to Concierge and select Accommodation.</option>
+
+                     </select>
+                  </div>
+
+                  <!-- Notice Section -->
+                  <div id="noticeSection" class="col-12 mb-3" style="display: none;">
+                     <input type="text" id="memberId" class="form-control" placeholder="Member Id e.g. 123456">
+                  </div>
+
                   <!-- content -->
                   <div class="col-12 mb-3" id="contentField">
                      <textarea id="content" class="form-control" placeholder="up to 250 characters..."></textarea>
-   
-                  </div>   
+
+                  </div>
                </div>
             </form>
 
@@ -183,38 +184,38 @@
 <!-- End of Page Wrapper -->
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
-<i class="fas fa-angle-up"></i>
+   <i class="fas fa-angle-up"></i>
 </a>
 <script>
    function toggleFields() {
-     const type = document.getElementById("type").value;
- 
-     document.getElementById("manualContent").style.display = type === "adhoc" ? "block" : "none";
-     document.getElementById("templateSelect").style.display = type === "template" ? "block" : "none";
-     document.getElementById("noticeSection").style.display = type === "notice" ? "block" : "none";
- 
-     // Hide contentField if template is selected
-     const contentField = document.getElementById("contentField");
-     if (type === "template") {
-       contentField.style.display = "none";
-     } else {
-       contentField.style.display = "flex"; // or "block" based on your layout
-     }
+      const type = document.getElementById("type").value;
+
+      document.getElementById("manualContent").style.display = type === "adhoc" ? "block" : "none";
+      document.getElementById("templateSelect").style.display = type === "template" ? "block" : "none";
+      document.getElementById("noticeSection").style.display = type === "notice" ? "block" : "none";
+
+      // Hide contentField if template is selected
+      const contentField = document.getElementById("contentField");
+      if (type === "template") {
+         contentField.style.display = "none";
+      } else {
+         contentField.style.display = "flex"; // or "block" based on your layout
+      }
    }
- </script>
- 
+</script>
+
 @endsection
 
 
 
 
 @push('script')
-  
+
 
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
-      var table = $("#escortNotificationTable").DataTable({
+   var table = $("#escortNotificationTable").DataTable({
       language: {
          search: "Search: _INPUT_",
          searchPlaceholder: "Search by Ref"
@@ -224,16 +225,17 @@
       lengthChange: true,
       searching: true,
       bStateSave: true,
-      order: [[1, 'desc']],
-      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-      pageLength: 10,
+      order: [
+         [1, 'desc']
+      ],
+      pageLength: `{{$datatable_entries}}`,
+      lengthMenu: `{{config('app.paginate_range')}}`.split(','),
 
-        columnDefs: [{
-            targets: 5,
-            orderable: false
-        }]
+      columnDefs: [{
+         targets: 5,
+         orderable: false
+      }]
    });
+</script>
 
- </script>
-  
 @endpush

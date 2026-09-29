@@ -100,7 +100,42 @@
                                 </form>
                             </div>
                         </li>
+                        
 
+                        <!-- Messages btn -->
+                        <li class="nav-item messages_btn">
+                            <a class="nav-link" href="{{ route('agent.agent-messages') }}" role="button">
+                                <span>
+                                    <svg width="22px" height="22px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1"
+                                        xmlns="http://www.w3.org/2000/svg" fill="#fff" stroke="#fff">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <defs>
+                                                <style>
+                                                    .cls-1 {
+                                                        fill: none;
+                                                        stroke: #fff;
+                                                        stroke-miterlimit: 10;
+                                                        stroke-width: 1.91px;
+                                                    }
+                                                </style>
+                                            </defs>
+                                            <path class="cls-1"
+                                                d="M18.68,8.16V15.8a2.86,2.86,0,0,1-2.86,2.86H13.91v2.86L8.18,18.66H4.36A2.86,2.86,0,0,1,1.5,15.8V8.16A2.86,2.86,0,0,1,4.36,5.3H15.82A2.86,2.86,0,0,1,18.68,8.16Z">
+                                            </path>
+                                            <path class="cls-1"
+                                                d="M18.68,14.84h1A2.86,2.86,0,0,0,22.5,12V4.34a2.86,2.86,0,0,0-2.86-2.86H8.18A2.86,2.86,0,0,0,5.32,4.34v1">
+                                            </path>
+                                            <line class="cls-1" x1="5.32" y1="11.98" x2="7.23" y2="11.98"></line>
+                                            <line class="cls-1" x1="9.14" y1="11.98" x2="11.05" y2="11.98"></line>
+                                            <line class="cls-1" x1="12.95" y1="11.98" x2="14.86" y2="11.98"></line>
+                                        </g>
+                                    </svg> Messages
+                                </span>
+                            </a>
+                        </li>
+                        <!--- End --->
                          <!-- Nav Item - support tickets -->
                          <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">                          
                                 <span class="esc-tooltip esc-tooltip-support">Support Tickets</span>
@@ -156,7 +191,7 @@
                                 aria-labelledby="userDropdown">
                                 <div class="highlight-menu">
                                 <a class="dropdown-item menu-profile" href="javascript:void(0);">
-                                    <span>{{auth()->user()->business_name }}</span> <br> {{auth()->user()->member_id }}
+                                    <span>{{auth()->user()->business_name }}</span> <br> Member ID : {{auth()->user()->member_id }}
                                     
                                 </a>
                                 {{-- <a class="dropdown-item" href="#">

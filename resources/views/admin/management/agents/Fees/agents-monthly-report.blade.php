@@ -15,7 +15,7 @@
             <div class="card collapse" id="notes" style="">
                 <div class="card-body">
                     <p class="notes"><b>Notes:</b> </p>
-                    
+
                     <ol>
                         <li>The following definitions are from the Agent Agreement and apply for the purpose of
                             calculating the Fee:
@@ -68,7 +68,9 @@
                                     <td>01-10-25 to 31-10-25</td>
                                     <td>A600025</td>
                                     <td>WA</td>
-                                    <td><div class="num_value">$<span>237.45</span></div></td>
+                                    <td>
+                                        <div class="num_value">$<span>237.45</span></div>
+                                    </td>
                                     <td>Agent Approved</td>
                                     <td>04-11-2025</td>
                                     <td>
@@ -89,7 +91,7 @@
                                                             class="fa fa-star" aria-hidden="true"></i>
                                                         Pay</a>
                                                     <div class="dropdown-divider"></div>
-                                                     <a class="dropdown-item align-item-custom" href="#"
+                                                    <a class="dropdown-item align-item-custom" href="#"
                                                         data-toggle="modal" data-target="#viewAgentreport"> <i
                                                             class="fa fa-eye" aria-hidden="true"></i>
                                                         View Report</a>
@@ -158,12 +160,12 @@
 
                 <div style="text-align: right;">
 
-                 
+
                     <button type="button" class="btn-success-modal">Print</button>
 
-                       <button type="button" class="btn-cancel-modal" data-dismiss="modal">
-                            Close
-                       </button>
+                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">
+                        Close
+                    </button>
                 </div>
             </div>
         </div>
@@ -203,8 +205,8 @@
                         </tr>
                     </thead>
 
-                    
-                     <tbody id="accordionParent">
+
+                    <tbody id="accordionParent">
 
                         <!-- ========= MEMBER 1 ========= -->
                         <tr class="accordion-toggle" data-toggle="collapse" data-target="#details1"
@@ -214,8 +216,12 @@
                             <td>WA</td>
                             <td></td>
                             <td>35</td>
-                            <td class="text-left"><div class="num_value">$<span>683.00</span></div></td>
-                            <td class="text-left"><div class="num_value">$<span>34.15</span></div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>683.00</span></div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>34.15</span></div>
+                            </td>
                         </tr>
 
                         <!-- Detail rows -->
@@ -225,8 +231,12 @@
                             <td></td>
                             <td>P</td>
                             <td>22</td>
-                            <td class="text-left"><div class="num_value">$<span>176.00</span></div></td>
-                            <td class="text-left"><div class="num_value">$<span>8.80</span></div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>176.00</span></div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>8.80</span></div>
+                            </td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
                             <td></td>
@@ -234,8 +244,12 @@
                             <td></td>
                             <td>G</td>
                             <td>4</td>
-                            <td class="text-left"><div class="num_value">$<span>24.00</span></div></td>
-                            <td class="text-left"><div class="num_value">$<span>1.20</span></div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>24.00</span></div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>1.20</span></div>
+                            </td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
                             <td></td>
@@ -243,8 +257,12 @@
                             <td></td>
                             <td>S</td>
                             <td>2</td>
-                            <td class="text-left"><div class="num_value">$<span>8.00</span></div></td>
-                            <td class="text-left"><div class="num_value">$<span>0.40</span></div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>8.00</span></div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>0.40</span></div>
+                            </td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
                             <td></td>
@@ -252,17 +270,24 @@
                             <td></td>
                             <td>PU</td>
                             <td>7</td>
-                            <td class="text-left"><div class="num_value">$<span>475.00</span></div></td>
-                            <td class="text-left"><div class="num_value">$<span>23.75</span></div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>475.00</span></div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>23.75</span></div>
+                            </td>
                         </tr>
                         <tr class="detail-row" data-group="details1">
                             <td colspan="4" class="text-right"><strong>Totals:</strong></td>
                             <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold">35
                             </td>
                             <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>683.00</div></td>
+                                <div class="num_value">$<span>683.00</div>
+                            </td>
                             <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
-                                 <div class="num_value">$<span>34.15</div></td></td>
+                                <div class="num_value">$<span>34.15</div>
+                            </td>
+                            </td>
                         </tr>
                         {{-- space --}}
                         <tr>
@@ -277,8 +302,12 @@
                             <td>WA</td>
                             <td></td>
                             <td>35</td>
-                            <td class="text-left"><div class="num_value">$<span>683.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>34.15</div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>683.00</div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>34.15</div>
+                            </td>
                         </tr>
 
                         <tr class="detail-row" data-group="details2">
@@ -287,8 +316,12 @@
                             <td></td>
                             <td>P</td>
                             <td>22</td>
-                            <td class="text-left"><div class="num_value">$<span>176.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>8.80</div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>176.00</div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>8.80</div>
+                            </td>
                         </tr>
                         <tr class="detail-row" data-group="details2">
                             <td></td>
@@ -296,8 +329,12 @@
                             <td></td>
                             <td>G</td>
                             <td>4</td>
-                            <td class="text-left"><div class="num_value">$<span>24.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>1.20</div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>24.00</div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>1.20</div>
+                            </td>
                         </tr>
                         <tr class="detail-row" data-group="details2">
                             <td></td>
@@ -305,8 +342,12 @@
                             <td></td>
                             <td>S</td>
                             <td>2</td>
-                            <td class="text-left"><div class="num_value">$<span>8.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>0.40</div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>8.00</div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>0.40</div>
+                            </td>
                         </tr>
                         <tr class="detail-row" data-group="details2">
                             <td></td>
@@ -314,8 +355,12 @@
                             <td></td>
                             <td>PU</td>
                             <td>7</td>
-                            <td class="text-left"><div class="num_value">$<span>475.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>23.75</div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>475.00</div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>23.75</div>
+                            </td>
                         </tr>
 
                         {{-- space --}}
@@ -328,9 +373,11 @@
                             <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold">35
                             </td>
                             <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>683.00</div></td>
+                                <div class="num_value">$<span>683.00</div>
+                            </td>
                             <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold; text-align:left;">
-                               <div class="num_value">$<span>34.15</div> </td>
+                                <div class="num_value">$<span>34.15</div>
+                            </td>
                         </tr>
                         {{-- space --}}
                         <tr>
@@ -342,9 +389,11 @@
                             <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold">70
                             </td>
                             <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>1,366.00</div></td>
+                                <div class="num_value">$<span>1,366.00</div>
+                            </td>
                             <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>68.30</div></td>
+                                <div class="num_value">$<span>68.30</div>
+                            </td>
                         </tr>
                         {{-- space --}}
                         <tr>
@@ -359,8 +408,12 @@
                             <td>WA</td>
                             <td></td>
                             <td>35</td>
-                            <td class="text-left"><div class="num_value">$<span>683.00</div></td>
-                            <td class="text-left"><div class="num_value">$<span>34.15</div></td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>683.00</div>
+                            </td>
+                            <td class="text-left">
+                                <div class="num_value">$<span>34.15</div>
+                            </td>
                         </tr>
 
                         {{-- <tr class="detail-row" data-group="details3">
@@ -409,7 +462,7 @@
                                <div class="num_value">$<span>34.15</div> </td>
                         </tr> --}}
 
-                         {{-- space --}}
+                        {{-- space --}}
                         <tr>
                             <td colspan="7" style="padding:10px"></td>
                         </tr>
@@ -419,15 +472,17 @@
                             <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold">35
                             </td>
                             <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>683.00</div></td>
+                                <div class="num_value">$<span>683.00</div>
+                            </td>
                             <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>34.15</div></td>
+                                <div class="num_value">$<span>34.15</div>
+                            </td>
                         </tr>
                     </tbody>
                     <tfoot>
-                         <!-- ========= total ========= -->
+                        <!-- ========= total ========= -->
 
-                         {{-- space --}}
+                        {{-- space --}}
                         <tr>
                             <td colspan="7" style="padding:10px"></td>
                         </tr>
@@ -437,9 +492,11 @@
                             <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold">105
                             </td>
                             <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>2,049.00</div></td>
+                                <div class="num_value">$<span>2,049.00</div>
+                            </td>
                             <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
-                                <div class="num_value">$<span>102.45</div></td>
+                                <div class="num_value">$<span>102.45</div>
+                            </td>
                         </tr>
 
                     </tfoot>
@@ -465,7 +522,6 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
-    
     document.querySelectorAll('.accordion-toggle').forEach(toggle => {
         toggle.addEventListener('click', () => {
             const target = toggle.getAttribute('data-target').replace('#', '');
@@ -504,22 +560,67 @@
         order: [
             [1, 'desc']
         ],
-        lengthMenu: [
-            [10, 25, 50, 100],
-            [10, 25, 50, 100]
-        ],
-        pageLength: 10,
+        pageLength: `{{$datatable_entries}}`,
+        lengthMenu: `{{config('app.paginate_range')}}`.split(','),
 
-           columns: [
-               { data: 'date_issued', name: 'date_issued', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'billing_period', name: 'billing_period', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'agent_id', name: 'agent_id', searchable: true, orderable:false ,defaultContent: 'NA'},
-               { data: 'territory', name: 'territory', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'fees', name: 'fees', searchable: true, orderable:true,defaultContent: 'NA' },
-               { data: 'status', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'date_agent_approved', name: 'date_agent_approved', searchable: true, orderable:true,defaultContent: 'NA' },
-               { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA', class:'text-center' },
-           ],
+        columns: [{
+                data: 'date_issued',
+                name: 'date_issued',
+                searchable: true,
+                orderable: true,
+                defaultContent: 'NA'
+            },
+            {
+                data: 'billing_period',
+                name: 'billing_period',
+                searchable: true,
+                orderable: true,
+                defaultContent: 'NA'
+            },
+            {
+                data: 'agent_id',
+                name: 'agent_id',
+                searchable: true,
+                orderable: false,
+                defaultContent: 'NA'
+            },
+            {
+                data: 'territory',
+                name: 'territory',
+                searchable: true,
+                orderable: true,
+                defaultContent: 'NA'
+            },
+            {
+                data: 'fees',
+                name: 'fees',
+                searchable: true,
+                orderable: true,
+                defaultContent: 'NA'
+            },
+            {
+                data: 'status',
+                name: 'status',
+                searchable: false,
+                orderable: true,
+                defaultContent: 'NA'
+            },
+            {
+                data: 'date_agent_approved',
+                name: 'date_agent_approved',
+                searchable: true,
+                orderable: true,
+                defaultContent: 'NA'
+            },
+            {
+                data: 'action',
+                name: 'edit',
+                searchable: false,
+                orderable: false,
+                defaultContent: 'NA',
+                class: 'text-center'
+            },
+        ],
     });
 </script>
 @endpush
