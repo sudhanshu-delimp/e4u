@@ -102,10 +102,16 @@ class AnalyticsController extends Controller
                 })
                 ->addColumn('adgent_fee', function ($row) {
 
-                    if($row->paymentItems->payment && $row->paymentItems->payment->agent_commission_percent>0)
-                    $commission = calculate_agent_commission($row->paymentItems->payment->net_amount,$row->paymentItems->payment->agent_commission_percent);
+                    $payment = $row->paymentItems?->payment;
+                    if ($payment && $payment->agent_commission_percent > 0) 
+                    $commission = calculate_agent_commission($payment->net_amount,$payment->agent_commission_percent);
                     else
                     $commission = 0.00;
+
+                    // if($row->paymentItems->payment && $row->paymentItems->payment->agent_commission_percent>0)
+                    // $commission = calculate_agent_commission($row->paymentItems->payment->net_amount,$row->paymentItems->payment->agent_commission_percent);
+                    // else
+                    // $commission = 0.00;
 
                     $adgent_fee = '<div class="num_value">$<span>'.formatCurrency($commission,'').'</span></div>';
                     return $adgent_fee;
@@ -150,10 +156,6 @@ class AnalyticsController extends Controller
                 ->rawColumns(['action','lsiting_fee','adgent_fee']) 
                 ->make(true);
 
-
-            
-
-           
         } 
         
         public function getProfileSummary(Request $request, $id)
