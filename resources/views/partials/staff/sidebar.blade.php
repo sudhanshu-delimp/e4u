@@ -6,7 +6,7 @@
 <ul class="sticky-top navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar" id="accordionSidebar">
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand text-left pb-3" href="{{ asset('/') }}">
-        <img src="{{ asset('assets/app/img/logo.svg') }} " alt="">
+        <img src="{{ asset('assets/images/escorts4u-logo.svg') }} " alt="">
     </a>
     <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-4">Staff Console</span>
     <!-- Divider -->

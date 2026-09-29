@@ -3,7 +3,7 @@
     id="accordionSidebar">
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand text-left pb-1" href="{{ asset('/') }}">
-        <img src="{{ asset('assets/app/img/logo.svg') }} " alt="" class="mb-3 e4u_logo">
+        <img src="{{ asset('assets/images/escorts4u-logo.svg') }} " alt="" class="mb-3 e4u_logo">
     </a>
 
     <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-2">Agent Console </span>

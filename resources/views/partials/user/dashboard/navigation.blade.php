@@ -9,7 +9,7 @@
     {{-- logged in user data --}}
     <div class="topbar-logged-in-user-data d-flex">
         {{-- <div class="pr-5">
-                            <img src="{{ asset('assets/app/img/logo.svg') }}" alt="">
+                            <img src="{{ asset('assets/images/escorts4u-logo.svg') }}" alt="">
                         </div> --}}
         <div class="d-user-info">
             <div class="escort_header_top_menu">

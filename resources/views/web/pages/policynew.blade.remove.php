@@ -150,7 +150,7 @@
     <section class="mx-auto max_width_for_content">
         <section class="main_bg_color policy_padding text-center">
             <a href="#" class="header_logo">
-                <img src="{{ asset('assets/app/img/logo.png') }}">
+                <img src="{{ asset('assets/images/escorts4u-logo.png') }}">
             </a>
         </section>
         <section class="padding_top_eight_px padding_bottom_eight_px footer-links-si">
