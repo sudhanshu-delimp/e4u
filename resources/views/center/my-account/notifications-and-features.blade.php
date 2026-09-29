@@ -9,7 +9,6 @@
         .swal-button {
             background-color: #242a2c;
         }
-
         form.v-form-design label {
             line-height: unset;
         }

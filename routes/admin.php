@@ -957,6 +957,10 @@ Route::get('/management/punterbox-reports', function () {
   return view('admin.management.punterbox-report');
 })->name('admin.punterbox-reports');
 
+Route::get('/management/notebox', function () {
+  return view('admin.management.reports.notebox');
+})->name('admin.notebox');
+
 Route::get('/switch-login/{id}', [ImpersonateController::class, 'switchLogin'])->name('admin.switch-to-child');
 Route::get('back-to-parent', [ImpersonateController::class, 'backToParent'])->name('admin.back-to-parent');
 
