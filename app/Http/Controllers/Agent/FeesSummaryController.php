@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Purchase;
 use App\Services\FeesSummeryService;
-use App\Services\FeeSummaryService;
+
 use Illuminate\View\Component;
 use Override;
 
@@ -23,12 +23,12 @@ class FeesSummaryController extends Controller
 {
 
   protected $feeService;
-  protected $feeSummary;
 
-  public function __construct(FeesSummeryService $feesSummeryService, FeeSummaryService $feeSummaryService )
+
+  public function __construct(FeesSummeryService $feesSummeryService, )
   {
     $this->feeService = $feesSummeryService;
-    $this->feeSummary = $feeSummaryService;
+
   }
 
 
@@ -39,17 +39,17 @@ class FeesSummaryController extends Controller
     $fy = $request->get('fee_summery_advertiser_fy') ?? $this->feeService->currentFYLabel();
     $displayType =  $request->get('display_type') ?? 'member_id';
   
-    // $feeSummery = $this->feeService->getSummeryData(
-    //   requestedFY: $fy,
-    //   displayType: $displayType
-    // );
-
-    $feeSummery = $this->feeSummary->getSummaryData(
-        $request->get('fee_summery_advertiser_fy'),
-        $request->get('display_type', 'member_id')
+    $feeSummery = $this->feeService->getSummeryData(
+      requestedFY: $fy,
+      displayType: $displayType
     );
 
-    $singleSummery =  $this->feeSummary->getReport(6); //for single 
+    // $feeSummery = $this->feeSummary->getSummaryData(
+    //     $request->get('fee_summery_advertiser_fy'),
+    //     $request->get('display_type', 'member_id')
+    // );
+
+    //$singleSummery =  $this->feeService->getReport(6); //for single 
 
  
 
