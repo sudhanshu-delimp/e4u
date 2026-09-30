@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-12 footer_login_area">
                      <div class="">
-                        <a href="#" class="footer_logo"><img src="{{ asset('assets/app/img/logo.png') }}"
+                        <a href="#" class="footer_logo"><img src="{{ asset('assets/images/escorts4u-logo.png') }}"
                                 alt="logo"></a>
                     </div>
                     <div class="">
@@ -495,7 +495,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <img src="{{ asset('assets/app/img/logo.png') }}" style="max-width: 195px; width:100%">
+                    <img src="{{ asset('assets/images/escorts4u-logo.png') }}" style="max-width: 195px; width:100%">
                 </div>
                 <div class="modal-body">
                     <h5 class="modal-title"><img src="{{ asset('assets/app/img/block-user.png') }}" class="img-fluid"> User Agreement</h5>

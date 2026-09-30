@@ -367,8 +367,7 @@ $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes
             $("#trackingId").removeClass("d-none");
             $("#rejectedId").addClass("d-none");
             $("#title").html(
-                '<img src="{{ asset('
-                assets / dashboard / img / order - tracking.png ') }}" alt="alert" class="custompopicon"> Tracking Details'
+                `<img src="{{ asset('assets/dashboard/img/order-tracking.png') }}" alt="alert" class="custompopicon"> Tracking Details`
             );
             return;
 
@@ -444,6 +443,7 @@ $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes
     }
     $(document).on('click', '.view-order-details', function(e) {
         e.preventDefault();
+        
         var orderId = $(this).data('item');
         // Show loader, hide content
 

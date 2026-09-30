@@ -53,6 +53,7 @@ use App\Http\Controllers\Admin\OperatorMonthlyReportController;
 use App\Http\Controllers\Admin\ConciergeReportController;
 use App\Http\Controllers\Admin\VisaMigrationRequestController;
 use App\Http\Controllers\Admin\SeoManagementController;
+use App\Http\Controllers\Admin\StatisticsController;
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
@@ -285,13 +286,7 @@ Route::get('management/operator/commission-summary', function () {
   return view('admin.management.operator.commission-summary');
 })->name('admin.commission-summary');
 
-Route::get('management/tours', function () {
-  return view('admin.management.statistics.tours');
-})->name('admin.tours');
 
-Route::get('management/profile', function () {
-  return view('admin.management.statistics.profile');
-})->name('admin.profile');
 
 Route::get('/management/statistics/num', function () {
   return view('admin.management.statistics.num');
@@ -790,21 +785,22 @@ Route::get('/management/memberships', function () {
   return view('admin.management.memberships');
 })->name('admin.memberships');
 
-Route::get('/management/product', function () {
-  return view('admin.management.statistics.product');
-})->name('admin.product');
 
-Route::get('/management/email', function () {
-  return view('admin.management.statistics.email');
-})->name('admin.email');
 
-Route::get('/management/report-credit', function () {
-  return view('admin.management.statistics.credit');
-})->name('admin.report-credit');
+Route::prefix('management')
+  ->name('management.')
+  ->group(function () {
+    Route::prefix('statistics')->name('statistics.')->group(function () {
+      Route::get('/report-credit', [StatisticsController::class, 'creditReport'])->name('credit');
+      Route::get('/report-email', [StatisticsController::class, 'emailReport'])->name('email');
+      Route::get('/report-membership', [StatisticsController::class, 'membershipReport'])->name('membership');
+      Route::get('/report-product', [StatisticsController::class, 'productReport'])->name('product');
+      Route::get('/report-profile', [StatisticsController::class, 'profileReport'])->name('profile');
+      Route::get('/report-sim', [StatisticsController::class, 'simReport'])->name('sim');
+      Route::get('/report-tours', [StatisticsController::class, 'tourReport'])->name('tour');
+    });
+  });
 
-Route::get('/management/sim', function () {
-  return view('admin.management.statistics.sim');
-})->name('admin.sim');
 
 Route::get('/reports/credit', function () {
   return view('admin.reports.credit');
@@ -961,6 +957,10 @@ Route::get('/management/punterbox-reports', function () {
   return view('admin.management.punterbox-report');
 })->name('admin.punterbox-reports');
 
+Route::get('/management/notebox', function () {
+  return view('admin.management.reports.notebox');
+})->name('admin.notebox');
+
 Route::get('/switch-login/{id}', [ImpersonateController::class, 'switchLogin'])->name('admin.switch-to-child');
 Route::get('back-to-parent', [ImpersonateController::class, 'backToParent'])->name('admin.back-to-parent');
 
@@ -978,9 +978,9 @@ Route::post('management/fees/print-pay-detail', [AgentMonthlyReportController::c
 
 //SEO in OC(M)
 
- Route::get('management/seo', [SeoManagementController::class, 'seoManagement'])->name('admin.seo');
- Route::get('management/seo/data', [SeoManagementController::class, 'getSeoData'])->name('admin.seo.data');
- Route::post('management/seo', [SeoManagementController::class, 'saveSeoData'])->name('admin.seo.save');
+Route::get('management/seo', [SeoManagementController::class, 'seoManagement'])->name('admin.seo');
+Route::get('management/seo/data', [SeoManagementController::class, 'getSeoData'])->name('admin.seo.data');
+Route::post('management/seo', [SeoManagementController::class, 'saveSeoData'])->name('admin.seo.save');
 // Operator Monthly Report
 
 Route::get('management/operator/monthly-fee-reports', [OperatorMonthlyReportController::class, 'monthlyReport'])->name('admin.monthly-fee-reports');
@@ -993,6 +993,3 @@ Route::post('management/operator/pay-detail', [OperatorMonthlyReportController::
 Route::post('management/operator/print-pay-detail', [OperatorMonthlyReportController::class, 'printPayOperatorReport'])->name('admin.operator.print.pay-detail');
 
 Route::post('/management/update-password', [StaffController::class, 'updatePassword'])->name('admin.update.password');
-
-
-

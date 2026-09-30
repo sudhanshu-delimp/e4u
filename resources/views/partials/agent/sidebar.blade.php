@@ -3,7 +3,7 @@
     id="accordionSidebar">
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand text-left pb-1" href="{{ asset('/') }}">
-        <img src="{{ asset('assets/app/img/logo.svg') }} " alt="" class="mb-3 e4u_logo">
+        <img src="{{ asset('assets/images/escorts4u-logo.svg') }} " alt="" class="mb-3 e4u_logo">
     </a>
 
     <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-2">Agent Console </span>
@@ -284,12 +284,12 @@
                     data-parent="#Administration">
 
                     <div class="py-0 collapse-inner rounded mb-2">
-                        <!-- <a class="collapse-item" href="{{ route('agent.advertiser-profiles') }}">
+                        <a class="collapse-item" href="{{ route('agent.advertiser-profiles') }}">
                             <img src="{{ asset('assets/app/img/user.png') }}">
                             <span
                                 style="{{ request()->segment(2) == 'advertiser-profiles' ? 'color: #e5365a;' : '' }}">Profile
                                 Summary</span>
-                        </a> -->
+                        </a>
                           <a class="collapse-item" href="{{ route('agent.my-statistics') }}">
                             <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-statistics-light.png') }}">
                             <span style="{{ request()->segment(2) == 'advertiser-statistics' ? 'color: #e5365a;' : '' }}">Advertiser</span>

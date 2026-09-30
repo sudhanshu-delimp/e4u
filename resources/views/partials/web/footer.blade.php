@@ -22,7 +22,7 @@
             <div class="col-lg-12 my-2">
                 <div class="footer-logo-wrapper">
                     <div class="footer-logo">
-                        <img src="{{ asset('assets/app/img/logo.png') }}" alt="logo" class="footer_logo"></a>
+                        <img src="{{ asset('assets/images/escorts4u-logo.png') }}" alt="logo" class="footer_logo"></a>
                     </div>
 
 
@@ -341,7 +341,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <img src="{{ asset('assets/app/img/logo.png') }}" style="max-width: 195px; width:100%">
+                    <img src="{{ asset('assets/images/escorts4u-logo.png') }}" style="max-width: 195px; width:100%">
                 </div>
                 <div class="modal-body">
                     <h5 class="modal-title"><img src="{{ asset('assets/app/img/block-user.png') }}"

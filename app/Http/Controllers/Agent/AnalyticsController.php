@@ -67,7 +67,7 @@ class AnalyticsController extends Controller
                 return DataTables::of($advertisers)
                
                 ->addColumn('member_id', function ($row) {
-                     return $row->advertiser->user->member_id .'--'.$row->id.'--'.$row->advertiser->id;
+                     return $row->advertiser->user->member_id; //.'--'.$row->id.'--'.$row->advertiser->id;
                 })
                 ->addColumn('name', function ($row) {
                     return $row->advertiser->profile_name ?? '';
@@ -90,24 +90,30 @@ class AnalyticsController extends Controller
                     return isset($row->advertiser->escort->pinup)
                     && count($row->advertiser->escort->pinup) > 0 ? 'Yes' : 'No';
                     else
-                    return '--';
+                    return 'NA';
                 })
 
                 ->addColumn('lsiting_fee', function ($row) use($advertiserType)  {
                    
-                    $fee = formatCurrency($row->paid_rate);
-                    $lsiting_fee = '<div class="num_value"><x-curFormat/><span>'.$fee .'</span></div>';
+                    $fee = formatCurrency($row->paid_rate,'');
+                    $lsiting_fee = '<div class="num_value">$<span>'.$fee .'</span></div>';
                     return $lsiting_fee;
 
                 })
                 ->addColumn('adgent_fee', function ($row) {
 
-                    if($row->paymentItems->payment && $row->paymentItems->payment->agent_commission_percent>0)
-                    $commission = calculate_agent_commission($row->paymentItems->payment->net_amount,$row->paymentItems->payment->agent_commission_percent);
+                    $payment = $row->paymentItems?->payment;
+                    if ($payment && $payment->agent_commission_percent > 0) 
+                    $commission = calculate_agent_commission($payment->net_amount,$payment->agent_commission_percent);
                     else
                     $commission = 0.00;
 
-                    $adgent_fee = '<div class="num_value"><x-curFormat/><span>'.formatCurrency($commission).'</span></div>';
+                    // if($row->paymentItems->payment && $row->paymentItems->payment->agent_commission_percent>0)
+                    // $commission = calculate_agent_commission($row->paymentItems->payment->net_amount,$row->paymentItems->payment->agent_commission_percent);
+                    // else
+                    // $commission = 0.00;
+
+                    $adgent_fee = '<div class="num_value">$<span>'.formatCurrency($commission,'').'</span></div>';
                     return $adgent_fee;
                 })
 
@@ -150,10 +156,6 @@ class AnalyticsController extends Controller
                 ->rawColumns(['action','lsiting_fee','adgent_fee']) 
                 ->make(true);
 
-
-            
-
-           
         } 
         
         public function getProfileSummary(Request $request, $id)

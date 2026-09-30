@@ -11,7 +11,7 @@
 <nav class="navbar navbar-expand-lg navbar-light main_bg_color py-3 custom--header">
     <div class="container-fluid manage_header_padding d-flex justify-content-space-between position-relative">
         <a class="navbar-brand header_logo" href="{{ route('home') }}">
-        <img src="{{ asset('assets/app/img/logo.png') }}" class="d-inline-block align-top" alt="header_logo tnc">
+        <img src="{{ asset('assets/images/escorts4u-logo.png') }}" class="d-inline-block align-top" alt="header_logo tnc">
         </a>  
         <div class="back-tohome"><a class="navbar-brand" href="{{ route('home') }}">Back To Home</a></div>
     </div>

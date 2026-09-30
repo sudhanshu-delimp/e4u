@@ -13,7 +13,7 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand text-left pb-1" href="{{ route('home') }}">
-        <img src="{{ asset('assets/app/img/logo.svg') }} " class="mb-3 e4u_logo" alt="">
+        <img src="{{ asset('assets/images/escorts4u-logo.svg') }} " class="mb-3 e4u_logo" alt="">
     </a>
     <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-2">Escort Console</span>
 
@@ -526,7 +526,7 @@
                                 <span>Accommodation</span>
                             </a>
 
-                            <a class="collapse-item {{ request()->segment(2) == 'email-hosting' ? 'menu-active' : '' }}"
+                            <a class="collapse-item disabled-link {{ request()->segment(2) == 'email-hosting' ? 'menu-active' : '' }}"
                                 href="{{ url('escort-dashboard/email-hosting') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}" />
                                 <span>Email Account</span>

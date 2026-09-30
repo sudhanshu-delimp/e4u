@@ -13,7 +13,7 @@
          <nav class="navbar navbar-expand-lg navbar-light blue_and_white_nav_blue_in_small">
          <div class="container-fluid manage_header_padding">
             <a class="navbar-brand header_logo" href="{{ route('home') }}">
-            <img src="{{ asset('assets/app/img/logo.png') }}" class="d-inline-block align-top" alt="header_logo home">
+            <img src="{{ asset('assets/images/escorts4u-logo.png') }}" class="d-inline-block align-top" alt="header_logo home">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
