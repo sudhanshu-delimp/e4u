@@ -1,6 +1,9 @@
 @extends('layouts.agent')
 @section('style')
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+<!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/dashboard/css/chat.css') }}">
 @endsection
 @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -33,9 +36,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="col-md-12 mt-4">
+        </div>        
+        <x-chat/>
+        <div class="col-md-12 mt-4 d-none">
             <div class="main--chat--wrapper">
                 <div class="chat-sidebar">
                     <div class="chat-aside-header">
@@ -561,6 +564,7 @@
 @endsection
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/dashboard/js/chat.js') }}"></script>
     <script>
         jQuery(document).ready(function() {
 
