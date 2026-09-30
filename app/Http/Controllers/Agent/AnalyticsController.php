@@ -76,11 +76,16 @@ class AnalyticsController extends Controller
                     return $row->advertiser->phone ?? '';
                 })
                 ->addColumn('start_date', function ($row) {
-                    return $row->start_date ?? '';
+                    return !empty($row->start_date) 
+                        ? \Carbon\Carbon::parse($row->start_date)->format('d-m-Y') 
+                        : '';
                 })
                 ->addColumn('end_date', function ($row) {
-                    return $row->end_date ?? '';
+                    return !empty($row->end_date) 
+                        ? \Carbon\Carbon::parse($row->end_date)->format('d-m-Y') 
+                        : '';
                 })
+                
                 ->addColumn('total_days', function ($row) {
                     return Carbon::parse($row->start_date)
                         ->diffInDays(Carbon::parse($row->end_date)) + 1;
@@ -214,83 +219,205 @@ class AnalyticsController extends Controller
 
 
 
-        public function getProfilePdf(Request $request, $advertiserType)
-        {
-            $request->validate([
-                'from_date' => ['required', 'date'],
-                'to_date' => ['required', 'date', 'after_or_equal:from_date'],
-            ]);
+        // public function getProfilePdf(Request $request, $advertiserType)
+        // {
+        //     $request->validate([
+        //         'from_date' => ['required', 'date'],
+        //         'to_date' => ['required', 'date', 'after_or_equal:from_date'],
+        //     ]);
 
-            if (!in_array($advertiserType, ['escort', 'massage'])) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Invalid advertiser type.'
-                ], 422);
-            }
+        //     if (!in_array($advertiserType, ['escort', 'massage'])) {
+        //         return response()->json([
+        //             'status' => false,
+        //             'message' => 'Invalid advertiser type.'
+        //         ], 422);
+        //     }
 
-            $fromDate = $request->from_date;
-            $toDate = $request->to_date;
-            $type = $advertiserType == 'escort' ? '3' : '4';
-            $userIds = User::where([
-                'assigned_agent_id' => auth()->id(),
-                'type' => $type
-            ])->pluck('id')->toArray();
+        //     $fromDate = date('Y-m-d',strtotime($request->from_date));
+        //     $toDate =  date('Y-m-d',strtotime($request->to_date));  
+        //     $type = $advertiserType == 'escort' ? '3' : '4';
+        //     $userIds = User::where([
+        //         'assigned_agent_id' => auth()->id(),
+        //         'type' => $type
+        //     ])->pluck('id')->toArray();
 
-            if ($advertiserType == 'escort') {
+        //     if ($advertiserType == 'escort') {
 
-                $escortIds = Escort::whereIn('user_id', $userIds)
-                    ->where('purchase_id', '!=', '')
-                    ->pluck('id')
-                    ->toArray();
+        //         $escortIds = Escort::whereIn('user_id', $userIds)
+        //             ->where('purchase_id', '!=', '')
+        //             ->pluck('id')
+        //             ->toArray();
 
-                $advertisers = Purchase::with([
-                        'escort.pinup',
-                        'paymentItems.payment'
-                    ])
-                    ->where('status', 'listed')
-                    ->whereIn('escort_id', $escortIds)
-                    ->whereDate('start_date', '>=', $fromDate)
-                    ->whereDate('end_date', '<=', $toDate)
-                    ->get();
+        //         $advertisers = Purchase::with([
+        //                 'escort.pinup',
+        //                 'paymentItems.payment'
+        //             ])
+        //             ->where('status', 'listed')
+        //             ->whereIn('escort_id', $escortIds)
+        //             ->whereDate('start_date', '>=', $fromDate)
+        //             ->whereDate('end_date', '<=', $toDate)
+        //             ->get();
 
-            } else {
+        //     } else {
 
-                $massageIds = MassageProfile::whereIn('user_id', $userIds)
-                    ->where('purchase_id', '!=', '')
-                    ->pluck('id')
-                    ->toArray();
+        //         $massageIds = MassageProfile::whereIn('user_id', $userIds)
+        //             ->where('purchase_id', '!=', '')
+        //             ->pluck('id')
+        //             ->toArray();
 
-                $advertisers = MassagePurchase::with([
-                        'paymentItems.payment'
-                    ])
-                    ->where('status', 'listed')
-                    ->whereIn('massage_profile_id', $massageIds)
-                    ->whereDate('start_date', '>=', $fromDate)
-                    ->whereDate('end_date', '<=', $toDate)
-                    ->get();
-            }
+        //         $advertisers = MassagePurchase::with([
+        //                 'paymentItems.payment'
+        //             ])
+        //             ->where('status', 'listed')
+        //             ->whereIn('massage_profile_id', $massageIds)
+        //             ->whereDate('start_date', '>=', $fromDate)
+        //             ->whereDate('end_date', '<=', $toDate)
+        //             ->get();
+        //     }
 
         
-            if ($advertisers->isEmpty()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'No listing found between the given date range.'
-                ], 404);
+        //     if ($advertisers->isEmpty()) {
+        //         return response()->json([
+        //             'status' => false,
+        //             'message' => 'No listing found between the given date range.'
+        //         ], 404);
+        //     }
+
+        //     // $pdf = Pdf::loadView('agent.pdf.advertiser-profiles-report', [
+        //     //     'advertisers' => $advertisers,
+        //     //     'advertiserType' => $advertiserType,
+        //     //     'fromDate' => $fromDate,
+        //     //     'toDate' => $toDate,
+        //     // ]);
+
+        //     $pdf = Pdf::loadView('agent.pdf.advertiser-profiles-report', [
+        //         'advertisers' => $advertisers,
+        //         'advertiserType' => $advertiserType,
+        //         'fromDate' => $fromDate,
+        //         'toDate' => $toDate,
+        //     ])->setPaper('a4', 'landscape');
+
+        //     return response($pdf->output(), 200)
+        //         ->header('Content-Type', 'application/pdf')
+        //         ->header(
+        //             'Content-Disposition',
+        //             'inline; filename="profile-report-' . $advertiserType . '.pdf"'
+        //         );
+        // }
+
+
+
+    public function getProfilePdf(Request $request, $advertiserType)
+    {
+        $request->validate([
+            'from_date' => ['required', 'date'],
+            'to_date'   => ['required', 'date', 'after_or_equal:from_date'],
+        ]);
+
+        if (!in_array($advertiserType, ['escort', 'massage'])) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'Invalid advertiser type.'
+            ], 422);
+        }
+
+        $fromDate = date('Y-m-d', strtotime($request->from_date));
+        $toDate   = date('Y-m-d', strtotime($request->to_date));
+        $type     = $advertiserType == 'escort' ? '3' : '4';
+
+        $userIds = User::where([
+            'assigned_agent_id' => auth()->id(),
+            'type'              => $type
+        ])->pluck('id')->toArray();
+
+        if ($advertiserType == 'escort') {
+            $escortIds = Escort::whereIn('user_id', $userIds)
+                ->whereNotNull('purchase_id')
+                ->where('purchase_id', '!=', '')
+                ->pluck('id')
+                ->toArray();
+
+            $advertisers = Purchase::with([
+                    'escort.pinup',
+                    'paymentItems.payment'
+                ])
+                ->where('status', 'listed')
+                ->whereIn('escort_id', $escortIds)
+                ->whereDate('start_date', '>=', $fromDate)
+                ->whereDate('end_date', '<=', $toDate)
+                ->get();
+        } else {
+            $massageIds = MassageProfile::whereIn('user_id', $userIds)
+                ->whereNotNull('purchase_id')
+                ->where('purchase_id', '!=', '')
+                ->pluck('id')
+                ->toArray();
+
+            $advertisers = MassagePurchase::with([
+                    'paymentItems.payment'
+                ])
+                ->where('status', 'listed')
+                ->whereIn('massage_profile_id', $massageIds)
+                ->whereDate('start_date', '>=', $fromDate)
+                ->whereDate('end_date', '<=', $toDate)
+                ->get();
+        }
+
+        if ($advertisers->isEmpty()) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'No listing found between the given date range.'
+            ], 404);
+        }
+
+        foreach ($advertisers as $item) {
+            if (!empty($item->start_date) && !empty($item->end_date)) {
+                $item->total_days = \Carbon\Carbon::parse($item->start_date)
+                    ->diffInDays(\Carbon\Carbon::parse($item->end_date)) + 1;
+            } else {
+                $item->total_days = 0;
             }
 
-            $pdf = Pdf::loadView('agent.pdf.advertiser-profiles-report', [
-                'advertisers' => $advertisers,
-                'advertiserType' => $advertiserType,
-                'fromDate' => $fromDate,
-                'toDate' => $toDate,
-            ]);
+            $item->member_id = $item->advertiser->user->member_id ?? '';
+            $item->member_name = $item->advertiser->profile_name ?? '';
+            $item->member_mobile = $item->advertiser->phone ?? '';
 
-            return response($pdf->output(), 200)
-                ->header('Content-Type', 'application/pdf')
-                ->header(
-                    'Content-Disposition',
-                    'inline; filename="profile-report-' . $advertiserType . '.pdf"'
-                );
+            $item->start_date =  !empty($item->start_date) ? \Carbon\Carbon::parse($item->start_date)->format('d-m-Y') : '';
+            $item->end_date =  !empty($item->end_date) ? \Carbon\Carbon::parse($item->end_date)->format('d-m-Y') : '';
+
         }
+
+        
+        $formattedType = ucfirst($advertiserType);
+        if (strtolower($advertiserType) === 'massage') {
+            $formattedType .= ' Centre';
+        }
+
+       
+        if ($request->get('format') === 'json') {
+            return response()->json([
+                'status'         => true,
+                'advertiserType' => $formattedType,
+                'data'           => $advertisers
+            ]);
+        }
+
+
+
+        
+        $pdf = Pdf::loadView('agent.pdf.advertiser-profiles-report', [
+            'advertisers'    => $advertisers,
+            'advertiserType' => $advertiserType,
+            'fromDate'       => $fromDate,
+            'toDate'         => $toDate,
+        ])->setPaper('a4', 'landscape');
+
+        $disposition = $request->get('action') === 'download' ? 'attachment' : 'inline';
+        $filename    = 'profile-report-' . $advertiserType . '.pdf';
+
+        return response($pdf->output(), 200)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', "{$disposition}; filename=\"{$filename}\"");
+    }
 
 }
