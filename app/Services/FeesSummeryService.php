@@ -6,7 +6,6 @@ use App\Models\EscortPinup;
 use App\Models\PaymentHistory;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Exception;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
@@ -134,6 +133,7 @@ class FeesSummeryService
 
 
             ->selectRaw("
+                users.id as user_id,
                 users.member_id as member_id,
                 users.name as advertiser_name,
                 CASE WHEN users.type = '3' THEN 'E' ELSE 'MC' END as membership_type,
@@ -157,7 +157,7 @@ class FeesSummeryService
                 $massagePurchaseType,
             ])
  
-            ->groupBy('users.member_id', 'users.name', 'users.created_at', 'users.type')
+            ->groupBy('users.id','users.member_id', 'users.name', 'users.created_at', 'users.type')
             ->orderBy($orderBy['column'], $orderBy['direction'])
             ->get();
     }
@@ -243,42 +243,64 @@ class FeesSummeryService
         $escortPinupType = EscortPinup::class;
 
         // ── Fetch purchase-based rows (Platinum / Gold / Silver / Fixed) ──────
-        $purchaseRows = \DB::table('payment_histories as ph')
+        $purchaseRows = DB::table('payment_histories as ph')
             ->join('payment_items as pi',  'pi.payment_history_id', '=', 'ph.id')
             ->join('purchase as pu',        'pu.id',                 '=', 'pi.item_id')
             ->join('escorts as e',          'e.id',                  '=', 'pu.escort_id')
+            ->leftJoin('tour_locations as tl', 'tl.id', '=', 'pu.tour_location_id')
             ->where('ph.user_id',  $userId)
             ->where('ph.status',   'success')
             ->where('pi.item_type', $purchaseType)
             ->select(
                 'ph.paid_at',
                 'ph.net_amount',
+                'pu.id as purchase_id',
+                'pu.start_date',
+                'pu.end_date',
                 'pu.membership',
-                'e.state_id'
+                DB::raw('COALESCE(tl.state_id, e.state_id) as state_id')
             )
             ->get();
 
         // ── Fetch pinup-based rows ─────────────────────────────────────────────
-        $pinupRows = \DB::table('payment_histories as ph')
+        $pinupRows = DB::table('payment_histories as ph')
             ->join('payment_items as pi',   'pi.payment_history_id', '=', 'ph.id')
             ->join('escort_pinups as ep',   'ep.id',                 '=', 'pi.item_id')
-            ->join('escorts as e',          'e.id',                  '=', 'ep.escort_id')
             ->where('ph.user_id',  $userId)
             ->where('ph.status',   'success')
             ->where('pi.item_type', $escortPinupType)
             ->select(
                 'ph.paid_at',
                 'ph.net_amount',
-                'e.state_id',
+                'ep.state_id',
             )
             ->get();
 
+        $escortIds = DB::table('escorts')->where('user_id', $userId)->select('id');
+        $tourRows = DB::table('tour_profiles as tp')
+            ->join('tour_locations as tl', 'tl.id', '=', 'tp.tour_location_id')
+            ->join('tours as t', 't.id', '=', 'tl.tour_id')
+            ->whereIn('tp.escort_id', $escortIds)
+            ->where('t.user_id', $userId)
+            ->where('tl.is_pinup', '0')
+            ->select(
+                't.id as tour_id',
+                'tl.id as location_id',
+                'tl.state_id',
+                'tl.start_date',
+                'tl.end_date'
+            )
+            ->distinct()
+            ->get();
+
         // ── Also fetch advertiser info ─────────────────────────────────────────
-        $user = \DB::table('users')->where('id', $userId)->first();
+        $user = DB::table('users')->where('id', $userId)->first();
 
         // ── Aggregate ─────────────────────────────────────────────────────────
         $fyData      = [];
         $grandTotals = $this->emptyTotals();
+        $tourIdsByFy = [];
+        $tourIdsByFyState = [];
 
         // Process purchase rows
         foreach ($purchaseRows as $row) {
@@ -287,6 +309,15 @@ class FeesSummeryService
             $amount    = (float) $row->net_amount;
 
             $this->ensureFyState($fyData, $fy, $stateName);
+            $days = $row->start_date && $row->end_date
+                ? Carbon::parse($row->start_date)->diffInDays(Carbon::parse($row->end_date)) + 1
+                : 0;
+            $fyData[$fy]['states'][$stateName]['listings']++;
+            $fyData[$fy]['states'][$stateName]['listing_days'] += $days;
+            $fyData[$fy]['fy_totals']['listings']++;
+            $fyData[$fy]['fy_totals']['listing_days'] += $days;
+            $grandTotals['listings']++;
+            $grandTotals['listing_days'] += $days;
 
             $col = $this->membershipColumn((int) $row->membership);
             if ($col) {
@@ -296,6 +327,31 @@ class FeesSummeryService
                 $fyData[$fy]['fy_totals']['total']          += $amount;
                 $grandTotals[$col]                          += $amount;
                 $grandTotals['total']                       += $amount;
+            }
+        }
+
+        // Process escort tour locations
+        foreach ($tourRows as $row) {
+            $fy = $this->fyLabel($row->start_date);
+            $stateName = $this->getStateName((int) $row->state_id);
+            $days = Carbon::parse($row->start_date)->diffInDays(Carbon::parse($row->end_date)) + 1;
+
+            $this->ensureFyState($fyData, $fy, $stateName);
+            $tourIdsByFy[$fy][$row->tour_id] = true;
+            $tourIdsByFyState[$fy][$stateName][$row->tour_id] = true;
+            $fyData[$fy]['states'][$stateName]['tour_days'] += $days;
+            $fyData[$fy]['fy_totals']['tour_days'] += $days;
+            $grandTotals['tour_days'] += $days;
+        }
+
+        foreach ($tourIdsByFy as $fy => $tourIds) {
+            $tourCount = count($tourIds);
+            $fyData[$fy]['fy_totals']['tours'] = $tourCount;
+            $grandTotals['tours'] += $tourCount;
+        }
+        foreach ($tourIdsByFyState as $fy => $states) {
+            foreach ($states as $stateName => $tourIds) {
+                $fyData[$fy]['states'][$stateName]['tours'] = count($tourIds);
             }
         }
 
@@ -334,7 +390,17 @@ class FeesSummeryService
 
     protected function emptyTotals(): array
     {
-        return ['platinum' => 0.0, 'gold' => 0.0, 'silver' => 0.0, 'pinup' => 0.0, 'total' => 0.0];
+        return [
+            'platinum' => 0.0,
+            'gold' => 0.0,
+            'silver' => 0.0,
+            'pinup' => 0.0,
+            'total' => 0.0,
+            'listings' => 0,
+            'listing_days' => 0,
+            'tours' => 0,
+            'tour_days' => 0,
+        ];
     }
 
     protected function ensureFyState(array &$fyData, string $fy, string $state): void

@@ -44,6 +44,8 @@ class FeesSummaryController extends Controller
       displayType: $displayType
     );
 
+    //dd($feeSummery);
+
     // $feeSummery = $this->feeSummary->getSummaryData(
     //     $request->get('fee_summery_advertiser_fy'),
     //     $request->get('display_type', 'member_id')
@@ -60,11 +62,13 @@ class FeesSummaryController extends Controller
   public function singleAdvertiserFeeSummary(Request $request){
       $type = strtoupper((string) $request->input('type'));
       $advertiserId = (int) $request->input('advertiser_id');
+      //dd($type,$advertiserId);
 
       abort_unless($advertiserId > 0, 422, 'Advertiser is required.');
       abort_unless(in_array($type, ['E', 'MS', 'MC'], true), 422, 'Invalid advertiser type.');
 
-      $datas = $this->feeSummary->getReport($advertiserId);
+      $datas = $this->feeService->getReport($advertiserId);
+    
       $view = $type === 'E'  ? 'agent.dashboard.Fees.fees_summary.single_escort_summery' : 'agent.dashboard.Fees.fees_summary.single_massage_summery';
       $html = view($view, compact('datas'))->render();
 

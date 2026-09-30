@@ -87,7 +87,7 @@
                                      </select>
                                  </td>
                                  <td class="bg-first text-right"><b>Total Advertisers</b></td>
-                                 <td class="text-right" style="width:20%;">{{formatCurrency($feeSummery['totalAdvertiser']) ?? 0}}</td>
+                                 <td class="text-right" style="width:20%;">{{$feeSummery['totalAdvertiser'] ?? 0}}</td>
                              </tr>
                          </tbody>
                      </table>
@@ -143,12 +143,12 @@
                              <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                  aria-labelledby="dropdownMenuLink" style="">
                                  <button type="button" class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-advertiser-report" data-advertiser-id="{{$summery->user_id}}" data-advertiser-type="{{$summery->membership_type}}">
-                                     <i class="fa fa-eye"></i> View Advertiser Report
+                                     <i class="fa fa-eye"></i> View Report
                                  </button>
                                  <div class="dropdown-divider"></div>
                                  <button type="button" class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                      data-toggle="modal" data-target="#">
-                                     <i class="fa fa-print"></i> Print Advertiser Report
+                                     <i class="fa fa-print"></i> Print Report
                                 </button>
                              </div>
                          </div>
