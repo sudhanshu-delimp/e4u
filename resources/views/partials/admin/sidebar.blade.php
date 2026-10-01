@@ -888,6 +888,7 @@ $ocLavel = 'Developer';
                         'legbox-report',
                         'agents-monthly-report',
                         'punterbox-reports',
+                        'notebox',
                         'tours',
                         'staff',
                         'competitor-database',
@@ -901,7 +902,7 @@ $ocLavel = 'Developer';
                         'manage-influencers',
                         'manage-shareholders',
                         '-dashboard',
-                        'dashboard','seo',
+                        'dashboard','seo','messages',
                         'All-user',
                         'email-templates',
                         'annual-report',
@@ -1364,8 +1365,12 @@ $ocLavel = 'Developer';
                     </a>
                 </div>
 
-
-
+                 <a class="nav-link" href="{{ route('admin.messages') }}">
+                   <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
+                    <span
+                        style="{{ request()->segment(3) == 'messages' ? 'color: #FF3C5F;' : '' }}">Messages</span>
+                </a>
+                
 
                 <!-- Operator -->
                 <a class="nav-link collapsed" href="#" data-toggle="collapse"
@@ -1428,15 +1433,10 @@ $ocLavel = 'Developer';
 
 
                 <div id="ReportsMenu"
-                    class="collapse @if (in_array(request()->segment(3), ['influencer'])) show @endif @if (request()->segment(2) == 'feedback') show @endif"
+                    class="collapse @if (in_array(request()->segment(3), ['influencer', 'notebox'])) show @endif @if (request()->segment(2) == 'feedback') show @endif"
                     data-parent="#Management">
 
-
-                    <a class="collapse-item" href="{{ route('admin.influencer') }}">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/influencer.png') }}">
-                        <span
-                            style="{{ request()->segment(3) == 'influencer' ? 'color: #FF3C5F;' : '' }}">Influencer</span>
-                    </a>
+                    
 
                     <a class="collapse-item" href="{{ route('admin.feedback') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
@@ -1444,6 +1444,19 @@ $ocLavel = 'Developer';
                         <span
                             style="{{ request()->segment(2) == 'feedback' ? 'color: #FF3C5F;' : '' }}">Feedback
                         </span>
+                    </a>
+
+                    <a class="collapse-item" href="{{ route('admin.influencer') }}">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/influencer.png') }}">
+                        <span
+                            style="{{ request()->segment(3) == 'influencer' ? 'color: #FF3C5F;' : '' }}">Influencer</span>
+                    </a>                    
+
+                    <a class="collapse-item" href="{{ route('admin.notebox') }}">
+                        <img src="{{ asset('assets/dashboard/img/MyNotebox.png') }}" style="filter: brightness(0) saturate(100%) invert(99%) sepia(5%) saturate(0%) hue-rotate(101deg) brightness(110%) contrast(100%);">
+                        
+                        <span
+                            style="{{ request()->segment(3) == 'notebox' ? 'color: #FF3C5F;' : '' }}">Notebox</span>
                     </a>
 
                 </div>

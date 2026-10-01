@@ -490,13 +490,13 @@
 
              <div class="py-0 collapse-inner rounded mb-2">
 
-                 <a class="collapse-item disabled-link{{ request()->segment(2) == 'accommodation' ? 'menu-active' : '' }}"
+                 <a class="collapse-item disabled-link {{ request()->segment(2) == 'accommodation' ? 'menu-active' : '' }}"
                      href="{{ route('center.accommodation') }}">
                      <img src="{{ asset('assets/dashboard/img/menu-icon/acomdation.png') }}">
                      <span>Accommodation</span>
                  </a>
 
-                 <a class="collapse-item {{ request()->segment(2) == 'email-hosting' ? 'menu-active' : '' }}"
+                 <a class="collapse-item disabled-link {{ request()->segment(2) == 'email-hosting' ? 'menu-active' : '' }}"
                      href="{{ route('center.email-hosting') }}">
                      <img src="{{ asset('assets/dashboard/img/menu-icon/emailhosting.png') }}">
                      <span>Email Account</span>
