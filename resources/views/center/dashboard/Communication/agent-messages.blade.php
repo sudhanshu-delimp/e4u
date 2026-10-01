@@ -38,5 +38,6 @@
 @endsection
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-     <script type="text/javascript" src="{{ asset('assets/dashboard/js/chat.js') }}"></script>
+     <script type="text/javascript" src="{{ asset('assets/dashboard/js/chat.js') }}"></script>  
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
 @endsection

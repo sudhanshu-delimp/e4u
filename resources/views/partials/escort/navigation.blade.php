@@ -76,40 +76,8 @@
 
             </div>
         </form>
-        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
-            @if (session()->has('parent_user_id') && session('switch_for') == 'admin_to_any' && session('is_impersonated') === true)
-                <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>
-                <a class="nav-link" href="{{ route('admin.back-to-parent') }}" title="">
-                    <span class="switch-profile">
-                        <img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="Switch back to your account" />
-                    </span>
-                </a>
-            @endif
-        </li>
-        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-        <li class="nav-item dropdown no-arrow d-sm-none">
-            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-            </a>
-            <!-- Dropdown - Messages -->
-            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                            aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </li>
 
-        <!-- Messages btn -->
+         <!-- Messages btn -->
         <li class="nav-item messages_btn">
             <a class="nav-link" href="{{ route('escort.dashboard.agent-messages') }}" role="button">
                 <span>
@@ -143,6 +111,41 @@
             </a>
         </li>
         <!--- End --->
+
+        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
+            @if (session()->has('parent_user_id') && session('switch_for') == 'admin_to_any' && session('is_impersonated') === true)
+                <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>
+                <a class="nav-link" href="{{ route('admin.back-to-parent') }}" title="">
+                    <span class="switch-profile">
+                        <img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="Switch back to your account" />
+                    </span>
+                </a>
+            @endif
+        </li>
+        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+        <li class="nav-item dropdown no-arrow d-sm-none">
+            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+            </a>
+            <!-- Dropdown - Messages -->
+            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                aria-labelledby="searchDropdown">
+                <form class="form-inline mr-auto w-100 navbar-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </li>
+
+       
 
 
 

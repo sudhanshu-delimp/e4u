@@ -741,9 +741,7 @@
         </section>
 
 
-        <!-- 
-             MESSAGE COMPOSER
-        = -->
+        <!--- MESSAGE COMPOSER -->
         <footer class="message-composer">
 
             <button class="composer-btn" id="attachmentBtn" title="Attach">
@@ -754,10 +752,15 @@
                 <i class="bi bi-emoji-smile"></i>
             </button>
 
+            <div id="emojiPicker" class="emoji-picker-container"></div>
+
             <div class="input-wrapper">
-
-                <input type="text" id="messageInput" placeholder="Type a message..." autocomplete="off">
-
+                <input
+                    type="text"
+                    id="messageInput"
+                    placeholder="Type a message..."
+                    autocomplete="off"
+                >
             </div>
 
             <button class="send-btn" id="sendBtn" title="Send">

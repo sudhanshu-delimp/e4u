@@ -394,34 +394,177 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     /* =====================================================
-       EMOJI
-    ===================================================== */
+   EMOJI PICKER
+===================================================== */
 
-    if (emojiBtn) {
+const emojiPickerContainer =
+    document.getElementById("emojiPicker");
 
-        emojiBtn.addEventListener(
-            "click",
-            function() {
+if (
+    emojiBtn &&
+    emojiPickerContainer &&
+    messageInput
+) {
 
-                if (!messageInput) {
-                    return;
-                }
+    /* ---------------------------------------------
+       Create Emoji Picker
+    --------------------------------------------- */
+
+    const emojiPicker =
+        document.createElement("emoji-picker");
+
+    emojiPickerContainer.appendChild(
+        emojiPicker
+    );
 
 
-                const emoji =
-                    " 😊";
+    /* ---------------------------------------------
+       Open / Close Emoji Picker
+    --------------------------------------------- */
+
+    emojiBtn.addEventListener(
+        "click",
+        function(event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            emojiPickerContainer.classList.toggle(
+                "show"
+            );
+
+        }
+    );
 
 
-                messageInput.value +=
-                    emoji;
+    /* ---------------------------------------------
+       Emoji Selected
+    --------------------------------------------- */
+
+    emojiPicker.addEventListener(
+        "emoji-click",
+        function(event) {
+
+            const emoji =
+                event.detail.unicode;
+
+            if (!emoji) {
+                return;
+            }
 
 
-                messageInput.focus();
+            /* Current cursor position */
+
+            const start =
+                messageInput.selectionStart;
+
+            const end =
+                messageInput.selectionEnd;
+
+            const currentValue =
+                messageInput.value;
+
+
+            /* Insert emoji at cursor */
+
+            messageInput.value =
+                currentValue.substring(0, start) +
+                emoji +
+                currentValue.substring(end);
+
+
+            /* Move cursor after emoji */
+
+            const newCursorPosition =
+                start + emoji.length;
+
+            messageInput.setSelectionRange(
+                newCursorPosition,
+                newCursorPosition
+            );
+
+
+            /* Focus input */
+
+            messageInput.focus();
+
+
+            /* Keep picker open */
+            // WhatsApp-style behavior
+
+
+            /*
+             * If you want picker to close
+             * after selecting emoji:
+             *
+             * emojiPickerContainer.classList.remove("show");
+             */
+
+        }
+    );
+
+
+    /* ---------------------------------------------
+       Prevent picker click from closing it
+    --------------------------------------------- */
+
+    emojiPickerContainer.addEventListener(
+        "click",
+        function(event) {
+
+            event.stopPropagation();
+
+        }
+    );
+
+
+    /* ---------------------------------------------
+       Click Outside = Close
+    --------------------------------------------- */
+
+    document.addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                !emojiPickerContainer.contains(
+                    event.target
+                ) &&
+                !emojiBtn.contains(
+                    event.target
+                )
+            ) {
+
+                emojiPickerContainer.classList.remove(
+                    "show"
+                );
 
             }
-        );
 
-    }
+        }
+    );
+
+
+    /* ---------------------------------------------
+       ESC = Close Emoji Picker
+    --------------------------------------------- */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Escape") {
+
+                emojiPickerContainer.classList.remove(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+}
 
 
     /* =====================================================
