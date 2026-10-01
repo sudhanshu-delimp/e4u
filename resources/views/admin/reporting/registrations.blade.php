@@ -338,6 +338,8 @@
 </div>
 
 {{-- end notes --}}
+
+@includeif('admin.modal.change-password')
 @endsection
 
 

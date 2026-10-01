@@ -37,12 +37,20 @@ class TransactionController extends Controller
       request()->get('search')['value']
     );
     $result = $this->pinService->modifyRecords($result);
-
+    /* 
+    $result->transform(function ($item) {
+      $item->completed_by_member_id = optional($item->completedByUser)->member_id ?? 'NA';
+      $item->user_member_id = optional($item->user)->member_id ?? 'NA';
+      return $item;
+    }); */
+  
     $result->transform(function ($item) {
       $item->completed_by_member_id = optional($item->completedByUser)->member_id ?? 'NA';
       $item->user_member_id = optional($item->user)->member_id ?? 'NA';
       return $item;
     });
+
+  //print_r($result[0]->toArray());die;
 
     return response()->json([
       "draw" => intval(request()->input('draw')),
@@ -59,14 +67,13 @@ class TransactionController extends Controller
       $id = decrypt($request->id);
       $payment = PaymentHistory::findOrFail($id);
       $html = view('escort.dashboard.Bookkeeping.modal.transaction-summary', compact('payment'))->render();
-      
+
       return response()->json([
         'status' => true,
         'html'   => $html,
         'print_url' => route('admin.payment.detail.print', $payment->id),
         'message' => 'Listing fetched successfully'
       ]);
-
     } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
 
       return response()->json([

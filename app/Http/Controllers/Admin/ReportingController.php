@@ -160,6 +160,7 @@ class ReportingController extends BaseController
         $total_agents = $agent->count();
         $agents = $agent->offset($start)->limit($limit)->get();
         $i = 1;
+        $updatePassword = "";
 
         foreach ($agents as $key => $item) {
             $memberIdBadgeText =  '';
@@ -175,6 +176,8 @@ class ReportingController extends BaseController
 
             //$item->status_name = $item->status;
             if ($this->editAccessEnabled) {
+
+                 $updatePassword = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center update_password" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i>Reset Password</a>';
                 /* if ($item->status != 'Active') {
                     $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
                                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-user-check"></i> Active</a>';
@@ -211,6 +214,7 @@ class ReportingController extends BaseController
                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-pause-circle"></i> On Hold</a>';
 
                     $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '" href="#"><i class="fa fa-times-circle "></i> Reject</a>';
+                    $dropdown .= $updatePassword;
                     $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="3" data-toggle="modal" data-user-id="' . $item->id . '" data-target="#confirm-popup" href="javascript:void(0)" ><i class="fa fa-user-slash"></i> Suspend</a>';
                 }
 
@@ -224,6 +228,7 @@ class ReportingController extends BaseController
                  data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-user-check"></i> Reinstate</a>';
 
                     $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '" href="#"><i class="fa fa-times-circle "></i> Reject</a>';
+                     $dropdown .= $updatePassword;
                 }
 
                 if ($item->status == 'Suspended') {
@@ -233,11 +238,13 @@ class ReportingController extends BaseController
                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-ban "></i> Cancel</a>';
 
                     $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '" href="#"><i class="fa fa-times-circle "></i> Reject</a>';
+                     $dropdown .= $updatePassword;
                 }
 
                 if ($item->status == 'Cancelled') {
                     $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
                  data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-user-check"></i> Reinstate</a>';
+                  $dropdown .= $updatePassword;
                 }
 
                 if ($item->status == 'Rejected') {
@@ -246,6 +253,7 @@ class ReportingController extends BaseController
 
                     $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
                  data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-user-check"></i> Reinstate</a>';
+                  $dropdown .= $updatePassword;
 
                     $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="3" data-toggle="modal" data-user-id="' . $item->id . '" data-target="#confirm-popup" href="javascript:void(0)" ><i class="fa fa-user-slash"></i> Suspended</a>';
                 }
