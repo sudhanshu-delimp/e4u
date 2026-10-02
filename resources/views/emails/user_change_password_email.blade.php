@@ -81,7 +81,7 @@
                             <table width="100%" cellpadding="5" cellspacing="0"
                                 style="border-collapse: collapse; font-size: 15px; color: #2b3d50;">
                                 <tr>
-                                  @if ($user->type == '5')
+                                  @if (in_array($user->type, ['3','4','5']))
                                     <td style="font-weight: bold; padding: 10px 0px;">Mobile Number:</td>
                                     <td style="padding: 10px 0px 10px 10px">{{ $user['phone'] ?? '' }}</td>
                                     @else
