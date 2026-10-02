@@ -902,7 +902,7 @@ $ocLavel = 'Developer';
                         'manage-influencers',
                         'manage-shareholders',
                         '-dashboard',
-                        'dashboard','seo',
+                        'dashboard','seo','messages',
                         'All-user',
                         'email-templates',
                         'annual-report',
@@ -1365,8 +1365,12 @@ $ocLavel = 'Developer';
                     </a>
                 </div>
 
-
-
+                 <a class="nav-link" href="{{ route('admin.messages') }}">
+                   <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
+                    <span
+                        style="{{ request()->segment(3) == 'messages' ? 'color: #FF3C5F;' : '' }}">Messages</span>
+                </a>
+                
 
                 <!-- Operator -->
                 <a class="nav-link collapsed" href="#" data-toggle="collapse"

@@ -185,7 +185,7 @@
       </div>
       {{-- end --}}
        {{-- box start --}}
-      <div class="col-lg-3 box-wrapper disabled-link">
+      <div class="col-lg-3 box-wrapper">
           <div class="my-custom-box shadow-sm">
               <a href="{{ route('agent.agent-messages') }}?from=dashboard">
                   <div class="box-icon">

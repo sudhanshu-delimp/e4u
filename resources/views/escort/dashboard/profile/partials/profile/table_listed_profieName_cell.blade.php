@@ -14,7 +14,7 @@ $itemArray = $item->toArray();
 </div>
 
 {{-- tags --}}
-
+@if($item->start_date!=NULL)
 <div style="margin-top:8px">
     <span>
         @if($currentPurchase && $currentPurchase->tour_location_id != null)
@@ -65,3 +65,4 @@ $itemArray = $item->toArray();
     </span>
 
 </div>
+@endif

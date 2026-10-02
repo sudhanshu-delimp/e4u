@@ -961,6 +961,10 @@ Route::get('/management/notebox', function () {
   return view('admin.management.reports.notebox');
 })->name('admin.notebox');
 
+Route::get('/management/messages', function () {
+  return view('admin.management.messages');
+})->name('admin.messages');
+
 Route::get('/switch-login/{id}', [ImpersonateController::class, 'switchLogin'])->name('admin.switch-to-child');
 Route::get('back-to-parent', [ImpersonateController::class, 'backToParent'])->name('admin.back-to-parent');
 
