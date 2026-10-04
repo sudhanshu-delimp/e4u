@@ -28,6 +28,12 @@
                     $massgeReports = isset($feeData[4]) ? $feeData[4] : collect();
                     $reportEndDate = isset($feeData['report_end_date']) ? $feeData['report_end_date'] : '';
                     $agentMemberId = isset($feeData['agent_member_id']) ? $feeData['agent_member_id'] : '';
+                    $escortDays = 0;
+                    $escortSpent = 0;
+                    $escortAgenFee = 0;
+                    $massageDays =  0;
+                    $massageSpent =  0;
+                    $massageSpent =  0;
 
                 @endphp
                 {{-- Start escort listing --}}
@@ -38,6 +44,9 @@
                             $totalEscortSpent = $totalEscortSpent + $esortReport['total_purchase_amount'];
                             $totalEscortAgenFee = $totalEscortAgenFee + $esortReport['total_commission_amount'];
                             $cnt++;
+                            $escortDays = $escortDays + $esortReport['total_days'];
+                            $escortSpent = $escortSpent + $esortReport['total_purchase_amount'];
+                            $escortAgenFee = $escortAgenFee + $esortReport['total_commission_amount'];
                         @endphp
 
                         <tr class="accordion-toggle" data-toggle="collapse" data-target="#details{{ $cnt }}"
@@ -163,7 +172,6 @@
                             </td>
                         </tr>
                         <tr>
-
                             <td colspan="7" style="padding:10px"></td>
                         </tr>
                         {{-- End escort sub-total --}}
@@ -172,20 +180,20 @@
                         @endphp
                     @endforeach
 
-                    {{-- Start Escort Total --}}
+                    {{-- Start Escort Total Agent wise --}}
                     <tr>
-                        <td colspan="4" class="text-right"><strong>Total Escorts:</strong></td>
-                        <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold;text-align:center;">
-                            {{ $totalEscortDays }}
+                        <td colspan="4" class="text-right"><strong>Escorts:</strong></td>
+                        <td style="border-top: 2px solid #444; border-bottom:2px solid #444; font-weight:bold;text-align:center;">
+                            {{ $escortDays }}
                         </td>
                         <td
-                            style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:right;">
-                            <div class="num_value">$<span>{{ number_format($totalEscortSpent, 2) }}</span>
+                            style="border-top: 2px solid #444; border-bottom:2px solid #444; font-weight:bold; text-align:right;">
+                            <div class="num_value">$<span>{{ number_format($escortSpent, 2) }}</span>
                             </div>
                         </td>
                         <td
-                            style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:right;">
-                            <div class="num_value">$<span>{{ number_format($totalEscortAgenFee, 2) }}</span>
+                            style="border-top: 2px solid #444; border-bottom:2px solid #444; font-weight:bold; text-align:right;">
+                            <div class="num_value">$<span>{{ number_format($escortAgenFee, 2) }}</span>
                             </div>
                         </td>
                     </tr>
@@ -193,8 +201,9 @@
                     <tr>
                         <td colspan="7" style="padding:10px"></td>
                     </tr>
+                     {{-- End Escort Total Agent wise --}}
                 @endif
-                {{-- End Escort Total --}}
+               
 
                 {{-- end escort listing --}}
 
@@ -205,6 +214,10 @@
                             $totalMassageDays = $totalMassageDays + $massgeReport['total_days'];
                             $totalMassageSpent = $totalMassageSpent + $massgeReport['total_purchase_amount'];
                             $totalMassageAgenFee = $totalMassageAgenFee + $massgeReport['total_commission_amount'];
+
+                            $massageDays = $massageDays + $massgeReport['total_days'];
+                            $massageSpent = $massageSpent + $massgeReport['total_purchase_amount'];
+                            $massageSpent = $massageSpent + $massgeReport['total_commission_amount'];
                         @endphp
 
                         <tr class="accordion-toggle" data-toggle="collapse" data-target="#details3"
@@ -235,7 +248,50 @@
                         @endphp
                     @endforeach
                     <tr>
-                        <td colspan="4" class="text-center"><strong>Total Massage Centres:</strong></td>
+                        <td colspan="4" class="text-right"><strong>Massage Centres:</strong></td>
+                        <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold;text-align:center;">
+                            {{ $massageDays }}
+                        </td>
+                        <td
+                            style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:center;">
+                            <div class="num_value">$<span>{{ number_format($massageSpent, 2) }}</span>
+                            </div>
+                        </td>
+                        <td
+                            style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:center;">
+                            <div class="num_value">$<span>{{ number_format($massageAgenFee, 2) }}</span>
+                            </div>
+                        </td>
+                    </tr>
+                    {{-- End massage listing --}}
+                @endif
+            @endforeach
+
+             {{-- Start Escort Total --}}
+                    <tr>
+                        <td colspan="4" class="text-right"><strong>Total Escorts:</strong></td>
+                        <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold;text-align:center;">
+                            {{ $totalEscortDays }}
+                        </td>
+                        <td
+                            style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:right;">
+                            <div class="num_value">$<span>{{ number_format($totalEscortSpent, 2) }}</span>
+                            </div>
+                        </td>
+                        <td
+                            style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:right;">
+                            <div class="num_value">$<span>{{ number_format($totalEscortAgenFee, 2) }}</span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="7" style="padding:10px"></td>
+                    </tr>
+                     {{-- End Escort Total --}}
+                    @if( $totalMassageDays > 0)
+                     <tr>
+                        <td colspan="4" class="text-right"><strong>Total Massage Centres:</strong></td>
                         <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold;text-align:center;">
                             {{ $totalMassageDays }}
                         </td>
@@ -250,9 +306,10 @@
                             </div>
                         </td>
                     </tr>
-                    {{-- End massage listing --}}
-                @endif
-            @endforeach
+                      <tr>
+                        <td colspan="7" style="padding:10px"></td>
+                    </tr>
+                    @endif
         </tbody>
 
         <tfoot>
