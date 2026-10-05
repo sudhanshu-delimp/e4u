@@ -376,7 +376,7 @@
                                             @endif
                                         @endforeach
 
-                                        {{-- Start Escort Total --}}
+                    {{-- Start Escort Total --}}
                     <tr>
                         <td colspan="4" class="text-right"><strong>Total Escorts:</strong></td>
                         <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold;text-align:center;">

@@ -57,7 +57,7 @@
 
                         <div class="form-check" style="margin:0;">
                                 <input class="form-check-input" type="checkbox" id="send_notification" name="send_notification" value="1">
-                                <label class="form-check-label" for="viewer_contact_type_1">Send Password Update Notification</label>
+                                <label class="form-check-label" for="send_notification">Send Password Update Notification</label>
                             </div>
                         <span class="text-danger error-send_notification"></span>
                        
