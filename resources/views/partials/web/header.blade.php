@@ -74,7 +74,7 @@
     <!-- font awsome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v4.04') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v4.05') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/responsive-style.css?v3.08') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/footer.css?v2.04') }}">
 

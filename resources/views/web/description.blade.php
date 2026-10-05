@@ -20,7 +20,7 @@
         text-align: center;
         border-radius: 5px;
         font-size: 12px;
-        padding: 2px 5px;
+        padding: 7px;
         position: absolute;
         z-index: 1;
         bottom: 110%; /* tooltip upar show ho */
