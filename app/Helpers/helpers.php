@@ -194,9 +194,9 @@ if (!function_exists('formatCurrency')) {
     /**
      * Format the amount
      */
-    function formatCurrency($amount, $currency = '$')
+    function formatCurrency($amount, $currency = '$', $appendCurrencySign = true)
     {
-        $amount = number_format($amount, 2, '.', ''); // keep 2 decimals
+        $amount = number_format($amount, 2, '.', ''); // keep 2 decsimals
         list($intPart, $decimalPart) = explode('.', $amount);
 
         $lastThree = substr($intPart, -3);
@@ -209,7 +209,7 @@ if (!function_exists('formatCurrency')) {
             $formatted = $lastThree;
         }
 
-        return $currency . '' . $formatted . '.' . $decimalPart;
+        return $appendCurrencySign ? $currency . '' . $formatted . '.' . $decimalPart : $formatted . '.' . $decimalPart;
     }
 }
 
@@ -3409,5 +3409,19 @@ if (!function_exists('formatBSBNumber')) {
         $number = preg_replace('/\D/', '', $number);
 
         return implode('-', str_split($number, 3));
+    }
+}
+
+if (!function_exists('stateWalletCredit')) {
+    function stateWalletCredit($stateId, $startDate, $endDate, $advertiserType = null)
+    {
+        $walletService = app(\App\Services\WalletService::class);
+
+        return $walletService->getStateCredit(
+            $stateId,
+            $startDate,
+            $endDate,
+            $advertiserType
+        );
     }
 }

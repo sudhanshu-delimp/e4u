@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Repositories\User\UserInterface;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\State;
 use App\Models\Pricing;
 use App\Models\AdvertiserDiscount;
 use App\Traits\DataTablePagination;
@@ -34,7 +35,22 @@ class StatisticsController extends Controller
 
     public function creditReport()
     {
-        return view('admin.management.statistics.credit');
+        $states = config('escorts.profile.states');
+
+        $now = Carbon::now('UTC');
+        $australiaTimeNow = getAustraliaTime($now);
+
+        $currentStart = $australiaTimeNow->copy()->startOfYear()->utc();
+        $currentEndDate   = $australiaTimeNow->copy()->endOfDay()->utc();
+
+
+        $previousNow = $australiaTimeNow->copy()->subYear();
+        $previousStart = $previousNow->copy()->startOfYear()->utc();
+        $previousEndDate   = $previousNow->copy()->endOfDay()->utc();
+        $previousEnd   = $previousNow->copy()->endOfYear()->utc();
+
+
+        return view('admin.management.statistics.credit', compact('states', 'currentStart', 'currentEndDate', 'previousStart', 'previousEndDate', 'previousEnd'));
     }
 
     public function emailReport()
