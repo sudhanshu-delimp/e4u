@@ -31,24 +31,7 @@
 @endsection
 @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-
-        <!-- Page Heading -->
-        <div class="row">
-            <div class="col-md-12 custom-heading-wrapper justify-content-between">
-                <div class="d-flex align-items-center">
-                    <h1 class="h1">My Legbox</h1>
-                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
-                        aria-expanded="true"><b>Help?</b></span>
-                </div>
-                @if (request('from') == 'dashboard')
-                    <div class="back-to-dashboard">
-                        <a href="{{ url()->previous() ?? route('user-dashboard') }}">
-                            <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
-                        </a>
-                    </div>
-                @endif
-            </div>
-        </div>
+        
 
         @php
             $escortDisplayType = 'block';
@@ -64,6 +47,23 @@
                 $massageDisplayType = 'block';
             }
         @endphp
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-md-12 custom-heading-wrapper justify-content-between">
+                <div class="d-flex align-items-center">
+                    <h1 class="h1">My Legbox  @if  ($escortDisplayType == 'block') <span> - Escorts</span> @else <span> - Massage Centres </span> @endif </h1>
+                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
+                        aria-expanded="true"><b>Help?</b></span>
+                </div>
+                @if (request('from') == 'dashboard')
+                    <div class="back-to-dashboard">
+                        <a href="{{ url()->previous() ?? route('user-dashboard') }}">
+                            <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+                        </a>
+                    </div>
+                @endif
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-md-12 mb-4">
@@ -97,8 +97,8 @@
         <!-- My Escort Legbox -->
         <div class="row" style="display: {{ $escortDisplayType }}">
             <div class="col-md-12 mb-3 ">
-                <div class="mb-3 d-flex align-items-center justify-content-between flex-wrap gap-10">
-                    <h2 class="h2">Escort Legbox</h2>
+                <div class="mb-3 d-flex align-items-center justify-content-end flex-wrap gap-10">
+                    
                     <div class="total_listing">
                         <div><span>Total Escort Legbox : </span></div>
                         <div><span id="totalEscortList">{{ count($escorts) }}</span></div>
@@ -132,8 +132,8 @@
         <!-- My massage Legbox -->
         <div class="row " style="display: {{ $massageDisplayType }}">
             <div class="col-md-12 mb-3">
-                <div class="mb-3 d-flex align-items-center justify-content-between flex-wrap gap-10">
-                    <h2 class="h2">Massage Center Legbox</h2>
+                <div class="mb-3 d-flex align-items-center justify-content-end flex-wrap gap-10">
+                   
                     <div class="total_listing">
                         <div><span>Total Massage Centre Legbox: </span></div>
                         <div><span id="totalMassageList">1</span></div>
