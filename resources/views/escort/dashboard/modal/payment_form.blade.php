@@ -307,6 +307,51 @@
 
     });
 
+    var executeFromsAfterPaymentSuccess = function(response, textStatus, xhr) {
+        paymentFormData = {};
+        let otherModalForm;
+        if (!response.redirect_url || response.redirect_url.trim() === '') {
+            form.closest('.modal').modal('hide');
+            otherModalForm = $(`.modal-form-${response.action}`).find('form');
+            otherModalForm.append('<input type="hidden" name="payment_token" value="' + response.payment_id + '">');
+        }
+        switch (response.action) {
+
+            case 'pinup': {
+                displaySwal(xhr, false);
+                otherModalForm.attr('action', `{{route('pinup.register')}}`);
+                setTimeout(() => {
+                    otherModalForm.trigger('submit');
+                }, 2000); // 2 seconds
+            }
+            break;
+            case 'bumpUp': {
+                displaySwal(xhr, false);
+                setTimeout(() => {
+                    otherModalForm.trigger('submit');
+                }, 2000); // 2 seconds
+            }
+            break;
+            case 'upgrade': {
+                displaySwal(xhr, false);
+                setTimeout(() => {
+                    otherModalForm.trigger('submit');
+                }, 2000); // 2 seconds
+            }
+            break;
+
+            default: {
+                displaySwal(xhr).then((result) => {
+                    if (result.isConfirmed) {
+                        if (response.redirect_url) {
+                            window.location.href = response.redirect_url;
+                        }
+                    }
+                });
+            }
+            break;
+        }
+    }
 
     var processPaymentForm = function() {
         $.ajax({
@@ -327,50 +372,50 @@
             },
             success: function(response, textStatus, xhr) {
                 Swal.close();
-                paymentFormData = {};
-                //submitButton.removeAttr('disabled');
-                let otherModalForm;
-                if (!response.redirect_url || response.redirect_url.trim() === '') {
-                    form.closest('.modal').modal('hide');
-                    otherModalForm = $(`.modal-form-${response.action}`).find('form');
-                    otherModalForm.append('<input type="hidden" name="payment_token" value="' + response.payment_id + '">');
-                }
-                switch (response.action) {
+                executeFromsAfterPaymentSuccess(response, textStatus, xhr);
+                // paymentFormData = {};
+                // let otherModalForm;
+                // if (!response.redirect_url || response.redirect_url.trim() === '') {
+                //     form.closest('.modal').modal('hide');
+                //     otherModalForm = $(`.modal-form-${response.action}`).find('form');
+                //     otherModalForm.append('<input type="hidden" name="payment_token" value="' + response.payment_id + '">');
+                // }
+                // switch (response.action) {
 
-                    case 'pinup': {
-                        displaySwal(xhr, false);
-                        otherModalForm.attr('action', `{{route('pinup.register')}}`);
-                        setTimeout(() => {
-                            otherModalForm.trigger('submit');
-                        }, 2000); // 2 seconds
-                    }
-                    break;
-                    case 'bumpUp': {
-                        displaySwal(xhr, false);
-                        setTimeout(() => {
-                            otherModalForm.trigger('submit');
-                        }, 2000); // 2 seconds
-                    }
-                    break;
-                    case 'upgrade': {
-                        displaySwal(xhr, false);
-                        setTimeout(() => {
-                            otherModalForm.trigger('submit');
-                        }, 2000); // 2 seconds
-                    }
-                    break;
+                //     case 'pinup': {
+                //         displaySwal(xhr, false);
+                //         otherModalForm.attr('action', `{{route('pinup.register')}}`);
+                //         setTimeout(() => {
+                //             otherModalForm.trigger('submit');
+                //         }, 2000); // 2 seconds
+                //     }
+                //     break;
+                //     case 'bumpUp': {
+                //         displaySwal(xhr, false);
+                //         setTimeout(() => {
+                //             otherModalForm.trigger('submit');
+                //         }, 2000); // 2 seconds
+                //     }
+                //     break;
+                //     case 'upgrade': {
+                //         displaySwal(xhr, false);
+                //         setTimeout(() => {
+                //             otherModalForm.trigger('submit');
+                //         }, 2000); // 2 seconds
+                //     }
+                //     break;
 
-                    default: {
-                        displaySwal(xhr).then((result) => {
-                            if (result.isConfirmed) {
-                                if (response.redirect_url) {
-                                    window.location.href = response.redirect_url;
-                                }
-                            }
-                        });
-                    }
-                    break;
-                }
+                //     default: {
+                //         displaySwal(xhr).then((result) => {
+                //             if (result.isConfirmed) {
+                //                 if (response.redirect_url) {
+                //                     window.location.href = response.redirect_url;
+                //                 }
+                //             }
+                //         });
+                //     }
+                //     break;
+                // }
             },
             error: function(xhr) {
                 console.log(xhr);
@@ -387,32 +432,6 @@
             }
         });
     }
-
-    // $("#sendOtp_modal").on('show.bs.modal', function() {
-    //     $.ajax({
-    //         url: `{{ route('send.opt.notification', ['user' => Auth::user()->id]) }}`,
-    //         method: 'POST',
-    //         dataType: 'json',
-    //         headers: {
-    //             'X-CSRF-TOKEN': '{{ csrf_token() }}'
-    //         },
-    //         data: {
-    //             action: 'payment'
-    //         },
-    //         success: function(res, textStatus, xhr) {
-    //             console.log(res);
-    //         },
-    //         error: function(xhr) {
-    //             Swal.close();
-    //             let option = getStatusOption(xhr);
-    //             Swal.fire({
-    //                 icon: option.icon,
-    //                 title: option.title,
-    //                 text: option.message
-    //             });
-    //         }
-    //     });
-    // });
 
     var adjustmentForm = $('#adjustment-form');
     var finishPaymentForm = $('#finish-payment-form');
@@ -513,21 +532,51 @@
                 });
             },
             success: function(response, textStatus, xhr) {
-                // console.log(response);
                 Swal.close();
-                submitButton.removeAttr('disabled');
-                let option = getStatusOption(xhr);
-                Swal.fire({
-                    icon: option.icon,
-                    title: option.title,
-                    text: option.message,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = response.redirect_url;
-                    }
-                });
+                executeFromsAfterPaymentSuccess(response, textStatus, xhr);
+                // paymentFormData = {};
+                // let otherModalForm;
+                // if (!response.redirect_url || response.redirect_url.trim() === '') {
+                //     form.closest('.modal').modal('hide');
+                //     otherModalForm = $(`.modal-form-${response.action}`).find('form');
+                //     otherModalForm.append('<input type="hidden" name="payment_token" value="' + response.payment_id + '">');
+                // }
+                // switch (response.action) {
+
+                //     case 'pinup': {
+                //         displaySwal(xhr, false);
+                //         otherModalForm.attr('action', `{{route('pinup.register')}}`);
+                //         setTimeout(() => {
+                //             otherModalForm.trigger('submit');
+                //         }, 2000); // 2 seconds
+                //     }
+                //     break;
+                //     case 'bumpUp': {
+                //         displaySwal(xhr, false);
+                //         setTimeout(() => {
+                //             otherModalForm.trigger('submit');
+                //         }, 2000); // 2 seconds
+                //     }
+                //     break;
+                //     case 'upgrade': {
+                //         displaySwal(xhr, false);
+                //         setTimeout(() => {
+                //             otherModalForm.trigger('submit');
+                //         }, 2000); // 2 seconds
+                //     }
+                //     break;
+
+                //     default: {
+                //         displaySwal(xhr).then((result) => {
+                //             if (result.isConfirmed) {
+                //                 if (response.redirect_url) {
+                //                     window.location.href = response.redirect_url;
+                //                 }
+                //             }
+                //         });
+                //     }
+                //     break;
+                // }
             },
             error: function(xhr) {
                 Swal.close();

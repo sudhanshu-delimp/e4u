@@ -43,26 +43,26 @@
     </div>
 
     <!--middle content-->
-        <div class="col-md-12 common-card">
-            <div class="table-responsive">
-                <table class="table w-100" id="transactionSummaryTable">
-                    <thead class="table-bg">
-                        <tr>
-                            <th>Ref</th>
-                            <th>Service Type</th>
-                            <th>Transaction Date</th>
-                            <th>Transaction Value (Inc. GST)</th>
-                            <th>Card</th>
-                            <th>Completed By</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
+    <div class="col-md-12 common-card">
+        <div class="table-responsive">
+            <table class="table w-100" id="transactionSummaryTable">
+                <thead class="table-bg">
+                    <tr>
+                        <th>Ref</th>
+                        <th>Service Type</th>
+                        <th>Transaction Date</th>
+                        <th>Transaction Value (Inc. GST)</th>
+                        <th>Card</th>
+                        <th>Completed By</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
-    
+    </div>
+
 </div>
 @include('center.dashboard.modal.transaction-summary')
 @endsection
@@ -83,8 +83,8 @@
     table = $('#transactionSummaryTable').DataTable({
         serverSide: true,
         processing: true,
-        pageLength: {{$datatable_entries }},
-        lengthMenu: [{{ config('app.paginate_range') }}],  
+        pageLength: `{{$datatable_entries}}`,
+        lengthMenu: `{{config('app.paginate_range')}}`.split(','),
         "language": {
             "zeroRecords": "There is no record of the search criteria you entered.",
             searchPlaceholder: "Search by Ref, Service Type, Card"

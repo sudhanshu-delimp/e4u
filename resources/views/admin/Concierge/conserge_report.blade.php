@@ -1,140 +1,213 @@
-  <table class="table table-bordered reconciliation_table">
-      <thead class="table-bg">
-          <tr>
-              <th>Product ID</th>
-              <th>Advertiser</th>
-              <th class="text-center">Territory</th>
-              <th class="text-center">Delivery</th>
-              <th>Retail</th>
-              <th>Company</th>
-              <th>Supplier</th>
-          </tr>
-      </thead>
-      <tbody>
-          {{-- <tr>
-              <td>CM01</td>
-              <td>E60125</td>
-              <td class="text-center">WA</td>
-              <td class="text-center">Door</td>
-              <td>
-                  <div class="num_value">$<span>50.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>10.00</div>
-              </td>
-              <td>
-                  <div class="num_value">$<span>40.00</div>
-              </td>
-          </tr> --}}
-          @forelse ($items->groupBy(fn($item) => $item->product->code) as $productCode => $productItems)
+@if ($type)
 
-              {{-- Product Items --}}
-              @foreach ($productItems as $item)
-                  <tr>
-                      <td>{{ $item->product->code }}</td>
-                      <td>{{ $item->productOrder->user->member_id }}</td>
-                      <td class="text-center">
-                          {{ $item->productOrder->user->state->name }}
-                      </td>
-                      <td class="text-center">
-                          {{ $item->productOrder->delivery_type }}
-                      </td>
-                      <td>
-                          <div class="num_value">
-                              $<span>{{ number_format($item->price, 2) }}</span>
-                          </div>
-                      </td>
-                      <td>
-                          <div class="num_value">
-                              $<span>{{ number_format($item->retail_price, 2) }}</span>
-                          </div>
-                      </td>
-                      <td>
-                          <div class="num_value">
-                              $<span>
-                                  {{ number_format($item->price - $item->retail_price, 2) }}
-                              </span>
-                          </div>
-                      </td>
-                  </tr>
-              @endforeach
+    <head>
+        <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.2') }}" rel="stylesheet">
+    </head>
+    <?php $path = public_path('/assets/dashboard/img/admin-report.png');
+    $type = pathinfo($path, PATHINFO_EXTENSION);
+    $data = file_get_contents($path);
+    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+    ?>
+    <table class="table   common_accordian_table" style="background-color:#0c223d; margin-bottom:10px">
+        <tr>
+            <td style="text-align: left !important;"> <span>
+                    <img src="{{ $base64 }}" style="width: 25px;">
+                </span><span
+                    style="color:#fff; font-weight:bold;text-align: left !important;padding-top:-20px;font-size: 14px;">
+                    {{ $periodTitle }}</span> </td>
+            <td style="text-align: right">
 
-              {{-- Product Subtotal --}}
-              <tr>
-                  <td colspan="4" class="text-right">
-                      <strong> Subtotal:</strong>
-                  </td>
+            </td>
+        </tr>
+    </table>
+@endif
 
-                  <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                      <div class="num_value">
-                          $<span>{{ number_format($productItems->sum('price'), 2) }}</span>
-                      </div>
-                  </td>
+<!-- Bootstrap JS -->
+<table class="table table-bordered reconciliation_table">
+    <thead class="table-bg">
+        <tr>
+            <td style="color:white; font-weight:bold">Product ID</td>
+            <td style="color:white; font-weight:bold">Advertiser</td>
+            <td style=" color:white; font-weight:bold" class="text-center">Territory</td>
+            <td style=" color:white; font-weight:bold" class="text-center">Delivery</td>
+            <td style=" color:white; font-weight:bold">Retail</td>
+            <td style="color:white; font-weight:bold">Company</td>
+            <td style="color:white; font-weight:bold">Supplier</td>
+        </tr>
+    </thead>
 
-                  <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                      <div class="num_value">
-                          $<span>{{ number_format($productItems->sum('retail_price'), 2) }}</span>
-                      </div>
-                  </td>
+    <tbody>
+        @php
+            $totalPrice = 0;
+            $totalRetailPrice = 0;
+        @endphp
 
-                  <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
-                      <div class="num_value">
-                          $<span>
-                              {{ number_format($productItems->sum('price') - $productItems->sum('retail_price'), 2) }}
-                          </span>
-                      </div>
-                  </td>
-              </tr>
+        @forelse ($items->groupBy(fn($item) => $item->product->code)->sortKeys() as $productCode => $productItems)
 
-          @empty
-              <tr>
-                  <td colspan="7" class="text-center">
-                      Not found
-                  </td>
-              </tr>
-          @endforelse
+            @php
+                $price = $productItems->sum(fn($item) => $item->price * $item->quantity);
+                $retailPrice = $productItems->sum(fn($item) => $item->retail_price * $item->quantity);
+                $profit = $price - $retailPrice;
 
+                $totalPrice += $price;
+                $totalRetailPrice += $retailPrice;
+            @endphp
 
+            {{-- Product Items --}}
+            @foreach ($productItems->sortBy(fn($item) => $item->productOrder->user->member_id) as $item)
+                @php
+                    $itemPrice = $item->price * $item->quantity;
+                    $itemRetailPrice = $item->retail_price * $item->quantity;
+                    $itemProfit = $itemPrice - $itemRetailPrice;
+                @endphp
 
-      </tbody>
+                <tr>
+                    {{-- Show product code only on the first item of the group --}}
+                    <td>
+                        @if ($loop->first)
+                            {{ $item->product->code }}
+                        @endif
+                    </td>
 
-      <tfoot>
-          <!-- ========= Total ========= -->
-          <tr>
-              <td class="mt-5" colspan="7"></td>
-          </tr>
+                    <td>
+                        {{ $item->productOrder->user->member_id }}
+                    </td>
 
-          @php
-              $totalPrice = $items->sum('price');
-              $totalRetailPrice = $items->sum('retail_price');
-              $totalProfit = $totalPrice - $totalRetailPrice;
-          @endphp
+                    <td class="text-center">
+                        {{ $item->productOrder->user->state->name }}
+                    </td>
 
-          <tr>
-              <td colspan="4" class="text-right">
-                  <strong>Total:</strong>
-              </td>
+                    <td class="text-center">
+                        {{ $item->productOrder->delivery_type }}
+                    </td>
 
-              <td
-                  style="border-top: 2px solid #444; border-bottom: 6px double #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">
-                      $<span>{{ number_format($totalPrice, 2) }}</span>
-                  </div>
-              </td>
+                    {{-- Retail --}}
+                    <td>
+                        <div class="num_value">
+                            $<span>{{ number_format($itemPrice, 2) }}</span>
+                        </div>
+                    </td>
 
-              <td
-                  style="border-top: 2px solid #444; border-bottom: 6px double #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">
-                      $<span>{{ number_format($totalRetailPrice, 2) }}</span>
-                  </div>
-              </td>
+                    {{-- Company --}}
+                    <td>
+                        <div class="num_value">
+                            $<span>{{ number_format($itemRetailPrice, 2) }}</span>
+                        </div>
+                    </td>
 
-              <td
-                  style="border-top: 2px solid #444; border-bottom: 6px double #444; font-weight:bold; text-align:left;">
-                  <div class="num_value">
-                      $<span>{{ number_format($totalProfit, 2) }}</span>
-                  </div>
-              </td>
-          </tr><br>
-      </tfoot>
-  </table>
+                    {{-- Supplier --}}
+                    <td>
+                        <div class="num_value">
+                            $<span>{{ number_format($itemProfit, 2) }}</span>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
+
+            {{-- Product Subtotal --}}
+            <tr>
+                <td colspan="4" class="text-right">
+                    <strong><b>Subtotal:</b></strong>
+                </td>
+
+                <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                    <div class="num_value">
+                        $<span>{{ number_format($price, 2) }}</span>
+                    </div>
+                </td>
+
+                <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                    <div class="num_value">
+                        $<span>{{ number_format($retailPrice, 2) }}</span>
+                    </div>
+                </td>
+
+                <td style="border-top: 2px solid #444; font-weight:bold; text-align:left;">
+                    <div class="num_value">
+                        $<span>{{ number_format($profit, 2) }}</span>
+                    </div>
+                </td>
+            </tr>
+
+        @empty
+            <tr>
+                <td colspan="7" class="text-center">
+                    Not found
+                </td>
+            </tr>
+        @endforelse
+    </tbody>
+
+    <tfoot>
+        @php
+            $totalProfit = $totalPrice - $totalRetailPrice;
+        @endphp
+
+        {{-- Total --}}
+        <tr>
+            <td colspan="7" class="mt-5"></td>
+        </tr>
+
+        <tr>
+            <td colspan="4" class="text-right">
+                <strong>Total:</strong>
+            </td>
+
+            <td style="border-top: 2px solid #444; border-bottom: 6px double #444; font-weight:bold; text-align:left;">
+                <div class="num_value">
+                    $<span>{{ number_format($totalPrice, 2) }}</span>
+                </div>
+            </td>
+
+            <td style="border-top: 2px solid #444; border-bottom: 6px double #444; font-weight:bold; text-align:left;">
+                <div class="num_value">
+                    $<span>{{ number_format($totalRetailPrice, 2) }}</span>
+                </div>
+            </td>
+
+            <td style="border-top: 2px solid #444; border-bottom: 6px double #444; font-weight:bold; text-align:left;">
+                <div class="num_value">
+                    $<span>{{ number_format($totalProfit, 2) }}</span>
+                </div>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+<input type="hidden" id="report_id" value="{{ $report_id }}">
+@if (isset($type) && $type == 'send')
+    <br>
+    <div class="supplier-payment-summary">
+        <h2>Supplier Payment Summary</h2>
+
+        <table class="summary     -table" style="width: 100%">
+            <tbody>
+                <tr>
+                    <td class="label"><strong>Supplier:</strong></td>
+                    <td>{{ $supplier->name }}</td>
+                </tr>
+
+                <tr>
+                    <td class="label"><strong>Payment:</strong></td>
+                    <td>${{ number_format($totalRetailPrice, 2) }}</td>
+                </tr>
+
+                <tr>
+                    <td class="label"><strong> Account:</strong></td>
+                    <td> {{ $supplier->supplierBankDetails->account_name }}</td>
+                </tr>
+
+                <tr>
+                    <td class="label"><strong>BSB:</strong></td>
+                    <td>{{ $supplier->supplierBankDetails->bsb }}</td>
+                </tr>
+
+                <tr>
+                    <td class="label"><strong>Account:</strong></td>
+                    <td>{{ $supplier->supplierBankDetails->account_number }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+@endif

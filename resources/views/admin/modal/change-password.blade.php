@@ -75,7 +75,7 @@
         $(document).on('click', '.update_password', function() {
             $('#updatePassword').prop('disabled', false).text('Reset Password');
             let id = $(this).data('id');
-            $("#user_id").val(id);
+            $("#change_Password_users #user_id").val(id);
             $('#change_Password_users').modal({
                 backdrop: 'static',
                 keyboard: false

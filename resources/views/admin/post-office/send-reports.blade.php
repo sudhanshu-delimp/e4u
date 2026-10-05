@@ -382,7 +382,7 @@
                                             <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                                 <tr>
                                                     <td style="text-align: left; border:none !important">
-                                                        <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo"
+                                                        <img src="{{ asset('assets/images/escorts4u-logo.png') }}" alt="E4U Logo"
                                                             style="height: 63px; width:195px">
                                                     </td>
                                                     <td

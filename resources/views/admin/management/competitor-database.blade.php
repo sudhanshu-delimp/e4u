@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
 <style>
     .swal-button {
-    background-color: #242a2c;
+        background-color: #242a2c;
     }
 </style>
 @stop
@@ -22,10 +22,10 @@
                 </div>
                 <div class="col-md-12 mb-4">
                     <div class="card collapse" id="notes" style="">
-                    <div class="card-body">
-                       <h3 class="NotesHeader"><b>Notes:</b></h3>
-                        <ol></ol>
-                    </div>
+                        <div class="card-body">
+                            <h3 class="NotesHeader"><b>Notes:</b></h3>
+                            <ol></ol>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -34,9 +34,9 @@
                 <div class="col-sm-12 col-md-12 col-lg-12 ">
                     <!-- Begin Page Content -->
                     <div class="container-fluid mt-2" style="padding: 0px 0px;">
-                       
+
                         <div class="row">
-                            
+
                             <div class="col-sm-12">
                                 <div class="bothsearch-form">
                                     <button type="button" class="btn-common" data-toggle="modal" data-target="#Competitor">Add Competitor</button>
@@ -78,7 +78,7 @@
                                             <td>
                                                 <div class="dropdown no-arrow ml-3">
                                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                                     </a>
                                                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                                                         <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Edit_Competitor"> <i class="fa fa-fw fa-pen"></i> Edit</a>
@@ -101,7 +101,7 @@
                                             <td>
                                                 <div class="dropdown no-arrow ml-3">
                                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                                     </a>
                                                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                                                         <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Edit_Competitor"> <i class="fa fa-fw fa-pen"></i> Edit</a>
@@ -139,7 +139,7 @@
 <!-- End of Page Wrapper -->
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
-<i class="fas fa-angle-up"></i>
+    <i class="fas fa-angle-up"></i>
 </a>
 <div class="modal fade upload-modal" id="Competitor" tabindex="-1" role="dialog" aria-labelledby="CompetitorLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -147,7 +147,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="Competitor"> <img src="{{ asset('assets/dashboard/img/vs.png') }}" class="custompopicon"> Create Competitor</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                    <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
             </div>
             <div class="modal-body pb-0">
@@ -198,7 +198,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="Edit_Competitor"> <img src="{{ asset('assets/dashboard/img/vs.png') }}" class="custompopicon"> Edit Competitor</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                    <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
             </div>
             <div class="modal-body pb-0">
@@ -246,26 +246,27 @@
 @endsection
 
 @push('script')
-  
+
 
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
-      var table = $("#competitorDatabase").DataTable({
-      language: {
-         search: "Search: _INPUT_",
-         searchPlaceholder: "Search by Name..."
-      },
-      info: true,
-      paging: true,
-      lengthChange: true,
-      searching: true,
-      bStateSave: true,
-      order: [[1, 'desc']],
-      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-      pageLength: 10
-   });
+    var table = $("#competitorDatabase").DataTable({
+        language: {
+            search: "Search: _INPUT_",
+            searchPlaceholder: "Search by Name..."
+        },
+        info: true,
+        paging: true,
+        lengthChange: true,
+        searching: true,
+        bStateSave: true,
+        order: [
+            [1, 'desc']
+        ],
+        pageLength: `{{$datatable_entries}}`,
+        lengthMenu: `{{config('app.paginate_range')}}`.split(','),
+    });
+</script>
 
- </script>
-  
 @endpush

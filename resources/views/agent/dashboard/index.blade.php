@@ -129,10 +129,10 @@
           <div class="my-custom-box shadow-sm">
               <a href="{{ route('agent.my-statistics') }}?from=dashboard">
                   <div class="box-icon">
-                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-statistics.png') }}" alt=" My Statistics">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-statistics.png') }}" alt="Advertiser Statistics">
                   </div>
                   <h2>
-                     My Statistics
+                     Advertiser Statistics
                   </h2>
               </a>
 
@@ -185,7 +185,7 @@
       </div>
       {{-- end --}}
        {{-- box start --}}
-      <div class="col-lg-3 box-wrapper disabled-link">
+      <div class="col-lg-3 box-wrapper">
           <div class="my-custom-box shadow-sm">
               <a href="{{ route('agent.agent-messages') }}?from=dashboard">
                   <div class="box-icon">

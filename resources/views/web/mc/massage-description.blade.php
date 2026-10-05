@@ -361,7 +361,7 @@ margin-right: 5px;
         <div class="d-flex d-flex justify-content-between">
             <div class="previous_btn_profile next_previous_btn_pogision {{ $prevId ? '' : 'previousDisableButtonCss' }}">
             @if($prevList)
-            <a href="{{ getEscortMassageDetailUrl($prevList, 'massage') }}" class="btn_ank">
+            <a href="{{ getAdvertiserDetailUrl($prevList, 'massage') }}" class="btn_ank">
             @else 
                 <a  href="{{$baseUrl.config("constants.massage_list_base_slug")}}" class="btn_ank">
             @endif
@@ -375,7 +375,7 @@ margin-right: 5px;
             <div class="next_btn_profile next_previous_btn_pogision {{ $nextId ? '' : 'previousDisableButtonCss' }}">
                                 
         @if($nextList)
-            <a href="{{getEscortMassageDetailUrl($nextList, 'massage')}}" class="btn_ank">
+            <a href="{{getAdvertiserDetailUrl($nextList, 'massage')}}" class="btn_ank">
         @else 
             <a  href="javascript:void(0)" class="btn_ank">
          @endif
@@ -3383,6 +3383,9 @@ function map_loader(results, address, capital_city)
 {
     const location = results[0].geometry.location;
 
+    
+
+
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 16,
         center: location,
@@ -3391,6 +3394,17 @@ function map_loader(results, address, capital_city)
     const marker = new google.maps.Marker({
         position: location,
         map: map,
+        icon: {
+            url: "{{ asset('assets/app/img/google_pin_white.png') }}",
+            scaledSize: new google.maps.Size(70, 70),
+            anchor: new google.maps.Point(24, 64)
+        },
+        // label: {
+        // text: "E4U",          
+        // color: "#FFFFFF",  
+        // fontSize: "10px",   
+        // fontWeight: "bold"  
+        // }
     });
 
     const service = new google.maps.places.PlacesService(map);

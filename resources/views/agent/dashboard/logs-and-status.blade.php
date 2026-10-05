@@ -35,12 +35,12 @@
             </div>
         </div>
 
-        <div class="row mt-4">
+        <div class="row">
 
             <!-- Logs & Status -->
             @if ($logAndStatus)
                 <div class="col-md-6 mb-4">
-                    <div class="table-responsive">
+                    <div class="table-responsive common-card">
                         <table class="table table-bordered">
                             <thead style="background-color: #0C223D; color: #ffffff;">
                                 <tr>
@@ -83,7 +83,7 @@
                 <div class="col-md-6 mb-4">
                     {{-- <h4 class="font-weight-bold" style="color: var(--blue--text);">Monitoring
                             </h4> --}}
-                    <div class="table-responsive">
+                    <div class="table-responsive common-card">
                         <table class="table table-bordered">
                             <thead style="background-color: #0C223D; color: #ffffff;">
                                 <tr>

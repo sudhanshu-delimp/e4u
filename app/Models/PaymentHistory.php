@@ -97,4 +97,10 @@ class PaymentHistory extends Model
   {
     return $this->morphMany(AgentCommission::class, 'commissionable');
   }
+
+  public function product_order()
+  {
+    return $this->hasOne(ProductOrder::class, 'transaction_id', 'transaction_id');
+  }
+
 }

@@ -619,7 +619,7 @@
             <a href="/" class="brand">
                 <div>
                     <div class="brand-name">
-                        <img src="{{ asset('assets/app/img/logo.png') }}" alt="Logo" style="height: 50px;">
+                        <img src="{{ asset('assets/images/escorts4u-logo.png') }}" alt="Logo" style="height: 50px;">
                     </div>
 
                 </div>

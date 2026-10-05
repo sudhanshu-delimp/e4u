@@ -152,7 +152,8 @@
             serverSide: true,
             lengthChange: true,
             searching: true,
-            pageLength: 10,
+            pageLength: `{{$datatable_entries}}`,
+            lengthMenu: `{{config('app.paginate_range')}}`.split(','),
 
             ajax: {
                 url: `{{ route('admin.global_monitoring.get_pinup_listing') }}`,

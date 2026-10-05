@@ -216,7 +216,7 @@
                         </div>
                     </div>
                     <div class="card-body p-0 Dash-table task_table">
-                        <div class="table-full-width table-responsive">
+                        <div class="table-full-width table-responsive common-card">
                             <table class="table table-bordered " id="taskList">
                                 <thead style="background-color: #0C223D; color: #ffffff;">
                                     <tr>
@@ -912,6 +912,11 @@
             var marker = new google.maps.Marker({
                 position: defaultCenter,
                 map: map,
+                icon: {
+                url: "{{ asset('assets/app/img/google_pin_white.png') }}",
+                scaledSize: new google.maps.Size(70, 70),
+                anchor: new google.maps.Point(24, 64)
+             },
                 draggable: true
             });
 

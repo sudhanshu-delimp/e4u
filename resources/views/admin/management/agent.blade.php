@@ -33,6 +33,8 @@
         .view_agent_details .table th {
             padding: 10px .75rem !important;
         }
+
+
     </style>
 @stop
 @section('content')
@@ -386,10 +388,14 @@
                 const agent_details = (rowData.agent_detail && Object.keys(rowData.agent_detail).length >
                     0) ? rowData.agent_detail : null;
                 const agreement_file = agent_details?.agreement_file ?
-                    `<a href="{{ asset('storage') }}/${agent_details.agreement_file}" target="_blank">Download Agreement</a>` :
+                    `<a href="{{ asset('storage') }}/${agent_details.agreement_file}" target="_blank" title="Click here to download agreement file" id="downloadAgreement"> <svg width="24px" height="24px" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5.625 15C5.625 14.5858 5.28921 14.25 4.875 14.25C4.46079 14.25 4.125 14.5858 4.125 15H5.625ZM4.875 16H4.125H4.875ZM19.275 15C19.275 14.5858 18.9392 14.25 18.525 14.25C18.1108 14.25 17.775 14.5858 17.775 15H19.275ZM11.1086 15.5387C10.8539 15.8653 10.9121 16.3366 11.2387 16.5914C11.5653 16.8461 12.0366 16.7879 12.2914 16.4613L11.1086 15.5387ZM16.1914 11.4613C16.4461 11.1347 16.3879 10.6634 16.0613 10.4086C15.7347 10.1539 15.2634 10.2121 15.0086 10.5387L16.1914 11.4613ZM11.1086 16.4613C11.3634 16.7879 11.8347 16.8461 12.1613 16.5914C12.4879 16.3366 12.5461 15.8653 12.2914 15.5387L11.1086 16.4613ZM8.39138 10.5387C8.13662 10.2121 7.66533 10.1539 7.33873 10.4086C7.01212 10.6634 6.95387 11.1347 7.20862 11.4613L8.39138 10.5387ZM10.95 16C10.95 16.4142 11.2858 16.75 11.7 16.75C12.1142 16.75 12.45 16.4142 12.45 16H10.95ZM12.45 5C12.45 4.58579 12.1142 4.25 11.7 4.25C11.2858 4.25 10.95 4.58579 10.95 5H12.45ZM4.125 15V16H5.625V15H4.125ZM4.125 16C4.125 18.0531 5.75257 19.75 7.8 19.75V18.25C6.61657 18.25 5.625 17.2607 5.625 16H4.125ZM7.8 19.75H15.6V18.25H7.8V19.75ZM15.6 19.75C17.6474 19.75 19.275 18.0531 19.275 16H17.775C17.775 17.2607 16.7834 18.25 15.6 18.25V19.75ZM19.275 16V15H17.775V16H19.275ZM12.2914 16.4613L16.1914 11.4613L15.0086 10.5387L11.1086 15.5387L12.2914 16.4613ZM12.2914 15.5387L8.39138 10.5387L7.20862 11.4613L11.1086 16.4613L12.2914 15.5387ZM12.45 16V5H10.95V16H12.45Z" fill="#ff3c5f"></path> </g></svg> Download</a> 
+                    
+                    <a href="javascript:void(0)" style="margin-left:50px;" title="Click here to delete agreement file" class="deleteUploadedFile" data-id="${rowData.id}" data-type="agreement" id="deleteAgreement"> <svg width="22px" height="22px" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 12V17" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M14 12V17" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M4 7H20" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg> Delete</a>` :
                     '';
                 const signature_file = agent_details?.signature_file ?
-                    `<a href="{{ asset('storage') }}/${agent_details.signature_file}" target="_blank">Download Signature</a>` :
+                    `<a href="{{ asset('storage') }}/${agent_details.signature_file}" target="_blank" title="Click here to download agreement file" id="downloadSignature"> <svg width="24px" height="24px" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5.625 15C5.625 14.5858 5.28921 14.25 4.875 14.25C4.46079 14.25 4.125 14.5858 4.125 15H5.625ZM4.875 16H4.125H4.875ZM19.275 15C19.275 14.5858 18.9392 14.25 18.525 14.25C18.1108 14.25 17.775 14.5858 17.775 15H19.275ZM11.1086 15.5387C10.8539 15.8653 10.9121 16.3366 11.2387 16.5914C11.5653 16.8461 12.0366 16.7879 12.2914 16.4613L11.1086 15.5387ZM16.1914 11.4613C16.4461 11.1347 16.3879 10.6634 16.0613 10.4086C15.7347 10.1539 15.2634 10.2121 15.0086 10.5387L16.1914 11.4613ZM11.1086 16.4613C11.3634 16.7879 11.8347 16.8461 12.1613 16.5914C12.4879 16.3366 12.5461 15.8653 12.2914 15.5387L11.1086 16.4613ZM8.39138 10.5387C8.13662 10.2121 7.66533 10.1539 7.33873 10.4086C7.01212 10.6634 6.95387 11.1347 7.20862 11.4613L8.39138 10.5387ZM10.95 16C10.95 16.4142 11.2858 16.75 11.7 16.75C12.1142 16.75 12.45 16.4142 12.45 16H10.95ZM12.45 5C12.45 4.58579 12.1142 4.25 11.7 4.25C11.2858 4.25 10.95 4.58579 10.95 5H12.45ZM4.125 15V16H5.625V15H4.125ZM4.125 16C4.125 18.0531 5.75257 19.75 7.8 19.75V18.25C6.61657 18.25 5.625 17.2607 5.625 16H4.125ZM7.8 19.75H15.6V18.25H7.8V19.75ZM15.6 19.75C17.6474 19.75 19.275 18.0531 19.275 16H17.775C17.775 17.2607 16.7834 18.25 15.6 18.25V19.75ZM19.275 16V15H17.775V16H19.275ZM12.2914 16.4613L16.1914 11.4613L15.0086 10.5387L11.1086 15.5387L12.2914 16.4613ZM12.2914 15.5387L8.39138 10.5387L7.20862 11.4613L11.1086 16.4613L12.2914 15.5387ZM12.45 16V5H10.95V16H12.45Z" fill="#ff3c5f"></path> </g></svg> Download</a> 
+
+                    <a href="javascript:void(0)" style="margin-left:50px;" title="Click here to delete signature file" class="deleteUploadedFile" data-id="${rowData.id}" data-type="signature" id="deleteSignature"> <svg width="22px" height="22px" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 12V17" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M14 12V17" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M4 7H20" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg> Delete</a>` :
                     '';
                 const signature_image = agent_details?.signature_file ?
                     "{{ asset('storage') }}/" + agent_details.signature_file : '';
@@ -558,7 +564,7 @@
                                      <span class="text-danger error-commission_advertising_percent"></span>
                                  </div>
                                  <div class="col-6 mb-3">
-                                       <label class="form-label" for="commission_registration_amount">Massage Centre(Registration)</label>
+                                       <label class="form-label" for="commission_registration_amount">Massage Centre (Registration)</label>
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
                                              <div class="input-group-text form-control left-sign" >$</div>
@@ -570,22 +576,167 @@
                                  </div>
         
 
-                                 <!-- ==================== File Uploads ==================== -->
-                                 <div class="col-6 mb-3">
-                                       <label class="form-label" for="agreement_file">Agreement File</label>
-                                       <input type="file" name="agreement_file" id="agreement_file">
-                                       <div id="file_preview" class="mt-2"></div>
-                                       ${agreement_file ? `<div class="mt-2">${agreement_file}</div>` : ''}
-                                 </div>
+                                 <!-- File Uploads  -->
 
-                                  <div class="col-6 mb-3">
-                                       <label class="form-label" for="signature_file">Upload Signature</label>
-                                       <input type="file" name="signature_file" id="signature_file" accept="image/*">
-                                       <div id="signature_preview" class="mt-2"></div>
-                                       ${signature_file ? `<div class="mt-2">${signature_file}</div>` : ''}
-                                       ${signature_image ? `<div class="mt-2"><img src="${signature_image}" alt="Signature" style="max-width: 200px; max-height: 100px; border: 1px solid #ddd; border-radius: 4px;"></div>` : ''}
-                                     
-                                  </div>
+                                <div class="col-12 mb-3">
+                                    <div class="documents-upload-wrapper">
+
+                                        <!-- Section Header -->
+                                        <div class="documents-upload-header mb-4">
+                                            <h6 class="mb-1 text-blue-primary">
+                                                Documents & Files
+                                            </h6>
+                                            <p class="mb-0 text-muted small">
+                                                Upload or manage your agreement and signature files.
+                                            </p>
+                                        </div>
+
+                                        <div class="row">
+
+                                            <!-- Agreement File -->
+                                            <div class="col-md-6 mb-4">
+                                                <div class="document-upload-card">
+
+                                                    <div class="document-card-header">
+                                                        <div>
+                                                            <h6 class="mb-1">
+                                                                Agreement File
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Upload Area -->
+                                                    <label
+                                                        for="agreement_file"
+                                                        class="file-upload-box"
+                                                    >
+                                                        <div class="upload-icon" >
+                                                            <svg width="25px" height="25px" viewBox="0 0 24 24"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="none">
+                                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                                    stroke-linejoin="round"></g>
+
+                                                                <g id="SVGRepo_iconCarrier">
+                                                                    <path stroke="#ff3c5f" stroke-linecap="round"
+                                                                        stroke-linejoin="round" stroke-width="2"
+                                                                        d="M12 10v9m0-9l3 3m-3-3l-3 3m8.5 2c1.519 0 2.5-1.231 2.5-2.75 0-1.264-.854-2.33-2.016-2.65A5 5 0 008.37 8.108a3.5 3.5 0 00-1.87 6.746">
+                                                                    </path>
+                                                                </g>
+
+                                                            </svg>
+                                                        </div>
+                                                        <span class="upload-title"> Choose Agreement File</span>
+                                                        
+                                                        <span class="upload-hint"> <span class="upload-text"> <strong>browse</strong>
+                                                        </span>Only PNG, JPG, JPEG, PDF, DOC, DOCX up to 10MB are allowed.</span>
+                                                        
+
+                                                        <input
+                                                            type="file"
+                                                            name="agreement_file"
+                                                            id="agreement_file"
+                                                            class="file-input"
+                                                        >
+                                                        
+                                                    </label>
+                                                    <span class="text-danger error-agreement_file"></span>
+                                                    
+                                                    <!-- Existing Agreement / Preview -->
+                                                    <div id="file_preview" class="mt-3"></div>
+
+                                                    ${agreement_file ? `
+                                                        <div class="existing-file mt-3" id="downloadAgreement">
+                                                            ${agreement_file}
+                                                        </div>
+                                                    ` : ''}
+
+                                                </div>
+                                            </div>
+
+
+                                            <!--  Signature File -->
+                                            <div class="col-md-6 mb-4">
+                                                <div class="document-upload-card">
+
+                                                    <div class="document-card-header">
+                                                      
+                                                        <div>
+                                                            <h6 class="mb-1">
+                                                                Signature File
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Upload Area -->
+                                                    <label
+                                                        for="signature_file"
+                                                        class="file-upload-box"
+                                                    >
+                                                        <div class="upload-icon" >
+                                                            <svg width="25px" height="25px" viewBox="0 0 24 24"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="none">
+                                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                                    stroke-linejoin="round"></g>
+
+                                                                <g id="SVGRepo_iconCarrier">
+                                                                    <path stroke="#ff3c5f" stroke-linecap="round"
+                                                                        stroke-linejoin="round" stroke-width="2"
+                                                                        d="M12 10v9m0-9l3 3m-3-3l-3 3m8.5 2c1.519 0 2.5-1.231 2.5-2.75 0-1.264-.854-2.33-2.016-2.65A5 5 0 008.37 8.108a3.5 3.5 0 00-1.87 6.746">
+                                                                    </path>
+                                                                </g>
+
+                                                            </svg>
+                                                        </div>
+
+                                                        <span class="upload-title">Choose Signature File</span>
+                                                    
+                                                    <span class="upload-hint"><span class="upload-text"><strong>browse</strong></span> Only PNG, JPG, or JPEG images up to 2MB are allowed.</span>
+
+                                                        <input
+                                                            type="file"
+                                                            name="signature_file"
+                                                            id="signature_file"
+                                                            accept="image/*"
+                                                             class="file-input"
+                                                        >
+                                                      
+                                                    </label>
+                                                      <span class="text-danger error-signature_file"></span>
+                                                    <!-- New Signature Preview -->
+                                                    <div id="signature_preview" class="mt-3"></div>
+
+                                                    <!-- Existing Signature Image -->
+                                                    ${signature_image ? `
+                                                        <div class="signature-existing mt-3"  id="signatureImage">
+                                                           
+                                                            <div class="signature-image-box">
+                                                                <img
+                                                                    src="${signature_image}"
+                                                                    alt="Signature"
+                                                                   
+                                                                >
+                                                            </div>
+                                                            <!-- Existing Signature File -->
+                                                            ${signature_file ? `
+                                                                <div class="existing-file mt-3">
+                                                                    ${signature_file}
+                                                                </div>
+                                                            ` : ''}
+                                                        </div>
+                                                    ` : ''}
+
+                                                    
+
+                                                    
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
 
                               </div>
 
@@ -893,7 +1044,7 @@
                                      <span class="text-danger error-commission_advertising_percent"></span>
                                  </div>
                                  <div class="col-6 mb-3">
-                                       <label class="form-label" for="commission_registration_amount">Massage Centre(Registration)</label>
+                                       <label class="form-label" for="commission_registration_amount">Massage Centre (Registration)</label>
                                         <div class="input-group mb-2">
                                             <div class="input-group-prepend">
                                              <div class="input-group-text form-control left-sign" >$</div>
@@ -905,17 +1056,120 @@
                                  </div>
 
                                        <!-- ==================== File Uploads ==================== -->
-                                       <div class="col-6 mb-3">
-                                             <label class="form-label" for="agreement_file">Agreement File</label>
-                                             <input type="file" name="agreement_file" id="agreement_file">
-                                             <div id="file_preview" class="mt-2"></div>
+                                       <div class="col-12 mb-3">
+                                            <div class="documents-upload-wrapper">
+
+                                                <!-- Section Header -->
+                                                <div class="documents-upload-header mb-4">
+                                                    <h6 class="mb-1 text-blue-primary">
+                                                        Documents & Files
+                                                    </h6>
+                                                    <p class="mb-0 text-muted small">
+                                                        Upload or manage your agreement and signature files.
+                                                    </p>
+                                                </div>
+                                                <div class="row">
+                                                    <!-- Agreement File -->
+                                                    <div class="col-6 mb-4">
+                                                        <div class="document-upload-card">
+                                                            <div class="document-card-header">
+                                                                <div>
+                                                                    <h6 class="mb-1">
+                                                                        Agreement File
+                                                                    </h6>
+                                                                </div>
+                                                            </div>
+
+                                                            <label for="agreement_file" class="file-upload-box">
+                                                                <div class="upload-icon" >
+                                                                    <svg width="25px" height="25px" viewBox="0 0 24 24"
+                                                                        xmlns="http://www.w3.org/2000/svg" fill="none">
+                                                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                                            stroke-linejoin="round"></g>
+
+                                                                        <g id="SVGRepo_iconCarrier">
+                                                                            <path stroke="#ff3c5f" stroke-linecap="round"
+                                                                                stroke-linejoin="round" stroke-width="2"
+                                                                                d="M12 10v9m0-9l3 3m-3-3l-3 3m8.5 2c1.519 0 2.5-1.231 2.5-2.75 0-1.264-.854-2.33-2.016-2.65A5 5 0 008.37 8.108a3.5 3.5 0 00-1.87 6.746">
+                                                                            </path>
+                                                                        </g>
+
+                                                                    </svg>
+                                                                </div>
+                                                                <span class="upload-title"> Choose Agreement File</span>
+                                                                
+                                                                <span class="upload-hint"><span class="upload-text"> <strong>browse</strong>
+                                                        </span>Only PNG, JPG, JPEG, PDF, DOC, DOCX up to 10MB are allowed.</span>
+                                                                <input type="file" class="file-input" name="agreement_file" id="agreement_file">
+                                                            </label>
+                                                            
+                                                            <div id="file_preview" class="mt-2"></div>
+                                                            <span class="text-danger error-agreement_file"></span>
+                                                            
+                                                            </div>
+                                                    </div>
+                                                    <!--  Signature File -->
+                                                        <div class="col-md-6 mb-4">
+                                                            <div class="document-upload-card">
+
+                                                                <div class="document-card-header">
+                                                                
+                                                                    <div>
+                                                                        <h6 class="mb-1">
+                                                                            Signature File
+                                                                        </h6>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Upload Area -->
+                                                                <label
+                                                                    for="signature_file"
+                                                                    class="file-upload-box"
+                                                                >
+                                                                    <div class="upload-icon" >
+                                                                        <svg width="25px" height="25px" viewBox="0 0 24 24"
+                                                                            xmlns="http://www.w3.org/2000/svg" fill="none">
+                                                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                                                stroke-linejoin="round"></g>
+
+                                                                            <g id="SVGRepo_iconCarrier">
+                                                                                <path stroke="#ff3c5f" stroke-linecap="round"
+                                                                                    stroke-linejoin="round" stroke-width="2"
+                                                                                    d="M12 10v9m0-9l3 3m-3-3l-3 3m8.5 2c1.519 0 2.5-1.231 2.5-2.75 0-1.264-.854-2.33-2.016-2.65A5 5 0 008.37 8.108a3.5 3.5 0 00-1.87 6.746">
+                                                                                </path>
+                                                                            </g>
+
+                                                                        </svg>
+                                                                    </div>
+
+                                                                    <span class="upload-title">Choose Signature File</span>
+                                                               
+                                                                <span class="upload-hint"> <span class="upload-text"><strong>browse</strong>
+                                                                </span> Only PNG, JPG, or JPEG images up to 2MB are allowed.</span>
+
+                                                                    <input
+                                                                        type="file"
+                                                                        name="signature_file"
+                                                                        id="signature_file"
+                                                                        accept="image/*"
+                                                                        class="file-input"
+                                                                    >
+                                                                
+                                                                </label>
+                                                                <span class="text-danger error-signature_file"></span>
+                                                                <!-- New Signature Preview -->
+                                                                <div id="signature_preview" class="mt-3"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                        </div>
 
-                                       <div class="col-6 mb-3">
-                                             <label class="form-label" for="signature_file">Upload Signature</label>
-                                             <input type="file" name="signature_file" id="signature_file" accept="image/*">
-                                             <div id="signature_preview" class="mt-2"></div>
-                                       </div>
+
+
+
 
                                     </div>
 
@@ -1002,7 +1256,49 @@
 
             ////////// End Submit Form ////////////////////////
 
+            /* Delete agreement or signature file */
+        $(document).on('click', '.deleteUploadedFile', async function(e) {
 
+           
+            if (await isConfirm({
+                    'action': 'Delete',
+                    'text': ' Are you sure want to delete this file.'
+                })) {
+                swal_waiting_popup({
+                    'title': 'Deleting the file'
+                });
+                var userId = $(this).attr('data-id');
+                var type = $(this).attr('data-type');
+                $.ajax({
+                    url: "{{ route('admin.agent.delete.file') }}",
+                    method: 'POST',
+                    data: {
+                        'userId': userId,
+                        'type': type
+                    },
+                    success: function(response, textStatus, xhr) {
+                        console.log("response:", response.message);
+                        table.ajax.reload(null, false);
+                        Swal.close();
+                        if(response.status) {
+                            displaySwal(xhr);
+                            if(type == 'agreement') {
+                                $("#deleteAgreement, #downloadAgreement").hide();
+                            } else {
+                                $("#downloadSignature, #deleteSignature, #signatureImage").hide();
+                            }
+                        } else {
+                            displaySwal(xhr);  
+                        }
+                    },
+                    error: function(xhr) {
+                        Swal.close();
+                        //swal_error_popup(xhr.responseJSON.message);
+                         displaySwal(xhr);  
+                    }
+                });
+            }
+        })
 
 
 
@@ -1117,5 +1413,7 @@
                 minDate: 0
             });
         });
+
+        
     </script>
 @endpush
