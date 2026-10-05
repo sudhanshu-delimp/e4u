@@ -127,7 +127,7 @@
         <tr>
             <th>Order Date</th>
             <td>
-                {{ !empty($order->order_date) ? date('d-m-y, h:i A', strtotime($order->order_date)) : 'N/A' }}
+                {{ !empty($order->order_date) ? convert_aus_date_time_format($order->order_date) : 'N/A' }}
             </td>
         </tr>
 
@@ -283,7 +283,7 @@
             <tr>
                 <th>Payment Date</th>
                 <td>
-                    {{ !empty($payment->paid_at) ? date('d-m-Y, h:i A', strtotime($payment->paid_at)) : 'N/A' }}
+                    {{ !empty($payment->paid_at) ? convert_aus_date_time_format($order->paid_at) : 'N/A' }}
                 </td>
             </tr>
 

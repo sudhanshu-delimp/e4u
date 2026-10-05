@@ -6,6 +6,18 @@
         $type = 'E4U Staff';
         $name = $user['name'];
         $loginUrl = 'admin.login';
+    } elseif ($user->type == '0') {
+        $type = 'Viewer';
+        $name = $user['name'] ?? 'Viewer';
+        $loginUrl = 'viewer.login';
+    } elseif ($user->type == '3') {
+        $type = 'Escort';
+        $name = $user['name'] ?? 'Escort';
+        $loginUrl = 'advertiser.login';
+    } elseif ($user->type == '4') {
+        $type = 'Massage Centre';
+        $name = $user['name'] ?? 'Massage Centre';
+        $loginUrl = 'advertiser.login';
     } elseif ($user->type == '5') {
         $type = 'Agent';
         $name = $user['business_name'];
@@ -69,7 +81,7 @@
                             <table width="100%" cellpadding="5" cellspacing="0"
                                 style="border-collapse: collapse; font-size: 15px; color: #2b3d50;">
                                 <tr>
-                                  @if ($user->type == '5')
+                                  @if (in_array($user->type, ['3','4','5']))
                                     <td style="font-weight: bold; padding: 10px 0px;">Mobile Number:</td>
                                     <td style="padding: 10px 0px 10px 10px">{{ $user['phone'] ?? '' }}</td>
                                     @else
