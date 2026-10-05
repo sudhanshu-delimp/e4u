@@ -203,7 +203,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                             
                         </div>
                         {{-- profile phone --}}
-                        <div class="profile_page_name_and_phno tooltip-wrapper" data-toggle="modal" data-target="#connectModal" data-placement="top" title="Click me to connect">
+                        <div class="profile_page_name_and_phno tooltip-wrapper" data-toggle="modal" data-target="#connectModal" data-placement="top">
                             <p>{{$escort->city->name}} - {{  $escort->phone }}</p>   
                             <div class="tooltip-text">Click me to connect</div>                 
                         </div>
