@@ -11103,7 +11103,7 @@
 }
 
 .connect-action-btn {
-    width: 100%;
+    padding: 10px 20px;
     min-height: 45px;
     display: flex;
     align-items: center;
@@ -11115,6 +11115,13 @@
     font-weight: 600;
     margin-bottom: 10px;
     transition: all 0.2s ease;
+}
+.action-btn-wrapper{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .call-btn {
@@ -11150,6 +11157,9 @@
             .single-blog-item h2 {
                 font-size: 22px;
             }
+            .modal-dialog.custom_top{
+                    top:75px !important;
+                }
             .posts-nav {
                 flex-direction: column;
                 text-align: center;
@@ -11160,6 +11170,10 @@
             .comment-area-box img {
                 width: 50px;
                 height: 50px;
+            }
+            .connect-action-btn {
+                width: 100%;
+                justify-content: center;
             }
         }
         
