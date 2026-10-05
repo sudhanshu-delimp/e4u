@@ -1447,7 +1447,7 @@ label.cabinet input.file {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
-    gap: 24px;
+    gap: 10px;
 }
 
 .stats-card {
