@@ -52,6 +52,16 @@
                         <span class="toogle-eye-password" toggle="#modal_new_password_confirmation"><i
                                 class="fa fa-eye"></i></span>
                     </div>
+
+                    <div class="form-group">
+
+                        <div class="form-check" style="margin:0;">
+                                <input class="form-check-input" type="checkbox" id="send_notification" name="send_notification" value="1">
+                                <label class="form-check-label" for="viewer_contact_type_1">Send Password Update Notification</label>
+                            </div>
+                        <span class="text-danger error-send_notification"></span>
+                       
+                    </div>
                 </div>
 
                 <div class="modal-footer justify-content-end pt-0">
@@ -85,6 +95,7 @@
 
         $(document).on('click', '#updatePassword', function(e) {
             e.preventDefault();
+            //$("#strength-bar").hide();
             $(".error-new_password, .error-new_password_confirmation").text("");
             var modal_new_password = $("#modal_new_password").val();
             var modal_new_password_confirmation = $("#modal_new_password_confirmation").val();
