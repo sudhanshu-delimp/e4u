@@ -280,7 +280,7 @@
                                                 @endforeach
 
                                                 {{-- Start Escort Total --}}
-                                                <tr>
+                                               {{--  <tr>
                                                     <td colspan="4" class="text-right"><strong>Total
                                                             Escorts:</strong></td>
                                                     <td
@@ -303,7 +303,7 @@
 
                                                 <tr>
                                                     <td colspan="7" style="padding:10px"></td>
-                                                </tr>
+                                                </tr> --}}
                                             @endif
                                             {{-- End Escort Total --}}
 
@@ -351,7 +351,7 @@
                                                         $agentMemberId = '';
                                                     @endphp
                                                 @endforeach
-                                                <tr>
+                                                {{-- <tr>
                                                     <td colspan="4" class="text-right"><strong>Total Massage
                                                             Centres:</strong>
                                                     </td>
@@ -371,10 +371,54 @@
                                                             $<span>{{ number_format($totalMassageAgenFee, 2) }}</span>
                                                         </div>
                                                     </td>
-                                                </tr>
+                                                </tr> --}}
                                                 {{-- End massage listing --}}
                                             @endif
                                         @endforeach
+
+                                        {{-- Start Escort Total --}}
+                    <tr>
+                        <td colspan="4" class="text-right"><strong>Total Escorts:</strong></td>
+                        <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold;text-align:center;">
+                            {{ $totalEscortDays }}
+                        </td>
+                        <td
+                            style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:right;">
+                            <div class="num_value">$<span>{{ number_format($totalEscortSpent, 2) }}</span>
+                            </div>
+                        </td>
+                        <td
+                            style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:right;">
+                            <div class="num_value">$<span>{{ number_format($totalEscortAgenFee, 2) }}</span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="7" style="padding:10px"></td>
+                    </tr>
+                {{-- End Escort Total --}}
+                    @if( $totalMassageDays > 0)
+                     <tr>
+                        <td colspan="4" class="text-right"><strong>Total Massage Centres:</strong></td>
+                        <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold;text-align:center;">
+                            {{ $totalMassageDays }}
+                        </td>
+                        <td
+                            style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:center;">
+                            <div class="num_value">$<span>{{ number_format($totalMassageSpent, 2) }}</span>
+                            </div>
+                        </td>
+                        <td
+                            style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:center;">
+                            <div class="num_value">$<span>{{ number_format($totalMassageAgenFee, 2) }}</span>
+                            </div>
+                        </td>
+                    </tr>
+                      <tr>
+                        <td colspan="7" style="padding:10px"></td>
+                    </tr>
+                    @endif
                                     </tbody>
 
                                     <tfoot>
