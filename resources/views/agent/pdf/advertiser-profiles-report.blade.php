@@ -61,6 +61,11 @@
             background: #0b2a4a;
             color: #fff;
         }
+      
+
+
+
+        .num_value span {float: right !important; margin-right: 5px !important;}
     </style>
 </head>
 
@@ -174,13 +179,9 @@
                         </td>
                     @endif
 
-                    <td>
-                        {{ formatCurrency($listingFee) }}
-                    </td>
+                    <td><div class="num_value">$<span> {{ formatCurrency($listingFee, '') }}</span></div></td>
+                    <td><div class="num_value">$<span> {{ formatCurrency($agentFee, '') }}</span>  </div></td>
 
-                    <td>
-                        {{ formatCurrency($agentFee) }}
-                    </td>
                 </tr>
 
             @empty
