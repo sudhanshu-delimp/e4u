@@ -1690,7 +1690,7 @@ class MassageController extends Controller
 
         $today = Carbon::today();
         $massagers = MassagePurchase::with('massageprofile')->where('massage_centre_id', auth()->user()->id)
-            ->whereIn('status', ['expire'])
+            ->whereIn('status', ['expire','cancel'])
             /* ->when($request->isImpersonated, function ($query) use ($request) {
                 $query->where('created_by', $request->impersonatedId);
             }) */
