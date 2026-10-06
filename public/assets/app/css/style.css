@@ -11065,10 +11065,101 @@
             padding: 15px 0px 40px 0px;
         } */
         
+
+    .connect-number-box {
+       display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--off-white);
+}
+
+.connect-number-box span {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+.connect-phone-icon {
+    width: 22px;
+    height: 22px;
+}
+
+.connect-description {
+    margin-bottom: 18px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #666;
+}
+
+.connect-question {
+    margin-bottom: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #222;
+}
+
+.connect-action-btn {
+    padding: 10px 20px;
+    min-height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 7px;
+    text-decoration: none !important;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    transition: all 0.2s ease;
+}
+.action-btn-wrapper{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.call-btn {
+    color: #fff !important;
+    background: var(--peach);
+    border: 1px solid var(--peach);
+}
+
+.call-btn:hover {
+    color: #fff !important;
+    background: #0C223D;
+    border-color: #0C223D;
+}
+
+.sms-btn {
+    color: #0C223D !important;
+    background: #fff;
+    border: 1px solid #0C223D;
+}
+
+.sms-btn:hover {
+    color: #fff !important;
+    background: #0C223D;
+    border-color: #0C223D;
+}
+.sms-btn:hover svg path {
+    stroke: #ffffff;
+}
+.action-icon {
+    font-size: 17px;
+}
         @media (max-width: 768px) {
             .single-blog-item h2 {
                 font-size: 22px;
             }
+            .modal-dialog.custom_top{
+                    top:75px !important;
+                }
             .posts-nav {
                 flex-direction: column;
                 text-align: center;
@@ -11079,6 +11170,10 @@
             .comment-area-box img {
                 width: 50px;
                 height: 50px;
+            }
+            .connect-action-btn {
+                width: 100%;
+                justify-content: center;
             }
         }
         

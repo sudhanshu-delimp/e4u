@@ -309,7 +309,7 @@
                                                             <input class="form-check-input" type="checkbox" name="contact_type[]"
                                                                 id="Method_call_me" value="4"
                                                                 @if (!empty($escort->contact_type)) {{ in_array(4, $escort->contact_type) ? 'checked' : null }} @endif>
-                                                            <label class="form-check-label" for="Method_call_me">Call me</label>
+                                                            <label class="form-check-label" for="Method_call_me">Call Us</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -340,9 +340,9 @@
 
                                                 <div class="inner-field-row">
                                                     <div class="form-group">
-                                                        <label for="">Do you consent, pursuant to clause 13.2 and 13.3 of
-                                                            the Terms and Conditions, to being promoted on any or all of E4U’s
-                                                            social media platforms?</label>
+                                                        <label for="" style="text-transform: unset;">
+                                                            Do you consent, pursuant to clause 13.2 and 13.3 of the Terms and Conditions, to being promoted on any or all of E4U’s social media platforms?
+                                                        </label>
                                                         <div class="radio-options">
 
                                                             <div class="form-check form-check-inline ml-0">

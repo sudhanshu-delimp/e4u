@@ -33,7 +33,7 @@
                     $escortAgenFee = 0;
                     $massageDays =  0;
                     $massageSpent =  0;
-                    $massageSpent =  0;
+                    $massageAgenFee =  0;
 
                 @endphp
                 {{-- Start escort listing --}}
@@ -181,7 +181,7 @@
                     @endforeach
 
                     {{-- Start Escort Total Agent wise --}}
-                    <tr>
+                    {{-- <tr>
                         <td colspan="4" class="text-right"><strong>Escorts:</strong></td>
                         <td style="border-top: 2px solid #444; border-bottom:2px solid #444; font-weight:bold;text-align:center;">
                             {{ $escortDays }}
@@ -200,7 +200,7 @@
 
                     <tr>
                         <td colspan="7" style="padding:10px"></td>
-                    </tr>
+                    </tr> --}}
                      {{-- End Escort Total Agent wise --}}
                 @endif
                
@@ -217,7 +217,7 @@
 
                             $massageDays = $massageDays + $massgeReport['total_days'];
                             $massageSpent = $massageSpent + $massgeReport['total_purchase_amount'];
-                            $massageSpent = $massageSpent + $massgeReport['total_commission_amount'];
+                            $massageAgenFee = $massageAgenFee + $massgeReport['total_commission_amount'];
                         @endphp
 
                         <tr class="accordion-toggle" data-toggle="collapse" data-target="#details3"
@@ -226,7 +226,7 @@
                             <td class="opr_expand_arrow">{{ $massgeReport['user_name'] }}</td>
                             <td>{{ $massgeReport['user_state_name'] }}</td>
                             <td></td>
-                            <td class="text-right">{{ $massgeReport['total_days'] }}</td>
+                            <td class="text-center">{{ $massgeReport['total_days'] }}</td>
                             <td class="text-right">
                                 <div class="num_value">
                                     $<span>{{ number_format($massgeReport['total_purchase_amount'], 2) }}
@@ -247,7 +247,7 @@
                         $agentMemberId = "";
                         @endphp
                     @endforeach
-                    <tr>
+                   {{--  <tr>
                         <td colspan="4" class="text-right"><strong>Massage Centres:</strong></td>
                         <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold;text-align:center;">
                             {{ $massageDays }}
@@ -262,7 +262,7 @@
                             <div class="num_value">$<span>{{ number_format($massageAgenFee, 2) }}</span>
                             </div>
                         </td>
-                    </tr>
+                    </tr> --}}
                     {{-- End massage listing --}}
                 @endif
             @endforeach
@@ -288,7 +288,7 @@
                     <tr>
                         <td colspan="7" style="padding:10px"></td>
                     </tr>
-                     {{-- End Escort Total --}}
+                {{-- End Escort Total --}}
                     @if( $totalMassageDays > 0)
                      <tr>
                         <td colspan="4" class="text-right"><strong>Total Massage Centres:</strong></td>
