@@ -1776,7 +1776,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
             </div>
 
             <!-- Body -->
-            <div class="modal-body">
+            <div class="modal-body pb-0">
 
                 <!-- Mobile Number -->
                 <div class="connect-number-box">
@@ -1795,22 +1795,17 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
 
                 <!-- Explanation -->
                 <p class="connect-description">
-                   You can contact this business directly using their mobile number.
+                    You can contact this person directly using their
+                    mobile number.
                 </p>
 
-              
-
-            </div>
-            <!-- Footer -->
-            <div class="modal-footer text-left justify-content-start pt-0">
-               
-                  <h6 class="connect-question">
+              <h6 class="connect-question">
                     What would you like to do?
                 </h6>
                <div class="action-btn-wrapper">
                     <!-- Call -->
                     <a href="tel:{{ $escort->phone }}"
-                    class="connect-action-btn call-btn">
+                        class="connect-action-btn call-btn">
                         <span class="action-icon"><svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -1830,6 +1825,14 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                         <span>Send a text message</span>
                     </a>
                </div>    
+
+            </div>
+            <!-- Footer -->
+            <div class="modal-footer justify-content-center py-0">
+               <p class="connect-description">
+                    <i> Please let {{ $escortName }} know you found them on E4U.</i>
+                </p>
+                  
             </div>
 
         </div>
