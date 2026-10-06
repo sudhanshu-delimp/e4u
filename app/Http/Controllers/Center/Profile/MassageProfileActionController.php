@@ -100,6 +100,7 @@ class MassageProfileActionController extends BaseController
             $startDate = $request->start_date;
             $endDate = $request->end_date;
             $refund = getMassageSuspendRefundAmount($profileId, $startDate, $endDate);
+            
 
             if($refund)
             {
@@ -162,7 +163,6 @@ class MassageProfileActionController extends BaseController
         }
 
         # calculate credit
-        
         $refundAmount = getMassageSuspendRefundAmount($request->suspend_profile_id, $request->start_date, $request->end_date);
 
         if($refundAmount)
