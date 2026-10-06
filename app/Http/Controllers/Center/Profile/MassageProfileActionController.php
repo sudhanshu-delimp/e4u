@@ -103,7 +103,8 @@ class MassageProfileActionController extends BaseController
 
             if($refund)
             {
-                $gstAmount = getGSTAmount($refund);
+                $gstAmount = 0;
+                //$gstAmount = getGSTAmount($refund);
                 $refundAmountWithGst = $refund + $gstAmount;
             }
 
@@ -166,7 +167,8 @@ class MassageProfileActionController extends BaseController
 
         if($refundAmount)
         {
-            $gstAmount = getGSTAmount($refundAmount);
+            $gstAmount = 0;
+            // $gstAmount = getGSTAmount($refundAmount);
             $refundAmountWithGst = $refundAmount + $gstAmount;
         }
 

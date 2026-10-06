@@ -1155,7 +1155,8 @@ class MassageController extends Controller
                     // Log::info(' $refundAmount============>'. $refundAmount);
 
                     if ($refundAmount > 0) {
-                        $gstAmount = getGSTAmount($refundAmount);
+                        //$gstAmount = getGSTAmount($refundAmount);
+                        $gstAmount = 0;
                         $refundAmountWithGst = $refundAmount + $gstAmount;
                     } else {
                         $refundAmountWithGst = 0;
@@ -1271,7 +1272,8 @@ class MassageController extends Controller
                 $refundAmount = getRefundAmountForCancelProfile($purchase, $refundStartDate, $refundEndDate);
 
                 if ($refundAmount > 0) {
-                    $gstAmount = getGSTAmount($refundAmount);
+                    //$gstAmount = getGSTAmount($refundAmount);
+                    $gstAmount = 0;
                     $refundAmountWithGst = $refundAmount + $gstAmount;
                 } else {
                     $refundAmountWithGst = 0;
@@ -1671,7 +1673,7 @@ class MassageController extends Controller
                 'end_date' =>  $end_date,
                 'days' => $days,
                 'membership' => 'Massage Centre',
-                'fee_paid' => '$ ' . formatIndianNumber($row->final_amount),
+                'fee_paid' => '$ ' . formatIndianNumber($row->paid_rate),
                 'status' =>  '<span class="custom_badge badge_current">Current</span>'
 
             ];
@@ -1716,7 +1718,7 @@ class MassageController extends Controller
                 'end_date' =>  $end_date,
                 'days' => $days,
                 'membership' => 'Massage Centre',
-                'fee_paid' => '$ ' . $row->final_amount,
+                'fee_paid' => '$ ' . $row->paid_rate,
 
             ];
         });
