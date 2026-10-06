@@ -1759,7 +1759,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                             <path d="M5 19.5C5 15.9101 7.91015 13 11.5 13H12.5C16.0899 13 19 15.9101 19 19.5V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V19.5Z" stroke="#ff3c5f" stroke-width="2"></path>
                         </g>
                     </svg>
-                    Contact this Profile
+                    Contact : {{ $escortName }}
                 </h5>
 
                 <button type="button"
@@ -1795,8 +1795,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
 
                 <!-- Explanation -->
                 <p class="connect-description">
-                    You can contact this person directly using their
-                    mobile number.
+                   You can contact this business directly using their mobile number.
                 </p>
 
               

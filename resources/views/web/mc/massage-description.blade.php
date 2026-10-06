@@ -31,7 +31,7 @@
     text-align: center;
     border-radius: 5px;
     font-size: 12px;
-    padding: 2px 5px;
+    padding: 7px 5px;
     position: absolute;
     z-index: 1;
     top:-35px;
@@ -291,8 +291,9 @@ margin-right: 5px;
                         </div>
                         
 
-                        <div class="profile_page_name_and_phno">
+                        <div class="profile_page_name_and_phno tooltip-wrapper" data-toggle="modal" data-target="#connectModal" data-placement="top">
                             <p> {{ get_massage_home_city($listing->user_id) .' - '.formatMobileNumber($listing->phone) }}   </p>
+                            <div class="tooltip-text">Click me to connect</div>
                         </div>
 
                         <div class="profile_page_location_and_id mb-4">
@@ -1871,7 +1872,122 @@ margin-right: 5px;
             <!-- sssssssssssssssss -->
         </div>
     </div>
+    <!-- connectModal -->
+    <div class="modal upload-modal fade" id="connectModal" tabindex="-1"
+        role="dialog" aria-labelledby="connectModalLabel" aria-hidden="true">
 
+        <div class="modal-dialog custom_top" role="document" style="top: 152px;">
+            <div class="modal-content">
+
+                <!-- Header -->
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="connectModalLabel">
+                    <svg width="25px" height="25px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" fill="#000000">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <defs>
+                                            <style>
+                                                .cls-1 {
+
+                                                    fill: none;
+                                                    stroke: #ff3c5f;
+                                                    stroke-miterlimit: 10;
+                                                    stroke-width: 1.91px;
+                                                }
+                                            </style>
+                                        </defs>
+                                        <path class="cls-1" d="M16.41,12.13a3.32,3.32,0,0,0-.9-.13H4.67A3.17,3.17,0,0,0,1.5,15.17v.34a3.17,3.17,0,0,0,3.17,3.17h6.38">
+                                        </path>
+                                        <rect class="cls-1" x="3.41" y="6.27" width="13.36" height="5.73" rx="2.86">
+                                        </rect>
+                                        <rect class="cls-1" x="5.32" y="1.5" width="9.55" height="4.77" rx="2.39">
+                                        </rect>
+                                        <path class="cls-1" d="M20.59,16.77H22.5a0,0,0,0,1,0,0v1.91a3.82,3.82,0,0,1-3.82,3.82H16.77a0,0,0,0,1,0,0V20.59A3.82,3.82,0,0,1,20.59,16.77Z">
+                                        </path>
+                                        <path class="cls-1" d="M19,17.13a3.81,3.81,0,0,0-.89-4l-1.35-1.35-.36.36-1,1a3.79,3.79,0,0,0-.89,4">
+                                        </path>
+                                        <path class="cls-1" d="M14.86,16.77h1.91a0,0,0,0,1,0,0v1.91A3.82,3.82,0,0,1,13,22.5H11a0,0,0,0,1,0,0V20.59A3.82,3.82,0,0,1,14.86,16.77Z" transform="translate(-5.73 33.55) rotate(-90)"></path>
+                                    </g>
+                                </svg>
+                        Contact : {{ $listing->business_name ?? 'N/A' }}
+                    </h5>
+
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+
+                    </button>
+                </div>
+
+                <!-- Body -->
+                <div class="modal-body">
+
+                    <!-- Mobile Number -->
+                    <div class="connect-number-box">
+                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path d="M3 6.5C3 14.5081 9.49187 21 17.5 21C18.166 21 18.8216 20.9551 19.4637 20.8682C20.3747 20.7448 21 19.9292 21 19.01V16.4415C21 15.5807 20.4491 14.8164 19.6325 14.5442L16.4841 13.4947C15.6836 13.2279 14.8252 13.699 14.6206 14.5177C14.3475 15.6102 12.987 15.987 12.1907 15.1907L8.80926 11.8093C8.01301 11.013 8.38984 9.65254 9.48229 9.37943C10.301 9.17476 10.7721 8.31644 10.5053 7.51586L9.45585 4.36754C9.18362 3.55086 8.41934 3 7.55848 3H4.99004C4.0708 3 3.25518 3.62533 3.13185 4.53627C3.0449 5.17845 3 5.83398 3 6.5Z" stroke="#ff3c5f" stroke-width="2" stroke-linejoin="round"></path>
+                            </g>
+                        </svg>
+
+                        <span id="mobileNumber">
+                        {{ formatMobileNumber($listing->phone) }}
+                        </span>
+                    </div>
+
+                    <!-- Explanation -->
+                    <p class="connect-description">
+                    You can contact this business directly using their mobile number.
+                    </p>
+
+                
+
+                </div>
+                <!-- Footer -->
+                <div class="modal-footer text-left justify-content-start pt-0">
+                
+                    <h6 class="connect-question">
+                        What would you like to do?
+                    </h6>
+                <div class="action-btn-wrapper">
+                        <!-- Call -->
+                        <a href="tel:{{ formatMobileNumber($listing->phone) }}"
+                        class="connect-action-btn call-btn">
+                            <span class="action-icon"><svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M3 6.5C3 14.5081 9.49187 21 17.5 21C18.166 21 18.8216 20.9551 19.4637 20.8682C20.3747 20.7448 21 19.9292 21 19.01V16.4415C21 15.5807 20.4491 14.8164 19.6325 14.5442L16.4841 13.4947C15.6836 13.2279 14.8252 13.699 14.6206 14.5177C14.3475 15.6102 12.987 15.987 12.1907 15.1907L8.80926 11.8093C8.01301 11.013 8.38984 9.65254 9.48229 9.37943C10.301 9.17476 10.7721 8.31644 10.5053 7.51586L9.45585 4.36754C9.18362 3.55086 8.41934 3 7.55848 3H4.99004C4.0708 3 3.25518 3.62533 3.13185 4.53627C3.0449 5.17845 3 5.83398 3 6.5Z" stroke="#fff" stroke-width="2" stroke-linejoin="round"></path>
+                                </g>
+                            </svg></span>
+                            <span>Call this number</span>
+                        </a>
+
+                        <!-- SMS -->
+                        <a href="sms:{{ formatMobileNumber($listing->phone) }}"
+                        class="connect-action-btn sms-btn">
+                            <span class="action-icon">
+                                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M8 9.5H15M8 13.5H13M15.3 19.1L21 21L19.1 15.3C19.1 15.3 20 14 20 11.5C20 6.80558 16.1944 3 11.5 3C6.80558 3 3 6.80558 3 11.5C3 16.1944 6.80558 20 11.5 20C14.0847 20 15.3 19.1 15.3 19.1Z" stroke="#0c223d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                            </span>
+                            <span>Send a text message</span>
+                        </a>
+                </div>    
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- end -->
     <!-- model start here 1-->
     <div class="modal fade upload-modal" id="mysendmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
