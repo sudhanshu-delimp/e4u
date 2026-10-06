@@ -1412,11 +1412,6 @@ $ocLavel = 'Developer';
                             style="{{ request()->segment(3) == 'concierge-payments' ? 'color: #FF3C5F;' : '' }}">Concierge
                             Payments</span>
                     </a>
-                    <a class="collapse-item" href="{{ route('admin.credits') }}">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/income.png') }}">
-                        <span
-                            style="{{ request()->segment(3) == 'credits' ? 'color: #FF3C5F;' : '' }}">Credits</span>
-                    </a>
                     <a class="collapse-item" href="{{ route('admin.revenue') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/revenue-2.png') }}">
                         <span

@@ -117,7 +117,7 @@
                            <div class="num_value">↑ $ <span>{{formatCurrency($variation, '' , false)}}</span></div>
                         </span></td>
                      <td><span class="text-success">
-                           <div class="num_value">↑<span> {{ $variation_percentage !== null ? number_format($variation_percentage, 2) . '%' : 0 }}</span></div>
+                           <div class="num_value">↑<span> {{ $variation_percentage !== null ? number_format($variation_percentage, 2) . '%' : 'N/A' }}</span></div>
                         </span></td>
                      <td class="text-right">{{formatCurrency($previousYearCreditAmount, '' , false)}}</td>
                      <td><span class="text-danger">
@@ -151,7 +151,7 @@
                            <div class="num_value">↑ <span>{{formatCurrency($variation, '' , false)}}</span></div>
                         </span></span></td>
                      <td><span class="text-success">
-                           <div class="num_value">↑ <span>{{ $variation_percentage !== null ? number_format($variation_percentage, 2) . '%' : 0 }}</span></div>
+                           <div class="num_value">↑ <span>{{ $variation_percentage !== null ? number_format($variation_percentage, 2) . '%' : 'N/A' }}</span></div>
                         </span></span></td>
                      <td class="text-right"><span class="text-danger">{{formatCurrency($previousYearCreditAmount, '' , false)}}</span></td>
                      <td><span class="text-danger">

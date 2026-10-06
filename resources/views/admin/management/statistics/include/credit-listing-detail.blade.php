@@ -1,42 +1,31 @@
-@php
-    $currentYearCreditAmountNow = stateWalletCredit($key, $currentStart, $currentEndDate, $advertiser);
-    $previousYearCreditAmountNow = stateWalletCredit($key, $previousStart, $previousEndDate, $advertiser);
+@php 
 
-    $variation = $currentYearCreditAmountNow-$previousYearCreditAmountNow;
-    $variation_percentage = $previousYearCreditAmountNow != 0
-    ? (($currentYearCreditAmountNow - $previousYearCreditAmountNow) / $previousYearCreditAmountNow) * 100
-    : null;
+    $CFY_Till_Date_Credit = stateWalletCredit($currentStart, $currentTodayEnd, $key, $advertiser);
+    $LFY_Till_Date_Credit = stateWalletCredit($lastStart, $lastTodayEnd, $key, $advertiser);
 
-    $previousYearCreditAmount = stateWalletCredit($key, $previousStart, $previousEnd, $advertiser);
+    $variation = $CFY_Till_Date_Credit-$LFY_Till_Date_Credit;
+    $variation_percentage = $LFY_Till_Date_Credit != 0 ? (($CFY_Till_Date_Credit - $LFY_Till_Date_Credit) / $LFY_Till_Date_Credit) * 100 : 0;
 
-    $previous_year_variation = $previousYearCreditAmount-$currentYearCreditAmountNow;
-    $previous_year_variation_percentage = $previousYearCreditAmount != 0
-    ? ((previousYearCreditAmount - $currentYearCreditAmountNow) / $currentYearCreditAmountNow) * 100
-    : null;
+    $LFY_Credit = stateWalletCredit($lastStart, $lastEnd, $key, $advertiser);
+    $PFY_Credit = stateWalletCredit($previousStart, $previousEnd, $key, $advertiser);
+
+    $LFY_variation = $LFY_Credit-$PFY_Credit;
+    $LFY_variation_percentage = $PFY_Credit != 0 ? (($LFY_Credit - $PFY_Credit) / $PFY_Credit) * 100 : 0;
+
+    $actual_variation = $CFY_Till_Date_Credit-$LFY_Credit;
+    $actual_variation_percentage = $LFY_Credit != 0 ? (($CFY_Till_Date_Credit - $LFY_Credit) / $LFY_Credit) * 100 : 0;
 @endphp
 <tr class="collapse-row group-{{$key}}">
     <td></td>
     <td>{{$advertiser == 3 ? 'Escorts':'Centers'}}</td>
-    <td class="text-right">{{formatCurrency($currentYearCreditAmountNow, '' , false)}}</td>
-    <td class="text-right">{{formatCurrency($previousYearCreditAmountNow, '' , false)}}</td>
-    <td><span class="text-danger">
-    <div class="num_value">- <span>{{formatCurrency($variation, '' , false)}}</span></div>
-    </span></td>
-    <td><span class="text-danger">
-    <div class="num_value">- <span>{{ $variation_percentage !== null ? number_format($variation_percentage, 2) . '%' : 'N/A' }}</span></div>
-    </span></span></td>
-    <td class="text-right"><span class="text-danger">{{formatCurrency($previousYearCreditAmount, '' , false)}}</span></td>
-    <td><span class="text-danger">
-    <div class="num_value">↓<span> {{formatCurrency($previous_year_variation, '' , false)}}</span></div>
-    </span></td>
-    <td><span class="text-danger">
-    <div class="num_value">↓<span> {{$previous_year_variation_percentage}}</span></div>
-    </span></td>
-    <td></td>
-    <td><span class="text-success">
-    <div class="num_value">↑<span> 235</span></div>
-    </span></td>
-    <td><span class="text-success">
-    <div class="num_value">↑<span> 9.4</span></div>
-    </span></td>
+    <td>{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</td>
+    <td colspan="2">{{formatCurrency($LFY_Till_Date_Credit, '' , false)}}</td>
+    <td >{{formatCurrency($variation, '' , false)}}</td>
+    <td>{{$variation_percentage}}</td>
+    <td colspan="2">{{formatCurrency($LFY_Credit, '' , false)}}</td>
+    <td >{{formatCurrency($LFY_variation, '' , false)}}</td>
+    <td>{{$LFY_variation_percentage}}</td>
+    <td colspan="2">{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</td>
+    <td >{{formatCurrency($actual_variation, '' , false)}}</td>
+    <td>{{$actual_variation_percentage}}</td>
 </tr>

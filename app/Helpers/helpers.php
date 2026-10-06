@@ -3413,15 +3413,80 @@ if (!function_exists('formatBSBNumber')) {
 }
 
 if (!function_exists('stateWalletCredit')) {
-    function stateWalletCredit($stateId, $startDate, $endDate, $advertiserType = null)
+    function stateWalletCredit($startDate, $endDate,$stateId = null, $advertiserType = null)
     {
         $walletService = app(\App\Services\WalletService::class);
 
         return $walletService->getStateCredit(
-            $stateId,
             $startDate,
             $endDate,
+            $stateId,
             $advertiserType
         );
     }
 }
+
+
+if (!function_exists('getFinancialYear')) {
+    function getFinancialYear()
+    {
+        $now = Carbon::now('UTC');
+        $australiaTimeNow = getAustraliaTime($now);
+
+        // Determine the current financial year start
+        $currentFYStart = $australiaTimeNow->copy();
+
+        if ($australiaTimeNow->month < 7) {
+            $currentFYStart->subYear();
+        }
+
+        $currentStart = $currentFYStart->copy()
+        ->setMonth(7)
+        ->startOfMonth()
+        ->startOfDay()
+        ->utc();
+
+        $currentEnd = $currentStart->copy()
+        ->addYear()
+        ->subDay()
+        ->endOfDay()
+        ->utc();
+
+
+        // Previous financial year
+        $lastStart = $currentStart->copy()
+        ->subYear();
+
+        $lastEnd = $lastStart->copy()
+        ->addYear()
+        ->subDay()
+        ->endOfDay()
+        ->utc();
+
+
+        // Financial year before previous
+        $previousStart = $currentStart->copy()
+        ->subYears(2);
+
+        $previousEnd = $previousStart->copy()
+        ->addYear()
+        ->subDay()
+        ->endOfDay()
+        ->utc();
+
+
+        // Today end
+        $todayEnd = $australiaTimeNow->copy()
+        ->endOfDay()
+        ->utc();
+
+        // Last year's same date end
+        $lastTodayEnd = $australiaTimeNow->copy()
+        ->subYear()
+        ->endOfDay()
+        ->utc();
+
+        return compact('currentStart','currentEnd','lastStart','lastEnd','previousStart','previousEnd','todayEnd','lastTodayEnd');
+    }
+}
+
