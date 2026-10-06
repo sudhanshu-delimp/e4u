@@ -20,7 +20,7 @@
         text-align: center;
         border-radius: 5px;
         font-size: 12px;
-        padding: 2px 5px;
+        padding: 7px;
         position: absolute;
         z-index: 1;
         bottom: 110%; /* tooltip upar show ho */
@@ -203,7 +203,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                             
                         </div>
                         {{-- profile phone --}}
-                        <div class="profile_page_name_and_phno tooltip-wrapper" data-toggle="modal" data-target="#connectModal" data-placement="top" title="Click me to connect">
+                        <div class="profile_page_name_and_phno tooltip-wrapper" data-toggle="modal" data-target="#connectModal" data-placement="top">
                             <p>{{$escort->city->name}} - {{  $escort->phone }}</p>   
                             <div class="tooltip-text">Click me to connect</div>                 
                         </div>
@@ -1759,7 +1759,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                             <path d="M5 19.5C5 15.9101 7.91015 13 11.5 13H12.5C16.0899 13 19 15.9101 19 19.5V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V19.5Z" stroke="#ff3c5f" stroke-width="2"></path>
                         </g>
                     </svg>
-                    Contact this Profile
+                    Contact : {{ $escortName }}
                 </h5>
 
                 <button type="button"
@@ -1776,7 +1776,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
             </div>
 
             <!-- Body -->
-            <div class="modal-body">
+            <div class="modal-body pb-0">
 
                 <!-- Mobile Number -->
                 <div class="connect-number-box">
@@ -1799,19 +1799,13 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                     mobile number.
                 </p>
 
-              
-
-            </div>
-            <!-- Footer -->
-            <div class="modal-footer text-left justify-content-start pt-0">
-               
-                  <h6 class="connect-question">
+              <h6 class="connect-question">
                     What would you like to do?
                 </h6>
                <div class="action-btn-wrapper">
                     <!-- Call -->
                     <a href="tel:{{ $escort->phone }}"
-                    class="connect-action-btn call-btn">
+                        class="connect-action-btn call-btn">
                         <span class="action-icon"><svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -1831,6 +1825,14 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                         <span>Send a text message</span>
                     </a>
                </div>    
+
+            </div>
+            <!-- Footer -->
+            <div class="modal-footer justify-content-center py-0">
+               <p class="connect-description">
+                    <i> Please let {{ $escortName }} know you found them on E4U.</i>
+                </p>
+                  
             </div>
 
         </div>

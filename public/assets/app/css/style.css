@@ -11071,7 +11071,7 @@
     align-items: center;
     gap: 10px;
     padding: 12px 15px;
-    margin-bottom: 15px;
+    margin-bottom: 7px;
     border: 1px solid var(--border-color);
     border-radius: 8px;
     background: var(--off-white);
@@ -11089,12 +11089,14 @@
 }
 
 .connect-description {
-    margin-bottom: 18px;
+    margin-bottom: 15px;
     font-size: 14px;
     line-height: 1.5;
     color: #666;
 }
-
+.connect-description i{
+    color: #666;
+}
 .connect-question {
     margin-bottom: 12px;
     font-size: 15px;
