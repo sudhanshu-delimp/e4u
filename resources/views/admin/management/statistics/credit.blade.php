@@ -6,6 +6,13 @@
        vertical-align: middle !important;
        text-align: center;
    }
+   .num_value {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 0px;
+    gap: 15px;
+}
 </style>
 @endsection
 @section('content')
@@ -59,7 +66,7 @@
 
                <thead style="background-color: #0c223d; color: white; text-align: center;">
                   <tr style="border: 1px solid white;">
-                     <th colspan="7" style="border: 1px solid white;">Year to Year Variation <br>(Days: 158)</th>
+                     <th colspan="7" style="border: 1px solid white;">Year to Year Variation <br>(Days: {{$daysTillToday}})</th>
                      <th colspan="4" style="border: 1px solid white;">Total Credits<br> (Last FY)</th>
                      <th colspan="4" style="border: 1px solid white;">Actual Credits<br> (Overall)</th>
                   </tr>
@@ -90,10 +97,18 @@
                            <div class="d-flex align-items-center justify-content-between font-weight-bold"><span>Total Summary</span> <i class="fa fa-chevron-down"></i></div>
                      </td>
                   </tr>
+                  @php 
+                  $CFY_Till_Date_Credit_Total = 0.00;
+                  $LFY_Till_Date_Credit_Total = 0.00;
+                  $variation_Total = 0.00;
+                  $LFY_Credit_Total = 0.00;
+                  $LFY_variation_Total = 0.00;
+                  $PFY_Credit_Total = 0.00;
+                  $actual_variation_Total = 0.00;
+                  @endphp
                   @foreach($states as $key=>$state)
                   <!-- GROUP start -->
-                   @php 
-
+                   @php
                      $CFY_Till_Date_Credit = stateWalletCredit($currentStart, $currentTodayEnd, $key);
                      $LFY_Till_Date_Credit = stateWalletCredit($lastStart, $lastTodayEnd, $key);
 
@@ -108,6 +123,18 @@
 
                      $actual_variation = $CFY_Till_Date_Credit-$LFY_Credit;
                      $actual_variation_percentage = $LFY_Credit != 0 ? (($CFY_Till_Date_Credit - $LFY_Credit) / $LFY_Credit) * 100 : 0;
+
+                     /* Total Section */
+                     $CFY_Till_Date_Credit_Total = $CFY_Till_Date_Credit_Total + $CFY_Till_Date_Credit;
+                     $LFY_Till_Date_Credit_Total = $LFY_Till_Date_Credit_Total + $LFY_Till_Date_Credit;
+                     $variation_Total = $variation_Total + $variation;
+                     $variation_percentage_Total = $LFY_Till_Date_Credit_Total != 0 ? (($CFY_Till_Date_Credit_Total - $LFY_Till_Date_Credit_Total) / $LFY_Till_Date_Credit_Total) * 100 : 0;
+                     $LFY_Credit_Total = $LFY_Credit_Total + $LFY_Credit;
+                     $PFY_Credit_Total = $PFY_Credit_Total + $PFY_Credit;
+                     $LFY_variation_Total = $LFY_variation_Total + $LFY_variation;
+                     $LFY_variation_percentage_Total = $PFY_Credit != 0 ? (($LFY_Credit_Total - $PFY_Credit_Total) / $PFY_Credit_Total) * 100 : 0;
+                     $actual_variation_Total = $CFY_Till_Date_Credit_Total - $LFY_Credit_Total;
+                     $actual_variation_percentage_Total = $LFY_Credit_Total != 0 ? (($CFY_Till_Date_Credit_Total - $LFY_Credit_Total) / $LFY_Credit_Total) * 100 : 0;
                    @endphp
                   <tr data-toggle="toggle-row" data-target=".group-{{$key}}" data-parent="#collapse-accordion" style="cursor: pointer;">
                      <td>
@@ -115,16 +142,16 @@
                            <i class="fa fa-chevron-down"></i></div>
                      </td>
                      <td>All</td>
-                     <td>{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</td>
-                     <td colspan="2">{{formatCurrency($LFY_Till_Date_Credit, '' , false)}}</td>
-                     <td >{{formatCurrency($variation, '' , false)}}</td>
-                     <td>{{$variation_percentage}}</td>
+                     <td><div class="num_value">$<span>{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</span></div></td>
+                     <td colspan="2"><div class="num_value">$<span>{{formatCurrency($LFY_Till_Date_Credit, '' , false)}}</div></td>
+                     <td ><div class="num_value">{!! getReportIcon($variation) !!} $<span>{{formatCurrency($variation, '' , false)}}</span></div></td>
+                     <td><div class="num_value">{!! getReportIcon($variation_percentage) !!} {{$variation_percentage}}</div></td>
                      <td colspan="2">{{formatCurrency($LFY_Credit, '' , false)}}</td>
-                     <td >{{formatCurrency($LFY_variation, '' , false)}}</td>
-                     <td>{{$LFY_variation_percentage}}</td>
+                     <td ><div class="num_value">{!! getReportIcon($LFY_variation) !!} {{formatCurrency($LFY_variation, '' , false)}}</div></td>
+                     <td><div class="num_value">{!! getReportIcon($LFY_variation_percentage) !!} {{$LFY_variation_percentage}}</div></td>
                      <td colspan="2">{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</td>
-                     <td >{{formatCurrency($actual_variation, '' , false)}}</td>
-                     <td>{{$actual_variation_percentage}}</td>
+                     <td ><div class="num_value">{!! getReportIcon($actual_variation) !!} {{formatCurrency($actual_variation, '' , false)}}</div></td>
+                     <td><div class="num_value">{!! getReportIcon($actual_variation_percentage) !!} {{$actual_variation_percentage}}</div></td>
                   </tr>
                   <!-- middle Content -->
                   @foreach(['3','4'] as $advertiser)
@@ -136,37 +163,34 @@
                      <td>Total</td>
                      <td>{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</td>
                      <td colspan="2">{{formatCurrency($LFY_Till_Date_Credit, '' , false)}}</td>
-                     <td >{{formatCurrency($variation, '' , false)}}</td>
-                     <td>{{$variation_percentage}}</td>
+                     <td ><div class="num_value">{!! getReportIcon($variation) !!} {{formatCurrency($variation, '' , false)}}</div></td>
+                     <td><div class="num_value">{!! getReportIcon($variation_percentage) !!} {{$variation_percentage}}</div></td>
                      <td colspan="2">{{formatCurrency($LFY_Credit, '' , false)}}</td>
-                     <td >{{formatCurrency($LFY_variation, '' , false)}}</td>
-                     <td>{{$LFY_variation_percentage}}</td>
+                     <td><div class="num_value">{!! getReportIcon($LFY_variation) !!} {{formatCurrency($LFY_variation, '' , false)}}</div></td>
+                     <td><div class="num_value">{!! getReportIcon($LFY_variation_percentage) !!} {{$LFY_variation_percentage}}</div></td>
                      <td colspan="2">{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</td>
-                     <td >{{formatCurrency($actual_variation, '' , false)}}</td>
-                     <td>{{$actual_variation_percentage}}</td>
+                     <td ><div class="num_value">{!! getReportIcon($actual_variation) !!} {{formatCurrency($actual_variation, '' , false)}}</div></td>
+                     <td><div class="num_value">{!! getReportIcon($actual_variation_percentage) !!} {{$actual_variation_percentage}}</div></td>
                   </tr>
                   <!-- end  -->
                    @endforeach
                   <!-- Total Summary -->
                   <tr class="font-weight-bold">
                      <td>
-
                      </td>
                      <td>Total</td>
-                     <td>1,258</td>
-                     <td colspan="2">[total]</td>
-                     <td>[total]</td>
-                     <td>[total]</td>
-                     <td colspan="2">[sum]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     <td colspan="2">[sum]</td>
-                     <td>[sum]</td>
-                     <td>[total]</td>
-                     
+                     <td>{{formatCurrency($CFY_Till_Date_Credit_Total, '' , false)}}</td>
+                     <td colspan="2">{{formatCurrency($LFY_Till_Date_Credit_Total, '' , false)}}</td>
+                     <td><div class="num_value">{!! getReportIcon($variation_Total) !!} {{formatCurrency($variation_Total, '' , false)}}</div></td>
+                     <td><div class="num_value">{!! getReportIcon($variation_percentage_Total) !!} {{$variation_percentage_Total}}</div></td>
+                     <td colspan="2">{{formatCurrency($LFY_Credit_Total, '' , false)}}</td>
+                     <td><div class="num_value">{!! getReportIcon($LFY_variation_Total) !!} {{formatCurrency($LFY_variation_Total, '' , false)}}</div></td>
+                     <td><div class="num_value">{!! getReportIcon($LFY_variation_percentage_Total) !!} {{$LFY_variation_percentage_Total}}</div></td>
+                     <td colspan="2">{{formatCurrency($CFY_Till_Date_Credit_Total, '' , false)}}</td>
+                     <td><div class="num_value">{!! getReportIcon($actual_variation_Total) !!} {{formatCurrency($actual_variation_Total, '' , false)}}</div></td>
+                     <td><div class="num_value">{!! getReportIcon($actual_variation_percentage_Total) !!} {{$actual_variation_percentage_Total}}</div></td>
                   </tr>
                </tbody>
-
          </table>
          </div>
      </div>
@@ -174,7 +198,6 @@
      <div class="col-md-12">
         <div class="timer_section">
                <p>Server time: <span class="serverTime">10:23:51 am</span></p>
-               <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
                <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
             </div>
        </div>
@@ -210,18 +233,7 @@
                 }
             });
 
-            let countdown = 15;
-            setInterval(() => {
-                countdown--;
-                $(".refreshSeconds").text(' '+countdown);
-
-                if (countdown <= 0) {
-                    //$('#escort_listings').DataTable().ajax.reload(null, false);
-                    countdown = 15;
-                    
-                }
-
-            }, 1000);
+            
       });
 
         $(document).ready(function() {
