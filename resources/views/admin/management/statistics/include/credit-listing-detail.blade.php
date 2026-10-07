@@ -18,14 +18,16 @@
 <tr class="collapse-row group-{{$key}}">
     <td></td>
     <td>{{$advertiser == 3 ? 'Escorts':'Centers'}}</td>
-    <td>{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</td>
+    <td><div class="num_value">$<span>{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</div></td>
     <td colspan="2">{{formatCurrency($LFY_Till_Date_Credit, '' , false)}}</td>
     <td >{{formatCurrency($variation, '' , false)}}</td>
     <td>{{$variation_percentage}}</td>
-    <td colspan="2">{{formatCurrency($LFY_Credit, '' , false)}}</td>
+
+    <td colspan="2"><div class="num_value">$<span>{{formatCurrency($LFY_Credit, '' , false)}}</div></td>
     <td >{{formatCurrency($LFY_variation, '' , false)}}</td>
     <td>{{$LFY_variation_percentage}}</td>
-    <td colspan="2">{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</td>
+
+    <td colspan="2"><div class="num_value">$<span>{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</div></td>
     <td >{{formatCurrency($actual_variation, '' , false)}}</td>
     <td>{{$actual_variation_percentage}}</td>
 </tr>

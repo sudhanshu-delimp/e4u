@@ -3486,7 +3486,22 @@ if (!function_exists('getFinancialYear')) {
         ->endOfDay()
         ->utc();
 
-        return compact('currentStart','currentEnd','lastStart','lastEnd','previousStart','previousEnd','todayEnd','lastTodayEnd');
+        $daysTillToday = $currentStart->copy()
+        ->diffInDays($todayEnd) + 1;
+
+        return compact('currentStart','currentEnd','lastStart','lastEnd','previousStart','previousEnd','todayEnd','lastTodayEnd','daysTillToday');
+    }
+}
+
+function getReportIcon($value = 0.00){
+    if($value > 0){
+        return '<i class="fa fa-arrow-up text-success" style="font-size: 8px;"></i>&nbsp;';
+    }
+    else if($value < 0){
+        return '<i class="fa fa-arrow-down text-danger" style="font-size: 8px;"></i>&nbsp;';
+    }
+    else{
+        return '<i class="fa fa-minus text-warning" style="font-size: 8px;"></i>&nbsp;';
     }
 }
 

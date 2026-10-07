@@ -37,21 +37,6 @@ class StatisticsController extends Controller
     {
         $states = config('escorts.profile.states');
         
-        // $now = Carbon::now('UTC');
-        // $australiaTimeNow = getAustraliaTime($now);
-
-        // $currentStart = $australiaTimeNow->copy()->startOfYear()->utc();
-        // $currentEndDate   = $australiaTimeNow->copy()->endOfDay()->utc();
-
-
-        // $lastNow = $australiaTimeNow->copy()->subYear();
-        // $lastStart = $lastNow->copy()->startOfYear()->utc();
-        // $lastEndDate   = $lastNow->copy()->endOfDay()->utc();
-        // $lastEnd   = $lastNow->copy()->endOfYear()->utc();
-
-        // $previousNow = $australiaTimeNow->copy()->subYears(2);
-        // $previousStart = $previousNow->copy()->startOfYear()->utc();
-        // $previousEnd   = $previousNow->copy()->endOfYear()->utc();
         $financialYear = getFinancialYear();
 
         $currentStart = $financialYear['currentStart'];
@@ -65,8 +50,9 @@ class StatisticsController extends Controller
 
         $currentTodayEnd = $financialYear['todayEnd'];
         $lastTodayEnd = $financialYear['lastTodayEnd'];
+        $daysTillToday = $financialYear['daysTillToday'];
 
-        return view('admin.management.statistics.credit', compact('states', 'currentStart', 'currentEnd', 'lastStart', 'lastEnd', 'previousStart', 'previousEnd', 'currentTodayEnd','lastTodayEnd'));
+        return view('admin.management.statistics.credit', compact('states', 'currentStart', 'currentEnd', 'lastStart', 'lastEnd', 'previousStart', 'previousEnd', 'currentTodayEnd','lastTodayEnd','daysTillToday'));
     }
 
     public function emailReport()
