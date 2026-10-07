@@ -37,8 +37,8 @@
     <div class="col-md-12"> 
         <div class="row my-3">
             <div class="col-lg-4 col-md-12 col-sm-12"></div>
-            <div class="col-lg-8 col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
-              
+            <div class="col-lg-8 col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 20px;">
+               <a href="" class="text-white btn-cancel-modal">Refresh</a>
                 <div class="total_listing">
                     <div><span>Total Credit (CFY) : </span></div>
                     <div><span>{{formatCurrency(stateWalletCredit($currentStart, $currentTodayEnd))}}</span></div>
@@ -202,10 +202,7 @@
      </div>
 
      <div class="col-md-12">
-        <div class="timer_section">
-               <p>Server time: <span class="serverTime">10:23:51 am</span></p>
-               <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
-            </div>
+        @include('partials.common.table-footer-timer',['refresh'=>false])
        </div>
    </div>
    
@@ -214,12 +211,12 @@
 </div>
 @endsection
 @push('script')
-
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
+   console.log('parent');
       $(document).ready(function() {
             let isHidden = false;
 
