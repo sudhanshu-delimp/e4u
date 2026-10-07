@@ -83,6 +83,7 @@
                 <table class="table pin-table" id="pinUpListingTable">
                     <thead class="table-bg">
                         <tr>
+                            <th>Profile ID</th>
                             <th>Member ID</th>
                             <th>Profile ID</th>
                             <th>Profile Name</th>
@@ -107,7 +108,7 @@
                             <th colspan="1" class="text-center">
                                 Refresh time:<span id="refresh_time">--</span>
                             </th>
-                            <th colspan="4" class="text-right">
+                            <th colspan="5" class="text-right">
                                 Up time: <span id="server_up_time">--</span>
                             </th>
                         </tr>
@@ -189,7 +190,14 @@
                 // keep it directly below timer
                 $customContainer.insertAfter($timerSection);
             },
-            columns: [{
+            columns: [
+                {
+                    data: 'slug',
+                    name: 'slug',
+                    searchable: true,
+                    orderable: true
+                },
+                {
                     data: 'member_id'
                 },
                 {
