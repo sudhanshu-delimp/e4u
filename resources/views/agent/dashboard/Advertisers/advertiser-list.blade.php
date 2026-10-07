@@ -83,15 +83,15 @@
 
                                 <div class="total_listing">
                                     <div><span>Escorts : </span></div>
-                                    <div><span class="">01</span></div>
+                                    <div><span class="ec-count">01</span></div>
                                 </div>
                                 <div class="total_listing">
                                     <div><span>Centres : </span></div>
-                                    <div><span class="">0</span></div>
+                                    <div><span class="mc-count">0</span></div>
                                 </div>
                                 <div class="total_listing">
                                     <div><span>Total Advertisers : </span></div>
-                                    <div><span class="">01</span></div>
+                                    <div><span class="both-count">01</span></div>
                                 </div>
                             </div>
                         </div>
@@ -433,22 +433,22 @@
                     <h5 class="modal-title" id="viewAccountModal">
                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
-                                                    </g>
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                            </g>
 
-                                                    <g id="SVGRepo_iconCarrier">
+                            <g id="SVGRepo_iconCarrier">
 
-                                                        <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        </path>
+                                <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
 
-                                                        <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        </path>
+                                <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
 
-                                                    </g>
+                            </g>
 
-                                                </svg>
-                        Summary
+                        </svg>
+                        Advertiser Summary
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -468,33 +468,33 @@
                                     <tbody>
                                         <tr style="text-align:left; border: 1px solid #ccc; padding: 8px;">
                                             <td colspan="2">
-                                                <img src="{{ asset('assets/dashboard/img/no-image-light.png') }}" alt="thumbnail" style="width:100px;">
+                                                <img src="{{ asset('assets/dashboard/img/no-image-light.png') }}" id="escort-thumbnail" alt="thumbnail" style="width:100px;">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td style="text-align:left; border: 1px solid #ccc; padding: 8px;">
                                                 <strong>Member ID</strong></td>
-                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">E20118</td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;" id="member-id">E20118</td>
                                         </tr>
                                         <tr>
                                             <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Name</strong></td>
-                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">Kendra Kayy</td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;"  id="escort-name">Kendra Kayy</td>
                                         </tr>
                                         <tr>
                                             <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Mobile</strong></td>
-                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">1438 028 740</td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;"  id="escort-phone">1438 028 740</td>
                                         </tr>
                                         <tr>
                                             <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Email</strong></td>
-                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">Kendra740@e4u.com.au</td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;" id="escort-email" >Kendra740@e4u.com.au</td>
                                         </tr>
                                         <tr>
                                             <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Home State</strong></td>
-                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">NSW</td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;" id="escort-state" >NSW</td>
                                         </tr>
                                         <tr>
                                             <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Appointed</strong></td>
-                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">12-01-2026</td>
+                                            <td style="border: 1px solid #ccc; padding: 8px; text-align:left;"  id="escort-appointed">12-01-2026</td>
                                         </tr>
 
                                     </tbody>
@@ -505,13 +505,14 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="btn-success-modal nex_sterp_btn print_payment_summary text-white"
-                        target="_blank">🖨️ Print Summary</a>
+                    <a href="#" class="btn-success-modal nex_sterp_btn print_escort_info text-white"
+                        target="_blank" data-escort-id="">🖨️ Print Summary</a>
                     <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+
 @endsection
 
 @push('script')
@@ -541,9 +542,25 @@
                     type: 'GET',
                     data: function(d) {
                         d.type = 'player';
+                    },
+                     dataSrc: function(json) {
+
+                        console.log('AJAX RESPONSE:', json);
+                        console.log('REQUEST COUNT:', json.requestCount);
+
+                        let escortCount = parseInt(json.requestCount?.Escort ?? 0);
+                        let mcCount = parseInt(json.requestCount?.MC ?? 0);
+
+                        $('.ec-count').text(escortCount.toString().padStart(2, '0'));
+                        $('.mc-count').text(mcCount.toString().padStart(2, '0'));
+                        $('.both-count').text(
+                            (escortCount + mcCount).toString().padStart(2, '0')
+                        );
+
+                        return json.data;
                     }
                 },
-
+       
                 columns: [{
                         data: 'member_id',
                         name: 'member_id',
@@ -615,7 +632,8 @@
                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" style="height:auto !important;">
                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)"  onclick="return switchAccount('${row.switch_account_route}', '${row.switch_confirm_message}');">
                     <i class="fa fa-random"></i> Switch To</a>
-                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#viewAccountModal"><i class="fa fa-eye"></i>Summary</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-member_id="${row.member_id}" data-name="${row.name}" data-mobile="${row.phone}" data-mobile="${row.phone}" data-appointed_date="${row.agent_assign_date}" data-home_state="${row.home_state}" data-email="${row.email}" data-escort-thumbnail="${row.avatar_img}" data-escort-id="${row.id}" data-toggle="modal" data-target="#viewAccountModal"><i class="fa fa-eye"></i>Summary</a>
                    <!--a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#createProfileModal"><i class="fa fa-plus"></i> Create Profile</a>
                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#editProfileModal"><i class="fa fa-pen"></i> Edit Profile</a>
                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="/agent/profile/list/${row.member_id}"><i class="fa fa-list"></i> List Profile</a>
@@ -643,6 +661,7 @@
                 order: [
                     [0, 'desc']
                 ],
+                
 
             });
         });
@@ -677,5 +696,34 @@
             }
             return false;
         }
+
+
+        $(document).on('click', '.dropdown-item[data-target="#viewAccountModal"]', function () {
+            let escortId = $(this).data('escort-id');
+            let memberId = $(this).data('member_id');
+            let name = $(this).data('name');
+            let mobile = $(this).data('mobile');
+            let email = $(this).data('email');
+            let HomeState = $(this).data('home_state');
+            let appointedDate = $(this).data('appointed_date');
+            let escortThumbnail = $(this).data('escort-thumbnail');
+
+            let date = new Date(appointedDate.replace(' ', 'T'));
+
+            let formattedDate =
+                String(date.getDate()).padStart(2, '0') + '-' +
+                String(date.getMonth() + 1).padStart(2, '0') + '-' +
+                date.getFullYear();
+
+            $('#member-id').html(memberId);
+            $('#escort-name').html(name);
+            $('#escort-phone').html(mobile);
+            $('#escort-email').html(email);
+            $('#escort-state').html(HomeState);
+            $('#escort-appointed').html(formattedDate);
+            $('#escort-thumbnail').attr('src' , escortThumbnail ? '/avatars/'+escortThumbnail : '/assets/dashboard/img/no-image-light.png');
+            $('.print_escort_info').attr('data-escort-id', escortId);
+            $('.print_escort_info').attr('href', 'print-advertiser-report/'+escortId);
+        });
     </script>
 @endpush

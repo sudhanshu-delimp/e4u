@@ -13,7 +13,7 @@
                 <h5 class="modal-title" id="changePasswordLabel">
                     <img src="{{ asset('assets/dashboard/img/reset-password.png') }}" alt=""
                         class="custompopicon">
-                    Reset Password
+                    Reset Password : {{ auth()->user()->member_id }}
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -21,7 +21,7 @@
                 </button>
             </div>
 
-            <form  name="change_Password_form" id="change_Password_form">
+            <form  name="change_Password_form" id="change_Password_form" class="common-form">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group toogle_eye_form_wrap">
@@ -52,11 +52,22 @@
                         <span class="toogle-eye-password" toggle="#modal_new_password_confirmation"><i
                                 class="fa fa-eye"></i></span>
                     </div>
+
+                    <div class="form-group">
+
+                        <div class="form-check" style="margin:0;">
+                                <input class="form-check-input" type="checkbox" id="send_notification" name="send_notification" value="1">
+                                <label class="form-check-label" for="send_notification">Send Password Update Notification</label>
+                            </div>
+                        <span class="text-danger error-send_notification"></span>
+                       
+                    </div>
                 </div>
 
                 <div class="modal-footer justify-content-end pt-0">
 
                     <button type="button" id="updatePassword" class="btn-success-modal">Reset Password</button>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="btn-success-modal close">Cancel</button>
                 </div>
             </form>
             <div class="mt-3" id="divErros"></div>
@@ -75,7 +86,7 @@
         $(document).on('click', '.update_password', function() {
             $('#updatePassword').prop('disabled', false).text('Reset Password');
             let id = $(this).data('id');
-            $("#user_id").val(id);
+            $("#change_Password_users #user_id").val(id);
             $('#change_Password_users').modal({
                 backdrop: 'static',
                 keyboard: false
@@ -85,6 +96,7 @@
 
         $(document).on('click', '#updatePassword', function(e) {
             e.preventDefault();
+            //$("#strength-bar").hide();
             $(".error-new_password, .error-new_password_confirmation").text("");
             var modal_new_password = $("#modal_new_password").val();
             var modal_new_password_confirmation = $("#modal_new_password_confirmation").val();
@@ -258,7 +270,11 @@
             }
         });
 
-
+     $('form[name="change_Password_form"]')
+        .closest('.modal')
+        .on('shown.bs.modal', function () {
+            $('#modal_current_password').focus();
+        });
     });
 </script>
 @endpush

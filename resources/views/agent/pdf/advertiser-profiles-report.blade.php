@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>Profile Report</title>
+    <title>Listing Report</title>
 
     <style>
         body {
@@ -61,29 +61,32 @@
             background: #0b2a4a;
             color: #fff;
         }
+      
+
+
+
+        .num_value span {float: right !important; margin-right: 5px !important;}
     </style>
 </head>
 
 <body>
 
-    <div class="header">
-        <h2>Profile Report</h2>
+    <div class="header"> 
+        <h2>Listing Report - {{   $advertiserType == 'massage' ?  ucfirst($advertiserType). ' Centre' : ucfirst($advertiserType) }}</h2>
 
-        <div>
-            <h3>{{ ucfirst($advertiserType) }} </h3>
-        </div>
+       
     </div>
 
-    <div class="info">
+    <!-- <div class="info">
         <strong>Period :</strong>
         {{ $fromDate }} to {{ $toDate }}
-    </div>
+    </div> -->
 
     <table>
         <thead>
             <tr>
                 <th>#</th>
-                <th>Member ID</th>
+                <th>Member ID </th>
                 <th>Name</th>
                 <th>Mobile</th>
                 <th>Start Date</th>
@@ -176,13 +179,9 @@
                         </td>
                     @endif
 
-                    <td>
-                        {{ formatCurrency($listingFee) }}
-                    </td>
+                    <td><div class="num_value">$<span> {{ formatCurrency($listingFee, '') }}</span></div></td>
+                    <td><div class="num_value">$<span> {{ formatCurrency($agentFee, '') }}</span>  </div></td>
 
-                    <td>
-                        {{ formatCurrency($agentFee) }}
-                    </td>
                 </tr>
 
             @empty

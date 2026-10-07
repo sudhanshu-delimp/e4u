@@ -104,13 +104,13 @@
                                 <table class="table mb-0 common_accordian_table">
                                     <thead class="table-bg modal-thaed">
                                         <tr>
-                                            <td class="font-weight-bold">Agent ID</th>
-                                            <td class="font-weight-bold">Name</th>
+                                            <td class="font-weight-bold text-left">Agent ID</th>
+                                            <td class="font-weight-bold text-left">Name</th>
                                             <td class="font-weight-bold">Territory</th>
                                            <td class="font-weight-bold">Type</th>
-                                            <td class="font-weight-bold text-right">Days</th>
-                                            <td class="font-weight-bold text-right">Spend</th>
-                                           <td class="font-weight-bold text-right">Fee</th>
+                                            <td class="font-weight-bold">Days</th>
+                                            <td class="font-weight-bold">Spend</th>
+                                           <td class="font-weight-bold">Fee</th>
                                         </tr>
                                     </thead>
                                     <tbody id="accordionParent">
@@ -144,12 +144,12 @@
                                                         data-target="#details{{ $cnt }}" aria-expanded="false"
                                                         aria-controls="details{{ $cnt }}">
                                                         <td class="text-left">{{ $agentMemberId }}</td>
-                                                        <td class="opr_expand_arrow">{{ $esortReport['user_name'] }}<i
+                                                        <td class="opr_expand_arrow text-left">{{ $esortReport['user_name'] }}<i
                                                                 class="fa fa-chevron-down"></i>
                                                         </td>
                                                         <td>{{ $esortReport['user_state_name'] }}</td>
                                                         <td></td>
-                                                        <td class="text-right" >{{ $esortReport['total_days'] }}</td>
+                                                        <td class="text-center" >{{ $esortReport['total_days'] }}</td>
                                                         <td class="text-right">
                                                             <div class="num_value">
                                                                 $<span>{{ $esortReport['total_purchase_amount'] }}</span>
@@ -167,7 +167,7 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td title="Platinum">P</td>
-                                                        <td class="text-right">{{ $esortReport['details']['P']['days'] ?? 0 }}</td>
+                                                        <td class="text-center">{{ $esortReport['details']['P']['days'] ?? 0 }}</td>
                                                         <td class="text-right">
                                                             <div class="num_value">
                                                                 $<span>{{ number_format($esortReport['details']['P']['purchase'], 2) ?? 0.0 }}</span>
@@ -184,7 +184,7 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td title="Gold">G</td>
-                                                        <td class="text-right">{{ $esortReport['details']['G']['days'] ?? 0 }}</td>
+                                                        <td class="text-center">{{ $esortReport['details']['G']['days'] ?? 0 }}</td>
                                                         <td class="text-right">
                                                             <div class="num_value">
                                                                 $<span>{{ number_format($esortReport['details']['G']['purchase'], 2) ?? 0 }}</span>
@@ -201,7 +201,7 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td title="Silver">S</td>
-                                                        <td class="text-right">{{ $esortReport['details']['S']['days'] ?? 0 }}</td>
+                                                        <td class="text-center">{{ $esortReport['details']['S']['days'] ?? 0 }}</td>
                                                         <td class="text-right">
                                                             <div class="num_value">
                                                                 $<span>{{ number_format($esortReport['details']['S']['purchase'], 2) ?? 0 }}</span>
@@ -218,7 +218,7 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td title="Pin Up">PU</td>
-                                                        <td class="text-right">{{ $esortReport['details']['PU']['days'] ?? 0 }}</td>
+                                                        <td class="text-center">{{ $esortReport['details']['PU']['days'] ?? 0 }}</td>
                                                         <td class="text-right">
                                                             <div class="num_value">
                                                                 $<span>{{ number_format($esortReport['details']['PU']['purchase'], 2) ?? 0 }}</span>
@@ -236,7 +236,7 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td title="Bump Up">BU</td>
-                                                        <td class="text-right">{{ $esortReport['details']['EBU']['days'] ?? 0 }}</td>
+                                                        <td class="text-center">{{ $esortReport['details']['EBU']['days'] ?? 0 }}</td>
                                                         <td class="text-right">
                                                             <div class="num_value">
                                                                 $<span>{{ number_format($esortReport['details']['EBU']['purchase'], 2) ?? 0 }}</span>
@@ -253,7 +253,7 @@
                                                         <td colspan="4" class="text-right"><strong>Totals:</strong>
                                                         </td>
                                                         <td
-                                                            style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold;text-align:right;">
+                                                            style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold;text-align:center;">
                                                             {{ $esortReport['total_days'] }}
                                                         </td>
                                                         <td
@@ -280,11 +280,11 @@
                                                 @endforeach
 
                                                 {{-- Start Escort Total --}}
-                                                <tr>
+                                               {{--  <tr>
                                                     <td colspan="4" class="text-right"><strong>Total
                                                             Escorts:</strong></td>
                                                     <td
-                                                        style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:right;">
+                                                        style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:center;">
                                                         {{ $totalEscortDays }}
                                                     </td>
                                                     <td
@@ -303,7 +303,7 @@
 
                                                 <tr>
                                                     <td colspan="7" style="padding:10px"></td>
-                                                </tr>
+                                                </tr> --}}
                                             @endif
                                             {{-- End Escort Total --}}
 
@@ -351,12 +351,12 @@
                                                         $agentMemberId = '';
                                                     @endphp
                                                 @endforeach
-                                                <tr>
+                                                {{-- <tr>
                                                     <td colspan="4" class="text-right"><strong>Total Massage
                                                             Centres:</strong>
                                                     </td>
                                                     <td
-                                                        style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:right;">
+                                                        style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:center;">
                                                         {{ $totalMassageDays }}
                                                     </td>
                                                     <td
@@ -371,10 +371,54 @@
                                                             $<span>{{ number_format($totalMassageAgenFee, 2) }}</span>
                                                         </div>
                                                     </td>
-                                                </tr>
+                                                </tr> --}}
                                                 {{-- End massage listing --}}
                                             @endif
                                         @endforeach
+
+                    {{-- Start Escort Total --}}
+                    <tr>
+                        <td colspan="4" class="text-right"><strong>Total Escorts:</strong></td>
+                        <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold;text-align:center;">
+                            {{ $totalEscortDays }}
+                        </td>
+                        <td
+                            style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:right;">
+                            <div class="num_value">$<span>{{ number_format($totalEscortSpent, 2) }}</span>
+                            </div>
+                        </td>
+                        <td
+                            style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:right;">
+                            <div class="num_value">$<span>{{ number_format($totalEscortAgenFee, 2) }}</span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="7" style="padding:10px"></td>
+                    </tr>
+                {{-- End Escort Total --}}
+                    @if( $totalMassageDays > 0)
+                     <tr>
+                        <td colspan="4" class="text-right"><strong>Total Massage Centres:</strong></td>
+                        <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold;text-align:center;">
+                            {{ $totalMassageDays }}
+                        </td>
+                        <td
+                            style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:center;">
+                            <div class="num_value">$<span>{{ number_format($totalMassageSpent, 2) }}</span>
+                            </div>
+                        </td>
+                        <td
+                            style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:center;">
+                            <div class="num_value">$<span>{{ number_format($totalMassageAgenFee, 2) }}</span>
+                            </div>
+                        </td>
+                    </tr>
+                      <tr>
+                        <td colspan="7" style="padding:10px"></td>
+                    </tr>
+                    @endif
                                     </tbody>
 
                                     <tfoot>
@@ -394,7 +438,7 @@
                                             <td colspan="4" class="text-right"><strong>Total Advertisers:</strong>
                                             </td>
                                             <td
-                                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold;text-align:right;">
+                                                style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold;text-align:center;">
                                                 {{ $totalDays }}</td>
                                             <td
                                                 style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:right;">

@@ -1196,7 +1196,8 @@ label.cabinet input.file {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
+    gap: 10px;    
+    margin-right: 100px;
 }
 
 .messages_btn a span:hover {
@@ -1446,7 +1447,7 @@ label.cabinet input.file {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
-    gap: 24px;
+    gap: 10px;
 }
 
 .stats-card {

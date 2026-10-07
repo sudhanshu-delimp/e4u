@@ -3,66 +3,67 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/glightbox.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/lightbox.css?v1.01') }}">
 <style>
-.tooltip-wrapper {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-  }
-
-  .let-talk-about{
-    border: none;
-  }
- 
-  .tooltip-wrapper .tooltip-text {
-    visibility: hidden;
-    background-color: #ff3c5f;
-    color: #fff;
-    text-align: center;
-    border-radius: 5px;
-    font-size: 12px;
-    padding: 2px 5px;
-    position: absolute;
-    z-index: 1;
-    bottom: 110%; /* tooltip upar show ho */
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
- 
-  /* Tooltip arrow */
-  .tooltip-wrapper .tooltip-text::after {
-    content: "";
-    position: absolute;
-    top: 100%; /* tooltip box ke bottom se */
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 5px;
-    border-style: solid;
-    border-color: #ff3c5f transparent transparent transparent; /* top arrow */
-  }
- 
-  .tooltip-wrapper:hover .tooltip-text {
-    visibility: visible;
-    opacity: 1;
-  }
-
-.fa-thumbs-down, .fa-thumbs-up {
-    pointer-events: none;
-}
-
-.save-my-legbox-btn {
-         color: #fff;
+    .tooltip-wrapper {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
     }
 
- .swal2-popup{
-            width: auto !important;
+    .let-talk-about{
+        border: none;
+    }
+    
+    .tooltip-wrapper .tooltip-text {
+        visibility: hidden;
+        background-color: #ff3c5f;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        font-size: 12px;
+        padding: 7px;
+        position: absolute;
+        z-index: 1;
+        bottom: 110%; /* tooltip upar show ho */
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    
+    /* Tooltip arrow */
+    .tooltip-wrapper .tooltip-text::after {
+        content: "";
+        position: absolute;
+        top: 100%; /* tooltip box ke bottom se */
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 5px;
+        border-style: solid;
+        border-color: #ff3c5f transparent transparent transparent; /* top arrow */
+    }
+    
+    .tooltip-wrapper:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .fa-thumbs-down, .fa-thumbs-up {
+        pointer-events: none;
+    }
+
+    .save-my-legbox-btn {
+            color: #fff;
         }
 
-.table tbody td {
-    padding: 10px 8px;
-}
+    .swal2-popup{
+                width: auto !important;
+            }
+
+    .table tbody td {
+        padding: 10px 8px;
+    }
+
 </style>
 
 
@@ -202,8 +203,9 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                             
                         </div>
                         {{-- profile phone --}}
-                        <div class="profile_page_name_and_phno">
-                            <p>{{$escort->city->name}} - {{  $escort->phone }}</p>                    
+                        <div class="profile_page_name_and_phno tooltip-wrapper" data-toggle="modal" data-target="#connectModal" data-placement="top">
+                            <p>{{$escort->city->name}} - {{  $escort->phone }}</p>   
+                            <div class="tooltip-text">Click me to connect</div>                 
                         </div>
                         {{-- address --}}
                         <div class="profile_page_location_and_id mb-4">
@@ -1490,7 +1492,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                 @if($contactTypes == 1)
                                     on my email {{ $escort->user->email ?? '' }}
                                 @elseif($contactTypes == 4 || $contactTypes == 2 || $contactTypes == 5)
-                                    on my number {{ $formattedNumber }}.
+                                    on my number <a href="javascript:void(0)"  data-target="#connectModal" data-toggle="modal" style="color:#ff3c5f" class="custom_links_design">{{ $formattedNumber }}.</a>
                                 @else
                                     on my number --
                                 @endif
@@ -1513,7 +1515,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                 </div>
                 <!--  Deposit -->
                 <div class="accordion-container-new">
-                    <div class="set">
+                    <div class="set" id="deposit-policy-section">
                         <a class="pb-1 pt-1 d-flex align-items-center d-flex justify-content-between">
                             Deposit Policy <i class="fa fa-angle-down"></i>
                         </a>
@@ -1537,14 +1539,14 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                             </div>
                         </div>
                     </div>
-                    <div class="set">
+                    <div class="set" id="my-pricing-section">
                         <a class="pb-1 pt-1 d-flex align-items-center d-flex justify-content-between">
                             My Pricing Policy <i class="fa fa-angle-down"></i>
                         </a>
                         <div class="content">
                             <div class="accodien_manage_padding_content">
                                 <p class="text-justify">
-                                    Prices are all inclusive unless an extra is listed in My Services. For Outcalls, price is rate + taxi to and from my Location, and may require a Deposit.
+                                     Prices are all inclusive unless an extra is listed in My Services. For Outcalls, price is rate + taxi to and from my Location, and I may require a <!--<a href="javascript:void(0)" class="tooltip-wrapper"  id="my-pricing-link">Deposit <span class="tooltip-text"> See Deposit Policy</span></a>--> Deposit. 
                                 </p>
                             </div>
                         </div>
@@ -1562,6 +1564,8 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                         </div>
                     </div>
                 </div>
+
+
                 <!-- Tips -->
                 <div class="box_shadow padding_twelve_px">
                     <div class="profile_card_border profile_description_contect position-relative">
@@ -1669,8 +1673,13 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
 
                                     <!-- Custom Nav Buttons -->
                                     <div class="d-flex justify-content-start mt-3 carousel-nav-btn-wrapper flex-wrap">
+                                        @if(count($reviews) > 1)     
                                         <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="prev"><i class="fa fa-angle-left text-white"></i></button>
                                         <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="next"><i class="fa fa-angle-right text-white"></i></button>
+                                        @else
+                                        <button class="carousel-nav-btn disabled-link" disabled data-bs-target="#reviewCarousel" data-bs-slide="prev"><i class="fa fa-angle-left text-white"></i></button>
+                                        <button class="carousel-nav-btn disabled-link" disabled data-bs-target="#reviewCarousel" data-bs-slide="next"><i class="fa fa-angle-right text-white"></i></button>
+                                        @endif
                                         <div class="row {{(auth()->user() && auth()->user()->type != 0) ? 'd-none': ''}}">
                                             <div class="col-md-12">
                                                 @if(auth()->user())
@@ -1726,7 +1735,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                             @else
                                 <button type="button" class="btn add_reviews_btn all_btn_flx">
                                     <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                    <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Review</a>
+                                    <a href="{{route('viewer.login')}}" style="color: white;">Login to Add Review</a>
                                 </button>
                             @endif
                         </div>
@@ -1737,7 +1746,107 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
         </div>
     </div>
     <!--- end -->
+    
+<!-- connectModal -->
+<div class="modal upload-modal fade" id="connectModal" tabindex="-1"
+     role="dialog" aria-labelledby="connectModalLabel" aria-hidden="true">
 
+    <div class="modal-dialog custom_top" role="document" style="top: 175px;">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="connectModalLabel">
+                   <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" class="icon_esc" xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path d="M15 7C15 8.65685 13.6569 10 12 10C10.3431 10 9 8.65685 9 7C9 5.34315 10.3431 4 12 4C13.6569 4 15 5.34315 15 7Z" stroke="#ff3c5f" stroke-width="2"></path>
+                            <path d="M5 19.5C5 15.9101 7.91015 13 11.5 13H12.5C16.0899 13 19 15.9101 19 19.5V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V19.5Z" stroke="#ff3c5f" stroke-width="2"></path>
+                        </g>
+                    </svg>
+                    Contact : {{ $escortName }}
+                </h5>
+
+                <button type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close">
+
+                    <span aria-hidden="true">
+                        <img src="{{ asset('assets/app/img/newcross.png') }}"
+                             class="img-fluid img_resize_in_smscreen">
+                    </span>
+
+                </button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body pb-0">
+
+                <!-- Mobile Number -->
+                <div class="connect-number-box">
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path d="M3 6.5C3 14.5081 9.49187 21 17.5 21C18.166 21 18.8216 20.9551 19.4637 20.8682C20.3747 20.7448 21 19.9292 21 19.01V16.4415C21 15.5807 20.4491 14.8164 19.6325 14.5442L16.4841 13.4947C15.6836 13.2279 14.8252 13.699 14.6206 14.5177C14.3475 15.6102 12.987 15.987 12.1907 15.1907L8.80926 11.8093C8.01301 11.013 8.38984 9.65254 9.48229 9.37943C10.301 9.17476 10.7721 8.31644 10.5053 7.51586L9.45585 4.36754C9.18362 3.55086 8.41934 3 7.55848 3H4.99004C4.0708 3 3.25518 3.62533 3.13185 4.53627C3.0449 5.17845 3 5.83398 3 6.5Z" stroke="#ff3c5f" stroke-width="2" stroke-linejoin="round"></path>
+                        </g>
+                    </svg>
+
+                    <span id="mobileNumber">
+                       {{  $escort->phone }}
+                    </span>
+                </div>
+
+                <!-- Explanation -->
+                <p class="connect-description">
+                    You can contact this person directly using their
+                    mobile number.
+                </p>
+
+              <h6 class="connect-question">
+                    What would you like to do?
+                </h6>
+               <div class="action-btn-wrapper">
+                    <!-- Call -->
+                    <a href="tel:{{ $escort->phone }}"
+                        class="connect-action-btn call-btn">
+                        <span class="action-icon"><svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path d="M3 6.5C3 14.5081 9.49187 21 17.5 21C18.166 21 18.8216 20.9551 19.4637 20.8682C20.3747 20.7448 21 19.9292 21 19.01V16.4415C21 15.5807 20.4491 14.8164 19.6325 14.5442L16.4841 13.4947C15.6836 13.2279 14.8252 13.699 14.6206 14.5177C14.3475 15.6102 12.987 15.987 12.1907 15.1907L8.80926 11.8093C8.01301 11.013 8.38984 9.65254 9.48229 9.37943C10.301 9.17476 10.7721 8.31644 10.5053 7.51586L9.45585 4.36754C9.18362 3.55086 8.41934 3 7.55848 3H4.99004C4.0708 3 3.25518 3.62533 3.13185 4.53627C3.0449 5.17845 3 5.83398 3 6.5Z" stroke="#fff" stroke-width="2" stroke-linejoin="round"></path>
+                            </g>
+                        </svg></span>
+                        <span>Call this number</span>
+                    </a>
+
+                    <!-- SMS -->
+                    <a href="sms:{{ $escort->phone }}"
+                    class="connect-action-btn sms-btn">
+                        <span class="action-icon">
+                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M8 9.5H15M8 13.5H13M15.3 19.1L21 21L19.1 15.3C19.1 15.3 20 14 20 11.5C20 6.80558 16.1944 3 11.5 3C6.80558 3 3 6.80558 3 11.5C3 16.1944 6.80558 20 11.5 20C14.0847 20 15.3 19.1 15.3 19.1Z" stroke="#0c223d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                        </span>
+                        <span>Send a text message</span>
+                    </a>
+               </div>    
+
+            </div>
+            <!-- Footer -->
+            <div class="modal-footer justify-content-center py-0">
+               <p class="connect-description">
+                    <i> Please let {{ $escortName }} know you found them on E4U.</i>
+                </p>
+                  
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- end -->
 <!-- model start here 1-->
 <div class="modal fade upload-modal" id="mysendmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     @if(auth()->check() && auth()->user()->type==0)
@@ -1920,7 +2029,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
     </div>
 </div>
  
-{{-- <button data-target="#reportLogedIn" data-toggle="modal">review-submitted-popup</button> --}}
+<!-- <button data-target="#reportLogedIn" data-toggle="modal">review-submitted-popup</button> -->
  
 <!-- Report Advertiser Modal confirmation popup -->
 <div class="modal fade upload-modal" id="reportLogedIn" tabindex="-1" role="dialog" aria-labelledby="reportAdvertiserLabelNew" aria-hidden="true">
@@ -2188,7 +2297,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
     </div>
 </div>
 
-{{-- Message Me --}}
+<!-- Message Me -->
     <div class="modal fade upload-modal" id="messageMe" tabindex="-1" role="dialog" aria-labelledby="messageMe"
         aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered " role="document">
@@ -2220,7 +2329,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
             </div>
         </div>
     </div>
-    {{-- end --}}
+<!-- end -->
 
 
 
@@ -2271,6 +2380,7 @@ let carousel = new bootstrap.Carousel(myCarousel, {
   interval: false, // stops auto scroll
   ride: false
 });
+
 
 </script>
 <script type="text/javascript">
@@ -3106,5 +3216,6 @@ document.addEventListener('keydown', function (e) {
     }
 
 });
+
 </script>
 @endpush

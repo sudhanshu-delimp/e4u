@@ -287,7 +287,7 @@
                         <a class="collapse-item" href="{{ route('agent.advertiser-profiles') }}">
                             <img src="{{ asset('assets/app/img/user.png') }}">
                             <span
-                                style="{{ request()->segment(2) == 'advertiser-profiles' ? 'color: #e5365a;' : '' }}">Profile
+                                style="{{ request()->segment(2) == 'advertiser-profiles' ? 'color: #e5365a;' : '' }}">Listing
                                 Summary</span>
                         </a>
                           <a class="collapse-item" href="{{ route('agent.my-statistics') }}">

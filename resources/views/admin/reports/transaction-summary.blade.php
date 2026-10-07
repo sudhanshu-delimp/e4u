@@ -53,7 +53,8 @@
                     <table class="table w-100" id="transactionSummaryTable">
                         <thead class="table-bg">
                             <tr>
-                                <th>Ref</th>
+                                <th>Trans. Ref ID</th>
+                                 <th style="width:150px;">Profile/Order ID</th>
                                 <th>Member ID</th>
                                 <th>Completed By</th>
                                 <th>Service Type</th>
@@ -76,7 +77,7 @@
                                         class="serverTime">{{ date('d-m-Y h:i a') }}</span></th>
                                 <th colspan="2" class="text-center border-0">Refresh time:<span class="refreshSeconds">
                                         15</span></th>
-                                <th colspan="3" class="text-right border-0" style="text-align: right!important;">Up time:
+                                <th colspan="4" class="text-right border-0" style="text-align: right!important;">Up time:
                                     <span class="uptimeClass">{{ getAppUptime() }}</span>
                                 </th>
                             </tr>
@@ -127,6 +128,13 @@
                     name: 'ref_no',
                     searchable: true,
                     orderable: true,
+                    defaultContent: 'NA'
+                },
+                {
+                    data: 'profile_product_ref',
+                    name: 'profile_product_ref',
+                    searchable: false,
+                    orderable: false,
                     defaultContent: 'NA'
                 },
                 {

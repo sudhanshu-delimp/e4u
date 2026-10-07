@@ -54,6 +54,7 @@ use App\Http\Controllers\Admin\ConciergeReportController;
 use App\Http\Controllers\Admin\VisaMigrationRequestController;
 use App\Http\Controllers\Admin\SeoManagementController;
 use App\Http\Controllers\Admin\StatisticsController;
+use App\Http\Controllers\Admin\Management\ReportingController as ManagementReportingController;
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
@@ -685,10 +686,6 @@ Route::get('/management/credits', function () {
   return view('admin.management.reporting.credits');
 })->name('admin.credits');
 
-Route::get('/management/revenue', function () {
-  return view('admin.management.reporting.revenue');
-})->name('admin.revenue');
-
 Route::get('/management/email-management', function () {
   return view('admin.management.email-management');
 })->name('email-management');
@@ -799,8 +796,11 @@ Route::prefix('management')
       Route::get('/report-sim', [StatisticsController::class, 'simReport'])->name('sim');
       Route::get('/report-tours', [StatisticsController::class, 'tourReport'])->name('tour');
     });
+
   });
 
+Route::get('/management/revenue', [ManagementReportingController::class, 'revenue'])->name('admin.revenue');
+Route::get('/management/concierge-payments', [ManagementReportingController::class, 'conciergePayments'])->name('admin.concierge-payments');
 
 Route::get('/reports/credit', function () {
   return view('admin.reports.credit');
@@ -850,7 +850,7 @@ Route::get('support-services/summary', function () {
 })->name('admin.summary');
 
 
-Route::get('/management/concierge-payments', [ConciergeReportController::class, 'index'])->name('admin.concierge-payments');
+
 Route::get('/management/concierge', [ConciergeReportController::class, 'index'])->name('admin.concierge-reports.index');
 Route::get('/management/concierge/report/{type?}', [ConciergeReportController::class, 'getReport'])->name('admin.report.details');
 Route::post('/management/concierge/report/approve', [ConciergeReportController::class, 'approveReport'])->name('admin.report.approve');
@@ -956,6 +956,14 @@ Route::get('print-single-feedback-reports', [DashboardController::class, 'printS
 Route::get('/management/punterbox-reports', function () {
   return view('admin.management.punterbox-report');
 })->name('admin.punterbox-reports');
+
+Route::get('/management/notebox', function () {
+  return view('admin.management.reports.notebox');
+})->name('admin.notebox');
+
+Route::get('/management/messages', function () {
+  return view('admin.management.messages');
+})->name('admin.messages');
 
 Route::get('/switch-login/{id}', [ImpersonateController::class, 'switchLogin'])->name('admin.switch-to-child');
 Route::get('back-to-parent', [ImpersonateController::class, 'backToParent'])->name('admin.back-to-parent');

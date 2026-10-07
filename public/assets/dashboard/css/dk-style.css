@@ -387,6 +387,7 @@ body {
     font-weight: 500;
     font-size: 14px;
     line-height: 1.5;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .custom-nav-dropdown .dropdown-item:hover {

@@ -31,7 +31,7 @@
     text-align: center;
     border-radius: 5px;
     font-size: 12px;
-    padding: 2px 5px;
+    padding: 7px 5px;
     position: absolute;
     z-index: 1;
     top:-35px;
@@ -291,8 +291,9 @@ margin-right: 5px;
                         </div>
                         
 
-                        <div class="profile_page_name_and_phno">
+                        <div class="profile_page_name_and_phno tooltip-wrapper" data-toggle="modal" data-target="#connectModal" data-placement="top">
                             <p> {{ get_massage_home_city($listing->user_id) .' - '.formatMobileNumber($listing->phone) }}   </p>
+                            <div class="tooltip-text">Click me to connect</div>
                         </div>
 
                         <div class="profile_page_location_and_id mb-4">
@@ -575,7 +576,24 @@ margin-right: 5px;
                             <thead>
                                 <tr>
                                     <th colspan="4">
-                                        Payment ($AUS) : {{ $payType }}
+                                       <svg fill="#ff3c5f" height="28px" width="28px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 511.999 511.999" xml:space="preserve">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <g>
+                                                <g>
+                                                    <path d="M256.298,101.846c-92.85,0-206.983,143.686-206.983,260.579c0,44.352,15.783,79.881,46.928,105.612 c35.323,29.174,89.169,43.962,160.054,43.962c70.625,0,124.319-14.906,159.567-44.319c31.069-25.916,46.82-61.673,46.82-106.262 C462.685,244.98,348.887,101.846,256.298,101.846z M264.276,302.614c23.697,12.525,53.196,28.124,53.196,59.042 c0,27.843-18.793,51.339-44.341,58.603v7.908c0,9.18-7.448,16.628-16.628,16.628c-9.18,0-16.628-7.448-16.628-16.628v-7.908 c-25.548-7.264-44.341-30.76-44.341-58.603c0-9.18,7.448-16.628,16.628-16.628c9.18,0,16.628,7.448,16.628,16.628 c0,15.285,12.428,27.713,27.713,27.713s27.713-12.428,27.713-27.713c0-10.89-18.036-20.417-35.486-29.64 c-23.697-12.525-53.196-28.124-53.196-59.042c0-27.843,18.793-51.339,44.341-58.603v-7.908c0-9.18,7.448-16.628,16.628-16.628 c9.18,0,16.628,7.448,16.628,16.628v7.908c25.548,7.264,44.341,30.76,44.341,58.603c0,9.18-7.448,16.628-16.628,16.628 c-9.18,0-16.628-7.448-16.628-16.628c0-15.285-12.428-27.713-27.713-27.713s-27.713,12.428-27.713,27.713 C228.791,283.864,246.825,293.391,264.276,302.614z">
+                                                    </path>
+                                                </g>
+                                            </g>
+                                            <g>
+                                                <g>
+                                                    <path d="M347.037,20.547c-7.686-3.941-17.126-1.354-21.705,5.976c-6.95,11.14-16.639,13.932-23.545,14.311 c-12.016,0.855-24.087-5.25-32.454-15.816C256.752,9.115,236.844,0,214.728,0c-22.116,0-42.024,9.115-54.604,25.017 c-3.746,4.72-4.634,11.085-2.338,16.66c1.859,4.508,10.991,25.543,26.151,46.511c23.911-12.465,48.487-19.6,72.36-19.6 c23.868,0,48.444,7.139,72.347,19.615c15.169-20.974,24.306-42.019,26.166-46.528C358.1,33.678,354.722,24.498,347.037,20.547z">
+                                                    </path>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg> &nbsp; Payment ($AUS) : {{ $payType }}
                                     </th>
                                 </tr>
                             </thead>
@@ -1018,16 +1036,6 @@ margin-right: 5px;
                                                                         </span>
                                                                     </span>
                                                                 </div>
-
-                                                                <div class="services_card">
-                                                                    <spna class="icon">
-                                                                        <svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill="#ff3c5f" d="M32,0C15.776,0,2.381,12.077,0.292,27.729c-0.002,0.016-0.004,0.031-0.006,0.047 c-0.056,0.421-0.106,0.843-0.146,1.269c-0.019,0.197-0.029,0.396-0.045,0.594c-0.021,0.28-0.044,0.56-0.058,0.842 C0.014,30.983,0,31.49,0,32c0,17.673,14.327,32,32,32s32-14.327,32-32S49.673,0,32,0z M33.362,58.502 c-0.72,0.787-1.901,1.414-2.675,0.67c-0.653-0.644-0.099-1.44,0-2.353c0.125-1.065-0.362-2.345,0.666-2.676 c0.837-0.259,1.468,0.322,2.009,1.012C34.187,56.175,34.239,57.526,33.362,58.502z M43.446,49.87 c-1.18,0.608-2.006,0.494-3.323,0.673c-2.454,0.309-4.394,1.52-6.333,0c-0.867-0.695-0.978-1.451-1.65-2.341 c-1.084-1.364-1.355-3.879-3.01-3.322c-1.058,0.356-1.026,1.415-1.654,2.335c-0.81,1.156-0.607,2.793-2.005,2.993 c-0.974,0.138-1.499-0.458-2.321-1c-0.922-0.614-1.104-1.348-2.002-1.993c-0.934-0.689-1.69-0.693-2.654-1.334 c-0.694-0.463-0.842-1.304-1.673-1.334c-0.751-0.022-1.289,0.346-1.664,0.996c-0.701,1.214-0.942,4.793-2.988,4.665 c-1.516-0.103-4.758-3.509-5.994-4.327c-0.405-0.273-0.78-0.551-1.158-0.763c-1.829-3.756-2.891-7.952-2.997-12.385 c0.614-0.515,1.239-0.769,1.819-1.493c0.927-1.13,0.481-2.507,1.673-3.335c0.886-0.604,1.602-0.507,2.669-0.658 c1.529-0.222,2.491-0.422,3.988,0c1.459,0.409,2.016,1.246,3.326,1.992c1.415,0.81,2.052,1.766,3.66,2.001 c1.166,0.165,1.966-0.901,2.988-0.337c0.824,0.458,1.406,1.066,1.341,2.001c-0.1,1.218-2.522,0.444-2.659,1.662 c-0.183,1.558,2.512-0.194,3.992,0.33c0.974,0.355,2.241,0.294,2.325,1.334c0.081,1.156-1.608,0.837-2.657,1.335 c-1.162,0.541-1.771,0.996-3.004,1.329c-1.125,0.298-2.312-0.628-2.987,0.329c-0.53,0.742-0.343,1.489,0,2.335 c0.787,1.931,3.349,1.352,5.322,0.657c1.383-0.488,1.641-1.726,2.997-2.329c1.438-0.641,2.554-1.335,3.981-0.663 c1.178,0.556,0.849,2.05,2.006,2.663c1.253,0.668,2.432-0.729,3.663,0c0.957,0.569,0.887,1.521,1.655,2.327 c0.894,0.942,1.41,1.702,2.668,2c1.286,0.299,2.072-1.071,3.327-0.671c0.965,0.315,1.755,0.68,1.987,1.672 C46.465,48.634,44.744,49.198,43.446,49.87z M45.839,33.841c-1.154,1.16-2.156,1.539-3.771,1.893c-1.433,0.315-3.443,1.438-3.772,0 c-0.251-1.148,1.029-1.558,1.893-2.359c0.959-0.895,1.854-0.983,2.826-1.892c0.87-0.802,0.756-2.031,1.893-2.359 c1.109-0.32,2.182-0.019,2.825,0.947C48.652,31.438,47.006,32.681,45.839,33.841z M59.989,29.319 c-0.492,0.508-0.462,1.044-0.965,1.542c-0.557,0.539-1.331,0.307-1.738,0.968c-0.358,0.577-0.13,1.057-0.194,1.735 c-0.041,0.387-1.924,1.256-2.313,0.385c-0.214-0.481,0.281-0.907,0-1.353c-0.263-0.401-0.555-0.195-0.899,0.181 c-0.359,0.388-0.772,0.958-1.221,1.172c-0.589,0.273-0.196-2.25-0.395-3.088c-0.146-0.663,0.01-1.08,0.198-1.736 c0.25-0.91,0.938-1.206,1.155-2.125c0.194-0.806,0.033-1.295,0-2.123c-0.039-0.906-0.015-1.427-0.188-2.314 c-0.192-0.937-0.252-1.525-0.771-2.316c-0.418-0.624-0.694-1.001-1.354-1.352c-0.16-0.088-0.31-0.146-0.452-0.191 c-0.34-0.113-0.659-0.128-1.098-0.193c-0.888-0.132-1.522,0.432-2.314,0c-0.462-0.255-0.606-0.575-0.96-0.967 c-0.404-0.434-0.511-0.789-0.967-1.158c-0.341-0.276-0.552-0.437-0.965-0.581c-0.79-0.263-1.342-0.082-2.126,0.196 c-0.77,0.268-1.058,0.707-1.739,1.155c-0.522,0.303-0.893,0.371-1.348,0.774c-0.276,0.242-1.59,1.177-2.127,1.155 c-0.544-0.021-0.851-0.343-1.338-0.382c-0.065-0.008-0.13-0.008-0.204,0c0,0,0,0-0.005,0c-0.473,0.036-0.696,0.269-1.146,0.382 c-1.107,0.276-1.812-0.115-2.905,0.197c-0.712,0.2-0.993,0.766-1.73,0.771c-0.841,0.005-1.125-0.743-1.932-0.968 c-0.442-0.118-0.702-0.129-1.157-0.19c-0.749-0.108-1.178-0.119-1.926-0.191H24.86c-0.016,0.006-0.591,0.058-0.688,0 c-0.422-0.286-0.722-0.521-1.244-0.773c-0.575-0.283-0.919-0.428-1.547-0.584l0.026-0.381c0,0,0-0.847-0.121-1.207 c-0.115-0.361-0.24-0.361,0-1.086c0.248-0.722,0.679-1.182,0.679-1.182c0.297-0.228,0.516-0.305,0.769-0.58 c0.51-0.539,0.717-0.998,0.774-1.739c0.067-0.972-1.205-1.367-0.97-2.316c0.209-0.826,0.904-0.98,1.547-1.543 c0.779-0.67,1.468-0.758,2.12-1.542c0.501-0.593,0.911-0.965,0.97-1.738c0.053-0.657-0.23-1.068-0.57-1.538 C28.356,2.175,30.157,2,32,2c14.919,0,27.29,10.893,29.605,25.158c-0.203,0.352-0.001,0.796-0.27,1.193 C60.979,28.894,60.436,28.85,59.989,29.319z"></path> </g></svg>
-                                                                    </spna>
-                                                                    <span class="details">
-                                                                        <p>Nationality</p>
-                                                                        <span> {{ getCountryList()[$masseur->nationality] ?? 'N/A' }}</span>
-                                                                    </span>
-                                                                </div> 
                                                                 
                                                                 <div class="services_card">
                                                                     <spna class="icon">
@@ -1038,6 +1046,16 @@ margin-right: 5px;
                                                                         <span>{{  config('escorts.profile.ethnicities')[$masseur->ethnicity] ??  'N/A' }}</span>
                                                                     </span>
                                                                 </div>
+
+                                                                <div class="services_card">
+                                                                    <spna class="icon">
+                                                                        <svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill="#ff3c5f" d="M32,0C15.776,0,2.381,12.077,0.292,27.729c-0.002,0.016-0.004,0.031-0.006,0.047 c-0.056,0.421-0.106,0.843-0.146,1.269c-0.019,0.197-0.029,0.396-0.045,0.594c-0.021,0.28-0.044,0.56-0.058,0.842 C0.014,30.983,0,31.49,0,32c0,17.673,14.327,32,32,32s32-14.327,32-32S49.673,0,32,0z M33.362,58.502 c-0.72,0.787-1.901,1.414-2.675,0.67c-0.653-0.644-0.099-1.44,0-2.353c0.125-1.065-0.362-2.345,0.666-2.676 c0.837-0.259,1.468,0.322,2.009,1.012C34.187,56.175,34.239,57.526,33.362,58.502z M43.446,49.87 c-1.18,0.608-2.006,0.494-3.323,0.673c-2.454,0.309-4.394,1.52-6.333,0c-0.867-0.695-0.978-1.451-1.65-2.341 c-1.084-1.364-1.355-3.879-3.01-3.322c-1.058,0.356-1.026,1.415-1.654,2.335c-0.81,1.156-0.607,2.793-2.005,2.993 c-0.974,0.138-1.499-0.458-2.321-1c-0.922-0.614-1.104-1.348-2.002-1.993c-0.934-0.689-1.69-0.693-2.654-1.334 c-0.694-0.463-0.842-1.304-1.673-1.334c-0.751-0.022-1.289,0.346-1.664,0.996c-0.701,1.214-0.942,4.793-2.988,4.665 c-1.516-0.103-4.758-3.509-5.994-4.327c-0.405-0.273-0.78-0.551-1.158-0.763c-1.829-3.756-2.891-7.952-2.997-12.385 c0.614-0.515,1.239-0.769,1.819-1.493c0.927-1.13,0.481-2.507,1.673-3.335c0.886-0.604,1.602-0.507,2.669-0.658 c1.529-0.222,2.491-0.422,3.988,0c1.459,0.409,2.016,1.246,3.326,1.992c1.415,0.81,2.052,1.766,3.66,2.001 c1.166,0.165,1.966-0.901,2.988-0.337c0.824,0.458,1.406,1.066,1.341,2.001c-0.1,1.218-2.522,0.444-2.659,1.662 c-0.183,1.558,2.512-0.194,3.992,0.33c0.974,0.355,2.241,0.294,2.325,1.334c0.081,1.156-1.608,0.837-2.657,1.335 c-1.162,0.541-1.771,0.996-3.004,1.329c-1.125,0.298-2.312-0.628-2.987,0.329c-0.53,0.742-0.343,1.489,0,2.335 c0.787,1.931,3.349,1.352,5.322,0.657c1.383-0.488,1.641-1.726,2.997-2.329c1.438-0.641,2.554-1.335,3.981-0.663 c1.178,0.556,0.849,2.05,2.006,2.663c1.253,0.668,2.432-0.729,3.663,0c0.957,0.569,0.887,1.521,1.655,2.327 c0.894,0.942,1.41,1.702,2.668,2c1.286,0.299,2.072-1.071,3.327-0.671c0.965,0.315,1.755,0.68,1.987,1.672 C46.465,48.634,44.744,49.198,43.446,49.87z M45.839,33.841c-1.154,1.16-2.156,1.539-3.771,1.893c-1.433,0.315-3.443,1.438-3.772,0 c-0.251-1.148,1.029-1.558,1.893-2.359c0.959-0.895,1.854-0.983,2.826-1.892c0.87-0.802,0.756-2.031,1.893-2.359 c1.109-0.32,2.182-0.019,2.825,0.947C48.652,31.438,47.006,32.681,45.839,33.841z M59.989,29.319 c-0.492,0.508-0.462,1.044-0.965,1.542c-0.557,0.539-1.331,0.307-1.738,0.968c-0.358,0.577-0.13,1.057-0.194,1.735 c-0.041,0.387-1.924,1.256-2.313,0.385c-0.214-0.481,0.281-0.907,0-1.353c-0.263-0.401-0.555-0.195-0.899,0.181 c-0.359,0.388-0.772,0.958-1.221,1.172c-0.589,0.273-0.196-2.25-0.395-3.088c-0.146-0.663,0.01-1.08,0.198-1.736 c0.25-0.91,0.938-1.206,1.155-2.125c0.194-0.806,0.033-1.295,0-2.123c-0.039-0.906-0.015-1.427-0.188-2.314 c-0.192-0.937-0.252-1.525-0.771-2.316c-0.418-0.624-0.694-1.001-1.354-1.352c-0.16-0.088-0.31-0.146-0.452-0.191 c-0.34-0.113-0.659-0.128-1.098-0.193c-0.888-0.132-1.522,0.432-2.314,0c-0.462-0.255-0.606-0.575-0.96-0.967 c-0.404-0.434-0.511-0.789-0.967-1.158c-0.341-0.276-0.552-0.437-0.965-0.581c-0.79-0.263-1.342-0.082-2.126,0.196 c-0.77,0.268-1.058,0.707-1.739,1.155c-0.522,0.303-0.893,0.371-1.348,0.774c-0.276,0.242-1.59,1.177-2.127,1.155 c-0.544-0.021-0.851-0.343-1.338-0.382c-0.065-0.008-0.13-0.008-0.204,0c0,0,0,0-0.005,0c-0.473,0.036-0.696,0.269-1.146,0.382 c-1.107,0.276-1.812-0.115-2.905,0.197c-0.712,0.2-0.993,0.766-1.73,0.771c-0.841,0.005-1.125-0.743-1.932-0.968 c-0.442-0.118-0.702-0.129-1.157-0.19c-0.749-0.108-1.178-0.119-1.926-0.191H24.86c-0.016,0.006-0.591,0.058-0.688,0 c-0.422-0.286-0.722-0.521-1.244-0.773c-0.575-0.283-0.919-0.428-1.547-0.584l0.026-0.381c0,0,0-0.847-0.121-1.207 c-0.115-0.361-0.24-0.361,0-1.086c0.248-0.722,0.679-1.182,0.679-1.182c0.297-0.228,0.516-0.305,0.769-0.58 c0.51-0.539,0.717-0.998,0.774-1.739c0.067-0.972-1.205-1.367-0.97-2.316c0.209-0.826,0.904-0.98,1.547-1.543 c0.779-0.67,1.468-0.758,2.12-1.542c0.501-0.593,0.911-0.965,0.97-1.738c0.053-0.657-0.23-1.068-0.57-1.538 C28.356,2.175,30.157,2,32,2c14.919,0,27.29,10.893,29.605,25.158c-0.203,0.352-0.001,0.796-0.27,1.193 C60.979,28.894,60.436,28.85,59.989,29.319z"></path> </g></svg>
+                                                                    </spna>
+                                                                    <span class="details">
+                                                                        <p>Nationality</p>
+                                                                        <span> {{ getCountryList()[$masseur->nationality] ?? 'N/A' }}</span>
+                                                                    </span>
+                                                                </div> 
                                                             </div>
                                                             <div class="mc_list_about">
                                                                 <strong>About Me</strong><br>
@@ -1075,7 +1093,7 @@ margin-right: 5px;
                                                                         </svg>
                                                                     </spna>
                                                                     <span class="details">
-                                                                        <p>Massage Services:</p>
+                                                                        <p>Massage Services</p>
                                                                         <span>
                                                                             @if(!empty($masseur->massage_service_types) && count($masseur->massage_service_types) > 0)
                                                                             {{ collect($masseur->massage_service_types)
@@ -1652,7 +1670,7 @@ margin-right: 5px;
                                                 @if($contactTypes == 1)
                                                     on our email {{ $listing->user->email ?? '' }}
                                                 @elseif($contactTypes == 4 || $contactTypes == 2 || $contactTypes == 5)
-                                                    on our number {{ $formattedNumber }}.
+                                                    on our number <a href="javascript:void(0)"  data-target="#connectModal" data-toggle="modal" style="color:#ff3c5f" class="custom_links_design">{{ $formattedNumber }}</a>.
                                                 @else
                                                     on our number --++
                                                 @endif
@@ -1666,11 +1684,11 @@ margin-right: 5px;
                 </div>
 
                 <!-- Vaccination Status -->
-                <div class="vax-btn">
+                <!-- <div class="vax-btn">
                     <button type="button" class="btn my_legbox single-prof-btn">
                         <img src="{{ asset('assets/app/img/vaccinated.svg') }}">Vaccinated, up to date
                     </button>
-                </div>
+                </div> -->
 
                 <!-- Accordion: Pricing Policy & Disclaimer -->
                 <div class="accordion-container-new">
@@ -1788,34 +1806,39 @@ margin-right: 5px;
 
                                     <!-- Custom Nav Buttons -->
                                     <div class="d-flex justify-content-start mt-3 carousel-nav-btn-wrapper flex-wrap">
-                                        <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="prev"><i class="fa fa-angle-left text-white"></i></button>
-                                        <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="next"><i class="fa fa-angle-right text-white"></i></button>
+                                        @if(count($reviews) > 1)  
+                                            <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="prev"><i class="fa fa-angle-left text-white"></i></button>
+                                            <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="next"><i class="fa fa-angle-right text-white"></i></button>
+                                        @else
+                                            <button class="carousel-nav-btn disabled-link" disabled><i class="fa fa-angle-left text-white"></i></button>
+                                            <button class="carousel-nav-btn disabled-link" disabled><i class="fa fa-angle-right text-white"></i></button>
+                                        @endif
                                         
-                                <div class="row {{(auth()->user() && auth()->user()->type != 0) ? 'd-none': ''}}">
-                                    <div class="col-md-12">
-                                    @if(auth()->user())
-                                            @if(auth()->user()->type == 0)
-                                                @if(!$reviewAlreadyExist)
-                                                    <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal">
-                                                    <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                                    Add Review
-                                                </button>
+                                        <div class="row {{(auth()->user() && auth()->user()->type != 0) ? 'd-none': ''}}">
+                                            <div class="col-md-12">
+                                            @if(auth()->user())
+                                                    @if(auth()->user()->type == 0)
+                                                        @if(!$reviewAlreadyExist)
+                                                            <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal">
+                                                            <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                                            Add Review
+                                                        </button>
+                                                        @else
+                                                            <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal">
+                                                                <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                                                Edit Review
+                                                            </button>
+                                                        @endif
+
+                                                    @endif
                                                 @else
-                                                    <button type="button" class="btn add_reviews_btn all_btn_flx disabled-button open_review_box" data-toggle="modal">
+                                                    <button type="button" class="btn add_reviews_btn all_btn_flx">
                                                         <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                                        Edit Review
+                                                        <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Review</a>
                                                     </button>
                                                 @endif
-
-                                            @endif
-                                        @else
-                                            <button type="button" class="btn add_reviews_btn all_btn_flx">
-                                                <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                                <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Review</a>
-                                            </button>
-                                        @endif
-                                    </div>
-                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- Carousel controls -->
@@ -1871,7 +1894,124 @@ margin-right: 5px;
             <!-- sssssssssssssssss -->
         </div>
     </div>
+    <!-- connectModal -->
+    <div class="modal upload-modal fade" id="connectModal" tabindex="-1"
+        role="dialog" aria-labelledby="connectModalLabel" aria-hidden="true">
 
+        <div class="modal-dialog custom_top" role="document" style="top: 152px;">
+            <div class="modal-content">
+
+                <!-- Header -->
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="connectModalLabel">
+                    <svg width="25px" height="25px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" fill="#000000">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <defs>
+                                            <style>
+                                                .cls-1 {
+
+                                                    fill: none;
+                                                    stroke: #ff3c5f;
+                                                    stroke-miterlimit: 10;
+                                                    stroke-width: 1.91px;
+                                                }
+                                            </style>
+                                        </defs>
+                                        <path class="cls-1" d="M16.41,12.13a3.32,3.32,0,0,0-.9-.13H4.67A3.17,3.17,0,0,0,1.5,15.17v.34a3.17,3.17,0,0,0,3.17,3.17h6.38">
+                                        </path>
+                                        <rect class="cls-1" x="3.41" y="6.27" width="13.36" height="5.73" rx="2.86">
+                                        </rect>
+                                        <rect class="cls-1" x="5.32" y="1.5" width="9.55" height="4.77" rx="2.39">
+                                        </rect>
+                                        <path class="cls-1" d="M20.59,16.77H22.5a0,0,0,0,1,0,0v1.91a3.82,3.82,0,0,1-3.82,3.82H16.77a0,0,0,0,1,0,0V20.59A3.82,3.82,0,0,1,20.59,16.77Z">
+                                        </path>
+                                        <path class="cls-1" d="M19,17.13a3.81,3.81,0,0,0-.89-4l-1.35-1.35-.36.36-1,1a3.79,3.79,0,0,0-.89,4">
+                                        </path>
+                                        <path class="cls-1" d="M14.86,16.77h1.91a0,0,0,0,1,0,0v1.91A3.82,3.82,0,0,1,13,22.5H11a0,0,0,0,1,0,0V20.59A3.82,3.82,0,0,1,14.86,16.77Z" transform="translate(-5.73 33.55) rotate(-90)"></path>
+                                    </g>
+                                </svg>
+                        Contact : {{ $listing->business_name ?? ' ' }}
+                    </h5>
+
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+
+                    </button>
+                </div>
+
+                <!-- Body -->
+                <div class="modal-body pb-0">
+
+                    <!-- Mobile Number -->
+                    <div class="connect-number-box">
+                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path d="M3 6.5C3 14.5081 9.49187 21 17.5 21C18.166 21 18.8216 20.9551 19.4637 20.8682C20.3747 20.7448 21 19.9292 21 19.01V16.4415C21 15.5807 20.4491 14.8164 19.6325 14.5442L16.4841 13.4947C15.6836 13.2279 14.8252 13.699 14.6206 14.5177C14.3475 15.6102 12.987 15.987 12.1907 15.1907L8.80926 11.8093C8.01301 11.013 8.38984 9.65254 9.48229 9.37943C10.301 9.17476 10.7721 8.31644 10.5053 7.51586L9.45585 4.36754C9.18362 3.55086 8.41934 3 7.55848 3H4.99004C4.0708 3 3.25518 3.62533 3.13185 4.53627C3.0449 5.17845 3 5.83398 3 6.5Z" stroke="#ff3c5f" stroke-width="2" stroke-linejoin="round"></path>
+                            </g>
+                        </svg>
+
+                        <span id="mobileNumber">
+                        {{ formatMobileNumber($listing->phone) }}
+                        </span>
+                    </div>
+
+                    <!-- Explanation -->
+                    <p class="connect-description">
+                    You can contact this business directly using their mobile number.
+                    </p>
+
+                 <h6 class="connect-question">
+                        What would you like to do?
+                    </h6>
+                    <div class="action-btn-wrapper">
+                            <!-- Call -->
+                            <a href="tel:{{ formatMobileNumber($listing->phone) }}"
+                            class="connect-action-btn call-btn">
+                                <span class="action-icon"><svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path d="M3 6.5C3 14.5081 9.49187 21 17.5 21C18.166 21 18.8216 20.9551 19.4637 20.8682C20.3747 20.7448 21 19.9292 21 19.01V16.4415C21 15.5807 20.4491 14.8164 19.6325 14.5442L16.4841 13.4947C15.6836 13.2279 14.8252 13.699 14.6206 14.5177C14.3475 15.6102 12.987 15.987 12.1907 15.1907L8.80926 11.8093C8.01301 11.013 8.38984 9.65254 9.48229 9.37943C10.301 9.17476 10.7721 8.31644 10.5053 7.51586L9.45585 4.36754C9.18362 3.55086 8.41934 3 7.55848 3H4.99004C4.0708 3 3.25518 3.62533 3.13185 4.53627C3.0449 5.17845 3 5.83398 3 6.5Z" stroke="#fff" stroke-width="2" stroke-linejoin="round"></path>
+                                    </g>
+                                </svg></span>
+                                <span>Call this number</span>
+                            </a>
+
+                            <!-- SMS -->
+                            <a href="sms:{{ formatMobileNumber($listing->phone) }}"
+                            class="connect-action-btn sms-btn">
+                                <span class="action-icon">
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M8 9.5H15M8 13.5H13M15.3 19.1L21 21L19.1 15.3C19.1 15.3 20 14 20 11.5C20 6.80558 16.1944 3 11.5 3C6.80558 3 3 6.80558 3 11.5C3 16.1944 6.80558 20 11.5 20C14.0847 20 15.3 19.1 15.3 19.1Z" stroke="#0c223d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                                </span>
+                                <span>Send a text message</span>
+                            </a>
+                    </div>   
+
+                </div>
+               <!-- Footer -->
+                <div class="modal-footer justify-content-center py-0">
+                    <p class="connect-description">
+                        <i> Please let {{ $listing->business_name ?? 'NA' }} know you found them on E4U.</i>
+                    </p>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- end -->
     <!-- model start here 1-->
     <div class="modal fade upload-modal" id="mysendmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">

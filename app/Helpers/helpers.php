@@ -194,9 +194,9 @@ if (!function_exists('formatCurrency')) {
     /**
      * Format the amount
      */
-    function formatCurrency($amount, $currency = '$')
+    function formatCurrency($amount, $currency = '$', $appendCurrencySign = true)
     {
-        $amount = number_format($amount, 2, '.', ''); // keep 2 decimals
+        $amount = number_format($amount, 2, '.', ''); // keep 2 decsimals
         list($intPart, $decimalPart) = explode('.', $amount);
 
         $lastThree = substr($intPart, -3);
@@ -209,7 +209,7 @@ if (!function_exists('formatCurrency')) {
             $formatted = $lastThree;
         }
 
-        return $currency . '' . $formatted . '.' . $decimalPart;
+        return $appendCurrencySign ? $currency . '' . $formatted . '.' . $decimalPart : $formatted . '.' . $decimalPart;
     }
 }
 
@@ -3411,3 +3411,82 @@ if (!function_exists('formatBSBNumber')) {
         return implode('-', str_split($number, 3));
     }
 }
+
+if (!function_exists('stateWalletCredit')) {
+    function stateWalletCredit($startDate, $endDate,$stateId = null, $advertiserType = null)
+    {
+        $walletService = app(\App\Services\WalletService::class);
+
+        return $walletService->getStateCredit(
+            $startDate,
+            $endDate,
+            $stateId,
+            $advertiserType
+        );
+    }
+}
+
+
+if (!function_exists('getFinancialYear')) {
+    function getFinancialYear()
+    {
+        $now = Carbon::now('UTC');
+        $australiaTimeNow = getAustraliaTime($now);
+
+        // Determine the current financial year start
+        $currentFYStart = $australiaTimeNow->copy();
+
+        if ($australiaTimeNow->month < 7) {
+            $currentFYStart->subYear();
+        }
+
+        $currentStart = $currentFYStart->copy()
+        ->setMonth(7)
+        ->startOfMonth()
+        ->startOfDay()
+        ->utc();
+
+        $currentEnd = $currentStart->copy()
+        ->addYear()
+        ->subDay()
+        ->endOfDay()
+        ->utc();
+
+
+        // Previous financial year
+        $lastStart = $currentStart->copy()
+        ->subYear();
+
+        $lastEnd = $lastStart->copy()
+        ->addYear()
+        ->subDay()
+        ->endOfDay()
+        ->utc();
+
+
+        // Financial year before previous
+        $previousStart = $currentStart->copy()
+        ->subYears(2);
+
+        $previousEnd = $previousStart->copy()
+        ->addYear()
+        ->subDay()
+        ->endOfDay()
+        ->utc();
+
+
+        // Today end
+        $todayEnd = $australiaTimeNow->copy()
+        ->endOfDay()
+        ->utc();
+
+        // Last year's same date end
+        $lastTodayEnd = $australiaTimeNow->copy()
+        ->subYear()
+        ->endOfDay()
+        ->utc();
+
+        return compact('currentStart','currentEnd','lastStart','lastEnd','previousStart','previousEnd','todayEnd','lastTodayEnd');
+    }
+}
+

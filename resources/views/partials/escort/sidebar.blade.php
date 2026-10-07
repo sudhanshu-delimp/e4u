@@ -526,7 +526,7 @@
                                 <span>Accommodation</span>
                             </a>
 
-                            <a class="collapse-item {{ request()->segment(2) == 'email-hosting' ? 'menu-active' : '' }}"
+                            <a class="collapse-item disabled-link {{ request()->segment(2) == 'email-hosting' ? 'menu-active' : '' }}"
                                 href="{{ url('escort-dashboard/email-hosting') }}">
                                 <img src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}" />
                                 <span>Email Account</span>

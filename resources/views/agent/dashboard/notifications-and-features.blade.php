@@ -186,7 +186,7 @@
 
                                                 <div class="card-heading">
                                                     <h2>Alert notifications</h2>
-                                                    <p>By Escorts4U</p>
+                                                    <p>From Escorts4U</p>
                                                 </div>
                                             </div>
 
