@@ -31,7 +31,7 @@
                         <i class="bi bi-plus-lg"></i>
                         New
                     </button>
-                    <!-- <button id="filterBtn">
+                    <button id="filterBtn">
                         <svg width="12px" height="15px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#0c223d">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -49,7 +49,7 @@
                         </svg>
 
                         Filter
-                    </button> -->
+                    </button>
                 </div>
 
             </div>
