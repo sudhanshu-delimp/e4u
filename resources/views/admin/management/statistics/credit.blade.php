@@ -144,12 +144,14 @@
                      <td>All</td>
                      <td><div class="num_value">$<span>{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</span></div></td>
                      <td colspan="2"><div class="num_value">$<span>{{formatCurrency($LFY_Till_Date_Credit, '' , false)}}</div></td>
-                     <td ><div class="num_value">{!! getReportIcon($variation) !!} $<span>{{formatCurrency($variation, '' , false)}}</span></div></td>
+                     <td ><div class="num_value">{!! getReportIcon($variation) !!} {{formatCurrency($variation, '' , false)}}</div></td>
                      <td><div class="num_value">{!! getReportIcon($variation_percentage) !!} {{$variation_percentage}}</div></td>
-                     <td colspan="2">{{formatCurrency($LFY_Credit, '' , false)}}</td>
+
+                     <td colspan="2"><div class="num_value">$<span>{{formatCurrency($LFY_Credit, '' , false)}}</span></div></td>
                      <td ><div class="num_value">{!! getReportIcon($LFY_variation) !!} {{formatCurrency($LFY_variation, '' , false)}}</div></td>
                      <td><div class="num_value">{!! getReportIcon($LFY_variation_percentage) !!} {{$LFY_variation_percentage}}</div></td>
-                     <td colspan="2">{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</td>
+
+                     <td colspan="2"><div class="num_value">$<span>{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</div></td>
                      <td ><div class="num_value">{!! getReportIcon($actual_variation) !!} {{formatCurrency($actual_variation, '' , false)}}</div></td>
                      <td><div class="num_value">{!! getReportIcon($actual_variation_percentage) !!} {{$actual_variation_percentage}}</div></td>
                   </tr>
@@ -161,14 +163,16 @@
                   <tr class="collapse-row group-{{$key}} table-primary font-weight-bold">
                      <td></td>
                      <td>Total</td>
-                     <td>{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</td>
+                     <td><div class="num_value">$<span>{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</div></td>
                      <td colspan="2">{{formatCurrency($LFY_Till_Date_Credit, '' , false)}}</td>
                      <td ><div class="num_value">{!! getReportIcon($variation) !!} {{formatCurrency($variation, '' , false)}}</div></td>
                      <td><div class="num_value">{!! getReportIcon($variation_percentage) !!} {{$variation_percentage}}</div></td>
-                     <td colspan="2">{{formatCurrency($LFY_Credit, '' , false)}}</td>
+
+                     <td colspan="2"><div class="num_value">$<span>{{formatCurrency($LFY_Credit, '' , false)}}</div></td>
                      <td><div class="num_value">{!! getReportIcon($LFY_variation) !!} {{formatCurrency($LFY_variation, '' , false)}}</div></td>
                      <td><div class="num_value">{!! getReportIcon($LFY_variation_percentage) !!} {{$LFY_variation_percentage}}</div></td>
-                     <td colspan="2">{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</td>
+
+                     <td colspan="2"><div class="num_value">$<span>{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</div></td>
                      <td ><div class="num_value">{!! getReportIcon($actual_variation) !!} {{formatCurrency($actual_variation, '' , false)}}</div></td>
                      <td><div class="num_value">{!! getReportIcon($actual_variation_percentage) !!} {{$actual_variation_percentage}}</div></td>
                   </tr>
@@ -179,14 +183,16 @@
                      <td>
                      </td>
                      <td>Total</td>
-                     <td>{{formatCurrency($CFY_Till_Date_Credit_Total, '' , false)}}</td>
+                     <td><div class="num_value">$<span>{{formatCurrency($CFY_Till_Date_Credit_Total, '' , false)}}</div></td>
                      <td colspan="2">{{formatCurrency($LFY_Till_Date_Credit_Total, '' , false)}}</td>
                      <td><div class="num_value">{!! getReportIcon($variation_Total) !!} {{formatCurrency($variation_Total, '' , false)}}</div></td>
                      <td><div class="num_value">{!! getReportIcon($variation_percentage_Total) !!} {{$variation_percentage_Total}}</div></td>
-                     <td colspan="2">{{formatCurrency($LFY_Credit_Total, '' , false)}}</td>
+
+                     <td colspan="2"><div class="num_value">$<span>{{formatCurrency($LFY_Credit_Total, '' , false)}}</div></td>
                      <td><div class="num_value">{!! getReportIcon($LFY_variation_Total) !!} {{formatCurrency($LFY_variation_Total, '' , false)}}</div></td>
                      <td><div class="num_value">{!! getReportIcon($LFY_variation_percentage_Total) !!} {{$LFY_variation_percentage_Total}}</div></td>
-                     <td colspan="2">{{formatCurrency($CFY_Till_Date_Credit_Total, '' , false)}}</td>
+                     
+                     <td colspan="2"><div class="num_value">$<span>{{formatCurrency($CFY_Till_Date_Credit_Total, '' , false)}}</div></td>
                      <td><div class="num_value">{!! getReportIcon($actual_variation_Total) !!} {{formatCurrency($actual_variation_Total, '' , false)}}</div></td>
                      <td><div class="num_value">{!! getReportIcon($actual_variation_percentage_Total) !!} {{$actual_variation_percentage_Total}}</div></td>
                   </tr>
