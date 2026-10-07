@@ -247,6 +247,7 @@ class GlobalMonitoringController extends Controller
 
             return [
                 'id' => $row->id,
+                'slug' => $row->id,
                 'member_id' => $row->user->member_id,
                 'member' => $row->user->name,
                 'listing' => $homeStateName,
@@ -308,7 +309,8 @@ class GlobalMonitoringController extends Controller
                     if (!empty($search)) {
                         $q->orWhere(function ($q) use ($search) {
                             $q->whereHas('massageprofile', function ($q) use ($search) {
-                                $q->where('profile_name', $search);
+                                $q->where('profile_name', $search)
+                                 ->orWhere('slug', $search);
                             });
                         });
                         $q->orWhere(function ($q) use ($search) {
@@ -499,6 +501,7 @@ class GlobalMonitoringController extends Controller
 
             return [
                 'id' => $row->id,
+                'slug' => $row->massageprofile->slug,
                 'member_id' => $row->user->member_id,
                 'member' => $row->user->name,
                 'listing' => $homeStateName,
@@ -939,7 +942,10 @@ class GlobalMonitoringController extends Controller
                     $q->whereHas('user', function ($uq) use ($search) {
                         $uq->where('member_id', 'like', "%{$search}%");
                     })
-
+                     ->orWhereHas('escort', function ($eq) use ($search) {
+                            $eq->where('slug', 'like', "%{$search}%")
+                            ->orWhere('profile_name', 'like', "%{$search}%");
+                        })
                         ->orWhereHas('state', function ($sq) use ($search) {
                             $sq->where('name', 'like', "%{$search}%");
                         });
@@ -966,6 +972,7 @@ class GlobalMonitoringController extends Controller
             if (!empty($items)) {
                 foreach ($items as $item) {
                     $nestedData['member_id'] = $item->user->member_id;
+                    $nestedData['slug'] = !empty($item->escort) ? $item->escort->slug : '';
                     $nestedData['escort_name'] = !empty($item->escort) ? $item->escort->profile_name : 'N/A';
                     $nestedData['location'] = config("escorts.profile.states.$item->state_id.stateAbbr");
                     $nestedData['profile_id'] = !empty($item->escort) ? $item->escort->id : 'escort: ' . $item->escort_id;
