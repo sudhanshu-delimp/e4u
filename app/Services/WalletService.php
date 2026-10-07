@@ -136,19 +136,26 @@ class WalletService
         });
     }
 
-    public function getStateCredit($stateId, $startDate, $endDate, $advertiserType)
+    public function getStateCredit($startDate, $endDate, $stateId, $advertiserType)
     {
-        return CreditTransaction::query()
-            ->where('type', 'credit')
+        $transactions = CreditTransaction::query()
             ->whereHas('wallet.user', function ($q) use ($stateId, $advertiserType) {
-                $q->where('state_id', $stateId)
-                    ->when(
-                        !empty($advertiserType),
-                        fn ($q) => $q->where('type', $advertiserType),
-                        fn ($q) => $q->whereIn('type', ['3', '4'])
-                    );
+                $q->when(
+                    !is_null($stateId),
+                    fn ($q) => $q->where('state_id', $stateId)
+                )
+                ->when(
+                    !empty($advertiserType),
+                    fn ($q) => $q->where('type', $advertiserType),
+                    fn ($q) => $q->whereIn('type', ['3', '4'])
+                );
             })
             ->whereBetween('created_at', [$startDate, $endDate])
-            ->sum('amount');
+            ->orderByDesc('created_at')
+            ->get();
+
+        return $transactions
+            ->unique(fn ($transaction) => $transaction->wallet->user_id)
+            ->sum('balance_after');
     }
 }

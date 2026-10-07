@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Management;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ use App\Models\AdvertiserDiscount;
 use App\Traits\DataTablePagination;
 use Exception;
 
-class StatisticsController extends Controller
+class ReportingController extends Controller
 {
     protected $user;
     protected $account;
@@ -33,26 +33,24 @@ class StatisticsController extends Controller
 
     public function index() {}
 
-    public function creditReport()
+    public function revenue()
     {
         $states = config('escorts.profile.states');
-        
-        $financialYear = getFinancialYear();
 
-        $currentStart = $financialYear['currentStart'];
-        $currentEnd = $financialYear['currentEnd'];
+        $now = Carbon::now('UTC');
+        $australiaTimeNow = getAustraliaTime($now);
 
-        $lastStart = $financialYear['lastStart'];
-        $lastEnd = $financialYear['lastEnd'];
+        $currentStart = $australiaTimeNow->copy()->startOfYear()->utc();
+        $currentEndDate   = $australiaTimeNow->copy()->endOfDay()->utc();
 
-        $previousStart = $financialYear['previousStart'];
-        $previousEnd = $financialYear['previousEnd'];
 
-        $currentTodayEnd = $financialYear['todayEnd'];
-        $lastTodayEnd = $financialYear['lastTodayEnd'];
-        $daysTillToday = $financialYear['daysTillToday'];
+        $previousNow = $australiaTimeNow->copy()->subYear();
+        $previousStart = $previousNow->copy()->startOfYear()->utc();
+        $previousEndDate   = $previousNow->copy()->endOfDay()->utc();
+        $previousEnd   = $previousNow->copy()->endOfYear()->utc();
 
-        return view('admin.management.statistics.credit', compact('states', 'currentStart', 'currentEnd', 'lastStart', 'lastEnd', 'previousStart', 'previousEnd', 'currentTodayEnd','lastTodayEnd','daysTillToday'));
+
+        return view('admin.management.reporting.revenue', compact('states', 'currentStart', 'currentEndDate', 'previousStart', 'previousEndDate', 'previousEnd'));
     }
 
     public function emailReport()
