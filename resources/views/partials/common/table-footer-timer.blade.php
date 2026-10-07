@@ -24,6 +24,13 @@
                 }).toUpperCase();
                 $(".serverTime").text(australiaTime);
                 $(".uptimeClass").html(`{{getAppUptime()}}`);
+
+
+                console.log("Laravel UTC:", "{{ now()->utc()->format('Y-m-d H:i:s') }}");
+
+                console.log("Laravel Perth:", "{{ getAustraliaTime(now(), 'Y-m-d H:i:s A') }}");
+
+                console.log("Browser UTC:", new Date().toISOString());
                 countdown = 15;
             }
 
