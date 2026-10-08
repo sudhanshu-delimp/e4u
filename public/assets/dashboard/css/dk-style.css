@@ -13322,25 +13322,26 @@ details[open]>summary:first-of-type {
 .esc-tooltip::after {
     content: "";
     position: absolute;
-    bottom: 6px;
-    right: 0;
-    transform: translateX(91%) rotate(-90deg);
-    border-width: 8px;
+    left: 50%;
+    bottom: 100%;
+    transform: translate(-50%, 1%) rotate(180deg);
+    border-width: 7px;
     border-style: solid;
     border-color: var(--peach) transparent transparent transparent;
 }
 
 
+
 /* Position Variants */
 
 .esc-tooltip-support {
-    right: 5px;
-    transform: translate(-50px, -50%);
+  transform: translate(-48%, 30px);
+    left: 50%;
 }
 
 .esc-tooltip-navbar {
-    right: 5px;
-    transform: translate(-50px, -50%);
+    transform: translate(-48%, 30px);
+    left: 50%;
 }
 
 .esc-tooltip-2 {

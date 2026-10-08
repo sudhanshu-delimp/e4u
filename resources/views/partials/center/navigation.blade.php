@@ -203,7 +203,7 @@
                         <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">                            
                                 <span class="esc-tooltip esc-tooltip-support">Support Tickets</span>
                             <a class="nav-link dropdown-toggle support_notify_bell" href="#" id="ticketNotificationDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" title="Support tickets">
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip">
                                 <i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>
                             </a>
                             

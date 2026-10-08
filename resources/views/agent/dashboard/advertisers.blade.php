@@ -156,23 +156,127 @@
     /* GROWTH */
 
     .growth {
+
         display: inline-flex;
         align-items: center;
         gap: 4px;
-
-        padding: 6px 9px;
-
+        padding: 7px;
         border-radius: 8px;
-
-        background: #eafaf2;
+        background: #ffffff;
         color: #1da56a;
-
         font-size: 12px;
         font-weight: 700;
-
         white-space: nowrap;
+        border: 1px solid #e4eaf2;
     }
 
+    .growth i {
+        color: #1da56a;
+    }
+
+    /* CARD FILTER */
+
+    .card-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .period-filter {
+        position: relative;
+    }
+
+    .period-filter-btn {
+        width: 34px;
+        height: 34px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border: 1px solid #e4eaf2;
+        border-radius: 8px;
+
+        background: #fff;
+        color: #ff3c5f;
+
+        cursor: pointer;
+        transition: all .2s ease;
+    }
+
+    .period-filter-btn:hover {
+        background: #fff1f4;
+        border-color: #ff3c5f;
+    }
+
+    .period-filter-btn i {
+        font-size: 15px;
+    }
+
+
+    /* FILTER DROPDOWN */
+    .period-filter-menu button {
+        margin: .25rem 0 !important;
+    }
+
+    .period-filter-menu {
+        position: absolute;
+
+        top: calc(100% + 7px);
+        right: 0;
+
+        width: 120px;
+
+        padding: 5px;
+
+        background: #fff;
+
+        border: 1px solid #e4eaf2;
+        border-radius: 10px;
+
+        box-shadow: 0 8px 25px rgba(16, 35, 63, .12);
+
+        display: none;
+
+        z-index: 1000;
+    }
+
+    .period-filter-menu.show {
+        display: block;
+    }
+
+
+    /* OPTIONS */
+
+    .period-option {
+        width: 100%;
+
+        padding: 8px 10px;
+
+        border: 0;
+        border-radius: 7px;
+
+        background: transparent;
+
+        text-align: left;
+
+        font-size: 13px;
+        font-weight: 600;
+
+        color: #526982;
+
+        cursor: pointer;
+    }
+
+    .period-option:hover {
+        background: #fff1f4;
+        color: #ff3c5f;
+    }
+
+    .period-option.active {
+        background: #fff1f4;
+        color: #ff3c5f;
+    }
 
     /* METRICS */
 
@@ -303,209 +407,6 @@
         height: 105px !important;
     }
 
-    /* =========================================
-   TOP 3 ADVERTISER CARD COLORS
-   ========================================= */
-
-    :root {
-        /* CARD 1 - ORANGE / GOLD */
-        --advertiser-orange: #ff3c5f;
-        --advertiser-orange-light: #fff0cf;
-        --advertiser-orange-bg: #fff1d6;
-        --advertiser-orange-avatar: #fff0c7;
-        --advertiser-orange-avatar-end: #ffe1a1;
-        --advertiser-orange-border: #ff3c5f;
-        --advertiser-orange-divider: #f3d99e;
-        --advertiser-orange-text: #ff3c5f;
-        --advertiser-orange-growth: #ff3c5f;
-
-        /* CARD 2 - GREEN */
-        --advertiser-green: #22a45a;
-        --advertiser-green-light: #ddf5e6;
-        --advertiser-green-bg: #e4f7ea;
-        --advertiser-green-avatar: #dff7e7;
-        --advertiser-green-avatar-end: #bdebcf;
-        --advertiser-green-border: #9bd5ae;
-        --advertiser-green-divider: #b8dfc4;
-        --advertiser-green-text: #168a4a;
-
-        /* CARD 3 - LIGHT BLUE */
-        --advertiser-blue: #3b9ed8;
-        --advertiser-blue-light: #e1f3ff;
-        --advertiser-blue-bg: #e5f4ff;
-        --advertiser-blue-avatar: #dff2ff;
-        --advertiser-blue-avatar-end: #c5e7fa;
-        --advertiser-blue-border: #b8dcf5;
-        --advertiser-blue-divider: #c9e4f5;
-        --advertiser-blue-text: #1e62c7;
-    }
-
-
-   /* =========================================
-   CARD 1 - #FF3C5F SHADE
-   ========================================= */
-
-:root {
-    --advertiser-orange: #ff3c5f;
-    --advertiser-orange-light: #fff0f3;
-    --advertiser-orange-bg: #ffe8ed;
-    --advertiser-orange-avatar: #ffd9e1;
-    --advertiser-orange-avatar-end: #ffc1ce;
-    --advertiser-orange-border: #ff3c5f;
-    --advertiser-orange-divider: #ffc4cf;
-    --advertiser-orange-text: #ff3c5f;
-    --advertiser-orange-growth: #ff3c5f;
-}
-
-
-/* =========================================
-   CARD 1 : #FF3C5F
-   ========================================= */
-
-.advertiser-card.first {
-    background: linear-gradient(
-        145deg,
-        #ffffff 0%,
-        #fff0f3 100%
-    );
-
-    border: 1px solid var(--advertiser-orange-border);
-
-    box-shadow:
-        0 8px 24px rgba(255, 60, 95, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8);
-}
-
-
-.advertiser-card.first .advertiser-avatar {
-    background: linear-gradient(
-        135deg,
-        var(--advertiser-orange-avatar),
-        var(--advertiser-orange-avatar-end)
-    );
-
-    color: var(--advertiser-orange-text);
-}
-
-
-.advertiser-card.first .card-top {
-    border-bottom-color: var(--advertiser-orange-divider);
-}
-
-
-.advertiser-card.first .growth {
-    background: var(--advertiser-orange-light);
-    color: var(--advertiser-orange-growth);
-}
-
-
-.advertiser-card.first .metric-box.spend {
-    background: var(--advertiser-orange-bg);
-}
-
-
-.advertiser-card.first .metric-box.spend .metric-label {
-    color: var(--advertiser-orange-text);
-}
-
-
-.advertiser-card.first .metric-box.commission {
-    background: #fff;
-}
-    /* =========================================
-   CARD 2 : GREEN
-   ========================================= */
-
-    .advertiser-card.second {
-        background: linear-gradient(145deg,
-                #fbfffc 0%,
-                #eaf8ef 100%);
-
-        border: 1px solid var(--advertiser-green-border);
-
-        box-shadow:
-            0 8px 24px rgba(35, 150, 75, 0.11),
-            inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    }
-
-    .advertiser-card.second .advertiser-avatar {
-        background: linear-gradient(135deg,
-                var(--advertiser-green-avatar),
-                var(--advertiser-green-avatar-end));
-
-        color: var(--advertiser-green-text);
-    }
-
-    .advertiser-card.second .card-top {
-        border-bottom-color: var(--advertiser-green-divider);
-    }
-
-    .advertiser-card.second .growth {
-        background: var(--advertiser-green-light);
-        color: var(--advertiser-green-text);
-    }
-
-    .advertiser-card.second .metric-box.spend {
-        background: var(--advertiser-green-bg);
-    }
-
-    .advertiser-card.second .metric-box.spend .metric-label {
-        color: var(--advertiser-green-text);
-    }
-
-    .advertiser-card.second .metric-box.commission {
-        background: #fff;
-    }
-
-
-    /* =========================================
-   CARD 3 : LIGHT BLUE
-   ========================================= */
-
-    .advertiser-card.third {
-        background: linear-gradient(145deg,
-                #ffffff 0%,
-                #eaf6ff 100%);
-
-        border: 1px solid var(--advertiser-blue-border);
-
-        box-shadow:
-            0 8px 24px rgba(55, 155, 220, 0.12),
-            inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    }
-
-    .advertiser-card.third .advertiser-avatar {
-        background: linear-gradient(135deg,
-                var(--advertiser-blue-avatar),
-                var(--advertiser-blue-avatar-end));
-
-        color: var(--advertiser-blue-text);
-    }
-
-    .advertiser-card.third .card-top {
-        border-bottom-color: var(--advertiser-blue-divider);
-    }
-
-    .advertiser-card.third .growth {
-        background: var(--advertiser-blue-light);
-        color: var(--advertiser-blue-text);
-    }
-
-    .advertiser-card.third .metric-box.spend {
-        background: var(--advertiser-blue-bg);
-    }
-
-    .advertiser-card.third .metric-box.spend .metric-label {
-        color: var(--advertiser-blue-text);
-    }
-
-    .advertiser-card.third .metric-box.commission {
-        background: #fff;
-    }
-
-
-
-
 
     @media (max-width: 768px) {
 
@@ -553,8 +454,6 @@
     }
 </style>
 @endsection
-
-
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <!-- Page Heading -->
@@ -585,7 +484,6 @@
         </div>
     </div>
     <!-- end -->
-
     <div class="row">
         <div class="col-lg-12">
             <div class="advertiser-page">
@@ -649,10 +547,39 @@
                                     </div>
 
                                 </div>
+                                <div class="card-actions">
+                                    <div class="growth">
+                                        <i class="bi bi-arrow-up"></i>
+                                        12%
+                                    </div>
 
-                                <div class="growth">
-                                    <i class="bi bi-arrow-up"></i>
-                                    12%
+                                    <div class="period-filter">
+                                        <button type="button"
+                                            class="period-filter-btn"
+                                            data-card="1">
+                                            <i class="bi bi-funnel"></i>
+                                        </button>
+
+                                        <div class="period-filter-menu">
+                                            <button type="button"
+                                                class="period-option active"
+                                                data-period="day">
+                                                Day
+                                            </button>
+
+                                            <button type="button"
+                                                class="period-option"
+                                                data-period="month">
+                                                Month
+                                            </button>
+
+                                            <button type="button"
+                                                class="period-option"
+                                                data-period="year">
+                                                Year
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -734,7 +661,7 @@
                                 <div class="advertiser-info">
 
                                     <div class="advertiser-avatar">
-                                        <svg fill="#168a4a" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                        <svg fill="#ff3c5f" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                                             xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
                                             viewBox="0 0 31.701 31.701" xml:space="preserve">
 
@@ -781,15 +708,46 @@
                                         </h3>
 
                                         <p class="period">
-                                            Week to Date
+                                            Today
                                         </p>
                                     </div>
 
                                 </div>
 
-                                <div class="growth">
-                                    <i class="bi bi-arrow-up"></i>
-                                    18%
+
+                                <div class="card-actions">
+                                    <div class="growth">
+                                        <i class="bi bi-arrow-up"></i>
+                                        12%
+                                    </div>
+
+                                    <div class="period-filter">
+                                        <button type="button"
+                                            class="period-filter-btn"
+                                            data-card="2">
+                                            <i class="bi bi-funnel"></i>
+                                        </button>
+
+                                        <div class="period-filter-menu">
+                                            <button type="button"
+                                                class="period-option active"
+                                                data-period="day">
+                                                Day
+                                            </button>
+
+                                            <button type="button"
+                                                class="period-option"
+                                                data-period="month">
+                                                Month
+                                            </button>
+
+                                            <button type="button"
+                                                class="period-option"
+                                                data-period="year">
+                                                Year
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -808,7 +766,7 @@
                                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                                                     <g id="SVGRepo_iconCarrier">
-                                                        <path d="M3 6V17C3 18.6569 4.34315 20 6 20H20C20.5523 20 21 19.5523 21 19V16M19 8H5C3.89543 8 3 7.10457 3 6V6C3 4.89543 3.89543 4 5 4H18C18.5523 4 19 4.44772 19 5V8ZM19 8H20C20.5523 8 21 8.44772 21 9V12M21 12H18C16.8954 12 16 12.8954 16 14V14C16 15.1046 16.8954 16 18 16H21M21 12V16" stroke="#168a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path d="M3 6V17C3 18.6569 4.34315 20 6 20H20C20.5523 20 21 19.5523 21 19V16M19 8H5C3.89543 8 3 7.10457 3 6V6C3 4.89543 3.89543 4 5 4H18C18.5523 4 19 4.44772 19 5V8ZM19 8H20C20.5523 8 21 8.44772 21 9V12M21 12H18C16.8954 12 16 12.8954 16 14V14C16 15.1046 16.8954 16 18 16H21M21 12V16" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                         </path>
                                                     </g>
                                                 </svg>
@@ -870,7 +828,7 @@
                                 <div class="advertiser-info">
 
                                     <div class="advertiser-avatar">
-                                        <svg fill="#1e62c7" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                        <svg fill="#ff3c5f" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                                             xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
                                             viewBox="0 0 31.701 31.701" xml:space="preserve">
 
@@ -921,15 +879,45 @@
                                         </h3>
 
                                         <p class="period">
-                                            Month to Date
+                                            Today
                                         </p>
                                     </div>
 
                                 </div>
 
-                                <div class="growth">
-                                    <i class="bi bi-arrow-up"></i>
-                                    25%
+                                <div class="card-actions">
+                                    <div class="growth">
+                                        <i class="bi bi-arrow-up"></i>
+                                        12%
+                                    </div>
+
+                                    <div class="period-filter">
+                                        <button type="button"
+                                            class="period-filter-btn"
+                                            data-card="3">
+                                            <i class="bi bi-funnel"></i>
+                                        </button>
+
+                                        <div class="period-filter-menu">
+                                            <button type="button"
+                                                class="period-option active"
+                                                data-period="day">
+                                                Day
+                                            </button>
+
+                                            <button type="button"
+                                                class="period-option"
+                                                data-period="month">
+                                                Month
+                                            </button>
+
+                                            <button type="button"
+                                                class="period-option"
+                                                data-period="year">
+                                                Year
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -948,7 +936,7 @@
                                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                                                     <g id="SVGRepo_iconCarrier">
-                                                        <path d="M3 6V17C3 18.6569 4.34315 20 6 20H20C20.5523 20 21 19.5523 21 19V16M19 8H5C3.89543 8 3 7.10457 3 6V6C3 4.89543 3.89543 4 5 4H18C18.5523 4 19 4.44772 19 5V8ZM19 8H20C20.5523 8 21 8.44772 21 9V12M21 12H18C16.8954 12 16 12.8954 16 14V14C16 15.1046 16.8954 16 18 16H21M21 12V16" stroke="#1e62c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path d="M3 6V17C3 18.6569 4.34315 20 6 20H20C20.5523 20 21 19.5523 21 19V16M19 8H5C3.89543 8 3 7.10457 3 6V6C3 4.89543 3.89543 4 5 4H18C18.5523 4 19 4.44772 19 5V8ZM19 8H20C20.5523 8 21 8.44772 21 9V12M21 12H18C16.8954 12 16 12.8954 16 14V14C16 15.1046 16.8954 16 18 16H21M21 12V16" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                         </path>
                                                     </g>
                                                 </svg>
@@ -1006,7 +994,6 @@
                 </section>
                 <!-- MASSAGE CENTER -->
                 <section class="common-card my-4">
-
                     <div class="section-header">
 
                         <div class="section-title-wrapper">
@@ -1022,8 +1009,6 @@
                         </div>
 
                     </div>
-
-
                     <div class="common-grid-adv">
 
 
@@ -1064,9 +1049,39 @@
 
                                 </div>
 
-                                <div class="growth">
-                                    <i class="bi bi-arrow-up"></i>
-                                    10%
+                                <div class="card-actions">
+                                    <div class="growth">
+                                        <i class="bi bi-arrow-up"></i>
+                                        12%
+                                    </div>
+
+                                    <div class="period-filter">
+                                        <button type="button"
+                                            class="period-filter-btn"
+                                            data-card="4">
+                                            <i class="bi bi-funnel"></i>
+                                        </button>
+
+                                        <div class="period-filter-menu">
+                                            <button type="button"
+                                                class="period-option active"
+                                                data-period="day">
+                                                Day
+                                            </button>
+
+                                            <button type="button"
+                                                class="period-option"
+                                                data-period="month">
+                                                Month
+                                            </button>
+
+                                            <button type="button"
+                                                class="period-option"
+                                                data-period="year">
+                                                Year
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -1150,7 +1165,7 @@
                                 <div class="advertiser-info">
 
                                     <div class="advertiser-avatar">
-                                        <svg fill="#168a4a" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 31.701 31.701" xml:space="preserve">
+                                        <svg fill="#ff3c5f" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 31.701 31.701" xml:space="preserve">
 
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -1195,15 +1210,45 @@
                                         </h3>
 
                                         <p class="period">
-                                            Week to Date
+                                            Today
                                         </p>
                                     </div>
 
                                 </div>
 
-                                <div class="growth">
-                                    <i class="bi bi-arrow-up"></i>
-                                    16%
+                                <div class="card-actions">
+                                    <div class="growth">
+                                        <i class="bi bi-arrow-up"></i>
+                                        12%
+                                    </div>
+
+                                    <div class="period-filter">
+                                        <button type="button"
+                                            class="period-filter-btn"
+                                            data-card="5">
+                                            <i class="bi bi-funnel"></i>
+                                        </button>
+
+                                        <div class="period-filter-menu">
+                                            <button type="button"
+                                                class="period-option active"
+                                                data-period="day">
+                                                Day
+                                            </button>
+
+                                            <button type="button"
+                                                class="period-option"
+                                                data-period="month">
+                                                Month
+                                            </button>
+
+                                            <button type="button"
+                                                class="period-option"
+                                                data-period="year">
+                                                Year
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -1222,7 +1267,7 @@
                                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                                                     <g id="SVGRepo_iconCarrier">
-                                                        <path d="M3 6V17C3 18.6569 4.34315 20 6 20H20C20.5523 20 21 19.5523 21 19V16M19 8H5C3.89543 8 3 7.10457 3 6V6C3 4.89543 3.89543 4 5 4H18C18.5523 4 19 4.44772 19 5V8ZM19 8H20C20.5523 8 21 8.44772 21 9V12M21 12H18C16.8954 12 16 12.8954 16 14V14C16 15.1046 16.8954 16 18 16H21M21 12V16" stroke="#168a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path d="M3 6V17C3 18.6569 4.34315 20 6 20H20C20.5523 20 21 19.5523 21 19V16M19 8H5C3.89543 8 3 7.10457 3 6V6C3 4.89543 3.89543 4 5 4H18C18.5523 4 19 4.44772 19 5V8ZM19 8H20C20.5523 8 21 8.44772 21 9V12M21 12H18C16.8954 12 16 12.8954 16 14V14C16 15.1046 16.8954 16 18 16H21M21 12V16" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                         </path>
                                                     </g>
                                                 </svg>
@@ -1287,7 +1332,7 @@
                                 <div class="advertiser-info">
 
                                     <div class="advertiser-avatar">
-                                        <svg fill="#1e62c7" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 31.701 31.701" xml:space="preserve">
+                                        <svg fill="#ff3c5f" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 31.701 31.701" xml:space="preserve">
 
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -1336,15 +1381,45 @@
                                         </h3>
 
                                         <p class="period">
-                                            Month to Date
+                                            Today
                                         </p>
                                     </div>
 
                                 </div>
 
-                                <div class="growth">
-                                    <i class="bi bi-arrow-up"></i>
-                                    22%
+                                <div class="card-actions">
+                                    <div class="growth">
+                                        <i class="bi bi-arrow-up"></i>
+                                        12%
+                                    </div>
+
+                                    <div class="period-filter">
+                                        <button type="button"
+                                            class="period-filter-btn"
+                                            data-card="6">
+                                            <i class="bi bi-funnel"></i>
+                                        </button>
+
+                                        <div class="period-filter-menu">
+                                            <button type="button"
+                                                class="period-option active"
+                                                data-period="day">
+                                                Day
+                                            </button>
+
+                                            <button type="button"
+                                                class="period-option"
+                                                data-period="month">
+                                                Month
+                                            </button>
+
+                                            <button type="button"
+                                                class="period-option"
+                                                data-period="year">
+                                                Year
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -1363,7 +1438,7 @@
                                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                                                     <g id="SVGRepo_iconCarrier">
-                                                        <path d="M3 6V17C3 18.6569 4.34315 20 6 20H20C20.5523 20 21 19.5523 21 19V16M19 8H5C3.89543 8 3 7.10457 3 6V6C3 4.89543 3.89543 4 5 4H18C18.5523 4 19 4.44772 19 5V8ZM19 8H20C20.5523 8 21 8.44772 21 9V12M21 12H18C16.8954 12 16 12.8954 16 14V14C16 15.1046 16.8954 16 18 16H21M21 12V16" stroke="#1e62c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path d="M3 6V17C3 18.6569 4.34315 20 6 20H20C20.5523 20 21 19.5523 21 19V16M19 8H5C3.89543 8 3 7.10457 3 6V6C3 4.89543 3.89543 4 5 4H18C18.5523 4 19 4.44772 19 5V8ZM19 8H20C20.5523 8 21 8.44772 21 9V12M21 12H18C16.8954 12 16 12.8954 16 14V14C16 15.1046 16.8954 16 18 16H21M21 12V16" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                         </path>
                                                     </g>
                                                 </svg>
@@ -1418,7 +1493,6 @@
                         </div>
 
                     </div>
-
                 </section>
             </div>
         </div>
@@ -1525,95 +1599,216 @@
 
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
-    /* GRAPH CONFIG */
+    /*    CARD PERIOD DATA */
 
-    const graphData = [
+    const cardPeriodData = {
 
-        /* CARD 1 - ORANGE / GOLD */
+        1: {
+            day: {
+                spend: "$580.00",
+                commission: "$232.00",
+                roi: 40,
+                growth: "12%",
+                values: [80, 125, 180, 210, 290, 360, 430, 520]
+            },
 
-        /* TODAY */
-        {
-            id: "graph1",
-            period: "today",
-            values: [
-                80, 125, 180, 210,
-                290, 360, 430, 520
-            ]
-        },
+            month: {
+                spend: "$1,850.00",
+                commission: "$740.00",
+                roi: 52,
+                growth: "18%",
+                values: [80, 180, 280, 390, 520, 650, 780]
+            },
 
-        /* WEEK TO DATE */
-        {
-            id: "graph2",
-            period: "week",
-            values: [
-                120, 220, 260,
-                320, 380, 450, 580
-            ]
-        },
-
-        /* MONTH TO DATE */
-        {
-            id: "graph3",
-            period: "month",
-            values: [
-                80, 110, 145, 180, 210,
-                250, 280, 310, 340, 360,
-                390, 410, 430, 455, 480,
-                500, 520, 540, 560, 580,
-                600, 620, 640, 660, 680,
-                700, 720, 740, 760, 780
-            ]
+            year: {
+                spend: "$18,500.00",
+                commission: "$7,400.00",
+                roi: 68,
+                growth: "24%",
+                values: [
+                    120, 180, 250, 310,
+                    390, 450, 520, 580,
+                    650, 720, 780, 850
+                ]
+            }
         },
 
 
-        /* CARD 2 - GREEN */
+        2: {
+            day: {
+                spend: "$420.00",
+                commission: "$168.00",
+                roi: 35,
+                growth: "10%",
+                values: [70, 120, 165, 220, 280, 350, 420, 510]
+            },
 
-        /* TODAY */
-        {
-            id: "graph4",
-            period: "today",
-            values: [
-                70, 120, 165, 220,
-                280, 350, 420, 510
-            ]
+            month: {
+                spend: "$1,600.00",
+                commission: "$640.00",
+                roi: 48,
+                growth: "16%",
+                values: [100, 180, 260, 350, 450, 560, 680]
+            },
+
+            year: {
+                spend: "$16,000.00",
+                commission: "$6,400.00",
+                roi: 62,
+                growth: "21%",
+                values: [
+                    120, 200, 280, 360,
+                    450, 540, 630, 720,
+                    810, 900, 1000, 1100
+                ]
+            }
         },
 
-        /* WEEK TO DATE */
-        {
-            id: "graph5",
-            period: "week",
-            values: [
-                100, 210, 230,
-                310, 370, 450, 580
-            ]
+
+        3: {
+            day: {
+                spend: "$500.00",
+                commission: "$200.00",
+                roi: 38,
+                growth: "11%",
+                values: [80, 130, 180, 240, 300, 370, 450, 540]
+            },
+
+            month: {
+                spend: "$1,900.00",
+                commission: "$760.00",
+                roi: 55,
+                growth: "19%",
+                values: [90, 180, 280, 390, 510, 650, 800]
+            },
+
+            year: {
+                spend: "$19,000.00",
+                commission: "$7,600.00",
+                roi: 70,
+                growth: "27%",
+                values: [
+                    130, 220, 320, 430,
+                    550, 680, 810, 950,
+                    1080, 1200, 1350, 1500
+                ]
+            }
         },
 
-        /* MONTH TO DATE */
-        {
-            id: "graph6",
-            period: "month",
-            values: [
-                90, 120, 160, 200, 240,
-                270, 300, 330, 360, 390,
-                420, 450, 470, 490, 510,
-                530, 550, 570, 580, 590,
-                600, 610, 620, 630, 640,
-                650, 660, 670, 680, 690
-            ]
+
+        4: {
+            day: {
+                spend: "$450.00",
+                commission: "$180.00",
+                roi: 42,
+                growth: "13%",
+                values: [70, 120, 165, 220, 280, 350, 420, 510]
+            },
+
+            month: {
+                spend: "$1,700.00",
+                commission: "$680.00",
+                roi: 53,
+                growth: "17%",
+                values: [90, 170, 260, 360, 470, 590, 720]
+            },
+
+            year: {
+                spend: "$17,000.00",
+                commission: "$6,800.00",
+                roi: 65,
+                growth: "23%",
+                values: [
+                    120, 200, 290, 390,
+                    500, 620, 750, 880,
+                    1010, 1150, 1300, 1450
+                ]
+            }
+        },
+
+
+        5: {
+            day: {
+                spend: "$400.00",
+                commission: "$160.00",
+                roi: 37,
+                growth: "9%",
+                values: [100, 150, 210, 270, 330, 400, 470, 550]
+            },
+
+            month: {
+                spend: "$1,500.00",
+                commission: "$600.00",
+                roi: 50,
+                growth: "15%",
+                values: [100, 190, 290, 400, 520, 640, 760]
+            },
+
+            year: {
+                spend: "$15,000.00",
+                commission: "$6,000.00",
+                roi: 60,
+                growth: "20%",
+                values: [
+                    110, 190, 280, 380,
+                    490, 600, 720, 840,
+                    960, 1080, 1200, 1350
+                ]
+            }
+        },
+
+
+        6: {
+            day: {
+                spend: "$480.00",
+                commission: "$192.00",
+                roi: 45,
+                growth: "14%",
+                values: [90, 140, 200, 270, 340, 420, 500, 590]
+            },
+
+            month: {
+                spend: "$1,800.00",
+                commission: "$720.00",
+                roi: 57,
+                growth: "20%",
+                values: [90, 180, 280, 390, 510, 640, 780]
+            },
+
+            year: {
+                spend: "$18,000.00",
+                commission: "$7,200.00",
+                roi: 72,
+                growth: "28%",
+                values: [
+                    130, 220, 330, 450,
+                    580, 710, 850, 990,
+                    1140, 1300, 1460, 1650
+                ]
+            }
         }
 
-    ];
+    };
 
 
-    /* GET LABELS ACCORDING TO PERIOD */
+    /* COMMON COLOR */
 
-    function getLabels(period) {
+    const COLORS = {
+        primary: "#ff3c5f",
+        remaining: "#e5ebf2",
+        text: "#7c90a9",
+        tooltip: "#10233f"
+    };
 
-        /* TODAY */
 
-        if (period === "today") {
+    /* GET LABELS */
+
+    function getLabels(period, totalValues = 0) {
+
+        /* DAY */
+
+        if (period === "day") {
 
             return [
                 "9 AM",
@@ -1624,64 +1819,44 @@
                 "2 PM",
                 "3 PM",
                 "4 PM"
-            ];
+            ].slice(0, totalValues);
 
         }
 
 
-        /* WEEK TO DATE */
-
-        if (period === "week") {
-
-            return [
-                "Mon",
-                "Tue",
-                "Wed",
-                "Thu",
-                "Fri",
-                "Sat",
-                "Sun"
-            ];
-
-        }
-
-
-        /* MONTH TO DATE */
+        /* MONTH */
 
         if (period === "month") {
 
+            const labels = [];
+
+            for (let i = 1; i <= totalValues; i++) {
+                labels.push(i.toString());
+            }
+
+            return labels;
+
+        }
+
+
+        /* YEAR */
+
+        if (period === "year") {
+
             return [
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7",
-                "8",
-                "9",
-                "10",
-                "11",
-                "12",
-                "13",
-                "14",
-                "15",
-                "16",
-                "17",
-                "18",
-                "19",
-                "20",
-                "21",
-                "22",
-                "23",
-                "24",
-                "25",
-                "26",
-                "27",
-                "28",
-                "29",
-                "30"
-            ];
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+            ].slice(0, totalValues);
 
         }
 
@@ -1691,21 +1866,35 @@
     }
 
 
-    /* CREATE LINE GRAPH */
+    /* CREATE GRAPH */
 
-    function createGraph(id, values, period, themeColor) {
+    function createGraph(
+        id,
+        values,
+        period,
+        themeColor = COLORS.primary
+    ) {
 
         const canvas = document.getElementById(id);
 
-        if (!canvas) return;
+        if (!canvas) {
+            return;
+        }
+
+
+  
+
+        const oldChart = Chart.getChart(canvas);
+
+        if (oldChart) {
+            oldChart.destroy();
+        }
 
 
         const ctx = canvas.getContext("2d");
 
 
-        /* =====================================================
-           GRADIENT
-        ===================================================== */
+        /* Gradient */
 
         const gradient = ctx.createLinearGradient(
             0,
@@ -1715,55 +1904,27 @@
         );
 
 
-        /*
-         * Convert HEX color to RGB for transparent gradient
-         */
-
-        function hexToRgba(hex, alpha) {
-
-            hex = hex.replace("#", "");
-
-            const r = parseInt(
-                hex.substring(0, 2),
-                16
-            );
-
-            const g = parseInt(
-                hex.substring(2, 4),
-                16
-            );
-
-            const b = parseInt(
-                hex.substring(4, 6),
-                16
-            );
-
-            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-
-        }
-
-
         gradient.addColorStop(
             0,
-            hexToRgba(themeColor, 0.22)
+            "rgba(255, 60, 95, 0.22)"
         );
+
 
         gradient.addColorStop(
             1,
-            hexToRgba(themeColor, 0)
+            "rgba(255, 60, 95, 0)"
         );
 
 
-        /* =====================================================
-           LABELS
-        ===================================================== */
+        /* Labels */
 
-        const labels = getLabels(period);
+        const labels = getLabels(
+            period,
+            values.length
+        );
 
 
-        /* =====================================================
-           CHART
-        ===================================================== */
+        /* Chart */
 
         new Chart(ctx, {
 
@@ -1779,10 +1940,8 @@
 
                         data: values,
 
-                        /* LINE COLOR */
                         borderColor: themeColor,
 
-                        /* AREA COLOR */
                         backgroundColor: gradient,
 
                         borderWidth: 2,
@@ -1791,7 +1950,6 @@
 
                         tension: 0.4,
 
-                        /* POINTS */
                         pointRadius: 2.5,
 
                         pointHoverRadius: 5,
@@ -1806,8 +1964,6 @@
 
             },
 
-
-            /* OPTIONS */
 
             options: {
 
@@ -1827,8 +1983,6 @@
 
                 plugins: {
 
-                    /* LEGEND */
-
                     legend: {
 
                         display: false
@@ -1836,21 +1990,21 @@
                     },
 
 
-                    /* TOOLTIP */
-
                     tooltip: {
 
                         displayColors: false,
 
-                        backgroundColor: "#10233f",
+                        backgroundColor: COLORS.tooltip,
 
                         padding: 10,
+
 
                         titleFont: {
 
                             size: 11
 
                         },
+
 
                         bodyFont: {
 
@@ -1864,8 +2018,9 @@
                             label: function(context) {
 
                                 return "$" +
-                                    context.parsed.y
-                                    .toLocaleString();
+                                    Number(
+                                        context.parsed.y
+                                    ).toLocaleString();
 
                             }
 
@@ -1876,16 +2031,7 @@
                 },
 
 
-                /* =================================================
-                   SCALES
-                ================================================= */
-
                 scales: {
-
-
-                    /* =========================
-                       X AXIS
-                    ========================= */
 
                     x: {
 
@@ -1895,15 +2041,17 @@
 
                         },
 
+
                         border: {
 
                             display: false
 
                         },
 
+
                         ticks: {
 
-                            color: "#7c90a9",
+                            color: COLORS.text,
 
                             font: {
 
@@ -1915,41 +2063,19 @@
 
                             autoSkip: true,
 
-
-                            /*
-                             * Today = 4 labels
-                             * Week = 7 labels
-                             * Month = around 6 labels
-                             */
-
-                            maxTicksLimit:
-
-                                period === "today"
-
-                                ?
-                                4
-
-                                :
-                                period === "week"
-
-                                ?
-                                7
-
-                                :
-                                6
+                            maxTicksLimit: period === "day" ?
+                                4 : period === "month" ?
+                                6 : 12
 
                         }
 
                     },
 
 
-                    /* =========================
-                       Y AXIS
-                    ========================= */
-
                     y: {
 
                         beginAtZero: true,
+
 
                         grid: {
 
@@ -1959,15 +2085,17 @@
 
                         },
 
+
                         border: {
 
                             display: false
 
                         },
 
+
                         ticks: {
 
-                            color: "#7c90a9",
+                            color: COLORS.text,
 
                             font: {
 
@@ -2002,13 +2130,25 @@
     function createROI(
         id,
         percentage,
-        themeColor
+        themeColor = COLORS.primary
     ) {
 
         const canvas =
             document.getElementById(id);
 
-        if (!canvas) return;
+
+        if (!canvas) {
+            return;
+        }
+
+
+        /* Destroy old chart */
+
+        const oldChart = Chart.getChart(canvas);
+
+        if (oldChart) {
+            oldChart.destroy();
+        }
 
 
         const ctx =
@@ -2037,11 +2177,9 @@
 
                         backgroundColor: [
 
-                            /* ACTIVE */
                             themeColor,
 
-                            /* REMAINING */
-                            "#e5ebf2"
+                            COLORS.remaining
 
                         ],
 
@@ -2076,6 +2214,7 @@
 
                     },
 
+
                     tooltip: {
 
                         enabled: false
@@ -2090,99 +2229,619 @@
 
     }
 
-    /* =========================================================
-       THEME COLORS
-    ========================================================= */
 
-    const COLORS = {
-        orange: "#ff3c5f",
-        green: "#22a45a",
-        lightBlue: "#1e62c7"
-    };
+    /* UPDATE CARD */
 
+    function updateCardPeriod(
+        cardId,
+        period
+    ) {
 
-    /* INITIALIZE GRAPHS */
-
-    /*
-        ESCORT CARDS
-
-        Card 1 → graph1 → Orange
-        Card 2 → graph2 → Green
-        Card 3 → graph3 → Light Blue
-    */
-
-    const graphColors = {
-        graph1: COLORS.orange,
-        graph2: COLORS.green,
-        graph3: COLORS.lightBlue,
-
-        graph4: COLORS.orange,
-        graph5: COLORS.green,
-        graph6: COLORS.lightBlue
-    };
+        const cardData =
+            cardPeriodData[cardId];
 
 
-    graphData.forEach(function(item) {
+        if (!cardData) {
+            return;
+        }
 
-        createGraph(
-            item.id,
-            item.values,
-            item.period,
-            graphColors[item.id] || "#ff3c5f"
+
+        const data =
+            cardData[period];
+
+
+        if (!data) {
+            return;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | FIND EXACT CARD
+        |--------------------------------------------------------------------------
+        */
+
+        const filterButton =
+            document.querySelector(
+                `.period-filter-btn[data-card="${cardId}"]`
+            );
+
+
+        if (!filterButton) {
+            console.warn(
+                "Filter button not found for card:",
+                cardId
+            );
+
+            return;
+        }
+
+
+        const card =
+            filterButton.closest(
+                ".advertiser-card"
+            );
+
+
+        if (!card) {
+            console.warn(
+                "Advertiser card not found:",
+                cardId
+            );
+
+            return;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | PERIOD TEXT
+        |--------------------------------------------------------------------------
+        */
+
+        const periodElement =
+            card.querySelector(".period");
+
+
+        if (periodElement) {
+
+            if (period === "day") {
+
+                periodElement.textContent =
+                    "Today";
+
+            } else if (period === "month") {
+
+                periodElement.textContent =
+                    "Month to Date";
+
+            } else if (period === "year") {
+
+                periodElement.textContent =
+                    "Year to Date";
+
+            }
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | GROWTH
+        |--------------------------------------------------------------------------
+        */
+
+        const growthElement =
+            card.querySelector(".growth");
+
+
+        if (growthElement) {
+
+            growthElement.innerHTML = `
+
+            <i class="bi bi-arrow-up"></i>
+
+            <span class="growth-value">
+                ${data.growth}
+            </span>
+
+        `;
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | SPEND + COMMISSION
+        |--------------------------------------------------------------------------
+        */
+
+        const metricBoxes =
+            card.querySelectorAll(
+                ".metric-box"
+            );
+
+
+        metricBoxes.forEach(
+            function(box) {
+
+                const labelElement =
+                    box.querySelector(
+                        ".metric-label"
+                    );
+
+
+                const valueElement =
+                    box.querySelector(
+                        ".metric-value"
+                    );
+
+
+                if (!labelElement || !valueElement) {
+                    return;
+                }
+
+
+                const label =
+                    labelElement.textContent
+                    .trim()
+                    .toLowerCase();
+
+
+                if (label.includes("spend")) {
+
+                    valueElement.textContent =
+                        data.spend;
+
+                }
+
+
+                if (
+                    label.includes("commission")
+                ) {
+
+                    valueElement.textContent =
+                        data.commission;
+
+                }
+
+            }
         );
 
-    });
+
+        /*
+        |--------------------------------------------------------------------------
+        | ROI TEXT
+        |--------------------------------------------------------------------------
+        */
+
+        const roiPercent =
+            card.querySelector(
+                ".roi-percent"
+            );
 
 
-    /* =========================================================
-       INITIALIZE ROI
-    ========================================================= */
+        if (roiPercent) {
 
-    /* CARD 1 → ORANGE */
-    createROI(
-        "roi1",
-        40,
-        COLORS.orange
+            roiPercent.textContent =
+                data.roi + "%";
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | ROI CHART
+        |--------------------------------------------------------------------------
+        */
+
+        const roiCanvas =
+            card.querySelector(
+                "canvas[id^='roi']"
+            );
+
+
+        if (roiCanvas) {
+
+            const roiChart =
+                Chart.getChart(
+                    roiCanvas
+                );
+
+
+            if (roiChart) {
+
+                roiChart.data.datasets[0].data = [
+
+                    data.roi,
+
+                    100 - data.roi
+
+                ];
+
+
+                roiChart.update();
+
+            }
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | GRAPH
+        |--------------------------------------------------------------------------
+        */
+
+        const graphCanvas =
+            card.querySelector(
+                "canvas[id^='graph']"
+            );
+
+
+        if (graphCanvas) {
+
+            const graphChart =
+                Chart.getChart(
+                    graphCanvas
+                );
+
+
+            if (graphChart) {
+
+                /*
+                 * Update labels
+                 */
+
+                graphChart.data.labels =
+                    getLabels(
+                        period,
+                        data.values.length
+                    );
+
+
+                /*
+                 * Update graph values
+                 */
+
+                graphChart.data.datasets[0].data =
+                    data.values;
+
+
+                /*
+                 * Update same color
+                 */
+
+                graphChart.data.datasets[0].borderColor =
+                    COLORS.primary;
+
+
+                graphChart.data.datasets[0].pointBackgroundColor =
+                    COLORS.primary;
+
+
+                /*
+                 * Update chart
+                 */
+
+                graphChart.update();
+
+            }
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | SAVE CURRENT PERIOD
+        |--------------------------------------------------------------------------
+        */
+
+        filterButton.dataset.period =
+            period;
+
+    }
+
+
+    /* INITIALIZE ALL 6 CARDS DEFAULT = DAY */
+
+    for (
+        let cardId = 1; cardId <= 6; cardId++
+    ) {
+
+        const dayData =
+            cardPeriodData[cardId].day;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | GRAPH
+        |--------------------------------------------------------------------------
+        */
+
+        createGraph(
+            "graph" + cardId,
+            dayData.values,
+            "day",
+            COLORS.primary
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | ROI
+        |--------------------------------------------------------------------------
+        */
+
+        createROI(
+            "roi" + cardId,
+            dayData.roi,
+            COLORS.primary
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | INITIAL CARD DATA
+        |--------------------------------------------------------------------------
+        */
+
+        updateCardPeriod(
+            cardId,
+            "day"
+        );
+
+    }
+
+
+    /*  FILTER BUTTON CLICK   */
+
+    document
+        .querySelectorAll(
+            ".period-filter-btn"
+        )
+        .forEach(
+            function(button) {
+
+                button.addEventListener(
+                    "click",
+                    function(e) {
+
+                        e.preventDefault();
+
+                        e.stopPropagation();
+
+
+                        const menu =
+                            this.nextElementSibling;
+
+
+                        if (!menu) {
+                            return;
+                        }
+
+
+                        /*
+                         * Close all other menus
+                         */
+
+                        document
+                            .querySelectorAll(
+                                ".period-filter-menu"
+                            )
+                            .forEach(
+                                function(item) {
+
+                                    if (
+                                        item !== menu
+                                    ) {
+
+                                        item.classList
+                                            .remove(
+                                                "show"
+                                            );
+
+                                    }
+
+                                }
+                            );
+
+
+                        /*
+                         * Open current menu
+                         */
+
+                        menu.classList.toggle(
+                            "show"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+    /*   DAY / MONTH / YEAR CLICK  */
+
+    document
+        .querySelectorAll(
+            ".period-option"
+        )
+        .forEach(
+            function(option) {
+
+                option.addEventListener(
+                    "click",
+                    function(e) {
+
+                        e.preventDefault();
+
+                        e.stopPropagation();
+
+
+                        /*
+                         * Current menu
+                         */
+
+                        const menu =
+                            this.closest(
+                                ".period-filter-menu"
+                            );
+
+
+                        if (!menu) {
+                            return;
+                        }
+
+
+                        /*
+                         * Current filter
+                         */
+
+                        const filter =
+                            this.closest(
+                                ".period-filter"
+                            );
+
+
+                        if (!filter) {
+                            return;
+                        }
+
+
+                        /*
+                         * Current card ID
+                         */
+
+                        const button =
+                            filter.querySelector(
+                                ".period-filter-btn"
+                            );
+
+
+                        if (!button) {
+                            return;
+                        }
+
+
+                        const cardId =
+                            button.dataset.card;
+
+
+                        /*
+                         * Selected period
+                         */
+
+                        const period =
+                            this.dataset.period;
+
+
+                        if (
+                            !cardId ||
+                            !period
+                        ) {
+                            return;
+                        }
+
+
+                        /*
+                         * Remove active
+                         */
+
+                        menu
+                            .querySelectorAll(
+                                ".period-option"
+                            )
+                            .forEach(
+                                function(item) {
+
+                                    item.classList
+                                        .remove(
+                                            "active"
+                                        );
+
+                                }
+                            );
+
+
+                        /*
+                         * Set selected active
+                         */
+
+                        this.classList.add(
+                            "active"
+                        );
+
+
+                        /*
+                         * Close menu
+                         */
+
+                        menu.classList.remove(
+                            "show"
+                        );
+
+
+                        /*
+                         * Update ONLY this card
+                         */
+
+                        updateCardPeriod(
+                            cardId,
+                            period
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+    /*  CLOSE FILTER WHEN CLICK OUTSIDE  */
+
+    document.addEventListener(
+        "click",
+        function() {
+
+            document
+                .querySelectorAll(
+                    ".period-filter-menu"
+                )
+                .forEach(
+                    function(menu) {
+
+                        menu.classList.remove(
+                            "show"
+                        );
+
+                    }
+                );
+
+        }
     );
 
 
-    /* CARD 2 → GREEN */
-    createROI(
-        "roi2",
-        35,
-        COLORS.green
-    );
+    /* STOP MENU CLICK FROM CLOSING IT EARLY */
 
+    document
+        .querySelectorAll(
+            ".period-filter-menu"
+        )
+        .forEach(
+            function(menu) {
 
-    /* CARD 3 → LIGHT BLUE */
-    createROI(
-        "roi3",
-        38,
-        COLORS.lightBlue
-    );
+                menu.addEventListener(
+                    "click",
+                    function(e) {
 
+                        e.stopPropagation();
 
-    /* =========================================================
-       MASSAGE CENTER
-       Keep original pink color
-    ========================================================= */
+                    }
+                );
 
-    createROI(
-        "roi4",
-        42,
-        COLORS.orange
-    );
-
-    createROI(
-        "roi5",
-        37,
-        COLORS.green
-    );
-
-    createROI(
-        "roi6",
-        45,
-        COLORS.lightBlue
-    );
+            }
+        );
 </script>
 @endsection
