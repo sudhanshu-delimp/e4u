@@ -20,14 +20,14 @@
     <td>{{$advertiser == 3 ? 'Escorts':'Centers'}}</td>
     <td><div class="num_value">$<span>{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</span></div></td>
     <td colspan="2"><div class="num_value">$<span>{{formatCurrency($LFY_Till_Date_Credit, '' , false)}}</span></div></td>
-    <td><div class="num_value">{{formatCurrency($variation, '' , false)}}</div></td>
-    <td><div class="num_value">{{round($variation_percentage, 2)}}</div></td>
+    <td><div class="num_value">{!! getReportIcon($variation) !!} {{formatCurrency($variation, '' , false)}}</div></td>
+    <td><div class="num_value">{!! getReportIcon($variation_percentage) !!} {{round($variation_percentage, 2)}}</div></td>
 
     <td colspan="2"><div class="num_value">$<span>{{formatCurrency($LFY_Credit, '' , false)}}</span></div></td>
-    <td><div class="num_value">{{formatCurrency($LFY_variation, '' , false)}}</div></td>
-    <td><div class="num_value">{{round($LFY_variation_percentage, 2)}}</div></td>
+    <td><div class="num_value">{!! getReportIcon($LFY_variation) !!} {{formatCurrency($LFY_variation, '' , false)}}</div></td>
+    <td><div class="num_value">{!! getReportIcon($LFY_variation_percentage) !!} {{round($LFY_variation_percentage, 2)}}</div></td>
 
     <td colspan="2"><div class="num_value">$<span>{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</span></div></td>
-    <td ><div class="num_value">{{formatCurrency($actual_variation, '' , false)}}</div></td>
-    <td><div class="num_value">{{round($actual_variation_percentage, 2)}}</div></td>
+    <td ><div class="num_value">{!! getReportIcon($actual_variation) !!} {{formatCurrency($actual_variation, '' , false)}}</div></td>
+    <td><div class="num_value">{!! getReportIcon($actual_variation_percentage) !!} {{round($actual_variation_percentage, 2)}}</div></td>
 </tr>
