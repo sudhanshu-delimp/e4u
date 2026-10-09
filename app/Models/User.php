@@ -1017,6 +1017,13 @@ class User extends Authenticatable
         return $this->hasMany(EscortAdditionalInformation::class);
     }
 
+    public function getAddresses()
+    {
+        return $this->additionalInfo()
+            ->where('type', 'address')
+            ->get();
+    }
+
 
     public function can_manage()
     {

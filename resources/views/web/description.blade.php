@@ -1546,7 +1546,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                         <div class="content">
                             <div class="accodien_manage_padding_content">
                                 <p class="text-justify">
-                                     Prices are all inclusive unless an extra is listed in My Services. For Outcalls, price is rate + taxi to and from my Location, and I may require a <!--<a href="javascript:void(0)" class="tooltip-wrapper"  id="my-pricing-link">Deposit <span class="tooltip-text"> See Deposit Policy</span></a>--> Deposit. 
+                                     Prices are all inclusive unless an extra is listed in My Services. For Outcalls, price is rate + taxi to and from my Location, and I may require a <a href="javascript:void(0)" class="tooltip-wrapper"  id="my-pricing-link">Deposit <span class="tooltip-text"> See Deposit Policy</span></a>. 
                                 </p>
                             </div>
                         </div>
@@ -2374,7 +2374,52 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
 <script src="{{ asset('assets/app/lightbox/js/glightbox.min.js') }}"> </script>
 <script src="{{ asset('assets/app/lightbox/js/script.js') }}"> </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+
 <script>
+    $(document).on('click', '#my-pricing-link', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const $container = $('.accordion-container-new');
+    const $deposit = $('#deposit-policy-section');
+    const $pricing = $('#my-pricing-section');
+
+    // Close My Pricing Policy
+    $pricing.removeClass('active');
+    $pricing.children('.content').stop(true, true).slideUp(200);
+    $pricing.children('a')
+        .removeClass('active')
+        .find('i')
+        .removeClass('fa-angle-up')
+        .addClass('fa-angle-down');
+
+    // Close any other open accordion
+    $container.find('.set').not($deposit).not($pricing).each(function () {
+        $(this).removeClass('active');
+        $(this).children('.content').stop(true, true).slideUp(200);
+        $(this).children('a')
+            .removeClass('active')
+            .find('i')
+            .removeClass('fa-angle-up')
+            .addClass('fa-angle-down');
+    });
+
+    // Open Deposit Policy
+    $deposit.addClass('active');
+    $deposit.children('.content').stop(true, true).slideDown(200);
+    $deposit.children('a')
+        .addClass('active')
+        .find('i')
+        .removeClass('fa-angle-down')
+        .addClass('fa-angle-up');
+
+    // Scroll to Deposit Policy
+    $('html, body').stop().animate({
+        scrollTop: $deposit.offset().top - 100
+    }, 300);
+});
+
+
 let myCarousel = document.querySelector('#reviewCarousel');
 let carousel = new bootstrap.Carousel(myCarousel, {
   interval: false, // stops auto scroll

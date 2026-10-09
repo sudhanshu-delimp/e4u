@@ -61,7 +61,7 @@
                 <div class="d-flex justify-content-between align-items-center gap-2">
                   <select id="advertiserFilter" name="advertiser_type" class="form-select form-select-sm p-2" style="width: 200px;">
                      <option value="{{ route('agent.analytic-profiles-list-ajax','escort') }}">Escort</option>
-                     <option value="{{ route('agent.analytic-profiles-list-ajax','massage') }}">Massage Center</option>
+                     <option value="{{ route('agent.analytic-profiles-list-ajax','massage') }}">Massage Centre</option>
                   </select>
                </div>
 
@@ -384,6 +384,52 @@
             $(".totalListing").text(totalRows);
             $(".serverTime").text(json.server_time);
             $(".uptimeClass").html(json.server_up_time);
+            
+
+                if (json.data && json.data.length > 0) {
+                // Function to parse "DD-MM-YYYY" strings into JavaScript Date objects
+                var parseDate = function(dateStr) {
+                    if (!dateStr) return null;
+                    var parts = dateStr.split('-');
+                    return new Date(parts[2], parts[1] - 1, parts[0]);
+                };
+
+                var minStartDate = null;
+                var maxEndDate = null;
+
+                json.data.forEach(function(row) {
+                    var startDate = parseDate(row.start_date);
+                    var endDate = parseDate(row.end_date);
+
+                    if (startDate && (!minStartDate || startDate < minStartDate)) {
+                        minStartDate = startDate;
+                    }
+                    if (endDate && (!maxEndDate || endDate > maxEndDate)) {
+                        maxEndDate = endDate;
+                    }
+                });
+
+                // Format dates back to string format DD-MM-YYYY
+                var formatDate = function(dateObj) {
+                    if (!dateObj) return '';
+                    var d = String(dateObj.getDate()).padStart(2, '0');
+                    var m = String(dateObj.getMonth() + 1).padStart(2, '0');
+                    var y = dateObj.getFullYear();
+                    return `${d}-${m}-${y}`;
+                };
+
+                var firstStartDate = formatDate(minStartDate);
+                var lastEndDate = formatDate(maxEndDate);
+
+                $("#fromDate").datepicker("option", "minDate", firstStartDate);
+                $("#toDate").datepicker("option", "maxDate", lastEndDate);
+
+                console.log("First Start Date (Page):", firstStartDate); // e.g. 07-08-2026[cite: 1]
+                console.log("Last End Date (Page):", lastEndDate);       // e.g. 30-11-2026[cite: 1]
+            }                       
+
+
+
             return json.data;
          }
       },
@@ -718,7 +764,30 @@ $(document).ready(function () {
          $('#printReport').modal('show');                               
     });
 
-                                        
+            
+    
+
+    $(document).ready(function() {
+    $("#fromDate, #toDate").datepicker({
+        dateFormat: "dd-mm-yy",
+        changeMonth: true,
+        changeYear: true
+    });
+
+    $("#toDate").on("change", function() {
+        var toDateVal = $(this).datepicker("getDate");
+        $("#fromDate").datepicker("option", "maxDate", toDateVal);
+    });
+
+    $("#fromDate").on("change", function() {
+        var fromDateVal = $(this).datepicker("getDate");
+        $("#toDate").datepicker("option", "minDate", fromDateVal);
+    });
+});
+
+
+
+
 
 });
 
