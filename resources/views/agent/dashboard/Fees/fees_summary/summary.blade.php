@@ -8,7 +8,6 @@
 
         .table td,
         .table th {
-            padding: 0.4rem;
             text-align: center;
         }
 

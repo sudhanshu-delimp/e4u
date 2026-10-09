@@ -1,5 +1,5 @@
 <div class="tab-pane fade" id="two" role="tabpanel" aria-labelledby="two-tab">
-                                    <div class="table-responsive membership--inner">
+                                    <div class="table-responsive membership--inner common-card">
                                         <table class="table table-bordered text-center mb-0" id="tourStatisticTable">
                                             <thead>
                                                 <tr>
