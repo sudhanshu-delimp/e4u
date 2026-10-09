@@ -61,7 +61,7 @@
                 <div class="d-flex justify-content-between align-items-center gap-2">
                   <select id="advertiserFilter" name="advertiser_type" class="form-select form-select-sm p-2" style="width: 200px;">
                      <option value="{{ route('agent.analytic-profiles-list-ajax','escort') }}">Escort</option>
-                     <option value="{{ route('agent.analytic-profiles-list-ajax','massage') }}">Massage Center</option>
+                     <option value="{{ route('agent.analytic-profiles-list-ajax','massage') }}">Massage Centre</option>
                   </select>
                </div>
 
