@@ -48,7 +48,7 @@
             <div class=" col-12 mb-4">
                @if($type==='current')
                <button class="btn-primary" data-toggle="modal" data-target="#escort_tour_checkout" id="btn_checkout">Checkout</button>
-               <button class="btn-warning" data-toggle="modal" data-target="#pinup_profile" id="btn_pinup_profile">List Pin Up</button>
+               <button class="btn-warning" data-toggle="modal" data-target="#pinup_profile" id="btn_pinup_profile" disabled>List Pin Up</button>
                @endif
             </div>
             <div class="col-md-5">
@@ -192,7 +192,8 @@
    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
    <script src="{{ asset('js/escort/pinup_tour.js') }}"></script>
    <script>
-      let tourcCheckoutButton = $('button#btn_checkout');
+      let tourCheckoutButton = $('button#btn_checkout');
+      let tourPinupButton = $('button#btn_pinup_profile');
       let table;
       $(document).ready(function() {
          table = $('#sailorTable').DataTable({
@@ -231,6 +232,7 @@
                   $pinupSelect.append('<option value="">-- Select Tour --</option>');
                   $.each(records.data, function(i, item) {
                      if (item.tour_purchase.length > 0) {
+                        tourPinupButton.removeAttr('disabled','disabled');
                         $pinupSelect.append(
                            $('<option>', {
                               value: item.id,
@@ -244,7 +246,7 @@
                   });
                }
                if ($checkoutSelect.find('option').length === 1 && $checkoutSelect.find('option:first').val() === '') {
-                  tourcCheckoutButton.prop('disabled', true);
+                  tourCheckoutButton.prop('disabled', true);
                }
             },
             initComplete: function() {
