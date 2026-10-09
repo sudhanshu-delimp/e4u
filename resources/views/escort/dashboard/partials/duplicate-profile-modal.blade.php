@@ -51,7 +51,7 @@
                                                 class=" change_default_select form-control form-control-sm select_tag_remove_box_sadow"
                                                 title="(for public display)" id="stageName" name="name"
                                                 required="required" data-parsley-required-message="Select stage name"
-                                                data-parsley-group="goup_one"
+                                                
                                                 data-parsley-errors-container="#stageName-errors">
                                                 <option value="" selected>-Choose Your Stage Name-</option>
                                                 @if (!empty(auth()->user()->escorts_names))
@@ -65,7 +65,7 @@
                                                 title="(for public display)"
                                                 class="change_default form-control form-control-sm select_tag_remove_box_sadow"
                                                 data-parsley-required-message="Enter stage name"
-                                                data-parsley-group="goup_one"
+                                                
                                                 placeholder="Choose your Stage Name (for public display)"
                                                 data-parsley-errors-container="#stageName-errors">
                                             <div class="form-check form-check-inline update_stage_name d-none">
@@ -77,23 +77,6 @@
                                         </div>
                                     </div>
                                     
-                                    <!-- <div class="form-group row">
-                                        <label class="col-sm-4" for="">
-                                            Street Address:
-
-                                        </label>
-                                        <div class="col-sm-8">
-
-                                            <input type="text" id="stageNameInp" name="address"
-                                                title="(for public display)"
-                                                class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                data-parsley-required-message="Enter stage name"
-                                                data-parsley-group="goup_one"
-                                                placeholder="Enter Street Address"
-                                                data-parsley-errors-container="#stageName-errors">
-
-                                        </div>
-                                    </div> -->
                                     <div class="form-group row">
                                         <label class="col-sm-4" for="">
                                             Street Address:
@@ -107,7 +90,7 @@
                                                 class=" change_default_select form-control form-control-sm select_tag_remove_box_sadow"
                                                 title="(for public display)" id="streetAddress" name="address"
                                                 required="required" data-parsley-required-message="Select street address"
-                                                data-parsley-group="goup_one"
+                                                
                                                 data-parsley-errors-container="#streetAddress-errors">
                                                 <option value="" selected>-Choose Your Street Address-</option>
                                                 @if (!empty($address))
@@ -121,7 +104,7 @@
                                                 title="(for public display)"
                                                 class="change_default form-control form-control-sm select_tag_remove_box_sadow"
                                                 data-parsley-required-message="Enter Street Address"
-                                                data-parsley-group="goup_one"
+                                               
                                                 placeholder="Enter new Street Address"
                                                 data-parsley-errors-container="#streetAddress-errors">
                                             <div class="form-check form-check-inline update_streetAddress d-none">
@@ -209,11 +192,11 @@
 
      $("#duplicate_profile_form").on('submit', function(e) {
             e.preventDefault();
-            var form = $(this);
-            var parsleyForm = form.parsley();
-            parsleyForm.whenValidate().then(function() {
+            var formDuplicate = $(this);
+            var parsleyFormDuplicate = formDuplicate.parsley();
+            parsleyFormDuplicate.whenValidate().then(function() {
                 var url = `{{ route('escort.duplicate.profile') }}`;
-                var data = new FormData(form[0]);
+                var data = new FormData(formDuplicate[0]);
 
                 $.ajax({
                     method: 'POST',
@@ -225,7 +208,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     beforeSend: function() {
-                        form.find('button[type=submit]').prop('disabled', true)
+                        formDuplicate.find('button[type=submit]').prop('disabled', true)
                             .html('<div class="spinner-border"></div>');
                     },
                     success: function(data) {
@@ -234,13 +217,13 @@
                                 icon: "success",
                                 text: data.response.message
                             });
-                            form.find('button[type=submit]').prop('disabled', false)
+                            formDuplicate.find('button[type=submit]').prop('disabled', false)
                                 .html('Save');
                             table.draw();
                             $("#duplicate_profile_form")[0].reset();
-
+                            parsleyFormDuplicate.reset();
                             
-                            form.find('select[name="address"]').removeClass('d-none');
+                            formDuplicate.find('select[name="address"]').removeClass('d-none');
                             $("#streetAddressInp").attr('type', 'hidden');
                             $("#streetAddressInp").attr('name', '');
                             $(".update_streetAddress").addClass('d-none');
