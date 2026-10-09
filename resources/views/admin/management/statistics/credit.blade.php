@@ -30,6 +30,7 @@
                      <li>Year to year values are determined by the number of days into the financial year.</li>
                      <li>Total Last Year compared to Current Year.</li>
                      <li>Collective Credits on the books.</li>
+                     <li>Report is live.</li>
                  </ol>
              </div>
          </div>
@@ -40,7 +41,7 @@
             <div class="col-lg-8 col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 20px;">
                <a href="" class="text-white btn-cancel-modal">Refresh</a>
                 <div class="total_listing">
-                    <div><span>Total Credit (CFY) : </span></div>
+                    <div><span>Total Credit (CFY): </span></div>
                     <div><span>{{formatCurrency(stateWalletCredit($currentStart, $currentTodayEnd))}}</span></div>
                 </div>
             </div>
@@ -203,7 +204,7 @@
 
      <div class="col-md-12">
         @include('partials.common.table-footer-timer',['refresh'=>false])
-       </div>
+     </div>
    </div>
    
    

@@ -79,6 +79,44 @@
                                     <div class="form-group row">
                                         <label class="col-sm-4" for="">
                                             Street Address:
+                                            <span style='color:#ff3c5f'>*</span>
+                                        </label>
+                                        <div class="col-sm-8">
+                                            @php 
+                                                $address = auth()->user()->getAddresses();
+                                            @endphp
+                                            <select onclick="stageNameInput(this)" style="display: block"
+                                                class=" change_default_select form-control form-control-sm select_tag_remove_box_sadow"
+                                                title="(for public display)" id="stageName" name="name"
+                                                required="required" data-parsley-required-message="Select stage name"
+                                                data-parsley-group="goup_one"
+                                                data-parsley-errors-container="#stageName-errors">
+                                                <option value="" selected>-Choose Your Stage Name-</option>
+                                                @if (!empty($address))
+                                                @foreach ($address as $key => $item)
+                                                <option value='{{ $item->value }}'>{{ $item->value }}</option>
+                                                @endforeach
+                                                @endif
+                                                <option value="new">Add a new Street Address</option>
+                                            </select>
+                                            <input type="hidden" id="stageNameInp" required="required" name=""
+                                                title="(for public display)"
+                                                class="change_default form-control form-control-sm select_tag_remove_box_sadow"
+                                                data-parsley-required-message="Enter stage name"
+                                                data-parsley-group="goup_one"
+                                                placeholder="Choose your Stage Name (for public display)"
+                                                data-parsley-errors-container="#stageName-errors">
+                                            <div class="form-check form-check-inline update_stage_name d-none">
+                                                <input class="form-check-input" type="checkbox" id="update_stage_name"
+                                                    name="update_stage_name">
+                                                <label class="form-check-label" for="update_stage_name">Update in your
+                                                    My Information page for future Profiles</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4" for="">
+                                            Street Address:
 
                                         </label>
                                         <div class="col-sm-8">
