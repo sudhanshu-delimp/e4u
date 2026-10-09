@@ -108,7 +108,9 @@
 
                 @php
                     $memberId = $row->advertiser->user->member_id ?? '';
-                    $name = $row->advertiser->profile_name ?? '';
+
+
+                    $name = $advertiserType != 'massage' ? $row->advertiser->name : $row->advertiser->business_name;
                     $mobile = $row->advertiser->phone ?? '';
 
                     $startDate = $row->start_date ?? '';
