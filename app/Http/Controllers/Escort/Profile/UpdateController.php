@@ -1640,14 +1640,14 @@ class UpdateController extends AppController
                     }
                 }
 
-                if (!empty($request->address)) {
+                if ($request->filled('update_streetAddress')) {
                     EscortAdditionalInformation::firstOrCreate(
-                        [
-                            'user_id' => $user->id,
-                            'type'    => 'address',
-                            'value'   => $request->address,
-                            'short_desc' => implode(' ', array_slice(explode(' ', $request->address), 0, 5)) ?? null
-                        ]
+                    [
+                        'user_id' => $user->id,
+                        'type'    => 'address',
+                        'value'   => $request->address,
+                        'short_desc' => implode(' ', array_slice(explode(' ', $request->address), 0, 5)) ?? null
+                    ]
                     );
                 }
                 /**

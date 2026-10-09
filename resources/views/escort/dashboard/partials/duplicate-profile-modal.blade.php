@@ -77,7 +77,7 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="form-group row">
+                                    <!-- <div class="form-group row">
                                         <label class="col-sm-4" for="">
                                             Street Address:
 
@@ -92,6 +92,44 @@
                                                 placeholder="Enter Street Address"
                                                 data-parsley-errors-container="#stageName-errors">
 
+                                        </div>
+                                    </div> -->
+                                    <div class="form-group row">
+                                        <label class="col-sm-4" for="">
+                                            Street Address:
+                                            <span style='color:#ff3c5f'>*</span>
+                                        </label>
+                                        <div class="col-sm-8">
+                                            @php 
+                                                $address = auth()->user()->getAddresses();
+                                            @endphp
+                                            <select onclick="streetAddressInput(this)" style="display: block"
+                                                class=" change_default_select form-control form-control-sm select_tag_remove_box_sadow"
+                                                title="(for public display)" id="streetAddress" name="address"
+                                                required="required" data-parsley-required-message="Select street address"
+                                                data-parsley-group="goup_one"
+                                                data-parsley-errors-container="#streetAddress-errors">
+                                                <option value="" selected>-Choose Your Street Address-</option>
+                                                @if (!empty($address))
+                                                @foreach ($address as $key => $item)
+                                                <option value='{{ $item->value }}'>{{ $item->value }}</option>
+                                                @endforeach
+                                                @endif
+                                                <option value="new">Add a new Street Address</option>
+                                            </select>
+                                            <input type="hidden" id="streetAddressInp" required="required" name=""
+                                                title="(for public display)"
+                                                class="change_default form-control form-control-sm select_tag_remove_box_sadow"
+                                                data-parsley-required-message="Enter Street Address"
+                                                data-parsley-group="goup_one"
+                                                placeholder="Enter new Street Address"
+                                                data-parsley-errors-container="#streetAddress-errors">
+                                            <div class="form-check form-check-inline update_streetAddress d-none">
+                                                <input class="form-check-input" type="checkbox" id="update_streetAddress"
+                                                    name="update_streetAddress">
+                                                <label class="form-check-label" for="update_streetAddress">Update in your
+                                                    My Information page for future Profiles</label>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -133,3 +171,86 @@
         </div>
     </div>
 </div>
+@prepend('script')
+<script>
+    function stageNameInput(ele) {
+        if ($(ele).val() == 'new') {
+            $(ele).addClass('d-none');
+            $("#stageNameInp").attr('type', 'text');
+            $("#stageNameInp").attr('name', 'name');
+            $(".update_stage_name").removeClass('d-none');
+        }
+        return true;
+    }
+
+    function streetAddressInput(ele){
+        if ($(ele).val() == 'new') {
+            $(ele).addClass('d-none');
+            $("#streetAddressInp").attr('type', 'text');
+            $("#streetAddressInp").attr('name', 'address');
+            $(".update_streetAddress").removeClass('d-none');
+        }
+        return true;
+    }
+
+    $('#duplicate-profile-modal').on('shown.bs.modal', function(e) {
+        var source = $(e.relatedTarget);
+        let modelElement = $(this);
+        let selected_profile_id = $(source).data('id');
+        $('#duplicate-profile-modal input[name=escort_id]').val(selected_profile_id);
+        $("#stageNameInp").attr('type', 'hidden');
+        $("#stageNameInp").attr('name', '');
+        $(".update_stage_name").addClass('d-none');
+        $("#stageName").removeClass('d-none');
+        modelElement.find('input[name="address"]').val(source.data('address'));
+        modelElement.find('select[name="name"]').val(source.data('name'));
+        modelElement.find('select[name="state_id"]').val(source.data('state'));
+    });
+
+     $("#duplicate_profile_form").on('submit', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            var parsleyForm = form.parsley();
+            parsleyForm.whenValidate().then(function() {
+                var url = `{{ route('escort.duplicate.profile') }}`;
+                var data = new FormData(form[0]);
+
+                $.ajax({
+                    method: 'POST',
+                    url: url,
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    beforeSend: function() {
+                        form.find('button[type=submit]').prop('disabled', true)
+                            .html('<div class="spinner-border"></div>');
+                    },
+                    success: function(data) {
+                        if (data.response.success) {
+                            Swal.fire({
+                                icon: "success",
+                                text: data.response.message
+                            });
+                            form.find('button[type=submit]').prop('disabled', false)
+                                .html('Save');
+                            table.draw();
+                            $("#duplicate_profile_form")[0].reset();
+                            $('#duplicate-profile-modal').modal('hide');
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                text: data.response.message
+                            });
+                        }
+                    },
+
+                });
+            }, function() {
+                console.log('Form validation failed');
+            });
+        });
+</script>
+@endprepend

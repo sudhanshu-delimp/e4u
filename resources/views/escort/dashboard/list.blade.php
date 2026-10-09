@@ -703,51 +703,7 @@
             });
         });
 
-        $("#duplicate_profile_form").on('submit', function(e) {
-            e.preventDefault();
-            var form = $(this);
-            var parsleyForm = form.parsley();
-            parsleyForm.whenValidate().then(function() {
-                var url = "{{ route('escort.duplicate.profile') }}";
-                var data = new FormData(form[0]);
-
-                $.ajax({
-                    method: 'POST',
-                    url: url,
-                    data: data,
-                    contentType: false,
-                    processData: false,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    beforeSend: function() {
-                        form.find('button[type=submit]').prop('disabled', true)
-                            .html('<div class="spinner-border"></div>');
-                    },
-                    success: function(data) {
-                        if (data.response.success) {
-                            Swal.fire({
-                                icon: "success",
-                                text: data.response.message
-                            });
-                            form.find('button[type=submit]').prop('disabled', false)
-                                .html('Save');
-                            table.draw();
-                            $("#duplicate_profile_form")[0].reset();
-                            $('#duplicate-profile-modal').modal('hide');
-                        } else {
-                            Swal.fire({
-                                icon: "error",
-                                text: data.response.message
-                            });
-                        }
-                    },
-
-                });
-            }, function() {
-                console.log('Form validation failed');
-            });
-        });
+       
 
     });
 
@@ -970,20 +926,6 @@
                 }
             }
         });
-    });
-
-    $('#duplicate-profile-modal').on('shown.bs.modal', function(e) {
-        var source = $(e.relatedTarget);
-        let modelElement = $(this);
-        let selected_profile_id = $(source).data('id');
-        $('#duplicate-profile-modal input[name=escort_id]').val(selected_profile_id);
-        $("#stageNameInp").attr('type', 'hidden');
-        $("#stageNameInp").attr('name', '');
-        $(".update_stage_name").addClass('d-none');
-        $("#stageName").removeClass('d-none');
-        modelElement.find('input[name="address"]').val(source.data('address'));
-        modelElement.find('select[name="name"]').val(source.data('name'));
-        modelElement.find('select[name="state_id"]').val(source.data('state'));
     });
 
     $('#play-mates-modal').on('shown.bs.modal', function(e) {
@@ -1354,16 +1296,6 @@
 
         });
     });
-
-    function stageNameInput(ele) {
-        if ($(ele).val() == 'new') {
-            $(ele).addClass('d-none');
-            $("#stageNameInp").attr('type', 'text');
-            $("#stageNameInp").attr('name', 'name');
-            $(".update_stage_name").removeClass('d-none');
-        }
-        return true;
-    }
 </script>
 <script src="{{ asset('js/escort/pinup.js') }}"></script>
 <script src="{{ asset('js/escort/bumpup.js') }}"></script>
