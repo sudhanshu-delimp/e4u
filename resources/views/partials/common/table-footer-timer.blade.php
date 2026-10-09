@@ -1,7 +1,7 @@
 @php
     $refresh = $refresh ?? true;
 @endphp
-<div class="timer_section">
+<div class="timer_section mt-4">
     <p>Server time: <span class="serverTime">{{getAustraliaTime(now(), 'h:i:s A')}}</span></p>
     @if($refresh)<p>Refresh time:<span class="refreshSeconds">0</span></p>@endif
     <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
