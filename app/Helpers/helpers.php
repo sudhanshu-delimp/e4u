@@ -45,13 +45,13 @@ use Illuminate\Support\Facades\Route;
 use function PHPSTORM_META\type;
 
 if (!function_exists('generateReferenceNo')) {
-    function generateReferenceNo(string $modelClass): string
+    function generateReferenceNo(string $modelClass, $increment = 1, $pad = 5, $prefix = "URN", $seperateby = ""): string
     {
         $lastRecord = $modelClass::latest('id')->first();
 
-        $nextId = $lastRecord ? $lastRecord->id + 1 : 1;
+        $nextId = $lastRecord ? $lastRecord->id + $increment : random_int(1000, 9999);
 
-        return now()->format('Ymd') . str_pad($nextId, 5, '0', STR_PAD_LEFT);
+        return $prefix.now()->format('Ymd') .$seperateby. str_pad($nextId, $pad, '0', STR_PAD_LEFT);
     }
 }
 
