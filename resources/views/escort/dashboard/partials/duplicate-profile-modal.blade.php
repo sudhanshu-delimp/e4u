@@ -202,7 +202,7 @@
         $("#stageNameInp").attr('name', '');
         $(".update_stage_name").addClass('d-none');
         $("#stageName").removeClass('d-none');
-        modelElement.find('input[name="address"]').val(source.data('address'));
+        modelElement.find('select[name="address"]').val(source.data('address'));
         modelElement.find('select[name="name"]').val(source.data('name'));
         modelElement.find('select[name="state_id"]').val(source.data('state'));
     });
@@ -238,6 +238,13 @@
                                 .html('Save');
                             table.draw();
                             $("#duplicate_profile_form")[0].reset();
+
+                            
+                            form.find('select[name="address"]').removeClass('d-none');
+                            $("#streetAddressInp").attr('type', 'hidden');
+                            $("#streetAddressInp").attr('name', '');
+                            $(".update_streetAddress").addClass('d-none');
+
                             $('#duplicate-profile-modal').modal('hide');
                         } else {
                             Swal.fire({
