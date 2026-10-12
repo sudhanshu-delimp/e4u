@@ -72,11 +72,10 @@
                             <th colspan="7" style="border: 1px solid white;">Year to Year Variation <br>(Days: {{$daysTillToday}})</th>
                             <th colspan="4" style="border: 1px solid white;">Total Credits<br> (Last FY)</th>
                             <th colspan="4" style="border: 1px solid white;">Actual Credits<br> (Overall)</th>
-                        </tr>
+                        </tr>   
                         <tr style="border: 1px solid white;">
-                            <th colspan="3" style="border: 1px solid white;">Current</th>
-                            <th colspan="2" style="border: 1px solid white;" rowspan="2">Total <br> Last FY</th>
-                            <th colspan="2" style="border: 1px solid white;">Variation</th>
+                            <th colspan="3" style="border: 1px solid white;">Current Year</th>
+                            <th colspan="4" style="border: 1px solid white;">Variation</th>
                             <th colspan="2" style="border: 1px solid white;" rowspan="2">Total Units<br> (Advertisers)</th>
                             <th colspan="2" style="border: 1px solid white;">Variation</th>
                             <th colspan="2" style="border: 1px solid white;" rowspan="2">Total Units<br> (Advertisers)</th>
@@ -86,11 +85,13 @@
                             <th colspan="" style="border: 1px solid white;">Location</th>
                             <th style="border: 1px solid white;">Member</th>
                             <th style="border: 1px solid white;">Total</th>
-                            <th style="border: 1px solid white;">Units</th>
+                            
+                            <th colspan="2" style="border: 1px solid white;">Total Last FY</th>
+                            <th style="border: 1px solid white;">Units ($)</th>
                             <th style="border: 1px solid white;">%</th>
-                            <th style="border: 1px solid white;">Units</th>
+                            <th style="border: 1px solid white;">Units ($)</th>
                             <th style="border: 1px solid white;">%</th>
-                            <th style="border: 1px solid white;">Units</th>
+                            <th style="border: 1px solid white;">Units ($)</th>
                             <th style="border: 1px solid white;">%</th>
                         </tr>
                     </thead>
@@ -156,7 +157,7 @@
                                 <div class="num_value">{!! getReportIcon($variation) !!} {{formatCurrency($variation, '' , false)}}</div>
                             </td>
                             <td>
-                                <div class="num_value">{!! getReportIcon($variation_percentage) !!} {{round($variation_percentage, 2)}}</div>
+                                <div class="num_value">{!! getReportIcon($variation_percentage) !!} {{number_format(round($variation_percentage, 2), 2)}}</div>
                             </td>
 
                             <td colspan="2">
@@ -166,7 +167,7 @@
                                 <div class="num_value">{!! getReportIcon($LFY_variation) !!} {{formatCurrency($LFY_variation, '' , false)}}</div>
                             </td>
                             <td>
-                                <div class="num_value">{!! getReportIcon($LFY_variation_percentage) !!} {{round($LFY_variation_percentage, 2)}}</div>
+                                <div class="num_value">{!! getReportIcon($LFY_variation_percentage) !!} {{number_format(round($LFY_variation_percentage, 2), 2)}}</div>
                             </td>
 
                             <td colspan="2">
@@ -176,7 +177,7 @@
                                 <div class="num_value">{!! getReportIcon($actual_variation) !!} {{formatCurrency($actual_variation, '' , false)}}</div>
                             </td>
                             <td>
-                                <div class="num_value">{!! getReportIcon($actual_variation_percentage) !!} {{round($actual_variation_percentage, 2)}}</div>
+                                <div class="num_value">{!! getReportIcon($actual_variation_percentage) !!} {{number_format(round($actual_variation_percentage, 2), 2)}}</div>
                             </td>
                         </tr>
                         <!-- middle Content -->
@@ -197,7 +198,7 @@
                                 <div class="num_value">{!! getReportIcon($variation) !!} {{formatCurrency($variation, '' , false)}}</div>
                             </td>
                             <td>
-                                <div class="num_value">{!! getReportIcon($variation_percentage) !!} {{round($variation_percentage, 2)}}</div>
+                                <div class="num_value">{!! getReportIcon($variation_percentage) !!} {{number_format(round($variation_percentage, 2), 2)}}</div>
                             </td>
 
                             <td colspan="2">
@@ -207,7 +208,7 @@
                                 <div class="num_value">{!! getReportIcon($LFY_variation) !!} {{formatCurrency($LFY_variation, '' , false)}}</div>
                             </td>
                             <td>
-                                <div class="num_value">{!! getReportIcon($LFY_variation_percentage) !!} {{round($LFY_variation_percentage, 2)}}</div>
+                                <div class="num_value">{!! getReportIcon($LFY_variation_percentage) !!} {{number_format(round($LFY_variation_percentage, 2), 2)}}</div>
                             </td>
 
                             <td colspan="2">
@@ -217,7 +218,7 @@
                                 <div class="num_value">{!! getReportIcon($actual_variation) !!} {{formatCurrency($actual_variation, '' , false)}}</div>
                             </td>
                             <td>
-                                <div class="num_value">{!! getReportIcon($actual_variation_percentage) !!} {{round($actual_variation_percentage, 2)}}</div>
+                                <div class="num_value">{!! getReportIcon($actual_variation_percentage) !!} {{number_format(round($actual_variation_percentage, 2), 2)}}</div>
                             </td>
                         </tr>
                         <!-- end  -->
@@ -237,7 +238,7 @@
                                 <div class="num_value">{!! getReportIcon($variation_Total) !!} {{formatCurrency($variation_Total, '' , false)}}</div>
                             </td>
                             <td>
-                                <div class="num_value">{!! getReportIcon($variation_percentage_Total) !!} {{round($variation_percentage_Total, 2)}}</div>
+                                <div class="num_value">{!! getReportIcon($variation_percentage_Total) !!} {{number_format(round($variation_percentage_Total, 2), 2)}}</div>
                             </td>
 
                             <td colspan="2">
@@ -247,7 +248,7 @@
                                 <div class="num_value">{!! getReportIcon($LFY_variation_Total) !!} {{formatCurrency($LFY_variation_Total, '' , false)}}</div>
                             </td>
                             <td>
-                                <div class="num_value">{!! getReportIcon($LFY_variation_percentage_Total) !!} {{round($LFY_variation_percentage_Total, 2)}}</div>
+                                <div class="num_value">{!! getReportIcon($LFY_variation_percentage_Total) !!} {{number_format(round($LFY_variation_percentage_Total, 2), 2)}}</div>
                             </td>
 
                             <td colspan="2">
@@ -257,7 +258,7 @@
                                 <div class="num_value">{!! getReportIcon($actual_variation_Total) !!} {{formatCurrency($actual_variation_Total, '' , false)}}</div>
                             </td>
                             <td>
-                                <div class="num_value">{!! getReportIcon($actual_variation_percentage_Total) !!} {{round($actual_variation_percentage_Total, 2)}}</div>
+                                <div class="num_value">{!! getReportIcon($actual_variation_percentage_Total) !!} {{number_format(round($actual_variation_percentage_Total, 2), 2)}}</div>
                             </td>
                         </tr>
                     </tbody>
