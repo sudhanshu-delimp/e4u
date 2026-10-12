@@ -236,7 +236,7 @@
                                     
                             {{-- @if ($escort->address)
                                 <div class="pinup_address">
-                                   <a href="{{ $escort->address }}">
+                                   <a href="{{ $escort->address }}" target="_blank">
                                      <p><img src="{{ asset('assets/app/img/gps.png') }}" alt="location"
                                             class="custompopicon"> {{ $escort->address }}</p>
                                    </a>
