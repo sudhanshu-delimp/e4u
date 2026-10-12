@@ -87,7 +87,7 @@
                                                                 (including a Google map), whether showers are available and
                                                                 front and rear entry
                                                                 and much more.</li>
-                                                            <li> A summary, including up to three photos, of the Masseur.
+                                                            <li> A summary, including up to four photos, of the Masseur.
                                                                 The summary of the
                                                                 Masseur includes name, age, nationality, available days and
                                                                 service type and much
