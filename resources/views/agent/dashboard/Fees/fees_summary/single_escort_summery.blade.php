@@ -15,7 +15,7 @@
                     <thead class="bg-first">
                         <tr>
                             <th rowspan="2">Financial Year</th>
-                            <th colspan="4" class="text-center">Spend</th>
+                            <th colspan="5" class="text-center">Spend</th>
                             <th rowspan="2">Totals</th>
                         </tr>
                         <tr>
@@ -23,6 +23,7 @@
                             <th>Gold</th>
                             <th>Silver</th>
                             <th>PinUp</th>
+                            <th>Fixed</th>
                         </tr>
                     </thead>
                     <tbody id="report-accordion">
@@ -34,6 +35,7 @@
                                 <td><b>{{ formatCurrency($yearData['fy_totals']['gold']) }}</b></td>
                                 <td><b>{{ formatCurrency($yearData['fy_totals']['silver']) }}</b></td>
                                 <td><b>{{ formatCurrency($yearData['fy_totals']['pinup']) }}</b></td>
+                                <td><b>{{ formatCurrency($yearData['fy_totals']['fixed']) }}</b></td>
                                 <td><b>{{ formatCurrency($yearData['fy_totals']['total']) }}</b></td>
                             </tr>
                             @foreach ($yearData['states'] as $location => $spend)
@@ -43,6 +45,7 @@
                                     <td>{{ formatCurrency($spend['gold']) }}</td>
                                     <td>{{ formatCurrency($spend['silver']) }}</td>
                                     <td>{{ formatCurrency($spend['pinup']) }}</td>
+                                    <td>{{ formatCurrency($spend['fixed']) }}</td>
                                     <td>{{ formatCurrency($spend['total']) }}</td>
                                 </tr>
                             @endforeach
@@ -52,6 +55,7 @@
                                 <td class="total_row"><b>{{ formatCurrency($yearData['fy_totals']['gold']) }}</b></td>
                                 <td class="total_row"><b>{{ formatCurrency($yearData['fy_totals']['silver']) }}</b></td>
                                 <td class="total_row"><b>{{ formatCurrency($yearData['fy_totals']['pinup']) }}</b></td>
+                                <td class="total_row"><b>{{ formatCurrency($yearData['fy_totals']['fixed']) }}</b></td>
                                 <td class="total_row"><b>{{ formatCurrency($yearData['fy_totals']['total']) }}</b></td>
                             </tr>
                         @endforeach
@@ -61,6 +65,7 @@
                             <td><b>{{ formatCurrency($datas['grand_totals']['gold']) }}</b></td>
                             <td><b>{{ formatCurrency($datas['grand_totals']['silver']) }}</b></td>
                             <td><b>{{ formatCurrency($datas['grand_totals']['pinup']) }}</b></td>
+                            <td><b>{{ formatCurrency($datas['grand_totals']['fixed']) }}</b></td>
                             <td><b>{{ formatCurrency($datas['grand_totals']['total']) }}</b></td>
                         </tr>
                     </tbody>

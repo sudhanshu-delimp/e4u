@@ -132,7 +132,7 @@
                      <td class="text-right">{{formatCurrency($summery->silver_spend) ?? ''}}</td>
                      <td class="text-right">{{formatCurrency($summery->pinup_spend) ?? ''}}</td>
                      <td>{{formatCurrency($summery->fixed_spend) ?? ''}} </td>
-                     <td class="text-right">{{formatCurrency($summery->total_spend)}}</td>
+                     <td class="text-right">{{formatCurrency($summery->total_spend)}} </td>
                      <td class="text-right">{{formatCurrency($summery->fees)}}</td>
                      <td class="text-center">
                          <div class="dropdown no-arrow">
