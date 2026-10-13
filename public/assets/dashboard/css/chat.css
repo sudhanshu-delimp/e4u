@@ -163,7 +163,6 @@
 .sidebar-actions button {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 5px;
     color: var(--text);
     font-size: 14px;

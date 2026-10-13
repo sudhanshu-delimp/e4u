@@ -1196,8 +1196,7 @@ label.cabinet input.file {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;    
-    margin-right: 100px;
+    gap: 10px;  
 }
 
 .messages_btn a span:hover {

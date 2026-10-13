@@ -18,14 +18,16 @@
 <tr class="collapse-row group-{{$key}}">
     <td></td>
     <td>{{$advertiser == 3 ? 'Escorts':'Centers'}}</td>
-    <td>{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</td>
-    <td colspan="2">{{formatCurrency($LFY_Till_Date_Credit, '' , false)}}</td>
-    <td >{{formatCurrency($variation, '' , false)}}</td>
-    <td>{{$variation_percentage}}</td>
-    <td colspan="2">{{formatCurrency($LFY_Credit, '' , false)}}</td>
-    <td >{{formatCurrency($LFY_variation, '' , false)}}</td>
-    <td>{{$LFY_variation_percentage}}</td>
-    <td colspan="2">{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</td>
-    <td >{{formatCurrency($actual_variation, '' , false)}}</td>
-    <td>{{$actual_variation_percentage}}</td>
+    <td><div class="num_value">$<span>{{formatAmount($CFY_Till_Date_Credit)}}</span></div></td>
+    <td colspan="2"><div class="num_value">$<span>{{formatAmount($LFY_Till_Date_Credit)}}</span></div></td>
+    <td><div class="num_value">{!! getReportIcon($variation) !!} {{formatAmount($variation)}}</div></td>
+    <td><div class="num_value">{!! getReportIcon($variation_percentage) !!} {{formatAmount($variation_percentage)}}</div></td>
+
+    <td colspan="2"><div class="num_value">$<span>{{formatAmount($LFY_Credit)}}</span></div></td>
+    <td><div class="num_value">{!! getReportIcon($LFY_variation) !!} {{formatAmount($LFY_variation)}}</div></td>
+    <td><div class="num_value">{!! getReportIcon($LFY_variation_percentage) !!} {{formatAmount($LFY_variation_percentage)}}</div></td>
+
+    <td colspan="2"><div class="num_value">$<span>{{formatAmount($CFY_Till_Date_Credit)}}</span></div></td>
+    <td ><div class="num_value">{!! getReportIcon($actual_variation) !!} {{formatAmount($actual_variation)}}</div></td>
+    <td><div class="num_value">{!! getReportIcon($actual_variation_percentage) !!} {{formatAmount($actual_variation_percentage)}}</div></td>
 </tr>

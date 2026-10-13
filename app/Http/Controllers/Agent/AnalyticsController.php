@@ -69,8 +69,13 @@ class AnalyticsController extends Controller
                 ->addColumn('member_id', function ($row) {
                      return $row->advertiser->user->member_id; //.'--'.$row->id.'--'.$row->advertiser->id;
                 })
-                ->addColumn('name', function ($row) {
-                    return $row->advertiser->profile_name ?? '';
+                ->addColumn('name', function ($row) use($advertiserType) {
+
+                    if($advertiserType=='escort')
+                    return $row->advertiser->name ?? '';
+                    else
+                    return $row->advertiser->business_name ?? '';    
+                    
                 })
                  ->addColumn('mobile', function ($row) {
                     return $row->advertiser->phone ?? '';
@@ -126,6 +131,7 @@ class AnalyticsController extends Controller
 
                      if($advertiserType=='escort')
                      {
+                        $member_name = $row->advertiser->name;
                         $massager_masseures ="";
                         $profile_id = $row->escort_id;
                         $state_id = $row->advertiser?->user?->current_state_id;
@@ -133,6 +139,7 @@ class AnalyticsController extends Controller
                      }
                      else
                      {
+                         $member_name = $row->advertiser->business_name;
                         $profile_id = $row->massage_profile_id;
                         $current_state = config("escorts.profile.states.{$row->advertiser?->user?->state_id}.stateName");
                          $massager_masseures = ' <div class="dropdown-divider"></div>
@@ -152,7 +159,7 @@ class AnalyticsController extends Controller
                                                             <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 open-activity-modal" data-advertiser_type="'.$advertiserType.'" data-profile_id="'.$profile_id.'" href="#"   data-id="'. $row->id.'" >
                                                                 <i class="fa fa-file-alt"></i> Activity Summary</a>
                                                             <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#current_location" data-membername="'.$row->advertiser->profile_name.'" data-memberid="'.$row->advertiser->user->member_id.'" data-location="'. $current_state.'"> <i class="fa fa-map-marker"></i> Current Location</a>
+                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#current_location" data-membername="'.$member_name.'" data-memberid="'.$row->advertiser->user->member_id.'" data-location="'. $current_state.'"> <i class="fa fa-map-marker"></i> Current Location</a>
                                                             '. $massager_masseures.'</div>
                                 </div>';
 
@@ -181,7 +188,7 @@ class AnalyticsController extends Controller
                 ->whereNotNUll('masseur_id')
                 ->get();
                 
-                Log::info($masseures);
+                //Log::info($masseures);
             
             }        
 
@@ -379,7 +386,13 @@ class AnalyticsController extends Controller
             }
 
             $item->member_id = $item->advertiser->user->member_id ?? '';
-            $item->member_name = $item->advertiser->profile_name ?? '';
+
+            if($advertiserType=='escort')
+            $item->member_name = $item->advertiser->name ?? ''; 
+            else
+            $item->member_name = $item->advertiser->business_name ?? ''; 
+
+            //$item->member_name = $item->advertiser->name ?? '';
             $item->member_mobile = $item->advertiser->phone ?? '';
 
             $item->start_date =  !empty($item->start_date) ? \Carbon\Carbon::parse($item->start_date)->format('d-m-Y') : '';

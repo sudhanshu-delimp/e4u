@@ -37,24 +37,25 @@
             <h1 class="home_heading_first">E4U Pin Up - enhance your opportunities!</h1>
             <h2 class="primery_color normal_heading">What is a Pin Up?</h2>
             <div class="row">
-                <div class="col-lg-7">
+                <div class="col-lg-6">
                     
                     <p> When a User visits the Website, they are greeted with their Pin Up registered in the User's Location. The Escort's
                         Pin Up image will appear on the Home page, which when clicked, will take the User to the Escort's Profile summary, 
                         a quick snapshot of the Escort.  From here, the User can then click the <i>View Profile</i> button to see the Escort's 
                         Profile in its complete format.
                     </p>
-                </div>
-                <div class="col-lg-5">
-                    <img src="{{ asset('assets/app/img/what-is-pinup.png') }}" class="w-100" alt="What is a Pin Up?" style="
-    border: 2px solid;
-    padding: 2px;">
-                </div>
-            </div>
+                    
             
             <p>The Pin Up feature is available in every Location.  It is very popular with Escorts, particularly when 
                 the Escort is Touring and they want to maximise their opportunities.
             </p>
+                </div>
+                <div class="col-lg-6">
+                    <img src="{{ asset('assets/app/img/what-is-pinup.png') }}" class="w-100 py-5 px-3" alt="What is a Pin Up?" style="
+    border: 2px solid;
+    padding: 2px;">
+                </div>
+            </div>
             <h2 class="primery_color normal_heading">How do I become a Pin Up?</h2>
             <p>It is very easy to become a Pin Up.  The criteria to become a Pin Up includes:
             </p>
@@ -79,7 +80,7 @@
                 <li><p class="mb-0">Maximise your exposure by booking the Pin Up, in advance, for each Location on a Tour.</p></li>    
             </ul>
             <h2 class="primery_color normal_heading">Cost and availability</h2>
-            <p>The Pin UP feature is available in weekly increments, Monday through to Sunday, at {{ isset($advertings[5]['price']) ? '$'.$advertings[5]['price'] : ''}} per week.  You can register 
+            <p>The Pin UP feature is available in weekly increments, Monday through to Sunday, at {{ isset($advertings[5]['price']) ? '$'.$advertings[5]['price'] : ''}} (Excl GST) per week.  You can register 
                 as often as you like to re-appear as our Pin Up providing you have a current Listed Profile and the week you are seeking is available.</p>
                 <p>Remember, you can only appear as a Pin Up in a Location that you have a Listed Profile and the week you are seeking is available.  Get ahead of everyone else 
                     and register your Profile as a Pin Up!

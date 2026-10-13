@@ -24,8 +24,6 @@
             </div>
         </div>
     </div>
-
-
     <div class="row how-it-done">
         <div class="col-md-12 mt-2 mb-5">
             <div id="accordion" class="myacording-design">

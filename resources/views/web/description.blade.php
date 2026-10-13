@@ -1492,7 +1492,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                 @if($contactTypes == 1)
                                     on my email {{ $escort->user->email ?? '' }}
                                 @elseif($contactTypes == 4 || $contactTypes == 2 || $contactTypes == 5)
-                                    on my number {{ $formattedNumber }}.
+                                    on my number <a href="javascript:void(0)"  data-target="#connectModal" data-toggle="modal" style="color:#ff3c5f" class="custom_links_design">{{ $formattedNumber }}.</a>
                                 @else
                                     on my number --
                                 @endif
@@ -1515,7 +1515,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                 </div>
                 <!--  Deposit -->
                 <div class="accordion-container-new">
-                    <div class="set">
+                    <div class="set" id="deposit-policy-section">
                         <a class="pb-1 pt-1 d-flex align-items-center d-flex justify-content-between">
                             Deposit Policy <i class="fa fa-angle-down"></i>
                         </a>
@@ -1539,14 +1539,14 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                             </div>
                         </div>
                     </div>
-                    <div class="set">
+                    <div class="set" id="my-pricing-section">
                         <a class="pb-1 pt-1 d-flex align-items-center d-flex justify-content-between">
                             My Pricing Policy <i class="fa fa-angle-down"></i>
                         </a>
                         <div class="content">
                             <div class="accodien_manage_padding_content">
                                 <p class="text-justify">
-                                    Prices are all inclusive unless an extra is listed in My Services. For Outcalls, price is rate + taxi to and from my Location, and may require a Deposit.
+                                     Prices are all inclusive unless an extra is listed in My Services. For Outcalls, price is rate + taxi to and from my Location, and I may require a <a href="javascript:void(0)" class="tooltip-wrapper"  id="my-pricing-link">Deposit <span class="tooltip-text"> See Deposit Policy</span></a>. 
                                 </p>
                             </div>
                         </div>
@@ -1564,6 +1564,8 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                         </div>
                     </div>
                 </div>
+
+
                 <!-- Tips -->
                 <div class="box_shadow padding_twelve_px">
                     <div class="profile_card_border profile_description_contect position-relative">
@@ -1671,8 +1673,13 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
 
                                     <!-- Custom Nav Buttons -->
                                     <div class="d-flex justify-content-start mt-3 carousel-nav-btn-wrapper flex-wrap">
+                                        @if(count($reviews) > 1)     
                                         <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="prev"><i class="fa fa-angle-left text-white"></i></button>
                                         <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="next"><i class="fa fa-angle-right text-white"></i></button>
+                                        @else
+                                        <button class="carousel-nav-btn disabled-link" disabled data-bs-target="#reviewCarousel" data-bs-slide="prev"><i class="fa fa-angle-left text-white"></i></button>
+                                        <button class="carousel-nav-btn disabled-link" disabled data-bs-target="#reviewCarousel" data-bs-slide="next"><i class="fa fa-angle-right text-white"></i></button>
+                                        @endif
                                         <div class="row {{(auth()->user() && auth()->user()->type != 0) ? 'd-none': ''}}">
                                             <div class="col-md-12">
                                                 @if(auth()->user())
@@ -1728,7 +1735,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                             @else
                                 <button type="button" class="btn add_reviews_btn all_btn_flx">
                                     <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                    <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Review</a>
+                                    <a href="{{route('viewer.login')}}" style="color: white;">Login to Add Review</a>
                                 </button>
                             @endif
                         </div>
@@ -2367,12 +2374,58 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
 <script src="{{ asset('assets/app/lightbox/js/glightbox.min.js') }}"> </script>
 <script src="{{ asset('assets/app/lightbox/js/script.js') }}"> </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+
 <script>
+    $(document).on('click', '#my-pricing-link', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const $container = $('.accordion-container-new');
+    const $deposit = $('#deposit-policy-section');
+    const $pricing = $('#my-pricing-section');
+
+    // Close My Pricing Policy
+    $pricing.removeClass('active');
+    $pricing.children('.content').stop(true, true).slideUp(200);
+    $pricing.children('a')
+        .removeClass('active')
+        .find('i')
+        .removeClass('fa-angle-up')
+        .addClass('fa-angle-down');
+
+    // Close any other open accordion
+    $container.find('.set').not($deposit).not($pricing).each(function () {
+        $(this).removeClass('active');
+        $(this).children('.content').stop(true, true).slideUp(200);
+        $(this).children('a')
+            .removeClass('active')
+            .find('i')
+            .removeClass('fa-angle-up')
+            .addClass('fa-angle-down');
+    });
+
+    // Open Deposit Policy
+    $deposit.addClass('active');
+    $deposit.children('.content').stop(true, true).slideDown(200);
+    $deposit.children('a')
+        .addClass('active')
+        .find('i')
+        .removeClass('fa-angle-down')
+        .addClass('fa-angle-up');
+
+    // Scroll to Deposit Policy
+    $('html, body').stop().animate({
+        scrollTop: $deposit.offset().top - 100
+    }, 300);
+});
+
+
 let myCarousel = document.querySelector('#reviewCarousel');
 let carousel = new bootstrap.Carousel(myCarousel, {
   interval: false, // stops auto scroll
   ride: false
 });
+
 
 </script>
 <script type="text/javascript">
@@ -3208,5 +3261,6 @@ document.addEventListener('keydown', function (e) {
     }
 
 });
+
 </script>
 @endpush
