@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="col-md-12 mb-4">
-                    <div class="card collapse" id="notes" style="">
+                    <div class="card collapse" id="notes" >
                         <div class="card-body">
                            <h3 class="NotesHeader"><b>Notes:</b></h3>
                             <p>Please complete as much as you can about yourself. When creating a Massage Profile, your Profile Information will:</p>
@@ -71,14 +71,14 @@
                 
                 <div class="col-md-12">
                     <div id="accordion" class="myacording-design">
-                        <div class="card">
+                        <div class="card common-card">
                             <div class="card-header">
                                 <a class="card-link collapsed" data-toggle="collapse" href="#additional_information" aria-expanded="false">
                                 Additional information about us
                                 </a>
                             </div>
                             <div id="additional_information" class="collapse" data-parent="#accordion" style="">
-                                <div class="card-body pb-0">
+                                <div class="card-body">
                                     <div class="tab-pane fade show active" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
                                         <form id="update_about_me" action="{{ route('center.update-massage-profile') }}" method="POST" enctype="multipart/form-data" novalidate="">
                                             @csrf 
@@ -297,21 +297,21 @@
                         
 
 
-                        <div class="card custom-help-contain">
+                        <div class="card custom-help-contain common-card">
                             <div class="card-header">
                                 <a class="collapsed card-link" data-toggle="collapse" href="#my_available_times">
                                 Our open times
                                 </a>
                             </div>
                             <div id="my_available_times" class="collapse" data-parent="#accordion">
-                                <div class="card-body pb-0">                                    
+                                <div class="card-body">                                    
                                     @include('center.my-account.partials.available-dash-tab')
                                 </div>
                             </div>
                         </div>
 
 
-                        <div class="card custom-help-contain">
+                        <div class="card custom-help-contain common-card">
                             <div class="card-header">
                                 <a class="collapsed card-link" data-toggle="collapse" href="#my_rates">
                                 Our rates
@@ -319,7 +319,7 @@
                             </div>
                             <div id="my_rates" class="collapse" data-parent="#accordion">
                                 
-                                <div class="card-body pb-0">
+                                <div class="card-body">
                                     
                                     @include('center.my-account.partials.rate-dash-tab')
                                    
@@ -328,14 +328,14 @@
                         </div>
 
 
-                    <div class="card custom-help-contain">
+                    <div class="card custom-help-contain common-card">
                         <div class="card-header">
                             <a class="collapsed card-link" data-toggle="collapse" href="#my_service_tags">
                             Our service (tags)
                             </a>
                         </div>
                         <div id="my_service_tags" class="collapse" data-parent="#accordion">
-                            <div class="card-body pb-0">
+                            <div class="card-body">
                                 <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="profile-tab">
                                     <div class="about_me_drop_down_info ">
                                         <div class="fill_profile_headings_global col-md-12 p-0  custom--social-head">
@@ -462,14 +462,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card custom-help-contain">
+                    <div class="card custom-help-contain common-card">
                         <div class="card-header">
                             <a class="collapsed card-link" data-toggle="collapse" href="#my_social_media">
                                 Our Social Media
                             </a>
                         </div>
                         <div id="my_social_media" class="collapse" data-parent="#accordion">
-                            <div class="card-body pb-0">                                
+                            <div class="card-body ">                                
                                 @include('center.my-account.partials.social-media-dash-tab')
                             </div>
                         </div>

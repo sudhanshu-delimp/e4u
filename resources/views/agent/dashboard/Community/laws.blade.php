@@ -44,7 +44,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="table-responsive" id="sailorTableArea">
+                        <div class="table-responsive common-card" id="sailorTableArea">
                             <table id="myTable" class="table dataTable" style="width: 100%;">
                                 <thead class="text-center table-bg">
                                     <tr role="row">
@@ -118,7 +118,7 @@
                                 </ol>
                             </p>
                         </div>
-                        <div class="mt-5">
+                        <div class="mt-5 common-card">
                             <b>Changes to this Guide</b><br>
                             <span>This Guide was last updated on 02-2024.</span>
                         </div>
