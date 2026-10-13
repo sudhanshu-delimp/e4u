@@ -29,7 +29,7 @@
 
                <div class="total_listing">
                   <div><span>Total sales (CFY): </span></div>
-                  <div><span>{{formatCurrency(stateWalletCredit($currentStart, $currentEndDate))}}</span></div>
+                  <div><span>{{formatCurrency(stateWalletCredit($currentStart, $currentEnd))}}</span></div>
                </div>
             </div>
          </div>
@@ -87,8 +87,8 @@
                   <!-- GROUP 1: ACT -->
                   @foreach($states as $key=>$state)
                   @php
-                  $currentYearCreditAmountNow = stateWalletCredit($currentStart, $currentEndDate, $key);
-                  $previousYearCreditAmountNow = stateWalletCredit($previousStart, $previousEndDate, $key);
+                  $currentYearCreditAmountNow = stateWalletCredit($currentStart, $currentEnd, $key);
+                  $previousYearCreditAmountNow = stateWalletCredit($previousStart, $previousEnd, $key);
 
                   $variation = $currentYearCreditAmountNow-$previousYearCreditAmountNow;
                   $variation_percentage = $previousYearCreditAmountNow != 0
@@ -117,7 +117,7 @@
                            <div class="num_value">↑ $ <span>{{formatCurrency($variation, '' , false)}}</span></div>
                         </span></td>
                      <td><span class="text-success">
-                           <div class="num_value">↑<span> {{ $variation_percentage !== null ? number_format($variation_percentage, 2) . '%' : 0 }}</span></div>
+                           <div class="num_value">↑<span> {{ $variation_percentage !== null ? number_format($variation_percentage, 2) . '%' : 'N/A' }}</span></div>
                         </span></td>
                      <td class="text-right">{{formatCurrency($previousYearCreditAmount, '' , false)}}</td>
                      <td><span class="text-danger">
@@ -139,7 +139,7 @@
                   <!-- middle Content -->
                   
                   @foreach(['3','4'] as $advertiser)
-                     @include('admin.management.statistics.include.credit-listing-detail', compact('key', 'advertiser','state','currentStart','currentEndDate','previousStart','previousEndDate','previousEnd'))
+                     @include('admin.management.statistics.include.credit-listing-detail', compact('key', 'advertiser','state','currentStart','currentEnd','previousStart','previousEnd','previousEnd'))
                   @endforeach
                   <!-- total -->
                   <tr class="collapse-row group-{{$key}} font-weight-bold">
@@ -151,7 +151,7 @@
                            <div class="num_value">↑ <span>{{formatCurrency($variation, '' , false)}}</span></div>
                         </span></span></td>
                      <td><span class="text-success">
-                           <div class="num_value">↑ <span>{{ $variation_percentage !== null ? number_format($variation_percentage, 2) . '%' : 0 }}</span></div>
+                           <div class="num_value">↑ <span>{{ $variation_percentage !== null ? number_format($variation_percentage, 2) . '%' : 'N/A' }}</span></div>
                         </span></span></td>
                      <td class="text-right"><span class="text-danger">{{formatCurrency($previousYearCreditAmount, '' , false)}}</span></td>
                      <td><span class="text-danger">

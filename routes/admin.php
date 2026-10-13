@@ -788,7 +788,6 @@ Route::prefix('management')
   ->name('management.')
   ->group(function () {
     Route::prefix('statistics')->name('statistics.')->group(function () {
-      Route::get('/report-credit', [StatisticsController::class, 'creditReport'])->name('credit');
       Route::get('/report-email', [StatisticsController::class, 'emailReport'])->name('email');
       Route::get('/report-membership', [StatisticsController::class, 'membershipReport'])->name('membership');
       Route::get('/report-product', [StatisticsController::class, 'productReport'])->name('product');
@@ -799,7 +798,8 @@ Route::prefix('management')
 
     Route::prefix('reporting')->name('reporting.')->group(function () {
       Route::get('/revenue', [ManagementReportingController::class, 'revenue'])->name('revenue');
-      Route::get('/concierge-payments', [ManagementReportingController::class, 'conciergePayments'])->name('concierge_payments');
+      Route::get('/concierge-payments', [ConciergeReportController::class, 'index'])->name('concierge_payments');
+      Route::get('/report-credit', [ManagementReportingController::class, 'creditReport'])->name('credit');
     });
 
   });
