@@ -33,21 +33,4 @@ class Feedback extends Model
     {
         return $this->belongsTo(Option::class, 'option_id', 'id');
     }
-
-    /**
-     * The "booted" method of the model.
-     *
-     * @return void
-     */
-    protected static function booted()
-    {
-        static::created(function ($model) {
-            if ($model->exists && empty($model->ref_number)) {
-                $model->ref_number = generateReferenceNunber($model);
-                // Prevent the update from triggering model events again.
-                $model->saveQuietly();
-            }
-        });
-    }
-
 }

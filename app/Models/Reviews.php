@@ -45,21 +45,4 @@ class Reviews extends Model
 
         return null;
     }
-
-    /**
-     * The "booted" method of the model.
-     *
-     * @return void
-     */
-    protected static function booted()
-    {
-        static::created(function ($model) {
-            if ($model->exists && Schema::hasColumn($model->getTable(), 'ref_number') && empty($model->ref_number)) {
-                $model->ref_number = generateReferenceNunber($model);
-                // Prevent model events from triggering again
-                $model->saveQuietly();
-            }
-        });
-    }
-    
 }

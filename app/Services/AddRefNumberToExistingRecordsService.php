@@ -14,7 +14,7 @@ class AddRefNumberToExistingRecordsService
     {
         try {
             $tables = [
-               /*  'concierge_mobile_sims',
+              'concierge_mobile_sims',
                 'agent_notifications',
                 'center_notifications',
                 'escort_notifications',
@@ -33,8 +33,8 @@ class AddRefNumberToExistingRecordsService
                 'support_tickets',
                 'notebox',
                 'influencers',
-                'feedbacks', */
-                //'payment_histories',
+                'feedbacks', 
+                'payment_histories',
             ];
 
 
