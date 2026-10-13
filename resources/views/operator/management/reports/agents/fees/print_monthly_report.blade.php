@@ -5,12 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Agent Montly Fee Report</title>
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.2') }}" rel="stylesheet">
+         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.3') }}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900" rel="stylesheet">
-
     <style>
         @media print {
             body,
@@ -29,6 +28,7 @@
         table td {
             font-family: "Poppins", sans-serif;
         }
+
         .heading {
             display: block;
             font-size: 1rem;
@@ -39,7 +39,6 @@
         @page {
             size: A4;
         }
-
 
         h2 {
             font-size: 16px;
@@ -67,10 +66,8 @@
             vertical-align: middle;
            font-family: "Poppins", sans-serif;
         }
-        .opr-table-bg {
-            background-color: rgb(0, 60, 62);color: #fff;border:0 !important;
-        }
-        .opr_accordian_table{color:#fff !important;border:1px solid #fff !important;}
+        .font-weight-bold{color:#fff !important;border-right: 0.5px solid #fff !important;}
+        
     </style>
 </head>
 
@@ -121,13 +118,13 @@
                                 <thead class="opr-table-bg modal-thaed">
                                         
                                         <tr>
-                                            <th>Member ID</th>
-                                            <th>Name</th>
-                                            <th>Territory</th>
-                                            <th>Type</th>
-                                            <th style="text-align: right;">Days</th>
-                                            <th style="text-align: right;">Spend</th>
-                                            <th style="text-align: right;">Fee</th>
+                                            <th class="font-weight-bold">Member ID</th>
+                                            <th class="font-weight-bold">Name</th>
+                                            <th class="font-weight-bold">Territory</th>
+                                            <th class="font-weight-bold">Type</th>
+                                            <th class="font-weight-bold">Days</th>
+                                            <th class="font-weight-bold">Spend</th>
+                                            <th class="font-weight-bold">Fee</th>
                                         </tr>
                                     </thead>
                                     <tbody id="accordionParent">
