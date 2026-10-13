@@ -20,7 +20,7 @@
             </p>
             <ol class="common_list_design">
                 <li>
-                    <p class="mb-0">Select Administration > Concierge from the menu and click "Accommodation"</p>
+                    <p class="mb-0">Select Administration>Concierge from the menu and click "Accommodation"</p>
                 </li>
                 <li>
                     <p class="mb-0">Proceed to make your booking from the landing page</p>

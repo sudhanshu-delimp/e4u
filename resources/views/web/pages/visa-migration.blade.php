@@ -18,7 +18,7 @@
 
         </p>
           <ol class="common_list_design">
-            <li><p class="mb-0">Select Administration > Concierge from the menu and click "Visa & Migration"</p></li>
+            <li><p class="mb-0">Select Administration>Concierge from the menu and click "Visa & Migration"</p></li>
             <li><p class="mb-0">Follow the instructions by completing the form</p></li>
             <li><p class="mb-0">Submit your request</p></li>
         </ol>

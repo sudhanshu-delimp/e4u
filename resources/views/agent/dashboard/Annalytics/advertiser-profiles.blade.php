@@ -595,6 +595,17 @@ $(document).ready(function () {
         let fromDate = $('#fromDate').val();
         let toDate = $('#toDate').val();
 
+        console.log('fromDate',fromDate);
+        console.log('toDate',toDate);
+
+        let fromParts = fromDate.split('-');
+        let toParts = toDate.split('-');
+
+
+        let formattedFromDate = `${fromParts[2]}-${fromParts[1]}-${fromParts[0]}`;
+        let formattedToDate = `${toParts[2]}-${toParts[1]}-${toParts[0]}`;
+
+
         if (!fromDate) {
             $('#fromDate').focus();
             swal_error_warning('Profile Report','Please select From date.');
@@ -607,7 +618,7 @@ $(document).ready(function () {
             return;
         }
 
-        if (fromDate > toDate) {
+       if (formattedFromDate > formattedToDate) {
             swal_error_warning('Profile Report','From date cannot be greater than To date.');
             $('#fromDate').focus();
             return;

@@ -155,7 +155,7 @@
                </form>
             </div>
             <div class="col-md-6 order-md-1 order-sm-0 order-0 mb-2 common_login_img">
-               <img src="{{ asset('assets/app/img/admin-login.jpg')}}" class="img-fluid">
+               <img src="{{ asset('assets/app/img/admin-logins.jpg')}}" class="img-fluid">
             </div>
          </div>
       </section>

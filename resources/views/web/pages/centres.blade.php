@@ -32,7 +32,7 @@
        <li>Profile for each of your Masseurs, up to eight, which includes:
         <ul class="level-2">
             <li>Their name</li>
-            <li>Up to three photos</li>
+            <li>Up to four photos</li>
             <li>Their available days and times</li>
             <li>The services they offer</li>
             <li>Mobile number (if applicable)</li>
