@@ -33,24 +33,51 @@ class ReportingController extends Controller
 
     public function index() {}
 
+    public function creditReport()
+    {
+        $states = config('escorts.profile.states');
+        
+        $financialYear = getFinancialYear();
+
+        $currentStart = $financialYear['currentStart'];
+        $currentEnd = $financialYear['currentEnd'];
+
+        $lastStart = $financialYear['lastStart'];
+        $lastEnd = $financialYear['lastEnd'];
+
+        $previousStart = $financialYear['previousStart'];
+        $previousEnd = $financialYear['previousEnd'];
+
+        $currentTodayEnd = $financialYear['todayEnd'];
+        $lastTodayEnd = $financialYear['lastTodayEnd'];
+        $daysTillToday = $financialYear['daysTillToday'];
+
+        return view('admin.management.reporting.credit', compact('states', 'currentStart', 'currentEnd', 'lastStart', 'lastEnd', 'previousStart', 'previousEnd', 'currentTodayEnd','lastTodayEnd','daysTillToday'));
+    }
+
     public function revenue()
     {
         $states = config('escorts.profile.states');
+        
+        $financialYear = getFinancialYear();
 
-        $now = Carbon::now('UTC');
-        $australiaTimeNow = getAustraliaTime($now);
+        $currentStart = $financialYear['currentStart'];
+        $currentEnd = $financialYear['currentEnd'];
 
-        $currentStart = $australiaTimeNow->copy()->startOfYear()->utc();
-        $currentEndDate   = $australiaTimeNow->copy()->endOfDay()->utc();
+        $lastStart = $financialYear['lastStart'];
+        $lastEnd = $financialYear['lastEnd'];
+
+        $previousStart = $financialYear['previousStart'];
+        $previousEnd = $financialYear['previousEnd'];
+
+        $currentTodayEnd = $financialYear['todayEnd'];
+        $lastTodayEnd = $financialYear['lastTodayEnd'];
+        $daysTillToday = $financialYear['daysTillToday'];
+
+        // return view('admin.management.statistics.credit', compact('states', 'currentStart', 'currentEnd', 'lastStart', 'lastEnd', 'previousStart', 'previousEnd', 'currentTodayEnd','lastTodayEnd','daysTillToday'));
 
 
-        $previousNow = $australiaTimeNow->copy()->subYear();
-        $previousStart = $previousNow->copy()->startOfYear()->utc();
-        $previousEndDate   = $previousNow->copy()->endOfDay()->utc();
-        $previousEnd   = $previousNow->copy()->endOfYear()->utc();
-
-
-        return view('admin.management.reporting.revenue', compact('states', 'currentStart', 'currentEndDate', 'previousStart', 'previousEndDate', 'previousEnd'));
+        return view('admin.management.reporting.revenue', compact('states', 'currentStart', 'currentEnd', 'lastStart', 'lastEnd', 'previousStart', 'previousEnd', 'currentTodayEnd','lastTodayEnd','daysTillToday'));
     }
 
     public function emailReport()

@@ -33,28 +33,6 @@ class StatisticsController extends Controller
 
     public function index() {}
 
-    public function creditReport()
-    {
-        $states = config('escorts.profile.states');
-        
-        $financialYear = getFinancialYear();
-
-        $currentStart = $financialYear['currentStart'];
-        $currentEnd = $financialYear['currentEnd'];
-
-        $lastStart = $financialYear['lastStart'];
-        $lastEnd = $financialYear['lastEnd'];
-
-        $previousStart = $financialYear['previousStart'];
-        $previousEnd = $financialYear['previousEnd'];
-
-        $currentTodayEnd = $financialYear['todayEnd'];
-        $lastTodayEnd = $financialYear['lastTodayEnd'];
-        $daysTillToday = $financialYear['daysTillToday'];
-
-        return view('admin.management.statistics.credit', compact('states', 'currentStart', 'currentEnd', 'lastStart', 'lastEnd', 'previousStart', 'previousEnd', 'currentTodayEnd','lastTodayEnd','daysTillToday'));
-    }
-
     public function emailReport()
     {
         return view('admin.management.statistics.email');

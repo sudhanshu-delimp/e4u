@@ -213,6 +213,32 @@ if (!function_exists('formatCurrency')) {
     }
 }
 
+if (!function_exists('formatAmount')) {
+    function formatAmount($value)
+    {
+        $value = round((float) ($value ?? 0), 2);
+        $isNegative = $value < 0;
+
+        $value = number_format(abs($value), 2, '.', '');
+
+        list($intPart, $decimalPart) = explode('.', $value);
+
+        $lastThree = substr($intPart, -3);
+        $restUnits = substr($intPart, 0, -3);
+
+        if ($restUnits !== '') {
+            $restUnits = preg_replace('/\B(?=(\d{2})+(?!\d))/', ',', $restUnits);
+            $formatted = $restUnits . ',' . $lastThree;
+        } else {
+            $formatted = $lastThree;
+        }
+
+        $formatted .= '.' . $decimalPart;
+
+        return $isNegative ? '(' . $formatted . ')' : $formatted;
+    }
+}
+
 /**
  * Get membership type by membership ID
  */
