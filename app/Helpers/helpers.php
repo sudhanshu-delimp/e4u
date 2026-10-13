@@ -216,24 +216,26 @@ if (!function_exists('formatCurrency')) {
 if (!function_exists('formatAmount')) {
     function formatAmount($value)
     {
-        $value = number_format(round($value, 2), 2, '.', ''); // keep 2 decsimals
+        $value = round((float) ($value ?? 0), 2);
+        $isNegative = $value < 0;
+
+        $value = number_format(abs($value), 2, '.', '');
+
         list($intPart, $decimalPart) = explode('.', $value);
+
         $lastThree = substr($intPart, -3);
         $restUnits = substr($intPart, 0, -3);
 
-        if ($restUnits != '') {
-            $restUnits = preg_replace("/\B(?=(\d{2})+(?!\d))/", ",", $restUnits);
-            $formatted = $restUnits . "," . $lastThree;
+        if ($restUnits !== '') {
+            $restUnits = preg_replace('/\B(?=(\d{2})+(?!\d))/', ',', $restUnits);
+            $formatted = $restUnits . ',' . $lastThree;
         } else {
             $formatted = $lastThree;
         }
 
+        $formatted .= '.' . $decimalPart;
 
-        
-
-        return $value < 0
-            ? '(' . abs($formatted . '.' . $decimalPart) . ')'
-            : $formatted . '.' . $decimalPart;
+        return $isNegative ? '(' . $formatted . ')' : $formatted;
     }
 }
 
