@@ -18,16 +18,16 @@
 <tr class="collapse-row group-{{$key}}">
     <td></td>
     <td>{{$advertiser == 3 ? 'Escorts':'Centers'}}</td>
-    <td><div class="num_value">$<span>{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</span></div></td>
-    <td colspan="2"><div class="num_value">$<span>{{formatCurrency($LFY_Till_Date_Credit, '' , false)}}</span></div></td>
-    <td><div class="num_value">{!! getReportIcon($variation) !!} {{formatCurrency($variation, '' , false)}}</div></td>
-    <td><div class="num_value">{!! getReportIcon($variation_percentage) !!} {{number_format(round($variation_percentage, 2), 2)}}</div></td>
+    <td><div class="num_value">$<span>{{formatAmount($CFY_Till_Date_Credit)}}</span></div></td>
+    <td colspan="2"><div class="num_value">$<span>{{formatAmount($LFY_Till_Date_Credit)}}</span></div></td>
+    <td><div class="num_value">{!! getReportIcon($variation) !!} {{formatAmount($variation)}}</div></td>
+    <td><div class="num_value">{!! getReportIcon($variation_percentage) !!} {{formatAmount($variation_percentage)}}</div></td>
 
-    <td colspan="2"><div class="num_value">$<span>{{formatCurrency($LFY_Credit, '' , false)}}</span></div></td>
-    <td><div class="num_value">{!! getReportIcon($LFY_variation) !!} {{formatCurrency($LFY_variation, '' , false)}}</div></td>
-    <td><div class="num_value">{!! getReportIcon($LFY_variation_percentage) !!} {{number_format(round($LFY_variation_percentage, 2), 2)}}</div></td>
+    <td colspan="2"><div class="num_value">$<span>{{formatAmount($LFY_Credit)}}</span></div></td>
+    <td><div class="num_value">{!! getReportIcon($LFY_variation) !!} {{formatAmount($LFY_variation)}}</div></td>
+    <td><div class="num_value">{!! getReportIcon($LFY_variation_percentage) !!} {{formatAmount($LFY_variation_percentage)}}</div></td>
 
-    <td colspan="2"><div class="num_value">$<span>{{formatCurrency($CFY_Till_Date_Credit, '' , false)}}</span></div></td>
-    <td ><div class="num_value">{!! getReportIcon($actual_variation) !!} {{formatCurrency($actual_variation, '' , false)}}</div></td>
-    <td><div class="num_value">{!! getReportIcon($actual_variation_percentage) !!} {{number_format(round($actual_variation_percentage, 2), 2)}}</div></td>
+    <td colspan="2"><div class="num_value">$<span>{{formatAmount($CFY_Till_Date_Credit)}}</span></div></td>
+    <td ><div class="num_value">{!! getReportIcon($actual_variation) !!} {{formatAmount($actual_variation)}}</div></td>
+    <td><div class="num_value">{!! getReportIcon($actual_variation_percentage) !!} {{formatAmount($actual_variation_percentage)}}</div></td>
 </tr>
