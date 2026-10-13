@@ -29,7 +29,7 @@
       <div class="col-md-12 mb-5">
          <div id="accordion" class="myacording-design">
             <!-- Introduction -->
-            <div class="card">
+            <div class="card common-card">
                <div class="card-header">
                   <a class="card-link collapsed" data-toggle="collapse" href="#Abbreviations" aria-expanded="false">
                   Introduction
@@ -84,7 +84,7 @@
             <!-- end -->
 
             <!-- Industry Lingo -->
-            <div class="card">
+            <div class="card common-card">
                <div class="card-header">
                   <a class="card-link collapsed" data-toggle="collapse" href="#lingo" aria-expanded="false">
                   Industry lingo
@@ -350,7 +350,7 @@
             <!-- end -->
             <!-- Website Abbreviations -->
 
-            <div class="card">
+            <div class="card common-card">
                <div class="card-header">
                   <a class="card-link collapsed" data-toggle="collapse" href="#websiteAbbreviations" aria-expanded="false">
                   Website Abbreviations
@@ -721,7 +721,7 @@
             <!-- end -->
 
             <!-- Website icons -->
-            <div class="card">
+            <div class="card common-card">
                <div class="card-header">
                   <a class="card-link collapsed" data-toggle="collapse" href="#Websiteicons" aria-expanded="false">
                   Website icons
@@ -952,7 +952,7 @@
             <!-- end -->
 
             <!-- Changes to this Policy -->
-            <div class="card">
+            <div class="card common-card">
                <div class="card-header">
                      <a class="card-link collapsed" data-toggle="collapse" href="#addPolicy" aria-expanded="false">
                      Changes to this Policy

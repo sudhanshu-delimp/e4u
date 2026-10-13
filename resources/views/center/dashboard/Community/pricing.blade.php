@@ -49,7 +49,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div id="accordion" class="myacording-design">
-                            <div class="card">
+                            <div class="card common-card">
                                 <div class="card-header">
                                     <h2><a class="card-link collapsed" data-toggle="collapse" href="#about_me" aria-expanded="false">
                                     Advertising Fees
@@ -57,7 +57,7 @@
                                     </h2>
                                 </div>
                                 <div id="about_me" class="collapse" data-parent="#accordion" style="">
-                                    <div class="card-body p-0">
+                                    <div class="card-body">
                                         <div class="table-responsive" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
                                                 <table id="myTable price-sec" class="table  dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
@@ -265,7 +265,7 @@
                                             </div>
                                         </div>
                                         <div class="mt-5">
-                                            <h3>Changes to this Guide</h3>
+                                            <h5>Changes to this Guide</h5>
                                             <span>
                                                 This Guide was last updated {{last_updated_price('pricing')}}.
                                             </span>
@@ -274,7 +274,7 @@
                                 </div>
                             </div>
 
-                            <div class="card">
+                            <div class="card common-card">
                                 <div class="card-header">
                                     <a class="card-link collapsed" data-toggle="collapse"
                                         href="#other_fees_concierge_services" aria-expanded="false">
@@ -283,7 +283,7 @@
                                 </div>
                                 <div id="other_fees_concierge_services" class="collapse"
                                         data-parent="#accordion" style="">
-                                    <div class="card-body p-0">
+                                    <div class="card-body">
                                         <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
                                                 <table id="myTable price-sec" class="table   dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
@@ -399,7 +399,7 @@
                                         </div>
 
                                         <div class="mt-5">
-                                            <h3>Changes to this Guide</h3>
+                                            <h5>Changes to this Guide</h5>
                                             <span>
                                                 This Guide was last updated 16-06-2025.
                                             </span>
@@ -408,14 +408,14 @@
                                 </div>
                             </div>
 
-                            <div class="card">
+                            <div class="card common-card">
                                 <div class="card-header">
                                     <a class="card-link collapsed" data-toggle="collapse" href="#profile_and_tour_options" aria-expanded="false">
                                         Other Support Fees - Support Services
                                     </a>
                                 </div>
                                 <div id="profile_and_tour_options" class="collapse" data-parent="#accordion" style="">
-                                    <div class="card-body p-0">
+                                    <div class="card-body">
                                         <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
                                                 <table id="myTable price-sec" class="table   dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
@@ -469,7 +469,7 @@
                                         </div>
 
                                         <div class="mt-5">
-                                            <h3>Changes to this Guide</h3>
+                                            <h5>Changes to this Guide</h5>
                                             <span>
                                                 This Guide was last updated {{last_updated_price('fees_support_services')}}.
                                             </span>
@@ -479,7 +479,7 @@
                             </div>
 
 
-                            <div class="card">
+                            <div class="card common-card">
                                 <div class="card-header">
                                     <a class="card-link collapsed" data-toggle="collapse" href="#LoyaltyProgram"
                                         aria-expanded="false">
@@ -487,7 +487,7 @@
                                     </a>
                                 </div>
                                 <div id="LoyaltyProgram" class="collapse" data-parent="#accordion" style="">
-                                    <div class="card-body p-0">
+                                    <div class="card-body">
                                         <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
                                                 <table id="myTable price-sec" class="table   dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
@@ -555,7 +555,7 @@
                                         </div>
 
                                         <div class="mt-5">
-                                            <h3>Changes to this Guide</h3>
+                                            <h5>Changes to this Guide</h5>
                                             <span>
                                                 This Guide was last updated {{last_updated_price('variabl_loyalty_programs')}}.
                                             </span>

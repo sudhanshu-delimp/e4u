@@ -19,9 +19,7 @@
 </style>
 @endsection
 @section('content')
-<div id="wrapper">
-   <div id="content-wrapper" class="d-flex flex-column">
-      <div id="content">
+
             <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
                 <!--middle content-->
                 <div class="row">
@@ -46,7 +44,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div id="about_me" class="collapse show" data-parent="#accordion" style="">
-                                <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
+                                <div class="table-responsive list-sec common-card" id="sailorTableArea">
                                     <table id="myTable price-sec" class="table dataTable" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                         <thead class="text-center">
                                         <tr role="row">
@@ -122,9 +120,6 @@
                 <!--right side bar start from here-->
                 </div>
             </div>
-      </div>
-   </div>
-</div>
 @include('escort.dashboard.partials.playmates-modal')
 @endsection
 @push('script')

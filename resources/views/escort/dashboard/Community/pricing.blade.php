@@ -59,7 +59,7 @@ padding: 2px 8px 2px 8px !important;
                 <div class="row">
                     <div class="col-md-12">
                         <div id="accordion" class="myacording-design">
-                            <div class="card">
+                            <div class="card common-card">
                                 <div class="card-header">
                                     <h2><a class="card-link collapsed" data-toggle="collapse" href="#about_me" aria-expanded="false">
                                     Advertising Fees
@@ -67,7 +67,7 @@ padding: 2px 8px 2px 8px !important;
                                     </h2>
                                 </div>
                                 <div id="about_me" class="collapse" data-parent="#accordion" style="">
-                                    <div class="card-body p-0">
+                                    <div class="card-body ">
                                         <div class="table-responsive" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
                                                  <table id="myTable price-sec" class="table dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
@@ -166,7 +166,7 @@ padding: 2px 8px 2px 8px !important;
                                 </div>
                             </div>
 
-                            <div class="card">
+                            <div class="card common-card">
                                 <div class="card-header">
                                     <a class="card-link collapsed" data-toggle="collapse"
                                         href="#other_fees_concierge_services" aria-expanded="false">
@@ -175,7 +175,7 @@ padding: 2px 8px 2px 8px !important;
                                 </div>
                                 <div id="other_fees_concierge_services" class="collapse"
                                         data-parent="#accordion" style="">
-                                    <div class="card-body p-0">
+                                    <div class="card-body">
                                         <div class="table-responsive" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
                                                                 
@@ -295,7 +295,7 @@ padding: 2px 8px 2px 8px !important;
                                         </div>
 
                                         <div class="mt-5">
-                                            <h3>Changes to this Guide</h3>
+                                            <h5>Changes to this Guide</h5>
                                             <span>
                                                 This Guide was last updated on 02-2024.
                                             </span>
@@ -304,14 +304,14 @@ padding: 2px 8px 2px 8px !important;
                                 </div>
                             </div>
 
-                            <div class="card">
+                            <div class="card common-card">
                                 <div class="card-header">
                                     <a class="card-link collapsed" data-toggle="collapse" href="#profile_and_tour_options" aria-expanded="false">
                                         Other Support Fees - Support Services
                                     </a>
                                 </div>
                                 <div id="profile_and_tour_options" class="collapse" data-parent="#accordion" style="">
-                                    <div class="card-body p-0">
+                                    <div class="card-body">
                                         <div class="table-responsive" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
                                                 {{--                                                        <h5 class="price-sec">Concierge Services & Support Services</h5>--}}
@@ -368,7 +368,7 @@ padding: 2px 8px 2px 8px !important;
                                         </div>
 
                                         <div class="mt-5">
-                                            <h3>Changes to this Guide</h3>
+                                            <h5>Changes to this Guide</h5>
                                             <span>
                                                 This Guide was last updated on 02-2024.
                                             </span>
@@ -378,7 +378,7 @@ padding: 2px 8px 2px 8px !important;
                             </div>
 
 
-                            <div class="card">
+                            <div class="card common-card">
                                 <div class="card-header">
                                     <a class="card-link collapsed" data-toggle="collapse" href="#LoyaltyProgram"
                                         aria-expanded="false">
@@ -386,7 +386,7 @@ padding: 2px 8px 2px 8px !important;
                                     </a>
                                 </div>
                                 <div id="LoyaltyProgram" class="collapse" data-parent="#accordion" style="">
-                                    <div class="card-body p-0">
+                                    <div class="card-body">
                                         <div class="card border-0 mb-0 pb-0">
                                             <div class="card-body border-0 p-0 mt-2">
                                                 <p>For every $200.00 spent by an Escort, Escorts4U will apply one day of free
@@ -395,7 +395,7 @@ padding: 2px 8px 2px 8px !important;
                                         </div>
 
                                         <div class="mt-5">
-                                            <h3>Changes to this Guide</h3>
+                                            <h5>Changes to this Guide</h5>
                                             <span>
                                                 This Guide was last updated on 02-2024.
                                             </span>
