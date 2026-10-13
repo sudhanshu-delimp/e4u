@@ -94,6 +94,9 @@
 
     @endphp
     @if ($esortReports->isNotEmpty() || $massgeReports->isNotEmpty())
+    <table style="border:none;width: 100%;">
+     <tr>
+      <td style="border:none;width: 100%;">
         <table style="border:0 !important;width: 100%;">
             <tr>
                 <td style="border:0;width: 100%;">
@@ -397,6 +400,9 @@
                         </tr>
                     </table>
                 </td>
+            </tr>
+        </table>
+        </td>
             </tr>
         </table>
     @endif

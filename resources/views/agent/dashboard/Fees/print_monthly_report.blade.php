@@ -76,6 +76,9 @@
 
     @endphp
     @if ($esortReports->isNotEmpty() || $massgeReports->isNotEmpty())
+    <table style="border:none;width: 100%;">
+      <tr>
+        <td style="border:none;width: 100%;">
         <table class="table mb-0 common_accordian_table" style="background-color:#0c223d;">
             <tr>
                 <td style="text-align: left !important;"> <span>
@@ -365,7 +368,10 @@
                 </td>
             </tr>
         </table>
-    @endif
+        </td>
+    </tr>
+</table>
+@endif
 
     <!-- opr_accordian_table JS -->
     <script>
