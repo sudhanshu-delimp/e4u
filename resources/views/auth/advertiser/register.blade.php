@@ -71,7 +71,7 @@
                             </div>
                             <h2>Registration is free</h2>
                             <p>There are no Fees when you create an Account. Fees only apply when you
-                                post a Profile or Tour
+                                Listed a Profile or Tour
                                 where you are charged according to the number of days and the Membership Type you select.
                                 See also <span><a href="{{ url('help-for-escorts') }}"
                                         class="termsandconditions_text_color">Help for Escorts</a></span>

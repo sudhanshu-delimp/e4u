@@ -1,101 +1,140 @@
  <div class="tab-pane fade  active show" id="one" role="tabpanel" aria-labelledby="one-tab">
      <div class="row my-3">
-         <div class="col-lg-3">
-             <div class="row">
-                 <div class="col-lg-12">
-                     <table class="table table-bordered summery-border">
-                         <tbody>
-                             <tr>
-                                 <td class="border-left-0 border-bottom-0 border-top-0 text-right">
-                                     <b>Advertisers</b>
-                                 </td>
-                                 <td class="border-0 bg-white text-left">All Advertisers
-                                 </td>
-                             </tr>
-                             <tr>
-                                 <td class="border-left-0 border-bottom-0 border-top-0 text-right">
-                                     <b>Report Generated</b>
-                                 </td>
-                                 <td class="border-0 bg-white text-left">{{date('d-m-Y')}}</td>
-                             </tr>
-                             <tr>
-                                 <td class="border-left-0 border-bottom-0 border-top-0 text-right">
-                                     <b>Produced For</b>
-                                 </td>
-                                 <td class="border-0 bg-white text-left">Well Done Accounts
-                                 </td>
-                             </tr>
-                         </tbody>
-                     </table>
+         <div class="col-lg-4">
+             <div class="common-card">
+                 <div class="card-top">
+                     <div class="card-icon">
+                         <svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 14V7C20 5.34315 18.6569 4 17 4H7C5.34315 4 4 5.34315 4 7V17C4 18.6569 5.34315 20 7 20H13.5M20 14L13.5 20M20 14H15.5C14.3954 14 13.5 14.8954 13.5 16V20" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8 8H16" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8 12H12" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                     </div>
+
+                     <div class="card-heading">
+                         <h2>Report Information</h2>
+                     </div>
+                 </div>
+
+                 <hr class="custom-hr">
+                 <div class="common-stars">
+                     <div class="stats-detail">
+                         <div class="stats-label">
+                             Advertisers
+                         </div>
+                         <div class="stats-value">All Advertisers</div>
+                     </div>
+
+                     <div class="stats-detail">
+                         <div class="stats-label">Report Generated</div>
+                         <div class="stats-value">09-10-2026</div>
+                     </div>
+
+                     <div class="stats-detail">
+                         <div class="stats-label">Produced For</div>
+                         <div class="stats-value">Well Done Accounts </div>
+                     </div>
                  </div>
              </div>
          </div>
          <div class="col-lg-4">
+             <div class="common-card">
+                 <div class="card-top">
+                     <div class="card-icon">
+                         <svg  viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g fill="#ff3c5f"> <path d="M12 2a1 1 0 011 1v10a1 1 0 11-2 0V3a1 1 0 011-1zM8 6a1 1 0 011 1v6a1 1 0 11-2 0V7a1 1 0 011-1zM5 10a1 1 0 00-2 0v3a1 1 0 102 0v-3z"></path> </g> </g></svg>
+                     </div>
+
+                     <div class="card-heading">
+                         <h2>Earnings Overview</h2>
+                     </div>
+                 </div>
+
+                 <hr class="custom-hr">
+                 <div class="common-stars">
+                     
+
+                     <div class="stats-detail">
+                         <div class="stats-label">Total Earnings</div>
+                         <div class="stats-value">{{formatCurrency($feeSummery['totalEarning']) ?? ''}}</div>
+                     </div>
+
+                    
+
+                     <div class="stats-detail">
+                         <div class="stats-label">Average (P / Advertiser)</div>
+                         <div class="stats-value">{{formatCurrency($feeSummery['averageEarning']) ?? 0}}</div>
+                     </div>
+
+                     <div class="stats-detail">
+                         <div class="stats-label">Total Advertisers</div>
+                         <div class="stats-value">{{$feeSummery['totalAdvertiser'] ?? 0}}</div>
+                     </div>
+                 </div>
+             </div>
          </div>
-         <div class="col-lg-5">
-             <div class="row">
-                 <div class="col-lg-12">
-                     <table class="table table-bordered">
-                         <tbody>
-                             <tr>
-                                 <td class="bg-first text-right"><b>Current FY</b></td>
-                                 <td class="text-center" style="width:27%;" id="current-fy">{{$feeSummery['selectedFY'] ?? ''}}</td>
-                                 <td class="bg-first text-right"><b>Total Earnings</b>
-                                 </td>
-                                 <td class="text-right" style="width:20%;">
-                                     {{formatCurrency($feeSummery['totalEarning']) ?? ''}}
-                                 </td>
-                             </tr>
-                             <tr>
-                                 <td class="bg-first text-right"><b>Select FY </b></td>
-                                 <td style="width:27%;">
-                                     <select class="rounded-0 w-100" id="select-fy" name="select-fy">
-                                         @foreach ($feeSummery['availableFYs'] as $year)
-                                             <option {{ request('fee_summery_advertiser_fy') == $year ? 'selected' : '' }} value="{{ $year }}">{{ $year }}</option>
-                                         @endforeach
-                                     </select>
-                                 </td>
-                                 <td class="bg-first text-right"><b>Average (P / Advertiser)</b>
-                                 </td>
-                                 <td class="text-right" style="width:20%;">
-                                     {{formatCurrency($feeSummery['averageEarning']) ?? 0}}
-                                 </td>
-                             </tr>
-                             <tr>
-                                 <td class="bg-first text-right"><b>Display Type</b>
-                                 </td>
-                                 <td style="width:27%;">
-                                     <select class="rounded-0 w-100" name="display_type" id="display_type">
-                                         <option value="member_id"
-                                           {{ request('display_type', 'member_id') == 'member_id' ? 'selected' : '' }}>
-                                           Member ID</option>
-                                         <option value="membership_type"
+         <div class="col-lg-4">
+             <div class="common-card">
+                 <div class="card-top">
+                     <div class="card-icon">
+                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 5H7M14 5L20 5M14 5C14 3.89543 13.1046 3 12 3C10.8954 3 10 3.89543 10 5C10 6.10457 10.8954 7 12 7C13.1046 7 14 6.10457 14 5ZM10 12H16M16 12C16 13.1046 16.8954 14 18 14C19.1046 14 20 13.1046 20 12C20 10.8954 19.1046 10 18 10C16.8954 10 16 10.8954 16 12ZM4 12H7M11 19H20M6 17C7.10457 17 8 17.8954 8 19C8 20.1046 7.10457 21 6 21C4.89543 21 4 20.1046 4 19C4 17.8954 4.89543 17 6 17Z" stroke="#ff3c5f" stroke-width="2.088" stroke-linecap="round"></path> </g></svg>
+                     </div>
+
+                     <div class="card-heading">
+                         <h2>Report Filters</h2>
+                     </div>
+                 </div>
+
+                 <hr class="custom-hr">
+                 <div class="common-stars common-form">
+                     <div class="stats-detail">
+                         <div class="stats-label">
+                             Current FY
+                         </div>
+                         <div class="stats-value">
+                            <select class="form-control" disabled>
+                               
+                                <option value="{{$feeSummery['selectedFY'] ?? ''}}">{{$feeSummery['selectedFY'] ?? ''}}</option>
+                             
+                            </select>   
+                         </div>
+                     </div>
+
+                     <div class="stats-detail">
+                         <div class="stats-label">Select FY</div>
+                         <div class="stats-value">
+                            <select class="form-control" id="select-fy" name="select-fy">
+                                @foreach ($feeSummery['availableFYs'] as $year)
+                                <option {{ request('fee_summery_advertiser_fy') == $year ? 'selected' : '' }} value="{{ $year }}">{{ $year }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                     </div>
+
+                     <div class="stats-detail">
+                         <div class="stats-label">Display Type</div>
+                         <div class="stats-value">
+                             <select class="form-control" name="display_type" id="display_type">
+                                     <option value="member_id"
+                                         {{ request('display_type', 'member_id') == 'member_id' ? 'selected' : '' }}>
+                                         Member ID</option>
+                                     <option value="membership_type"
                                          {{ request('display_type') == 'membership_type' ? 'selected' : '' }}>
                                          Membership Type</option>
-                                         <option value="highest_spend" 
-                                         {{ request('display_type') == 'highest_spend' ? 'selected' : '' }}
-                                         >Highest Spend</option>
-                                         <option value="lowest_spend" 
+                                     <option value="highest_spend"
+                                         {{ request('display_type') == 'highest_spend' ? 'selected' : '' }}>Highest Spend</option>
+                                     <option value="lowest_spend"
                                          {{ request('display_type') == 'lowest_spend' ? 'selected' : '' }}>
                                          Lowest Spend</option>
-                                         <option value="highest_fee" 
+                                     <option value="highest_fee"
                                          {{ request('display_type') == 'highest_fee' ? 'selected' : '' }}>
                                          Highest Fees</option>
-                                         <option  value="lowest_fee" 
+                                     <option value="lowest_fee"
                                          {{ request('display_type') == 'lowest_fee' ? 'selected' : '' }}>
                                          Lowest Fees</option>
-                                     </select>
-                                 </td>
-                                 <td class="bg-first text-right"><b>Total Advertisers</b></td>
-                                 <td class="text-right" style="width:20%;">{{$feeSummery['totalAdvertiser'] ?? 0}}</td>
-                             </tr>
-                         </tbody>
-                     </table>
+                                 </select>
+                         </div>
+                     </div>
                  </div>
              </div>
          </div>
      </div>
-     <div class="table-responsive mb-5">
+     <div class="table-responsive my-4 common-card">
          <table class="table table-bordered">
              <thead class="bg-first">
                  <tr class="text-center">
@@ -122,7 +161,7 @@
                  <tr>
              </thead>
              <tbody id="appendFeesSummaryAdvertiseraa">
-                @foreach($feeSummery['earnings'] as $summery)
+                 @foreach($feeSummery['earnings'] as $summery)
                  <tr>
                      <td class="text-left">{{$summery->member_id ?? ''}} </td>
                      <td class="text-left">{{$summery->advertiser_name ?? ''}}</td>
@@ -149,7 +188,7 @@
                                  <button type="button" class="dropdown-item d-flex align-items-center justify-content-start gap-10"
                                      data-toggle="modal" data-target="#">
                                      <i class="fa fa-print"></i> Print Report
-                                </button>
+                                 </button>
                              </div>
                          </div>
                      </td>

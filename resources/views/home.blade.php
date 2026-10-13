@@ -287,7 +287,7 @@
 
                 <p>
                     In addition to advertising services, we provide trusted information,
-                    reviews, concierge services, and support for both Advertisers and
+                    reviews, Concierge services, and support for both Advertisers and
                     Viewers, all designed to deliver a safe and enjoyable experience.
                 </p>
 
@@ -612,7 +612,7 @@
                 <p>
                     Create your account in just a few minutes. Registration is completely free.
                     You only pay when you decide to advertise your Profile or Tour according to
-                    your selected membership plan.
+                    your selected Membership plan.
                 </p>
 
                 <p>
@@ -695,15 +695,15 @@
                 <div class="buttons">
 
                     <a href="{{ route('advertiser.register') }}" class="home-btn btn-light">
-                        I'm an Advertiser
+                        I am an Advertiser
                     </a>
 
                     <a href="{{ route('register') }}" class="home-btn btn-dark">
-                        I'm a Viewer
+                        I am a Viewer
                     </a>
 
                     <a href="{{ route('agent.register') }}" class="home-btn btn-outline">
-                        I'm an Agent
+                        I am an Agent
                     </a>
 
                 </div>
