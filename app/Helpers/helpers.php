@@ -213,6 +213,30 @@ if (!function_exists('formatCurrency')) {
     }
 }
 
+if (!function_exists('formatAmount')) {
+    function formatAmount($value)
+    {
+        $value = number_format(round($value, 2), 2, '.', ''); // keep 2 decsimals
+        list($intPart, $decimalPart) = explode('.', $value);
+        $lastThree = substr($intPart, -3);
+        $restUnits = substr($intPart, 0, -3);
+
+        if ($restUnits != '') {
+            $restUnits = preg_replace("/\B(?=(\d{2})+(?!\d))/", ",", $restUnits);
+            $formatted = $restUnits . "," . $lastThree;
+        } else {
+            $formatted = $lastThree;
+        }
+
+
+        
+
+        return $value < 0
+            ? '(' . abs($formatted . '.' . $decimalPart) . ')'
+            : $formatted . '.' . $decimalPart;
+    }
+}
+
 /**
  * Get membership type by membership ID
  */
@@ -3503,3 +3527,5 @@ function getReportIcon($value = 0.00)
         return '<svg width="18px" height="18px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ff9500" stroke-width="0.792"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M6.00001 11.25L18 11.25L18 12.75L6.00001 12.75L6.00001 11.25Z" fill="#ff9500"></path> </g></svg>';
     }
 }
+
+
