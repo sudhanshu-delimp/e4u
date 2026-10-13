@@ -1402,17 +1402,17 @@ $ocLavel = 'Developer';
                     <img src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
                     <span>Reporting</span>
                 </a>
-                <div id="ReportingMenu" class="collapse @if (in_array(request()->segment(3), ['credits', 'revenue', 'concierge-payments'])) show @endif"
+                <div id="ReportingMenu" class="collapse @if (request()->routeIs('management.reporting.*')) show @endif"
                     data-parent="#Management">
 
-                    <a class="collapse-item" href="{{ route('admin.concierge-payments') }}">
+                    <a class="collapse-item" href="{{ route('management.reporting.concierge_payments') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/reconciliation.png') }}"
                             alt="">
                         <span
                             style="{{ request()->segment(3) == 'concierge-payments' ? 'color: #FF3C5F;' : '' }}">Concierge
                             Payments</span>
                     </a>
-                    <a class="collapse-item" href="{{ route('admin.revenue') }}">
+                    <a class="collapse-item" href="{{ route('management.reporting.revenue') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/revenue-2.png') }}">
                         <span
                             style="{{ request()->segment(3) == 'revenue' ? 'color: #FF3C5F;' : '' }}">Revenue</span>

@@ -797,10 +797,12 @@ Route::prefix('management')
       Route::get('/report-tours', [StatisticsController::class, 'tourReport'])->name('tour');
     });
 
-  });
+    Route::prefix('reporting')->name('reporting.')->group(function () {
+      Route::get('/revenue', [ManagementReportingController::class, 'revenue'])->name('revenue');
+      Route::get('/concierge-payments', [ManagementReportingController::class, 'conciergePayments'])->name('concierge_payments');
+    });
 
-Route::get('/management/revenue', [ManagementReportingController::class, 'revenue'])->name('admin.revenue');
-Route::get('/management/concierge-payments', [ManagementReportingController::class, 'conciergePayments'])->name('admin.concierge-payments');
+  });
 
 Route::get('/reports/credit', function () {
   return view('admin.reports.credit');
