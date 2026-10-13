@@ -123,7 +123,7 @@ class CalculateAgentMonthlyFee extends Command
                             $data['message'] = '';
                             $data['created_at'] = date('Y-m-d H:i:s');
                             $data['updated_at'] = date('Y-m-d H:i:s');
-                            $notification->insert($data);
+                            $notification->create($data);
 
                             // Send mail
                             $agentEmail = [];
@@ -260,7 +260,7 @@ class CalculateAgentMonthlyFee extends Command
                             $data['message'] = '';
                             $data['created_at'] = date('Y-m-d H:i:s');
                             $data['updated_at'] = date('Y-m-d H:i:s');
-                            $notification->insert($data);
+                            $notification->create($data);
 
                             // Send mail
                             $opEmail = [];

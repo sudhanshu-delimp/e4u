@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Exception;
 use App\Models\User;
+use App\Models\Model;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -14,10 +15,21 @@ class Notification extends Model
     use HasFactory;
 
     protected $table = "notifications";
+    protected $guarded = ['id'];
 
     protected $fillable = [
+        'from_user',
         'to_user',
         'user_type',
+        'notification_type',
+        'notification_icon',
+        'notification_listing_type',
+        'title',
+        'message',
+        'ref_number',
+        'ref_number_id',
+        'notification_listing_type',
+        'is_seen'
     ];
 
     public function getCreatedAtAttribute($value)
@@ -63,12 +75,10 @@ class Notification extends Model
                                 'is_seen' => '0',
                                 'created_at' => date('Y-m-d H:i:s'),
                                 'updated_at' => date('Y-m-d H:i:s')
-                
                             ];
-
                         }
 
-                        Notification::insert($send_notification);
+                        Notification::create($send_notification);
                         return true;
                   }
             }

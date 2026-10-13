@@ -597,7 +597,7 @@ class User extends Authenticatable
                 if ($user->generateMemberId()) {
                     $user->member_id = $user->generateMemberId();
                     $user->created_by = Auth::id();
-                    $user->ref_number = generateReferenceNo(User::class, 0);
+                    $user->ref_number = generateReferenceNunber($user);
                     $user->save();
                 }
             }

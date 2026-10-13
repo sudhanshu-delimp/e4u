@@ -3505,3 +3505,45 @@ function getReportIcon($value = 0.00){
     }
 }
 
+if (!function_exists('generateReferenceNunber')) {
+    function generateReferenceNunber($modelObject, $pad = 5, $prefix = "URN", $seperateby = "")
+    {
+        $nextId = random_int(10000, 99999);
+        $idExist = 0;
+        $id = 0;
+        try {
+            $tableName =  $modelObject->getTable();
+       
+            $refNumber = $prefix . now()->format('Ymd') . $seperateby . str_pad($nextId, $pad, '0', STR_PAD_LEFT);
+
+             $refColumnName = 'ref_number';
+            if ($tableName == 'payment_histories') {
+                $refColumnName = 'ref_no';
+            }
+
+            if (isset($modelObject->id)) {
+                $id = $modelObject->id;
+                $nextId = $modelObject->id;
+                $createdAt = $modelObject->created_at;
+                if($modelObject->exists && Schema::hasColumn($modelObject->getTable(),  $refColumnName)) {
+                    $refNumber = $prefix .\Carbon\Carbon::parse($createdAt)->format('Ymd') . $seperateby . str_pad($id, $pad, '0', STR_PAD_LEFT);
+                }
+            }
+
+            while ($modelObject->newQuery()
+                ->where($refColumnName, $refNumber)
+                ->when(($id > 0), function ($query) use ($id, $refNumber) {
+                    $query->where('id', $id);
+                })
+                ->exists()
+            ) {
+                $nextId = random_int(10000, 99999);
+                $refNumber = $prefix . now()->format('Ymd') . $seperateby . str_pad($nextId, $pad, '0', STR_PAD_LEFT);
+            }
+        } catch (\Exception $e) {
+            $refNumber = $prefix . now()->format('Ymd') . $seperateby . str_pad($nextId, $pad, '0', STR_PAD_LEFT);
+        }
+
+        return $refNumber;
+    }
+}

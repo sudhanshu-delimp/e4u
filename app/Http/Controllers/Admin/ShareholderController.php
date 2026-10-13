@@ -9,6 +9,7 @@ use App\Models\Shareholder;
 use App\Models\ShareholderContact;
 use App\Repositories\Shareholder\ShareholderInterface;
 use PDF;
+use App\Services\AddRefNumberToExistingRecordsService;
 
 class ShareholderController extends BaseController
 {
@@ -130,6 +131,9 @@ class ShareholderController extends BaseController
      */
     public function shareholderList()
     {
+        $AddRefNumberToExistingRecordsService = new AddRefNumberToExistingRecordsService();
+        //$AddRefNumberToExistingRecordsService->updateReferenceNumber();
+                      
         return view('admin.management.shareholder.manage-shareholders');
     }
 

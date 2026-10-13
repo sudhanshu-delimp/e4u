@@ -23,11 +23,14 @@ class Shareholder extends Model
         'contact_type' => 'array',
     ];
 
-    public function __construct() {
+    public function __construct(array $attributes = [])
+    {
         $this->impersonatedId = 0;
-         if (Session::isStarted()) {
+        if (Session::isStarted()) {
             $this->impersonatedId = Session::get('parent_user_id');
         }
+
+        parent::__construct($attributes);
     }
 
     public function shareholder_setting()
@@ -136,39 +139,37 @@ class Shareholder extends Model
     }
 
     /**
-     * Boot method to automatically set member_id when user is created
-     */
-    protected static function boot()
-    {
-        parent::boot();
-        static::created(function ($user) {
-            // Only set member_id if it's not already set
-            if (empty($user->member_id)) {
-                if ($user->generateMemberId()) {
-                    $user->member_id = $user->generateMemberId();
-                    $user->created_by = Auth::id();
-
-                    $user->save();
-                }
-            }
-        });
-        return null;
-    }
-
-    /**
      * The "booted" method of the model.
      *
      * @return void
      */
     protected static function booted()
-    { 
-        static::saving(function ($model) {
+    {
+        static::saving(function ($user) {
             if (auth()->check()) {
-                $model->updated_by =Auth::id();
+                if ($user->exists) {
+                    $user->updated_by = Auth::id();
+                } else {
+                    $user->created_by = Auth::id();
+                }
+            }
+
+            if (empty($user->exists && $user->ref_number)) {
+                $user->ref_number = generateReferenceNunber($user);
+            }
+        });
+
+        static::created(function ($user) {
+            if (empty($user->member_id) && (int) $user->type === 8) {
+                $user->member_id = $user->generateMemberId();
+                if (empty($user->ref_number)) {
+                    $user->ref_number = generateReferenceNunber($user);
+                }
+                // Prevent the update from triggering model events again.
+                $user->saveQuietly();
             }
         });
     }
-
 
     public function getPhoneAttribute($value)
     {
