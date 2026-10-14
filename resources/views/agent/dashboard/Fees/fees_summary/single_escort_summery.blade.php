@@ -31,42 +31,232 @@
                             @php($groupClass = 'report-group-' . $loop->index)
                             <tr data-toggle="toggle-row" data-target=".{{ $groupClass }}" data-parent="#report-accordion" style="cursor: pointer;">
                                 <td><div class="d-flex align-items-center justify-content-between font-weight-bold"><span>{{ $yearData['fy_label'] }}</span><i class="fa fa-chevron-down"></i></div></td>
-                                <td><b>{{ formatCurrency($yearData['fy_totals']['platinum']) }}</b></td>
-                                <td><b>{{ formatCurrency($yearData['fy_totals']['gold']) }}</b></td>
-                                <td><b>{{ formatCurrency($yearData['fy_totals']['silver']) }}</b></td>
-                                <td><b>{{ formatCurrency($yearData['fy_totals']['pinup']) }}</b></td>
-                                <td><b>{{ formatCurrency($yearData['fy_totals']['fixed']) }}</b></td>
-                                <td><b>{{ formatCurrency($yearData['fy_totals']['total']) }}</b></td>
+
+                                <td class="text-right">
+                                    <b>
+                                        <div class="num_value">
+                                            <span class="currency">$</span>
+                                            <span class="amount">{{ formatCurrency($yearData['fy_totals']['platinum'], ' ') }}</span>
+                                        </div>
+                                    </b>
+                                </td>
+
+                                <td class="text-right">
+                                    <b>
+                                        <div class="num_value">
+                                            <span class="currency">$</span>
+                                            <span class="amount">{{ formatCurrency($yearData['fy_totals']['gold'], '') }}</span>
+                                        </div>
+                                    </b>
+                                </td>
+
+                                <td class="text-right">
+                                    <b>
+                                        <div class="num_value">
+                                            <span class="currency">$</span>
+                                            <span class="amount">{{ formatCurrency($yearData['fy_totals']['silver'], '') }}</span>
+                                        </div>
+                                    </b>
+                                </td>
+
+                                <td class="text-right">
+                                    <b>
+                                        <div class="num_value">
+                                            <span class="currency">$</span>
+                                            <span class="amount">{{ formatCurrency($yearData['fy_totals']['pinup'], '') }}</span>
+                                        </div>
+                                    </b>
+                                </td>
+
+                                <td class="text-right">
+                                    <b>
+                                        <div class="num_value">
+                                            <span class="currency">$</span>
+                                            <span class="amount">{{ formatCurrency($yearData['fy_totals']['fixed'], '') }}</span>
+                                        </div>
+                                    </b>
+                                </td>
+
+                                <td class="text-right">
+                                    <b>
+                                        <div class="num_value">
+                                            <span class="currency">$</span>
+                                            <span class="amount">{{ formatCurrency($yearData['fy_totals']['total'], '') }}</span>
+                                        </div>
+                                    </b>
+                                </td>
+
+
+
+
+                                {{-- <td><b>{{ formatCurrency($yearData['fy_totals']['total']) }}</b></td> --}}
                             </tr>
                             @foreach ($yearData['states'] as $location => $spend)
                                 <tr class="collapse-row {{ $groupClass }}">
                                     <td><b>{{ $location }}</b></td>
-                                    <td>{{ formatCurrency($spend['platinum']) }}</td>
-                                    <td>{{ formatCurrency($spend['gold']) }}</td>
-                                    <td>{{ formatCurrency($spend['silver']) }}</td>
-                                    <td>{{ formatCurrency($spend['pinup']) }}</td>
-                                    <td>{{ formatCurrency($spend['fixed']) }}</td>
-                                    <td>{{ formatCurrency($spend['total']) }}</td>
+                                    <td class="text-right">
+                                        <div class="num_value">
+                                            <span class="currency">$</span>
+                                            <span class="amount">{{  formatCurrency($spend['platinum'], '') }}</span>
+                                        </div>
+                                    </td>
+
+                                    <td class="text-right">
+                                        <div class="num_value">
+                                            <span class="currency">$</span>
+                                            <span class="amount">{{  formatCurrency($spend['gold'], '') }}</span>
+                                        </div>
+                                    </td>
+
+                                    <td class="text-right">
+                                        <div class="num_value">
+                                            <span class="currency">$</span>
+                                            <span class="amount">{{  formatCurrency($spend['silver'], '') }}</span>
+                                        </div>
+                                    </td>
+
+                                    <td class="text-right">
+                                        <div class="num_value">
+                                            <span class="currency">$</span>
+                                            <span class="amount">{{  formatCurrency($spend['pinup'], '') }}</span>
+                                        </div>
+                                    </td>
+
+                                    <td class="text-right">
+                                        <div class="num_value">
+                                            <span class="currency">$</span>
+                                            <span class="amount">{{  formatCurrency($spend['fixed'], '') }}</span>
+                                        </div>
+                                    </td>
+
+                                    <td class="text-right">
+                                        <div class="num_value">
+                                            <span class="currency">$</span>
+                                            <span class="amount">{{  formatCurrency($spend['total'], '') }}</span>
+                                        </div>
+                                    </td>
+
+
                                 </tr>
                             @endforeach
                             <tr class="collapse-row {{ $groupClass }}">
                                 <td class="text-right"><b>Totals</b></td>
-                                <td class="total_row"><b>{{ formatCurrency($yearData['fy_totals']['platinum']) }}</b></td>
-                                <td class="total_row"><b>{{ formatCurrency($yearData['fy_totals']['gold']) }}</b></td>
-                                <td class="total_row"><b>{{ formatCurrency($yearData['fy_totals']['silver']) }}</b></td>
-                                <td class="total_row"><b>{{ formatCurrency($yearData['fy_totals']['pinup']) }}</b></td>
-                                <td class="total_row"><b>{{ formatCurrency($yearData['fy_totals']['fixed']) }}</b></td>
-                                <td class="total_row"><b>{{ formatCurrency($yearData['fy_totals']['total']) }}</b></td>
+                                <td class="total_row">
+                                    <b>
+                                        <div class="num_value">
+                                            <span class="currency">$</span>
+                                            <span class="amount">{{ formatCurrency($yearData['fy_totals']['platinum'], '') }}</span>
+                                        </div>
+                                    </b>
+                                </td>
+
+                                <td class="total_row">
+                                    <b>
+                                        <div class="num_value">
+                                            <span class="currency">$</span>
+                                            <span class="amount">{{ formatCurrency($yearData['fy_totals']['gold'], '') }}</span>
+                                        </div>
+                                    </b>
+                                </td>
+
+                                <td class="total_row">
+                                    <b>
+                                        <div class="num_value">
+                                            <span class="currency">$</span>
+                                            <span class="amount">{{ formatCurrency($yearData['fy_totals']['silver'], '') }}</span>
+                                        </div>
+                                    </b>
+                                </td>
+
+                                <td class="total_row">
+                                    <b>
+                                        <div class="num_value">
+                                            <span class="currency">$</span>
+                                            <span class="amount">{{ formatCurrency($yearData['fy_totals']['pinup'], '') }}</span>
+                                        </div>
+                                    </b>
+                                </td>
+
+                                <td class="total_row">
+                                    <b>
+                                        <div class="num_value">
+                                            <span class="currency">$</span>
+                                            <span class="amount">{{ formatCurrency($yearData['fy_totals']['fixed'], '') }}</span>
+                                        </div>
+                                    </b>
+                                </td>
+
+                                <td class="total_row">
+                                    <b>
+                                        <div class="num_value">
+                                            <span class="currency">$</span>
+                                            <span class="amount">{{ formatCurrency($yearData['fy_totals']['total'], '') }}</span>
+                                        </div>
+                                    </b>
+                                </td>
+
                             </tr>
                         @endforeach
                         <tr>
                             <td class="text-right"><b>Totals</b></td>
-                            <td><b>{{ formatCurrency($datas['grand_totals']['platinum']) }}</b></td>
-                            <td><b>{{ formatCurrency($datas['grand_totals']['gold']) }}</b></td>
-                            <td><b>{{ formatCurrency($datas['grand_totals']['silver']) }}</b></td>
-                            <td><b>{{ formatCurrency($datas['grand_totals']['pinup']) }}</b></td>
-                            <td><b>{{ formatCurrency($datas['grand_totals']['fixed']) }}</b></td>
-                            <td><b>{{ formatCurrency($datas['grand_totals']['total']) }}</b></td>
+                            <td>
+                                <b>
+                                    <div class="num_value">
+                                        <span class="currency">$</span>
+                                        <span class="amount">{{formatCurrency($datas['grand_totals']['platinum'], '') }}</span>
+                                    </div>
+                                </b>
+                            </td>
+
+
+                            <td>
+                                <b>
+                                    <div class="num_value">
+                                        <span class="currency">$</span>
+                                        <span class="amount">{{formatCurrency($datas['grand_totals']['gold'], '') }}</span>
+                                    </div>
+                                </b>
+                            </td>
+
+                            <td>
+                                <b>
+                                    <div class="num_value">
+                                        <span class="currency">$</span>
+                                        <span class="amount">{{formatCurrency($datas['grand_totals']['silver'], '') }}</span>
+                                    </div>
+                                </b>
+                            </td>
+
+                            <td>
+                                <b>
+                                    <div class="num_value">
+                                        <span class="currency">$</span>
+                                        <span class="amount">{{formatCurrency($datas['grand_totals']['pinup'], '') }}</span>
+                                    </div>
+                                </b>
+                            </td>
+
+                            <td>
+                                <b>
+                                    <div class="num_value">
+                                        <span class="currency">$</span>
+                                        <span class="amount">{{formatCurrency($datas['grand_totals']['fixed'], '') }}</span>
+                                    </div>
+                                </b>
+                            </td>
+
+                            <td>
+                                <b>
+                                    <div class="num_value">
+                                        <span class="currency">$</span>
+                                        <span class="amount">{{formatCurrency($datas['grand_totals']['total'], '') }}</span>
+                                    </div>
+                                </b>
+                            </td>
+
+                            
+
+                            {{-- <td><b>{{ formatCurrency($datas['grand_totals']['total']) }}</b></td> --}}
                         </tr>
                     </tbody>
                 </table>
