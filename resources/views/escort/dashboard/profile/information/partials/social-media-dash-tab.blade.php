@@ -56,15 +56,15 @@
                 <div class="inner-field-row">               
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Facebook</label>                    
-                        <input type="text" class="form-control" placeholder="facebook.com/yourprofile" name="social_links[facebook]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="{{ $user->social_links ? $user->social_links['facebook'] : null }}">
+                        <input type="text" class="form-control" placeholder="https://facebook.com/yourprofile" name="social_links[facebook]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="{{ $user->social_links ? $user->social_links['facebook'] : null }}">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Instagram</label>
-                        <input type="text" class="form-control" placeholder="instagram.com/yourprofile" name="social_links[insta]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="{{ $user->social_links ? $user->social_links['insta'] : null }}">
+                        <input type="text" class="form-control" placeholder="https://instagram.com/yourprofile" name="social_links[insta]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="{{ $user->social_links ? $user->social_links['insta'] : null }}">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">X</label>
-                        <input type="text" class="form-control" placeholder="x.com/yourprofile" name="social_links[twitter]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="{{ $user->social_links ? $user->social_links['twitter'] : null }}">
+                        <input type="text" class="form-control" placeholder="https://x.com/yourprofile" name="social_links[twitter]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="{{ $user->social_links ? $user->social_links['twitter'] : null }}">
                     </div>
                 </div>
             </div>
