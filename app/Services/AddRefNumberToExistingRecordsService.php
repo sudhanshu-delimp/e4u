@@ -14,7 +14,7 @@ class AddRefNumberToExistingRecordsService
     {
         try {
             $tables = [
-              'concierge_mobile_sims',
+                'concierge_mobile_sims',
                 'agent_notifications',
                 'center_notifications',
                 'escort_notifications',
@@ -33,13 +33,9 @@ class AddRefNumberToExistingRecordsService
                 'support_tickets',
                 'notebox',
                 'influencers',
-                'feedbacks', 
+                'feedbacks',
                 'payment_histories',
             ];
-
-
-
-
 
             foreach ($tables as $table) {
 
@@ -49,7 +45,7 @@ class AddRefNumberToExistingRecordsService
                 }
 
                 if (!Schema::hasTable($table) || !Schema::hasColumn($table, $refColumnName)) {
-                    Log::info($table . " has not ".$refColumnName . "Column");
+                    Log::info($table . " has not " . $refColumnName . "Column");
                     continue;
                 }
 
@@ -62,17 +58,21 @@ class AddRefNumberToExistingRecordsService
 
                 $model->newQuery()
                     ->when($table !== 'payment_histories', function ($query) {
-                        $query->whereNull($refColumnName);
+                        $query->where(function ($q) use ($refColumnName) {
+                            $q->whereNull($refColumnName)
+                                ->orWhere($refColumnName, '');
+                        });
                     })
-                    ->orderBy('id')
-                    ->chunkById(50, function ($records) use ($table, $refColumnName) {
+                    ->orderByDesc('id')
+                    ->chunk(50, function ($records) use ($table, $refColumnName) {
                         foreach ($records as $tableObj) {
                             if (Schema::hasColumn($table, 'created_at')) {
                                 $id = $tableObj->id;
                                 $createdAt = $tableObj->created_at;
 
                                 if (!empty($createdAt)) {
-                                    $tableObj->{$refColumnName} = generateReferenceNunber($tableObj);
+                                    $refNum = generateReferenceNunber($tableObj);
+                                    $tableObj->{$refColumnName} = $refNum;
                                     $tableObj->saveQuietly();
                                 }
                             } else {
