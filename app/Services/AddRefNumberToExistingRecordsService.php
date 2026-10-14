@@ -57,7 +57,7 @@ class AddRefNumberToExistingRecordsService
                 $model->setTable($table);
 
                 $model->newQuery()
-                    ->when($table !== 'payment_histories', function ($query) {
+                    ->when($table !== 'payment_histories', function ($query) use ($refColumnName) {
                         $query->where(function ($q) use ($refColumnName) {
                             $q->whereNull($refColumnName)
                                 ->orWhere($refColumnName, '');
