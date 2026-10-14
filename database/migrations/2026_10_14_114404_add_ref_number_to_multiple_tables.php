@@ -28,6 +28,7 @@ return new class extends Migration
         'notebox',
         'influencers',
         'feedbacks',
+        'email_logs',
         //'payment_histories'
         
     ];

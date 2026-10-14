@@ -159,10 +159,7 @@
     font-size: 16px;
 }
 
-.stage-close span {
-    font-size: 24px;
-    cursor: pointer;
-}
+
 
 .hover-action {
     position: absolute;

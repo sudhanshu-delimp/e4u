@@ -1074,10 +1074,16 @@ border: 1px solid #c2c8ce !important;
 }
 
 #update_about_me .select2-container--default .select2-selection--single {
-    border: 1px solid #ccc !important;
-    border-radius: 0 !important;
+    
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius-md) !important;
+    padding: 8px 10px 0 5px !important;
+    box-sizing: border-box;
+    height: 48px !important;
 }
-
+#update_about_me .select2-container--default.select2-container--open .select2-selection--single {
+    border-color: var(--blue--text) !important;
+}
 .card-body {
     flex: 1 1 auto;
     padding: 1rem 1rem;
@@ -3778,18 +3784,19 @@ button.btn:focus {
     bottom: 10px;
     right: 10px;
     background: var(--light-pink);
-    width: 100px;
-    height: 35px;
+    width: 75px;
+    height: 27px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 5px;
+    padding: 3px;
     border-radius: var(--radius-sm);
 }
 
 .lg_icon_wrapper .lg_verify_icon img {
     width: 100%;
     object-fit: contain;
+    padding: 3px;
 }
 
 .view_img_gallery .other_images {
@@ -4671,9 +4678,18 @@ tr.custom--row th:not(tr.custom--row th:last-child) {
 }
 
 .dropdown-with-checkbox .dropdown-toggle:after {
-    right: 4px;
-    top: 13px;
+    right: 7px;
+    top: 20px;
     position: absolute;
+    border: none;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #173a61;
+    border-bottom: 2px solid #173a61;
+    transform: rotate(45deg);
+
+    margin-left: -4px;
+    margin-top: -3px;
 }
 
 .input-in-row {
@@ -4849,7 +4865,7 @@ color: white;
 .my_service_anal {
     padding: 10px 10px 22px;
     background: var(--blue--text);
-    border-radius: 5px;
+    border-radius: 2px;
     color: white;
     display: flex;
     align-items: center;
@@ -4862,7 +4878,7 @@ color: white;
     color: #fff;
     text-align: center;
     font-size: 11px;
-    border-radius: 2px;
+    border-radius: 50px;
     position: relative;
     line-height: 20px;
     height: 18px;
@@ -4870,6 +4886,9 @@ color: white;
     display: inline-block;
     cursor: pointer;
     font-weight: 500;
+    position: absolute;
+    right: -7px;
+    top: -7px;
 }
 
 .make-ittool {
@@ -6006,10 +6025,13 @@ text-align: center;
     font-weight: 200;
 }
 
-.dropdown-with-checkbox .custome_button_style {
-    padding: 0px;
+.dropdown-with-checkbox .custome_button_style {    
+    padding: 10px 10px 10px 0px !important;
+    margin-left: 0px;
 }
-
+.dropdown-with-checkbox.show{ 
+    border-color: var(--blue--text) !important;
+}
 .dropdown-with-checkbox>.btn:focus {
     outline: 0;
     box-shadow: none !important;
@@ -6073,9 +6095,11 @@ span.nvainside_nav_font {
 
 #select2-select2-dropdown-container {
     font-size: 14px;
-    color: #7c808a;
+    color: var(--label-color) !important;
 }
-
+.select2-dropdown {
+    border: 1px solid var(--border-color) !important;
+}
 .horizontal-scroll-rates {
     overflow: auto;
     white-space: nowrap;
@@ -8663,13 +8687,31 @@ table#myTable\ price-sec {
 }
 
 .national .select2-container--default .select2-selection--single .select2-selection__arrow b {
-    left: 95% !important;
-}
+    border: none;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #173a61;
+    border-bottom: 2px solid #173a61;
+    transform: rotate(45deg);
+    position: absolute;
+    left: 95%;
+    top: 75%;
 
+    margin-left: -4px;
+    margin-top: -3px;
+}
+.national .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #173a61;
+    border-bottom: 2px solid #173a61;
+}
 .stage span {
     width: 30% !important;
 }
-
+.national .select2-container--default.select2-container--open{
+    border-color: var(--blue--text);
+}
 .stage .select2-container--default .select2-selection--single .select2-selection__arrow b {
     display: none;
 }
@@ -8879,13 +8921,14 @@ table#myTable\ price-sec {
     color: #fff;
     text-align: center;
     padding: 3px 2px 3px 1px;
-    border-radius: 2px;
-    position: relative;
+    border-radius: 50px;
     height: 18px;
     width: 18px;
     line-height: 11px;
-    top: 5px;
-    right: -5px;
+   
+    position: absolute;
+    right: -7px;
+    top: -7px;
     font-weight: 400;
     font-size: 19px;
     cursor: pointer;
