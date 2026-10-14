@@ -877,18 +877,18 @@ function initDragDrop() {
 
                 if (position == 1 || position == 9 || position == 10) {
                     if (status == "0") {
-                        iconPath = '/assets/app/img/pending_icon/e4u_pending_REV.png';
+                        iconPath = '/assets/app/img/verify/e4u_pending.png';
                         iconText = '<span class="common_shield_tooltip">Media Pending</span>';
                     } else if (status == "1") {
-                        iconPath = '/assets/app/img/verify/e4u_verified_REV.png';
+                        iconPath = '/assets/app/img/verify/verified_icon.png';
                         iconText = '<span class="common_shield_tooltip">Media Verified</span>';
                     } else {
-                        iconPath = '/assets/app/img/verify/unverified_light.png';
+                        iconPath = '/assets/app/img/verify/unverified_dark.png';
                         iconText = '<span class="common_shield_tooltip">Media Unverified</span>';
                     }
                 } else {
                     if (status == "0") {
-                        iconPath = '/assets/app/img/pending_icon/e4u_pending-icon_REV.png';
+                        iconPath = '/assets/app/img/verify/e4u_pending.png';
                         iconText = '<span class="mc_media_tooltip">Media Pending</span>';
                     } else if (status == "1") {
                         iconPath = '/assets/app/img/verify/verified_icon.png';
