@@ -1215,7 +1215,13 @@ label.cabinet input.file {
         width: 100%;
     }
 }
-
+.credit_status_icon{
+    
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 35px;
+}
 
 /* common-form */
 
