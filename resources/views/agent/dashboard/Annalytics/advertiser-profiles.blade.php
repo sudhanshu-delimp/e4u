@@ -34,7 +34,8 @@
                     {{-- Page Heading   --}}
                     <div class="row">
                         <div class="custom-heading-wrapper col-lg-12">
-                            <h1 class="h1">Profile Summary</h1>
+                            <h1 class="h1">Listing
+                                Summary </h1>
                             <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes"
                                 aria-expanded="true">Help?</span>
                         </div>
@@ -43,10 +44,9 @@
                                 <div class="card-body">
                                    <h3 class="NotesHeader"><b>Notes:</b></h3>
                                     <ol>
-                                        <li>This report provides information associated with all of your Profiles (excluding Tours).</li>
+                                        <li>This report provides information associated with all of your Listings (excluding Tours).</li>
                                         <li>
-                                            It is a summary of the Listed Profiles and revenue (Fees) you have derived from the
-                                            Profiles, Escort and Massage Centres.
+                                            It is a summary of your Advertisers Listed Profiles and revenue (Fees) you have earned.
                                         </li>
                                     </ol>
                                 </div>
@@ -61,12 +61,12 @@
                 <div class="d-flex justify-content-between align-items-center gap-2">
                   <select id="advertiserFilter" name="advertiser_type" class="form-select form-select-sm p-2" style="width: 200px;">
                      <option value="{{ route('agent.analytic-profiles-list-ajax','escort') }}">Escort</option>
-                     <option value="{{ route('agent.analytic-profiles-list-ajax','massage') }}">Massage Center</option>
+                     <option value="{{ route('agent.analytic-profiles-list-ajax','massage') }}">Massage Centre</option>
                   </select>
                </div>
 
                  <div class="d-flex justify-content-end my-3">
-                                <button class="btn-common mr-0" type="button" data-target="#printReport"
+                            <button class="btn-common mr-0 printReport" type="button" 
                                     data-toggle="modal">Print Report</button>
                             </div>
 
@@ -203,13 +203,13 @@
                                             <label class="form-check-label" for="periodEntire">Entire</label>
                                         </div> -->
 
-                                                <div class="form-group d-flex align-items-center gap-10 mb-0">
-                                                    <label for="fromDate" class="form-check-label">From: </label>
-                                                    <input type="date" class="form-control" id="fromDate" name="fromDate">
+                                                <div class="form-group d-flex align-items-center gap-5 mb-0">
+                                                    <label for="fromDate" class="form-check-label">From : </label>
+                                                    <input type="text" style="width: 290px;" class="form-control js_datepicker" id="fromDate" name="fromDate">
                                                 </div>
-                                                <div class="form-group d-flex align-items-center gap-10 mb-0">
-                                                    <label for="toDate" class="form-check-label">To:</label>
-                                                    <input type="date" class="form-control" id="toDate" name="toDate">
+                                                <div class="form-group d-flex align-items-center gap-5 mb-0">
+                                                    <label for="toDate" class="form-check-label">To : </label>
+                                                    <input type="text" style="width: 290px;" class="form-control js_datepicker" id="toDate" name="toDate">
                                                 </div>
                                         </div>
                                     </div>
@@ -221,9 +221,10 @@
                                 <!-- Footer -->
                                 <div class="modal-footer justify-content-end">
                                    
+                                    <button type="button" class="" 
+                                        id="view_pdf_report">View Report</button>
                                     <button type="button" class="btn-cancel-modal" id="print_report">Print</button>
-                                     <!-- <button type="button" class="btn-success-modal" data-dismiss="modal"
-                                        id="close_change">View</button> -->
+                                     
                                 </div>
                             </div>
                         </div>
@@ -237,33 +238,114 @@
     {{-- Current Location --}}
 
     <div class="upload-modal fade modal programmatic" id="current_location" tabindex="-1" role="dialog"
-    aria-labelledby="current_location" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-white">
-                    <img src="{{ asset('assets/dashboard/img/map.png') }}" class="custompopicon" alt="cross">
-                    Current Location - <span id="modal-member-id"></span>
-                </h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">
-                        <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                    </span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <h5 class="custom_modal_text">
-                            The current Location for <span id="modal-member-name"></span> is : 
-                            <b id="modal-member-location"></b>
-                        </h5>
-                        <div class="modal-footer justify-content-center">
-                            <button type="button" class="btn-success-modal" data-dismiss="modal">Ok</button>
-                            <!-- <button type="button" class="btn-success-modal" data-dismiss="modal">Send Message</button> -->
+        aria-labelledby="current_location" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white">
+                        <img src="{{ asset('assets/dashboard/img/map.png') }}" class="custompopicon" alt="cross">
+                        Current Location - <span id="modal-member-id"></span>
+                    </h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <h5 class="custom_modal_text">
+                                The current Location for <span id="modal-member-name"></span> is : 
+                                <b id="modal-member-location"></b>
+                            </h5>
+                            <div class="modal-footer justify-content-center">
+                                <button type="button" class="btn-success-modal" data-dismiss="modal">Ok</button>
+                                <!-- <button type="button" class="btn-success-modal" data-dismiss="modal">Send Message</button> -->
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal for displaying PDF report -->
+   <div class="modal fade upload-modal programmatic" id="listingReportModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document" style="max-width: 60%; width: 60%;">
+        <div class="modal-content">
+           <div class="modal-header">
+                    <h5 class="modal-title text-white">
+                        <img src="{{ asset('assets/dashboard/img/admin-report.png') }}" class="custompopicon"
+                            alt="cross">
+                       Listing Report -  <span class="listing_report"></span>
+                    </h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+            <div class="modal-body p-4" id="printableReportArea">
+                <style>
+                    .listing-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        font-family: Arial, sans-serif;
+                    }
+                    .listing-table th {
+                        background-color: #0d2a4a;
+                        color: #ffffff;
+                        font-weight: bold;
+                        padding: 10px;
+                        font-size: 13px;
+                        text-align: center;
+                        border: 1px solid #0d2a4a;
+                    }
+                    .listing-table td {
+                        padding: 8px 10px;
+                        font-size: 13px;
+                        text-align: center;
+                        border: 1px solid #cccccc;
+                        color: #333333;
+                    }
+                    .report-title-header {
+                        text-align: center;
+                        color: #0d2a4a;
+                        font-weight: 800;
+                        margin-bottom: 25px;
+                        font-size: 22px;
+                    }
+                </style>
+
+               
+
+                <div class="table-responsive">
+                    <table class="listing-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Member ID</th>
+                                <th>Name</th>
+                                <th>Mobile</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Total Days</th>
+                                <th>Pin Up</th>
+                                <th>Listing Fee</th>
+                                <th>Agent Fee</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listingReportBody">
+                            <!-- Injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-end">
+               
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -302,6 +384,52 @@
             $(".totalListing").text(totalRows);
             $(".serverTime").text(json.server_time);
             $(".uptimeClass").html(json.server_up_time);
+            
+
+                if (json.data && json.data.length > 0) {
+                // Function to parse "DD-MM-YYYY" strings into JavaScript Date objects
+                var parseDate = function(dateStr) {
+                    if (!dateStr) return null;
+                    var parts = dateStr.split('-');
+                    return new Date(parts[2], parts[1] - 1, parts[0]);
+                };
+
+                var minStartDate = null;
+                var maxEndDate = null;
+
+                json.data.forEach(function(row) {
+                    var startDate = parseDate(row.start_date);
+                    var endDate = parseDate(row.end_date);
+
+                    if (startDate && (!minStartDate || startDate < minStartDate)) {
+                        minStartDate = startDate;
+                    }
+                    if (endDate && (!maxEndDate || endDate > maxEndDate)) {
+                        maxEndDate = endDate;
+                    }
+                });
+
+                // Format dates back to string format DD-MM-YYYY
+                var formatDate = function(dateObj) {
+                    if (!dateObj) return '';
+                    var d = String(dateObj.getDate()).padStart(2, '0');
+                    var m = String(dateObj.getMonth() + 1).padStart(2, '0');
+                    var y = dateObj.getFullYear();
+                    return `${d}-${m}-${y}`;
+                };
+
+                var firstStartDate = formatDate(minStartDate);
+                var lastEndDate = formatDate(maxEndDate);
+
+                $("#fromDate").datepicker("option", "minDate", firstStartDate);
+                $("#toDate").datepicker("option", "maxDate", lastEndDate);
+
+                console.log("First Start Date (Page):", firstStartDate); // e.g. 07-08-2026[cite: 1]
+                console.log("Last End Date (Page):", lastEndDate);       // e.g. 30-11-2026[cite: 1]
+            }                       
+
+
+
             return json.data;
          }
       },
@@ -467,6 +595,17 @@ $(document).ready(function () {
         let fromDate = $('#fromDate').val();
         let toDate = $('#toDate').val();
 
+        console.log('fromDate',fromDate);
+        console.log('toDate',toDate);
+
+        let fromParts = fromDate.split('-');
+        let toParts = toDate.split('-');
+
+
+        let formattedFromDate = `${fromParts[2]}-${fromParts[1]}-${fromParts[0]}`;
+        let formattedToDate = `${toParts[2]}-${toParts[1]}-${toParts[0]}`;
+
+
         if (!fromDate) {
             $('#fromDate').focus();
             swal_error_warning('Profile Report','Please select From date.');
@@ -479,7 +618,7 @@ $(document).ready(function () {
             return;
         }
 
-        if (fromDate > toDate) {
+       if (formattedFromDate > formattedToDate) {
             swal_error_warning('Profile Report','From date cannot be greater than To date.');
             $('#fromDate').focus();
             return;
@@ -491,6 +630,7 @@ $(document).ready(function () {
         let requestUrl = "{{ route('agent.generate_profile_pdf', ['id' => '__TYPE__']) }}"
             .replace('__TYPE__', advertiserType) + `?from_date=${fromDate}&to_date=${toDate}`;
 
+        swal_waiting_popup({'title': 'Printing Report...'});                            
         try {
             let response = await fetch(requestUrl, {
                 method: 'GET',
@@ -502,6 +642,7 @@ $(document).ready(function () {
 
             let contentType = response.headers.get('content-type') || '';
             if (response.ok && contentType.includes('application/pdf')) {
+                Swal.close();
                 let blob = await response.blob();
                 let pdfUrl = URL.createObjectURL(blob);
                 window.open(pdfUrl, '_blank');
@@ -510,17 +651,155 @@ $(document).ready(function () {
 
             let data = await response.json();
             if (data.errors) {
+                Swal.close();
                 let firstKey = Object.keys(data.errors)[0];
                 swal_error_warning(data.errors[firstKey][0]);
             } else {
+                Swal.close();
                 swal_error_warning('Profile Report', data.message || 'Unable to generate report.');
             }
 
         } catch (error) {
+            Swal.close();
             console.error('Report Generation Error:', error);
             swal_error_warning('Profile Report', 'Something went wrong. Please try again.');
         }
     }); 
+
+
+
+
+   //  ########### View Pdf Report ##################                                 
+   $(document).on('click', '#view_pdf_report', function (e) {
+    e.preventDefault();
+
+    let $btn =$(this);
+    let fromDate = $('#fromDate').val();
+    let toDate = $('#toDate').val();
+
+    if (!fromDate || !toDate) {
+        swal_error_warning('Profile Report', 'Please select both From and To dates.');
+        return;
+    }
+
+    let url = $('#advertiserFilter').val();
+    let advertiserType = url ? url.split('/').pop() : 'escort';
+
+    let requestUrl = "{{ route('agent.generate_profile_pdf', ['id' => '__TYPE__']) }}"
+        .replace('__TYPE__', advertiserType) + `?from_date=${fromDate}&to_date=${toDate}&format=json`;
+
+    $btn.prop('disabled', true).text('Loading...');
+     swal_waiting_popup({
+               'title': 'Fetching Report...'
+            });
+
+    $.ajax({
+        url: requestUrl,
+        type: 'GET',
+        dataType: 'json',
+        success: function (res) {
+            Swal.close();
+            $btn.prop('disabled', false).text('View Report');
+
+            if (!res.status) {
+                swal_error_warning('Profile Report', res.message || 'Unable to load report.');
+                return;
+            }
+           
+            let res_type = res.advertiserType;
+            $('.listing_report').text(res.advertiserType);$('#reportTypeTitle').text(res.advertiserType);
+            let html = '';
+            if (res.data && res.data.length) {
+                res.data.forEach((item, index) => {
+                    let profile = item.escort || item.massage_profile || {};
+                    let paymentInfo = item.payment_items && item.payment_items.payment ? item.payment_items.payment : {};
+
+                                    
+
+                    let memberId = item.member_id || '-';
+                    let name = item.member_name ||  '-';
+                    let mobile = item.member_mobile || '-';
+                    let startDate = item.start_date || '-';
+                    let endDate = item.end_date || '-';
+                    let isPinUp ="";
+
+                    if(res_type!='Massage Centre')
+                    {
+                         isPinUp = (profile.pinup && profile.pinup.length > 0) ? 'Yes' : 'No';
+                    }
+                    else
+                    {
+                          isPinUp = 'NA';
+                    }
+                    
+                    let totalDays = item.total_days || '-';
+
+                    let listingFee = parseFloat(item.paid_rate || item.total_rate || 0);
+                    let agentCommissionPercent = parseFloat(paymentInfo.agent_commission_percent || 0);
+                    let agentFee = (listingFee * agentCommissionPercent) / 100;
+
+                    html += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${memberId}</td>
+                            <td>${name}</td>
+                            <td>${mobile}</td>
+                            <td>${startDate}</td>
+                            <td>${endDate}</td>
+                            <td>${totalDays}</td>
+                            <td>${isPinUp}</td>
+                            <td><div class="num_value">$<span>${listingFee.toFixed(2)}</span></div> </td>
+                            <td><div class="num_value">$<span>${agentFee.toFixed(2)}</span></div></td>
+                        </tr>
+                    `;
+                });
+            } else {
+                html = `<tr><td colspan="9" class="text-center">No record found.</td></tr>`;
+            }
+
+            $('#listingReportBody').html(html);
+            $('#listingReportModal').modal('show');
+        },
+        error: function (xhr) {
+             Swal.close();
+            $btn.prop('disabled', false).text('View Report');
+            let err = xhr.responseJSON ? xhr.responseJSON.message : 'Something went wrong.';
+            swal_error_warning('Profile Report', err);
+        }
+    });
+   });  
+   // ########### End Pdf Report ##################                                 
+
+
+    $('.printReport').on('click', function () {
+         $('#printReport').modal('show');                               
+    });
+
+            
+    
+
+    $(document).ready(function() {
+    $("#fromDate, #toDate").datepicker({
+        dateFormat: "dd-mm-yy",
+        changeMonth: true,
+        changeYear: true
+    });
+
+    $("#toDate").on("change", function() {
+        var toDateVal = $(this).datepicker("getDate");
+        $("#fromDate").datepicker("option", "maxDate", toDateVal);
+    });
+
+    $("#fromDate").on("change", function() {
+        var fromDateVal = $(this).datepicker("getDate");
+        $("#toDate").datepicker("option", "minDate", fromDateVal);
+    });
+});
+
+
+
+
+
 });
 
 

@@ -1402,25 +1402,25 @@ $ocLavel = 'Developer';
                     <img src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
                     <span>Reporting</span>
                 </a>
-                <div id="ReportingMenu" class="collapse @if (in_array(request()->segment(3), ['credits', 'revenue', 'concierge-payments'])) show @endif"
+                <div id="ReportingMenu" class="collapse @if (request()->routeIs('management.reporting.*')) show @endif"
                     data-parent="#Management">
 
-                    <a class="collapse-item" href="{{ route('admin.concierge-payments') }}">
+                    <a class="collapse-item" href="{{ route('management.reporting.concierge_payments') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/reconciliation.png') }}"
                             alt="">
                         <span
-                            style="{{ request()->segment(3) == 'concierge-payments' ? 'color: #FF3C5F;' : '' }}">Concierge
+                            style="{{ request()->routeIs('management.reporting.concierge_payments') ? 'color: #FF3C5F;' : '' }}">Concierge
                             Payments</span>
                     </a>
-                    <a class="collapse-item" href="{{ route('admin.credits') }}">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/income.png') }}">
+                    <a class="collapse-item" href="{{ route('management.reporting.credit') }}">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
                         <span
-                            style="{{ request()->segment(3) == 'credits' ? 'color: #FF3C5F;' : '' }}">Credits</span>
+                            style="{{ request()->routeIs('management.reporting.credit') ? 'color: #FF3C5F;' : '' }}">Credit</span>
                     </a>
-                    <a class="collapse-item" href="{{ route('admin.revenue') }}">
+                    <a class="collapse-item" href="{{ route('management.reporting.revenue') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/revenue-2.png') }}">
                         <span
-                            style="{{ request()->segment(3) == 'revenue' ? 'color: #FF3C5F;' : '' }}">Revenue</span>
+                            style="{{ request()->routeIs('management.reporting.revenue') ? 'color: #FF3C5F;' : '' }}">Revenue</span>
                     </a>
 
                 </div>
@@ -1776,12 +1776,6 @@ $ocLavel = 'Developer';
                 <div id="statisticsMenu" class="collapse @if (request()->routeIs('management.statistics.*')) show @endif "
                     data-parent="#Management">
 
-
-                    <a class="collapse-item" href="{{ route('management.statistics.credit') }}">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
-                        <span
-                            style="{{ request()->routeIs('management.statistics.credit') ? 'color: #FF3C5F;' : '' }}">Credit</span>
-                    </a>
                     <a class="collapse-item" href="{{ route('management.statistics.email') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
                         <span

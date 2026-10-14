@@ -246,7 +246,7 @@ class StaffController extends BaseController
                     $dropdown .= $view;
                 } else {
                     if ($this->editAccessEnabled) {
-                        $dropdown .= $edit . $updatePassword. $dropdownsub  . $view;
+                        $dropdown .= $edit . $updatePassword . $dropdownsub  . $view;
                     } else {
                         $dropdown .= $view;
                     }
@@ -388,23 +388,27 @@ class StaffController extends BaseController
         $user = User::where('id', $userId)->first();
         if ($user) {
             $newPassword = $request->input('new_password', '');
+            $sendNotification = $request->input('send_notification', false);
+            
             $userType = $user->type;
             $memberid = $user->member_id;
             $user->password = Hash::make($newPassword);
             if ($user->save()) {
                 try {
                     $user->plainPassword = $newPassword;
-                    Mail::to($user->email)->send(new ChangePasswordlEmail($user));
-                } catch (Exception $e) {
+                    if ($sendNotification) {
+                        $mailStatus = Mail::to($user->email)->send(new ChangePasswordlEmail($user));
+                    }
+                } catch (\Throwable $e) {
                     Log::error('Password update email sending failed: ' . $e->getMessage());
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Password reset successfully, but we could not send the email. Please check the email address and try again.'
+                    ], 200);
                 }
-             return response()->json(["status" => true, "message" => 'Password reset successfully!'], 200);    
+                return response()->json(["status" => true, "message" => 'Password reset successfully!'], 200);
             }
-           
         }
         return response()->json(['status' => false, 'message' => 'Error occured while updating password!'], 400);
-
-        //$this->user->changeUserPassword($data);
-
     }
 }

@@ -121,7 +121,7 @@
                     <h2>Thank you for your Oder!</h2>
                     <p>Your purchase is confirmed, get ready for a Great Experience!</p>
 
-                    <a href="{{$redirect_url}}" class="btn btn-primary" id="continueBtn">Continue Shopping</a>
+                    <a href="{{$redirect_url}}" class="btn btn-primary" id="continueBtn">Continue</a>
 
                 </div>
                 </div>

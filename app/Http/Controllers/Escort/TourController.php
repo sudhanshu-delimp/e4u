@@ -1038,7 +1038,8 @@ class TourController extends Controller
 
                 // Only include if full week is within profile listing range
 
-                if ($weekStart->gte(Carbon::parse($tour_location->start_date)->startOfDay()) && $weekEnd->lte(Carbon::parse($tour_location->end_date)->endOfDay()) && $weekEnd->gte($today->startOfDay())) {
+                // if ($weekStart->gte(Carbon::parse($tour_location->start_date)->startOfDay()) && $weekEnd->lte(Carbon::parse($tour_location->end_date)->endOfDay()) && $weekEnd->gte($today->startOfDay())) {
+                if ($weekEnd->gte($today->startOfDay())) {
                     $weeks->push([
                         'start' => $weekStart->toDateString(),
                         'end' => $weekEnd->toDateString()

@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 
 class Influencer extends Model
 {
@@ -17,4 +18,5 @@ class Influencer extends Model
         'status',
         'ref_number'
     ];
+
 }

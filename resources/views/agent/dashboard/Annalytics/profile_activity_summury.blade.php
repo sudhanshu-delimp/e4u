@@ -12,8 +12,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table border="1" cellpadding="10" cellspacing="0" width="100%"
-                        style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
+                   
+<table cellpadding="10" cellspacing="0" width="100%"
+    style="border-collapse: collapse;
+           font-family: Arial, sans-serif;
+           font-size: 14px;
+           border: 1px solid #0c223d;">
 
 
                         <!-- Table Headings -->
@@ -214,7 +218,7 @@
 }
 </style>
 
-<script>
+<!-- <script>
  $(document).on('click', '#save_change', function (e) {
 
     e.preventDefault();
@@ -246,12 +250,150 @@
     doc.write('</body></html>');
     doc.close();
     
-    setTimeout(function () {
+   iframe.onload = function () {
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+
+    iframe.contentWindow.onafterprint = function () {
+        iframe.remove();
+    };
+};
+
+setTimeout(function () {
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+}, 300);
+}); 
+</script>-->
+
+<script>
+$(document).on('click', '#save_change', function (e) {
+    e.preventDefault();
+
+    var modalHtml = $('#profile_activity_summury .modal-content').clone();
+
+    modalHtml.find('.close, .modal-footer, .custompopicon, img').remove();
+
+    var iframe = document.createElement('iframe');
+
+    iframe.style.position = 'fixed';
+    iframe.style.right = '0';
+    iframe.style.bottom = '0';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = 'none';
+
+    document.body.appendChild(iframe);
+
+    var doc = iframe.contentWindow.document;
+
+    doc.open();
+
+    doc.write('<!DOCTYPE html><html><head><title>Activity Summary</title>');
+
+    doc.write('<style>');
+
+    doc.write(`
+        @page {
+            size: A4 portrait;
+            margin: 15mm;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .modal-dialog,
+        .modal-content,
+        .modal-body {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+        }
+
+        .modal-header {
+            display: block !important;
+            width: 100% !important;
+            padding: 12px 15px !important;
+            margin: 0 !important;
+            background-color: #0c223d !important;
+            color: #ffffff !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .modal-title {
+            margin: 0 !important;
+            font-size: 18px !important;
+            font-weight: bold !important;
+            color: #ffffff !important;
+        }
+
+        table {
+            display: table !important;
+            width: 100% !important;
+            min-width: 0 !important;
+            margin: 0 !important;
+            border: 1px solid #ddd !important;
+            border-collapse: collapse !important;
+            border-spacing: 0 !important;
+            table-layout: fixed !important;
+        }
+
+        tr {
+            display: table-row !important;
+            page-break-inside: avoid;
+        }
+
+        td, th {
+            display: table-cell !important;
+            border: 1px solid #ddd !important;
+            padding: 10px 8px !important;
+            text-align: center !important;
+            vertical-align: middle !important;
+            color: #000000;
+        }
+
+        tr[style*="background-color: #0c223d"] td,
+        td[style*="background:#0c223d"] {
+            background-color: #0c223d !important;
+            color: #ffffff !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+    `);
+
+    doc.write('</style></head><body>');
+
+    doc.write(modalHtml.html());
+
+    doc.write('</body></html>');
+
+    doc.close();
+
+    // Print after the iframe document is ready
+    iframe.onload = function () {
         iframe.contentWindow.focus();
         iframe.contentWindow.print();
-        setTimeout(function() {
-            document.body.removeChild(iframe);
-        }, 500);
-    }, 300);
+    };
+
+    // Remove iframe after the print dialog closes
+    iframe.contentWindow.onafterprint = function () {
+        iframe.remove();
+    };
 });
 </script>

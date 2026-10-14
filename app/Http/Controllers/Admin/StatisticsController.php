@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Repositories\User\UserInterface;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\State;
 use App\Models\Pricing;
 use App\Models\AdvertiserDiscount;
 use App\Traits\DataTablePagination;
@@ -31,11 +32,6 @@ class StatisticsController extends Controller
     }
 
     public function index() {}
-
-    public function creditReport()
-    {
-        return view('admin.management.statistics.credit');
-    }
 
     public function emailReport()
     {

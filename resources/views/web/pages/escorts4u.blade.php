@@ -77,7 +77,7 @@
     <p>
         The Website is designed having in mind what the Viewer ideally wants to know about the
         Advertiser, whilst at the same time remembering what the Advertiser wants to convey to
-        Viewers about themselves their services and companionship.
+        Viewers about themselves, their services and companionship.
     </p>
     <p>
         When viewing a Profile, you will have time to enjoy each of them, by flagging those which

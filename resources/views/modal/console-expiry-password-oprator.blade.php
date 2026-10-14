@@ -81,7 +81,7 @@ if (auth()->check())
             <div class="modal-header">
                 <h5 class="modal-title" id="changePasswordLabel" style="color:white">
                     <img src="{{asset('assets/dashboard/img/reset-password.png')}}" alt="" class="custompopicon">
-                    Change Password  
+                    Change Passwords : {{ auth()->user()->member_id }}
                 </h5>
 
 
@@ -94,7 +94,7 @@ if (auth()->check())
 
             </div>
 
-            <form method="POST" name="change_Password_Modal" action="{{ route($submit_url) }}">
+            <form method="POST" name="change_Password_Modal" action="{{ route($submit_url) }}" class="common-form">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group toogle_eye_form_wrap">
@@ -132,7 +132,9 @@ if (auth()->check())
 
                 <div class="modal-footer justify-content-end pt-0">
                    
-                    <button type="submit" class="btn-success-modal">Update Password</button>
+                    <button type="submit" class="btn-success-modal">Reset Password</button>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="btn-cancel-modal expiry-password-close">Cancel</button>
+
                 </div>
             </form>
         </div>
@@ -394,7 +396,11 @@ if (auth()->check())
                     passwordsMatch = false;
             }
         });
-
+        $('form[name="change_Password_Modal"]')
+        .closest('.modal')
+        .on('shown.bs.modal', function () {
+            $('#modal_current_password').focus();
+        });
     });
 </script>
 @endif

@@ -1155,7 +1155,8 @@ class MassageController extends Controller
                     // Log::info(' $refundAmount============>'. $refundAmount);
 
                     if ($refundAmount > 0) {
-                        $gstAmount = getGSTAmount($refundAmount);
+                        //$gstAmount = getGSTAmount($refundAmount);
+                        $gstAmount = 0;
                         $refundAmountWithGst = $refundAmount + $gstAmount;
                     } else {
                         $refundAmountWithGst = 0;
@@ -1271,7 +1272,8 @@ class MassageController extends Controller
                 $refundAmount = getRefundAmountForCancelProfile($purchase, $refundStartDate, $refundEndDate);
 
                 if ($refundAmount > 0) {
-                    $gstAmount = getGSTAmount($refundAmount);
+                    //$gstAmount = getGSTAmount($refundAmount);
+                    $gstAmount = 0;
                     $refundAmountWithGst = $refundAmount + $gstAmount;
                 } else {
                     $refundAmountWithGst = 0;
@@ -1690,7 +1692,7 @@ class MassageController extends Controller
 
         $today = Carbon::today();
         $massagers = MassagePurchase::with('massageprofile')->where('massage_centre_id', auth()->user()->id)
-            ->whereIn('status', ['expire'])
+            ->whereIn('status', ['expire','cancel'])
             /* ->when($request->isImpersonated, function ($query) use ($request) {
                 $query->where('created_by', $request->impersonatedId);
             }) */

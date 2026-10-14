@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 
 class EscortNotification extends Model
 {
@@ -21,4 +22,5 @@ class EscortNotification extends Model
         'member_id',
         'status'
     ];
+
 }

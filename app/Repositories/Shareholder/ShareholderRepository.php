@@ -4,7 +4,7 @@ namespace App\Repositories\Shareholder;
 
 use Exception;
 use Carbon\Carbon;
-use App\Models\User;
+//use App\Models\User;
 use App\Models\Shareholder;
 use App\Models\ShareholderContact;
 use App\Models\ShareholderSetting;
@@ -27,12 +27,12 @@ class ShareholderRepository extends BaseRepository implements ShareholderInterfa
     public $user_model;
     public $response = [];
 
-    public function __construct(Shareholder $shareholder, User $user_model, AccountSetting $setting, ShareholderSetting $shareholder_setting)
+    public function __construct(Shareholder $shareholder, AccountSetting $setting, ShareholderSetting $shareholder_setting)
     {
         $this->shareholder_setting = $shareholder_setting;
         $this->shareholder = $shareholder;
         $this->setting = $setting;
-        $this->user_model = $user_model;
+        //$this->user_model = $user_model;
         $this->response = ['status' => false, 'message' => ''];
     }
 
@@ -145,15 +145,23 @@ class ShareholderRepository extends BaseRepository implements ShareholderInterfa
                         return $this->response;
                     }
                 } else {
-                    $shareholderData['enabled'] = 1;
-                    $shareholderData['status'] = 2;
-                    $shareholderData['type'] = '8';
                     $message = 'New shareholder\'s account added successfully.';
-                    $user = Shareholder::create($shareholderData);
-                    if ($user) {
-                        $shareholder = $this->shareholder->where('id', $user->id)->first();
+                    $shareholder = (new Shareholder);
+                    $shareholder->enabled = 1;
+                    $shareholder->status = 2;
+                    $shareholder->type = '8';
+                    $shareholder->contact_person = $data['contact_person'] ?? null;
+                    $shareholder->phone = $data['phone'] ?? null;
+                    $shareholder->email = $data['email'] ?? null;
+                    $shareholder->business_name = $data['business_name'] ?? null;
+                    $shareholder->business_address = $data['business_address'] ?? null;
+                    $shareholder->contact_type = isset($data['contact_type'])  ? $contactType : null;
+                   
+                    
+                    if ($shareholder->save()) {
+                       $user = $shareholder = $this->shareholder->where('id', $shareholder->id)->first();
                         $shareholder->update(['contact_type' => $contactType]);
-                        $this->setting->create_account_setting($user);
+                        $this->setting->create_account_setting($shareholder);
 
                         foreach ($persons as $index => $person) {
                             if ($person || $mobiles[$index] || $emails[$index]) {

@@ -100,10 +100,12 @@ class MassageProfileActionController extends BaseController
             $startDate = $request->start_date;
             $endDate = $request->end_date;
             $refund = getMassageSuspendRefundAmount($profileId, $startDate, $endDate);
+            
 
             if($refund)
             {
-                $gstAmount = getGSTAmount($refund);
+                $gstAmount = 0;
+                //$gstAmount = getGSTAmount($refund);
                 $refundAmountWithGst = $refund + $gstAmount;
             }
 
@@ -161,12 +163,12 @@ class MassageProfileActionController extends BaseController
         }
 
         # calculate credit
-        
         $refundAmount = getMassageSuspendRefundAmount($request->suspend_profile_id, $request->start_date, $request->end_date);
 
         if($refundAmount)
         {
-            $gstAmount = getGSTAmount($refundAmount);
+            $gstAmount = 0;
+            // $gstAmount = getGSTAmount($refundAmount);
             $refundAmountWithGst = $refundAmount + $gstAmount;
         }
 

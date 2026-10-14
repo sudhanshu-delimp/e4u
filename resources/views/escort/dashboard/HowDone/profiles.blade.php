@@ -35,7 +35,7 @@
                 <div id="accordion" class="myacording-design">
 
                     <!-- New -->
-                    <div class="card">
+                    <div class="card common-card">
                         <div class="card-header" id="headingNew">
                             <h2 class="mb-0">
                                 <a class="card-link collapsed" data-toggle="collapse" href="#collapseNew"
@@ -560,7 +560,7 @@
                         </div>
                     </div>
                     <!-- Listed -->
-                    <div class="card">
+                    <div class="card common-card">
                         <div class="card-header" id="headingCurrent">
                             <h2 class="mb-0">
                                 <a class="card-link collapsed" data-toggle="collapse" href="#collapseCurrent"
@@ -964,7 +964,7 @@
                     </div>
 
                     <!-- Archived -->
-                    <div class="card">
+                    <div class="card common-card">
                         <div class="card-header" id="headingPast">
                             <h2 class="mb-0">
                                 <a class="card-link collapsed" data-toggle="collapse" href="#collapsePast"

@@ -45,13 +45,13 @@ use Illuminate\Support\Facades\Route;
 use function PHPSTORM_META\type;
 
 if (!function_exists('generateReferenceNo')) {
-    function generateReferenceNo(string $modelClass): string
+    function generateReferenceNo(string $modelClass, $increment = 1, $pad = 5, $prefix = "URN", $seperateby = ""): string
     {
         $lastRecord = $modelClass::latest('id')->first();
 
-        $nextId = $lastRecord ? $lastRecord->id + 1 : 1;
+        $nextId = $lastRecord ? $lastRecord->id + $increment : random_int(1000, 9999);
 
-        return now()->format('Ymd') . str_pad($nextId, 5, '0', STR_PAD_LEFT);
+        return $prefix.now()->format('Ymd') .$seperateby. str_pad($nextId, $pad, '0', STR_PAD_LEFT);
     }
 }
 
@@ -194,9 +194,9 @@ if (!function_exists('formatCurrency')) {
     /**
      * Format the amount
      */
-    function formatCurrency($amount, $currency = '$')
+    function formatCurrency($amount, $currency = '$', $appendCurrencySign = true)
     {
-        $amount = number_format($amount, 2, '.', ''); // keep 2 decimals
+        $amount = number_format($amount, 2, '.', ''); // keep 2 decsimals
         list($intPart, $decimalPart) = explode('.', $amount);
 
         $lastThree = substr($intPart, -3);
@@ -209,7 +209,33 @@ if (!function_exists('formatCurrency')) {
             $formatted = $lastThree;
         }
 
-        return $currency . '' . $formatted . '.' . $decimalPart;
+        return $appendCurrencySign ? $currency . '' . $formatted . '.' . $decimalPart : $formatted . '.' . $decimalPart;
+    }
+}
+
+if (!function_exists('formatAmount')) {
+    function formatAmount($value)
+    {
+        $value = round((float) ($value ?? 0), 2);
+        $isNegative = $value < 0;
+
+        $value = number_format(abs($value), 2, '.', '');
+
+        list($intPart, $decimalPart) = explode('.', $value);
+
+        $lastThree = substr($intPart, -3);
+        $restUnits = substr($intPart, 0, -3);
+
+        if ($restUnits !== '') {
+            $restUnits = preg_replace('/\B(?=(\d{2})+(?!\d))/', ',', $restUnits);
+            $formatted = $restUnits . ',' . $lastThree;
+        } else {
+            $formatted = $lastThree;
+        }
+
+        $formatted .= '.' . $decimalPart;
+
+        return $isNegative ? '(' . $formatted . ')' : $formatted;
     }
 }
 
@@ -3409,5 +3435,140 @@ if (!function_exists('formatBSBNumber')) {
         $number = preg_replace('/\D/', '', $number);
 
         return implode('-', str_split($number, 3));
+    }
+}
+
+if (!function_exists('stateWalletCredit')) {
+    function stateWalletCredit($startDate, $endDate, $stateId = null, $advertiserType = null)
+    {
+        $walletService = app(\App\Services\WalletService::class);
+
+        return $walletService->getStateCredit(
+            $startDate,
+            $endDate,
+            $stateId,
+            $advertiserType
+        );
+    }
+}
+
+
+if (!function_exists('getFinancialYear')) {
+    function getFinancialYear()
+    {
+        $now = Carbon::now('UTC');
+        $australiaTimeNow = getAustraliaTime($now);
+
+        // Determine the current financial year start
+        $currentFYStart = $australiaTimeNow->copy();
+
+        if ($australiaTimeNow->month < 7) {
+            $currentFYStart->subYear();
+        }
+
+        $currentStart = $currentFYStart->copy()
+            ->setMonth(7)
+            ->startOfMonth()
+            ->startOfDay()
+            ->utc();
+
+        $currentEnd = $currentStart->copy()
+            ->addYear()
+            ->subDay()
+            ->endOfDay()
+            ->utc();
+
+
+        // Previous financial year
+        $lastStart = $currentStart->copy()
+            ->subYear();
+
+        $lastEnd = $lastStart->copy()
+            ->addYear()
+            ->subDay()
+            ->endOfDay()
+            ->utc();
+
+
+        // Financial year before previous
+        $previousStart = $currentStart->copy()
+            ->subYears(2);
+
+        $previousEnd = $previousStart->copy()
+            ->addYear()
+            ->subDay()
+            ->endOfDay()
+            ->utc();
+
+
+        // Today end
+        $todayEnd = $australiaTimeNow->copy()
+            ->endOfDay()
+            ->utc();
+
+        // Last year's same date end
+        $lastTodayEnd = $australiaTimeNow->copy()
+            ->subYear()
+            ->endOfDay()
+            ->utc();
+
+        $daysTillToday = $currentStart->copy()
+            ->diffInDays($todayEnd) + 1;
+
+        return compact('currentStart', 'currentEnd', 'lastStart', 'lastEnd', 'previousStart', 'previousEnd', 'todayEnd', 'lastTodayEnd', 'daysTillToday');
+    }
+}
+
+function getReportIcon($value = 0.00)
+{
+    if ($value > 0) {
+        return '<svg fill="#4ab224" width="16px" height="16px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" stroke="#4ab224"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect id="Icons" x="-384" y="-192" width="1280" height="800" style="fill:none;"></rect> <g id="Icons1" serif:id="Icons"> <g id="Strike"> </g> <g id="H1"> </g> <g id="H2"> </g> <g id="H3"> </g> <g id="list-ul"> </g> <g id="hamburger-1"> </g> <g id="hamburger-2"> </g> <g id="list-ol"> </g> <g id="list-task"> </g> <g id="trash"> </g> <g id="vertical-menu"> </g> <g id="horizontal-menu"> </g> <g id="sidebar-2"> </g> <g id="Pen"> </g> <g id="Pen1" serif:id="Pen"> </g> <g id="clock"> </g> <g id="external-link"> </g> <g id="hr"> </g> <g id="info"> </g> <g id="warning"> </g> <g id="plus-circle"> </g> <g id="minus-circle"> </g> <g id="vue"> </g> <g id="cog"> </g> <g id="logo"> </g> <path id="arrow-up" d="M29.991,15.547l-7.413,7.413l-2.832,-2.832l12.246,-12.246l0.001,0.001l0.001,-0.001l12.246,12.246l-2.832,2.832l-7.411,-7.411l0,40.334l-4.006,0l0,-40.336Z"></path> <path d="M29.991,15.547l-7.413,7.413l-2.832,-2.832l12.246,-12.246l0.002,0l12.246,12.246l-2.832,2.832l-7.411,-7.411l0,40.334l-4.006,0l0,-40.336Zm2.001,-4.837l-9.418,9.418l0.004,0.004l5.999,-5.999l3.414,1.414l0,38.336l0.006,0l0,-38.334l3.414,-1.415l5.997,5.998l0.004,-0.004l-9.418,-9.418l-0.002,0Z"></path> <g id="radio-check"> </g> <g id="eye-slash"> </g> <g id="eye"> </g> <g id="toggle-off"> </g> <g id="shredder"> </g> <g id="spinner--loading--dots-" serif:id="spinner [loading, dots]"> </g> <g id="react"> </g> <g id="check-selected"> </g> <g id="turn-off"> </g> <g id="code-block"> </g> <g id="user"> </g> <g id="coffee-bean"> </g> <g id="coffee-beans"> <g id="coffee-bean1" serif:id="coffee-bean"> </g> </g> <g id="coffee-bean-filled"> </g> <g id="coffee-beans-filled"> <g id="coffee-bean2" serif:id="coffee-bean"> </g> </g> <g id="clipboard"> </g> <g id="clipboard-paste"> </g> <g id="clipboard-copy"> </g> <g id="Layer1"> </g> </g> </g></svg>&nbsp;';
+    } else if ($value < 0) {
+        return '<svg fill="#ff0000" width="16px" height="16px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" stroke="#ff0000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect id="Icons" x="-320" y="-192" width="1280" height="800" style="fill:none;"></rect> <g id="Icons1" serif:id="Icons"> <g id="Strike"> </g> <g id="H1"> </g> <g id="H2"> </g> <g id="H3"> </g> <g id="list-ul"> </g> <g id="hamburger-1"> </g> <g id="hamburger-2"> </g> <g id="list-ol"> </g> <g id="list-task"> </g> <g id="trash"> </g> <g id="vertical-menu"> </g> <g id="horizontal-menu"> </g> <g id="sidebar-2"> </g> <g id="Pen"> </g> <g id="Pen1" serif:id="Pen"> </g> <g id="clock"> </g> <g id="external-link"> </g> <g id="hr"> </g> <g id="info"> </g> <g id="warning"> </g> <g id="plus-circle"> </g> <g id="minus-circle"> </g> <g id="vue"> </g> <g id="cog"> </g> <g id="logo"> </g> <path id="arrow-down" d="M29.998,48.287l-7.413,-7.414l-2.832,2.832l12.246,12.247l0.001,-0.001l0.001,0.001l12.246,-12.247l-2.832,-2.832l-7.411,7.412l0,-40.335l-4.006,0l0,40.337Z"></path> <g id="radio-check"> </g> <g id="eye-slash"> </g> <g id="eye"> </g> <g id="toggle-off"> </g> <g id="shredder"> </g> <g id="spinner--loading--dots-" serif:id="spinner [loading, dots]"> </g> <g id="react"> </g> <g id="check-selected"> </g> <g id="turn-off"> </g> <g id="code-block"> </g> <g id="user"> </g> <g id="coffee-bean"> </g> <g id="coffee-beans"> <g id="coffee-bean1" serif:id="coffee-bean"> </g> </g> <g id="coffee-bean-filled"> </g> <g id="coffee-beans-filled"> <g id="coffee-bean2" serif:id="coffee-bean"> </g> </g> <g id="clipboard"> </g> <g id="clipboard-paste"> </g> <g id="clipboard-copy"> </g> <g id="Layer1"> </g> </g> </g></svg>&nbsp;';
+    } else {
+        return '<svg width="18px" height="18px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ff9500" stroke-width="0.792"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M6.00001 11.25L18 11.25L18 12.75L6.00001 12.75L6.00001 11.25Z" fill="#ff9500"></path> </g></svg>';
+    }
+}
+
+if (!function_exists('generateReferenceNunber')) {
+    function generateReferenceNunber($modelObject, $pad = 5, $prefix = "URN", $seperateby = "")
+    {
+        $nextId = random_int(10000, 99999);
+        $idExist = 0;
+        $id = 0;
+        try {
+            $tableName =  $modelObject->getTable();
+       
+            $refNumber = $prefix . now()->format('Ymd') . $seperateby . str_pad($nextId, $pad, '0', STR_PAD_LEFT);
+
+             $refColumnName = 'ref_number';
+            if ($tableName == 'payment_histories') {
+                $refColumnName = 'ref_no';
+            }
+
+            if (isset($modelObject->id)) {
+                $id = $modelObject->id;
+                $nextId = $modelObject->id;
+                $createdAt = $modelObject->created_at;
+                if($modelObject->exists && Schema::hasColumn($modelObject->getTable(),  $refColumnName)) {
+                    $refNumber = $prefix .\Carbon\Carbon::parse($createdAt)->format('Ymd') . $seperateby . str_pad($id, $pad, '0', STR_PAD_LEFT);
+                }
+            }
+
+            while ($modelObject->newQuery()
+                ->where($refColumnName, $refNumber)
+                ->when(($id > 0), function ($query) use ($id, $refNumber) {
+                    $query->where('id', $id);
+                })
+                ->exists()
+            ) {
+                $nextId = random_int(10000, 99999);
+                $refNumber = $prefix . now()->format('Ymd') . $seperateby . str_pad($nextId, $pad, '0', STR_PAD_LEFT);
+            }
+        } catch (\Exception $e) {
+            $refNumber = $prefix . now()->format('Ymd') . $seperateby . str_pad($nextId, $pad, '0', STR_PAD_LEFT);
+        }
+
+        return $refNumber;
     }
 }

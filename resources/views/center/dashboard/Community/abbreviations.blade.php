@@ -55,7 +55,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div id="accordion" class="myacording-design">
-                                <div class="card">
+                                <div class="card common-card">
                                     <div class="card-header">
                                         <a class="card-link collapsed" data-toggle="collapse" href="#about_me"
                                             aria-expanded="false">
@@ -63,7 +63,7 @@
                                         </a>
                                     </div>
                                     <div id="about_me" class="collapse" data-parent="#accordion" style="">
-                                        <div class="card-body p-0">
+                                        <div class="card-body">
                                             <div class="custom--content-abb">
                                                 <div class="accodien_manage_padding_content">
                                                     <p><b>An Overview</b>
@@ -133,7 +133,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card">
+                                <div class="card common-card">
                                     <div class="card-header">
                                         <a class="card-link collapsed" data-toggle="collapse"
                                             href="#profile_and_tour_options" aria-expanded="false">
@@ -142,7 +142,7 @@
                                     </div>
                                     <div id="profile_and_tour_options" class="collapse" data-parent="#accordion"
                                         style="">
-                                        <div class="card-body p-0">
+                                        <div class="card-body">
                                             <div class="custom--content-abb">
                                                 <div class="accodien_manage_padding_content accordian_wrapper">
                                                     <h5 class="pt-4 text-center"><b>Abbreviations</b></h5>
@@ -520,7 +520,7 @@
 
 
 
-                                <div class="card">
+                                <div class="card common-card">
                                     <div class="card-header">
                                         <a class="card-link collapsed" data-toggle="collapse"
                                             href="#LoyaltyProgram" aria-expanded="false">
@@ -529,7 +529,7 @@
                                     </div>
                                     <div id="LoyaltyProgram" class="collapse" data-parent="#accordion"
                                         style="">
-                                        <div class="card-body p-0">
+                                        <div class="card-body">
                                             <div class="custom--content-abb">
                                                 <div class="accodien_manage_padding_content accordian_wrapper">
                                                     <h5 class="pt-4 "><b>An Overview</b></h5>
@@ -900,7 +900,7 @@
                                 </div>
 
 
-                                <div class="card">
+                                <div class="card common-card">
                                     <div class="card-header">
                                         <a class="card-link collapsed" data-toggle="collapse"
                                             href="#Loyaltyicon" aria-expanded="false">
@@ -909,7 +909,7 @@
                                     </div>
                                     <div id="Loyaltyicon" class="collapse" data-parent="#accordion"
                                         style="">
-                                        <div class="card-body p-0">
+                                        <div class="card-body">
                                             <div class="custom--content-abb">
                                                 <div class="accodien_manage_padding_content">
                                                     <p><b>An Overview</b></p>
@@ -1166,7 +1166,7 @@
                                                         <div class="col-md-12">
                                                             <div class="mt-4 px-0 chagneto-policy">
                                                                 <hr class="custom_hr">
-                                                                <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                                                                <h5 class="primery_color normal_heading">Changes to this Policy</h5>
                                                                 <p style="border:none">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
                                                                         review the most current version.</p>
                                                                 <p>Escorts4U archives all previous versions of this Policy.</p>
@@ -1181,7 +1181,7 @@
                                     </div>
                                 </div>
 
-                                <div class="card">
+                                <div class="card common-card">
                                     <div class="card-header">
                                         <a class="card-link collapsed" data-toggle="collapse"
                                             href="#Loyaltypolicy" aria-expanded="false">
@@ -1190,7 +1190,7 @@
                                     </div>
                                     <div id="Loyaltypolicy" class="collapse" data-parent="#accordion"
                                         style="">
-                                        <div class="card-body p-0">
+                                        <div class="card-body">
                                             <div class="custom--content-abb">
                                                 <div class="cms-accordion-content-area">
                                                     <!-- level 1 list -->

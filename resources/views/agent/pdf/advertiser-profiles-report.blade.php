@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
 
-    <title>Profile Report</title>
+    <title>Listing Report</title>
 
     <style>
         body {
@@ -50,7 +51,8 @@
             font-size: 20px;
             font-weight: 700;
         }
-         h3 {
+
+        h3 {
             text-align: center;
             color: #0b2a4a;
             font-size: 16px;
@@ -61,29 +63,48 @@
             background: #0b2a4a;
             color: #fff;
         }
+
+
+
+        .numValue {
+            width: 100%;
+            display: table;
+            table-layout: fixed;
+        }
+
+        .numValue .currency {
+            display: table-cell;
+            width: 15px;
+            text-align: left;
+        }
+
+        .numValue .amount {
+            display: table-cell;
+            text-align: right;
+            white-space: nowrap;
+        }
+
     </style>
 </head>
 
 <body>
 
     <div class="header">
-        <h2>Profile Report</h2>
+        <h2>Listing Report - {{ $advertiserType == 'massage' ?  ucfirst($advertiserType). ' Centre' : ucfirst($advertiserType) }}</h2>
 
-        <div>
-            <h3>{{ ucfirst($advertiserType) }} </h3>
-        </div>
+
     </div>
 
-    <div class="info">
+    <!-- <div class="info">
         <strong>Period :</strong>
         {{ $fromDate }} to {{ $toDate }}
-    </div>
+    </div> -->
 
     <table>
         <thead>
             <tr>
                 <th>#</th>
-                <th>Member ID</th>
+                <th>Member ID </th>
                 <th>Name</th>
                 <th>Mobile</th>
                 <th>Start Date</th>
@@ -91,7 +112,7 @@
                 <th>Total Days</th>
 
                 @if($advertiserType == 'escort')
-                    <th>Pin Up</th>
+                <th>Pin Up</th>
                 @endif
 
                 <th>Listing Fee</th>
@@ -103,95 +124,103 @@
 
             @forelse($advertisers as $row)
 
-                @php
-                    $memberId = $row->advertiser->user->member_id ?? '';
-                    $name = $row->advertiser->profile_name ?? '';
-                    $mobile = $row->advertiser->phone ?? '';
+            @php
+            $memberId = $row->advertiser->user->member_id ?? '';
 
-                    $startDate = $row->start_date ?? '';
-                    $endDate = $row->end_date ?? '';
 
-                    $totalDays = '';
+            $name = $advertiserType != 'massage' ? $row->advertiser->name : $row->advertiser->business_name;
+            $mobile = $row->advertiser->phone ?? '';
 
-                    if ($startDate && $endDate) {
-                        $totalDays = Carbon\Carbon::parse($startDate)
-                            ->diffInDays(Carbon\Carbon::parse($endDate)) + 1;
-                    }
+            $startDate = $row->start_date ?? '';
+            $endDate = $row->end_date ?? '';
 
-                    $pinUp = '--';
+            $totalDays = '';
 
-                    if ($advertiserType == 'escort') {
-                        $pinUp = isset($row->advertiser->escort->pinup)
-                            && count($row->advertiser->escort->pinup) > 0
-                            ? 'Yes'
-                            : 'No';
-                    }
+            if ($startDate && $endDate) {
+            $totalDays = Carbon\Carbon::parse($startDate)
+            ->diffInDays(Carbon\Carbon::parse($endDate)) + 1;
+            }
 
-                    $listingFee = $row->paid_rate ?? 0;
+            $pinUp = '--';
 
-                    if (
-                        $row->paymentItems &&
-                        $row->paymentItems->payment &&
-                        $row->paymentItems->payment->agent_commission_percent > 0
-                    ) {
-                        $agentFee = calculate_agent_commission(
-                            $row->paymentItems->payment->net_amount,
-                            $row->paymentItems->payment->agent_commission_percent
-                        );
-                    } else {
-                        $agentFee = 0;
-                    }
-                @endphp
+            if ($advertiserType == 'escort') {
+            $pinUp = isset($row->advertiser->escort->pinup)
+            && count($row->advertiser->escort->pinup) > 0
+            ? 'Yes'
+            : 'No';
+            }
 
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
+            $listingFee = $row->paid_rate ?? 0;
 
-                    <td>
-                        {{ $memberId }}
-                    </td>
+            if (
+            $row->paymentItems &&
+            $row->paymentItems->payment &&
+            $row->paymentItems->payment->agent_commission_percent > 0
+            ) {
+            $agentFee = calculate_agent_commission(
+            $row->paymentItems->payment->net_amount,
+            $row->paymentItems->payment->agent_commission_percent
+            );
+            } else {
+            $agentFee = 0;
+            }
+            @endphp
 
-                    <td>
-                        {{ $name }}
-                    </td>
+            <tr>
+                <td>{{ $loop->iteration }}</td>
 
-                    <td>
-                        {{ $mobile }}
-                    </td>
+                <td>
+                    {{ $memberId }}
+                </td>
 
-                    <td>
-                        {{ $startDate }}
-                    </td>
+                <td>
+                    {{ $name }}
+                </td>
 
-                    <td>
-                        {{ $endDate }}
-                    </td>
+                <td>
+                    {{ $mobile }}
+                </td>
 
-                    <td class="text-center">
-                        {{ $totalDays }}
-                    </td>
+                <td>
+                    {{ $startDate }}
+                </td>
 
-                    @if($advertiserType == 'escort')
-                        <td class="text-center">
-                            {{ $pinUp }}
-                        </td>
-                    @endif
+                <td>
+                    {{ $endDate }}
+                </td>
 
-                    <td>
-                        {{ formatCurrency($listingFee) }}
-                    </td>
+                <td class="text-center">
+                    {{ $totalDays }}
+                </td>
 
-                    <td>
-                        {{ formatCurrency($agentFee) }}
-                    </td>
-                </tr>
+                @if($advertiserType == 'escort')
+                <td class="text-center">
+                    {{ $pinUp }}
+                </td>
+                @endif
+
+                <td>
+                    <div class="numValue">
+                        <span class="currency">$</span>
+                        <span class="amount">{{ formatCurrency($listingFee, '') }}</span>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="numValue">
+                        <span class="currency">$</span>
+                        <span class="amount">{{ formatCurrency($agentFee, '') }}</span>
+                    </div>
+                </td>
+            </tr>
 
             @empty
 
-                <tr>
-                    <td colspan="10" class="text-center">
-                        No records found.
-                    </td>
-                </tr>
+            <tr>
+                <td colspan="10" class="text-center">
+                    No records found.
+                </td>
+            </tr>
 
             @endforelse
 
@@ -199,4 +228,5 @@
     </table>
 
 </body>
+
 </html>

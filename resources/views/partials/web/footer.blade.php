@@ -70,7 +70,7 @@
                     Escorts4U helps Advertisers and Users find each other, what happens after that connection is made is up to them. We are not a party to any agreement, or involved in any interaction, between Advertisers and Users.
 
                     Any price indicated in an Advertiser's Profile relates to their time only and nothing else. Any service offered or whatever else that may occur is a mutual decision between consenting adults and is Private between them. It is your responsibility to be cognisant of and to comply with the Local Laws.
-                    Further details may be found in the Terms and Conditions.</p>
+                    Further details may be found in the Terms and Conditions and Policies.</p>
             </div>
         </div>
 
@@ -520,7 +520,6 @@
 <script type="text/javascript" src="{{ asset('assets/app/js/jqueryuijs.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.min.js"></script>
 <script src="{{ asset('assets/plugins/sweetalert/sweetalert2@11.js') }}"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
 @include('partials.common.footer-scripts')
 <script>

@@ -20,6 +20,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use App\Services\AddRefNumberToExistingRecordsService;
 
 class CalculateAgentMonthlyFee extends Command
 {
@@ -54,6 +55,11 @@ class CalculateAgentMonthlyFee extends Command
      */
     public function handle()
     {
+        $AddRefNumberToExistingRecordsService = new AddRefNumberToExistingRecordsService();
+        $AddRefNumberToExistingRecordsService->updateReferenceNumber();
+        $this->info("Unique reference number generated");
+        die();
+
         $reportObj = (new AgentMonthlyReport);
         // Write code for email report
         //Current month
@@ -123,7 +129,7 @@ class CalculateAgentMonthlyFee extends Command
                             $data['message'] = '';
                             $data['created_at'] = date('Y-m-d H:i:s');
                             $data['updated_at'] = date('Y-m-d H:i:s');
-                            $notification->insert($data);
+                            $notification->create($data);
 
                             // Send mail
                             $agentEmail = [];
@@ -260,7 +266,7 @@ class CalculateAgentMonthlyFee extends Command
                             $data['message'] = '';
                             $data['created_at'] = date('Y-m-d H:i:s');
                             $data['updated_at'] = date('Y-m-d H:i:s');
-                            $notification->insert($data);
+                            $notification->create($data);
 
                             // Send mail
                             $opEmail = [];

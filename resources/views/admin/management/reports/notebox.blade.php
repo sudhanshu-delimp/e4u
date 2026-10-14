@@ -83,11 +83,16 @@
                                                     <i class="fa fa-check "></i> Active</a>
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-feedback-btn"
-                                                    href="javascript:void(0)"> <i class="fa fa-eye"></i> Withdrawn</a>
+    href="javascript:void(0)">
+    <i class="fa fa-ban"></i> Withdrawn
+</a>
 
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-feedback-btn"
-                                                    href="javascript:void(0)"> <i class="fa fa-eye"></i> Pending</a>
+<div class="dropdown-divider"></div>
+
+<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-feedback-btn"
+    href="javascript:void(0)">
+    <i class="fa fa-clock"></i> Pending
+</a>
 
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-feedback-btn"

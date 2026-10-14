@@ -80,6 +80,7 @@
                 <table class="table" id="listings" style="width:100%;">
                     <thead class="table-bg">
                         <tr>
+                            <th>Profile ID</th>
                             <th>Member ID </th>
                             <th>Member</th>
                             <th>Listing</th>
@@ -171,7 +172,7 @@
         var table = $("#listings").DataTable({
             language: {
                 search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Member ID or Profile Name"
+                searchPlaceholder: "Search by Member ID or Profile ID or Profile Name"
             },
             processing: true,
             serverSide: true,
@@ -206,7 +207,14 @@
                 }
             },
 
-            columns: [{
+            columns: [
+                {
+                    data: 'slug',
+                    name: 'slug',
+                    searchable: true,
+                    orderable: true
+                },
+                {
                     data: 'member_id',
                     name: 'member_id',
                 },

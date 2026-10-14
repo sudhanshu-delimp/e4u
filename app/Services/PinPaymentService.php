@@ -159,6 +159,28 @@ class PinPaymentService
             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">';
       $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-item="' . encrypt($item->id) . '" data-target="#view-listing" > <i class="fa fa-eye"></i> View </a>';
       $action .= '</div></div>';
+
+      $serviceType = $item->service;
+      $item->profile_product_ref = null;
+      if ($serviceType == 'Product Purchase') {
+        $item->profile_product_ref = optional($item->product_order)->order_id;
+      } else {
+        $item->profile_product_ref = $item->items->map(function ($subItem) {
+          $itemType = $subItem->item_type;
+          if (in_array($itemType, ['App\Models\Purchase', 'App\Models\EscortPinup', 'App\Models\EscortBumpup'])) {
+            return optional(optional($subItem->item)->escort)->slug;
+          } elseif (in_array($itemType, ['App\Models\MassagePurchase', 'App\Models\MassageBumpup'])) {
+            return optional(optional($subItem->item)->MassageProfile)->slug;
+          } elseif (in_array($itemType, ['App\Models\CreditTransaction'])) {
+            return null;
+          } 
+          return null;
+        })
+          ->filter()
+          ->implode(', ');
+      }
+
+      $item->profile_product_ref = $item->profile_product_ref ?: 'NA';
       $item->action = $action;
     }
     return $result;

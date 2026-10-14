@@ -70,7 +70,8 @@ class ProductOrderController extends Controller
     return DataTables::of($query)
 
       ->addColumn('order_date', function ($row) {
-        return  date('d-m-y, h:i A', strtotime($row->order_date));
+        return convert_aus_date_time_format($row->order_date);
+        //return  date('d-m-y, h:i A', strtotime($row->order_date));
       })
       ->addColumn('total_amount', function ($row) {
         return   $row->paymentDetails ?  '<div class="num_value">$<span>'.$row->paymentDetails->paid_amount.'</span></div>'  : '<div class="num_value">$<span>0.00</span></div>';

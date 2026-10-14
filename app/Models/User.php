@@ -597,6 +597,7 @@ class User extends Authenticatable
                 if ($user->generateMemberId()) {
                     $user->member_id = $user->generateMemberId();
                     $user->created_by = Auth::id();
+                    $user->ref_number = generateReferenceNunber($user);
                     $user->save();
                 }
             }
@@ -1014,6 +1015,13 @@ class User extends Authenticatable
     public function additionalInfo()
     {
         return $this->hasMany(EscortAdditionalInformation::class);
+    }
+
+    public function getAddresses()
+    {
+        return $this->additionalInfo()
+            ->where('type', 'address')
+            ->get();
     }
 
 

@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 
 class PublicationBlog extends Model
 {
@@ -19,4 +20,5 @@ class PublicationBlog extends Model
         'meta_description',
         'status',
     ];
+
 }

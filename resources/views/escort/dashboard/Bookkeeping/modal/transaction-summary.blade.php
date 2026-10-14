@@ -25,9 +25,44 @@
                             <table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
                                 <tbody>
                                     <tr>
-                                        <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Reference No.</strong></td>
+                                        <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Transaction Ref ID</strong></td>
                                         <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">{{ $payment?->ref_no ?? '---' }}</td>
                                     </tr>
+                                     <tr>
+                                        <td style="text-align:left; border: 1px solid #ccc; padding: 8px;">
+                                            <strong>Profile/Order ID</strong></td>
+                                        <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">
+                                            @php
+                                           // dd($payment?->ref_no );
+                                           if(isset($payment)) {
+                                            $serviceType = $payment->service;
+                                            $profile_product_ref = null;
+                                             if ($serviceType == 'Product Purchase') {
+                                                $profile_product_ref = optional($payment->product_order)->order_id;
+                                            } else {
+                                                $profile_product_ref = $payment->items->map(function ($subItem) {
+                                                $itemType = $subItem->item_type;
+                                                if (in_array($itemType, ['App\Models\Purchase', 'App\Models\EscortPinup', 'App\Models\EscortBumpup'])) {
+                                                    return optional(optional($subItem->item)->escort)->slug;
+                                                } elseif (in_array($itemType, ['App\Models\MassagePurchase', 'App\Models\MassageBumpup'])) {
+                                                    //print_r($subItem->item->MassageProfile);die;
+                                                    return optional(optional($subItem->item)->MassageProfile)->slug;
+                                                
+                                                } elseif (in_array($itemType, ['App\Models\CreditTransaction'])) {
+                                                    return null;
+                                                } 
+                                                return null;
+                                                })
+                                                ->filter()
+                                                ->implode(', ');
+                                            }
+
+                                            $profile_product_ref = $profile_product_ref ?: 'NA';
+                                           }
+                                            @endphp
+                                            {{ $profile_product_ref ?? '---' }}</td>
+                                    </tr>
+                                    
                                     <tr>
                                         <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Transaction
                                                 Date</strong></td>

@@ -32,7 +32,7 @@
                 <div id="accordion" class="myacording-design">
 
                     <!-- Photos -->
-                    <div class="card">
+                    <div class="card common-card">
                         <div class="card-header" id="headingPhotos">
                             <h2 class="mb-0">
                                 <a class="card-link collapsed" data-toggle="collapse" href="#collapsePhotos"
@@ -279,7 +279,7 @@
                     </div>
 
                     <!-- Video  -->
-                    <div class="card">
+                    <div class="card common-card    ">
                         <div class="card-header" id="headingVideo">
                             <h2 class="mb-0">
                                 <a class="card-link collapsed" data-toggle="collapse" href="#collapseVideo"
