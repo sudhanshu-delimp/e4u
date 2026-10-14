@@ -3538,10 +3538,10 @@ if (!function_exists('generateReferenceNunber')) {
         $id = 0;
         try {
             $tableName =  $modelObject->getTable();
-       
+
             $refNumber = $prefix . now()->format('Ymd') . $seperateby . str_pad($nextId, $pad, '0', STR_PAD_LEFT);
 
-             $refColumnName = 'ref_number';
+            $refColumnName = 'ref_number';
             if ($tableName == 'payment_histories') {
                 $refColumnName = 'ref_no';
             }
@@ -3549,9 +3549,13 @@ if (!function_exists('generateReferenceNunber')) {
             if (isset($modelObject->id)) {
                 $id = $modelObject->id;
                 $nextId = $modelObject->id;
-                $createdAt = $modelObject->created_at;
-                if($modelObject->exists && Schema::hasColumn($modelObject->getTable(),  $refColumnName)) {
-                    $refNumber = $prefix .\Carbon\Carbon::parse($createdAt)->format('Ymd') . $seperateby . str_pad($id, $pad, '0', STR_PAD_LEFT);
+                $createdAt = ($tableName == 'support_tickets') ? $modelObject->created_on : $modelObject->created_at;
+                if ($modelObject->exists && Schema::hasColumn($modelObject->getTable(),  $refColumnName)) {
+
+                    if (empty($createdAt)) {
+                        $refNumber = $prefix . now()->format('Ymd') . $seperateby . str_pad($id, $pad, '0', STR_PAD_LEFT);
+                    }
+                    $refNumber = $prefix . \Carbon\Carbon::parse($createdAt)->format('Ymd') . $seperateby . str_pad($id, $pad, '0', STR_PAD_LEFT);
                 }
             }
 

@@ -58,14 +58,14 @@ class AdvertiserReviewsController extends Controller
             ->addColumn('ref', function ($row) {
 
                 if ($row->advertiser_type == 'escort') {
-                    return $row->id . (optional($row->escort)->id ?? '');
+                    //return $row->id . (optional($row->escort)->id ?? '');
                 }
 
                 if ($row->advertiser_type == 'massage') {
-                    return $row->id . (optional($row->massage)->id ?? '');
+                    //return $row->id . (optional($row->massage)->id ?? '');
                 }
 
-                return $row->id;
+                return $row->ref_number;
             })
 
             ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->created_at)))
@@ -231,7 +231,7 @@ class AdvertiserReviewsController extends Controller
             ->orderByRaw("
                     CASE
                         WHEN status = 'pending' THEN created_at
-                    END ASC
+                    END DESC
                 ")
             ->orderByRaw("
                     CASE

@@ -48,7 +48,7 @@ class CommunicationController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = EmailLog::query()->select(['id','member_id', 'to','cc', 'bcc','subject', 'sent_at','created_at']);
+            $query = EmailLog::query()->select(['id','member_id', 'to','cc', 'bcc','subject', 'sent_at','created_at', 'ref_number']);
             $clientOrder = $request->input('order');
             if (empty($clientOrder)) {
                 $query->orderBy('created_at', 'DESC');
@@ -56,7 +56,10 @@ class CommunicationController extends Controller
             return DataTables::of($query)
                 ->addIndexColumn()
                 ->addColumn('ref', function ($row) {
-                    return sprintf('#%05d', $row->id);
+                    if(empty($row->ref_number)) {
+                        return sprintf('#%05d', $row->id);
+                    }
+                    return $row->ref_number;
                 })
                 ->filterColumn('ref', function ($query, $keyword) {
                     $digit = ltrim($keyword, '#0');
