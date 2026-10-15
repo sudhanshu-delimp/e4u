@@ -102,5 +102,4 @@ class PaymentHistory extends Model
   {
     return $this->hasOne(ProductOrder::class, 'transaction_id', 'transaction_id');
   }
-
 }

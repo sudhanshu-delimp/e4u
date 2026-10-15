@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 
 class GlobalNotification extends Model
 {
@@ -12,4 +13,5 @@ class GlobalNotification extends Model
     protected $fillable = [
         'heading', 'start_date', 'end_date', 'type', 'content','template_name', 'member_id', 'status'
     ];
+
 }

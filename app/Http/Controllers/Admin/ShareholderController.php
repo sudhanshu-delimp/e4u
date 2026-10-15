@@ -129,7 +129,7 @@ class ShareholderController extends BaseController
      * View Shareholder list
      */
     public function shareholderList()
-    {
+    {               
         return view('admin.management.shareholder.manage-shareholders');
     }
 

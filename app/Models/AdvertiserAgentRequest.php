@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 
 class AdvertiserAgentRequest extends Model
 {
@@ -53,9 +54,4 @@ class AdvertiserAgentRequest extends Model
     {
         return $this->hasMany(AdvertiserAgentRequestUser::class, 'advertiser_agent_requests_id');
     }
-
-   
-    
-
-
 }
