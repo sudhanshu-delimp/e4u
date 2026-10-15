@@ -220,34 +220,25 @@
                 },
 
                 beforeSend: function () {
-                    submitBtn
-                        .prop('disabled', true)
-                        .html('<div class="spinner-border spinner-border-sm"></div>');
+                    showLoadingPopup('Processing...', 'Do not refresh or close this page.');
+                    submitBtn.prop('disabled', true);
                 },
 
-                success: function (data) {
-                    if (data.response.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            text: data.response.message
-                        });
+                success: function (data, textStatus, xhr) {
+                    if (data.success) {
+                        displaySwal(xhr);
 
                         // Reset the form and validation errors
                         form[0].reset();
                         parsleyForm.reset();
-
                         form.find('select[name="address"]').removeClass('d-none');
-
                         $('#streetAddressInp').attr({
                             type: 'hidden',
                             name: ''
                         });
-
                         $('.update_streetAddress').addClass('d-none');
-
                         table.draw();
                         $('#duplicate-profile-modal').modal('hide');
-
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -257,11 +248,7 @@
                 },
 
                 error: function (xhr) {
-                    Swal.fire({
-                        icon: 'error',
-                        text: xhr.responseJSON?.message ||
-                            'Something went wrong. Please try again.'
-                    });
+                    displaySwal(xhr);
                 },
 
                 complete: function () {
