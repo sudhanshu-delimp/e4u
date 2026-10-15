@@ -32,7 +32,7 @@
                 <div id="accordion" class="myacording-design">
 
                     <!-- Photos -->
-                    <div class="card">
+                    <div class="card common-card">
                         <div class="card-header" id="headingPhotos">
                             <h2 class="mb-0">
                                 <a class="card-link collapsed" data-toggle="collapse" href="#collapsePhotos"
@@ -80,7 +80,7 @@
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="doc-img active">
-                                            <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}" alt=""
+                                            <img src="{{ asset('assets/app/img/verify/e4u_verified.png') }}" alt=""
                                                 class="w-100 rounded-sm">
                                         </div>
                                     </div>
@@ -279,7 +279,7 @@
                     </div>
 
                     <!-- Video  -->
-                    <div class="card">
+                    <div class="card common-card    ">
                         <div class="card-header" id="headingVideo">
                             <h2 class="mb-0">
                                 <a class="card-link collapsed" data-toggle="collapse" href="#collapseVideo"

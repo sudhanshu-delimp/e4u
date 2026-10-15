@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 
 class Reviews extends Model
 {
@@ -44,5 +45,4 @@ class Reviews extends Model
 
         return null;
     }
-    
 }

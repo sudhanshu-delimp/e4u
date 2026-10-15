@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 use App\Models\Option;
 
 class Feedback extends Model
@@ -32,5 +33,4 @@ class Feedback extends Model
     {
         return $this->belongsTo(Option::class, 'option_id', 'id');
     }
-
 }

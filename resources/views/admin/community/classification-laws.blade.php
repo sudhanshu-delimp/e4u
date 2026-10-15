@@ -29,7 +29,7 @@
             {{-- end --}}
             <div class="row">
                <div class="col-md-12">
-                  <div class="table-responsive">
+                  <div class="table-responsive common-card">
                      <table class="table dataTable" style="width: 100%;">
                         <thead class="table-bg">
                            <tr role="row">
@@ -105,14 +105,14 @@
                   <div class="row">
                      <div class="col-md-12">
                         <div id="accordion" class="myacording-design">
-                           <div class="card">
+                           <div class="card common-card">
                               <div class="card-header">
                                  <a class="card-link collapsed" data-toggle="collapse" href="#LoyaltyProgram" aria-expanded="false">
                                   Guidelines
                                  </a>
                               </div>
                               <div id="LoyaltyProgram" class="collapse" data-parent="#accordion" style="">
-                                 <div class="card-body p-0">
+                                 <div class="card-body">
                                     <div class="card border-0 mb-0 pb-0">
                                        <div class="card-body border-0 p-0 mt-2">
                                           <p><b>Essential principles</b></p>

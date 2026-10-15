@@ -2461,13 +2461,13 @@ $(document).on('click', '.select_image', function () {
 
                 if (position == 1) {
                     if (status == "0") {
-                        iconPath = '/assets/app/img/pending_icon/e4u_pending_REV.png';
+                        iconPath = '/assets/app/img/verify/e4u_pending.png';
                         iconText = '<span class="mass_tooltip">Media Pending</span>';
                     } else if (status == "1") {
-                        iconPath = '/assets/app/img/verify/e4u_verified_REV.png';
+                        iconPath = '/assets/app/img/verify/e4u_verified.png';
                         iconText = '<span class="mass_tooltip">Media Verified</span>';
                     } else {
-                        iconPath = '/assets/app/img/verify/unverified_light.png';
+                        iconPath = '/assets/app/img/verify/unverified_dark.png';
                         iconText = '<span class="mass_tooltip">Media Unverified</span>';
                     }
                 } else {

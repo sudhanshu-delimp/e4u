@@ -22,10 +22,8 @@
     </style>
 @endsection
 @section('content')
-    <div id="wrapper">
-        <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content">
-                <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+
+ <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
                     <!--middle content-->
                     <div class="row">
                         <div class="col-md-12 custom-heading-wrapper">
@@ -53,7 +51,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div id="accordion" class="myacording-design">
-                                <div class="card">
+                                <div class="card common-card">
                                     <div class="card-header">
                                         <a class="card-link collapsed" data-toggle="collapse" href="#about_me"
                                            aria-expanded="false">
@@ -61,7 +59,7 @@
                                         </a>
                                     </div>
                                     <div id="about_me" class="collapse" data-parent="#accordion" style="">
-                                        <div class="card-body p-0">
+                                        <div class="card-body">
                                             <p class="mt-2"><b>Q: Is Membership free?</b></p>
                                             <p><b><span class="theme-text-color">Yes, your first two weeks with us are free!</span></b>
                                             </p>
@@ -114,7 +112,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card">
+                                <div class="card common-card">
                                     <div class="card-header">
                                         <a class="card-link collapsed" data-toggle="collapse"
                                            href="#profile_and_tour_options" aria-expanded="false">
@@ -123,7 +121,7 @@
                                     </div>
                                     <div id="profile_and_tour_options" class="collapse" data-parent="#accordion"
                                          style="">
-                                        <div class="card-body p-0">
+                                        <div class="card-body">
                                             <p class="mt-2"><b>Q: What are the packages?</b></p>
                                             <p>Packages are designed around the Membership type you choose on
                                                 the day you post your Profile. You can change a Profile package
@@ -450,7 +448,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card">
+                                <div class="card common-card">
                                     <div class="card-header">
                                         <a class="card-link collapsed" data-toggle="collapse"
                                            href="#other_fees_concierge_services" aria-expanded="false">
@@ -459,7 +457,7 @@
                                     </div>
                                     <div id="other_fees_concierge_services" class="collapse"
                                          data-parent="#accordion" style="">
-                                        <div class="card-body p-0">
+                                        <div class="card-body">
                                             <p class="mt-2"><b>Q: Who can register for Membership?</b></p>
                                             <p>There are several types of Membership available:</p>
                                             <ul>
@@ -584,7 +582,7 @@
                                 </div>
                                 
                                                                                         
-                                <div class="card">
+                                <div class="card common-card" >
                                     <div class="card-header">
                                         <a class="card-link collapsed" data-toggle="collapse"
                                            href="#LoyaltyProgram" aria-expanded="false">
@@ -592,7 +590,7 @@
                                         </a>
                                     </div>
                                     <div id="LoyaltyProgram" class="collapse" data-parent="#accordion" style="">
-                                        <div class="card-body p-0">
+                                        <div class="card-body">
                                             <p class="mt-2"><b> Q: How do I pay for advertising? </b></p>
                                             <p>Payment, by credit card, is requested when you post a Profile. If
                                                 you renew the Profile, your credit card will be debited
@@ -637,7 +635,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class="card">
+                                <div class="card common-card">
                                     <div class="card-header">
                                         <a class="card-link collapsed" data-toggle="collapse"
                                            href="#Profile-images" aria-expanded="false">
@@ -645,7 +643,7 @@
                                         </a>
                                     </div>
                                     <div id="Profile-images" class="collapse" data-parent="#accordion" style="">
-                                        <div class="card-body p-0">
+                                        <div class="card-body">
                                             <p class="mt-2"><b> Q: Can I use fake images if they look very
                                                     similar to me?</b></p>
                                             <p>Absolutely not. We have a strict policy that all images must
@@ -729,7 +727,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card">
+                                <div class="card common-card">
                                     <div class="card-header">
                                         <a class="card-link collapsed" data-toggle="collapse"
                                            href="#Profile-reporting" aria-expanded="false">
@@ -738,7 +736,7 @@
                                     </div>
                                     <div id="Profile-reporting" class="collapse" data-parent="#accordion"
                                          style="">
-                                        <div class="card-body p-0">
+                                        <div class="card-body">
                                             <p class="mt-2"><b>Q: Can I see how much business you are generating
                                                     for me?</b></p>
                                             <p>Yes you certainly can. Logon to your Account and in the Dashboard
@@ -770,7 +768,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card">
+                                <div class="card common-card">
                                     <div class="card-header">
                                         <a class="card-link collapsed" data-toggle="collapse" href="#Profile"
                                            aria-expanded="false">
@@ -778,7 +776,7 @@
                                         </a>
                                     </div>
                                     <div id="Profile" class="collapse" data-parent="#accordion" style="">
-                                        <div class="card-body p-0">
+                                        <div class="card-body">
                                             <p class="mt-2"><b> Q: How do I make a great Profile?
                                                 </b>
                                             </p>
@@ -901,7 +899,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card">
+                                <div class="card common-card">
                                     <div class="card-header">
                                         <a class="card-link collapsed" data-toggle="collapse"
                                            href="#Telecommunications-services" aria-expanded="false">
@@ -910,7 +908,7 @@
                                     </div>
                                     <div id="Telecommunications-services" class="collapse"
                                          data-parent="#accordion" style="">
-                                        <div class="card-body p-0">
+                                        <div class="card-body">
                                             <p class="mt-2"><b>Q: What are these services?</b></p>
                                             <p>Escorts4U offers for your convenience:</p>
                                             <ul>
@@ -937,7 +935,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card">
+                                <div class="card common-card">
                                     <div class="card-header">
                                         <a class="card-link collapsed" data-toggle="collapse"
                                            href="#Travel-accommodation" aria-expanded="false">
@@ -946,7 +944,7 @@
                                     </div>
                                     <div id="Travel-accommodation" class="collapse" data-parent="#accordion"
                                          style="">
-                                        <div class="card-body p-0">
+                                        <div class="card-body">
                                             <p class="mt-2"><b>Q: Who is the engine behind this service?</b></p>
                                             <p>Escorts4U has partnered with a leading provider of travel,
                                                 accommodation and related services online bookings as a
@@ -964,7 +962,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card">
+                                <div class="card common-card ">
                                     <div class="card-header">
                                         <a class="card-link collapsed" data-toggle="collapse"
                                            href="#Ugly-Mugs-Registern" aria-expanded="false">
@@ -973,7 +971,7 @@
                                     </div>
                                     <div id="Ugly-Mugs-Registern" class="collapse" data-parent="#accordion"
                                          style="">
-                                        <div class="card-body p-0">
+                                        <div class="card-body">
                                             <p class="mt-2"><b>Q: What is the Ugly Mugs Register?</b></p>
                                             <p>The National Ugly Mugs register (NUM) is a pioneering, national
                                                 concept delivered by Escorts4U through this Website. It is
@@ -1053,7 +1051,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card">
+                                <div class="card common-card">
                                     <div class="card-header">
                                         <a class="card-link collapsed" data-toggle="collapse"
                                            href="#visa-applications" aria-expanded="false">
@@ -1062,7 +1060,7 @@
                                     </div>
                                     <div id="visa-applications" class="collapse" data-parent="#accordion"
                                          style="">
-                                        <div class="card-body p-0">
+                                        <div class="card-body">
                                             <p class="mt-2"><b> Q: How do I apply for a Visa?</b></p>
                                             <p>You can apply for a Visa online or engage a migration agent to
                                                 prepare your application on your behalf.</p>
@@ -1105,9 +1103,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
     @include('escort.dashboard.partials.playmates-modal')
 @endsection
 @push('script')

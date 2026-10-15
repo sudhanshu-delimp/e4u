@@ -47,7 +47,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div id="about_me" class="collapse show" data-parent="#accordion" style="">
-                        <div class="table-responsive" id="sailorTableArea">
+                        <div class="table-responsive  common-card" id="sailorTableArea">
                             <table id="myTable price-sec" class="table dataTable" width="100%" role="grid" aria-describedby="myTable_info">
                                 <thead class="text-center table-bg">
                                 <tr role="row">
@@ -120,7 +120,7 @@
                                 <li>Local Laws published in the relevant jurisdiction as at 1st January 2024.</li>
                             </ol>
                         </div>
-                        <div class="mt-5">
+                        <div class="mt-5  common-card">
                             <b>Changes to this Guide</b><br>
                             <span>This Guide was last updated on 02-2024.</span>
                         </div>

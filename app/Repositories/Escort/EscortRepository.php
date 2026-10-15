@@ -275,7 +275,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 $item->pro_name .= '<sup class="upgrade_icon listing-tag-tooltip ml-1">Upgraded
                 <small class="listing-tag-tooltip-desc">Upgraded from ' . $currentPurchase->previous_membership_type . ' to ' . $currentPurchase->membership_type . ' on ' . getEscortLocalTime($item->updated_at, $item->time_zone)->format('d-m-Y') . '.</small>
                 </sup>';
-                $item->tour = true;
             }
             /*Extend */
             if ($isExtended->count) {

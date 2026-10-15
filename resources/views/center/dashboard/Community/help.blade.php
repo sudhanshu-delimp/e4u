@@ -60,7 +60,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div id="accordion" class="myacording-design">
-                                        <div class="card">
+                                        <div class="card common-card">
                                             <div class="card-header">
                                                 <a class="card-link collapsed" data-toggle="collapse" href="#about_me"
                                                     aria-expanded="false">
@@ -68,7 +68,7 @@
                                                 </a>
                                             </div>
                                             <div id="about_me" class="collapse" data-parent="#accordion" style="">
-                                                <div class="card-body p-0">
+                                                <div class="card-body">
                                                     <div class="col-sm-12">
                                                         <p class="pt-2"><b>Q: What is a Massage Centre Profile?</b></p>
                                                         <p class="pbot">A uniquely designed Profile designed entirely for
@@ -312,7 +312,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card">
+                                        <div class="card common-card">
                                             <div class="card-header">
                                                 <a class="card-link collapsed" data-toggle="collapse"
                                                     href="#profile_and_tour_options" aria-expanded="false">
@@ -320,8 +320,8 @@
                                                 </a>
                                             </div>
                                             <div id="profile_and_tour_options" class="collapse" data-parent="#accordion"
-                                                style="">
-                                                <div class="card-body p-0">
+                                                >
+                                                <div class="card-body">
                                                     <div class="col-sm-12">
                                                         <p class="pt-2"><b>Q: What is Membership?</b></p>
                                                         <p class="pbot">
@@ -438,7 +438,7 @@
 
 
 
-                                        <div class="card">
+                                        <div class="card common-card">
                                             <div class="card-header">
                                                 <a class="card-link collapsed" data-toggle="collapse" href="#LoyaltyProgram"
                                                     aria-expanded="false">
@@ -447,7 +447,7 @@
                                             </div>
                                             <div id="LoyaltyProgram" class="collapse" data-parent="#accordion"
                                                 style="">
-                                                <div class="card-body p-0">
+                                                <div class="card-body">
                                                     <p class="mt-2"><b> Q: How do I pay for advertising? </b></p>
                                                     <p>Payment, by credit card, is requested when you post a Profile. If
                                                         you renew the Profile, your credit card will be debited
@@ -492,7 +492,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="card">
+                                        <div class="card common-card">
                                             <div class="card-header">
                                                 <a class="card-link collapsed" data-toggle="collapse"
                                                     href="#Profile-images" aria-expanded="false">
@@ -501,7 +501,7 @@
                                             </div>
                                             <div id="Profile-images" class="collapse" data-parent="#accordion"
                                                 style="">
-                                                <div class="card-body p-0">
+                                                <div class="card-body">
                                                     <p class="mt-2"><b> Q: Can I use fake images if they look very
                                                             similar to me?</b></p>
                                                     <p>Absolutely not. We have a strict policy that all images must
@@ -585,7 +585,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card">
+                                        <div class="card common-card">
                                             <div class="card-header">
                                                 <a class="card-link collapsed" data-toggle="collapse"
                                                     href="#Profile-reporting" aria-expanded="false">
@@ -594,7 +594,7 @@
                                             </div>
                                             <div id="Profile-reporting" class="collapse" data-parent="#accordion"
                                                 style="">
-                                                <div class="card-body p-0">
+                                                <div class="card-body">
                                                     <p class="mt-2"><b>Q: Can I see how much business you are generating
                                                             for me?</b></p>
                                                     <p>Yes you certainly can. Logon to your Account and in the Dashboard

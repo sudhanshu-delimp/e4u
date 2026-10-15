@@ -159,10 +159,7 @@
     font-size: 16px;
 }
 
-.stage-close span {
-    font-size: 24px;
-    cursor: pointer;
-}
+
 
 .hover-action {
     position: absolute;
@@ -237,28 +234,28 @@
      
       <div class="col-md-12">
          <div id="accordion" class="myacording-design mb-5" style="max-width: 100%;">
-            <div class="card custom-help-contain">
+            <div class="card custom-help-contain common-card">
                <div class="card-header">
                   <a class="card-link" data-toggle="collapse" href="#additional_information">
                   My Personal Information 
                   </a>
                </div>
                <div id="additional_information" class="collapse" data-parent="#accordion">
-                  <div class="card-body pb-0">
+                  <div class="card-body">
                 
                      @include('escort.dashboard.profile.information.partials.aboutme-dash-tab')
                   </div>
                </div>
             </div>
           
-            <div class="card custom-help-contain">
+            <div class="card custom-help-contain common-card">
                <div class="card-header">
                   <a class="card-link" data-toggle="collapse" href="#my_additional_information">
                   My Additional Information
                   </a>
                </div>
                <div id="my_additional_information" class="collapse" data-parent="#accordion">
-                  <div class="card-body pb-0">
+                  <div class="card-body">
                 
                      @include('escort.dashboard.profile.information.partials.my-additional-info')
                   </div>
@@ -266,7 +263,7 @@
             </div>
             
             
-             <div class="card custom-help-contain">
+             <div class="card custom-help-contain common-card">
                  <div class="card-header">
                      <a class="collapsed card-link" data-toggle="collapse" href="#my_available_times">
                          My Available Times
@@ -274,13 +271,13 @@
                      </a>
                  </div>
                  <div id="my_available_times" class="collapse" data-parent="#accordion">
-                     <div class="card-body pb-0">
+                     <div class="card-body">
                          @include('escort.dashboard.profile.information.partials.available-dash-tab')
                      </div>
                  </div>
              </div>
 
-            <div class="card custom-help-contain">
+            <div class="card custom-help-contain common-card">
                <div class="card-header">
                   <a class="collapsed card-link" data-toggle="collapse" href="#my_playmates">
                   My Playmates
@@ -288,13 +285,13 @@
                   </a>
                </div>
                <div id="my_playmates" class="collapse" data-parent="#accordion">
-                  <div class="card-body pb-0 pl-0 pr-0">
+                  <div class="card-body">
                      @include('escort.dashboard.Playmates.partials.playmates')
                   </div>
                </div>
             </div>
 
-            <div class="card custom-help-contain">
+            <div class="card custom-help-contain common-card">
                <div class="card-header">
                   <a class="collapsed card-link" data-toggle="collapse" href="#my_rates">
                   My Rates
@@ -302,14 +299,14 @@
                   </a>
                </div>
                <div id="my_rates" class="collapse" data-parent="#accordion">
-                  <div class="card-body pb-0">
+                  <div class="card-body">
                     
                      @include('escort.dashboard.profile.information.partials.rate-dash-tab')
                   </div>
                </div>
             </div>
 
-            <div class="card custom-help-contain">
+            <div class="card custom-help-contain common-card">
                <div class="card-header">
                   <a class="collapsed card-link" data-toggle="collapse" href="#my_service_tags">
                   My Service (tags)
@@ -317,21 +314,21 @@
                   </a>
                </div>
                <div id="my_service_tags" class="collapse" data-parent="#accordion">
-                  <div class="card-body pb-0">
+                  <div class="card-body">
                     
                      @include('escort.dashboard.profile.information.partials.services-dash-tab')
                   </div>
                </div>
             </div>
 
-            <div class="card custom-help-contain">
+            <div class="card custom-help-contain common-card">
                <div class="card-header">
                   <a class="collapsed card-link" data-toggle="collapse" href="#my_social_media">
                   My Social Media
                   </a>
                </div>
                <div id="my_social_media" class="collapse" data-parent="#accordion">
-                  <div class="card-body pb-0">
+                  <div class="card-body">
                   
                      @include('escort.dashboard.profile.information.partials.social-media-dash-tab')
                   </div>

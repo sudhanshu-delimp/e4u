@@ -502,11 +502,11 @@ img#blah8 {
                                                 <div class="lg_verify_icon" id="verify_icon_9" style="{{ !empty($imageData['id']) && $media_details->template != '1' ? '' : 'display:none;' }}">
                                                     @if(!empty($imageData['id']))
                                                         @if($status == "0")
-                                                            <img src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
+                                                            <img src="{{ asset('assets/app/img/verify/e4u_pending.png') }}">
                                                         @elseif($status == "1")
-                                                            <img src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
+                                                            <img src="{{ asset('assets/app/img/verify/e4u_verified.png') }}">
                                                         @else
-                                                            <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
+                                                            <img src="{{ asset('assets/app/img/verify/unverified_dark.png') }}">
                                                         @endif
                                                     @endif
                                                    

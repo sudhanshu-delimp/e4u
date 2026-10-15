@@ -438,7 +438,7 @@ class OperatorMonthlyReportController extends BaseController
             $data['message'] = '';
             $data['created_at'] = date('Y-m-d H:i:s');
             $data['updated_at'] = date('Y-m-d H:i:s');
-            $notification->insert($data);
+            $notification->create($data);
           }
           return $pdf->stream($fileName);
         }
