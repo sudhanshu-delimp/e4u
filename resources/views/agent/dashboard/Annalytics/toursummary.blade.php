@@ -225,10 +225,10 @@
                                     <thead>
                                         <tr style="background-color: #0c223d; color: white; font-weight: bold; text-align:center">
                                         
+                                            <th style="text-align:center;">Tour Name</th>
                                             <th style="text-align:center;">Member ID</th>
                                             <th style="text-align:center;">Name</th>
                                             <th style="text-align:center;">Mobile</th>
-                                            <th style="text-align:center;">Tour Name</th>
                                             <th style="text-align:center;">Locations</th>
                                             <th style="text-align:center;">Start Date</th>
                                             <th style="text-align:center;">End Date</th>
@@ -629,10 +629,10 @@
                         html += `
                             <tr>
                                
+                                <td class="text-center">${item.tour_name}</td>
                                 <td class="text-center">${item.member_id}</td>
-                                <td>${item.name}</td>
-                                <td>${item.mobile}</td>
-                                <td>${item.tour_name}</td>
+                                <td class="text-center">${item.name}</td>
+                                <td class="text-center">${item.mobile}</td>
                                 <td class="text-center">${item.no_of_location}</td>
                                 <td class="text-center">${item.start_date}</td>
                                 <td class="text-center">${item.end_date}</td>

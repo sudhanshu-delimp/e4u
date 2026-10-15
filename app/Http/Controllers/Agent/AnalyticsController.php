@@ -557,8 +557,6 @@ class AnalyticsController extends Controller
             'to_date'   => ['required', 'date', 'after_or_equal:from_date'],
         ]);
 
-     
-
         $fromDate = date('Y-m-d', strtotime($request->from_date));
         $toDate   = date('Y-m-d', strtotime($request->to_date));
         
@@ -579,7 +577,10 @@ class AnalyticsController extends Controller
         $alltours = $tours->map(function ($row, $index) {
 
             $paymentHistory = $this->getPaymentHistoryData($row);
-            $totalFee = $this->getPaymentAmount($row);
+            $pin_up_amount = $this->getPinupAmount($row);
+            $sum_listing_fees = $this->getPaymentAmount($row);
+            $totalFee  = $pin_up_amount + $sum_listing_fees;
+
             $comm_fee = ($paymentHistory && $paymentHistory->commissions) 
                 ? $paymentHistory->commissions->sum('total_commission_amount') 
                 : 0;

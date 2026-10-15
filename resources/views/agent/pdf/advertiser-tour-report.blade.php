@@ -95,11 +95,12 @@
     <table>
         <thead>
             <tr>
-                <th>#</th>
+               
+                <th>Tour Title</th>
                 <th>Member ID</th>
                 <th>Name</th>
                 <th>Mobile</th>
-                <th>Tour Title</th>
+               
                 <th>Number of Locations</th>
                 <th>Start Date</th>
                 <th>End Date</th>
@@ -113,13 +114,13 @@
         <tbody>
             @forelse($alltours as $row)
                 <tr>
-                    <td>{{ $row['s_no'] }}</td>
+                    <td>{{ $row['tour_name'] }}</td>
                     <td>{{ $row['member_id'] }}</td>
                     <td>{{ $row['name'] }}</td>
                     <td>{{ $row['mobile'] }}</td>
                     
-                    <td>{{ $row['tour_name'] }}</td>
-                    <td>{{ $row['no_of_location'] }}</td>
+                   
+                    <td class="text-center">{{ $row['no_of_location'] }}</td>
                     <td>{{ $row['start_date'] }}</td>
                     <td>{{ $row['end_date'] }}</td>
 
