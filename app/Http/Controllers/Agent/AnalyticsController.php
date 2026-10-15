@@ -409,9 +409,9 @@ class AnalyticsController extends Controller
 
                 ->addColumn('listing_fee', function ($row)  {
 
-                        $paymentHistory = $this->getPaymentHistoryData($row);
+                      
                         $pin_up_amount = $this->getPinupAmount($row);
-                        $sum_listing_fees = $paymentHistory ? $paymentHistory->net_amount : 0;
+                        $sum_listing_fees = $this->getPaymentAmount($row);
                         $totalFee  = $pin_up_amount + $sum_listing_fees;
                         $fee = formatCurrency($totalFee, '');
                         return '<div class="num_value">$<span>' . $fee . '</span></div>';
@@ -459,6 +459,26 @@ class AnalyticsController extends Controller
                 ->make(true);
 
     } 
+
+
+    private function getPaymentAmount($row)
+    {
+        $totalAmount = 0;
+        $purchaseIds = collect($row->tourPurchase)->pluck('id')->filter()->unique();
+
+        //  Log::info($row->id.'========'.$row->name);
+        //  Log::info($purchaseIds);
+        //  Log::info('========');
+
+        if ($purchaseIds->isEmpty()) {
+            return $totalAmount;
+        }
+
+        $totalAmount = PaymentItem::whereIn('item_id', $purchaseIds)
+        ->where('item_type', 'App\Models\Purchase')
+        ->sum('amount');
+        return  $totalAmount;
+    }
 
     private function getPaymentHistoryData($row)
     {
@@ -557,9 +577,9 @@ class AnalyticsController extends Controller
         }
 
         $alltours = $tours->map(function ($row, $index) {
+
             $paymentHistory = $this->getPaymentHistoryData($row);
-            
-            $totalFee = $paymentHistory ? $paymentHistory->net_amount : 0;
+            $totalFee = $this->getPaymentAmount($row);
             $comm_fee = ($paymentHistory && $paymentHistory->commissions) 
                 ? $paymentHistory->commissions->sum('total_commission_amount') 
                 : 0;
