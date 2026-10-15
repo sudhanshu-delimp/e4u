@@ -410,7 +410,9 @@ class AnalyticsController extends Controller
                 ->addColumn('listing_fee', function ($row)  {
 
                         $paymentHistory = $this->getPaymentHistoryData($row);
-                        $totalFee = $paymentHistory ? $paymentHistory->net_amount : 0;
+                        $pin_up_amount = $this->getPinupAmount($row);
+                        $sum_listing_fees = $paymentHistory ? $paymentHistory->net_amount : 0;
+                        $totalFee  = $pin_up_amount + $sum_listing_fees;
                         $fee = formatCurrency($totalFee, '');
                         return '<div class="num_value">$<span>' . $fee . '</span></div>';
                 })
@@ -479,6 +481,35 @@ class AnalyticsController extends Controller
 
         return PaymentHistory::with('commissions')->whereIn('id', $paymentHistoryIds)->first();
     }
+
+    private function getPinupAmount($row)
+    {
+       
+        $pinup_amount = 0; 
+        if(!empty($row->locations))
+        {
+           foreach($row->locations as $location) 
+            {
+                if($location->is_pinup=='1')
+                {
+                    $pinup_profiles = $location->profiles->whereNotNull('is_pinup');
+                    $pinup_data = $pinup_profiles[0] ?? null;
+
+                    if ($pinup_data && !empty($pinup_data['is_pinup'])) 
+                    {
+                        $PaymentItem = PaymentItem::where('item_id', $pinup_data['is_pinup'])
+                            ->where('item_type', 'App\Models\EscortPinup')
+                            ->first();
+
+                        $pinup_amount  += $PaymentItem ? $PaymentItem->amount : 0;
+                    }
+                }
+            }
+        }
+      
+        return $pinup_amount;
+    }
+
 
     private function getPinup($row)
     {
@@ -656,7 +687,7 @@ class AnalyticsController extends Controller
                     $pinup_array['start_date'] = $escort_pinup->start_date;
                     $pinup_array['end_date'] = $escort_pinup->end_date;
                     $pinup_array['days'] = '(1 week)';
-                    $pinup_array['listing_fee'] = $PaymentItem ? $PaymentItem->amount : 0;
+                    $pinup_array['listing_fee'] = $PaymentItem ? $PaymentItem->amount: 0;
                     $listingFee += $PaymentItem ? $PaymentItem->amount : 0;
                   
                 }
@@ -670,7 +701,7 @@ class AnalyticsController extends Controller
                 'start_date'      => $startDate,
                 'end_date'        => $endDate,
                 'days'            => $days,
-                'listing_fee'     => $listingFee,
+                'listing_fee'     => formatAmount($listingFee),
                 'membership'      => $membership,
                 'is_pinup'        => $is_pinup,
                 'pinup_data'      => $pinup_array,
