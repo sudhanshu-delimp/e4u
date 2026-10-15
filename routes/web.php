@@ -1002,4 +1002,11 @@ Route::middleware(['web', 'auth'])->prefix('chat')->name('chat.')->group(functio
 
     Route::get('/attachments/{attachment}', [ChatController::class, 'attachment'])
         ->whereNumber('attachment')->name('attachment');
+
+    Route::get('/conversations/{conversation}/contact', [ChatController::class, 'contact'])
+        ->whereNumber('conversation')->name('contact');
+    Route::post('/conversations/{conversation}/archive', [ChatController::class, 'archive'])
+        ->whereNumber('conversation')->name('archive');
+    Route::post('/conversations/{conversation}/delete', [ChatController::class, 'destroy'])
+        ->whereNumber('conversation')->name('delete');
 });

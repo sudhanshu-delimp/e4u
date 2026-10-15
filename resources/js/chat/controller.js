@@ -1,6 +1,7 @@
 import { createEcho } from './echo';
 import { createApi } from './api';
 import * as view from './render';
+import { initChatActions } from './actions';
 
 // UI filter value -> server filter value
 const FILTERS = { chats: 'active', archived: 'archived', deleted: 'deleted' };
@@ -152,6 +153,19 @@ export function initChat(root) {
         document.querySelectorAll('.more-info-wrapper.open').forEach((w) => w.classList.remove('open'));
     }
 
+        // Leave the open chat (after it is archived or deleted)
+    function closeActive() {
+        state.activeId = null;
+        state.messages = [];
+        state.hasMore = false;
+
+        clearAttachPreview();
+        renderHeader(null);
+        renderMessages();
+        setComposerEnabled(false);
+        renderList();
+    }
+
     function setComposerEnabled(enabled) {
         el.input.disabled = !enabled;
         el.sendBtn.disabled = !enabled;
@@ -192,6 +206,7 @@ export function initChat(root) {
         const user = conv.user;
         const online = isUserOnline(user);
         const typing = !!state.typing[conv.id];
+        
         const abbr = (config.states || {})[user.location_id] || '-';
 
         el.headerAvatar.setAttribute('style', view.avatarStyle(user.color));
@@ -203,8 +218,8 @@ export function initChat(root) {
             : `<span class="status-dot${online ? '' : ' offline'}"></span> ${online ? 'Active' : 'Offline'}`;
 
         el.headerMeta.innerHTML =
-            `Type: ${view.escapeHtml(config.peerLabel || '')} <span>|</span> ` +
-            `ID: ${view.escapeHtml(user.member_id)} <span>|</span> ` +
+            `Type: ${view.escapeHtml((config.typeLabels || {})[user.type] || '')} <span>|</span> ` +
+            `Member ID: ${view.escapeHtml(user.member_id)} <span>|</span> ` +
             `Location: ${view.escapeHtml(abbr)}`;
     }
 
@@ -594,7 +609,12 @@ export function initChat(root) {
 
     let memberTimer = null;
 
-    async function searchMembers(term) {
+       async function searchMembers(term) {
+        // Show a loading line only when there are no results on screen yet
+        if (!el.memberResults.querySelector('.member-result')) {
+            el.memberResults.innerHTML = `<div class="chat-empty" style="${EMPTY_STYLE}">Loading...</div>`;
+        }
+
         try {
             const res = await api.members(term);
 
@@ -603,11 +623,15 @@ export function initChat(root) {
                 return;
             }
 
-            el.memberResults.innerHTML = res.data.length
-                ? res.data.map(view.memberResultHtml).join('')
-                : '<div class="no-search-result"><i class="bi bi-person-x"></i> No eligible member found</div>';
+            if (res.data.length) {
+                el.memberResults.innerHTML = res.data.map(view.memberResultHtml).join('');
+            } else {
+                el.memberResults.innerHTML = term
+                    ? '<div class="no-search-result"><i class="bi bi-person-x"></i> No eligible member found</div>'
+                    : `<div class="chat-empty" style="${EMPTY_STYLE}">No members available to add.</div>`;
+            }
         } catch (error) {
-            el.memberResults.innerHTML = `<div class="chat-empty" style="${EMPTY_STYLE}">Search failed. Try again.</div>`;
+            el.memberResults.innerHTML = `<div class="chat-empty" style="${EMPTY_STYLE}">Could not load members. Try again.</div>`;
         }
     }
 
@@ -635,23 +659,20 @@ export function initChat(root) {
             closeMemberModal();
             renderList();
             openConversation(res.conversation_id);
+            loadList();
         } catch (error) {
             notify(error.message || 'Chat could not be started.', 'error');
         }
     }
 
-    if (el.memberSearch) {
+        if (el.memberSearch) {
         el.memberSearch.addEventListener('input', function () {
             clearTimeout(memberTimer);
 
             const term = this.value.trim();
 
-            if (term.length < 2) {
-                el.memberResults.innerHTML = MEMBER_HINT;
-                return;
-            }
-
-            memberTimer = setTimeout(() => searchMembers(term), 300);
+            // An empty box shows everyone who can be added
+            memberTimer = setTimeout(() => searchMembers(term), term ? 300 : 0);
         });
     }
 
@@ -737,8 +758,14 @@ export function initChat(root) {
             return;
         }
 
+        // New button: show everyone who can be added (the older script opens the modal)
+        if (target.closest('#newChatBtn')) {
+            el.memberSearch.value = '';
+            searchMembers('');
+        }
+
         // Filter options (do not stop propagation, the old script still closes the dropdown)
-        const option = target.closest('.filter-option');
+        const option = target.closest('#filterDropdown .filter-option');
 
         if (option) {
             state.filter = FILTERS[option.dataset.filter] || 'active';
@@ -843,6 +870,18 @@ export function initChat(root) {
             state.online.delete(user.id);
             refreshLiveUi();
         });
+
+    initChatActions({
+        root,
+        state,
+        api,
+        notify,
+        findConv,
+        loadList,
+        closeActive,
+        closeAllChatMenus,
+        isUserOnline,
+    });
 
     loadList();
 }

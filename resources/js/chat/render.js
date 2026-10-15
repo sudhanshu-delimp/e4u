@@ -216,6 +216,21 @@ export function chatItemHtml(conv, ctx) {
                             Mark as Read
                         </button>
 
+                        <button type="button" class="filter-option chat-action" data-action="contact">
+                            <i class="bi bi-person-vcard"></i>
+                            Contact Info
+                        </button>
+
+                        <button type="button" class="filter-option chat-action" data-action="archive">
+                            <i class="bi bi-archive"></i>
+                            ${conv.is_archived ? 'Unarchive' : 'Archive'}
+                        </button>
+
+                        <button type="button" class="filter-option chat-action" data-action="delete">
+                            <i class="bi bi-trash3"></i>
+                            Delete
+                        </button>
+
                     </div>
 
                 </div>
@@ -235,7 +250,7 @@ function attachmentsHtml(msg) {
         if (a.kind === 'image') {
             return `<a href="${url}" target="_blank" rel="noopener">
                 <img src="${url}" alt="" loading="lazy"
-                    style="max-width:240px;max-height:260px;border-radius:8px;display:block;">
+                    style="max-width:79px;max-height:260px;border-radius:8px;display:block;">
             </a>`;
         }
 
@@ -308,7 +323,7 @@ export function memberResultHtml(member) {
 
             <div class="member-info">
                 <strong>${escapeHtml(member.name)}</strong>
-                <span>${escapeHtml(member.member_id)}</span>
+                <span>${escapeHtml(member.member_id)}${member.type_label ? ' · ' + escapeHtml(member.type_label) : ''}</span>
             </div>
 
             <button type="button" class="add-member-action">

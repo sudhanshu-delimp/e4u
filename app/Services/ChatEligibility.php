@@ -27,6 +27,17 @@ class ChatEligibility
     }
 
     /**
+     * Can these two users keep chatting (an existing chat or a new one)?
+     * Checks the type rules, blocks and the Agent appointment.
+     */
+    public function canContinue(User $a, User $b): bool
+    {
+        return $this->permission->canChat($a, $b)
+            && ! $this->isBlockedEitherWay($a->id, $b->id)
+            && $this->isAppointed($a, $b);
+    }
+
+    /**
      * Can $starter start a new chat with $target?
      * Returns ['ok' => bool, 'reason' => string|null].
      */
@@ -40,11 +51,44 @@ class ChatEligibility
             return $this->deny('You cannot message this user.');
         }
 
+        if (! $this->isAppointed($starter, $target)) {
+            return $this->deny(
+                $this->isAgent($starter)
+                    ? 'This advertiser has not appointed you as their Agent.'
+                    : 'You can only message your appointed Agent.'
+            );
+        }
+
         if ($this->permission->needsViewerChecks($starter, $target)) {
             return $this->escortToViewer($starter, $target);
         }
 
         return ['ok' => true, 'reason' => null];
+    }
+
+    protected function isAgent(User $user): bool
+    {
+        return (int) $user->type === (int) config('chat.types.agent');
+    }
+
+    /**
+     * Agent <-> advertiser chats need the advertiser to have appointed that agent
+     * (users.assigned_agent_id = the agent's users.id). Other pairs are not affected.
+     */
+    protected function isAppointed(User $a, User $b): bool
+    {
+        $aIsAgent = $this->isAgent($a);
+        $bIsAgent = $this->isAgent($b);
+
+        // Not an agent pair
+        if ($aIsAgent === $bIsAgent) {
+            return true;
+        }
+
+        $agent      = $aIsAgent ? $a : $b;
+        $advertiser = $aIsAgent ? $b : $a;
+
+        return (int) $advertiser->assigned_agent_id === (int) $agent->id;
     }
 
     /**

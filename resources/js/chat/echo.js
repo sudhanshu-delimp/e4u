@@ -4,14 +4,16 @@ import Pusher from 'pusher-js';
 window.Pusher = Pusher;
 
 export function createEcho(csrfToken) {
-    return new Echo({
+    const host = process.env.MIX_PUSHER_HOST;
+    const port = process.env.MIX_PUSHER_PORT;
+    const scheme = process.env.MIX_PUSHER_SCHEME;
+
+    const options = {
         broadcaster: 'pusher',
         key: process.env.MIX_PUSHER_APP_KEY,
         cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-        wsHost: process.env.MIX_PUSHER_HOST,
-        wsPort: process.env.MIX_PUSHER_PORT,
-        wssPort: process.env.MIX_PUSHER_PORT,
-        forceTLS: process.env.MIX_PUSHER_SCHEME === 'https',
+        // Pusher cloud (no custom host) always uses TLS
+        forceTLS: !host || scheme === 'https',
         enabledTransports: ['ws', 'wss'],
         disableStats: true,
         authEndpoint: '/broadcasting/auth',
@@ -20,5 +22,14 @@ export function createEcho(csrfToken) {
                 'X-CSRF-TOKEN': csrfToken || '',
             },
         },
-    });
+    };
+
+    // A self-hosted server (Soketi) needs its own host and port
+    if (host) {
+        options.wsHost = host;
+        options.wsPort = port;
+        options.wssPort = port;
+    }
+
+    return new Echo(options);
 }

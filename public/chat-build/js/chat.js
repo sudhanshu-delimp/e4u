@@ -1,6 +1,241 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./resources/js/chat/actions.js":
+/*!**************************************!*\
+  !*** ./resources/js/chat/actions.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   initChatActions: () => (/* binding */ initChatActions)
+/* harmony export */ });
+/* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./render */ "./resources/js/chat/render.js");
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+
+
+/**
+ * Row menu actions (Contact Info, Archive, Delete) and the header Contact Info button.
+ * Capture-phase listeners keep the older static UI script from running its demo handlers.
+ */
+function initChatActions(ctx) {
+  var root = ctx.root,
+    state = ctx.state,
+    api = ctx.api,
+    notify = ctx.notify,
+    findConv = ctx.findConv,
+    loadList = ctx.loadList,
+    closeActive = ctx.closeActive,
+    closeAllChatMenus = ctx.closeAllChatMenus,
+    isUserOnline = ctx.isUserOnline;
+  var overlay = null;
+  function closeModal() {
+    if (!overlay) {
+      return;
+    }
+    overlay.remove();
+    overlay = null;
+    document.removeEventListener('keydown', onKey, true);
+  }
+  function onKey(event) {
+    if (event.key === 'Escape') {
+      event.stopPropagation();
+      closeModal();
+    }
+  }
+  function openContactModal(info) {
+    closeModal();
+    var online = isUserOnline({
+      id: info.id,
+      last_online_at: info.last_online_at
+    });
+    var status = 'Offline';
+    if (online) {
+      status = 'Active now';
+    } else if (info.last_online_at) {
+      status = 'Last seen ' + info.last_online_at;
+    }
+    var rows = [['Member ID', info.member_id], ['Type', info.type], ['Phone', info.phone || 'N/A'], ['Location', info.location], ['Home state', info.home_state], ['Member since', info.member_since]
+    // ['Status', status],
+    ].filter(function (row) {
+      return row[1];
+    });
+    var rowsHtml = rows.map(function (row) {
+      return "\n            <div class=\"form-group row border-bottom\">\n                <label class=\"col-sm-5\"><strong>".concat(_render__WEBPACK_IMPORTED_MODULE_0__.escapeHtml(row[0]), ":</strong></label>\n                <div class=\"col-sm-7 text-right\">\n                    ").concat(_render__WEBPACK_IMPORTED_MODULE_0__.escapeHtml(row[1]), "\n                </div>\n            </div>\n        ");
+    }).join('');
+    overlay = document.createElement('div');
+    overlay.className = 'chat-contact-overlay';
+
+    // Sits above the whole page, so the modal and its backdrop are always visible
+    overlay.setAttribute('style', 'position:fixed;inset:0;z-index:99999;');
+    overlay.innerHTML = "\n            <div class=\"modal-backdrop fade show\"></div>\n\n            <div class=\"modal fade upload-modal modal-form-cancel show\"\n                 role=\"dialog\"\n                 aria-modal=\"true\"\n                 style=\"display:block;overflow-y:auto;\">\n\n                <div class=\"modal-dialog modal-dialog-centered modal-md\"\n                     role=\"document\">\n\n                    <div class=\"modal-content\">\n\n                        <div class=\"modal-header\">\n                            <h5 class=\"modal-title\">\n                                <img src=\"/assets/dashboard/img/list-profile.png\"\n                                     class=\"custompopicon\"\n                                     alt=\"Contact\">\n                                Contact Details\n                            </h5>\n\n                            <button type=\"button\"\n                                    class=\"close chat-contact-close\"\n                                    aria-label=\"Close\">\n                                <span aria-hidden=\"true\">\n                                    <img src=\"/assets/app/img/newcross.png\"\n                                         class=\"img-fluid img_resize_in_smscreen\"\n                                         alt=\"Close\">\n                                </span>\n                            </button>\n                        </div>\n\n                        <div class=\"modal-body\">\n                            <div class=\"container p-0\">\n\n                                <div class=\"text-center mb-4\">\n                                    <div class=\"d-flex justify-content-center mb-3\">\n                                        <div style=\"position:relative;\">\n                                            <div style=\"".concat(_render__WEBPACK_IMPORTED_MODULE_0__.avatarStyle(info.color), "width:84px;height:84px;border-radius:16px;font-size:26px;\">\n                                                ").concat(_render__WEBPACK_IMPORTED_MODULE_0__.avatarInner({
+      name: info.name,
+      avatar: info.avatar
+    }), "\n                                            </div>\n                                            ").concat(online ? '<span style="position:absolute;right:-4px;bottom:-4px;width:16px;height:16px;border-radius:50%;background:#22c55e;border:3px solid #fff;"></span>' : '', "\n                                        </div>\n                                    </div>\n\n                                    <h5>").concat(_render__WEBPACK_IMPORTED_MODULE_0__.escapeHtml(info.name || ''), "</h5>\n\n                                    <p class=\"mb-0\">\n                                        ").concat(_render__WEBPACK_IMPORTED_MODULE_0__.escapeHtml(status), "\n                                    </p>\n                                </div>\n\n                                <hr>\n\n                                ").concat(rowsHtml, "\n\n                            </div>\n                        </div>\n\n                    </div>\n                </div>\n            </div>\n        ");
+    overlay.addEventListener('click', function (event) {
+      // The close buttons, the dark area around the dialog, or the backdrop
+      if (event.target.closest('.chat-contact-close') || event.target.classList.contains('modal') || event.target.classList.contains('modal-backdrop')) {
+        closeModal();
+      }
+    });
+    document.body.appendChild(overlay);
+    document.addEventListener('keydown', onKey, true);
+  }
+  function showContact(_x) {
+    return _showContact.apply(this, arguments);
+  }
+  function _showContact() {
+    _showContact = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(id) {
+      var res, _t;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.p = _context.n) {
+          case 0:
+            _context.p = 0;
+            _context.n = 1;
+            return api.contact(id);
+          case 1:
+            res = _context.v;
+            openContactModal(res.data);
+            _context.n = 3;
+            break;
+          case 2:
+            _context.p = 2;
+            _t = _context.v;
+            notify(_t.message || 'Could not load contact info.', 'error');
+          case 3:
+            return _context.a(2);
+        }
+      }, _callee, null, [[0, 2]]);
+    }));
+    return _showContact.apply(this, arguments);
+  }
+  function archiveChat(_x2) {
+    return _archiveChat.apply(this, arguments);
+  }
+  function _archiveChat() {
+    _archiveChat = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(id) {
+      var conv, archive, _t2;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.p = _context2.n) {
+          case 0:
+            conv = findConv(id);
+            archive = !(conv && conv.is_archived);
+            _context2.p = 1;
+            _context2.n = 2;
+            return api.archive(id, archive);
+          case 2:
+            if (state.activeId === id) {
+              closeActive();
+            }
+            _context2.n = 3;
+            return loadList();
+          case 3:
+            if (archive) {
+              showAlert('success', 'Chat archived.');
+            } else {
+              showAlert('success', 'Chat moved back to your list.');
+            }
+            _context2.n = 5;
+            break;
+          case 4:
+            _context2.p = 4;
+            _t2 = _context2.v;
+            notify(_t2.message || 'Action failed.', 'error');
+          case 5:
+            return _context2.a(2);
+        }
+      }, _callee2, null, [[1, 4]]);
+    }));
+    return _archiveChat.apply(this, arguments);
+  }
+  function deleteChat(_x3) {
+    return _deleteChat.apply(this, arguments);
+  }
+  function _deleteChat() {
+    _deleteChat = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(id) {
+      var _t3;
+      return _regenerator().w(function (_context3) {
+        while (1) switch (_context3.p = _context3.n) {
+          case 0:
+            if (window.confirm('Delete this chat? The other person will still keep it.')) {
+              _context3.n = 1;
+              break;
+            }
+            return _context3.a(2);
+          case 1:
+            _context3.p = 1;
+            _context3.n = 2;
+            return api.deleteChat(id);
+          case 2:
+            if (state.activeId === id) {
+              closeActive();
+            }
+            _context3.n = 3;
+            return loadList();
+          case 3:
+            notify('Chat deleted.', 'success');
+            _context3.n = 5;
+            break;
+          case 4:
+            _context3.p = 4;
+            _t3 = _context3.v;
+            notify(_t3.message || 'Chat could not be deleted.', 'error');
+          case 5:
+            return _context3.a(2);
+        }
+      }, _callee3, null, [[1, 4]]);
+    }));
+    return _deleteChat.apply(this, arguments);
+  }
+  document.addEventListener('click', function (event) {
+    var target = event.target;
+    if (!root.contains(target)) {
+      return;
+    }
+
+    // Buttons inside a chat row menu
+    var action = target.closest('.chat-action');
+    if (action) {
+      event.preventDefault();
+      event.stopPropagation();
+      var item = action.closest('.chat-user');
+      closeAllChatMenus();
+      if (!item) {
+        return;
+      }
+      var id = Number(item.dataset.id);
+      if (action.dataset.action === 'contact') {
+        showContact(id);
+      } else if (action.dataset.action === 'archive') {
+        archiveChat(id);
+      } else if (action.dataset.action === 'delete') {
+        deleteChat(id);
+      }
+      return;
+    }
+
+    // Contact Info in the header three dots menu
+    if (target.closest('#contactInfoBtn')) {
+      event.preventDefault();
+      event.stopPropagation();
+      var wrapper = document.querySelector('.more-wrapper');
+      if (wrapper) {
+        wrapper.classList.remove('open');
+      }
+      if (state.activeId) {
+        showContact(state.activeId);
+      }
+    }
+  }, true);
+}
+
+/***/ }),
+
 /***/ "./resources/js/chat/api.js":
 /*!**********************************!*\
   !*** ./resources/js/chat/api.js ***!
@@ -27,7 +262,7 @@ function createApi(_ref) {
     routes = _ref.routes;
   function request(_x) {
     return _request.apply(this, arguments);
-  }
+  } // Conversation URLs are built from the messages route: .../conversations/__ID__/messages
   function _request() {
     _request = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(url) {
       var options,
@@ -92,6 +327,9 @@ function createApi(_ref) {
     }));
     return _request.apply(this, arguments);
   }
+  var conversationUrl = function conversationUrl(id, suffix) {
+    return routes.messages.replace('__ID__', id).replace(/\/messages$/, suffix ? '/' + suffix : '');
+  };
   var withId = function withId(template, id) {
     return template.replace('__ID__', id);
   };
@@ -147,6 +385,22 @@ function createApi(_ref) {
       return request(withId(routes.typing, id), {
         method: 'POST'
       });
+    },
+    contact: function contact(id) {
+      return request(conversationUrl(id, 'contact'));
+    },
+    archive: function archive(id, archived) {
+      return request(conversationUrl(id, 'archive'), {
+        method: 'POST',
+        body: JSON.stringify({
+          archived: archived
+        })
+      });
+    },
+    deleteChat: function deleteChat(id) {
+      return request(conversationUrl(id, 'delete'), {
+        method: 'POST'
+      });
     }
   };
 }
@@ -167,10 +421,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _echo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./echo */ "./resources/js/chat/echo.js");
 /* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./api */ "./resources/js/chat/api.js");
 /* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./render */ "./resources/js/chat/render.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions */ "./resources/js/chat/actions.js");
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+
 
 
 
@@ -323,6 +579,18 @@ function initChat(root) {
       return w.classList.remove('open');
     });
   }
+
+  // Leave the open chat (after it is archived or deleted)
+  function closeActive() {
+    state.activeId = null;
+    state.messages = [];
+    state.hasMore = false;
+    clearAttachPreview();
+    renderHeader(null);
+    renderMessages();
+    setComposerEnabled(false);
+    renderList();
+  }
   function setComposerEnabled(enabled) {
     el.input.disabled = !enabled;
     el.sendBtn.disabled = !enabled;
@@ -367,7 +635,7 @@ function initChat(root) {
     el.headerAvatar.innerHTML = _render__WEBPACK_IMPORTED_MODULE_2__.avatarInner(user);
     el.headerName.textContent = user.name;
     el.headerStatus.innerHTML = typing ? '<span style="color:#25a244;font-style:italic;">typing...</span>' : "<span class=\"status-dot".concat(online ? '' : ' offline', "\"></span> ").concat(online ? 'Active' : 'Offline');
-    el.headerMeta.innerHTML = "Type: ".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(config.peerLabel || ''), " <span>|</span> ") + "ID: ".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(user.member_id), " <span>|</span> ") + "Location: ".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(abbr));
+    el.headerMeta.innerHTML = "Type: ".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml((config.typeLabels || {})[user.type] || ''), " <span>|</span> ") + "Member ID: ".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(user.member_id), " <span>|</span> ") + "Location: ".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(abbr));
   }
   function renderMessages() {
     if (!state.activeId) {
@@ -779,28 +1047,36 @@ function initChat(root) {
       return _regenerator().w(function (_context6) {
         while (1) switch (_context6.p = _context6.n) {
           case 0:
-            _context6.p = 0;
-            _context6.n = 1;
+            // Show a loading line only when there are no results on screen yet
+            if (!el.memberResults.querySelector('.member-result')) {
+              el.memberResults.innerHTML = "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">Loading...</div>");
+            }
+            _context6.p = 1;
+            _context6.n = 2;
             return api.members(term);
-          case 1:
+          case 2:
             res = _context6.v;
             if (!(el.memberSearch.value.trim() !== term)) {
-              _context6.n = 2;
+              _context6.n = 3;
               break;
             }
             return _context6.a(2);
-          case 2:
-            el.memberResults.innerHTML = res.data.length ? res.data.map(_render__WEBPACK_IMPORTED_MODULE_2__.memberResultHtml).join('') : '<div class="no-search-result"><i class="bi bi-person-x"></i> No eligible member found</div>';
-            _context6.n = 4;
-            break;
           case 3:
-            _context6.p = 3;
-            _t5 = _context6.v;
-            el.memberResults.innerHTML = "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">Search failed. Try again.</div>");
+            if (res.data.length) {
+              el.memberResults.innerHTML = res.data.map(_render__WEBPACK_IMPORTED_MODULE_2__.memberResultHtml).join('');
+            } else {
+              el.memberResults.innerHTML = term ? '<div class="no-search-result"><i class="bi bi-person-x"></i> No eligible member found</div>' : "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">No members available to add.</div>");
+            }
+            _context6.n = 5;
+            break;
           case 4:
+            _context6.p = 4;
+            _t5 = _context6.v;
+            el.memberResults.innerHTML = "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">Could not load members. Try again.</div>");
+          case 5:
             return _context6.a(2);
         }
-      }, _callee6, null, [[0, 3]]);
+      }, _callee6, null, [[1, 4]]);
     }));
     return _searchMembers.apply(this, arguments);
   }
@@ -837,6 +1113,7 @@ function initChat(root) {
             closeMemberModal();
             renderList();
             openConversation(res.conversation_id);
+            loadList();
             _context7.n = 3;
             break;
           case 2:
@@ -854,13 +1131,11 @@ function initChat(root) {
     el.memberSearch.addEventListener('input', function () {
       clearTimeout(memberTimer);
       var term = this.value.trim();
-      if (term.length < 2) {
-        el.memberResults.innerHTML = MEMBER_HINT;
-        return;
-      }
+
+      // An empty box shows everyone who can be added
       memberTimer = setTimeout(function () {
         return searchMembers(term);
-      }, 300);
+      }, term ? 300 : 0);
     });
   }
   el.memberResults.addEventListener('click', function (event) {
@@ -932,8 +1207,14 @@ function initChat(root) {
       return;
     }
 
+    // New button: show everyone who can be added (the older script opens the modal)
+    if (target.closest('#newChatBtn')) {
+      el.memberSearch.value = '';
+      searchMembers('');
+    }
+
     // Filter options (do not stop propagation, the old script still closes the dropdown)
-    var option = target.closest('.filter-option');
+    var option = target.closest('#filterDropdown .filter-option');
     if (option) {
       state.filter = FILTERS[option.dataset.filter] || 'active';
       loadList();
@@ -1037,6 +1318,17 @@ function initChat(root) {
     state.online["delete"](user.id);
     refreshLiveUi();
   });
+  (0,_actions__WEBPACK_IMPORTED_MODULE_3__.initChatActions)({
+    root: root,
+    state: state,
+    api: api,
+    notify: notify,
+    findConv: findConv,
+    loadList: loadList,
+    closeActive: closeActive,
+    closeAllChatMenus: closeAllChatMenus,
+    isUserOnline: isUserOnline
+  });
   loadList();
 }
 
@@ -1060,14 +1352,15 @@ __webpack_require__.r(__webpack_exports__);
 
 window.Pusher = (pusher_js__WEBPACK_IMPORTED_MODULE_1___default());
 function createEcho(csrfToken) {
-  return new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
+  var host = "";
+  var port = "";
+  var scheme = "";
+  var options = {
     broadcaster: 'pusher',
-    key: "local-key-123",
-    cluster: "mt1",
-    wsHost: "127.0.0.1",
-    wsPort: "6002",
-    wssPort: "6002",
-    forceTLS: "http" === 'https',
+    key: "7223e2234035d14e708d",
+    cluster: "ap2",
+    // Pusher cloud (no custom host) always uses TLS
+    forceTLS: !host || scheme === 'https',
     enabledTransports: ['ws', 'wss'],
     disableStats: true,
     authEndpoint: '/broadcasting/auth',
@@ -1076,7 +1369,15 @@ function createEcho(csrfToken) {
         'X-CSRF-TOKEN': csrfToken || ''
       }
     }
-  });
+  };
+
+  // A self-hosted server (Soketi) needs its own host and port
+  if (host) {
+    options.wsHost = host;
+    options.wsPort = port;
+    options.wssPort = port;
+  }
+  return new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"](options);
 }
 
 /***/ }),
@@ -1318,13 +1619,13 @@ function chatItemHtml(conv, ctx) {
     previewHtml = escapeHtml(preview);
   }
   var time = conv.last ? listTime(conv.last.created_at) : '';
-  return "\n        <div class=\"chat-user".concat(active, "\"\n            data-id=\"").concat(conv.id, "\"\n            data-name=\"").concat(escapeHtml(user.name), "\"\n            data-member=\"").concat(escapeHtml(user.member_id), "\"\n            data-location=\"").concat(escapeHtml(abbr), "\">\n\n            <div class=\"avatar avatar-light\" style=\"").concat(avatarStyle(user.color), "\">\n                ").concat(avatarInner(user), "\n            </div>\n\n            <div class=\"user-info\">\n\n                <div class=\"user-top\">\n                    <span class=\"user-type\">").concat(escapeHtml(user.member_id), "</span>\n                </div>\n\n                <div class=\"user-name\">\n                    ").concat(escapeHtml(user.name), "\n                    <span class=\"status-dot").concat(online ? '' : ' offline', "\"></span>\n                </div>\n\n                <div class=\"user-top\">\n                    <span class=\"user-type\">").concat(previewHtml, "</span>\n                    <span class=\"user-time\">").concat(escapeHtml(time), "</span>\n                </div>\n\n                <div class=\"more-info-wrapper\">\n\n                    <button type=\"button\" class=\"chatInfoBtn\" aria-label=\"More options\">\n                        <i class=\"bi bi-three-dots-vertical\"></i>\n                    </button>\n\n                    <div class=\"more-info-dropdown\">\n\n                        <button type=\"button\" class=\"contactInfoBtn chat-mark-read\">\n                            <i class=\"bi bi-check-circle\"></i>\n                            Mark as Read\n                        </button>\n\n                    </div>\n\n                </div>\n\n            </div>\n\n            ").concat(conv.unread > 0 ? "<span class=\"unread-count\">".concat(conv.unread, "</span>") : '', "\n\n        </div>\n    ");
+  return "\n        <div class=\"chat-user".concat(active, "\"\n            data-id=\"").concat(conv.id, "\"\n            data-name=\"").concat(escapeHtml(user.name), "\"\n            data-member=\"").concat(escapeHtml(user.member_id), "\"\n            data-location=\"").concat(escapeHtml(abbr), "\">\n\n            <div class=\"avatar avatar-light\" style=\"").concat(avatarStyle(user.color), "\">\n                ").concat(avatarInner(user), "\n            </div>\n\n            <div class=\"user-info\">\n\n                <div class=\"user-top\">\n                    <span class=\"user-type\">").concat(escapeHtml(user.member_id), "</span>\n                </div>\n\n                <div class=\"user-name\">\n                    ").concat(escapeHtml(user.name), "\n                    <span class=\"status-dot").concat(online ? '' : ' offline', "\"></span>\n                </div>\n\n                <div class=\"user-top\">\n                    <span class=\"user-type\">").concat(previewHtml, "</span>\n                    <span class=\"user-time\">").concat(escapeHtml(time), "</span>\n                </div>\n\n                <div class=\"more-info-wrapper\">\n\n                    <button type=\"button\" class=\"chatInfoBtn\" aria-label=\"More options\">\n                        <i class=\"bi bi-three-dots-vertical\"></i>\n                    </button>\n\n                    <div class=\"more-info-dropdown\">\n\n                        <button type=\"button\" class=\"contactInfoBtn chat-mark-read\">\n                            <i class=\"bi bi-check-circle\"></i>\n                            Mark as Read\n                        </button>\n\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"contact\">\n                            <i class=\"bi bi-person-vcard\"></i>\n                            Contact Info\n                        </button>\n\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"archive\">\n                            <i class=\"bi bi-archive\"></i>\n                            ").concat(conv.is_archived ? 'Unarchive' : 'Archive', "\n                        </button>\n\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"delete\">\n                            <i class=\"bi bi-trash3\"></i>\n                            Delete\n                        </button>\n\n                    </div>\n\n                </div>\n\n            </div>\n\n            ").concat(conv.unread > 0 ? "<span class=\"unread-count\">".concat(conv.unread, "</span>") : '', "\n\n        </div>\n    ");
 }
 function attachmentsHtml(msg) {
   return (msg.attachments || []).map(function (a) {
     var url = escapeHtml(a.url);
     if (a.kind === 'image') {
-      return "<a href=\"".concat(url, "\" target=\"_blank\" rel=\"noopener\">\n                <img src=\"").concat(url, "\" alt=\"\" loading=\"lazy\"\n                    style=\"max-width:240px;max-height:260px;border-radius:8px;display:block;\">\n            </a>");
+      return "<a href=\"".concat(url, "\" target=\"_blank\" rel=\"noopener\">\n                <img src=\"").concat(url, "\" alt=\"\" loading=\"lazy\"\n                    style=\"max-width:79px;max-height:260px;border-radius:8px;display:block;\">\n            </a>");
     }
     return "<video src=\"".concat(url, "\" controls preload=\"metadata\"\n            style=\"max-width:260px;max-height:260px;border-radius:8px;display:block;\"></video>");
   }).join('');
@@ -1354,7 +1655,7 @@ function messageHtml(msg, prev, ctx) {
  * One result row inside the New chat modal.
  */
 function memberResultHtml(member) {
-  return "\n        <div class=\"member-result\"\n            data-user-id=\"".concat(member.id, "\"\n            data-member-id=\"").concat(escapeHtml(member.member_id), "\"\n            data-member-name=\"").concat(escapeHtml(member.name), "\"\n            data-avatar=\"").concat(escapeHtml(member.avatar || ''), "\"\n            data-color=\"").concat(escapeHtml(member.color), "\"\n            data-location=\"\">\n\n            <div class=\"member-avatar\" style=\"").concat(avatarStyle(member.color), "\">\n                ").concat(avatarInner(member), "\n            </div>\n\n            <div class=\"member-info\">\n                <strong>").concat(escapeHtml(member.name), "</strong>\n                <span>").concat(escapeHtml(member.member_id), "</span>\n            </div>\n\n            <button type=\"button\" class=\"add-member-action\">\n                <i class=\"bi bi-plus-lg\"></i>\n            </button>\n\n        </div>\n    ");
+  return "\n        <div class=\"member-result\"\n            data-user-id=\"".concat(member.id, "\"\n            data-member-id=\"").concat(escapeHtml(member.member_id), "\"\n            data-member-name=\"").concat(escapeHtml(member.name), "\"\n            data-avatar=\"").concat(escapeHtml(member.avatar || ''), "\"\n            data-color=\"").concat(escapeHtml(member.color), "\"\n            data-location=\"\">\n\n            <div class=\"member-avatar\" style=\"").concat(avatarStyle(member.color), "\">\n                ").concat(avatarInner(member), "\n            </div>\n\n            <div class=\"member-info\">\n                <strong>").concat(escapeHtml(member.name), "</strong>\n                <span>").concat(escapeHtml(member.member_id)).concat(member.type_label ? ' · ' + escapeHtml(member.type_label) : '', "</span>\n            </div>\n\n            <button type=\"button\" class=\"add-member-action\">\n                <i class=\"bi bi-plus-lg\"></i>\n            </button>\n\n        </div>\n    ");
 }
 
 /***/ }),

@@ -15,16 +15,26 @@ return [
     ],
 
     // Who can chat with whom (keys and values are type ids).
-    // Phase 1 is Escort <-> Viewer only.
+    // Phase 1: Escort <-> Viewer. Phase 2: Escort <-> Agent.
     // Later, enable more by adding lines here, for example:
-    //   3 => [0, 5],  5 => [3],   // escort <-> agent
-    //   3 => [0, 1],  1 => [3],   // escort <-> admin
+    //   5 => [3, 4],  4 => [5],   // agent <-> massage centre
+    //   3 => [0, 5, 1],  1 => [3],   // escort <-> admin
     'rules' => [
-        3 => [0], // escort -> viewer
-        0 => [3], // viewer -> escort
+        3 => [0, 5], // escort -> viewer, agent
+        0 => [3],    // viewer -> escort
+        5 => [3],    // agent  -> escort
     ],
 
-    // Types that can NOT be blocked (agent rule applies once agent chat is enabled)
+    // Label shown as "Type:" in the chat header
+    'type_labels' => [
+        0 => 'Viewer',
+        1 => 'Admin',
+        3 => 'Escort',
+        4 => 'Massage Centre',
+        5 => 'Agent',
+    ],
+
+    // Types that can NOT be blocked
     'unblockable' => [5],
 
     // Escort starting a chat with a viewer needs extra checks

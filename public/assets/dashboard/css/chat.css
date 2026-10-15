@@ -557,7 +557,7 @@
 }
 
 .message-bubble {
-    padding: 13px 18px;
+    padding: 10px 18px;
     border-radius: 15px;
     background: var(--white);
     color: var(--text);
@@ -570,8 +570,8 @@
 
 .sent .message-bubble {
     margin-left: auto;
-    background: var(--primary);
-    color: var(--white);
+    background: var(--sent-bg);
+    color: var(--text);
     border-bottom-right-radius: 5px;
 }
 

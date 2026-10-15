@@ -5,7 +5,7 @@
         'csrf'       => csrf_token(),
         'me'         => [
             'id'        => $chatMe->id,
-            'name'      => $chatMe->name,
+            'name'      => \App\Support\ChatState::displayName($chatMe),
             'member_id' => $chatMe->member_id,
             'avatar'    => $chatMe->avatar_img,
             'color'     => \App\Support\ChatState::color($chatMe->state_id),
@@ -23,7 +23,8 @@
         'states'     => collect(config('escorts.profile.states', []))
             ->map(fn ($s) => $s['stateAbbr'] ?? '')
             ->all(),
-        'peerLabel'  => 'Viewer',
+        // users.type => label shown as "Type:" in the header
+        'typeLabels' => config('chat.type_labels', []),
     ];
 
     $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
@@ -76,9 +77,7 @@
                             <button type="button" class="filter-option" data-filter="archived">
                                <i class="bi bi-archive"></i> Archived Chats
                             </button>
-                            <button type="button" class="filter-option" data-filter="deleted">
-                                <i class="bi bi-trash3"></i> Deleted Chats
-                            </button>
+                         
                         </div>
 
                     </div>
@@ -247,7 +246,7 @@
 
         <div class="member-search">
             <i class="bi bi-search"></i>
-            <input type="text" id="memberSearchInput" placeholder="Search by Member ID...">
+                <input type="text" id="memberSearchInput" placeholder="Search by Member ID or Name...">
         </div>
 
         <!-- MEMBER RESULTS (rendered by chat.js) -->

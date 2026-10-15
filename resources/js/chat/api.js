@@ -44,6 +44,10 @@ export function createApi({ csrf, routes }) {
         return data;
     }
 
+    // Conversation URLs are built from the messages route: .../conversations/__ID__/messages
+    const conversationUrl = (id, suffix) =>
+        routes.messages.replace('__ID__', id).replace(/\/messages$/, suffix ? '/' + suffix : '');
+
     const withId = (template, id) => template.replace('__ID__', id);
 
     const query = (params) => {
@@ -85,5 +89,14 @@ export function createApi({ csrf, routes }) {
         read: (id) => request(withId(routes.read, id), { method: 'POST' }),
 
         typing: (id) => request(withId(routes.typing, id), { method: 'POST' }),
+
+        contact: (id) => request(conversationUrl(id, 'contact')),
+
+        archive: (id, archived) => request(conversationUrl(id, 'archive'), {
+            method: 'POST',
+            body: JSON.stringify({ archived }),
+        }),
+
+        deleteChat: (id) => request(conversationUrl(id, 'delete'), { method: 'POST' }),
     };
 }
