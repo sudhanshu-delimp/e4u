@@ -528,7 +528,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12 common-footer">
+                <div class="col-lg-12 common-footer text-right">
                     <button id="read-more" type="submit" class="common-save-btn">Save</button>
                 </div>
             </div>

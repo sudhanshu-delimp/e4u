@@ -50,11 +50,7 @@
    padding-left: 11.2rem;
    border-radius: 0.5px solid #C4C4C4;
    }
-   .at-sec div.myacording-design .card .card-body ol li, div.myacording-design .card .card-body ul li, div.myacording-design .card .card-body p {
-   margin-bottom: 0;
-   background: #fff;
-   box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
-   }
+
    .at-sec .results li { display: block; width: 270px; }
    /*.at-sec .results li:first-child { margin-top: -1px }*/
    .at-sec .results li:first-child:before, .search .results li:first-child:after {
@@ -87,27 +83,6 @@
    text-shadow: 0 -1px rgba(0, 0, 0, 0.3);
    border-color: #192A3E;
    background-color: #192A3E;
-   }
-   .active-play .at-lable {
-   display: block;
-   }
-   .active-play ul {
-   display: flex;
-   padding: 0px;
-   top: 0;
-   position: relative;
-   list-style: none;
-   gap: 10px;
-   }
-   .active-play li {
-   padding: 10px;
-   border-radius: 3px;
-   background: #192A3E !important;
-   }
-   .active-play a {
-   color: #fff;
-   display: flex;
-   gap: 10px;
    }
 </style>
 @endsection
