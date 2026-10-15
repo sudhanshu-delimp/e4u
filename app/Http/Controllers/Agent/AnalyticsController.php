@@ -659,6 +659,7 @@ class AnalyticsController extends Controller
             }
 
             $is_pinup = 0;
+            $total_pinup_amount = 0;
             $pinup_data = [];
             $pinup_array = [];
   
@@ -684,18 +685,16 @@ class AnalyticsController extends Controller
 
                     $pinup_array['location'] = optional($location->state)->iso2 ?? optional($location->state)->iso2 ?? 'N/A';
                     $pinup_array['membership'] = 'Pin Up';
-                    $pinup_array['start_date'] = $escort_pinup->start_date;
-                    $pinup_array['end_date'] = $escort_pinup->end_date;
+                    $pinup_array['start_date'] = date('d-m-Y',strtotime($escort_pinup->start_date));
+                    $pinup_array['end_date'] = date('d-m-Y',strtotime($escort_pinup->end_date));  
                     $pinup_array['days'] = '(1 week)';
                     $pinup_array['listing_fee'] = $PaymentItem ? $PaymentItem->amount: 0;
-                    $listingFee += $PaymentItem ? $PaymentItem->amount : 0;
-                  
+                    $total_pinup_amount += $PaymentItem->amount;
                 }
 
             }
-
             
-            $totalFeeSum += $listingFee;
+            $totalFeeSum += $listingFee+$total_pinup_amount;
             $summaryData[] = [
                 'location'        => optional($location->state)->iso2 ?? optional($location->state)->iso2 ?? 'N/A',
                 'start_date'      => $startDate,
