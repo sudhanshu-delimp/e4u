@@ -63,7 +63,7 @@
                                                 : <span>{{ formatCurrency(Auth::user()->wallet->balance) }}</span></h5>
                                         </div>
                                     </div>
-                                    <div class="card payment_loyalty_option">
+                                    <div class="card payment_loyalty_option_show">
                                         <div class="card-body">
                                             <h5> <img src="{{ asset('assets/dashboard/img/days.png') }}"> Loyalty Days
                                                 : <span>{{ Auth::user()->wallet->earn_days ?? 0 }}</span></h5>
