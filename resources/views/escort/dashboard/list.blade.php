@@ -183,6 +183,7 @@
                                 <th class="w-auto">Profile Name</th>
                                 <th class="w-auto">Stage Name</th>
                                 <th class="w-auto">Membership</th>
+                                <th class="w-auto">Start Date</th>
                                 <th class="w-auto">Date Created</th>
                                 <th>Status</th>
                                 <th class="text-center">Action</th>
@@ -555,7 +556,7 @@
 
                     $selectBumpUp.append('<option value="">-- Select Profile --</option>');
                     $.each(records.data, function(i, item) {
-                        if (item.current_active_pinup == null) {
+                        if (item.current_active_pinup == null && item.statusText != 'Upcoming') {
                             $selectBumpUp.append(
                                 $('<option>', {
                                     value: item.id,
@@ -652,6 +653,14 @@
                     orderable: false,
                     defaultContent: 'NA',
                     visible: shouldHide
+                },
+                {
+                    data: 'start_date',
+                    name: 'start_date',
+                    searchable: false,
+                    orderable: true,
+                    defaultContent: 'NA',
+                    //visible: false
                 },
                 {
                     data: 'timezone_created_at',

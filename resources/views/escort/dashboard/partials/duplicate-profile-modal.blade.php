@@ -34,7 +34,6 @@
                                                 data-parsley-required-message="Enter profile name."
                                                 data-parsley-remote="{{route('escort.checkProfileName')}}"
                                                 data-parsley-remote-message="This profile name already exists."
-                                                data-parsley-trigger="blur"
                                                 data-parsley-errors-container="#profile_name-errors">
                                             <span id="profile-errors"></span>
                                             <span id="profile_name-errors"></span>
@@ -190,57 +189,92 @@
         modelElement.find('select[name="state_id"]').val(source.data('state'));
     });
 
-     $("#duplicate_profile_form").on('submit', function(e) {
-            e.preventDefault();
-            var formDuplicate = $(this);
-            var parsleyFormDuplicate = formDuplicate.parsley();
-            parsleyFormDuplicate.whenValidate().then(function() {
-                var url = `{{ route('escort.duplicate.profile') }}`;
-                var data = new FormData(formDuplicate[0]);
+     $(function () {
+    const form = $('#duplicate_profile_form');
+    const submitBtn = form.find('button[type="submit"]');
 
-                $.ajax({
-                    method: 'POST',
-                    url: url,
-                    data: data,
-                    contentType: false,
-                    processData: false,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    beforeSend: function() {
-                        formDuplicate.find('button[type=submit]').prop('disabled', true)
-                            .html('<div class="spinner-border"></div>');
-                    },
-                    success: function(data) {
-                        if (data.response.success) {
-                            Swal.fire({
-                                icon: "success",
-                                text: data.response.message
-                            });
-                            formDuplicate.find('button[type=submit]').prop('disabled', false)
-                                .html('Save');
-                            table.draw();
-                            $("#duplicate_profile_form")[0].reset();
-                            parsleyFormDuplicate.reset();
-                            
-                            formDuplicate.find('select[name="address"]').removeClass('d-none');
-                            $("#streetAddressInp").attr('type', 'hidden');
-                            $("#streetAddressInp").attr('name', '');
-                            $(".update_streetAddress").addClass('d-none');
+    // Initialize Parsley once
+    const parsleyForm = form.parsley();
 
-                            $('#duplicate-profile-modal').modal('hide');
-                        } else {
-                            Swal.fire({
-                                icon: "error",
-                                text: data.response.message
-                            });
-                        }
-                    },
+    form.on('submit', function (e) {
+        e.preventDefault();
 
-                });
-            }, function() {
-                console.log('Form validation failed');
+        // Prevent repeated submissions
+        if (submitBtn.prop('disabled')) {
+            return;
+        }
+
+        // Validate before sending AJAX
+        parsleyForm.whenValidate().then(function () {
+
+            const formData = new FormData(form[0]);
+
+            $.ajax({
+                method: 'POST',
+                url: "{{ route('escort.duplicate.profile') }}",
+                data: formData,
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+
+                beforeSend: function () {
+                    submitBtn
+                        .prop('disabled', true)
+                        .html('<div class="spinner-border spinner-border-sm"></div>');
+                },
+
+                success: function (data) {
+                    if (data.response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            text: data.response.message
+                        });
+
+                        // Reset the form and validation errors
+                        form[0].reset();
+                        parsleyForm.reset();
+
+                        form.find('select[name="address"]').removeClass('d-none');
+
+                        $('#streetAddressInp').attr({
+                            type: 'hidden',
+                            name: ''
+                        });
+
+                        $('.update_streetAddress').addClass('d-none');
+
+                        table.draw();
+                        $('#duplicate-profile-modal').modal('hide');
+
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            text: data.response.message
+                        });
+                    }
+                },
+
+                error: function (xhr) {
+                    Swal.fire({
+                        icon: 'error',
+                        text: xhr.responseJSON?.message ||
+                            'Something went wrong. Please try again.'
+                    });
+                },
+
+                complete: function () {
+                    // Always restore the button, even on errors
+                    submitBtn.prop('disabled', false).html('Save');
+                }
             });
+
+        }).catch(function () {
+            // Parsley displays the validation errors
+            console.log('Form validation failed');
         });
+    });
+});
 </script>
 @endprepend
