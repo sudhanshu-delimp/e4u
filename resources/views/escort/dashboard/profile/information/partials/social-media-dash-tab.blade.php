@@ -70,7 +70,7 @@
             </div>
         </div>    
         <div class="row">
-            <div class="col-md-12 common-footer">
+            <div class="col-md-12 common-footer text-right">
                 <button type="submit" class="common-save-btn" id="escort-form-submit-btn">Save</button>
             </div>
         </div>
