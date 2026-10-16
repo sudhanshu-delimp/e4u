@@ -128,7 +128,7 @@ class EscortListingFeatureService
         $profileId = $this->getValue($request, $data, 'escort_id');
         $membershipId = $this->getValue($request, $data, 'membership');
         $profileDetail = getEscortDetail($profileId);
-        $oldPurchase = $profileDetail->mainPurchase;
+        $oldPurchase = $profileDetail->currentPurchase;
         $newPurchase = $oldPurchase->replicate();
 
         list($usedDicount, $usedAmount) = calculateTotalFee($oldPurchase->membership, ($oldPurchase->days_number - $profileDetail->left_listing_days), $profileDetail->user);
@@ -138,21 +138,28 @@ class EscortListingFeatureService
         $startOfToady = $today->copy()->startOfDay()->setTimezone('UTC');
         $endOfToady = $today->copy()->endOfDay()->setTimezone('UTC');
 
+
+        $newPurchase->parent_id = $oldPurchase->id;
+        $newPurchase->membership = $membershipId;
+        $newPurchase->rate = $unitAmount;
+        $newPurchase->discount_rate = $unitDiscount;
+        $newPurchase->total_rate = $profileDetail->left_listing_days * $unitAmount;
+        $newPurchase->paid_rate = $amount;
+
+        if($oldPurchase->status === 'listed'){
+            $newPurchase->start_date =  $today->copy()->format('d-m-Y');
+            $newPurchase->utc_start_time =  $startOfToady;
+        }
+
+        $newPurchase->save();
+
         $oldPurchase->end_date = $today->format('d-m-Y');
         $oldPurchase->status = 'expire';
         $oldPurchase->utc_end_time = $endOfToady;
         $oldPurchase->paid_rate = $usedAmount;
         $oldPurchase->save();
 
-        $newPurchase->parent_id = $oldPurchase->id;
-        $newPurchase->membership = $membershipId;
-        $newPurchase->start_date =  $today->copy()->format('d-m-Y');
-        $newPurchase->utc_start_time =  $startOfToady;
-        $newPurchase->rate = $unitAmount;
-        $newPurchase->discount_rate = $unitDiscount;
-        $newPurchase->total_rate = $profileDetail->left_listing_days * $unitAmount;
-        $newPurchase->paid_rate = $amount;
-        $newPurchase->save();
+        
 
         $profileDetail->purchase_id = $newPurchase->id;
         $profileDetail->membership = $membershipId;

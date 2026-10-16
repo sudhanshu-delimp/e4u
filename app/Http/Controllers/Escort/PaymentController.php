@@ -373,14 +373,14 @@ class PaymentController extends Controller
                 $this->account->wallet->decrement('earn_days', $benefit_token['loyalty_day']);
             }
 
-            if (in_array($benefit_token['action'], ['listing', 'tour', 'extend'])) {
+            if (in_array($benefit_token['action'], ['listing', 'tour', 'extend', 'pinup', 'bumpUp', 'upgrade'])) { 
                 $earn_days = floor($benefit_token['total_amount'] / 200);
                 if ($earn_days > 0) {
                     $this->walletService->updateEarnDays($this->account, $earn_days, 'add');
                 }
             }
 
-            /* Send Payment Mail */
+            /* Send Payment Mail */ 
             if (in_array($benefit_token['action'], ['listing', 'tour', 'extend'])) {
                 $extend_days = empty($result['extend_days']) ? 0 : $result['extend_days'];
                 $mailConfig = config("payment_mail_templates.{$benefit_token['action']}");

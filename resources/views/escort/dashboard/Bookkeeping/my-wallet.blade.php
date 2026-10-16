@@ -135,7 +135,7 @@
                             </span>
 
                                 <span class="wallet-summary-value">
-                               {{ $user->wallet->earn_days . ' ' . ($user->wallet->earn_days > 1 ? 'Days' : 'Day') }}
+                               {{ $user->wallet->earn_days ?? 0 }} {{$user->wallet->earn_days > 1 ? 'Days' : 'Day'}}
                             </span>
                             </div>
 

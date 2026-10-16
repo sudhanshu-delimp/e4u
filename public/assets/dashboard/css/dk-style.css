@@ -1074,10 +1074,16 @@ border: 1px solid #c2c8ce !important;
 }
 
 #update_about_me .select2-container--default .select2-selection--single {
-    border: 1px solid #ccc !important;
-    border-radius: 0 !important;
+    
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius-md) !important;
+    padding: 8px 10px 0 5px !important;
+    box-sizing: border-box;
+    height: 48px !important;
 }
-
+#update_about_me .select2-container--default.select2-container--open .select2-selection--single {
+    border-color: var(--blue--text) !important;
+}
 .card-body {
     flex: 1 1 auto;
     padding: 1rem 1rem;
@@ -3778,18 +3784,19 @@ button.btn:focus {
     bottom: 10px;
     right: 10px;
     background: var(--light-pink);
-    width: 100px;
-    height: 35px;
+    width: 75px;
+    height: 27px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 5px;
+    padding: 3px;
     border-radius: var(--radius-sm);
 }
 
 .lg_icon_wrapper .lg_verify_icon img {
     width: 100%;
     object-fit: contain;
+    padding: 3px;
 }
 
 .view_img_gallery .other_images {
@@ -4671,9 +4678,18 @@ tr.custom--row th:not(tr.custom--row th:last-child) {
 }
 
 .dropdown-with-checkbox .dropdown-toggle:after {
-    right: 4px;
-    top: 13px;
+    right: 7px;
+    top: 20px;
     position: absolute;
+    border: none;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #173a61;
+    border-bottom: 2px solid #173a61;
+    transform: rotate(45deg);
+
+    margin-left: -4px;
+    margin-top: -3px;
 }
 
 .input-in-row {
@@ -4831,6 +4847,7 @@ tr.custom--row th:not(tr.custom--row th:last-child) {
     border-radius: 5px;
     padding: 3px 8px;
     margin: 0px 4px;
+    border: 1px solid var(--border-color);
 }
 
 
@@ -4847,14 +4864,16 @@ color: white;
 } */
 
 .my_service_anal {
-    padding: 10px 10px 22px;
-    background: var(--blue--text);
-    border-radius: 5px;
-    color: white;
+    padding: 5px 10px;
+    background: #fafafa;
+    border-radius: var(--radius-md);
+    color: var(--black-body);
     display: flex;
     align-items: center;
     gap: 10px;
     justify-content: flex-start;
+    border: 1px solid var(--border-color);
+    font-size: 14px;
 }
 
 .my_service_anal span:has(i) {
@@ -4862,7 +4881,7 @@ color: white;
     color: #fff;
     text-align: center;
     font-size: 11px;
-    border-radius: 2px;
+    border-radius: 50px;
     position: relative;
     line-height: 20px;
     height: 18px;
@@ -4870,6 +4889,9 @@ color: white;
     display: inline-block;
     cursor: pointer;
     font-weight: 500;
+    position: absolute;
+    right: -7px;
+    top: -7px;
 }
 
 .make-ittool {
@@ -6006,10 +6028,13 @@ text-align: center;
     font-weight: 200;
 }
 
-.dropdown-with-checkbox .custome_button_style {
-    padding: 0px;
+.dropdown-with-checkbox .custome_button_style {    
+    padding: 10px 10px 10px 0px !important;
+    margin-left: 0px;
 }
-
+.dropdown-with-checkbox.show{ 
+    border-color: var(--blue--text) !important;
+}
 .dropdown-with-checkbox>.btn:focus {
     outline: 0;
     box-shadow: none !important;
@@ -6073,9 +6098,11 @@ span.nvainside_nav_font {
 
 #select2-select2-dropdown-container {
     font-size: 14px;
-    color: #7c808a;
+    color: var(--label-color) !important;
 }
-
+.select2-dropdown {
+    border: 1px solid var(--border-color) !important;
+}
 .horizontal-scroll-rates {
     overflow: auto;
     white-space: nowrap;
@@ -7879,6 +7906,81 @@ span.image-title {
     border-radius: 100%;
 }
 
+   .active-play .at-lable {
+       display: block;
+   }
+
+   .active-play ul {
+       display: flex;
+       padding: 0px;
+       top: 0;
+       position: relative;
+       list-style: none;
+       gap: 10px;
+       flex-wrap: wrap;
+   }
+
+   .active-play li {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 7px 20px !important;
+    margin: 10px 12px 0 0;
+    background: #fafafa;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: #102943;
+    font-size: 14px !important;
+    font-weight: 500;
+    max-width: 100%;
+    box-sizing: border-box;
+    transition: all 0.2s ease;    
+    border-top: 1px solid var(--border-color) !important;
+   }
+
+   .active-play a {
+       color: var(--black-body);
+       text-transform: capitalize;
+   }
+
+
+.default-toggle-btn {
+    border: none;
+    background: #ff3c5f;
+    color: #fff;
+
+    padding: 5px 12px;
+    border-radius: var(--radius-sm);
+
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.stage-card.default-card .default-toggle-btn {
+    background: var(--blue--text);
+}
+.stage-card.default-card {
+    background: var(--blue--text) !important;
+}
+.stage-card.default-card a{
+    color: #fff;
+}
+.hover-action {
+    position: absolute;
+    bottom: -42px;
+    left: -10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.2s ease;
+    z-index: 99;
+}
+
+.stage-card:hover .hover-action {
+    opacity: 1;
+    visibility: visible;
+}
 .active-play li.playmate-inactive {
     background-color: #c5c5c5 !important;
 }
@@ -8663,13 +8765,31 @@ table#myTable\ price-sec {
 }
 
 .national .select2-container--default .select2-selection--single .select2-selection__arrow b {
-    left: 95% !important;
-}
+    border: none;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #173a61;
+    border-bottom: 2px solid #173a61;
+    transform: rotate(45deg);
+    position: absolute;
+    left: 95%;
+    top: 75%;
 
+    margin-left: -4px;
+    margin-top: -3px;
+}
+.national .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #173a61;
+    border-bottom: 2px solid #173a61;
+}
 .stage span {
     width: 30% !important;
 }
-
+.national .select2-container--default.select2-container--open{
+    border-color: var(--blue--text);
+}
 .stage .select2-container--default .select2-selection--single .select2-selection__arrow b {
     display: none;
 }
@@ -8829,8 +8949,8 @@ table#myTable\ price-sec {
 
 .d_my_tooltip .mytool-tip {
     position: absolute;
-    top: -25px;
-    right: -22px;
+    top: -50px;
+    right: -35px;
     background: var(--peach);
     font-size: 14px;
     padding: 1px 8px;
@@ -8859,17 +8979,18 @@ table#myTable\ price-sec {
 }
 
 .results .playmates_rmid {
+    position: absolute !important;
     background-color: var(--peach) !important;
     color: #fff;
     text-align: center;
     font-size: 19px;
-    border-radius: 2px;
-    right: -5px;
+    border-radius: 50px;
+    right: -8px;
     position: relative;
     line-height: 20px;
     height: 18px;
     width: 18px;
-    top: 5px;
+    top: -8px;
     cursor: pointer;
     font-weight: 500;
 }
@@ -8879,15 +9000,15 @@ table#myTable\ price-sec {
     color: #fff;
     text-align: center;
     padding: 3px 2px 3px 1px;
-    border-radius: 2px;
-    position: relative;
+    border-radius: 50px;
     height: 18px;
     width: 18px;
-    line-height: 11px;
-    top: 5px;
-    right: -5px;
-    font-weight: 400;
-    font-size: 19px;
+    line-height: 13px;   
+    position: absolute;
+    right: -7px;
+    top: -7px;
+    font-weight: 200;
+    font-size: 14px;
     cursor: pointer;
 }
 

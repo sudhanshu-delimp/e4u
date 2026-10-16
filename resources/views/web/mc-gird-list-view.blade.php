@@ -308,7 +308,7 @@
                     <img src="{{ asset('assets/app/img/massage/mc2.jpg') }}" alt="">
                 </a>
                     <span class="verify_icon">
-                        <img src="{{ asset('assets/app/img/verify/unverified_light.png') }}" alt="">
+                        <img src="{{ asset('assets/app/img/verify/unverified_dark.png') }}" alt="">
                     </span>
                     <div class="mc_list_legbox">
                         <span class="my_legbox_icon" data-target="#my_legbox" data-toggle="modal">

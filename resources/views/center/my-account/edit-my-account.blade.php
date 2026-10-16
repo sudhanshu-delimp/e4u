@@ -341,7 +341,7 @@
                                                 <div class="inner-field-row">
                                                     <div class="form-group">
                                                         <label for="" style="text-transform: unset;">
-                                                            Do you consent, pursuant to clause 13.2 and 13.3 of the Terms and Conditions, to being promoted on any or all of E4U’s social media platforms?
+                                                            Do you consent, pursuant to Clause 13.2 and 13.3 of the Terms and Conditions, to being promoted on any or all of E4U’s social media platforms?
                                                         </label>
                                                         <div class="radio-options">
 

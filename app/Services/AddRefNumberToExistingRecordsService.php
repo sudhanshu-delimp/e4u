@@ -35,6 +35,7 @@ class AddRefNumberToExistingRecordsService
                 'influencers',
                 'feedbacks',
                 'payment_histories',
+                'email_logs'
             ];
 
             foreach ($tables as $table) {
@@ -57,11 +58,15 @@ class AddRefNumberToExistingRecordsService
                 $model->setTable($table);
 
                 $model->newQuery()
-                    ->when($table !== 'payment_histories', function ($query) use ($refColumnName) {
+                    /* ->when($table !== 'payment_histories', function ($query) {
                         $query->where(function ($q) use ($refColumnName) {
                             $q->whereNull($refColumnName)
                                 ->orWhere($refColumnName, '');
                         });
+                    }) */
+                    ->where(function ($q) use ($refColumnName) {
+                        $q->whereNull($refColumnName)
+                            ->orWhere($refColumnName, '');
                     })
                     ->orderByDesc('id')
                     ->chunk(50, function ($records) use ($table, $refColumnName) {

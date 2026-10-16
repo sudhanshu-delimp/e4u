@@ -582,7 +582,7 @@
                                                             @endforeach
 
                                                     <div class="veryfy_img">
-                                                        <img src="{{ asset('../assets/app/img/verify/unverified_light.png') }}">
+                                                        <img src="{{ asset('../assets/app/img/verify/unverified_dark.png') }}">
                                                     </div>
                                                 </div>
 

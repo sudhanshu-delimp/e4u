@@ -1698,21 +1698,37 @@ class UpdateController extends AppController
                 $escort->durations()->sync($duration_arr);
 
 
-                $response = [
-                    'success' => true,
-                    'message' => 'Profile has been created for the selected location.'
-                ];
+                // $response = [
+                //     'success' => true,
+                //     'message' => 'Profile has been created for the selected location.'
+                // ];
+
+                return response()->json([
+                'success' => true,
+                'message' => "Profile has been created for the selected location.",
+            ], 200);
+                
             } else {
-                $response = [
-                    'success' => false,
-                    'message' => 'Profile Duplication failed.'
-                ];
+                // $response = [
+                //     'success' => false,
+                //     'message' => 'Profile Duplication failed.'
+                // ];
+
+                return response()->json([
+                'success' => false,
+                'message' => 'Profile Duplication failed.'
+            ], 500);
             }
         } else {
-            $response = [
+            // $response = [
+            //     'success' => false,
+            //     'message' => $error
+            // ];
+            return response()->json([
                 'success' => false,
                 'message' => $error
-            ];
+            ], 500);
+            
         }
         return response()->json(compact('response'));
     }

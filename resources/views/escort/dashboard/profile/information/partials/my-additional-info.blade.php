@@ -23,8 +23,8 @@
         position: absolute;
         left: 12px;
         top: 50%;
-        transform: translateY(-50%);
-        font-size: 18px;
+        transform: translateY(-40%);
+        font-size: 16px;
         cursor: pointer;
         z-index: 9;
 
@@ -52,8 +52,6 @@
 
     #who_title {
         padding-left: 45px !important;
-        height: 38px;
-        border-radius: 8px;
     }
 
     #emojiPicker {
@@ -65,11 +63,11 @@
     }
 
     .make_default {
-
         position: absolute;
         bottom: -6px;
         font-size: 10px;
         line-height: 30px;
+        color:#fff;
     }
 
     .is-invalid {
@@ -84,56 +82,61 @@
 </style>
 
 <div class="tab-pane fade show active" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
-    <form id="update_about_me" action="#" method="POST" enctype="multipart/form-data">
+    <form id="update_about_me" class="common-form" action="#" method="POST" enctype="multipart/form-data">
 
         <!-- upload video  -->
         <div class="about_me_drop_down_info ">
 
+            <!-- stage name -->
+            <div class="row inner-row">
+                <div class="col-lg-12">
+                    <div class="card-top">
+                        <div class="card-icon">
+                            <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 18.5C12.5523 18.5 13 18.0523 13 17.5L13 10.5C13 9.94772 12.5523 9.5 12 9.5C11.4477 9.5 11 9.94772 11 10.5L11 17.5C11 18.0523 11.4477 18.5 12 18.5Z" fill="#ff3c5f"></path> <path d="M12 8.5C12.8284 8.5 13.5 7.82843 13.5 7C13.5 6.17157 12.8284 5.5 12 5.5C11.1716 5.5 10.5 6.17157 10.5 7C10.5 7.82843 11.1716 8.5 12 8.5Z" fill="#ff3c5f"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1C5.92487 1 1 5.92487 1 12ZM12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21Z" fill="#ff3c5f"></path> </g></svg>
+                        </div>
+                        <div class="card-heading">
+                            <h2>Stage Names <span class="custom--help"><b>Help?</b></span></h2>
+                        </div>
+                    </div>
 
-            <div
-                class="about_me_heading_in_first_tab fill_profile_headings_global custom--headingbod custom--social-head">
-                <h2>My Additional Information</h2>
-                <span class="custom--help"><b>Help?</b></span>
-            </div>
-            <div class="custom-note-section">
-                <div class="card" style="">
-                    <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                        <ol class=" mb-0">
-                            <li>By completing these settings, the Additional Information will by default appear in the
-                                Profile creator.</li>
-                            <li>You can also update these settings from within the Profile creator.</li>
-                            <li>These Additional Information settings are optional, and are available to your Profile
-                                Creator to help assemble your Profiles more quickly.</li>
-                        </ol>
+                    <div class="custom-note-section">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                                <ol class=" mb-0">
+                                    <li>By completing these settings, the Additional Information will by default appear in the
+                                        Profile creator.</li>
+                                    <li>You can also update these settings from within the Profile creator.</li>
+                                    <li>These Additional Information settings are optional, and are available to your Profile
+                                        Creator to help assemble your Profiles more quickly.</li>
+                                </ol>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="padding_20_all_side pb-0 custom-removemargin">
-
-                {{-- stage name --}}
-                <div class="row">
-                    <div class="col-lg-12 ">
-                        <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500 small-icon custom--stathead  custom--stathead--flex"
-                                for="exampleFormControlSelect1" style="font-size: 18px;">
-                                <h2>Stage Names</h2>
+                <div class="col-lg-12 ">
+                    <div class="inner-field-row">
+                        <div class="form-group">
+                            <label class="small-icon custom--stathead  custom--stathead--flex"
+                                for="exampleFormControlSelect1">
+                                Stage Names
                                 <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}" data-toggle="tooltip"
                                     data-html="true" data-placement="top"
                                     title="You can create as many as you like. Select your Stage Name from the drop down list that will appear in the Profile creator."
                                     data-boundary="window">
 
                             </label>
-                            <div class="col-sm-12 stageListParent pl-1">
-                                <div class="col-sm-12 pl-0">
+                            <div class="stageListParent">
                                     <input type="text" class="form-control form-control-sm" id="stage_name"
                                         placeholder="Enter stage name">
                                     <div class="invalid-feedback error-message"></div>
+                           
+                                <div class="cp-hint mt-1">
+                                    <b>Note : </b> <i>Save your new Stage Names before you apply the Sort
+                                        feature.</i>
                                 </div>
-                                <div><span><b>Note:</b> <i>Save your new Stage Names before you apply the Sort
-                                            feature.</i></span></div>
 
-                                <div class="col-sm-12" style="display: ruby; padding-left: 0px;">
+                                <div style="display: ruby; padding-left: 0px;">
                                     <label>Sort By : </label>
                                     <div class="pt-4 pb-3">
                                         <div class="form-check form-check-inline">
@@ -159,47 +162,48 @@
                                 <div class="card-body active-play border-0 pt-0 pl-0 mt-1 pb-0 mb-0">
                                     <div class="at-lable mt-0">
                                         <ul class="results" id="stageNameList">
-                                            {{-- JS se dynamically render hoga --}}
+                                            
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12 text-right">
-                                        <button id="read-more" type="button"
-                                            class="save_stage_name_button">Save</button>
-                                    </div>
-                                </div>
+                            
                             </div>
+                            
                         </div>
                     </div>
+
                 </div>
-                {{-- end --}}
-
-
-                {{-- stage address --}}
-                <div class="row">
-                    <div class="col-lg-12 ">
-                        <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500 small-icon custom--stathead  custom--stathead--flex"
-                                for="exampleFormControlSelect1" style="font-size: 18px;">
-                                <h2>Street Address</h2>
+                <div class="col-md-12 text-right common-footer">
+                    <button id="read-more" type="button"
+                        class="save_stage_name_button common-save-btn">Save</button>
+                </div>
+                <div class="col-lg-12 mt-4">
+                    <hr>
+                </div>
+                <!-- stage address -->
+                <div class="col-lg-12 ">
+                    <div class="inner-field-row">
+                        <div class="form-group">
+                            <label class="small-icon custom--stathead  custom--stathead--flex"
+                                for="exampleFormControlSelect1">
+                                Street Address
                                 <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}" data-toggle="tooltip"
                                     data-html="true" data-placement="top"
                                     title="You can create as many as you like. Ideally, if you Tour, create the
-                                    addresses for the apartments / hotels you stay at in each Location."
+                                        addresses for the apartments / hotels you stay at in each Location."
                                     data-boundary="window">
 
                             </label>
 
-                            <div class="col-sm-12 stageListParent pl-1">
-                                <div class="col-sm-12 pl-0">
+                            <div class="stageListParent">
                                     <input type="text" class="form-control form-control-sm" id="st_address"
                                         placeholder="Enter street address">
                                     <div class="invalid-feedback error-message"></div>
-                                </div>
-                                <div> <span><b>Note:</b> <i>Save your Addresses before you apply the Sort
-                                            feature.</i></span></div>
-                                <div class="col-sm-12 " style="display: ruby; padding-left: 0px;">
+                            
+                                <div class="cp-hint mt-1"><b>Note:</b> <i>Save your Addresses before you apply the Sort
+                                            feature.</i></div>
+                                            
+                                <div style="display: ruby; padding-left: 0px;">
                                     <label for="">Sort By : </label>
                                     <div class="pt-4 pb-3" data-i="{{ $escort->covidreport }}">
                                         <div class="form-check form-check-inline">
@@ -216,55 +220,54 @@
                                     </div>
 
                                 </div>
-                                {{-- append cards --}}
+                                <!-- append cards -->
                                 <div class="card-body active-play border-0 pt-0 pl-0 mt-1 pb-0 mb-0">
                                     <div class="at-lable  mt-0">
-                                        <ul class="results" id="stageAddress">
-                                            {{-- Js append here --}}
+                                        <ul class="results" id="stageAddress">                                          
 
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12 text-right">
-                                        <button type="button" class="save_address_button">Save</button>
-                                    </div>
-                                </div>
-                                {{-- end --}}
+                                <!-- end -->
                             </div>
                         </div>
                     </div>
                 </div>
-                {{-- end --}}
-
-
-                {{-- Who Am I (Tittle) --}}
-                <div class="row">
-                    <div class="col-lg-12 ">
-                        <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500 small-icon custom--stathead  custom--stathead--flex"
-                                for="exampleFormControlSelect1" style="font-size: 18px;">
-                                <h2>Who Am I (Tittle)</h2>
+                <div class="col-md-12 text-right common-footer">
+                    <button type="button" class="save_address_button common-save-btn">Save</button>
+                </div>
+                <!-- end -->
+                
+                <div class="col-lg-12 mt-4">
+                    <hr>
+                </div>
+                 <!-- Who Am I (Tittle) -->
+                <div class="col-lg-12">
+                    <div class="inner-field-row">
+                        <div class="form-group">
+                            <label class="small-icon custom--stathead  custom--stathead--flex"
+                                for="exampleFormControlSelect1">
+                                Who Am I (Tittle)
                                 <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"
                                     data-toggle="tooltip" data-html="true" data-placement="top"
                                     title="You can create as many Tittle as you like." data-boundary="window">
 
                             </label>
 
-                            <div class="col-sm-12 stageListParent pl-1">
-                                <div class="input-group mb-3">  
-                                    <div class="input-group-prepend pl-0 emoji-input-wrapper">    
-                                        <span class=" emoji-btn" id="emojiBtn">😊</span>  
-                                    </div>  
-                                        <input type="text" class="form-control form-control-sm" id="who_title" placeholder="Enter tittle">
-                                         <div class="invalid-feedback error-message"></div>
-                                        <emoji-picker id="emojiPicker"></emoji-picker>
+                            <div class="stageListParent">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend emoji-input-wrapper">
+                                        <span class=" emoji-btn" id="emojiBtn">😊</span>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm" id="who_title" placeholder="Enter tittle">
+                                    <div class="invalid-feedback error-message"></div>
+                                    <emoji-picker id="emojiPicker"></emoji-picker>
                                 </div>
 
 
-                                <div> <span><b>Note:</b> <i>Save your Tittle before you apply the Sort
-                                            feature.</i></span></div>
-                                <div class="col-sm-12 " style="display: ruby; padding-left: 0px;">
+                                <div class="cp-hint -mt-1"> <b>Note:</b> <i>Save your Tittle before you apply the Sort
+                                            feature.</i></div>
+                                <div style="display: ruby; padding-left: 0px;">
                                     <label for="">Sort By : </label>
                                     <div class="pt-4 pb-3" data-i="{{ $escort->covidreport }}">
                                         <div class="form-check form-check-inline">
@@ -280,50 +283,50 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- append cards --}}
+                                <!-- append cards -->
                                 <div class="card-body active-play border-0 pt-0 pl-0 mt-1 pb-0 mb-0">
                                     <div class="at-lable  mt-0">
                                         <ul class="results" id="stageTitleList">
-                                            {{-- js append here --}}
+                                            <!-- js append here -->
 
                                         </ul>
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-md-12 text-right">
-                                        <button type="button" class="save_title_button">Save</button>
-                                    </div>
-                                </div>
-                                {{-- end --}}
+                                <!-- end -->
                             </div>
                         </div>
                     </div>
                 </div>
-                {{-- end --}}
-
-
-                {{-- Who Am I (Narration) --}}
-                <div class="row">
-                    <div class="col-lg-12 ">
-                        <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500 small-icon custom--stathead  custom--stathead--flex"
-                                for="exampleFormControlSelect1" style="font-size: 18px;">
-                                <h2>Who Am I (Narration)</h2>
+                
+                <div class="col-md-12 text-right common-footer">
+                    <button type="button" class="save_title_button common-save-btn">Save</button>
+                </div>
+                <!-- end -->
+                    
+                <div class="col-lg-12 mt-4">
+                    <hr>
+                </div>
+                <!-- Who Am I (Narration) -->
+                <div class="col-lg-12">
+                    <div class="inner-field-row">
+                        <div class="form-group">
+                            <label class="small-icon custom--stathead  custom--stathead--flex mb-1"
+                                for="exampleFormControlSelect1">
+                                Who Am I (Narration)
                                 <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"
                                     data-toggle="tooltip" data-html="true" data-placement="top"
                                     title="You can create as many Narrations as you like." data-boundary="window">
                             </label>
-                            <div class="col-sm-12 stageListParent pl-1">
-                                <div class="col-sm-12 pl-0">
+                            <div class="stageListParent">
+                               
                                     <textarea class="form-control mt-2 h-100" id="who_narration_textarea" name="narration"
                                         placeholder="Maximum limit of 2,500 characters."></textarea>
                                     <div id="who_narration_textarea-error" class="error-message"></div>
 
-                                </div>
+                               
 
-                                <div> <span><b>Note:</b> <i>Save your Narrations before you apply the Sort feature.
-                                        </i></span></div>
+                                <div class="cp-hint mt-1"> <b>Note : </b> <i>Save your Narrations before you apply the Sort feature.
+                                        </i></div>
                                 <div class="col-sm-12 " style="display: ruby; padding-left: 0px;">
                                     <label for="">Sort By : </label>
                                     <div class="pt-4 pb-3" data-i="{{ $escort->covidreport }}">
@@ -340,28 +343,34 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- append cards --}}
+                                <!-- append cards -->
                                 <div class="card-body active-play border-0 pt-0 pl-0 mt-1 pb-0 mb-0">
                                     <div class="at-lable  mt-0">
                                         <ul class="results" id="stageNarration">
-                                            {{-- js append here --}}
+                                            <!-- js append here -->
 
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12 text-right">
-                                        <button type="button" class="save_narration_button">Save</button>
-                                    </div>
-                                </div>
-                                {{-- end --}}
+                                <!-- end -->
                             </div>
                         </div>
                     </div>
                 </div>
-                {{-- end --}}
-
+                <div class="col-md-12 text-right common-footer">
+                    <button type="button" class="save_narration_button common-save-btn">Save</button>
+                </div>
+                <!-- end -->
             </div>
+            <!-- end -->
+
+
+            
+
+
+           
+
+
         </div>
     </form>
 </div>

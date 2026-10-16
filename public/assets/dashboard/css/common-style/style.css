@@ -1215,7 +1215,13 @@ label.cabinet input.file {
         width: 100%;
     }
 }
-
+.credit_status_icon{
+    
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 35px;
+}
 
 /* common-form */
 
@@ -1234,7 +1240,9 @@ label.cabinet input.file {
     transition: all 0.25s ease;
     margin-top: 8px;
 }
-
+.common-form .form-control:disabled{
+    background-color: #e7e9ee;
+}
 .common-form label {
     display: block;
     margin-bottom: 0px;

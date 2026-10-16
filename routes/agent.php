@@ -156,6 +156,12 @@ use Illuminate\Support\Facades\Route;
     Route::get('generate-profile-pdf/{id}', [AnalyticsController::class, 'getProfilePdf'])->name('agent.generate_profile_pdf');
 
 
+    Route::get('toursummary',function(){ return view('agent.dashboard.Annalytics.toursummary'); })->name('agent.toursummary');
+    Route::get('analytic-tour-list-ajax', [AnalyticsController::class, 'analytic_tour_list_ajax'])->name('agent.analytic-tour-list-ajax');
+    Route::get('generate-tour-pdf', [AnalyticsController::class, 'getTourPdf'])->name('agent.generate_tour_pdf');
+    Route::get('get-tour-summary-detail', [AnalyticsController::class, 'getTourSummaryDetail'])->name('agent.get_tour_summary_detail');
+
+    
     
 
     //Demo
@@ -203,9 +209,7 @@ use Illuminate\Support\Facades\Route;
     return view('agent.dashboard.Annalytics.prospets-memberships');
 })->name('agent.prospets-memberships');
 
-Route::get('toursummary',function(){
-    return view('agent.dashboard.Annalytics.toursummary');
-})->name('agent.toursummary');
+
 
 
 //     Route::get('Marketing/create-prospect',function(){

@@ -574,15 +574,15 @@
                                                         @endphp
                                                         @if ($status == '0')
                                                             <img
-                                                                src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
+                                                                src="{{ asset('assets/app/img/verify/e4u_pending.png') }}">
                                                             <span class="common_shield_tooltip">Media Pending</span>
                                                         @elseif($status == '1')
                                                             <img
-                                                                src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
+                                                                src="{{ asset('assets/app/img/verify/e4u_verified.png') }}">
                                                             <span class="common_shield_tooltip">Media Verified</span>
                                                         @else
                                                             <img
-                                                                src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
+                                                                src="{{ asset('assets/app/img/verify/unverified_dark.png') }}">
                                                             <span class="common_shield_tooltip">Media Unverified</span>
                                                         @endif
                                                     @endif
@@ -977,15 +977,15 @@
                                                     @endphp
                                                     @if ($status == '0')
                                                         <img
-                                                            src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
+                                                            src="{{ asset('assets/app/img/verify/e4u_pending.png') }}">
                                                         <span class="common_shield_tooltip">Media Pending</span>
                                                     @elseif($status == '1')
                                                         <img
-                                                            src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
+                                                            src="{{ asset('assets/app/img/verify/e4u_verified.png') }}">
                                                         <span class="common_shield_tooltip">Media Verified</span>
                                                     @else
                                                         <img
-                                                            src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
+                                                            src="{{ asset('assets/app/img/verify/unverified_dark.png') }}">
                                                         <span class="common_shield_tooltip">Media Unverified</span>
                                                     @endif
                                                 @endif
@@ -2854,13 +2854,13 @@
 
                     if (position == 1 || position == 9 || position == 10) {
                         if (status == "0") {
-                            iconPath = '/assets/app/img/pending_icon/e4u_pending_REV.png';
+                            iconPath = '/assets/app/img/verify/e4u_pending.png';
                             iconText = '<span class="common_shield_tooltip">Media Pending</span>';
                         } else if (status == "1") {
-                            iconPath = '/assets/app/img/verify/e4u_verified_REV.png';
+                            iconPath = '/assets/app/img/verify/e4u_verified.png';
                             iconText = '<span class="common_shield_tooltip">Media Verified</span>';
                         } else {
-                            iconPath = '/assets/app/img/verify/unverified_light.png';
+                            iconPath = '/assets/app/img/verify/unverified_dark.png';
                             iconText = '<span class="common_shield_tooltip">Media Unverified</span>';
                         }
                     } else {
@@ -3016,13 +3016,13 @@
                         if (position == 1 || position == 9 || position == 10) {
 
                             if (status == "0") {
-                                iconPath = '/assets/app/img/pending_icon/e4u_pending_REV.png';
+                                iconPath = '/assets/app/img/verify/e4u_pending.png';
                                 iconText = '<span class="common_shield_tooltip">Media Pending</span>';
                             } else if (status == "1") {
-                                iconPath = '/assets/app/img/verify/e4u_verified_REV.png';
+                                iconPath = '/assets/app/img/verify/e4u_verified.png';
                                 iconText = '<span class="common_shield_tooltip">Media Verified</span>';
                             } else {
-                                iconPath = '/assets/app/img/verify/unverified_light.png';
+                                iconPath = '/assets/app/img/verify/unverified_dark.png';
                                 iconText = '<span class="common_shield_tooltip">Media Unverified</span>';
                             }
 
