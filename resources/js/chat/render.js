@@ -232,8 +232,8 @@ export function chatItemHtml(conv, ctx) {
                             <i class="bi bi-archive"></i>
                             ${conv.is_archived ? 'Unarchive' : 'Archive'}
                         </button>
-
-                        <button type="button" class="filter-option chat-action" data-action="delete">
+                        <div class="dropdown-divider"></div>
+                        <button type="button" class="filter-option chat-action danger-option" data-action="delete">
                             <i class="bi bi-trash3"></i>
                             Delete
                         </button>
