@@ -189,6 +189,7 @@ use Illuminate\Support\Facades\Route;
     //Fee summary
     Route::get('fees/summary', [FeesSummaryController::class, 'feesSummary'])->name('agent.fees.summary');
     Route::get('single-advertiser-fees-summary', [FeesSummaryController::class, 'singleAdvertiserFeeSummary'])->name('single-advertiser-summary');
+    Route::get('single-advertiser-fees-summary/print', [FeesSummaryController::class, 'printAdvertiserFeeSummary'])->name('agent.fees.print-advertiser-summary');
     Route::get('advertiser/fees/summery', [FeesSummaryController::class, 'fetchFeeSummeryAdvertiserData'])->name('agent.advertiser.fees.summary');
      
     Route::get('/multi-merge-report',function(){
@@ -363,6 +364,5 @@ Route::post('fees/query', [MonthlyReportController::class, 'viewQuery'])->name('
 Route::get('fees/my-income', [MonthlyReportController::class, 'myIncome'])->name('Fees.my-income');
 Route::post('/agent/delete-file', [AgentAccountController::class, 'deleteAgentFile'])->name('agent.delete.file');
 Route::post('/agent/upload-file', [AgentAccountController::class, 'uploadFile'])->name('agent.upload.file');
-
 
 

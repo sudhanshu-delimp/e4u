@@ -80,211 +80,192 @@
                             <div id="additional_information" class="collapse" data-parent="#accordion" style="">
                                 <div class="card-body">
                                     <div class="tab-pane fade show active" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
-                                        <form id="update_about_me" action="{{ route('center.update-massage-profile') }}" method="POST" enctype="multipart/form-data" novalidate="">
+                                        <form id="update_about_me" class="common-form" action="{{ route('center.update-massage-profile') }}" method="POST" enctype="multipart/form-data" novalidate="">
                                             @csrf 
-                                            <!-- upload video  -->
-                                            <div class="about_me_drop_down_info ">
-                                                <div class="padding_20_all_side pb-0">
-                                                    <!--New Row from here-->
-                                                    <div class="row">
-                                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                                            <div class="form-group row tab-about-me-row-padding">
-                                                                <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">
-                                                                Building<span style="color:red">*</span></label>
-                                                                <div class="col-sm-8">
-            
-                                                                        <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="building" required>
-                                                                        <option value="" selected="">-- Not Set --</option>
-                                                                        @foreach(config('escorts.profile.Building') as $key =>$buldingName)
-                                                                        <option value="{{$key}}" {{ ($massage_profile->building == $key)? 'selected' : ''}}>{{$buldingName}}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                            </div>
+                                            <div class="row inner-row">
+                                                <div class="col-lg-12">
+                                                    <div class="card-top">
+                                                        <div class="card-icon">
+                                                            <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                                                </g>
+
+                                                                <g id="SVGRepo_iconCarrier">
+
+                                                                    <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                    </path>
+
+                                                                    <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                    </path>
+
+                                                                </g>
+
+                                                            </svg>
                                                         </div>
-                                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                                            <div class="form-group row tab-about-me-row-padding">
-                                                                <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Parking</label>
-                                                                <div class="col-sm-8">
-                                                                    <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="parking">
-                                                                        <option value="" selected="">-- Not Set --</option>
-                                                                       
-                                                                        @foreach(config('escorts.profile.Parking') as $key =>$ParkingName)
-                                                                        <option value="{{$key}}" {{ ($massage_profile->parking == $key)? 'selected' : ''}} >{{$ParkingName}}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                            </div>
+                                                        <div class="card-heading">
+                                                            <h2>About Us</h2>
                                                         </div>
-                                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                                            <div class="form-group row tab-about-me-row-padding">
-                                                                <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Entry</label>
-                                                                <div class="col-sm-8">
-                                                                    <select class="form-control form-control-sm select_tag_remove_box_sadow" id="ethnicity" name="entry">
-                                                                        <option value="" selected="">-- Not Set --</option>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="inner-field-row">
+                                                        <div class="form-group ">
+                                                            <label  for="exampleFormControlSelect1">
+                                                            Building<span style="color:red">*</span></label>
+                                                        
+        
+                                                                    <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="building" required>
+                                                                    <option value="" selected="">-- Not Set --</option>
+                                                                    @foreach(config('escorts.profile.Building') as $key =>$buldingName)
+                                                                    <option value="{{$key}}" {{ ($massage_profile->building == $key)? 'selected' : ''}}>{{$buldingName}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                        </div>
+                                                    
+                                                        <div class="form-group ">
+                                                            <label  for="exampleFormControlSelect1">Parking</label>
+                                                        
+                                                                <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="parking">
+                                                                    <option value="" selected="">-- Not Set --</option>
+                                                                
+                                                                    @foreach(config('escorts.profile.Parking') as $key =>$ParkingName)
+                                                                    <option value="{{$key}}" {{ ($massage_profile->parking == $key)? 'selected' : ''}} >{{$ParkingName}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label  for="exampleFormControlSelect1">Entry</label>
+                                                        
+                                                                <select class="form-control form-control-sm select_tag_remove_box_sadow" id="ethnicity" name="entry">
+                                                                    <option value="" selected="">-- Not Set --</option>
+                                                                    
+                                                                    @foreach(config('escorts.profile.Entry') as $key =>$EntryName)
+                                                                    <option value="{{$key}}" {{ ($massage_profile->entry == $key)? 'selected' : ''}}>{{$EntryName}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label  for="exampleFormControlSelect1">Type</label>
+                                                        
+                                                                <select class="form-control form-control-sm select_tag_remove_box_sadow" id="furniture_types" name="furniture_types">
+                                                                    <option value="" selected="">-- Not Set --</option>
+                                                                    @foreach(config('escorts.profile.furniture_types') as $key =>$furniture_type)
+                                                                    <option value="{{$key}}" {{ ($massage_profile->furniture_types == $key)? 'selected' : ''}} >{{$furniture_type}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label  for="exampleFormControlSelect1">
+                                                            Shower</label>
+                                                        
+                                                                <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="shower">
+                                                                    <option value="" selected="">-- Not Set --</option>
+                                                                    @foreach(config('escorts.profile.Shower') as $key =>$Type)
+                                                                    <option value="{{$key}}" {{ ($massage_profile->shower == $key)? 'selected' : ''}} >{{$Type}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label  for="exampleFormControlSelect1">Ambiance</label>
+                                                        
+                                                                <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="ambiance">
+                                                                    <option value="" selected="">-- Not Set --</option>
+                                                                    @foreach(config('escorts.profile.Ambiance') as $key =>$AmbianceName)
+                                                                    <option value="{{$key}}" {{ ($massage_profile->ambiance == $key)? 'selected' : ''}} >{{$AmbianceName}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label  for="exampleFormControlSelect1">Security</label>
+                                                        
+                                                                <select class="form-control form-control-sm select_tag_remove_box_sadow" id="securityss" name="security">
+                                                                    <option value="" selected="">-- Not Set --</option>
+                                                                    @foreach(config('escorts.profile.Security') as $key =>$SecurityName)
+                                                                    <option value="{{$key}}" {{ ($massage_profile->security == $key)? 'selected' : ''}} >{{$SecurityName}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label  for="exampleFormControlSelect1">Payment</label>
+                                                        
+                                                                <select class="form-control form-control-sm select_tag_remove_box_sadow" id="payment" name="payment">
+                                                                    <option value="" selected="">-- Not Set --</option>
+                                                                    @foreach(config('escorts.profile.Payments') as $key =>$PaymentType)
+                                                                    <option value="{{$key}}" {{ ($massage_profile->payment == $key)? 'selected' : ''}} data-name="{{ $PaymentType }}">{{$PaymentType}}</option>
+                                                                    @endforeach>
+                                                                </select>
+                                                            
+                                                            <!-- @if(!empty($massage_profile->payment)) 
+                                                            <div class='select_pay'>
+                                                                <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.Payments.$massage_profile->payment") !!}</span>
+                                                            </div>
+                                                            @endif -->
+                                                        
+                                                            <!-- <div class="col-sm-12">
+                                                            
+                                                                <div id="show_payment_type" style="display:none">
+                                                                    <div class='select_pay' style='display: inline-block'>
+                                                                        <span class='languages_choosed_from_drop_down'> </span> </div>
+                                                                </div>
+                                                            </div> -->
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label  for="exampleFormControlSelect1">Loyalty program
+                                                            </label>
+                                                        
+                                                                <select class="form-control form-control-sm select_tag_remove_box_sadow" id="ethnicity" name="loyalty">
+                                                                    <option value="" selected="">-- Not Set --</option>
+                                                                    @foreach(config('escorts.profile.Loyalty') as $key =>$LoyaltyType)
+                                                                    <option value="{{$key}}" {{ ($massage_profile->loyalty == $key)? 'selected' : ''}} >{{$LoyaltyType}}</option>
+                                                                    @endforeach>
+                                                                </select>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <label  for="exampleFormControlSelect1">Languages
+                                                            </label>
+                                                        
+                                                                <select class="form-control form-control-sm select_tag_remove_box_sadow" id="language" name="languages">
+                                                                    <option value="" selected="">-- Not Set --</option>
+                                                                    @foreach(config('escorts.profile.languages') as $key =>$language)
+                                                                    <option value="{{$key}}" {{ ($massage_profile->language == $key)? 'selected' : ''}} data-name="{{ $language }}">{{$language}}</option>
+                                                                    @endforeach>
+                                                                </select>
+                                                                @if(!empty($massage_profile->language)) 
+                                                                    <div style="display:flex;margin-top: 5px;">
+                                                                            @foreach($massage_profile->language as $language)
                                                                         
-                                                                        @foreach(config('escorts.profile.Entry') as $key =>$EntryName)
-                                                                        <option value="{{$key}}" {{ ($massage_profile->entry == $key)? 'selected' : ''}}>{{$EntryName}}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                                            <div class="form-group row tab-about-me-row-padding">
-                                                                <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Type</label>
-                                                                <div class="col-sm-8">
-                                                                    <select class="form-control form-control-sm select_tag_remove_box_sadow" id="furniture_types" name="furniture_types">
-                                                                        <option value="" selected="">-- Not Set --</option>
-                                                                        @foreach(config('escorts.profile.furniture_types') as $key =>$furniture_type)
-                                                                        <option value="{{$key}}" {{ ($massage_profile->furniture_types == $key)? 'selected' : ''}} >{{$furniture_type}}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                                            <div class="form-group row tab-about-me-row-padding">
-                                                                <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">
-                                                                Shower</label>
-                                                                <div class="col-sm-8">
-                                                                    <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="shower">
-                                                                        <option value="" selected="">-- Not Set --</option>
-                                                                        @foreach(config('escorts.profile.Shower') as $key =>$Type)
-                                                                        <option value="{{$key}}" {{ ($massage_profile->shower == $key)? 'selected' : ''}} >{{$Type}}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                                            <div class="form-group row tab-about-me-row-padding">
-                                                                <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Ambiance</label>
-                                                                <div class="col-sm-8">
-                                                                    <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="ambiance">
-                                                                        <option value="" selected="">-- Not Set --</option>
-                                                                        @foreach(config('escorts.profile.Ambiance') as $key =>$AmbianceName)
-                                                                        <option value="{{$key}}" {{ ($massage_profile->ambiance == $key)? 'selected' : ''}} >{{$AmbianceName}}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                                            <div class="form-group row tab-about-me-row-padding">
-                                                                <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Security</label>
-                                                                <div class="col-sm-8">
-                                                                    <select class="form-control form-control-sm select_tag_remove_box_sadow" id="securityss" name="security">
-                                                                        <option value="" selected="">-- Not Set --</option>
-                                                                        @foreach(config('escorts.profile.Security') as $key =>$SecurityName)
-                                                                        <option value="{{$key}}" {{ ($massage_profile->security == $key)? 'selected' : ''}} >{{$SecurityName}}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                                            <div class="form-group row tab-about-me-row-padding">
-                                                                <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Payment</label>
-                                                                <div class="col-sm-8">
-                                                                    <select class="form-control form-control-sm select_tag_remove_box_sadow" id="payment" name="payment">
-                                                                        <option value="" selected="">-- Not Set --</option>
-                                                                        @foreach(config('escorts.profile.Payments') as $key =>$PaymentType)
-                                                                        <option value="{{$key}}" {{ ($massage_profile->payment == $key)? 'selected' : ''}} data-name="{{ $PaymentType }}">{{$PaymentType}}</option>
-                                                                        @endforeach>
-                                                                    </select>
-                                                                </div>
-                                                                
-                                                                <!-- @if(!empty($massage_profile->payment)) 
-                                                                <div class='select_pay'>
-                                                                    <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.Payments.$massage_profile->payment") !!}</span>
-                                                                </div>
-                                                                @endif -->
-                                                               
-                                                                <!-- <div class="col-sm-12">
-                                                                
-                                                                    <div id="show_payment_type" style="display:none">
-                                                                        <div class='select_pay' style='display: inline-block'>
-                                                                            <span class='languages_choosed_from_drop_down'> </span> </div>
+                                                                            <div class='selecated_languages select_lang'>
+                                                                                <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.languages.$language") !!} <small class='remove-lang'>×</small></span>
+                                                                                
+                                                                            </div>
+                                                                            @endforeach 
                                                                     </div>
-                                                                </div> -->
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                                            <div class="form-group row tab-about-me-row-padding">
-                                                                <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Loyalty program
-                                                                </label>
-                                                                <div class="col-sm-8">
-                                                                    <select class="form-control form-control-sm select_tag_remove_box_sadow" id="ethnicity" name="loyalty">
-                                                                        <option value="" selected="">-- Not Set --</option>
-                                                                        @foreach(config('escorts.profile.Loyalty') as $key =>$LoyaltyType)
-                                                                        <option value="{{$key}}" {{ ($massage_profile->loyalty == $key)? 'selected' : ''}} >{{$LoyaltyType}}</option>
-                                                                        @endforeach>
-                                                                    </select>
+                                                                @endif
+                                                                <div id="container_language">
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                                            <div class="form-group row tab-about-me-row-padding">
-                                                                <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Languages
-                                                                </label>
-                                                                <div class="col-sm-8">
-                                                                    <select class="form-control form-control-sm select_tag_remove_box_sadow" id="language" name="languages">
-                                                                        <option value="" selected="">-- Not Set --</option>
-                                                                        @foreach(config('escorts.profile.languages') as $key =>$language)
-                                                                        <option value="{{$key}}" {{ ($massage_profile->language == $key)? 'selected' : ''}} data-name="{{ $language }}">{{$language}}</option>
-                                                                        @endforeach>
-                                                                    </select>
-                                                                    @if(!empty($massage_profile->language)) 
-                                                                        <div style="display:flex;margin-top: 5px;">
-                                                                                @foreach($massage_profile->language as $language)
-                                                                            
-                                                                                <div class='selecated_languages select_lang'>
-                                                                                    <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.languages.$language") !!} <small class='remove-lang'>×</small></span>
-                                                                                    
-                                                                                </div>
-                                                                                @endforeach 
-                                                                        </div>
-                                                                    @endif
-                                                                    <div id="container_language">
-                                                                    </div>
-                                                                    <div id="show_language" style="display:none">
-                                                                    </div>
+                                                                <div id="show_language" style="display:none">
                                                                 </div>
-                                                            </div>
                                                         </div>
-
-
-
-
-                                                         <div class="col-lg-4 col-md-12 col-sm-12">
-                                                            <div class="form-group row tab-about-me-row-padding">
-                                                                <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Contact us
-                                                                </label>
-                                                                <div class="col-sm-8">
-                                                                    <select class="form-control form-control-sm select_tag_remove_box_sadow" id="contact" name="contact">
-                                                                        <option value="" selected="">-- Not Set --</option>
-                                                                        @foreach(config('escorts.profile.contact-me') as $key =>$contact)
-                                                                        <option value="{{$key}}"   {{ ($massage_profile->contact == $key)? 'selected' : ''}} >{{$contact}}</option>
-                                                                        @endforeach>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-
-
-
-
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-12 text-right">
-                                                             <input type="hidden" name="type" id="type" value="about_us">
-                                                             <input type="hidden" name="massage_id" id="massage_id" value="{{$massage_profile->id}}">
-                                                              <button id="read-more" type="submit" class="save_profile_btn">Update</button>
+                                                        <div class="form-group ">
+                                                            <label  for="exampleFormControlSelect1">Contact us
+                                                            </label>
+                                                        
+                                                                <select class="form-control form-control-sm select_tag_remove_box_sadow" id="contact" name="contact">
+                                                                    <option value="" selected="">-- Not Set --</option>
+                                                                    @foreach(config('escorts.profile.contact-me') as $key =>$contact)
+                                                                    <option value="{{$key}}"   {{ ($massage_profile->contact == $key)? 'selected' : ''}} >{{$contact}}</option>
+                                                                    @endforeach>
+                                                                </select>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="col-md-12 text-right common-footer">
+                                                        <input type="hidden" name="type" id="type" value="about_us">
+                                                        <input type="hidden" name="massage_id" id="massage_id" value="{{$massage_profile->id}}">
+                                                        <button id="read-more" type="submit" class="save_profile_btn common-save-btn">Update</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -338,95 +319,83 @@
                             <div class="card-body">
                                 <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="profile-tab">
                                     <div class="about_me_drop_down_info ">
-                                        <div class="fill_profile_headings_global col-md-12 p-0  custom--social-head">
-                                            <h2>Our Service (Tags)</h2>
-                                            <span class="custom--help"><b>Help?</b></span>
-                                        </div>
-                                        <div class="custom-note-section">
-                                            <div class="card" style="">
-                                                <div class="card-body">
-                                                <h3 class="NotesHeader"><b>Notes:</b> </h3> 
-                                                    <ol class=" mb-0">
-                                                        <li>By completing these settings, the information set out under Service Tags will by default
-                                                        appear in your Profile creator.</li>
-                                                        <li>Any value you attach to a Service Tag is a separate value and is not included in your
-                                                            Rates.</li>
-                                                        <li>You can over ride these settings when creating a Profile, provided you have enabled
-                                                            the the  <a href="{{ route('centre.notifications-and-features') }}" class="custom_links_design">feature</a>.</li>
-                                                    </ol>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="padding_20_all_side pb-0">
-                                            <form id="myProfileServiceForm" name="myProfileServiceForm" action="{{route('center.update-massage-profile')}}" method="POST" enctype="multipart/form-data">
-                                                @csrf                
-                                                <div class="pt-0 pb-0">
-                                                    <div class="row">
-                                                        <div class="col-lg-6 col-md-12 col-sm-12 full-width-for-ipad-select">
-                                                            <div class="form-group row column_class">
-                                                                <label class="font-weight-500 col-sm-5" for="exampleFormControlSelect1">Massage services </label>
-                                                                <div class="col-sm-7">
-                                                                    <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_one">
-                                                                        <option value="" selected="" disable="">--Select--</option>
-                                                                        @foreach(config('escorts.profile.massage-services') as $key =>$services)
-                                                                            @if(! in_array($key, $massage_profile->massage_services()->pluck('service_id')->toArray()))
-                                                                                <option id="{{ $services}}" value="{{$key}}" >{{$services}}</option>
-                                                                            @endif
-                                                                        @endforeach
-                                                                        
-                                                                    </select>
-                                                                </div>
-                                                            </div>
+                                        <form id="myProfileServiceForm" class="common-form" name="myProfileServiceForm" action="{{route('center.update-massage-profile')}}" method="POST" enctype="multipart/form-data">
+                                            @csrf    
+                                            <div class="row inner-row">
+                                                <div class="col-lg-12">
+                                                    <div class="card-top">
+                                                        <div class="card-icon">
+                                                            <svg width="64px" height="64px" viewBox="0 0 33 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>tag-2</title> <desc>Created with Sketch Beta.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"> <g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-360.000000, -774.000000)" fill="#ff3c5f"> <path d="M390.097,789.321 C390.097,789.849 389.611,790.623 389.095,791.139 L378.823,801.378 L365.634,788.197 L375.89,777.974 C376.36,777.504 377.111,776.903 377.641,776.903 L389.139,776.903 C389.668,776.903 390.097,777.331 390.097,777.858 L390.097,789.321 L390.097,789.321 Z M375.89,804.304 C375.079,805.111 373.765,805.111 372.955,804.304 L362.684,794.063 C361.873,793.256 361.873,791.946 362.684,791.139 L364.166,789.66 L377.341,802.856 L375.89,804.304 L375.89,804.304 Z M390.097,774.993 L376.683,774.993 C375.624,774.993 375.431,775.455 374.422,776.511 L361.217,789.676 C359.596,791.291 359.596,793.911 361.217,795.526 L371.487,805.767 C373.108,807.382 375.735,807.382 377.356,805.767 L390.563,792.602 C391.412,791.754 392.014,791.332 392.014,790.276 L392.014,776.903 C392.014,775.849 391.155,774.993 390.097,774.993 L390.097,774.993 Z M383.959,786.019 C383.148,786.826 381.835,786.826 381.024,786.019 C380.214,785.211 380.214,783.901 381.024,783.093 C381.835,782.285 383.148,782.285 383.959,783.093 C384.77,783.901 384.77,785.211 383.959,786.019 L383.959,786.019 Z M379.558,781.63 C377.937,783.246 377.937,785.865 379.558,787.481 C381.178,789.097 383.806,789.097 385.427,787.481 C387.047,785.865 387.047,783.246 385.427,781.63 C383.806,780.015 381.178,780.015 379.558,781.63 L379.558,781.63 Z" id="tag-2" sketch:type="MSShapeGroup"> </path> </g> </g> </g></svg>
+                                                        </div>
+                                                        <div class="card-heading">
+                                                            <h2>My Services <span class="custom--help"><b>Help?</b></span></h2>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="manage_tag_style">
-                                                                <ul id="selected_service_one">
-                                                                    {{-- @foreach ($massage_profile->services()->where('category_id', 1)->get() as $value) --}}
-                                                                    @foreach ($massage_profile->massage_services()->where('category_id', 1)->get() as $value)
-                                                                        <li class="mb-2" id="hideenclassOne_{{$value->service_id}}">
-                                                                            <div class='my_service_anal hideenclassOne{{$value->id}}'>
-                                                                                <span class="dollar-sign">
-                                                                                {{config('escorts.profile.massage-services')[$value->service_id]  }}
-                                                                                </span>
-                                                                                <input type='number' class='dollar-before input_border' name='price[]' placeholder='' value="{{ (int) $value->price}}" min=0 step=10 max=200>
-                                                                                <input type='hidden' name='service_id[]' value="{{$value->service_id}}">
-                                                                                <input type="hidden" name="category_id[]" value="{{$value->category_id}}">
-                                                                                <span id="span_id" data-id="{{$value->id}}">
-                                                                                <i class='fas fa-times-circle akh1' id="id_{{$value->id}}" value="{{$value->service_id}}" data-sname="{{config('escorts.profile.massage-services')[$value->service_id]  }}" data-val="{{$value->service_id}}"></i>
-                                                                                </span>
-                                                                            </div>
-                                                                        </li>
-                                                                        @endforeach
-                                                                </ul>
+                                                    <div class="custom-note-section">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                                                                <ol class=" mb-0">
+                                                                                <li>By completing these settings, the information set out under Service Tags will by default
+                                                                                appear in your Profile creator.</li>
+                                                                                <li>Any value you attach to a Service Tag is a separate value and is not included in your
+                                                                                    Rates.</li>
+                                                                                <li>You can over ride these settings when creating a Profile, provided you have enabled
+                                                                                    the the  <a href="{{ route('centre.notifications-and-features') }}" class="custom_links_design">feature</a>.</li>
+                                                                            </ol>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="pt-2 pb-2">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group row column_class">
-                                                                <label class="font-weight-500 col-sm-5" for="exampleFormControlSelect1">Other service types </label>
-                                                                <div class="col-sm-7">
-                                                                    <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_two">
-                                                                        <option value="" selected="" disable="">--Select--</option>
-                                                                        @foreach(config('escorts.profile.other-services') as $key =>$services)
-                                                                            @if(! in_array($key, $massage_profile->massage_services()->pluck('service_id')->toArray()))
-                                                                                <option id="{{ $services}}" value="{{$key}}" >{{$services}}</option>
-                                                                            @endif
-                                                                        @endforeach
-                                                                        
-                                                                    </select>
-                                                                </div>
-                                                            </div>
+                                                <div class="col-lg-12">
+                                                    <div class="inner-field-row">
+                                                        <div class="form-group">
+                                                            <label for="exampleFormControlSelect1">Massage services </label>
+                                                            
+                                                                <select class="form-control select_tag_remove_box_sadow" id="service_id_one">
+                                                                    <option value="" selected="" disable="">--Select--</option>
+                                                                    @foreach(config('escorts.profile.massage-services') as $key =>$services)
+                                                                        @if(! in_array($key, $massage_profile->massage_services()->pluck('service_id')->toArray()))
+                                                                            <option id="{{ $services}}" value="{{$key}}" >{{$services}}</option>
+                                                                        @endif
+                                                                    @endforeach
+                                                                    
+                                                                </select>
+                                                                <div class="manage_tag_style">
+                                                                    <ul id="selected_service_one">
+                                                                        {{-- @foreach ($massage_profile->services()->where('category_id', 1)->get() as $value) --}}
+                                                                        @foreach ($massage_profile->massage_services()->where('category_id', 1)->get() as $value)
+                                                                            <li class="mb-2" id="hideenclassOne_{{$value->service_id}}">
+                                                                                <div class='my_service_anal hideenclassOne{{$value->id}}'>
+                                                                                    <span class="dollar-sign">
+                                                                                    {{config('escorts.profile.massage-services')[$value->service_id]  }}
+                                                                                    </span>
+                                                                                    <input type='number' class='dollar-before input_border' name='price[]' placeholder='' value="{{ (int) $value->price}}" min=0 step=10 max=200>
+                                                                                    <input type='hidden' name='service_id[]' value="{{$value->service_id}}">
+                                                                                    <input type="hidden" name="category_id[]" value="{{$value->category_id}}">
+                                                                                    <span id="span_id" data-id="{{$value->id}}">
+                                                                                    <i class='fas fa-times-circle akh1' id="id_{{$value->id}}" value="{{$value->service_id}}" data-sname="{{config('escorts.profile.massage-services')[$value->service_id]  }}" data-val="{{$value->service_id}}"></i>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </li>
+                                                                            @endforeach
+                                                                    </ul>
+                                                                </div>    
+                                                            
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="manage_tag_style">
+                                                        <div class="form-group">
+                                                            <label for="exampleFormControlSelect1">Other service types </label>
+                                                        
+                                                            <select class="form-control  select_tag_remove_box_sadow" id="service_id_two">
+                                                                <option value="" selected="" disable="">--Select--</option>
+                                                                @foreach(config('escorts.profile.other-services') as $key =>$services)
+                                                                    @if(! in_array($key, $massage_profile->massage_services()->pluck('service_id')->toArray()))
+                                                                        <option id="{{ $services}}" value="{{$key}}" >{{$services}}</option>
+                                                                    @endif
+                                                                @endforeach
                                                                 
+                                                            </select>
+                                                            <div class="manage_tag_style">                                                            
                                                                 <ul id="selected_service_two">
                                                                     @foreach ($massage_profile->massage_services()->where('category_id', 2)->get() as $value)
                                                                         <li class="mb-2" id="hideenclassTwo_{{$value->service_id}}">
@@ -448,15 +417,15 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-md-12 text-right">
-                                                        <input type="hidden" name="type" id="type" value="service">
-                                                        <input type="hidden" name="massage_id" id="massage_id" value="{{$massage_profile->id}}">
-                                                        <button id="read-more" type="submit" class="save_profile_btn">Update</button>
-                                                    </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 text-right common-footer">
+                                                    <input type="hidden" name="type" id="type" value="service">
+                                                    <input type="hidden" name="massage_id" id="massage_id" value="{{$massage_profile->id}}">
+                                                    <button id="read-more" type="submit" class="save_profile_btn common-save-btn">Update</button>
                                                 </div>
-                                            </form>
-                                        </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
