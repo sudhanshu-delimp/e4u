@@ -75,12 +75,14 @@
                         </div>
                     </div>
                 </div>
+                
+            </div>
+            <div class="row">                
                 <div class="col-md-12 text-right common-footer">
                     <input type="hidden" name="type" id="type" value="social_links">
                     <input type="hidden" name="massage_id" id="massage_id" value="{{$massage_profile->id}}">
                     <button id="read-more" type="submit" class="save_profile_btn common-save-btn">Update</button>
-                </div>
-            </div>
-        
+                </div> 
+            </div>                     
     </form>
 </div>
