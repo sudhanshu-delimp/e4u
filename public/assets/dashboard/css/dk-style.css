@@ -9994,7 +9994,6 @@ button {
 button:disabled {
     cursor: not-allowed;
     opacity: .35 !important;
-    pointer-events: none;
 }
 
 
