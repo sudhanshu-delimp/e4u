@@ -660,7 +660,7 @@
                     searchable: false,
                     orderable: true,
                     defaultContent: 'NA',
-                    //visible: false
+                    visible: false
                 },
                 {
                     data: 'timezone_created_at',
