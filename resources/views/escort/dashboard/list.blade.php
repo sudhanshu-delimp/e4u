@@ -30,11 +30,6 @@
         margin-top: 6px;
     }
 
-    /* .suspension-note-list {
-                    list-style-position: outside;
-                    padding-left: 20px;
-                } */
-
     .suspension-note-list li {
         text-indent: 4px;
         /* Adds space after number */
@@ -47,7 +42,7 @@
     #btn_extend_profile,
     #btn_pinup_profile,
     #btn_bumpup_profile {
-        display: none;
+        //
     }
 
     button#btn_add_brb:hover {
@@ -474,7 +469,7 @@
 
 <script>
     var table;
-
+    $(".listingActionButtons button").attr('disabled', 'disabled');
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -607,7 +602,7 @@
                             );
                         }
                     });
-                    $(".listingActionButtons button").show();
+                    $(".listingActionButtons button").removeAttr('disabled');
                 }
 
 
@@ -618,14 +613,11 @@
                     table.search('').draw();
                 });
             },
-
             ajax: {
                 url: "{{ route('escort.list.dataTable', $type) }}",
                 data: function(d) {
                     d.type = 'player';
                 }
-
-
             },
             columns: [{
                     data: 'slug',
