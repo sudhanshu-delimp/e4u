@@ -89,7 +89,6 @@
                                                 class=" change_default_select form-control form-control-sm select_tag_remove_box_sadow"
                                                 title="(for public display)" id="streetAddress" name="address"
                                                 required="required" data-parsley-required-message="Select street address"
-                                                
                                                 data-parsley-errors-container="#streetAddress-errors">
                                                 <option value="" selected>-Choose Your Street Address-</option>
                                                 @if (!empty($address))
@@ -231,6 +230,8 @@
                         // Reset the form and validation errors
                         form[0].reset();
                         parsleyForm.reset();
+                        form.find('select[name="name"]').html(data.stageNamesHtml);
+                        form.find('select[name="address"]').html(data.addressesHtml);
                         form.find('select[name="address"]').removeClass('d-none');
                         $('#streetAddressInp').attr({
                             type: 'hidden',

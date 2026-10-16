@@ -46,6 +46,7 @@ class UpdateController extends AppController
     protected $duration;
     protected $user;
     protected $media;
+    protected $account;
     /**
      * Display a listing of the resource.
      *
@@ -59,6 +60,11 @@ class UpdateController extends AppController
         $this->duration = $duration;
         $this->user = $user;
         $this->media = $media;
+
+        $this->middleware(function ($request, $next) {
+            $this->account = auth()->user();
+            return $next($request);
+        });
     }
 
     public function index()
@@ -1698,21 +1704,44 @@ class UpdateController extends AppController
                 $escort->durations()->sync($duration_arr);
 
 
-                // $response = [
-                //     'success' => true,
-                //     'message' => 'Profile has been created for the selected location.'
-                // ];
+                $stageNames = collect($users->escorts_names)->map(function ($name) {
+                    return [
+                        'value' => $name,
+                        'text' => $name,
+                    ];
+                });
+
+                $stageNamesHtml = view('partials.select-options', [
+                    'options' => $stageNames,
+                    'valueField' => 'value',
+                    'textField' => 'text',
+                    'placeholder' => '-Choose Your Stage Name-',
+                    'addNewLabel' => 'Add a new Stage Name',
+                ])->render();
+
+                $addresses = $this->account->getAddresses()->map(function ($address) {
+                    return [
+                        'value' => $address->value,
+                        'text' => $address->value,
+                    ];
+                });
+
+                $addressesHtml = view('partials.select-options', [
+                    'options' => $addresses,
+                    'valueField' => 'value',
+                    'textField' => 'text',
+                    'placeholder' => '-Choose Your Street Address-',
+                    'addNewLabel' => 'Add a new Street Address',
+                ])->render();
 
                 return response()->json([
                 'success' => true,
+                'stageNamesHtml' => $stageNamesHtml,
+                'addressesHtml' => $addressesHtml,
                 'message' => "Profile has been created for the selected location.",
             ], 200);
                 
             } else {
-                // $response = [
-                //     'success' => false,
-                //     'message' => 'Profile Duplication failed.'
-                // ];
 
                 return response()->json([
                 'success' => false,
@@ -1720,10 +1749,6 @@ class UpdateController extends AppController
             ], 500);
             }
         } else {
-            // $response = [
-            //     'success' => false,
-            //     'message' => $error
-            // ];
             return response()->json([
                 'success' => false,
                 'message' => $error

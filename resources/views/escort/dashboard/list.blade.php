@@ -40,6 +40,8 @@
         /* Adds space after number */
     }
 
+    #btn_upgrade,
+    #btn_cancel_profile,
     #btn_suspend_profile,
     #btn_add_brb,
     #btn_extend_profile,
