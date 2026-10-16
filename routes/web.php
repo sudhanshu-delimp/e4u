@@ -1009,4 +1009,15 @@ Route::middleware(['web', 'auth'])->prefix('chat')->name('chat.')->group(functio
         ->whereNumber('conversation')->name('archive');
     Route::post('/conversations/{conversation}/delete', [ChatController::class, 'destroy'])
         ->whereNumber('conversation')->name('delete');
+
+    Route::post('/conversations/{conversation}/clear', [ChatController::class, 'clear'])
+        ->whereNumber('conversation')->name('clear');
+    Route::post('/conversations/{conversation}/block', [ChatController::class, 'block'])
+        ->whereNumber('conversation')->name('block');
+    Route::delete('/conversations/{conversation}/block', [ChatController::class, 'unblock'])
+        ->whereNumber('conversation')->name('unblock');
+    Route::patch('/messages/{message}', [ChatController::class, 'updateMessage'])
+        ->whereNumber('message')->name('message.update');
+    Route::delete('/messages/{message}', [ChatController::class, 'deleteMessage'])
+        ->whereNumber('message')->name('message.delete');
 });

@@ -11,9 +11,7 @@ class ChatEligibility
     private const ESCORT_FLAG = 'features_allow_viewers_to_send_you_a_text_message'; // escort_settings
     private const VIEWER_FLAG = 'features_direct_chatting_with_escorts';              // viewer_settings
 
-    public function __construct(private ChatPermission $permission)
-    {
-    }
+    public function __construct(private ChatPermission $permission) {}
 
     /**
      * Type values that this user may search for in the New chat modal.
@@ -59,8 +57,13 @@ class ChatEligibility
             );
         }
 
+        // Escort <-> Viewer: the same checks apply whoever starts the chat
         if ($this->permission->needsViewerChecks($starter, $target)) {
             return $this->escortToViewer($starter, $target);
+        }
+
+        if ($this->permission->needsViewerChecks($target, $starter)) {
+            return $this->escortToViewer($target, $starter);
         }
 
         return ['ok' => true, 'reason' => null];
@@ -88,7 +91,15 @@ class ChatEligibility
         $agent      = $aIsAgent ? $a : $b;
         $advertiser = $aIsAgent ? $b : $a;
 
-        return (int) $advertiser->assigned_agent_id === (int) $agent->id;
+        if ((int) $advertiser->assigned_agent_id === (int) $agent->id) {
+            return true;
+        }
+
+        // The Agent Console builds "My Escorts" from this table
+        return DB::table('agent_escorts')
+            ->where('agent_id', $agent->id)
+            ->where('escort_id', $advertiser->id)
+            ->exists();
     }
 
     /**

@@ -1,5 +1,12 @@
 const DAY_MS = 86400000;
 const ONLINE_WINDOW_MS = 5 * 60 * 1000;
+export const EDIT_WINDOW_MS = 15 * 60 * 1000;
+// A message can be edited for 15 minutes after it was sent (the server checks this too)
+export function canEdit(msg) {
+    return Date.now() - new Date(msg.created_at).getTime() <= EDIT_WINDOW_MS;
+}
+const SHOWABLE_IMAGES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp', 'image/avif'];
+const PLAYABLE_VIDEOS = ['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime'];
 
 const settings = { avatarBase: '' };
 
@@ -244,19 +251,40 @@ export function chatItemHtml(conv, ctx) {
 }
 
 function attachmentsHtml(msg) {
-    return (msg.attachments || []).map((a) => {
-        const url = escapeHtml(a.url);
+    const list = msg.attachments || [];
+    const many = list.length > 1;
 
-        if (a.kind === 'image') {
-            return `<a href="${url}" target="_blank" rel="noopener">
-                <img src="${url}" alt="" loading="lazy"
-                    style="max-width:79px;max-height:260px;border-radius:8px;display:block;">
+    const html = list.map((a) => {
+        const url = escapeHtml(a.url);
+        const mime = String(a.mime || '').toLowerCase();
+
+        if (a.kind === 'image' && SHOWABLE_IMAGES.indexOf(mime) !== -1) {
+            const size = many ? 'width:120px;height:120px;object-fit:cover;' : 'max-width:240px;max-height:260px;';
+
+            return `<a href="${url}" class="chat-media" data-kind="image" target="_blank" rel="noopener">
+                <img src="${url}" alt="" loading="lazy" style="${size}border-radius:8px;display:block;">
             </a>`;
         }
 
-        return `<video src="${url}" controls preload="metadata"
-            style="max-width:260px;max-height:260px;border-radius:8px;display:block;"></video>`;
+        if (a.kind === 'video' && PLAYABLE_VIDEOS.indexOf(mime) !== -1) {
+            const size = many ? 'width:180px;height:120px;object-fit:cover;' : 'max-width:260px;max-height:260px;';
+
+            return `<video src="${url}" class="chat-media" data-kind="video" controls preload="metadata"
+                style="${size}border-radius:8px;display:block;"></video>`;
+        }
+
+        // Formats a browser cannot show inline (HEIC, MKV, AVI...): download card
+        const label = a.kind === 'image' ? 'Photo' : 'Video';
+        const format = escapeHtml((mime.split('/')[1] || 'file').replace(/^x-/, '').toUpperCase());
+
+        return `<a href="${url}" download
+            style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit;">
+            <i class="bi bi-file-earmark-arrow-down" style="font-size:22px;"></i>
+            <span>${label} (${format}, ${escapeHtml(formatSize(a.size))})<br><small>Tap to download</small></span>
+        </a>`;
     }).join('');
+
+    return many ? `<div style="display:flex;flex-wrap:wrap;gap:6px;">${html}</div>` : html;
 }
 
 /**
@@ -279,20 +307,49 @@ export function messageHtml(msg, prev, ctx) {
     // One grey tick = sent, two blue ticks = seen
     let tick = '';
 
-    if (mine) {
+    if (mine && !msg.deleted) {
         tick = msg.read_at
             ? '<i class="bi bi-check2-all chat-tick" style="color:#34B7F1;"></i>'
             : '<i class="bi bi-check2 chat-tick"></i>';
     }
 
-    const caption = msg.body ? `<div>${nl2br(msg.body)}</div>` : '';
+    let content;
+
+    if (msg.deleted) {
+        content = '<div style="font-style:italic;opacity:.7;"><i class="bi bi-slash-circle"></i> This message was deleted</div>';
+    } else {
+        const caption = msg.body ? `<div>${nl2br(msg.body)}</div>` : '';
+
+        content = attachmentsHtml(msg) + caption;
+    }
+
+    const edited = (!msg.deleted && msg.edited)
+        ? ' <span style="opacity:.6;">(edited)</span>'
+        : '';
+
+    // Edit (first 15 minutes only) and delete, on my own messages
+       // Delete on every message, edit only on my own text messages (first 15 minutes)
+    let actions = '';
+
+    if (!msg.deleted) {
+        const buttonStyle = 'border:0;background:transparent;padding:0 4px;cursor:pointer;color:inherit;font-size:12px;';
+        const hasFiles = (msg.attachments || []).length > 0;
+
+        const edit = (mine && !hasFiles && msg.body && canEdit(msg))
+            ? `<button type="button" class="chat-msg-edit" title="Edit" style="${buttonStyle}"><i class="bi bi-pencil"></i></button>`
+            : '';
+        const remove = `<button type="button" class="chat-msg-delete" title="Delete" style="${buttonStyle}"><i class="bi bi-trash3"></i></button>`;
+
+        actions = `<span class="chat-msg-actions" style="margin-left:8px;opacity:.65;">${edit}${remove}</span>`;
+    }
 
     const bubble = `
         <div class="message-wrapper">
-            <div class="message-bubble">${attachmentsHtml(msg)}${caption}</div>
+            <div class="message-bubble">${content}</div>
             <div class="message-time">
-                ${escapeHtml(formatTime(msg.created_at))}
+                ${escapeHtml(formatTime(msg.created_at))}${edited}
                 ${tick}
+                ${actions}
             </div>
         </div>`;
 
@@ -307,7 +364,7 @@ export function messageHtml(msg, prev, ctx) {
 /**
  * One result row inside the New chat modal.
  */
-export function memberResultHtml(member) {
+export function memberResultHtml(member, online) {
     return `
         <div class="member-result"
             data-user-id="${member.id}"
@@ -325,6 +382,7 @@ export function memberResultHtml(member) {
                 <strong>${escapeHtml(member.name)}</strong>
                 <span>${escapeHtml(member.member_id)}${member.type_label ? ' · ' + escapeHtml(member.type_label) : ''}</span>
             </div>
+            <span class="member-status${online ? '' : ' offline'}">${online ? 'Online' : 'Offline'}</span>
 
             <button type="button" class="add-member-action">
                 <i class="bi bi-plus-lg"></i>

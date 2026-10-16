@@ -2,6 +2,7 @@ import { createEcho } from './echo';
 import { createApi } from './api';
 import * as view from './render';
 import { initChatActions } from './actions';
+import { chooseDelete, notice } from './dialogs';
 
 // UI filter value -> server filter value
 const FILTERS = { chats: 'active', archived: 'archived', deleted: 'deleted' };
@@ -11,6 +12,7 @@ const LOCATIONS = { 'your-location': 'mine', australia: 'australia' };
 
 const EMPTY_STYLE = 'padding:24px;text-align:center;color:#6b7280;font-size:14px;';
 const MAX_FILE_BYTES = 50 * 1024 * 1024;
+const MAX_FILES = 10;
 const TYPING_SEND_GAP_MS = 2000;
 const TYPING_SHOW_MS = 3500;
 
@@ -50,7 +52,7 @@ function notify(message, type) {
         return;
     }
 
-    window.alert(text);
+    notice(type || 'error', text);
 }
 
 export function initChat(root) {
@@ -94,8 +96,9 @@ export function initChat(root) {
         online: new Set(), // user ids currently on the chat page
         typing: {}, // conversation id -> hide timer
         lastTypingSent: 0,
-        pendingFile: null,
-        previewUrl: null,
+        pendingFiles: [],
+        editingId: null,
+        previewUrls: [],
     };
 
     /* ---------------------------------------------------
@@ -153,7 +156,8 @@ export function initChat(root) {
         document.querySelectorAll('.more-info-wrapper.open').forEach((w) => w.classList.remove('open'));
     }
 
-        // Leave the open chat (after it is archived or deleted)
+    // Leave the open chat (after it is archived or deleted)
+    // Leave the open chat (after it is archived or deleted)
     function closeActive() {
         state.activeId = null;
         state.messages = [];
@@ -162,8 +166,46 @@ export function initChat(root) {
         clearAttachPreview();
         renderHeader(null);
         renderMessages();
+        updateBlockUi(null);
         setComposerEnabled(false);
         renderList();
+    }
+
+    // Block state of the open chat: header menu label, banner and composer
+    function updateBlockUi(conv) {
+        const button = document.getElementById('blockUserBtn');
+        const old = document.getElementById('chatBlockBanner');
+
+        if (old) {
+            old.remove();
+        }
+
+        if (!conv) {
+            return;
+        }
+
+        const unblockable = (config.unblockable || []).map(Number).indexOf(Number(conv.user.type)) !== -1;
+
+        if (button) {
+            button.style.display = unblockable ? 'none' : '';
+            button.innerHTML = '<i class="bi bi-slash-circle"></i> ' + (conv.blocked_by_me ? 'Unblock User' : 'Block User');
+        }
+
+        const blocked = !!(conv.blocked_by_me || conv.blocked_me);
+
+        if (blocked) {
+            const banner = document.createElement('div');
+
+            banner.id = 'chatBlockBanner';
+            banner.setAttribute('style', 'padding:10px 14px;border-top:1px solid #e5e7eb;background:#fff7ed;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:10px;');
+            banner.innerHTML = conv.blocked_by_me
+                ? 'You blocked this user. <button type="button" class="chat-unblock" style="border:0;background:transparent;color:#e11d48;font-weight:600;cursor:pointer;">Unblock</button>'
+                : 'You cannot reply to this conversation.';
+
+            el.composer.parentNode.insertBefore(banner, el.composer);
+        }
+
+        setComposerEnabled(!blocked);
     }
 
     function setComposerEnabled(enabled) {
@@ -206,7 +248,7 @@ export function initChat(root) {
         const user = conv.user;
         const online = isUserOnline(user);
         const typing = !!state.typing[conv.id];
-        
+
         const abbr = (config.states || {})[user.location_id] || '-';
 
         el.headerAvatar.setAttribute('style', view.avatarStyle(user.color));
@@ -328,7 +370,7 @@ export function initChat(root) {
             renderList();
         }
 
-        api.read(id).catch(() => {});
+        api.read(id).catch(() => { });
     }
 
     async function openConversation(id) {
@@ -347,6 +389,7 @@ export function initChat(root) {
         renderHeader(conv);
         renderMessages();
         setComposerEnabled(true);
+        updateBlockUi(conv);
         closeSidebarOnMobile();
 
         try {
@@ -367,58 +410,100 @@ export function initChat(root) {
     --------------------------------------------------- */
 
     function clearAttachPreview() {
+        cancelEdit();
         const box = document.getElementById('chatAttachPreview');
 
         if (box) {
             box.remove();
         }
 
-        if (state.previewUrl) {
-            URL.revokeObjectURL(state.previewUrl);
-        }
-
-        state.previewUrl = null;
-        state.pendingFile = null;
+        state.previewUrls.forEach((url) => URL.revokeObjectURL(url));
+        state.previewUrls = [];
+        state.pendingFiles = [];
     }
 
-       function showAttachPreview(file) {
-        clearAttachPreview();
+    // function showAttachPreview(file) {
+    //     clearAttachPreview();
 
-        state.pendingFile = file;
+    //     state.pendingFile = file;
 
-        let thumb;
+    //     let thumb;
 
-        if (PREVIEWABLE_IMAGES.indexOf(file.type) !== -1) {
-            state.previewUrl = URL.createObjectURL(file);
-            thumb = `<img src="${state.previewUrl}" alt="" style="width:44px;height:44px;object-fit:cover;border-radius:6px;">`;
-        } else {
-            const icon = fileKind(file) === 'image' ? 'bi-image' : 'bi-camera-video';
-            thumb = `<span style="width:44px;height:44px;border-radius:6px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:20px;"><i class="bi ${icon}"></i></span>`;
+    //     if (PREVIEWABLE_IMAGES.indexOf(file.type) !== -1) {
+    //         state.previewUrl = URL.createObjectURL(file);
+    //         thumb = `<img src="${state.previewUrl}" alt="" style="width:44px;height:44px;object-fit:cover;border-radius:6px;">`;
+    //     } else {
+    //         const icon = fileKind(file) === 'image' ? 'bi-image' : 'bi-camera-video';
+    //         thumb = `<span style="width:44px;height:44px;border-radius:6px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:20px;"><i class="bi ${icon}"></i></span>`;
+    //     }
+
+    //     const box = document.createElement('div');
+
+    //     box.id = 'chatAttachPreview';
+    //     box.setAttribute('style', 'display:flex;align-items:center;gap:10px;padding:8px 14px;border-top:1px solid #e5e7eb;background:#f9fafb;font-size:13px;');
+    //     box.innerHTML = `
+    //         ${thumb}
+    //         <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+    //             ${view.escapeHtml(file.name)} (${view.formatSize(file.size)})
+    //         </span>
+    //         <button type="button" class="chat-attach-remove" title="Remove"
+    //             style="border:0;background: #ff3c5f;font-size:20px;line-height:1;cursor:pointer;">&times;</button>
+    //     `;
+
+    //     el.composer.parentNode.insertBefore(box, el.composer);
+    // }
+
+    function renderAttachPreview() {
+        const old = document.getElementById('chatAttachPreview');
+
+        if (old) {
+            old.remove();
         }
+
+        state.previewUrls.forEach((url) => URL.revokeObjectURL(url));
+        state.previewUrls = [];
+
+        if (!state.pendingFiles.length) {
+            return;
+        }
+
+        const thumbs = state.pendingFiles.map((file, index) => {
+            let thumb;
+
+            if (PREVIEWABLE_IMAGES.indexOf(file.type) !== -1) {
+                const url = URL.createObjectURL(file);
+
+                state.previewUrls.push(url);
+                thumb = `<img src="${url}" alt="" style="width:56px;height:56px;object-fit:cover;border-radius:6px;display:block;">`;
+            } else {
+                const icon = fileKind(file) === 'image' ? 'bi-image' : 'bi-camera-video';
+
+                thumb = `<span style="width:56px;height:56px;border-radius:6px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:22px;"><i class="bi ${icon}"></i></span>`;
+            }
+
+            return `<div style="position:relative;flex:0 0 auto;" title="${view.escapeHtml(file.name)}">
+                ${thumb}
+                <button type="button" class="chat-attach-remove" data-index="${index}" title="Remove"
+                    style="position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;border:0;background:#111827;color:#fff;font-size:14px;line-height:20px;padding:0;cursor:pointer;">&times;</button>
+            </div>`;
+        }).join('');
 
         const box = document.createElement('div');
 
         box.id = 'chatAttachPreview';
-        box.setAttribute('style', 'display:flex;align-items:center;gap:10px;padding:8px 14px;border-top:1px solid #e5e7eb;background:#f9fafb;font-size:13px;');
-        box.innerHTML = `
-            ${thumb}
-            <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
-                ${view.escapeHtml(file.name)} (${view.formatSize(file.size)})
-            </span>
-            <button type="button" class="chat-attach-remove" title="Remove"
-                style="border:0;background: #ff3c5f;font-size:20px;line-height:1;cursor:pointer;">&times;</button>
-        `;
+        box.setAttribute('style', 'display:flex;align-items:center;gap:12px;padding:10px 14px;border-top:1px solid #e5e7eb;background:#f9fafb;font-size:13px;overflow-x:auto;');
+        box.innerHTML = thumbs + `<span style="color:#6b7280;white-space:nowrap;">${state.pendingFiles.length} file(s)</span>`;
 
         el.composer.parentNode.insertBefore(box, el.composer);
     }
 
-       function onFileChosen() {
-        const file = el.fileInput.files && el.fileInput.files[0];
+    function onFileChosen() {
+        const chosen = Array.from(el.fileInput.files || []);
 
         // Reset so choosing the same file again still fires a change event
         el.fileInput.value = '';
 
-        if (!file) {
+        if (!chosen.length) {
             return;
         }
 
@@ -427,17 +512,26 @@ export function initChat(root) {
             return;
         }
 
-        if (!fileKind(file)) {
-            notify('This file type is not supported. Send an image or a video.', 'error');
-            return;
+        for (const file of chosen) {
+            if (state.pendingFiles.length >= MAX_FILES) {
+                notify('You can send up to ' + MAX_FILES + ' files at a time.', 'error');
+                break;
+            }
+
+            if (!fileKind(file)) {
+                notify(file.name + ': this file type is not supported.', 'error');
+                continue;
+            }
+
+            if (file.size > MAX_FILE_BYTES) {
+                notify(file.name + ' is too large. Maximum size is 50 MB.', 'error');
+                continue;
+            }
+
+            state.pendingFiles.push(file);
         }
 
-        if (file.size > MAX_FILE_BYTES) {
-            notify('File is too large. Maximum size is 50 MB.', 'error');
-            return;
-        }
-
-        showAttachPreview(file);
+        renderAttachPreview();
         el.input.focus();
     }
 
@@ -470,11 +564,161 @@ export function initChat(root) {
         return true;
     }
 
+    /* ---------------------------------------------------
+   Edit and delete one message
+--------------------------------------------------- */
+
+    function messageById(id) {
+        return state.messages.find((m) => m.id === id);
+    }
+
+    // Swap one message for its new version and redraw, keeping the scroll position
+    function replaceMessage(msg) {
+        const position = state.messages.findIndex((m) => m.id === msg.id);
+
+        if (position === -1) {
+            return;
+        }
+
+        const scroll = el.messages.scrollTop;
+
+        state.messages[position] = msg;
+        renderMessages();
+        el.messages.scrollTop = scroll;
+    }
+
+    function cancelEdit() {
+        state.editingId = null;
+
+        const banner = document.getElementById('chatEditBanner');
+
+        if (banner) {
+            banner.remove();
+        }
+    }
+
+    function startEdit(id) {
+        const msg = messageById(id);
+
+        if (!msg || msg.deleted) {
+            return;
+        }
+
+        if (!view.canEdit(msg)) {
+            notify('Messages can be edited only within 15 minutes.', 'error');
+            renderMessages();
+            return;
+        }
+
+        // Also clears any selected attachments and an earlier edit
+        clearAttachPreview();
+
+        state.editingId = id;
+
+        const banner = document.createElement('div');
+
+        banner.id = 'chatEditBanner';
+        banner.setAttribute('style', 'display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;border-top:1px solid #e5e7eb;background:#eff6ff;font-size:13px;');
+        banner.innerHTML = '<span><i class="bi bi-pencil"></i> Editing message</span>' +
+            '<button type="button" class="chat-edit-cancel" aria-label="Cancel" style="border:0;background:transparent;font-size:20px;line-height:1;cursor:pointer;">&times;</button>';
+
+        el.composer.parentNode.insertBefore(banner, el.composer);
+
+        el.input.value = msg.body || '';
+        el.input.focus();
+    }
+
+    async function deleteMessage(id) {
+        const msg = messageById(id);
+
+        if (!msg || msg.deleted) {
+            return;
+        }
+
+        // "Delete for everyone" is only for my own messages
+        const mode = await chooseDelete({ allowEveryone: msg.sender_id === me.id });
+
+        if (!mode) {
+            return;
+        }
+
+        try {
+            const res = await api.deleteMessage(id, mode);
+
+            if (state.editingId === id) {
+                cancelEdit();
+                el.input.value = '';
+            }
+
+            if (mode === 'me') {
+                const scroll = el.messages.scrollTop;
+
+                state.messages = state.messages.filter((m) => m.id !== id);
+                renderMessages();
+                el.messages.scrollTop = scroll;
+            } else {
+                replaceMessage(res.data);
+            }
+
+            loadList();
+        } catch (error) {
+            notify(error.message || 'Message could not be deleted.', 'error');
+        }
+    }
+
+    // The other person edited or deleted a message
+    function onMessageChanged(msg) {
+        if (!msg) {
+            return;
+        }
+
+        if (msg.conversation_id === state.activeId) {
+            replaceMessage(msg);
+        }
+
+        loadList();
+    }
+
     async function sendMessage() {
         const body = el.input.value.trim();
-        const file = state.pendingFile;
+        const files = state.pendingFiles.slice();
 
-        if ((!body && !file) || !state.activeId || state.sending) {
+        if (state.sending) {
+            return;
+        }
+
+        // Saving an edited message
+        if (state.editingId) {
+            if (!body) {
+                notify('A message cannot be empty. Use delete instead.', 'error');
+                return;
+            }
+
+            if (files.length) {
+                notify('Attachments cannot be added while editing.', 'error');
+                return;
+            }
+
+            state.sending = true;
+
+            try {
+                const res = await api.editMessage(state.editingId, body);
+
+                replaceMessage(res.data);
+                cancelEdit();
+                el.input.value = '';
+                loadList();
+            } catch (error) {
+                notify(error.message || 'Message could not be edited.', 'error');
+            } finally {
+                state.sending = false;
+                el.input.focus();
+            }
+
+            return;
+        }
+
+        if ((!body && !files.length) || !state.activeId) {
             return;
         }
 
@@ -482,7 +726,7 @@ export function initChat(root) {
         el.sendBtn.disabled = true;
 
         try {
-            const res = await api.send(state.activeId, body, file);
+            const res = await api.send(state.activeId, body, files);
 
             el.input.value = '';
             clearAttachPreview();
@@ -527,7 +771,7 @@ export function initChat(root) {
 
         if (active) {
             // This also turns the sender's ticks blue
-            api.read(msg.conversation_id).catch(() => {});
+            api.read(msg.conversation_id).catch(() => { });
         }
     }
 
@@ -571,7 +815,24 @@ export function initChat(root) {
         }
 
         state.lastTypingSent = now;
-        api.typing(state.activeId).catch(() => {});
+        api.typing(state.activeId).catch(() => { });
+    }
+
+    // A person went offline: drop every online sign for them right away
+    function markOffline(userId) {
+        state.online.delete(userId);
+
+        state.conversations.forEach((conv) => {
+            if (conv.user.id === userId) {
+                conv.user.last_online_at = null;
+            }
+        });
+
+        if (state.pending && state.pending.user.id === userId) {
+            state.pending.user.last_online_at = null;
+        }
+
+        refreshLiveUi();
     }
 
     function onMessagesRead(event) {
@@ -609,7 +870,7 @@ export function initChat(root) {
 
     let memberTimer = null;
 
-       async function searchMembers(term) {
+    async function searchMembers(term) {
         // Show a loading line only when there are no results on screen yet
         if (!el.memberResults.querySelector('.member-result')) {
             el.memberResults.innerHTML = `<div class="chat-empty" style="${EMPTY_STYLE}">Loading...</div>`;
@@ -624,7 +885,11 @@ export function initChat(root) {
             }
 
             if (res.data.length) {
-                el.memberResults.innerHTML = res.data.map(view.memberResultHtml).join('');
+                el.memberResults.innerHTML = res.data
+                    .map((m) => ({ m, online: isUserOnline(m) }))
+                    .sort((a, b) => Number(b.online) - Number(a.online))
+                    .map((x) => view.memberResultHtml(x.m, x.online))
+                    .join('');
             } else {
                 el.memberResults.innerHTML = term
                     ? '<div class="no-search-result"><i class="bi bi-person-x"></i> No eligible member found</div>'
@@ -665,7 +930,7 @@ export function initChat(root) {
         }
     }
 
-        if (el.memberSearch) {
+    if (el.memberSearch) {
         el.memberSearch.addEventListener('input', function () {
             clearTimeout(memberTimer);
 
@@ -712,12 +977,41 @@ export function initChat(root) {
             sendMessage();
             return;
         }
+        // Edit, delete and cancel-edit on messages
+        const editBtn = target.closest('.chat-msg-edit');
 
-        // Remove the selected attachment
-        if (target.closest('.chat-attach-remove')) {
+        if (editBtn) {
             event.preventDefault();
             event.stopPropagation();
-            clearAttachPreview();
+            startEdit(Number(editBtn.closest('.message-row').dataset.id));
+            return;
+        }
+
+        const deleteBtn = target.closest('.chat-msg-delete');
+
+        if (deleteBtn) {
+            event.preventDefault();
+            event.stopPropagation();
+            deleteMessage(Number(deleteBtn.closest('.message-row').dataset.id));
+            return;
+        }
+
+        if (target.closest('.chat-edit-cancel')) {
+            event.preventDefault();
+            event.stopPropagation();
+            cancelEdit();
+            el.input.value = '';
+            return;
+        }
+
+        // Remove one selected attachment
+        const removeBtn = target.closest('.chat-attach-remove');
+
+        if (removeBtn) {
+            event.preventDefault();
+            event.stopPropagation();
+            state.pendingFiles.splice(Number(removeBtn.dataset.index), 1);
+            renderAttachPreview();
             return;
         }
 
@@ -844,7 +1138,8 @@ export function initChat(root) {
     --------------------------------------------------- */
 
     if (el.fileInput) {
-         el.fileInput.accept = FILE_ACCEPT;
+        el.fileInput.accept = FILE_ACCEPT;
+        el.fileInput.multiple = true;
     }
 
     renderHeader(null);
@@ -855,7 +1150,9 @@ export function initChat(root) {
     echo.private('user.' + me.id)
         .listen('.MessageSent', onIncoming)
         .listen('.UserTyping', onTyping)
-        .listen('.MessagesRead', onMessagesRead);
+        .listen('.MessagesRead', onMessagesRead)
+        .listen('.MessageChanged', onMessageChanged);
+
 
     echo.join('online')
         .here((users) => {
@@ -866,10 +1163,8 @@ export function initChat(root) {
             state.online.add(user.id);
             refreshLiveUi();
         })
-        .leaving((user) => {
-            state.online.delete(user.id);
-            refreshLiveUi();
-        });
+        .leaving((user) => markOffline(user.id))
+        .listen('.UserOffline', (event) => markOffline(Number(event.user_id)));
 
     initChatActions({
         root,
@@ -881,6 +1176,9 @@ export function initChat(root) {
         closeActive,
         closeAllChatMenus,
         isUserOnline,
+        renderList,
+        renderMessages,
+        updateBlockUi,
     });
 
     loadList();

@@ -15,6 +15,7 @@ class ChatMessage extends Model
 
     protected $casts = [
         'read_at' => 'datetime',
+        'edited_at' => 'datetime',
     ];
 
     public function conversation()

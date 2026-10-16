@@ -67,15 +67,15 @@ export function createApi({ csrf, routes }) {
 
         messages: (id, params) => request(withId(routes.messages, id) + query(params)),
 
-        send: (id, body, file) => {
-            if (file) {
+        send: (id, body, files) => {
+            if (files && files.length) {
                 const form = new FormData();
 
                 if (body) {
                     form.append('body', body);
                 }
 
-                form.append('file', file);
+                files.forEach((file) => form.append('files[]', file));
 
                 return request(withId(routes.messages, id), { method: 'POST', body: form });
             }
@@ -98,5 +98,16 @@ export function createApi({ csrf, routes }) {
         }),
 
         deleteChat: (id) => request(conversationUrl(id, 'delete'), { method: 'POST' }),
+        clear: (id) => request(conversationUrl(id, 'clear'), { method: 'POST' }),
+        block: (id) => request(conversationUrl(id, 'block'), { method: 'POST' }),
+        unblock: (id) => request(conversationUrl(id, 'block'), { method: 'DELETE' }),
+        editMessage: (id, body) => request(withId(routes.message, id), {
+            method: 'PATCH',
+            body: JSON.stringify({ body }),
+        }),
+        deleteMessage: (id, mode) => request(withId(routes.message, id), {
+            method: 'DELETE',
+            body: JSON.stringify({ mode }),
+        }),
     };
 }

@@ -13,10 +13,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   initChatActions: () => (/* binding */ initChatActions)
 /* harmony export */ });
 /* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./render */ "./resources/js/chat/render.js");
+/* harmony import */ var _dialogs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dialogs */ "./resources/js/chat/dialogs.js");
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+
 
 
 /**
@@ -32,7 +34,10 @@ function initChatActions(ctx) {
     loadList = ctx.loadList,
     closeActive = ctx.closeActive,
     closeAllChatMenus = ctx.closeAllChatMenus,
-    isUserOnline = ctx.isUserOnline;
+    isUserOnline = ctx.isUserOnline,
+    renderList = ctx.renderList,
+    renderMessages = ctx.renderMessages,
+    updateBlockUi = ctx.updateBlockUi;
   var overlay = null;
   function closeModal() {
     if (!overlay) {
@@ -158,39 +163,175 @@ function initChatActions(ctx) {
   }
   function _deleteChat() {
     _deleteChat = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(id) {
-      var _t3;
+      var ok, _t3;
       return _regenerator().w(function (_context3) {
         while (1) switch (_context3.p = _context3.n) {
           case 0:
-            if (window.confirm('Delete this chat? The other person will still keep it.')) {
-              _context3.n = 1;
+            _context3.n = 1;
+            return (0,_dialogs__WEBPACK_IMPORTED_MODULE_1__.confirmAction)({
+              title: 'Delete this chat?',
+              text: 'The other person will still keep it.',
+              confirmText: 'Delete',
+              danger: true
+            });
+          case 1:
+            ok = _context3.v;
+            if (ok) {
+              _context3.n = 2;
               break;
             }
             return _context3.a(2);
-          case 1:
-            _context3.p = 1;
-            _context3.n = 2;
-            return api.deleteChat(id);
           case 2:
+            _context3.p = 2;
+            _context3.n = 3;
+            return api.deleteChat(id);
+          case 3:
             if (state.activeId === id) {
               closeActive();
             }
-            _context3.n = 3;
+            _context3.n = 4;
             return loadList();
-          case 3:
-            notify('Chat deleted.', 'success');
-            _context3.n = 5;
-            break;
           case 4:
-            _context3.p = 4;
+            notify('Chat deleted.', 'success');
+            _context3.n = 6;
+            break;
+          case 5:
+            _context3.p = 5;
             _t3 = _context3.v;
             notify(_t3.message || 'Chat could not be deleted.', 'error');
-          case 5:
+          case 6:
             return _context3.a(2);
         }
-      }, _callee3, null, [[1, 4]]);
+      }, _callee3, null, [[2, 5]]);
     }));
     return _deleteChat.apply(this, arguments);
+  }
+  function closeHeaderMenu() {
+    var wrapper = document.querySelector('.more-wrapper');
+    if (wrapper) {
+      wrapper.classList.remove('open');
+    }
+  }
+  function clearChat() {
+    return _clearChat.apply(this, arguments);
+  }
+  function _clearChat() {
+    _clearChat = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      var conv, ok, _t4;
+      return _regenerator().w(function (_context4) {
+        while (1) switch (_context4.p = _context4.n) {
+          case 0:
+            conv = findConv(state.activeId);
+            if (conv) {
+              _context4.n = 1;
+              break;
+            }
+            return _context4.a(2);
+          case 1:
+            _context4.n = 2;
+            return (0,_dialogs__WEBPACK_IMPORTED_MODULE_1__.confirmAction)({
+              title: 'Clear this chat?',
+              text: 'The other person will still keep the messages.',
+              confirmText: 'Clear chat',
+              danger: true
+            });
+          case 2:
+            ok = _context4.v;
+            if (ok) {
+              _context4.n = 3;
+              break;
+            }
+            return _context4.a(2);
+          case 3:
+            _context4.p = 3;
+            _context4.n = 4;
+            return api.clear(conv.id);
+          case 4:
+            state.messages = [];
+            state.hasMore = false;
+            conv.last = null;
+            conv.unread = 0;
+            renderMessages();
+            renderList();
+            notify('Chat cleared.', 'success');
+            _context4.n = 6;
+            break;
+          case 5:
+            _context4.p = 5;
+            _t4 = _context4.v;
+            notify(_t4.message || 'Chat could not be cleared.', 'error');
+          case 6:
+            return _context4.a(2);
+        }
+      }, _callee4, null, [[3, 5]]);
+    }));
+    return _clearChat.apply(this, arguments);
+  }
+  function toggleBlock() {
+    return _toggleBlock.apply(this, arguments);
+  }
+  function _toggleBlock() {
+    _toggleBlock = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+      var conv, unblock, ok, _t5;
+      return _regenerator().w(function (_context5) {
+        while (1) switch (_context5.p = _context5.n) {
+          case 0:
+            conv = findConv(state.activeId);
+            if (conv) {
+              _context5.n = 1;
+              break;
+            }
+            return _context5.a(2);
+          case 1:
+            unblock = !!conv.blocked_by_me;
+            if (unblock) {
+              _context5.n = 3;
+              break;
+            }
+            _context5.n = 2;
+            return (0,_dialogs__WEBPACK_IMPORTED_MODULE_1__.confirmAction)({
+              title: 'Block this user?',
+              text: 'You will not be able to message each other.',
+              confirmText: 'Block',
+              danger: true
+            });
+          case 2:
+            ok = _context5.v;
+            if (ok) {
+              _context5.n = 3;
+              break;
+            }
+            return _context5.a(2);
+          case 3:
+            _context5.p = 3;
+            if (!unblock) {
+              _context5.n = 5;
+              break;
+            }
+            _context5.n = 4;
+            return api.unblock(conv.id);
+          case 4:
+            _context5.n = 6;
+            break;
+          case 5:
+            _context5.n = 6;
+            return api.block(conv.id);
+          case 6:
+            conv.blocked_by_me = !unblock;
+            updateBlockUi(conv);
+            notify(unblock ? 'User unblocked.' : 'User blocked.', 'success');
+            _context5.n = 8;
+            break;
+          case 7:
+            _context5.p = 7;
+            _t5 = _context5.v;
+            notify(_t5.message || 'Action failed.', 'error');
+          case 8:
+            return _context5.a(2);
+        }
+      }, _callee5, null, [[3, 7]]);
+    }));
+    return _toggleBlock.apply(this, arguments);
   }
   document.addEventListener('click', function (event) {
     var target = event.target;
@@ -216,6 +357,24 @@ function initChatActions(ctx) {
       } else if (action.dataset.action === 'delete') {
         deleteChat(id);
       }
+      return;
+    }
+
+    // Clear Chat in the header menu
+    if (target.closest('#clearChatBtn')) {
+      event.preventDefault();
+      event.stopPropagation();
+      closeHeaderMenu();
+      clearChat();
+      return;
+    }
+
+    // Block / Unblock in the header menu, and Unblock in the banner
+    if (target.closest('#blockUserBtn') || target.closest('.chat-unblock')) {
+      event.preventDefault();
+      event.stopPropagation();
+      closeHeaderMenu();
+      toggleBlock();
       return;
     }
 
@@ -357,13 +516,15 @@ function createApi(_ref) {
     messages: function messages(id, params) {
       return request(withId(routes.messages, id) + query(params));
     },
-    send: function send(id, body, file) {
-      if (file) {
+    send: function send(id, body, files) {
+      if (files && files.length) {
         var form = new FormData();
         if (body) {
           form.append('body', body);
         }
-        form.append('file', file);
+        files.forEach(function (file) {
+          return form.append('files[]', file);
+        });
         return request(withId(routes.messages, id), {
           method: 'POST',
           body: form
@@ -401,6 +562,37 @@ function createApi(_ref) {
       return request(conversationUrl(id, 'delete'), {
         method: 'POST'
       });
+    },
+    clear: function clear(id) {
+      return request(conversationUrl(id, 'clear'), {
+        method: 'POST'
+      });
+    },
+    block: function block(id) {
+      return request(conversationUrl(id, 'block'), {
+        method: 'POST'
+      });
+    },
+    unblock: function unblock(id) {
+      return request(conversationUrl(id, 'block'), {
+        method: 'DELETE'
+      });
+    },
+    editMessage: function editMessage(id, body) {
+      return request(withId(routes.message, id), {
+        method: 'PATCH',
+        body: JSON.stringify({
+          body: body
+        })
+      });
+    },
+    deleteMessage: function deleteMessage(id, mode) {
+      return request(withId(routes.message, id), {
+        method: 'DELETE',
+        body: JSON.stringify({
+          mode: mode
+        })
+      });
     }
   };
 }
@@ -422,10 +614,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./api */ "./resources/js/chat/api.js");
 /* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./render */ "./resources/js/chat/render.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions */ "./resources/js/chat/actions.js");
+/* harmony import */ var _dialogs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./dialogs */ "./resources/js/chat/dialogs.js");
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+
 
 
 
@@ -445,6 +639,7 @@ var LOCATIONS = {
 };
 var EMPTY_STYLE = 'padding:24px;text-align:center;color:#6b7280;font-size:14px;';
 var MAX_FILE_BYTES = 50 * 1024 * 1024;
+var MAX_FILES = 10;
 var TYPING_SEND_GAP_MS = 2000;
 var TYPING_SHOW_MS = 3500;
 var FILE_ACCEPT = 'image/*,video/*,.heic,.heif,.avif,.tif,.tiff,.mkv,.avi,.wmv,.flv,.3gp,.3g2,.mpg,.mpeg,.ogv,.m4v';
@@ -477,7 +672,7 @@ function notify(message, type) {
     showAlert(type || 'error', text);
     return;
   }
-  window.alert(text);
+  (0,_dialogs__WEBPACK_IMPORTED_MODULE_4__.notice)(type || 'error', text);
 }
 function initChat(root) {
   var config = JSON.parse(root.dataset.config || '{}');
@@ -521,8 +716,9 @@ function initChat(root) {
     typing: {},
     // conversation id -> hide timer
     lastTypingSent: 0,
-    pendingFile: null,
-    previewUrl: null
+    pendingFiles: [],
+    editingId: null,
+    previewUrls: []
   };
 
   /* ---------------------------------------------------
@@ -581,6 +777,7 @@ function initChat(root) {
   }
 
   // Leave the open chat (after it is archived or deleted)
+  // Leave the open chat (after it is archived or deleted)
   function closeActive() {
     state.activeId = null;
     state.messages = [];
@@ -588,8 +785,35 @@ function initChat(root) {
     clearAttachPreview();
     renderHeader(null);
     renderMessages();
+    updateBlockUi(null);
     setComposerEnabled(false);
     renderList();
+  }
+
+  // Block state of the open chat: header menu label, banner and composer
+  function updateBlockUi(conv) {
+    var button = document.getElementById('blockUserBtn');
+    var old = document.getElementById('chatBlockBanner');
+    if (old) {
+      old.remove();
+    }
+    if (!conv) {
+      return;
+    }
+    var unblockable = (config.unblockable || []).map(Number).indexOf(Number(conv.user.type)) !== -1;
+    if (button) {
+      button.style.display = unblockable ? 'none' : '';
+      button.innerHTML = '<i class="bi bi-slash-circle"></i> ' + (conv.blocked_by_me ? 'Unblock User' : 'Block User');
+    }
+    var blocked = !!(conv.blocked_by_me || conv.blocked_me);
+    if (blocked) {
+      var banner = document.createElement('div');
+      banner.id = 'chatBlockBanner';
+      banner.setAttribute('style', 'padding:10px 14px;border-top:1px solid #e5e7eb;background:#fff7ed;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:10px;');
+      banner.innerHTML = conv.blocked_by_me ? 'You blocked this user. <button type="button" class="chat-unblock" style="border:0;background:transparent;color:#e11d48;font-weight:600;cursor:pointer;">Unblock</button>' : 'You cannot reply to this conversation.';
+      el.composer.parentNode.insertBefore(banner, el.composer);
+    }
+    setComposerEnabled(!blocked);
   }
   function setComposerEnabled(enabled) {
     el.input.disabled = !enabled;
@@ -797,6 +1021,7 @@ function initChat(root) {
             renderHeader(conv);
             renderMessages();
             setComposerEnabled(true);
+            updateBlockUi(conv);
             closeSidebarOnMobile();
             _context4.p = 2;
             _context4.n = 3;
@@ -822,54 +1047,108 @@ function initChat(root) {
     return _openConversation.apply(this, arguments);
   }
   function clearAttachPreview() {
+    cancelEdit();
     var box = document.getElementById('chatAttachPreview');
     if (box) {
       box.remove();
     }
-    if (state.previewUrl) {
-      URL.revokeObjectURL(state.previewUrl);
-    }
-    state.previewUrl = null;
-    state.pendingFile = null;
+    state.previewUrls.forEach(function (url) {
+      return URL.revokeObjectURL(url);
+    });
+    state.previewUrls = [];
+    state.pendingFiles = [];
   }
-  function showAttachPreview(file) {
-    clearAttachPreview();
-    state.pendingFile = file;
-    var thumb;
-    if (PREVIEWABLE_IMAGES.indexOf(file.type) !== -1) {
-      state.previewUrl = URL.createObjectURL(file);
-      thumb = "<img src=\"".concat(state.previewUrl, "\" alt=\"\" style=\"width:44px;height:44px;object-fit:cover;border-radius:6px;\">");
-    } else {
-      var icon = fileKind(file) === 'image' ? 'bi-image' : 'bi-camera-video';
-      thumb = "<span style=\"width:44px;height:44px;border-radius:6px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:20px;\"><i class=\"bi ".concat(icon, "\"></i></span>");
+
+  // function showAttachPreview(file) {
+  //     clearAttachPreview();
+
+  //     state.pendingFile = file;
+
+  //     let thumb;
+
+  //     if (PREVIEWABLE_IMAGES.indexOf(file.type) !== -1) {
+  //         state.previewUrl = URL.createObjectURL(file);
+  //         thumb = `<img src="${state.previewUrl}" alt="" style="width:44px;height:44px;object-fit:cover;border-radius:6px;">`;
+  //     } else {
+  //         const icon = fileKind(file) === 'image' ? 'bi-image' : 'bi-camera-video';
+  //         thumb = `<span style="width:44px;height:44px;border-radius:6px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:20px;"><i class="bi ${icon}"></i></span>`;
+  //     }
+
+  //     const box = document.createElement('div');
+
+  //     box.id = 'chatAttachPreview';
+  //     box.setAttribute('style', 'display:flex;align-items:center;gap:10px;padding:8px 14px;border-top:1px solid #e5e7eb;background:#f9fafb;font-size:13px;');
+  //     box.innerHTML = `
+  //         ${thumb}
+  //         <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+  //             ${view.escapeHtml(file.name)} (${view.formatSize(file.size)})
+  //         </span>
+  //         <button type="button" class="chat-attach-remove" title="Remove"
+  //             style="border:0;background: #ff3c5f;font-size:20px;line-height:1;cursor:pointer;">&times;</button>
+  //     `;
+
+  //     el.composer.parentNode.insertBefore(box, el.composer);
+  // }
+
+  function renderAttachPreview() {
+    var old = document.getElementById('chatAttachPreview');
+    if (old) {
+      old.remove();
     }
+    state.previewUrls.forEach(function (url) {
+      return URL.revokeObjectURL(url);
+    });
+    state.previewUrls = [];
+    if (!state.pendingFiles.length) {
+      return;
+    }
+    var thumbs = state.pendingFiles.map(function (file, index) {
+      var thumb;
+      if (PREVIEWABLE_IMAGES.indexOf(file.type) !== -1) {
+        var url = URL.createObjectURL(file);
+        state.previewUrls.push(url);
+        thumb = "<img src=\"".concat(url, "\" alt=\"\" style=\"width:56px;height:56px;object-fit:cover;border-radius:6px;display:block;\">");
+      } else {
+        var icon = fileKind(file) === 'image' ? 'bi-image' : 'bi-camera-video';
+        thumb = "<span style=\"width:56px;height:56px;border-radius:6px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:22px;\"><i class=\"bi ".concat(icon, "\"></i></span>");
+      }
+      return "<div style=\"position:relative;flex:0 0 auto;\" title=\"".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(file.name), "\">\n                ").concat(thumb, "\n                <button type=\"button\" class=\"chat-attach-remove\" data-index=\"").concat(index, "\" title=\"Remove\"\n                    style=\"position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;border:0;background:#111827;color:#fff;font-size:14px;line-height:20px;padding:0;cursor:pointer;\">&times;</button>\n            </div>");
+    }).join('');
     var box = document.createElement('div');
     box.id = 'chatAttachPreview';
-    box.setAttribute('style', 'display:flex;align-items:center;gap:10px;padding:8px 14px;border-top:1px solid #e5e7eb;background:#f9fafb;font-size:13px;');
-    box.innerHTML = "\n            ".concat(thumb, "\n            <span style=\"flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;\">\n                ").concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(file.name), " (").concat(_render__WEBPACK_IMPORTED_MODULE_2__.formatSize(file.size), ")\n            </span>\n            <button type=\"button\" class=\"chat-attach-remove\" title=\"Remove\"\n                style=\"border:0;background: #ff3c5f;font-size:20px;line-height:1;cursor:pointer;\">&times;</button>\n        ");
+    box.setAttribute('style', 'display:flex;align-items:center;gap:12px;padding:10px 14px;border-top:1px solid #e5e7eb;background:#f9fafb;font-size:13px;overflow-x:auto;');
+    box.innerHTML = thumbs + "<span style=\"color:#6b7280;white-space:nowrap;\">".concat(state.pendingFiles.length, " file(s)</span>");
     el.composer.parentNode.insertBefore(box, el.composer);
   }
   function onFileChosen() {
-    var file = el.fileInput.files && el.fileInput.files[0];
+    var chosen = Array.from(el.fileInput.files || []);
 
     // Reset so choosing the same file again still fires a change event
     el.fileInput.value = '';
-    if (!file) {
+    if (!chosen.length) {
       return;
     }
     if (!state.activeId) {
       notify('Select a chat first.', 'error');
       return;
     }
-    if (!fileKind(file)) {
-      notify('This file type is not supported. Send an image or a video.', 'error');
-      return;
+    for (var _i = 0, _chosen = chosen; _i < _chosen.length; _i++) {
+      var file = _chosen[_i];
+      if (state.pendingFiles.length >= MAX_FILES) {
+        notify('You can send up to ' + MAX_FILES + ' files at a time.', 'error');
+        break;
+      }
+      if (!fileKind(file)) {
+        notify(file.name + ': this file type is not supported.', 'error');
+        continue;
+      }
+      if (file.size > MAX_FILE_BYTES) {
+        notify(file.name + ' is too large. Maximum size is 50 MB.', 'error');
+        continue;
+      }
+      state.pendingFiles.push(file);
     }
-    if (file.size > MAX_FILE_BYTES) {
-      notify('File is too large. Maximum size is 50 MB.', 'error');
-      return;
-    }
-    showAttachPreview(file);
+    renderAttachPreview();
     el.input.focus();
   }
 
@@ -900,54 +1179,225 @@ function initChat(root) {
     }));
     return true;
   }
-  function sendMessage() {
-    return _sendMessage.apply(this, arguments);
+
+  /* ---------------------------------------------------
+  Edit and delete one message
+  --------------------------------------------------- */
+
+  function messageById(id) {
+    return state.messages.find(function (m) {
+      return m.id === id;
+    });
   }
-  function _sendMessage() {
-    _sendMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-      var body, file, res, _t4;
+
+  // Swap one message for its new version and redraw, keeping the scroll position
+  function replaceMessage(msg) {
+    var position = state.messages.findIndex(function (m) {
+      return m.id === msg.id;
+    });
+    if (position === -1) {
+      return;
+    }
+    var scroll = el.messages.scrollTop;
+    state.messages[position] = msg;
+    renderMessages();
+    el.messages.scrollTop = scroll;
+  }
+  function cancelEdit() {
+    state.editingId = null;
+    var banner = document.getElementById('chatEditBanner');
+    if (banner) {
+      banner.remove();
+    }
+  }
+  function startEdit(id) {
+    var msg = messageById(id);
+    if (!msg || msg.deleted) {
+      return;
+    }
+    if (!_render__WEBPACK_IMPORTED_MODULE_2__.canEdit(msg)) {
+      notify('Messages can be edited only within 15 minutes.', 'error');
+      renderMessages();
+      return;
+    }
+
+    // Also clears any selected attachments and an earlier edit
+    clearAttachPreview();
+    state.editingId = id;
+    var banner = document.createElement('div');
+    banner.id = 'chatEditBanner';
+    banner.setAttribute('style', 'display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;border-top:1px solid #e5e7eb;background:#eff6ff;font-size:13px;');
+    banner.innerHTML = '<span><i class="bi bi-pencil"></i> Editing message</span>' + '<button type="button" class="chat-edit-cancel" aria-label="Cancel" style="border:0;background:transparent;font-size:20px;line-height:1;cursor:pointer;">&times;</button>';
+    el.composer.parentNode.insertBefore(banner, el.composer);
+    el.input.value = msg.body || '';
+    el.input.focus();
+  }
+  function deleteMessage(_x3) {
+    return _deleteMessage.apply(this, arguments);
+  } // The other person edited or deleted a message
+  function _deleteMessage() {
+    _deleteMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5(id) {
+      var msg, mode, res, scroll, _t4;
       return _regenerator().w(function (_context5) {
         while (1) switch (_context5.p = _context5.n) {
           case 0:
-            body = el.input.value.trim();
-            file = state.pendingFile;
-            if (!(!body && !file || !state.activeId || state.sending)) {
+            msg = messageById(id);
+            if (!(!msg || msg.deleted)) {
               _context5.n = 1;
               break;
             }
             return _context5.a(2);
           case 1:
+            _context5.n = 2;
+            return (0,_dialogs__WEBPACK_IMPORTED_MODULE_4__.chooseDelete)({
+              allowEveryone: msg.sender_id === me.id
+            });
+          case 2:
+            mode = _context5.v;
+            if (mode) {
+              _context5.n = 3;
+              break;
+            }
+            return _context5.a(2);
+          case 3:
+            _context5.p = 3;
+            _context5.n = 4;
+            return api.deleteMessage(id, mode);
+          case 4:
+            res = _context5.v;
+            if (state.editingId === id) {
+              cancelEdit();
+              el.input.value = '';
+            }
+            if (mode === 'me') {
+              scroll = el.messages.scrollTop;
+              state.messages = state.messages.filter(function (m) {
+                return m.id !== id;
+              });
+              renderMessages();
+              el.messages.scrollTop = scroll;
+            } else {
+              replaceMessage(res.data);
+            }
+            loadList();
+            _context5.n = 6;
+            break;
+          case 5:
+            _context5.p = 5;
+            _t4 = _context5.v;
+            notify(_t4.message || 'Message could not be deleted.', 'error');
+          case 6:
+            return _context5.a(2);
+        }
+      }, _callee5, null, [[3, 5]]);
+    }));
+    return _deleteMessage.apply(this, arguments);
+  }
+  function onMessageChanged(msg) {
+    if (!msg) {
+      return;
+    }
+    if (msg.conversation_id === state.activeId) {
+      replaceMessage(msg);
+    }
+    loadList();
+  }
+  function sendMessage() {
+    return _sendMessage.apply(this, arguments);
+  }
+  function _sendMessage() {
+    _sendMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+      var body, files, res, _res, _t5, _t6;
+      return _regenerator().w(function (_context6) {
+        while (1) switch (_context6.p = _context6.n) {
+          case 0:
+            body = el.input.value.trim();
+            files = state.pendingFiles.slice();
+            if (!state.sending) {
+              _context6.n = 1;
+              break;
+            }
+            return _context6.a(2);
+          case 1:
+            if (!state.editingId) {
+              _context6.n = 9;
+              break;
+            }
+            if (body) {
+              _context6.n = 2;
+              break;
+            }
+            notify('A message cannot be empty. Use delete instead.', 'error');
+            return _context6.a(2);
+          case 2:
+            if (!files.length) {
+              _context6.n = 3;
+              break;
+            }
+            notify('Attachments cannot be added while editing.', 'error');
+            return _context6.a(2);
+          case 3:
+            state.sending = true;
+            _context6.p = 4;
+            _context6.n = 5;
+            return api.editMessage(state.editingId, body);
+          case 5:
+            res = _context6.v;
+            replaceMessage(res.data);
+            cancelEdit();
+            el.input.value = '';
+            loadList();
+            _context6.n = 7;
+            break;
+          case 6:
+            _context6.p = 6;
+            _t5 = _context6.v;
+            notify(_t5.message || 'Message could not be edited.', 'error');
+          case 7:
+            _context6.p = 7;
+            state.sending = false;
+            el.input.focus();
+            return _context6.f(7);
+          case 8:
+            return _context6.a(2);
+          case 9:
+            if (!(!body && !files.length || !state.activeId)) {
+              _context6.n = 10;
+              break;
+            }
+            return _context6.a(2);
+          case 10:
             state.sending = true;
             el.sendBtn.disabled = true;
-            _context5.p = 2;
-            _context5.n = 3;
-            return api.send(state.activeId, body, file);
-          case 3:
-            res = _context5.v;
+            _context6.p = 11;
+            _context6.n = 12;
+            return api.send(state.activeId, body, files);
+          case 12:
+            _res = _context6.v;
             el.input.value = '';
             clearAttachPreview();
-            appendMessage(res.data);
-            touchConversation(res.data, {
+            appendMessage(_res.data);
+            touchConversation(_res.data, {
               mine: true,
               unread: 0
             });
             renderList();
-            _context5.n = 5;
+            _context6.n = 14;
             break;
-          case 4:
-            _context5.p = 4;
-            _t4 = _context5.v;
-            notify(_t4.message || 'Message could not be sent.', 'error');
-          case 5:
-            _context5.p = 5;
+          case 13:
+            _context6.p = 13;
+            _t6 = _context6.v;
+            notify(_t6.message || 'Message could not be sent.', 'error');
+          case 14:
+            _context6.p = 14;
             state.sending = false;
             el.sendBtn.disabled = false;
             el.input.focus();
-            return _context5.f(5);
-          case 6:
-            return _context5.a(2);
+            return _context6.f(14);
+          case 15:
+            return _context6.a(2);
         }
-      }, _callee5, null, [[2, 4, 5, 6]]);
+      }, _callee6, null, [[11, 13, 14, 15], [4, 6, 7, 8]]);
     }));
     return _sendMessage.apply(this, arguments);
   }
@@ -1010,6 +1460,20 @@ function initChat(root) {
     state.lastTypingSent = now;
     api.typing(state.activeId)["catch"](function () {});
   }
+
+  // A person went offline: drop every online sign for them right away
+  function markOffline(userId) {
+    state.online["delete"](userId);
+    state.conversations.forEach(function (conv) {
+      if (conv.user.id === userId) {
+        conv.user.last_online_at = null;
+      }
+    });
+    if (state.pending && state.pending.user.id === userId) {
+      state.pending.user.last_online_at = null;
+    }
+    refreshLiveUi();
+  }
   function onMessagesRead(event) {
     if (!event || event.conversation_id !== state.activeId) {
       return;
@@ -1038,62 +1502,71 @@ function initChat(root) {
 
   var MEMBER_HINT = "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">Type a Member ID to search.</div>");
   var memberTimer = null;
-  function searchMembers(_x3) {
+  function searchMembers(_x4) {
     return _searchMembers.apply(this, arguments);
   }
   function _searchMembers() {
-    _searchMembers = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6(term) {
-      var res, _t5;
-      return _regenerator().w(function (_context6) {
-        while (1) switch (_context6.p = _context6.n) {
+    _searchMembers = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7(term) {
+      var res, _t7;
+      return _regenerator().w(function (_context7) {
+        while (1) switch (_context7.p = _context7.n) {
           case 0:
             // Show a loading line only when there are no results on screen yet
             if (!el.memberResults.querySelector('.member-result')) {
               el.memberResults.innerHTML = "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">Loading...</div>");
             }
-            _context6.p = 1;
-            _context6.n = 2;
+            _context7.p = 1;
+            _context7.n = 2;
             return api.members(term);
           case 2:
-            res = _context6.v;
+            res = _context7.v;
             if (!(el.memberSearch.value.trim() !== term)) {
-              _context6.n = 3;
+              _context7.n = 3;
               break;
             }
-            return _context6.a(2);
+            return _context7.a(2);
           case 3:
             if (res.data.length) {
-              el.memberResults.innerHTML = res.data.map(_render__WEBPACK_IMPORTED_MODULE_2__.memberResultHtml).join('');
+              el.memberResults.innerHTML = res.data.map(function (m) {
+                return {
+                  m: m,
+                  online: isUserOnline(m)
+                };
+              }).sort(function (a, b) {
+                return Number(b.online) - Number(a.online);
+              }).map(function (x) {
+                return _render__WEBPACK_IMPORTED_MODULE_2__.memberResultHtml(x.m, x.online);
+              }).join('');
             } else {
               el.memberResults.innerHTML = term ? '<div class="no-search-result"><i class="bi bi-person-x"></i> No eligible member found</div>' : "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">No members available to add.</div>");
             }
-            _context6.n = 5;
+            _context7.n = 5;
             break;
           case 4:
-            _context6.p = 4;
-            _t5 = _context6.v;
+            _context7.p = 4;
+            _t7 = _context7.v;
             el.memberResults.innerHTML = "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">Could not load members. Try again.</div>");
           case 5:
-            return _context6.a(2);
+            return _context7.a(2);
         }
-      }, _callee6, null, [[1, 4]]);
+      }, _callee7, null, [[1, 4]]);
     }));
     return _searchMembers.apply(this, arguments);
   }
-  function startChat(_x4) {
+  function startChat(_x5) {
     return _startChat.apply(this, arguments);
   }
   function _startChat() {
-    _startChat = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7(member) {
-      var res, _t6;
-      return _regenerator().w(function (_context7) {
-        while (1) switch (_context7.p = _context7.n) {
+    _startChat = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8(member) {
+      var res, _t8;
+      return _regenerator().w(function (_context8) {
+        while (1) switch (_context8.p = _context8.n) {
           case 0:
-            _context7.p = 0;
-            _context7.n = 1;
+            _context8.p = 0;
+            _context8.n = 1;
             return api.start(member.id);
           case 1:
-            res = _context7.v;
+            res = _context8.v;
             if (!findConv(res.conversation_id)) {
               state.pending = {
                 id: res.conversation_id,
@@ -1114,16 +1587,16 @@ function initChat(root) {
             renderList();
             openConversation(res.conversation_id);
             loadList();
-            _context7.n = 3;
+            _context8.n = 3;
             break;
           case 2:
-            _context7.p = 2;
-            _t6 = _context7.v;
-            notify(_t6.message || 'Chat could not be started.', 'error');
+            _context8.p = 2;
+            _t8 = _context8.v;
+            notify(_t8.message || 'Chat could not be started.', 'error');
           case 3:
-            return _context7.a(2);
+            return _context8.a(2);
         }
-      }, _callee7, null, [[0, 2]]);
+      }, _callee8, null, [[0, 2]]);
     }));
     return _startChat.apply(this, arguments);
   }
@@ -1171,12 +1644,36 @@ function initChat(root) {
       sendMessage();
       return;
     }
-
-    // Remove the selected attachment
-    if (target.closest('.chat-attach-remove')) {
+    // Edit, delete and cancel-edit on messages
+    var editBtn = target.closest('.chat-msg-edit');
+    if (editBtn) {
       event.preventDefault();
       event.stopPropagation();
-      clearAttachPreview();
+      startEdit(Number(editBtn.closest('.message-row').dataset.id));
+      return;
+    }
+    var deleteBtn = target.closest('.chat-msg-delete');
+    if (deleteBtn) {
+      event.preventDefault();
+      event.stopPropagation();
+      deleteMessage(Number(deleteBtn.closest('.message-row').dataset.id));
+      return;
+    }
+    if (target.closest('.chat-edit-cancel')) {
+      event.preventDefault();
+      event.stopPropagation();
+      cancelEdit();
+      el.input.value = '';
+      return;
+    }
+
+    // Remove one selected attachment
+    var removeBtn = target.closest('.chat-attach-remove');
+    if (removeBtn) {
+      event.preventDefault();
+      event.stopPropagation();
+      state.pendingFiles.splice(Number(removeBtn.dataset.index), 1);
+      renderAttachPreview();
       return;
     }
 
@@ -1300,12 +1797,13 @@ function initChat(root) {
 
   if (el.fileInput) {
     el.fileInput.accept = FILE_ACCEPT;
+    el.fileInput.multiple = true;
   }
   renderHeader(null);
   renderMessages();
   setComposerEnabled(false);
   el.memberResults.innerHTML = MEMBER_HINT;
-  echo["private"]('user.' + me.id).listen('.MessageSent', onIncoming).listen('.UserTyping', onTyping).listen('.MessagesRead', onMessagesRead);
+  echo["private"]('user.' + me.id).listen('.MessageSent', onIncoming).listen('.UserTyping', onTyping).listen('.MessagesRead', onMessagesRead).listen('.MessageChanged', onMessageChanged);
   echo.join('online').here(function (users) {
     state.online = new Set(users.map(function (u) {
       return u.id;
@@ -1315,8 +1813,9 @@ function initChat(root) {
     state.online.add(user.id);
     refreshLiveUi();
   }).leaving(function (user) {
-    state.online["delete"](user.id);
-    refreshLiveUi();
+    return markOffline(user.id);
+  }).listen('.UserOffline', function (event) {
+    return markOffline(Number(event.user_id));
   });
   (0,_actions__WEBPACK_IMPORTED_MODULE_3__.initChatActions)({
     root: root,
@@ -1327,9 +1826,203 @@ function initChat(root) {
     loadList: loadList,
     closeActive: closeActive,
     closeAllChatMenus: closeAllChatMenus,
-    isUserOnline: isUserOnline
+    isUserOnline: isUserOnline,
+    renderList: renderList,
+    renderMessages: renderMessages,
+    updateBlockUi: updateBlockUi
   });
   loadList();
+}
+
+/***/ }),
+
+/***/ "./resources/js/chat/dialogs.js":
+/*!**************************************!*\
+  !*** ./resources/js/chat/dialogs.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   chooseDelete: () => (/* binding */ chooseDelete),
+/* harmony export */   confirmAction: () => (/* binding */ confirmAction),
+/* harmony export */   notice: () => (/* binding */ notice)
+/* harmony export */ });
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+/**
+ * Dialogs for the chat, built on SweetAlert. Works with SweetAlert2 (window.Swal)
+ * and with sweetalert 2.x (window.swal). Browser alert() and confirm() are never used.
+ */
+function isSwal2() {
+  return !!(window.Swal && typeof window.Swal.fire === 'function');
+}
+function isSwal() {
+  return typeof window.swal === 'function';
+}
+function missing() {
+  console.error('SweetAlert is not loaded on this page.');
+}
+
+// Yes / No question. Resolves to true when the user confirms.
+function confirmAction(_x) {
+  return _confirmAction.apply(this, arguments);
+}
+
+// Delete a message. Resolves to 'me', 'everyone' or null (cancelled).
+function _confirmAction() {
+  _confirmAction = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(_ref) {
+    var title, text, confirmText, danger, result, value;
+    return _regenerator().w(function (_context) {
+      while (1) switch (_context.n) {
+        case 0:
+          title = _ref.title, text = _ref.text, confirmText = _ref.confirmText, danger = _ref.danger;
+          if (!isSwal2()) {
+            _context.n = 2;
+            break;
+          }
+          _context.n = 1;
+          return window.Swal.fire({
+            title: title,
+            text: text,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: confirmText || 'Yes',
+            cancelButtonText: 'Cancel',
+            confirmButtonColor: danger ? '#e11d48' : undefined,
+            reverseButtons: true
+          });
+        case 1:
+          result = _context.v;
+          return _context.a(2, !!result.isConfirmed);
+        case 2:
+          if (!isSwal()) {
+            _context.n = 4;
+            break;
+          }
+          _context.n = 3;
+          return window.swal({
+            title: title,
+            text: text,
+            icon: 'warning',
+            buttons: ['Cancel', confirmText || 'Yes'],
+            dangerMode: !!danger
+          });
+        case 3:
+          value = _context.v;
+          return _context.a(2, !!value);
+        case 4:
+          missing();
+          return _context.a(2, false);
+      }
+    }, _callee);
+  }));
+  return _confirmAction.apply(this, arguments);
+}
+function chooseDelete(_x2) {
+  return _chooseDelete.apply(this, arguments);
+}
+
+// A short message (type is 'success' or 'error')
+function _chooseDelete() {
+  _chooseDelete = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(_ref2) {
+    var allowEveryone, ok, result, value;
+    return _regenerator().w(function (_context2) {
+      while (1) switch (_context2.n) {
+        case 0:
+          allowEveryone = _ref2.allowEveryone;
+          if (allowEveryone) {
+            _context2.n = 2;
+            break;
+          }
+          _context2.n = 1;
+          return confirmAction({
+            title: 'Delete this message?',
+            text: 'It will be removed only for you.',
+            confirmText: 'Delete for me',
+            danger: true
+          });
+        case 1:
+          ok = _context2.v;
+          return _context2.a(2, ok ? 'me' : null);
+        case 2:
+          if (!isSwal2()) {
+            _context2.n = 5;
+            break;
+          }
+          _context2.n = 3;
+          return window.Swal.fire({
+            title: 'Delete this message?',
+            icon: 'warning',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Delete for everyone',
+            denyButtonText: 'Delete for me',
+            cancelButtonText: 'Cancel',
+            confirmButtonColor: '#e11d48'
+          });
+        case 3:
+          result = _context2.v;
+          if (!result.isConfirmed) {
+            _context2.n = 4;
+            break;
+          }
+          return _context2.a(2, 'everyone');
+        case 4:
+          return _context2.a(2, result.isDenied ? 'me' : null);
+        case 5:
+          if (!isSwal()) {
+            _context2.n = 7;
+            break;
+          }
+          _context2.n = 6;
+          return window.swal({
+            title: 'Delete this message?',
+            icon: 'warning',
+            buttons: {
+              cancel: 'Cancel',
+              me: {
+                text: 'Delete for me',
+                value: 'me'
+              },
+              everyone: {
+                text: 'Delete for everyone',
+                value: 'everyone',
+                className: 'swal-button--danger'
+              }
+            }
+          });
+        case 6:
+          value = _context2.v;
+          return _context2.a(2, value === 'me' || value === 'everyone' ? value : null);
+        case 7:
+          missing();
+          return _context2.a(2, null);
+      }
+    }, _callee2);
+  }));
+  return _chooseDelete.apply(this, arguments);
+}
+function notice(type, text) {
+  var icon = type === 'success' ? 'success' : 'error';
+  if (isSwal2()) {
+    window.Swal.fire({
+      icon: icon,
+      text: text
+    });
+    return;
+  }
+  if (isSwal()) {
+    window.swal({
+      icon: icon,
+      text: text
+    });
+    return;
+  }
+  missing();
 }
 
 /***/ }),
@@ -1394,15 +2087,45 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   initLightbox: () => (/* binding */ initLightbox)
 /* harmony export */ });
 /**
- * Click on a photo inside a chat bubble to see it large.
+ * Click a photo in a chat bubble to open a viewer for every photo and video of that message.
+ * Arrow buttons, the keyboard arrows and a swipe move between items.
  * Esc, the close button or a click on the dark area closes it.
  */
 function initLightbox(root) {
   var overlay = null;
+  var stage = null;
+  var counter = null;
+  var items = [];
+  var index = 0;
+  var touchStartX = 0;
+  function show() {
+    var item = items[index];
+    var node = document.createElement(item.kind === 'video' ? 'video' : 'img');
+    node.src = item.src;
+    node.setAttribute('style', 'max-width:100%;max-height:100%;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.5);');
+    if (item.kind === 'video') {
+      node.controls = true;
+      node.autoplay = true;
+    }
+    stage.innerHTML = '';
+    stage.appendChild(node);
+    counter.textContent = items.length > 1 ? index + 1 + ' / ' + items.length : '';
+  }
+  function move(step) {
+    if (items.length < 2) {
+      return;
+    }
+    index = (index + step + items.length) % items.length;
+    show();
+  }
   function onKey(event) {
     if (event.key === 'Escape') {
       event.stopPropagation();
       close();
+    } else if (event.key === 'ArrowRight') {
+      move(1);
+    } else if (event.key === 'ArrowLeft') {
+      move(-1);
     }
   }
   function close() {
@@ -1413,34 +2136,55 @@ function initLightbox(root) {
     overlay = null;
     document.removeEventListener('keydown', onKey, true);
   }
-  function open(src) {
+  function open(list, start) {
     close();
+    items = list;
+    index = start;
+    var arrow = 'position:absolute;top:50%;transform:translateY(-50%);border:0;background:rgba(255,255,255,.18);' + 'color:#fff;width:44px;height:44px;border-radius:50%;font-size:20px;cursor:pointer;';
+    var showArrows = items.length > 1;
     overlay = document.createElement('div');
-    overlay.setAttribute('style', 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.85);' + 'display:flex;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;');
-    var image = document.createElement('img');
-    image.src = src;
-    image.alt = '';
-    image.setAttribute('style', 'max-width:100%;max-height:100%;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.5);');
-    var button = document.createElement('button');
-    button.type = 'button';
-    button.setAttribute('aria-label', 'Close');
-    button.innerHTML = '&times;';
-    button.setAttribute('style', 'position:absolute;top:16px;right:20px;border:0;background:transparent;' + 'color:#fff;font-size:34px;line-height:1;cursor:pointer;');
-    overlay.appendChild(image);
-    overlay.appendChild(button);
-    overlay.addEventListener('click', close);
+    overlay.setAttribute('style', 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.88);' + 'display:flex;align-items:center;justify-content:center;');
+    overlay.innerHTML = "\n            <button type=\"button\" class=\"chat-lb-close\" aria-label=\"Close\"\n                style=\"position:absolute;top:14px;right:20px;border:0;background:transparent;color:#fff;font-size:34px;line-height:1;cursor:pointer;\">&times;</button>\n            ".concat(showArrows ? "<button type=\"button\" class=\"chat-lb-prev\" aria-label=\"Previous\" style=\"".concat(arrow, "left:16px;\">&#10094;</button>") : '', "\n            <div class=\"chat-lb-stage\" style=\"width:100%;height:100%;padding:56px 72px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;\"></div>\n            ").concat(showArrows ? "<button type=\"button\" class=\"chat-lb-next\" aria-label=\"Next\" style=\"".concat(arrow, "right:16px;\">&#10095;</button>") : '', "\n            <div class=\"chat-lb-counter\" style=\"position:absolute;bottom:16px;left:0;right:0;text-align:center;color:#fff;font-size:14px;\"></div>\n        ");
+    stage = overlay.querySelector('.chat-lb-stage');
+    counter = overlay.querySelector('.chat-lb-counter');
+    overlay.addEventListener('click', function (event) {
+      if (event.target.closest('.chat-lb-prev')) {
+        move(-1);
+      } else if (event.target.closest('.chat-lb-next')) {
+        move(1);
+      } else if (event.target === overlay || event.target === stage || event.target.closest('.chat-lb-close')) {
+        close();
+      }
+    });
+    overlay.addEventListener('touchstart', function (event) {
+      touchStartX = event.changedTouches[0].clientX;
+    });
+    overlay.addEventListener('touchend', function (event) {
+      var distance = event.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(distance) > 50) {
+        move(distance < 0 ? 1 : -1);
+      }
+    });
     document.body.appendChild(overlay);
     document.addEventListener('keydown', onKey, true);
+    show();
   }
   root.addEventListener('click', function (event) {
-    var image = event.target.closest('.message-bubble a > img');
-    if (!image) {
+    var link = event.target.closest('a.chat-media');
+    if (!link) {
       return;
     }
 
     // Stop the link from opening a new tab
     event.preventDefault();
-    open(image.currentSrc || image.src);
+    var bubble = link.closest('.message-bubble');
+    var nodes = Array.from(bubble.querySelectorAll('.chat-media'));
+    open(nodes.map(function (node) {
+      return {
+        kind: node.dataset.kind,
+        src: node.tagName === 'A' ? node.getAttribute('href') : node.currentSrc || node.src
+      };
+    }), nodes.indexOf(link));
   });
 }
 
@@ -1455,8 +2199,10 @@ function initLightbox(root) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   EDIT_WINDOW_MS: () => (/* binding */ EDIT_WINDOW_MS),
 /* harmony export */   avatarInner: () => (/* binding */ avatarInner),
 /* harmony export */   avatarStyle: () => (/* binding */ avatarStyle),
+/* harmony export */   canEdit: () => (/* binding */ canEdit),
 /* harmony export */   chatItemHtml: () => (/* binding */ chatItemHtml),
 /* harmony export */   configure: () => (/* binding */ configure),
 /* harmony export */   dayLabel: () => (/* binding */ dayLabel),
@@ -1474,6 +2220,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var DAY_MS = 86400000;
 var ONLINE_WINDOW_MS = 5 * 60 * 1000;
+var EDIT_WINDOW_MS = 15 * 60 * 1000;
+// A message can be edited for 15 minutes after it was sent (the server checks this too)
+function canEdit(msg) {
+  return Date.now() - new Date(msg.created_at).getTime() <= EDIT_WINDOW_MS;
+}
+var SHOWABLE_IMAGES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp', 'image/avif'];
+var PLAYABLE_VIDEOS = ['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime'];
 var settings = {
   avatarBase: ''
 };
@@ -1622,13 +2375,26 @@ function chatItemHtml(conv, ctx) {
   return "\n        <div class=\"chat-user".concat(active, "\"\n            data-id=\"").concat(conv.id, "\"\n            data-name=\"").concat(escapeHtml(user.name), "\"\n            data-member=\"").concat(escapeHtml(user.member_id), "\"\n            data-location=\"").concat(escapeHtml(abbr), "\">\n\n            <div class=\"avatar avatar-light\" style=\"").concat(avatarStyle(user.color), "\">\n                ").concat(avatarInner(user), "\n            </div>\n\n            <div class=\"user-info\">\n\n                <div class=\"user-top\">\n                    <span class=\"user-type\">").concat(escapeHtml(user.member_id), "</span>\n                </div>\n\n                <div class=\"user-name\">\n                    ").concat(escapeHtml(user.name), "\n                    <span class=\"status-dot").concat(online ? '' : ' offline', "\"></span>\n                </div>\n\n                <div class=\"user-top\">\n                    <span class=\"user-type\">").concat(previewHtml, "</span>\n                    <span class=\"user-time\">").concat(escapeHtml(time), "</span>\n                </div>\n\n                <div class=\"more-info-wrapper\">\n\n                    <button type=\"button\" class=\"chatInfoBtn\" aria-label=\"More options\">\n                        <i class=\"bi bi-three-dots-vertical\"></i>\n                    </button>\n\n                    <div class=\"more-info-dropdown\">\n\n                        <button type=\"button\" class=\"contactInfoBtn chat-mark-read\">\n                            <i class=\"bi bi-check-circle\"></i>\n                            Mark as Read\n                        </button>\n\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"contact\">\n                            <i class=\"bi bi-person-vcard\"></i>\n                            Contact Info\n                        </button>\n\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"archive\">\n                            <i class=\"bi bi-archive\"></i>\n                            ").concat(conv.is_archived ? 'Unarchive' : 'Archive', "\n                        </button>\n\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"delete\">\n                            <i class=\"bi bi-trash3\"></i>\n                            Delete\n                        </button>\n\n                    </div>\n\n                </div>\n\n            </div>\n\n            ").concat(conv.unread > 0 ? "<span class=\"unread-count\">".concat(conv.unread, "</span>") : '', "\n\n        </div>\n    ");
 }
 function attachmentsHtml(msg) {
-  return (msg.attachments || []).map(function (a) {
+  var list = msg.attachments || [];
+  var many = list.length > 1;
+  var html = list.map(function (a) {
     var url = escapeHtml(a.url);
-    if (a.kind === 'image') {
-      return "<a href=\"".concat(url, "\" target=\"_blank\" rel=\"noopener\">\n                <img src=\"").concat(url, "\" alt=\"\" loading=\"lazy\"\n                    style=\"max-width:79px;max-height:260px;border-radius:8px;display:block;\">\n            </a>");
+    var mime = String(a.mime || '').toLowerCase();
+    if (a.kind === 'image' && SHOWABLE_IMAGES.indexOf(mime) !== -1) {
+      var size = many ? 'width:120px;height:120px;object-fit:cover;' : 'max-width:240px;max-height:260px;';
+      return "<a href=\"".concat(url, "\" class=\"chat-media\" data-kind=\"image\" target=\"_blank\" rel=\"noopener\">\n                <img src=\"").concat(url, "\" alt=\"\" loading=\"lazy\" style=\"").concat(size, "border-radius:8px;display:block;\">\n            </a>");
     }
-    return "<video src=\"".concat(url, "\" controls preload=\"metadata\"\n            style=\"max-width:260px;max-height:260px;border-radius:8px;display:block;\"></video>");
+    if (a.kind === 'video' && PLAYABLE_VIDEOS.indexOf(mime) !== -1) {
+      var _size = many ? 'width:180px;height:120px;object-fit:cover;' : 'max-width:260px;max-height:260px;';
+      return "<video src=\"".concat(url, "\" class=\"chat-media\" data-kind=\"video\" controls preload=\"metadata\"\n                style=\"").concat(_size, "border-radius:8px;display:block;\"></video>");
+    }
+
+    // Formats a browser cannot show inline (HEIC, MKV, AVI...): download card
+    var label = a.kind === 'image' ? 'Photo' : 'Video';
+    var format = escapeHtml((mime.split('/')[1] || 'file').replace(/^x-/, '').toUpperCase());
+    return "<a href=\"".concat(url, "\" download\n            style=\"display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit;\">\n            <i class=\"bi bi-file-earmark-arrow-down\" style=\"font-size:22px;\"></i>\n            <span>").concat(label, " (").concat(format, ", ").concat(escapeHtml(formatSize(a.size)), ")<br><small>Tap to download</small></span>\n        </a>");
   }).join('');
+  return many ? "<div style=\"display:flex;flex-wrap:wrap;gap:6px;\">".concat(html, "</div>") : html;
 }
 
 /**
@@ -1643,19 +2409,37 @@ function messageHtml(msg, prev, ctx) {
 
   // One grey tick = sent, two blue ticks = seen
   var tick = '';
-  if (mine) {
+  if (mine && !msg.deleted) {
     tick = msg.read_at ? '<i class="bi bi-check2-all chat-tick" style="color:#34B7F1;"></i>' : '<i class="bi bi-check2 chat-tick"></i>';
   }
-  var caption = msg.body ? "<div>".concat(nl2br(msg.body), "</div>") : '';
-  var bubble = "\n        <div class=\"message-wrapper\">\n            <div class=\"message-bubble\">".concat(attachmentsHtml(msg)).concat(caption, "</div>\n            <div class=\"message-time\">\n                ").concat(escapeHtml(formatTime(msg.created_at)), "\n                ").concat(tick, "\n            </div>\n        </div>");
+  var content;
+  if (msg.deleted) {
+    content = '<div style="font-style:italic;opacity:.7;"><i class="bi bi-slash-circle"></i> This message was deleted</div>';
+  } else {
+    var caption = msg.body ? "<div>".concat(nl2br(msg.body), "</div>") : '';
+    content = attachmentsHtml(msg) + caption;
+  }
+  var edited = !msg.deleted && msg.edited ? ' <span style="opacity:.6;">(edited)</span>' : '';
+
+  // Edit (first 15 minutes only) and delete, on my own messages
+  // Delete on every message, edit only on my own text messages (first 15 minutes)
+  var actions = '';
+  if (!msg.deleted) {
+    var buttonStyle = 'border:0;background:transparent;padding:0 4px;cursor:pointer;color:inherit;font-size:12px;';
+    var hasFiles = (msg.attachments || []).length > 0;
+    var edit = mine && !hasFiles && msg.body && canEdit(msg) ? "<button type=\"button\" class=\"chat-msg-edit\" title=\"Edit\" style=\"".concat(buttonStyle, "\"><i class=\"bi bi-pencil\"></i></button>") : '';
+    var remove = "<button type=\"button\" class=\"chat-msg-delete\" title=\"Delete\" style=\"".concat(buttonStyle, "\"><i class=\"bi bi-trash3\"></i></button>");
+    actions = "<span class=\"chat-msg-actions\" style=\"margin-left:8px;opacity:.65;\">".concat(edit).concat(remove, "</span>");
+  }
+  var bubble = "\n        <div class=\"message-wrapper\">\n            <div class=\"message-bubble\">".concat(content, "</div>\n            <div class=\"message-time\">\n                ").concat(escapeHtml(formatTime(msg.created_at))).concat(edited, "\n                ").concat(tick, "\n                ").concat(actions, "\n            </div>\n        </div>");
   return "\n        ".concat(divider, "\n        <div class=\"message-row ").concat(mine ? 'sent' : 'received', "\" data-id=\"").concat(msg.id, "\">\n            ").concat(mine ? bubble + avatar : avatar + bubble, "\n        </div>\n    ");
 }
 
 /**
  * One result row inside the New chat modal.
  */
-function memberResultHtml(member) {
-  return "\n        <div class=\"member-result\"\n            data-user-id=\"".concat(member.id, "\"\n            data-member-id=\"").concat(escapeHtml(member.member_id), "\"\n            data-member-name=\"").concat(escapeHtml(member.name), "\"\n            data-avatar=\"").concat(escapeHtml(member.avatar || ''), "\"\n            data-color=\"").concat(escapeHtml(member.color), "\"\n            data-location=\"\">\n\n            <div class=\"member-avatar\" style=\"").concat(avatarStyle(member.color), "\">\n                ").concat(avatarInner(member), "\n            </div>\n\n            <div class=\"member-info\">\n                <strong>").concat(escapeHtml(member.name), "</strong>\n                <span>").concat(escapeHtml(member.member_id)).concat(member.type_label ? ' · ' + escapeHtml(member.type_label) : '', "</span>\n            </div>\n\n            <button type=\"button\" class=\"add-member-action\">\n                <i class=\"bi bi-plus-lg\"></i>\n            </button>\n\n        </div>\n    ");
+function memberResultHtml(member, online) {
+  return "\n        <div class=\"member-result\"\n            data-user-id=\"".concat(member.id, "\"\n            data-member-id=\"").concat(escapeHtml(member.member_id), "\"\n            data-member-name=\"").concat(escapeHtml(member.name), "\"\n            data-avatar=\"").concat(escapeHtml(member.avatar || ''), "\"\n            data-color=\"").concat(escapeHtml(member.color), "\"\n            data-location=\"\">\n\n            <div class=\"member-avatar\" style=\"").concat(avatarStyle(member.color), "\">\n                ").concat(avatarInner(member), "\n            </div>\n\n            <div class=\"member-info\">\n                <strong>").concat(escapeHtml(member.name), "</strong>\n                <span>").concat(escapeHtml(member.member_id)).concat(member.type_label ? ' · ' + escapeHtml(member.type_label) : '', "</span>\n            </div>\n            <span class=\"member-status").concat(online ? '' : ' offline', "\">").concat(online ? 'Online' : 'Offline', "</span>\n\n            <button type=\"button\" class=\"add-member-action\">\n                <i class=\"bi bi-plus-lg\"></i>\n            </button>\n\n        </div>\n    ");
 }
 
 /***/ }),

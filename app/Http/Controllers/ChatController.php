@@ -18,11 +18,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Events\MessageChanged;
 
 class ChatController extends Controller
 {
     // Filesystem disk (config/filesystems.php) where chat attachments are stored
     private const DISK = 'escorts';
+    private const EDIT_MINUTES = 15;
 
     // Supported attachment extensions => [kind, mime used when the server cannot detect it]
     private const ATTACHMENT_EXTENSIONS = [
@@ -61,7 +63,7 @@ class ChatController extends Controller
     {
         $this->middleware('auth');
     }
-       /**
+    /**
      * Chat list. Query: filter=active|archived|deleted, location=australia|mine
      *
      * A chat is listed when it was added by this person (is_listed), or when it has messages
@@ -81,8 +83,15 @@ class ChatController extends Controller
             ->join('chat_conversations as c', 'c.id', '=', 'p.conversation_id')
             ->where('p.user_id', $me->id)
             ->select(
-                'c.id', 'c.user_one_id', 'c.user_two_id', 'c.last_message_id', 'c.last_message_at',
-                'p.is_muted', 'p.is_archived', 'p.deleted_at'
+                'c.id',
+                'c.user_one_id',
+                'c.user_two_id',
+                'c.last_message_id',
+                'c.last_message_at',
+                'p.is_muted',
+                'p.is_archived',
+                'p.deleted_at',
+                'p.cleared_at'
             );
 
         if ($filter === 'deleted') {
@@ -103,37 +112,77 @@ class ChatController extends Controller
             ->limit(50)
             ->get();
 
-        $otherIds = $rows->map(fn ($r) => (int) $r->user_one_id === $me->id ? $r->user_two_id : $r->user_one_id);
+        $otherIds = $rows->map(fn($r) => (int) $r->user_one_id === $me->id ? $r->user_two_id : $r->user_one_id);
 
         $users = User::query()
             ->whereIn('id', $otherIds)
             ->get([
-                'id', 'name', 'business_name', 'entity_name', 'member_id', 'avatar_img',
-                'state_id', 'current_state_id', 'last_online_at', 'type',
+                'id',
+                'name',
+                'business_name',
+                'entity_name',
+                'member_id',
+                'avatar_img',
+                'state_id',
+                'current_state_id',
+                'last_online_at',
+                'type',
             ])
             ->keyBy('id');
 
+        // Newest message I can still see in each chat. Messages before a delete or "Clear chat",
+        // and messages I deleted for myself, are left out.
+        $lastIds = DB::table('chat_messages as m')
+            ->join('chat_participants as p', function ($join) use ($me) {
+                $join->on('p.conversation_id', '=', 'm.conversation_id')
+                    ->where('p.user_id', '=', $me->id);
+            })
+            ->whereIn('m.conversation_id', $rows->pluck('id'))
+            ->where(function ($q) {
+                $q->whereNull('p.deleted_at')->orWhereColumn('m.created_at', '>', 'p.deleted_at');
+            })
+            ->where(function ($q) {
+                $q->whereNull('p.cleared_at')->orWhereColumn('m.created_at', '>', 'p.cleared_at');
+            })
+            ->whereNotExists(function ($q) use ($me) {
+                $q->select(DB::raw(1))
+                    ->from('chat_message_hides as h')
+                    ->whereColumn('h.message_id', 'm.id')
+                    ->where('h.user_id', $me->id);
+            })
+            ->groupBy('m.conversation_id')
+            ->selectRaw('m.conversation_id, MAX(m.id) as last_id')
+            ->pluck('last_id', 'conversation_id');
+
         $lastMessages = ChatMessage::withTrashed()
-            ->whereIn('id', $rows->pluck('last_message_id')->filter())
-            ->get(['id', 'body', 'type', 'sender_id', 'created_at'])
+            ->whereIn('id', $lastIds->values())
+            ->get(['id', 'body', 'type', 'sender_id', 'created_at', 'deleted_at'])
             ->keyBy('id');
 
         $unread = $this->unreadCounts($me->id, $rows->pluck('id')->all());
+        // Blocks in either direction, to show the banner and disable the composer
+        $blockedByMe = DB::table('chat_blocks')->where('blocker_id', $me->id)
+            ->whereIn('blocked_id', $otherIds)->pluck('blocked_id')->all();
+        $blockedMe = DB::table('chat_blocks')->where('blocked_id', $me->id)
+            ->whereIn('blocker_id', $otherIds)->pluck('blocker_id')->all();
 
         $australiaIds = collect(config('escorts.profile.states', []))
-            ->filter(fn ($s) => str_starts_with($s['timeZone'] ?? '', 'Australia/'))
+            ->filter(fn($s) => str_starts_with($s['timeZone'] ?? '', 'Australia/'))
             ->keys()
-            ->map(fn ($k) => (int) $k)
+            ->map(fn($k) => (int) $k)
             ->all();
 
-        $data = $rows->map(function ($r) use ($me, $users, $lastMessages, $unread, $myAgentId) {
+        $data = $rows->map(function ($r) use ($me, $users, $lastMessages, $unread, $myAgentId, $blockedByMe, $blockedMe, $lastIds) {
             $otherId = (int) $r->user_one_id === $me->id ? (int) $r->user_two_id : (int) $r->user_one_id;
             $other   = $users->get($otherId);
-            $last    = $lastMessages->get($r->last_message_id);
+            $last    = $lastMessages->get($lastIds[$r->id] ?? 0);
 
-            if (! $other) {
-                return null;
-            }
+            // Messages before a delete or "Clear chat" are hidden for me
+            // $hideBefore = collect([$r->deleted_at, $r->cleared_at])->filter()->max();
+
+            // if ($last && $hideBefore && (string) $r->last_message_at <= (string) $hideBefore) {
+            //     $last = null;
+            // }
 
             return [
                 'id'           => $r->id,
@@ -156,6 +205,8 @@ class ChatController extends Controller
                 'is_muted'     => (bool) $r->is_muted,
                 'is_archived'  => (bool) $r->is_archived,
                 'is_appointed' => $myAgentId > 0 && (int) $other->id === $myAgentId,
+                'blocked_by_me' => in_array($other->id, $blockedByMe),
+                'blocked_me'    => in_array($other->id, $blockedMe),
             ];
         })->filter();
 
@@ -173,7 +224,7 @@ class ChatController extends Controller
         });
 
         // The appointed Agent stays on top, the rest keep the latest-message order
-        $data = $data->sortBy(fn ($item) => $item['is_appointed'] ? 0 : 1);
+        $data = $data->sortBy(fn($item) => $item['is_appointed'] ? 0 : 1);
 
         return response()->json(['data' => $data->values()]);
     }
@@ -181,7 +232,7 @@ class ChatController extends Controller
     /**
      * New chat modal: search members by Member ID.
      */
-        /**
+    /**
      * Add Member modal: everyone who can be chatted with and is not in my chat list yet.
      * An empty search returns the full list, otherwise it matches Member ID or name.
      */
@@ -213,7 +264,10 @@ class ChatController extends Controller
 
         if ((int) $me->type === (int) config('chat.types.agent')) {
             // An Agent only sees advertisers who appointed them
-            $query->where('assigned_agent_id', $me->id);
+            $query->where('enabled', 1)->where(function ($q) use ($me) {
+                $q->where('assigned_agent_id', $me->id)
+                    ->orWhereIn('id', DB::table('agent_escorts')->where('agent_id', $me->id)->pluck('escort_id'));
+            });
         } elseif ((int) $me->type === (int) config('chat.types.escort')) {
             // An escort sees viewers who have them in their Legbox, and their own appointed Agent
             $escortIds = DB::table('escorts')->where('user_id', $me->id)->pluck('id');
@@ -225,32 +279,56 @@ class ChatController extends Controller
                 })
                 ->pluck('user_id');
 
-            $query->where(function ($q) use ($viewerIds, $me) {
-                $q->whereIn('id', $viewerIds)->orWhere('id', (int) $me->assigned_agent_id);
+            $agentIds = DB::table('agent_escorts')->where('escort_id', $me->id)->pluck('agent_id');
+
+            $query->where(function ($q) use ($viewerIds, $me, $agentIds) {
+                $q->whereIn('id', $viewerIds)
+                    ->orWhere('id', (int) $me->assigned_agent_id)
+                    ->orWhereIn('id', $agentIds);
             });
+        } elseif ((int) $me->type === (int) config('chat.types.viewer')) {
+            // A viewer only sees escorts saved in their Legbox
+            $legboxEscortIds = DB::table('my_legbox')
+                ->where('user_id', $me->id)
+                ->where(function ($q) {
+                    $q->whereNull('is_blocked')->orWhere('is_blocked', 0);
+                })
+                ->pluck('escort_id');
+
+            $query->whereIn('id', DB::table('escorts')->whereIn('id', $legboxEscortIds)->pluck('user_id'));
         }
 
         $users = $query->orderBy('member_id')->limit(50)->get([
-            'id', 'name', 'business_name', 'entity_name', 'member_id', 'avatar_img', 'state_id', 'type',
+            'id',
+            'name',
+            'business_name',
+            'entity_name',
+            'member_id',
+            'avatar_img',
+            'state_id',
+            'type',
+            'last_online_at',
+            'assigned_agent_id',
         ]);
 
         // The remaining rules (settings, blocks, appointment) are checked per person
         $data = $users
-            ->filter(fn (User $u) => $this->eligibility->canStart($me, $u)['ok'])
-            ->map(fn (User $u) => [
-                'id'         => $u->id,
-                'name'       => ChatState::displayName($u),
-                'member_id'  => $u->member_id,
-                'avatar'     => $u->avatar_img,
-                'color'      => ChatState::color($u->state_id),
-                'type_label' => config('chat.type_labels.' . (int) $u->type, ''),
+            ->filter(fn(User $u) => $this->eligibility->canStart($me, $u)['ok'])
+            ->map(fn(User $u) => [
+                'id'             => $u->id,
+                'name'           => ChatState::displayName($u),
+                'member_id'      => $u->member_id,
+                'avatar'         => $u->avatar_img,
+                'color'          => ChatState::color($u->state_id),
+                'type_label'     => config('chat.type_labels.' . (int) $u->type, ''),
+                'last_online_at' => $u->last_online_at,
             ])
             ->values();
 
         return response()->json(['data' => $data]);
     }
 
-        /**
+    /**
      * Start a chat (or reopen an existing one) with the given user.
      * The chat is listed for the person who adds the member right away,
      * the other person sees it once the first message is sent.
@@ -334,8 +412,14 @@ class ChatController extends Controller
             ->where('user_id', $me->id)
             ->first();
 
-        $query = ChatMessage::query()
+        $query = ChatMessage::withTrashed()
             ->where('conversation_id', $conv->id)
+            ->whereNotExists(function ($q) use ($me) {
+                $q->select(DB::raw(1))
+                    ->from('chat_message_hides as h')
+                    ->whereColumn('h.message_id', 'chat_messages.id')
+                    ->where('h.user_id', $me->id);
+            })
             ->with('attachments')
             ->orderByDesc('id');
 
@@ -344,8 +428,13 @@ class ChatController extends Controller
         }
 
         // History I deleted earlier stays hidden for me only
-        if ($participant && $participant->deleted_at) {
-            $query->where('created_at', '>', $participant->deleted_at);
+        // History I deleted or cleared earlier stays hidden for me only
+        $hideBefore = collect([$participant->deleted_at ?? null, $participant->cleared_at ?? null])
+            ->filter()
+            ->max();
+
+        if ($hideBefore) {
+            $query->where('created_at', '>', $hideBefore);
         }
 
         $rows    = $query->limit($limit + 1)->get();
@@ -353,13 +442,13 @@ class ChatController extends Controller
         $rows    = $rows->take($limit)->reverse()->values();
 
         return response()->json([
-            'data'     => $rows->map(fn (ChatMessage $m) => $this->payload($m))->values(),
+            'data'     => $rows->map(fn(ChatMessage $m) => $this->payload($m))->values(),
             'has_more' => $hasMore,
         ]);
     }
 
     /**
-     * Send a message: text, one image/video, or both (file with a caption).
+     * Send a message: text, several images/videos, or both (files with a caption).
      */
     public function send(Request $request, int $conversation): JsonResponse
     {
@@ -367,13 +456,9 @@ class ChatController extends Controller
         $conv = $this->conversationFor($me->id, $conversation);
 
         $input = $request->validate([
-            'body' => ['nullable', 'string', 'max:5000', 'required_without:file'],
-            'file' => [
-                'nullable',
-                'file',
-                'max:51200', // 50 MB, in kilobytes
-                'required_without:body',
-            ],
+            'body'    => ['nullable', 'string', 'max:5000', 'required_without:files'],
+            'files'   => ['nullable', 'array', 'max:10', 'required_without:body'],
+            'files.*' => ['file', 'max:51200'], // 50 MB each, in kilobytes
         ]);
 
         $otherId = $conv->otherUserId($me->id);
@@ -386,35 +471,32 @@ class ChatController extends Controller
 
         $body = isset($input['body']) ? trim($input['body']) : '';
         $body = $body === '' ? null : $body;
-        $file = $request->file('file');
 
-        if (! $file && $body === null) {
+        $files = $request->file('files') ?: [];
+
+        if ($files instanceof UploadedFile) {
+            $files = [$files];
+        }
+
+        if (! $files && $body === null) {
             return response()->json(['message' => 'Message is empty.'], 422);
         }
 
-        // Read file details before it is stored
-        $kind      = null;
-        $mime      = null;
-        $size      = 0;
-        $realPath  = null;
-        $extension = null;
+        // Check every file before anything is saved
+        $items = [];
 
-        if ($file) {
-            // getRealPath() can return false on Windows when the temp folder is restricted,
-            // so fall back to the plain upload path.
+        foreach ($files as $file) {
+            // getRealPath() can return false on Windows when the temp folder is restricted
             $realPath = $file->getRealPath() ?: $file->getPathname();
 
-            // The temporary upload file is missing or not readable
             if (! $file->isValid() || ! $realPath || ! is_readable($realPath)) {
                 Log::warning('Chat upload rejected', [
                     'error_code'     => $file->getError(),
                     'error_message'  => $file->getErrorMessage(),
-                    'pathname'       => (string) $file->getPathname(),
                     'client_name'    => $file->getClientOriginalName(),
                     'upload_max'     => ini_get('upload_max_filesize'),
                     'post_max'       => ini_get('post_max_size'),
                     'upload_tmp_dir' => ini_get('upload_tmp_dir'),
-                    'sys_temp_dir'   => sys_get_temp_dir(),
                 ]);
 
                 return response()->json([
@@ -426,53 +508,43 @@ class ChatController extends Controller
 
             if (! $info) {
                 return response()->json([
-                    'message' => 'This file type is not supported. Send an image or a video.',
+                    'message' => $file->getClientOriginalName() . ' is not supported. Send images or videos.',
                 ], 422);
             }
 
-            $kind      = $info['kind'];
-            $mime      = $info['mime'];
-            $extension = $info['ext'];
-            $size      = (int) $file->getSize();
+            $items[] = $info + ['path' => $realPath, 'size' => (int) $file->getSize()];
         }
 
-        $message = DB::transaction(function () use ($conv, $me, $body, $kind, $mime, $size, $realPath, $extension) {
+        $message = DB::transaction(function () use ($conv, $me, $body, $items) {
             $message = ChatMessage::create([
                 'conversation_id' => $conv->id,
                 'sender_id'       => $me->id,
                 'body'            => $body,
-                'type'            => $kind ?? 'text',
+                'type'            => $items ? $items[0]['kind'] : 'text',
             ]);
 
-            if ($realPath) {
-                $path = 'chat/' . $conv->id . '/' . Str::uuid() . '.' . $extension;
+            foreach ($items as $item) {
+                $path = 'chat/' . $conv->id . '/' . Str::uuid() . '.' . $item['ext'];
 
-                $saved = Storage::disk(self::DISK)->put($path, file_get_contents($realPath));
-
-                if (! $saved) {
+                if (! Storage::disk(self::DISK)->put($path, file_get_contents($item['path']))) {
                     throw new \RuntimeException('Attachment could not be saved.');
                 }
 
                 ChatAttachment::create([
                     'message_id' => $message->id,
                     'path'       => $path,
-                    'kind'       => $kind,
-                    'mime'       => $mime,
-                    'size'       => $size,
+                    'kind'       => $item['kind'],
+                    'mime'       => $item['mime'],
+                    'size'       => $item['size'],
                 ]);
             }
 
-            // $conv->update([
-            //     'last_message_id' => $message->id,
-            //     'last_message_at' => $message->created_at,
-            // ]);
-
-                        $conv->update([
+            $conv->update([
                 'last_message_id' => $message->id,
                 'last_message_at' => $message->created_at,
             ]);
 
-            // A new message brings an archived chat back for both people
+            // A new message shows the chat in both lists and brings it back from the archive
             DB::table('chat_participants')
                 ->where('conversation_id', $conv->id)
                 ->update(['is_archived' => 0, 'is_listed' => 1]);
@@ -543,7 +615,7 @@ class ChatController extends Controller
     }
 
 
-        /**
+    /**
      * Details of the person on the other side, for the Contact Info popup.
      */
     public function contact(Request $request, int $conversation): JsonResponse
@@ -570,7 +642,8 @@ class ChatController extends Controller
                 'member_since'   => $user->created_at ? $user->created_at->format('d-m-Y') : null,
                 'last_online_at' => $user->last_online_at
                     ? $user->last_online_at->format('d-m-Y H:i A')
-                    : null,            ],
+                    : null,
+            ],
         ]);
     }
 
@@ -593,7 +666,7 @@ class ChatController extends Controller
         return response()->json(['archived' => $archived]);
     }
 
-       /**
+    /**
      * Delete a conversation for me only. The other person keeps it and
      * every message stays in the database. A new message brings the chat back,
      * but the history before the delete stays hidden for me.
@@ -616,6 +689,151 @@ class ChatController extends Controller
             ]);
 
         return response()->json(['deleted' => true]);
+    }
+
+    /**
+     * Edit my own message, only within the first 15 minutes.
+     */
+    public function updateMessage(Request $request, int $message): JsonResponse
+    {
+        $me   = $request->user();
+        $msg  = ChatMessage::withTrashed()->findOrFail($message);
+        $conv = $this->conversationFor($me->id, $msg->conversation_id);
+
+        abort_if((int) $msg->sender_id !== (int) $me->id, 403);
+
+        if ($msg->trashed()) {
+            return response()->json(['message' => 'This message was deleted.'], 422);
+        }
+
+        if ($msg->attachments()->exists()) {
+            return response()->json(['message' => 'Messages with attachments cannot be edited.'], 422);
+        }
+
+        if ($msg->created_at->lt(now()->subMinutes(self::EDIT_MINUTES))) {
+            return response()->json([
+                'message' => 'Messages can be edited only within ' . self::EDIT_MINUTES . ' minutes.',
+            ], 422);
+        }
+
+        $input = $request->validate([
+            'body' => ['required', 'string', 'max:5000'],
+        ]);
+
+        $body = trim($input['body']);
+
+        if ($body === '') {
+            return response()->json(['message' => 'Message is empty.'], 422);
+        }
+
+        $otherId = $conv->otherUserId($me->id);
+
+        if (! $this->eligibility->canContinue($me, User::findOrFail($otherId))) {
+            return response()->json(['message' => 'You cannot message this user.'], 403);
+        }
+
+        $msg->update(['body' => $body, 'edited_at' => now()]);
+        $msg->load('attachments');
+
+        $payload = $this->payload($msg);
+
+        broadcast(new MessageChanged($payload, $otherId));
+
+        return response()->json(['data' => $payload]);
+    }
+
+    /**
+     * Delete a message. Mode "me" hides it for me only (any message),
+     * mode "everyone" removes it for both people (my own messages only).
+     * The record stays in the database either way.
+     */
+    public function deleteMessage(Request $request, int $message): JsonResponse
+    {
+        $me   = $request->user();
+        $msg  = ChatMessage::withTrashed()->findOrFail($message);
+        $conv = $this->conversationFor($me->id, $msg->conversation_id);
+
+        $input = $request->validate([
+            'mode' => ['required', 'in:me,everyone'],
+        ]);
+
+        if ($input['mode'] === 'me') {
+            DB::table('chat_message_hides')->insertOrIgnore([
+                'message_id' => $msg->id,
+                'user_id'    => $me->id,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            return response()->json(['hidden' => true]);
+        }
+
+        abort_if((int) $msg->sender_id !== (int) $me->id, 403);
+
+        if (! $msg->trashed()) {
+            $msg->delete();
+        }
+
+        $payload = $this->payload($msg);
+
+        broadcast(new MessageChanged($payload, $conv->otherUserId($me->id)));
+
+        return response()->json(['data' => $payload]);
+    }
+
+    /**
+     * Clear the messages of a conversation for me only. The chat stays in my list
+     * and the other person keeps everything.
+     */
+    public function clear(Request $request, int $conversation): JsonResponse
+    {
+        $me   = $request->user();
+        $conv = $this->conversationFor($me->id, $conversation);
+
+        $latestId = ChatMessage::withTrashed()->where('conversation_id', $conv->id)->max('id');
+
+        DB::table('chat_participants')
+            ->where('conversation_id', $conv->id)
+            ->where('user_id', $me->id)
+            ->update(['cleared_at' => now(), 'last_read_message_id' => $latestId]);
+
+        return response()->json(['cleared' => true]);
+    }
+
+    /**
+     * Block the person on the other side of this conversation.
+     */
+    public function block(Request $request, int $conversation): JsonResponse
+    {
+        $me    = $request->user();
+        $conv  = $this->conversationFor($me->id, $conversation);
+        $other = User::findOrFail($conv->otherUserId($me->id));
+
+        if (in_array((int) $other->type, config('chat.unblockable', []), true)) {
+            return response()->json(['message' => 'This user cannot be blocked.'], 422);
+        }
+
+        DB::table('chat_blocks')->insertOrIgnore([
+            'blocker_id' => $me->id,
+            'blocked_id' => $other->id,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return response()->json(['blocked' => true]);
+    }
+
+    public function unblock(Request $request, int $conversation): JsonResponse
+    {
+        $me   = $request->user();
+        $conv = $this->conversationFor($me->id, $conversation);
+
+        DB::table('chat_blocks')
+            ->where('blocker_id', $me->id)
+            ->where('blocked_id', $conv->otherUserId($me->id))
+            ->delete();
+
+        return response()->json(['blocked' => false]);
     }
 
     /**
@@ -656,7 +874,7 @@ class ChatController extends Controller
     }
 
 
-        /**
+    /**
      * Limit a participants+conversations query to chats that are shown in the list:
      * added by this person, or having messages and not deleted by this person
      * (or deleted, but a newer message arrived).
@@ -687,7 +905,7 @@ class ChatController extends Controller
         $this->whereVisible($query);
 
         return $query->get(['c.user_one_id', 'c.user_two_id'])
-            ->map(fn ($r) => (int) $r->user_one_id === $userId ? (int) $r->user_two_id : (int) $r->user_one_id)
+            ->map(fn($r) => (int) $r->user_one_id === $userId ? (int) $r->user_two_id : (int) $r->user_one_id)
             ->unique()
             ->values()
             ->all();
@@ -722,11 +940,24 @@ class ChatController extends Controller
             ->whereIn('m.conversation_id', $conversationIds)
             ->where('m.sender_id', '!=', $userId)
             ->whereNull('m.deleted_at')
+            ->whereNotExists(function ($q) use ($userId) {
+                $q->select(DB::raw(1))
+                    ->from('chat_message_hides as h')
+                    ->whereColumn('h.message_id', 'm.id')
+                    ->where('h.user_id', $userId);
+            })
             ->whereRaw('m.id > COALESCE(p.last_read_message_id, 0)')
+
             ->where(function ($q) {
                 $q->whereNull('p.deleted_at')
                     ->orWhereColumn('m.created_at', '>', 'p.deleted_at');
             })
+            ->where(function ($q) {
+                $q->whereNull('p.cleared_at')
+                    ->orWhereColumn('m.created_at', '>', 'p.cleared_at');
+            })
+
+
             ->groupBy('m.conversation_id')
             ->selectRaw('m.conversation_id, COUNT(*) as unread')
             ->pluck('unread', 'conversation_id');
@@ -734,6 +965,10 @@ class ChatController extends Controller
 
     private function preview($message): string
     {
+        if ($message->deleted_at) {
+            return 'This message was deleted';
+        }
+
         return match ($message->type) {
             'image' => 'Photo',
             'video' => 'Video',
@@ -778,15 +1013,19 @@ class ChatController extends Controller
 
     private function payload(ChatMessage $m): array
     {
+        $deleted = $m->trashed();
+
         return [
             'id'              => $m->id,
             'conversation_id' => $m->conversation_id,
             'sender_id'       => $m->sender_id,
-            'body'            => $m->body,
+            'body'            => $deleted ? null : $m->body,
             'type'            => $m->type,
+            'deleted'         => $deleted,
+            'edited'          => ! $deleted && $m->edited_at !== null,
             'read_at'         => $m->read_at?->toIso8601String(),
             'created_at'      => $m->created_at->toIso8601String(),
-            'attachments'     => $m->attachments->map(fn ($a) => [
+            'attachments'     => $deleted ? [] : $m->attachments->map(fn($a) => [
                 'id'   => $a->id,
                 'kind' => $a->kind,
                 'mime' => $a->mime,

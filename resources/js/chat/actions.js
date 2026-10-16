@@ -1,11 +1,15 @@
 import * as view from './render';
+import { confirmAction } from './dialogs';
 
 /**
  * Row menu actions (Contact Info, Archive, Delete) and the header Contact Info button.
  * Capture-phase listeners keep the older static UI script from running its demo handlers.
  */
 export function initChatActions(ctx) {
-    const { root, state, api, notify, findConv, loadList, closeActive, closeAllChatMenus, isUserOnline } = ctx;
+    const {
+        root, state, api, notify, findConv, loadList, closeActive, closeAllChatMenus,
+        isUserOnline, renderList, renderMessages, updateBlockUi,
+    } = ctx;
 
     let overlay = null;
 
@@ -26,7 +30,7 @@ export function initChatActions(ctx) {
         }
     }
 
-   
+
     function openContactModal(info) {
         closeModal();
 
@@ -108,9 +112,9 @@ export function initChatActions(ctx) {
                                         <div style="position:relative;">
                                             <div style="${view.avatarStyle(info.color)}width:84px;height:84px;border-radius:16px;font-size:26px;">
                                                 ${view.avatarInner({
-                                                    name: info.name,
-                                                    avatar: info.avatar
-                                                })}
+            name: info.name,
+            avatar: info.avatar
+        })}
                                             </div>
                                             ${online ? '<span style="position:absolute;right:-4px;bottom:-4px;width:16px;height:16px;border-radius:50%;background:#22c55e;border:3px solid #fff;"></span>' : ''}
                                         </div>
@@ -183,7 +187,14 @@ export function initChatActions(ctx) {
     }
 
     async function deleteChat(id) {
-        if (!window.confirm('Delete this chat? The other person will still keep it.')) {
+        const ok = await confirmAction({
+            title: 'Delete this chat?',
+            text: 'The other person will still keep it.',
+            confirmText: 'Delete',
+            danger: true,
+        });
+
+        if (!ok) {
             return;
         }
 
@@ -198,6 +209,85 @@ export function initChatActions(ctx) {
             notify('Chat deleted.', 'success');
         } catch (error) {
             notify(error.message || 'Chat could not be deleted.', 'error');
+        }
+    }
+
+    function closeHeaderMenu() {
+        const wrapper = document.querySelector('.more-wrapper');
+
+        if (wrapper) {
+            wrapper.classList.remove('open');
+        }
+    }
+
+    async function clearChat() {
+        const conv = findConv(state.activeId);
+
+        if (!conv) {
+            return;
+        }
+
+        const ok = await confirmAction({
+            title: 'Clear this chat?',
+            text: 'The other person will still keep the messages.',
+            confirmText: 'Clear chat',
+            danger: true,
+        });
+
+        if (!ok) {
+            return;
+        }
+
+        try {
+            await api.clear(conv.id);
+
+            state.messages = [];
+            state.hasMore = false;
+            conv.last = null;
+            conv.unread = 0;
+
+            renderMessages();
+            renderList();
+            notify('Chat cleared.', 'success');
+        } catch (error) {
+            notify(error.message || 'Chat could not be cleared.', 'error');
+        }
+    }
+
+    async function toggleBlock() {
+        const conv = findConv(state.activeId);
+
+        if (!conv) {
+            return;
+        }
+
+        const unblock = !!conv.blocked_by_me;
+
+        if (!unblock) {
+            const ok = await confirmAction({
+                title: 'Block this user?',
+                text: 'You will not be able to message each other.',
+                confirmText: 'Block',
+                danger: true,
+            });
+
+            if (!ok) {
+                return;
+            }
+        }
+
+        try {
+            if (unblock) {
+                await api.unblock(conv.id);
+            } else {
+                await api.block(conv.id);
+            }
+
+            conv.blocked_by_me = !unblock;
+            updateBlockUi(conv);
+            notify(unblock ? 'User unblocked.' : 'User blocked.', 'success');
+        } catch (error) {
+            notify(error.message || 'Action failed.', 'error');
         }
     }
 
@@ -233,6 +323,24 @@ export function initChatActions(ctx) {
                 deleteChat(id);
             }
 
+            return;
+        }
+
+        // Clear Chat in the header menu
+        if (target.closest('#clearChatBtn')) {
+            event.preventDefault();
+            event.stopPropagation();
+            closeHeaderMenu();
+            clearChat();
+            return;
+        }
+
+        // Block / Unblock in the header menu, and Unblock in the banner
+        if (target.closest('#blockUserBtn') || target.closest('.chat-unblock')) {
+            event.preventDefault();
+            event.stopPropagation();
+            closeHeaderMenu();
+            toggleBlock();
             return;
         }
 

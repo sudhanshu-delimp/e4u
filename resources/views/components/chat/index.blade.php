@@ -18,6 +18,7 @@
             'messages'      => route('chat.messages', ['conversation' => '__ID__']),
             'read'          => route('chat.read', ['conversation' => '__ID__']),
             'typing'        => route('chat.typing', ['conversation' => '__ID__']),
+            'message'       => route('chat.message.update', ['message' => '__ID__']),
         ],
         // state id => abbreviation (ACT, NSW...)
         'states'     => collect(config('escorts.profile.states', []))
@@ -25,6 +26,8 @@
             ->all(),
         // users.type => label shown as "Type:" in the header
         'typeLabels' => config('chat.type_labels', []),
+        // Types that cannot be blocked (Agent)
+        'unblockable' => config('chat.unblockable', []),
     ];
 
     $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();

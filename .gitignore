@@ -27,6 +27,7 @@ Homestead.json
 composer.lock
 
 /public/build
+/public/chat-build/
 /storage/pail
 .env.backup
 .env.production
