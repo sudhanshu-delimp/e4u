@@ -116,9 +116,11 @@
 
             <div class="header-user">
 
-                <h2 id="chatUserName">Select a chat</h2>
-
-                <div class="active-status" id="chatStatus"></div>
+                <div class="d-flex align-items-center gap-10">
+                    <h2 id="chatUserName">Select a chat </h2>
+                    <div class="active-status" id="chatStatus"></div>
+                </div>
+                
 
                 <div class="user-meta" id="chatUserMeta"></div>
 

@@ -254,8 +254,8 @@
 /* AVATAR */
 
 .avatar {
-    width: 84px;
-    height: 84px;
+    width: 64px;
+    height: 64px;
     flex-shrink: 0;
     border-radius: 13px;
     display: flex;
@@ -379,8 +379,8 @@
 }
 
 .header-avatar {
-    width: 84px;
-    height: 84px;
+    width: 64px;
+    height: 64px;
     border-radius: 13px;
     background: var(--icon-bg);
     display: flex;
