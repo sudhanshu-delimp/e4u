@@ -122,6 +122,7 @@
                                     <li>For a detailed summary of this transaction, go to <a
                                             href="{{ route('escort.payment.transaction_summary') }}"
                                             class="custom_links_design" target="_blank"> Transaction Summary</a>.</li>
+                                    <li>Any variation feature you apply to a Listed Profile where a payment is required, can only be paid by your Card or Wallet credit.  You can not use any Loyalty Days for features that you are varying.  Loyalty Days can only be used for Listing a Profile.</li>
                                 </ol>
                             </div>
 
