@@ -10032,8 +10032,8 @@ button {
 }
 
 button:disabled {
-    opacity: 0.35 !important;
     cursor: not-allowed;
+    opacity: .35 !important;
 }
 
 /* listing contaioner */
