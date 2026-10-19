@@ -126,7 +126,7 @@
             <div class="col-md-12">
                <div id="accordion" class="myacording-design mb-5">
 
-                  <div class="card custom-help-contain">
+                  <div class="card custom-help-contain common-card">
                      <div class="card-header">
                         <a class="card-link" data-toggle="collapse" href="#additional_advertising">
                            Set Fees - Advertising
@@ -195,7 +195,7 @@
                      </div>
                   </div>
                   {{-- end --}}
-                  <div class="card custom-help-contain">
+                  <div class="card custom-help-contain common-card">
                      <div class="card-header">
                         <a class="card-link" data-toggle="collapse" href="#additional_concierge">
                            Set Fees - Concierge Services
@@ -245,7 +245,7 @@
                         </div>
                      </div>
                   </div>
-                  <div class="card custom-help-contain">
+                  <div class="card custom-help-contain common-card">
                      <div class="card-header">
                         <a class="card-link" data-toggle="collapse" href="#additional_support">
                            Set Fees - Support Services (E4U Staff)
@@ -294,7 +294,7 @@
 
                      </div>
                   </div>
-                  <div class="card custom-help-contain">
+                  <div class="card custom-help-contain common-card">
                      <div class="card-header">
                         <a class="card-link" data-toggle="collapse" href="#additional_variableloyalty">
                            Set Variables - Loyalty Program Advertisers
@@ -341,7 +341,7 @@
 
                      </div>
                   </div>
-                  <div class="card custom-help-contain">
+                  <div class="card custom-help-contain common-card">
                      <div class="card-header">
                         <a class="card-link" data-toggle="collapse" href="#additional_variableagent">
                            Set Variables - Agent & Operator
@@ -388,7 +388,7 @@
 
                      </div>
                   </div>
-                  <div class="card custom-help-contain">
+                  <div class="card custom-help-contain common-card">
                      <div class="card-header">
                         <a class="card-link" data-toggle="collapse" href="#additional_variableplaybox">
                            Set Distribution - Playbox

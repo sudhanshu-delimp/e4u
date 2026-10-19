@@ -10969,7 +10969,15 @@ td {
     grid-template-rows: auto auto;
     font-size: 14px;
 }
+.escort_header_top_menu > span {
+    display: flex;
+    align-items: baseline;
+}
+.common_top_menu > span {
+    display: flex;
+    align-items: baseline;
 
+}
 .common_top_menu {
     display: grid;
     grid-template-columns: 1fr 1fr;

@@ -68,7 +68,7 @@ padding: 2px 8px 2px 8px !important;
                     </div>
                     <div class="col-md-12">
                         <div id="accordion" class="myacording-design">
-                            <div class="card">
+                            <div class="card common-card">
                                 <div class="card-header">
                                     <h2><a class="card-link collapsed" data-toggle="collapse" href="#about_me" aria-expanded="false">
                                         Advertising
@@ -76,11 +76,9 @@ padding: 2px 8px 2px 8px !important;
                                     </h2>
                                 </div>
                                 <div id="about_me" class="collapse" data-parent="#accordion" style="">
-                                    <div class="card-body p-0">
-                                        <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
+                                    <div class="card-body">
+                                        <div class="table-responsive list-sec" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-
-                                    {{-- <h5 class="price-sec">Profile &amp; Tour Fees</h5>--}}
                                                 <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                         <tr role="row" style="border-bottom: 2px solid white;">
@@ -179,7 +177,7 @@ padding: 2px 8px 2px 8px !important;
                                 </div>
                             </div>
 
-                            <div class="card">
+                            <div class="card common-card">
                                 <div class="card-header">
                                     <a class="card-link collapsed" data-toggle="collapse"
                                     href="#other_fees_concierge_services" aria-expanded="false">
@@ -188,8 +186,8 @@ padding: 2px 8px 2px 8px !important;
                                 </div>
                                 <div id="other_fees_concierge_services" class="collapse"
                                     data-parent="#accordion" style="">
-                                    <div class="card-body p-0">
-                                        <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
+                                    <div class="card-body">
+                                        <div class="table-responsive list-sec" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
                                                 {{--  <h5 class="price-sec">Concierge Services & Support Services</h5>--}}
                                                 <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
@@ -242,9 +240,9 @@ padding: 2px 8px 2px 8px !important;
                                             </div>
                                         </div>
 
-                                        <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
+                                        <div class="table-responsive  list-sec" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                                {{--                                                        <h5 class="price-sec">Concierge Services & Support Services</h5>--}}
+                                                
                                                 <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                     <tr role="row">
@@ -308,15 +306,15 @@ padding: 2px 8px 2px 8px !important;
                                 </div>
                             </div>
 
-                            <div class="card">
+                            <div class="card common-card">
                                 <div class="card-header">
                                     <a class="card-link collapsed" data-toggle="collapse" href="#profile_and_tour_options" aria-expanded="false">
                                         Other Support Fees - Support Services
                                     </a>
                                 </div>
                                 <div id="profile_and_tour_options" class="collapse" data-parent="#accordion" style="">
-                                    <div class="card-body p-0">
-                                        <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
+                                    <div class="card-body">
+                                        <div class="table-responsive  list-sec" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
                                                 {{--                                                        <h5 class="price-sec">Concierge Services & Support Services</h5>--}}
                                                 <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
@@ -376,7 +374,7 @@ padding: 2px 8px 2px 8px !important;
                             </div>
 
 
-                            <div class="card">
+                            <div class="card common-card">
                                 <div class="card-header">
                                     <a class="card-link collapsed" data-toggle="collapse" href="#LoyaltyProgram"
                                     aria-expanded="false">
@@ -384,10 +382,10 @@ padding: 2px 8px 2px 8px !important;
                                     </a>
                                 </div>
                                 <div id="LoyaltyProgram" class="collapse" data-parent="#accordion" style="">
-                                    <div class="card-body p-0">
-                                        <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
+                                    <div class="card-body">
+                                        <div class="table-responsive  list-sec" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                                {{--                                                        <h5 class="price-sec">Concierge Services & Support Services</h5>--}}
+                                                
                                                 <table id="myTable price-sec" class="table dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">                                                           
                                                         
