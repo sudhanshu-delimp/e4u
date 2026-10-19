@@ -223,7 +223,7 @@
                              </a>
                              <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                  aria-labelledby="dropdownMenuLink" style="">
-                                 {{-- <button type="button" class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-advertiser-report" data-advertiser-id="{{$summery->user_id}}" data-advertiser-type="{{$summery->membership_type}}">
+                                 <button type="button" class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-advertiser-report" data-advertiser-id="{{$summery->user_id}}" data-advertiser-type="{{$summery->membership_type}}">
                                      <i class="fa fa-eye"></i> View Report
                                  </button>
                                  <div class="dropdown-divider"></div>
@@ -231,7 +231,7 @@
                                      href="{{ route('agent.fees.print-advertiser-summary', ['advertiser_id' => $summery->user_id, 'type' => $summery->membership_type]) }}"
                                      target="_blank" rel="noopener">
                                      <i class="fa fa-print"></i> Print Report
-                                 </a> --}}
+                                 </a>
                              </div>
                          </div>
                      </td>

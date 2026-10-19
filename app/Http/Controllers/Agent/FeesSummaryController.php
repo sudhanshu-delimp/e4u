@@ -5,16 +5,16 @@ namespace App\Http\Controllers\Agent;
 use App\Http\Controllers\Controller;
 use App\Models\Escort;
 use App\Models\FeesConciergeService;
+use App\Models\MassagePurchase;
 use App\Models\PaymentHistory;
 use App\Models\PaymentItem;
+use App\Models\Purchase;
 use App\Models\User;
+use App\Services\FeesSummeryService;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Models\Purchase;
-use App\Services\FeesSummeryService;
-use Barryvdh\DomPDF\Facade\Pdf;
-
 use Illuminate\View\Component;
 use Override;
 
@@ -53,6 +53,10 @@ class FeesSummaryController extends Controller
     // );
 
     //$singleSummery =  $this->feeService->getReport(6); //for single 
+
+
+     $listing = MassagePurchase::with('paymentItems.payment')->where('status', 'listed')->where('id', 9)->first();
+     //dd($listing);
 
  
 
