@@ -14,7 +14,15 @@
     --border-color: #e7e9ee;
     --label-color: #173a61;
 }
-
+.toggleButton{
+    cursor: pointer;
+}
+.toggle-icon {
+    font-size: 30px;
+    font-weight: 600;
+    color: #ff3c5f;
+    cursor: pointer;
+}
 .common_media_tooltip {
     position: absolute;
     right: 30px;

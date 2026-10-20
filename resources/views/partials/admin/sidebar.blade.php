@@ -15,12 +15,12 @@ $ocLavel = 'Developer';
 @endphp
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar" id="accordionSidebar">
+    
+        @if (auth()->user() && auth()->user()->type == 1)
 
-    @if (auth()->user() && auth()->user()->type == 1)
-    <a class="sidebar-brand text-left pb-1" href="{{ route('home') }}">
-        <img src="{{ asset('assets/images/escorts4u-logo.svg') }}" class="mb-3 e4u_logo" alt="">
-
-    </a>
+        <a class="sidebar-brand text-left pb-1" href="{{ route('home') }}">
+            <img src="{{ asset('assets/images/escorts4u-logo.svg') }}" class="mb-3 e4u_logo" alt="">
+        </a>
     <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-2">OC ({{ $ocLavel }})</span>
     <li class="nav-item active">
         <a class="nav-link" href="{{ route('admin.index') }}">
@@ -1365,12 +1365,12 @@ $ocLavel = 'Developer';
                     </a>
                 </div>
 
-                 <a class="nav-link" href="{{ route('admin.messages') }}">
-                   <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
+                <a class="nav-link" href="{{ route('admin.messages') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
                     <span
                         style="{{ request()->segment(3) == 'messages' ? 'color: #FF3C5F;' : '' }}">Messages</span>
                 </a>
-                
+
 
                 <!-- Operator -->
                 <a class="nav-link collapsed" href="#" data-toggle="collapse"
@@ -1436,7 +1436,7 @@ $ocLavel = 'Developer';
                     class="collapse @if (in_array(request()->segment(3), ['influencer', 'notebox'])) show @endif @if (request()->segment(2) == 'feedback') show @endif"
                     data-parent="#Management">
 
-                    
+
 
                     <a class="collapse-item" href="{{ route('admin.feedback') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
@@ -1450,11 +1450,11 @@ $ocLavel = 'Developer';
                         <img src="{{ asset('assets/dashboard/img/menu-icon/influencer.png') }}">
                         <span
                             style="{{ request()->segment(3) == 'influencer' ? 'color: #FF3C5F;' : '' }}">Influencer</span>
-                    </a>                    
+                    </a>
 
                     <a class="collapse-item" href="{{ route('admin.notebox') }}">
                         <img src="{{ asset('assets/dashboard/img/MyNotebox.png') }}" style="filter: brightness(0) saturate(100%) invert(99%) sepia(5%) saturate(0%) hue-rotate(101deg) brightness(110%) contrast(100%);">
-                        
+
                         <span
                             style="{{ request()->segment(3) == 'notebox' ? 'color: #FF3C5F;' : '' }}">Notebox</span>
                     </a>
@@ -1832,8 +1832,7 @@ $ocLavel = 'Developer';
             <div class="py-0 collapse-inner rounded mb-2">
                 <a class="collapse-item" href="{{ route('admin.account.edit') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
-                    <span style="{{ request()->segment(2) == 'update-account' ? 'color: #FF3C5F;' : '' }}">Edit
-                        my account</span></a>
+                    <span style="{{ request()->segment(2) == 'update-account' ? 'color: #FF3C5F;' : '' }}">My account</span></a>
                 <a class="collapse-item" href="{{ route('admin.change.password') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">
                     <span
@@ -1879,6 +1878,15 @@ $ocLavel = 'Developer';
                 $('#Monitoring').collapse('show');
             }
         });
+
+        let toggleIconbtn = document.querySelector(".toggle-icon");
+        let sidebar = document.querySelector(".db-custom-sidebar");
+        toggleIconbtn.addEventListener("click", function(){
+            sidebar.classList.toggle("toggled");        
+            this.classList.toggle("fa-toggle-off");
+            this.classList.toggle("fa-toggle-on");
+        });
     });
+  
 </script>
 <!-- End of Sidebar -->
