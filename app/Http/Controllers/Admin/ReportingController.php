@@ -115,7 +115,7 @@ class ReportingController extends BaseController
 
             $agent->where(function ($query) use ($search) {
                 $query->where('member_id', 'like', "{$search}%")
-                    //->orWhere('member_id', 'like', "%{$search}%")
+                    ->orWhere('ref_number', 'like', "%{$search}%")
                    // ->orWhere('name', 'like', "%{$search}%")
                    ->orWhere('phone', 'like', "%{$search}%");
                    // ->orWhere('email', 'like', "%{$search}%")

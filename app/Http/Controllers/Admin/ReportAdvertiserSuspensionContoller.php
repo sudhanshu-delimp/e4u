@@ -87,13 +87,23 @@ class ReportAdvertiserSuspensionContoller extends Controller
 
 
         if ($search) {
-            $advertisers = $advertisers->filter(function ($item) use ($search) {
-                $matchesMemberId = $item->user && stripos($item->user->member_id, $search) !== false;
-                return $matchesMemberId;
-            })->values(); // reset the keys
+            $advertisers = $advertisers->filter(function ($item) use ($search, $advertiserType) {
+                $matchesMemberId = $item->user &&
+                    stripos($item->user->member_id ?? '', $search) !== false;
+                if($advertiserType == 'massage') {
+                     $matchesRefNumber = $item->massage_profile &&
+                    stripos($item->massage_profile->slug ?? '', $search) !== false;
+                } else {
+                $matchesRefNumber = $item->escort &&
+                    stripos($item->escort->slug ?? '', $search) !== false;
+                }
+
+                return $matchesMemberId || $matchesRefNumber;
+            })->values();; // reset the keys
         }
 
         return DataTables::of($advertisers)
+            ->addColumn('profile_id', fn($row) => $row->advertiser->slug)
             ->addColumn('advertiser_id', fn($row) => $row->advertiser->id)
             ->addColumn('member_id', fn($row) => $row->user->member_id)
             ->addColumn('start_date', fn($row) =>  date('d-m-Y', strtotime($row->start_date)))
@@ -166,6 +176,7 @@ class ReportAdvertiserSuspensionContoller extends Controller
         }
 
         return DataTables::of($purchases)
+            ->addColumn('profile_id', fn($row) => $row->advertiser->slug)
             ->addColumn('advertiser_id', fn($row) => $row->advertiser->id)
             ->addColumn('member_id', fn($row) => $row->advertiser->user->member_id)
             ->addColumn('start_date', fn($row) =>  date('d-m-Y', strtotime($row->start_date)))
@@ -224,13 +235,24 @@ class ReportAdvertiserSuspensionContoller extends Controller
 
 
         if ($search) {
-            $advertisers = $advertisers->filter(function ($item) use ($search) {
-                $matchesMemberId = $item->advertiser->user && stripos($item->advertiser->user->member_id, $search) !== false;
-                return $matchesMemberId;
+            $advertisers = $advertisers->filter(function ($item) use ($search, $advertiserType) {
+            $matchesMemberId = $item->advertiser->user && stripos($item->advertiser->user->member_id, $search) !== false;
+
+            if($advertiserType == 'massage') {
+                     $matchesRefNumber = $item->massage_profile &&
+                    stripos($item->massage_profile->slug ?? '', $search) !== false;
+                } else {
+                    $matchesRefNumber = $item->escort &&
+                    stripos($item->escort->slug ?? '', $search) !== false;
+                }
+
+                return $matchesMemberId || $matchesRefNumber;
+
             })->values(); // reset the keys
         }
 
         return DataTables::of($advertisers)
+            ->addColumn('profile_id', fn($row) => $row->advertiser->slug)
             ->addColumn('advertiser_id', fn($row) => $row->advertiser->id)
             ->addColumn('member_id', fn($row) => $row->advertiser->user->member_id)
             ->addColumn('start_date', fn($row) =>  date('d-m-Y', strtotime($row->start_date)))

@@ -369,7 +369,7 @@
     var table = $("#RegistrationsReportTable").DataTable({
         language: {
             search: "Search: _INPUT_",
-            searchPlaceholder: "Search by Member ID or Mobile",
+            searchPlaceholder: "Search by Member ID or Mobile or Ref Number",
         },
 
         processing: true,
@@ -385,8 +385,8 @@
             }
         },
         columns: [{
-                data: 'id',
-                name: 'id',
+                data: 'ref_number',
+                name: 'ref_number',
                 searchable: true,
                 orderable: true,
                 defaultContent: 'NA'

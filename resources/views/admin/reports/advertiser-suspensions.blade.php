@@ -61,7 +61,7 @@
             <table class="table" id="advertiserSuspenstionTable">
                <thead class="table-bg">
                   <tr>
-                     <th>ID</th>
+                     <th>Profile ID</th>
                      <th>Member ID</th>
                      <th>Start Date</th>
                      <th>End Date</th>
@@ -169,8 +169,11 @@
          }
       },
       columns: [{
-            data: 'advertiser_id',
-            name: 'advertiser_id',
+            /*data: 'advertiser_id',
+            name: 'advertiser_id',*/
+            data: 'profile_id',
+            name: 'profile_id',
+            orderable: false,
             orderable: false,
          },
          {

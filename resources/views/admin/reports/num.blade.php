@@ -249,7 +249,7 @@
 
             "language": {
                 "zeroRecords": "No Record Found!",
-                searchPlaceholder: "Search by Member ID"
+                searchPlaceholder: "Search by Member or Ref ID"
             },
             paging: true,
             processing: false,
