@@ -118,7 +118,7 @@
                 @if ($type != 'past')
                 <div>
                     <div class="add--list listingActionButtons">
-                        <div class="">
+                        <div class=" d-flex gap-10 flex-wrap justify-content-between">
 
                             {{-- <div class="pinup-tooltip-wrapper"> --}}
                             <button style="padding: 10px;" class="btn btn-warning esc-tooltip-wrap"

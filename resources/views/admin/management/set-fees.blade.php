@@ -126,7 +126,7 @@
             <div class="col-md-12">
                <div id="accordion" class="myacording-design mb-5">
 
-                  <div class="card custom-help-contain">
+                  <div class="card custom-help-contain common-card">
                      <div class="card-header">
                         <a class="card-link" data-toggle="collapse" href="#additional_advertising">
                            Set Fees - Advertising
@@ -194,8 +194,8 @@
                         </div>
                      </div>
                   </div>
-                  {{-- end --}}
-                  <div class="card custom-help-contain">
+                  <!-- end -->
+                  <div class="card custom-help-contain common-card">
                      <div class="card-header">
                         <a class="card-link" data-toggle="collapse" href="#additional_concierge">
                            Set Fees - Concierge Services
@@ -245,7 +245,7 @@
                         </div>
                      </div>
                   </div>
-                  <div class="card custom-help-contain">
+                  <div class="card custom-help-contain common-card">
                      <div class="card-header">
                         <a class="card-link" data-toggle="collapse" href="#additional_support">
                            Set Fees - Support Services (E4U Staff)
@@ -294,7 +294,7 @@
 
                      </div>
                   </div>
-                  <div class="card custom-help-contain">
+                  <div class="card custom-help-contain common-card">
                      <div class="card-header">
                         <a class="card-link" data-toggle="collapse" href="#additional_variableloyalty">
                            Set Variables - Loyalty Program Advertisers
@@ -341,7 +341,7 @@
 
                      </div>
                   </div>
-                  <div class="card custom-help-contain">
+                  <div class="card custom-help-contain common-card">
                      <div class="card-header">
                         <a class="card-link" data-toggle="collapse" href="#additional_variableagent">
                            Set Variables - Agent & Operator
@@ -357,8 +357,7 @@
                                        <th class="text-center">Item</th>
                                        <th class="text-center">Description</th>
                                        <th class="text-center">Rate</th>
-                                       <th class="text-center">Value</th>
-                                       <!--th class="text-center">Amount Type</th -->
+                                       <th class="text-center" style="width:10%;">Value</th>
                                        <th class="text-center">
                                           Action
                                        </th>
@@ -369,26 +368,26 @@
                                  </tbody>
                               </table>
 
-                              {{-- <div class="d-flex justify-content-end">
+                              <!-- <div class="d-flex justify-content-end">
                                  <button class="save_profile_btn">Save & Update</button>
-                              </div> --}}
+                              </div> -->
                            </div>
 
-                           {{-- <h3 class="NotesHeader mt-4"><b>Note:</b></h3>
+                           <!-- <h3 class="NotesHeader mt-4"><b>Note:</b></h3>
                            <ol>
                               <li>Item is the internal number allocated for our reference. Open to your suggested numbering protocol for Fees.</li>
                               <li>Rate: per day, per Registration, per Service.</li>
                               <li>Amount can be set by dollar and cents value, or for the percentage including the percentile.</li>
                               <li>Values are applied right across the Website wherever a Fee value is displayed, including Footer files.</li>
                               <li>These values apply to calculating Commission for the Agent and the Operator. See separate tasks.</li>
-                           </ol> --}}
+                           </ol> -->
 
 
                         </div>
 
                      </div>
                   </div>
-                  <div class="card custom-help-contain">
+                  <div class="card custom-help-contain common-card">
                      <div class="card-header">
                         <a class="card-link" data-toggle="collapse" href="#additional_variableplaybox">
                            Set Distribution - Playbox

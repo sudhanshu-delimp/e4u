@@ -64,7 +64,7 @@
 
                         <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
 
-                        <span style="{{ request()->segment(2) == 'update-account' ? 'color: #e5365a;' : '' }}">Edit my
+                        <span style="{{ request()->segment(2) == 'update-account' ? 'color: #e5365a;' : '' }}"> My
                             account</span></a>
                     <a class="collapse-item" href="{{ route('escort.profile.information') }}">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">

@@ -512,7 +512,7 @@
                                                         <input class="form-check-input" name="viewer_contact_type[]" type="checkbox"
                                                             id="Method_Email_Me" value="3"
                                                             @if (!empty($escort->viewer_contact_type)) {{ in_array(3, $escort->viewer_contact_type) ? 'checked' : null }} @endif>
-                                                        <label class="form-check-label" for="Method_Email_Me">Email me (for private communications)</label>
+                                                        <label class="form-check-label" for="Method_Email_Me" style="text-transform: unset;">Email Me (For private communications)</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" name="viewer_contact_type[]" type="checkbox"

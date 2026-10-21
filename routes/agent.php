@@ -160,6 +160,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('analytic-tour-list-ajax', [AnalyticsController::class, 'analytic_tour_list_ajax'])->name('agent.analytic-tour-list-ajax');
     Route::get('generate-tour-pdf', [AnalyticsController::class, 'getTourPdf'])->name('agent.generate_tour_pdf');
     Route::get('get-tour-summary-detail', [AnalyticsController::class, 'getTourSummaryDetail'])->name('agent.get_tour_summary_detail');
+    Route::get('tour-summary-pdf', [AnalyticsController::class, 'downloadTourSummaryPdf'])->name('agent.tour_summary_pdf');
 
     
     

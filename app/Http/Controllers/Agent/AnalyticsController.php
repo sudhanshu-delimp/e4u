@@ -696,7 +696,7 @@ class AnalyticsController extends Controller
                         ->where('item_type', 'App\Models\EscortPinup')
                         ->first();
 
-                    $escort_pinup = EscortPinup::where('id', $pinup_data['is_pinup'])->first();
+                    $escort_pinup = EscortPinup::with('escort')->where('id', $pinup_data['is_pinup'])->first();
                     if($escort_pinup)
                     {
                         $escort_start = $escort_pinup->start_date ? Carbon::parse($escort_pinup->start_date) : null;
@@ -704,8 +704,9 @@ class AnalyticsController extends Controller
                         $pin_days = ($escort_start && $escort_end) ? $escort_start->diffInDays($escort_end) + 1 : 0;
                     }
 
+                    $membership_pinup = isset($escort_pinup->escort->slug) ?  'Pin Up (' .$escort_pinup->escort->slug.')' : 'Pin Up';
                     $pinup_array['location'] = optional($location->state)->iso2 ?? optional($location->state)->iso2 ?? 'N/A';
-                    $pinup_array['membership'] = 'Pin Up';
+                    $pinup_array['membership'] = $membership_pinup;
                     $pinup_array['start_date'] = date('d-m-Y',strtotime($escort_pinup->start_date));
                     $pinup_array['end_date'] = date('d-m-Y',strtotime($escort_pinup->end_date));  
                     $pinup_array['days'] = '(1 week)';
@@ -736,6 +737,22 @@ class AnalyticsController extends Controller
             'total_days' => $totalDaysSum,
             'total_fee'  => number_format($totalFeeSum, 2)
         ]);
+    }
+
+
+    public function downloadTourSummaryPdf(Request $request)
+    {
+        $response = $this->getTourSummaryDetail($request);
+        $data = $response->getData(true);
+
+        if (empty($data['status'])) {
+            abort(404, $data['message'] ?? 'Tour summary not found.');
+        }
+
+        $pdf = Pdf::loadView('agent.pdf.tour_summary', $data)
+                ->setPaper('a4', 'portrait');
+
+        return $pdf->stream('tour_summary_' . $data['member_id'] . '.pdf');
     }
 
 }

@@ -14,7 +14,15 @@
     --border-color: #e7e9ee;
     --label-color: #173a61;
 }
-
+.toggleButton{
+    cursor: pointer;
+}
+.toggle-icon {
+    font-size: 30px;
+    font-weight: 600;
+    color: #ff3c5f;
+    cursor: pointer;
+}
 .common_media_tooltip {
     position: absolute;
     right: 30px;
@@ -387,6 +395,7 @@ form.v-form-design .form-group {
     font-size: 14px;
     outline: none;
     transition: all 0.25s ease;
+    border-left: 5px solid var(--peach);
 }
 
 .cp-input-wrap input::placeholder {
@@ -1239,6 +1248,10 @@ label.cabinet input.file {
     outline: none;
     transition: all 0.25s ease;
     margin-top: 8px;
+    border-left: 5px solid var(--peach);
+}
+.common-form textarea.form-control{
+    border-left: 1px solid var(--border-color);
 }
 .common-form .form-control:disabled{
     background-color: #e7e9ee;

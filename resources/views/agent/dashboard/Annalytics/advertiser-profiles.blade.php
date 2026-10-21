@@ -31,7 +31,7 @@
             <div id="content">
                 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
                     <!--middle content-->
-                    {{-- Page Heading   --}}
+                    <!-- Page Heading   -->
                     <div class="row">
                         <div class="custom-heading-wrapper col-lg-12">
                             <h1 class="h1">Listing
@@ -53,7 +53,7 @@
                             </div>
                         </div>
                     </div>
-                    {{-- end --}}
+                    <!-- end -->
                     <div class="row">
 
                     <div class="col-md-12 col-sm-12 d-flex justify-content-between" style="gap: 50px;">
@@ -71,13 +71,8 @@
                             </div>
 
                     </div>
-                        <div class="col-sm-12 col-md-12 col-lg-12">
-
-                
-
-
-                          
-                            <div class="table-responsive">
+                        <div class="col-sm-12 col-md-12 col-lg-12">                          
+                            <div class="table-responsive common-card">
                                 <table class="table w-100" id="advProfileSummaryTable">
                                     <thead class="table-bg">
                                         <tr>
@@ -94,47 +89,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- <tr>
-                                            <td>E60165</td>
-                                            <td>Jane</td>
-                                            <td>0438 028 728</td>
-                                            <td>01-01-2025</td>
-                                            <td>15-04-2025</td>
-                                            <td>104</td>
-                                            <td>Yes</td>
-                                            <td><div class="num_value"><x-curFormat/><span>1,443.00</span></div></td>
-                                            <td> <div class="num_value"><x-curFormat/><span>72.15</span></div></td>
-                                            <td>
-                                                <div class="dropdown no-arrow">
-                                                    <a class="dropdown-toggle" href="#" role="button"
-                                                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        <i
-                                                            class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                    </a>
-                                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                        aria-labelledby="dropdownMenuLink" style="">
-
-                                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                            href="#" data-toggle="modal"
-                                                            data-target="#activity_summary">
-                                                            <i class="fa fa-file-alt"></i> Activity Summary</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                            href="#" data-toggle="modal"
-                                                            data-target="#current_location"> <i
-                                                                class="fa fa-map-marker"></i> Current Location</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                            href="#" data-toggle="modal"
-                                                            data-target="#profile_summary"> <i class="fa fa-file-alt"></i>
-                                                            Profile Summary</a>
-
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr> -->
-
+                                        
                                     </tbody>
                                 </table>
                             </div>
