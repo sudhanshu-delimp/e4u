@@ -173,7 +173,7 @@
                                         <input type="hidden" name="user_startDate" id="user_startDate"
                                             value="{{ date('Y-m-d', strtotime($loginAccount->created_at)) }}">
                                 @endif
-                                <div class="tab-content tab-content-bg" id="myTabContent">
+                                <div class="tab-content" id="myTabContent">
                                     @include('escort.dashboard.profile.partials.aboutme-dash-tab', [
                                         'profile_type' => 'updated',
                                     ])
