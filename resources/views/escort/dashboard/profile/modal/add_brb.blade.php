@@ -40,28 +40,14 @@
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4" for=""> BRB Date & Time:</label>
-                                        <!-- <div class="col-sm-4">
-                                            <input type="date" required min="{{ date('Y-m-d') }}"
-                                                class="form-control form-control-sm removebox_shdow" name="brb_date"
-                                                data-parsley-type="" data-parsley-type-message="">
-                                            <span id="brb-time-errors"></span>
-                                        </div> -->
-                                        <!-- <div class="col-sm-4">
-                                            <input type="text" required 
-                                                class="form-control form-control-sm removebox_shdow js_datepicker min_today" name="brb_date">
-                                            <span id="brb-time-errors"></span>
-                                        </div> -->
+                                        
                                         <div class="col-sm-8">
                                             <input type="text" required 
-                                                class="form-control form-control-sm removebox_shdow" name="brb_date" id="datetimepicker_brb"  placeholder="Select date and time">
+                                                class="form-control form-control-sm removebox_shdow" name="brb_date" id="datetimepicker_brb"  placeholder="Select date and time"  autocomplete="off">
                                             <span id="brb-time-errors"></span>
                                         </div>
                                         
-                                        <!-- <div class="col-sm-4">
-                                            <input type="time" class="form-control form-control-sm removebox_shdow"
-                                                name="brb_time" required data-parsley-time required>
-                                            <span id="brb-time-errors"></span>
-                                        </div> -->
+                                       
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4" for=""> BRB Note:</label>
