@@ -69,12 +69,20 @@ class FeesSummaryController extends Controller
       $advertiserId = (int) $request->input('advertiser_id');
       //dd($type,$advertiserId);
 
+      $data =  $this->feeService->getMassageReport($advertiserId);
+     // dd($data);
+
       abort_unless($advertiserId > 0, 422, 'Advertiser is required.');
       abort_unless(in_array($type, ['E', 'MS', 'MC'], true), 422, 'Invalid advertiser type.');
 
-      $datas = $this->feeService->getReport($advertiserId);
-    
-      $view = $type === 'E'  ? 'agent.dashboard.Fees.fees_summary.single_escort_summery' : 'agent.dashboard.Fees.fees_summary.single_massage_summery';
+      $isEscort = $type === 'E';
+      $datas = $isEscort
+          ? $this->feeService->getReport($advertiserId)
+          : $this->feeService->getMassageReport($advertiserId);
+
+      $view = $isEscort
+          ? 'agent.dashboard.Fees.fees_summary.single_escort_summery'
+          : 'agent.dashboard.Fees.fees_summary.single_massage_summery';
       $html = view($view, compact('datas'))->render();
 
       return success_response(['html' => $html], 'OK', 200);
@@ -85,6 +93,7 @@ class FeesSummaryController extends Controller
   {
       $type = strtoupper((string) $request->input('type'));
       $advertiserId = (int) $request->input('advertiser_id');
+      //dd($type,$advertiserId // , "MC");
 
       abort_unless($advertiserId > 0, 422, 'Advertiser is required.');
       abort_unless(in_array($type, ['E', 'MS', 'MC'], true), 422, 'Invalid advertiser type.');
@@ -95,14 +104,18 @@ class FeesSummaryController extends Controller
           ->whereIn('type', ['3', '4'])
           ->firstOrFail();
 
-      $datas = $this->feeService->getReport($advertiserId);
+      $isEscort = $type === 'E';
+      $datas = $isEscort ? $this->feeService->getReport($advertiserId) : $this->feeService->getMassageReport($advertiserId);
+      $view = $isEscort  ? 'agent.dashboard.Fees.fees_summary.print_advertiser_summary' : 'agent.dashboard.Fees.fees_summary.print_massage_summary';
 
       $pdf = Pdf::loadView(
-          'agent.dashboard.Fees.fees_summary.print_advertiser_summary',
+          $view,
           compact('datas')
       )->setPaper('a4', 'landscape');
 
-      return $pdf->stream('advertiser-report-' . $advertiserId . '.pdf');
+      $reportType = $isEscort ? 'escort' : 'massage-center';
+
+      return $pdf->stream($reportType . '-report-' . $advertiserId . '.pdf');
   }
 
 

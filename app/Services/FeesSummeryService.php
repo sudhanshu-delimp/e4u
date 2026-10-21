@@ -408,6 +408,146 @@ class FeesSummeryService
         ];
     }
 
+    public function getMassageReport(int $userId): array
+    {
+        $purchaseRows = DB::table('massage_purchases')
+            ->where('massage_centre_id', $userId)
+            ->where('status', 'listed')
+            ->orderBy('created_at')
+            ->get([
+                'id',
+                'massage_profile_id',
+                'start_date',
+                'end_date',
+                'paid_rate',
+                'created_at',
+            ]);
+
+        $purchaseIds = $purchaseRows->pluck('id')->all();
+        $profileIds = $purchaseRows->pluck('massage_profile_id')->unique()->all();
+
+        $masseurRows = collect();
+        if ($profileIds) {
+            $masseurRows = DB::table('massager_masseurs as mm')
+                ->join('masseurs as m', 'm.id', '=', 'mm.masseur_profile_id')
+                ->whereIn('mm.massage_profile_id', $profileIds)
+                ->select('m.id', 'm.member_id')
+                ->distinct()
+                ->orderBy('m.id')
+                ->get();
+        }
+
+        $availabilityRows = collect();
+
+        if ($purchaseIds) {
+            $availabilityRows = DB::table('massage_time_availabilities as mta')
+                ->join('masseurs as m', 'm.id', '=', 'mta.masseur_id')
+                ->whereIn('mta.purchase_id', $purchaseIds)
+                ->select(
+                    'mta.purchase_id',
+                    'mta.masseur_id',
+                    'mta.masseur_availibility',
+                    'm.member_id'
+                )
+                ->orderBy('mta.id')
+                ->get();
+        }
+
+        $masseursById = $masseurRows->keyBy('id');
+        foreach ($availabilityRows as $row) {
+            if (!$masseursById->has($row->masseur_id)) {
+                $masseursById->put($row->masseur_id, (object) [
+                    'id' => $row->masseur_id,
+                    'member_id' => $row->member_id,
+                ]);
+            }
+        }
+        $masseurs = $masseursById->sortKeys()->values();
+
+        $masseurIds = $masseurs->pluck('id')->all();
+
+        $fyData = [];
+        $grandTotals = [
+            'total' => 0.0,
+            'listings' => 0,
+            'listing_days' => 0,
+            'masseurs' => [],
+        ];
+        foreach ($masseurIds as $masseurId) {
+            $grandTotals['masseurs'][$masseurId] = ['listings' => 0, 'days' => 0];
+        }
+
+        $fyByPurchaseId = [];
+        foreach ($purchaseRows as $purchase) {
+            $fy = $this->fyLabel($purchase->created_at);
+            $fyByPurchaseId[$purchase->id] = $fy;
+            $days = Carbon::parse($purchase->start_date)->diffInDays(Carbon::parse($purchase->end_date)) + 1;
+            $amount = (float) $purchase->paid_rate;
+
+
+            if (!isset($fyData[$fy])) {
+                $fyData[$fy] = [
+                    'fy_label' => $this->fyDisplay($fy),
+                    'fy_totals' => [
+                        'total' => 0.0,
+                        'listings' => 0,
+                        'listing_days' => 0,
+                    ],
+                    'masseurs' => [],
+                ];
+                foreach ($masseurIds as $masseurId) {
+                    $fyData[$fy]['masseurs'][$masseurId] = ['listings' => 0, 'days' => 0];
+                }
+            }
+
+            $fyData[$fy]['fy_totals']['total'] += $amount;
+            $fyData[$fy]['fy_totals']['listings']++;
+            $fyData[$fy]['fy_totals']['listing_days'] += $days;
+            $grandTotals['total'] += $amount;
+            $grandTotals['listings']++;
+            $grandTotals['listing_days'] += $days;
+        }
+
+        $processedAvailability = [];
+        foreach ($availabilityRows as $row) {
+            $masseurId = $row->masseur_id;
+            $purchaseId = $row->purchase_id;
+            if (!isset($fyByPurchaseId[$purchaseId]) || !in_array($masseurId, $masseurIds, true)) {
+                continue;
+            }
+            if (isset($processedAvailability[$purchaseId][$masseurId])) {
+                continue;
+            }
+            $processedAvailability[$purchaseId][$masseurId] = true;
+
+            $fy = $fyByPurchaseId[$purchaseId];
+            $days = $row->masseur_availibility
+                ? countOpenDays(
+                    (string) $purchaseRows->firstWhere('id', $purchaseId)->start_date,
+                    (string) $purchaseRows->firstWhere('id', $purchaseId)->end_date,
+                    $row->masseur_availibility
+                )
+                : 0;
+
+            $fyData[$fy]['masseurs'][$masseurId]['listings']++;
+            $fyData[$fy]['masseurs'][$masseurId]['days'] += $days;
+            $grandTotals['masseurs'][$masseurId]['listings']++;
+            $grandTotals['masseurs'][$masseurId]['days'] += $days;
+        }
+
+
+        krsort($fyData);
+        $user = DB::table('users')->where('id', $userId)->first(['name', 'member_id']);
+
+        return [
+            'advertiser_name' => $user->name ?? 'Unknown',
+            'member_id' => $user->member_id ?? '',
+            'fy_data' => $fyData,
+            'grand_totals' => $grandTotals,
+            'masseurs' => $masseurs->all(),
+        ];
+    }
+
 
     protected function emptyTotals(): array
     {

@@ -1,9 +1,8 @@
 <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="message-report"><img src="{{ asset('assets/dashboard/img/statement-report.png') }}"
-                class="custompopicon">
-            Massage
-            Centre Report: Lin’s Massage (Member ID: M612465)
+        <h5 class="modal-title" id="message-report">
+            <img src="{{ asset('assets/dashboard/img/statement-report.png') }}" class="custompopicon">
+            Massage Centre Report: {{ $datas['advertiser_name'] }} (Member ID: {{ $datas['member_id'] ?: 'N/A' }})
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -19,10 +18,8 @@
                             <table class="table table-bordered mb-0">
                                 <thead class="bg-first">
                                     <tr>
-                                        <th rowspan="2" style="width: 30%"><b>Financial Year
-                                            </b>
-                                        </th>
-                                        <th colspan="4" style="text-align: center;"><b>Spend</b></th>
+                                        <th rowspan="2" style="width: 30%"><b>Financial Year</b></th>
+                                        <th colspan="3" style="text-align: center;"><b>Spend</b></th>
                                     </tr>
                                     <tr>
                                         <th style="width: 30%"><b>Value</b></th>
@@ -30,39 +27,26 @@
                                         <th><b>Total Days</b></th>
                                     </tr>
                                 </thead>
-                                <tbody id="collapse-accordion">
-
-                                    <tr>
-                                    <tr>
-                                        <td>
-                                            <span>2025 / 2026</span>
-                                        </td>
-                                        <td class="text-right">$ 600.00</td>
-                                        <td class="text-right">6</td>
-                                        <td class="text-right">120</td>
-                                    </tr>
-
-                                    <tr >
-                                        <td>
-                                             <span>2024 / 2025</span>
-                                        </td>
-                                        <td class="text-right">$ 600.00</td>
-                                        <td class="text-right">6</td>
-                                        <td class="text-right">120</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span>2023 / 2024</span>
-                                        </td>
-                                        <td class="text-right">$ 0.00</td>
-                                        <td class="text-right">0</td>
-                                        <td class="text-right">0</td>
-                                    </tr>
+                                <tbody>
+                                    @forelse ($datas['fy_data'] as $fy)
+                                        <tr>
+                                            <td><span>{{ $fy['fy_label'] }}</span></td>
+                                            <td class="text-right">$ {{ number_format($fy['fy_totals']['total'], 2) }}</td>
+                                            <td class="text-right">{{ $fy['fy_totals']['listings'] }}</td>
+                                            <td class="text-right">{{ $fy['fy_totals']['listing_days'] }}</td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="4" class="text-center">No listed massage purchases found.</td>
+                                        </tr>
+                                    @endforelse
                                     <tr>
                                         <td class="text-right"><b>Totals</b></td>
-                                        <td class="text-right total_row"><b>$ 1,200.00</b></td>
-                                        <td class="text-right total_row"><b>12</b></td>
-                                        <td class="text-right total_row"><b>240</b></td>
+                                        <td class="text-right total_row">
+                                            <b>$ {{ number_format($datas['grand_totals']['total'], 2) }}</b>
+                                        </td>
+                                        <td class="text-right total_row"><b>{{ $datas['grand_totals']['listings'] }}</b></td>
+                                        <td class="text-right total_row"><b>{{ $datas['grand_totals']['listing_days'] }}</b></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -75,107 +59,53 @@
                             <table class="table table-bordered mb-0">
                                 <thead class="bg-first">
                                     <tr>
-                                        <th colspan="18" style="text-align: center;"><b>Statistics</b>
-                                            <span style=" float: right;"><b>Left = Listings Right =
-                                                    Days</b></span>
+                                        <th colspan="{{ max(count($datas['masseurs']) * 2, 2) }}" style="text-align: center;">
+                                            <b>Statistics</b>
+                                            <span style="float: right;"><b>Left = Listings Right = Days</b></span>
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="2"><b>Masseur 1</b></th>
-                                        <th colspan="2"><b>Masseur 2</b></th>
-                                        <th colspan="2"><b>Masseur 3</b></th>
-                                        <th colspan="2"><b>Masseur 4</b></th>
-                                        <th colspan="2"><b>Masseur 5</b></th>
-                                        <th colspan="2"><b>Masseur 6</b></th>
-                                        <th colspan="2"><b>Masseur 7</b></th>
-                                        <th colspan="2"><b>Masseur 8</b></th>
+                                        @foreach ($datas['masseurs'] as $index => $masseur)
+                                            <th colspan="2">
+                                                <b>Masseur {{ $index + 1 }} ({{ $masseur->member_id ?: 'N/A' }})</b>
+                                            </th>
+                                        @endforeach
+                                        @if (count($datas['masseurs']) === 0)
+                                            <th colspan="2"><b>No masseurs</b></th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- row 01 --}}
-                                    <tr>
-                                        <td>10</td>
-                                        <td>123</td>
-                                        <td>8</td>
-                                        <td>89</td>
-                                        <td>8</td>
-                                        <td>50</td>
-                                        <td>1</td>
-                                        <td>23</td>
-                                        <td>7</td>
-                                        <td>44</td>
-                                        <td>9</td>
-                                        <td>27</td>
-                                        <td>14</td>
-                                        <td>14</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                    </tr>
-                                    {{-- end --}} {{-- row02 --}}
-                                    <tr>
-                                        <td>10</td>
-                                        <td>123</td>
-                                        <td>8</td>
-                                        <td>89</td>
-                                        <td>8</td>
-                                        <td>50</td>
-                                        <td>1</td>
-                                        <td>23</td>
-                                        <td>7</td>
-                                        <td>44</td>
-                                        <td>9</td>
-                                        <td>27</td>
-                                        <td>14</td>
-                                        <td>14</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                    </tr>
-                                    
-                                    {{-- end --}} {{-- row03 --}}
-                                    <tr>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                    </tr>
-                                    {{-- 3nd --}}
-                                    <tr>
-                                        <td class="total_row"><b>20</b></td>
-                                        <td class="total_row"><b>246</b></td>
-                                        <td class="total_row"><b>16</b></td>
-                                        <td class="total_row"><b>178</b></td>
-                                        <td class="total_row"><b>16</b></td>
-                                        <td class="total_row"><b>100</td>
-                                        <td class="total_row"><b>2</b></td>
-                                        <td class="total_row"><b>46</b></td>
-                                        <td class="total_row"><b>14</b></td>
-                                        <td class="total_row"><b>88</b></td>
-                                        <td class="total_row"><b>18</b></td>
-                                        <td class="total_row"><b>54</b></td>
-                                        <td class="total_row"><b>28</b></td>
-                                        <td class="total_row"><b>28</b></td>
-                                        <td class="total_row"><b>0</b></td>
-                                        <td class="total_row"><b>0</b></td>
-                                    </tr>
+                                    @if (count($datas['masseurs']) > 0)
+                                        @forelse ($datas['fy_data'] as $fy)
+                                            <tr>
+                                                @foreach ($datas['masseurs'] as $masseur)
+                                                    <td>{{ $fy['masseurs'][$masseur->id]['listings'] ?? 0 }}</td>
+                                                    <td>{{ $fy['masseurs'][$masseur->id]['days'] ?? 0 }}</td>
+                                                @endforeach
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="{{ max(count($datas['masseurs']) * 2, 2) }}" class="text-center">No statistics available.</td>
+                                            </tr>
+                                        @endforelse
+                                        <tr>
+                                            @foreach ($datas['masseurs'] as $masseur)
+                                                <td class="total_row"><b>{{ $datas['grand_totals']['masseurs'][$masseur->id]['listings'] ?? 0 }}</b></td>
+                                                <td class="total_row"><b>{{ $datas['grand_totals']['masseurs'][$masseur->id]['days'] ?? 0 }}</b></td>
+                                            @endforeach
+                                        </tr>
+                                    @else
+                                        <tr>
+                                            <td colspan="2" class="text-center">No statistics available.</td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
