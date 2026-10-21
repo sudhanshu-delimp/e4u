@@ -284,7 +284,8 @@ class AgentRequestController extends Controller
                             'is_agent_assign' => '1',
                             'agent_assign_date' => date('Y-m-d H:i:s'),
                             'assigned_agent_id' => auth()->id(),
-                            'referred_by_agent_id' => auth()->user()->member_id
+                            'referred_by_agent_id' => auth()->user()->member_id,
+                            'agent_signedup_fee' => auth()->user()->agent_detail->commission_registration_amount ?? 0,
                         ]);
 
                     ######### Send Notification ################

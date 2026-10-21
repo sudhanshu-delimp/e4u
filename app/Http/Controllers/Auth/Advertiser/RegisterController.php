@@ -171,6 +171,7 @@ class RegisterController extends Controller
                 $user->assigned_agent_id = $agent->id;
                 $user->agent_assign_date = date('Y-m-d H:i:s');
                 $user->is_agent_assign = '1';
+                $user->agent_signedup_fee = $agent->agent_detail->commission_registration_amount ?? 0;
             }
             $user->member_id = $user->memberId;
             $user->save();
