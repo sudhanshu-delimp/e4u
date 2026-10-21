@@ -786,9 +786,9 @@
                                     </div>
                                     <div class="tab-pane p-3" id="tabs-5" role="tabpanel">
                                         <ol class="pl-3">
-                                            <li class="help_icons custom"> <div><span><img src="{{ asset('assets/app/img/verify/verified_icon_dark.png') }}"  alt="verified icon" /></span>  Represents that the Advertiser's Media has been Verified by E4U. </div></li>
-                                            <li class="help_icons custom"> <div><span><img src="{{ asset('assets/app/img/verify/e4u_pending-icon.png') }}"  alt="verified icon" /> </span> Represents that the Advertiser's Media has been submitted for verification and is pending with E4U. </div></li>
-                                            <li class="help_icons custom"> <div><span><img src="{{ asset('assets/app/img/verify/unverified_icon_dark.png') }}"  alt="verified icon" /> </span> Represents that the Advertiser's Media has not been submitted to E4U for verification, or has been rejected. </div></li>
+                                            <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/verified_icon_dark.png') }}"  alt="verified icon" /></span>  Media has been verified by E4U. </div></li>
+                                            <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/e4u_pending-icon.png') }}"  alt="verified icon" /> </span> Media has been submitted for verification and is pending. </div></li>
+                                            <li class="help_icons"> <div><span><img src="{{ asset('assets/app/img/verify/unverified_icon_dark.png') }}"  alt="verified icon" /> </span> Media have not been submitted for verification, or has been rejected.  </div></li>
                                         </ol>
                                     </div>
                                 </div>

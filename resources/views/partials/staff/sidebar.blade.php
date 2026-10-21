@@ -98,7 +98,7 @@
                         src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
                     <span
                         style="{{ request()->segment(2) == 'update-account' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : '' }}">
-                        Edit my account</span>
+                        My Account</span>
                 </a>
                 <a class="collapse-item" href="{{ route('staff.change.password') }}">
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none"
