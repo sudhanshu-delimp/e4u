@@ -67,12 +67,6 @@
     }
 
     .at-sec div.myacording-design .card .card-body ol li,
-    div.myacording-design .card .card-body ul li,
-    div.myacording-design .card .card-body p {
-        margin-bottom: 0;
-        background: #fff;
-        box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
-    }
 
     .at-sec .results li {
         display: block;
@@ -122,68 +116,50 @@
         border-color: #0C223D;
         background-color: #0C223D;
     }
-
-    .active-play .at-lable {
-        display: block;
-    }
-
-    .active-play ul {
-        display: flex;
-        padding: 0px;
-        top: 0;
-        position: relative;
-        list-style: none;
-        gap: 10px;
-    }
-
-    .active-play li {
-        padding: 10px;
-        border-radius: 3px;
-        background: #0C223D !important;
-    }
-
-    .active-play a {
-        color: #fff;
-        display: flex;
-        gap: 10px;
-    }
 </style>
-<div class="container-fluid p-2">
-    <div class="row">
-        <div class="col-md-12  fill_profile_headings_global custom--social-head">
-            <h2>My Playmates</h2>
+<div class="common-form">
+    <div class="row inner-row">
+        <div class="col-lg-12">
+            <div class="card-top">
+                <div class="card-icon">
+                    <svg width="64px" height="64px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path stroke="#ff3c5f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 19v-1.25C13 15.679 11.081 14 8.714 14H7.286C4.919 14 3 15.679 3 17.75V19m12.286-5h1.428C19.081 14 21 15.679 21 17.75V19M15 5.17a3 3 0 110 5.659M11 8a3 3 0 11-6 0 3 3 0 016 0z"></path> </g></svg>
+                </div>
+                <div class="card-heading">
+                    <h2>My Playmates <span class="custom--help"><b>Help?</b></span></h2>
+                </div>
+            </div>
 
-            <span class="custom--help"><b>Help?</b></span>
-        </div>
-        <div class="custom-note-section">
-            <div class="card" style="">
-                <div class="card-body">
-                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                    <ol class=" mb-0">
-                        <li>
-                            By activating this feature:
-                            <ol type="a" class="ol_lower_alpha_bracket">
-                                <li>your Profiles can be searched for by other Escorts; and</li>
-                                <li>the Playmates listed under My Active Playmates will by default appear in your
-                                    Profile creator. You should check with the Escort they are still available as a
-                                    Playmate before creating a Profile. A Viewer will be able to view the Playmate’s
-                                    Profile from your Profile.</li>
-                            </ol>
-                        </li>
-                        <li>You can over ride these settings when creating a Profile, provided you
-                            have enabled the feature (see My Account - Profile & Tour options).
-                        </li>
-                        <li>
-                            You can search for other Escorts to link up as your Playmate by searching
-                            either their Account Name or Membership ID. We recommend you search
-                            by Membership ID which always appears at the top of any of the Escort's
-                            Profiles.
-                        </li>
-                    </ol>
+            <div class="custom-note-section">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol class=" mb-0">
+                            <li>
+                                By activating this feature:
+                                <ol type="a" class="ol_lower_alpha_bracket">
+                                    <li>your Profiles can be searched for by other Escorts; and</li>
+                                    <li>the Playmates listed under My Active Playmates will by default appear in your
+                                        Profile creator. You should check with the Escort they are still available as a
+                                        Playmate before creating a Profile. A Viewer will be able to view the Playmate’s
+                                        Profile from your Profile.</li>
+                                </ol>
+                            </li>
+                            <li>You can over ride these settings when creating a Profile, provided you
+                                have enabled the feature (see My Account - Profile & Tour options).
+                            </li>
+                            <li>
+                                You can search for other Escorts to link up as your Playmate by searching
+                                either their Account Name or Membership ID. We recommend you search
+                                by Membership ID which always appears at the top of any of the Escort's
+                                Profiles.
+                            </li>
+                        </ol>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-md-12 mt-4">
+
             <div class="card-body border-0 pt-0 mt-0 p-0">
                 <div class="mb-1">
                     @php
@@ -197,7 +173,7 @@
             </div>
             <div class="card-body active-play border-0 pt-0 mt-1 p-0">
                 <div class="mt-0">
-                    <div class="col-lg-12 my-3">
+                    <div class="col-lg-12">
                         @if($user->playmateHistory->count()>0)
                         <ul class="results  mt-2 activePlaymate">
                             @foreach($user->playmateHistory->unique('playmate_id') as $item)

@@ -188,9 +188,17 @@ class Escort extends Model
         return $this->hasMany(Purchase::class, 'escort_id', 'id');
     }
 
-    public function getcurrentPurchaseAttribute()
+    // public function getcurrentPurchaseAttribute()
+    // {
+    //     return $this->purchase->whereIn('status', ['listed', 'pending'])->first();
+    // }
+
+    public function getCurrentPurchaseAttribute()
     {
-        return $this->purchase->whereIn('status', ['listed', 'pending'])->first();
+        return $this->purchase
+            ->whereIn('status', ['listed', 'pending'])
+            ->sortBy(fn ($purchase) => $purchase->status === 'listed' ? 0 : 1)
+            ->first();
     }
 
     public function mainPurchase()

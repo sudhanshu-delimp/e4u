@@ -234,4 +234,10 @@ class Purchase extends Model
     {
         return $this->morphMany(AgentCommission::class, 'commissionable');
     }
+
+
+    public function membershipPlan()
+    {
+        return $this->belongsTo(MembershipPlan::class, 'membership', 'id');
+    }
 }

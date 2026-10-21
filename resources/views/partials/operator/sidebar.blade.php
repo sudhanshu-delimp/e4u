@@ -215,7 +215,7 @@
                 <a class="collapse-item" href="{{ route('operator.edit-my-account') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
                     <span style="{{ request()->segment(2) == 'edit-my-account' ? 'color: #f5841f;' : '' }}">
-                        Edit my account</span>
+                        My Account</span>
                 </a>
                 <a class="collapse-item" href="{{ route('operator.change-password') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">

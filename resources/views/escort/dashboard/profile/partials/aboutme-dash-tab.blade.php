@@ -210,6 +210,9 @@
                                 $showSelect = ($isCreator && $isNewProfile) || (isset($profile_type) && !$isNewProfile);
                                 $currentName = $escort->name ?? $user->default_escort_name;
                                 $editSuffix = !$isNewProfile && $currentName ? $currentName . '-edit' : '';
+                                $escortName = $escort->name;
+                                $escortsNames = $loginAccount->escorts_names ?? [];
+                                $escortsNames[] = $escortName;
 
                             @endphp
                             <div class="form-group row tab-about-me-row-padding">
@@ -226,7 +229,7 @@
                                             data-parsley-group="group_one"
                                             data-parsley-errors-container="#stageName-errors">
                                             <option value="">— Choose Your Stage Name —</option>
-                                            @foreach ($loginAccount->escorts_names ?? [] as $name)
+                                            @foreach ($escortsNames ?? [] as $name)
                                                 <option value="{{ $name }}"
                                                     {{ $currentName === $name ? 'selected' : '' }}>
                                                     {{ $name }}
@@ -412,8 +415,11 @@
 
                             @php
                                 $currentAddress = $escort->address ?? additional_information(Auth::id(), 'address');
-                                $savedAddresses = $loginAccount->additionalInfo->where('type', 'address');
+                                $savedAddresses = $loginAccount->additionalInfo->where('type', 'address')->pluck('value') ?? '';
+                                $savedAddresses[] = $currentAddress;
+                                
                                 $hasAddresses = $savedAddresses->isNotEmpty();
+
                             @endphp
                             
                             <div class="form-group row tab-about-me-row-padding">
@@ -435,9 +441,9 @@
                                             data-parsley-errors-container="#address-errors">
                                             <option value="">— Choose a Street Address —</option>
                                             @foreach ($savedAddresses as $addr)
-                                                <option value="{{ $addr->value }}"
-                                                    {{ $currentAddress == $addr->value ? 'selected' : '' }}>
-                                                    {{ $addr->value }}
+                                                <option value="{{ $addr }}"
+                                                    {{ $currentAddress == $addr ? 'selected' : '' }}>
+                                                    {{ $addr }}
                                                 </option>
                                             @endforeach
                                             <option value="new">Add a new Street Address</option>
@@ -568,15 +574,15 @@
                                                         @endphp
                                                         @if ($status == '0')
                                                             <img
-                                                                src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
+                                                                src="{{ asset('assets/app/img/verify/e4u_pending.png') }}">
                                                             <span class="common_shield_tooltip">Media Pending</span>
                                                         @elseif($status == '1')
                                                             <img
-                                                                src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
+                                                                src="{{ asset('assets/app/img/verify/e4u_verified.png') }}">
                                                             <span class="common_shield_tooltip">Media Verified</span>
                                                         @else
                                                             <img
-                                                                src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
+                                                                src="{{ asset('assets/app/img/verify/unverified_dark.png') }}">
                                                             <span class="common_shield_tooltip">Media Unverified</span>
                                                         @endif
                                                     @endif
@@ -971,15 +977,15 @@
                                                     @endphp
                                                     @if ($status == '0')
                                                         <img
-                                                            src="{{ asset('assets/app/img/pending_icon/e4u_pending_REV.png') }}">
+                                                            src="{{ asset('assets/app/img/verify/e4u_pending.png') }}">
                                                         <span class="common_shield_tooltip">Media Pending</span>
                                                     @elseif($status == '1')
                                                         <img
-                                                            src="{{ asset('assets/app/img/verify/e4u_verified_REV.png') }}">
+                                                            src="{{ asset('assets/app/img/verify/e4u_verified.png') }}">
                                                         <span class="common_shield_tooltip">Media Verified</span>
                                                     @else
                                                         <img
-                                                            src="{{ asset('assets/app/img/verify/unverified_light.png') }}">
+                                                            src="{{ asset('assets/app/img/verify/unverified_dark.png') }}">
                                                         <span class="common_shield_tooltip">Media Unverified</span>
                                                     @endif
                                                 @endif
@@ -2499,7 +2505,8 @@
 
             @php
                 $currentTitle = $escort->about_title ?? additional_information(Auth::id(), 'title');
-                $savedTitles = $loginAccount->additionalInfo->where('type', 'title');
+                $savedTitles = $loginAccount->additionalInfo->where('type', 'title')->pluck('value');
+                $savedTitles[] = $currentTitle;
                 $hasTitles = $savedTitles->isNotEmpty();
             @endphp
 
@@ -2527,9 +2534,9 @@
                             <option value="">— Choose Your Title —</option>
 
                             @foreach ($savedTitles as $title)
-                                <option value="{{ $title->value }}"
-                                    {{ $currentTitle === $title->value ? 'selected' : '' }}>
-                                    {{ $title->value }}
+                                <option value="{{ $title }}"
+                                    {{ $currentTitle === $title ? 'selected' : '' }}>
+                                    {{ $title }}
                                 </option>
                             @endforeach
 
@@ -2847,13 +2854,13 @@
 
                     if (position == 1 || position == 9 || position == 10) {
                         if (status == "0") {
-                            iconPath = '/assets/app/img/pending_icon/e4u_pending_REV.png';
+                            iconPath = '/assets/app/img/verify/e4u_pending.png';
                             iconText = '<span class="common_shield_tooltip">Media Pending</span>';
                         } else if (status == "1") {
-                            iconPath = '/assets/app/img/verify/e4u_verified_REV.png';
+                            iconPath = '/assets/app/img/verify/e4u_verified.png';
                             iconText = '<span class="common_shield_tooltip">Media Verified</span>';
                         } else {
-                            iconPath = '/assets/app/img/verify/unverified_light.png';
+                            iconPath = '/assets/app/img/verify/unverified_dark.png';
                             iconText = '<span class="common_shield_tooltip">Media Unverified</span>';
                         }
                     } else {
@@ -3009,13 +3016,13 @@
                         if (position == 1 || position == 9 || position == 10) {
 
                             if (status == "0") {
-                                iconPath = '/assets/app/img/pending_icon/e4u_pending_REV.png';
+                                iconPath = '/assets/app/img/verify/e4u_pending.png';
                                 iconText = '<span class="common_shield_tooltip">Media Pending</span>';
                             } else if (status == "1") {
-                                iconPath = '/assets/app/img/verify/e4u_verified_REV.png';
+                                iconPath = '/assets/app/img/verify/e4u_verified.png';
                                 iconText = '<span class="common_shield_tooltip">Media Verified</span>';
                             } else {
-                                iconPath = '/assets/app/img/verify/unverified_light.png';
+                                iconPath = '/assets/app/img/verify/unverified_dark.png';
                                 iconText = '<span class="common_shield_tooltip">Media Unverified</span>';
                             }
 

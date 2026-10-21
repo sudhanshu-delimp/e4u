@@ -30,22 +30,19 @@
         margin-top: 6px;
     }
 
-    /* .suspension-note-list {
-                    list-style-position: outside;
-                    padding-left: 20px;
-                } */
-
     .suspension-note-list li {
         text-indent: 4px;
         /* Adds space after number */
     }
 
+    #btn_upgrade,
+    #btn_cancel_profile,
     #btn_suspend_profile,
     #btn_add_brb,
     #btn_extend_profile,
     #btn_pinup_profile,
     #btn_bumpup_profile {
-        display: none;
+        //
     }
 
     button#btn_add_brb:hover {
@@ -121,7 +118,7 @@
                 @if ($type != 'past')
                 <div>
                     <div class="add--list listingActionButtons">
-                        <div class="">
+                        <div class=" d-flex gap-10 flex-wrap justify-content-between">
 
                             {{-- <div class="pinup-tooltip-wrapper"> --}}
                             <button style="padding: 10px;" class="btn btn-warning esc-tooltip-wrap"
@@ -183,6 +180,7 @@
                                 <th class="w-auto">Profile Name</th>
                                 <th class="w-auto">Stage Name</th>
                                 <th class="w-auto">Membership</th>
+                                <th class="w-auto">Start Date</th>
                                 <th class="w-auto">Date Created</th>
                                 <th>Status</th>
                                 <th class="text-center">Action</th>
@@ -471,7 +469,7 @@
 
 <script>
     var table;
-
+    $(".listingActionButtons button").attr('disabled', 'disabled');
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -555,7 +553,7 @@
 
                     $selectBumpUp.append('<option value="">-- Select Profile --</option>');
                     $.each(records.data, function(i, item) {
-                        if (item.current_active_pinup == null) {
+                        if (item.current_active_pinup == null && item.statusText != 'Upcoming') {
                             $selectBumpUp.append(
                                 $('<option>', {
                                     value: item.id,
@@ -604,7 +602,7 @@
                             );
                         }
                     });
-                    $(".listingActionButtons button").show();
+                    $(".listingActionButtons button").removeAttr('disabled');
                 }
 
 
@@ -615,14 +613,11 @@
                     table.search('').draw();
                 });
             },
-
             ajax: {
                 url: "{{ route('escort.list.dataTable', $type) }}",
                 data: function(d) {
                     d.type = 'player';
                 }
-
-
             },
             columns: [{
                     data: 'slug',
@@ -652,6 +647,14 @@
                     orderable: false,
                     defaultContent: 'NA',
                     visible: shouldHide
+                },
+                {
+                    data: 'start_date',
+                    name: 'start_date',
+                    searchable: false,
+                    orderable: true,
+                    defaultContent: 'NA',
+                    visible: false
                 },
                 {
                     data: 'timezone_created_at',

@@ -51,7 +51,7 @@
 
                      <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
 
-                     <span style="{{ request()->segment(2) == 'update-account' ? 'color: #e5365a;' : '' }}">Edit Our
+                     <span style="{{ request()->segment(2) == 'update-account' ? 'color: #e5365a;' : '' }}">Our
                          Account</span></a>
 
                  @else
@@ -59,7 +59,7 @@
 
                      <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
 
-                     <span style="{{ request()->segment(2) == 'update-account' ? 'color: #e5365a;' : '' }}">Edit Our
+                     <span style="{{ request()->segment(2) == 'update-account' ? 'color: #e5365a;' : '' }}">Our
                          Account</span></a>
                  <a class="collapse-item" href="{{ route('center.profile.information') }}">
                      <img src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">

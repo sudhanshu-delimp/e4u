@@ -111,7 +111,8 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
     public function paginatedList($start, $limit, $order_key, $dir, $columns, $search = null, $user_id = null, $conditions = [])
     {
-        $order = $this->getOrderEscort($order_key);
+        //$order = $this->getOrderEscort($order_key);
+        $order_field = $columns[$order_key]['name'];
         $searchables = $this->getSearchableFields($columns);
         $query = $this->model
             ->offset($start)
@@ -136,7 +137,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
         )
         THEN 1 ELSE 0 END ASC
     ")
-            ->orderBy($order, $dir)
+            ->orderBy($order_field, $dir)
             ->orderBy('membership', 'asc');
 
         if ($user_id != null) {
@@ -275,7 +276,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 $item->pro_name .= '<sup class="upgrade_icon listing-tag-tooltip ml-1">Upgraded
                 <small class="listing-tag-tooltip-desc">Upgraded from ' . $currentPurchase->previous_membership_type . ' to ' . $currentPurchase->membership_type . ' on ' . getEscortLocalTime($item->updated_at, $item->time_zone)->format('d-m-Y') . '.</small>
                 </sup>';
-                $item->tour = true;
             }
             /*Extend */
             if ($isExtended->count) {

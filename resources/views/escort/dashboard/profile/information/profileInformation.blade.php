@@ -58,11 +58,7 @@
    padding-left: 11.2rem;
    border-radius: 0.5px solid #C4C4C4;
    }
-   .at-sec div.myacording-design .card .card-body ol li, div.myacording-design .card .card-body ul li, div.myacording-design .card .card-body p {
-   margin-bottom: 0;
-   background: #fff;
-   box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
-   }
+ 
    .at-sec .results li { display: block; width: 270px; }
    /*.at-sec .results li:first-child { margin-top: -1px }*/
    .at-sec .results li:first-child:before, .search .results li:first-child:after {
@@ -96,26 +92,6 @@
    border-color: #0C223D;
    background-color: #0C223D;
    }
-   .active-play .at-lable {
-   display: block;
-   }
-   .active-play ul {
-   display: flex;
-   padding: 0px;
-   top: 0;
-   position: relative;
-   list-style: none;
-   gap: 10px;
-   flex-wrap: wrap;
-   }
-   .active-play li {
-   padding: 10px;
-   border-radius: 3px;
-   background: #0C223D;
-   }
-   .active-play a {
-   color: #fff;
-   }
 
 .custom-x-link{        
     background: #0c223d;
@@ -129,78 +105,7 @@
     .custom-x-link .twitter-x-logo{
         width:18px;
     }
-</style>
-
-<style>
-    .stage-card {
-    position: relative;
-    list-style: none;
-    background: #0C223D;
-    color: #fff;
-
-    padding: 14px 15px;
-    border-radius: 8px;
-    margin-bottom: 12px;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    transition: 0.3s ease;
-}
-
-.stage-card.default-card {
-    background: #ff3c5f;
-}
-
-.stage-card a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 16px;
-}
-
-.stage-close span {
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.hover-action {
-    position: absolute;
-    bottom: -42px;
-    left: 10px;
-
-    opacity: 0;
-    visibility: hidden;
-
-    transition: 0.2s ease;
-
-    z-index: 99;
-}
-
-.stage-card:hover .hover-action {
-    opacity: 1;
-    visibility: visible;
-}
-
-.default-toggle-btn {
-    border: none;
-    background: #ff3c5f;
-    color: #fff;
-
-    padding: 8px 14px;
-    border-radius: 4px;
-
-    font-size: 13px;
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.stage-card.default-card .default-toggle-btn {
-    background: #0C223D;
-}
-.stage-card.default-card {
-    background: #ff3c5f !important;
-}
+    
 </style>
 @endsection
 @section('content')
