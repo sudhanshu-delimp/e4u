@@ -1074,16 +1074,17 @@ border: 1px solid var(--border-color) !important;
     height: calc(1.5em + .5rem + 2px);
 }
 
-#update_about_me .select2-container--default .select2-selection--single {
+#update_about_me .select2-container--default .select2-selection--single, .common-form .select2-container--default .select2-selection--single {
 
     border: 1px solid var(--border-color) !important;
     border-radius: var(--radius-md) !important;
     padding: 8px 10px 0 5px !important;
     box-sizing: border-box;
     height: 48px !important;
+    margin-top: 8px;
 }
 
-#update_about_me .select2-container--default.select2-container--open .select2-selection--single {
+#update_about_me .select2-container--default.select2-container--open .select2-selection--single, .common-form .select2-container--default.select2-container--open .select2-selection--single {
     border-color: var(--blue--text) !important;
 }
 
@@ -4922,6 +4923,8 @@ color: white;
     border-radius: 4px;
     opacity: 1;
     visibility: hidden;
+    z-index: 1;
+    color: #fff;
 }
 
 .js_defaultProfileService .my_service_anal span:has(i),
@@ -4935,9 +4938,9 @@ color: white;
 
 .my_service_anal .d_profile_name {
     position: absolute;
-    top: 44px;
+    top: 24px;
     font-size: 10px;
-    color: #ededed;
+    color: #444;
     cursor: pointer;
 }
 

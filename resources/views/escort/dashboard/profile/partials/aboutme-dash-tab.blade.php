@@ -186,13 +186,370 @@
     </div> -->
 
 
-    <div class="row inner-row">
-        
+   
+    @if (request()->segment(2) == 'profile' && request()->segment(3))
+        <form id="LocationInformation" action="{{ route('escort.update_escort', $escort->id) }}"
+            method="Post" data-parsley-validate>
+            @csrf
+    @endif
+    <div class="row inner-row">    
+        <div class="col-lg-12">
+            <div class="card-top">
+                <div class="card-icon">
+                    <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                            stroke-linejoin="round">
+                        </g>
+
+                        <g id="SVGRepo_iconCarrier">
+
+                            <path
+                                d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
+                                stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                            </path>
+
+                            <path
+                                d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z"
+                                stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                            </path>
+
+                        </g>
+
+                    </svg>
+                </div>
+                <div class="card-heading">
+                    <h2>Location Information</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="inner-field-row">
+                <div class="form-group">
+                    <label class="small-icon" for="profile_name">
+                        Profile Name:
+                        <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"
+                            data-toggle="tooltip" data-html="true" data-placement="top"
+                            title="Be consistent when naming your Profiles, like Sydney01, Sydney 02, Perth01, Perth02 etc."
+                            data-boundary="window">
+                        <span style='color:red'>*</span>
+                    </label>
+                        <input type="text"
+                            placeholder="Enter your Profile Name (your internal reference)"
+                            value="{{ $escort->profile_name }}" title="(your use only)" name="profile_name"
+                            class="form-control "
+                            id="profile_name" required data-parsley-group="group_one"
+                            data-parsley-required-message="Enter profile name."
+                            data-parsley-remote="{{ request()->segment(2) == 'profile' ? route('escort.checkProfileName', ['escort_id' => $escort->id]) : route('escort.checkProfileName') }}"
+                            data-parsley-remote-message="This profile name already exists."
+                            data-parsley-trigger="blur"
+                            data-parsley-errors-container="#profile_name-errors">
+                    <div>
+                        <span id="profile_name-errors"></span>
+                    </div>
+                </div>
+                @php
+                    $profile_type = isset($profile_type);
+                    $routeIsNewprofile = Str::contains(request()->path(), 'create-profile');
+                @endphp
+
+                @php
+                    $isNewProfile = Str::contains(request()->path(), 'create-profile');
+                    $isCreator = !empty($user->profile_creator) && in_array(1, $user->profile_creator);
+                    $showSelect = ($isCreator && $isNewProfile) || (isset($profile_type) && !$isNewProfile);
+                    $currentName = $escort->name ?? $user->default_escort_name;
+                    $editSuffix = !$isNewProfile && $currentName ? $currentName . '-edit' : '';
+                    $escortName = $escort->name;
+                    $escortsNames = $loginAccount->escorts_names ?? [];
+                    $escortsNames[] = $escortName;
+
+                @endphp
+                <div class="form-group">
+                    <label for="stageName">
+                        Stage Name:<span style="color:red">*</span>
+                    </label>
+
+                        @if ($showSelect)
+                            <select id="stageName" name="name" onclick="stageNameInput(this)"
+                                class="js-stage-name-select form-control  change_default_select"
+                                title="(for public display)" required
+                                data-parsley-required-message="Select stage name"
+                                data-parsley-group="group_one"
+                                data-parsley-errors-container="#stageName-errors">
+                                <option value="">— Choose Your Stage Name —</option>
+                                @foreach ($escortsNames ?? [] as $name)
+                                    <option value="{{ $name }}"
+                                        {{ $currentName === $name ? 'selected' : '' }}>
+                                        {{ $name }}
+                                    </option>
+                                @endforeach
+                                <option value="new">Add a new Stage Name</option>
+                            </select>
+
+                            <input type="hidden" id="stageNameInp" name=""
+                                value="{{ $editSuffix }}"
+                                class="change_default form-control  mt-1"
+                                title="(for public display)"
+                                placeholder="Enter your new Stage Name (for public display)"
+                                data-parsley-required-message="Enter stage name"
+                                data-parsley-group="group_one"
+                                data-parsley-errors-container="#stageName-errors"
+                                data-is-edit="{{ !$isNewProfile ? 'true' : 'false' }}"
+                                data-original-name="{{ $currentName }}">
+                        @else
+                            <input type="text" id="stageName" name="name"
+                                class="change_default form-control "
+                                title="(for public display)" value="{{ $currentName }}"
+                                placeholder="Choose your Stage Name (for public display)" required
+                                data-parsley-required-message="Enter stage name"
+                                data-parsley-group="group_one"
+                                data-parsley-errors-container="#stageName-errors">
+                        @endif
+
+                    <div>
+                        <span id="stageName-errors"></span>
+                    </div>
+                </div>
+
+
+                {{-- <div class="form-group">
+                        <label class="col-sm-2 font-weight-500" for="stageName">Stage Name:<span
+                                style='color:red'>*</span></label>
+                        <div class="col-sm-6">
+                            
+                            @if (!empty($user->profile_creator) && in_array(1, $user->profile_creator) && $routeIsNewprofile)
+                            <select onclick="stageNameInput(this)"
+                                class=" form-control "
+                                title="(for public display)" id="stageName" name="name"
+                                required="required" data-parsley-required-message="Select stage name"
+                                data-parsley-group="group_one"
+                                data-parsley-errors-container="#stageName-errors">
+                                <option value="" selected>-Choose Your Stage Name-</option>
+                                @if (!empty($loginAccount->escorts_names))
+                                @foreach ($loginAccount->escorts_names as $key => $name)
+                                <option value='{{ $name }}'
+                                    {{ $escort->name == $name ? 'selected' : '' }}>
+                                    {{ $name }}
+                                </option>
+                                @endforeach
+                                @endif
+                                <option value="new">Add a new Stage Name</option>
+                            </select>
+                            <input type="hidden" id="stageNameInp" required="required" name=""
+                                title="(for public display)"
+                                class="change_default form-control "
+                                data-parsley-required-message="Enter stage name"
+                                data-parsley-group="group_one"
+                                placeholder="Choose your Stage Name (for public display)"
+                                data-parsley-errors-container="#stageName-errors">
+                            @else
+                            @if ($profile_type && !$routeIsNewprofile)
+                            <select onclick="stageNameInput(this)" style="display: block"
+                                class=" change_default_select form-control "
+                                title="(for public display)" id="stageName" name="name"
+                                required="required" data-parsley-required-message="Select stage name"
+                                data-parsley-group="group_one"
+                                data-parsley-errors-container="#stageName-errors">
+                                <option value="" selected>-Choose Your Stage Name-</option>
+                                @if (!empty($loginAccount->escorts_names))
+                                @foreach ($loginAccount->escorts_names as $key => $name)
+                                <option value='{{ $name }}'
+                                    {{ $escort->name == $name ? 'selected' : '' }}>
+                                    {{ $name }}
+                                </option>
+                                @endforeach
+                                @endif
+                                <option value="new">Add a new Stage Name</option>
+                            </select>
+                            <input type="hidden" id="stageNameInp" required="required" name=""
+                                title="(for public display)"
+                                value="{{ $escort->name ? $escort->name : '' }}-edit"
+                                class="change_default form-control "
+                                data-parsley-required-message="Enter stage name"
+                                data-parsley-group="group_one"
+                                placeholder="Choose your Stage Name (for public display)"
+                                data-parsley-errors-container="#stageName-errors">
+                            @endif
+
+                            @endif
+                        </div>
+                        <div class="col-sm-4">
+                            <span id="stageName-errors"></span>
+                        </div>
+                </div> --}}
+
+
+                <div class="form-group">
+                    <label class="small-icon" for="state_id">
+                        Location:
+                        <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"
+                            data-toggle="tooltip" data-html="true" data-placement="top"
+                            title="This is the Location you want the Profile to be saved to, like Western Australia, Victoria etc. Make sure the Profile Name matches up."
+                            data-boundary="window">
+                    </label>
+                        <select
+                            class="form-control  change_default {{ $routeIsNewprofile ? 'js_profile_current_location' : '' }}"
+                            id="state_id" name="state_id" required="required"
+                            data-parsley-required-message="-select location-"
+                            data-parsley-group="group_one"
+                            data-parsley-errors-container="#locationState-errors">
+                            <option value="" selected="">-- Select States--</option>
+                            @foreach (config('escorts.profile.states') as $key => $state)
+                                <option style="font-weight: 500;" value="{{ $key }}"
+                                    @if ($escort->state_id != null) {{ $escort->state_id != null && $escort->state_id == $key ? 'selected' : '' }}
+                                    @else
+                                    {{ $loginAccount->state_id == $key ? 'selected' : '' }} @endif>
+                                    {{ $state['stateName'] }}
+                                </option>
+                            @endforeach
+                        </select>
+                    <div>
+                        <span id="state_id-errors"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="profile_name">City: <span
+                            style='color:red'>*</span></label>
+                        <select class="form-control "
+                            id="city_id" name="city_id" required="required"
+                            data-parsley-required-message="-select city-" data-parsley-group="group_one"
+                            data-parsley-errors-container="#locationName-errors">
+                            {{-- <required data-parsley-required-message="-select city-" data-parsley-group="group_one"> --}}
+                            {{-- <option value="" selected="">-- Select cites--</option> --}}
+                            @if ($escort->city_id)
+                                <option id="{{ $escort->city_id }}" value="{{ $escort->city_id }}"
+                                    selected>{{ $escort->city->name }}</option>
+                            @else
+                                @foreach (config('escorts.profile.states')[$loginAccount->state_id]['cities'] as $key => $city)
+                                    <option id="{{ $key }}" value="{{ $key }}"
+                                        selected>{{ $city['cityName'] }}</option>
+                                @endforeach
+
+
+
+                            @endif
+                        </select>
+                    <div>
+                        <span id="city_id-errors"></span>
+                    </div>
+                </div>
+
+
+
+                {{-- <div class="form-group">
+                    <label class="col-sm-2 font-weight-500 small-icon" for="address">
+                        Street Address:
+                        <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"
+                            data-toggle="tooltip" data-html="true" data-placement="top"
+                            title="Include your street address (no street number) to help Viewers know where you are staying."
+                            data-boundary="window">
+                    </label>
+                    <div class="col-sm-6">
+                        <input type="text" value="{{ $escort->address }}" name="address"
+                            placeholder="Street Address"
+                            class="form-control "
+                            id="address">
+                    </div>
+                    <div class="col-sm-4">
+                        <span id="address-errors"></span>
+                    </div>
+                </div> --}}
+
+                @php
+                    $currentAddress = $escort->address ?? additional_information(Auth::id(), 'address');
+                    $savedAddresses = $loginAccount->additionalInfo->where('type', 'address')->pluck('value') ?? '';
+                    $savedAddresses[] = $currentAddress;
+                    
+                    $hasAddresses = $savedAddresses->isNotEmpty();
+
+                @endphp
+                
+                <div class="form-group">
+                    <label class="small-icon" for="address">
+                        Street Address:
+                        <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"
+                            data-toggle="tooltip" data-html="true" data-placement="top"
+                            title="Include your street address (no street number) to help Viewers know where you are staying."
+                            data-boundary="window">
+                    </label>
+
+                        @if ($hasAddresses)
+
+                            {{-- Dropdown: existing saved addresses --}}
+                            <select id="address" name="address" onclick="addressInput(this)"
+                                class="js-stage-name-select form-control  change_default_select"
+                                title="Street Address" data-parsley-group="group_one"
+                                data-parsley-errors-container="#address-errors">
+                                <option value="">— Choose a Street Address —</option>
+                                @foreach ($savedAddresses as $addr)
+                                    <option value="{{ $addr }}"
+                                        {{ $currentAddress == $addr ? 'selected' : '' }}>
+                                        {{ $addr }}
+                                    </option>
+                                @endforeach
+                                <option value="new">Add a new Street Address</option>
+                            </select>
+
+                            {{-- Text input: hidden until "Add new" is selected --}}
+                            <input type="hidden" id="addressInp" name="" value=""
+                                class="change_default form-control  mt-1"
+                                placeholder="Enter new Street Address" data-parsley-group="group_one"
+                                data-parsley-errors-container="#address-errors"
+                                data-original-address="{{ $currentAddress }}">
+                        @else
+                            {{-- No saved addresses: plain text input (current behaviour) --}}
+                            <input type="text" id="address" name="address"
+                                value="{{ $currentAddress }}" placeholder="Street Address"
+                                class="change_default form-control "
+                                data-parsley-group="group_one"
+                                data-parsley-errors-container="#address-errors">
+                        @endif
+
+                    <div>
+                        <span id="address-errors"></span>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label  for="phone">Mobile: <span
+                            style='color:red'>*</span></label>
+                        <input type="text" id="phone" required name="phone"
+                            class="form-control  mt-2"
+                            value="{{ $escort->phone ? $escort->phone : $loginAccount->phone }}"
+                            placeholder="Mobile Number"
+                            data-parsley-required-message="Enter mobile number"
+                            data-parsley-group="group_one" data-parsley-errors-container="#mobile-errors">
+                    
+                    <div>
+                        <span id="phone-errors"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
         @if (request()->segment(2) == 'profile' && request()->segment(3))
-            <form id="LocationInformation" action="{{ route('escort.update_escort', $escort->id) }}"
-                method="Post" data-parsley-validate>
-                @csrf
+            <div class="col-md-12 text-right">
+                <button id="location-info" type="submit" class="save_profile_btn">Update</button>
+            </div>
+            </form>
         @endif
+    </div>
+    
+
+
+    <div class="about_me_drop_down_info">
+        @if (request()->segment(2) == 'profile' && request()->segment(3))
+            <form id="myProfileMediaForm" name="myProfileMediaForm"
+                action="{{ route('escort.profile.media', [$escort->id]) }}" method="POST"
+                enctype="multipart/form-data" class="common-form">
+                @CSRF
+        @endif
+        <div class="row inner-row">
             <div class="col-lg-12">
                 <div class="card-top">
                     <div class="card-icon">
@@ -223,796 +580,62 @@
                         </svg>
                     </div>
                     <div class="card-heading">
-                        <h2>Location Information</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="inner-field-row">
-                    <div class="form-group">
-                        <label class="small-icon" for="profile_name">
-                            Profile Name:
-                            <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"
-                                data-toggle="tooltip" data-html="true" data-placement="top"
-                                title="Be consistent when naming your Profiles, like Sydney01, Sydney 02, Perth01, Perth02 etc."
-                                data-boundary="window">
-                            <span style='color:red'>*</span>
-                        </label>
-                            <input type="text"
-                                placeholder="Enter your Profile Name (your internal reference)"
-                                value="{{ $escort->profile_name }}" title="(your use only)" name="profile_name"
-                                class="form-control form-control-sm select_tag_remove_box_sadow"
-                                id="profile_name" required data-parsley-group="group_one"
-                                data-parsley-required-message="Enter profile name."
-                                data-parsley-remote="{{ request()->segment(2) == 'profile' ? route('escort.checkProfileName', ['escort_id' => $escort->id]) : route('escort.checkProfileName') }}"
-                                data-parsley-remote-message="This profile name already exists."
-                                data-parsley-trigger="blur"
-                                data-parsley-errors-container="#profile_name-errors">
-                        <div>
-                            <span id="profile_name-errors"></span>
-                        </div>
-                    </div>
-                    @php
-                        $profile_type = isset($profile_type);
-                        $routeIsNewprofile = Str::contains(request()->path(), 'create-profile');
-                    @endphp
-
-                    @php
-                        $isNewProfile = Str::contains(request()->path(), 'create-profile');
-                        $isCreator = !empty($user->profile_creator) && in_array(1, $user->profile_creator);
-                        $showSelect = ($isCreator && $isNewProfile) || (isset($profile_type) && !$isNewProfile);
-                        $currentName = $escort->name ?? $user->default_escort_name;
-                        $editSuffix = !$isNewProfile && $currentName ? $currentName . '-edit' : '';
-                        $escortName = $escort->name;
-                        $escortsNames = $loginAccount->escorts_names ?? [];
-                        $escortsNames[] = $escortName;
-
-                    @endphp
-                    <div class="form-group">
-                        <label for="stageName">
-                            Stage Name:<span style="color:red">*</span>
-                        </label>
-
-                            @if ($showSelect)
-                                <select id="stageName" name="name" onclick="stageNameInput(this)"
-                                    class="js-stage-name-select form-control form-control-sm select_tag_remove_box_sadow change_default_select"
-                                    title="(for public display)" required
-                                    data-parsley-required-message="Select stage name"
-                                    data-parsley-group="group_one"
-                                    data-parsley-errors-container="#stageName-errors">
-                                    <option value="">— Choose Your Stage Name —</option>
-                                    @foreach ($escortsNames ?? [] as $name)
-                                        <option value="{{ $name }}"
-                                            {{ $currentName === $name ? 'selected' : '' }}>
-                                            {{ $name }}
-                                        </option>
-                                    @endforeach
-                                    <option value="new">Add a new Stage Name</option>
-                                </select>
-
-                                <input type="hidden" id="stageNameInp" name=""
-                                    value="{{ $editSuffix }}"
-                                    class="change_default form-control form-control-sm select_tag_remove_box_sadow mt-1"
-                                    title="(for public display)"
-                                    placeholder="Enter your new Stage Name (for public display)"
-                                    data-parsley-required-message="Enter stage name"
-                                    data-parsley-group="group_one"
-                                    data-parsley-errors-container="#stageName-errors"
-                                    data-is-edit="{{ !$isNewProfile ? 'true' : 'false' }}"
-                                    data-original-name="{{ $currentName }}">
-                            @else
-                                <input type="text" id="stageName" name="name"
-                                    class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                    title="(for public display)" value="{{ $currentName }}"
-                                    placeholder="Choose your Stage Name (for public display)" required
-                                    data-parsley-required-message="Enter stage name"
-                                    data-parsley-group="group_one"
-                                    data-parsley-errors-container="#stageName-errors">
-                            @endif
-
-                        <div>
-                            <span id="stageName-errors"></span>
-                        </div>
-                    </div>
-
-
-                    {{-- <div class="form-group">
-                            <label class="col-sm-2 font-weight-500" for="stageName">Stage Name:<span
-                                    style='color:red'>*</span></label>
-                            <div class="col-sm-6">
-                                
-                                @if (!empty($user->profile_creator) && in_array(1, $user->profile_creator) && $routeIsNewprofile)
-                                <select onclick="stageNameInput(this)"
-                                    class=" form-control form-control-sm select_tag_remove_box_sadow"
-                                    title="(for public display)" id="stageName" name="name"
-                                    required="required" data-parsley-required-message="Select stage name"
-                                    data-parsley-group="group_one"
-                                    data-parsley-errors-container="#stageName-errors">
-                                    <option value="" selected>-Choose Your Stage Name-</option>
-                                    @if (!empty($loginAccount->escorts_names))
-                                    @foreach ($loginAccount->escorts_names as $key => $name)
-                                    <option value='{{ $name }}'
-                                        {{ $escort->name == $name ? 'selected' : '' }}>
-                                        {{ $name }}
-                                    </option>
-                                    @endforeach
-                                    @endif
-                                    <option value="new">Add a new Stage Name</option>
-                                </select>
-                                <input type="hidden" id="stageNameInp" required="required" name=""
-                                    title="(for public display)"
-                                    class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                    data-parsley-required-message="Enter stage name"
-                                    data-parsley-group="group_one"
-                                    placeholder="Choose your Stage Name (for public display)"
-                                    data-parsley-errors-container="#stageName-errors">
-                                @else
-                                @if ($profile_type && !$routeIsNewprofile)
-                                <select onclick="stageNameInput(this)" style="display: block"
-                                    class=" change_default_select form-control form-control-sm select_tag_remove_box_sadow"
-                                    title="(for public display)" id="stageName" name="name"
-                                    required="required" data-parsley-required-message="Select stage name"
-                                    data-parsley-group="group_one"
-                                    data-parsley-errors-container="#stageName-errors">
-                                    <option value="" selected>-Choose Your Stage Name-</option>
-                                    @if (!empty($loginAccount->escorts_names))
-                                    @foreach ($loginAccount->escorts_names as $key => $name)
-                                    <option value='{{ $name }}'
-                                        {{ $escort->name == $name ? 'selected' : '' }}>
-                                        {{ $name }}
-                                    </option>
-                                    @endforeach
-                                    @endif
-                                    <option value="new">Add a new Stage Name</option>
-                                </select>
-                                <input type="hidden" id="stageNameInp" required="required" name=""
-                                    title="(for public display)"
-                                    value="{{ $escort->name ? $escort->name : '' }}-edit"
-                                    class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                    data-parsley-required-message="Enter stage name"
-                                    data-parsley-group="group_one"
-                                    placeholder="Choose your Stage Name (for public display)"
-                                    data-parsley-errors-container="#stageName-errors">
-                                @endif
-
-                                @endif
-                            </div>
-                            <div class="col-sm-4">
-                                <span id="stageName-errors"></span>
-                            </div>
-                    </div> --}}
-
-
-                    <div class="form-group">
-                        <label class="small-icon" for="state_id">
-                            Location:
-                            <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"
-                                data-toggle="tooltip" data-html="true" data-placement="top"
-                                title="This is the Location you want the Profile to be saved to, like Western Australia, Victoria etc. Make sure the Profile Name matches up."
-                                data-boundary="window">
-                        </label>
-                            <select
-                                class="form-control form-control-sm select_tag_remove_box_sadow change_default {{ $routeIsNewprofile ? 'js_profile_current_location' : '' }}"
-                                id="state_id" name="state_id" required="required"
-                                data-parsley-required-message="-select location-"
-                                data-parsley-group="group_one"
-                                data-parsley-errors-container="#locationState-errors">
-                                <option value="" selected="">-- Select States--</option>
-                                @foreach (config('escorts.profile.states') as $key => $state)
-                                    <option style="font-weight: 500;" value="{{ $key }}"
-                                        @if ($escort->state_id != null) {{ $escort->state_id != null && $escort->state_id == $key ? 'selected' : '' }}
-                                        @else
-                                        {{ $loginAccount->state_id == $key ? 'selected' : '' }} @endif>
-                                        {{ $state['stateName'] }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        <div>
-                            <span id="state_id-errors"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="profile_name">City: <span
-                                style='color:red'>*</span></label>
-                            <select class="form-control form-control-sm select_tag_remove_box_sadow"
-                                id="city_id" name="city_id" required="required"
-                                data-parsley-required-message="-select city-" data-parsley-group="group_one"
-                                data-parsley-errors-container="#locationName-errors">
-                                {{-- <required data-parsley-required-message="-select city-" data-parsley-group="group_one"> --}}
-                                {{-- <option value="" selected="">-- Select cites--</option> --}}
-                                @if ($escort->city_id)
-                                    <option id="{{ $escort->city_id }}" value="{{ $escort->city_id }}"
-                                        selected>{{ $escort->city->name }}</option>
-                                @else
-                                    @foreach (config('escorts.profile.states')[$loginAccount->state_id]['cities'] as $key => $city)
-                                        <option id="{{ $key }}" value="{{ $key }}"
-                                            selected>{{ $city['cityName'] }}</option>
-                                    @endforeach
-
-
-
-                                @endif
-                            </select>
-                        <div>
-                            <span id="city_id-errors"></span>
-                        </div>
-                    </div>
-
-
-
-                    {{-- <div class="form-group">
-                        <label class="col-sm-2 font-weight-500 small-icon" for="address">
-                            Street Address:
-                            <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"
-                                data-toggle="tooltip" data-html="true" data-placement="top"
-                                title="Include your street address (no street number) to help Viewers know where you are staying."
-                                data-boundary="window">
-                        </label>
-                        <div class="col-sm-6">
-                            <input type="text" value="{{ $escort->address }}" name="address"
-                                placeholder="Street Address"
-                                class="form-control form-control-sm select_tag_remove_box_sadow"
-                                id="address">
-                        </div>
-                        <div class="col-sm-4">
-                            <span id="address-errors"></span>
-                        </div>
-                    </div> --}}
-
-                    @php
-                        $currentAddress = $escort->address ?? additional_information(Auth::id(), 'address');
-                        $savedAddresses = $loginAccount->additionalInfo->where('type', 'address')->pluck('value') ?? '';
-                        $savedAddresses[] = $currentAddress;
-                        
-                        $hasAddresses = $savedAddresses->isNotEmpty();
-
-                    @endphp
-                    
-                    <div class="form-group">
-                        <label class="small-icon" for="address">
-                            Street Address:
-                            <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"
-                                data-toggle="tooltip" data-html="true" data-placement="top"
-                                title="Include your street address (no street number) to help Viewers know where you are staying."
-                                data-boundary="window">
-                        </label>
-
-                            @if ($hasAddresses)
-
-                                {{-- Dropdown: existing saved addresses --}}
-                                <select id="address" name="address" onclick="addressInput(this)"
-                                    class="js-stage-name-select form-control form-control-sm select_tag_remove_box_sadow change_default_select"
-                                    title="Street Address" data-parsley-group="group_one"
-                                    data-parsley-errors-container="#address-errors">
-                                    <option value="">— Choose a Street Address —</option>
-                                    @foreach ($savedAddresses as $addr)
-                                        <option value="{{ $addr }}"
-                                            {{ $currentAddress == $addr ? 'selected' : '' }}>
-                                            {{ $addr }}
-                                        </option>
-                                    @endforeach
-                                    <option value="new">Add a new Street Address</option>
-                                </select>
-
-                                {{-- Text input: hidden until "Add new" is selected --}}
-                                <input type="hidden" id="addressInp" name="" value=""
-                                    class="change_default form-control form-control-sm select_tag_remove_box_sadow mt-1"
-                                    placeholder="Enter new Street Address" data-parsley-group="group_one"
-                                    data-parsley-errors-container="#address-errors"
-                                    data-original-address="{{ $currentAddress }}">
-                            @else
-                                {{-- No saved addresses: plain text input (current behaviour) --}}
-                                <input type="text" id="address" name="address"
-                                    value="{{ $currentAddress }}" placeholder="Street Address"
-                                    class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                    data-parsley-group="group_one"
-                                    data-parsley-errors-container="#address-errors">
-                            @endif
-
-                        <div>
-                            <span id="address-errors"></span>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label  for="phone">Mobile: <span
-                                style='color:red'>*</span></label>
-                            <input type="text" id="phone" required name="phone"
-                                class="form-control form-control-sm select_tag_remove_box_sadow mt-2"
-                                value="{{ $escort->phone ? $escort->phone : $loginAccount->phone }}"
-                                placeholder="Mobile Number"
-                                data-parsley-required-message="Enter mobile number"
-                                data-parsley-group="group_one" data-parsley-errors-container="#mobile-errors">
-                       
-                        <div>
-                            <span id="phone-errors"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @if (request()->segment(2) == 'profile' && request()->segment(3))
-                <div class="col-md-12 text-right">
-                    <button id="location-info" type="submit" class="save_profile_btn">Update</button>
-                </div>
-                </form>
-            @endif
-        </div>
-    
-
-
-    <div class="about_me_drop_down_info profile-sec">
-        @if (request()->segment(2) == 'profile' && request()->segment(3))
-            <form id="myProfileMediaForm" name="myProfileMediaForm"
-                action="{{ route('escort.profile.media', [$escort->id]) }}" method="POST"
-                enctype="multipart/form-data">
-                @CSRF
-        @endif
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-lg-12 py-3">
-                    <div class="border_covid covid_heading ">
-                        <h2>Media
-                            <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}" data-toggle="tooltip"
-                                data-html="true" data-placement="top"
-                                title="You can move your photos into any order you like by picking up and dropping into the preferred position."
-                                data-boundary="window">
-
+                        <h2>
+                            Media
+                                <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}" data-toggle="tooltip"
+                                    data-html="true" data-placement="top"
+                                    title="You can move your photos into any order you like by picking up and dropping into the preferred position."
+                                    data-boundary="window">
                         </h2>
-
                     </div>
-                    <div class="row  mt-3">
-                        <div class="col-md-12 mb-3 d-flex justify-content-end gap-10">
-                            <button type="button" class="create-tour-sec dctour" data-toggle="modal"
+                    <button type="button" class="create-tour-sec dctour ml-auto common-save-btn" data-toggle="modal"
                                 data-target="#exampleModal">Add Photos</button>
-                            {{-- <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#mediaVerificationModal">Media Verification</button> --}}
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="upload-banner p-0">
-                                <div class="photo-top-header">
-                                    <div class="custom-img-filter-header border-0">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <h3 class="gallery-head">imageData</h3>
-                                            </div>
+                </div>
+            </div>    
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="upload-banner p-0">
+                            <div class="photo-top-header">
+                                <div class="custom-img-filter-header border-0">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h3 class="gallery-head">imageData</h3>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row px-4 py-3">
-                                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 px-lg-0">
-                                        <h2 class="banner-sub-heading my-2">Thumbnail</h2>
-                                        <div class="plate">
-                                            <label class="newbtn dvDest lg_icon_wrapper" data-toggle="modal"
-                                                data-target="#photo_gallery" onclick="positionToUpdate(1)">
-                                                <img class="img-fluid upld-img profile-gallery" data-type="gallery"
-                                                    id="img1" src="{{ asset($escort->imagePosition(1)) }}"
-                                                    style="object-fit: cover;width: 167px;height: 172px;">
-                                                @php
-                                                    if (
-                                                        empty($escort->profile_name) ||
-                                                        strtoupper($escort->profile_name) === 'NULL'
-                                                    ) {
-                                                        $imageData = $path->findByposition(auth()->user()->id, 1, 1);
-                                                        if (!empty($imageData['id'])) {
-                                                            $imageData = get_media_by_id($imageData['id'], 'escort');
-                                                        } else {
-                                                            $imageData = get_escort_media_id_by_path(
-                                                                $escort->imagePosition(1),
-                                                            );
-                                                        }
-                                                    } else {
-                                                        $imageData = get_escort_media_id_by_path(
-                                                            $escort->imagePosition(1),
-                                                        );
-                                                    }
-                                                @endphp
-
-                                                <div class="lg_verify_icon" id="verify_icon_1"
-                                                    style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
-                                                    @if (!empty($imageData['id']))
-                                                        @php
-                                                            $status = $imageData->varified;
-                                                        @endphp
-                                                        @if ($status == '0')
-                                                            <img
-                                                                src="{{ asset('assets/app/img/verify/e4u_pending.png') }}">
-                                                            <span class="common_shield_tooltip">Media Pending</span>
-                                                        @elseif($status == '1')
-                                                            <img
-                                                                src="{{ asset('assets/app/img/verify/e4u_verified.png') }}">
-                                                            <span class="common_shield_tooltip">Media Verified</span>
-                                                        @else
-                                                            <img
-                                                                src="{{ asset('assets/app/img/verify/unverified_dark.png') }}">
-                                                            <span class="common_shield_tooltip">Media Unverified</span>
-                                                        @endif
-                                                    @endif
-                                                </div>
-
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <h2 class="banner-sub-heading my-2">Gallery Images</h2>
-                                            </div>
-                                            <div class="col-4 pr-0">
-                                                <div class="plate"><label class="newbtn dvDest" data-toggle="modal"
-                                                        data-target="#photo_gallery" onclick="positionToUpdate(2)">
-                                                        <img class="img-fluid upld-img profile-gallery"
-                                                            data-type="gallery" id="img2"
-                                                            src="{{ asset($escort->imagePosition(2)) }}">
-                                                        @php
-                                                            if (
-                                                                empty($escort->profile_name) ||
-                                                                strtoupper($escort->profile_name) === 'NULL'
-                                                            ) {
-                                                                $imageData = $path->findByposition(
-                                                                    auth()->user()->id,
-                                                                    2,
-                                                                    1,
-                                                                );
-                                                                if (!empty($imageData['id'])) {
-                                                                    $imageData = get_media_by_id(
-                                                                        $imageData['id'],
-                                                                        'escort',
-                                                                    );
-                                                                } else {
-                                                                    $imageData = get_escort_media_id_by_path(
-                                                                        $escort->imagePosition(2),
-                                                                    );
-                                                                }
-                                                            } else {
-                                                                $imageData = get_escort_media_id_by_path(
-                                                                    $escort->imagePosition(2),
-                                                                );
-                                                            }
-                                                        @endphp
-                                                        <div class="verify_icon" id="verify_icon_2"
-                                                            style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
-                                                            @if (!empty($imageData['id']))
-                                                                @php
-                                                                    $status = $imageData->varified;
-                                                                @endphp
-                                                                @if ($status == '0')
-                                                                    <img
-                                                                        src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                                                    <span class="mc_media_tooltip">Media Pending</span>
-                                                                @elseif($status == '1')
-                                                                    <img
-                                                                        src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span
-                                                                        class="mc_media_tooltip">Media verified</span>
-                                                                @else
-                                                                    <img
-                                                                        src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span
-                                                                        class="mc_media_tooltip">Media
-                                                                        Unverified</span>
-                                                                @endif
-                                                            @endif
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-4 pr-0">
-                                                <div class="plate"><label class="newbtn dvDest" data-toggle="modal"
-                                                        data-target="#photo_gallery" onclick="positionToUpdate(3)">
-                                                        <img class="img-fluid upld-img profile-gallery"
-                                                            data-type="gallery" id="img3"
-                                                            src="{{ asset($escort->imagePosition(3)) }}">
-                                                        @php
-                                                            if (
-                                                                empty($escort->profile_name) ||
-                                                                strtoupper($escort->profile_name) === 'NULL'
-                                                            ) {
-                                                                $imageData = $path->findByposition(
-                                                                    auth()->user()->id,
-                                                                    3,
-                                                                    1,
-                                                                );
-                                                                if (!empty($imageData['id'])) {
-                                                                    $imageData = get_media_by_id(
-                                                                        $imageData['id'],
-                                                                        'escort',
-                                                                    );
-                                                                } else {
-                                                                    $imageData = get_escort_media_id_by_path(
-                                                                        $escort->imagePosition(3),
-                                                                    );
-                                                                }
-                                                            } else {
-                                                                $imageData = get_escort_media_id_by_path(
-                                                                    $escort->imagePosition(3),
-                                                                );
-                                                            }
-                                                        @endphp
-                                                        <div class="verify_icon" id="verify_icon_3"
-                                                            style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
-                                                            @if (!empty($imageData['id']))
-                                                                @php
-                                                                    $status = $imageData->varified;
-                                                                @endphp
-                                                                @if ($status == '0')
-                                                                    <img
-                                                                        src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                                                    <span class="mc_media_tooltip">Media Pending</span>
-                                                                @elseif($status == '1')
-                                                                    <img
-                                                                        src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span
-                                                                        class="mc_media_tooltip">Media verified</span>
-                                                                @else
-                                                                    <img
-                                                                        src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span
-                                                                        class="mc_media_tooltip">Media
-                                                                        Unverified</span>
-                                                                @endif
-                                                            @endif
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-4 pr-0">
-                                                <div class="plate"><label class="newbtn dvDest" data-toggle="modal"
-                                                        data-target="#photo_gallery" onclick="positionToUpdate(4)">
-                                                        <img class="img-fluid upld-img profile-gallery"
-                                                            data-type="gallery" id="img4"
-                                                            src="{{ asset($escort->imagePosition(4)) }}">
-                                                        @php
-                                                            if (
-                                                                empty($escort->profile_name) ||
-                                                                strtoupper($escort->profile_name) === 'NULL'
-                                                            ) {
-                                                                $imageData = $path->findByposition(
-                                                                    auth()->user()->id,
-                                                                    4,
-                                                                    1,
-                                                                );
-                                                                if (!empty($imageData['id'])) {
-                                                                    $imageData = get_media_by_id(
-                                                                        $imageData['id'],
-                                                                        'escort',
-                                                                    );
-                                                                } else {
-                                                                    $imageData = get_escort_media_id_by_path(
-                                                                        $escort->imagePosition(4),
-                                                                    );
-                                                                }
-                                                            } else {
-                                                                $imageData = get_escort_media_id_by_path(
-                                                                    $escort->imagePosition(4),
-                                                                );
-                                                            }
-                                                        @endphp
-                                                        <div class="verify_icon" id="verify_icon_4"
-                                                            style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
-                                                            @if (!empty($imageData['id']))
-                                                                @php
-                                                                    $status = $imageData->varified;
-                                                                @endphp
-                                                                @if ($status == '0')
-                                                                    <img
-                                                                        src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                                                    <span class="mc_media_tooltip">Media Pending</span>
-                                                                @elseif($status == '1')
-                                                                    <img
-                                                                        src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span
-                                                                        class="mc_media_tooltip">Media verified</span>
-                                                                @else
-                                                                    <img
-                                                                        src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span
-                                                                        class="mc_media_tooltip">Media
-                                                                        Unverified</span>
-                                                                @endif
-                                                            @endif
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row" style="">
-                                            <div class="col-4 pr-0">
-                                                <div class="plate"><label class="newbtn dvDest" data-toggle="modal"
-                                                        data-target="#photo_gallery" onclick="positionToUpdate(5)">
-                                                        <img class="img-fluid upld-img profile-gallery"
-                                                            data-type="gallery" id="img5"
-                                                            src="{{ asset($escort->imagePosition(5)) }}">
-                                                        @php
-                                                            if (
-                                                                empty($escort->profile_name) ||
-                                                                strtoupper($escort->profile_name) === 'NULL'
-                                                            ) {
-                                                                $imageData = $path->findByposition(
-                                                                    auth()->user()->id,
-                                                                    5,
-                                                                    1,
-                                                                );
-                                                                if (!empty($imageData['id'])) {
-                                                                    $imageData = get_media_by_id(
-                                                                        $imageData['id'],
-                                                                        'escort',
-                                                                    );
-                                                                } else {
-                                                                    $imageData = get_escort_media_id_by_path(
-                                                                        $escort->imagePosition(5),
-                                                                    );
-                                                                }
-                                                            } else {
-                                                                $imageData = get_escort_media_id_by_path(
-                                                                    $escort->imagePosition(5),
-                                                                );
-                                                            }
-                                                        @endphp
-                                                        <div class="verify_icon" id="verify_icon_5"
-                                                            style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
-                                                            @if (!empty($imageData['id']))
-                                                                @php
-                                                                    $status = $imageData->varified;
-                                                                @endphp
-                                                                @if ($status == '0')
-                                                                    <img
-                                                                        src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                                                    <span class="mc_media_tooltip">Media Pending</span>
-                                                                @elseif($status == '1')
-                                                                    <img
-                                                                        src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span
-                                                                        class="mc_media_tooltip">Media verified</span>
-                                                                @else
-                                                                    <img
-                                                                        src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span
-                                                                        class="mc_media_tooltip">Media
-                                                                        Unverified</span>
-                                                                @endif
-                                                            @endif
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-4 pr-0">
-                                                <div class="plate"><label class="newbtn dvDest" data-toggle="modal"
-                                                        data-target="#photo_gallery" onclick="positionToUpdate(6)">
-                                                        <img class="img-fluid upld-img profile-gallery"
-                                                            data-type="gallery" id="img6"
-                                                            src="{{ asset($escort->imagePosition(6)) }}">
-                                                        @php
-                                                            if (
-                                                                empty($escort->profile_name) ||
-                                                                strtoupper($escort->profile_name) === 'NULL'
-                                                            ) {
-                                                                $imageData = $path->findByposition(
-                                                                    auth()->user()->id,
-                                                                    6,
-                                                                    1,
-                                                                );
-                                                                if (!empty($imageData['id'])) {
-                                                                    $imageData = get_media_by_id(
-                                                                        $imageData['id'],
-                                                                        'escort',
-                                                                    );
-                                                                } else {
-                                                                    $imageData = get_escort_media_id_by_path(
-                                                                        $escort->imagePosition(6),
-                                                                    );
-                                                                }
-                                                            } else {
-                                                                $imageData = get_escort_media_id_by_path(
-                                                                    $escort->imagePosition(6),
-                                                                );
-                                                            }
-                                                        @endphp
-                                                        <div class="verify_icon" id="verify_icon_6"
-                                                            style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
-                                                            @if (!empty($imageData['id']))
-                                                                @php
-                                                                    $status = $imageData->varified;
-                                                                @endphp
-                                                                @if ($status == '0')
-                                                                    <img
-                                                                        src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                                                    <span class="mc_media_tooltip">Media Pending</span>
-                                                                @elseif($status == '1')
-                                                                    <img
-                                                                        src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span
-                                                                        class="mc_media_tooltip">Media verified</span>
-                                                                @else
-                                                                    <img
-                                                                        src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span
-                                                                        class="mc_media_tooltip">Media
-                                                                        Unverified</span>
-                                                                @endif
-                                                            @endif
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-4 pr-0">
-                                                <div class="plate"><label class="newbtn dvDest" data-toggle="modal"
-                                                        data-target="#photo_gallery" onclick="positionToUpdate(7)">
-                                                        <img class="img-fluid upld-img profile-gallery"
-                                                            data-type="gallery" id="img7"
-                                                            src="{{ asset($escort->imagePosition(7)) }}">
-                                                        @php
-                                                            if (
-                                                                empty($escort->profile_name) ||
-                                                                strtoupper($escort->profile_name) === 'NULL'
-                                                            ) {
-                                                                $imageData = $path->findByposition(
-                                                                    auth()->user()->id,
-                                                                    7,
-                                                                    1,
-                                                                );
-                                                                if (!empty($imageData['id'])) {
-                                                                    $imageData = get_media_by_id(
-                                                                        $imageData['id'],
-                                                                        'escort',
-                                                                    );
-                                                                } else {
-                                                                    $imageData = get_escort_media_id_by_path(
-                                                                        $escort->imagePosition(7),
-                                                                    );
-                                                                }
-                                                            } else {
-                                                                $imageData = get_escort_media_id_by_path(
-                                                                    $escort->imagePosition(7),
-                                                                );
-                                                            }
-                                                        @endphp
-                                                        <div class="verify_icon" id="verify_icon_7"
-                                                            style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
-                                                            @if (!empty($imageData['id']))
-                                                                @php
-                                                                    $status = $imageData->varified;
-                                                                @endphp
-                                                                @if ($status == '0')
-                                                                    <img
-                                                                        src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
-                                                                    <span class="mc_media_tooltip">Media Pending</span>
-                                                                @elseif($status == '1')
-                                                                    <img
-                                                                        src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span
-                                                                        class="mc_media_tooltip">Media verified</span>
-                                                                @else
-                                                                    <img
-                                                                        src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span
-                                                                        class="mc_media_tooltip">Media
-                                                                        Unverified</span>
-                                                                @endif
-                                                            @endif
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row px-3 pb-2">
-                                    <div class="col-lg-12">
-                                        <h2 class="banner-sub-heading my-2">Banner Image</h2>
+                            </div>
+                            <div class="row px-4 py-3">
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 px-lg-0">
+                                    <h2 class="banner-sub-heading my-2">Thumbnail</h2>
+                                    <div class="plate">
                                         <label class="newbtn dvDest lg_icon_wrapper" data-toggle="modal"
-                                            data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
-                                            <img class="img-fluid profile-gallery" data-type="banner" id="img9"
-                                                src="{{ asset($escort->imagePosition(9)) }}"
-                                                style="height: 167.578px;width: 1066.640px;object-fit: cover;">
+                                            data-target="#photo_gallery" onclick="positionToUpdate(1)">
+                                            <img class="img-fluid upld-img profile-gallery" data-type="gallery"
+                                                id="img1" src="{{ asset($escort->imagePosition(1)) }}"
+                                                style="object-fit: cover;width: 167px;height: 172px;">
                                             @php
                                                 if (
                                                     empty($escort->profile_name) ||
                                                     strtoupper($escort->profile_name) === 'NULL'
                                                 ) {
-                                                    $imageData = $path->findByposition(auth()->user()->id, 9, 1);
+                                                    $imageData = $path->findByposition(auth()->user()->id, 1, 1);
                                                     if (!empty($imageData['id'])) {
                                                         $imageData = get_media_by_id($imageData['id'], 'escort');
                                                     } else {
                                                         $imageData = get_escort_media_id_by_path(
-                                                            $escort->imagePosition(9),
+                                                            $escort->imagePosition(1),
                                                         );
                                                     }
                                                 } else {
-                                                    $imageData = get_escort_media_id_by_path($escort->imagePosition(9));
+                                                    $imageData = get_escort_media_id_by_path(
+                                                        $escort->imagePosition(1),
+                                                    );
                                                 }
                                             @endphp
 
-                                            <div class="lg_verify_icon" id="verify_icon_9"
-                                                style="{{ !empty($imageData['id']) && $imageData->template != '1' ? '' : 'display:none;' }}">
+                                            <div class="lg_verify_icon" id="verify_icon_1"
+                                                style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                                 @if (!empty($imageData['id']))
                                                     @php
                                                         $status = $imageData->varified;
@@ -1032,177 +655,579 @@
                                                     @endif
                                                 @endif
                                             </div>
+
                                         </label>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-8" id="js_profile_media_gallery">
-                            <div class="photo-top-header">
-                                <div class="photo-header custom-photo-header">
-                                    <div class="modal-header border-0 p-0"
-                                        style="display: block;position: relative;top: 30%;">
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <ul class="nav nav-tabs border-0"
-                                                    id="escort_profile_media_filter_type">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link active" data-filter-type="all"
-                                                            id="menu_all" data-toggle="tab" href="#home">All</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-filter-type="verified"
-                                                            id="menu_varified" data-toggle="tab"
-                                                            href="#menu1">Verified</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-filter-type="unverified"
-                                                            id="menu_unverified" data-toggle="tab"
-                                                            href="#menu2">Unverified</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-md-2 pt-1">
-                                                <div class="progress">
-                                                    <div class="progress-bar bg-success" role="progressbar"
-                                                        style="width: {{ $media->count() * 3.3 }}%"
-                                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                <div class="col-lg-8">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h2 class="banner-sub-heading my-2">Gallery Images</h2>
+                                        </div>
+                                        <div class="col-4 pr-0">
+                                            <div class="plate"><label class="newbtn dvDest" data-toggle="modal"
+                                                    data-target="#photo_gallery" onclick="positionToUpdate(2)">
+                                                    <img class="img-fluid upld-img profile-gallery"
+                                                        data-type="gallery" id="img2"
+                                                        src="{{ asset($escort->imagePosition(2)) }}">
+                                                    @php
+                                                        if (
+                                                            empty($escort->profile_name) ||
+                                                            strtoupper($escort->profile_name) === 'NULL'
+                                                        ) {
+                                                            $imageData = $path->findByposition(
+                                                                auth()->user()->id,
+                                                                2,
+                                                                1,
+                                                            );
+                                                            if (!empty($imageData['id'])) {
+                                                                $imageData = get_media_by_id(
+                                                                    $imageData['id'],
+                                                                    'escort',
+                                                                );
+                                                            } else {
+                                                                $imageData = get_escort_media_id_by_path(
+                                                                    $escort->imagePosition(2),
+                                                                );
+                                                            }
+                                                        } else {
+                                                            $imageData = get_escort_media_id_by_path(
+                                                                $escort->imagePosition(2),
+                                                            );
+                                                        }
+                                                    @endphp
+                                                    <div class="verify_icon" id="verify_icon_2"
+                                                        style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                        @if (!empty($imageData['id']))
+                                                            @php
+                                                                $status = $imageData->varified;
+                                                            @endphp
+                                                            @if ($status == '0')
+                                                                <img
+                                                                    src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                                <span class="mc_media_tooltip">Media Pending</span>
+                                                            @elseif($status == '1')
+                                                                <img
+                                                                    src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span
+                                                                    class="mc_media_tooltip">Media verified</span>
+                                                            @else
+                                                                <img
+                                                                    src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span
+                                                                    class="mc_media_tooltip">Media
+                                                                    Unverified</span>
+                                                            @endif
+                                                        @endif
                                                     </div>
-                                                </div>
+                                                </label>
                                             </div>
-                                            <div class="col-md-2">
-                                                <div style="display: flex;gap: 15px;">
-                                                    <p>{{ $media->count() }}/30</p>
-                                                </div>
+                                        </div>
+                                        <div class="col-4 pr-0">
+                                            <div class="plate"><label class="newbtn dvDest" data-toggle="modal"
+                                                    data-target="#photo_gallery" onclick="positionToUpdate(3)">
+                                                    <img class="img-fluid upld-img profile-gallery"
+                                                        data-type="gallery" id="img3"
+                                                        src="{{ asset($escort->imagePosition(3)) }}">
+                                                    @php
+                                                        if (
+                                                            empty($escort->profile_name) ||
+                                                            strtoupper($escort->profile_name) === 'NULL'
+                                                        ) {
+                                                            $imageData = $path->findByposition(
+                                                                auth()->user()->id,
+                                                                3,
+                                                                1,
+                                                            );
+                                                            if (!empty($imageData['id'])) {
+                                                                $imageData = get_media_by_id(
+                                                                    $imageData['id'],
+                                                                    'escort',
+                                                                );
+                                                            } else {
+                                                                $imageData = get_escort_media_id_by_path(
+                                                                    $escort->imagePosition(3),
+                                                                );
+                                                            }
+                                                        } else {
+                                                            $imageData = get_escort_media_id_by_path(
+                                                                $escort->imagePosition(3),
+                                                            );
+                                                        }
+                                                    @endphp
+                                                    <div class="verify_icon" id="verify_icon_3"
+                                                        style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                        @if (!empty($imageData['id']))
+                                                            @php
+                                                                $status = $imageData->varified;
+                                                            @endphp
+                                                            @if ($status == '0')
+                                                                <img
+                                                                    src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                                <span class="mc_media_tooltip">Media Pending</span>
+                                                            @elseif($status == '1')
+                                                                <img
+                                                                    src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span
+                                                                    class="mc_media_tooltip">Media verified</span>
+                                                            @else
+                                                                <img
+                                                                    src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span
+                                                                    class="mc_media_tooltip">Media
+                                                                    Unverified</span>
+                                                            @endif
+                                                        @endif
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 pr-0">
+                                            <div class="plate"><label class="newbtn dvDest" data-toggle="modal"
+                                                    data-target="#photo_gallery" onclick="positionToUpdate(4)">
+                                                    <img class="img-fluid upld-img profile-gallery"
+                                                        data-type="gallery" id="img4"
+                                                        src="{{ asset($escort->imagePosition(4)) }}">
+                                                    @php
+                                                        if (
+                                                            empty($escort->profile_name) ||
+                                                            strtoupper($escort->profile_name) === 'NULL'
+                                                        ) {
+                                                            $imageData = $path->findByposition(
+                                                                auth()->user()->id,
+                                                                4,
+                                                                1,
+                                                            );
+                                                            if (!empty($imageData['id'])) {
+                                                                $imageData = get_media_by_id(
+                                                                    $imageData['id'],
+                                                                    'escort',
+                                                                );
+                                                            } else {
+                                                                $imageData = get_escort_media_id_by_path(
+                                                                    $escort->imagePosition(4),
+                                                                );
+                                                            }
+                                                        } else {
+                                                            $imageData = get_escort_media_id_by_path(
+                                                                $escort->imagePosition(4),
+                                                            );
+                                                        }
+                                                    @endphp
+                                                    <div class="verify_icon" id="verify_icon_4"
+                                                        style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                        @if (!empty($imageData['id']))
+                                                            @php
+                                                                $status = $imageData->varified;
+                                                            @endphp
+                                                            @if ($status == '0')
+                                                                <img
+                                                                    src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                                <span class="mc_media_tooltip">Media Pending</span>
+                                                            @elseif($status == '1')
+                                                                <img
+                                                                    src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span
+                                                                    class="mc_media_tooltip">Media verified</span>
+                                                            @else
+                                                                <img
+                                                                    src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span
+                                                                    class="mc_media_tooltip">Media
+                                                                    Unverified</span>
+                                                            @endif
+                                                        @endif
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="">
+                                        <div class="col-4 pr-0">
+                                            <div class="plate"><label class="newbtn dvDest" data-toggle="modal"
+                                                    data-target="#photo_gallery" onclick="positionToUpdate(5)">
+                                                    <img class="img-fluid upld-img profile-gallery"
+                                                        data-type="gallery" id="img5"
+                                                        src="{{ asset($escort->imagePosition(5)) }}">
+                                                    @php
+                                                        if (
+                                                            empty($escort->profile_name) ||
+                                                            strtoupper($escort->profile_name) === 'NULL'
+                                                        ) {
+                                                            $imageData = $path->findByposition(
+                                                                auth()->user()->id,
+                                                                5,
+                                                                1,
+                                                            );
+                                                            if (!empty($imageData['id'])) {
+                                                                $imageData = get_media_by_id(
+                                                                    $imageData['id'],
+                                                                    'escort',
+                                                                );
+                                                            } else {
+                                                                $imageData = get_escort_media_id_by_path(
+                                                                    $escort->imagePosition(5),
+                                                                );
+                                                            }
+                                                        } else {
+                                                            $imageData = get_escort_media_id_by_path(
+                                                                $escort->imagePosition(5),
+                                                            );
+                                                        }
+                                                    @endphp
+                                                    <div class="verify_icon" id="verify_icon_5"
+                                                        style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                        @if (!empty($imageData['id']))
+                                                            @php
+                                                                $status = $imageData->varified;
+                                                            @endphp
+                                                            @if ($status == '0')
+                                                                <img
+                                                                    src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                                <span class="mc_media_tooltip">Media Pending</span>
+                                                            @elseif($status == '1')
+                                                                <img
+                                                                    src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span
+                                                                    class="mc_media_tooltip">Media verified</span>
+                                                            @else
+                                                                <img
+                                                                    src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span
+                                                                    class="mc_media_tooltip">Media
+                                                                    Unverified</span>
+                                                            @endif
+                                                        @endif
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 pr-0">
+                                            <div class="plate"><label class="newbtn dvDest" data-toggle="modal"
+                                                    data-target="#photo_gallery" onclick="positionToUpdate(6)">
+                                                    <img class="img-fluid upld-img profile-gallery"
+                                                        data-type="gallery" id="img6"
+                                                        src="{{ asset($escort->imagePosition(6)) }}">
+                                                    @php
+                                                        if (
+                                                            empty($escort->profile_name) ||
+                                                            strtoupper($escort->profile_name) === 'NULL'
+                                                        ) {
+                                                            $imageData = $path->findByposition(
+                                                                auth()->user()->id,
+                                                                6,
+                                                                1,
+                                                            );
+                                                            if (!empty($imageData['id'])) {
+                                                                $imageData = get_media_by_id(
+                                                                    $imageData['id'],
+                                                                    'escort',
+                                                                );
+                                                            } else {
+                                                                $imageData = get_escort_media_id_by_path(
+                                                                    $escort->imagePosition(6),
+                                                                );
+                                                            }
+                                                        } else {
+                                                            $imageData = get_escort_media_id_by_path(
+                                                                $escort->imagePosition(6),
+                                                            );
+                                                        }
+                                                    @endphp
+                                                    <div class="verify_icon" id="verify_icon_6"
+                                                        style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                        @if (!empty($imageData['id']))
+                                                            @php
+                                                                $status = $imageData->varified;
+                                                            @endphp
+                                                            @if ($status == '0')
+                                                                <img
+                                                                    src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                                <span class="mc_media_tooltip">Media Pending</span>
+                                                            @elseif($status == '1')
+                                                                <img
+                                                                    src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span
+                                                                    class="mc_media_tooltip">Media verified</span>
+                                                            @else
+                                                                <img
+                                                                    src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span
+                                                                    class="mc_media_tooltip">Media
+                                                                    Unverified</span>
+                                                            @endif
+                                                        @endif
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 pr-0">
+                                            <div class="plate"><label class="newbtn dvDest" data-toggle="modal"
+                                                    data-target="#photo_gallery" onclick="positionToUpdate(7)">
+                                                    <img class="img-fluid upld-img profile-gallery"
+                                                        data-type="gallery" id="img7"
+                                                        src="{{ asset($escort->imagePosition(7)) }}">
+                                                    @php
+                                                        if (
+                                                            empty($escort->profile_name) ||
+                                                            strtoupper($escort->profile_name) === 'NULL'
+                                                        ) {
+                                                            $imageData = $path->findByposition(
+                                                                auth()->user()->id,
+                                                                7,
+                                                                1,
+                                                            );
+                                                            if (!empty($imageData['id'])) {
+                                                                $imageData = get_media_by_id(
+                                                                    $imageData['id'],
+                                                                    'escort',
+                                                                );
+                                                            } else {
+                                                                $imageData = get_escort_media_id_by_path(
+                                                                    $escort->imagePosition(7),
+                                                                );
+                                                            }
+                                                        } else {
+                                                            $imageData = get_escort_media_id_by_path(
+                                                                $escort->imagePosition(7),
+                                                            );
+                                                        }
+                                                    @endphp
+                                                    <div class="verify_icon" id="verify_icon_7"
+                                                        style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                        @if (!empty($imageData['id']))
+                                                            @php
+                                                                $status = $imageData->varified;
+                                                            @endphp
+                                                            @if ($status == '0')
+                                                                <img
+                                                                    src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                                                <span class="mc_media_tooltip">Media Pending</span>
+                                                            @elseif($status == '1')
+                                                                <img
+                                                                    src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span
+                                                                    class="mc_media_tooltip">Media verified</span>
+                                                            @else
+                                                                <img
+                                                                    src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span
+                                                                    class="mc_media_tooltip">Media
+                                                                    Unverified</span>
+                                                            @endif
+                                                        @endif
+                                                    </div>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="custom-img-filter-header">
-                                    <div class="row">
-                                        <ul class="nav nav-tabs border-0 js_gallery_category">
+                            </div>
+                            <div class="row px-3 pb-2">
+                                <div class="col-lg-12">
+                                    <h2 class="banner-sub-heading my-2">Banner Image</h2>
+                                    <label class="newbtn dvDest lg_icon_wrapper" data-toggle="modal"
+                                        data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
+                                        <img class="img-fluid profile-gallery" data-type="banner" id="img9"
+                                            src="{{ asset($escort->imagePosition(9)) }}"
+                                            style="height: 167.578px;width: 1066.640px;object-fit: cover;">
+                                        @php
+                                            if (
+                                                empty($escort->profile_name) ||
+                                                strtoupper($escort->profile_name) === 'NULL'
+                                            ) {
+                                                $imageData = $path->findByposition(auth()->user()->id, 9, 1);
+                                                if (!empty($imageData['id'])) {
+                                                    $imageData = get_media_by_id($imageData['id'], 'escort');
+                                                } else {
+                                                    $imageData = get_escort_media_id_by_path(
+                                                        $escort->imagePosition(9),
+                                                    );
+                                                }
+                                            } else {
+                                                $imageData = get_escort_media_id_by_path($escort->imagePosition(9));
+                                            }
+                                        @endphp
 
-                                            <li class="nav-item">
-                                                <a class="nav-link active" data-type="gallery" data-toggle="tab"
-                                                    href="#Gallery">Gallery</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-type="banner" data-toggle="tab"
-                                                    href="#Banner">Banner</a>
-                                            </li>
-                                        </ul>
+                                        <div class="lg_verify_icon" id="verify_icon_9"
+                                            style="{{ !empty($imageData['id']) && $imageData->template != '1' ? '' : 'display:none;' }}">
+                                            @if (!empty($imageData['id']))
+                                                @php
+                                                    $status = $imageData->varified;
+                                                @endphp
+                                                @if ($status == '0')
+                                                    <img
+                                                        src="{{ asset('assets/app/img/verify/e4u_pending.png') }}">
+                                                    <span class="common_shield_tooltip">Media Pending</span>
+                                                @elseif($status == '1')
+                                                    <img
+                                                        src="{{ asset('assets/app/img/verify/e4u_verified.png') }}">
+                                                    <span class="common_shield_tooltip">Media Verified</span>
+                                                @else
+                                                    <img
+                                                        src="{{ asset('assets/app/img/verify/unverified_dark.png') }}">
+                                                    <span class="common_shield_tooltip">Media Unverified</span>
+                                                @endif
+                                            @endif
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8" id="js_profile_media_gallery">
+                        <div class="photo-top-header">
+                            <div class="photo-header custom-photo-header">
+                                <div class="modal-header border-0 p-0"
+                                    style="display: block;position: relative;top: 30%;">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <ul class="nav nav-tabs border-0"
+                                                id="escort_profile_media_filter_type">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" data-filter-type="all"
+                                                        id="menu_all" data-toggle="tab" href="#home">All</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-filter-type="verified"
+                                                        id="menu_varified" data-toggle="tab"
+                                                        href="#menu1">Verified</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-filter-type="unverified"
+                                                        id="menu_unverified" data-toggle="tab"
+                                                        href="#menu2">Unverified</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-2 pt-1">
+                                            <div class="progress">
+                                                <div class="progress-bar bg-success" role="progressbar"
+                                                    style="width: {{ $media->count() * 3.3 }}%"
+                                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div style="display: flex;gap: 15px;">
+                                                <p>{{ $media->count() }}/30</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="archive-photo-sec">
+                            <div class="custom-img-filter-header">
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div id="pagination-container"></div>
-                                        <div id="carouselExampleIndicators" class="carousel slide"
-                                            data-bs-wrap="false" data-bs-ride="carousel">
+                                    <ul class="nav nav-tabs border-0 js_gallery_category">
 
-                                            <ul class="pagination ml-2 pl-1">
-                                                <!-- Declare the item in the group -->
-                                                <li class="page-item preview">
-                                                    <!-- Declare the link of the item -->
-                                                    <a class="page-link" href="#carouselExampleIndicators"
-                                                        id="preId">‹‹</a>
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-type="gallery" data-toggle="tab"
+                                                href="#Gallery">Gallery</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-type="banner" data-toggle="tab"
+                                                href="#Banner">Banner</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="archive-photo-sec">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="pagination-container"></div>
+                                    <div id="carouselExampleIndicators" class="carousel slide"
+                                        data-bs-wrap="false" data-bs-ride="carousel">
 
+                                        <ul class="pagination ml-2 pl-1">
+                                            <!-- Declare the item in the group -->
+                                            <li class="page-item preview">
+                                                <!-- Declare the link of the item -->
+                                                <a class="page-link" href="#carouselExampleIndicators"
+                                                    id="preId">‹‹</a>
+
+                                            </li>
+                                            @for ($i = 0;
+                                                    $i <
+                                                    ceil(
+                                                        collect($media)->whereNotIn('position', [9, 10])->count() / 10,
+                                                    );
+                                                    $i++)
+                                                <li class="page-item" id="pageItem_{{ $i }}"
+                                                    data-id="{{ $i }}">
+                                                    <a data-target="#carouselExampleIndicators"
+                                                        data-slide-to="{{ $i }}" class="page-link"
+                                                        href="#">{{ $i + 1 }}</a>
                                                 </li>
-                                                @for ($i = 0;
-    $i <
-    ceil(
-        collect($media)->whereNotIn('position', [9, 10])->count() / 10,
-    );
-    $i++)
-                                                    <li class="page-item" id="pageItem_{{ $i }}"
-                                                        data-id="{{ $i }}">
-                                                        <a data-target="#carouselExampleIndicators"
-                                                            data-slide-to="{{ $i }}" class="page-link"
-                                                            href="#">{{ $i + 1 }}</a>
-                                                    </li>
-                                                @endfor
-                                                <li class="page-item nextOne">
-                                                    <a class="page-link" href="#carouselExampleIndicators"
-                                                        id="nextId">››</a>
-                                                </li>
-                                            </ul>
-                                            <div class="container pt-2"
-                                                style="padding-left: 0.75rem;padding-right: 0.75rem;">
-                                                <div class="carousel-inner" id="view_all">
-                                                    @foreach (collect($media)->whereNotIn('position', [9, 10])->chunk(10) as $keyId => $images)
-                                                        <div class="carousel-item" id="cItem_{{ $loop->index }}"
-                                                            data-id="{{ $loop->index }}">
-                                                            <div class="grid-container" id="dvSource">
-                                                                @foreach ($images as $image)
-                                                                    @if (!in_array($image->position, [8]))
-                                                                        <div class="item4"
-                                                                            id="dm_{{ $image->id }}">
-                                                                            <img class="img-thumbnail defult-image ui-draggable"
-                                                                                src="{{ asset($image->path) }}"
-                                                                                alt=" "
-                                                                                data-id="{{ $image->id }}"
-                                                                                data-position="{{ $image->position ? $image->position : '' }}">
-                                                                            <i class="fa fa-trash deleteimg"
-                                                                                data-id="{{ $image->id }}"
-                                                                                title="Remove this media"></i>
-                                                                            @switch($image->position)
-                                                                                @case(9)
-                                                                                    <span class="badge badge-red">Banner</span>
-                                                                                @break
+                                            @endfor
+                                            <li class="page-item nextOne">
+                                                <a class="page-link" href="#carouselExampleIndicators"
+                                                    id="nextId">››</a>
+                                            </li>
+                                        </ul>
+                                        <div class="container pt-2"
+                                            style="padding-left: 0.75rem;padding-right: 0.75rem;">
+                                            <div class="carousel-inner" id="view_all">
+                                                @foreach (collect($media)->whereNotIn('position', [9, 10])->chunk(10) as $keyId => $images)
+                                                    <div class="carousel-item" id="cItem_{{ $loop->index }}"
+                                                        data-id="{{ $loop->index }}">
+                                                        <div class="grid-container" id="dvSource">
+                                                            @foreach ($images as $image)
+                                                                @if (!in_array($image->position, [8]))
+                                                                    <div class="item4"
+                                                                        id="dm_{{ $image->id }}">
+                                                                        <img class="img-thumbnail defult-image ui-draggable"
+                                                                            src="{{ asset($image->path) }}"
+                                                                            alt=" "
+                                                                            data-id="{{ $image->id }}"
+                                                                            data-position="{{ $image->position ? $image->position : '' }}">
+                                                                        <i class="fa fa-trash deleteimg"
+                                                                            data-id="{{ $image->id }}"
+                                                                            title="Remove this media"></i>
+                                                                        @switch($image->position)
+                                                                            @case(9)
+                                                                                <span class="badge badge-red">Banner</span>
+                                                                            @break
 
-                                                                                @case(10)
-                                                                                    <span class="badge badge-red">Pin Up</span>
-                                                                                @break
+                                                                            @case(10)
+                                                                                <span class="badge badge-red">Pin Up</span>
+                                                                            @break
 
-                                                                                @default
-                                                                                    <span
-                                                                                        class="badge badge-red">Gallery</span>
-                                                                            @endswitch
+                                                                            @default
+                                                                                <span
+                                                                                    class="badge badge-red">Gallery</span>
+                                                                        @endswitch
 
 
-                                                                            @php $status = $image->varified ?? "2"; @endphp
+                                                                        @php $status = $image->varified ?? "2"; @endphp
 
-                                                                            <div class="verify_icon">
-                                                                                @if ($status == '0')
-                                                                                    <img
-                                                                                        src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"><span
-                                                                                        class="mc_media_tooltip">Media
-                                                                                        Pending</span>
-                                                                                @elseif($status == '1')
-                                                                                    <img
-                                                                                        src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span
-                                                                                        class="mc_media_tooltip">Media
-                                                                                        Verified</span>
-                                                                                @else
-                                                                                    <img
-                                                                                        src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span
-                                                                                        class="mc_media_tooltip">Media
-                                                                                        Unverified</span>
-                                                                                @endif
-                                                                            </div>
-                                                                            <div class="upload_date">
-                                                                                @if ($status == '0')
-                                                                                    Uploaded:
-                                                                                    <span>{{ showDateWithFormat($image->created_at) }}</span>
-                                                                                @elseif($status == '1')
-                                                                                    Approved:
-                                                                                    <span>{{ showDateWithFormat($image->updated_at) }}</span>
-                                                                                @else
-                                                                                    Rejected:
-                                                                                    <span>{{ showDateWithFormat($image->updated_at) }}</span>
-                                                                                @endif
-                                                                            </div>
+                                                                        <div class="verify_icon">
+                                                                            @if ($status == '0')
+                                                                                <img
+                                                                                    src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}"><span
+                                                                                    class="mc_media_tooltip">Media
+                                                                                    Pending</span>
+                                                                            @elseif($status == '1')
+                                                                                <img
+                                                                                    src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span
+                                                                                    class="mc_media_tooltip">Media
+                                                                                    Verified</span>
+                                                                            @else
+                                                                                <img
+                                                                                    src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span
+                                                                                    class="mc_media_tooltip">Media
+                                                                                    Unverified</span>
+                                                                            @endif
                                                                         </div>
-                                                                    @endif
-                                                                @endforeach
-                                                            </div>
+                                                                        <div class="upload_date">
+                                                                            @if ($status == '0')
+                                                                                Uploaded:
+                                                                                <span>{{ showDateWithFormat($image->created_at) }}</span>
+                                                                            @elseif($status == '1')
+                                                                                Approved:
+                                                                                <span>{{ showDateWithFormat($image->updated_at) }}</span>
+                                                                            @else
+                                                                                Rejected:
+                                                                                <span>{{ showDateWithFormat($image->updated_at) }}</span>
+                                                                            @endif
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+                                                            @endforeach
                                                         </div>
-                                                    @endforeach
-                                                </div>
-                                                <!--.Carousel-->
+                                                    </div>
+                                                @endforeach
                                             </div>
+                                            <!--.Carousel-->
                                         </div>
                                     </div>
                                 </div>
@@ -1211,6 +1236,12 @@
                     </div>
                 </div>
             </div>
+             @if (request()->segment(2) == 'profile' && request()->segment(3))
+                    <div class="col-md-12 text-right media-profile mt-4">
+                        <button id="mediaProfileBtn" type="submit" class="save_profile_btn common-save-btn">Update</button>
+                    </div>
+                </form>
+            @endif
         </div>
 
         <div class="modal upload-modal" id="photo_gallery_banner" style="display: none">
@@ -1552,8 +1583,7 @@
                 </div>
             </div>
         </div>
-
-
+        
         <div class="modal fade upload-modal" id="upload-sec-banner" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false"
             data-backdrop="static">
@@ -1598,1062 +1628,974 @@
             </div>
         </div>
 
-
-        @if (request()->segment(2) == 'profile' && request()->segment(3))
-            <div class="row">
-                <div class="col-md-12 text-right media-profile">
-                    <button id="mediaProfileBtn" type="submit" class="save_profile_btn">Update</button>
-                </div>
-            </div>
-            </form>
-        @endif
-        {{-- video section start --}}
-        <hr>
+        <!-- video section start -->        
         @if (request()->segment(2) == 'profile' && request()->segment(3))
             <form id="myProfileMediaVideoForm" name="myProfileMediaVideoForm"
                 action="{{ route('escort.profile.video', [$escort->id]) }}" method="POST"
                 enctype="multipart/form-data">
                 @CSRF
         @endif
-        <div class="row">
+        <div class="row inner-row">
             <div class="col-md-12">
-                <div class="col-md-12 mb-3">
-                    <div class="d-flex justify-content-end">
-                        <button id="add_video_button" type="button" class="create-tour-sec dctour"
-                            data-toggle="modal" data-target="#upload_video_modal">Add Videos</button>
-                    </div>
+                <div class="d-flex justify-content-end">
+                    <button id="add_video_button" type="button" class="create-tour-sec dctour common-save-btn"
+                        data-toggle="modal" data-target="#upload_video_modal">Add Videos</button>
                 </div>
-                <div class="col-md-12 py-3">
-                    <div class="video-header">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h3 class="media-head">All Videos</h3>
-                            </div>
-                            <div class="col-md-2 my-auto">
-                                <div class="progress">
-                                    <div id="js_profile_video_gallery_progressbar" class="progress-bar bg-success"
-                                        role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 my-auto">
-                                <div class="d-flex gap-10">
-                                    <p id="js_profile_video_gallery_count" class="m-0 text-white"></p>
-                                    <img src="{{ asset('assets/app/img/Vector-2.png') }}" style="height: 21px;">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="archive-photo-sec">
-                        <div class="row blog">
-                            <div id="js_profile_video_gallery" class="col-md-12">
-
-                                <!--.Carousel-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12 my-4">
-                    <div class="upload-photo-sec">
-                        <div class="d-sm-flex align-items-center justify-content-between p-3 custom-img-filter-header">
-                            <h4 class="text-white">Default Video</h4>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-lg-4">
-                                <label class="newbtn videoDroppable w-100" id="videoDroppable_1">
-                                    <video class="videoUp" id="img1" controls="" controls
-                                        poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                                        <source id="" type="video/mp4">
-                                    </video>
-                                    <input type="hidden" id="pos_1" name="video_position[1]" value="">
-                                </label>
-                            </div>
-
-                            <div class="col-lg-4">
-                                <label class="newbtn videoDroppable w-100" id="videoDroppable_2">
-                                    <video class="videoUp" id="img2" controls=""
-                                        poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                                        <source id="" type="video/mp4">
-                                    </video>
-                                    <input type="hidden" id="pos_2" name="video_position[2]" value="">
-                                </label>
-                            </div>
-
-                            <div class="col-lg-4">
-                                <label class="newbtn videoDroppable w-100" id="videoDroppable_3">
-                                    <video class="videoUp" id="img3" controls=""
-                                        poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                                        <source id="" type="video/mp4">
-                                    </video>
-                                    <input type="hidden" id="pos_3" name="video_position[3]" value="">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{-- end video section --}}
             </div>
+            <div class="col-md-12 py-3">
+                <div class="video-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h3 class="media-head">All Videos</h3>
+                        </div>
+                        <div class="col-md-2 my-auto">
+                            <div class="progress">
+                                <div id="js_profile_video_gallery_progressbar" class="progress-bar bg-success"
+                                    role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 my-auto">
+                            <div class="d-flex gap-10">
+                                <p id="js_profile_video_gallery_count" class="m-0 text-white"></p>
+                                <img src="{{ asset('assets/app/img/Vector-2.png') }}" style="height: 21px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="archive-photo-sec">
+                    <div class="row blog">
+                        <div id="js_profile_video_gallery" class="col-md-12">
+
+                            <!--.Carousel-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 mb-4">
+                <div class="upload-photo-sec">
+                    <div class="d-sm-flex align-items-center justify-content-between p-3 custom-img-filter-header">
+                        <h4 class="text-white">Default Video</h4>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-lg-4">
+                            <label class="newbtn videoDroppable w-100" id="videoDroppable_1">
+                                <video class="videoUp" id="img1" controls="" controls
+                                    poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
+                                    <source id="" type="video/mp4">
+                                </video>
+                                <input type="hidden" id="pos_1" name="video_position[1]" value="">
+                            </label>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label class="newbtn videoDroppable w-100" id="videoDroppable_2">
+                                <video class="videoUp" id="img2" controls=""
+                                    poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
+                                    <source id="" type="video/mp4">
+                                </video>
+                                <input type="hidden" id="pos_2" name="video_position[2]" value="">
+                            </label>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label class="newbtn videoDroppable w-100" id="videoDroppable_3">
+                                <video class="videoUp" id="img3" controls=""
+                                    poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
+                                    <source id="" type="video/mp4">
+                                </video>
+                                <input type="hidden" id="pos_3" name="video_position[3]" value="">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end video section -->
+                
+            @if (request()->segment(2) == 'profile' && request()->segment(3))
+            
+                    <div class="col-md-12 text-right media-profile ">
+                        <button id="mediaProfileVideoBtn" type="submit" class="save_profile_btn common-save-btn">Update</button>
+                    </div>
+                
+                </form>
+            @endif
         </div>
-        @if (request()->segment(2) == 'profile' && request()->segment(3))
-            <div class="row">
-                <div class="col-md-12 text-right media-profile">
-                    <button id="mediaProfileVideoBtn" type="submit" class="save_profile_btn">Update</button>
-                </div>
-            </div>
-            </form>
-        @endif
-    </div>
+        <!-- End Video Section -->
+        <!--About Me Start-->
+        <div class="row inner-row">
+            <div class="col-lg-12">
+                <div class="card-top">
+                    <div class="card-icon">
+                        <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
 
-    <div class="about_me_drop_down_info profile-sec">
-        <div class="padding_20_all_side p-2 pb-4">
-            <!--New Row from here-->
-            <!--New Row end here-->
-            <div class="row mt-4">
-                <div class="col-md-12">
-                    <div class="border_covid covid_heading ">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                stroke-linejoin="round">
+                            </g>
+
+                            <g id="SVGRepo_iconCarrier">
+
+                                <path
+                                    d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
+                                    stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                </path>
+
+                                <path
+                                    d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z"
+                                    stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                </path>
+
+                            </g>
+
+                        </svg>
+                    </div>
+                    <div class="card-heading">
                         <h2>About Me</h2>
                     </div>
-
-                    <div class="card-body pb-0">
-                        <div class="tab-pane fade show active" id="aboutme" role="tabpanel"
-                            aria-labelledby="home-tab">
-                            <!-- upload video  -->
-                            <div class="about_me_drop_down_info ">
-                                <div class="padding_20_all_side pb-0">
-                                    @if (request()->segment(2) == 'profile' && request()->segment(3))
-                                        <form id="update_about_me"
-                                            action="{{ route('escort.about.me', [$escort->id]) }}" method="POST"
-                                            enctype="multipart/form-data">
-                                            @CSRF
-                                    @endif
-                                    <!--New Row from here-->
-                                    @php
-
-                                        $escort->gender
-                                            ? ($escortGender = $escort->getRawOriginal('gender'))
-                                            : ($escortGender = $loginAccount->gender);
-                                    @endphp
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">
-                                                    Gender:<span style="color:red">*</span></label>
-                                                <div class="col-sm-8">
-                                                    <select
-                                                        class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                        id="Gender" name="gender" required
-                                                        data-parsley-group="group_one">
-
-                                                        <option value='' selected>-Not Set-</option>
-                                                        @foreach (config('escorts.profile.genders') as $key => $gender)
-                                                            <option value="{{ $key }}"
-                                                                {{ $escortGender == $key ? 'selected' : '' }}>
-                                                                {{ $gender }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">Orientation:</label>
-                                                <div class="col-sm-8">
-                                                    <select
-                                                        class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                        id="Orientation" name="orientation">
-                                                        <option value="" selected disabled>-Not Set-</option>
-                                                        @foreach (config('escorts.profile.orientation') as $key => $orientate)
-                                                            <option value='{{ $key }}'
-                                                                {{ $escort->orientation == $key ? 'selected' : '' }}>
-                                                                {{ $orientate }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">Ethnicity</label>
-                                                <div class="col-sm-8">
-                                                    <select
-                                                        class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                        id="Ethnicity" name="ethnicity">
-                                                        <option value="">-Not Set-</option>
-                                                        @foreach (config('escorts.profile.ethnicities') as $key => $ethnicity)
-                                                            <option value="{{ $key }}"
-                                                                {{ $escort->ethnicity == $key ? 'selected' : '' }}>
-                                                                {{ $ethnicity }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @php
-                                            $countrys = getCountryList();
-                                        @endphp
-                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">Nationality:</label>
-                                                <div class="col-sm-8">
-
-                                                    <select style="border: 1px solid #d5d7e5 !important;"
-                                                        class="form-control form-control-sm select_tag_remove_box_sadow nationality-sec change_default"
-                                                        id="select2_country"
-                                                        data-parsley-required-message="Select nationality"
-                                                        name="nationality_id"
-                                                        data-parsley-errors-container="#nationality-errors">
-                                                        @if (count($countrys) > 0)
-                                                            @foreach ($countrys as $ckey => $cname)
-                                                                <option value="{{ old('nationality_id', $ckey) }}"
-                                                                    @if ($ckey == $escort->nationality_id) selected="selected" @endif>
-                                                                    {{ $cname }}
-                                                                </option>
-                                                            @endforeach
-                                                        @endif
-                                                    </select>
-                                                    <span id="nationality-errors"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">
-                                                    Age:<span style="color:red">*</span></label>
-                                                <div class="col-sm-8">
-                                                    <input data-parsley-type="digits"
-                                                        class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                        id="age" required="" name="age"
-                                                        value="{{ $escort->age }}" data-parsley-min="18"
-                                                        data-parsley-max="70" data-parsley-group="group_one">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">Body type:
-                                                </label>
-                                                <div class="col-sm-8">
-                                                    <select
-                                                        class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                        id="Body type" name="body_type">
-                                                        <option value="" selected="" disabled="">-Not
-                                                            Set-</option>
-                                                        @foreach (config('escorts.profile.body-type') as $key => $body_type)
-                                                            <option value='{{ $key }}'
-                                                                {{ $escort->body_type == $key ? 'selected' : '' }}>
-                                                                {{ $body_type }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-5 font-weight-500"
-                                                    for="exampleFormControlSelect1"
-                                                    style="font-size: 18px;
-                                                        margin-top: 11px;">Statistics</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                        </div>
-                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">Hair colour:</label>
-                                                <div class="col-sm-8">
-                                                    <select
-                                                        class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                        id="Hair colour" name="hair_color">
-                                                        <option value="" selected disabled>-Not Set-</option>
-                                                        @foreach (config('escorts.profile.hair-colour') as $key => $colour)
-                                                            <option value='{{ $key }}'
-                                                                {{ $escort->hair_color == $key ? 'selected' : '' }}>
-                                                                {{ $colour }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">Hair style:</label>
-                                                <div class="col-sm-8">
-                                                    <select
-                                                        class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                        id="Hair style" name="hair_style">
-                                                        <option value="" selected disabled>-Not Set-</option>
-                                                        @foreach (config('escorts.profile.hair-style') as $key => $hair_style)
-                                                            <option value='{{ $key }}'
-                                                                {{ $escort->hair_style == $key ? 'selected' : '' }}>
-                                                                {{ $hair_style }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">Height:</label>
-                                                <div class="col-sm-8">
-                                                    <select
-                                                        class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                        name="height" id="Height">
-                                                        <option value="" selected disabled>-Not Set-</option>
-                                                        @foreach (config('escorts.profile.heights') as $key => $height)
-                                                            <option value="{{ $key }}"
-                                                                {{ $escort->height == $key ? 'selected' : '' }}>
-                                                                {{ $height }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1"> Eyes:</label>
-                                                <div class="col-sm-8">
-                                                    <select
-                                                        class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                        name="eyes" id="Eyes">
-                                                        <option value="" selected disabled>-Not Set-</option>
-                                                        @foreach (config('escorts.profile.eye-colors') as $key => $color)
-                                                            <option value="{{ $key }}"
-                                                                {{ $escort->eyes == $key ? 'selected' : '' }}>
-                                                                {{ $color }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">Skin tone:</label>
-                                                <div class="col-sm-8">
-                                                    <select
-                                                        class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                        id="Skin tone" name="skin_tone">
-                                                        <option value="" selected disabled>-Not Set-</option>
-                                                        @foreach (config('escorts.profile.skin-tone') as $key => $colour)
-                                                            <option value='{{ $key }}'
-                                                                {{ $escort->skin_tone == $key ? 'selected' : '' }}>
-                                                                {{ $colour }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">Weight(Kgs):</label>
-                                                <div class="col-sm-8">
-                                                    <input data-parsley-type="digits"
-                                                        class="form-control form-control-sm  removebox_shdow change_default"
-                                                        placeholder="Enter Your Weight"
-                                                        value="{{ $escort->weight }}" name="weight"
-                                                        data-parsley-min="30" data-parsley-max="150"
-                                                        vlaue="{{ $escort->weight }}" id="Weight">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">Shaved:</label>
-                                                <div class="col-sm-8">
-                                                    <select
-                                                        class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                        name="shaved" id="Shaved">
-                                                        <option value="" selected disabled>-Not Set-</option>
-                                                        @foreach (config('escorts.profile.shaved-type') as $key => $type)
-                                                            <option value='{{ $key }}'
-                                                                {{ $escort->shaved == $key ? 'selected' : '' }}>
-                                                                {{ $type }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {{-- @if (in_array($escortGender, [6, 2, 3])) --}}
-                                        <div class="col-lg-4 col-md-12 col-sm-12 femaleFields">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">Breast:</label>
-                                                <div class="col-sm-8">
-                                                    <select
-                                                        class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                        id="Breast" name="breast">
-                                                        <option value="" selected disabled>-Not Set-</option>
-                                                        @foreach (config('escorts.profile.breast-size') as $size => $cup_sizes)
-                                                            <optgroup label="{{ $size }}">
-                                                                @foreach ($cup_sizes as $cup_size)
-                                                                    <option value='{{ $size . $cup_size }}'
-                                                                        {{ $escort->breast == $size . $cup_size ? 'selected' : '' }}>
-                                                                        {{ $size . $cup_size }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </optgroup>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12 col-sm-12 femaleFields">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">Dress size:</label>
-                                                <div class="col-sm-8">
-                                                    <select
-                                                        class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                        id="Dress size" name="dress_size">
-                                                        <option value="" selected disabled>-Not Set-</option>
-                                                        @foreach (config('escorts.profile.dress-size') as $key => $dress_size)
-                                                            <option value='{{ $key }}'
-                                                                {{ $escort->dress_size == $key ? 'selected' : '' }}>
-                                                                {{ $dress_size }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {{-- @endif --}}
-                                        {{-- @if (in_array($escortGender, [1, 2, 3])) --}}
-                                        <div class="col-lg-4 col-md-12 col-sm-12 maleFields">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">Endowment:</label>
-                                                <div class="col-sm-8">
-                                                    <select
-                                                        class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                        id="endowment" name="endowment">
-                                                        <option value="" selected disabled>-Not Set-</option>
-                                                        @foreach (config('escorts.profile.endowments') as $key => $endowment)
-                                                            <option value='{{ $key }}'
-                                                                {{ $escort->endowment == $key ? 'selected' : '' }}>
-                                                                {{ $endowment }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12 col-sm-12 maleFields">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">Thickness:</label>
-                                                <div class="col-sm-8">
-                                                    <select
-                                                        class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                        id="thickness" name="thickness">
-                                                        <option value="" selected disabled>-Not Set-</option>
-                                                        @foreach (config('escorts.profile.thicknesses') as $key => $thickness)
-                                                            <option value='{{ $key }}'
-                                                                {{ $escort->thickness == $key ? 'selected' : '' }}>
-                                                                {{ $thickness }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12 col-sm-12 maleFields">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">Circumcised:</label>
-                                                <div class="col-sm-8">
-                                                    <select
-                                                        class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                        id="circumcised" name="circumcised">
-                                                        <option value="" selected disabled>-Not Set-</option>
-                                                        @foreach (config('escorts.profile.circumcises') as $key => $circumcised)
-                                                            <option value='{{ $key }}'
-                                                                {{ $escort->circumcised == $key ? 'selected' : '' }}>
-                                                                {{ $circumcised }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12 col-sm-12 maleFields">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">Butt:</label>
-                                                <div class="col-sm-8">
-                                                    <select
-                                                        class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                        id="butt" name="butt">
-                                                        <option value="" selected disabled>-Not Set-</option>
-                                                        @foreach (config('escorts.profile.butts') as $key => $butt)
-                                                            <option value='{{ $key }}'
-                                                                {{ $escort->butt == $key ? 'selected' : '' }}>
-                                                                {{ $butt }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12 col-sm-12 maleFields">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">Preference:</label>
-                                                <div class="col-sm-8">
-                                                    <select
-                                                        class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                        id="preference" name="preference">
-                                                        <option value="" selected disabled>-Not Set-</option>
-                                                        @foreach (config('escorts.profile.preferences') as $key => $preference)
-                                                            <option value='{{ $key }}'
-                                                                {{ $escort->preference == $key ? 'selected' : '' }}>
-                                                                {{ $preference }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {{-- @endif --}}
-                                    </div>
-                                    <div class="row">
-                                        {{-- @if (in_array($escortGender, [1, 2, 3])) --}}
-                                        <div class="col-lg-4 col-md-12 col-sm-12 maleFields">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">Hormones:</label>
-                                                <div class="col-sm-8">
-                                                    <select
-                                                        class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                        id="hormones" name="hormones">
-                                                        <option value="" selected disabled>-Not Set-</option>
-                                                        @foreach (config('escorts.profile.hormones') as $key => $hormone)
-                                                            <option value='{{ $key }}'
-                                                                {{ $escort->hormones == $key ? 'selected' : '' }}>
-                                                                {{ $hormone }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {{-- @endif --}}
-                                        <div class="col-lg-4 col-md-12 col-sm-12">
-                                            <div class="form-group row tab-about-me-row-padding">
-                                                <label class="col-sm-4 font-weight-500"
-                                                    for="exampleFormControlSelect1">Contact me:</label>
-                                                <div class="col-sm-8">
-                                                    <select
-                                                        class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                                        id="Contact me" name="contact">
-                                                        <option value="" selected disabled>-Not Set-</option>
-                                                        @foreach (config('escorts.profile.contact-me') as $key => $contact)
-                                                            <option value='{{ $key }}'
-                                                                {{ $escort->contact == $key ? 'selected' : '' }}>
-                                                                {{ $contact }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @if (request()->segment(2) == 'profile' && request()->segment(3))
-                                        <div class="row">
-                                            <div class="col-md-12 text-right">
-                                                <button id="aboutMeBtn" type="submit"
-                                                    class="save_profile_btn">Update</button>
-                                            </div>
-                                        </div>
-                                        </form>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="border_covid covid_heading mt-4">
-                        <h2>Read more
-                            <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"
-                                data-toggle="tooltip" data-html="true" data-placement="top"
-                                title="This section will only appear in your Profile if the Viewer clicks it to view."
-                                data-boundary="window">
-                            {{-- <span style='color:red'>*</span> --}}
-                        </h2>
-                    </div>
-
-
-                    <div class="card-body pb-0">
-                        @if (request()->segment(2) == 'profile' && request()->segment(3))
-                            <form id="read_more" name="read_more"
-                                action="{{ route('escort.read.more', [$escort->id]) }}" method="POST">
-                                @CSRF
-                        @endif
-                        <div class="row" id="read-more-area">
-                            <div class="col-lg-4">
-                                <div class="form-group row tab-about-me-row-padding">
-                                    <label class="col-sm-4 font-weight-500"
-                                        for="exampleFormControlSelect1">Piercing:</label>
-                                    <div class="col-sm-8">
-                                        <select
-                                            class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                            id="Piercing" name="piercing">
-                                            <option value="" selected disabled>-Not Set-</option>
-                                            @foreach (config('escorts.profile.piercing') as $key => $piercing)
-                                                <option value='{{ $key }}'
-                                                    {{ $escort->piercing == $key ? 'selected' : '' }}>
-                                                    {{ $piercing }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row tab-about-me-row-padding">
-                                    <label class="col-sm-4 font-weight-500"
-                                        for="exampleFormControlSelect1">Drugs:</label>
-                                    <div class="col-sm-8">
-                                        <select
-                                            class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                            id="Drugs" name="drugs">
-                                            <option value="" selected disabled>-Not Set-</option>
-                                            @foreach (config('escorts.profile.drugs') as $key => $drug)
-                                                <option value='{{ $key }}'
-                                                    {{ $escort->drugs == $key ? 'selected' : '' }}>
-                                                    {{ $drug }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row tab-about-me-row-padding">
-                                    <label class="col-sm-4 font-weight-500"
-                                        for="exampleFormControlSelect1">Language:</label>
-                                    <div class="col-sm-8">
-                                        <select
-                                            class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                            id="language">
-                                            <option value="" selected disabled>-Not Set-</option>
-                                            @foreach (config('escorts.profile.languages') as $key => $language)
-                                                <option value='{{ $key }}'
-                                                    @if (!empty($escort->language)) @if (in_array($key, $escort->language)) selected @endif
-                                                    @endif
-                                                    data-name="{{ $language }}">{{ $language }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    @if (!empty($escort->language))
-                                        @foreach ($escort->language as $language)
-                                            <div class='selecated_languages select_lang'>
-                                                <span
-                                                    class='languages_choosed_from_drop_down'>{!! config("escorts.profile.languages.$language") !!}</span>
-                                                <input class="lang languageInput" type="hidden" name="language[]"
-                                                    value="{{ $language }}">
-                                            </div>
-                                        @endforeach
-                                    @endif
-                                    <div id="container_language">
-                                    </div>
-                                    <div id="show_language" style="display:none">
-                                    </div>
-                                </div>
-                                <div class="form-group row tab-about-me-row-padding">
-                                    <label class="col-sm-4 font-weight-500"
-                                        for="exampleFormControlSelect1">Travel:</label>
-                                    <div class="col-sm-8">
-                                        <select
-                                            class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                            id="Travel" name="travel">
-                                            <option value="" selected disabled>-Not Set-</option>
-                                            @foreach (config('escorts.profile.travels') as $key => $travel)
-                                                <option value='{{ $key }}'
-                                                    {{ $escort->travel == $key ? 'selected' : '' }}>
-                                                    {{ $travel }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group row tab-about-me-row-padding">
-                                    <label class="col-sm-4 font-weight-500"
-                                        for="exampleFormControlSelect1">Tattoos:</label>
-                                    <div class="col-sm-8">
-                                        <select
-                                            class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                            id="Tattoos" name="tattoos">
-                                            <option value="" selected disabled>-Not Set-</option>
-                                            @foreach (config('escorts.profile.tattooes') as $key => $tattoos)
-                                                <option value='{{ $key }}'
-                                                    {{ $escort->tattoos == $key ? 'selected' : '' }}>
-                                                    {{ $tattoos }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row tab-about-me-row-padding">
-                                    <label class="col-sm-4 font-weight-500"
-                                        for="exampleFormControlSelect1">Smoke:</label>
-                                    <div class="col-sm-8">
-                                        <select
-                                            class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                            id="Smoke" name="smoke">
-                                            <option value="" selected disabled>-Not Set-</option>
-                                            @foreach (config('escorts.profile.smokes') as $key => $smoke)
-                                                <option value='{{ $key }}'
-                                                    {{ $escort->smoke == $key ? 'selected' : '' }}>
-                                                    {{ $smoke }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row tab-about-me-row-padding">
-                                    <label class="col-sm-4 font-weight-500"
-                                        for="exampleFormControlSelect1">Available
-                                        to:</label>
-                                    <div class="col-sm-8">
-                                        <div class="form-control form-control-sm dropdown dropdown-with-checkbox">
-                                            <button
-                                                class="btn toggle_custome_btn_style custome_button_style dropdown-toggle"
-                                                type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                                aria-haspopup="true" aria-expanded="false">Select
-                                            </button>
-                                            <div class="dropdown-menu padding_three_px_all"
-                                                aria-labelledby="dropdownMenuButton">
-                                                @foreach (config('escorts.profile.available-to') as $key => $available_to)
-                                                    <div class="form-check">
-                                                        <input type="checkbox"
-                                                            class="change_default form-check-input available_to"
-                                                            id="" name="available_to[]"
-                                                            value='{{ $key }}'
-                                                            @if (!empty($escort->available_to)) @if (in_array($key, $escort->available_to)) checked @endif
-                                                            @endif>
-                                                        <label class="form-check-label"
-                                                            for="exampleCheck1">{{ $available_to }}</label>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="selecated_languages available">
-                                        <img src="{{ asset('assets/dashboard/img/woman-avatar.png') }}"
-                                            id="1"
-                                            style="display:@if (!empty($escort->available_to)) {{ in_array(1, $escort->available_to) ? 'inline-block' : 'none' }}; @else none @endif">
-                                        <img src="{{ asset('assets/dashboard/img/male-user.png') }}"
-                                            id="2"
-                                            style="display:@if (!empty($escort->available_to)) {{ in_array(2, $escort->available_to) ? 'inline-block' : 'none' }};@else none @endif">
-                                        <img src="{{ asset('assets/dashboard/img/trans.png') }}" id="3"
-                                            style="display:@if (!empty($escort->available_to)) {{ in_array(3, $escort->available_to) ? 'inline-block' : 'none' }};@else none @endif">
-                                        <img src="{{ asset('assets/dashboard/img/couple.png') }}" id="4"
-                                            style="display:@if (!empty($escort->available_to)) {{ in_array(4, $escort->available_to) ? 'inline-block' : 'none' }};@else none @endif">
-                                        <img src="{{ asset('assets/dashboard/img/disabilities.png') }}"
-                                            id="5"
-                                            style="display:@if (!empty($escort->available_to)) {{ in_array(5, $escort->available_to) ? 'inline-block' : 'none' }};@else none @endif">
-                                        <img src="{{ asset('assets/dashboard/img/group.png') }}" id="6"
-                                            style="display:@if (!empty($escort->available_to)) {{ in_array(6, $escort->available_to) ? 'inline-block' : 'none' }};@else none @endif">
-                                    </div>
-                                </div>
-                                <div class="form-group row tab-about-me-row-padding">
-                                    <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">SWA
-                                        License:</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" value="{{ $escort->license }}" name="license"
-                                            class="form-control form-control-sm select_tag_remove_box_sadow change_default"
-                                            id="SWA License">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group row tab-about-me-row-padding">
-                                    <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Play
-                                        types:</label>
-                                    <div class="col-sm-8">
-                                        <div class="form-control form-control-sm dropdown dropdown-with-checkbox">
-                                            <button
-                                                class="btn custome_button_style dropdown-toggle toggle_custome_btn_style"
-                                                type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                                aria-haspopup="true" aria-expanded="false">Select
-                                            </button>
-                                            <div class="dropdown-menu padding_three_px_all"
-                                                aria-labelledby="dropdownMenuButton">
-                                                @foreach (config('escorts.profile.play-types') as $key => $play_type)
-                                                    <div class="form-check">
-                                                        <input type="checkbox"
-                                                            class="change_default form-check-input playType"
-                                                            name="play_type[]" value='{{ $key }}'
-                                                            @if (!empty($escort->play_type)) @if (in_array($key, $escort->play_type)) checked @endif
-                                                            @endif
-                                                        data-name="{{ $play_type }}">
-                                                        <label class="form-check-label"
-                                                            for="exampleCheck1">{{ $play_type }}</label>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="show_playType" style="display:block">
-                                        @isset($escort->play_type)
-                                            @foreach ($escort->play_type as $play_type)
-                                                <div class='selecated_languages playT' style='display: inline-block'
-                                                    id="{{ $play_type }}"><span
-                                                        class='languages_choosed_from_drop_down'>{{ config('escorts.profile.play-types')["$play_type"] }}
-                                                    </span>
-                                                </div>
-                                            @endforeach
-                                        @endisset
-                                    </div>
-                                </div>
-                                <div class="form-group row tab-about-me-row-padding">
-                                    <label class="col-sm-4 font-weight-500"
-                                        for="exampleFormControlSelect1">Payment:</label>
-                                    <div class="col-sm-8">
-                                        <select
-                                            class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                                            id="payment" name="payment_type">
-                                            <option value="" selected disabled>-Not Set-</option>
-                                            @foreach (config('escorts.profile.Payments') as $key => $Payment)
-                                                <option value='{{ $key }}'
-                                                    {{ $escort->payment_type == $key ? 'selected' : '' }}
-                                                    data-name="{{ $Payment }}">{{ $Payment }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    @if (!empty($escort->payment_type))
-                                        <div class='select_pay'>
-                                            <span
-                                                class='languages_choosed_from_drop_down'>{!! config("escorts.profile.Payments.$escort->payment_type") !!}</span>
-                                        </div>
-                                    @endif
-
-                                    <div class="col-sm-12">
-
-                                        <div id="show_payment_type" style="display:none">
-                                            <div class='select_pay' style='display: inline-block'>
-                                                <span class='languages_choosed_from_drop_down'> </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @if (request()->segment(2) == 'profile' && request()->segment(3))
-                            <div class="row">
-                                <div class="col-md-12 text-right">
-                                    <button id="read-more" type="submit" class="save_profile_btn">Update</button>
-                                </div>
-                            </div>
-                            </form>
-                        @endif
-                    </div>
-
-
-                    <div class="border_covid covid_heading mt-2">
-                        <h2>COVID -19</h2>
-                    </div>
-                    <div class="pt-2 pb-3" data-i="{{ $escort->covidreport }}">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input covidreport change_default" type="radio"
-                                name="covidreport" id="inlineRadio1" required data-parsley-group="group_one"
-                                data-parsley-required-message="Please select a COVID vaccination status"
-                                data-parsley-errors-container="#covidreport-errors" value="1"
-                                {{ $escort->getRawOriginal('covidreport') == 1 ? ' checked' : null }}>
-                            <label class="form-check-label" for="inlineRadio1">Vaccinated, not up to date</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input covidreport change_default" type="radio"
-                                name="covidreport" id="inlineRadio2" value="2"
-                                {{ $escort->getRawOriginal('covidreport') == 2 ? ' checked' : null }}>
-                            <label class="form-check-label" for="inlineRadio2">Vaccinated, up to date</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input covidreport change_default" type="radio"
-                                name="covidreport" id="inlineRadio3" value="3"
-                                {{ $escort->getRawOriginal('covidreport') == 3 ? ' checked' : null }}>
-                            <label class="form-check-label" for="inlineRadio3">Not Vaccinated</label>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <span id="covidreport-errors"></span>
-                    </div>
-
-
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12 text-right" style="padding-right: 1.8rem;">
-                    @if (request()->segment(2) == 'profile' && request()->segment(3))
-                        <button type="button" id="updateVaccineStatus" class="save_profile_btn">Update</button>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="about_me_drop_down_info profile-sec pl-4 pr-4 p-2 pt-4">
-        <div class="about_me_heading_in_first_tab fill_profile_headings_global text-capitalize">
-            <h2>Who am I ?</h2>
-        </div>
-        <div class="padding_20_all_side">
+            <div class="col-md-12">
+                @if (request()->segment(2) == 'profile' && request()->segment(3))
+                    <form id="update_about_me"
+                        action="{{ route('escort.about.me', [$escort->id]) }}" method="POST"
+                        enctype="multipart/form-data">
+                        @CSRF
+                @endif
+                <!--New Row from here-->
+                @php
 
-            @if (request()->segment(2) == 'profile' && request()->segment(3))
-                <form id="update_abut_who_am_i" action="{{ route('escort.about', [$escort->id]) }}"
-                    method="POST">
-                    @csrf
-            @endif
+                    $escort->gender
+                        ? ($escortGender = $escort->getRawOriginal('gender'))
+                        : ($escortGender = $loginAccount->gender);
+                @endphp
+            
+                <div class="inner-field-row">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">
+                            Gender <span style="color:red">*</span></label>
+                        
+                            <select
+                                class="change_default form-control"
+                                id="Gender" name="gender" required
+                                data-parsley-group="group_one">
 
-
-            {{-- <input type="text" name="about_title"
-                value="{{ $escort->about_title ? $escort->about_title : null }}" class="whoiamtitle mb-3"
-                placeholder="Enter Your Title Here" required data-parsley-group="group_one"
-                data-parsley-required-message="Enter title"> --}}
-
-            @php
-                $currentTitle = $escort->about_title ?? additional_information(Auth::id(), 'title');
-                $savedTitles = $loginAccount->additionalInfo->where('type', 'title')->pluck('value');
-                $savedTitles[] = $currentTitle;
-                $hasTitles = $savedTitles->isNotEmpty();
-            @endphp
-
-            @php
-                $currentNarrations = additional_information(Auth::id(), 'narration');
-
-                $savedNarrations = $loginAccount->additionalInfo->where('type', 'narration');
-            @endphp
-
-
-            <div class="form-group row tab-about-me-row-padding">
-
-                <div class="col-sm-6">
-                     <label class="font-weight-500" for="title">
-                            Title:
-                        </label>
-                    @if ($hasTitles)
-                       
-                        {{-- Dropdown: existing saved titles --}}
-                        <select id="title" name="about_title" onclick="titleInput(this)"
-                            class="js-stage-name-select form-control form-control-sm select_tag_remove_box_sadow change_default_select"
-                            title="Title" data-parsley-group="group_one"
-                            data-parsley-errors-container="#title-errors">
-
-                            <option value="">— Choose Your Title —</option>
-
-                            @foreach ($savedTitles as $title)
-                                <option value="{{ $title }}"
-                                    {{ $currentTitle === $title ? 'selected' : '' }}>
-                                    {{ $title }}
+                                <option value='' selected>-Not Set-</option>
+                                @foreach (config('escorts.profile.genders') as $key => $gender)
+                                    <option value="{{ $key }}"
+                                        {{ $escortGender == $key ? 'selected' : '' }}>
+                                        {{ $gender }}
+                                    </option>
+                                @endforeach
+                            </select>
+                    
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Orientation</label>
+                        
+                            <select
+                                class="change_default form-control"
+                                id="Orientation" name="orientation">
+                                <option value="" selected disabled>-Not Set-</option>
+                                @foreach (config('escorts.profile.orientation') as $key => $orientate)
+                                    <option value='{{ $key }}'
+                                        {{ $escort->orientation == $key ? 'selected' : '' }}>
+                                        {{ $orientate }}
+                                    </option>
+                                @endforeach
+                            </select>
+                    
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Ethnicity</label>
+                        
+                            <select
+                                class="change_default form-control"
+                                id="Ethnicity" name="ethnicity">
+                                <option value="">-Not Set-</option>
+                                @foreach (config('escorts.profile.ethnicities') as $key => $ethnicity)
+                                    <option value="{{ $key }}"
+                                        {{ $escort->ethnicity == $key ? 'selected' : '' }}>
+                                        {{ $ethnicity }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        
+                    </div>
+                    @php
+                        $countrys = getCountryList();
+                    @endphp
+                    <div class="form-group ">
+                        <label for="exampleFormControlSelect1">Nationality</label>
+                        <div class="national">
+                            <select class="form-control  nationality-sec change_default"
+                                id="select2_country"
+                                data-parsley-required-message="Select nationality"
+                                name="nationality_id"
+                                data-parsley-errors-container="#nationality-errors">
+                                @if (count($countrys) > 0)
+                                    @foreach ($countrys as $ckey => $cname)
+                                        <option value="{{ old('nationality_id', $ckey) }}"
+                                            @if ($ckey == $escort->nationality_id) selected="selected" @endif>
+                                            {{ $cname }}
+                                        </option>
+                                    @endforeach
+                                @endif
+                            </select>
+                            <span id="nationality-errors"></span>  
+                        </div>                              
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">
+                            Age <span style="color:red">*</span></label>
+                        
+                            <input data-parsley-type="digits"
+                                class="change_default form-control"
+                                id="age" required="" name="age"
+                                value="{{ $escort->age }}" data-parsley-min="18"
+                                data-parsley-max="70" data-parsley-group="group_one">
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Body type
+                        </label>                                
+                        <select
+                            class="change_default form-control"
+                            id="Body type" name="body_type">
+                            <option value="" selected="" disabled="">-Not
+                                Set-</option>
+                            @foreach (config('escorts.profile.body-type') as $key => $body_type)
+                                <option value='{{ $key }}'
+                                    {{ $escort->body_type == $key ? 'selected' : '' }}>
+                                    {{ $body_type }}
                                 </option>
                             @endforeach
-
-                            <option value="new">Add a new Title</option>
-                        </select>
-
-                        {{-- Text input: hidden until "Add new" is selected --}}
-                        <input type="hidden" id="titleInp" name="" value=""
-                            class="change_default form-control form-control-sm select_tag_remove_box_sadow mt-1"
-                            placeholder="Enter new Title" data-parsley-group="group_one"
-                            data-parsley-errors-container="#title-errors"
-                            data-original-title="{{ $currentTitle }}">
-                    @else
-                        {{-- No saved titles: plain text input --}}
-                        <input type="text" id="title" name="about_title" value="{{ $currentTitle }}"
-                            placeholder="Title"
-                            class="change_default form-control form-control-sm select_tag_remove_box_sadow"
-                            data-parsley-group="group_one" data-parsley-errors-container="#title-errors">
-
-                    @endif
-
-                </div>
-
-                <div class="col-sm-6">
-
-                    <label class="font-weight-500" for="narration">
-                        Narration:
-                    </label>
-                    {{-- Dropdown: existing saved titles --}}
-                    <select id="narration" name="about_narration"
-                        class="js-stage-name-select form-control form-control-sm select_tag_remove_box_sadow change_default"
-                        title="Narration" data-parsley-group="group_one"
-                        data-parsley-errors-container="#narration-errors">
-
-                        <option value="">— Choose Your Narration —</option>
-
-                        @foreach ($savedNarrations as $narration)
-                            <option value="{{ $narration->short_desc }} "
-                                {{ $currentNarrations == $narration->short_desc ? 'selected' : '' }}>
-                                {{ $narration->short_desc }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-
-
-
-
-
-
-            <div class="row">
-                <div class="col-12">
-                    <textarea id="editor1" name="about" data-parsley-maxlength="2500"
-                        data-parsley-maxlength-message="You can't enter more than 2500 characters." required
-                        data-parsley-group="group_one" data-parsley-required-message="Enter content."
-                        data-parsley-errors-container="#editor1-errors">
-                        @if (!empty($escort->about)) {{ $escort->about }} @endif
-                        </textarea>
-                    <span class="theme-text-color text-capitalize">max limit 2500 characters</span>
-                </div>
-                <div class="col-sm-4">
-                    <span id="editor1-errors"></span>
-                </div>
-
-            </div>
-            @if (request()->segment(2) == 'profile' && request()->segment(3))
-                <div class="row pt-3">
-                    <div class="col-md-12 text-right" style="padding-right: 1.8rem;">
-
-                        <button id="update_who_am_i" type="sumbit"
-                            class="save_profile_btn who_am_i">Update</button>
-
+                        </select>                                
                     </div>
                 </div>
+            </div>
+            
+            <div class="col-md-12">
+                <div class="card-top mt-5">
+                    <div class="card-icon">
+                        <svg fill="#ff3c5f" height="64px" width="64px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 215.639 215.639" xml:space="preserve">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <g>
+                                    <path d="M118.713,101.426h86.426c4.142,0,7.5-3.357,7.5-7.5C212.639,42.135,170.504,0,118.713,0c-4.142,0-7.5,3.357-7.5,7.5v86.426 C111.213,98.068,114.571,101.426,118.713,101.426z M126.213,15.354c37.547,3.555,67.517,33.524,71.072,71.072h-71.072V15.354z"></path>
+                                    <path d="M101.427,118.606V35.287c0-4.143-3.358-7.5-7.5-7.5C42.135,27.787,0,69.922,0,121.713 c0,51.791,42.135,93.926,93.927,93.926c25.087,0,48.673-9.771,66.415-27.511c1.478-1.477,2.265-3.511,2.185-5.599 c-0.074-1.904-0.874-3.707-2.219-5.04L101.427,118.606z M93.927,200.639c-43.52,0-78.927-35.406-78.927-78.926 c0-40.991,31.41-74.784,71.427-78.572v78.572c0,1.989,0.79,3.896,2.197,5.304l55.561,55.562 C130.07,194.274,112.486,200.639,93.927,200.639z"></path>
+                                    <path d="M208.139,109.256h-86.426c-3.034,0-5.768,1.827-6.929,4.63c-1.161,2.803-0.519,6.028,1.626,8.174l61.1,61.1 c0.07,0.069,0.142,0.139,0.214,0.206l0.013,0.012c1.439,1.329,3.265,1.99,5.088,1.99c1.923,0,3.843-0.735,5.304-2.196 c17.74-17.739,27.51-41.326,27.51-66.415C215.639,112.613,212.281,109.256,208.139,109.256z M182.578,167.015l-42.758-42.759h60.47 C198.812,140.028,192.686,154.818,182.578,167.015z"></path>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="card-heading">
+                        <h2>Statistics</h2>
+                    </div>
+                </div>
+                <div class="inner-field-row">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Hair colour</label>                            
+                        <select
+                            class="change_default form-control"
+                            id="Hair colour" name="hair_color">
+                            <option value="" selected disabled>-Not Set-</option>
+                            @foreach (config('escorts.profile.hair-colour') as $key => $colour)
+                                <option value='{{ $key }}'
+                                    {{ $escort->hair_color == $key ? 'selected' : '' }}>
+                                    {{ $colour }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Hair style</label>                                
+                        <select
+                            class="change_default form-control"
+                            id="Hair style" name="hair_style">
+                            <option value="" selected disabled>-Not Set-</option>
+                            @foreach (config('escorts.profile.hair-style') as $key => $hair_style)
+                                <option value='{{ $key }}'
+                                    {{ $escort->hair_style == $key ? 'selected' : '' }}>
+                                    {{ $hair_style }}
+                                </option>
+                            @endforeach
+                        </select>                                
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Height</label>                               
+                        <select
+                            class="change_default form-control"
+                            name="height" id="Height">
+                            <option value="" selected disabled>-Not Set-</option>
+                            @foreach (config('escorts.profile.heights') as $key => $height)
+                                <option value="{{ $key }}"
+                                    {{ $escort->height == $key ? 'selected' : '' }}>
+                                    {{ $height }}
+                                </option>
+                            @endforeach
+                        </select>                                
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1"> Eyes</label>                                
+                        <select
+                            class="change_default form-control"
+                            name="eyes" id="Eyes">
+                            <option value="" selected disabled>-Not Set-</option>
+                            @foreach (config('escorts.profile.eye-colors') as $key => $color)
+                                <option value="{{ $key }}"
+                                    {{ $escort->eyes == $key ? 'selected' : '' }}>
+                                    {{ $color }}
+                                </option>
+                            @endforeach
+                        </select>                               
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Skin tone</label>
+                        
+                            <select
+                                class="change_default form-control"
+                                id="Skin tone" name="skin_tone">
+                                <option value="" selected disabled>-Not Set-</option>
+                                @foreach (config('escorts.profile.skin-tone') as $key => $colour)
+                                    <option value='{{ $key }}'
+                                        {{ $escort->skin_tone == $key ? 'selected' : '' }}>
+                                        {{ $colour }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Weight(Kgs)</label>
+                            <input data-parsley-type="digits"
+                                class="form-control change_default"
+                                placeholder="Enter Your Weight"
+                                value="{{ $escort->weight }}" name="weight"
+                                data-parsley-min="30" data-parsley-max="150"
+                                vlaue="{{ $escort->weight }}" id="Weight">                            
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Shaved</label>
+                            <select
+                                class="change_default form-control"
+                                name="shaved" id="Shaved">
+                                <option value="" selected disabled>-Not Set-</option>
+                                @foreach (config('escorts.profile.shaved-type') as $key => $type)
+                                    <option value='{{ $key }}'
+                                        {{ $escort->shaved == $key ? 'selected' : '' }}>
+                                        {{ $type }}
+                                    </option>
+                                @endforeach
+                            </select>
+                    </div>
+
+                    {{-- @if (in_array($escortGender, [6, 2, 3])) --}}
+                    <div class=" femaleFields">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Breast</label>
+                                <select
+                                    class="change_default form-control"
+                                    id="Breast" name="breast">
+                                    <option value="" selected disabled>-Not Set-</option>
+                                    @foreach (config('escorts.profile.breast-size') as $size => $cup_sizes)
+                                        <optgroup label="{{ $size }}">
+                                            @foreach ($cup_sizes as $cup_size)
+                                                <option value='{{ $size . $cup_size }}'
+                                                    {{ $escort->breast == $size . $cup_size ? 'selected' : '' }}>
+                                                    {{ $size . $cup_size }}
+                                                </option>
+                                            @endforeach
+                                        </optgroup>
+                                    @endforeach
+                                </select>                                
+                        </div>
+                    </div>
+                    <div class="femaleFields">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Dress size</label>                                
+                            <select
+                                class="change_default form-control"
+                                id="Dress size" name="dress_size">
+                                <option value="" selected disabled>-Not Set-</option>
+                                @foreach (config('escorts.profile.dress-size') as $key => $dress_size)
+                                    <option value='{{ $key }}'
+                                        {{ $escort->dress_size == $key ? 'selected' : '' }}>
+                                        {{ $dress_size }}
+                                    </option>
+                                @endforeach
+                            </select>                                
+                        </div>
+                    </div>
+                    {{-- @endif --}}
+                    {{-- @if (in_array($escortGender, [1, 2, 3])) --}}
+                    <div class=" maleFields">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Endowment</label>
+                            <select
+                                class="change_default form-control"
+                                id="endowment" name="endowment">
+                                <option value="" selected disabled>-Not Set-</option>
+                                @foreach (config('escorts.profile.endowments') as $key => $endowment)
+                                    <option value='{{ $key }}'
+                                        {{ $escort->endowment == $key ? 'selected' : '' }}>
+                                        {{ $endowment }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="maleFields">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Thickness</label>
+                                <select
+                                    class="change_default form-control"
+                                    id="thickness" name="thickness">
+                                    <option value="" selected disabled>-Not Set-</option>
+                                    @foreach (config('escorts.profile.thicknesses') as $key => $thickness)
+                                        <option value='{{ $key }}'
+                                            {{ $escort->thickness == $key ? 'selected' : '' }}>
+                                            {{ $thickness }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                        </div>
+                    </div>
+                    <div class="maleFields">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Circumcised:</label>
+                            <select
+                                class="change_default form-control"
+                                id="circumcised" name="circumcised">
+                                <option value="" selected disabled>-Not Set-</option>
+                                @foreach (config('escorts.profile.circumcises') as $key => $circumcised)
+                                    <option value='{{ $key }}'
+                                        {{ $escort->circumcised == $key ? 'selected' : '' }}>
+                                        {{ $circumcised }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="maleFields">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Butt</label>
+                            <select
+                                class="change_default form-control"
+                                id="butt" name="butt">
+                                <option value="" selected disabled>-Not Set-</option>
+                                @foreach (config('escorts.profile.butts') as $key => $butt)
+                                    <option value='{{ $key }}'
+                                        {{ $escort->butt == $key ? 'selected' : '' }}>
+                                        {{ $butt }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="maleFields">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Preference</label>
+                            <select
+                                class="change_default form-control"
+                                id="preference" name="preference">
+                                <option value="" selected disabled>-Not Set-</option>
+                                @foreach (config('escorts.profile.preferences') as $key => $preference)
+                                    <option value='{{ $key }}'
+                                        {{ $escort->preference == $key ? 'selected' : '' }}>
+                                        {{ $preference }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    {{-- @endif --}}
+                    {{-- @if (in_array($escortGender, [1, 2, 3])) --}}
+                    <div class="maleFields">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Hormones</label>                                
+                            <select
+                                class="change_default form-control select_tag_remove_box_sadow"
+                                id="hormones" name="hormones">
+                                <option value="" selected disabled>-Not Set-</option>
+                                @foreach (config('escorts.profile.hormones') as $key => $hormone)
+                                    <option value='{{ $key }}'
+                                        {{ $escort->hormones == $key ? 'selected' : '' }}>
+                                        {{ $hormone }}
+                                    </option>
+                                @endforeach
+                            </select>                                
+                        </div>
+                    </div>
+                    {{-- @endif --}}
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Contact me</label>
+                        <select
+                            class="change_default form-control  select_tag_remove_box_sadow"
+                            id="Contact me" name="contact">
+                            <option value="" selected disabled>-Not Set-</option>
+                            @foreach (config('escorts.profile.contact-me') as $key => $contact)
+                                <option value='{{ $key }}'
+                                    {{ $escort->contact == $key ? 'selected' : '' }}>
+                                    {{ $contact }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+            @if (request()->segment(2) == 'profile' && request()->segment(3))                    
+                    <div class="col-md-12 text-right mt-4">
+                        <button id="aboutMeBtn" type="submit"
+                            class="save_profile_btn common-save-btn">Update</button>
+                    </div>
+                </form>
+            @endif
+        </div>    
+        <!-- end About Me -->        
+        <!-- Read More Start-->
+        <div class="row inner-row">
+            <div class="col-lg-12">
+                <div class="card-top">
+                    <div class="card-icon">
+                       <svg width="40px" height="40px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="#000000">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="m 7.996094 0 c -1.105469 0 -2 0.894531 -2 2 s 0.894531 2 2 2 c 1.101562 0 2 -0.894531 2 -2 s -0.898438 -2 -2 -2 z m 0 6 c -1.105469 0 -2 0.894531 -2 2 s 0.894531 2 2 2 c 1.101562 0 2 -0.894531 2 -2 s -0.898438 -2 -2 -2 z m 0 6 c -1.105469 0 -2 0.894531 -2 2 s 0.894531 2 2 2 c 1.101562 0 2 -0.894531 2 -2 s -0.898438 -2 -2 -2 z m 0 0" fill="#ff3c5f"></path>
+                                </g>
+                            </svg>
+                    </div>
+                    <div class="card-heading">
+                        <h2>Read more
+                        <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"
+                            data-toggle="tooltip" data-html="true" data-placement="top"
+                            title="This section will only appear in your Profile if the Viewer clicks it to view."
+                            data-boundary="window"></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                @if (request()->segment(2) == 'profile' && request()->segment(3))
+                    <form id="read_more" name="read_more"
+                        action="{{ route('escort.read.more', [$escort->id]) }}" method="POST">
+                        @CSRF
+                @endif
+                <div class="inner-field-row" id="read-more-area">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Piercing</label>                                
+                        <select
+                            class="change_default form-control"
+                            id="Piercing" name="piercing">
+                            <option value="" selected disabled>-Not Set-</option>
+                            @foreach (config('escorts.profile.piercing') as $key => $piercing)
+                                <option value='{{ $key }}'
+                                    {{ $escort->piercing == $key ? 'selected' : '' }}>
+                                    {{ $piercing }}
+                                </option>
+                            @endforeach
+                        </select>                                
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Drugs</label>                                
+                        <select
+                            class="change_default form-control "
+                            id="Drugs" name="drugs">
+                            <option value="" selected disabled>-Not Set-</option>
+                            @foreach (config('escorts.profile.drugs') as $key => $drug)
+                                <option value='{{ $key }}'
+                                    {{ $escort->drugs == $key ? 'selected' : '' }}>
+                                    {{ $drug }}
+                                </option>
+                            @endforeach
+                        </select>                                
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Language</label>                                
+                            <select
+                                class="change_default form-control "
+                                id="language">
+                                <option value="" selected disabled>-Not Set-</option>
+                                @foreach (config('escorts.profile.languages') as $key => $language)
+                                    <option value='{{ $key }}'
+                                        @if (!empty($escort->language)) @if (in_array($key, $escort->language)) selected @endif
+                                        @endif
+                                        data-name="{{ $language }}">{{ $language }}</option>
+                                @endforeach
+                            </select>
+                            
+                            @if (!empty($escort->language))
+                                @foreach ($escort->language as $language)
+                                    <div class='selecated_languages select_lang'>
+                                        <span
+                                            class='languages_choosed_from_drop_down'>{!! config("escorts.profile.languages.$language") !!}</span>
+                                        <input class="lang languageInput" type="hidden" name="language[]"
+                                            value="{{ $language }}">
+                                    </div>
+                                @endforeach
+                            @endif
+                            <div id="container_language">
+                            </div>
+                            <div id="show_language" style="display:none">
+                            </div>                                
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Travel</label>                                
+                        <select
+                            class="change_default form-control"
+                            id="Travel" name="travel">
+                            <option value="" selected disabled>-Not Set-</option>
+                            @foreach (config('escorts.profile.travels') as $key => $travel)
+                                <option value='{{ $key }}'
+                                    {{ $escort->travel == $key ? 'selected' : '' }}>
+                                    {{ $travel }}
+                                </option>
+                            @endforeach
+                        </select>                                
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Tattoos</label>                                
+                        <select
+                            class="change_default form-control"
+                            id="Tattoos" name="tattoos">
+                            <option value="" selected disabled>-Not Set-</option>
+                            @foreach (config('escorts.profile.tattooes') as $key => $tattoos)
+                                <option value='{{ $key }}'
+                                    {{ $escort->tattoos == $key ? 'selected' : '' }}>
+                                    {{ $tattoos }}
+                                </option>
+                            @endforeach
+                        </select>                                
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Smoke</label>                                
+                        <select
+                            class="change_default form-control"
+                            id="Smoke" name="smoke">
+                            <option value="" selected disabled>-Not Set-</option>
+                            @foreach (config('escorts.profile.smokes') as $key => $smoke)
+                                <option value='{{ $key }}'
+                                    {{ $escort->smoke == $key ? 'selected' : '' }}>
+                                    {{ $smoke }}
+                                </option>
+                            @endforeach
+                        </select>                                
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Available to</label>                                
+                        <div class="form-control dropdown dropdown-with-checkbox">
+                            <button
+                                class="btn toggle_custome_btn_style custome_button_style dropdown-toggle"
+                                type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Select
+                            </button>
+                            <div class="dropdown-menu padding_three_px_all"
+                                aria-labelledby="dropdownMenuButton">
+                                @foreach (config('escorts.profile.available-to') as $key => $available_to)
+                                    <div class="form-check">
+                                        <input type="checkbox"
+                                            class="change_default form-check-input available_to"
+                                            id="" name="available_to[]"
+                                            value='{{ $key }}'
+                                            @if (!empty($escort->available_to)) @if (in_array($key, $escort->available_to)) checked @endif
+                                            @endif>
+                                        <label class="form-check-label"
+                                            for="exampleCheck1">{{ $available_to }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>                            
+                        <div class="selecated_languages available">
+                            <img src="{{ asset('assets/dashboard/img/woman-avatar.png') }}"
+                                id="1"
+                                style="display:@if (!empty($escort->available_to)) {{ in_array(1, $escort->available_to) ? 'inline-block' : 'none' }}; @else none @endif">
+                            <img src="{{ asset('assets/dashboard/img/male-user.png') }}"
+                                id="2"
+                                style="display:@if (!empty($escort->available_to)) {{ in_array(2, $escort->available_to) ? 'inline-block' : 'none' }};@else none @endif">
+                            <img src="{{ asset('assets/dashboard/img/trans.png') }}" id="3"
+                                style="display:@if (!empty($escort->available_to)) {{ in_array(3, $escort->available_to) ? 'inline-block' : 'none' }};@else none @endif">
+                            <img src="{{ asset('assets/dashboard/img/couple.png') }}" id="4"
+                                style="display:@if (!empty($escort->available_to)) {{ in_array(4, $escort->available_to) ? 'inline-block' : 'none' }};@else none @endif">
+                            <img src="{{ asset('assets/dashboard/img/disabilities.png') }}"
+                                id="5"
+                                style="display:@if (!empty($escort->available_to)) {{ in_array(5, $escort->available_to) ? 'inline-block' : 'none' }};@else none @endif">
+                            <img src="{{ asset('assets/dashboard/img/group.png') }}" id="6"
+                                style="display:@if (!empty($escort->available_to)) {{ in_array(6, $escort->available_to) ? 'inline-block' : 'none' }};@else none @endif">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  for="exampleFormControlSelect1">SWA License</label>                                
+                            <input type="text" value="{{ $escort->license }}" name="license"
+                                class="form-control  change_default"
+                                id="SWA License">                               
+                    </div>
+
+                    <div class="form-group">
+                        <label  for="exampleFormControlSelect1">Play Types</label>                                
+                        <div class="form-control dropdown dropdown-with-checkbox">
+                            <button
+                                class="btn custome_button_style dropdown-toggle toggle_custome_btn_style"
+                                type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Select
+                            </button>
+                            <div class="dropdown-menu padding_three_px_all"
+                                aria-labelledby="dropdownMenuButton">
+                                @foreach (config('escorts.profile.play-types') as $key => $play_type)
+                                    <div class="form-check">
+                                        <input type="checkbox"
+                                            class="change_default form-check-input playType"
+                                            name="play_type[]" value='{{ $key }}'
+                                            @if (!empty($escort->play_type)) @if (in_array($key, $escort->play_type)) checked @endif
+                                            @endif
+                                        data-name="{{ $play_type }}">
+                                        <label class="form-check-label"
+                                            for="exampleCheck1">{{ $play_type }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div id="show_playType" style="display:block">
+                            @isset($escort->play_type)
+                                @foreach ($escort->play_type as $play_type)
+                                    <div class='selecated_languages playT' style='display: inline-block'
+                                        id="{{ $play_type }}"><span
+                                            class='languages_choosed_from_drop_down'>{{ config('escorts.profile.play-types')["$play_type"] }}
+                                        </span>
+                                    </div>
+                                @endforeach
+                            @endisset
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Payment</label>                                
+                        <select
+                            class="change_default form-control"
+                            id="payment" name="payment_type">
+                            <option value="" selected disabled>-Not Set-</option>
+                            @foreach (config('escorts.profile.Payments') as $key => $Payment)
+                                <option value='{{ $key }}'
+                                    {{ $escort->payment_type == $key ? 'selected' : '' }}
+                                    data-name="{{ $Payment }}">{{ $Payment }}</option>
+                            @endforeach
+                        </select>
+                    
+                        @if (!empty($escort->payment_type))
+                            <div class='select_pay'>
+                                <span
+                                    class='languages_choosed_from_drop_down'>{!! config("escorts.profile.Payments.$escort->payment_type") !!}</span>
+                            </div>
+                        @endif
+
+                        <div id="show_payment_type" style="display:none">
+                            <div class='select_pay' style='display: inline-block'>
+                                <span class='languages_choosed_from_drop_down'> </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @if (request()->segment(2) == 'profile' && request()->segment(3))
+                        <div class="col-md-12 text-right">
+                            <button id="read-more" type="submit" class="save_profile_btn common-save-btn">Update</button>
+                        </div>
+                    </form>
+                @endif
+            </div>
+        </div>
+        <!-- End Read More -->
+         <!-- Covid 19 Start-->
+        <div class="row inner-row">              
+                <div class="col-lg-12">
+                    <div class="card-top">
+                        <div class="card-icon">
+                            <svg fill="#ff3c5f" height="40px" width="40px" version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-426 153 106.7 256" xml:space="preserve" stroke="#ff3c5f">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M-351.5,396.8h-8.3v-16.7H-385v16.7h-8.3v8.4h41.8V396.8z M-383.2,206.6c0,4.6-3.7,8.3-8.3,8.3s-8.3-3.7-8.3-8.3 c0-4.6,8.3-16.8,8.3-16.8S-383.2,201.5-383.2,206.6z M-351.5,367.1V242.8h-8.3V226h-8.4v-67l-8.3,8.5V226h-8.5v16.8h-8.3v124.3 h-20.9v8.3h83.7v-8.3H-351.5z M-356.1,366.8h-32.5v-70h32.5V366.8z"></path>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="card-heading">
+                            <h2>COVID 19</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-2 pb-3" data-i="{{ $escort->covidreport }}">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input covidreport change_default" type="radio"
+                            name="covidreport" id="inlineRadio1" required data-parsley-group="group_one"
+                            data-parsley-required-message="Please select a COVID vaccination status"
+                            data-parsley-errors-container="#covidreport-errors" value="1"
+                            {{ $escort->getRawOriginal('covidreport') == 1 ? ' checked' : null }}>
+                        <label class="form-check-label" for="inlineRadio1">Vaccinated, not up to date</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input covidreport change_default" type="radio"
+                            name="covidreport" id="inlineRadio2" value="2"
+                            {{ $escort->getRawOriginal('covidreport') == 2 ? ' checked' : null }}>
+                        <label class="form-check-label" for="inlineRadio2">Vaccinated, up to date</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input covidreport change_default" type="radio"
+                            name="covidreport" id="inlineRadio3" value="3"
+                            {{ $escort->getRawOriginal('covidreport') == 3 ? ' checked' : null }}>
+                        <label class="form-check-label" for="inlineRadio3">Not Vaccinated</label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <span id="covidreport-errors"></span>
+                </div>
+
+
+        
+            <div class="col-md-12 text-right">
+                @if (request()->segment(2) == 'profile' && request()->segment(3))
+                    <button type="button" id="updateVaccineStatus" class="save_profile_btn common-save-btn">Update</button>
+                @endif
+            </div>
+        </div>
+         <!-- Who Am I -->
+        <div class="row inner-row">
+            <div class="col-lg-12">
+                <div class="card-top">
+                    <div class="card-icon">
+                        <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                            </g>
+
+                            <g id="SVGRepo_iconCarrier">
+
+                                <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+
+                                <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+
+                            </g>
+
+                        </svg>
+                    </div>
+                    <div class="card-heading">
+                        <h2>Who am I ?</h2>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-12">
+                @if (request()->segment(2) == 'profile' && request()->segment(3))
+                    <form id="update_abut_who_am_i" action="{{ route('escort.about', [$escort->id]) }}"
+                        method="POST">
+                        @csrf
+                @endif
+
+
+                {{-- <input type="text" name="about_title"
+                    value="{{ $escort->about_title ? $escort->about_title : null }}" class="whoiamtitle mb-3"
+                    placeholder="Enter Your Title Here" required data-parsley-group="group_one"
+                    data-parsley-required-message="Enter title"> --}}
+
+                @php
+                    $currentTitle = $escort->about_title ?? additional_information(Auth::id(), 'title');
+                    $savedTitles = $loginAccount->additionalInfo->where('type', 'title')->pluck('value');
+                    $savedTitles[] = $currentTitle;
+                    $hasTitles = $savedTitles->isNotEmpty();
+                @endphp
+
+                @php
+                    $currentNarrations = additional_information(Auth::id(), 'narration');
+
+                    $savedNarrations = $loginAccount->additionalInfo->where('type', 'narration');
+                @endphp
+                <div class="inner-field-row">
+                    <div class="form-group">
+                            <label for="title"> Title </label>
+                            @if ($hasTitles)
+                            
+                                {{-- Dropdown: existing saved titles --}}
+                                <select id="title" name="about_title" onclick="titleInput(this)"
+                                    class="js-stage-name-select form-control  change_default_select"
+                                    title="Title" data-parsley-group="group_one"
+                                    data-parsley-errors-container="#title-errors">
+
+                                    <option value="">— Choose Your Title —</option>
+
+                                    @foreach ($savedTitles as $title)
+                                        <option value="{{ $title }}"
+                                            {{ $currentTitle === $title ? 'selected' : '' }}>
+                                            {{ $title }}
+                                        </option>
+                                    @endforeach
+
+                                    <option value="new">Add a new Title</option>
+                                </select>
+
+                                {{-- Text input: hidden until "Add new" is selected --}}
+                                <input type="hidden" id="titleInp" name="" value=""
+                                    class="change_default form-control  mt-1"
+                                    placeholder="Enter new Title" data-parsley-group="group_one"
+                                    data-parsley-errors-container="#title-errors"
+                                    data-original-title="{{ $currentTitle }}">
+                            @else
+                                {{-- No saved titles: plain text input --}}
+                                <input type="text" id="title" name="about_title" value="{{ $currentTitle }}"
+                                    placeholder="Title"
+                                    class="change_default form-control "
+                                    data-parsley-group="group_one" data-parsley-errors-container="#title-errors">
+
+                            @endif
+                    </div>
+                    
+                    <div class="form-group">
+                            <label for="narration"> Narration </label>
+                            {{-- Dropdown: existing saved titles --}}
+                            <select id="narration" name="about_narration"
+                                class="js-stage-name-select form-control  change_default"
+                                title="Narration" data-parsley-group="group_one"
+                                data-parsley-errors-container="#narration-errors">
+
+                                <option value="">— Choose Your Narration —</option>
+
+                                @foreach ($savedNarrations as $narration)
+                                    <option value="{{ $narration->short_desc }} "
+                                        {{ $currentNarrations == $narration->short_desc ? 'selected' : '' }}>
+                                        {{ $narration->short_desc }}
+                                    </option>
+                                @endforeach
+                            </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-4">
+                <textarea id="editor1" name="about" data-parsley-maxlength="2500"
+                    data-parsley-maxlength-message="You can't enter more than 2500 characters." required
+                    data-parsley-group="group_one" data-parsley-required-message="Enter content."
+                    data-parsley-errors-container="#editor1-errors">
+                    @if (!empty($escort->about)) {{ $escort->about }} @endif
+                    </textarea>
+                <span class="theme-text-color text-capitalize">max limit 2500 characters</span>
+                <div >
+                    <span id="editor1-errors"></span>
+                </div>
+            </div>    
+
+        
+            @if (request()->segment(2) == 'profile' && request()->segment(3))
+                
+                    <div class="col-md-12 text-right">
+
+                        <button id="update_who_am_i" type="sumbit"
+                            class="save_profile_btn who_am_i common-save-btn">Update</button>
+
+                    </div>
                 </form>
             @endif
         </div>
