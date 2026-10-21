@@ -1134,45 +1134,7 @@
             en: 'Please enter a valid time (HH:MM).'
         }
     });
-    $('#brb_form').parsley({});
 
-
-    $("#brb_form").on('submit', function(e) {
-        e.preventDefault();
-        var form = $(this);
-        var profileId = $("#profile_id").val();
-        var url = "{{ route('escort.brb.add') }}";
-        var data = new FormData(form[0]);
-        var selectedProfileName = $('#profile_id option:selected').attr('profile_name');
-
-        $.ajax({
-            method: 'POST',
-            url: url,
-            data: data,
-            contentType: false,
-            processData: false,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(data) {
-                if (data.response.success) {
-                    Swal.fire({
-                        icon: "success",
-                        text: data.response.message
-                    });
-                    $("#brb_form")[0].reset();
-                    $('#add_brb').modal('hide');
-                    table.draw();
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        text: data.response.message
-                    });
-                }
-            },
-
-        });
-    });
 
     $("#modal_close").on('click', function(e) {
         $("#brb_form")[0].reset();

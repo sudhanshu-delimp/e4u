@@ -1,4 +1,4 @@
-<div class="modal fade upload-modal" id="add_brb" tabindex="-1" role="dialog"
+<div class="modal fade upload-modal modal-form-brb" id="add_brb" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static"
     aria-modal="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -16,7 +16,7 @@
                         <div class="col-md-12">
                             <div class="container p-0">
                                 
-                                <form id="brb_form">
+                                <form id="brb_form" action="{{route('escort.brb.add')}}"  method="POST">
                                     <div class="form-group row">
                                         <label class="col-sm-4" for=""> Profile:</label>
                                         <div class="col-sm-8">
@@ -40,17 +40,28 @@
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4" for=""> BRB Date & Time:</label>
-                                        <div class="col-sm-4">
+                                        <!-- <div class="col-sm-4">
                                             <input type="date" required min="{{ date('Y-m-d') }}"
                                                 class="form-control form-control-sm removebox_shdow" name="brb_date"
                                                 data-parsley-type="" data-parsley-type-message="">
                                             <span id="brb-time-errors"></span>
+                                        </div> -->
+                                        <!-- <div class="col-sm-4">
+                                            <input type="text" required 
+                                                class="form-control form-control-sm removebox_shdow js_datepicker min_today" name="brb_date">
+                                            <span id="brb-time-errors"></span>
+                                        </div> -->
+                                        <div class="col-sm-8">
+                                            <input type="text" required 
+                                                class="form-control form-control-sm removebox_shdow" name="brb_date" id="datetimepicker_brb"  placeholder="Select date and time">
+                                            <span id="brb-time-errors"></span>
                                         </div>
-                                        <div class="col-sm-4">
+                                        
+                                        <!-- <div class="col-sm-4">
                                             <input type="time" class="form-control form-control-sm removebox_shdow"
                                                 name="brb_time" required data-parsley-time required>
                                             <span id="brb-time-errors"></span>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4" for=""> BRB Note:</label>
@@ -61,7 +72,7 @@
                                     </div> 
                                      <div class="modal-footer" style="text-align: right; display: block;">
                                         <button type="submit" class="btn-success-modal" id="save_brb">Do you want to Post?</button>
-                                        <button type="submit" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
                                     </div>                                   
                                 </form>
                             </div>
@@ -72,3 +83,73 @@
             </div>
     </div>
 </div>
+@prepend('script')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
+<script>
+   
+    $(function () {
+        $("#datetimepicker_brb").datetimepicker({
+            dateFormat: "yy-mm-dd",
+            timeFormat: "hh:mm tt",
+            minDate: 0,
+            controlType: "select",
+            changeMonth: true,
+            changeYear: true
+        });
+    });
+
+    let brbFrom = $(".modal-form-brb form");
+    let brbFromButton = brbFrom.find('.modal-footer button[type="submit"]');
+   
+    brbFrom.on('submit', function (e) {
+    e.preventDefault();
+    $.ajax({
+        url: brbFrom.attr('action'),
+        method: brbFrom.attr('method'),
+        dataType: 'json',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        data: brbFrom.serialize(),
+        beforeSend: function () {
+            showLoadingPopup();
+            brbFromButton.prop('disabled', true);
+        },
+        success: function (response, textStatus, xhr) {
+            console.log('response: ',response);
+            console.log('textStatus: ',textStatus);
+            console.log('xhr: ',xhr);
+            Swal.close();
+            if (response.success) {
+                brbFromButton.prop('disabled', false);
+                brbFrom.closest('.modal').modal('hide');
+                table.draw();
+                displaySwal(xhr);
+            }
+            
+        },
+        error: function (xhr) {
+            Swal.close();
+            if (xhr.status === 422) {
+                let messages = Object.values(JSON.parse(xhr.responseText).errors).flat().join('<br>');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    html: messages
+                });
+            } else {
+                let message = JSON.parse(xhr.responseText).message;
+                Swal.fire({
+                    icon: 'error',
+                    title: xhr.statusText,
+                    text: message || 'Something went wrong.'
+                });
+            }
+            $("#modalPaymentButton").prop("disabled", false);
+        }
+    });
+});
+
+</script>
+@endprepend
