@@ -6,6 +6,7 @@ use App\Models\Purchase;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use App\Repositories\Playmate\PlaymateInterface;
+use App\Services\SitemapService;
 use Illuminate\Support\Facades\Artisan;
 
 
@@ -42,7 +43,7 @@ class SyncEscortProfile extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(SitemapService $sitemap)
     {
         $now = Carbon::now('UTC');
         /**
@@ -77,6 +78,7 @@ class SyncEscortProfile extends Command
                         'utc_end_time' => null,
                         'purchase_id' => null
                     ]);
+                    $sitemap->syncEscortProfile($escort, false);
                     $this->info("=============== $key ===============");
                     $this->info("Disabled Escort ID {$escort->id} (related to expired Purchase ID {$purchase->id}) on {$purchase->start_date} to {$purchase->end_date}");
                 }
@@ -108,6 +110,7 @@ class SyncEscortProfile extends Command
                         'enabled' => 1,
                         'purchase_id' => $purchase['id']
                     ]);
+                    $sitemap->syncEscortProfile($escort, true);
                 }
                 $purchase->update(['status' => 'listed']);
                 Artisan::queue('profile:sync-status'); // update profile verification status

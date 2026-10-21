@@ -166,13 +166,55 @@
                      <td class="text-left">{{$summery->member_id ?? ''}} </td>
                      <td class="text-left">{{$summery->advertiser_name ?? ''}}</td>
                      <td class="text-center">{{$summery->joined_date ?? ''}}</td>
-                     <td class="text-right">{{formatCurrency($summery->platinum_spend) ?? ''}}</td>
-                     <td class="text-right">{{formatCurrency($summery->gold_spend) ?? ''}}</td>
-                     <td class="text-right">{{formatCurrency($summery->silver_spend) ?? ''}}</td>
-                     <td class="text-right">{{formatCurrency($summery->pinup_spend) ?? ''}}</td>
-                     <td>{{formatCurrency($summery->fixed_spend) ?? ''}} </td>
-                     <td class="text-right">{{formatCurrency($summery->total_spend)}}</td>
-                     <td class="text-right">{{formatCurrency($summery->fees)}}</td>
+                     <td class="text-right">
+                        <div class="num_value">
+                            <span class="currency">$</span>
+                            <span class="amount">{{ $summery->platinum_spend ?? '' }}</span>
+                        </div>
+                    </td>
+
+                     <td class="text-right">
+                        <div class="num_value">
+                            <span class="currency">$</span>
+                            <span class="amount">{{ $summery->gold_spend ?? '' }}</span>
+                        </div>
+                    </td>
+
+                    <td class="text-right">
+                        <div class="num_value">
+                            <span class="currency">$</span>
+                            <span class="amount">{{ $summery->silver_spend ?? '' }}</span>
+                        </div>
+                    </td>
+
+                    <td class="text-right">
+                        <div class="num_value">
+                            <span class="currency">$</span>
+                            <span class="amount">{{ $summery->pinup_spend ?? '' }}</span>
+                        </div>
+                    </td>
+
+                    <td class="text-right">
+                        <div class="num_value">
+                            <span class="currency">$</span>
+                            <span class="amount">{{ $summery->fixed_spend ?? '' }}</span>
+                        </div>
+                    </td>
+
+                    <td class="text-right">
+                        <div class="num_value">
+                            <span class="currency">$</span>
+                            <span class="amount">{{ $summery->total_spend ?? '' }}</span>
+                        </div>
+                    </td>
+
+                    <td class="text-right">
+                        <div class="num_value">
+                            <span class="currency">$</span>
+                            <span class="amount">{{ $summery->fees ?? '' }}</span>
+                        </div>
+                    </td>
+
                      <td class="text-center">
                          <div class="dropdown no-arrow">
                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -181,51 +223,21 @@
                              </a>
                              <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                  aria-labelledby="dropdownMenuLink" style="">
-                                 <button type="button" class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-advertiser-report" data-advertiser-id="{{$summery->user_id}}" data-advertiser-type="{{$summery->membership_type}}">
+                                 {{-- <button type="button" class="dropdown-item d-flex align-items-center justify-content-start gap-10 view-advertiser-report" data-advertiser-id="{{$summery->user_id}}" data-advertiser-type="{{$summery->membership_type}}">
                                      <i class="fa fa-eye"></i> View Report
                                  </button>
                                  <div class="dropdown-divider"></div>
-                                 <button type="button" class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                     data-toggle="modal" data-target="#">
+                                 <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
+                                     href="{{ route('agent.fees.print-advertiser-summary', ['advertiser_id' => $summery->user_id, 'type' => $summery->membership_type]) }}"
+                                     target="_blank" rel="noopener">
                                      <i class="fa fa-print"></i> Print Report
-                                 </button>
+                                 </a> --}}
                              </div>
                          </div>
                      </td>
                  </tr>
                  @endforeach
-                 {{-- <tr>
-                     <td class="text-left">M612465</td>
-                     <td class="text-left">Lin’s Massage</td>
-                     <td class="text-center">01/01/2022</td>
-                     <td> </td>
-                     <td> </td>
-                     <td> </td>
-                     <td> </td>
-                     <td class="text-right">$ 1,950.00</td>
-                     <td class="text-right">$ 1,950.00</td>
-                     <td class="text-right">$ 97.50</td>
-                     <td class="text-center">
-                         <div class="dropdown no-arrow">
-                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                             </a>
-                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                 aria-labelledby="dropdownMenuLink" style="">
-                                 <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                     href="#" data-toggle="modal" data-target="#message-report"> <i
-                                         class="fa fa-eye"></i> View Masseur Report
-                                 </a>
-                                 <div class="dropdown-divider"></div>
-                                 <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                     href="#" data-toggle="modal" data-target="#"> <i class="fa fa-print"></i>
-                                     Print Masseur Report</a>
 
-                             </div>
-                         </div>
-                     </td>
-                 </tr> --}}
              </tbody>
          </table>
      </div>

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Escort;
 use DOMDocument;
 use DOMXPath;
 use Illuminate\Support\Facades\File;
@@ -25,42 +26,59 @@ class SitemapService
         }
  
         $include = (int) ($data['sitemap_include'] ?? 0) === 1;
+        $this->syncUrl($url, $include);
+    }
+
+    public function syncEscortProfile(Escort $escort, bool $include): void
+    {
+        $url = $this->resolveEscortProfileUrl($escort);
+        if (!$url) {
+            return;
+        }
+
+        $this->syncUrl($url, $include);
+    }
+
+    protected function resolveEscortProfileUrl(Escort $escort): ?string
+    {
+        if (empty($escort->slug)) {
+            return null;
+        }
+
+        $url = getAdvertiserDetailUrl($escort, 'escort');
+        return $url === 'javascript:void(0)' ? null : $url;
+    }
+
+    protected function syncUrl(string $url, bool $include): void
+    {
  
         $dom = $this->loadDocument();
         $xpath = new DOMXPath($dom);
         $xpath->registerNamespace('s', 'http://www.sitemaps.org/schemas/sitemap/0.9');
  
-        // Step 1: remove existing entry for this page, if any
-        $existingNode = $this->findUrlNode($xpath, $url);
-        if ($existingNode) {
+        foreach ($this->findUrlNodes($xpath, $url) as $existingNode) {
             $existingNode->parentNode->removeChild($existingNode);
         }
  
-        // Step 2: checkbox unchecked → just save the removal and stop
         if (!$include) {
             $this->save($dom);
             return;
         }
  
-
-       // $priority   = $data['sitemap_priority'] ?? 0.5;
-        //$changefreq = $data['sitemap_changefreq'] ?? 'weekly';
-        $lastmod    = now()->toAtomString();
- 
-        $urlset = $dom->documentElement;
-        $urlNode = $dom->createElement('url');
- 
-        $urlNode->appendChild($dom->createElement('loc', htmlspecialchars($url, ENT_XML1)));
-        $urlNode->appendChild($dom->createElement('lastmod', $lastmod));
-        //$urlNode->appendChild($dom->createElement('changefreq', $changefreq));
-        //$urlNode->appendChild($dom->createElement('priority', (string) $priority));
- 
-        $urlset->appendChild($urlNode);
- 
+        $this->appendUrlNode($dom, $url);
         $this->save($dom);
     }
 
-  
+    protected function appendUrlNode(DOMDocument $dom, string $url): void
+    {
+        $urlNode = $dom->createElement('url');
+        $locNode = $dom->createElement('loc');
+        $locNode->appendChild($dom->createTextNode($url));
+        $urlNode->appendChild($locNode);
+        $urlNode->appendChild($dom->createElement('lastmod', now()->toAtomString()));
+        $dom->documentElement->appendChild($urlNode);
+    }
+
     // public function regenerate(iterable $rows): int
     // {
     //     $dom = $this->newDocument();
@@ -87,10 +105,6 @@ class SitemapService
 
     //     return $count;
     // }
-
-
-
-
 
     // ---------------------------------------------------------------
     // Internals
@@ -147,10 +161,17 @@ class SitemapService
         return $dom;
     }
 
-    protected function findUrlNode(DOMXPath $xpath, string $url)
+    protected function findUrlNodes(DOMXPath $xpath, string $url): array
     {
-        $nodes = $xpath->query("//s:url[s:loc='" . $url . "']");
-        return $nodes->length > 0 ? $nodes->item(0) : null;
+        $matches = [];
+        foreach ($xpath->query('//s:url') as $urlNode) {
+            $locNodes = $xpath->query('./s:loc', $urlNode);
+            if ($locNodes->length > 0 && $locNodes->item(0)->textContent === $url) {
+                $matches[] = $urlNode;
+            }
+        }
+
+        return $matches;
     }
 
     protected function setChildValue(\DOMElement $parent, string $tag, string $value): void

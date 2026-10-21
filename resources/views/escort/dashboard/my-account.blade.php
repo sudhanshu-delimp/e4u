@@ -316,7 +316,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <div>
-                                                    <label for="">Do you consent, pursuant to clause 13.2
+                                                    <label for="" style="text-transform: unset;">Do you consent, pursuant to Clause 13.2
                                                         and 13.3 of the Terms and Conditions, to being promoted on
                                                         any or all of E4U’s social media platforms?</label>
                                                 </div>
@@ -512,8 +512,7 @@
                                                         <input class="form-check-input" name="viewer_contact_type[]" type="checkbox"
                                                             id="Method_Email_Me" value="3"
                                                             @if (!empty($escort->viewer_contact_type)) {{ in_array(3, $escort->viewer_contact_type) ? 'checked' : null }} @endif>
-                                                        <label class="form-check-label" for="Method_Email_Me">Email me (only
-                                                            for private communications with a Viewer)</label>
+                                                        <label class="form-check-label" for="Method_Email_Me" style="text-transform: unset;">Email Me (For private communications)</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" name="viewer_contact_type[]" type="checkbox"

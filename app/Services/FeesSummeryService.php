@@ -97,7 +97,7 @@ class FeesSummeryService
     }
 
 
-    public function getEarnings( string $fyLabel, string $displayType   = 'member_id', float  $feePercentage = 5 ) {
+    public function getEarnings( string $fyLabel, string $displayType   = 'member_id') {
         $fy         = $this->getFYDateRange($fyLabel);
         $orderBy    = $this->getOrderBy($displayType);
 
@@ -139,13 +139,16 @@ class FeesSummeryService
                 CASE WHEN users.type = '3' THEN 'E' ELSE 'MC' END as membership_type,
                 DATE_FORMAT(users.created_at, '%d-%m-%Y') as joined_date,
 
-                SUM(CASE WHEN pi.item_type = ? AND pu.membership = 1 THEN ph.net_amount ELSE 0 END) as platinum_spend,
-                SUM(CASE WHEN pi.item_type = ? AND pu.membership = 2 THEN ph.net_amount ELSE 0 END) as gold_spend,
-                SUM(CASE WHEN pi.item_type = ? AND pu.membership = 3 THEN ph.net_amount ELSE 0 END) as silver_spend,
-                SUM(CASE WHEN pi.item_type = ? THEN ph.net_amount ELSE 0 END) as pinup_spend,
-                SUM(CASE WHEN (pi.item_type = ? AND pu.membership = 5) OR (pi.item_type = ? AND mp.id IS NOT NULL) THEN ph.net_amount ELSE 0 END) as fixed_spend,
- 
-                SUM(ph.net_amount) as total_spend,
+                SUM(CASE WHEN pi.item_type = ? AND pu.membership = 1 THEN COALESCE(pi.amount, ph.net_amount) ELSE 0 END) as platinum_spend,
+                SUM(CASE WHEN pi.item_type = ? AND pu.membership = 2 THEN COALESCE(pi.amount, ph.net_amount) ELSE 0 END) as gold_spend,
+                SUM(CASE WHEN pi.item_type = ? AND pu.membership = 3 THEN COALESCE(pi.amount, ph.net_amount) ELSE 0 END) as silver_spend,
+                SUM(CASE WHEN pi.item_type = ? THEN COALESCE(pi.amount, ph.net_amount) ELSE 0 END) as pinup_spend,
+                SUM(CASE WHEN (pi.item_type = ? AND pu.membership = 5) OR (pi.item_type = ? AND mp.id IS NOT NULL) THEN COALESCE(pi.amount, ph.net_amount) ELSE 0 END) as fixed_spend,
+                SUM(CASE WHEN (pi.item_type = ? AND pu.membership IN (1, 2, 3, 5))
+                    OR pi.item_type = ?
+                    OR (pi.item_type = ? AND mp.id IS NOT NULL)
+                    THEN COALESCE(pi.amount, ph.net_amount) ELSE 0 END) as total_spend,
+
                 MAX(COALESCE(fee_totals.fees, 0)) as fees,
                 MAX(COALESCE(fee_totals.fee_percentage, 0)) as fee_percentage
             ", [
@@ -154,6 +157,9 @@ class FeesSummeryService
                 $purchaseType,
                 $escortPinupType,
                 $purchaseType,
+                $massagePurchaseType,
+                $purchaseType,
+                $escortPinupType,
                 $massagePurchaseType,
             ])
  
@@ -253,7 +259,7 @@ class FeesSummeryService
             ->where('pi.item_type', $purchaseType)
             ->select(
                 'ph.paid_at',
-                'ph.net_amount',
+                DB::raw('COALESCE(pi.amount, ph.net_amount) as net_amount'),
                 'pu.id as purchase_id',
                 'pu.start_date',
                 'pu.end_date',
@@ -271,7 +277,7 @@ class FeesSummeryService
             ->where('pi.item_type', $escortPinupType)
             ->select(
                 'ph.paid_at',
-                'ph.net_amount',
+                DB::raw('COALESCE(pi.amount, ph.net_amount) as net_amount'),
                 'ep.state_id',
             )
             ->get();
@@ -284,13 +290,11 @@ class FeesSummeryService
             ->where('t.user_id', $userId)
             ->where('tl.is_pinup', '0')
             ->select(
-                't.id as tour_id',
-                'tl.id as location_id',
+                'tp.id as tour_profile_id',
                 'tl.state_id',
                 'tl.start_date',
                 'tl.end_date'
             )
-            ->distinct()
             ->get();
 
         // ── Also fetch advertiser info ─────────────────────────────────────────
@@ -299,8 +303,9 @@ class FeesSummeryService
         // ── Aggregate ─────────────────────────────────────────────────────────
         $fyData      = [];
         $grandTotals = $this->emptyTotals();
-        $tourIdsByFy = [];
-        $tourIdsByFyState = [];
+        $tourProfileIdsByFy = [];
+        $tourProfileIdsByFyState = [];
+
 
         // Process purchase rows
         foreach ($purchaseRows as $row) {
@@ -319,6 +324,7 @@ class FeesSummeryService
             $grandTotals['listings']++;
             $grandTotals['listing_days'] += $days;
 
+
             $col = $this->membershipColumn((int) $row->membership);
             if ($col) {
                 $fyData[$fy]['states'][$stateName][$col] += $amount;
@@ -330,6 +336,8 @@ class FeesSummeryService
             }
         }
 
+
+
         // Process escort tour locations
         foreach ($tourRows as $row) {
             $fy = $this->fyLabel($row->start_date);
@@ -337,21 +345,22 @@ class FeesSummeryService
             $days = Carbon::parse($row->start_date)->diffInDays(Carbon::parse($row->end_date)) + 1;
 
             $this->ensureFyState($fyData, $fy, $stateName);
-            $tourIdsByFy[$fy][$row->tour_id] = true;
-            $tourIdsByFyState[$fy][$stateName][$row->tour_id] = true;
+            $tourProfileIdsByFy[$fy][$row->tour_profile_id] = true;
+            $tourProfileIdsByFyState[$fy][$stateName][$row->tour_profile_id] = true;
             $fyData[$fy]['states'][$stateName]['tour_days'] += $days;
             $fyData[$fy]['fy_totals']['tour_days'] += $days;
             $grandTotals['tour_days'] += $days;
         }
 
-        foreach ($tourIdsByFy as $fy => $tourIds) {
-            $tourCount = count($tourIds);
+
+        foreach ($tourProfileIdsByFy as $fy => $tourProfileIds) {
+            $tourCount = count($tourProfileIds);
             $fyData[$fy]['fy_totals']['tours'] = $tourCount;
             $grandTotals['tours'] += $tourCount;
         }
-        foreach ($tourIdsByFyState as $fy => $states) {
-            foreach ($states as $stateName => $tourIds) {
-                $fyData[$fy]['states'][$stateName]['tours'] = count($tourIds);
+        foreach ($tourProfileIdsByFyState as $fy => $states) {
+            foreach ($states as $stateName => $tourProfileIds) {
+                $fyData[$fy]['states'][$stateName]['tours'] = count($tourProfileIds);
             }
         }
 
@@ -370,6 +379,18 @@ class FeesSummeryService
             $grandTotals['pinup']                         += $amount;
             $grandTotals['total']                         += $amount;
         }
+
+
+        $configuredStates = config('escorts.profile.states', []);
+        foreach ($fyData as &$data) {
+            foreach ($configuredStates as $state) {
+                $stateName = $state['stateAbbr'] ?? null;
+                if ($stateName !== null) {
+                    $data['states'][$stateName] ??= $this->emptyTotals();
+                }
+            }
+        }
+        unset($data);
 
         // Sort FYs latest first, add display label
         krsort($fyData);
@@ -395,6 +416,7 @@ class FeesSummeryService
             'gold' => 0.0,
             'silver' => 0.0,
             'pinup' => 0.0,
+            'fixed' => 0.0,
             'total' => 0.0,
             'listings' => 0,
             'listing_days' => 0,
@@ -423,7 +445,7 @@ class FeesSummeryService
             1 => 'platinum',
             2 => 'gold',
             3 => 'silver',
-            5 => 'silver',   // Fixed → silver; change if you want a separate "fixed" column
+            5 => 'fixed',
             default => null,
         };
     }
