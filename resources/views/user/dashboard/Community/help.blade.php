@@ -39,14 +39,14 @@
                   <div class="row pb-5">
                      <div class="col-md-12">
                         <div id="accordion" class="myacording-design">
-                           <div class="card">
+                           <div class="card common-card">
                               <div class="card-header">
                                  <a class="card-link collapsed" data-toggle="collapse" href="#about_me" aria-expanded="false">
                                  Anonymity
                                  </a>
                               </div>
                               <div id="about_me" class="collapse" data-parent="#accordion" style="">
-                                 <div class="card-body p-0">
+                                 <div class="card-body">
                                     <div class="row">
                                        <div class="col-sm-12">
                                           <p class="pt-2">
@@ -111,14 +111,14 @@
                                  </div>
                               </div>
                            </div>
-                           <div class="card">
+                           <div class="card common-card">
                               <div class="card-header">
                                  <a class="card-link collapsed" data-toggle="collapse" href="#profile_and_tour_options" aria-expanded="false">
                                  Payments
                                  </a>
                               </div>
                               <div id="profile_and_tour_options" class="collapse" data-parent="#accordion" style="">
-                                 <div class="card-body p-0">
+                                 <div class="card-body">
                                     <div class="row">
                                        <div class="col-sm-12">
                                           <p class="pt-2"><b>Q: How much will it cost me to be a Member?</b></p>
@@ -143,14 +143,14 @@
                                  </div>
                               </div>
                            </div>
-                           <div class="card">
+                           <div class="card common-card">
                               <div class="card-header">
                                  <a class="card-link collapsed" data-toggle="collapse" href="#other_fees_concierge_services" aria-expanded="false">
                                  Marketing and Third Party Advertisers
                                  </a>
                               </div>
                               <div id="other_fees_concierge_services" class="collapse" data-parent="#accordion" style="">
-                                 <div class="card-body p-0">
+                                 <div class="card-body">
                                     <div class="row">
                                        <div class="col-sm-12">
                                           <p class="pt-2"><b>Q: Will my email address or mobile number be passed onto third parties? </b></p>

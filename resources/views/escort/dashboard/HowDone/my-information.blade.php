@@ -46,7 +46,7 @@
                 <div id="accordion" class="myacording-design">
 
                     <!-- My Personal Information-->
-                    <div class="card">
+                    <div class="card common-card">
                         <div class="card-header" id="headingPersonal">
                             <h2 class="mb-0">
                                 <a class="card-link collapsed" data-toggle="collapse" href="#collapsePersonal"
@@ -142,7 +142,7 @@
                     </div>
 
                     <!-- My Additional Informationn-->
-                    <div class="card">
+                    <div class="card common-card">
                         <div class="card-header" id="headingAdditional">
                             <h2 class="mb-0">
                                 <a class="card-link collapsed" data-toggle="collapse" href="#collapseAdditional"
@@ -336,7 +336,7 @@
 
 
                     <!-- My Available Times -->
-                    <div class="card">
+                    <div class="card common-card">
                         <div class="card-header" id="headingAvailable">
                             <h2 class="mb-0">
                                 <a class="card-link collapsed" data-toggle="collapse" href="#collapseAvailable"
@@ -406,7 +406,7 @@
                     </div>
 
                     <!-- My Playmates-->
-                    <div class="card">  
+                    <div class="card common-card">  
                         <div class="card-header" id="headingPlaymates">
                             <h2 class="mb-0">
                                 <a class="card-link collapsed" data-toggle="collapse" href="#collapsePlaymates"
@@ -506,7 +506,7 @@
 
 
                     <!-- My Rates-->
-                    <div class="card">
+                    <div class="card common-card">
                         <div class="card-header" id="headingRates">
                             <h2 class="mb-0">
                                 <a class="card-link collapsed" data-toggle="collapse" href="#collapseRates"
@@ -568,7 +568,7 @@
                     </div>
 
                     <!-- My Services (Tags) -->
-                    <div class="card">
+                    <div class="card common-card">
                         <div class="card-header" id="headingServices">
                             <h2 class="mb-0">
                                 <a class="card-link collapsed" data-toggle="collapse" href="#collapseServices"
@@ -636,7 +636,7 @@
                     </div>
 
                     <!-- My Social Media -->
-                    <div class="card">
+                    <div class="card common-card">
                         <div class="card-header" id="headingSocial">
                             <h2 class="mb-0">
                                 <a class="card-link collapsed" data-toggle="collapse" href="#collapseSocial"

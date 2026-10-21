@@ -50,14 +50,14 @@
                   <div class="row">
                      <div class="col-md-12">
                         <div id="accordion" class="myacording-design">
-                           <div class="card">
+                           <div class="card common-card">
                               <div class="card-header">
                                  <a class="card-link collapsed" data-toggle="collapse" href="#about_me" aria-expanded="false">
                                  Common Sense - Use It!
                                  </a>
                               </div>
                               <div id="about_me" class="collapse" data-parent="#accordion" style="">
-                                 <div class="card-body p-0">
+                                 <div class="card-body">
                                     </br>
                                     <p>Do not do stupid things or expect Escorts or especially Masseurs to do so</p>
                                     <p>Always remember:</p>
@@ -83,14 +83,14 @@
                                  </div>
                               </div>
                            </div>
-                           <div class="card">
+                           <div class="card common-card">
                               <div class="card-header">
                                  <a class="card-link collapsed" data-toggle="collapse" href="#Donations" aria-expanded="false">
                                  Donations
                                  </a>
                               </div>
                               <div id="Donations" class="collapse" data-parent="#accordion" style="">
-                                 <div class="card-body p-0">
+                                 <div class="card-body">
                                     <br>
                                     <p>When you meet an Escort, in most cases you will be expected to provide your donation at
                                        the start of the appointment. With a Massage Centre, you will always be expected to pay
@@ -133,14 +133,15 @@
                                  </div>
                               </div>
                            </div>
-                           <div class="card">
+                           
+                           <div class="card common-card">
                               <div class="card-header">
                                  <a class="card-link collapsed" data-toggle="collapse" href="#Etiquette" aria-expanded="false">
                                  Etiquette
                                  </a>
                               </div>
                               <div id="Etiquette" class="collapse" data-parent="#accordion" style="">
-                                 <div class="card-body p-0">
+                                 <div class="card-body">
                                     <br>
                                     <p>When contacting an Escort, or meeting with a Masseur, it is a good idea to provide some
                                        information about you. A polite introduction is very helpful as part of getting through any
@@ -185,14 +186,14 @@
                                  </div>
                               </div>
                            </div>
-                           <div class="card">
+                           <div class="card common-card">
                               <div class="card-header">
                                  <a class="card-link collapsed" data-toggle="collapse" href="#Future" aria-expanded="false">
                                  Future contact
                                  </a>
                               </div>
                               <div id="Future" class="collapse" data-parent="#accordion" style="">
-                                 <div class="card-body p-0">
+                                 <div class="card-body">
                                     <br>
                                     <p>It is a nice, and a welcome gesture, for a client to send a short text or email within a couple
                                        of days, thanking the Escort for a lovely time. This is generally appreciated, and further
@@ -215,14 +216,14 @@
                                  </div>
                               </div>
                            </div>
-                           <div class="card">
+                           <div class="card common-card">
                               <div class="card-header">
                                  <a class="card-link collapsed" data-toggle="collapse" href="#Intimacy" aria-expanded="false">
                                  Intimacy
                                  </a>
                               </div>
                               <div id="Intimacy" class="collapse" data-parent="#accordion" style="">
-                                 <div class="card-body p-0">
+                                 <div class="card-body">
                                     <br>
                                     <p>This is the best part of any meeting with an Escort, and to a lessor extent a Masseur. It is
                                        what you have been waiting for. So let them make you feel relaxed and comfortable, they
@@ -243,14 +244,14 @@
                                  </div>
                               </div>
                            </div>
-                           <div class="card">
+                           <div class="card common-card">
                               <div class="card-header">
                                  <a class="card-link collapsed" data-toggle="collapse" href="#Personal" aria-expanded="false">
                                  Personal hygiene
                                  </a>
                               </div>
                               <div id="Personal" class="collapse" data-parent="#accordion" style="">
-                                 <div class="card-body p-0">
+                                 <div class="card-body">
                                     <br>
                                     <p>You should approach visiting an Escort and a Masseur in the same way you would for
                                        going on a date. Here is a list of tips compiled from talking to a number of Escorts and
@@ -286,14 +287,14 @@
                                  </div>
                               </div>
                            </div>
-                           <div class="card">
+                           <div class="card common-card">
                               <div class="card-header">
                                  <a class="card-link collapsed" data-toggle="collapse" href="#Reviews" aria-expanded="false">
                                  Reviews
                                  </a>
                               </div>
                               <div id="Reviews" class="collapse" data-parent="#accordion" style="">
-                                 <div class="card-body p-0">
+                                 <div class="card-body">
                                     <br>
                                     <p>Our Website provides an opportunity for a review to be provided about your experience
                                        with an Escort or Massage Centre. When considering providing a review about your
@@ -319,14 +320,14 @@
                                  </div>
                               </div>
                            </div>
-                           <div class="card">
+                           <div class="card common-card">
                               <div class="card-header">
                                  <a class="card-link collapsed" data-toggle="collapse" href="#Sexual" aria-expanded="false">
                                  Sexual health
                                  </a>
                               </div>
                               <div id="Sexual" class="collapse" data-parent="#accordion" style="">
-                                 <div class="card-body p-0">
+                                 <div class="card-body">
                                     <br>
                                     <p>Unprotected sex with an Escort is a very stupid idea. If you are still feeling dumb, do not
                                        ask for it unless an Escort explicitly offers the service.
@@ -372,14 +373,14 @@
                                  </div>
                               </div>
                            </div>
-                           <div class="card">
+                           <div class="card common-card">
                               <div class="card-header">
                                  <a class="card-link collapsed" data-toggle="collapse" href="#Staying" aria-expanded="false">
                                  Staying Out of Trouble
                                  </a>
                               </div>
                               <div id="Staying" class="collapse" data-parent="#accordion" style="">
-                                 <div class="card-body p-0">
+                                 <div class="card-body">
                                     <br>
                                     <p>Make sure you are aware of the Local Laws regarding escort services wherever you are. 
                                        It is important that you understand how the Local Laws are enforced. The oldest

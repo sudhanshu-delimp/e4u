@@ -46,7 +46,7 @@
             {{-- end --}}
             <div class="row">
                <div class="col-md-12">
-                  <div class="table-responsive">
+                  <div class="table-responsive common-card">
                      <table class="table dataTable" style="width: 100%;">
                         <thead class="table-bg">
                            <tr role="row">
@@ -122,7 +122,7 @@
                   <div class="row">
                      <div class="col-md-12">
                         <div id="accordion" class="myacording-design">
-                           <div class="card">
+                           <div class="card common-card">
                               <div class="card-header">
                                  <a class="card-link collapsed" data-toggle="collapse" href="#LoyaltyProgram" aria-expanded="false">
                                   Guidelines
