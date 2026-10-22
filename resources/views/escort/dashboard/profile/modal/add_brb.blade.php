@@ -103,36 +103,21 @@
             brbFromButton.prop('disabled', true);
         },
         success: function (response, textStatus, xhr) {
-            console.log('response: ',response);
-            console.log('textStatus: ',textStatus);
-            console.log('xhr: ',xhr);
             Swal.close();
             if (response.success) {
-                brbFromButton.prop('disabled', false);
-                brbFrom.closest('.modal').modal('hide');
                 table.draw();
+                brbFrom.closest('.modal').modal('hide');
+                brbFrom[0].reset();
                 displaySwal(xhr);
             }
             
         },
         error: function (xhr) {
             Swal.close();
-            if (xhr.status === 422) {
-                let messages = Object.values(JSON.parse(xhr.responseText).errors).flat().join('<br>');
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Validation Error',
-                    html: messages
-                });
-            } else {
-                let message = JSON.parse(xhr.responseText).message;
-                Swal.fire({
-                    icon: 'error',
-                    title: xhr.statusText,
-                    text: message || 'Something went wrong.'
-                });
-            }
-            $("#modalPaymentButton").prop("disabled", false);
+            displaySwal(xhr);
+        },
+        complete: function () {
+            brbFromButton.prop('disabled', false);
         }
     });
 });
