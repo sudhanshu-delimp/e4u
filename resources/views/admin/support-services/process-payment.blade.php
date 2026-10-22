@@ -283,7 +283,7 @@
                                     </div>
                                 </div>
 
-                                <button type="button" id="nextBtn" class="next-btn">
+                                <button type="button" id="payBtn" class="next-btn">
                                     Pay
                                 </button>
                             </div>
@@ -317,7 +317,7 @@
         const emptyStateMessage = document.getElementById('emptyStateMessage');
         const status = document.getElementById('lookupStatus');
         const message = document.getElementById('message');
-        const nextBtn = document.getElementById('nextBtn');
+        const payBtn = document.getElementById('payBtn');
         const rightTotalAmount = document.getElementById('rightTotalAmount');
         const payableSummary = document.querySelector('.payable-summary');
 
@@ -364,15 +364,18 @@
             }, 0);
         }
 
-        function updateTotalAmount() {
-            const total = calculateTotal();
+       
+            function updateTotalAmount() {
+                const total = calculateTotal();
+                const hasServices = selectedServices.length > 0;
 
-            rightTotalAmount.textContent = formatMoney(total);
+                rightTotalAmount.textContent = formatMoney(total);
 
-            const hasServices = selectedServices.length > 0;
+                payableSummary.classList.toggle('show-total', hasServices);
 
-            payableSummary.classList.toggle('show-total', hasServices);
-        }
+                payBtn.style.display = hasServices ? 'inline-block' : 'none';
+            }
+
 
         function resetAdvertiser() {
             selectedAdvertiser = null;
@@ -388,15 +391,25 @@
             emptyStateMessage.textContent =
                 'Enter a valid Member ID on the left to view advertiser details, select services and proceed with payment.';
 
-            nextBtn.style.display = 'none';
+            payBtn.style.display = 'none';
             servicesInput.value = '';
 
             renderServices();
         }
 
+       
         function renderServices() {
             const target = document.getElementById('serviceChips');
             target.replaceChildren();
+
+            // Selected services ko dropdown se hide karo
+            Array.from(servicesInput.options).forEach(option => {
+                if (!option.value) return;
+
+                option.hidden = selectedServices.includes(option.value);
+            });
+
+            servicesInput.value = '';
 
             if (!selectedServices.length) {
                 const empty = document.createElement('span');
@@ -451,6 +464,7 @@
             updateTotalAmount();
         }
 
+
         function showAdvertiser(ad) {
             selectedAdvertiser = ad;
 
@@ -469,7 +483,6 @@
             rightColumn.hidden = false;
             noDetails.hidden = true;
             serviceSection.hidden = false;
-            nextBtn.style.display = 'inline-block';
 
             status.textContent =
                 'Advertiser found. You can select services now.';
@@ -592,7 +605,7 @@
             renderServices();
         });
 
-        nextBtn.addEventListener('click', () => {
+        payBtn.addEventListener('click', () => {
             if (!selectedAdvertiser) return;
 
             if (!selectedServices.length) {
