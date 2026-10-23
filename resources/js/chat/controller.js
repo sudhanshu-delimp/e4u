@@ -1176,6 +1176,7 @@ export function initChat(root) {
         closeActive,
         closeAllChatMenus,
         isUserOnline,
+        hideBlocked: config.hideBlockedChats,
         renderList,
         renderMessages,
         updateBlockUi,

@@ -8,7 +8,7 @@ import { confirmAction } from './dialogs';
 export function initChatActions(ctx) {
     const {
         root, state, api, notify, findConv, loadList, closeActive, closeAllChatMenus,
-        isUserOnline, renderList, renderMessages, updateBlockUi,
+        isUserOnline, renderList, renderMessages, updateBlockUi,hideBlocked,
     } = ctx;
 
     let overlay = null;
@@ -284,6 +284,15 @@ export function initChatActions(ctx) {
             }
 
             conv.blocked_by_me = !unblock;
+
+            // Massage Centre: a blocked person leaves the list right away
+            if (hideBlocked && !unblock) {
+                closeActive();
+                await loadList();
+                notify('User blocked.', 'success');
+                return;
+            }
+
             updateBlockUi(conv);
             notify(unblock ? 'User unblocked.' : 'User blocked.', 'success');
         } catch (error) {

@@ -213,6 +213,10 @@ class ChatController extends Controller
         // Location radio:
         // "mine" = same state as me (all shown when my own location is unknown),
         // "australia" = any Australian state
+        $isAustralian = fn($id) => in_array((int) $id, $australiaIds, true);
+
+        // Your Location: people in my state (all chats when my own location is unknown).
+        // Australia: people in any Australian state.
         $data = $data->filter(function ($item) use ($location, $myLocation, $australiaIds) {
             $stateId = $item['user']['location_id'];
 
@@ -262,22 +266,17 @@ class ChatController extends Controller
             });
         }
 
-        if ((int) $me->type === (int) config('chat.types.agent')) {
+        $type = (int) $me->type;
+
+        if ($type === (int) config('chat.types.agent')) {
             // An Agent only sees advertisers who appointed them
             $query->where('enabled', 1)->where(function ($q) use ($me) {
                 $q->where('assigned_agent_id', $me->id)
                     ->orWhereIn('id', DB::table('agent_escorts')->where('agent_id', $me->id)->pluck('escort_id'));
             });
-        } elseif ((int) $me->type === (int) config('chat.types.escort')) {
-            // An escort sees viewers who have them in their Legbox, and their own appointed Agent
-            $escortIds = DB::table('escorts')->where('user_id', $me->id)->pluck('id');
-
-            $viewerIds = DB::table('my_legbox')
-                ->whereIn('escort_id', $escortIds)
-                ->where(function ($q) {
-                    $q->whereNull('is_blocked')->orWhere('is_blocked', 0);
-                })
-                ->pluck('user_id');
+        } elseif (in_array($type, [(int) config('chat.types.escort'), (int) config('chat.types.massage_center')], true)) {
+            // An escort or massage centre sees viewers who have them in their Legbox, and their own Agent
+            $viewerIds = $this->eligibility->viewerIdsFor($me);
 
             $agentIds = DB::table('agent_escorts')->where('escort_id', $me->id)->pluck('agent_id');
 
@@ -286,16 +285,8 @@ class ChatController extends Controller
                     ->orWhere('id', (int) $me->assigned_agent_id)
                     ->orWhereIn('id', $agentIds);
             });
-        } elseif ((int) $me->type === (int) config('chat.types.viewer')) {
-            // A viewer only sees escorts saved in their Legbox
-            $legboxEscortIds = DB::table('my_legbox')
-                ->where('user_id', $me->id)
-                ->where(function ($q) {
-                    $q->whereNull('is_blocked')->orWhere('is_blocked', 0);
-                })
-                ->pluck('escort_id');
-
-            $query->whereIn('id', DB::table('escorts')->whereIn('id', $legboxEscortIds)->pluck('user_id'));
+        } elseif ($type === (int) config('chat.types.viewer')) {
+            $query->whereIn('id', $this->eligibility->advertiserIdsIn($me));
         }
 
         $users = $query->orderBy('member_id')->limit(50)->get([

@@ -10,6 +10,7 @@ class ChatEligibility
     // Settings flag columns. Change here if the wrong flag is used.
     private const ESCORT_FLAG = 'features_allow_viewers_to_send_you_a_text_message'; // escort_settings
     private const VIEWER_FLAG = 'features_direct_chatting_with_escorts';              // viewer_settings
+    private const MASSAGE_FLAG = 'features_allow_viewers_to_send_you_a_text_message'; // massage_settings
 
     public function __construct(private ChatPermission $permission) {}
 
@@ -57,13 +58,13 @@ class ChatEligibility
             );
         }
 
-        // Escort <-> Viewer: the same checks apply whoever starts the chat
+        // Escort or Massage Centre <-> Viewer: the same checks apply whoever starts the chat
         if ($this->permission->needsViewerChecks($starter, $target)) {
-            return $this->escortToViewer($starter, $target);
+            return $this->advertiserToViewer($starter, $target);
         }
 
         if ($this->permission->needsViewerChecks($target, $starter)) {
-            return $this->escortToViewer($target, $starter);
+            return $this->advertiserToViewer($target, $starter);
         }
 
         return ['ok' => true, 'reason' => null];
@@ -103,18 +104,20 @@ class ChatEligibility
     }
 
     /**
-     * Escort -> Viewer rules:
-     * 1. Escort has the feature enabled in escort_settings
-     * 2. Viewer has the feature enabled in viewer_settings
-     * 3. Escort is in the viewer's Legbox and not blocked there
+     * Escort or Massage Centre <-> Viewer rules:
+     * 1. The advertiser has messaging enabled in their own settings
+     * 2. The viewer has direct chatting enabled
+     * 3. The advertiser is in the viewer's Legbox and not blocked there
      */
-    protected function escortToViewer(User $escort, User $viewer): array
+    protected function advertiserToViewer(User $advertiser, User $viewer): array
     {
-        $escortOn = DB::table('escort_settings')
-            ->where('user_id', $escort->id)
-            ->value(self::ESCORT_FLAG);
+        $isMassage = (int) $advertiser->type === (int) config('chat.types.massage_center');
 
-        if ((string) $escortOn !== '1') {
+        $advertiserOn = DB::table($isMassage ? 'massage_settings' : 'escort_settings')
+            ->where('user_id', $advertiser->id)
+            ->value($isMassage ? self::MASSAGE_FLAG : self::ESCORT_FLAG);
+
+        if ((string) $advertiserOn !== '1') {
             return $this->deny('Enable messaging in your Notifications & Features settings first.');
         }
 
@@ -126,24 +129,76 @@ class ChatEligibility
             return $this->deny('This viewer has not enabled direct chatting.');
         }
 
-        // my_legbox.escort_id is the escorts table id, so map from users.id first
-        $escortIds = DB::table('escorts')
-            ->where('user_id', $escort->id)
-            ->pluck('id');
-
-        $inLegbox = DB::table('my_legbox')
-            ->where('user_id', $viewer->id)
-            ->whereIn('escort_id', $escortIds)
-            ->where(function ($q) {
-                $q->whereNull('is_blocked')->orWhere('is_blocked', 0);
-            })
-            ->exists();
-
-        if (! $inLegbox) {
+        if (! $this->viewerHasAdvertiser($viewer, $advertiser)) {
             return $this->deny('This viewer does not have you in their Legbox.');
         }
 
         return ['ok' => true, 'reason' => null];
+    }
+
+    /**
+     * Does this viewer have the escort or massage centre in their Legbox?
+     * Escorts are saved in my_legbox (escorts.id, with a blocked flag),
+     * massage centres in massage_legbox (massage_profiles.id).
+     */
+    public function viewerHasAdvertiser(User $viewer, User $advertiser): bool
+    {
+        if ($this->isMassage($advertiser)) {
+            return DB::table('massage_legbox')
+                ->where('user_id', $viewer->id)
+                ->whereIn('massage_id', DB::table('massage_profiles')->where('user_id', $advertiser->id)->pluck('id'))
+                ->exists();
+        }
+
+        return DB::table('my_legbox')
+            ->where('user_id', $viewer->id)
+            ->whereIn('escort_id', DB::table('escorts')->where('user_id', $advertiser->id)->pluck('id'))
+            ->where(function ($q) {
+                $q->whereNull('is_blocked')->orWhere('is_blocked', 0);
+            })
+            ->exists();
+    }
+
+    /**
+     * users.id of every viewer who has this escort or massage centre in their Legbox.
+     */
+    public function viewerIdsFor(User $advertiser)
+    {
+        if ($this->isMassage($advertiser)) {
+            return DB::table('massage_legbox')
+                ->whereIn('massage_id', DB::table('massage_profiles')->where('user_id', $advertiser->id)->pluck('id'))
+                ->pluck('user_id');
+        }
+
+        return DB::table('my_legbox')
+            ->whereIn('escort_id', DB::table('escorts')->where('user_id', $advertiser->id)->pluck('id'))
+            ->where(function ($q) {
+                $q->whereNull('is_blocked')->orWhere('is_blocked', 0);
+            })
+            ->pluck('user_id');
+    }
+
+    /**
+     * users.id of every escort and massage centre in this viewer's Legbox.
+     */
+    public function advertiserIdsIn(User $viewer)
+    {
+        $escortIds = DB::table('my_legbox')
+            ->where('user_id', $viewer->id)
+            ->where(function ($q) {
+                $q->whereNull('is_blocked')->orWhere('is_blocked', 0);
+            })
+            ->pluck('escort_id');
+
+        $massageIds = DB::table('massage_legbox')->where('user_id', $viewer->id)->pluck('massage_id');
+
+        return DB::table('escorts')->whereIn('id', $escortIds)->pluck('user_id')
+            ->merge(DB::table('massage_profiles')->whereIn('id', $massageIds)->pluck('user_id'));
+    }
+
+    protected function isMassage(User $user): bool
+    {
+        return (int) $user->type === (int) config('chat.types.massage_center');
     }
 
     protected function isBlockedEitherWay(int $a, int $b): bool

@@ -28,6 +28,8 @@
         'typeLabels' => config('chat.type_labels', []),
         // Types that cannot be blocked (Agent)
         'unblockable' => config('chat.unblockable', []),
+                // Massage Centre: a blocked person leaves the list right away
+        'hideBlockedChats' => in_array((int) $chatMe->type, config('chat.hide_blocked_for', []), true),
     ];
 
     $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
@@ -74,8 +76,8 @@
                         </button>
 
                         <div class="filter-dropdown more-dropdown" id="filterDropdown">
-                            <button type="button" class="filter-option active" data-filter="chats">
-                               <i class="bi bi-person-check"></i> Active Users
+                                                        <button type="button" class="filter-option active" data-filter="chats">
+                                {{ [4 => 'Active Viewers', 5 => 'Active Advertisers'][(int) auth()->user()->type] ?? 'Active Users' }}
                             </button>
                             <button type="button" class="filter-option" data-filter="archived">
                                <i class="bi bi-archive"></i> Archived Chats

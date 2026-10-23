@@ -20,9 +20,10 @@ return [
     //   5 => [3, 4],  4 => [5],   // agent <-> massage centre
     //   3 => [0, 5, 1],  1 => [3],   // escort <-> admin
     'rules' => [
-        3 => [0, 5], // escort -> viewer, agent
-        0 => [3],    // viewer -> escort
-        5 => [3],    // agent  -> escort
+        3 => [0, 5],    // escort         -> viewer, agent
+        0 => [3, 4],    // viewer         -> escort, massage centre
+        5 => [3, 4],    // agent          -> escort, massage centre
+        4 => [0, 5],    // massage centre -> viewer, agent
     ],
 
     // Label shown as "Type:" in the chat header
@@ -36,10 +37,11 @@ return [
 
     // Types that can NOT be blocked
     'unblockable' => [5],
+    'hide_blocked_for' => [4],
 
     // Escort starting a chat with a viewer needs extra checks
     // (Notifications & Features settings + Legbox)
-    'requires_viewer_checks' => [3],
+    'requires_viewer_checks' => [3, 4],
 
     // Avatar colour per state abbreviation.
     // Abbreviation comes from config('escorts.profile.states.{state_id}.stateAbbr').

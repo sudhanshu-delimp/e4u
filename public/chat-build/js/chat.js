@@ -37,7 +37,8 @@ function initChatActions(ctx) {
     isUserOnline = ctx.isUserOnline,
     renderList = ctx.renderList,
     renderMessages = ctx.renderMessages,
-    updateBlockUi = ctx.updateBlockUi;
+    updateBlockUi = ctx.updateBlockUi,
+    hideBlocked = ctx.hideBlocked;
   var overlay = null;
   function closeModal() {
     if (!overlay) {
@@ -318,18 +319,31 @@ function initChatActions(ctx) {
             return api.block(conv.id);
           case 6:
             conv.blocked_by_me = !unblock;
+
+            // Massage Centre: a blocked person leaves the list right away
+            if (!(hideBlocked && !unblock)) {
+              _context5.n = 8;
+              break;
+            }
+            closeActive();
+            _context5.n = 7;
+            return loadList();
+          case 7:
+            notify('User blocked.', 'success');
+            return _context5.a(2);
+          case 8:
             updateBlockUi(conv);
             notify(unblock ? 'User unblocked.' : 'User blocked.', 'success');
-            _context5.n = 8;
+            _context5.n = 10;
             break;
-          case 7:
-            _context5.p = 7;
+          case 9:
+            _context5.p = 9;
             _t5 = _context5.v;
             notify(_t5.message || 'Action failed.', 'error');
-          case 8:
+          case 10:
             return _context5.a(2);
         }
-      }, _callee5, null, [[3, 7]]);
+      }, _callee5, null, [[3, 9]]);
     }));
     return _toggleBlock.apply(this, arguments);
   }
@@ -1827,6 +1841,7 @@ function initChat(root) {
     closeActive: closeActive,
     closeAllChatMenus: closeAllChatMenus,
     isUserOnline: isUserOnline,
+    hideBlocked: config.hideBlockedChats,
     renderList: renderList,
     renderMessages: renderMessages,
     updateBlockUi: updateBlockUi
