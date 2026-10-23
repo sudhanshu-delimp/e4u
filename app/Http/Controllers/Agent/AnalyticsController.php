@@ -409,9 +409,9 @@ class AnalyticsController extends Controller
 
                 ->addColumn('listing_fee', function ($row)  {
 
-                        $paymentHistory = $this->getPaymentHistoryData($row);
+                      
                         $pin_up_amount = $this->getPinupAmount($row);
-                        $sum_listing_fees = $paymentHistory ? $paymentHistory->net_amount : 0;
+                        $sum_listing_fees = $this->getPaymentAmount($row);
                         $totalFee  = $pin_up_amount + $sum_listing_fees;
                         $fee = formatCurrency($totalFee, '');
                         return '<div class="num_value">$<span>' . $fee . '</span></div>';
@@ -459,6 +459,26 @@ class AnalyticsController extends Controller
                 ->make(true);
 
     } 
+
+
+    private function getPaymentAmount($row)
+    {
+        $totalAmount = 0;
+        $purchaseIds = collect($row->tourPurchase)->pluck('id')->filter()->unique();
+
+        //  Log::info($row->id.'========'.$row->name);
+        //  Log::info($purchaseIds);
+        //  Log::info('========');
+
+        if ($purchaseIds->isEmpty()) {
+            return $totalAmount;
+        }
+
+        $totalAmount = PaymentItem::whereIn('item_id', $purchaseIds)
+        ->where('item_type', 'App\Models\Purchase')
+        ->sum('amount');
+        return  $totalAmount;
+    }
 
     private function getPaymentHistoryData($row)
     {
@@ -537,8 +557,6 @@ class AnalyticsController extends Controller
             'to_date'   => ['required', 'date', 'after_or_equal:from_date'],
         ]);
 
-     
-
         $fromDate = date('Y-m-d', strtotime($request->from_date));
         $toDate   = date('Y-m-d', strtotime($request->to_date));
         
@@ -557,9 +575,12 @@ class AnalyticsController extends Controller
         }
 
         $alltours = $tours->map(function ($row, $index) {
+
             $paymentHistory = $this->getPaymentHistoryData($row);
-            
-            $totalFee = $paymentHistory ? $paymentHistory->net_amount : 0;
+            $pin_up_amount = $this->getPinupAmount($row);
+            $sum_listing_fees = $this->getPaymentAmount($row);
+            $totalFee  = $pin_up_amount + $sum_listing_fees;
+
             $comm_fee = ($paymentHistory && $paymentHistory->commissions) 
                 ? $paymentHistory->commissions->sum('total_commission_amount') 
                 : 0;
@@ -659,6 +680,7 @@ class AnalyticsController extends Controller
             }
 
             $is_pinup = 0;
+            $total_pinup_amount = 0;
             $pinup_data = [];
             $pinup_array = [];
   
@@ -674,7 +696,7 @@ class AnalyticsController extends Controller
                         ->where('item_type', 'App\Models\EscortPinup')
                         ->first();
 
-                    $escort_pinup = EscortPinup::where('id', $pinup_data['is_pinup'])->first();
+                    $escort_pinup = EscortPinup::with('escort')->where('id', $pinup_data['is_pinup'])->first();
                     if($escort_pinup)
                     {
                         $escort_start = $escort_pinup->start_date ? Carbon::parse($escort_pinup->start_date) : null;
@@ -682,20 +704,19 @@ class AnalyticsController extends Controller
                         $pin_days = ($escort_start && $escort_end) ? $escort_start->diffInDays($escort_end) + 1 : 0;
                     }
 
+                    $membership_pinup = isset($escort_pinup->escort->slug) ?  'Pin Up (' .$escort_pinup->escort->slug.')' : 'Pin Up';
                     $pinup_array['location'] = optional($location->state)->iso2 ?? optional($location->state)->iso2 ?? 'N/A';
-                    $pinup_array['membership'] = 'Pin Up';
-                    $pinup_array['start_date'] = $escort_pinup->start_date;
-                    $pinup_array['end_date'] = $escort_pinup->end_date;
+                    $pinup_array['membership'] = $membership_pinup;
+                    $pinup_array['start_date'] = date('d-m-Y',strtotime($escort_pinup->start_date));
+                    $pinup_array['end_date'] = date('d-m-Y',strtotime($escort_pinup->end_date));  
                     $pinup_array['days'] = '(1 week)';
                     $pinup_array['listing_fee'] = $PaymentItem ? $PaymentItem->amount: 0;
-                    $listingFee += $PaymentItem ? $PaymentItem->amount : 0;
-                  
+                    $total_pinup_amount += $PaymentItem->amount;
                 }
 
             }
-
             
-            $totalFeeSum += $listingFee;
+            $totalFeeSum += $listingFee+$total_pinup_amount;
             $summaryData[] = [
                 'location'        => optional($location->state)->iso2 ?? optional($location->state)->iso2 ?? 'N/A',
                 'start_date'      => $startDate,
@@ -716,6 +737,22 @@ class AnalyticsController extends Controller
             'total_days' => $totalDaysSum,
             'total_fee'  => number_format($totalFeeSum, 2)
         ]);
+    }
+
+
+    public function downloadTourSummaryPdf(Request $request)
+    {
+        $response = $this->getTourSummaryDetail($request);
+        $data = $response->getData(true);
+
+        if (empty($data['status'])) {
+            abort(404, $data['message'] ?? 'Tour summary not found.');
+        }
+
+        $pdf = Pdf::loadView('agent.pdf.tour_summary', $data)
+                ->setPaper('a4', 'portrait');
+
+        return $pdf->stream('tour_summary_' . $data['member_id'] . '.pdf');
     }
 
 }

@@ -54,7 +54,9 @@ use App\Http\Controllers\Admin\ConciergeReportController;
 use App\Http\Controllers\Admin\VisaMigrationRequestController;
 use App\Http\Controllers\Admin\SeoManagementController;
 use App\Http\Controllers\Admin\StatisticsController;
+use App\Http\Controllers\Admin\Administration\SupportServicController;
 use App\Http\Controllers\Admin\Management\ReportingController as ManagementReportingController;
+
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
@@ -804,6 +806,31 @@ Route::prefix('management')
 
   });
 
+  Route::prefix('administration')
+  ->name('administration.')
+  ->group(function () {
+    Route::prefix('support-services')->name('support-services.')->group(function () {
+      Route::get('/financial-report', [SupportServicController::class, 'financialReport'])->name('financial_report');
+      Route::get('/process-payment', [SupportServicController::class, 'processPayment'])->name('process_payment');
+      Route::get('/summary', [SupportServicController::class, 'summary'])->name('summary');
+    });
+  });
+
+
+  Route::get('support-services/financial-report', function () {
+  return view('admin.support-services.financial-report');
+})->name('admin.financial-report');
+
+Route::get('support-services/process-payment', function () {
+  return view('admin.support-services.process-payment');
+})->name('admin.process-payment');
+
+Route::get('support-services/summary', function () {
+  return view('admin.support-services.summary');
+})->name('admin.summary');
+
+
+
 Route::get('/reports/credit', function () {
   return view('admin.reports.credit');
 })->name('admin.credit');
@@ -838,18 +865,6 @@ Route::get('/management/dashboard', function () {
 Route::get('reference-lookup', function () {
   return view('admin.reference-lookup.index');
 })->name('admin.reference-lookup');
-
-Route::get('support-services/financial-report', function () {
-  return view('admin.support-services.financial-report');
-})->name('admin.financial-report');
-
-Route::get('support-services/process-payment', function () {
-  return view('admin.support-services.process-payment');
-})->name('admin.process-payment');
-
-Route::get('support-services/summary', function () {
-  return view('admin.support-services.summary');
-})->name('admin.summary');
 
 
 

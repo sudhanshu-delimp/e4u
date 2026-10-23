@@ -21,7 +21,14 @@
         }
 
 
-    </style>
+        /* ============= PRINT STYLES ================= */
+
+
+        
+       
+
+
+        </style>
 @endsection
 @section('content')
 
@@ -161,7 +168,7 @@
                                     
                                         <button type="button" class="" 
                                             id="view_pdf_report">View Report</button>
-                                        <button type="button" class="btn-cancel-modal" id="print_report">Print</button>
+                                        <button type="button" class="btn-cancel-modal print_report_list" id="print_report">Print</button>
                                         
                                     </div>
                                 </div>
@@ -225,10 +232,10 @@
                                     <thead>
                                         <tr style="background-color: #0c223d; color: white; font-weight: bold; text-align:center">
                                         
+                                            <th style="text-align:center;">Tour Name</th>
                                             <th style="text-align:center;">Member ID</th>
                                             <th style="text-align:center;">Name</th>
                                             <th style="text-align:center;">Mobile</th>
-                                            <th style="text-align:center;">Tour Name</th>
                                             <th style="text-align:center;">Locations</th>
                                             <th style="text-align:center;">Start Date</th>
                                             <th style="text-align:center;">End Date</th>
@@ -245,7 +252,7 @@
                             </div>
 
                             <div class="modal-footer justify-content-end mt-3">
-                                <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
+                                <button type="button" class="btn-cancel-modal print_report_list" id="save_change">Print</button>
                                 <button type="button" class="btn-success-modal" data-dismiss="modal" value="close" id="close_change">Ok</button>
                             </div>
                         </div>
@@ -288,7 +295,7 @@
                     </div>
 
                     <div class="modal-footer justify-content-end mt-3">
-                        <button type="button" class="btn-cancel-modal" id="printSummaryBtn">Print</button>
+                        <button type="button" class="btn-cancel-modal" data-tour-id="" id="printSummaryBtn">Print</button>
                         <button type="button" class="btn-success-modal" data-dismiss="modal">Ok</button>
                     </div>
                 </div>
@@ -496,7 +503,7 @@
 
 
     //  ########### Print Report ##################  
-    $('#print_report').on('click', async function () {
+    $('.print_report_list').on('click', async function () {
 
         let fromDate = $('#fromDate').val();
         let toDate = $('#toDate').val();
@@ -629,10 +636,10 @@
                         html += `
                             <tr>
                                
+                                <td class="text-center">${item.tour_name}</td>
                                 <td class="text-center">${item.member_id}</td>
-                                <td>${item.name}</td>
-                                <td>${item.mobile}</td>
-                                <td>${item.tour_name}</td>
+                                <td class="text-center">${item.name}</td>
+                                <td class="text-center">${item.mobile}</td>
                                 <td class="text-center">${item.no_of_location}</td>
                                 <td class="text-center">${item.start_date}</td>
                                 <td class="text-center">${item.end_date}</td>
@@ -697,6 +704,7 @@
 
                 let html = '';
                 if (res.data && res.data.length > 0) {
+                    $('#printSummaryBtn').attr('data-tour-id', res.tour_id);
                     res.data.forEach((row, index) => {
 
                       console.log('row.pinup_data',row.pinup_data);
@@ -792,11 +800,19 @@
         });
     });
 
-                                    //$('#tour_detail_summary_old').modal('show');      
-     
 });
 
+
+$(document).on('click', '#printSummaryBtn', function (e) {
+    e.preventDefault();
+    let tourId = $(this).attr('data-tour-id');
+    if (!tourId) return;
+
+    let url = "{{ route('agent.tour_summary_pdf') }}?tour_id=" + tourId;
+    window.open(url, '_blank');
+});
+
+
+
 </script>   
-
-
 @endpush

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Purchase;
 use App\Services\FeesSummeryService;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use Illuminate\View\Component;
 use Override;
@@ -76,25 +77,29 @@ class FeesSummaryController extends Controller
 
   }
 
-  // public function fetchFeeSummeryAdvertiserData(Request $request)
-  // {
-  //   $fy = $request->get('fy');
-  //   $displayType = $request->display_type;
+  public function printAdvertiserFeeSummary(Request $request)
+  {
+      $type = strtoupper((string) $request->input('type'));
+      $advertiserId = (int) $request->input('advertiser_id');
 
-  //   try {
-  //     $datas = $this->feeService->getSummeryData(
-  //       requestedFY: $request->get('fy'),
-  //       displayType: $request->get('display_type', 'member_id')
-  //     );
+      abort_unless($advertiserId > 0, 422, 'Advertiser is required.');
+      abort_unless(in_array($type, ['E', 'MS', 'MC'], true), 422, 'Invalid advertiser type.');
 
-  //   $html = view('agent.dashboard.Fees.fees_summery_advertiser_table_data', compact('datas'))->render();
-  //   return success_response(['html' => $html, 'datas' => $datas], 'OK', 200);
-  //   //return success_response('Data fetched successfully', ['html' => $html]);
+      $advertiser = User::query()
+          ->whereKey($advertiserId)
+          ->where('assigned_agent_id', Auth::id())
+          ->whereIn('type', ['3', '4'])
+          ->firstOrFail();
 
-  //   } catch (\Exception $e) {
-  //     return error_response('Invalid financial year format.');
-  //   }
+      $datas = $this->feeService->getReport($advertiserId);
+
+      $pdf = Pdf::loadView(
+          'agent.dashboard.Fees.fees_summary.print_advertiser_summary',
+          compact('datas')
+      )->setPaper('a4', 'landscape');
+
+      return $pdf->stream('advertiser-report-' . $advertiserId . '.pdf');
+  }
 
 
-  // }
 }

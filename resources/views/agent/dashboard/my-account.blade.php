@@ -12,16 +12,6 @@
         #Agent_Agreement .modal-dialog {
             max-width: 1000px !important;
         }
-
-        div.myacording-design .card .card-body ul li,
-        div.myacording-design .card .card-body p {
-            border-top: 0px;
-            font-family: 'Poppins';
-            font-weight: normal;
-            font-size: 14px;
-            line-height: 28px;
-            text-align: left !important
-        }
     </style>
 @endsection
 @section('content')

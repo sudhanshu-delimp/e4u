@@ -63,7 +63,7 @@
                                                 : <span>{{ formatCurrency(Auth::user()->wallet->balance) }}</span></h5>
                                         </div>
                                     </div>
-                                    <div class="card payment_loyalty_option">
+                                    <div class="card payment_loyalty_option_show">
                                         <div class="card-body">
                                             <h5> <img src="{{ asset('assets/dashboard/img/days.png') }}"> Loyalty Days
                                                 : <span>{{ Auth::user()->wallet->earn_days ?? 0 }}</span></h5>
@@ -122,6 +122,8 @@
                                     <li>For a detailed summary of this transaction, go to <a
                                             href="{{ route('escort.payment.transaction_summary') }}"
                                             class="custom_links_design" target="_blank"> Transaction Summary</a>.</li>
+                                    <!-- <li>Loyalty points are available as a payment option only for the Listing, Tour, and Extend features on profile listings. This payment option is not available for Pinup, Bump Up, or Upgrade.</li> -->
+                                    <li>Any variation feature you apply to a Listed Profile where a payment is required, can only be paid by your Card or Wallet credit.  You can not use any Loyalty Days for features that you are varying.  Loyalty Days can only be used for Listing a Profile.</li>
                                 </ol>
                             </div>
 

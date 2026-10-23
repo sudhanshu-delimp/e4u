@@ -15,7 +15,7 @@ class SupportTickets extends Model
     protected $table = "support_tickets";
     protected $guarded = ['id'];
     protected $fillable = [
-        'user_id', 'department', 'priority', 'service_type', 'subject', 'message', 'file', 'created_on', 'status', 'unread'
+        'user_id', 'department', 'priority', 'service_type', 'subject', 'message', 'file', 'created_on', 'status', 'unread', 'ref_number'
     ];
 
 

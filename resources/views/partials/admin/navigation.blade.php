@@ -13,6 +13,12 @@ $levelName = $levels[$level] ?? "";
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
         <i class="fa fa-bars"></i>
     </button>
+    
+    <!-- <div>
+        <span class="toggleButton">
+            <i class="fa fa-toggle-off toggle-icon"></i>
+        </span>
+    </div> -->
     {{-- logged in user data --}}
     <div class="topbar-logged-in-user-data d-flex">
         <div class="d-user-info">

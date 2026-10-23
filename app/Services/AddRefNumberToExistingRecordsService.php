@@ -14,7 +14,7 @@ class AddRefNumberToExistingRecordsService
     {
         try {
             $tables = [
-                'concierge_mobile_sims',
+               /*  'concierge_mobile_sims',
                 'agent_notifications',
                 'center_notifications',
                 'escort_notifications',
@@ -29,13 +29,13 @@ class AddRefNumberToExistingRecordsService
                 'advertiser_agent_requests',
                 'communications',
                 'nums',
-                'punterbox',
+                'punterbox', */
                 'support_tickets',
-                'notebox',
+               /*  'notebox',
                 'influencers',
                 'feedbacks',
                 'payment_histories',
-                'email_logs'
+                'email_logs' */
             ];
 
             foreach ($tables as $table) {
@@ -74,6 +74,8 @@ class AddRefNumberToExistingRecordsService
                             if (Schema::hasColumn($table, 'created_at')) {
                                 $id = $tableObj->id;
                                 $createdAt = $tableObj->created_at;
+
+                                $createdAt = ($table == 'support_tickets') ? $tableObj->created_on : $tableObj->created_at;
 
                                 if (!empty($createdAt)) {
                                     $refNum = generateReferenceNunber($tableObj);

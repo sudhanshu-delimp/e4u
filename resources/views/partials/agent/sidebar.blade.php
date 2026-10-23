@@ -43,7 +43,7 @@
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
                     <span
                         style="{{ request()->segment(2) == 'update-account' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : '' }}">
-                        Edit my account</span>
+                        My Account</span>
                 </a>
                 <a class="collapse-item" href="{{ route('agent.change.password') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">

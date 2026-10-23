@@ -15,12 +15,12 @@ $ocLavel = 'Developer';
 @endphp
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar" id="accordionSidebar">
+    
+        @if (auth()->user() && auth()->user()->type == 1)
 
-    @if (auth()->user() && auth()->user()->type == 1)
-    <a class="sidebar-brand text-left pb-1" href="{{ route('home') }}">
-        <img src="{{ asset('assets/images/escorts4u-logo.svg') }}" class="mb-3 e4u_logo" alt="">
-
-    </a>
+        <a class="sidebar-brand text-left pb-1" href="{{ route('home') }}">
+            <img src="{{ asset('assets/images/escorts4u-logo.svg') }}" class="mb-3 e4u_logo" alt="">
+        </a>
     <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-2">OC ({{ $ocLavel }})</span>
     <li class="nav-item active">
         <a class="nav-link" href="{{ route('admin.index') }}">
@@ -145,7 +145,7 @@ $ocLavel = 'Developer';
                     'financial-report',
                     'process-payment',
                     'summary',
-                ]) || in_array(request()->segment(2), ['support_tickets', 'submit_ticket', 'reference-lookup'])) show @endif"
+                ]) || request()->routeIs('administration.*') || in_array(request()->segment(2), ['support_tickets', 'submit_ticket', 'reference-lookup'])) show @endif"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
             <div class="py-0 collapse-inner rounded mb-2">
@@ -789,36 +789,34 @@ $ocLavel = 'Developer';
 
 
                 {{-- Support Services --}}
-                <a class="nav-link  {{ in_array(request()->segment(3), ['financial-report', 'process-payment', 'summary']) ? '' : 'collapsed' }}"
+                <a class="nav-link  collapsed"
                     href="#" data-toggle="collapse" data-target="#supportServices" aria-expanded="false"
                     aria-controls="supportServices">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/support-services.png') }}">
                     <span>Support Services</span>
                 </a>
 
-                <div id="supportServices" class=" collapse  @if (request()->segment(3) == 'financial-report' ||
-                            request()->segment(3) == 'process-payment' ||
-                            request()->segment(3) == 'summary') show @endif"
+                <div id="supportServices" class=" collapse @if (request()->routeIs('administration.support-services.*')) show @endif"
                     data-parent="#Administration">
                     <div class="py-0 collapse-inner rounded mb-2">
-                        <a class="collapse-item show" href="{{ route('admin.financial-report') }}">
+                        <a class="collapse-item show" href="{{ route('administration.support-services.financial_report') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/financials.png') }}">
                             <span
-                                style="{{ request()->segment(3) == 'financial-report' ? 'color: #e5365a;' : '' }}">Financial
+                                style="{{ request()->routeIs('administration.support-services.financial_report') ? 'color: #FF3C5F;' : '' }}">Financial
                                 Report
                             </span>
                         </a>
-                        <a class="collapse-item show" href="{{ route('admin.process-payment') }}">
+                        <a class="collapse-item show" href="{{ route('administration.support-services.process_payment') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/payment.png') }}">
                             <span
-                                style="{{ request()->segment(3) == 'process-payment' ? 'color: #e5365a;' : '' }}">Process
+                                style="{{ request()->routeIs('administration.support-services.process_payment') ? 'color: #FF3C5F;' : '' }}">Process
                                 Payment
                             </span>
                         </a>
-                        <a class="collapse-item show" href="{{ route('admin.summary') }}">
+                        <a class="collapse-item show" href="{{ route('administration.support-services.summary') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/pricing-summary.png') }}">
                             <span
-                                style="{{ request()->segment(3) == 'summary' ? 'color: #e5365a;' : '' }}">Summary
+                                style="{{ request()->routeIs('administration.support-services.summary') ? 'color: #FF3C5F;' : '' }}">Summary
                             </span>
                         </a>
 
@@ -1365,12 +1363,12 @@ $ocLavel = 'Developer';
                     </a>
                 </div>
 
-                 <a class="nav-link" href="{{ route('admin.messages') }}">
-                   <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
+                <a class="nav-link" href="{{ route('admin.messages') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
                     <span
                         style="{{ request()->segment(3) == 'messages' ? 'color: #FF3C5F;' : '' }}">Messages</span>
                 </a>
-                
+
 
                 <!-- Operator -->
                 <a class="nav-link collapsed" href="#" data-toggle="collapse"
@@ -1436,7 +1434,7 @@ $ocLavel = 'Developer';
                     class="collapse @if (in_array(request()->segment(3), ['influencer', 'notebox'])) show @endif @if (request()->segment(2) == 'feedback') show @endif"
                     data-parent="#Management">
 
-                    
+
 
                     <a class="collapse-item" href="{{ route('admin.feedback') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
@@ -1450,11 +1448,11 @@ $ocLavel = 'Developer';
                         <img src="{{ asset('assets/dashboard/img/menu-icon/influencer.png') }}">
                         <span
                             style="{{ request()->segment(3) == 'influencer' ? 'color: #FF3C5F;' : '' }}">Influencer</span>
-                    </a>                    
+                    </a>
 
                     <a class="collapse-item" href="{{ route('admin.notebox') }}">
                         <img src="{{ asset('assets/dashboard/img/MyNotebox.png') }}" style="filter: brightness(0) saturate(100%) invert(99%) sepia(5%) saturate(0%) hue-rotate(101deg) brightness(110%) contrast(100%);">
-                        
+
                         <span
                             style="{{ request()->segment(3) == 'notebox' ? 'color: #FF3C5F;' : '' }}">Notebox</span>
                     </a>
@@ -1832,8 +1830,7 @@ $ocLavel = 'Developer';
             <div class="py-0 collapse-inner rounded mb-2">
                 <a class="collapse-item" href="{{ route('admin.account.edit') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
-                    <span style="{{ request()->segment(2) == 'update-account' ? 'color: #FF3C5F;' : '' }}">Edit
-                        my account</span></a>
+                    <span style="{{ request()->segment(2) == 'update-account' ? 'color: #FF3C5F;' : '' }}">My account</span></a>
                 <a class="collapse-item" href="{{ route('admin.change.password') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">
                     <span
@@ -1879,6 +1876,15 @@ $ocLavel = 'Developer';
                 $('#Monitoring').collapse('show');
             }
         });
+
+        let toggleIconbtn = document.querySelector(".toggle-icon");
+        let sidebar = document.querySelector(".db-custom-sidebar");
+        toggleIconbtn.addEventListener("click", function(){
+            sidebar.classList.toggle("toggled");        
+            this.classList.toggle("fa-toggle-off");
+            this.classList.toggle("fa-toggle-on");
+        });
     });
+  
 </script>
 <!-- End of Sidebar -->

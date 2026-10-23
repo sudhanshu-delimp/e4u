@@ -553,7 +553,7 @@ class DashboardController extends BaseController
         if ($search !== '') {
             $feedback->where(function ($query) use ($search, $statusSearch, $matchedSubjectIds) {
 
-                $query->where('id', 'like', "%{$search}%")
+                $query->where('ref_number', 'like', "%{$search}%")
                     ->orWhere('email', 'like', "%{$search}%");
 
                 if (!is_null($statusSearch)) {
@@ -566,7 +566,7 @@ class DashboardController extends BaseController
         }
 
         $columns = [
-            0 => 'id',
+            0 => 'ref_number',
             1 => 'created_at',
             2 => 'subject_id',
             3 => 'email',
@@ -589,7 +589,7 @@ class DashboardController extends BaseController
         foreach ($feedbacks as $key => $item) {
 
             $completedHtml = '';
-            $item->ref_number = $item->id;
+            $item->ref_number = $item->ref_number;
             $item->date =   isset($item->created_at) ? showDateWithFormat($item->created_at) : 'NA';
             $item->subject = isset($subjects[$item->subject_id]) ? $subjects[$item->subject_id] : 'NA';
             $item->email = isset($item->email) ? $item->email : 'NA';
