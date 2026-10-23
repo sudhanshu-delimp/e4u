@@ -264,8 +264,8 @@
                }
             },
             columns: [{
-                  data: 'id',
-                  name: 'id'
+                  data: 'ref_number',
+                  name: 'ref_number'
                },
                {
                   data: 'name_with_tag',

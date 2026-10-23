@@ -186,7 +186,7 @@ class SupportTicketsController extends AppController
 
         $input = [
             'user_id' => auth()->user()->id,
-            'ref_number'=> $refNumber,
+            //'ref_number'=> $refNumber,
             'department' => $request->department,
             'priority' => $request->priority,
             'service_type' => $request->service_type,
@@ -208,7 +208,7 @@ class SupportTicketsController extends AppController
 
         
 
-        if(SupportTickets::insert($input)) 
+        if(SupportTickets::create($input)) 
         {
             
             if($encryptedFileName)

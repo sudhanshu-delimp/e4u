@@ -165,7 +165,7 @@ class NumController extends Controller
         if($request->ajax()){
 
            return DataTables::of($nums)
-                ->addColumn('ref', fn($row) => '#' . $row->id)
+                ->addColumn('ref', fn($row) => $row->ref_number)
                 // ->addColumn('offender_mobile', fn($row) => $row->offender_mobile)
                 ->addColumn('offender_mobile', function($row) {
                         return formatPhone($row->offender_mobile);
