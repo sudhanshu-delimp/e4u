@@ -55,6 +55,7 @@ use App\Http\Controllers\Viewer\ViewerReviewsController;
 use App\Http\Controllers\Escort\EscortAccountController;
 use App\Http\Controllers\EscortListingController;
 use App\Http\Controllers\User\NoteBoxController;
+use App\Http\Controllers\CommonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +96,13 @@ Route::post('update-bank-pin', [EscortAccountController::class, 'updateBankPin']
 Route::post('validate-bank-pin', [EscortAccountController::class, 'validateBankPin'])->name('web.validate.bank.pin');
 Route::post('/get-pinup-profile', [PinUpsController::class, 'getPinupProfile'])->name('web.get_pinup_profile');
 Route::post('/welcome-popup-closed', [UserController::class, 'welcomePopupClosed'])->name('welcome-popup-closed');
+
+
+
+Route::prefix('common')->name('common.')->group(function () {
+ Route::post('/get-advertiser', [CommonController::class, 'getAdvertiser'])->name('get_advertiser');
+});
+
 Route::middleware('auth')->group(function () {
 
     ################ All Authencated User Url #################################
