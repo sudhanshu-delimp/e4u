@@ -2274,3 +2274,7 @@ label.cabinet input.file {
             padding: 10px 12px !important;
         }
 }
+
+.table-responsive input[type="search"] {
+    min-width: 300px !important;
+}

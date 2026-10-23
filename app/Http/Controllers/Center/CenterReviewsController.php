@@ -89,7 +89,7 @@ class CenterReviewsController extends Controller
         [$advertiserReviews, $reports] = $this->getAdvertiserReviews();
             
         return DataTables::of($advertiserReviews)
-            ->addColumn('ref', fn($row) =>  ($row->massage->id ?? ''))
+            ->addColumn('ref', fn($row) =>  ($row->massage->slug ?? ''))
             ->addColumn('business_name', fn($row) =>  ($row->massage->business_name ?? ''))
             ->addColumn('viewer_id', fn($row) =>  $row->user?->member_id ?? '')
             ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->created_at)))

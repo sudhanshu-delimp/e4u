@@ -28,11 +28,11 @@ class LegboxNotificationController extends Controller
             return DataTables::of($query)
                 ->addIndexColumn()
                 ->addColumn('ref', function ($row) {
-                    return  $row->id;
+                    return  $row->ref_number;
                 })
                 ->filterColumn('ref', function ($query, $keyword) {
                    if ($keyword !== '') {
-                        $query->where('id', '=', $keyword);
+                        $query->where('ref_number', '=', $keyword);
                     }
                 })
                 ->editColumn('start_date', function ($row) {
@@ -145,7 +145,7 @@ class LegboxNotificationController extends Controller
             $n = LegboxNotification::findOrFail($id);
             return success_response([
                 'id' => $n->id,
-                'ref' => $n->id,
+                'ref' => $n->ref_number,
                 'heading' => $n->heading,
                 'start_date' => basicDateFormat($n->start_date),
                 'end_date' => basicDateFormat($n->end_date),

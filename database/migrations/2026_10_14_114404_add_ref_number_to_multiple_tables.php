@@ -29,6 +29,7 @@ return new class extends Migration
         'influencers',
         'feedbacks',
         'email_logs',
+        'tours',
         //'payment_histories'
         
     ];
