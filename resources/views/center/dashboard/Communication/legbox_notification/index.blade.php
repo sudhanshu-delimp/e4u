@@ -418,8 +418,7 @@
         $('#submitBtn').text('Save');
         // Reset modal title
         $(this).find('h5.modal-title').html(
-            '<img src="{{ asset('
-            assets / dashboard / img / create - notification.png ') }}" class="custompopicon"> Create Notification'
+            '<img src="{{ asset("assets/dashboard/img/create-notification.png") }}" class="custompopicon"> Create Notification'
         );
 
     });
@@ -622,10 +621,7 @@
                     $('#submitBtn').text('Update');
 
                     // Change modal title
-                    $('#createNotification').find('h5.modal-title').html(
-                        '<img src="{{ asset('
-                        assets / dashboard / img / create - notification.png ') }}" class="custompopicon"> Edit Notification'
-                    );
+                    $('#createNotification').find('h5.modal-title').html('<img src="{{ asset("assets/dashboard/ img/create-notification.png")}}" class="custompopicon"> Edit Notification');
 
                     // Show modal
                     $('#createNotification').modal('show');

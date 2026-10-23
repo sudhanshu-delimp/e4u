@@ -95,7 +95,7 @@ class CenterNumController extends Controller
         if($request->ajax()){
 
            return DataTables::of($nums) // formatPhone
-                ->addColumn('ref', fn($row) => '#' . $row->id)
+                ->addColumn('ref', fn($row) => $row->ref_number)
                 ->addColumn('offender_mobile', function($row) {
                         return formatPhone($row->offender_mobile);
                     })
@@ -168,7 +168,7 @@ class CenterNumController extends Controller
         if($request->ajax()){
 
            return DataTables::of($nums)
-                ->addColumn('ref', fn($row) => '#' . $row->id)
+                ->addColumn('ref', fn($row) => $row->ref_number)
                 ->addColumn('offender_mobile', function($row) {
                         return formatPhone($row->offender_mobile);
                     })
