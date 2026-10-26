@@ -64,7 +64,7 @@ class CommunicationController extends Controller
                 ->filterColumn('ref', function ($query, $keyword) {
                     $digit = ltrim($keyword, '#0');
                     if ($digit !== '') {
-                        $query->where('id', 'like', "%{$digit}%");
+                        $query->where('ref_number', 'like', "%{$digit}%");
                     }
                 })
                 ->editColumn('date_time', function ($row) {
