@@ -14,7 +14,7 @@ class AddRefNumberToExistingRecordsService
     {
         try {
             $tables = [
-                'concierge_mobile_sims',
+               /*  'concierge_mobile_sims',
                 'agent_notifications',
                 'center_notifications',
                 'escort_notifications',
@@ -25,9 +25,9 @@ class AddRefNumberToExistingRecordsService
                 'viewer_notifications',
                 'publication_blogs',
                 'reviews',
-                'massage_reviews',
+                'massage_reviews', */
                 'advertiser_agent_requests',
-                'communications',
+                /* 'communications',
                 'nums',
                 'punterbox',
                 'support_tickets',
@@ -37,7 +37,7 @@ class AddRefNumberToExistingRecordsService
                 'payment_histories',
                 'email_logs',
                 'tours',
-                'users',
+                'users', */
             ];
 
             foreach ($tables as $table) {
@@ -66,10 +66,10 @@ class AddRefNumberToExistingRecordsService
                                 ->orWhere($refColumnName, '');
                         });
                     }) */
-                    ->where(function ($q) use ($refColumnName) {
+                   /*  ->where(function ($q) use ($refColumnName) {
                         $q->whereNull($refColumnName)
                             ->orWhere($refColumnName, '');
-                    })
+                    }) */
                     ->orderByDesc('id')
                     ->chunk(50, function ($records) use ($table, $refColumnName) {
                         foreach ($records as $tableObj) {
