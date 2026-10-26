@@ -60,6 +60,6 @@ class SupportServicController extends Controller
 
     public function summary()
     {
-        return view('admin.support-services.process-payment');
+        return view('admin.support-services.summary');
     }
 }
