@@ -69,7 +69,7 @@
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes">
                     <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
                             <li>All current (published) Listings are displayed in this table.</li>
                             <li>You have limited Action access according to your security level.</li>
@@ -77,18 +77,19 @@
                             <p>1. ACT &nbsp;&nbsp;2. NSW &nbsp;&nbsp;3. Vic &nbsp;&nbsp;4. Qld &nbsp;&nbsp;5. SA
                                 &nbsp;&nbsp;6. W A &nbsp;&nbsp;7. Tas &nbsp;&nbsp;8. NT</p>
                         </ol>
-
                     </div>
                 </div>
             </div>
         </div>
         <div class="row my-3">
-            <div class="col-lg-12 d-flex justify-content-between" style="gap: 20px;">
+            <div class="col-lg-12 d-flex justify-content-between" style="gap: 10px;">
+                
                 <a class="nav-link collapse-item btn-switch" href="{{ route('admin.massage-centre-listings') }}">
                     Switch to Massage Centre Listings
                 </a>
-                <div class="d-flex justify-content-end" style="gap: 20px;">
-
+                
+                <div class="d-flex justify-content-end" style="gap: 10px;">
+                     <a href="" class="text-white btn-cancel-modal">Refresh</a>
                     <div class="total_listing">
                         <div><span>Platinum : </span></div>
                         <div><span class="platinumListing">0</span></div>
@@ -137,19 +138,19 @@
                 </thead>
                 <tbody class="table-content">
                     <tr>
-                        <td colspan="11" class="theme-color text-center">Loading...</td>
+                        <td colspan="12" class="theme-color text-center">Loading...</td>
                     </tr>
                 </tbody>
                 <tr>
-                    <th colspan="11" class="border-0"></th>
+                    <th colspan="12" class="border-0"></th>
                 </tr>
                 <tfoot class="bg-first t-foot">
                     <tr>
-                        <th colspan="3" class="text-left border-0">Server time: <span
+                        <th colspan="4" class="text-left border-0">Server time: <span
                                 class="serverTime">{{ date('d-m-Y h:i a') }}</span></th>
                         <th colspan="4" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span>
                         </th>
-                        <th colspan="5" class="text-right border-0">Up time: <span
+                        <th colspan="4" class="text-right border-0">Up time: <span
                                 class="uptimeClass">{{ getAppUptime() }}</span></th>
                     </tr>
                 </tfoot>

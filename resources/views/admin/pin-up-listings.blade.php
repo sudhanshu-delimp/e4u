@@ -39,6 +39,7 @@
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <div class="row">
         <div class="d-sm-flex align-items-center justify-content-between col-md-12">
+
             <div class="custom-heading-wrapper">
                 <h1 class="h1">Pin Up Listings</h1>
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b> </span>
@@ -65,7 +66,8 @@
 
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="my-3 col-md-12 col-sm-12 d-flex justify-content-end gap-10 js_table_total_listing_container">
-                <div class="total_listing">
+            <a href="" class="text-white btn-cancel-modal">Refresh</a>    
+            <div class="total_listing">
                     <div><span>Total Current : </span></div>
                     <div><span id="currentCount">0</span></div>
                 </div>
