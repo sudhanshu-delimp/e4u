@@ -188,9 +188,9 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                 @endphp
 
                                 @if($membershipImage)
-                                <div class="{{($isPinupActive)?'pinup-wrapper':''}} member_type">
+                                <div class="member_type"  id="{{($isPinupActive)?'yourPinup':''}}">
                                         <img src="{{ $membershipImage }}">
-                                        <div class="pinup-tooltip">I am your Pin Up this week!</div>
+                                        <!-- <div class="pinup-tooltip">I am your Pin Up this week!</div> -->
                                 </div>
                                 @endif
 
@@ -203,21 +203,19 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                             
                         </div>
                         {{-- profile phone --}}
-                        <div class="profile_page_name_and_phno tooltip-wrapper" data-toggle="modal" data-target="#connectModal" data-placement="top">
-                            <p>{{$escort->city->name}} - {{  $escort->phone }}</p>   
-                            <div class="tooltip-text">Click me to connect</div>                 
+                        <div class="profile_page_name_and_phno"  data-toggle="modal" data-target="#connectModal" data-placement="top">
+                            <p id="connectMe">{{$escort->city->name}} - {{  $escort->phone }}</p> 
                         </div>
                         {{-- address --}}
                         <div class="profile_page_location_and_id mb-4">
                             <ul>
                                 <li>
                                     <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($escort->address) }}"
-                                        target="_blank"
+                                        target="_blank" id="openMap"
                                         rel="noopener noreferrer"><span class="profile_location_icon pin-location">
-                                            <svg width="30px" height="30px" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
+                                            <svg  width="30px" height="30px" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
                                                 <!-- White Background -->
-                                                <circle cx="600" cy="600" r="600" fill="#ffffff"/>
-
+                                                <circle cx="600" cy="600" r="600" fill="#ffffff"/>  
                                                 <!-- Pin Icon -->
                                                 <path fill="#ff3c5f"
                                                     d="M600,0C268.629,0,0,268.629,0,600s268.629,600,600,600
@@ -230,7 +228,6 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                                     s56.327,125.83,125.83,125.83
                                                     s125.83-56.327,125.83-125.83S669.503,376.538,600,376.538z"/>
                                             </svg>
-                                            <div class="pinup-tooltip">Open Maps</div>
                                         </span>
                                         
                                     </a>
@@ -243,18 +240,16 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
 
                             <div class="d-flex align-items-center justify-content-start">
                                 <div class="d-flex align-items-center justify-content-start">
-                                <div class="my-play-box-profile-icon">
-                                    <a href="{{ url('playbox') }}" target="_blank">
+                                <div class="my-play-box-profile-icon" id="myPlaybox">
+                                    <a href="{{ url('playbox') }}" target="_blank" >
                                         <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
                                     </a>
-                                    <div class="custom-tooltip">I don't have any Playbox.</div>
                                 </div>
                                 @if(isset($escort->mainPurchase) && $escort->mainPurchase->tour_location_id!=null)
-                                    <div class="my-play-box-profile-icon">
+                                    <div class="my-play-box-profile-icon" id="onTour">
                                         <a href="#">
                                             <img src="{{ asset('assets/app/img/icon_tour_white.png') }}" alt="Tour Icon">
                                         </a>
-                                        <div class="custom-tooltip">{{$escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left.":"On Tour, today is my last day."}}</div>
                                     </div>
                                 @endif
                             </div>
@@ -365,9 +360,8 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                         <div class="row mess_row">
                             <div class="col-sm-12 d-flex align-items-center justify-content-between flex-wrap ">
                                 <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
-                                    <div class="mc_tooltip_wrap">
+                                    <div class="inCall">
                                         <img src="{{ asset('assets/app/img/handwithhart.png') }}">
-                                        <p class="mc_rate_tooltip">You come to me.</p>
                                     </div>
                                 
                                     <div class="div_contain_text">
@@ -386,9 +380,8 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
-                                    <div class="mc_tooltip_wrap">
+                                    <div class="inCall">
                                         <img src="{{ asset('assets/app/img/areodownimg.png') }}">
-                                        <p class="mc_rate_tooltip">You come to me.</p>
                                     </div>
                                 
                                     <div class="div_contain_text">
@@ -408,9 +401,8 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center manage_gap_text_img-profile">
                                     
-                                    <div class="mc_tooltip_wrap">
+                                    <div id="outCall">
                                         <img src="{{ asset('assets/app/img/aeroupimg.png') }}">
-                                        <p class="mc_rate_tooltip">I come to you.</p>
                                     </div>
                                     <div class="div_contain_text">
                                         <div class="profile_message">
@@ -1056,10 +1048,10 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                             @php $status = $media->varified ?? "0"; @endphp
                                         
                                             <img src="{{ asset($media->path) }}" class="d-block w-100" title=" " alt="{{$escort['name'] ?? ''}}" data-toggle="modal" data-target="#exampleModal" data-id="{{$media->id}}">
-                                            <a href="" class="custom-tooltip text-decoration-none text-white" data-toggle="modal" data-target="#exampleModal">Click to view My Media</a>
+                                            <a href="" class="custom-tooltip text-decoration-none text-white"  data-toggle="modal" data-target="#exampleModal">Click to view My Media</a>
                                             </div>
                                         </div>
-                                        <div class="verify_icon">
+                                        <div class="verify_icon verifyIcon">
                                             @php
                                             $profile_status = getMediaVerificationDataBigIcon($status);
                                            
@@ -2375,7 +2367,15 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
 <script src="{{ asset('assets/app/lightbox/js/script.js') }}"> </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
 
-<script>
+<script>   
+    addTooltip('#connectMe', 'Click me to connect', 'top', 'center');
+    addTooltip('#openMap', 'Open Map', 'right', 'center');
+    addTooltip('#yourPinup', 'I am your Pin Up this week!', 'right', 'center');
+    addTooltip('#myPlaybox', "I don't have any Playbox.", 'top', 'center');
+    addTooltip('.inCall', 'You come to me.', 'top', 'center');
+    addTooltip('#outCall', 'I come to you.', 'top', 'center');
+    
+    addTooltip('#onTour', `{{$escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left.":"On Tour, today is my last day."}}`, 'top', 'center');
     $(document).on('click', '#my-pricing-link', function (e) {
     e.preventDefault();
     e.stopPropagation();
@@ -2427,8 +2427,6 @@ let carousel = new bootstrap.Carousel(myCarousel, {
 });
 
 
-</script>
-<script type="text/javascript">
     $('#like, #dislike').click(function(e) {
         var vote = 0;
         if($(this).attr('id') == 'like') {
@@ -2440,7 +2438,7 @@ let carousel = new bootstrap.Carousel(myCarousel, {
         $.ajax({
             method: 'POST',
             url: url,
-            data: {'vote' : vote, 'escortId' : {{$escort->id}} },
+            data: {'vote' : vote, 'escortId' : `{{$escort->id}}` },
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -2472,9 +2470,7 @@ let carousel = new bootstrap.Carousel(myCarousel, {
 
     });
 
-</script>
 
-<script>
         $(document).on('submit', '#reviewAdvertiser',function(e){
         e.preventDefault();
         var form = $(this);
@@ -2536,9 +2532,7 @@ $('#review-submitted-popup .close').on('click', function() {
    $('.modal-backdrop').remove();
 });
     
-    
-</script>
-<script>
+
     $('#messageMe').parsley({
 
     });
@@ -2592,14 +2586,13 @@ $('#review-submitted-popup .close').on('click', function() {
         }
     });
 
-</script>
-<script type="text/javascript">
+
 
     window.authUser = {
-        isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
-        auth_user_type: {{ auth()->check() ? auth()->user()->type : 'false' }},
-        myLegboxDisabled: {{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}},
-        write_reviews_disable: {{ auth()->check() && auth()->user()->viewer_settings?->features_write_reviews == 0 ? 'true' : 'false' }},
+        isLoggedIn: `{{ auth()->check() ? 'true' : 'false' }}`,
+        auth_user_type: `{{ auth()->check() ? auth()->user()->type : 'false' }}`,
+        myLegboxDisabled: `{{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}}`,
+        write_reviews_disable: `{{ auth()->check() && auth()->user()->viewer_settings?->features_write_reviews == 0 ? 'true' : 'false' }}`,
     };
 
     console.log('window.authUser.write_reviews_disable',window.authUser.write_reviews_disable);
@@ -2994,9 +2987,6 @@ $('#exampleModal').on('shown.bs.modal', function () {
     make_escort_centres_log(is_profile_media_visit='1');
 });
 
-
-</script>
-<script>
 document.addEventListener('click', async function (e) {
 
     /*
@@ -3261,6 +3251,7 @@ document.addEventListener('keydown', function (e) {
     }
 
 });
+
 
 </script>
 @endpush

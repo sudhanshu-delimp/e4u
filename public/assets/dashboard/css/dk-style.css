@@ -4198,6 +4198,13 @@ p.notes {
     position: relative;
 }
 
+.text-ellipsis {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
 .upload_exl,
 .upload_media {
     padding: 20px;

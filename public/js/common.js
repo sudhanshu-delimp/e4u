@@ -466,3 +466,68 @@ function formatNumberInput(input) {
     $(input).val(value);
 }
 
+
+
+    // Add tooltip
+function addTooltip(
+    element,
+    text,
+    position = 'top',
+    align = 'center',
+    color = '#ff3c5f'
+) {
+    const targets = typeof element === 'string'
+        ? document.querySelectorAll(element)
+        : [element];
+
+    if (!targets.length) return;
+
+    if (!['top', 'bottom', 'left', 'right'].includes(position)) {
+        position = 'top';
+    }
+
+    if (!['center', 'left', 'right', 'top', 'bottom'].includes(align)) {
+        align = 'center';
+    }
+
+    targets.forEach(target => {
+        if (!target) return;
+
+        target.querySelector(':scope > .dummy_tooltip')?.remove();
+
+        if (getComputedStyle(target).position === 'static') {
+            target.style.position = 'relative';
+        }
+
+        const tooltip = document.createElement('span');
+
+        const alignment = ['top', 'bottom'].includes(position)
+            ? (['left', 'right'].includes(align) ? align : 'center')
+            : (['top', 'bottom'].includes(align) ? align : 'middle');
+
+        tooltip.className = `dummy_tooltip ${position} align-${alignment}`;
+        tooltip.style.setProperty('--peach', color);
+        tooltip.textContent = typeof text === 'function'
+            ? text(target)
+            : text;
+        tooltip.style.display = 'none';
+
+        target.appendChild(tooltip);
+
+        target.addEventListener('mouseenter', () => {
+            tooltip.style.display = 'block';
+        });
+
+        target.addEventListener('mouseleave', () => {
+            tooltip.style.display = 'none';
+        });
+
+        target.addEventListener('focusin', () => {
+            tooltip.style.display = 'block';
+        });
+
+        target.addEventListener('focusout', () => {
+            tooltip.style.display = 'none';
+        });
+    });
+}
