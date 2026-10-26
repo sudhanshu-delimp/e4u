@@ -37,6 +37,7 @@ class AddRefNumberToExistingRecordsService
                 'payment_histories',
                 'email_logs',
                 'tours',
+                'users',
             ];
 
             foreach ($tables as $table) {
