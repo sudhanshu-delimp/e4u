@@ -1840,7 +1840,6 @@ label.cabinet input.file {
         justify-content: space-between;
         align-items: center;
         gap: 12px;
-        margin-top: 20px;
         padding-top: 16px;
     }
 
@@ -1853,6 +1852,10 @@ label.cabinet input.file {
 
     .payable-summary.show-total {
         display: flex;
+        justify-content: space-between;
+        width: 100%;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 16px;
     }
 
     .payable-icon {
@@ -2011,7 +2014,83 @@ label.cabinet input.file {
     background: #dc3545;
     box-shadow: 0 0 0 4px #ffe2e2;
 }
+/* common_tabs */
+.common_tabs{
+    gap: 10px !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+.common_tabs li{
+    line-height: 39px;
+}
+.common_tabs a {
+    font-size: 16px !important;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    padding: 16px !important;
+        background: #f7f7f7;
+    border-radius: 7px 7px 0px 0px !important;
+    border: 1px solid var(--border-color);
+    border-bottom:0px;
+    color: var(--blue--text);
+}
+.common_tabs a.active {
+    background: var(--blue--text);
+    color: var(--white);
+    border-color: var(--blue--text);
+}
+.common_notes ol{
+    list-style-type: none !important;
+    padding-left: 0px !important;
+}
+.common_notes ol .note_li{
+    
+    list-style: none;
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+}
+.common_notes ol .note_li p{
+    margin-bottom: 0px;
+    font-size: 14px;
+}
+.common_notes .note_li .note_ul{
+   
+    display: flex;
+    list-style-type: none;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 10px 0px;
+    flex-wrap: wrap;
+}
+.common_notes .note_li .note_ul li{
+    background: #f7f7f7;
+    font-size: 14px;
+    padding: 7px 10px;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+}
+.enabled{
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #10cc10;
+    border-radius: 100px;
+}
+.dis-abled{
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #c10;
+    border-radius: 100px;
+}
 
+.suspended{
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #ccc;
+    border-radius: 100px;
+}
 /* Responsive */
 @media (max-width: 991.98px) {
     .empty-state {
