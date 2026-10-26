@@ -7,9 +7,8 @@ use Illuminate\Http\Request;
 use App\Repositories\User\UserInterface;
 use Carbon\Carbon;
 use App\Models\User;
-use App\Models\State;
-use App\Models\Pricing;
-use App\Models\AdvertiserDiscount;
+use App\Models\FeesConciergeService;
+use App\Models\FeesSupportService;
 use App\Traits\DataTablePagination;
 use Exception;
 
@@ -40,7 +39,23 @@ class SupportServicController extends Controller
 
     public function processPayment()
     {
-        return view('admin.support-services.process-payment');
+        $fees_concierge_services = FeesConciergeService::all()
+        ->map(function ($item) {
+        $item->name = $item->service_type;
+        return $item;
+        });
+
+        $fees_support_services = FeesSupportService::all()
+        ->map(function ($item) {
+        $item->name = $item->fee;
+        return $item;
+        });
+
+        $services = $fees_concierge_services
+        ->concat($fees_support_services)
+        ->sortBy('name')
+        ->values();
+        return view('admin.support-services.process-payment', compact('services'));
     }
 
     public function summary()
