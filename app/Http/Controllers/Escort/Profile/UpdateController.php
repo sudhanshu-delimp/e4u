@@ -1629,7 +1629,7 @@ class UpdateController extends AppController
                 'about_title' => $request->about_title ? $request->about_title : ($escortDefault->about_title ?: NULL),
                 'slug' => NULL
             ];
-
+            $users = $this->user->find($user->id);
             if ($escort = $this->escort->store($input, null)) {
                 // create or update slug
                 (new \App\Services\SlugService)->createUpdateSlug($escort);
