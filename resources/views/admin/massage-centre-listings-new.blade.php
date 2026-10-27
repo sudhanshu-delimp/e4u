@@ -67,8 +67,8 @@
                     <a class="nav-link collapse-item btn-switch" href="{{ route('admin.escort-listings') }}">
                         Switch to Escort Listings
                     </a>
-                    <div class="d-flex justify-content-end" style="gap: 50px;">
-
+                    <div class="d-flex justify-content-end" style="gap: 10px;">
+                         <a href="" class="text-white btn-cancel-modal">Refresh</a>
                         <div class="total_listing">
                             <div><span>Total Listings : </span></div>
                             <div><span class="totalListing">4,456</span></div>
@@ -97,15 +97,15 @@
 
                     <tbody class="table-content">
                         <tr>
-                            <td colspan="11" class="theme-color text-center">Loading...</td>
+                            <td colspan="12" class="theme-color text-center">Loading...</td>
                         </tr>
                     </tbody>
                     <tr>
-                        <th colspan="11" class="border-0"></th>
+                        <th colspan="12" class="border-0"></th>
                     </tr>
                     <tfoot class="bg-first t-foot">
                         <tr>
-                            <th colspan="3" class="text-left border-0">Server time: <span class="serverTime">
+                            <th colspan="4" class="text-left border-0">Server time: <span class="serverTime">
                                     {{date('d-m-Y h:i a')}}</span></th>
                             <th colspan="4" class="text-center border-0">Refresh time:<span class="refreshSeconds">
                                     15</span></th>
