@@ -1,30 +1,559 @@
 @extends('layouts.admin')
+
 @section('style')
+<style>
+    /* Invoice Modal - Navy Blue & White */
+    #view-invoice .modal-dialog {
+        max-width: 1050px;
+        width: calc(100% - 30px);
+    }
+
+    #view-invoice .invoice-paper {
+        background: #ffffff;
+        border: 1px solid #0c223d;
+        padding: 30px;
+        color: #0c223d;
+    }
+
+    #view-invoice .invoice-company-name {
+        color: #0c223d;
+        font-size: 23px;
+        font-weight: 800;
+        margin-bottom: 4px;
+    }
+
+    #view-invoice .invoice-company-info {
+        color: #0c223d;
+        font-size: 12px;
+        line-height: 1.85;
+    }
+
+    #view-invoice .invoice-title {
+        color: #0c223d;
+        font-size: 27px;
+        font-weight: 800;
+        text-align: right;
+        margin-bottom: 16px;
+    }
+
+    #view-invoice .invoice-number-box {
+        border: 1px solid #0c223d;
+        padding: 13px;
+        border-radius: 5px;
+    }
+
+    #view-invoice .invoice-number-box small {
+        display: block;
+        color: #0c223d;
+        font-size: 11px;
+        margin-bottom: 5px;
+    }
+
+    #view-invoice .invoice-number-box strong {
+        display: block;
+        color: #0c223d;
+        font-size: 13px;
+        overflow-wrap: anywhere;
+    }
+
+    #view-invoice .invoice-abn {
+        text-align: right;
+        font-size: 12px;
+        margin-top: 12px;
+        color: #0c223d;
+    }
+
+    #view-invoice .invoice-divider {
+        border: 0;
+        border-top: 2px solid #0c223d;
+        margin: 22px 0;
+    }
+
+    #view-invoice .invoice-info-grid {
+        border: 1px solid #0c223d;
+        border-radius: 5px;
+        padding: 18px 14px;
+        margin-bottom: 26px;
+    }
+
+    #view-invoice .invoice-info-item {
+        overflow-wrap: anywhere;
+    }
+
+    #view-invoice .invoice-info-label {
+        display: block;
+        color: #0c223d;
+        font-size: 11px;
+        margin-bottom: 6px;
+    }
+
+    #view-invoice .invoice-info-value {
+        display: block;
+        color: #0c223d;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    #view-invoice .invoice-section-title {
+        color: #0c223d;
+        font-size: 15px;
+        font-weight: 800;
+        margin-bottom: 12px;
+    }
+
+    #view-invoice .invoice-table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    #view-invoice .invoice-table {
+        width: 100%;
+        border-collapse: collapse;
+        color: #0c223d;
+        margin-bottom: 0;
+    }
+
+    #view-invoice .invoice-table thead {
+        background: #0c223d;
+        color: #ffffff;
+    }
+
+    #view-invoice .invoice-table th {
+        background: #0c223d;
+        color: #ffffff;
+        padding: 13px 10px;
+        font-size: 11px;
+        font-weight: 700;
+        text-align: left;
+        white-space: nowrap;
+        border: 1px solid #0c223d;
+    }
+
+    #view-invoice .invoice-table td {
+        background: #ffffff;
+        color: #0c223d;
+        padding: 13px 10px;
+        font-size: 12px;
+        vertical-align: top;
+        border: 1px solid #0c223d;
+    }
+
+    #view-invoice .invoice-table .text-right {
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    #view-invoice .invoice-bottom {
+        margin-top: 28px;
+    }
+
+    #view-invoice .invoice-notes {
+        color: #0c223d;
+        font-size: 12px;
+        line-height: 1.9;
+    }
+
+    #view-invoice .invoice-card-info {
+        border: 1px solid #0c223d;
+        padding: 12px;
+        margin-top: 18px;
+        border-radius: 5px;
+        font-size: 12px;
+        overflow-wrap: anywhere;
+    }
+
+    #view-invoice .invoice-totals {
+        width: 100%;
+        max-width: 340px;
+        margin-left: auto;
+    }
+
+    #view-invoice .invoice-total-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 11px 12px;
+        border-bottom: 1px solid #0c223d;
+        color: #0c223d;
+        font-size: 13px;
+    }
+
+    #view-invoice .invoice-total-row strong {
+        white-space: nowrap;
+    }
+
+    #view-invoice .invoice-total-row.balance {
+        background: #0c223d;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 800;
+        margin-top: 10px;
+        border: 1px solid #0c223d;
+        border-radius: 4px;
+        padding: 15px 12px;
+    }
+
+    #view-invoice .modal-footer {
+        background: #ffffff;
+        border-top: 1px solid #0c223d;
+        padding: 15px 24px;
+    }
+
+    @media print {
+        @page {
+            size: A4;
+            margin: 10mm;
+        }
+
+        html,
+        body {
+            width: 100% !important;
+            height: auto !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: #ffffff !important;
+            overflow: visible !important;
+        }
+
+        body.invoice-printing * {
+            visibility: hidden !important;
+        }
+
+        body.invoice-printing #view-invoice,
+        body.invoice-printing #view-invoice .modal-dialog,
+        body.invoice-printing #view-invoice .modal-content,
+        body.invoice-printing #invoicePrintArea,
+        body.invoice-printing #invoicePrintArea * {
+            visibility: visible !important;
+        }
+
+        body.invoice-printing #view-invoice {
+            display: block !important;
+            position: absolute !important;
+            inset: 0 !important;
+            width: 100% !important;
+            height: auto !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: visible !important;
+            background: #ffffff !important;
+            opacity: 1 !important;
+        }
+
+        body.invoice-printing #view-invoice .modal-dialog {
+            position: static !important;
+            width: 100% !important;
+            max-width: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            transform: none !important;
+        }
+
+        body.invoice-printing #view-invoice .modal-content {
+            display: block !important;
+            width: 100% !important;
+            border: 0 !important;
+            box-shadow: none !important;
+            background: #ffffff !important;
+        }
+
+        body.invoice-printing #view-invoice .modal-header,
+        body.invoice-printing #view-invoice .modal-footer,
+        body.invoice-printing #view-invoice .close {
+            display: none !important;
+        }
+
+        body.invoice-printing #view-invoice .modal-body {
+            display: block !important;
+            max-height: none !important;
+            height: auto !important;
+            overflow: visible !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            background: #ffffff !important;
+        }
+
+        body.invoice-printing #invoicePrintArea {
+            display: block !important;
+            position: static !important;
+            width: 100% !important;
+            height: auto !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: #ffffff !important;
+        }
+
+        body.invoice-printing #view-invoice .invoice-paper {
+            display: block !important;
+            width: 100% !important;
+            height: auto !important;
+            margin: 0 !important;
+            padding: 8px !important;
+            border: 0 !important;
+            color: #0c223d !important;
+            background: #ffffff !important;
+            box-shadow: none !important;
+        }
+
+        body.invoice-printing #invoicePrintArea * {
+            color: #0c223d;
+        }
+
+        body.invoice-printing #view-invoice .invoice-table {
+            width: 100% !important;
+            border-collapse: collapse !important;
+        }
+
+        body.invoice-printing #view-invoice .invoice-table-wrapper {
+            overflow: visible !important;
+        }
+
+        body.invoice-printing #view-invoice .invoice-table th {
+            background: #0c223d !important;
+            color: #ffffff !important;
+            border: 1px solid #0c223d !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        body.invoice-printing #view-invoice .invoice-table td {
+            background: #ffffff !important;
+            color: #0c223d !important;
+            border: 1px solid #0c223d !important;
+        }
+
+        body.invoice-printing #view-invoice .invoice-total-row.balance {
+            background: #0c223d !important;
+            color: #ffffff !important;
+            border: 1px solid #0c223d !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        body.invoice-printing #view-invoice .invoice-total-row.balance strong,
+        body.invoice-printing #view-invoice .invoice-total-row.balance span {
+            color: #ffffff !important;
+        }
+
+        body.invoice-printing #view-invoice .invoice-info-grid,
+        body.invoice-printing #view-invoice .invoice-number-box,
+        body.invoice-printing #view-invoice .invoice-card-info {
+            border: 1px solid #0c223d !important;
+            break-inside: avoid;
+        }
+
+        body.invoice-printing .modal-backdrop {
+            display: none !important;
+        }
+
+        body.invoice-printing #view-invoice .row {
+            break-inside: avoid;
+        }
+    }
+</style>
 @stop
+
 @section('content')
-    <div id="content-wrapper" class="d-flex flex-column">
-        <div id="content">
-            <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-                <div class="row">
-                    <div class="custom-heading-wrapper col-md-12">
-                        <h1 class="h1">Summary</h1>
-                        <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes"
-                            aria-expanded="true">Help?</span>
-                    </div>
-                    <div class="col-md-12 mb-4">
-                        <div class="card collapse" id="notes" style="">
-                            <div class="card-body">
-                               <h3 class="NotesHeader"><b>Notes:</b></h3>
-                                <ol>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+    <div class="row">
+        <div class="custom-heading-wrapper col-md-12">
+            <h1 class="h1">Summary</h1>
+
+            <span class="helpNoteLink font-weight-bold"
+                data-toggle="collapse"
+                data-target="#notes"
+                aria-expanded="true">
+                Help?
+            </span>
+        </div>
+
+        <div class="col-md-12 mb-4">
+            <div class="card collapse" id="notes">
+                <div class="card-body">
+                    <h3 class="NotesHeader"><b>Notes:</b></h3>
+                    <ol>
+                        <li>View transaction details using View Summary.</li>
+                        <li>Use View Invoice to view and print the tax invoice.</li>
+                        <li>All tax invoices should be attached to the confirmation email.</li>
+                    </ol>
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive common-card">
+                <table class="table w-100" id="transactionSummaryTable">
+                    <thead class="table-bg">
+                        <tr>
+                            <th>Ref</th>
+                            <th>Service Type</th>
+                            <th>Transaction Date</th>
+                            <th>Transaction Value (Inc. GST)</th>
+                            <th>Card</th>
+                            <th>Completed By</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>2026061900113</td>
+
+                            <td>
+                                <div class="profile_list">
+                                    <span class="text-ellipsis"
+                                        style="max-width: 135px;">
+                                        Complete Media Verification
+                                    </span>
+
+                                    <a class="badge badge-warning"
+                                        href="javascript:void(0)"
+                                        data-toggle="modal"
+                                        data-target="#view-listing"
+                                        id="selectedServices">
+                                        6 more
+                                    </a>
+                                </div>
+                            </td>
+
+                            <td>19 Jun 2026, 06:00 PM</td>
+                            <td>$44.41</td>
+                            <td>XXXX-XXXX-XXXX-0000</td>
+                            <td>E60511</td>
+
+                            <td class="text-center">
+                                <div class="dropdown no-arrow">
+                                    <a class="dropdown-toggle"
+                                        href="#"
+                                        role="button"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    </a>
+
+                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">
+
+                                        <a class="dropdown-item d-flex align-items-center"
+                                            href="javascript:void(0)"
+                                            data-toggle="modal"
+                                            data-target="#view-listing">
+                                            <i class="fa fa-eye mr-2"></i>
+                                            View Summary
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item d-flex align-items-center"
+                                            href="javascript:void(0)"
+                                            data-toggle="modal"
+                                            data-target="#view-invoice">
+                                            <i class="fa fa-file-invoice mr-2"></i>
+                                            View Invoice
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Existing Transaction Summary modal: preserve existing functionality -->
+@include('admin.support-services.modal.transaction-summary')
+@include('admin.support-services.modal.tax-invoice')
+
+
+
 @endsection
 
 @push('script')
+<script>
+    // Existing DataTable configuration preserved.
+    var table = $("#transactionSummaryTable").DataTable({
+        language: {
+            search: "Search: _INPUT_",
+            searchPlaceholder: "Search by Ref, Service Type, Card"
+        },
+        info: true,
+        paging: true,
+        lengthChange: true,
+        searching: true,
+        bStateSave: true,
+
+        columns: [{
+                data: 'ref_no',
+                name: 'ref_no',
+                searchable: true,
+                orderable: false,
+                defaultContent: 'NA'
+            },
+            {
+                data: 'service',
+                name: 'service',
+                searchable: true,
+                orderable: true,
+                defaultContent: 'NA'
+            },
+            {
+                data: 'transaction_at',
+                name: 'created_at',
+                searchable: false,
+                orderable: true,
+                defaultContent: 'NA'
+            },
+            {
+                data: 'amount',
+                name: 'amount',
+                searchable: true,
+                orderable: true,
+                defaultContent: 'NA'
+            },
+            {
+                data: 'card',
+                name: 'card',
+                searchable: true,
+                orderable: false,
+                defaultContent: 'NA'
+            },
+            {
+                data: 'completed_by_member_id',
+                name: 'completed_by',
+                searchable: false,
+                orderable: false,
+                defaultContent: 'NA'
+            },
+            {
+                data: 'action',
+                name: 'action',
+                searchable: false,
+                orderable: false,
+                defaultContent: 'NA',
+                class: 'text-center'
+            },
+        ],
+        order: [2, 'desc'],
+    });
+
+    addTooltip('#selectedServices', 'Click me to View More', 'top', 'center');
+
+
+    $('#printInvoiceBtn').on('click', function() {
+        $('body').addClass('invoice-printing');
+        window.print();
+    });
+
+    window.addEventListener('afterprint', function() {
+        $('body').removeClass('invoice-printing');
+    });
+
+
+    $('#view-invoice').on('hidden.bs.modal', function() {
+        $('body').removeClass('invoice-printing');
+    });
+</script>
 @endpush

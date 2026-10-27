@@ -14,6 +14,84 @@
     --border-color: #e7e9ee;
     --label-color: #173a61;
 }
+/* dummy_tooltip */
+.dummy_tooltip {
+    position: absolute;
+    z-index: 9999;
+    padding: 8px 10px;
+    background: var(--peach);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 6px;
+    white-space: nowrap;
+    line-height: 1.4;
+    pointer-events: none;    
+    font-family: Poppins;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.dummy_tooltip::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+}
+
+.dummy_tooltip.top {
+    bottom: calc(100% + 10px);
+}
+.dummy_tooltip.top::after {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: var(--peach);
+}
+
+.dummy_tooltip.bottom {
+    top: calc(100% + 10px);
+}
+.dummy_tooltip.bottom::after {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: var(--peach);
+}
+
+.dummy_tooltip.left {
+    right: calc(100% + 10px);
+}
+.dummy_tooltip.left::after {
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left-color: var(--peach);
+}
+
+.dummy_tooltip.right {
+    left: calc(100% + 10px);
+}
+.dummy_tooltip.right::after {
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-right-color: var(--peach);
+}
+
+.dummy_tooltip.align-left { left: 0; }
+.dummy_tooltip.align-center {
+    left: 50%;
+    transform: translateX(-50%);
+}
+.dummy_tooltip.align-right { right: 0; }
+.dummy_tooltip.align-top { top: 0; }
+.dummy_tooltip.align-middle {
+    top: 50%;
+    transform: translateY(-50%);
+}
+.dummy_tooltip.align-bottom { bottom: 0; }
+/* end */
 .toggleButton{
     cursor: pointer;
 }
@@ -1762,7 +1840,6 @@ label.cabinet input.file {
         justify-content: space-between;
         align-items: center;
         gap: 12px;
-        margin-top: 20px;
         padding-top: 16px;
     }
 
@@ -1775,6 +1852,10 @@ label.cabinet input.file {
 
     .payable-summary.show-total {
         display: flex;
+        justify-content: space-between;
+        width: 100%;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 16px;
     }
 
     .payable-icon {
@@ -1933,7 +2014,83 @@ label.cabinet input.file {
     background: #dc3545;
     box-shadow: 0 0 0 4px #ffe2e2;
 }
+/* common_tabs */
+.common_tabs{
+    gap: 10px !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+.common_tabs li{
+    line-height: 39px;
+}
+.common_tabs a {
+    font-size: 16px !important;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    padding: 16px !important;
+        background: #f7f7f7;
+    border-radius: 7px 7px 0px 0px !important;
+    border: 1px solid var(--border-color);
+    border-bottom:0px;
+    color: var(--blue--text);
+}
+.common_tabs a.active {
+    background: var(--blue--text);
+    color: var(--white);
+    border-color: var(--blue--text);
+}
+.common_notes ol{
+    list-style-type: none !important;
+    padding-left: 0px !important;
+}
+.common_notes ol .note_li{
+    
+    list-style: none;
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+}
+.common_notes ol .note_li p{
+    margin-bottom: 0px;
+    font-size: 14px;
+}
+.common_notes .note_li .note_ul{
+   
+    display: flex;
+    list-style-type: none;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 10px 0px;
+    flex-wrap: wrap;
+}
+.common_notes .note_li .note_ul li{
+    background: #f7f7f7;
+    font-size: 14px;
+    padding: 7px 10px;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+}
+.enabled{
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #10cc10;
+    border-radius: 100px;
+}
+.dis-abled{
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #c10;
+    border-radius: 100px;
+}
 
+.suspended{
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #ccc;
+    border-radius: 100px;
+}
 /* Responsive */
 @media (max-width: 991.98px) {
     .empty-state {

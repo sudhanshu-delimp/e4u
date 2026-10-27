@@ -70,8 +70,8 @@
     <div class="col-sm-12 col-md-12 col-lg-12 ">
         <div class="row my-3">
 
-            <div class="col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
-
+            <div class="col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 10px;">
+                 <a href="" class="text-white btn-cancel-modal">Refresh</a>
                 <div class="total_listing">
                     <div><span>Total Users : </span></div>
                     <div><span class="totalListing">4,456</span></div>

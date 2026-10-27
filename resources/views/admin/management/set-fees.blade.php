@@ -293,6 +293,52 @@
                         </div>
 
                      </div>
+                  </div>                  
+                  <div class="card custom-help-contain common-card">
+                     <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#additional_variableagent">
+                           Set Variables - Agent & Operator
+                        </a>
+                     </div>
+                     <div id="additional_variableagent" class="collapse" data-parent="#accordion">
+                        <div class="card-body pb-0">
+                           <div class="table-responsive">
+                              <table class="table table-bordered membership-table mt-3 w-100" id="agent_operator_fees">
+                                 <thead class="bg-first text-center">
+                                    <tr>
+
+                                       <th class="text-center">Item</th>
+                                       <th class="text-center">Description</th>
+                                       <th class="text-center">Rate</th>
+                                       <th class="text-center" style="width:10%;">Value</th>
+                                       <th class="text-center">
+                                          Action
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+
+                                 </tbody>
+                              </table>
+
+                              <!-- <div class="d-flex justify-content-end">
+                                 <button class="save_profile_btn">Save & Update</button>
+                              </div> -->
+                           </div>
+
+                           <!-- <h3 class="NotesHeader mt-4"><b>Note:</b></h3>
+                           <ol>
+                              <li>Item is the internal number allocated for our reference. Open to your suggested numbering protocol for Fees.</li>
+                              <li>Rate: per day, per Registration, per Service.</li>
+                              <li>Amount can be set by dollar and cents value, or for the percentage including the percentile.</li>
+                              <li>Values are applied right across the Website wherever a Fee value is displayed, including Footer files.</li>
+                              <li>These values apply to calculating Commission for the Agent and the Operator. See separate tasks.</li>
+                           </ol> -->
+
+
+                        </div>
+
+                     </div>
                   </div>
                   <div class="card custom-help-contain common-card">
                      <div class="card-header">
@@ -337,52 +383,6 @@
                               <li>Amount can be set by dollar and cents value.</li>
                               <li>Values are applied right across the Website wherever a Fee value is displayed, including Footer files. The Value and Reward are what can be changed. They are applied in the Listing feature when calculating the Fee.</li>
                            </ol> --}}
-                        </div>
-
-                     </div>
-                  </div>
-                  <div class="card custom-help-contain common-card">
-                     <div class="card-header">
-                        <a class="card-link" data-toggle="collapse" href="#additional_variableagent">
-                           Set Variables - Agent & Operator
-                        </a>
-                     </div>
-                     <div id="additional_variableagent" class="collapse" data-parent="#accordion">
-                        <div class="card-body pb-0">
-                           <div class="table-responsive">
-                              <table class="table table-bordered membership-table mt-3 w-100" id="agent_operator_fees">
-                                 <thead class="bg-first text-center">
-                                    <tr>
-
-                                       <th class="text-center">Item</th>
-                                       <th class="text-center">Description</th>
-                                       <th class="text-center">Rate</th>
-                                       <th class="text-center" style="width:10%;">Value</th>
-                                       <th class="text-center">
-                                          Action
-                                       </th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-
-                                 </tbody>
-                              </table>
-
-                              <!-- <div class="d-flex justify-content-end">
-                                 <button class="save_profile_btn">Save & Update</button>
-                              </div> -->
-                           </div>
-
-                           <!-- <h3 class="NotesHeader mt-4"><b>Note:</b></h3>
-                           <ol>
-                              <li>Item is the internal number allocated for our reference. Open to your suggested numbering protocol for Fees.</li>
-                              <li>Rate: per day, per Registration, per Service.</li>
-                              <li>Amount can be set by dollar and cents value, or for the percentage including the percentile.</li>
-                              <li>Values are applied right across the Website wherever a Fee value is displayed, including Footer files.</li>
-                              <li>These values apply to calculating Commission for the Agent and the Operator. See separate tasks.</li>
-                           </ol> -->
-
-
                         </div>
 
                      </div>

@@ -425,7 +425,7 @@ class AgentRequestController extends Controller
 
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
-                $q->where('ref_number', 'like', "%{$search}%")
+                $q->where('advertiser_agent_requests.ref_number', 'like', "%{$search}%")
                     ->orWhereHas('user', function ($u) use ($search) {
                         $u->where('member_id', 'like', "%{$search}%");
                     })

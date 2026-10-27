@@ -37,6 +37,7 @@ class AddRefNumberToExistingRecordsService
                 'payment_histories',
                 'email_logs',
                 'tours',
+                'users',
             ];
 
             foreach ($tables as $table) {
@@ -70,7 +71,7 @@ class AddRefNumberToExistingRecordsService
                             ->orWhere($refColumnName, '');
                     })
                     ->orderByDesc('id')
-                    ->chunk(50, function ($records) use ($table, $refColumnName) {
+                    ->chunk(500, function ($records) use ($table, $refColumnName) {
                         foreach ($records as $tableObj) {
                             if (Schema::hasColumn($table, 'created_at')) {
                                 $id = $tableObj->id;

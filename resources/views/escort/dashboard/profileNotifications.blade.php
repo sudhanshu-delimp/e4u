@@ -28,18 +28,6 @@
                             <li>For a Viewer or Agent to receive your Notifications, the Viewer or Agent must have
                                 also enabled the feature.</li>
                             <li>Please note what features are enabled by default.</li>
-                            <!-- <li>Your Auto-Recharge option is ‘No’ by default.
-                                <ol class="level-2">
-                                    <li>select your preferred option. The preferred option will remain in place until you
-                                        change it. The Top Up will occur when your Wallet balance falls below
-                                        $100.00. The Transaction will take place on the day you reach $100.00 or less.</li>
-                                    <li>
-                                        if the Top Up can not be processed, due to your bank rejecting the transaction,
-                                        you will receive an A-Alert Email from us. Please be mindful that a rejection of
-                                        the transaction by your bank may affect any Listing you have or Tour status.
-                                    </li>
-                                </ol>
-                            </li> -->
                             <li>Note also the default setting for 2FA authentification.</li>
                         </ol>
                     </div>
@@ -108,7 +96,7 @@
                                                 {{ isset($setting->escort_settings) && $setting->escort_settings->features_allow_viewers_to_send_you_a_text_message == '1' ? 'checked' : '' }}>
 
                                             <label class="custom-control-label switch-option" for="notification_feature3">
-                                                Allow Viewers to send you a text message
+                                                Allow Viewers to send you a Message
                                             </label>
                                         </div>
 

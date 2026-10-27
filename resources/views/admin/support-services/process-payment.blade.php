@@ -16,7 +16,18 @@
             <div class="card collapse" id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b></h3>
-                    <ol></ol>
+                    <ol>
+                        <li>Enter the Advertiser's Member ID to locate.</li>
+                        <li>The Advertiser's details will appear.  Check you have the correct Member.</li>
+                        <li>Select the service/s for billing to the Advertiser.</li>
+                        <li>Proceed to Payment.  Enter Advertiser's Card details and process.</li>
+                        <li>Advise the Advertiser of the payment outcome (Payment successful) and let the Member know they can view the transaction in:
+                            <ol class="level-2">
+                                <li>their Transaction Summary page in the Console; and</li>
+                                <li>a Tax Invoice has been forwarded to their nominated email address, which can also be viewed in their Transaction Summary.</li>
+                            </ol>
+                        </li>
+                    </ol>
                 </div>
             </div>
         </div>
@@ -59,7 +70,7 @@
                     </div>
                 </div>
 
-                {{-- LEFT COLUMN --}}
+                <!-- LEFT COLUMN -->
                 <div class="col-lg-6 mb-3">
                     <div class="form-group">
                         <label for="memberId" class="form-label">
@@ -88,13 +99,11 @@
 
                             <select id="services" class="form-control">
                                 <option value="">Choose a service...</option>
-                                <option value="body-slide" data-price="500">Body slide — $500</option>
-                                <option value="gfe" data-price="1000">GFE — $1,000</option>
-                                <option value="kissing" data-price="750">Kissing — $750</option>
-                                <option value="profile" data-price="1500">Profile Listing — $1,500</option>
-                                <option value="featured" data-price="2500">Featured Listing — $2,500</option>
-                                <option value="premium" data-price="5000">Premium Promotion — $5,000</option>
-                                <option value="banner" data-price="3500">Banner Advertisement — $3,500</option>
+                                @if($services->isNotEmpty())
+                                    @foreach($services as $key=>$service)
+                                        <option value="{{$service->name}}" data-price="{{$service->amount}}">{{$service->name}}</option>
+                                    @endforeach
+                                @endif
                             </select>
 
                             <small class="cp-hint">
@@ -115,9 +124,9 @@
                 </div>
 
 
-                {{-- RIGHT COLUMN --}}
+                <!-- RIGHT COLUMN -->
                 <div class="col-lg-6 mb-3">
-                    {{-- Empty / Not Found State --}}
+                    <!-- Empty / Not Found State -->
                     <div id="noDetails" class="empty-state">
 
                         <div class="empty-state-icon">
@@ -198,7 +207,7 @@
                                 <span class="detail-value" id="detailId">—</span>
                             </div>
 
-                            {{-- Full Name --}}
+                            {{-- Business / Full Name --}}
                             <div class="detail-row">
                                 <div class="detail-label">
                                     <span class="card-icon">
@@ -213,7 +222,7 @@
                                             <path d="M4 21a8 8 0 0 1 16 0" />
                                         </svg>
                                     </span>
-                                    <strong>Full Name</strong>
+                                    <strong>Business / Full Name</strong>
                                 </div>
 
                                 <span class="detail-value" id="detailName">—</span>
@@ -240,7 +249,7 @@
                                 <span class="detail-value" id="detailEmail">—</span>
                             </div>
 
-                            {{-- Phone --}}
+                            {{-- Business / Mobile Number --}}
                             <div class="detail-row">
                                 <div class="detail-label">
                                     <span class="card-icon">
@@ -254,7 +263,7 @@
                                             <path d="M7 3H5a2 2 0 0 0-2 2c0 8.84 7.16 16 16 16a2 2 0 0 0 2-2v-2l-5-2-2 3a14 14 0 0 1-6-6l3-2-2-5H7z" />
                                         </svg>
                                     </span>
-                                    <strong>Phone Number</strong>
+                                    <strong>Business / Mobile Number</strong>
                                 </div>
 
                                 <span class="detail-value" id="detailPhone">—</span>
@@ -263,6 +272,7 @@
                             {{-- Total and Pay button --}}
                             <div class="details-actions">
                                 <div class="payable-summary">
+                                    <div class="detail-label">
                                     <span class="card-icon">
                                         <svg viewBox="0 0 24 24"
                                             fill="none"
@@ -276,13 +286,17 @@
                                             <path d="M6 15h4" />
                                         </svg>
                                     </span>
-
+                                     <strong>Total Amount Payable</strong>
+                                </div>
                                     <div class="payable-text">
-                                        <span>Total Payable Amount</span>
+                                       
                                         <strong id="rightTotalAmount">$0</strong>
                                     </div>
                                 </div>
 
+                                
+                            </div>
+                            <div class="text-right mt-4">
                                 <button type="button" id="payBtn" class="next-btn">
                                     Pay
                                 </button>
@@ -290,8 +304,6 @@
                         </div>
                     </div>
                 </div>
-
-
                 <div class="col-12">
                     <p id="message"
                         class="message"
@@ -323,37 +335,14 @@
 
         let selectedAdvertiser = null;
         let selectedServices = [];
+        let selectedServicePrices = {};
         let debounceTimer = null;
         let requestController = null;
         let lookupSequence = 0;
 
-        // Demo data: replace with the API when the backend is ready.
-        const demoAdvertisers = {
-            'E70445': {
-                member_id: 'E70445',
-                name: 'Rahul Sharma',
-                email: 'rahul.sharma@example.com',
-                phone: '+91 98765 43210'
-            },
-            'E20117': {
-                member_id: 'E20117',
-                name: 'Priya Verma',
-                email: 'priya.verma@example.com',
-                phone: '+91 98765 12340'
-            },
-            'E20118': {
-                member_id: 'E20118',
-                name: 'Amit Singh',
-                email: 'amit.singh@example.com',
-                phone: '+91 98765 56780'
-            }
-        };
-
-        const USE_API = false;
-
-        function formatMoney(amount) {
-            return '$' + amount.toLocaleString('en-US');
-        }
+        // function formatMoney(amount) {
+        //     return '$' + amount.toLocaleString('en-US');
+        // }
 
         function calculateTotal() {
             return selectedServices.reduce((sum, key) => {
@@ -369,7 +358,7 @@
                 const total = calculateTotal();
                 const hasServices = selectedServices.length > 0;
 
-                rightTotalAmount.textContent = formatMoney(total);
+                rightTotalAmount.textContent = formatCurrency(total);
 
                 payableSummary.classList.toggle('show-total', hasServices);
 
@@ -380,6 +369,7 @@
         function resetAdvertiser() {
             selectedAdvertiser = null;
             selectedServices = [];
+            selectedServicePrices = {};
 
             serviceSection.hidden = true;
             rightColumn.hidden = true;
@@ -420,7 +410,7 @@
                 updateTotalAmount();
                 return;
             }
-
+               console.log(selectedServices); 
             selectedServices.forEach(key => {
                 const option = Array.from(servicesInput.options)
                     .find(item => item.value === key);
@@ -436,7 +426,7 @@
 
                 const price = document.createElement('strong');
                 price.className = 'service-chip-price';
-                price.textContent = formatMoney(Number(option.dataset.price) || 0);
+                price.textContent = formatCurrency(Number(option.dataset.price) || 0);
 
                 const remove = document.createElement('button');
                 remove.type = 'button';
@@ -449,7 +439,7 @@
                     selectedServices = selectedServices.filter(
                         service => service !== key
                     );
-
+                    delete selectedServicePrices[key];
                     renderServices();
                 });
 
@@ -460,7 +450,8 @@
                 card.append(info, remove);
                 target.append(card);
             });
-
+            console.log(selectedServicePrices);
+            console.log(memberIdInput.value.trim());
             updateTotalAmount();
         }
 
@@ -493,69 +484,37 @@
             renderServices();
         }
 
-        async function lookupAdvertiser(id, sequence) {
+        async function lookupAdvertiser(member_id, sequence) {
             status.textContent = 'Searching advertiser…';
+            $.ajax({
+                url: `{{route('common.get_advertiser')}}`,
+                method: 'POST',
+                data: {member_id},
+                beforeSend: function() {
 
-            try {
-                let ad;
-
-                if (USE_API) {
-                    requestController = new AbortController();
-
-                    const response = await fetch(
-                        `${form.dataset.apiUrl}/${encodeURIComponent(id)}`, {
-                            headers: {
-                                Accept: 'application/json'
-                            },
-                            signal: requestController.signal
-                        }
-                    );
-
-                    if (sequence !== lookupSequence) return;
-
-                    if (response.status === 404) {
-                        throw new Error('Advertiser not found.');
-                    }
-
-                    if (!response.ok) {
-                        throw new Error('Could not fetch advertiser details.');
-                    }
-
-                    const payload = await response.json();
-                    ad = payload.advertiser ?? payload;
-                } else {
-                    // Simulated delay for demo mode.
-                    await new Promise(resolve => setTimeout(resolve, 250));
-                    ad = demoAdvertisers[id];
-                }
-
-                if (sequence !== lookupSequence) return;
-
-                if (!ad || !(ad.member_id || ad.id) || !ad.name) {
-                    throw new Error(
-                        'Advertiser not found. Demo IDs: E70445, E20117, E20118.'
-                    );
-                }
-
-                showAdvertiser(ad);
-            } catch (err) {
-                if (err.name === 'AbortError' || sequence !== lookupSequence) {
-                    return;
-                }
-
-                resetAdvertiser();
-                if (err.message.includes('Advertiser not found')) {
-                    noDetails.classList.add('not-found');
-
-                    emptyStateTitle.textContent = 'Advertiser Not Found';
-
-                    emptyStateMessage.textContent =
+                },
+                success: function(response, textStatus, xhr) {
+                    showAdvertiser(response.advertiser);
+                },
+                error: function(xhr) {
+                    let response =  readXHR(xhr);
+                    let message = response?.message || 'Something went wrong';
+                    resetAdvertiser();
+                    if (message.includes('Advertiser not found')) {
+                        noDetails.classList.add('not-found');
+                        emptyStateTitle.textContent = 'Advertiser Not Found';
+                        emptyStateMessage.textContent =
                         'We could not find an advertiser with this Member ID. Please check the ID and try again.';
+                    }
+                    status.textContent = message;
+                    message.className = 'message error';
+                    message.textContent = message;
+                },
+                complete: function () {
+                    // Hide loader if this is still the latest request
+                    if (sequence !== lookupSequence) return;
                 }
-                status.textContent = err.message;
-                message.className = 'message error';
-                message.textContent = err.message;
-            }
+            })
         }   
 
         memberIdInput.addEventListener('input', () => {
@@ -592,6 +551,7 @@
 
         servicesInput.addEventListener('change', () => {
             const value = servicesInput.value;
+            const selectedOption = servicesInput.options[servicesInput.selectedIndex];
 
             if (
                 value &&
@@ -599,9 +559,11 @@
                 !selectedServices.includes(value)
             ) {
                 selectedServices.push(value);
+                selectedServicePrices[value] = selectedOption.dataset.price;
             }
 
             servicesInput.value = '';
+            
             renderServices();
         });
 
@@ -620,7 +582,7 @@
             alert(
                 'Advertiser: ' + selectedAdvertiser.name +
                 '\nSelected services: ' + selectedServices.length +
-                '\nTotal payable: ' + formatMoney(total)
+                '\nTotal payable: ' + formatCurrency(total)
             );
         });
 

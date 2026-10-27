@@ -120,7 +120,7 @@ $levelName = $levels[$level] ?? "";
             <a class="nav-link dropdown-toggle support_notify_bell" href="#" id="ticketNotificationDropdown"
                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip"
                 title="">
-                <i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>
+                <i class="top-icon-bg fas fa-ticket-alt fa-fw" id="supportTooltip"></i>
             </a>
 
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -136,11 +136,12 @@ $levelName = $levels[$level] ?? "";
         </li>
 
         <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
-            <span class="esc-tooltip esc-tooltip-support">Alert Centre</span>
+            <span class="esc-tooltip esc-tooltip-support">Alert Centre</span>       
             <a class="nav-link dropdown-toggle alert_notify_bell common-tooltip" href="#" id="alertsDropdown"
                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="top-icon-bg fas fa-bell fa-fw"></i>
+                <i class="top-icon-bg fas fa-bell fa-fw" id="alertTooltip"></i>
                 <span class="tooltip-text">Alerts Center</span>
+
             </a>
 
 

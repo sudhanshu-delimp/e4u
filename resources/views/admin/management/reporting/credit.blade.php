@@ -14,6 +14,15 @@
         line-height: 0px;
         gap: 15px;
     }
+    /* Initially hide summary rows */
+#hideAlltr ~ tr {
+    display: none;
+}
+
+/* Initially hide state detail rows */
+.collapse-row {
+    display: none;
+}
 </style>
 @endsection
 @section('content')
@@ -82,17 +91,17 @@
                             <th colspan="2" style="border: 1px solid white;">Overall Growth</th>
                         </tr>
                         <tr style="border: 1px solid white;">
-                            <th colspan="" style="border: 1px solid white;">Location</th>
-                            <th style="border: 1px solid white;">Member</th>
-                            <th style="border: 1px solid white;">Total</th>
+                            <th style="border: 1px solid white;" colspan="1">Location</th>
+                            <th style="border: 1px solid white;" colspan="1">Member</th>
+                            <th style="border: 1px solid white;" colspan="1">Total</th>
                             
                             <th colspan="2" style="border: 1px solid white;">Total Last FY</th>
-                            <th style="border: 1px solid white;">Units ($)</th>
-                            <th style="border: 1px solid white;">%</th>
-                            <th style="border: 1px solid white;">Units ($)</th>
-                            <th style="border: 1px solid white;">%</th>
-                            <th style="border: 1px solid white;">Units ($)</th>
-                            <th style="border: 1px solid white;">%</th>
+                            <th style="border: 1px solid white;" colspan="1">Units ($)</th>
+                            <th style="border: 1px solid white;" colspan="1">%</th>
+                            <th style="border: 1px solid white;" colspan="1">Units ($)</th>
+                            <th style="border: 1px solid white;" colspan="1">%</th>
+                            <th style="border: 1px solid white;" colspan="1">Units ($)</th>
+                            <th style="border: 1px solid white; width:8%" colspan="1">%</th>
                         </tr>
                     </thead>
                     <tbody id="collapse-accordion">
@@ -282,73 +291,134 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
     console.log('parent');
-   $(document).ready(function() {
-let isHidden = true;
+  
+$(document).ready(function () {
 
+    let isHidden = true;
 
-const $summaryRows = $('#hideAlltr').nextAll('tr');
-const $grandTotal = $summaryRows.last();
-const $stateRows = $summaryRows.filter('[data-toggle="toggle-row"]');
+    const $summaryHeader = $('#hideAlltr');
+    const $summaryRows = $summaryHeader.nextAll('tr');
+    const $grandTotal = $summaryRows.last();
 
-// Initially hide everything below Total Summary
-$summaryRows.hide();
-$('.collapse-row').hide();
+    const $stateRows = $summaryRows.filter(
+        '[data-toggle="toggle-row"]'
+    );
 
-// Total Summary toggle
-$('#hideAlltr').on('click', function() {
-    const $icon = $(this).find('i');
+    const $stateToggles = $('[data-toggle="toggle-row"]');
 
-    if (isHidden) {
-        // Open summary: show state rows and Grand Total
-        $stateRows.show();
-        $grandTotal.show();
+    // ------------------------------------
+    // Initial state: Hide everything
+    // ------------------------------------
 
-        $icon.removeClass('fa-chevron-down')
-             .addClass('fa-chevron-up');
+    $summaryRows.hide();
+    $('.collapse-row').hide();
 
-        isHidden = false;
-    } else {
-        // Close summary: hide all rows, including Grand Total
-        $summaryRows.hide();
-        $('.collapse-row').hide();
-
-        $('[data-toggle="toggle-row"] i.icon-custom')
-            .removeClass('fa-chevron-up')
-            .addClass('fa-chevron-down');
-
-        $icon.removeClass('fa-chevron-up')
-             .addClass('fa-chevron-down');
-
-        isHidden = true;
-    }
-});
-
-// State toggle: only one state's details open at a time
-$('[data-toggle="toggle-row"]').on('click', function() {
-    const targetClass = $(this).data('target');
-    const $icon = $(this).find('i.icon-custom');
-    const isVisible = $(targetClass).is(':visible');
-
-    // Close other state details
-    $('.collapse-row').not(targetClass).hide();
-
-    // Reset state icons
-    $('[data-toggle="toggle-row"] i.icon-custom')
+    // Reset Total Summary icon
+    $summaryHeader.find('i')
         .removeClass('fa-chevron-up')
         .addClass('fa-chevron-down');
 
-    if (!isVisible) {
-        $(targetClass).show();
+    // Reset State icons
+    $stateToggles.find('i.icon-custom')
+        .removeClass('fa-chevron-up')
+        .addClass('fa-chevron-down');
 
-        $icon.removeClass('fa-chevron-down')
-             .addClass('fa-chevron-up');
-    } else {
-        $(targetClass).hide();
-    }
+
+    // ------------------------------------
+    // Total Summary Toggle
+    // ------------------------------------
+
+    $summaryHeader.off('click').on('click', function (e) {
+
+        e.preventDefault();
+
+        const $icon = $(this).find('i');
+
+        if (isHidden) {
+
+            // Open summary rows and Grand Total
+            $stateRows.show();
+            $grandTotal.show();
+
+            $icon.removeClass('fa-chevron-down')
+                 .addClass('fa-chevron-up');
+
+            isHidden = false;
+
+        } else {
+
+            // Close all summary and detail rows
+            $summaryRows.hide();
+            $('.collapse-row').hide();
+
+            // Reset state icons
+            $stateToggles.find('i.icon-custom')
+                .removeClass('fa-chevron-up')
+                .addClass('fa-chevron-down');
+
+            // Reset summary icon
+            $icon.removeClass('fa-chevron-up')
+                 .addClass('fa-chevron-down');
+
+            isHidden = true;
+        }
+
+    });
+
+
+    // ------------------------------------
+    // State Details Toggle
+    // ------------------------------------
+
+    $stateToggles.off('click').on('click', function (e) {
+
+        e.preventDefault();
+
+        // Summary must be open first
+        if (isHidden) {
+            return;
+        }
+
+        const targetClass = $(this).data('target');
+        const $target = $(targetClass);
+        const $icon = $(this).find('i.icon-custom');
+
+        // Invalid target protection
+        if (!$target.length) {
+            return;
+        }
+
+        const isVisible = $target.is(':visible');
+
+        // Close other state details
+        $('.collapse-row').not(targetClass).hide();
+
+        // Reset all state icons
+        $stateToggles.find('i.icon-custom')
+            .removeClass('fa-chevron-up')
+            .addClass('fa-chevron-down');
+
+        if (!isVisible) {
+
+            // Open selected state details
+            $target.show();
+
+            $icon.removeClass('fa-chevron-down')
+                 .addClass('fa-chevron-up');
+
+        } else {
+
+            // Close selected state details
+            $target.hide();
+
+            $icon.removeClass('fa-chevron-up')
+                 .addClass('fa-chevron-down');
+        }
+
+    });
+
 });
 
-
-});
 
 </script>
 
