@@ -2346,10 +2346,6 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
         </div>
     </div>
 </div>
-
-
-
-
 @endsection
 @push('scripts')
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
@@ -2359,22 +2355,108 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
 <script src="{{ asset('assets/app/lightbox/js/script.js') }}"> </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
 
-<script>   
-    addTooltip('#connectMe', 'Click me to connect', 'top', 'center');
-    addTooltip('#openMap', 'Open Map', 'right', 'center');
-    addTooltip('#yourPinup', 'I am your Pin Up this week!', 'right', 'center');
-    addTooltip('#myPlaybox', "I don't have any Playbox.", 'top', 'center');
-    addTooltip('.inCall', 'You come to me.', 'top', 'center');
-    addTooltip('#outCall', 'I come to you.', 'top', 'center');
-    addTooltip('#contactMe1', 'Email me', 'top', 'center');
-    addTooltip('#contactMe2', 'Call me', 'top', 'center');
-    addTooltip('#contactMe3', 'Text me', 'top', 'center');
-    addTooltip('#my-pricing-link', 'See Deposit Policy', 'top', 'center');
-    addTooltip('#myNotebox', 'Add to My Notebox.', 'top', 'center');
-    addTooltip('.profileImgstatus', (target) => target.dataset.tooltip, 'top', 'center');
-    addTooltip('.imgStatus', (target) => target.dataset.tooltip, 'top', 'center');
-    addTooltip('.imgStatus2', (target) => target.dataset.tooltip, 'left', 'center');
-    addTooltip('#onTour', `{{$escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left.":"On Tour, today is my last day."}}`, 'top', 'center');
+<script> 
+    const tooltips = [
+        {
+            element: '#connectMe',
+            text: 'Click me to connect',
+            position: 'top',
+            align: 'center',
+        },
+        {
+            element: '#openMap',
+            text: 'Open Map',
+            position: 'right',
+            align: 'center'
+        },
+        {
+            element: '#yourPinup',
+            text: 'I am your Pin Up this week!',
+            position: 'right',
+            align: 'center'
+        },
+        {
+            element: '#myPlaybox',
+            text: "I don't have any Playbox.",
+            position: 'top',
+            align: 'center'
+        },
+        {
+            element: '.inCall',
+            text: 'You come to me.',
+            position: 'top',
+            align: 'center'
+        },
+        {
+            element: '#outCall',
+            text: 'I come to you.',
+            position: 'top',
+            align: 'center'
+        },
+        {
+            element: '#contactMe1',
+            text: 'Email me',
+            position: 'top',
+            align: 'center'
+        },
+        {
+            element: '#contactMe2',
+            text: 'Call me',
+            position: 'top',
+            align: 'center'
+        },
+        {
+            element: '#contactMe3',
+            text: 'Text me',
+            position: 'top',
+            align: 'center'
+        },
+        {
+            element: '#my-pricing-link',
+            text: 'See Deposit Policy',
+            position: 'top',
+            align: 'center'
+        },
+        {
+            element: '#myNotebox',
+            text: 'Add to My Notebox.',
+            position: 'top',
+            align: 'center'
+        },
+        {
+            element: '.profileImgstatus',
+            text: (target) => target.dataset.tooltip,
+            position: 'top',
+            align: 'center'
+        },
+        {
+            element: '.imgStatus',
+            text: (target) => target.dataset.tooltip,
+            position: 'top',
+            align: 'center'
+        },
+        {
+            element: '.imgStatus2',
+            text: (target) => target.dataset.tooltip,
+            position: 'left',
+            align: 'center'
+        },
+        {
+            element: '#onTour',
+            text: `{{ $escort->left_listing_days > 0
+                ? "On Tour, {$escort->left_listing_days} days left."
+                : "On Tour, today is my last day."
+            }}`,
+            position: 'top',
+            align: 'center'
+        }
+    ];
+
+    // Initialize all tooltips
+    tooltips.forEach(({ element, text, position, align, color }) => {
+        addTooltip(element, text, position, align, color);
+    });
+
     $(document).on('click', '#my-pricing-link', function (e) {
     e.preventDefault();
     e.stopPropagation();

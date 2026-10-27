@@ -35,40 +35,48 @@
             </div>
         </div>
     </div>
+
+
+
     <div class="row">
-        <div class="col-md-12">
-            <div class="photo-top-header" style="">
-                <div class="photo-header border-0">
-                    <div class="modal-header border-0 p-0" style="display: block;position: relative;top: 30%;">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h4 class="pl-3 text-white">All Videos</h4>
-                            </div>
-                            <div class="col-md-2 pt-1">
+        <div class="col-md-12 ">
+            <div class="common-card">
+                <div class="row mb-4">
+                    <div class="col-lg-12">
+                        <div class="video__header">
+                            <div class="card-top">
+                                <div class="card-icon">
+                                    <svg width="64px" height="64px" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg" fill="none"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path stroke="#ff3c5f" stroke-linecap="round" stroke-linejoin="round" stroke-width="12" d="M96 170c40.869 0 74-33.131 74-74 0-40.87-33.131-74-74-74-40.87 0-74 33.13-74 74 0 40.869 33.13 74 74 74Z"></path><path stroke="#ff3c5f" stroke-linecap="round" stroke-linejoin="round" stroke-width="12" d="M74 130V62l60 34-60 34Z"></path></g></svg>
+                                </div>
+
+                                <div class="card-heading">
+                                    <h2>All Videos</h2>
+                                    <p class="m-0">Manage your video library and set your default video</p>
+                                </div>
+                            </div> 
+
+                           <div class="video__progress">
                                 <div class="progress">
                                     <div id="js_profile_video_gallery_progressbar" class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div style="display: flex;gap: 15px;">
-                                    <p id="js_profile_video_gallery_count"></p>
-                                    <img src="{{ asset('assets/app/img/Vector-2.png')}}" style="height: 21px;">
+                                <div class="upload_count">
+                                    <p id="js_profile_video_gallery_count"></p>                                    
                                 </div>
-                            </div>
+                           </div>
+                            
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="archive-photo-sec">
-                <div class="row blog">
-                    <div id="js_profile_video_gallery" class="col-md-12">
+                <div class="archive-photo-sec video__carousels">
+                    <div class="row blog">
+                        <div id="js_profile_video_gallery" class="col-md-12">
+                            
                         
-                     
+                        </div>
                     </div>
-                </div>
+                </div>            
             </div>
         </div>
-        
         <div class="col-md-12 my-4">
             <div class="upload-photo-sec">
                 <div class="d-sm-flex align-items-center justify-content-between p-3 custom-img-filter-header">

@@ -507,7 +507,7 @@ function addTooltip(
 
         tooltip.className = `dummy_tooltip ${position} align-${alignment}`;
         tooltip.style.setProperty('--peach', color);
-        tooltip.textContent = typeof text === 'function'
+        tooltip.innerHTML = typeof text === 'function'
             ? text(target)
             : text;
         tooltip.style.display = 'none';

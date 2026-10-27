@@ -120,52 +120,47 @@
                     <div class="add--list listingActionButtons">
                         <div class=" d-flex gap-10 flex-wrap justify-content-between">
 
-                            {{-- <div class="pinup-tooltip-wrapper"> --}}
+                            <!-- <div class="pinup-tooltip-wrapper"> -->
                             <button style="padding: 10px;" class="btn btn-warning esc-tooltip-wrap"
                                 data-toggle="modal" data-target="#pinup_profile" id="btn_pinup_profile"
                                 @if ($activePinup) disabled title="" @endif>List Pin
                                 Up
                                 @if ($activePinup)
-                                <span class="esc-tooltip-2">You already have an active <br> Pin Up. You can
+                                <span class="esc-tooltip-2 ">You already have an active <br> Pin Up. You can
                                     book <br> after it
                                     expires.</span>
                                 @endif
                             </button>
-                            <button style="padding: 10px;" class="btn btn-bump-up esc-tooltip-wrap"
+                            <button style="padding: 10px;" class="btn btn-bump-up"
                                 data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump
                                 Up
-                                <span class="esc-tooltip-2">Bump your Listing up to <br> the top of the
-                                    Listings</span>
+                                
                             </button>
 
-                            <button class="btn upgrade-btn esc-tooltip-wrap" data-toggle="modal"
+                            <button class="btn upgrade-btn" data-toggle="modal"
                                 data-target="#upgrade_modal" id="btn_upgrade">Upgrade
-                                <span class="esc-tooltip-2">Upgrade your Membership <br> Type</span>
                             </button>
 
 
-                            <button style="padding: 10px;" class="btn btn-custom-success esc-tooltip-wrap"
+                            <button style="padding: 10px;" class="btn btn-custom-success"
                                 data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile">
                                 Extend Listing
-                                <span class="esc-tooltip-2">Extend your Listing to a <br> new end date</span>
                             </button>
-                            <button style="padding: 10px;" class="btn btn-primary esc-tooltip-wrap"
+                            <button style="padding: 10px;" class="btn btn-primary"
                                 data-toggle="modal" data-target="#suspend_profile"
                                 id="btn_suspend_profile">Suspend Listing
-                                <span class="esc-tooltip-2">Take down your Listing <br> for a set period</span>
                             </button>
-                            <button style="padding: 10px;" class="btn btn-danger esc-tooltip-wrap"
+                            <button style="padding: 10px;" class="btn btn-danger"
                                 data-toggle="modal" data-target="#cancel_profile"
                                 id="btn_cancel_profile">Cancel Listing
-                                <span class="esc-tooltip-2">Take down your Listing</span>
                             </button>
 
 
 
                         </div>
-                        <button class="btn brb-btn esc-tooltip-wrap" data-toggle="modal" data-target="#add_brb"
+                        <button class="btn brb-btn" data-toggle="modal" data-target="#add_brb"
                             id="btn_add_brb">Add BRB
-                            <span class="esc-tooltip-2">Be Right Back display</span>
+                            
                         </button>
                     </div>
                 </div>
@@ -468,6 +463,51 @@
 </script>
 
 <script>
+
+    const tooltips = [        
+        {
+            element: '#btn_bumpup_profile',
+            text: 'Bump your Listing up to <br> the top of the Listings',
+            position: 'top',
+            align: 'center'
+        },
+        {
+            element: '#btn_upgrade',
+            text: 'Upgrade your Membership <br> Type',
+            position: 'top',
+            align: 'center'
+        },
+        {
+            element: '#btn_extend_profile',
+            text: 'Extend your Listing to a <br> new end date',
+            position: 'top',
+            align: 'center'
+        },
+        {
+            element: '#btn_suspend_profile',
+            text: 'Take down your Listing <br> for a set period',
+            position: 'top',
+            align: 'center'
+        },
+        {
+            element: '#btn_cancel_profile',
+            text: 'Take down your Listing',
+            position: 'top',
+            align: 'center'
+        },
+        {
+            element: '#btn_add_brb',
+            text: 'Be Right Back display',
+            position: 'top',
+            align: 'center'
+        },
+       
+    ];
+
+    // Initialize all tooltips
+    tooltips.forEach(({ element, text, position, align, color }) => {
+        addTooltip(element, text, position, align, color);
+    });
     var table;
     $(".listingActionButtons button").attr('disabled', 'disabled');
     $.ajaxSetup({
