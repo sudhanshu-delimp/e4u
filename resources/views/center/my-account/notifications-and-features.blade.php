@@ -98,8 +98,7 @@
                                                         value="1"
                                                         {{ old('features_allow_viewers_to_ask_you_a_question', $setting->features_allow_viewers_to_ask_you_a_question ?? 0) ? 'checked' : '' }}>
                                                     <label class="custom-control-label" for="features2">Allow Viewers to ask
-                                                        you a
-                                                        question</label>
+                                                        you a question</label>
                                                 </div>
 
                                                 <div class="custom-control custom-switch">
@@ -108,8 +107,7 @@
                                                         id="features3" value="1"
                                                         {{ old('features_allow_viewers_to_send_you_a_text_message', $setting->features_allow_viewers_to_send_you_a_text_message ?? 0) ? 'checked' : '' }}>
                                                     <label class="custom-control-label" for="features3">Allow Viewers to
-                                                        send you a
-                                                        text message</label>
+                                                        send you a Message</label>
                                                 </div>
                                             </div>
                                             <div class="card-note">
