@@ -281,9 +281,9 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                     
                                 @if(auth()->user() && auth()->user()->type == '0')
                                     <div class="social_media_icons">
-                                        <div class="my-play-box-profile-icon" >
+                                        <div class="my-play-box-profile-icon" id="myNotebox">
                                             <a href="{{route('user.notebox.new',[$escort->id])}}"><img src="{{asset('assets/app/img/notebo-whitex.png')}}" alt="logo"></a>
-                                            <div class="custom-tooltip">Add to My Notebox.</div>
+                                            
                                         </div>
                                     </div>                            
                                 @endif
@@ -1051,13 +1051,14 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                             <a href="" class="custom-tooltip text-decoration-none text-white"  data-toggle="modal" data-target="#exampleModal">Click to view My Media</a>
                                             </div>
                                         </div>
-                                        <div class="verify_icon verifyIcon">
-                                            @php
+                                        @php
                                             $profile_status = getMediaVerificationDataBigIcon($status);
                                            
                                             @endphp
+                                        <div class="verify_icon profileImgstatus" data-tooltip="{{$profile_status['label']}}">
+                                            
                                             <img src="{{ $profile_status['icon']}}">
-                                            <span class="common_shield_tooltip">{{$profile_status['label']}}</span>
+                                            <!-- <span class="common_shield_tooltip">{{$profile_status['label']}}</span> -->
 
                                         </div>
                                     </div>
@@ -1144,11 +1145,8 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                                                             @endphp
 
                                                                             @if($media_status)
-                                                                                <div class="verify_icon" style="border-radius: 0px 0px 10px 0px;">
+                                                                                <div class="verify_icon imgStatus"  data-tooltip="{{ $media_status['label'] }}">
                                                                                     <img src="{{ $media_status['icon'] }}" >
-                                                                                    <span class="common_shield_tooltip">
-                                                                                        {{ $media_status['label'] }}
-                                                                                    </span>
                                                                                 </div>
                                                                             @endif
                                                                             
@@ -1178,11 +1176,8 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                                                                 @endphp
 
                                                                                 @if($media_status)
-                                                                                    <div class="verify_icon_sm">
+                                                                                    <div class="verify_icon_sm imgStatus2"  data-tooltip="{{ $media_status['label'] }}">
                                                                                         <img src="{{ $media_status['icon'] }}">
-                                                                                        <span class="gallery_shield_tooltip">
-                                                                                            {{ $media_status['label'] }}
-                                                                                        </span>
                                                                                     </div>
                                                                                 @endif
 
@@ -1435,26 +1430,23 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                 $contactType = $escort->contact != null ? $escort->contact : '';
                             @endphp
                             @if($contactType == 1)
-                                <span class="tooltip-wrapper">
-                                    <img src="{{ asset('assets/app/img/email-me.png') }}">
-                                    <div class="tooltip-text">Email me</div>
+                                <span id="contactMe1">
+                                    <img src="{{ asset('assets/app/img/email-me.png') }}">                                    
                                 </span>                              
                             
                             @endif
 
                             @if($contactType == 4 || $contactType == 5)
-                                <span class="tooltip-wrapper">
-                                    <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
-                                    <div class="tooltip-text">Call me</div>
+                                <span id="contactMe2">
+                                    <img src="{{ asset('assets/app/img/phoneicon.svg') }}">                                    
                                     @if($contactType == 5)
                                         <span>or</span>
                                     @endif
                                 </span>
                             @endif
                             @if($contactType == 2 || $contactType == 5)
-                                <span class="tooltip-wrapper">
-                                        <img src="{{ asset('assets/app/img/wechat.svg') }}">
-                                        <div class="tooltip-text">Text me</div>
+                                <span id="contactMe3">
+                                        <img src="{{ asset('assets/app/img/wechat.svg') }}">                                        
                                 </span>
                             @endif
                         
@@ -1538,7 +1530,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                         <div class="content">
                             <div class="accodien_manage_padding_content">
                                 <p class="text-justify">
-                                     Prices are all inclusive unless an extra is listed in My Services. For Outcalls, price is rate + taxi to and from my Location, and I may require a <a href="javascript:void(0)" class="tooltip-wrapper"  id="my-pricing-link">Deposit <span class="tooltip-text"> See Deposit Policy</span></a>. 
+                                     Prices are all inclusive unless an extra is listed in My Services. For Outcalls, price is rate + taxi to and from my Location, and I may require a <a href="javascript:void(0)"  id="my-pricing-link">Deposit</a>. 
                                 </p>
                             </div>
                         </div>
@@ -2374,7 +2366,14 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
     addTooltip('#myPlaybox', "I don't have any Playbox.", 'top', 'center');
     addTooltip('.inCall', 'You come to me.', 'top', 'center');
     addTooltip('#outCall', 'I come to you.', 'top', 'center');
-    
+    addTooltip('#contactMe1', 'Email me', 'top', 'center');
+    addTooltip('#contactMe2', 'Call me', 'top', 'center');
+    addTooltip('#contactMe3', 'Text me', 'top', 'center');
+    addTooltip('#my-pricing-link', 'See Deposit Policy', 'top', 'center');
+    addTooltip('#myNotebox', 'Add to My Notebox.', 'top', 'center');
+    addTooltip('.profileImgstatus', (target) => target.dataset.tooltip, 'top', 'center');
+    addTooltip('.imgStatus', (target) => target.dataset.tooltip, 'top', 'center');
+    addTooltip('.imgStatus2', (target) => target.dataset.tooltip, 'left', 'center');
     addTooltip('#onTour', `{{$escort->left_listing_days > 0 ? "On Tour, {$escort->left_listing_days} days left.":"On Tour, today is my last day."}}`, 'top', 'center');
     $(document).on('click', '#my-pricing-link', function (e) {
     e.preventDefault();
