@@ -97,13 +97,32 @@
                                 Select Services
                             </label>
 
-                            <select id="services" class="form-control">
+                            <!-- <select id="services" class="form-control">
                                 <option value="">Choose a service...</option>
                                 @if($services->isNotEmpty())
                                     @foreach($services as $key=>$service)
                                         <option value="{{$service->name}}" data-price="{{$service->amount}}">{{$service->name}}</option>
                                     @endforeach
                                 @endif
+                            </select> -->
+                            <select id="services" class="form-control">
+                                <option value="">Choose a service...</option>
+
+                                <optgroup label="Listing Services">
+                                     @if($services->isNotEmpty())
+                                        @foreach($services as $key=>$service)
+                                            <option value="{{$service->name}}" data-price="{{$service->amount}}">{{$service->name}}</option>
+                                        @endforeach
+                                    @endif
+                                </optgroup>
+
+                                <optgroup label="Concierge Services">
+                                     @if($services->isNotEmpty())
+                                        @foreach($services as $key=>$service)
+                                            <option value="{{$service->name}}" data-price="{{$service->amount}}">{{$service->name}}</option>
+                                        @endforeach
+                                    @endif
+                                </optgroup>
                             </select>
 
                             <small class="cp-hint">
