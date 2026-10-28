@@ -267,11 +267,9 @@
             }
 
             if (isBlocked) {
-                $(".modal_title_img").attr('src', '{{ asset('
-                    assets / dashboard / img / block.png ') }}');
+                $(".modal_title_img").attr('src', '{{asset("assets/dashboard/img/block.png") }}');
             } else {
-                $(".modal_title_img").attr('src', '{{ asset('
-                    assets / dashboard / img / unblock.png ') }}');
+                $(".modal_title_img").attr('src', '{{ asset("assets/dashboard/img/unblock.png") }}');
             }
 
             let url = '{{ route("massage-center.viewer-interaction.update") }}';
@@ -298,11 +296,9 @@
             }
 
             if (newStatus == 'disable') {
-                $(".modal_title_img").attr('src', '{{ asset('
-                    assets / dashboard / img / no - phone.png ') }}');
+                $(".modal_title_img").attr('src', '{{asset("assets/dashboard/img/no-phone.png") }}');
             } else {
-                $(".modal_title_img").attr('src', '{{ asset('
-                    assets / dashboard / img / phone.png ') }}');
+                $(".modal_title_img").attr('src', '{{asset("assets/dashboard/img/phone.png") }}');
             }
 
             return ajaxCall(url, data, $this);
@@ -327,13 +323,9 @@
             }
 
             if (newStatus == 'disable') {
-                $(".modal_title_img").attr('src',
-                    '{{ asset('
-                    assets / dashboard / img / disable_notification.png ') }}');
+                $(".modal_title_img").attr('src','{{ asset("assets/dashboard/img/disable_notification.png") }}');
             } else {
-                $(".modal_title_img").attr('src',
-                    '{{ asset('
-                    assets / dashboard / img / enable_notification.png ') }}');
+                $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/enable_notification.png") }}');
             }
 
             return ajaxCall(url, data, $this);

@@ -56,8 +56,8 @@
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12 ">
             <div class="my-3">
-                <div class="col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
-
+                <div class="col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 10px;">
+                     <a href="" class="text-white btn-cancel-modal">Refresh</a>
                     <div class="total_listing">
                         <div><span>Total Visitors : </span></div>
                         <div><span class="totalVisitors">56</span></div>

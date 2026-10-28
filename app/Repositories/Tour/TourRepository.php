@@ -150,6 +150,9 @@ class TourRepository extends BaseRepository implements TourInterface
         if ($search) {
             $query->where(function ($q) use ($searchables, $search) {
                 foreach ($searchables as $column) {
+                    if( $column == 'name_with_tag') {
+                         $column = 'name';
+                    }
                     $q->orWhere($column, 'LIKE', "%{$search}%");
                 }
             });

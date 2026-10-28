@@ -88,9 +88,11 @@ class AdminPunterBoxController extends Controller
         if ($request->ajax()) {
 
             return DataTables::of($punterbox)
-                ->addColumn('ref', fn($row) => '#' . $row->id)
+                ->addColumn('ref', fn($row) => $row->ref_number)
                 // 'ref' is just "#" + id, so sort it using the real 'id' column
-                ->orderColumn('ref', 'id $1')
+                ->orderColumn('ref', function ($query, $order) {
+                    $query->orderBy('ref_number', $order);
+                })
 
                 ->addColumn('member_id', fn($row) => $row->user->member_id ?? 'N/A')
                 // 'member_id' comes from the related User model, not from punterbox table directly.
@@ -105,8 +107,11 @@ class AdminPunterBoxController extends Controller
                 })
 
                 ->filterColumn('member_id', function ($query, $keyword) {
-                    $query->whereHas('user', function ($q) use ($keyword) {
-                        $q->where('member_id', 'like', "%{$keyword}%");
+                    $query->where(function ($q) use ($keyword) {
+                        $q->whereHas('user', function ($userQuery) use ($keyword) {
+                            $userQuery->where('member_id', 'like', "%{$keyword}%");
+                        })
+                        ->orWhere('ref_number', 'like', "%{$keyword}%");
                     });
                 })
 

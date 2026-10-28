@@ -24,7 +24,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use PDF;
-
 class OperatorMonthlyReportController extends BaseController
 {
   protected $viewAccessEnabled;
@@ -51,11 +50,9 @@ class OperatorMonthlyReportController extends BaseController
       if (isset($this->sidebar['management']['yesNo']) && $this->sidebar['management']['yesNo'] == 'no') {
         return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
       }
-
       return $next($request);
     });
   }
-
 
   /**
    *  View the monthly fee reports list
@@ -67,7 +64,6 @@ class OperatorMonthlyReportController extends BaseController
     //dd($feeData);
     return view('admin.management.operator.fees.monthly-fee-reports');
   }
-
 
   public function monthlyReportAjax()
   {
@@ -105,7 +101,6 @@ class OperatorMonthlyReportController extends BaseController
         "data"            => null
       );
     }
-
     return response()->json($data);
   }
 
@@ -197,7 +192,6 @@ class OperatorMonthlyReportController extends BaseController
       } else if ($item->status == 'query') {
 
         if ($this->editAccessEnabled) {
-
            $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query_resolved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Query Resolve</a>';
 
           $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" id="openQueryModel"><i class="fa fa-search-minus"></i></i>Reply Query</a>';
@@ -208,7 +202,6 @@ class OperatorMonthlyReportController extends BaseController
         if ($this->editAccessEnabled) {
           $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
         }
-
         /*$dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
         $divider = '<div class="dropdown-divider"></div>'; */
       }
@@ -221,13 +214,10 @@ class OperatorMonthlyReportController extends BaseController
         }
         $dropDown .= $divider . '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 getSubmittedQuery" href="javascript:void(0)" data-id="' . $item->id . '" > <i class="fa fa-eye"></i> View Query</a>' . $divider2;
       }
-
       //  View Detail
       $dropDown .= $divider . '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-operator_id="' . $item->agent_id . '" id="getMontlyViewReportPage"> <i class="fa fa-eye"></i> View Report</a>';
 
-
       $dropDown .= '</div></div>';
-
       $item->action = $dropDown;
     }
 
@@ -287,7 +277,6 @@ class OperatorMonthlyReportController extends BaseController
             $reportQueryObj->notes = $note;
             $reportQueryObj->save();
           }
-
           return $this->successResponse('Monthly fee report status successfully updated.');
         }
       } else {

@@ -33,7 +33,9 @@ $ocLavel = 'Developer';
             <span>Dashboard</span>
         </a>
     </li>
-
+     <li
+        style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;margin-top: 10px;margin-bottom: 15px;">
+    </li>
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Monitoring"
             aria-expanded="false" aria-controls="collapseMonitoring">
@@ -145,7 +147,7 @@ $ocLavel = 'Developer';
                     'financial-report',
                     'process-payment',
                     'summary',
-                ]) || in_array(request()->segment(2), ['support_tickets', 'submit_ticket', 'reference-lookup'])) show @endif"
+                ]) || request()->routeIs('administration.*') || in_array(request()->segment(2), ['support_tickets', 'submit_ticket', 'reference-lookup'])) show @endif"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
             <div class="py-0 collapse-inner rounded mb-2">
@@ -789,36 +791,34 @@ $ocLavel = 'Developer';
 
 
                 {{-- Support Services --}}
-                <a class="nav-link  {{ in_array(request()->segment(3), ['financial-report', 'process-payment', 'summary']) ? '' : 'collapsed' }}"
+                <a class="nav-link  collapsed"
                     href="#" data-toggle="collapse" data-target="#supportServices" aria-expanded="false"
                     aria-controls="supportServices">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/support-services.png') }}">
                     <span>Support Services</span>
                 </a>
 
-                <div id="supportServices" class=" collapse  @if (request()->segment(3) == 'financial-report' ||
-                            request()->segment(3) == 'process-payment' ||
-                            request()->segment(3) == 'summary') show @endif"
+                <div id="supportServices" class=" collapse @if (request()->routeIs('administration.support-services.*')) show @endif"
                     data-parent="#Administration">
                     <div class="py-0 collapse-inner rounded mb-2">
-                        <a class="collapse-item show" href="{{ route('admin.financial-report') }}">
+                        <a class="collapse-item show" href="{{ route('administration.support-services.financial_report') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/financials.png') }}">
                             <span
-                                style="{{ request()->segment(3) == 'financial-report' ? 'color: #e5365a;' : '' }}">Financial
+                                style="{{ request()->routeIs('administration.support-services.financial_report') ? 'color: #FF3C5F;' : '' }}">Financial
                                 Report
                             </span>
                         </a>
-                        <a class="collapse-item show" href="{{ route('admin.process-payment') }}">
+                        <a class="collapse-item show" href="{{ route('administration.support-services.process_payment') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/payment.png') }}">
                             <span
-                                style="{{ request()->segment(3) == 'process-payment' ? 'color: #e5365a;' : '' }}">Process
+                                style="{{ request()->routeIs('administration.support-services.process_payment') ? 'color: #FF3C5F;' : '' }}">Process
                                 Payment
                             </span>
                         </a>
-                        <a class="collapse-item show" href="{{ route('admin.summary') }}">
+                        <a class="collapse-item show" href="{{ route('administration.support-services.summary') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/pricing-summary.png') }}">
                             <span
-                                style="{{ request()->segment(3) == 'summary' ? 'color: #e5365a;' : '' }}">Summary
+                                style="{{ request()->routeIs('administration.support-services.summary') ? 'color: #FF3C5F;' : '' }}">Summary
                             </span>
                         </a>
 

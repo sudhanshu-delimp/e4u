@@ -80,7 +80,8 @@ class AdminNumsController extends Controller
         if ($request->ajax()) {
 
             return DataTables::of($nums)
-                ->addColumn('ref', fn($row) => '#' . $row->id)
+                //->addColumn('ref', fn($row) => '#' . $row->id)
+                ->addColumn('ref', fn($row) => $row->ref_number)
                 ->addColumn('member_id', fn($row) => $row->user->member_id ?? 'N/A')
                 ->addColumn('member_name', fn($row) => $row->user->name ?? 'N/A')
                 ->addColumn('incident_date', function ($row) {

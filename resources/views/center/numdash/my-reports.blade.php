@@ -214,7 +214,7 @@
 
       "language": {
         "zeroRecords": "No Record Found!",
-        searchPlaceholder: "Search by Mobile Number"
+        searchPlaceholder: "Search by Mobile Number or REF"
       },
       order: [
         [3, 'desc']

@@ -172,7 +172,7 @@ class PunterBoxController extends Controller
         if ($request->ajax()) {
 
             return DataTables::of($punterbox)
-                ->addColumn('ref', fn($row) => '#' . $row->id)
+                ->addColumn('ref', fn($row) => $row->ref_number)
                 ->addColumn('escorts_mobile', function ($row) {
                     return formatPhone($row->escorts_mobile);
                 })

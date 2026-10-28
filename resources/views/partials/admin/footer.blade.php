@@ -217,6 +217,9 @@
                 icon: '{{ $alert }}',
                 confirmButtonText: 'OK'
             });
+            
+    addTooltip('#supportTooltip', 'Support Ticket', 'bottom', 'center');
+    addTooltip('#alertTooltip', 'Alert Centre', 'bottom', 'center'); 
         </script>
         @endif
         @endforeach
