@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 @section('content')
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <div class="row">
         <div class="custom-heading-wrapper col-md-12">
@@ -96,33 +97,19 @@
                             <label for="services" class="form-label">
                                 Select Services
                             </label>
-
-                            <!-- <select id="services" class="form-control">
-                                <option value="">Choose a service...</option>
+                            <select id="services" class="form-control select2">
                                 @if($services->isNotEmpty())
-                                    @foreach($services as $key=>$service)
-                                        <option value="{{$service->name}}" data-price="{{$service->amount}}">{{$service->name}}</option>
+                                    <option value="">Choose a service...</option>
+                                    @foreach ($services as $category => $items)
+                                        <optgroup label="{{ $category }}">
+                                        @foreach ($items as $service)
+                                            <option value="{{ $service->name }}" data-price="{{ $service->amount }}">{{ $service->name }}</option>
+                                        @endforeach
+                                    </optgroup>
                                     @endforeach
+                                @else 
+                                    <option value="">Sorry, no service found</option>
                                 @endif
-                            </select> -->
-                            <select id="services" class="form-control">
-                                <option value="">Choose a service...</option>
-
-                                <optgroup label="Listing Services">
-                                     @if($services->isNotEmpty())
-                                        @foreach($services as $key=>$service)
-                                            <option value="{{$service->name}}" data-price="{{$service->amount}}">{{$service->name}}</option>
-                                        @endforeach
-                                    @endif
-                                </optgroup>
-
-                                <optgroup label="Concierge Services">
-                                     @if($services->isNotEmpty())
-                                        @foreach($services as $key=>$service)
-                                            <option value="{{$service->name}}" data-price="{{$service->amount}}">{{$service->name}}</option>
-                                        @endforeach
-                                    @endif
-                                </optgroup>
                             </select>
 
                             <small class="cp-hint">
@@ -336,7 +323,9 @@
 @endsection
 
 @push('script')
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script>
+    $('.select2').select2();
     document.addEventListener('DOMContentLoaded', () => {
         const form = document.getElementById('advertiserForm');
         const memberIdInput = document.getElementById('memberId');
