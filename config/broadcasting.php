@@ -35,10 +35,20 @@ return [
             'key' => env('PUSHER_APP_KEY'),
             'secret' => env('PUSHER_APP_SECRET'),
             'app_id' => env('PUSHER_APP_ID'),
-            'options' => [
+            // 'options' => [
+            //     'cluster' => env('PUSHER_APP_CLUSTER'),
+            //     'host' => env('PUSHER_HOST'),
+            //     'port' => env('PUSHER_PORT', 6002),
+            //     'scheme' => env('PUSHER_SCHEME', 'http'),
+            //     'useTLS' => env('PUSHER_SCHEME') === 'https',
+            // ],
+            'options' => array_filter([
                 'cluster' => env('PUSHER_APP_CLUSTER'),
-                'useTLS' => true,
-            ],
+                'host'    => env('PUSHER_HOST'),
+                'port'    => env('PUSHER_PORT'),
+                'scheme'  => env('PUSHER_SCHEME'),
+                'useTLS'  => env('PUSHER_SCHEME', 'https') === 'https',
+            ]),
         ],
 
         'ably' => [

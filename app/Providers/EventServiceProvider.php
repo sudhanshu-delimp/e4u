@@ -37,6 +37,9 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
             RegisterListenerForViewer::class,
         ],
+        \Illuminate\Auth\Events\Logout::class => [
+            \App\Listeners\MarkUserOffline::class,
+        ],
         EscortRegister::class => [
             RegisterListenerForEscort::class,
             RegisterListenerForAdmin::class,

@@ -27,6 +27,7 @@ Homestead.json
 composer.lock
 
 /public/build
+/public/chat-build/
 /storage/pail
 .env.backup
 .env.production
@@ -48,6 +49,7 @@ public/massageProfile/images/*
 
 
 public/escorts/images/*
+/public/escorts/chat/
 public/avatars/*
 laravel.log
 .DS_Store

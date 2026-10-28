@@ -55,4 +55,39 @@ Listings
 3908 -> Tasmania
 3910 ->  Northern Territory
 3907 -> Australian Capital Territory
+
+
+
+Setup message on server 
+======================================================
+Step 1
+ 
+Node need 20.20.
+npm 10.11
+ 
+------------------------------------------------------ 
+ 
+step 2
+ 
+composer install
+
+-----------------------------------------------------
+ 
+step 3  Existing dependencies install
+ 
+npm ci
+
+-----------------------------------------------------
+ 
+Step 4
+ 
+npx mix --version
+ 
+------------------------------------------------------
+
+Step 5
+ 
+npm run chat
+ 
+========================================================
    

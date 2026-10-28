@@ -163,7 +163,6 @@
 .sidebar-actions button {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 5px;
     color: var(--text);
     font-size: 14px;
@@ -558,7 +557,7 @@
 }
 
 .message-bubble {
-    padding: 13px 18px;
+    padding: 10px 18px;
     border-radius: 15px;
     background: var(--white);
     color: var(--text);
@@ -571,8 +570,8 @@
 
 .sent .message-bubble {
     margin-left: auto;
-    background: var(--primary);
-    color: var(--white);
+    background: var(--sent-bg);
+    color: var(--text);
     border-bottom-right-radius: 5px;
 }
 
