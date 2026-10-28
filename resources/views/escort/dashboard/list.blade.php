@@ -172,7 +172,7 @@
                             <tr>
                                 <th>ID</th>
                                 <!-- <th class="w-auto" colspan="4">Profile Name</th> -->
-                                <th class="w-auto">Profile Name</th>
+                                <th class="w-auto">Profile Details</th>
                                 <th class="w-auto">Stage Name</th>
                                 <th class="w-auto">Membership</th>
                                 <th class="w-auto">Start Date</th>
