@@ -6,12 +6,14 @@
 
 use App\Mail\LoginOtpMail;
 use App\Models\AdvertiserDiscount;
+use App\Models\AgentSetting;
 use App\Models\AlertNotic;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Escort;
 use App\Models\EscortAdditionalInformation;
 use App\Models\EscortMedia;
+use App\Models\EscortSetting;
 use App\Models\EscortStatistics;
 use App\Models\EscortViewerInteractions;
 use App\Models\GlobalNotification;
@@ -21,6 +23,7 @@ use App\Models\MassageProfile;
 use App\Models\MassagePurchase;
 use App\Models\MassageRate;
 use App\Models\MassageService;
+use App\Models\MassageSetting;
 use App\Models\MassageStatistics;
 use App\Models\MassageSuspendProfile;
 use App\Models\Masseur;
@@ -3584,3 +3587,67 @@ if (!function_exists('generateReferenceNunber')) {
         return $refNumber;
     }
 }
+ if (! function_exists('getUserNotificationPreferences')) {
+  function getUserNotificationPreferences($user)
+  {
+    // Map user type to its setting model and respective columns.
+    $settingsMap = [
+      3 => [
+        'model' => EscortSetting::class,
+        'text_column' => 'alert_notification_text',
+        'email_column' => 'alert_notification_email',
+      ],
+      4 => [
+        'model' => MassageSetting::class,
+        'text_column' => 'alert_notification_text',
+        'email_column' => 'alert_notification_email',
+      ],
+      5 => [
+        'model' => AgentSetting::class,
+        'text_column' => 'escort_text',
+        'email_column' => 'escort_email',
+      ],
+
+    ];
+
+    $type = (int) $user->type;
+    if (!isset($settingsMap[$type])) {
+      return [
+        'text_enabled' => false,
+        'email_enabled' => false,
+      ];
+    }
+    $config = $settingsMap[$type];
+
+    $setting = $config['model']::where('user_id', $user->id)->first();
+
+    return [
+      'text_enabled' => (string) data_get($setting, $config['text_column'], '0') === '1',
+      'email_enabled' => (string) data_get($setting,  $config['email_column'],   '0') === '1',
+    ];
+  }
+}
+
+if (! function_exists('buildUserNotificationPayload')) {
+    function buildUserNotificationPayload(
+        $user,
+        string $title,
+        string $message,
+        string $icon
+    ): array {
+        return [
+            'title' => $title,
+            'message' => $message,
+            'from_user' => auth()->id(),
+            'to_user' => $user->id,
+            'user_type' => (string) $user->type,
+            'notification_icon' => $icon,
+            'notification_listing_type' => '2',
+            'notification_type' => 'general',
+            'is_seen' => '0',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ];
+    }
+}
+

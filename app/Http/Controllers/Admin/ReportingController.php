@@ -9,6 +9,10 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserStatusUpdatedMail;
+use App\Models\Agent;
+use App\Models\AgentSetting;
+use App\Models\Notification;
+use App\Sms\Provider\MessageMedia;
 use Barryvdh\Debugbar\Controllers\BaseController;
 use Illuminate\Support\Facades\Cache;
 
@@ -299,79 +303,102 @@ class ReportingController extends BaseController
     }
 
 
-    public function changeUserStatus(Request $request)
-    {
-        try {
-            $request->validate([
-                'user_id' => 'required|exists:users,id',
-                'status'  => 'required|in:1,3,4,5,6,7,8',
-                'reject_reason' => 'nullable|string'
-            ]);
+  public function changeUserStatus(Request $request)
+  {
+    try {
+      $request->validate([
+        'user_id' => 'required|exists:users,id',
+        'status'  => 'required|in:1,3,4,5,6,7,8',
+        'reject_reason' => 'nullable|string'
+      ]);
 
-            $user = User::findOrFail($request->user_id);
-            $oldStatus = (int) $user->getRawOriginal('status');
-            $newStatus = (int) $request->status;
+      $user = User::findOrFail($request->user_id);
+      $oldStatus = (int) $user->getRawOriginal('status');
+      $newStatus = (int) $request->status;
 
-            // Skip if no change (and no reason)
-            if ($oldStatus == $request->status && !$request->filled('reject_reason')) {
-                return response()->json(['success' => true]);
-            }
+      // Skip if no change (and no reason)
+      if ($oldStatus == $request->status && !$request->filled('reject_reason')) {
+        return response()->json(['success' => true]);
+      }
 
-            // Update status
-            $user->status = $request->status;
+      // Update status
+      $user->status = $request->status;
 
-            // Handle rejection reason
-            if ($request->status == 7) {
-                $user->rejection_reason = $request->filled('reject_reason')
-                    ? $request->reject_reason
-                    : null;
-            } else {
-                $user->rejection_reason = null;
-            }
+      // Handle rejection reason
+      if ($request->status == 7) {
+        $user->rejection_reason = $request->filled('reject_reason')
+          ? $request->reject_reason
+          : null;
+      } else {
+        $user->rejection_reason = null;
+      }
 
-            $user->save();
+      // $user->save();
 
-            // Status messages
-            $statusInfo = [
-                1 => ['Active', 'Your account has been activated successfully.'],
-                3 => ['Suspended', 'Your account has been suspended.'],
-                4 => ['Blocked', 'Your account is blocked.'],
-                5 => ['Registered', 'Your registration is completed successfully.'],
-                6 => ['On Hold', 'Your membership has been placed on hold.'],
-                7 => ['Rejected', 'Your registration has been rejected.'],
-                8 => ['Cancelled', 'Your membership has been cancelled.']
-            ];
+      // Status messages
+      $statusInfo = [
+        1 => ['Active', 'Your account has been activated successfully.'],
+        3 => ['Suspended', 'Your account has been suspended.'],
+        4 => ['Blocked', 'Your account is blocked.'],
+        5 => ['Registered', 'Your registration is completed successfully.'],
+        6 => ['On Hold', 'Your membership has been placed on hold.'],
+        7 => ['Rejected', 'Your registration has been rejected.'],
+        8 => ['Cancelled', 'Your membership has been cancelled.']
+      ];
 
-            [$statusName, $statusMessage] = $statusInfo[$request->status];
+      [$statusName, $statusMessage] = $statusInfo[$request->status];
 
-            // -------------------------
-            //  EMAIL TYPE LOGIC
-            // -------------------------
-            $emailType = null;
+      // -------------------------
+      //  EMAIL TYPE LOGIC
+      // -------------------------
+      $emailType = null;
 
-            if ($oldStatus === 6 && $newStatus === 7) {
-                $emailType = 'hold-to-reject';
-            } elseif ($newStatus === 7 && $oldStatus !== 6) {
-                $emailType = 'direct-reject';
-            }
+      if ($oldStatus === 6 && $newStatus === 7) {
+        $emailType = 'hold-to-reject';
+      } elseif ($newStatus === 7 && $oldStatus !== 6) {
+        $emailType = 'direct-reject';
+      }
 
-            // Send mail if not blocked
-            if ($request->status != 4) {
-                Mail::to($user->email)
-                    ->queue(new UserStatusUpdatedMail($user, $statusName, $statusMessage, $emailType));
-            }
 
-            return response()->json(['success' => true]);
-        } catch (\Exception $e) {
-            Log::error('User status update error: ' . $e->getMessage(), [
-                'user_id' => $request->user_id,
-                'status'  => $request->status
-            ]);
 
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ], 500);
+      // Send mail if not blocked and email,text is enabled from setting
+      if ($request->status != 4) {
+        $statusInfo = config('messages.account_status', []);
+        $message= $statusInfo[$request->status];
+        $preferences = getUserNotificationPreferences($user);
+        if ($preferences['text_enabled']) {
+          $send = new MessageMedia();
+          $dashboardUrl = config('app.url');
+          $smsMessage = "Account Notification\n\nYour account status has been updated. Please log in to your dashboard to view the details:\n{$dashboardUrl}";
+          $send->sendMessages("61480089451", $smsMessage);
+
+          // Save in-app notification
+          $payload = buildUserNotificationPayload(
+            $user,
+            $message['message'],
+            $message['message'],
+            config('constants.NotificationIcon.general')
+          );
+          Notification::create($payload);
         }
+        if ($preferences['email_enabled']) {
+         
+          Mail::to($user->email)->queue(new UserStatusUpdatedMail($user, $statusName, $statusMessage, $emailType));
+        }
+
+      }
+
+      return response()->json(['success' => true]);
+    } catch (\Exception $e) {
+      Log::error('User status update error: ' . $e->getMessage(), [
+        'user_id' => $request->user_id,
+        'status'  => $request->status
+      ]);
+
+      return response()->json([
+        'success' => false,
+        'message' => $e->getMessage()
+      ], 500);
     }
+  }
 }
