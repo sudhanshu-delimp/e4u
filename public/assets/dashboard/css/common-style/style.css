@@ -2091,6 +2091,29 @@ label.cabinet input.file {
     background: #ccc;
     border-radius: 100px;
 }
+.video__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+}
+.video__progress{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+.video__progress .progress{
+    min-width: 200px;
+}
+.upload_count p{
+margin-bottom: 0px;
+}
+.video__carousels {
+    box-shadow: none;
+}
 /* Responsive */
 @media (max-width: 991.98px) {
     .empty-state {

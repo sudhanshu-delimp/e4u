@@ -87,6 +87,11 @@ class User extends Authenticatable
         'member_id',
     ];
 
+    public function getTourPermissitionTypeAttribute($value)
+    {
+        return $value ?? [];
+    }
+
 
     public function getPhoneAttribute($value)
     {
