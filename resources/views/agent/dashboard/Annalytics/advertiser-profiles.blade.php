@@ -81,7 +81,8 @@
                                             <th>Mobile</th>
                                             <th>Start Date</th>
                                             <th>End Date</th>
-                                            <th>Total Days</th>
+                                            <th style="width: 7%;">Total Days</th>
+                                            <th class="member_type">Type</th>
                                             <th>Pin Up</th>
                                             <th>Listing Fee</th>
                                             <th>Agent’s Fee</th>
@@ -280,14 +281,17 @@
                     <table class="listing-table">
                         <thead>
                             <tr>
-                                <th>#</th>
+                               
                                 <th>Member ID</th>
                                 <th>Name</th>
                                 <th>Mobile</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Total Days</th>
-                                <th>Pin Up</th>
+
+                                <th id="thType">Type</th>
+                                <th id="thPinUp">Pin Up</th>
+
                                 <th>Listing Fee</th>
                                 <th>Agent Fee</th>
                             </tr>
@@ -324,7 +328,7 @@
       info: true,
       lengthChange: true,
       searching: true,
-      bStateSave: true,
+      bStateSave: false,
       order: [
          [4, 'desc']
       ],
@@ -416,8 +420,13 @@
             data: 'total_days',
             name: 'total_days',
             searchable: false,
+            orderable:false,
          },
-        
+         {
+            data: 'member_type',
+            name: 'member_type',
+            searchable: false,
+         },
          {
             data: 'pin_up',
             name: 'pin_up',
@@ -449,6 +458,18 @@
       let selectedText = $(this).find(':selected').text();
       $('.rep_type').text(selectedText);
       table.ajax.url(url).load();
+      let advertiserType = url.split('/').pop();
+
+       console.log(advertiserType);
+        if (advertiserType === "massage") {
+            
+            table.column(6).visible(false);
+            table.column(7).visible(false);
+        } else {
+            table.column(6).visible(true);
+            table.column(7).visible(true);
+        }
+
    });
 
 
@@ -640,6 +661,8 @@ $(document).ready(function () {
     let url = $('#advertiserFilter').val();
     let advertiserType = url ? url.split('/').pop() : 'escort';
 
+    console.log('advertiserType',advertiserType);
+
     let requestUrl = "{{ route('agent.generate_profile_pdf', ['id' => '__TYPE__']) }}"
         .replace('__TYPE__', advertiserType) + `?from_date=${fromDate}&to_date=${toDate}&format=json`;
 
@@ -647,6 +670,17 @@ $(document).ready(function () {
      swal_waiting_popup({
                'title': 'Fetching Report...'
             });
+
+     let isMassage = false;
+     if (advertiserType === 'massage') {
+        isMassage = true;
+     }                               
+
+    if (isMassage) {
+    $('#thType, #thPinUp').hide();
+    } else {
+    $('#thType, #thPinUp').show();
+    }        
 
     $.ajax({
         url: requestUrl,
@@ -676,6 +710,7 @@ $(document).ready(function () {
                     let mobile = item.member_mobile || '-';
                     let startDate = item.start_date || '-';
                     let endDate = item.end_date || '-';
+                    let member_type = item.member_type || '-';
                     let isPinUp ="";
 
                     if(res_type!='Massage Centre')
@@ -695,14 +730,15 @@ $(document).ready(function () {
 
                     html += `
                         <tr>
-                            <td>${index + 1}</td>
+                           
                             <td>${memberId}</td>
                             <td>${name}</td>
                             <td>${mobile}</td>
                             <td>${startDate}</td>
                             <td>${endDate}</td>
                             <td>${totalDays}</td>
-                            <td>${isPinUp}</td>
+                            ${!isMassage ? `<td>${member_type}</td>` : ''}
+                            ${!isMassage ? `<td>${isPinUp}</td>` : ''}
                             <td><div class="num_value">$<span>${listingFee.toFixed(2)}</span></div> </td>
                             <td><div class="num_value">$<span>${agentFee.toFixed(2)}</span></div></td>
                         </tr>

@@ -47,14 +47,24 @@
                                 
                                     @foreach($masseures as $masseure)
                                     @php
-                                    $openDays = countOpenDays($listing['start_date'], $listing['end_date'], $masseure->masseur_availibility);
-                                    $totalAllDays += $openDays; 
+                                    $details = getMasseurWorkingDetails(
+                                        $listing['start_date'], 
+                                        $listing['end_date'], 
+                                        $masseure->masseur_availibility ?? '{}'
+                                    );
+                                    $totalAllDays += $details['count']; 
                                     @endphp
+
+                                   
                                     <tr >
                                         <td style="text-align:center;">{{ isset($masseure->masseur->member_id) ? $masseure->masseur->member_id  : 'NA' }}</td>
-                                        <td style="text-align:center;">{{  date('d-m-Y',strtotime($listing['start_date'])) }}</td>
-                                        <td style="text-align:center;">{{  date('d-m-Y',strtotime($listing['end_date'])) }}</td>
-                                        <td style="text-align:center;"> {{  countOpenDays($listing['start_date'], $listing['end_date'], $masseure->masseur_availibility) }}</td>
+                                        <td style="text-align:center;">
+                                            {{ $details['first_working_date'] ?? date('d-m-Y', strtotime($listing['start_date'])) }}
+                                        </td>
+                                        <td style="text-align:center;">
+                                            {{ $details['last_working_date'] ?? date('d-m-Y', strtotime($listing['end_date'])) }}
+                                        </td>
+                                        <td style="text-align:center;"> {{  $details['count'] }}</td>
                                         <td></td>
                                     </tr>
                                     @endforeach
