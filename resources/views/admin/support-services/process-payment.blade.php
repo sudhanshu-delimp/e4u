@@ -97,6 +97,7 @@
                             <label for="services" class="form-label">
                                 Select Services
                             </label>
+                            <div class="national">
                             <select id="services" class="form-control select2">
                                 @if($services->isNotEmpty())
                                     <option value="">Choose a service...</option>
@@ -111,7 +112,7 @@
                                     <option value="">Sorry, no service found</option>
                                 @endif
                             </select>
-
+                            </div>
                             <small class="cp-hint">
                                 <i>The selected service will be added to the list automatically.</i>
                             </small>
