@@ -7,15 +7,22 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production",
+        "chat": "mix --mix-config=webpack.mix.chat.js",
+        "chat-watch": "mix watch --mix-config=webpack.mix.chat.js"
     },
     "devDependencies": {
         "axios": "^0.21",
         "bootstrap": "^3.3.7",
+        "emoji-picker-element": "^1.29.1",
         "jquery": "^3.1.1",
+        "laravel-echo": "^1.19.0",
+        "laravel-mix": "^6.0.49",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
-        "summernote-accordion": "^1.0.0"
+        "pusher-js": "^8.6.0",
+        "summernote-accordion": "^1.0.0",
+        "webpack": "^5.88.2"
     },
     "dependencies": {
         "body-parser": "^2.2.0",
