@@ -45,6 +45,9 @@ class FeesSummaryController extends Controller
       displayType: $displayType
     );
 
+    // $test = $this->feeService->getCurrentFyAdvertiserCommission();
+    // dd($test);
+
     //dd($feeSummery);
 
     // $feeSummery = $this->feeSummary->getSummaryData(

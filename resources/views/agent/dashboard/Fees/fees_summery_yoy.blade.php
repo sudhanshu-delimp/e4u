@@ -5,7 +5,7 @@
                                                 <tr>
                                                     <td colspan="1"><b>Period:</b></td>
                                                     <td colspan="3" class="text-center bg-first">
-                                                        <select class="rounded-0 w-75" style="outline:none; color: #022c3d;">
+                                                        {{-- <select class="rounded-0 w-75" style="outline:none; color: #022c3d;">
                                                             <option class="text-secondary">2025 / 2026</option>
                                                             <option class="text-secondary">2026 / 2027</option>
                                                             <option class="text-secondary">2027 / 2028</option>
@@ -17,7 +17,7 @@
                                                             <option class="text-secondary">2033 / 2034</option>
                                                             <option class="text-secondary">2034 / 2035</option>
                                                             <option class="text-secondary">2035 / 2036</option>
-                                                        </select>
+                                                        </select> --}}
                                                     </td>
                                                     <td class="text-center" colspan="3"><b>This
                                                                 Week<sup>(1)</sup></b></td>
@@ -74,7 +74,7 @@
                                                 </tr>
                                                 <tr class="text-center">
                                                     <td class="text-right pt-5" rowspan="2"><b>Variables</b></td>
-                                                    <td class="text-center bg-first" colspan="3"><b>20/01/2026</b>
+                                                    <td class="text-center bg-first" colspan="3"><b>20/01/2026 (Currnet Date)</b>
                                                     </td>
                                                     <td class="text-center" colspan="1"><b>Average</b></td>
                                                     <td colspan="2" class="bg-first text-center"><b>Cumulative</b>
@@ -90,7 +90,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Spend</td>
-                                                    <td class="bg-white">5%</td>
+                                                    <td class="bg-white">5% (not a fixed rate)</td>
                                                     <td style="background: #cccccc54;">No.</td>
                                                     <td colspan="3">19/01/2026 to 26/01/2026</td>
                                                     <td colspan="3">Year to Date</td>
@@ -99,7 +99,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="text-right">Advertising Escorts</td>
-                                                    <td>$ 307.86</td>
+                                                    <td>$ {{ number_format($feeSummery['currentFySpend']['advertising_escorts'], 2) }}</td>
                                                     <td>$ 15.39</td>
                                                     <td>36</td>
                                                     <td>$ 17.19</td>
@@ -124,7 +124,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="text-right">Advertising Massage Centres</td>
-                                                    <td>$ 1,200.00</td>
+                                                    <td>$ {{ number_format($feeSummery['currentFySpend']['advertising_massage_centres'], 2) }}</td>
                                                     <td>$ 60.00</td>
                                                     <td>40</td>
                                                     <td>$ 207.00</td>
@@ -149,7 +149,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="text-right">Registrations</td>
-                                                    <td>N/A</td>
+                                                    <td>$ {{ number_format($feeSummery['currentFySpend']['registrations'], 2) }}</td>
                                                     <td>$ 40.00</td>
                                                     <td>2</td>
                                                     <td>$ 53.00</td>
@@ -174,7 +174,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="text-right"><b>Total Earned</b></td>
-                                                    <td><b>$ 1,507.86</b></td>
+                                                    <td><b>$ {{ number_format($feeSummery['currentFySpend']['total_earned'], 2) }}</b></td>
                                                     <td><b>$ 115.39</b></td>
                                                     <td><b>78</b></td>
                                                     <td><b>$ 277.19</b></td>

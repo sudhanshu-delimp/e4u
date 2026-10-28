@@ -97,38 +97,39 @@ class FeesSummeryService
     }
 
 
-    public function getEarnings( string $fyLabel, string $displayType   = 'member_id') {
+    public function getEarnings(string $fyLabel, string $displayType   = 'member_id')
+    {
         $fy         = $this->getFYDateRange($fyLabel);
         $orderBy    = $this->getOrderBy($displayType);
 
-        $purchaseType    = Purchase::class;   
-        $escortPinupType = EscortPinup::class; 
+        $purchaseType    = Purchase::class;
+        $escortPinupType = EscortPinup::class;
         $massagePurchaseType = MassagePurchase::class;
         $feeTotals = PaymentHistory::query()
             ->select('user_id')
-            ->selectRaw('ROUND(SUM(net_amount * COALESCE(agent_commission_percent, 0) / 100), 2) as fees')
-            ->selectRaw('ROUND(SUM(net_amount * COALESCE(agent_commission_percent, 0)) / NULLIF(SUM(net_amount), 0), 2) as fee_percentage')
+            ->selectRaw('ROUND(SUM(amount * COALESCE(agent_commission_percent, 0) / 100), 2) as fees')
+            ->selectRaw('ROUND(SUM(amount * COALESCE(agent_commission_percent, 0)) / NULLIF(SUM(amount), 0), 2) as fee_percentage')
             ->where('status', 'success')
             ->whereBetween('paid_at', [$fy['start'], $fy['end']])
             ->groupBy('user_id');
- 
+
         return User::query()
             ->where('users.assigned_agent_id', Auth::id())
             ->whereIn('users.type', ['3', '4'])
             ->leftJoinSub($feeTotals, 'fee_totals', function ($join) {
                 $join->on('fee_totals.user_id', '=', 'users.id');
             })
- 
+
             ->join('payment_histories as ph', function ($join) {
                 $join->on('ph.user_id', '=', 'users.id')
-                     ->where('ph.status', '=', 'success');
+                    ->where('ph.status', '=', 'success');
             })
             ->join('payment_items as pi', 'pi.payment_history_id', '=', 'ph.id')
 
             ->leftJoin('purchase as pu', 'pu.id', '=', 'pi.item_id')
             ->leftJoin('escort_pinups as ep', 'ep.id', '=', 'pi.item_id')
             ->leftJoin('massage_purchases as mp', 'mp.id', '=', 'pi.item_id')
- 
+
             ->whereBetween('ph.paid_at', [$fy['start'], $fy['end']])
 
 
@@ -139,20 +140,20 @@ class FeesSummeryService
                 CASE WHEN users.type = '3' THEN 'E' ELSE 'MC' END as membership_type,
                 DATE_FORMAT(users.created_at, '%d-%m-%Y') as joined_date,
 
-                SUM(CASE WHEN pi.item_type = ? AND pu.membership = 1 THEN COALESCE(pi.amount, ph.net_amount) ELSE 0 END) as platinum_spend,
-                SUM(CASE WHEN pi.item_type = ? AND pu.membership = 2 THEN COALESCE(pi.amount, ph.net_amount) ELSE 0 END) as gold_spend,
-                SUM(CASE WHEN pi.item_type = ? AND pu.membership = 3 THEN COALESCE(pi.amount, ph.net_amount) ELSE 0 END) as silver_spend,
-                SUM(CASE WHEN pi.item_type = ? THEN COALESCE(pi.amount, ph.net_amount) ELSE 0 END) as pinup_spend,
-                SUM(CASE WHEN (pi.item_type = ? AND pu.membership = 5) OR (pi.item_type = ? AND mp.id IS NOT NULL) THEN COALESCE(pi.amount, ph.net_amount) ELSE 0 END) as fixed_spend,
+                SUM(CASE WHEN pi.item_type = ? AND pu.membership = 1 THEN COALESCE(pi.amount, ph.amount) ELSE 0 END) as platinum_spend,
+                SUM(CASE WHEN pi.item_type = ? AND pu.membership = 2 THEN COALESCE(pi.amount, ph.amount) ELSE 0 END) as gold_spend,
+                SUM(CASE WHEN pi.item_type = ? AND pu.membership = 3 THEN COALESCE(pi.amount, ph.amount) ELSE 0 END) as silver_spend,
+                SUM(CASE WHEN pi.item_type = ? THEN COALESCE(pi.amount, ph.amount) ELSE 0 END) as pinup_spend,
+                SUM(CASE WHEN (pi.item_type = ? AND pu.membership = 5) OR (pi.item_type = ? AND mp.id IS NOT NULL) THEN COALESCE(pi.amount, ph.amount) ELSE 0 END) as fixed_spend,
                 SUM(CASE WHEN (pi.item_type = ? AND pu.membership IN (1, 2, 3, 5))
                     OR pi.item_type = ?
                     OR (pi.item_type = ? AND mp.id IS NOT NULL)
-                    THEN COALESCE(pi.amount, ph.net_amount) ELSE 0 END) as total_spend,
+                    THEN COALESCE(pi.amount, ph.amount) ELSE 0 END) as total_spend,
 
                 MAX(COALESCE(fee_totals.fees, 0)) as fees,
                 MAX(COALESCE(fee_totals.fee_percentage, 0)) as fee_percentage
             ", [
-                $purchaseType,  
+                $purchaseType,
                 $purchaseType,
                 $purchaseType,
                 $escortPinupType,
@@ -162,37 +163,39 @@ class FeesSummeryService
                 $escortPinupType,
                 $massagePurchaseType,
             ])
- 
-            ->groupBy('users.id','users.member_id', 'users.name', 'users.created_at', 'users.type')
+
+            ->groupBy('users.id', 'users.member_id', 'users.name', 'users.created_at', 'users.type')
             ->orderBy($orderBy['column'], $orderBy['direction'])
             ->get();
     }
-    
-    public function totalEarning(Collection $earnings){
+
+    public function totalEarning(Collection $earnings)
+    {
         $total =  0;
-        foreach($earnings as $earning){
+        foreach ($earnings as $earning) {
             $total += $earning->total_spend;
         }
         return $total;
     }
 
-    public function averageEarning(Collection $totalValue){
+    public function averageEarning(Collection $totalValue)
+    {
         $average = 0;
-        foreach($totalValue as $value){
+        foreach ($totalValue as $value) {
             $average += $value->total_spend;
         }
-        if($average > 0){
-        $averageV  = $average / $totalValue->count();
-        return $averageV;
+        if ($average > 0) {
+            $averageV  = $average / $totalValue->count();
+            return $averageV;
         }
-        
     }
 
-    public function totalAdvertisers(Collection $total){
+    public function totalAdvertisers(Collection $total)
+    {
         $totalAdvertiser = $total->count() ?? 0;
         return $totalAdvertiser;
-    }	
- 
+    }
+
 
 
     public function getSummeryData($requestedFY = null, string $displayType = 'member_id'): array
@@ -215,7 +218,8 @@ class FeesSummeryService
             'fyRange'      => $this->getFYDateRange($selectedFY),
             'totalEarning' => $totalEarnings,
             'averageEarning' => $averageEarning,
-            'totalAdvertiser' => $totalAdvertiserCount
+            'totalAdvertiser' => $totalAdvertiserCount,
+            'currentFySpend' => $this->getCurrentFYSpendSummary(),
 
         ];
     }
@@ -259,7 +263,7 @@ class FeesSummeryService
             ->where('pi.item_type', $purchaseType)
             ->select(
                 'ph.paid_at',
-                DB::raw('COALESCE(pi.amount, ph.net_amount) as net_amount'),
+                DB::raw('COALESCE(pi.amount, ph.amount) as net_amount'),
                 'pu.id as purchase_id',
                 'pu.start_date',
                 'pu.end_date',
@@ -277,7 +281,7 @@ class FeesSummeryService
             ->where('pi.item_type', $escortPinupType)
             ->select(
                 'ph.paid_at',
-                DB::raw('COALESCE(pi.amount, ph.net_amount) as net_amount'),
+                DB::raw('COALESCE(pi.amount, ph.amount) as net_amount'),
                 'ep.state_id',
             )
             ->get();
@@ -593,7 +597,123 @@ class FeesSummeryService
 
     // **********************************Fees Summary (YoY)**************************************//
 
+
+    protected function getCurrentFYToDateRange(): array
+    {
+        $range = $this->getFYDateRange($this->currentFYLabel());
+        $range['end'] = Carbon::now();
+
+        return $range;
+    }
+
+    // Advertising Escorts spend amount
+    public function getEscortAdvertisingSpend(): float
+    {
+        $fy = $this->getCurrentFYToDateRange();
+
+        return (float) DB::table('payment_histories as ph')
+            ->join('users as users', 'users.id', '=', 'ph.user_id')
+            ->join('payment_items as pi', 'pi.payment_history_id', '=', 'ph.id')
+            ->leftJoin('purchase as pu', 'pu.id', '=', 'pi.item_id')
+            ->where('users.assigned_agent_id', Auth::id())
+            ->where('users.type', '3')
+            ->where('ph.status', 'success')
+            ->whereBetween('ph.paid_at', [$fy['start'], $fy['end']])
+            ->where(function ($query) {
+                $query->where(function ($purchaseQuery) {
+                    $purchaseQuery->where('pi.item_type', Purchase::class)
+                        ->whereIn('pu.membership', [1, 2, 3, 6, 7]);   // 1. Platinum, 2. Gold, 3. Silver, 4. Free<sup>(3)</sup>, 6. Pin-Up<sup>(4)</sup>, 7. Bump Up
+                })->orWhere('pi.item_type', EscortPinup::class);
+            })
+            ->sum(DB::raw('COALESCE(pi.amount, ph.amount)'));
+    }
+
+    //Advertising Massage Centres spend amount
+    public function getMassageAdvertisingSpend(): float
+    {
+        $fy = $this->getCurrentFYToDateRange();
+
+        return (float) DB::table('payment_histories as ph')
+            ->join('users as users', 'users.id', '=', 'ph.user_id')
+            ->join('payment_items as pi', 'pi.payment_history_id', '=', 'ph.id')
+            ->join('massage_purchases as mp', 'mp.id', '=', 'pi.item_id')
+            ->where('users.assigned_agent_id', Auth::id())
+            ->where('users.type', '4')
+            ->where('pi.item_type', MassagePurchase::class)
+            ->where('ph.status', 'success')
+            ->whereBetween('ph.paid_at', [$fy['start'], $fy['end']])
+            ->sum(DB::raw('COALESCE(pi.amount, ph.amount)'));
+    }
+
+    public function getRegistrationSpend(): float
+    {
+        $fy = $this->getCurrentFYToDateRange();
+
+        return (float) User::query()
+            ->where('assigned_agent_id', Auth::id())
+            ->where('type', '4')
+            ->where('is_agent_assign', '1')
+            ->whereBetween('agent_assign_date', [$fy['start'], $fy['end']])
+            ->sum('agent_signedup_fee');
+    }
+
+    public function getTotalEarnedSpend(float $escortSpend, float $massageSpend, float $registrationSpend): float
+    {
+        return $escortSpend + $massageSpend + $registrationSpend;
+    }
+
+    public function getCurrentFYSpendSummary(): array
+    {
+        $escortSpend = $this->getEscortAdvertisingSpend();
+        $massageSpend = $this->getMassageAdvertisingSpend();
+        $registrationSpend = $this->getRegistrationSpend();
+
+
+        return [
+            'advertising_escorts' => $escortSpend,
+            'advertising_massage_centres' => $massageSpend,
+            'registrations' => $registrationSpend,
+            'total_earned' => $this->getTotalEarnedSpend($escortSpend, $massageSpend, $registrationSpend),
+        ];
+    }
+
+
+
+    // public function getCurrentFyAdvertiserCommission(): array
+    // {
+    //     $fy = $this->getCurrentFYToDateRange();
+
+    //     $totalArray = DB::table('payment_histories as ph')
+    //         ->join('users as users', 'users.id', '=', 'ph.user_id')
+    //         ->join('payment_items as pi', 'pi.payment_history_id', '=', 'ph.id')
+    //         ->leftJoin('purchase as pu', 'pu.id', '=', 'pi.item_id')
+    //         ->where('users.assigned_agent_id', Auth::id())
+    //         ->where('users.type', '3')
+    //         ->where('ph.status', 'success')
+    //         ->whereBetween('ph.paid_at', [$fy['start'], $fy['end']])
+    //         ->where(function ($query) {
+    //             $query->where(function ($purchaseQuery) {
+    //                 $purchaseQuery->where('pi.item_type', Purchase::class)
+    //                     ->whereIn('pu.membership', [1, 2, 3, 6, 7]);
+    //             })->orWhere('pi.item_type', EscortPinup::class);
+    //         })
+    //         ->select('ph.agent_commission_percent', 'ph.amount')
+    //         ->get();
+
+    //     $commissionItems = $totalArray->map(function ($item) {
+    //         $item->commission_amount = round(
+    //             (float) $item->amount
+    //                 * (float) $item->agent_commission_percent / 100,
+    //             2
+    //         );
+
+    //         return $item;
+    //     });
+
+    //     $finalAmount = $commissionItems->sum('commission_amount');
+
+    //     return ['final_amount' => round($finalAmount, 2)];
+    // }
+
     
-
-
 }
