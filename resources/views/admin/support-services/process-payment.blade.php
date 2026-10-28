@@ -557,21 +557,18 @@
             }, 450);
         });
 
-        servicesInput.addEventListener('change', () => {
-            const value = servicesInput.value;
-            const selectedOption = servicesInput.options[servicesInput.selectedIndex];
-
-            if (
-                value &&
-                selectedAdvertiser &&
-                !selectedServices.includes(value)
-            ) {
-                selectedServices.push(value);
-                selectedServicePrices[value] = selectedOption.dataset.price;
+        $('#services').on('select2:select', function (e) {
+            const selectedOption = e.params.data.element;
+            const value = e.params.data.id;
+            if (value && selectedAdvertiser && !selectedServices.includes(value)) 
+            {
+             selectedServices.push(value);
+             selectedServicePrices[value] = selectedOption.dataset.price;
             }
 
-            servicesInput.value = '';
-            
+            // Reset Select2 selection
+            $(this).val(null).trigger('change');
+
             renderServices();
         });
 
