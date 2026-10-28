@@ -637,7 +637,7 @@ Route::get('/escort-dashboard/my-playbox', function () {
 
 Route::get('/escort-dashboard/my-legbox-viewers', [EscortMyLegboxViewerController::class, 'index'])->name('escort.dashboard.my-legbox-viewers');
 
-Route::get('/escort-dashboard/agent-messages', function () {
+Route::get('/escort-dashboard/escort-messages', function () {
     return view('escort.dashboard.agent-messages');
 })->name('escort.dashboard.agent-messages');
 

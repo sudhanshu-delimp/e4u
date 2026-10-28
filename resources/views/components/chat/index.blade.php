@@ -1,38 +1,38 @@
 @php
-    $chatMe = auth()->user();
+$chatMe = auth()->user();
 
-    $chatConfig = [
-        'csrf'       => csrf_token(),
-        'me'         => [
-            'id'        => $chatMe->id,
-            'name'      => \App\Support\ChatState::displayName($chatMe),
-            'member_id' => $chatMe->member_id,
-            'avatar'    => $chatMe->avatar_img,
-            'color'     => \App\Support\ChatState::color($chatMe->state_id),
-        ],
-        // Relative avatar paths are resolved against this base URL
-        'avatarBase' => rtrim(asset(''), '/'),
-        'routes'     => [
-            'members'       => route('chat.members'),
-            'conversations' => route('chat.index'),
-            'messages'      => route('chat.messages', ['conversation' => '__ID__']),
-            'read'          => route('chat.read', ['conversation' => '__ID__']),
-            'typing'        => route('chat.typing', ['conversation' => '__ID__']),
-            'message'       => route('chat.message.update', ['message' => '__ID__']),
-        ],
-        // state id => abbreviation (ACT, NSW...)
-        'states'     => collect(config('escorts.profile.states', []))
-            ->map(fn ($s) => $s['stateAbbr'] ?? '')
-            ->all(),
-        // users.type => label shown as "Type:" in the header
-        'typeLabels' => config('chat.type_labels', []),
-        // Types that cannot be blocked (Agent)
-        'unblockable' => config('chat.unblockable', []),
-                // Massage Centre: a blocked person leaves the list right away
-        'hideBlockedChats' => in_array((int) $chatMe->type, config('chat.hide_blocked_for', []), true),
-    ];
+$chatConfig = [
+'csrf' => csrf_token(),
+'me' => [
+'id' => $chatMe->id,
+'name' => \App\Support\ChatState::displayName($chatMe),
+'member_id' => $chatMe->member_id,
+'avatar' => $chatMe->avatar_img,
+'color' => \App\Support\ChatState::color($chatMe->state_id),
+],
+// Relative avatar paths are resolved against this base URL
+'avatarBase' => rtrim(asset(''), '/'),
+'routes' => [
+'members' => route('chat.members'),
+'conversations' => route('chat.index'),
+'messages' => route('chat.messages', ['conversation' => '__ID__']),
+'read' => route('chat.read', ['conversation' => '__ID__']),
+'typing' => route('chat.typing', ['conversation' => '__ID__']),
+'message' => route('chat.message.update', ['message' => '__ID__']),
+],
+// state id => abbreviation (ACT, NSW...)
+'states' => collect(config('escorts.profile.states', []))
+->map(fn ($s) => $s['stateAbbr'] ?? '')
+->all(),
+// users.type => label shown as "Type:" in the header
+'typeLabels' => config('chat.type_labels', []),
+// Types that cannot be blocked (Agent)
+'unblockable' => config('chat.unblockable', []),
+// Massage Centre: a blocked person leaves the list right away
+'hideBlockedChats' => in_array((int) $chatMe->type, config('chat.hide_blocked_for', []), true),
+];
 
-    $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
+$chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
 @endphp
 
 <div class="chat-app" id="chatApp" data-config="{{ json_encode($chatConfig) }}">
@@ -76,13 +76,13 @@
                         </button>
 
                         <div class="filter-dropdown more-dropdown" id="filterDropdown">
-                                                        <button type="button" class="filter-option active" data-filter="chats">
-                              <i class="bi bi-person-check"></i> {{ [4 => 'Active Viewers', 5 => 'Active Advertisers'][(int) auth()->user()->type] ?? 'Active Users' }}
+                            <button type="button" class="filter-option active" data-filter="chats">
+                                <i class="bi bi-person-check"></i> {{ [4 => 'Active Viewers', 5 => 'Active Advertisers'][(int) auth()->user()->type] ?? 'Active Users' }}
                             </button>
                             <button type="button" class="filter-option" data-filter="archived">
-                               <i class="bi bi-archive"></i> Archived Chats
+                                <i class="bi bi-archive"></i> Archived Chats
                             </button>
-                         
+
                         </div>
 
                     </div>
@@ -209,8 +209,7 @@
                     type="text"
                     id="messageInput"
                     placeholder="Type a message..."
-                    autocomplete="off"
-                >
+                    autocomplete="off">
             </div>
 
             <button class="send-btn" id="sendBtn" title="Send">
@@ -239,7 +238,9 @@
 
                 <div class="modal-title-content">
                     <h3>Add Member</h3>
-                    <p>Add a member to your chats</p>
+                    <p>Member is: {{ auth()->user()->name
+                        ? auth()->user()->name . ' (' . auth()->user()->member_id . ')'
+                        : auth()->user()->member_id }}</p>
                 </div>
             </div>
 
@@ -251,7 +252,7 @@
 
         <div class="member-search">
             <i class="bi bi-search"></i>
-                <input type="text" id="memberSearchInput" placeholder="Search by Member ID or Name...">
+            <input type="text" id="memberSearchInput" placeholder="Search by Member ID or Name...">
         </div>
 
         <!-- MEMBER RESULTS (rendered by chat.js) -->

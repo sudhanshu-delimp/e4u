@@ -2420,10 +2420,18 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
 });
 
 
-let myCarousel = document.querySelector('#reviewCarousel');
-let carousel = new bootstrap.Carousel(myCarousel, {
-  interval: false, // stops auto scroll
-  ride: false
+document.addEventListener('DOMContentLoaded', function () {
+    const myCarousel = document.querySelector('#reviewCarousel');
+
+    if (myCarousel && window.bootstrap?.Carousel) {
+        const carousel = bootstrap.Carousel.getOrCreateInstance(myCarousel, {
+            interval: false,
+            ride: false,
+            keyboard: true,
+            pause: true,
+            wrap: true
+        });
+    }
 });
 
 
@@ -2588,14 +2596,30 @@ $('#review-submitted-popup .close').on('click', function() {
 
 
 
-    window.authUser = {
-        isLoggedIn: `{{ auth()->check() ? 'true' : 'false' }}`,
-        auth_user_type: `{{ auth()->check() ? auth()->user()->type : 'false' }}`,
-        myLegboxDisabled: `{{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}}`,
-        write_reviews_disable: `{{ auth()->check() && auth()->user()->viewer_settings?->features_write_reviews == 0 ? 'true' : 'false' }}`,
-    };
+    // window.authUser = {
+    //     isLoggedIn: `{{ auth()->check() ? 'true' : 'false' }}`,
+    //     auth_user_type: `{{ auth()->check() ? auth()->user()->type : 'false' }}`,
+    //     myLegboxDisabled: `{{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}}`,
+    //     write_reviews_disable: `{{ auth()->check() && auth()->user()->viewer_settings?->features_write_reviews == 0 ? 'true' : 'false' }}`,
+    // };
 
-    console.log('window.authUser.write_reviews_disable',window.authUser.write_reviews_disable);
+        window.authUser = {
+            isLoggedIn: @json(auth()->check()),
+
+            auth_user_type: @json(auth()->check()
+                ? (string) auth()->user()->type
+                : 'false'),
+
+            myLegboxDisabled: @json(
+                auth()->check() &&
+                (string) auth()->user()->viewer_settings?->features_enable_my_legbox === '0'
+            ),
+
+            write_reviews_disable: @json(
+                auth()->check() &&
+                (string) auth()->user()->viewer_settings?->features_write_reviews === '0'
+            ),
+        };
 
 
     if (window.authUser.write_reviews_disable && window.authUser.auth_user_type=='0') {
@@ -2677,7 +2701,7 @@ $('#review-submitted-popup .close').on('click', function() {
 
      $(document).on('click', '.open_review_box', function (e) {
         e.preventDefault();
-       if (window.authUser.write_reviews_disable && window.authUser.auth_user_type=='0') {
+       if (window.authUser.write_reviews_disable === true && window.authUser.auth_user_type=='0') {
             swal_error_warning('Reviews','Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.');
             return false;
         } else {
@@ -2688,9 +2712,8 @@ $('#review-submitted-popup .close').on('click', function() {
 
 
     $(document).on('click', '#legbox_btn', function () {
-
-
-          if (window.authUser.myLegboxDisabled && window.authUser.auth_user_type=='0') {
+       
+        if (window.authUser.myLegboxDisabled === true && window.authUser.auth_user_type === '0') {
             swal_error_warning('My Legbox','Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.');
             return false;
         }
