@@ -90,7 +90,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Spend</td>
-                                                    <td class="bg-white">5% (not a fixed rate)</td>
+                                                    <td class="bg-white">Commission</td>
                                                     <td style="background: #cccccc54;">No.</td>
                                                     <td colspan="3">19/01/2026 to 26/01/2026</td>
                                                     <td colspan="3">Year to Date</td>
@@ -99,7 +99,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="text-right">Advertising Escorts</td>
-                                                    <td>$ {{ number_format($feeSummery['currentFySpend']['advertising_escorts'], 2) }}</td>
+                                                    <td>$ {{ formatCurrency($feeSummery['currentFySpend']['advertising_escorts'], 2) }}</td>
                                                     <td>$ 15.39</td>
                                                     <td>36</td>
                                                     <td>$ 17.19</td>
@@ -209,7 +209,7 @@
                                                 <!-- middle Content -->
                                                 <tr class="collapse-row group-1">
                                                     <td class="text-right">Platinum</td>
-                                                    <td>$ 160.00</td>
+                                                    <td>$ {{ number_format($feeSummery['currentFySpend']['escort_platinum'], 2) }}</td>
                                                     <td>$ 8.00</td>
                                                     <td>20</td>
                                                     <td>$ 9.20</td>
@@ -234,7 +234,7 @@
                                                 </tr>
                                                 <tr class="collapse-row group-1">
                                                     <td class="text-right">Gold</td>
-                                                    <td>$ 60.00</td>
+                                                    <td>$ {{ number_format($feeSummery['currentFySpend']['escort_gold'], 2) }}</td>
                                                     <td>$ 3.00</td>
                                                     <td>10</td>
                                                     <td>$ 3.45</td>
@@ -259,7 +259,7 @@
                                                 </tr>
                                                 <tr class="collapse-row group-1">
                                                     <td class="text-right">Silver</td>
-                                                    <td>$ 20.00</td>
+                                                    <td>$ {{ number_format($feeSummery['currentFySpend']['escort_silver'], 2) }}</td>
                                                     <td>$ 1.00</td>
                                                     <td>5</td>
                                                     <td>$ 1.15</td>
@@ -284,7 +284,7 @@
                                                 </tr>
                                                 <tr class="collapse-row group-1">
                                                     <td class="text-right">Pin-Up</td>
-                                                    <td>$ 67.86</td>
+                                                    <td>$ {{ number_format($feeSummery['currentFySpend']['escort_pinup'], 2) }}</td>
                                                     <td>$ 3.39</td>
                                                     <td>1</td>
                                                     <td>$ 3.39</td>
@@ -309,7 +309,7 @@
                                                 </tr>
                                                 <tr class="collapse-row group-1">
                                                     <td class="text-right"><b>Total Spend / Earnings</b></td>
-                                                    <td><b>$ 307.86</b></td>
+                                                    <td><b>$ {{ number_format($feeSummery['currentFySpend']['escort_total'], 2) }}</b></td>
                                                     <td><b>$ 15.39</b></td>
                                                     <td><b>36</b></td>
                                                     <td><b>$ 17.19</b></td>
@@ -344,7 +344,7 @@
                                                 <!-- middle Content -->
                                                 <tr class="collapse-row group-2">
                                                     <td class="text-right">Advertising</td>
-                                                    <td>$ 1,200.00</td>
+                                                    <td>$ {{ number_format($feeSummery['currentFySpend']['advertising_massage_centres'], 2) }}</td>
                                                     <td>$ 60.00</td>
                                                     <td>40</td>
                                                     <td>$ 207.00</td>
@@ -369,7 +369,7 @@
                                                 </tr>
                                                 <tr class="collapse-row group-2">
                                                     <td class="text-right">Registrations</td>
-                                                    <td>$ 0.00</td>
+                                                    <td>$ {{ number_format($feeSummery['currentFySpend']['registrations'], 2) }}</td>
                                                     <td>$ 40.00</td>
                                                     <td>2</td>
                                                     <td>$ 53.00</td>
@@ -394,7 +394,7 @@
                                                 </tr>
                                                 <tr class="collapse-row group-2">
                                                     <td class="text-right"><b>Total Spend / Earnings</b></td>
-                                                    <td><b>$ 1,200.00</b></td>
+                                                    <td><b>$ {{ number_format($feeSummery['currentFySpend']['massage_total_earning'], 2) }}</b></td>
                                                     <td><b>$ 100.00</b></td>
                                                     <td><b>42</b></td>
                                                     <td><b>$ 260.00</b></td>

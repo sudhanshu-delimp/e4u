@@ -657,9 +657,70 @@ class FeesSummeryService
             ->sum('agent_signedup_fee');
     }
 
+    protected function getEscortMembershipSpend(int $membership): float
+    {
+        $fy = $this->getCurrentFYToDateRange();
+
+        return (float) DB::table('payment_histories as ph')
+            ->join('users as users', 'users.id', '=', 'ph.user_id')
+            ->join('payment_items as pi', 'pi.payment_history_id', '=', 'ph.id')
+            ->join('purchase as pu', 'pu.id', '=', 'pi.item_id')
+            ->where('users.assigned_agent_id', Auth::id())
+            ->where('users.type', '3')
+            ->where('pi.item_type', Purchase::class)
+            ->where('pu.membership', $membership)
+            ->where('ph.status', 'success')
+            ->whereBetween('ph.paid_at', [$fy['start'], $fy['end']])
+            ->sum(DB::raw('COALESCE(pi.amount, ph.amount)'));
+    }
+
+    public function getEscortPlatinumSpend(): float
+    {
+        return $this->getEscortMembershipSpend(1);
+    }
+
+    public function getEscortGoldSpend(): float
+    {
+        return $this->getEscortMembershipSpend(2);
+    }
+
+    public function getEscortSilverSpend(): float
+    {
+        return $this->getEscortMembershipSpend(3);
+    }
+
+    public function getEscortPinupSpend(): float
+    {
+        $fy = $this->getCurrentFYToDateRange();
+
+        return (float) DB::table('payment_histories as ph')
+            ->join('users as users', 'users.id', '=', 'ph.user_id')
+            ->join('payment_items as pi', 'pi.payment_history_id', '=', 'ph.id')
+            ->join('escort_pinups as ep', 'ep.id', '=', 'pi.item_id')
+            ->where('users.assigned_agent_id', Auth::id())
+            ->where('users.type', '3')
+            ->where('pi.item_type', EscortPinup::class)
+            ->where('ph.status', 'success')
+            ->whereBetween('ph.paid_at', [$fy['start'], $fy['end']])
+            ->sum(DB::raw('COALESCE(pi.amount, ph.amount)'));
+    }
+
+    public function getEscortTotalSpend(
+        float $platinumSpend,
+        float $goldSpend,
+        float $silverSpend,
+        float $pinupSpend
+    ): float {
+        return $platinumSpend + $goldSpend + $silverSpend + $pinupSpend;
+    }
+
     public function getTotalEarnedSpend(float $escortSpend, float $massageSpend, float $registrationSpend): float
     {
         return $escortSpend + $massageSpend + $registrationSpend;
+    }
+
+    public function getTotalMassageCenterEarndedSpend(float $massageSpend, float $registrationSpend){
+        return $massageSpend + $registrationSpend;
     }
 
     public function getCurrentFYSpendSummary(): array
@@ -667,6 +728,10 @@ class FeesSummeryService
         $escortSpend = $this->getEscortAdvertisingSpend();
         $massageSpend = $this->getMassageAdvertisingSpend();
         $registrationSpend = $this->getRegistrationSpend();
+        $platinumSpend = $this->getEscortPlatinumSpend();
+        $goldSpend = $this->getEscortGoldSpend();
+        $silverSpend = $this->getEscortSilverSpend();
+        $pinupSpend = $this->getEscortPinupSpend();
 
 
         return [
@@ -674,6 +739,12 @@ class FeesSummeryService
             'advertising_massage_centres' => $massageSpend,
             'registrations' => $registrationSpend,
             'total_earned' => $this->getTotalEarnedSpend($escortSpend, $massageSpend, $registrationSpend),
+            'escort_platinum' => $platinumSpend,
+            'escort_gold' => $goldSpend,
+            'escort_silver' => $silverSpend,
+            'escort_pinup' => $pinupSpend,
+            'escort_total' => $this->getEscortTotalSpend($platinumSpend, $goldSpend, $silverSpend, $pinupSpend),
+            'massage_total_earning' => $this->getTotalMassageCenterEarndedSpend($massageSpend,$registrationSpend),
         ];
     }
 
@@ -715,5 +786,5 @@ class FeesSummeryService
     //     return ['final_amount' => round($finalAmount, 2)];
     // }
 
-    
+
 }
