@@ -217,9 +217,8 @@
 
                     <h3>Escort Platinum</h3>
 
-                    <div class="wel_price_badge">
+                    <div class="wel_price_badge" id="welPrice">
                         {{ isset($pricing[0]['price']) ? '$' . $pricing[0]['price'] : 'NA' }} / Day
-                        <span class="ptooltip"> Gold: {{$pricing[1]['price']}} / Day <br> Silver: {{$pricing[2]['price']}} / Day</span>
                     </div>
 
                 </div>
@@ -718,6 +717,8 @@
 @endsection
 @push('scripts')
     <script>
+        addTooltip('#welPrice', `Gold: {{$pricing[1]['price']}} / Day <br> Silver: {{$pricing[2]['price']}} / Day`);
+        
         let getPinupProfile = function(latitude, longitude) {
             $.ajax({
                 url: `{{ route('web.get_pinup_profile') }}`,

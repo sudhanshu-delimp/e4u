@@ -3394,6 +3394,10 @@ if (!function_exists('calculate_agent_commission')) {
             return 0.00;
         }
 
+        if ($amount <1 || $percent<1) {
+            return 0.00;
+        }
+
         return ($amount * $percent) / 100;
     }
 }

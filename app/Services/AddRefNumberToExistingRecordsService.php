@@ -31,11 +31,13 @@ class AddRefNumberToExistingRecordsService
                 'nums',
                 'punterbox',
                 'support_tickets',
-                'notebox',
+                 'notebox',
                 'influencers',
                 'feedbacks',
                 'payment_histories',
-                'email_logs'
+                'email_logs',
+                'tours',
+                'users',
             ];
 
             foreach ($tables as $table) {
@@ -69,11 +71,13 @@ class AddRefNumberToExistingRecordsService
                             ->orWhere($refColumnName, '');
                     })
                     ->orderByDesc('id')
-                    ->chunk(50, function ($records) use ($table, $refColumnName) {
+                    ->chunk(500, function ($records) use ($table, $refColumnName) {
                         foreach ($records as $tableObj) {
                             if (Schema::hasColumn($table, 'created_at')) {
                                 $id = $tableObj->id;
                                 $createdAt = $tableObj->created_at;
+
+                                $createdAt = ($table == 'support_tickets') ? $tableObj->created_on : $tableObj->created_at;
 
                                 if (!empty($createdAt)) {
                                     $refNum = generateReferenceNunber($tableObj);

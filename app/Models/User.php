@@ -87,6 +87,11 @@ class User extends Authenticatable
         'member_id',
     ];
 
+    public function getTourPermissitionTypeAttribute($value)
+    {
+        return $value ?? [];
+    }
+
 
     public function getPhoneAttribute($value)
     {
@@ -1052,6 +1057,13 @@ class User extends Authenticatable
         return $this->hasMany(Notification::class, 'to_user', 'id');
     }
 
-
+    public static function getAdvertiserrByMemberId($memberId)
+    {
+        try {
+            return self::where('member_id', $memberId)->whereIn('type', [3,4])->first();
+        } catch (\Throwable $e) {
+            throw $e;
+        }
+    }
    
 }
