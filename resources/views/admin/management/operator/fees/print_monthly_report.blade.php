@@ -338,7 +338,7 @@
                                                         </td>
                                                         <td>{{ $massgeReport['user_state_name'] }}</td>
                                                         <td></td>
-                                                        <td class="text-right">{{ $massgeReport['total_days'] }}</td>
+                                                        <td class="text-center">{{ $massgeReport['total_days'] }}</td>
                                                         <td class="text-right">
                                                             <div class="num_value">
                                                                 $<span>{{ number_format($massgeReport['total_purchase_amount'], 2) }}
