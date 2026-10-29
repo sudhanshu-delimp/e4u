@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ChangePasswordlEmail;
+use App\Models\Notification;
+use App\Sms\Provider\MessageMedia;
 
 class StaffController extends BaseController
 {
@@ -393,21 +395,45 @@ class StaffController extends BaseController
             $userType = $user->type;
             $memberid = $user->member_id;
             $user->password = Hash::make($newPassword);
-            if ($user->save()) {
-                try {
-                    $user->plainPassword = $newPassword;
-                    if ($sendNotification) {
-                        $mailStatus = Mail::to($user->email)->send(new ChangePasswordlEmail($user));
-                    }
-                } catch (\Throwable $e) {
-                    Log::error('Password update email sending failed: ' . $e->getMessage());
-                    return response()->json([
-                        'status' => false,
-                        'message' => 'Password reset successfully, but we could not send the email. Please check the email address and try again.'
-                    ], 200);
-                }
-                return response()->json(["status" => true, "message" => 'Password reset successfully!'], 200);
+      if ($user->save()) {
+        try {
+          $user->plainPassword = $newPassword;
+          if ($sendNotification) {
+
+            // check setting are enable for text and email notification
+            $statusInfoCheck = config('messages.account_status', []);
+            // 9 for password reset message
+            $message = $statusInfoCheck[9];
+            $preferences = getUserNotificationPreferences($user);
+            if ($preferences['text_enabled']) {
+              $send = new MessageMedia();
+              $dashboardUrl = route("advertiser.login");
+              $smsMessage = "Password Reset Notification\n\nYour account password has been reset successfully. If you did not make this change, please contact support immediately. Please log in to your dashboard to verify the change:\n{$dashboardUrl}";         
+              $send->sendMessages("61480089451", $smsMessage);
+
+              // Save in-app notification
+              $payload = buildUserNotificationPayload(
+                $user,
+                $message['title'],
+                $message['message'],
+                config('constants.NotificationIcon.general')
+              );
+              Notification::create($payload);
             }
+            if ($preferences['email_enabled']) {
+
+              Mail::to($user->email)->send(new ChangePasswordlEmail($user));
+            }
+          }
+        } catch (\Throwable $e) {
+          Log::error('Password update email sending failed: ' . $e->getMessage());
+          return response()->json([
+            'status' => false,
+            'message' => 'Password reset successfully, but we could not send the email. Please check the email address and try again.'
+          ], 200);
+        }
+        return response()->json(["status" => true, "message" => 'Password reset successfully!'], 200);
+      }
         }
         return response()->json(['status' => false, 'message' => 'Error occured while updating password!'], 400);
     }

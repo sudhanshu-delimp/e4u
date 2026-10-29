@@ -29,9 +29,15 @@ use App\Models\MassageSuspendProfile;
 use App\Models\Masseur;
 use App\Models\MasseurMedia;
 use App\Models\Notification;
+use App\Models\OperatorSetting;
+use App\Models\OperatorStaffSetting;
 use App\Models\Purchase;
+use App\Models\ShareholderSetting;
+use App\Models\StaffSetting;
 use App\Models\State;
+use App\Models\SupplierSetting;
 use App\Models\User;
+use App\Models\ViewerSetting;
 use App\Sms\SendSms;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -3592,6 +3598,11 @@ if (!function_exists('generateReferenceNunber')) {
   {
     // Map user type to its setting model and respective columns.
     $settingsMap = [
+      0 => [
+        'model' => ViewerSetting::class,
+        'text_column' => 'escort_text',
+        'email_column' => 'escort_email',
+      ],
       3 => [
         'model' => EscortSetting::class,
         'text_column' => 'alert_notification_text',
@@ -3607,7 +3618,6 @@ if (!function_exists('generateReferenceNunber')) {
         'text_column' => 'escort_text',
         'email_column' => 'escort_email',
       ],
-
     ];
 
     $type = (int) $user->type;

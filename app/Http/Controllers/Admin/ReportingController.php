@@ -291,8 +291,18 @@ class ReportingController extends BaseController
                 $parent_account = '<span><sup class="suspend_icon listing-tag-tooltip ml-1">Primary Member'.$parent_member_id.'</sup></span>';
             }
             
+                      $preferences = getUserNotificationPreferences($item);
+                      $communication = [];
 
+                      if ($preferences['text_enabled']) 
+                          $communication[] = 'Text';
+                      
 
+                      if ($preferences['email_enabled']) 
+                          $communication[] = 'Email';
+                      
+
+                      $item->communication = implode(', ', $communication);
 
             $item->member_id = $item->member_id . $memberIdBadgeText.$parent_account;
             $item->registration_date = isset($item->created_at) ? showDateWithFormat($item->created_at) :  '---';
@@ -333,7 +343,7 @@ class ReportingController extends BaseController
         $user->rejection_reason = null;
       }
 
-      // $user->save();
+      $user->save();
 
       // Status messages
       $statusInfo = [
@@ -363,14 +373,14 @@ class ReportingController extends BaseController
 
       // Send mail if not blocked and email,text is enabled from setting
       if ($request->status != 4) {
-        $statusInfo = config('messages.account_status', []);
-        $message= $statusInfo[$request->status];
+        $statusInfoCheck = config('messages.account_status', []);
+        $message = $statusInfoCheck[$request->status];
         $preferences = getUserNotificationPreferences($user);
         if ($preferences['text_enabled']) {
           $send = new MessageMedia();
           $dashboardUrl = config('app.url');
           $smsMessage = "Account Notification\n\nYour account status has been updated. Please log in to your dashboard to view the details:\n{$dashboardUrl}";
-          $send->sendMessages("61480089451", $smsMessage);
+          $send->sendMessages("61".$user->phone, $smsMessage);
 
           // Save in-app notification
           $payload = buildUserNotificationPayload(

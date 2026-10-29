@@ -31,6 +31,10 @@ return [
             'title' => 'Membership Cancelled',
             'message' => 'We regret to advise you that due to your recent conduct you have been banned from the Website.',
         ],
+          9 => [
+      'title' => 'Password Updated',
+      'message' => 'Your password has been changed successfully. Please log in to your account using your new password. If you did not authorize this change, contact support immediately.',
+  ],
     ],
 
 ];
