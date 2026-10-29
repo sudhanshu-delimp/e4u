@@ -14,6 +14,12 @@ return [
         'agent'          => 5,
     ],
 
+    'socket' => [
+        'url'        => env('CHAT_SOCKET_URL', 'http://127.0.0.1:6002'),
+        'public_url' => env('CHAT_SOCKET_PUBLIC_URL', 'http://127.0.0.1:6002'),
+        'secret'     => env('CHAT_SOCKET_SECRET'),
+    ],
+
     // Who can chat with whom (keys and values are type ids).
     // Phase 1: Escort <-> Viewer. Phase 2: Escort <-> Agent.
     // Later, enable more by adding lines here, for example:
