@@ -80,5 +80,9 @@ class AppServiceProvider extends ServiceProvider
             $this->action['seo_group'] = $group;
             return $this;
         });
+
+        \Illuminate\Support\Facades\Broadcast::extend('chatsocket', function ($app) {
+            return new \App\Broadcasting\SocketBroadcaster();
+        });
     }
 }
