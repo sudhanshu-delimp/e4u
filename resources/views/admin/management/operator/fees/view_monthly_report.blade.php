@@ -13,12 +13,12 @@
         <thead class="table-bg modal-thaed">
             <tr>
                 <th class="text-left">Agent ID</th>
-                <th class="text-left">Name</th>
-                <th>Territory</th>
-                <th>Type</th>
+                <th class="text-center">Name</th>
+                <th >Territory</th>
+                <th class="text-center">Type</th>
                 <th class="text-center">Days</th>
-                <th class="text-left">Spend</th>
-                <th class="text-left">Fee</th>
+                <th class="text-center">Spend</th>
+                <th class="text-center">Fee</th>
             </tr>
         </thead>
         <tbody id="accordionParent">

@@ -18,13 +18,13 @@
     <table class="table table-bordered mb-0 common_accordian_table">
         <thead class="table-bg modal-thaed">
             <tr>
-                <th>Member ID</th>
-                <th>Name</th>
-                <th>Territory</th>
-                <th>Type</th>
-                <th class="text-right">Days</th>
-                <th class="text-right">Spend</th>
-                <th class="text-right">Fee</th>
+                <th class="text-left">Member ID</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">Territory</th>
+                <th class="text-center">Type</th>
+                <th class="text-center">Days</th>
+                <th class="text-center">Spend</th>
+                <th class="text-center">Fee</th>
             </tr>
         </thead>
         <tbody id="accordionParent">
