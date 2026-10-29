@@ -50,7 +50,8 @@
                                     $details = getMasseurWorkingDetails(
                                         $listing['start_date'], 
                                         $listing['end_date'], 
-                                        $masseure->masseur_availibility ?? '{}'
+                                        $masseure->masseur_availibility ?? '{}',
+                                        $massage_availibility ?? '{}'
                                     );
                                     $totalAllDays += $details['count']; 
                                     @endphp

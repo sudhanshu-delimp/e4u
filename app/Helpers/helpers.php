@@ -3434,11 +3434,17 @@ if (!function_exists('countOpenDays')) {
 
 
 
-if (!function_exists('getMasseurWorkingDetails')) {
-    function getMasseurWorkingDetails(string $startDate, string $endDate, string $scheduleJson): array
+if (!function_exists('getMasseurWorkingDetails')) 
+{
+    function getMasseurWorkingDetails(string $startDate, string $endDate, string $scheduleJson, string $massageJson): array
     {
         $schedule = json_decode($scheduleJson, true);
-        if (!$schedule) {
+        $massageSchedule = json_decode($massageJson, true);
+
+        Log::info($schedule);
+        Log::info($massageSchedule);
+
+        if (!$schedule || !$massageSchedule) {
             return [
                 'count' => 0,
                 'first_working_date' => null,
@@ -3449,7 +3455,7 @@ if (!function_exists('getMasseurWorkingDetails')) {
         $start = new DateTime($startDate);
         $end = new DateTime($endDate);
 
-        
+        // Include the end date in the period (inclusive range)
         $end->modify('+1 day');
 
         $period = new DatePeriod($start, new DateInterval('P1D'), $end);
@@ -3460,10 +3466,16 @@ if (!function_exists('getMasseurWorkingDetails')) {
         foreach ($period as $date) {
             $dayOfWeek = strtolower($date->format('l'));
 
-            if (isset($schedule[$dayOfWeek]) && ($schedule[$dayOfWeek]['status'] ?? '') !== 'closed') {
+            // 1. Check masseur schedule status
+            $isMasseurOpen = isset($schedule[$dayOfWeek]) && ($schedule[$dayOfWeek]['status'] ?? '') !== 'closed';
+
+            // 2. Check massage center schedule status
+            $isMassageOpen = isset($massageSchedule[$dayOfWeek]) && ($massageSchedule[$dayOfWeek]['status'] ?? '') !== 'closed';
+
+            // Count the day ONLY if BOTH the masseur AND the massage center are open
+            if ($isMasseurOpen && $isMassageOpen) {
                 $openDaysCount++;
-                
-               
+
                 if ($firstWorkingDate === null) {
                     $firstWorkingDate = $date->format('d-m-Y');
                 }
@@ -3479,7 +3491,6 @@ if (!function_exists('getMasseurWorkingDetails')) {
         ];
     }
 }
-
 
 
 if (!function_exists('formatBSBNumber')) {
