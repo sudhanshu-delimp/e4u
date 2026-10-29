@@ -125,6 +125,7 @@
     
     button {
         background-color: var(--color-teal-dark);
+        color: var(--color-white);
     }
     
     button:hover {
@@ -133,18 +134,22 @@
     
     .opr-modal button {
         background-color: var(--color-teal-dark);
+        color: var(--color-white);
     }
     
     .opr-modal button:hover {
         background-color: var(--color-orange);
+        color: var(--color-white);
     }
     
     .opr-common-btn {
         background: var(--color-teal-dark);
+        color: var(--color-white);
     }
     
     .opr-common-btn:hover {
         background: var(--color-orange) !important;
+        color: var(--color-white);
     }
     
     .opr-close-btn {
@@ -157,10 +162,12 @@
     
     .opr-console .dataTables_paginate .previous {
         background-color: var(--color-teal-dark);
+        color: var(--color-white);
     }
     
     .opr-console .dataTables_paginate .next {
         background-color: var(--color-teal-dark);
+        color: var(--color-white);
     }
     
     .opr-console .paginate_button.current {
