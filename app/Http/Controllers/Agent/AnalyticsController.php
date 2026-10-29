@@ -195,6 +195,7 @@ class AnalyticsController extends Controller
             $end_date = strtotime($listing['end_date']);      
             $days = round(abs($end_date - $start_date) / 86400) + 1; 
             $masseures = false;   
+            $massage_availibility = false;
             
             if($listing)
             {
@@ -202,13 +203,23 @@ class AnalyticsController extends Controller
                 ->where('purchase_id',$listing['id'])
                 ->whereNotNUll('masseur_id')
                 ->get();
+
+                 $is_availibility = MassageTimeAvailability::where('purchase_id',$listing['id'])
+                ->whereNUll('masseur_id')
+                ->first();
+
+                 if($is_availibility)
+                 {
+                   
+                   $massage_availibility =  json_decode(json_encode($is_availibility->massage_availibility),true);
+                 }
                 
-                //Log::info($masseures);
+                
             
             }        
 
 
-            $html = view('agent.dashboard.Annalytics.profile_summary',compact('listing','days','masseures'))->render();
+            $html = view('agent.dashboard.Annalytics.profile_summary',compact('listing','days','masseures','massage_availibility'))->render();
 
             return response()->json([
                 'status' => 'success',
