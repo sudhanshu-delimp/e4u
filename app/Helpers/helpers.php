@@ -3433,6 +3433,55 @@ if (!function_exists('countOpenDays')) {
 }
 
 
+
+if (!function_exists('getMasseurWorkingDetails')) {
+    function getMasseurWorkingDetails(string $startDate, string $endDate, string $scheduleJson): array
+    {
+        $schedule = json_decode($scheduleJson, true);
+        if (!$schedule) {
+            return [
+                'count' => 0,
+                'first_working_date' => null,
+                'last_working_date' => null,
+            ];
+        }
+
+        $start = new DateTime($startDate);
+        $end = new DateTime($endDate);
+
+        
+        $end->modify('+1 day');
+
+        $period = new DatePeriod($start, new DateInterval('P1D'), $end);
+        $openDaysCount = 0;
+        $firstWorkingDate = null;
+        $lastWorkingDate = null;
+
+        foreach ($period as $date) {
+            $dayOfWeek = strtolower($date->format('l'));
+
+            if (isset($schedule[$dayOfWeek]) && ($schedule[$dayOfWeek]['status'] ?? '') !== 'closed') {
+                $openDaysCount++;
+                
+               
+                if ($firstWorkingDate === null) {
+                    $firstWorkingDate = $date->format('d-m-Y');
+                }
+
+                $lastWorkingDate = $date->format('d-m-Y');
+            }
+        }
+
+        return [
+            'count' => $openDaysCount,
+            'first_working_date' => $firstWorkingDate,
+            'last_working_date' => $lastWorkingDate,
+        ];
+    }
+}
+
+
+
 if (!function_exists('formatBSBNumber')) {
     function formatBSBNumber($number)
     {

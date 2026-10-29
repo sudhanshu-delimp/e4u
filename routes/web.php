@@ -278,7 +278,12 @@ Route::middleware('auth')->group(function () {
         Route::get('reviews-by-ajax', [ViewerReviewsController::class, 'getProfileReviewsByAjax'])->name('user.reviews-profile-by-ajax');
         Route::post('user-review-status-update', [ViewerReviewsController::class, "updateUserReviewStatus"])->name('user.user-review-status-update');
         Route::get('get-user-review-details/{id}', [ViewerReviewsController::class, "getSingleUserReviewDetails"])->name('user.get-single-user-review-details');
-    });
+        
+        Route::get('viewer-messages', function () {
+            return view('user.dashboard.communication.viewer-messages');
+        })->name('user.viewer-messages');
+   
+        });
     ################ End All Authencated User Url #################################
     Route::get('back-to-agent', [ImpersonateController::class, 'backToParent'])->name('agent.back-to-parent');
 });
@@ -639,15 +644,12 @@ Route::get('/escort-dashboard/my-legbox-viewers', [EscortMyLegboxViewerControlle
 
 Route::get('/escort-dashboard/escort-messages', function () {
     return view('escort.dashboard.agent-messages');
-})->name('escort.dashboard.agent-messages');
+})->name('escort.dashboard.agent-messages')->middleware('auth');
 
 Route::get('/escort-dashboard/viewers-messages', function () {
     return view('escort.dashboard.viewers-messages');
 })->name('escort.dashboard.viewers-messages');
 
-Route::get('/user-dashboard/viewer-messages', function () {
-    return view('user.dashboard.communication.viewer-messages');
-})->name('user.viewer-messages');
 
 Route::get('/escort-dashboard/tour-schedule', [EscortTourScheduleContoller::class, 'index'])->name('escort.dashboard.tour-schedule');
 Route::get('/escort-dashboard/tour-schedule-ajax', [EscortTourScheduleContoller::class, 'tourScheduleAjax'])->name('escort.dashboard.tour-schedule-ajax');
@@ -989,8 +991,6 @@ Route::get('/robots.txt', function () {
         ->header('Content-Type', 'text/plain');
 });
 
-
-Route::get('/chat-test', fn() => view('chat-test'));
 
 
 Route::middleware(['web', 'auth'])->prefix('chat')->name('chat.')->group(function () {

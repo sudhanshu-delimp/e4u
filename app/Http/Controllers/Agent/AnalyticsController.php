@@ -49,7 +49,7 @@ class AnalyticsController extends Controller
 
                 case 'escort': {
                         $escortIds = Escort::whereIn('user_id', $userIds)->where('purchase_id','!=',"")->pluck('id')->toArray();
-                        $advertisers = Purchase::with('escort.pinup','paymentItems.payment')->where('status', 'listed')->whereIn('escort_id',$escortIds)->get();
+                        $advertisers = Purchase::with('membershipPlan','escort.pinup','paymentItems.payment')->where('status', 'listed')->whereIn('escort_id',$escortIds)->get();
                     }
                     break;
 
@@ -100,6 +100,16 @@ class AnalyticsController extends Controller
                     return Carbon::parse($row->start_date)
                         ->diffInDays(Carbon::parse($row->end_date)) + 1;
                 })
+
+                ->addColumn('member_type', function ($row) use($advertiserType) {
+
+                   if($advertiserType=='escort')
+                    return $row->membershipPlan->name ?? '';
+                    else
+                    return 'NA';
+                })
+
+                
                 ->addColumn('pin_up', function ($row) use($advertiserType) {
                     if($advertiserType=='escort')
                     return isset($row->advertiser->escort->pinup)
@@ -119,7 +129,7 @@ class AnalyticsController extends Controller
 
                     $payment = $row->paymentItems?->payment;
                     if ($payment && $payment->agent_commission_percent > 0) 
-                    $commission = calculate_agent_commission($payment->net_amount,$payment->agent_commission_percent);
+                    $commission = calculate_agent_commission($row->paid_rate,$payment->agent_commission_percent);
                     else
                     $commission = 0.00;
 
@@ -305,10 +315,22 @@ class AnalyticsController extends Controller
 
             $item->member_id = $item->advertiser->user->member_id ?? '';
 
+
+          
+
+
             if($advertiserType=='escort')
-            $item->member_name = $item->advertiser->name ?? ''; 
+            {
+                    $item->member_name = $item->advertiser->name ?? ''; 
+                    $item->member_type = $item->membershipPlan->name;
+            }
+           
             else
-            $item->member_name = $item->advertiser->business_name ?? ''; 
+            {
+                $item->member_name = $item->advertiser->business_name ?? ''; 
+                $item->member_type = "";
+            }
+          
 
             //$item->member_name = $item->advertiser->name ?? '';
             $item->member_mobile = $item->advertiser->phone ?? '';
