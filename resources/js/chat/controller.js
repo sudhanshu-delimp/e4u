@@ -1,4 +1,5 @@
-import { createEcho } from './echo';
+// import { createEcho } from './echo';
+import { createSocket } from './socket';
 import { createApi } from './api';
 import * as view from './render';
 import { initChatActions } from './actions';
@@ -59,7 +60,8 @@ export function initChat(root) {
     const config = JSON.parse(root.dataset.config || '{}');
     const me = config.me;
     const api = createApi(config);
-    const echo = createEcho(config.csrf);
+    // const echo = createEcho(config.csrf);
+    const socket = createSocket(config.socketUrl, config.socketToken);
 
     view.configure({ avatarBase: config.avatarBase || '' });
 
@@ -1147,24 +1149,21 @@ export function initChat(root) {
     setComposerEnabled(false);
     el.memberResults.innerHTML = MEMBER_HINT;
 
-    echo.private('user.' + me.id)
-        .listen('.MessageSent', onIncoming)
-        .listen('.UserTyping', onTyping)
-        .listen('.MessagesRead', onMessagesRead)
-        .listen('.MessageChanged', onMessageChanged);
+    socket.on('MessageSent', onIncoming);
+    socket.on('UserTyping', onTyping);
+    socket.on('MessagesRead', onMessagesRead);
+    socket.on('MessageChanged', onMessageChanged);
 
-
-    echo.join('online')
-        .here((users) => {
-            state.online = new Set(users.map((u) => u.id));
-            refreshLiveUi();
-        })
-        .joining((user) => {
-            state.online.add(user.id);
-            refreshLiveUi();
-        })
-        .leaving((user) => markOffline(user.id))
-        .listen('.UserOffline', (event) => markOffline(Number(event.user_id)));
+    socket.on('presence:here', (ids) => {
+        state.online = new Set(ids);
+        refreshLiveUi();
+    });
+    socket.on('presence:joining', (u) => {
+        state.online.add(u.id);
+        refreshLiveUi();
+    });
+    socket.on('presence:leaving', (u) => markOffline(u.id));
+    socket.on('UserOffline', (e) => markOffline(Number(e.user_id)));
 
     initChatActions({
         root,
