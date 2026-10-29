@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\EscortPinup;
 use App\Models\PaymentHistory;
 use App\Models\User;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -18,6 +19,8 @@ class FeesSummeryService
 
     public function currentFYLabel(): string
     {
+        //australia  Financial Year Starts on 1 July  and ends on 30 June.
+        // 7 use for start of Fy Year.
         $now = Carbon::now();
         $startYear = $now->month >= 7 ? $now->year : $now->year - 1;
         $endYear   = $startYear + 1;
@@ -28,6 +31,9 @@ class FeesSummeryService
 
     public function getFYDateRange(string $fyLabel): array
     {
+
+         // 7 use for start of Fy Year. 
+         // 6 use for end of Fy Year.
         [$startYear, $endYear] = explode('-', $fyLabel);
 
         return [
@@ -39,6 +45,8 @@ class FeesSummeryService
 
     public function getAvailableFYs()
     {
+
+        // check australia financial year 7(Julay) 6(June) 
         return PaymentHistory::query()
             ->where('status', 'success')
             ->whereIn('user_id', function ($sub) {
@@ -47,7 +55,7 @@ class FeesSummeryService
                     ->where('assigned_agent_id', Auth::id())
                     ->whereIn('type', ['3', '4']);
             })
-            // check australia financial year 7(Julay) 6(June) 
+          
             ->selectRaw("
                 CASE
                     WHEN MONTH(paid_at) >= 7                               
@@ -96,7 +104,7 @@ class FeesSummeryService
         };
     }
 
-
+    //fetching total earning form Fees Summary (Advertiser).
     public function getEarnings(string $fyLabel, string $displayType   = 'member_id')
     {
         $fy         = $this->getFYDateRange($fyLabel);
@@ -220,6 +228,7 @@ class FeesSummeryService
             'averageEarning' => $averageEarning,
             'totalAdvertiser' => $totalAdvertiserCount,
             'currentFySpend' => $this->getCurrentFYSpendSummary(),
+            'currentFyCommission' => $this->getCurrentFYCommissionSummary(),
 
         ];
     }
@@ -714,6 +723,110 @@ class FeesSummeryService
         return $platinumSpend + $goldSpend + $silverSpend + $pinupSpend;
     }
 
+    protected function getCurrentFYCommissionQuery(string $userType): Builder
+    {
+        $fy = $this->getCurrentFYToDateRange();
+
+        return DB::table('payment_histories as ph')
+            ->join('users as users', 'users.id', '=', 'ph.user_id')
+            ->join('payment_items as pi', 'pi.payment_history_id', '=', 'ph.id')
+            ->where('users.assigned_agent_id', Auth::id())
+            ->where('users.type', $userType)
+            ->where('ph.status', 'success')
+            ->whereBetween('ph.paid_at', [$fy['start'], $fy['end']]);
+    }
+
+    protected function getCommissionAmount(Builder $query): float
+    {
+        return (float) $query->sum(DB::raw(
+            'COALESCE(pi.amount, ph.amount) * COALESCE(ph.agent_commission_percent, 0) / 100'
+        ));
+    }
+
+    public function getEscortAdvertisingCommission(): float
+    {
+        $query = $this->getCurrentFYCommissionQuery('3')
+            ->leftJoin('purchase as pu', 'pu.id', '=', 'pi.item_id')
+            ->where(function ($query) {
+                $query->where(function ($purchaseQuery) {
+                    $purchaseQuery->where('pi.item_type', Purchase::class)
+                        ->whereIn('pu.membership', [1, 2, 3, 6, 7]);
+                })->orWhere('pi.item_type', EscortPinup::class);
+            });
+
+        return $this->getCommissionAmount($query);
+    }
+
+    public function getMassageAdvertisingCommission(): float
+    {
+        $query = $this->getCurrentFYCommissionQuery('4')
+            ->join('massage_purchases as mp', 'mp.id', '=', 'pi.item_id')
+            ->where('pi.item_type', MassagePurchase::class);
+
+        return $this->getCommissionAmount($query);
+    }
+
+    public function getRegistrationCommission(): float
+    {
+        return $this->getRegistrationSpend();
+    }
+
+    protected function getEscortMembershipCommission(int $membership): float
+    {
+        $query = $this->getCurrentFYCommissionQuery('3')
+            ->join('purchase as pu', 'pu.id', '=', 'pi.item_id')
+            ->where('pi.item_type', Purchase::class)
+            ->where('pu.membership', $membership);
+
+        return $this->getCommissionAmount($query);
+    }
+
+    public function getEscortPlatinumCommission(): float
+    {
+        return $this->getEscortMembershipCommission(1);
+    }
+
+    public function getEscortGoldCommission(): float
+    {
+        return $this->getEscortMembershipCommission(2);
+    }
+
+    public function getEscortSilverCommission(): float
+    {
+        return $this->getEscortMembershipCommission(3);
+    }
+
+    public function getEscortPinupCommission(): float
+    {
+        $query = $this->getCurrentFYCommissionQuery('3')
+            ->join('escort_pinups as ep', 'ep.id', '=', 'pi.item_id')
+            ->where('pi.item_type', EscortPinup::class);
+
+        return $this->getCommissionAmount($query);
+    }
+
+    public function getEscortTotalCommission(
+        float $platinumCommission,
+        float $goldCommission,
+        float $silverCommission,
+        float $pinupCommission
+    ): float {
+        return $platinumCommission + $goldCommission + $silverCommission + $pinupCommission;
+    }
+
+    public function getTotalEarnedCommission(
+        float $escortCommission,
+        float $massageCommission,
+        float $registrationCommission
+    ): float {
+        return $escortCommission + $massageCommission + $registrationCommission;
+    }
+
+    public function getMassageTotalCommission(float $massageCommission, float $registrationCommission): float
+    {
+        return $massageCommission + $registrationCommission;
+    }
+
     public function getTotalEarnedSpend(float $escortSpend, float $massageSpend, float $registrationSpend): float
     {
         return $escortSpend + $massageSpend + $registrationSpend;
@@ -748,6 +861,42 @@ class FeesSummeryService
         ];
     }
 
+    public function getCurrentFYCommissionSummary(): array
+    {
+        $escortCommission = $this->getEscortAdvertisingCommission();
+        $massageCommission = $this->getMassageAdvertisingCommission();
+        $registrationCommission = $this->getRegistrationCommission();
+        $platinumCommission = $this->getEscortPlatinumCommission();
+        $goldCommission = $this->getEscortGoldCommission();
+        $silverCommission = $this->getEscortSilverCommission();
+        $pinupCommission = $this->getEscortPinupCommission();
+
+        return [
+            'commission_advertising_escorts' => $escortCommission,
+            'commission_advertising_massage_centres' => $massageCommission,
+            'commission_registrations' => $registrationCommission,
+            'commission_total_earned' => $this->getTotalEarnedCommission(
+                $escortCommission,
+                $massageCommission,
+                $registrationCommission
+            ),
+            'commission_escort_platinum' => $platinumCommission,
+            'commission_escort_gold' => $goldCommission,
+            'commission_escort_silver' => $silverCommission,
+            'commission_escort_pinup' => $pinupCommission,
+            'commission_escort_total' => $this->getEscortTotalCommission(
+                $platinumCommission,
+                $goldCommission,
+                $silverCommission,
+                $pinupCommission
+            ),
+            'commission_massage_total' => $this->getMassageTotalCommission(
+                $massageCommission,
+                $registrationCommission
+            ),
+        ];
+    }
+
 
 
     // public function getCurrentFyAdvertiserCommission(): array
@@ -773,11 +922,7 @@ class FeesSummeryService
 
     //     $commissionItems = $totalArray->map(function ($item) {
     //         $item->commission_amount = round(
-    //             (float) $item->amount
-    //                 * (float) $item->agent_commission_percent / 100,
-    //             2
-    //         );
-
+    //             (float) $item->amount * (float) $item->agent_commission_percent / 100,  2 );
     //         return $item;
     //     });
 
