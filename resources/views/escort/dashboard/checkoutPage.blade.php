@@ -85,7 +85,7 @@
     </form>
     @endswitch
 </div>
-@include('escort.dashboard.modal.payment_form')
+@include('escort.dashboard.modal.payment_form',['adjustment_form_action' => route('payment.adjustment') , 'payment_form_action' => route('escort.payment.process')])
 @include('modal.two-step-verification',['action'=>true,'inPaymentMode'=>true])
 @endsection
 @push('script')

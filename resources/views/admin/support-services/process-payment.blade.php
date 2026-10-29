@@ -100,7 +100,6 @@
                             <div class="national">
                             <select id="services" class="form-control select2">
                                 @if($services->isNotEmpty())
-                                    <option value="">Choose a service...</option>
                                     @foreach ($services as $category => $items)
                                         <optgroup label="{{ $category }}">
                                         @foreach ($items as $service)
@@ -304,9 +303,7 @@
                                 
                             </div>
                             <div class="text-right mt-4">
-                                <button type="button" id="payBtn" class="next-btn">
-                                    Pay
-                                </button>
+                                    <button id="modalPaymentButton" class="btn-success-modal text-white" type="button" data-toggle="modal" data-target="#process-payment-modal" data-backdrop="static" data-keyboard="false" name="action" value="support_service">Proceed to Payment</button>
                             </div>
                         </div>
                     </div>
@@ -321,12 +318,20 @@
         </form>
     </div>
 </div>
+@include('escort.dashboard.modal.payment_form',['adjustment_form_action' => route('operation.payment.adjustment') , 'payment_form_action' => route('operation.payment.process')])
+@include('modal.two-step-verification', ['action' => true, 'inPaymentMode' => true])
 @endsection
 
-@push('script')
+@prepend('script')
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script>
-    $('.select2').select2();
+    
+    $('#services').select2({
+        placeholder: 'Select services',
+        allowClear: true,
+        width: '100%'
+    });
+
     document.addEventListener('DOMContentLoaded', () => {
         const form = document.getElementById('advertiserForm');
         const memberIdInput = document.getElementById('memberId');
@@ -338,7 +343,7 @@
         const emptyStateMessage = document.getElementById('emptyStateMessage');
         const status = document.getElementById('lookupStatus');
         const message = document.getElementById('message');
-        const payBtn = document.getElementById('payBtn');
+        const payBtn = document.getElementById('modalPaymentButton');
         const rightTotalAmount = document.getElementById('rightTotalAmount');
         const payableSummary = document.querySelector('.payable-summary');
 
@@ -349,22 +354,24 @@
         let requestController = null;
         let lookupSequence = 0;
 
-        // function formatMoney(amount) {
-        //     return '$' + amount.toLocaleString('en-US');
-        // }
-
-        function calculateTotal() {
-            return selectedServices.reduce((sum, key) => {
+            async function calculateTotal() {
+                const total = selectedServices.reduce((sum, key) => {
                 const option = Array.from(servicesInput.options)
                     .find(item => item.value === key);
 
                 return sum + (option ? Number(option.dataset.price) || 0 : 0);
-            }, 0);
-        }
+                }, 0);
+
+                const res = await encryptValue(total);
+
+                $('#modalPaymentButton').attr('fee_token', res.encrypted);
+
+                return total;
+            }
 
        
-            function updateTotalAmount() {
-                const total = calculateTotal();
+            async function updateTotalAmount() {
+                const total = await calculateTotal();
                 const hasServices = selectedServices.length > 0;
 
                 rightTotalAmount.textContent = formatCurrency(total);
@@ -401,67 +408,82 @@
             const target = document.getElementById('serviceChips');
             target.replaceChildren();
 
-            // Selected services ko dropdown se hide karo
+            // Hide already-selected services in the dropdown
             Array.from(servicesInput.options).forEach(option => {
-                if (!option.value) return;
+            if (!option.value) return;
 
-                option.hidden = selectedServices.includes(option.value);
+            option.hidden = selectedServices.includes(option.value);
+            $(option).prop('disabled', selectedServices.includes(option.value));
             });
 
-            servicesInput.value = '';
+            // Refresh Select2 to reflect disabled options
+            $(servicesInput).trigger('change.select2');
 
             if (!selectedServices.length) {
-                const empty = document.createElement('span');
-                empty.className = 'empty-services';
-                empty.textContent = 'No services selected yet.';
-                target.append(empty);
+            const empty = document.createElement('span');
+            empty.className = 'empty-services';
+            empty.textContent = 'No services selected yet.';
+            target.append(empty);
 
-                updateTotalAmount();
-                return;
-            }
-               console.log(selectedServices); 
-            selectedServices.forEach(key => {
-                const option = Array.from(servicesInput.options)
-                    .find(item => item.value === key);
-
-                if (!option) return;
-
-                const card = document.createElement('div');
-                card.className = 'service-chip';
-
-                const name = document.createElement('span');
-                name.className = 'service-chip-name';
-                name.textContent = option.textContent.split(' — ')[0];
-
-                const price = document.createElement('strong');
-                price.className = 'service-chip-price';
-                price.textContent = formatCurrency(Number(option.dataset.price) || 0);
-
-                const remove = document.createElement('button');
-                remove.type = 'button';
-                remove.className = 'service-remove';
-                remove.setAttribute('aria-label', 'Remove ' + name.textContent);
-                remove.title = 'Remove service';
-                remove.textContent = '×';
-
-                remove.addEventListener('click', () => {
-                    selectedServices = selectedServices.filter(
-                        service => service !== key
-                    );
-                    delete selectedServicePrices[key];
-                    renderServices();
-                });
-
-                const info = document.createElement('div');
-                info.className = 'service-chip-info';
-                info.append(name, price);
-
-                card.append(info, remove);
-                target.append(card);
-            });
-            console.log(selectedServicePrices);
-            console.log(memberIdInput.value.trim());
             updateTotalAmount();
+            return;
+            }
+
+            selectedServices.forEach(key => {
+            const option = Array.from(servicesInput.options)
+                .find(item => item.value === key);
+
+            if (!option) return;
+
+            const card = document.createElement('div');
+            card.className = 'service-chip';
+
+            const name = document.createElement('span');
+            name.className = 'service-chip-name';
+            name.textContent = option.textContent.split(' — ')[0];
+
+            const price = document.createElement('strong');
+            price.className = 'service-chip-price';
+            price.textContent = formatCurrency(
+                Number(selectedServicePrices[key] ?? option.dataset.price) || 0
+            );
+
+            const remove = document.createElement('button');
+            remove.type = 'button';
+            remove.className = 'service-remove';
+            remove.setAttribute('aria-label', 'Remove ' + name.textContent);
+            remove.title = 'Remove service';
+            remove.textContent = '×';
+
+            remove.addEventListener('click', () => {
+                selectedServices = selectedServices.filter(
+                    service => service !== key
+                );
+
+                delete selectedServicePrices[key];
+
+                // Enable the option again
+                option.disabled = false;
+                option.hidden = false;
+
+                renderServices();
+            });
+
+            const info = document.createElement('div');
+            info.className = 'service-chip-info';
+            info.append(name, price);
+
+            card.append(info, remove);
+            target.append(card);
+            });
+
+            updateTotalAmount();
+            $('#advertiserForm input[type="hidden"][name^="support_service_item_"]').remove();
+            Object.entries(selectedServicePrices).forEach(([name, price], index) => {
+                console.log(name);
+                console.log(price);
+                addOrUpdateHiddenInput('advertiserForm', `support_service_item_${index + 1}`, `${name}|${price}`);
+            });
         }
 
 
@@ -489,7 +511,7 @@
 
             message.textContent = '';
             message.className = 'message';
-
+            addOrUpdateHiddenInput('advertiserForm', `advertiser_id`, `${ad.id}`);
             renderServices();
         }
 
@@ -559,21 +581,23 @@
         });
 
         $('#services').on('select2:select', function (e) {
-            const selectedOption = e.params.data.element;
+            const option = e.params.data.element;
             const value = e.params.data.id;
-            if (value && selectedAdvertiser && !selectedServices.includes(value)) 
-            {
-             selectedServices.push(value);
-             selectedServicePrices[value] = selectedOption.dataset.price;
+
+            if (
+            value &&
+            selectedAdvertiser &&
+            !selectedServices.includes(value)
+            ) {
+            selectedServices.push(value);
+            selectedServicePrices[value] = option.dataset.price;
             }
 
-            // Reset Select2 selection
             $(this).val(null).trigger('change');
-
             renderServices();
         });
 
-        payBtn.addEventListener('click', () => {
+        payBtn.addEventListener('click', async () => {
             if (!selectedAdvertiser) return;
 
             if (!selectedServices.length) {
@@ -582,7 +606,7 @@
                 return;
             }
 
-            const total = calculateTotal();
+            const total = await calculateTotal();
 
             // Demo only: connect this to your actual payment flow.
             alert(
@@ -596,4 +620,4 @@
         updateTotalAmount();
     });
 </script>
-@endpush
+@endprepend

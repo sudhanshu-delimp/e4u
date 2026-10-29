@@ -87,6 +87,12 @@ class User extends Authenticatable
         'member_id',
     ];
 
+
+    public function supportServices(): HasMany
+    {
+        return $this->hasMany(SupportService::class, 'advertiser_id', 'id');
+    }
+
     public function getTourPermissitionTypeAttribute($value)
     {
         return $value ?? [];
