@@ -46,95 +46,93 @@
                                 </div>
                             </div>
 
-                            <hr>
+                            <div class="{{ !in_array(auth()->user()?->type, ['3', '4']) ? 'd-none' : '' }}">
+                            
+                                <hr>
 
-                            <a class="payment_wallet_option" style="color: #000;" data-toggle="collapse" href="#collapseExample" role="button"
-                                aria-expanded="false" aria-controls="collapseExample">
-                                <p class="apply_benefits"><strong>Apply Benefits</strong> <i
-                                        class="fa fa-chevron-down"></i></p>
-                            </a>
+                                <a class="payment_wallet_option" style="color: #000;" data-toggle="collapse" href="#collapseExample" role="button"
+                                    aria-expanded="false" aria-controls="collapseExample">
+                                    <p class="apply_benefits"><strong>Apply Benefits</strong> <i
+                                            class="fa fa-chevron-down"></i></p>
+                                </a>
 
 
-                            <div class="collapse" id="collapseExample">
-                                <div class="wallet_details">
-                                    <div class="card payment_wallet_option">
-                                        <div class="card-body">
-                                            <h5><img src="{{ asset('assets/dashboard/img/wallet.png') }}"> Wallet Money
-                                                : <span>{{ formatCurrency(Auth::user()->wallet->balance) }}</span></h5>
+                                <div class="collapse" id="collapseExample">
+                                    <div class="wallet_details">
+                                        <div class="card payment_wallet_option">
+                                            <div class="card-body">
+                                                <h5><img src="{{ asset('assets/dashboard/img/wallet.png') }}"> Wallet Money
+                                                    : <span>{{ formatCurrency(Auth::user()->wallet->balance) }}</span></h5>
+                                            </div>
+                                        </div>
+                                        <div class="card payment_loyalty_option_show">
+                                            <div class="card-body">
+                                                <h5> <img src="{{ asset('assets/dashboard/img/days.png') }}"> Loyalty Days
+                                                    : <span>{{ Auth::user()->wallet->earn_days ?? 0 }}</span></h5>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="card payment_loyalty_option_show">
-                                        <div class="card-body">
-                                            <h5> <img src="{{ asset('assets/dashboard/img/days.png') }}"> Loyalty Days
-                                                : <span>{{ Auth::user()->wallet->earn_days ?? 0 }}</span></h5>
-                                        </div>
+                                    <div class="card p-3" style="border-radius:0px;">
+                                        <form action="{{ $adjustment_form_action }}" method="post" id="adjustment-form">
+                                            <div class="form-row benefit_section">
+                                                <div class="form-group col-6 payment_wallet_option">
+                                                    <label class="mb-0" for="Wallet">Wallet Money</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">AU$</span>
+                                                        </div>
+                                                        <input type="text" class="form-control only_digits_decimal" name="wallet_amount"
+                                                            placeholder="Enter amount.">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-6 payment_loyalty_option">
+                                                    <label class="mb-0" for="Days">Loyalty Days</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control only_digits" name="loyalty_day"
+                                                            placeholder="Enter days.">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Day</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-end w-100 gap-10">
+                                                    <button type="reset" class="reset-btn btn-cancel-modal" name="action"
+                                                        value="reset">Reset</button>
+                                                    <button type="submit" class="apply-btn" name="action"
+                                                        value="">Apply</button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
-                                <div class="card p-3 " style="border-radius:0px;">
-                                    <form action="{{ Auth::user()->type == '3' ? route('payment.adjustment') : route('advertiser.payment.adjustment') }}" method="post"
-                                        id="adjustment-form">
-                                        <div class="form-row benefit_section">
-                                            <div class="form-group col-6 payment_wallet_option">
-                                                <label class="mb-0" for="Wallet">Wallet Money</label>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">AU$</span>
-                                                    </div>
-                                                    <input type="text" class="form-control only_digits_decimal" name="wallet_amount"
-                                                        placeholder="Enter amount.">
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-6 payment_loyalty_option">
-                                                <label class="mb-0" for="Days">Loyalty Days</label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control only_digits" name="loyalty_day"
-                                                        placeholder="Enter days.">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">Day</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-end w-100 gap-10">
-                                                <button type="reset" class="reset-btn btn-cancel-modal" name="action"
-                                                    value="reset">Reset</button>
-                                                <button type="submit" class="apply-btn" name="action"
-                                                    value="">Apply</button>
-                                            </div>
-                                        </div>
+                                <div class="finish-payment-form d-none mt-2">
+                                    <form action="{{$payment_form_action}}" method="post"
+                                        id="finish-payment-form">
+                                        <button type="submit" name="action" value="finish_payment"
+                                            class="btn-success-modal btn-block">
+                                            Complete Payment
+                                        </button>
                                     </form>
                                 </div>
+                                <div class="support mt-3 payment_note payment_wallet_option">
+                                    <p class="mb-0"><strong>Notes:</strong></p>
+                                    <ol>
+                                        <li>You can apply any portion of your benefits by selecting from your Wallet, to
+                                            reduce the total Fee payable for this Service.</li>
+                                        <li>By selecting 'Pay Now', 2FA will be activated to verify it is you.</li>
+                                        <li>For a detailed summary of this transaction, go to <a
+                                                href="{{ route('escort.payment.transaction_summary') }}"
+                                                class="custom_links_design" target="_blank"> Transaction Summary</a>.</li>
+                                        <!-- <li>Loyalty points are available as a payment option only for the Listing, Tour, and Extend features on profile listings. This payment option is not available for Pinup, Bump Up, or Upgrade.</li> -->
+                                        <li>Any variation feature you apply to a Listed Profile where a payment is required, can only be paid by your Card or Wallet credit.  You can not use any Loyalty Days for features that you are varying.  Loyalty Days can only be used for Listing a Profile.</li>
+                                    </ol>
+                                </div>
                             </div>
-                            <div class="finish-payment-form d-none mt-2">
-                                <form action="{{ Auth::user()->type == '3' ? route('escort.payment.process') : route('advertiser.payment.process') }}" method="post"
-                                    id="finish-payment-form">
-                                    <button type="submit" name="action" value="finish_payment"
-                                        class="btn-success-modal btn-block">
-                                        Complete Payment
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="support mt-3 payment_note payment_wallet_option">
-                                <p class="mb-0"><strong>Notes:</strong></p>
-                                <ol>
-                                    <li>You can apply any portion of your benefits by selecting from your Wallet, to
-                                        reduce the total Fee payable for this Service.</li>
-                                    <li>By selecting 'Pay Now', 2FA will be activated to verify it is you.</li>
-                                    <li>For a detailed summary of this transaction, go to <a
-                                            href="{{ route('escort.payment.transaction_summary') }}"
-                                            class="custom_links_design" target="_blank"> Transaction Summary</a>.</li>
-                                    <!-- <li>Loyalty points are available as a payment option only for the Listing, Tour, and Extend features on profile listings. This payment option is not available for Pinup, Bump Up, or Upgrade.</li> -->
-                                    <li>Any variation feature you apply to a Listed Profile where a payment is required, can only be paid by your Card or Wallet credit.  You can not use any Loyalty Days for features that you are varying.  Loyalty Days can only be used for Listing a Profile.</li>
-                                </ol>
-                            </div>
-
                         </div>
-
-
-
                     </div>
 
                     <div class="col-12 col-md-6 col-lg-6 col-xl-6">
-                        <form action="{{ Auth::user()->type == '3' ? route('escort.payment.process') : route('advertiser.payment.process') }}" class="pin" method="post"
+                        <form action="{{$payment_form_action}}" class="pin" method="post"
                             id="payment-form">
 
                             <div class="card p-3">
@@ -315,7 +313,9 @@
         if (!response.redirect_url || response.redirect_url.trim() === '') {
             form.closest('.modal').modal('hide');
             otherModalForm = $(`.modal-form-${response.action}`).find('form');
-            otherModalForm.append('<input type="hidden" name="payment_token" value="' + response.payment_id + '">');
+            if(otherModalForm.length > 0){
+                otherModalForm.append('<input type="hidden" name="payment_token" value="' + response.payment_id + '">');
+            }
         }
         switch (response.action) {
 
@@ -341,7 +341,17 @@
                 }, 2000); // 2 seconds
             }
             break;
-
+            case 'support_service': {
+                displaySwal(xhr).then((result) => {
+                    if (result.isConfirmed) {
+                       let parentForm = $("#modalPaymentButton").parents('form');
+                       parentForm[0].reset();
+                       parentForm.find('select.select2-hidden-accessible').val(null).trigger('change');
+                       parentForm.find(".service-remove").click();
+                    }
+                });
+            }
+            break;
             default: {
                 displaySwal(xhr).then((result) => {
                     if (result.isConfirmed) {
@@ -375,49 +385,6 @@
             success: function(response, textStatus, xhr) {
                 Swal.close();
                 executeFromsAfterPaymentSuccess(response, textStatus, xhr);
-                // paymentFormData = {};
-                // let otherModalForm;
-                // if (!response.redirect_url || response.redirect_url.trim() === '') {
-                //     form.closest('.modal').modal('hide');
-                //     otherModalForm = $(`.modal-form-${response.action}`).find('form');
-                //     otherModalForm.append('<input type="hidden" name="payment_token" value="' + response.payment_id + '">');
-                // }
-                // switch (response.action) {
-
-                //     case 'pinup': {
-                //         displaySwal(xhr, false);
-                //         otherModalForm.attr('action', `{{route('pinup.register')}}`);
-                //         setTimeout(() => {
-                //             otherModalForm.trigger('submit');
-                //         }, 2000); // 2 seconds
-                //     }
-                //     break;
-                //     case 'bumpUp': {
-                //         displaySwal(xhr, false);
-                //         setTimeout(() => {
-                //             otherModalForm.trigger('submit');
-                //         }, 2000); // 2 seconds
-                //     }
-                //     break;
-                //     case 'upgrade': {
-                //         displaySwal(xhr, false);
-                //         setTimeout(() => {
-                //             otherModalForm.trigger('submit');
-                //         }, 2000); // 2 seconds
-                //     }
-                //     break;
-
-                //     default: {
-                //         displaySwal(xhr).then((result) => {
-                //             if (result.isConfirmed) {
-                //                 if (response.redirect_url) {
-                //                     window.location.href = response.redirect_url;
-                //                 }
-                //             }
-                //         });
-                //     }
-                //     break;
-                // }
             },
             error: function(xhr) {
                 console.log(xhr);
@@ -536,49 +503,6 @@
             success: function(response, textStatus, xhr) {
                 Swal.close();
                 executeFromsAfterPaymentSuccess(response, textStatus, xhr);
-                // paymentFormData = {};
-                // let otherModalForm;
-                // if (!response.redirect_url || response.redirect_url.trim() === '') {
-                //     form.closest('.modal').modal('hide');
-                //     otherModalForm = $(`.modal-form-${response.action}`).find('form');
-                //     otherModalForm.append('<input type="hidden" name="payment_token" value="' + response.payment_id + '">');
-                // }
-                // switch (response.action) {
-
-                //     case 'pinup': {
-                //         displaySwal(xhr, false);
-                //         otherModalForm.attr('action', `{{route('pinup.register')}}`);
-                //         setTimeout(() => {
-                //             otherModalForm.trigger('submit');
-                //         }, 2000); // 2 seconds
-                //     }
-                //     break;
-                //     case 'bumpUp': {
-                //         displaySwal(xhr, false);
-                //         setTimeout(() => {
-                //             otherModalForm.trigger('submit');
-                //         }, 2000); // 2 seconds
-                //     }
-                //     break;
-                //     case 'upgrade': {
-                //         displaySwal(xhr, false);
-                //         setTimeout(() => {
-                //             otherModalForm.trigger('submit');
-                //         }, 2000); // 2 seconds
-                //     }
-                //     break;
-
-                //     default: {
-                //         displaySwal(xhr).then((result) => {
-                //             if (result.isConfirmed) {
-                //                 if (response.redirect_url) {
-                //                     window.location.href = response.redirect_url;
-                //                 }
-                //             }
-                //         });
-                //     }
-                //     break;
-                // }
             },
             error: function(xhr) {
                 Swal.close();
@@ -631,9 +555,10 @@
 
     let getActiveModelFormData = function(paymentButton) {
         var form = paymentButton.parents('form');
+        console.log("paymentButton: ", form);
         var formData = form.serialize();
         addOrUpdateHiddenInput('adjustment-form', 'payload_token', formData)
-        console.log(formData);
+        console.log('formData: ',formData);
     }
 </script>
 @endprepend
