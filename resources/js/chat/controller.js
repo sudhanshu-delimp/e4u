@@ -57,6 +57,11 @@ function notify(message, type) {
 }
 
 export function initChat(root) {
+    if (root.dataset.chatReady) {
+        return;
+    }
+
+    root.dataset.chatReady = '1';
     const config = JSON.parse(root.dataset.config || '{}');
     const me = config.me;
     const api = createApi(config);
@@ -134,6 +139,72 @@ export function initChat(root) {
 
     function scrollBottom() {
         el.messages.scrollTop = el.messages.scrollHeight;
+    }
+
+
+    function prepareVideos(scope) {
+        scope.querySelectorAll('video:not([data-ready])').forEach((video) => {
+            video.dataset.ready = '1';
+            video.preload = 'metadata';
+            video.setAttribute('playsinline', '');
+
+            const original = (video.getAttribute('src') || '').split('#')[0];
+
+            if (!original) {
+                return;
+            }
+
+            video.src = original + '#t=0.1';
+
+            let tries = 0;
+
+            const retry = () => {
+                if (tries >= 6 || video.readyState > 0) {
+                    return;
+                }
+
+                tries++;
+                video.src = original + (original.indexOf('?') === -1 ? '?' : '&') + '_r=' + Date.now() + '#t=0.1';
+                video.load();
+            };
+
+            video.addEventListener('error', () => setTimeout(retry, 1500 * (tries + 1)));
+            video.addEventListener('loadedmetadata', () => { tries = 6; });
+            setTimeout(retry, 2500);
+        });
+    }
+
+
+    function showSending(files) {
+        hideSending();
+
+        if (!document.getElementById('chatSpinStyle')) {
+            const style = document.createElement('style');
+
+            style.id = 'chatSpinStyle';
+            style.textContent = '@keyframes chatSpin{to{transform:rotate(360deg)}}';
+            document.head.appendChild(style);
+        }
+
+        const row = document.createElement('div');
+
+        row.id = 'chatSending';
+        row.className = 'message-row sent';
+        row.innerHTML = `<div class="message-wrapper"><div class="message-bubble" style="display:flex;align-items:center;gap:10px;">
+        <span style="width:18px;height:18px;border:3px solid #e5e7eb;border-top-color:#ff3c5f;border-radius:50%;display:inline-block;animation:chatSpin .8s linear infinite;"></span>
+        <span>Sending ${files.length} file(s)... large videos can take a few minutes. Please do not close this page.</span>
+    </div></div>`;
+
+        el.messages.appendChild(row);
+        scrollBottom();
+    }
+
+    function hideSending() {
+        const row = document.getElementById('chatSending');
+
+        if (row) {
+            row.remove();
+        }
     }
 
     function closeSidebarOnMobile() {
@@ -727,9 +798,14 @@ export function initChat(root) {
         state.sending = true;
         el.sendBtn.disabled = true;
 
+        if (files.length) {
+            showSending(files);
+        }
+
         try {
             const res = await api.send(state.activeId, body, files);
 
+            hideSending();
             el.input.value = '';
             clearAttachPreview();
             appendMessage(res.data);
@@ -738,6 +814,7 @@ export function initChat(root) {
         } catch (error) {
             notify(error.message || 'Message could not be sent.', 'error');
         } finally {
+            hideSending();
             state.sending = false;
             el.sendBtn.disabled = false;
             el.input.focus();

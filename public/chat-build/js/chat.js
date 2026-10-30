@@ -690,6 +690,10 @@ function notify(message, type) {
   (0,_dialogs__WEBPACK_IMPORTED_MODULE_4__.notice)(type || 'error', text);
 }
 function initChat(root) {
+  if (root.dataset.chatReady) {
+    return;
+  }
+  root.dataset.chatReady = '1';
   var config = JSON.parse(root.dataset.config || '{}');
   var me = config.me;
   var api = (0,_api__WEBPACK_IMPORTED_MODULE_1__.createApi)(config);
@@ -770,6 +774,55 @@ function initChat(root) {
   }
   function scrollBottom() {
     el.messages.scrollTop = el.messages.scrollHeight;
+  }
+  function prepareVideos(scope) {
+    scope.querySelectorAll('video:not([data-ready])').forEach(function (video) {
+      video.dataset.ready = '1';
+      video.preload = 'metadata';
+      video.setAttribute('playsinline', '');
+      var original = (video.getAttribute('src') || '').split('#')[0];
+      if (!original) {
+        return;
+      }
+      video.src = original + '#t=0.1';
+      var tries = 0;
+      var retry = function retry() {
+        if (tries >= 6 || video.readyState > 0) {
+          return;
+        }
+        tries++;
+        video.src = original + (original.indexOf('?') === -1 ? '?' : '&') + '_r=' + Date.now() + '#t=0.1';
+        video.load();
+      };
+      video.addEventListener('error', function () {
+        return setTimeout(retry, 1500 * (tries + 1));
+      });
+      video.addEventListener('loadedmetadata', function () {
+        tries = 6;
+      });
+      setTimeout(retry, 2500);
+    });
+  }
+  function showSending(files) {
+    hideSending();
+    if (!document.getElementById('chatSpinStyle')) {
+      var style = document.createElement('style');
+      style.id = 'chatSpinStyle';
+      style.textContent = '@keyframes chatSpin{to{transform:rotate(360deg)}}';
+      document.head.appendChild(style);
+    }
+    var row = document.createElement('div');
+    row.id = 'chatSending';
+    row.className = 'message-row sent';
+    row.innerHTML = "<div class=\"message-wrapper\"><div class=\"message-bubble\" style=\"display:flex;align-items:center;gap:10px;\">\n        <span style=\"width:18px;height:18px;border:3px solid #e5e7eb;border-top-color:#ff3c5f;border-radius:50%;display:inline-block;animation:chatSpin .8s linear infinite;\"></span>\n        <span>Sending ".concat(files.length, " file(s)... large videos can take a few minutes. Please do not close this page.</span>\n    </div></div>");
+    el.messages.appendChild(row);
+    scrollBottom();
+  }
+  function hideSending() {
+    var row = document.getElementById('chatSending');
+    if (row) {
+      row.remove();
+    }
   }
   function closeSidebarOnMobile() {
     if (window.innerWidth <= 800) {
@@ -1385,11 +1438,15 @@ function initChat(root) {
           case 10:
             state.sending = true;
             el.sendBtn.disabled = true;
+            if (files.length) {
+              showSending(files);
+            }
             _context6.p = 11;
             _context6.n = 12;
             return api.send(state.activeId, body, files);
           case 12:
             _res = _context6.v;
+            hideSending();
             el.input.value = '';
             clearAttachPreview();
             appendMessage(_res.data);
@@ -1406,6 +1463,7 @@ function initChat(root) {
             notify(_t6.message || 'Message could not be sent.', 'error');
           case 14:
             _context6.p = 14;
+            hideSending();
             state.sending = false;
             el.sendBtn.disabled = false;
             el.input.focus();
