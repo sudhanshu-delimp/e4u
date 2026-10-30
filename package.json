@@ -10,7 +10,7 @@
         "production": "mix --production",
         "chat": "mix --mix-config=webpack.mix.chat.js",
         "chat-watch": "mix watch --mix-config=webpack.mix.chat.js",
-        "chat-server": "node chat-server/server.js"
+        "node-server": "node node-server/server.js"
     },
     "devDependencies": {
         "axios": "^0.21",

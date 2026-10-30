@@ -180,7 +180,7 @@ During development you can use `npm run chat-watch`.
 Open a separate terminal and keep it running:
 
 ```bash
-npm run chat-server
+npm run node-server
 ```
 
 Expected output: `Chat socket on 6002`.
@@ -207,7 +207,7 @@ Browser check: F12 > Network > Socket. A `socket.io` row should show status `101
 
 ```bash
 # terminal 1
-npm run chat-server
+npm run node-server
 
 # site runs from Laragon (start Laragon)
 ```
@@ -224,7 +224,7 @@ Run `npm run chat` again only when you change files in `resources/js/chat/`.
 | `/health` shows `online: 0` | Browser is not connected. Check the Network > Socket row and the console |
 | `Target [Illuminate\Contracts\Broadcasting\Factory] is not instantiable` | `Illuminate\Broadcasting\BroadcastServiceProvider` is missing in `config/app.php` |
 | `Cannot find module 'webpack/lib/SizeFormatHelpers'` | Run `npm install --save-dev webpack@5.88.2 --legacy-peer-deps` |
-| `Missing script: "chat-server"` | `package.json` is missing the script `"chat-server": "node chat-server/server.js"` |
+| `Missing script: "node-server"` | `package.json` is missing the script `"node-server": "node node-server/server.js"` |
 | Page redirects to `/` | You are not logged in, or the project's `DemoBasicAuth` middleware is asking for credentials |
 | Port 6002 already in use | Change `CHAT_SOCKET_PORT`, `CHAT_SOCKET_URL` and `CHAT_SOCKET_PUBLIC_URL` to a free port |
 | Browser blocks `ws://` | The page is open on `https`. Use `http` locally |
@@ -235,7 +235,7 @@ Note: the old `socket-server.js` in the project uses port 6001. Chat uses port 6
 
 | File | Purpose |
 |---|---|
-| `chat-server/server.js` | Node socket.io server (relay, token check, online status) |
+| `node-server/server.js` | Node socket.io server (relay, token check, online status) |
 | `app/Services/ChatSocket.php` | Creates signed tokens and sends events to Node |
 | `app/Broadcasting/SocketBroadcaster.php` | Custom Laravel broadcast driver (`chatsocket`) |
 | `app/Providers/AppServiceProvider.php` | Registers the `chatsocket` driver |
@@ -271,7 +271,7 @@ php artisan migrate --force
 php artisan storage:link
 php artisan config:clear && php artisan view:clear && php artisan route:clear
 
-pm2 start chat-server/server.js --name chat-socket
+pm2 start node-server/server.js --name chat-socket
 pm2 save
 ```
 
