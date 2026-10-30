@@ -943,6 +943,7 @@ function initChat(root) {
     el.messages.innerHTML = state.messages.map(function (msg, i) {
       return _render__WEBPACK_IMPORTED_MODULE_2__.messageHtml(msg, state.messages[i - 1], ctx);
     }).join('');
+    prepareVideos(el.messages);
   }
   function appendMessage(msg) {
     if (state.messages.some(function (m) {
@@ -957,6 +958,7 @@ function initChat(root) {
     } else {
       el.messages.insertAdjacentHTML('beforeend', _render__WEBPACK_IMPORTED_MODULE_2__.messageHtml(msg, prev, messageContext()));
     }
+    prepareVideos(el.messages);
     scrollBottom();
   }
 
