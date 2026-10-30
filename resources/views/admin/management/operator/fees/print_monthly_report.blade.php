@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Operator Montly Fee Report</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.2') }}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,45 +23,53 @@
                 border-bottom: 0px;
             }
         }
- 
+
         table th,
         table td {
             font-family: "Poppins", sans-serif;
         }
+
         .heading {
             display: block;
             font-size: 1rem;
             font-weight: 500;
             line-height: 1px;
         }
+
         @page {
             size: A4;
         }
+
         h2 {
             font-size: 16px;
             font-weight: bold;
         }
+
         h6 {
             font-size: 16px;
         }
+
         .table td {
             vertical-align: middle;
         }
+
         table td {
             padding: .75rem;
             color: #333 !important;
-            font-size: 12px;
+            font-size: 14x;
         }
+
         table th {
             padding: .45rem .75rem .55rem !important;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 500;
             vertical-align: middle;
            font-family: "Poppins", sans-serif;
         }
-        .font-weight-bold{color:#fff !important; border: 0.5px solid #fff !important;}
-     .modal-thaed td {padding: .45rem .75rem .55rem !important;font-size: 14px;font-weight: 500 !important;color:#fff }
+        .font-weight-bold{color:#fff !important;border-right: 0.5px solid #fff !important;}
+
     </style>
+ 
 </head>
 
 
@@ -88,16 +96,14 @@
 
                     <table class="table mb-0 common_accordian_table" style="background-color:#0c223d;">
                         <tr>
-                            <td style="text-align: left !important;"> <span>
-                                    <img src="{{ $base64 }}" style="width: 25px;">
+                            <td style="text-align: left !important;background:#0c223d;"> <span>
+                                    <img src="{{ $base64 }}" style="width: 25px;height:20px;">
                                 </span><span
-                                    style="color:#fff; font-weight:500;text-align: left !important;padding-top:-20px;font-size: 16px;">Operator
-                                    Montly Fee Report (Period Ending: {{ $reportEndDate }})</span> </td>
-                            <td style="text-align: right">
-                                <span
-                                    style="color:#fff; font-weight:500;text-align: right !important;padding-top:-20px;font-size: 16px;">Operator
-                                    ID: {{ $operatorMemberId }}</span>
-                            </td>
+                                    style="color:#fff; font-weight:bold;text-align: left !important;line-height:0px;font-size: 16px;">Operator Montly Fee Report (Period Ending: {{ $reportEndDate }})</span> </td>
+                                    <td style="text-align: right;background:#0c223d;">
+                                        <span
+                                            style="color:#fff; font-weight:bold;text-align: right !important;line-height:0px;font-size: 16px;">Operator ID: {{ $operatorMemberId }}</span>
+                                    </td>
                         </tr>
                     </table>
                     <table class="table" style="border: 1px solid #ccc;padding: 0;font-family: 'Poppins', sans-serif;">
@@ -106,7 +112,7 @@
                                 <table class="table mb-0 common_accordian_table">
                                     <thead class="table-bg modal-thaed">
                                         <tr style="background-color:#0c223d;">
-                                            <td class="font-weight-bold text-left" >Agent ID</th>
+                                            <td class="font-weight-bold text-left">Agent ID</th>
                                             <td class="font-weight-bold text-left">Name</th>
                                             <td class="font-weight-bold">Territory</th>
                                            <td class="font-weight-bold">Type</th>
@@ -332,7 +338,7 @@
                                                         </td>
                                                         <td>{{ $massgeReport['user_state_name'] }}</td>
                                                         <td></td>
-                                                        <td class="text-right">{{ $massgeReport['total_days'] }}</td>
+                                                        <td class="text-center">{{ $massgeReport['total_days'] }}</td>
                                                         <td class="text-right">
                                                             <div class="num_value">
                                                                 $<span>{{ number_format($massgeReport['total_purchase_amount'], 2) }}

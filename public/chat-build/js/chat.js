@@ -624,7 +624,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   initChat: () => (/* binding */ initChat)
 /* harmony export */ });
-/* harmony import */ var _echo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./echo */ "./resources/js/chat/echo.js");
+/* harmony import */ var _socket__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./socket */ "./resources/js/chat/socket.js");
 /* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./api */ "./resources/js/chat/api.js");
 /* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./render */ "./resources/js/chat/render.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions */ "./resources/js/chat/actions.js");
@@ -633,6 +633,7 @@ function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present,
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+// import { createEcho } from './echo';
 
 
 
@@ -692,7 +693,8 @@ function initChat(root) {
   var config = JSON.parse(root.dataset.config || '{}');
   var me = config.me;
   var api = (0,_api__WEBPACK_IMPORTED_MODULE_1__.createApi)(config);
-  var echo = (0,_echo__WEBPACK_IMPORTED_MODULE_0__.createEcho)(config.csrf);
+  // const echo = createEcho(config.csrf);
+  var socket = (0,_socket__WEBPACK_IMPORTED_MODULE_0__.createSocket)(config.socketUrl, config.socketToken);
   _render__WEBPACK_IMPORTED_MODULE_2__.configure({
     avatarBase: config.avatarBase || ''
   });
@@ -1817,19 +1819,23 @@ function initChat(root) {
   renderMessages();
   setComposerEnabled(false);
   el.memberResults.innerHTML = MEMBER_HINT;
-  echo["private"]('user.' + me.id).listen('.MessageSent', onIncoming).listen('.UserTyping', onTyping).listen('.MessagesRead', onMessagesRead).listen('.MessageChanged', onMessageChanged);
-  echo.join('online').here(function (users) {
-    state.online = new Set(users.map(function (u) {
-      return u.id;
-    }));
+  socket.on('MessageSent', onIncoming);
+  socket.on('UserTyping', onTyping);
+  socket.on('MessagesRead', onMessagesRead);
+  socket.on('MessageChanged', onMessageChanged);
+  socket.on('presence:here', function (ids) {
+    state.online = new Set(ids);
     refreshLiveUi();
-  }).joining(function (user) {
-    state.online.add(user.id);
+  });
+  socket.on('presence:joining', function (u) {
+    state.online.add(u.id);
     refreshLiveUi();
-  }).leaving(function (user) {
-    return markOffline(user.id);
-  }).listen('.UserOffline', function (event) {
-    return markOffline(Number(event.user_id));
+  });
+  socket.on('presence:leaving', function (u) {
+    return markOffline(u.id);
+  });
+  socket.on('UserOffline', function (e) {
+    return markOffline(Number(e.user_id));
   });
   (0,_actions__WEBPACK_IMPORTED_MODULE_3__.initChatActions)({
     root: root,
@@ -2038,55 +2044,6 @@ function notice(type, text) {
     return;
   }
   missing();
-}
-
-/***/ }),
-
-/***/ "./resources/js/chat/echo.js":
-/*!***********************************!*\
-  !*** ./resources/js/chat/echo.js ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   createEcho: () => (/* binding */ createEcho)
-/* harmony export */ });
-/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
-/* harmony import */ var pusher_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
-/* harmony import */ var pusher_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(pusher_js__WEBPACK_IMPORTED_MODULE_1__);
-/* provided dependency */ var process = __webpack_require__(/*! process/browser.js */ "./node_modules/process/browser.js");
-
-
-window.Pusher = (pusher_js__WEBPACK_IMPORTED_MODULE_1___default());
-function createEcho(csrfToken) {
-  var host = process.env.MIX_PUSHER_HOST;
-  var port = process.env.MIX_PUSHER_PORT;
-  var scheme = process.env.MIX_PUSHER_SCHEME;
-  var options = {
-    broadcaster: 'pusher',
-    key: "26818f84029a0d2d14c1",
-    cluster: "ap2",
-    // Pusher cloud (no custom host) always uses TLS
-    forceTLS: !host || scheme === 'https',
-    enabledTransports: ['ws', 'wss'],
-    disableStats: true,
-    authEndpoint: '/broadcasting/auth',
-    auth: {
-      headers: {
-        'X-CSRF-TOKEN': csrfToken || ''
-      }
-    }
-  };
-
-  // A self-hosted server (Soketi) needs its own host and port
-  if (host) {
-    options.wsHost = host;
-    options.wsPort = port;
-    options.wssPort = port;
-  }
-  return new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"](options);
 }
 
 /***/ }),
@@ -2460,1741 +2417,785 @@ function memberResultHtml(member, online) {
 
 /***/ }),
 
-/***/ "./node_modules/laravel-echo/dist/echo.js":
-/*!************************************************!*\
-  !*** ./node_modules/laravel-echo/dist/echo.js ***!
-  \************************************************/
+/***/ "./resources/js/chat/socket.js":
+/*!*************************************!*\
+  !*** ./resources/js/chat/socket.js ***!
+  \*************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Channel: () => (/* binding */ Channel),
-/* harmony export */   Connector: () => (/* binding */ Connector),
-/* harmony export */   EventFormatter: () => (/* binding */ EventFormatter),
-/* harmony export */   "default": () => (/* binding */ Echo)
+/* harmony export */   createSocket: () => (/* binding */ createSocket)
 /* harmony export */ });
-function _typeof(obj) {
-  "@babel/helpers - typeof";
+/* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/build/esm/index.js");
 
-  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-  }, _typeof(obj);
-}
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  Object.defineProperty(Constructor, "prototype", {
-    writable: false
+var socket = null;
+function createSocket(url, token) {
+  if (!socket) socket = (0,socket_io_client__WEBPACK_IMPORTED_MODULE_0__.io)(url, {
+    auth: {
+      token: token
+    },
+    transports: ['websocket', 'polling']
   });
-  return Constructor;
+  return socket;
 }
 
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
+/***/ }),
 
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
+/***/ "./node_modules/debug/src/browser.js":
+/*!*******************************************!*\
+  !*** ./node_modules/debug/src/browser.js ***!
+  \*******************************************/
+/***/ ((module, exports, __webpack_require__) => {
 
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  Object.defineProperty(subClass, "prototype", {
-    writable: false
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  return _setPrototypeOf(o, p);
-}
-
-function _isNativeReflectConstruct() {
-  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-  if (Reflect.construct.sham) return false;
-  if (typeof Proxy === "function") return true;
-
-  try {
-    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (call && (typeof call === "object" || typeof call === "function")) {
-    return call;
-  } else if (call !== void 0) {
-    throw new TypeError("Derived constructors may only return object or undefined");
-  }
-
-  return _assertThisInitialized(self);
-}
-
-function _createSuper(Derived) {
-  var hasNativeReflectConstruct = _isNativeReflectConstruct();
-
-  return function _createSuperInternal() {
-    var Super = _getPrototypeOf(Derived),
-        result;
-
-    if (hasNativeReflectConstruct) {
-      var NewTarget = _getPrototypeOf(this).constructor;
-
-      result = Reflect.construct(Super, arguments, NewTarget);
-    } else {
-      result = Super.apply(this, arguments);
-    }
-
-    return _possibleConstructorReturn(this, result);
-  };
-}
+/* provided dependency */ var process = __webpack_require__(/*! process/browser.js */ "./node_modules/process/browser.js");
+/* eslint-env browser */
 
 /**
- * This class represents a basic channel.
+ * This is the web browser implementation of `debug()`.
  */
-var Channel = /*#__PURE__*/function () {
-  function Channel() {
-    _classCallCheck(this, Channel);
-  }
 
-  _createClass(Channel, [{
-    key: "listenForWhisper",
-    value:
-    /**
-     * Listen for a whisper event on the channel instance.
-     */
-    function listenForWhisper(event, callback) {
-      return this.listen('.client-' + event, callback);
-    }
-    /**
-     * Listen for an event on the channel instance.
-     */
+exports.formatArgs = formatArgs;
+exports.save = save;
+exports.load = load;
+exports.useColors = useColors;
+exports.storage = localstorage();
+exports.destroy = (() => {
+	let warned = false;
 
-  }, {
-    key: "notification",
-    value: function notification(callback) {
-      return this.listen('.Illuminate\\Notifications\\Events\\BroadcastNotificationCreated', callback);
-    }
-    /**
-     * Stop listening for a whisper event on the channel instance.
-     */
-
-  }, {
-    key: "stopListeningForWhisper",
-    value: function stopListeningForWhisper(event, callback) {
-      return this.stopListening('.client-' + event, callback);
-    }
-  }]);
-
-  return Channel;
-}();
+	return () => {
+		if (!warned) {
+			warned = true;
+			console.warn('Instance method `debug.destroy()` is deprecated and no longer does anything. It will be removed in the next major version of `debug`.');
+		}
+	};
+})();
 
 /**
- * Event name formatter
+ * Colors.
  */
-var EventFormatter = /*#__PURE__*/function () {
-  /**
-   * Create a new class instance.
-   */
-  function EventFormatter(namespace) {
-    _classCallCheck(this, EventFormatter);
 
-    this.namespace = namespace; //
-  }
-  /**
-   * Format the given event name.
-   */
+exports.colors = [
+	'#0000CC',
+	'#0000FF',
+	'#0033CC',
+	'#0033FF',
+	'#0066CC',
+	'#0066FF',
+	'#0099CC',
+	'#0099FF',
+	'#00CC00',
+	'#00CC33',
+	'#00CC66',
+	'#00CC99',
+	'#00CCCC',
+	'#00CCFF',
+	'#3300CC',
+	'#3300FF',
+	'#3333CC',
+	'#3333FF',
+	'#3366CC',
+	'#3366FF',
+	'#3399CC',
+	'#3399FF',
+	'#33CC00',
+	'#33CC33',
+	'#33CC66',
+	'#33CC99',
+	'#33CCCC',
+	'#33CCFF',
+	'#6600CC',
+	'#6600FF',
+	'#6633CC',
+	'#6633FF',
+	'#66CC00',
+	'#66CC33',
+	'#9900CC',
+	'#9900FF',
+	'#9933CC',
+	'#9933FF',
+	'#99CC00',
+	'#99CC33',
+	'#CC0000',
+	'#CC0033',
+	'#CC0066',
+	'#CC0099',
+	'#CC00CC',
+	'#CC00FF',
+	'#CC3300',
+	'#CC3333',
+	'#CC3366',
+	'#CC3399',
+	'#CC33CC',
+	'#CC33FF',
+	'#CC6600',
+	'#CC6633',
+	'#CC9900',
+	'#CC9933',
+	'#CCCC00',
+	'#CCCC33',
+	'#FF0000',
+	'#FF0033',
+	'#FF0066',
+	'#FF0099',
+	'#FF00CC',
+	'#FF00FF',
+	'#FF3300',
+	'#FF3333',
+	'#FF3366',
+	'#FF3399',
+	'#FF33CC',
+	'#FF33FF',
+	'#FF6600',
+	'#FF6633',
+	'#FF9900',
+	'#FF9933',
+	'#FFCC00',
+	'#FFCC33'
+];
 
+/**
+ * Currently only WebKit-based Web Inspectors, Firefox >= v31,
+ * and the Firebug extension (any Firefox version) are known
+ * to support "%c" CSS customizations.
+ *
+ * TODO: add a `localStorage` variable to explicitly enable/disable colors
+ */
 
-  _createClass(EventFormatter, [{
-    key: "format",
-    value: function format(event) {
-      if (['.', '\\'].includes(event.charAt(0))) {
-        return event.substring(1);
-      } else if (this.namespace) {
-        event = this.namespace + '.' + event;
-      }
+// eslint-disable-next-line complexity
+function useColors() {
+	// NB: In an Electron preload script, document will be defined but not fully
+	// initialized. Since we know we're in Chrome, we'll just detect this case
+	// explicitly
+	if (typeof window !== 'undefined' && window.process && (window.process.type === 'renderer' || window.process.__nwjs)) {
+		return true;
+	}
 
-      return event.replace(/\./g, '\\');
-    }
-    /**
-     * Set the event namespace.
-     */
+	// Internet Explorer and Edge do not support colors.
+	if (typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/(edge|trident)\/(\d+)/)) {
+		return false;
+	}
 
-  }, {
-    key: "setNamespace",
-    value: function setNamespace(value) {
-      this.namespace = value;
-    }
-  }]);
+	let m;
 
-  return EventFormatter;
-}();
-
-function isConstructor(obj) {
-  try {
-    new obj();
-  } catch (err) {
-    if (err.message.includes('is not a constructor')) return false;
-  }
-
-  return true;
+	// Is webkit? http://stackoverflow.com/a/16459606/376773
+	// document is undefined in react-native: https://github.com/facebook/react-native/pull/1632
+	// eslint-disable-next-line no-return-assign
+	return (typeof document !== 'undefined' && document.documentElement && document.documentElement.style && document.documentElement.style.WebkitAppearance) ||
+		// Is firebug? http://stackoverflow.com/a/398120/376773
+		(typeof window !== 'undefined' && window.console && (window.console.firebug || (window.console.exception && window.console.table))) ||
+		// Is firefox >= v31?
+		// https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
+		(typeof navigator !== 'undefined' && navigator.userAgent && (m = navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/)) && parseInt(m[1], 10) >= 31) ||
+		// Double check webkit in userAgent just in case we are in a worker
+		(typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/));
 }
 
 /**
- * This class represents a Pusher channel.
+ * Colorize log arguments if enabled.
+ *
+ * @api public
  */
 
-var PusherChannel = /*#__PURE__*/function (_Channel) {
-  _inherits(PusherChannel, _Channel);
+function formatArgs(args) {
+	args[0] = (this.useColors ? '%c' : '') +
+		this.namespace +
+		(this.useColors ? ' %c' : ' ') +
+		args[0] +
+		(this.useColors ? '%c ' : ' ') +
+		'+' + module.exports.humanize(this.diff);
 
-  var _super = _createSuper(PusherChannel);
+	if (!this.useColors) {
+		return;
+	}
 
-  /**
-   * Create a new class instance.
-   */
-  function PusherChannel(pusher, name, options) {
-    var _this;
+	const c = 'color: ' + this.color;
+	args.splice(1, 0, c, 'color: inherit');
 
-    _classCallCheck(this, PusherChannel);
+	// The final "%c" is somewhat tricky, because there could be other
+	// arguments passed either before or after the %c, so we need to
+	// figure out the correct index to insert the CSS into
+	let index = 0;
+	let lastC = 0;
+	args[0].replace(/%[a-zA-Z%]/g, match => {
+		if (match === '%%') {
+			return;
+		}
+		index++;
+		if (match === '%c') {
+			// We only are interested in the *last* %c
+			// (the user may have provided their own)
+			lastC = index;
+		}
+	});
 
-    _this = _super.call(this);
-    _this.name = name;
-    _this.pusher = pusher;
-    _this.options = options;
-    _this.eventFormatter = new EventFormatter(_this.options.namespace);
-
-    _this.subscribe();
-
-    return _this;
-  }
-  /**
-   * Subscribe to a Pusher channel.
-   */
-
-
-  _createClass(PusherChannel, [{
-    key: "subscribe",
-    value: function subscribe() {
-      this.subscription = this.pusher.subscribe(this.name);
-    }
-    /**
-     * Unsubscribe from a Pusher channel.
-     */
-
-  }, {
-    key: "unsubscribe",
-    value: function unsubscribe() {
-      this.pusher.unsubscribe(this.name);
-    }
-    /**
-     * Listen for an event on the channel instance.
-     */
-
-  }, {
-    key: "listen",
-    value: function listen(event, callback) {
-      this.on(this.eventFormatter.format(event), callback);
-      return this;
-    }
-    /**
-     * Listen for all events on the channel instance.
-     */
-
-  }, {
-    key: "listenToAll",
-    value: function listenToAll(callback) {
-      var _this2 = this;
-
-      this.subscription.bind_global(function (event, data) {
-        if (event.startsWith('pusher:')) {
-          return;
-        }
-
-        var namespace = _this2.options.namespace.replace(/\./g, '\\');
-
-        var formattedEvent = event.startsWith(namespace) ? event.substring(namespace.length + 1) : '.' + event;
-        callback(formattedEvent, data);
-      });
-      return this;
-    }
-    /**
-     * Stop listening for an event on the channel instance.
-     */
-
-  }, {
-    key: "stopListening",
-    value: function stopListening(event, callback) {
-      if (callback) {
-        this.subscription.unbind(this.eventFormatter.format(event), callback);
-      } else {
-        this.subscription.unbind(this.eventFormatter.format(event));
-      }
-
-      return this;
-    }
-    /**
-     * Stop listening for all events on the channel instance.
-     */
-
-  }, {
-    key: "stopListeningToAll",
-    value: function stopListeningToAll(callback) {
-      if (callback) {
-        this.subscription.unbind_global(callback);
-      } else {
-        this.subscription.unbind_global();
-      }
-
-      return this;
-    }
-    /**
-     * Register a callback to be called anytime a subscription succeeds.
-     */
-
-  }, {
-    key: "subscribed",
-    value: function subscribed(callback) {
-      this.on('pusher:subscription_succeeded', function () {
-        callback();
-      });
-      return this;
-    }
-    /**
-     * Register a callback to be called anytime a subscription error occurs.
-     */
-
-  }, {
-    key: "error",
-    value: function error(callback) {
-      this.on('pusher:subscription_error', function (status) {
-        callback(status);
-      });
-      return this;
-    }
-    /**
-     * Bind a channel to an event.
-     */
-
-  }, {
-    key: "on",
-    value: function on(event, callback) {
-      this.subscription.bind(event, callback);
-      return this;
-    }
-  }]);
-
-  return PusherChannel;
-}(Channel);
+	args.splice(lastC, 0, c);
+}
 
 /**
- * This class represents a Pusher private channel.
+ * Invokes `console.debug()` when available.
+ * No-op when `console.debug` is not a "function".
+ * If `console.debug` is not available, falls back
+ * to `console.log`.
+ *
+ * @api public
  */
-
-var PusherPrivateChannel = /*#__PURE__*/function (_PusherChannel) {
-  _inherits(PusherPrivateChannel, _PusherChannel);
-
-  var _super = _createSuper(PusherPrivateChannel);
-
-  function PusherPrivateChannel() {
-    _classCallCheck(this, PusherPrivateChannel);
-
-    return _super.apply(this, arguments);
-  }
-
-  _createClass(PusherPrivateChannel, [{
-    key: "whisper",
-    value:
-    /**
-     * Send a whisper event to other clients in the channel.
-     */
-    function whisper(eventName, data) {
-      this.pusher.channels.channels[this.name].trigger("client-".concat(eventName), data);
-      return this;
-    }
-  }]);
-
-  return PusherPrivateChannel;
-}(PusherChannel);
+exports.log = console.debug || console.log || (() => {});
 
 /**
- * This class represents a Pusher private channel.
+ * Save `namespaces`.
+ *
+ * @param {String} namespaces
+ * @api private
  */
-
-var PusherEncryptedPrivateChannel = /*#__PURE__*/function (_PusherChannel) {
-  _inherits(PusherEncryptedPrivateChannel, _PusherChannel);
-
-  var _super = _createSuper(PusherEncryptedPrivateChannel);
-
-  function PusherEncryptedPrivateChannel() {
-    _classCallCheck(this, PusherEncryptedPrivateChannel);
-
-    return _super.apply(this, arguments);
-  }
-
-  _createClass(PusherEncryptedPrivateChannel, [{
-    key: "whisper",
-    value:
-    /**
-     * Send a whisper event to other clients in the channel.
-     */
-    function whisper(eventName, data) {
-      this.pusher.channels.channels[this.name].trigger("client-".concat(eventName), data);
-      return this;
-    }
-  }]);
-
-  return PusherEncryptedPrivateChannel;
-}(PusherChannel);
+function save(namespaces) {
+	try {
+		if (namespaces) {
+			exports.storage.setItem('debug', namespaces);
+		} else {
+			exports.storage.removeItem('debug');
+		}
+	} catch (error) {
+		// Swallow
+		// XXX (@Qix-) should we be logging these?
+	}
+}
 
 /**
- * This class represents a Pusher presence channel.
+ * Load `namespaces`.
+ *
+ * @return {String} returns the previously persisted debug modes
+ * @api private
  */
+function load() {
+	let r;
+	try {
+		r = exports.storage.getItem('debug') || exports.storage.getItem('DEBUG') ;
+	} catch (error) {
+		// Swallow
+		// XXX (@Qix-) should we be logging these?
+	}
 
-var PusherPresenceChannel = /*#__PURE__*/function (_PusherPrivateChannel) {
-  _inherits(PusherPresenceChannel, _PusherPrivateChannel);
+	// If debug isn't set in LS, and we're in Electron, try to load $DEBUG
+	if (!r && typeof process !== 'undefined' && 'env' in process) {
+		r = process.env.DEBUG;
+	}
 
-  var _super = _createSuper(PusherPresenceChannel);
-
-  function PusherPresenceChannel() {
-    _classCallCheck(this, PusherPresenceChannel);
-
-    return _super.apply(this, arguments);
-  }
-
-  _createClass(PusherPresenceChannel, [{
-    key: "here",
-    value:
-    /**
-     * Register a callback to be called anytime the member list changes.
-     */
-    function here(callback) {
-      this.on('pusher:subscription_succeeded', function (data) {
-        callback(Object.keys(data.members).map(function (k) {
-          return data.members[k];
-        }));
-      });
-      return this;
-    }
-    /**
-     * Listen for someone joining the channel.
-     */
-
-  }, {
-    key: "joining",
-    value: function joining(callback) {
-      this.on('pusher:member_added', function (member) {
-        callback(member.info);
-      });
-      return this;
-    }
-    /**
-     * Send a whisper event to other clients in the channel.
-     */
-
-  }, {
-    key: "whisper",
-    value: function whisper(eventName, data) {
-      this.pusher.channels.channels[this.name].trigger("client-".concat(eventName), data);
-      return this;
-    }
-    /**
-     * Listen for someone leaving the channel.
-     */
-
-  }, {
-    key: "leaving",
-    value: function leaving(callback) {
-      this.on('pusher:member_removed', function (member) {
-        callback(member.info);
-      });
-      return this;
-    }
-  }]);
-
-  return PusherPresenceChannel;
-}(PusherPrivateChannel);
+	return r;
+}
 
 /**
- * This class represents a Socket.io channel.
+ * Localstorage attempts to return the localstorage.
+ *
+ * This is necessary because safari throws
+ * when a user disables cookies/localstorage
+ * and you attempt to access it.
+ *
+ * @return {LocalStorage}
+ * @api private
  */
 
-var SocketIoChannel = /*#__PURE__*/function (_Channel) {
-  _inherits(SocketIoChannel, _Channel);
+function localstorage() {
+	try {
+		// TVMLKit (Apple TV JS Runtime) does not have a window object, just localStorage in the global context
+		// The Browser also has localStorage in the global context.
+		return localStorage;
+	} catch (error) {
+		// Swallow
+		// XXX (@Qix-) should we be logging these?
+	}
+}
 
-  var _super = _createSuper(SocketIoChannel);
+module.exports = __webpack_require__(/*! ./common */ "./node_modules/debug/src/common.js")(exports);
 
-  /**
-   * Create a new class instance.
-   */
-  function SocketIoChannel(socket, name, options) {
-    var _this;
-
-    _classCallCheck(this, SocketIoChannel);
-
-    _this = _super.call(this);
-    /**
-     * The event callbacks applied to the socket.
-     */
-
-    _this.events = {};
-    /**
-     * User supplied callbacks for events on this channel.
-     */
-
-    _this.listeners = {};
-    _this.name = name;
-    _this.socket = socket;
-    _this.options = options;
-    _this.eventFormatter = new EventFormatter(_this.options.namespace);
-
-    _this.subscribe();
-
-    return _this;
-  }
-  /**
-   * Subscribe to a Socket.io channel.
-   */
-
-
-  _createClass(SocketIoChannel, [{
-    key: "subscribe",
-    value: function subscribe() {
-      this.socket.emit('subscribe', {
-        channel: this.name,
-        auth: this.options.auth || {}
-      });
-    }
-    /**
-     * Unsubscribe from channel and ubind event callbacks.
-     */
-
-  }, {
-    key: "unsubscribe",
-    value: function unsubscribe() {
-      this.unbind();
-      this.socket.emit('unsubscribe', {
-        channel: this.name,
-        auth: this.options.auth || {}
-      });
-    }
-    /**
-     * Listen for an event on the channel instance.
-     */
-
-  }, {
-    key: "listen",
-    value: function listen(event, callback) {
-      this.on(this.eventFormatter.format(event), callback);
-      return this;
-    }
-    /**
-     * Stop listening for an event on the channel instance.
-     */
-
-  }, {
-    key: "stopListening",
-    value: function stopListening(event, callback) {
-      this.unbindEvent(this.eventFormatter.format(event), callback);
-      return this;
-    }
-    /**
-     * Register a callback to be called anytime a subscription succeeds.
-     */
-
-  }, {
-    key: "subscribed",
-    value: function subscribed(callback) {
-      this.on('connect', function (socket) {
-        callback(socket);
-      });
-      return this;
-    }
-    /**
-     * Register a callback to be called anytime an error occurs.
-     */
-
-  }, {
-    key: "error",
-    value: function error(callback) {
-      return this;
-    }
-    /**
-     * Bind the channel's socket to an event and store the callback.
-     */
-
-  }, {
-    key: "on",
-    value: function on(event, callback) {
-      var _this2 = this;
-
-      this.listeners[event] = this.listeners[event] || [];
-
-      if (!this.events[event]) {
-        this.events[event] = function (channel, data) {
-          if (_this2.name === channel && _this2.listeners[event]) {
-            _this2.listeners[event].forEach(function (cb) {
-              return cb(data);
-            });
-          }
-        };
-
-        this.socket.on(event, this.events[event]);
-      }
-
-      this.listeners[event].push(callback);
-      return this;
-    }
-    /**
-     * Unbind the channel's socket from all stored event callbacks.
-     */
-
-  }, {
-    key: "unbind",
-    value: function unbind() {
-      var _this3 = this;
-
-      Object.keys(this.events).forEach(function (event) {
-        _this3.unbindEvent(event);
-      });
-    }
-    /**
-     * Unbind the listeners for the given event.
-     */
-
-  }, {
-    key: "unbindEvent",
-    value: function unbindEvent(event, callback) {
-      this.listeners[event] = this.listeners[event] || [];
-
-      if (callback) {
-        this.listeners[event] = this.listeners[event].filter(function (cb) {
-          return cb !== callback;
-        });
-      }
-
-      if (!callback || this.listeners[event].length === 0) {
-        if (this.events[event]) {
-          this.socket.removeListener(event, this.events[event]);
-          delete this.events[event];
-        }
-
-        delete this.listeners[event];
-      }
-    }
-  }]);
-
-  return SocketIoChannel;
-}(Channel);
+const {formatters} = module.exports;
 
 /**
- * This class represents a Socket.io private channel.
+ * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
  */
 
-var SocketIoPrivateChannel = /*#__PURE__*/function (_SocketIoChannel) {
-  _inherits(SocketIoPrivateChannel, _SocketIoChannel);
+formatters.j = function (v) {
+	try {
+		return JSON.stringify(v);
+	} catch (error) {
+		return '[UnexpectedJSONParseError]: ' + error.message;
+	}
+};
 
-  var _super = _createSuper(SocketIoPrivateChannel);
 
-  function SocketIoPrivateChannel() {
-    _classCallCheck(this, SocketIoPrivateChannel);
+/***/ }),
 
-    return _super.apply(this, arguments);
-  }
+/***/ "./node_modules/debug/src/common.js":
+/*!******************************************!*\
+  !*** ./node_modules/debug/src/common.js ***!
+  \******************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-  _createClass(SocketIoPrivateChannel, [{
-    key: "whisper",
-    value:
-    /**
-     * Send a whisper event to other clients in the channel.
-     */
-    function whisper(eventName, data) {
-      this.socket.emit('client event', {
-        channel: this.name,
-        event: "client-".concat(eventName),
-        data: data
-      });
-      return this;
-    }
-  }]);
-
-  return SocketIoPrivateChannel;
-}(SocketIoChannel);
 
 /**
- * This class represents a Socket.io presence channel.
+ * This is the common logic for both the Node.js and web browser
+ * implementations of `debug()`.
  */
 
-var SocketIoPresenceChannel = /*#__PURE__*/function (_SocketIoPrivateChann) {
-  _inherits(SocketIoPresenceChannel, _SocketIoPrivateChann);
+function setup(env) {
+	createDebug.debug = createDebug;
+	createDebug.default = createDebug;
+	createDebug.coerce = coerce;
+	createDebug.disable = disable;
+	createDebug.enable = enable;
+	createDebug.enabled = enabled;
+	createDebug.humanize = __webpack_require__(/*! ms */ "./node_modules/ms/index.js");
+	createDebug.destroy = destroy;
 
-  var _super = _createSuper(SocketIoPresenceChannel);
+	Object.keys(env).forEach(key => {
+		createDebug[key] = env[key];
+	});
 
-  function SocketIoPresenceChannel() {
-    _classCallCheck(this, SocketIoPresenceChannel);
+	/**
+	* The currently active debug mode names, and names to skip.
+	*/
 
-    return _super.apply(this, arguments);
-  }
+	createDebug.names = [];
+	createDebug.skips = [];
 
-  _createClass(SocketIoPresenceChannel, [{
-    key: "here",
-    value:
-    /**
-     * Register a callback to be called anytime the member list changes.
-     */
-    function here(callback) {
-      this.on('presence:subscribed', function (members) {
-        callback(members.map(function (m) {
-          return m.user_info;
-        }));
-      });
-      return this;
-    }
-    /**
-     * Listen for someone joining the channel.
-     */
+	/**
+	* Map of special "%n" handling functions, for the debug "format" argument.
+	*
+	* Valid key names are a single, lower or upper-case letter, i.e. "n" and "N".
+	*/
+	createDebug.formatters = {};
 
-  }, {
-    key: "joining",
-    value: function joining(callback) {
-      this.on('presence:joining', function (member) {
-        return callback(member.user_info);
-      });
-      return this;
-    }
-    /**
-     * Send a whisper event to other clients in the channel.
-     */
+	/**
+	* Selects a color for a debug namespace
+	* @param {String} namespace The namespace string for the debug instance to be colored
+	* @return {Number|String} An ANSI color code for the given namespace
+	* @api private
+	*/
+	function selectColor(namespace) {
+		let hash = 0;
 
-  }, {
-    key: "whisper",
-    value: function whisper(eventName, data) {
-      this.socket.emit('client event', {
-        channel: this.name,
-        event: "client-".concat(eventName),
-        data: data
-      });
-      return this;
-    }
-    /**
-     * Listen for someone leaving the channel.
-     */
+		for (let i = 0; i < namespace.length; i++) {
+			hash = ((hash << 5) - hash) + namespace.charCodeAt(i);
+			hash |= 0; // Convert to 32bit integer
+		}
 
-  }, {
-    key: "leaving",
-    value: function leaving(callback) {
-      this.on('presence:leaving', function (member) {
-        return callback(member.user_info);
-      });
-      return this;
-    }
-  }]);
+		return createDebug.colors[Math.abs(hash) % createDebug.colors.length];
+	}
+	createDebug.selectColor = selectColor;
 
-  return SocketIoPresenceChannel;
-}(SocketIoPrivateChannel);
+	/**
+	* Create a debugger with the given `namespace`.
+	*
+	* @param {String} namespace
+	* @return {Function}
+	* @api public
+	*/
+	function createDebug(namespace) {
+		let prevTime;
+		let enableOverride = null;
+		let namespacesCache;
+		let enabledCache;
+
+		function debug(...args) {
+			// Disabled?
+			if (!debug.enabled) {
+				return;
+			}
+
+			const self = debug;
+
+			// Set `diff` timestamp
+			const curr = Number(new Date());
+			const ms = curr - (prevTime || curr);
+			self.diff = ms;
+			self.prev = prevTime;
+			self.curr = curr;
+			prevTime = curr;
+
+			args[0] = createDebug.coerce(args[0]);
+
+			if (typeof args[0] !== 'string') {
+				// Anything else let's inspect with %O
+				args.unshift('%O');
+			}
+
+			// Apply any `formatters` transformations
+			let index = 0;
+			args[0] = args[0].replace(/%([a-zA-Z%])/g, (match, format) => {
+				// If we encounter an escaped % then don't increase the array index
+				if (match === '%%') {
+					return '%';
+				}
+				index++;
+				const formatter = createDebug.formatters[format];
+				if (typeof formatter === 'function') {
+					const val = args[index];
+					match = formatter.call(self, val);
+
+					// Now we need to remove `args[index]` since it's inlined in the `format`
+					args.splice(index, 1);
+					index--;
+				}
+				return match;
+			});
+
+			// Apply env-specific formatting (colors, etc.)
+			createDebug.formatArgs.call(self, args);
+
+			const logFn = self.log || createDebug.log;
+			logFn.apply(self, args);
+		}
+
+		debug.namespace = namespace;
+		debug.useColors = createDebug.useColors();
+		debug.color = createDebug.selectColor(namespace);
+		debug.extend = extend;
+		debug.destroy = createDebug.destroy; // XXX Temporary. Will be removed in the next major release.
+
+		Object.defineProperty(debug, 'enabled', {
+			enumerable: true,
+			configurable: false,
+			get: () => {
+				if (enableOverride !== null) {
+					return enableOverride;
+				}
+				if (namespacesCache !== createDebug.namespaces) {
+					namespacesCache = createDebug.namespaces;
+					enabledCache = createDebug.enabled(namespace);
+				}
+
+				return enabledCache;
+			},
+			set: v => {
+				enableOverride = v;
+			}
+		});
+
+		// Env-specific initialization logic for debug instances
+		if (typeof createDebug.init === 'function') {
+			createDebug.init(debug);
+		}
+
+		return debug;
+	}
+
+	function extend(namespace, delimiter) {
+		const newDebug = createDebug(this.namespace + (typeof delimiter === 'undefined' ? ':' : delimiter) + namespace);
+		newDebug.log = this.log;
+		return newDebug;
+	}
+
+	/**
+	* Enables a debug mode by namespaces. This can include modes
+	* separated by a colon and wildcards.
+	*
+	* @param {String} namespaces
+	* @api public
+	*/
+	function enable(namespaces) {
+		createDebug.save(namespaces);
+		createDebug.namespaces = namespaces;
+
+		createDebug.names = [];
+		createDebug.skips = [];
+
+		const split = (typeof namespaces === 'string' ? namespaces : '')
+			.trim()
+			.replace(/\s+/g, ',')
+			.split(',')
+			.filter(Boolean);
+
+		for (const ns of split) {
+			if (ns[0] === '-') {
+				createDebug.skips.push(ns.slice(1));
+			} else {
+				createDebug.names.push(ns);
+			}
+		}
+	}
+
+	/**
+	 * Checks if the given string matches a namespace template, honoring
+	 * asterisks as wildcards.
+	 *
+	 * @param {String} search
+	 * @param {String} template
+	 * @return {Boolean}
+	 */
+	function matchesTemplate(search, template) {
+		let searchIndex = 0;
+		let templateIndex = 0;
+		let starIndex = -1;
+		let matchIndex = 0;
+
+		while (searchIndex < search.length) {
+			if (templateIndex < template.length && (template[templateIndex] === search[searchIndex] || template[templateIndex] === '*')) {
+				// Match character or proceed with wildcard
+				if (template[templateIndex] === '*') {
+					starIndex = templateIndex;
+					matchIndex = searchIndex;
+					templateIndex++; // Skip the '*'
+				} else {
+					searchIndex++;
+					templateIndex++;
+				}
+			} else if (starIndex !== -1) { // eslint-disable-line no-negated-condition
+				// Backtrack to the last '*' and try to match more characters
+				templateIndex = starIndex + 1;
+				matchIndex++;
+				searchIndex = matchIndex;
+			} else {
+				return false; // No match
+			}
+		}
+
+		// Handle trailing '*' in template
+		while (templateIndex < template.length && template[templateIndex] === '*') {
+			templateIndex++;
+		}
+
+		return templateIndex === template.length;
+	}
+
+	/**
+	* Disable debug output.
+	*
+	* @return {String} namespaces
+	* @api public
+	*/
+	function disable() {
+		const namespaces = [
+			...createDebug.names,
+			...createDebug.skips.map(namespace => '-' + namespace)
+		].join(',');
+		createDebug.enable('');
+		return namespaces;
+	}
+
+	/**
+	* Returns true if the given mode name is enabled, false otherwise.
+	*
+	* @param {String} name
+	* @return {Boolean}
+	* @api public
+	*/
+	function enabled(name) {
+		for (const skip of createDebug.skips) {
+			if (matchesTemplate(name, skip)) {
+				return false;
+			}
+		}
+
+		for (const ns of createDebug.names) {
+			if (matchesTemplate(name, ns)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	* Coerce `val`.
+	*
+	* @param {Mixed} val
+	* @return {Mixed}
+	* @api private
+	*/
+	function coerce(val) {
+		if (val instanceof Error) {
+			return val.stack || val.message;
+		}
+		return val;
+	}
+
+	/**
+	* XXX DO NOT USE. This is a temporary stub function.
+	* XXX It WILL be removed in the next major release.
+	*/
+	function destroy() {
+		console.warn('Instance method `debug.destroy()` is deprecated and no longer does anything. It will be removed in the next major version of `debug`.');
+	}
+
+	createDebug.enable(createDebug.load());
+
+	return createDebug;
+}
+
+module.exports = setup;
+
+
+/***/ }),
+
+/***/ "./node_modules/ms/index.js":
+/*!**********************************!*\
+  !*** ./node_modules/ms/index.js ***!
+  \**********************************/
+/***/ ((module) => {
 
 /**
- * This class represents a null channel.
+ * Helpers.
  */
 
-var NullChannel = /*#__PURE__*/function (_Channel) {
-  _inherits(NullChannel, _Channel);
-
-  var _super = _createSuper(NullChannel);
-
-  function NullChannel() {
-    _classCallCheck(this, NullChannel);
-
-    return _super.apply(this, arguments);
-  }
-
-  _createClass(NullChannel, [{
-    key: "subscribe",
-    value:
-    /**
-     * Subscribe to a channel.
-     */
-    function subscribe() {//
-    }
-    /**
-     * Unsubscribe from a channel.
-     */
-
-  }, {
-    key: "unsubscribe",
-    value: function unsubscribe() {//
-    }
-    /**
-     * Listen for an event on the channel instance.
-     */
-
-  }, {
-    key: "listen",
-    value: function listen(event, callback) {
-      return this;
-    }
-    /**
-     * Listen for all events on the channel instance.
-     */
-
-  }, {
-    key: "listenToAll",
-    value: function listenToAll(callback) {
-      return this;
-    }
-    /**
-     * Stop listening for an event on the channel instance.
-     */
-
-  }, {
-    key: "stopListening",
-    value: function stopListening(event, callback) {
-      return this;
-    }
-    /**
-     * Register a callback to be called anytime a subscription succeeds.
-     */
-
-  }, {
-    key: "subscribed",
-    value: function subscribed(callback) {
-      return this;
-    }
-    /**
-     * Register a callback to be called anytime an error occurs.
-     */
-
-  }, {
-    key: "error",
-    value: function error(callback) {
-      return this;
-    }
-    /**
-     * Bind a channel to an event.
-     */
-
-  }, {
-    key: "on",
-    value: function on(event, callback) {
-      return this;
-    }
-  }]);
-
-  return NullChannel;
-}(Channel);
+var s = 1000;
+var m = s * 60;
+var h = m * 60;
+var d = h * 24;
+var w = d * 7;
+var y = d * 365.25;
 
 /**
- * This class represents a null private channel.
+ * Parse or format the given `val`.
+ *
+ * Options:
+ *
+ *  - `long` verbose formatting [false]
+ *
+ * @param {String|Number} val
+ * @param {Object} [options]
+ * @throws {Error} throw an error if val is not a non-empty string or a number
+ * @return {String|Number}
+ * @api public
  */
 
-var NullPrivateChannel = /*#__PURE__*/function (_NullChannel) {
-  _inherits(NullPrivateChannel, _NullChannel);
-
-  var _super = _createSuper(NullPrivateChannel);
-
-  function NullPrivateChannel() {
-    _classCallCheck(this, NullPrivateChannel);
-
-    return _super.apply(this, arguments);
+module.exports = function (val, options) {
+  options = options || {};
+  var type = typeof val;
+  if (type === 'string' && val.length > 0) {
+    return parse(val);
+  } else if (type === 'number' && isFinite(val)) {
+    return options.long ? fmtLong(val) : fmtShort(val);
   }
-
-  _createClass(NullPrivateChannel, [{
-    key: "whisper",
-    value:
-    /**
-     * Send a whisper event to other clients in the channel.
-     */
-    function whisper(eventName, data) {
-      return this;
-    }
-  }]);
-
-  return NullPrivateChannel;
-}(NullChannel);
+  throw new Error(
+    'val is not a non-empty string or a valid number. val=' +
+      JSON.stringify(val)
+  );
+};
 
 /**
- * This class represents a null private channel.
+ * Parse the given `str` and return milliseconds.
+ *
+ * @param {String} str
+ * @return {Number}
+ * @api private
  */
 
-var NullEncryptedPrivateChannel = /*#__PURE__*/function (_NullChannel) {
-  _inherits(NullEncryptedPrivateChannel, _NullChannel);
-
-  var _super = _createSuper(NullEncryptedPrivateChannel);
-
-  function NullEncryptedPrivateChannel() {
-    _classCallCheck(this, NullEncryptedPrivateChannel);
-
-    return _super.apply(this, arguments);
+function parse(str) {
+  str = String(str);
+  if (str.length > 100) {
+    return;
   }
-
-  _createClass(NullEncryptedPrivateChannel, [{
-    key: "whisper",
-    value:
-    /**
-     * Send a whisper event to other clients in the channel.
-     */
-    function whisper(eventName, data) {
-      return this;
-    }
-  }]);
-
-  return NullEncryptedPrivateChannel;
-}(NullChannel);
+  var match = /^(-?(?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)?$/i.exec(
+    str
+  );
+  if (!match) {
+    return;
+  }
+  var n = parseFloat(match[1]);
+  var type = (match[2] || 'ms').toLowerCase();
+  switch (type) {
+    case 'years':
+    case 'year':
+    case 'yrs':
+    case 'yr':
+    case 'y':
+      return n * y;
+    case 'weeks':
+    case 'week':
+    case 'w':
+      return n * w;
+    case 'days':
+    case 'day':
+    case 'd':
+      return n * d;
+    case 'hours':
+    case 'hour':
+    case 'hrs':
+    case 'hr':
+    case 'h':
+      return n * h;
+    case 'minutes':
+    case 'minute':
+    case 'mins':
+    case 'min':
+    case 'm':
+      return n * m;
+    case 'seconds':
+    case 'second':
+    case 'secs':
+    case 'sec':
+    case 's':
+      return n * s;
+    case 'milliseconds':
+    case 'millisecond':
+    case 'msecs':
+    case 'msec':
+    case 'ms':
+      return n;
+    default:
+      return undefined;
+  }
+}
 
 /**
- * This class represents a null presence channel.
+ * Short format for `ms`.
+ *
+ * @param {Number} ms
+ * @return {String}
+ * @api private
  */
 
-var NullPresenceChannel = /*#__PURE__*/function (_NullPrivateChannel) {
-  _inherits(NullPresenceChannel, _NullPrivateChannel);
-
-  var _super = _createSuper(NullPresenceChannel);
-
-  function NullPresenceChannel() {
-    _classCallCheck(this, NullPresenceChannel);
-
-    return _super.apply(this, arguments);
+function fmtShort(ms) {
+  var msAbs = Math.abs(ms);
+  if (msAbs >= d) {
+    return Math.round(ms / d) + 'd';
   }
-
-  _createClass(NullPresenceChannel, [{
-    key: "here",
-    value:
-    /**
-     * Register a callback to be called anytime the member list changes.
-     */
-    function here(callback) {
-      return this;
-    }
-    /**
-     * Listen for someone joining the channel.
-     */
-
-  }, {
-    key: "joining",
-    value: function joining(callback) {
-      return this;
-    }
-    /**
-     * Send a whisper event to other clients in the channel.
-     */
-
-  }, {
-    key: "whisper",
-    value: function whisper(eventName, data) {
-      return this;
-    }
-    /**
-     * Listen for someone leaving the channel.
-     */
-
-  }, {
-    key: "leaving",
-    value: function leaving(callback) {
-      return this;
-    }
-  }]);
-
-  return NullPresenceChannel;
-}(NullPrivateChannel);
-
-var Connector = /*#__PURE__*/function () {
-  /**
-   * Create a new class instance.
-   */
-  function Connector(options) {
-    _classCallCheck(this, Connector);
-
-    /**
-     * Default connector options.
-     */
-    this._defaultOptions = {
-      auth: {
-        headers: {}
-      },
-      authEndpoint: '/broadcasting/auth',
-      userAuthentication: {
-        endpoint: '/broadcasting/user-auth',
-        headers: {}
-      },
-      broadcaster: 'pusher',
-      csrfToken: null,
-      bearerToken: null,
-      host: null,
-      key: null,
-      namespace: 'App.Events'
-    };
-    this.setOptions(options);
-    this.connect();
+  if (msAbs >= h) {
+    return Math.round(ms / h) + 'h';
   }
-  /**
-   * Merge the custom options with the defaults.
-   */
-
-
-  _createClass(Connector, [{
-    key: "setOptions",
-    value: function setOptions(options) {
-      this.options = _extends(this._defaultOptions, options);
-      var token = this.csrfToken();
-
-      if (token) {
-        this.options.auth.headers['X-CSRF-TOKEN'] = token;
-        this.options.userAuthentication.headers['X-CSRF-TOKEN'] = token;
-      }
-
-      token = this.options.bearerToken;
-
-      if (token) {
-        this.options.auth.headers['Authorization'] = 'Bearer ' + token;
-        this.options.userAuthentication.headers['Authorization'] = 'Bearer ' + token;
-      }
-
-      return options;
-    }
-    /**
-     * Extract the CSRF token from the page.
-     */
-
-  }, {
-    key: "csrfToken",
-    value: function csrfToken() {
-      var selector;
-
-      if (typeof window !== 'undefined' && window['Laravel'] && window['Laravel'].csrfToken) {
-        return window['Laravel'].csrfToken;
-      } else if (this.options.csrfToken) {
-        return this.options.csrfToken;
-      } else if (typeof document !== 'undefined' && typeof document.querySelector === 'function' && (selector = document.querySelector('meta[name="csrf-token"]'))) {
-        return selector.getAttribute('content');
-      }
-
-      return null;
-    }
-  }]);
-
-  return Connector;
-}();
+  if (msAbs >= m) {
+    return Math.round(ms / m) + 'm';
+  }
+  if (msAbs >= s) {
+    return Math.round(ms / s) + 's';
+  }
+  return ms + 'ms';
+}
 
 /**
- * This class creates a connector to Pusher.
+ * Long format for `ms`.
+ *
+ * @param {Number} ms
+ * @return {String}
+ * @api private
  */
 
-var PusherConnector = /*#__PURE__*/function (_Connector) {
-  _inherits(PusherConnector, _Connector);
-
-  var _super = _createSuper(PusherConnector);
-
-  function PusherConnector() {
-    var _this;
-
-    _classCallCheck(this, PusherConnector);
-
-    _this = _super.apply(this, arguments);
-    /**
-     * All of the subscribed channel names.
-     */
-
-    _this.channels = {};
-    return _this;
+function fmtLong(ms) {
+  var msAbs = Math.abs(ms);
+  if (msAbs >= d) {
+    return plural(ms, msAbs, d, 'day');
   }
-  /**
-   * Create a fresh Pusher connection.
-   */
-
-
-  _createClass(PusherConnector, [{
-    key: "connect",
-    value: function connect() {
-      if (typeof this.options.client !== 'undefined') {
-        this.pusher = this.options.client;
-      } else if (this.options.Pusher) {
-        this.pusher = new this.options.Pusher(this.options.key, this.options);
-      } else {
-        this.pusher = new Pusher(this.options.key, this.options);
-      }
-    }
-    /**
-     * Sign in the user via Pusher user authentication (https://pusher.com/docs/channels/using_channels/user-authentication/).
-     */
-
-  }, {
-    key: "signin",
-    value: function signin() {
-      this.pusher.signin();
-    }
-    /**
-     * Listen for an event on a channel instance.
-     */
-
-  }, {
-    key: "listen",
-    value: function listen(name, event, callback) {
-      return this.channel(name).listen(event, callback);
-    }
-    /**
-     * Get a channel instance by name.
-     */
-
-  }, {
-    key: "channel",
-    value: function channel(name) {
-      if (!this.channels[name]) {
-        this.channels[name] = new PusherChannel(this.pusher, name, this.options);
-      }
-
-      return this.channels[name];
-    }
-    /**
-     * Get a private channel instance by name.
-     */
-
-  }, {
-    key: "privateChannel",
-    value: function privateChannel(name) {
-      if (!this.channels['private-' + name]) {
-        this.channels['private-' + name] = new PusherPrivateChannel(this.pusher, 'private-' + name, this.options);
-      }
-
-      return this.channels['private-' + name];
-    }
-    /**
-     * Get a private encrypted channel instance by name.
-     */
-
-  }, {
-    key: "encryptedPrivateChannel",
-    value: function encryptedPrivateChannel(name) {
-      if (!this.channels['private-encrypted-' + name]) {
-        this.channels['private-encrypted-' + name] = new PusherEncryptedPrivateChannel(this.pusher, 'private-encrypted-' + name, this.options);
-      }
-
-      return this.channels['private-encrypted-' + name];
-    }
-    /**
-     * Get a presence channel instance by name.
-     */
-
-  }, {
-    key: "presenceChannel",
-    value: function presenceChannel(name) {
-      if (!this.channels['presence-' + name]) {
-        this.channels['presence-' + name] = new PusherPresenceChannel(this.pusher, 'presence-' + name, this.options);
-      }
-
-      return this.channels['presence-' + name];
-    }
-    /**
-     * Leave the given channel, as well as its private and presence variants.
-     */
-
-  }, {
-    key: "leave",
-    value: function leave(name) {
-      var _this2 = this;
-
-      var channels = [name, 'private-' + name, 'private-encrypted-' + name, 'presence-' + name];
-      channels.forEach(function (name, index) {
-        _this2.leaveChannel(name);
-      });
-    }
-    /**
-     * Leave the given channel.
-     */
-
-  }, {
-    key: "leaveChannel",
-    value: function leaveChannel(name) {
-      if (this.channels[name]) {
-        this.channels[name].unsubscribe();
-        delete this.channels[name];
-      }
-    }
-    /**
-     * Get the socket ID for the connection.
-     */
-
-  }, {
-    key: "socketId",
-    value: function socketId() {
-      return this.pusher.connection.socket_id;
-    }
-    /**
-     * Disconnect Pusher connection.
-     */
-
-  }, {
-    key: "disconnect",
-    value: function disconnect() {
-      this.pusher.disconnect();
-    }
-  }]);
-
-  return PusherConnector;
-}(Connector);
+  if (msAbs >= h) {
+    return plural(ms, msAbs, h, 'hour');
+  }
+  if (msAbs >= m) {
+    return plural(ms, msAbs, m, 'minute');
+  }
+  if (msAbs >= s) {
+    return plural(ms, msAbs, s, 'second');
+  }
+  return ms + ' ms';
+}
 
 /**
- * This class creates a connnector to a Socket.io server.
+ * Pluralization helper.
  */
 
-var SocketIoConnector = /*#__PURE__*/function (_Connector) {
-  _inherits(SocketIoConnector, _Connector);
-
-  var _super = _createSuper(SocketIoConnector);
-
-  function SocketIoConnector() {
-    var _this;
-
-    _classCallCheck(this, SocketIoConnector);
-
-    _this = _super.apply(this, arguments);
-    /**
-     * All of the subscribed channel names.
-     */
-
-    _this.channels = {};
-    return _this;
-  }
-  /**
-   * Create a fresh Socket.io connection.
-   */
-
-
-  _createClass(SocketIoConnector, [{
-    key: "connect",
-    value: function connect() {
-      var _this2 = this;
-
-      var io = this.getSocketIO();
-      this.socket = io(this.options.host, this.options);
-      this.socket.on('reconnect', function () {
-        Object.values(_this2.channels).forEach(function (channel) {
-          channel.subscribe();
-        });
-      });
-      return this.socket;
-    }
-    /**
-     * Get socket.io module from global scope or options.
-     */
-
-  }, {
-    key: "getSocketIO",
-    value: function getSocketIO() {
-      if (typeof this.options.client !== 'undefined') {
-        return this.options.client;
-      }
-
-      if (typeof io !== 'undefined') {
-        return io;
-      }
-
-      throw new Error('Socket.io client not found. Should be globally available or passed via options.client');
-    }
-    /**
-     * Listen for an event on a channel instance.
-     */
-
-  }, {
-    key: "listen",
-    value: function listen(name, event, callback) {
-      return this.channel(name).listen(event, callback);
-    }
-    /**
-     * Get a channel instance by name.
-     */
-
-  }, {
-    key: "channel",
-    value: function channel(name) {
-      if (!this.channels[name]) {
-        this.channels[name] = new SocketIoChannel(this.socket, name, this.options);
-      }
-
-      return this.channels[name];
-    }
-    /**
-     * Get a private channel instance by name.
-     */
-
-  }, {
-    key: "privateChannel",
-    value: function privateChannel(name) {
-      if (!this.channels['private-' + name]) {
-        this.channels['private-' + name] = new SocketIoPrivateChannel(this.socket, 'private-' + name, this.options);
-      }
-
-      return this.channels['private-' + name];
-    }
-    /**
-     * Get a presence channel instance by name.
-     */
-
-  }, {
-    key: "presenceChannel",
-    value: function presenceChannel(name) {
-      if (!this.channels['presence-' + name]) {
-        this.channels['presence-' + name] = new SocketIoPresenceChannel(this.socket, 'presence-' + name, this.options);
-      }
-
-      return this.channels['presence-' + name];
-    }
-    /**
-     * Leave the given channel, as well as its private and presence variants.
-     */
-
-  }, {
-    key: "leave",
-    value: function leave(name) {
-      var _this3 = this;
-
-      var channels = [name, 'private-' + name, 'presence-' + name];
-      channels.forEach(function (name) {
-        _this3.leaveChannel(name);
-      });
-    }
-    /**
-     * Leave the given channel.
-     */
-
-  }, {
-    key: "leaveChannel",
-    value: function leaveChannel(name) {
-      if (this.channels[name]) {
-        this.channels[name].unsubscribe();
-        delete this.channels[name];
-      }
-    }
-    /**
-     * Get the socket ID for the connection.
-     */
-
-  }, {
-    key: "socketId",
-    value: function socketId() {
-      return this.socket.id;
-    }
-    /**
-     * Disconnect Socketio connection.
-     */
-
-  }, {
-    key: "disconnect",
-    value: function disconnect() {
-      this.socket.disconnect();
-    }
-  }]);
-
-  return SocketIoConnector;
-}(Connector);
-
-/**
- * This class creates a null connector.
- */
-
-var NullConnector = /*#__PURE__*/function (_Connector) {
-  _inherits(NullConnector, _Connector);
-
-  var _super = _createSuper(NullConnector);
-
-  function NullConnector() {
-    var _this;
-
-    _classCallCheck(this, NullConnector);
-
-    _this = _super.apply(this, arguments);
-    /**
-     * All of the subscribed channel names.
-     */
-
-    _this.channels = {};
-    return _this;
-  }
-  /**
-   * Create a fresh connection.
-   */
-
-
-  _createClass(NullConnector, [{
-    key: "connect",
-    value: function connect() {//
-    }
-    /**
-     * Listen for an event on a channel instance.
-     */
-
-  }, {
-    key: "listen",
-    value: function listen(name, event, callback) {
-      return new NullChannel();
-    }
-    /**
-     * Get a channel instance by name.
-     */
-
-  }, {
-    key: "channel",
-    value: function channel(name) {
-      return new NullChannel();
-    }
-    /**
-     * Get a private channel instance by name.
-     */
-
-  }, {
-    key: "privateChannel",
-    value: function privateChannel(name) {
-      return new NullPrivateChannel();
-    }
-    /**
-     * Get a private encrypted channel instance by name.
-     */
-
-  }, {
-    key: "encryptedPrivateChannel",
-    value: function encryptedPrivateChannel(name) {
-      return new NullEncryptedPrivateChannel();
-    }
-    /**
-     * Get a presence channel instance by name.
-     */
-
-  }, {
-    key: "presenceChannel",
-    value: function presenceChannel(name) {
-      return new NullPresenceChannel();
-    }
-    /**
-     * Leave the given channel, as well as its private and presence variants.
-     */
-
-  }, {
-    key: "leave",
-    value: function leave(name) {//
-    }
-    /**
-     * Leave the given channel.
-     */
-
-  }, {
-    key: "leaveChannel",
-    value: function leaveChannel(name) {//
-    }
-    /**
-     * Get the socket ID for the connection.
-     */
-
-  }, {
-    key: "socketId",
-    value: function socketId() {
-      return 'fake-socket-id';
-    }
-    /**
-     * Disconnect the connection.
-     */
-
-  }, {
-    key: "disconnect",
-    value: function disconnect() {//
-    }
-  }]);
-
-  return NullConnector;
-}(Connector);
-
-/**
- * This class is the primary API for interacting with broadcasting.
- */
-
-var Echo = /*#__PURE__*/function () {
-  /**
-   * Create a new class instance.
-   */
-  function Echo(options) {
-    _classCallCheck(this, Echo);
-
-    this.options = options;
-    this.connect();
-
-    if (!this.options.withoutInterceptors) {
-      this.registerInterceptors();
-    }
-  }
-  /**
-   * Get a channel instance by name.
-   */
-
-
-  _createClass(Echo, [{
-    key: "channel",
-    value: function channel(_channel) {
-      return this.connector.channel(_channel);
-    }
-    /**
-     * Create a new connection.
-     */
-
-  }, {
-    key: "connect",
-    value: function connect() {
-      if (this.options.broadcaster == 'reverb') {
-        this.connector = new PusherConnector(_extends(_extends({}, this.options), {
-          cluster: ''
-        }));
-      } else if (this.options.broadcaster == 'pusher') {
-        this.connector = new PusherConnector(this.options);
-      } else if (this.options.broadcaster == 'socket.io') {
-        this.connector = new SocketIoConnector(this.options);
-      } else if (this.options.broadcaster == 'null') {
-        this.connector = new NullConnector(this.options);
-      } else if (typeof this.options.broadcaster == 'function' && isConstructor(this.options.broadcaster)) {
-        this.connector = new this.options.broadcaster(this.options);
-      } else {
-        throw new Error("Broadcaster ".concat(_typeof(this.options.broadcaster), " ").concat(this.options.broadcaster, " is not supported."));
-      }
-    }
-    /**
-     * Disconnect from the Echo server.
-     */
-
-  }, {
-    key: "disconnect",
-    value: function disconnect() {
-      this.connector.disconnect();
-    }
-    /**
-     * Get a presence channel instance by name.
-     */
-
-  }, {
-    key: "join",
-    value: function join(channel) {
-      return this.connector.presenceChannel(channel);
-    }
-    /**
-     * Leave the given channel, as well as its private and presence variants.
-     */
-
-  }, {
-    key: "leave",
-    value: function leave(channel) {
-      this.connector.leave(channel);
-    }
-    /**
-     * Leave the given channel.
-     */
-
-  }, {
-    key: "leaveChannel",
-    value: function leaveChannel(channel) {
-      this.connector.leaveChannel(channel);
-    }
-    /**
-     * Leave all channels.
-     */
-
-  }, {
-    key: "leaveAllChannels",
-    value: function leaveAllChannels() {
-      for (var channel in this.connector.channels) {
-        this.leaveChannel(channel);
-      }
-    }
-    /**
-     * Listen for an event on a channel instance.
-     */
-
-  }, {
-    key: "listen",
-    value: function listen(channel, event, callback) {
-      return this.connector.listen(channel, event, callback);
-    }
-    /**
-     * Get a private channel instance by name.
-     */
-
-  }, {
-    key: "private",
-    value: function _private(channel) {
-      return this.connector.privateChannel(channel);
-    }
-    /**
-     * Get a private encrypted channel instance by name.
-     */
-
-  }, {
-    key: "encryptedPrivate",
-    value: function encryptedPrivate(channel) {
-      if (this.connector instanceof SocketIoConnector) {
-        throw new Error("Broadcaster ".concat(_typeof(this.options.broadcaster), " ").concat(this.options.broadcaster, " does not support encrypted private channels."));
-      }
-
-      return this.connector.encryptedPrivateChannel(channel);
-    }
-    /**
-     * Get the Socket ID for the connection.
-     */
-
-  }, {
-    key: "socketId",
-    value: function socketId() {
-      return this.connector.socketId();
-    }
-    /**
-     * Register 3rd party request interceptiors. These are used to automatically
-     * send a connections socket id to a Laravel app with a X-Socket-Id header.
-     */
-
-  }, {
-    key: "registerInterceptors",
-    value: function registerInterceptors() {
-      if (typeof Vue === 'function' && Vue.http) {
-        this.registerVueRequestInterceptor();
-      }
-
-      if (typeof axios === 'function') {
-        this.registerAxiosRequestInterceptor();
-      }
-
-      if (typeof jQuery === 'function') {
-        this.registerjQueryAjaxSetup();
-      }
-
-      if ((typeof Turbo === "undefined" ? "undefined" : _typeof(Turbo)) === 'object') {
-        this.registerTurboRequestInterceptor();
-      }
-    }
-    /**
-     * Register a Vue HTTP interceptor to add the X-Socket-ID header.
-     */
-
-  }, {
-    key: "registerVueRequestInterceptor",
-    value: function registerVueRequestInterceptor() {
-      var _this = this;
-
-      Vue.http.interceptors.push(function (request, next) {
-        if (_this.socketId()) {
-          request.headers.set('X-Socket-ID', _this.socketId());
-        }
-
-        next();
-      });
-    }
-    /**
-     * Register an Axios HTTP interceptor to add the X-Socket-ID header.
-     */
-
-  }, {
-    key: "registerAxiosRequestInterceptor",
-    value: function registerAxiosRequestInterceptor() {
-      var _this2 = this;
-
-      axios.interceptors.request.use(function (config) {
-        if (_this2.socketId()) {
-          config.headers['X-Socket-Id'] = _this2.socketId();
-        }
-
-        return config;
-      });
-    }
-    /**
-     * Register jQuery AjaxPrefilter to add the X-Socket-ID header.
-     */
-
-  }, {
-    key: "registerjQueryAjaxSetup",
-    value: function registerjQueryAjaxSetup() {
-      var _this3 = this;
-
-      if (typeof jQuery.ajax != 'undefined') {
-        jQuery.ajaxPrefilter(function (options, originalOptions, xhr) {
-          if (_this3.socketId()) {
-            xhr.setRequestHeader('X-Socket-Id', _this3.socketId());
-          }
-        });
-      }
-    }
-    /**
-     * Register the Turbo Request interceptor to add the X-Socket-ID header.
-     */
-
-  }, {
-    key: "registerTurboRequestInterceptor",
-    value: function registerTurboRequestInterceptor() {
-      var _this4 = this;
-
-      document.addEventListener('turbo:before-fetch-request', function (event) {
-        event.detail.fetchOptions.headers['X-Socket-Id'] = _this4.socketId();
-      });
-    }
-  }]);
-
-  return Echo;
-}();
-
-
+function plural(ms, msAbs, n, name) {
+  var isPlural = msAbs >= n * 1.5;
+  return Math.round(ms / n) + ' ' + name + (isPlural ? 's' : '');
+}
 
 
 /***/ }),
@@ -4393,4601 +3394,4689 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ "./node_modules/pusher-js/dist/web/pusher.js":
-/*!***************************************************!*\
-  !*** ./node_modules/pusher-js/dist/web/pusher.js ***!
-  \***************************************************/
-/***/ ((module) => {
-
-/*!
- * Pusher JavaScript Library v8.6.0
- * https://pusher.com/
- *
- * Copyright 2020, Pusher
- * Released under the MIT licence.
- */
-
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(true)
-		module.exports = factory();
-	else {}
-})(self, () => {
-return /******/ (() => { // webpackBootstrap
-/******/ 	var __webpack_modules__ = ({
-
-/***/ 594
-(__unused_webpack_module, exports) {
+/***/ "./node_modules/@socket.io/component-emitter/lib/esm/index.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@socket.io/component-emitter/lib/esm/index.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Emitter: () => (/* binding */ Emitter)
+/* harmony export */ });
+/**
+ * Initialize a new `Emitter`.
+ *
+ * @api public
+ */
 
-// Copyright (C) 2016 Dmitry Chestnykh
-// MIT License. See LICENSE file for details.
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
+function Emitter(obj) {
+  if (obj) return mixin(obj);
+}
+
+/**
+ * Mixin the emitter properties.
+ *
+ * @param {Object} obj
+ * @return {Object}
+ * @api private
+ */
+
+function mixin(obj) {
+  for (var key in Emitter.prototype) {
+    obj[key] = Emitter.prototype[key];
+  }
+  return obj;
+}
+
+/**
+ * Listen on the given `event` with `fn`.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.on =
+Emitter.prototype.addEventListener = function(event, fn){
+  this._callbacks = this._callbacks || {};
+  (this._callbacks['$' + event] = this._callbacks['$' + event] || [])
+    .push(fn);
+  return this;
+};
+
+/**
+ * Adds an `event` listener that will be invoked a single
+ * time then automatically removed.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.once = function(event, fn){
+  function on() {
+    this.off(event, on);
+    fn.apply(this, arguments);
+  }
+
+  on.fn = fn;
+  this.on(event, on);
+  return this;
+};
+
+/**
+ * Remove the given callback for `event` or all
+ * registered callbacks.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.off =
+Emitter.prototype.removeListener =
+Emitter.prototype.removeAllListeners =
+Emitter.prototype.removeEventListener = function(event, fn){
+  this._callbacks = this._callbacks || {};
+
+  // all
+  if (0 == arguments.length) {
+    this._callbacks = {};
+    return this;
+  }
+
+  // specific event
+  var callbacks = this._callbacks['$' + event];
+  if (!callbacks) return this;
+
+  // remove all handlers
+  if (1 == arguments.length) {
+    delete this._callbacks['$' + event];
+    return this;
+  }
+
+  // remove specific handler
+  var cb;
+  for (var i = 0; i < callbacks.length; i++) {
+    cb = callbacks[i];
+    if (cb === fn || cb.fn === fn) {
+      callbacks.splice(i, 1);
+      break;
+    }
+  }
+
+  // Remove event specific arrays for event types that no
+  // one is subscribed for to avoid memory leak.
+  if (callbacks.length === 0) {
+    delete this._callbacks['$' + event];
+  }
+
+  return this;
+};
+
+/**
+ * Emit `event` with the given args.
+ *
+ * @param {String} event
+ * @param {Mixed} ...
+ * @return {Emitter}
+ */
+
+Emitter.prototype.emit = function(event){
+  this._callbacks = this._callbacks || {};
+
+  var args = new Array(arguments.length - 1)
+    , callbacks = this._callbacks['$' + event];
+
+  for (var i = 1; i < arguments.length; i++) {
+    args[i - 1] = arguments[i];
+  }
+
+  if (callbacks) {
+    callbacks = callbacks.slice(0);
+    for (var i = 0, len = callbacks.length; i < len; ++i) {
+      callbacks[i].apply(this, args);
+    }
+  }
+
+  return this;
+};
+
+// alias used for reserved events (protected method)
+Emitter.prototype.emitReserved = Emitter.prototype.emit;
+
+/**
+ * Return array of callbacks for `event`.
+ *
+ * @param {String} event
+ * @return {Array}
+ * @api public
+ */
+
+Emitter.prototype.listeners = function(event){
+  this._callbacks = this._callbacks || {};
+  return this._callbacks['$' + event] || [];
+};
+
+/**
+ * Check if this emitter has `event` handlers.
+ *
+ * @param {String} event
+ * @return {Boolean}
+ * @api public
+ */
+
+Emitter.prototype.hasListeners = function(event){
+  return !! this.listeners(event).length;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-client/build/esm/contrib/has-cors.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/contrib/has-cors.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   hasCORS: () => (/* binding */ hasCORS)
+/* harmony export */ });
+// imported from https://github.com/component/has-cors
+let value = false;
+try {
+    value = typeof XMLHttpRequest !== 'undefined' &&
+        'withCredentials' in new XMLHttpRequest();
+}
+catch (err) {
+    // if XMLHttp support is disabled in IE then it will throw
+    // when trying to create
+}
+const hasCORS = value;
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-client/build/esm/contrib/parseqs.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/contrib/parseqs.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   decode: () => (/* binding */ decode),
+/* harmony export */   encode: () => (/* binding */ encode)
+/* harmony export */ });
+// imported from https://github.com/galkn/querystring
+/**
+ * Compiles a querystring
+ * Returns string representation of the object
+ *
+ * @param {Object}
+ * @api private
+ */
+function encode(obj) {
+    let str = '';
+    for (let i in obj) {
+        if (obj.hasOwnProperty(i)) {
+            if (str.length)
+                str += '&';
+            str += encodeURIComponent(i) + '=' + encodeURIComponent(obj[i]);
+        }
+    }
+    return str;
+}
+/**
+ * Parses a simple querystring into an object
+ *
+ * @param {String} qs
+ * @api private
+ */
+function decode(qs) {
+    let qry = {};
+    let pairs = qs.split('&');
+    for (let i = 0, l = pairs.length; i < l; i++) {
+        let pair = pairs[i].split('=');
+        qry[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+    }
+    return qry;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-client/build/esm/contrib/parseuri.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/contrib/parseuri.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   parse: () => (/* binding */ parse)
+/* harmony export */ });
+// imported from https://github.com/galkn/parseuri
+/**
+ * Parses a URI
+ *
+ * Note: we could also have used the built-in URL object, but it isn't supported on all platforms.
+ *
+ * See:
+ * - https://developer.mozilla.org/en-US/docs/Web/API/URL
+ * - https://caniuse.com/url
+ * - https://www.rfc-editor.org/rfc/rfc3986#appendix-B
+ *
+ * History of the parse() method:
+ * - first commit: https://github.com/socketio/socket.io-client/commit/4ee1d5d94b3906a9c052b459f1a818b15f38f91c
+ * - export into its own module: https://github.com/socketio/engine.io-client/commit/de2c561e4564efeb78f1bdb1ba39ef81b2822cb3
+ * - reimport: https://github.com/socketio/engine.io-client/commit/df32277c3f6d622eec5ed09f493cae3f3391d242
+ *
+ * @author Steven Levithan <stevenlevithan.com> (MIT license)
+ * @api private
+ */
+const re = /^(?:(?![^:@\/?#]+:[^:@\/]*@)(http|https|ws|wss):\/\/)?((?:(([^:@\/?#]*)(?::([^:@\/?#]*))?)?@)?((?:[a-f0-9]{0,4}:){2,7}[a-f0-9]{0,4}|[^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/;
+const parts = [
+    'source', 'protocol', 'authority', 'userInfo', 'user', 'password', 'host', 'port', 'relative', 'path', 'directory', 'file', 'query', 'anchor'
+];
+function parse(str) {
+    if (str.length > 8000) {
+        throw "URI too long";
+    }
+    const src = str, b = str.indexOf('['), e = str.indexOf(']');
+    if (b != -1 && e != -1) {
+        str = str.substring(0, b) + str.substring(b, e).replace(/:/g, ';') + str.substring(e, str.length);
+    }
+    let m = re.exec(str || ''), uri = {}, i = 14;
+    while (i--) {
+        uri[parts[i]] = m[i] || '';
+    }
+    if (b != -1 && e != -1) {
+        uri.source = src;
+        uri.host = uri.host.substring(1, uri.host.length - 1).replace(/;/g, ':');
+        uri.authority = uri.authority.replace('[', '').replace(']', '').replace(/;/g, ':');
+        uri.ipv6uri = true;
+    }
+    uri.pathNames = pathNames(uri, uri['path']);
+    uri.queryKey = queryKey(uri, uri['query']);
+    return uri;
+}
+function pathNames(obj, path) {
+    const regx = /\/{2,9}/g, names = path.replace(regx, "/").split("/");
+    if (path.slice(0, 1) == '/' || path.length === 0) {
+        names.splice(0, 1);
+    }
+    if (path.slice(-1) == '/') {
+        names.splice(names.length - 1, 1);
+    }
+    return names;
+}
+function queryKey(uri, query) {
+    const data = {};
+    query.replace(/(?:^|&)([^&=]*)=?([^&]*)/g, function ($0, $1, $2) {
+        if ($1) {
+            data[$1] = $2;
+        }
+    });
+    return data;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-client/build/esm/globals.js":
+/*!************************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/globals.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createCookieJar: () => (/* binding */ createCookieJar),
+/* harmony export */   defaultBinaryType: () => (/* binding */ defaultBinaryType),
+/* harmony export */   globalThisShim: () => (/* binding */ globalThisShim),
+/* harmony export */   nextTick: () => (/* binding */ nextTick)
+/* harmony export */ });
+const nextTick = (() => {
+    const isPromiseAvailable = typeof Promise === "function" && typeof Promise.resolve === "function";
+    if (isPromiseAvailable) {
+        return (cb) => Promise.resolve().then(cb);
+    }
+    else {
+        return (cb, setTimeoutFn) => setTimeoutFn(cb, 0);
+    }
 })();
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-/**
- * Package base64 implements Base64 encoding and decoding.
- */
-// Invalid character used in decoding to indicate
-// that the character to decode is out of range of
-// alphabet and cannot be decoded.
-var INVALID_BYTE = 256;
-/**
- * Implements standard Base64 encoding.
- *
- * Operates in constant time.
- */
-var Coder = /** @class */ (function () {
-    // TODO(dchest): methods to encode chunk-by-chunk.
-    function Coder(_paddingCharacter) {
-        if (_paddingCharacter === void 0) { _paddingCharacter = "="; }
-        this._paddingCharacter = _paddingCharacter;
+const globalThisShim = (() => {
+    if (typeof self !== "undefined") {
+        return self;
     }
-    Coder.prototype.encodedLength = function (length) {
-        if (!this._paddingCharacter) {
-            return (length * 8 + 5) / 6 | 0;
-        }
-        return (length + 2) / 3 * 4 | 0;
-    };
-    Coder.prototype.encode = function (data) {
-        var out = "";
-        var i = 0;
-        for (; i < data.length - 2; i += 3) {
-            var c = (data[i] << 16) | (data[i + 1] << 8) | (data[i + 2]);
-            out += this._encodeByte((c >>> 3 * 6) & 63);
-            out += this._encodeByte((c >>> 2 * 6) & 63);
-            out += this._encodeByte((c >>> 1 * 6) & 63);
-            out += this._encodeByte((c >>> 0 * 6) & 63);
-        }
-        var left = data.length - i;
-        if (left > 0) {
-            var c = (data[i] << 16) | (left === 2 ? data[i + 1] << 8 : 0);
-            out += this._encodeByte((c >>> 3 * 6) & 63);
-            out += this._encodeByte((c >>> 2 * 6) & 63);
-            if (left === 2) {
-                out += this._encodeByte((c >>> 1 * 6) & 63);
-            }
-            else {
-                out += this._paddingCharacter || "";
-            }
-            out += this._paddingCharacter || "";
-        }
-        return out;
-    };
-    Coder.prototype.maxDecodedLength = function (length) {
-        if (!this._paddingCharacter) {
-            return (length * 6 + 7) / 8 | 0;
-        }
-        return length / 4 * 3 | 0;
-    };
-    Coder.prototype.decodedLength = function (s) {
-        return this.maxDecodedLength(s.length - this._getPaddingLength(s));
-    };
-    Coder.prototype.decode = function (s) {
-        if (s.length === 0) {
-            return new Uint8Array(0);
-        }
-        var paddingLength = this._getPaddingLength(s);
-        var length = s.length - paddingLength;
-        var out = new Uint8Array(this.maxDecodedLength(length));
-        var op = 0;
-        var i = 0;
-        var haveBad = 0;
-        var v0 = 0, v1 = 0, v2 = 0, v3 = 0;
-        for (; i < length - 4; i += 4) {
-            v0 = this._decodeChar(s.charCodeAt(i + 0));
-            v1 = this._decodeChar(s.charCodeAt(i + 1));
-            v2 = this._decodeChar(s.charCodeAt(i + 2));
-            v3 = this._decodeChar(s.charCodeAt(i + 3));
-            out[op++] = (v0 << 2) | (v1 >>> 4);
-            out[op++] = (v1 << 4) | (v2 >>> 2);
-            out[op++] = (v2 << 6) | v3;
-            haveBad |= v0 & INVALID_BYTE;
-            haveBad |= v1 & INVALID_BYTE;
-            haveBad |= v2 & INVALID_BYTE;
-            haveBad |= v3 & INVALID_BYTE;
-        }
-        if (i < length - 1) {
-            v0 = this._decodeChar(s.charCodeAt(i));
-            v1 = this._decodeChar(s.charCodeAt(i + 1));
-            out[op++] = (v0 << 2) | (v1 >>> 4);
-            haveBad |= v0 & INVALID_BYTE;
-            haveBad |= v1 & INVALID_BYTE;
-        }
-        if (i < length - 2) {
-            v2 = this._decodeChar(s.charCodeAt(i + 2));
-            out[op++] = (v1 << 4) | (v2 >>> 2);
-            haveBad |= v2 & INVALID_BYTE;
-        }
-        if (i < length - 3) {
-            v3 = this._decodeChar(s.charCodeAt(i + 3));
-            out[op++] = (v2 << 6) | v3;
-            haveBad |= v3 & INVALID_BYTE;
-        }
-        if (haveBad !== 0) {
-            throw new Error("Base64Coder: incorrect characters for decoding");
-        }
-        return out;
-    };
-    // Standard encoding have the following encoded/decoded ranges,
-    // which we need to convert between.
-    //
-    // ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789  +   /
-    // Index:   0 - 25                    26 - 51              52 - 61   62  63
-    // ASCII:  65 - 90                    97 - 122             48 - 57   43  47
-    //
-    // Encode 6 bits in b into a new character.
-    Coder.prototype._encodeByte = function (b) {
-        // Encoding uses constant time operations as follows:
-        //
-        // 1. Define comparison of A with B using (A - B) >>> 8:
-        //          if A > B, then result is positive integer
-        //          if A <= B, then result is 0
-        //
-        // 2. Define selection of C or 0 using bitwise AND: X & C:
-        //          if X == 0, then result is 0
-        //          if X != 0, then result is C
-        //
-        // 3. Start with the smallest comparison (b >= 0), which is always
-        //    true, so set the result to the starting ASCII value (65).
-        //
-        // 4. Continue comparing b to higher ASCII values, and selecting
-        //    zero if comparison isn't true, otherwise selecting a value
-        //    to add to result, which:
-        //
-        //          a) undoes the previous addition
-        //          b) provides new value to add
-        //
-        var result = b;
-        // b >= 0
-        result += 65;
-        // b > 25
-        result += ((25 - b) >>> 8) & ((0 - 65) - 26 + 97);
-        // b > 51
-        result += ((51 - b) >>> 8) & ((26 - 97) - 52 + 48);
-        // b > 61
-        result += ((61 - b) >>> 8) & ((52 - 48) - 62 + 43);
-        // b > 62
-        result += ((62 - b) >>> 8) & ((62 - 43) - 63 + 47);
-        return String.fromCharCode(result);
-    };
-    // Decode a character code into a byte.
-    // Must return 256 if character is out of alphabet range.
-    Coder.prototype._decodeChar = function (c) {
-        // Decoding works similar to encoding: using the same comparison
-        // function, but now it works on ranges: result is always incremented
-        // by value, but this value becomes zero if the range is not
-        // satisfied.
-        //
-        // Decoding starts with invalid value, 256, which is then
-        // subtracted when the range is satisfied. If none of the ranges
-        // apply, the function returns 256, which is then checked by
-        // the caller to throw error.
-        var result = INVALID_BYTE; // start with invalid character
-        // c == 43 (c > 42 and c < 44)
-        result += (((42 - c) & (c - 44)) >>> 8) & (-INVALID_BYTE + c - 43 + 62);
-        // c == 47 (c > 46 and c < 48)
-        result += (((46 - c) & (c - 48)) >>> 8) & (-INVALID_BYTE + c - 47 + 63);
-        // c > 47 and c < 58
-        result += (((47 - c) & (c - 58)) >>> 8) & (-INVALID_BYTE + c - 48 + 52);
-        // c > 64 and c < 91
-        result += (((64 - c) & (c - 91)) >>> 8) & (-INVALID_BYTE + c - 65 + 0);
-        // c > 96 and c < 123
-        result += (((96 - c) & (c - 123)) >>> 8) & (-INVALID_BYTE + c - 97 + 26);
-        return result;
-    };
-    Coder.prototype._getPaddingLength = function (s) {
-        var paddingLength = 0;
-        if (this._paddingCharacter) {
-            for (var i = s.length - 1; i >= 0; i--) {
-                if (s[i] !== this._paddingCharacter) {
-                    break;
-                }
-                paddingLength++;
-            }
-            if (s.length < 4 || paddingLength > 2) {
-                throw new Error("Base64Coder: incorrect padding");
-            }
-        }
-        return paddingLength;
-    };
-    return Coder;
-}());
-exports.Coder = Coder;
-var stdCoder = new Coder();
-function encode(data) {
-    return stdCoder.encode(data);
-}
-exports.encode = encode;
-function decode(s) {
-    return stdCoder.decode(s);
-}
-exports.decode = decode;
-/**
- * Implements URL-safe Base64 encoding.
- * (Same as Base64, but '+' is replaced with '-', and '/' with '_').
- *
- * Operates in constant time.
- */
-var URLSafeCoder = /** @class */ (function (_super) {
-    __extends(URLSafeCoder, _super);
-    function URLSafeCoder() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    else if (typeof window !== "undefined") {
+        return window;
     }
-    // URL-safe encoding have the following encoded/decoded ranges:
-    //
-    // ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789  -   _
-    // Index:   0 - 25                    26 - 51              52 - 61   62  63
-    // ASCII:  65 - 90                    97 - 122             48 - 57   45  95
-    //
-    URLSafeCoder.prototype._encodeByte = function (b) {
-        var result = b;
-        // b >= 0
-        result += 65;
-        // b > 25
-        result += ((25 - b) >>> 8) & ((0 - 65) - 26 + 97);
-        // b > 51
-        result += ((51 - b) >>> 8) & ((26 - 97) - 52 + 48);
-        // b > 61
-        result += ((61 - b) >>> 8) & ((52 - 48) - 62 + 45);
-        // b > 62
-        result += ((62 - b) >>> 8) & ((62 - 45) - 63 + 95);
-        return String.fromCharCode(result);
-    };
-    URLSafeCoder.prototype._decodeChar = function (c) {
-        var result = INVALID_BYTE;
-        // c == 45 (c > 44 and c < 46)
-        result += (((44 - c) & (c - 46)) >>> 8) & (-INVALID_BYTE + c - 45 + 62);
-        // c == 95 (c > 94 and c < 96)
-        result += (((94 - c) & (c - 96)) >>> 8) & (-INVALID_BYTE + c - 95 + 63);
-        // c > 47 and c < 58
-        result += (((47 - c) & (c - 58)) >>> 8) & (-INVALID_BYTE + c - 48 + 52);
-        // c > 64 and c < 91
-        result += (((64 - c) & (c - 91)) >>> 8) & (-INVALID_BYTE + c - 65 + 0);
-        // c > 96 and c < 123
-        result += (((96 - c) & (c - 123)) >>> 8) & (-INVALID_BYTE + c - 97 + 26);
-        return result;
-    };
-    return URLSafeCoder;
-}(Coder));
-exports.URLSafeCoder = URLSafeCoder;
-var urlSafeCoder = new URLSafeCoder();
-function encodeURLSafe(data) {
-    return urlSafeCoder.encode(data);
-}
-exports.encodeURLSafe = encodeURLSafe;
-function decodeURLSafe(s) {
-    return urlSafeCoder.decode(s);
-}
-exports.decodeURLSafe = decodeURLSafe;
-exports.encodedLength = function (length) {
-    return stdCoder.encodedLength(length);
-};
-exports.maxDecodedLength = function (length) {
-    return stdCoder.maxDecodedLength(length);
-};
-exports.decodedLength = function (s) {
-    return stdCoder.decodedLength(s);
-};
+    else {
+        return Function("return this")();
+    }
+})();
+const defaultBinaryType = "arraybuffer";
+function createCookieJar() { }
 
 
-/***/ },
+/***/ }),
 
-/***/ 978
-(__unused_webpack_module, exports) {
+/***/ "./node_modules/engine.io-client/build/esm/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/index.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-var __webpack_unused_export__;
-
-// Copyright (C) 2016 Dmitry Chestnykh
-// MIT License. See LICENSE file for details.
-__webpack_unused_export__ = ({ value: true });
-/**
- * Package utf8 implements UTF-8 encoding and decoding.
- */
-var INVALID_UTF16 = "utf8: invalid string";
-var INVALID_UTF8 = "utf8: invalid source encoding";
-/**
- * Encodes the given string into UTF-8 byte array.
- * Throws if the source string has invalid UTF-16 encoding.
- */
-function encode(s) {
-    // Calculate result length and allocate output array.
-    // encodedLength() also validates string and throws errors,
-    // so we don't need repeat validation here.
-    var arr = new Uint8Array(encodedLength(s));
-    var pos = 0;
-    for (var i = 0; i < s.length; i++) {
-        var c = s.charCodeAt(i);
-        if (c < 0x80) {
-            arr[pos++] = c;
-        }
-        else if (c < 0x800) {
-            arr[pos++] = 0xc0 | c >> 6;
-            arr[pos++] = 0x80 | c & 0x3f;
-        }
-        else if (c < 0xd800) {
-            arr[pos++] = 0xe0 | c >> 12;
-            arr[pos++] = 0x80 | (c >> 6) & 0x3f;
-            arr[pos++] = 0x80 | c & 0x3f;
-        }
-        else {
-            i++; // get one more character
-            c = (c & 0x3ff) << 10;
-            c |= s.charCodeAt(i) & 0x3ff;
-            c += 0x10000;
-            arr[pos++] = 0xf0 | c >> 18;
-            arr[pos++] = 0x80 | (c >> 12) & 0x3f;
-            arr[pos++] = 0x80 | (c >> 6) & 0x3f;
-            arr[pos++] = 0x80 | c & 0x3f;
-        }
-    }
-    return arr;
-}
-__webpack_unused_export__ = encode;
-/**
- * Returns the number of bytes required to encode the given string into UTF-8.
- * Throws if the source string has invalid UTF-16 encoding.
- */
-function encodedLength(s) {
-    var result = 0;
-    for (var i = 0; i < s.length; i++) {
-        var c = s.charCodeAt(i);
-        if (c < 0x80) {
-            result += 1;
-        }
-        else if (c < 0x800) {
-            result += 2;
-        }
-        else if (c < 0xd800) {
-            result += 3;
-        }
-        else if (c <= 0xdfff) {
-            if (i >= s.length - 1) {
-                throw new Error(INVALID_UTF16);
-            }
-            i++; // "eat" next character
-            result += 4;
-        }
-        else {
-            throw new Error(INVALID_UTF16);
-        }
-    }
-    return result;
-}
-__webpack_unused_export__ = encodedLength;
-/**
- * Decodes the given byte array from UTF-8 into a string.
- * Throws if encoding is invalid.
- */
-function decode(arr) {
-    var chars = [];
-    for (var i = 0; i < arr.length; i++) {
-        var b = arr[i];
-        if (b & 0x80) {
-            var min = void 0;
-            if (b < 0xe0) {
-                // Need 1 more byte.
-                if (i >= arr.length) {
-                    throw new Error(INVALID_UTF8);
-                }
-                var n1 = arr[++i];
-                if ((n1 & 0xc0) !== 0x80) {
-                    throw new Error(INVALID_UTF8);
-                }
-                b = (b & 0x1f) << 6 | (n1 & 0x3f);
-                min = 0x80;
-            }
-            else if (b < 0xf0) {
-                // Need 2 more bytes.
-                if (i >= arr.length - 1) {
-                    throw new Error(INVALID_UTF8);
-                }
-                var n1 = arr[++i];
-                var n2 = arr[++i];
-                if ((n1 & 0xc0) !== 0x80 || (n2 & 0xc0) !== 0x80) {
-                    throw new Error(INVALID_UTF8);
-                }
-                b = (b & 0x0f) << 12 | (n1 & 0x3f) << 6 | (n2 & 0x3f);
-                min = 0x800;
-            }
-            else if (b < 0xf8) {
-                // Need 3 more bytes.
-                if (i >= arr.length - 2) {
-                    throw new Error(INVALID_UTF8);
-                }
-                var n1 = arr[++i];
-                var n2 = arr[++i];
-                var n3 = arr[++i];
-                if ((n1 & 0xc0) !== 0x80 || (n2 & 0xc0) !== 0x80 || (n3 & 0xc0) !== 0x80) {
-                    throw new Error(INVALID_UTF8);
-                }
-                b = (b & 0x0f) << 18 | (n1 & 0x3f) << 12 | (n2 & 0x3f) << 6 | (n3 & 0x3f);
-                min = 0x10000;
-            }
-            else {
-                throw new Error(INVALID_UTF8);
-            }
-            if (b < min || (b >= 0xd800 && b <= 0xdfff)) {
-                throw new Error(INVALID_UTF8);
-            }
-            if (b >= 0x10000) {
-                // Surrogate pair.
-                if (b > 0x10ffff) {
-                    throw new Error(INVALID_UTF8);
-                }
-                b -= 0x10000;
-                chars.push(String.fromCharCode(0xd800 | (b >> 10)));
-                b = 0xdc00 | (b & 0x3ff);
-            }
-        }
-        chars.push(String.fromCharCode(b));
-    }
-    return chars.join("");
-}
-exports.D4 = decode;
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Fetch: () => (/* reexport safe */ _transports_polling_fetch_js__WEBPACK_IMPORTED_MODULE_6__.Fetch),
+/* harmony export */   NodeWebSocket: () => (/* reexport safe */ _transports_websocket_node_js__WEBPACK_IMPORTED_MODULE_8__.WS),
+/* harmony export */   NodeXHR: () => (/* reexport safe */ _transports_polling_xhr_node_js__WEBPACK_IMPORTED_MODULE_7__.XHR),
+/* harmony export */   Socket: () => (/* reexport safe */ _socket_js__WEBPACK_IMPORTED_MODULE_0__.Socket),
+/* harmony export */   Transport: () => (/* reexport safe */ _transport_js__WEBPACK_IMPORTED_MODULE_1__.Transport),
+/* harmony export */   TransportError: () => (/* reexport safe */ _transport_js__WEBPACK_IMPORTED_MODULE_1__.TransportError),
+/* harmony export */   WebSocket: () => (/* reexport safe */ _transports_websocket_node_js__WEBPACK_IMPORTED_MODULE_8__.WS),
+/* harmony export */   WebTransport: () => (/* reexport safe */ _transports_webtransport_js__WEBPACK_IMPORTED_MODULE_9__.WT),
+/* harmony export */   XHR: () => (/* reexport safe */ _transports_polling_xhr_node_js__WEBPACK_IMPORTED_MODULE_7__.XHR),
+/* harmony export */   installTimerFunctions: () => (/* reexport safe */ _util_js__WEBPACK_IMPORTED_MODULE_3__.installTimerFunctions),
+/* harmony export */   nextTick: () => (/* reexport safe */ _globals_node_js__WEBPACK_IMPORTED_MODULE_5__.nextTick),
+/* harmony export */   parse: () => (/* reexport safe */ _contrib_parseuri_js__WEBPACK_IMPORTED_MODULE_4__.parse),
+/* harmony export */   protocol: () => (/* binding */ protocol),
+/* harmony export */   transports: () => (/* reexport safe */ _transports_index_js__WEBPACK_IMPORTED_MODULE_2__.transports)
+/* harmony export */ });
+/* harmony import */ var _socket_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./socket.js */ "./node_modules/engine.io-client/build/esm/socket.js");
+/* harmony import */ var _transport_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./transport.js */ "./node_modules/engine.io-client/build/esm/transport.js");
+/* harmony import */ var _transports_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./transports/index.js */ "./node_modules/engine.io-client/build/esm/transports/index.js");
+/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util.js */ "./node_modules/engine.io-client/build/esm/util.js");
+/* harmony import */ var _contrib_parseuri_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./contrib/parseuri.js */ "./node_modules/engine.io-client/build/esm/contrib/parseuri.js");
+/* harmony import */ var _globals_node_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./globals.node.js */ "./node_modules/engine.io-client/build/esm/globals.js");
+/* harmony import */ var _transports_polling_fetch_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./transports/polling-fetch.js */ "./node_modules/engine.io-client/build/esm/transports/polling-fetch.js");
+/* harmony import */ var _transports_polling_xhr_node_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./transports/polling-xhr.js */ "./node_modules/engine.io-client/build/esm/transports/polling-xhr.js");
+/* harmony import */ var _transports_websocket_node_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./transports/websocket.js */ "./node_modules/engine.io-client/build/esm/transports/websocket.js");
+/* harmony import */ var _transports_webtransport_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./transports/webtransport.js */ "./node_modules/engine.io-client/build/esm/transports/webtransport.js");
 
 
-/***/ },
-
-/***/ 721
-(module, __unused_webpack_exports, __nested_webpack_require_16377__) {
-
-// required so we don't have to do require('pusher').default etc.
-module.exports = __nested_webpack_require_16377__(207)["default"];
+const protocol = _socket_js__WEBPACK_IMPORTED_MODULE_0__.Socket.protocol;
 
 
-/***/ },
 
-/***/ 207
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_16590__) {
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-client/build/esm/socket.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/socket.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Socket: () => (/* binding */ Socket)
+/* harmony export */ });
+/* harmony import */ var _transports_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./transports/index.js */ "./node_modules/engine.io-client/build/esm/transports/index.js");
+/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util.js */ "./node_modules/engine.io-client/build/esm/util.js");
+/* harmony import */ var _contrib_parseqs_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./contrib/parseqs.js */ "./node_modules/engine.io-client/build/esm/contrib/parseqs.js");
+/* harmony import */ var _contrib_parseuri_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./contrib/parseuri.js */ "./node_modules/engine.io-client/build/esm/contrib/parseuri.js");
+/* harmony import */ var _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @socket.io/component-emitter */ "./node_modules/@socket.io/component-emitter/lib/esm/index.js");
+/* harmony import */ var engine_io_parser__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! engine.io-parser */ "./node_modules/engine.io-parser/build/esm/index.js");
+/* harmony import */ var _globals_node_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./globals.node.js */ "./node_modules/engine.io-client/build/esm/globals.js");
 
-// EXPORTS
-__nested_webpack_require_16590__.d(__nested_webpack_exports__, {
-  "default": () => (/* binding */ pusher)
-});
 
-;// ./src/runtimes/web/dom/script_receiver_factory.ts
-class ScriptReceiverFactory {
-    constructor(prefix, name) {
-        this.lastId = 0;
-        this.prefix = prefix;
-        this.name = name;
-    }
-    create(callback) {
-        this.lastId++;
-        var number = this.lastId;
-        var id = this.prefix + number;
-        var name = this.name + '[' + number + ']';
-        var called = false;
-        var callbackWrapper = function () {
-            if (!called) {
-                callback.apply(null, arguments);
-                called = true;
-            }
-        };
-        this[number] = callbackWrapper;
-        return { number: number, id: id, name: name, callback: callbackWrapper };
-    }
-    remove(receiver) {
-        delete this[receiver.number];
-    }
+
+
+
+
+
+const withEventListeners = typeof addEventListener === "function" &&
+    typeof removeEventListener === "function";
+const OFFLINE_EVENT_LISTENERS = [];
+if (withEventListeners) {
+    // within a ServiceWorker, any event handler for the 'offline' event must be added on the initial evaluation of the
+    // script, so we create one single event listener here which will forward the event to the socket instances
+    addEventListener("offline", () => {
+        OFFLINE_EVENT_LISTENERS.forEach((listener) => listener());
+    }, false);
 }
-var ScriptReceivers = new ScriptReceiverFactory('_pusher_script_', 'Pusher.ScriptReceivers');
-
-;// ./src/core/defaults.ts
-var Defaults = {
-    VERSION: "8.6.0",
-    PROTOCOL: 7,
-    wsPort: 80,
-    wssPort: 443,
-    wsPath: '',
-    httpHost: 'sockjs.pusher.com',
-    httpPort: 80,
-    httpsPort: 443,
-    httpPath: '/pusher',
-    stats_host: 'stats.pusher.com',
-    authEndpoint: '/pusher/auth',
-    authTransport: 'ajax',
-    activityTimeout: 120000,
-    pongTimeout: 30000,
-    unavailableTimeout: 10000,
-    userAuthentication: {
-        endpoint: '/pusher/user-auth',
-        transport: 'ajax',
-    },
-    channelAuthorization: {
-        endpoint: '/pusher/auth',
-        transport: 'ajax',
-    },
-    cdn_http: "http://js.pusher.com",
-    cdn_https: "https://js.pusher.com",
-    dependency_suffix: "",
-};
-/* harmony default export */ const defaults = (Defaults);
-
-;// ./src/runtimes/web/dom/dependency_loader.ts
-
-
-class DependencyLoader {
-    constructor(options) {
-        this.options = options;
-        this.receivers = options.receivers || ScriptReceivers;
-        this.loading = {};
-    }
-    load(name, options, callback) {
-        var self = this;
-        if (self.loading[name] && self.loading[name].length > 0) {
-            self.loading[name].push(callback);
+/**
+ * This class provides a WebSocket-like interface to connect to an Engine.IO server. The connection will be established
+ * with one of the available low-level transports, like HTTP long-polling, WebSocket, or WebTransport.
+ *
+ * This class comes with an upgrade mechanism, which means that once the connection is established with the first
+ * low-level transport, it will try to upgrade to a better transport.
+ *
+ * @example
+ * import { Socket } from "engine.io-client";
+ *
+ * const socket = new Socket();
+ *
+ * socket.on("open", () => {
+ *   socket.send("hello");
+ * });
+ *
+ */
+class Socket extends _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_4__.Emitter {
+    constructor(uri, opts = {}) {
+        var _a, _b;
+        super();
+        this.binaryType = _globals_node_js__WEBPACK_IMPORTED_MODULE_6__.defaultBinaryType;
+        this.writeBuffer = [];
+        this._prevBufferLen = 0;
+        this._upgrades = [];
+        this._pingInterval = -1;
+        this._pingTimeout = -1;
+        this._maxPayload = -1;
+        /**
+         * The expiration timestamp of the {@link _pingTimeoutTimer} object is tracked, in case the timer is throttled and the
+         * callback is not fired on time. This can happen for example when a laptop is suspended or when a phone is locked.
+         */
+        this._pingTimeoutTime = Infinity;
+        if (uri && "object" === typeof uri) {
+            opts = uri;
+            uri = null;
         }
-        else {
-            self.loading[name] = [callback];
-            var request = runtime.createScriptRequest(self.getPath(name, options));
-            var receiver = self.receivers.create(function (error) {
-                self.receivers.remove(receiver);
-                if (self.loading[name]) {
-                    var callbacks = self.loading[name];
-                    delete self.loading[name];
-                    var successCallback = function (wasSuccessful) {
-                        if (!wasSuccessful) {
-                            request.cleanup();
-                        }
-                    };
-                    for (var i = 0; i < callbacks.length; i++) {
-                        callbacks[i](error, successCallback);
-                    }
-                }
+        if (uri) {
+            const parsedUri = (0,_contrib_parseuri_js__WEBPACK_IMPORTED_MODULE_3__.parse)(uri);
+            opts.hostname = parsedUri.host;
+            opts.secure =
+                parsedUri.protocol === "https" || parsedUri.protocol === "wss";
+            opts.port = parsedUri.port;
+            if (parsedUri.query)
+                opts.query = parsedUri.query;
+        }
+        else if (opts.host) {
+            opts.hostname = (0,_contrib_parseuri_js__WEBPACK_IMPORTED_MODULE_3__.parse)(opts.host).host;
+        }
+        (0,_util_js__WEBPACK_IMPORTED_MODULE_1__.installTimerFunctions)(this, opts);
+        this.secure =
+            null != opts.secure
+                ? opts.secure
+                : typeof location !== "undefined" && "https:" === location.protocol;
+        if (opts.hostname && !opts.port) {
+            // if no port is specified manually, use the protocol default
+            opts.port = this.secure ? "443" : "80";
+        }
+        this.hostname =
+            opts.hostname ||
+                (typeof location !== "undefined" ? location.hostname : "localhost");
+        this.port =
+            opts.port ||
+                (typeof location !== "undefined" && location.port
+                    ? location.port
+                    : this.secure
+                        ? "443"
+                        : "80");
+        if (opts.transportImplementations && opts.transports) {
+            throw new Error("specifying both 'transportImplementations' and 'transports' options is not supported");
+        }
+        if (opts.transportImplementations ||
+            (((_a = opts.transports) === null || _a === void 0 ? void 0 : _a.length) && typeof opts.transports[0] === "function")) {
+            // 'transports' option as an array of transport implementations is kept for backward compatibility
+            this.transports = [];
+            this._transportsByName = Object.create(null);
+            ((_b = opts.transportImplementations) !== null && _b !== void 0 ? _b : opts.transports).forEach((t) => {
+                const transportName = t.prototype.name;
+                this.transports.push(transportName);
+                this._transportsByName[transportName] = t;
             });
-            request.send(receiver);
-        }
-    }
-    getRoot(options) {
-        var cdn;
-        var protocol = runtime.getDocument().location.protocol;
-        if ((options && options.useTLS) || protocol === 'https:') {
-            cdn = this.options.cdn_https;
         }
         else {
-            cdn = this.options.cdn_http;
+            this.transports = opts.transports
+                ? [...opts.transports]
+                : ["polling", "websocket", "webtransport"];
+            this._transportsByName = _transports_index_js__WEBPACK_IMPORTED_MODULE_0__.transports;
         }
-        return cdn.replace(/\/*$/, '') + '/' + this.options.version;
-    }
-    getPath(name, options) {
-        return this.getRoot(options) + '/' + name + this.options.suffix + '.js';
-    }
-}
-
-;// ./src/runtimes/web/dom/dependencies.ts
-
-
-
-var DependenciesReceivers = new ScriptReceiverFactory('_pusher_dependencies', 'Pusher.DependenciesReceivers');
-var Dependencies = new DependencyLoader({
-    cdn_http: defaults.cdn_http,
-    cdn_https: defaults.cdn_https,
-    version: defaults.VERSION,
-    suffix: defaults.dependency_suffix,
-    receivers: DependenciesReceivers,
-});
-
-;// ./src/core/utils/url_store.ts
-const urlStore = {
-    baseUrl: 'https://pusher.com',
-    urls: {
-        authenticationEndpoint: {
-            path: '/docs/channels/server_api/authenticating_users',
-        },
-        authorizationEndpoint: {
-            path: '/docs/channels/server_api/authorizing-users/',
-        },
-        javascriptQuickStart: {
-            path: '/docs/javascript_quick_start',
-        },
-        triggeringClientEvents: {
-            path: '/docs/client_api_guide/client_events#trigger-events',
-        },
-        encryptedChannelSupport: {
-            fullUrl: 'https://github.com/pusher/pusher-js/tree/cc491015371a4bde5743d1c87a0fbac0feb53195#encrypted-channel-support',
-        },
-    },
-};
-const buildLogSuffix = function (key) {
-    const urlPrefix = 'See:';
-    const urlObj = urlStore.urls[key];
-    if (!urlObj)
-        return '';
-    let url;
-    if (urlObj.fullUrl) {
-        url = urlObj.fullUrl;
-    }
-    else if (urlObj.path) {
-        url = urlStore.baseUrl + urlObj.path;
-    }
-    if (!url)
-        return '';
-    return `${urlPrefix} ${url}`;
-};
-/* harmony default export */ const url_store = ({ buildLogSuffix });
-
-;// ./src/core/auth/options.ts
-var AuthRequestType;
-(function (AuthRequestType) {
-    AuthRequestType["UserAuthentication"] = "user-authentication";
-    AuthRequestType["ChannelAuthorization"] = "channel-authorization";
-})(AuthRequestType || (AuthRequestType = {}));
-
-;// ./src/core/errors.ts
-class BadEventName extends Error {
-    constructor(msg) {
-        super(msg);
-        Object.setPrototypeOf(this, new.target.prototype);
-    }
-}
-class BadChannelName extends Error {
-    constructor(msg) {
-        super(msg);
-        Object.setPrototypeOf(this, new.target.prototype);
-    }
-}
-class RequestTimedOut extends Error {
-    constructor(msg) {
-        super(msg);
-        Object.setPrototypeOf(this, new.target.prototype);
-    }
-}
-class TransportPriorityTooLow extends Error {
-    constructor(msg) {
-        super(msg);
-        Object.setPrototypeOf(this, new.target.prototype);
-    }
-}
-class TransportClosed extends Error {
-    constructor(msg) {
-        super(msg);
-        Object.setPrototypeOf(this, new.target.prototype);
-    }
-}
-class UnsupportedFeature extends Error {
-    constructor(msg) {
-        super(msg);
-        Object.setPrototypeOf(this, new.target.prototype);
-    }
-}
-class UnsupportedTransport extends Error {
-    constructor(msg) {
-        super(msg);
-        Object.setPrototypeOf(this, new.target.prototype);
-    }
-}
-class UnsupportedStrategy extends Error {
-    constructor(msg) {
-        super(msg);
-        Object.setPrototypeOf(this, new.target.prototype);
-    }
-}
-class HTTPAuthError extends Error {
-    constructor(status, msg) {
-        super(msg);
-        this.status = status;
-        Object.setPrototypeOf(this, new.target.prototype);
-    }
-}
-
-;// ./src/runtimes/isomorphic/auth/xhr_auth.ts
-
-
-
-
-const ajax = function (context, query, authOptions, authRequestType, callback) {
-    const xhr = runtime.createXHR();
-    xhr.open('POST', authOptions.endpoint, true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    for (var headerName in authOptions.headers) {
-        xhr.setRequestHeader(headerName, authOptions.headers[headerName]);
-    }
-    if (authOptions.headersProvider != null) {
-        let dynamicHeaders = authOptions.headersProvider();
-        for (var headerName in dynamicHeaders) {
-            xhr.setRequestHeader(headerName, dynamicHeaders[headerName]);
+        this.opts = Object.assign({
+            path: "/engine.io",
+            agent: false,
+            withCredentials: false,
+            upgrade: true,
+            timestampParam: "t",
+            rememberUpgrade: false,
+            addTrailingSlash: true,
+            rejectUnauthorized: true,
+            perMessageDeflate: {
+                threshold: 1024,
+            },
+            transportOptions: {},
+            closeOnBeforeunload: false,
+        }, opts);
+        this.opts.path =
+            this.opts.path.replace(/\/$/, "") +
+                (this.opts.addTrailingSlash ? "/" : "");
+        if (typeof this.opts.query === "string") {
+            this.opts.query = (0,_contrib_parseqs_js__WEBPACK_IMPORTED_MODULE_2__.decode)(this.opts.query);
         }
-    }
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                let data;
-                let parsed = false;
-                try {
-                    data = JSON.parse(xhr.responseText);
-                    parsed = true;
-                }
-                catch (e) {
-                    callback(new HTTPAuthError(200, `JSON returned from ${authRequestType.toString()} endpoint was invalid, yet status code was 200. Data was: ${xhr.responseText}`), null);
-                }
-                if (parsed) {
-                    callback(null, data);
-                }
-            }
-            else {
-                let suffix = '';
-                switch (authRequestType) {
-                    case AuthRequestType.UserAuthentication:
-                        suffix = url_store.buildLogSuffix('authenticationEndpoint');
-                        break;
-                    case AuthRequestType.ChannelAuthorization:
-                        suffix = `Clients must be authorized to join private or presence channels. ${url_store.buildLogSuffix('authorizationEndpoint')}`;
-                        break;
-                }
-                callback(new HTTPAuthError(xhr.status, `Unable to retrieve auth string from ${authRequestType.toString()} endpoint - ` +
-                    `received status: ${xhr.status} from ${authOptions.endpoint}. ${suffix}`), null);
-            }
-        }
-    };
-    xhr.send(query);
-    return xhr;
-};
-/* harmony default export */ const xhr_auth = (ajax);
-
-;// ./src/core/base64.ts
-function encode(s) {
-    return btoa(utob(s));
-}
-var fromCharCode = String.fromCharCode;
-var b64chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-var b64tab = {};
-for (var i = 0, l = b64chars.length; i < l; i++) {
-    b64tab[b64chars.charAt(i)] = i;
-}
-var cb_utob = function (c) {
-    var cc = c.charCodeAt(0);
-    return cc < 0x80
-        ? c
-        : cc < 0x800
-            ? fromCharCode(0xc0 | (cc >>> 6)) + fromCharCode(0x80 | (cc & 0x3f))
-            : fromCharCode(0xe0 | ((cc >>> 12) & 0x0f)) +
-                fromCharCode(0x80 | ((cc >>> 6) & 0x3f)) +
-                fromCharCode(0x80 | (cc & 0x3f));
-};
-var utob = function (u) {
-    return u.replace(/[^\x00-\x7F]/g, cb_utob);
-};
-var cb_encode = function (ccc) {
-    var padlen = [0, 2, 1][ccc.length % 3];
-    var ord = (ccc.charCodeAt(0) << 16) |
-        ((ccc.length > 1 ? ccc.charCodeAt(1) : 0) << 8) |
-        (ccc.length > 2 ? ccc.charCodeAt(2) : 0);
-    var chars = [
-        b64chars.charAt(ord >>> 18),
-        b64chars.charAt((ord >>> 12) & 63),
-        padlen >= 2 ? '=' : b64chars.charAt((ord >>> 6) & 63),
-        padlen >= 1 ? '=' : b64chars.charAt(ord & 63),
-    ];
-    return chars.join('');
-};
-var btoa = (typeof window !== 'undefined' && window.btoa) ||
-    function (b) {
-        return b.replace(/[\s\S]{1,3}/g, cb_encode);
-    };
-
-;// ./src/core/utils/timers/abstract_timer.ts
-class Timer {
-    constructor(set, clear, delay, callback) {
-        this.clear = clear;
-        this.timer = set(() => {
-            if (this.timer) {
-                this.timer = callback(this.timer);
-            }
-        }, delay);
-    }
-    isRunning() {
-        return this.timer !== null;
-    }
-    ensureAborted() {
-        if (this.timer) {
-            this.clear(this.timer);
-            this.timer = null;
-        }
-    }
-}
-/* harmony default export */ const abstract_timer = (Timer);
-
-;// ./src/core/utils/timers/index.ts
-
-function timers_clearTimeout(timer) {
-    window.clearTimeout(timer);
-}
-function timers_clearInterval(timer) {
-    window.clearInterval(timer);
-}
-class OneOffTimer extends abstract_timer {
-    constructor(delay, callback) {
-        super(setTimeout, timers_clearTimeout, delay, function (timer) {
-            callback();
-            return null;
-        });
-    }
-}
-class PeriodicTimer extends abstract_timer {
-    constructor(delay, callback) {
-        super(setInterval, timers_clearInterval, delay, function (timer) {
-            callback();
-            return timer;
-        });
-    }
-}
-
-;// ./src/core/util.ts
-
-var Util = {
-    now() {
-        if (Date.now) {
-            return Date.now();
-        }
-        else {
-            return new Date().valueOf();
-        }
-    },
-    defer(callback) {
-        return new OneOffTimer(0, callback);
-    },
-    method(name, ...args) {
-        var boundArguments = Array.prototype.slice.call(arguments, 1);
-        return function (object) {
-            return object[name].apply(object, boundArguments.concat(arguments));
-        };
-    },
-};
-/* harmony default export */ const util = (Util);
-
-;// ./src/core/utils/collections.ts
-
-
-function extend(target, ...sources) {
-    for (var i = 0; i < sources.length; i++) {
-        var extensions = sources[i];
-        for (var property in extensions) {
-            if (property === '__proto__' ||
-                property === 'constructor' ||
-                property === 'prototype') {
-                continue;
-            }
-            if (extensions[property] &&
-                extensions[property].constructor &&
-                extensions[property].constructor === Object) {
-                target[property] = extend(target[property] || {}, extensions[property]);
-            }
-            else {
-                target[property] = extensions[property];
-            }
-        }
-    }
-    return target;
-}
-function stringify() {
-    var m = ['Pusher'];
-    for (var i = 0; i < arguments.length; i++) {
-        if (typeof arguments[i] === 'string') {
-            m.push(arguments[i]);
-        }
-        else {
-            m.push(safeJSONStringify(arguments[i]));
-        }
-    }
-    return m.join(' : ');
-}
-function arrayIndexOf(array, item) {
-    var nativeIndexOf = Array.prototype.indexOf;
-    if (array === null) {
-        return -1;
-    }
-    if (nativeIndexOf && array.indexOf === nativeIndexOf) {
-        return array.indexOf(item);
-    }
-    for (var i = 0, l = array.length; i < l; i++) {
-        if (array[i] === item) {
-            return i;
-        }
-    }
-    return -1;
-}
-function objectApply(object, f) {
-    for (var key in object) {
-        if (Object.prototype.hasOwnProperty.call(object, key)) {
-            f(object[key], key, object);
-        }
-    }
-}
-function keys(object) {
-    var keys = [];
-    objectApply(object, function (_, key) {
-        keys.push(key);
-    });
-    return keys;
-}
-function values(object) {
-    var values = [];
-    objectApply(object, function (value) {
-        values.push(value);
-    });
-    return values;
-}
-function apply(array, f, context) {
-    for (var i = 0; i < array.length; i++) {
-        f.call(context || window, array[i], i, array);
-    }
-}
-function map(array, f) {
-    var result = [];
-    for (var i = 0; i < array.length; i++) {
-        result.push(f(array[i], i, array, result));
-    }
-    return result;
-}
-function mapObject(object, f) {
-    var result = {};
-    objectApply(object, function (value, key) {
-        result[key] = f(value);
-    });
-    return result;
-}
-function filter(array, test) {
-    test =
-        test ||
-            function (value) {
-                return !!value;
-            };
-    var result = [];
-    for (var i = 0; i < array.length; i++) {
-        if (test(array[i], i, array, result)) {
-            result.push(array[i]);
-        }
-    }
-    return result;
-}
-function filterObject(object, test) {
-    var result = {};
-    objectApply(object, function (value, key) {
-        if ((test && test(value, key, object, result)) || Boolean(value)) {
-            result[key] = value;
-        }
-    });
-    return result;
-}
-function flatten(object) {
-    var result = [];
-    objectApply(object, function (value, key) {
-        result.push([key, value]);
-    });
-    return result;
-}
-function any(array, test) {
-    for (var i = 0; i < array.length; i++) {
-        if (test(array[i], i, array)) {
-            return true;
-        }
-    }
-    return false;
-}
-function collections_all(array, test) {
-    for (var i = 0; i < array.length; i++) {
-        if (!test(array[i], i, array)) {
-            return false;
-        }
-    }
-    return true;
-}
-function encodeParamsObject(data) {
-    return mapObject(data, function (value) {
-        if (value === null) {
-            return '';
-        }
-        if (typeof value === 'object') {
-            value = safeJSONStringify(value);
-        }
-        return encodeURIComponent(encode(value.toString()));
-    });
-}
-function buildQueryString(data) {
-    var params = filterObject(data, function (value) {
-        return value !== undefined;
-    });
-    var query = map(flatten(encodeParamsObject(params)), util.method('join', '=')).join('&');
-    return query;
-}
-function decycleObject(object) {
-    var objects = [], paths = [];
-    return (function derez(value, path) {
-        var i, name, nu;
-        switch (typeof value) {
-            case 'object':
-                if (!value) {
-                    return null;
-                }
-                for (i = 0; i < objects.length; i += 1) {
-                    if (objects[i] === value) {
-                        return { $ref: paths[i] };
+        if (withEventListeners) {
+            if (this.opts.closeOnBeforeunload) {
+                // Firefox closes the connection when the "beforeunload" event is emitted but not Chrome. This event listener
+                // ensures every browser behaves the same (no "disconnect" event at the Socket.IO level when the page is
+                // closed/reloaded)
+                this._beforeunloadEventListener = () => {
+                    if (this.transport) {
+                        // silently close the transport
+                        this.transport.removeAllListeners();
+                        this.transport.close();
                     }
-                }
-                objects.push(value);
-                paths.push(path);
-                if (Object.prototype.toString.apply(value) === '[object Array]') {
-                    nu = [];
-                    for (i = 0; i < value.length; i += 1) {
-                        nu[i] = derez(value[i], path + '[' + i + ']');
-                    }
+                };
+                addEventListener("beforeunload", this._beforeunloadEventListener, false);
+            }
+            if (this.hostname !== "localhost") {
+                this._offlineEventListener = () => {
+                    this._onClose("transport close", {
+                        description: "network connection lost",
+                    });
+                };
+                OFFLINE_EVENT_LISTENERS.push(this._offlineEventListener);
+            }
+        }
+        if (this.opts.withCredentials) {
+            this._cookieJar = (0,_globals_node_js__WEBPACK_IMPORTED_MODULE_6__.createCookieJar)();
+        }
+        this._open();
+    }
+    /**
+     * Creates transport of the given type.
+     *
+     * @param {String} name - transport name
+     * @return {Transport}
+     * @private
+     */
+    createTransport(name) {
+        const query = Object.assign({}, this.opts.query);
+        // append engine.io protocol identifier
+        query.EIO = engine_io_parser__WEBPACK_IMPORTED_MODULE_5__.protocol;
+        // transport name
+        query.transport = name;
+        // session id if we already have one
+        if (this.id)
+            query.sid = this.id;
+        const opts = Object.assign({}, this.opts, {
+            query,
+            socket: this,
+            hostname: this.hostname,
+            secure: this.secure,
+            port: this.port,
+        }, this.opts.transportOptions[name]);
+        return new this._transportsByName[name](opts);
+    }
+    /**
+     * Initializes transport to use and starts probe.
+     *
+     * @private
+     */
+    _open() {
+        if (this.transports.length === 0) {
+            // Emit error on next tick so it can be listened to
+            this.setTimeoutFn(() => {
+                this.emitReserved("error", "No transports available");
+            }, 0);
+            return;
+        }
+        const transportName = this.opts.rememberUpgrade &&
+            Socket.priorWebsocketSuccess &&
+            this.transports.indexOf("websocket") !== -1
+            ? "websocket"
+            : this.transports[0];
+        this.readyState = "opening";
+        const transport = this.createTransport(transportName);
+        transport.open();
+        this.setTransport(transport);
+    }
+    /**
+     * Sets the current transport. Disables the existing one (if any).
+     *
+     * @private
+     */
+    setTransport(transport) {
+        if (this.transport) {
+            this.transport.removeAllListeners();
+        }
+        // set up transport
+        this.transport = transport;
+        // set up transport listeners
+        transport
+            .on("drain", this._onDrain.bind(this))
+            .on("packet", this._onPacket.bind(this))
+            .on("error", this._onError.bind(this))
+            .on("close", (reason) => this._onClose("transport close", reason));
+    }
+    /**
+     * Probes a transport.
+     *
+     * @param {String} name - transport name
+     * @private
+     */
+    _probe(name) {
+        let transport = this.createTransport(name);
+        let failed = false;
+        Socket.priorWebsocketSuccess = false;
+        const onTransportOpen = () => {
+            if (failed)
+                return;
+            transport.send([{ type: "ping", data: "probe" }]);
+            transport.once("packet", (msg) => {
+                if (failed)
+                    return;
+                if ("pong" === msg.type && "probe" === msg.data) {
+                    this.upgrading = true;
+                    this.emitReserved("upgrading", transport);
+                    if (!transport)
+                        return;
+                    Socket.priorWebsocketSuccess = "websocket" === transport.name;
+                    this.transport.pause(() => {
+                        if (failed)
+                            return;
+                        if ("closed" === this.readyState)
+                            return;
+                        cleanup();
+                        this.setTransport(transport);
+                        transport.send([{ type: "upgrade" }]);
+                        this.emitReserved("upgrade", transport);
+                        transport = null;
+                        this.upgrading = false;
+                        this.flush();
+                    });
                 }
                 else {
-                    nu = {};
-                    for (name in value) {
-                        if (Object.prototype.hasOwnProperty.call(value, name)) {
-                            nu[name] = derez(value[name], path + '[' + JSON.stringify(name) + ']');
+                    const err = new Error("probe error");
+                    // @ts-ignore
+                    err.transport = transport.name;
+                    this.emitReserved("upgradeError", err);
+                }
+            });
+        };
+        function freezeTransport() {
+            if (failed)
+                return;
+            // Any callback called by transport should be ignored since now
+            failed = true;
+            cleanup();
+            transport.close();
+            transport = null;
+        }
+        // Handle any error that happens while probing
+        const onerror = (err) => {
+            const error = new Error("probe error: " + err);
+            // @ts-ignore
+            error.transport = transport.name;
+            freezeTransport();
+            this.emitReserved("upgradeError", error);
+        };
+        function onTransportClose() {
+            onerror("transport closed");
+        }
+        // When the socket is closed while we're probing
+        function onclose() {
+            onerror("socket closed");
+        }
+        // When the socket is upgraded while we're probing
+        function onupgrade(to) {
+            if (transport && to.name !== transport.name) {
+                freezeTransport();
+            }
+        }
+        // Remove all listeners on the transport and on self
+        const cleanup = () => {
+            transport.removeListener("open", onTransportOpen);
+            transport.removeListener("error", onerror);
+            transport.removeListener("close", onTransportClose);
+            this.off("close", onclose);
+            this.off("upgrading", onupgrade);
+        };
+        transport.once("open", onTransportOpen);
+        transport.once("error", onerror);
+        transport.once("close", onTransportClose);
+        this.once("close", onclose);
+        this.once("upgrading", onupgrade);
+        if (this._upgrades.indexOf("webtransport") !== -1 &&
+            name !== "webtransport") {
+            // favor WebTransport
+            this.setTimeoutFn(() => {
+                if (!failed) {
+                    transport.open();
+                }
+            }, 200);
+        }
+        else {
+            transport.open();
+        }
+    }
+    /**
+     * Called when connection is deemed open.
+     *
+     * @private
+     */
+    onOpen() {
+        this.readyState = "open";
+        Socket.priorWebsocketSuccess = "websocket" === this.transport.name;
+        this.emitReserved("open");
+        this.flush();
+        if ("open" === this.readyState && this.opts.upgrade) {
+            for (let i = 0; i < this._upgrades.length; i++) {
+                this._probe(this._upgrades[i]);
+            }
+        }
+    }
+    /**
+     * Handles a packet.
+     *
+     * @private
+     */
+    _onPacket(packet) {
+        if ("opening" === this.readyState ||
+            "open" === this.readyState ||
+            "closing" === this.readyState) {
+            this.emitReserved("packet", packet);
+            // Socket is live - any packet counts
+            this.emitReserved("heartbeat");
+            switch (packet.type) {
+                case "open":
+                    this.onHandshake(JSON.parse(packet.data));
+                    break;
+                case "ping":
+                    this._sendPacket("pong");
+                    this.emitReserved("ping");
+                    this.emitReserved("pong");
+                    this._resetPingTimeout();
+                    break;
+                case "error":
+                    const err = new Error("server error");
+                    // @ts-ignore
+                    err.code = packet.data;
+                    this._onError(err);
+                    break;
+                case "message":
+                    this.emitReserved("data", packet.data);
+                    this.emitReserved("message", packet.data);
+                    break;
+            }
+        }
+        else {
+        }
+    }
+    /**
+     * Called upon handshake completion.
+     *
+     * @param {Object} data - handshake obj
+     * @private
+     */
+    onHandshake(data) {
+        this.emitReserved("handshake", data);
+        this.id = data.sid;
+        this.transport.query.sid = data.sid;
+        this._upgrades = this._filterUpgrades(data.upgrades);
+        this._pingInterval = data.pingInterval;
+        this._pingTimeout = data.pingTimeout;
+        this._maxPayload = data.maxPayload;
+        this.onOpen();
+        // In case open handler closes socket
+        if ("closed" === this.readyState)
+            return;
+        this._resetPingTimeout();
+    }
+    /**
+     * Sets and resets ping timeout timer based on server pings.
+     *
+     * @private
+     */
+    _resetPingTimeout() {
+        this.clearTimeoutFn(this._pingTimeoutTimer);
+        const delay = this._pingInterval + this._pingTimeout;
+        this._pingTimeoutTime = Date.now() + delay;
+        this._pingTimeoutTimer = this.setTimeoutFn(() => {
+            this._onClose("ping timeout");
+        }, delay);
+        if (this.opts.autoUnref) {
+            this._pingTimeoutTimer.unref();
+        }
+    }
+    /**
+     * Called on `drain` event
+     *
+     * @private
+     */
+    _onDrain() {
+        this.writeBuffer.splice(0, this._prevBufferLen);
+        // setting prevBufferLen = 0 is very important
+        // for example, when upgrading, upgrade packet is sent over,
+        // and a nonzero prevBufferLen could cause problems on `drain`
+        this._prevBufferLen = 0;
+        if (0 === this.writeBuffer.length) {
+            this.emitReserved("drain");
+        }
+        else {
+            this.flush();
+        }
+    }
+    /**
+     * Flush write buffers.
+     *
+     * @private
+     */
+    flush() {
+        if ("closed" !== this.readyState &&
+            this.transport.writable &&
+            !this.upgrading &&
+            this.writeBuffer.length) {
+            const packets = this._getWritablePackets();
+            this.transport.send(packets);
+            // keep track of current length of writeBuffer
+            // splice writeBuffer and callbackBuffer on `drain`
+            this._prevBufferLen = packets.length;
+            this.emitReserved("flush");
+        }
+    }
+    /**
+     * Ensure the encoded size of the writeBuffer is below the maxPayload value sent by the server (only for HTTP
+     * long-polling)
+     *
+     * @private
+     */
+    _getWritablePackets() {
+        const shouldCheckPayloadSize = this._maxPayload &&
+            this.transport.name === "polling" &&
+            this.writeBuffer.length > 1;
+        if (!shouldCheckPayloadSize) {
+            return this.writeBuffer;
+        }
+        let payloadSize = 1; // first packet type
+        for (let i = 0; i < this.writeBuffer.length; i++) {
+            const data = this.writeBuffer[i].data;
+            if (data) {
+                payloadSize += (0,_util_js__WEBPACK_IMPORTED_MODULE_1__.byteLength)(data);
+            }
+            if (i > 0 && payloadSize > this._maxPayload) {
+                return this.writeBuffer.slice(0, i);
+            }
+            payloadSize += 2; // separator + packet type
+        }
+        return this.writeBuffer;
+    }
+    /**
+     * Checks whether the heartbeat timer has expired but the socket has not yet been notified.
+     *
+     * Note: this method is private for now because it does not really fit the WebSocket API, but if we put it in the
+     * `write()` method then the message would not be buffered by the Socket.IO client.
+     *
+     * @return {boolean}
+     * @private
+     */
+    /* private */ _hasPingExpired() {
+        if (!this._pingTimeoutTime)
+            return true;
+        const hasExpired = Date.now() > this._pingTimeoutTime;
+        if (hasExpired) {
+            this._pingTimeoutTime = 0;
+            (0,_globals_node_js__WEBPACK_IMPORTED_MODULE_6__.nextTick)(() => {
+                this._onClose("ping timeout");
+            }, this.setTimeoutFn);
+        }
+        return hasExpired;
+    }
+    /**
+     * Sends a message.
+     *
+     * @param {String} msg - message.
+     * @param {Object} options.
+     * @param {Function} fn - callback function.
+     * @return {Socket} for chaining.
+     */
+    write(msg, options, fn) {
+        this._sendPacket("message", msg, options, fn);
+        return this;
+    }
+    /**
+     * Sends a message. Alias of {@link Socket#write}.
+     *
+     * @param {String} msg - message.
+     * @param {Object} options.
+     * @param {Function} fn - callback function.
+     * @return {Socket} for chaining.
+     */
+    send(msg, options, fn) {
+        this._sendPacket("message", msg, options, fn);
+        return this;
+    }
+    /**
+     * Sends a packet.
+     *
+     * @param {String} type - packet type.
+     * @param {String} data.
+     * @param {Object} options.
+     * @param {Function} fn - callback function.
+     * @private
+     */
+    _sendPacket(type, data, options, fn) {
+        if ("function" === typeof data) {
+            fn = data;
+            data = undefined;
+        }
+        if ("function" === typeof options) {
+            fn = options;
+            options = null;
+        }
+        if ("closing" === this.readyState || "closed" === this.readyState) {
+            return;
+        }
+        options = options || {};
+        options.compress = false !== options.compress;
+        const packet = {
+            type: type,
+            data: data,
+            options: options,
+        };
+        this.emitReserved("packetCreate", packet);
+        this.writeBuffer.push(packet);
+        if (fn)
+            this.once("flush", fn);
+        this.flush();
+    }
+    /**
+     * Closes the connection.
+     */
+    close() {
+        const close = () => {
+            this._onClose("forced close");
+            this.transport.close();
+        };
+        const cleanupAndClose = () => {
+            this.off("upgrade", cleanupAndClose);
+            this.off("upgradeError", cleanupAndClose);
+            close();
+        };
+        const waitForUpgrade = () => {
+            // wait for upgrade to finish since we can't send packets while pausing a transport
+            this.once("upgrade", cleanupAndClose);
+            this.once("upgradeError", cleanupAndClose);
+        };
+        if ("opening" === this.readyState || "open" === this.readyState) {
+            this.readyState = "closing";
+            if (this.writeBuffer.length) {
+                this.once("drain", () => {
+                    if (this.upgrading) {
+                        waitForUpgrade();
+                    }
+                    else {
+                        close();
+                    }
+                });
+            }
+            else if (this.upgrading) {
+                waitForUpgrade();
+            }
+            else {
+                close();
+            }
+        }
+        return this;
+    }
+    /**
+     * Called upon transport error
+     *
+     * @private
+     */
+    _onError(err) {
+        Socket.priorWebsocketSuccess = false;
+        if (this.opts.tryAllTransports &&
+            this.transports.length > 1 &&
+            this.readyState === "opening") {
+            this.transports.shift();
+            return this._open();
+        }
+        this.emitReserved("error", err);
+        this._onClose("transport error", err);
+    }
+    /**
+     * Called upon transport close.
+     *
+     * @private
+     */
+    _onClose(reason, description) {
+        if ("opening" === this.readyState ||
+            "open" === this.readyState ||
+            "closing" === this.readyState) {
+            // clear timers
+            this.clearTimeoutFn(this._pingTimeoutTimer);
+            // stop event from firing again for transport
+            this.transport.removeAllListeners("close");
+            // ensure transport won't stay open
+            this.transport.close();
+            // ignore further transport communication
+            this.transport.removeAllListeners();
+            if (withEventListeners) {
+                if (this._beforeunloadEventListener) {
+                    removeEventListener("beforeunload", this._beforeunloadEventListener, false);
+                }
+                if (this._offlineEventListener) {
+                    const i = OFFLINE_EVENT_LISTENERS.indexOf(this._offlineEventListener);
+                    if (i !== -1) {
+                        OFFLINE_EVENT_LISTENERS.splice(i, 1);
+                    }
+                }
+            }
+            // set ready state
+            this.readyState = "closed";
+            // clear session id
+            this.id = null;
+            // emit close event
+            this.emitReserved("close", reason, description);
+            // clean buffers after, so users can still
+            // grab the buffers on `close` event
+            this.writeBuffer = [];
+            this._prevBufferLen = 0;
+        }
+    }
+    /**
+     * Filters upgrades, returning only those matching client transports.
+     *
+     * @param {Array} upgrades - server upgrades
+     * @private
+     */
+    _filterUpgrades(upgrades) {
+        const filteredUpgrades = [];
+        for (let i = 0; i < upgrades.length; i++) {
+            if (~this.transports.indexOf(upgrades[i]))
+                filteredUpgrades.push(upgrades[i]);
+        }
+        return filteredUpgrades;
+    }
+}
+Socket.protocol = engine_io_parser__WEBPACK_IMPORTED_MODULE_5__.protocol;
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-client/build/esm/transport.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/transport.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Transport: () => (/* binding */ Transport),
+/* harmony export */   TransportError: () => (/* binding */ TransportError)
+/* harmony export */ });
+/* harmony import */ var engine_io_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! engine.io-parser */ "./node_modules/engine.io-parser/build/esm/index.js");
+/* harmony import */ var _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @socket.io/component-emitter */ "./node_modules/@socket.io/component-emitter/lib/esm/index.js");
+/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./util.js */ "./node_modules/engine.io-client/build/esm/util.js");
+/* harmony import */ var _contrib_parseqs_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./contrib/parseqs.js */ "./node_modules/engine.io-client/build/esm/contrib/parseqs.js");
+
+
+
+
+class TransportError extends Error {
+    constructor(reason, description, context) {
+        super(reason);
+        this.description = description;
+        this.context = context;
+        this.type = "TransportError";
+    }
+}
+class Transport extends _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_1__.Emitter {
+    /**
+     * Transport abstract constructor.
+     *
+     * @param {Object} opts - options
+     * @protected
+     */
+    constructor(opts) {
+        super();
+        this.writable = false;
+        (0,_util_js__WEBPACK_IMPORTED_MODULE_2__.installTimerFunctions)(this, opts);
+        this.opts = opts;
+        this.query = opts.query;
+        this.socket = opts.socket;
+        this.supportsBinary = !opts.forceBase64;
+    }
+    /**
+     * Emits an error.
+     *
+     * @param {String} reason
+     * @param description
+     * @param context - the error context
+     * @return {Transport} for chaining
+     * @protected
+     */
+    onError(reason, description, context) {
+        super.emitReserved("error", new TransportError(reason, description, context));
+        return this;
+    }
+    /**
+     * Opens the transport.
+     */
+    open() {
+        this.readyState = "opening";
+        this.doOpen();
+        return this;
+    }
+    /**
+     * Closes the transport.
+     */
+    close() {
+        if (this.readyState === "opening" || this.readyState === "open") {
+            this.doClose();
+            this.onClose();
+        }
+        return this;
+    }
+    /**
+     * Sends multiple packets.
+     *
+     * @param {Array} packets
+     */
+    send(packets) {
+        if (this.readyState === "open") {
+            this.write(packets);
+        }
+        else {
+            // this might happen if the transport was silently closed in the beforeunload event handler
+        }
+    }
+    /**
+     * Called upon open
+     *
+     * @protected
+     */
+    onOpen() {
+        this.readyState = "open";
+        this.writable = true;
+        super.emitReserved("open");
+    }
+    /**
+     * Called with data.
+     *
+     * @param {String} data
+     * @protected
+     */
+    onData(data) {
+        const packet = (0,engine_io_parser__WEBPACK_IMPORTED_MODULE_0__.decodePacket)(data, this.socket.binaryType);
+        this.onPacket(packet);
+    }
+    /**
+     * Called with a decoded packet.
+     *
+     * @protected
+     */
+    onPacket(packet) {
+        super.emitReserved("packet", packet);
+    }
+    /**
+     * Called upon close.
+     *
+     * @protected
+     */
+    onClose(details) {
+        this.readyState = "closed";
+        super.emitReserved("close", details);
+    }
+    /**
+     * Pauses the transport, in order not to lose packets during an upgrade.
+     *
+     * @param onPause
+     */
+    pause(onPause) { }
+    createUri(schema, query = {}) {
+        return (schema +
+            "://" +
+            this._hostname() +
+            this._port() +
+            this.opts.path +
+            this._query(query));
+    }
+    _hostname() {
+        const hostname = this.opts.hostname;
+        return hostname.indexOf(":") === -1 ? hostname : "[" + hostname + "]";
+    }
+    _port() {
+        if (this.opts.port &&
+            ((this.opts.secure && Number(this.opts.port) !== 443) ||
+                (!this.opts.secure && Number(this.opts.port) !== 80))) {
+            return ":" + this.opts.port;
+        }
+        else {
+            return "";
+        }
+    }
+    _query(query) {
+        const encodedQuery = (0,_contrib_parseqs_js__WEBPACK_IMPORTED_MODULE_3__.encode)(query);
+        return encodedQuery.length ? "?" + encodedQuery : "";
+    }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-client/build/esm/transports/index.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/transports/index.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   transports: () => (/* binding */ transports)
+/* harmony export */ });
+/* harmony import */ var _polling_xhr_node_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./polling-xhr.node.js */ "./node_modules/engine.io-client/build/esm/transports/polling-xhr.js");
+/* harmony import */ var _websocket_node_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./websocket.node.js */ "./node_modules/engine.io-client/build/esm/transports/websocket.js");
+/* harmony import */ var _webtransport_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./webtransport.js */ "./node_modules/engine.io-client/build/esm/transports/webtransport.js");
+
+
+
+const transports = {
+    websocket: _websocket_node_js__WEBPACK_IMPORTED_MODULE_1__.WS,
+    webtransport: _webtransport_js__WEBPACK_IMPORTED_MODULE_2__.WT,
+    polling: _polling_xhr_node_js__WEBPACK_IMPORTED_MODULE_0__.XHR,
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-client/build/esm/transports/polling-fetch.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/transports/polling-fetch.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Fetch: () => (/* binding */ Fetch)
+/* harmony export */ });
+/* harmony import */ var _polling_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./polling.js */ "./node_modules/engine.io-client/build/esm/transports/polling.js");
+
+/**
+ * HTTP long-polling based on the built-in `fetch()` method.
+ *
+ * Usage: browser, Node.js (since v18), Deno, Bun
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/fetch
+ * @see https://caniuse.com/fetch
+ * @see https://nodejs.org/api/globals.html#fetch
+ */
+class Fetch extends _polling_js__WEBPACK_IMPORTED_MODULE_0__.Polling {
+    doPoll() {
+        this._fetch()
+            .then((res) => {
+            if (!res.ok) {
+                return this.onError("fetch read error", res.status, res);
+            }
+            res.text().then((data) => this.onData(data));
+        })
+            .catch((err) => {
+            this.onError("fetch read error", err);
+        });
+    }
+    doWrite(data, callback) {
+        this._fetch(data)
+            .then((res) => {
+            if (!res.ok) {
+                return this.onError("fetch write error", res.status, res);
+            }
+            callback();
+        })
+            .catch((err) => {
+            this.onError("fetch write error", err);
+        });
+    }
+    _fetch(data) {
+        var _a;
+        const isPost = data !== undefined;
+        const headers = new Headers(this.opts.extraHeaders);
+        if (isPost) {
+            headers.set("content-type", "text/plain;charset=UTF-8");
+        }
+        (_a = this.socket._cookieJar) === null || _a === void 0 ? void 0 : _a.appendCookies(headers);
+        return fetch(this.uri(), {
+            method: isPost ? "POST" : "GET",
+            body: isPost ? data : null,
+            headers,
+            credentials: this.opts.withCredentials ? "include" : "omit",
+        }).then((res) => {
+            var _a;
+            // @ts-ignore getSetCookie() was added in Node.js v19.7.0
+            (_a = this.socket._cookieJar) === null || _a === void 0 ? void 0 : _a.parseCookies(res.headers.getSetCookie());
+            return res;
+        });
+    }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-client/build/esm/transports/polling-xhr.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/transports/polling-xhr.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   BaseXHR: () => (/* binding */ BaseXHR),
+/* harmony export */   Request: () => (/* binding */ Request),
+/* harmony export */   XHR: () => (/* binding */ XHR)
+/* harmony export */ });
+/* harmony import */ var _polling_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./polling.js */ "./node_modules/engine.io-client/build/esm/transports/polling.js");
+/* harmony import */ var _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @socket.io/component-emitter */ "./node_modules/@socket.io/component-emitter/lib/esm/index.js");
+/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util.js */ "./node_modules/engine.io-client/build/esm/util.js");
+/* harmony import */ var _globals_node_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../globals.node.js */ "./node_modules/engine.io-client/build/esm/globals.js");
+/* harmony import */ var _contrib_has_cors_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../contrib/has-cors.js */ "./node_modules/engine.io-client/build/esm/contrib/has-cors.js");
+
+
+
+
+
+function empty() { }
+class BaseXHR extends _polling_js__WEBPACK_IMPORTED_MODULE_0__.Polling {
+    /**
+     * XHR Polling constructor.
+     *
+     * @param {Object} opts
+     * @package
+     */
+    constructor(opts) {
+        super(opts);
+        if (typeof location !== "undefined") {
+            const isSSL = "https:" === location.protocol;
+            let port = location.port;
+            // some user agents have empty `location.port`
+            if (!port) {
+                port = isSSL ? "443" : "80";
+            }
+            this.xd =
+                (typeof location !== "undefined" &&
+                    opts.hostname !== location.hostname) ||
+                    port !== opts.port;
+        }
+    }
+    /**
+     * Sends data.
+     *
+     * @param {String} data - data to send.
+     * @param {Function} fn - called upon flush.
+     * @private
+     */
+    doWrite(data, fn) {
+        const req = this.request({
+            method: "POST",
+            data: data,
+        });
+        req.on("success", fn);
+        req.on("error", (xhrStatus, context) => {
+            this.onError("xhr post error", xhrStatus, context);
+        });
+    }
+    /**
+     * Starts a poll cycle.
+     *
+     * @private
+     */
+    doPoll() {
+        const req = this.request();
+        req.on("data", this.onData.bind(this));
+        req.on("error", (xhrStatus, context) => {
+            this.onError("xhr poll error", xhrStatus, context);
+        });
+        this.pollXhr = req;
+    }
+}
+class Request extends _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_1__.Emitter {
+    /**
+     * Request constructor
+     *
+     * @param {Object} options
+     * @package
+     */
+    constructor(createRequest, uri, opts) {
+        super();
+        this.createRequest = createRequest;
+        (0,_util_js__WEBPACK_IMPORTED_MODULE_2__.installTimerFunctions)(this, opts);
+        this._opts = opts;
+        this._method = opts.method || "GET";
+        this._uri = uri;
+        this._data = undefined !== opts.data ? opts.data : null;
+        this._create();
+    }
+    /**
+     * Creates the XHR object and sends the request.
+     *
+     * @private
+     */
+    _create() {
+        var _a;
+        const opts = (0,_util_js__WEBPACK_IMPORTED_MODULE_2__.pick)(this._opts, "agent", "pfx", "key", "passphrase", "cert", "ca", "ciphers", "rejectUnauthorized", "autoUnref");
+        opts.xdomain = !!this._opts.xd;
+        const xhr = (this._xhr = this.createRequest(opts));
+        try {
+            xhr.open(this._method, this._uri, true);
+            try {
+                if (this._opts.extraHeaders) {
+                    // @ts-ignore
+                    xhr.setDisableHeaderCheck && xhr.setDisableHeaderCheck(true);
+                    for (let i in this._opts.extraHeaders) {
+                        if (this._opts.extraHeaders.hasOwnProperty(i)) {
+                            xhr.setRequestHeader(i, this._opts.extraHeaders[i]);
                         }
                     }
                 }
-                return nu;
-            case 'number':
-            case 'string':
-            case 'boolean':
-                return value;
-        }
-    })(object, '$');
-}
-function safeJSONStringify(source) {
-    try {
-        return JSON.stringify(source);
-    }
-    catch (e) {
-        return JSON.stringify(decycleObject(source));
-    }
-}
-
-;// ./src/core/logger.ts
-
-
-class Logger {
-    constructor() {
-        this.globalLog = (message) => {
-            if (window.console && window.console.log) {
-                window.console.log(message);
             }
-        };
-    }
-    debug(...args) {
-        this.log(this.globalLog, args);
-    }
-    warn(...args) {
-        this.log(this.globalLogWarn, args);
-    }
-    error(...args) {
-        this.log(this.globalLogError, args);
-    }
-    globalLogWarn(message) {
-        if (window.console && window.console.warn) {
-            window.console.warn(message);
-        }
-        else {
-            this.globalLog(message);
-        }
-    }
-    globalLogError(message) {
-        if (window.console && window.console.error) {
-            window.console.error(message);
-        }
-        else {
-            this.globalLogWarn(message);
-        }
-    }
-    log(defaultLoggingFunction, ...args) {
-        var message = stringify.apply(this, arguments);
-        if (pusher.log) {
-            pusher.log(message);
-        }
-        else if (pusher.logToConsole) {
-            const log = defaultLoggingFunction.bind(this);
-            log(message);
-        }
-    }
-}
-/* harmony default export */ const logger = (new Logger());
-
-;// ./src/runtimes/web/auth/jsonp_auth.ts
-
-var jsonp = function (context, query, authOptions, authRequestType, callback) {
-    if (authOptions.headers !== undefined ||
-        authOptions.headersProvider != null) {
-        logger.warn(`To send headers with the ${authRequestType.toString()} request, you must use AJAX, rather than JSONP.`);
-    }
-    var callbackName = context.nextAuthCallbackID.toString();
-    context.nextAuthCallbackID++;
-    var document = context.getDocument();
-    var script = document.createElement('script');
-    context.auth_callbacks[callbackName] = function (data) {
-        callback(null, data);
-    };
-    var callback_name = "Pusher.auth_callbacks['" + callbackName + "']";
-    script.src =
-        authOptions.endpoint +
-            '?callback=' +
-            encodeURIComponent(callback_name) +
-            '&' +
-            query;
-    var head = document.getElementsByTagName('head')[0] || document.documentElement;
-    head.insertBefore(script, head.firstChild);
-};
-/* harmony default export */ const jsonp_auth = (jsonp);
-
-;// ./src/runtimes/web/dom/script_request.ts
-class ScriptRequest {
-    constructor(src) {
-        this.src = src;
-    }
-    send(receiver) {
-        var self = this;
-        var errorString = 'Error loading ' + self.src;
-        self.script = document.createElement('script');
-        self.script.id = receiver.id;
-        self.script.src = self.src;
-        self.script.type = 'text/javascript';
-        self.script.charset = 'UTF-8';
-        if (self.script.addEventListener) {
-            self.script.onerror = function () {
-                receiver.callback(errorString);
-            };
-            self.script.onload = function () {
-                receiver.callback(null);
-            };
-        }
-        else {
-            self.script.onreadystatechange = function () {
-                if (self.script.readyState === 'loaded' ||
-                    self.script.readyState === 'complete') {
-                    receiver.callback(null);
-                }
-            };
-        }
-        if (self.script.async === undefined &&
-            document.attachEvent &&
-            /opera/i.test(navigator.userAgent)) {
-            self.errorScript = document.createElement('script');
-            self.errorScript.id = receiver.id + '_error';
-            self.errorScript.text = receiver.name + "('" + errorString + "');";
-            self.script.async = self.errorScript.async = false;
-        }
-        else {
-            self.script.async = true;
-        }
-        var head = document.getElementsByTagName('head')[0];
-        head.insertBefore(self.script, head.firstChild);
-        if (self.errorScript) {
-            head.insertBefore(self.errorScript, self.script.nextSibling);
-        }
-    }
-    cleanup() {
-        if (this.script) {
-            this.script.onload = this.script.onerror = null;
-            this.script.onreadystatechange = null;
-        }
-        if (this.script && this.script.parentNode) {
-            this.script.parentNode.removeChild(this.script);
-        }
-        if (this.errorScript && this.errorScript.parentNode) {
-            this.errorScript.parentNode.removeChild(this.errorScript);
-        }
-        this.script = null;
-        this.errorScript = null;
-    }
-}
-
-;// ./src/runtimes/web/dom/jsonp_request.ts
-
-
-class JSONPRequest {
-    constructor(url, data) {
-        this.url = url;
-        this.data = data;
-    }
-    send(receiver) {
-        if (this.request) {
-            return;
-        }
-        var query = buildQueryString(this.data);
-        var url = this.url + '/' + receiver.number + '?' + query;
-        this.request = runtime.createScriptRequest(url);
-        this.request.send(receiver);
-    }
-    cleanup() {
-        if (this.request) {
-            this.request.cleanup();
-        }
-    }
-}
-
-;// ./src/runtimes/web/timeline/jsonp_timeline.ts
-
-
-var getAgent = function (sender, useTLS) {
-    return function (data, callback) {
-        var scheme = 'http' + (useTLS ? 's' : '') + '://';
-        var url = scheme + (sender.host || sender.options.host) + sender.options.path;
-        var request = runtime.createJSONPRequest(url, data);
-        var receiver = runtime.ScriptReceivers.create(function (error, result) {
-            ScriptReceivers.remove(receiver);
-            request.cleanup();
-            if (result && result.host) {
-                sender.host = result.host;
-            }
-            if (callback) {
-                callback(error, result);
-            }
-        });
-        request.send(receiver);
-    };
-};
-var jsonp_timeline_jsonp = {
-    name: 'jsonp',
-    getAgent,
-};
-/* harmony default export */ const jsonp_timeline = (jsonp_timeline_jsonp);
-
-;// ./src/core/transports/url_schemes.ts
-
-function getGenericURL(baseScheme, params, path) {
-    var scheme = baseScheme + (params.useTLS ? 's' : '');
-    var host = params.useTLS ? params.hostTLS : params.hostNonTLS;
-    return scheme + '://' + host + path;
-}
-function getGenericPath(key, queryString) {
-    var path = '/app/' + key;
-    var query = '?protocol=' +
-        defaults.PROTOCOL +
-        '&client=js' +
-        '&version=' +
-        defaults.VERSION +
-        (queryString ? '&' + queryString : '');
-    return path + query;
-}
-var ws = {
-    getInitial: function (key, params) {
-        var path = (params.httpPath || '') + getGenericPath(key, 'flash=false');
-        return getGenericURL('ws', params, path);
-    },
-};
-var http = {
-    getInitial: function (key, params) {
-        var path = (params.httpPath || '/pusher') + getGenericPath(key);
-        return getGenericURL('http', params, path);
-    },
-};
-var sockjs = {
-    getInitial: function (key, params) {
-        return getGenericURL('http', params, params.httpPath || '/pusher');
-    },
-    getPath: function (key, params) {
-        return getGenericPath(key);
-    },
-};
-
-;// ./src/core/events/callback_registry.ts
-
-class CallbackRegistry {
-    constructor() {
-        this._callbacks = {};
-    }
-    get(name) {
-        return this._callbacks[prefix(name)];
-    }
-    add(name, callback, context) {
-        var prefixedEventName = prefix(name);
-        this._callbacks[prefixedEventName] =
-            this._callbacks[prefixedEventName] || [];
-        this._callbacks[prefixedEventName].push({
-            fn: callback,
-            context: context,
-        });
-    }
-    remove(name, callback, context) {
-        if (!name && !callback && !context) {
-            this._callbacks = {};
-            return;
-        }
-        var names = name ? [prefix(name)] : keys(this._callbacks);
-        if (callback || context) {
-            this.removeCallback(names, callback, context);
-        }
-        else {
-            this.removeAllCallbacks(names);
-        }
-    }
-    removeCallback(names, callback, context) {
-        apply(names, function (name) {
-            this._callbacks[name] = filter(this._callbacks[name] || [], function (binding) {
-                return ((callback && callback !== binding.fn) ||
-                    (context && context !== binding.context));
-            });
-            if (this._callbacks[name].length === 0) {
-                delete this._callbacks[name];
-            }
-        }, this);
-    }
-    removeAllCallbacks(names) {
-        apply(names, function (name) {
-            delete this._callbacks[name];
-        }, this);
-    }
-}
-function prefix(name) {
-    return '_' + name;
-}
-
-;// ./src/core/events/dispatcher.ts
-
-
-class Dispatcher {
-    constructor(failThrough) {
-        this.callbacks = new CallbackRegistry();
-        this.global_callbacks = [];
-        this.failThrough = failThrough;
-    }
-    bind(eventName, callback, context) {
-        this.callbacks.add(eventName, callback, context);
-        return this;
-    }
-    bind_global(callback) {
-        this.global_callbacks.push(callback);
-        return this;
-    }
-    unbind(eventName, callback, context) {
-        this.callbacks.remove(eventName, callback, context);
-        return this;
-    }
-    unbind_global(callback) {
-        if (!callback) {
-            this.global_callbacks = [];
-            return this;
-        }
-        this.global_callbacks = filter(this.global_callbacks || [], (c) => c !== callback);
-        return this;
-    }
-    unbind_all() {
-        this.unbind();
-        this.unbind_global();
-        return this;
-    }
-    emit(eventName, data, metadata) {
-        for (var i = 0; i < this.global_callbacks.length; i++) {
-            this.global_callbacks[i](eventName, data);
-        }
-        var callbacks = this.callbacks.get(eventName);
-        var args = [];
-        if (metadata) {
-            args.push(data, metadata);
-        }
-        else if (data) {
-            args.push(data);
-        }
-        if (callbacks && callbacks.length > 0) {
-            for (var i = 0; i < callbacks.length; i++) {
-                callbacks[i].fn.apply(callbacks[i].context || window, args);
-            }
-        }
-        else if (this.failThrough) {
-            this.failThrough(eventName, data);
-        }
-        return this;
-    }
-}
-
-;// ./src/core/transports/transport_connection.ts
-
-
-
-
-
-class TransportConnection extends Dispatcher {
-    constructor(hooks, name, priority, key, options) {
-        super();
-        this.initialize = runtime.transportConnectionInitializer;
-        this.hooks = hooks;
-        this.name = name;
-        this.priority = priority;
-        this.key = key;
-        this.options = options;
-        this.state = 'new';
-        this.timeline = options.timeline;
-        this.activityTimeout = options.activityTimeout;
-        this.id = this.timeline.generateUniqueID();
-    }
-    handlesActivityChecks() {
-        return Boolean(this.hooks.handlesActivityChecks);
-    }
-    supportsPing() {
-        return Boolean(this.hooks.supportsPing);
-    }
-    connect() {
-        if (this.socket || this.state !== 'initialized') {
-            return false;
-        }
-        var url = this.hooks.urls.getInitial(this.key, this.options);
-        try {
-            this.socket = this.hooks.getSocket(url, this.options);
-        }
-        catch (e) {
-            util.defer(() => {
-                this.onError(e);
-                this.changeState('closed');
-            });
-            return false;
-        }
-        this.bindListeners();
-        logger.debug('Connecting', { transport: this.name, url });
-        this.changeState('connecting');
-        return true;
-    }
-    close() {
-        if (this.socket) {
-            this.socket.close();
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-    send(data) {
-        if (this.state === 'open') {
-            util.defer(() => {
-                if (this.socket) {
-                    this.socket.send(data);
-                }
-            });
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-    ping() {
-        if (this.state === 'open' && this.supportsPing()) {
-            this.socket.ping();
-        }
-    }
-    onOpen() {
-        if (this.hooks.beforeOpen) {
-            this.hooks.beforeOpen(this.socket, this.hooks.urls.getPath(this.key, this.options));
-        }
-        this.changeState('open');
-        this.socket.onopen = undefined;
-    }
-    onError(error) {
-        this.emit('error', { type: 'WebSocketError', error: error });
-        this.timeline.error(this.buildTimelineMessage({ error: error.toString() }));
-    }
-    onClose(closeEvent) {
-        if (closeEvent) {
-            this.changeState('closed', {
-                code: closeEvent.code,
-                reason: closeEvent.reason,
-                wasClean: closeEvent.wasClean,
-            });
-        }
-        else {
-            this.changeState('closed');
-        }
-        this.unbindListeners();
-        this.socket = undefined;
-    }
-    onMessage(message) {
-        this.emit('message', message);
-    }
-    onActivity() {
-        this.emit('activity');
-    }
-    bindListeners() {
-        this.socket.onopen = () => {
-            this.onOpen();
-        };
-        this.socket.onerror = (error) => {
-            this.onError(error);
-        };
-        this.socket.onclose = (closeEvent) => {
-            this.onClose(closeEvent);
-        };
-        this.socket.onmessage = (message) => {
-            this.onMessage(message);
-        };
-        if (this.supportsPing()) {
-            this.socket.onactivity = () => {
-                this.onActivity();
-            };
-        }
-    }
-    unbindListeners() {
-        if (this.socket) {
-            this.socket.onopen = undefined;
-            this.socket.onerror = undefined;
-            this.socket.onclose = undefined;
-            this.socket.onmessage = undefined;
-            if (this.supportsPing()) {
-                this.socket.onactivity = undefined;
-            }
-        }
-    }
-    changeState(state, params) {
-        this.state = state;
-        this.timeline.info(this.buildTimelineMessage({
-            state: state,
-            params: params,
-        }));
-        this.emit(state, params);
-    }
-    buildTimelineMessage(message) {
-        return extend({ cid: this.id }, message);
-    }
-}
-
-;// ./src/core/transports/transport.ts
-
-class Transport {
-    constructor(hooks) {
-        this.hooks = hooks;
-    }
-    isSupported(environment) {
-        return this.hooks.isSupported(environment);
-    }
-    createConnection(name, priority, key, options) {
-        return new TransportConnection(this.hooks, name, priority, key, options);
-    }
-}
-
-;// ./src/runtimes/isomorphic/transports/transports.ts
-
-
-
-
-var WSTransport = new Transport({
-    urls: ws,
-    handlesActivityChecks: false,
-    supportsPing: false,
-    isInitialized: function () {
-        return Boolean(runtime.getWebSocketAPI());
-    },
-    isSupported: function () {
-        return Boolean(runtime.getWebSocketAPI());
-    },
-    getSocket: function (url) {
-        return runtime.createWebSocket(url);
-    },
-});
-var httpConfiguration = {
-    urls: http,
-    handlesActivityChecks: false,
-    supportsPing: true,
-    isInitialized: function () {
-        return true;
-    },
-};
-var streamingConfiguration = extend({
-    getSocket: function (url) {
-        return runtime.HTTPFactory.createStreamingSocket(url);
-    },
-}, httpConfiguration);
-var pollingConfiguration = extend({
-    getSocket: function (url) {
-        return runtime.HTTPFactory.createPollingSocket(url);
-    },
-}, httpConfiguration);
-var xhrConfiguration = {
-    isSupported: function () {
-        return runtime.isXHRSupported();
-    },
-};
-var XHRStreamingTransport = new Transport((extend({}, streamingConfiguration, xhrConfiguration)));
-var XHRPollingTransport = new Transport((extend({}, pollingConfiguration, xhrConfiguration)));
-var Transports = {
-    ws: WSTransport,
-    xhr_streaming: XHRStreamingTransport,
-    xhr_polling: XHRPollingTransport,
-};
-/* harmony default export */ const transports = (Transports);
-
-;// ./src/runtimes/web/transports/transports.ts
-
-
-
-
-
-
-var SockJSTransport = new Transport({
-    file: 'sockjs',
-    urls: sockjs,
-    handlesActivityChecks: true,
-    supportsPing: false,
-    isSupported: function () {
-        return true;
-    },
-    isInitialized: function () {
-        return window.SockJS !== undefined;
-    },
-    getSocket: function (url, options) {
-        return new window.SockJS(url, null, {
-            js_path: Dependencies.getPath('sockjs', {
-                useTLS: options.useTLS,
-            }),
-            ignore_null_origin: options.ignoreNullOrigin,
-        });
-    },
-    beforeOpen: function (socket, path) {
-        socket.send(JSON.stringify({
-            path: path,
-        }));
-    },
-});
-var xdrConfiguration = {
-    isSupported: function (environment) {
-        var yes = runtime.isXDRSupported(environment.useTLS);
-        return yes;
-    },
-};
-var XDRStreamingTransport = new Transport((extend({}, streamingConfiguration, xdrConfiguration)));
-var XDRPollingTransport = new Transport((extend({}, pollingConfiguration, xdrConfiguration)));
-transports.xdr_streaming = XDRStreamingTransport;
-transports.xdr_polling = XDRPollingTransport;
-transports.sockjs = SockJSTransport;
-/* harmony default export */ const transports_transports = (transports);
-
-;// ./src/runtimes/web/net_info.ts
-
-class NetInfo extends Dispatcher {
-    constructor() {
-        super();
-        var self = this;
-        if (typeof window !== 'undefined' &&
-            window.addEventListener !== undefined) {
-            window.addEventListener('online', function () {
-                self.emit('online');
-            }, false);
-            window.addEventListener('offline', function () {
-                self.emit('offline');
-            }, false);
-        }
-    }
-    isOnline() {
-        if (window.navigator.onLine === undefined) {
-            return true;
-        }
-        else {
-            return window.navigator.onLine;
-        }
-    }
-}
-var Network = new NetInfo();
-
-;// ./src/core/transports/assistant_to_the_transport_manager.ts
-
-
-class AssistantToTheTransportManager {
-    constructor(manager, transport, options) {
-        this.manager = manager;
-        this.transport = transport;
-        this.minPingDelay = options.minPingDelay;
-        this.maxPingDelay = options.maxPingDelay;
-        this.pingDelay = undefined;
-    }
-    createConnection(name, priority, key, options) {
-        options = extend({}, options, {
-            activityTimeout: this.pingDelay,
-        });
-        var connection = this.transport.createConnection(name, priority, key, options);
-        var openTimestamp = null;
-        var onOpen = function () {
-            connection.unbind('open', onOpen);
-            connection.bind('closed', onClosed);
-            openTimestamp = util.now();
-        };
-        var onClosed = (closeEvent) => {
-            connection.unbind('closed', onClosed);
-            if (closeEvent.code === 1002 || closeEvent.code === 1003) {
-                this.manager.reportDeath();
-            }
-            else if (!closeEvent.wasClean && openTimestamp) {
-                var lifespan = util.now() - openTimestamp;
-                if (lifespan < 2 * this.maxPingDelay) {
-                    this.manager.reportDeath();
-                    this.pingDelay = Math.max(lifespan / 2, this.minPingDelay);
-                }
-            }
-        };
-        connection.bind('open', onOpen);
-        return connection;
-    }
-    isSupported(environment) {
-        return this.manager.isAlive() && this.transport.isSupported(environment);
-    }
-}
-
-;// ./src/core/connection/protocol/protocol.ts
-const Protocol = {
-    decodeMessage: function (messageEvent) {
-        try {
-            var messageData = JSON.parse(messageEvent.data);
-            var pusherEventData = messageData.data;
-            if (typeof pusherEventData === 'string') {
+            catch (e) { }
+            if ("POST" === this._method) {
                 try {
-                    pusherEventData = JSON.parse(messageData.data);
+                    xhr.setRequestHeader("Content-type", "text/plain;charset=UTF-8");
                 }
                 catch (e) { }
             }
-            var pusherEvent = {
-                event: messageData.event,
-                channel: messageData.channel,
-                data: pusherEventData,
-            };
-            if (messageData.user_id) {
-                pusherEvent.user_id = messageData.user_id;
-            }
-            return pusherEvent;
-        }
-        catch (e) {
-            throw { type: 'MessageParseError', error: e, data: messageEvent.data };
-        }
-    },
-    encodeMessage: function (event) {
-        return JSON.stringify(event);
-    },
-    processHandshake: function (messageEvent) {
-        var message = Protocol.decodeMessage(messageEvent);
-        if (message.event === 'pusher:connection_established') {
-            if (!message.data.activity_timeout) {
-                throw 'No activity timeout specified in handshake';
-            }
-            return {
-                action: 'connected',
-                id: message.data.socket_id,
-                activityTimeout: message.data.activity_timeout * 1000,
-            };
-        }
-        else if (message.event === 'pusher:error') {
-            return {
-                action: this.getCloseAction(message.data),
-                error: this.getCloseError(message.data),
-            };
-        }
-        else {
-            throw 'Invalid handshake';
-        }
-    },
-    getCloseAction: function (closeEvent) {
-        if (closeEvent.code < 4000) {
-            if (closeEvent.code >= 1002 && closeEvent.code <= 1004) {
-                return 'backoff';
-            }
-            else {
-                return null;
-            }
-        }
-        else if (closeEvent.code === 4000) {
-            return 'tls_only';
-        }
-        else if (closeEvent.code < 4100) {
-            return 'refused';
-        }
-        else if (closeEvent.code < 4200) {
-            return 'backoff';
-        }
-        else if (closeEvent.code < 4300) {
-            return 'retry';
-        }
-        else {
-            return 'refused';
-        }
-    },
-    getCloseError: function (closeEvent) {
-        if (closeEvent.code !== 1000 && closeEvent.code !== 1001) {
-            return {
-                type: 'PusherError',
-                data: {
-                    code: closeEvent.code,
-                    message: closeEvent.reason || closeEvent.message,
-                },
-            };
-        }
-        else {
-            return null;
-        }
-    },
-};
-/* harmony default export */ const protocol = (Protocol);
-
-;// ./src/core/connection/connection.ts
-
-
-
-
-class Connection extends Dispatcher {
-    constructor(id, transport) {
-        super();
-        this.id = id;
-        this.transport = transport;
-        this.activityTimeout = transport.activityTimeout;
-        this.bindListeners();
-    }
-    handlesActivityChecks() {
-        return this.transport.handlesActivityChecks();
-    }
-    send(data) {
-        return this.transport.send(data);
-    }
-    send_event(name, data, channel) {
-        var event = { event: name, data: data };
-        if (channel) {
-            event.channel = channel;
-        }
-        logger.debug('Event sent', event);
-        return this.send(protocol.encodeMessage(event));
-    }
-    ping() {
-        if (this.transport.supportsPing()) {
-            this.transport.ping();
-        }
-        else {
-            this.send_event('pusher:ping', {});
-        }
-    }
-    close() {
-        this.transport.close();
-    }
-    bindListeners() {
-        var listeners = {
-            message: (messageEvent) => {
-                var pusherEvent;
-                try {
-                    pusherEvent = protocol.decodeMessage(messageEvent);
-                }
-                catch (e) {
-                    this.emit('error', {
-                        type: 'MessageParseError',
-                        error: e,
-                        data: messageEvent.data,
-                    });
-                }
-                if (pusherEvent !== undefined) {
-                    logger.debug('Event recd', pusherEvent);
-                    switch (pusherEvent.event) {
-                        case 'pusher:error':
-                            this.emit('error', {
-                                type: 'PusherError',
-                                data: pusherEvent.data,
-                            });
-                            break;
-                        case 'pusher:ping':
-                            this.emit('ping');
-                            break;
-                        case 'pusher:pong':
-                            this.emit('pong');
-                            break;
-                    }
-                    this.emit('message', pusherEvent);
-                }
-            },
-            activity: () => {
-                this.emit('activity');
-            },
-            error: (error) => {
-                this.emit('error', error);
-            },
-            closed: (closeEvent) => {
-                unbindListeners();
-                if (closeEvent && closeEvent.code) {
-                    this.handleCloseEvent(closeEvent);
-                }
-                this.transport = null;
-                this.emit('closed');
-            },
-        };
-        var unbindListeners = () => {
-            objectApply(listeners, (listener, event) => {
-                this.transport.unbind(event, listener);
-            });
-        };
-        objectApply(listeners, (listener, event) => {
-            this.transport.bind(event, listener);
-        });
-    }
-    handleCloseEvent(closeEvent) {
-        var action = protocol.getCloseAction(closeEvent);
-        var error = protocol.getCloseError(closeEvent);
-        if (error) {
-            this.emit('error', error);
-        }
-        if (action) {
-            this.emit(action, { action: action, error: error });
-        }
-    }
-}
-
-;// ./src/core/connection/handshake/index.ts
-
-
-
-class Handshake {
-    constructor(transport, callback) {
-        this.transport = transport;
-        this.callback = callback;
-        this.bindListeners();
-    }
-    close() {
-        this.unbindListeners();
-        this.transport.close();
-    }
-    bindListeners() {
-        this.onMessage = (m) => {
-            this.unbindListeners();
-            var result;
             try {
-                result = protocol.processHandshake(m);
+                xhr.setRequestHeader("Accept", "*/*");
             }
-            catch (e) {
-                this.finish('error', { error: e });
-                this.transport.close();
-                return;
+            catch (e) { }
+            (_a = this._opts.cookieJar) === null || _a === void 0 ? void 0 : _a.addCookies(xhr);
+            // ie6 check
+            if ("withCredentials" in xhr) {
+                xhr.withCredentials = this._opts.withCredentials;
             }
-            if (result.action === 'connected') {
-                this.finish('connected', {
-                    connection: new Connection(result.id, this.transport),
-                    activityTimeout: result.activityTimeout,
-                });
+            if (this._opts.requestTimeout) {
+                xhr.timeout = this._opts.requestTimeout;
             }
-            else {
-                this.finish(result.action, { error: result.error });
-                this.transport.close();
-            }
-        };
-        this.onClosed = (closeEvent) => {
-            this.unbindListeners();
-            var action = protocol.getCloseAction(closeEvent) || 'backoff';
-            var error = protocol.getCloseError(closeEvent);
-            this.finish(action, { error: error });
-        };
-        this.transport.bind('message', this.onMessage);
-        this.transport.bind('closed', this.onClosed);
-    }
-    unbindListeners() {
-        this.transport.unbind('message', this.onMessage);
-        this.transport.unbind('closed', this.onClosed);
-    }
-    finish(action, params) {
-        this.callback(extend({ transport: this.transport, action: action }, params));
-    }
-}
-
-;// ./src/core/timeline/timeline_sender.ts
-
-class TimelineSender {
-    constructor(timeline, options) {
-        this.timeline = timeline;
-        this.options = options || {};
-    }
-    send(useTLS, callback) {
-        if (this.timeline.isEmpty()) {
-            return;
-        }
-        this.timeline.send(runtime.TimelineTransport.getAgent(this, useTLS), callback);
-    }
-}
-
-;// ./src/core/channels/channel.ts
-
-
-
-
-
-class Channel extends Dispatcher {
-    constructor(name, pusher) {
-        super(function (event, data) {
-            logger.debug('No callbacks on ' + name + ' for ' + event);
-        });
-        this.name = name;
-        this.pusher = pusher;
-        this.subscribed = false;
-        this.subscriptionPending = false;
-        this.subscriptionCancelled = false;
-    }
-    authorize(socketId, callback) {
-        return callback(null, { auth: '' });
-    }
-    trigger(event, data) {
-        if (event.indexOf('client-') !== 0) {
-            throw new BadEventName("Event '" + event + "' does not start with 'client-'");
-        }
-        if (!this.subscribed) {
-            var suffix = url_store.buildLogSuffix('triggeringClientEvents');
-            logger.warn(`Client event triggered before channel 'subscription_succeeded' event . ${suffix}`);
-        }
-        return this.pusher.send_event(event, data, this.name);
-    }
-    disconnect() {
-        this.subscribed = false;
-        this.subscriptionPending = false;
-    }
-    handleEvent(event) {
-        var eventName = event.event;
-        var data = event.data;
-        if (eventName === 'pusher_internal:subscription_succeeded') {
-            this.handleSubscriptionSucceededEvent(event);
-        }
-        else if (eventName === 'pusher_internal:subscription_count') {
-            this.handleSubscriptionCountEvent(event);
-        }
-        else if (eventName.indexOf('pusher_internal:') !== 0) {
-            var metadata = {};
-            this.emit(eventName, data, metadata);
-        }
-    }
-    handleSubscriptionSucceededEvent(event) {
-        this.subscriptionPending = false;
-        this.subscribed = true;
-        if (this.subscriptionCancelled) {
-            this.pusher.unsubscribe(this.name);
-        }
-        else {
-            this.emit('pusher:subscription_succeeded', event.data);
-        }
-    }
-    handleSubscriptionCountEvent(event) {
-        if (event.data.subscription_count) {
-            this.subscriptionCount = event.data.subscription_count;
-        }
-        this.emit('pusher:subscription_count', event.data);
-    }
-    subscribe() {
-        if (this.subscribed) {
-            return;
-        }
-        this.subscriptionPending = true;
-        this.subscriptionCancelled = false;
-        this.authorize(this.pusher.connection.socket_id, (error, data) => {
-            if (error) {
-                this.subscriptionPending = false;
-                logger.error(error.toString());
-                this.emit('pusher:subscription_error', Object.assign({}, {
-                    type: 'AuthError',
-                    error: error.message,
-                }, error instanceof HTTPAuthError ? { status: error.status } : {}));
-            }
-            else {
-                this.pusher.send_event('pusher:subscribe', {
-                    auth: data.auth,
-                    channel_data: data.channel_data,
-                    channel: this.name,
-                });
-            }
-        });
-    }
-    unsubscribe() {
-        this.subscribed = false;
-        this.pusher.send_event('pusher:unsubscribe', {
-            channel: this.name,
-        });
-    }
-    cancelSubscription() {
-        this.subscriptionCancelled = true;
-    }
-    reinstateSubscription() {
-        this.subscriptionCancelled = false;
-    }
-}
-
-;// ./src/core/channels/private_channel.ts
-
-class PrivateChannel extends Channel {
-    authorize(socketId, callback) {
-        return this.pusher.config.channelAuthorizer({
-            channelName: this.name,
-            socketId: socketId,
-        }, callback);
-    }
-}
-
-;// ./src/core/channels/members.ts
-
-class Members {
-    constructor() {
-        this.reset();
-    }
-    get(id) {
-        if (Object.prototype.hasOwnProperty.call(this.members, id)) {
-            return {
-                id: id,
-                info: this.members[id],
-            };
-        }
-        else {
-            return null;
-        }
-    }
-    each(callback) {
-        objectApply(this.members, (member, id) => {
-            callback(this.get(id));
-        });
-    }
-    setMyID(id) {
-        this.myID = id;
-    }
-    onSubscription(subscriptionData) {
-        this.members = subscriptionData.presence.hash;
-        this.count = subscriptionData.presence.count;
-        this.me = this.get(this.myID);
-    }
-    addMember(memberData) {
-        if (this.get(memberData.user_id) === null) {
-            this.count++;
-        }
-        this.members[memberData.user_id] = memberData.user_info;
-        return this.get(memberData.user_id);
-    }
-    removeMember(memberData) {
-        var member = this.get(memberData.user_id);
-        if (member) {
-            delete this.members[memberData.user_id];
-            this.count--;
-        }
-        return member;
-    }
-    reset() {
-        this.members = {};
-        this.count = 0;
-        this.myID = null;
-        this.me = null;
-    }
-}
-
-;// ./src/core/channels/presence_channel.ts
-var __awaiter = ( false) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-
-
-class PresenceChannel extends PrivateChannel {
-    constructor(name, pusher) {
-        super(name, pusher);
-        this.members = new Members();
-    }
-    authorize(socketId, callback) {
-        super.authorize(socketId, (error, authData) => __awaiter(this, void 0, void 0, function* () {
-            if (!error) {
-                authData = authData;
-                if (authData.channel_data != null) {
-                    var channelData = JSON.parse(authData.channel_data);
-                    this.members.setMyID(channelData.user_id);
+            xhr.onreadystatechange = () => {
+                var _a;
+                if (xhr.readyState === 3) {
+                    (_a = this._opts.cookieJar) === null || _a === void 0 ? void 0 : _a.parseCookies(
+                    // @ts-ignore
+                    xhr.getResponseHeader("set-cookie"));
                 }
-                else {
-                    yield this.pusher.user.signinDonePromise;
-                    if (this.pusher.user.user_data != null) {
-                        this.members.setMyID(this.pusher.user.user_data.id);
-                    }
-                    else {
-                        let suffix = url_store.buildLogSuffix('authorizationEndpoint');
-                        logger.error(`Invalid auth response for channel '${this.name}', ` +
-                            `expected 'channel_data' field. ${suffix}, ` +
-                            `or the user should be signed in.`);
-                        callback('Invalid auth response');
-                        return;
-                    }
-                }
-            }
-            callback(error, authData);
-        }));
-    }
-    handleEvent(event) {
-        var eventName = event.event;
-        if (eventName.indexOf('pusher_internal:') === 0) {
-            this.handleInternalEvent(event);
-        }
-        else {
-            var data = event.data;
-            var metadata = {};
-            if (event.user_id) {
-                metadata.user_id = event.user_id;
-            }
-            this.emit(eventName, data, metadata);
-        }
-    }
-    handleInternalEvent(event) {
-        var eventName = event.event;
-        var data = event.data;
-        switch (eventName) {
-            case 'pusher_internal:subscription_succeeded':
-                this.handleSubscriptionSucceededEvent(event);
-                break;
-            case 'pusher_internal:subscription_count':
-                this.handleSubscriptionCountEvent(event);
-                break;
-            case 'pusher_internal:member_added':
-                var addedMember = this.members.addMember(data);
-                this.emit('pusher:member_added', addedMember);
-                break;
-            case 'pusher_internal:member_removed':
-                var removedMember = this.members.removeMember(data);
-                if (removedMember) {
-                    this.emit('pusher:member_removed', removedMember);
-                }
-                break;
-        }
-    }
-    handleSubscriptionSucceededEvent(event) {
-        this.subscriptionPending = false;
-        this.subscribed = true;
-        if (this.subscriptionCancelled) {
-            this.pusher.unsubscribe(this.name);
-        }
-        else {
-            this.members.onSubscription(event.data);
-            this.emit('pusher:subscription_succeeded', this.members);
-        }
-    }
-    disconnect() {
-        this.members.reset();
-        super.disconnect();
-    }
-}
-
-// EXTERNAL MODULE: ./node_modules/@stablelib/utf8/lib/utf8.js
-var utf8 = __nested_webpack_require_16590__(978);
-// EXTERNAL MODULE: ./node_modules/@stablelib/base64/lib/base64.js
-var base64 = __nested_webpack_require_16590__(594);
-;// ./src/core/channels/encrypted_channel.ts
-
-
-
-
-
-class EncryptedChannel extends PrivateChannel {
-    constructor(name, pusher, nacl) {
-        super(name, pusher);
-        this.key = null;
-        this.nacl = nacl;
-    }
-    authorize(socketId, callback) {
-        super.authorize(socketId, (error, authData) => {
-            if (error) {
-                callback(error, authData);
-                return;
-            }
-            let sharedSecret = authData['shared_secret'];
-            if (!sharedSecret) {
-                callback(new Error(`No shared_secret key in auth payload for encrypted channel: ${this.name}`), null);
-                return;
-            }
-            this.key = (0,base64.decode)(sharedSecret);
-            delete authData['shared_secret'];
-            callback(null, authData);
-        });
-    }
-    trigger(event, data) {
-        throw new UnsupportedFeature('Client events are not currently supported for encrypted channels');
-    }
-    handleEvent(event) {
-        var eventName = event.event;
-        var data = event.data;
-        if (eventName.indexOf('pusher_internal:') === 0 ||
-            eventName.indexOf('pusher:') === 0) {
-            super.handleEvent(event);
-            return;
-        }
-        this.handleEncryptedEvent(eventName, data);
-    }
-    handleEncryptedEvent(event, data) {
-        if (!this.key) {
-            logger.debug('Received encrypted event before key has been retrieved from the authEndpoint');
-            return;
-        }
-        if (!data.ciphertext || !data.nonce) {
-            logger.error('Unexpected format for encrypted event, expected object with `ciphertext` and `nonce` fields, got: ' +
-                data);
-            return;
-        }
-        let cipherText = (0,base64.decode)(data.ciphertext);
-        if (cipherText.length < this.nacl.secretbox.overheadLength) {
-            logger.error(`Expected encrypted event ciphertext length to be ${this.nacl.secretbox.overheadLength}, got: ${cipherText.length}`);
-            return;
-        }
-        let nonce = (0,base64.decode)(data.nonce);
-        if (nonce.length < this.nacl.secretbox.nonceLength) {
-            logger.error(`Expected encrypted event nonce length to be ${this.nacl.secretbox.nonceLength}, got: ${nonce.length}`);
-            return;
-        }
-        let bytes = this.nacl.secretbox.open(cipherText, nonce, this.key);
-        if (bytes === null) {
-            logger.debug('Failed to decrypt an event, probably because it was encrypted with a different key. Fetching a new key from the authEndpoint...');
-            this.authorize(this.pusher.connection.socket_id, (error, authData) => {
-                if (error) {
-                    logger.error(`Failed to make a request to the authEndpoint: ${authData}. Unable to fetch new key, so dropping encrypted event`);
+                if (4 !== xhr.readyState)
                     return;
-                }
-                bytes = this.nacl.secretbox.open(cipherText, nonce, this.key);
-                if (bytes === null) {
-                    logger.error(`Failed to decrypt event with new key. Dropping encrypted event`);
-                    return;
-                }
-                this.emit(event, this.getDataToEmit(bytes));
-                return;
-            });
-            return;
-        }
-        this.emit(event, this.getDataToEmit(bytes));
-    }
-    getDataToEmit(bytes) {
-        let raw = (0,utf8/* decode */.D4)(bytes);
-        try {
-            return JSON.parse(raw);
-        }
-        catch (_a) {
-            return raw;
-        }
-    }
-}
-
-;// ./src/core/connection/connection_manager.ts
-
-
-
-
-
-class ConnectionManager extends Dispatcher {
-    constructor(key, options) {
-        super();
-        this.state = 'initialized';
-        this.connection = null;
-        this.key = key;
-        this.options = options;
-        this.timeline = this.options.timeline;
-        this.usingTLS = this.options.useTLS;
-        this.errorCallbacks = this.buildErrorCallbacks();
-        this.connectionCallbacks = this.buildConnectionCallbacks(this.errorCallbacks);
-        this.handshakeCallbacks = this.buildHandshakeCallbacks(this.errorCallbacks);
-        var Network = runtime.getNetwork();
-        Network.bind('online', () => {
-            this.timeline.info({ netinfo: 'online' });
-            if (this.state === 'connecting' || this.state === 'unavailable') {
-                this.retryIn(0);
-            }
-        });
-        Network.bind('offline', () => {
-            this.timeline.info({ netinfo: 'offline' });
-            if (this.connection) {
-                this.sendActivityCheck();
-            }
-        });
-        this.updateStrategy();
-    }
-    switchCluster(key) {
-        this.key = key;
-        this.updateStrategy();
-        this.retryIn(0);
-    }
-    connect() {
-        if (this.connection || this.runner) {
-            return;
-        }
-        if (!this.strategy.isSupported()) {
-            this.updateState('failed');
-            return;
-        }
-        this.updateState('connecting');
-        this.startConnecting();
-        this.setUnavailableTimer();
-    }
-    send(data) {
-        if (this.connection) {
-            return this.connection.send(data);
-        }
-        else {
-            return false;
-        }
-    }
-    send_event(name, data, channel) {
-        if (this.connection) {
-            return this.connection.send_event(name, data, channel);
-        }
-        else {
-            return false;
-        }
-    }
-    disconnect() {
-        this.disconnectInternally();
-        this.updateState('disconnected');
-    }
-    isUsingTLS() {
-        return this.usingTLS;
-    }
-    startConnecting() {
-        var callback = (error, handshake) => {
-            if (error) {
-                this.runner = this.strategy.connect(0, callback);
-            }
-            else {
-                if (handshake.action === 'error') {
-                    this.emit('error', {
-                        type: 'HandshakeError',
-                        error: handshake.error,
-                    });
-                    this.timeline.error({ handshakeError: handshake.error });
+                if (200 === xhr.status || 1223 === xhr.status) {
+                    this._onLoad();
                 }
                 else {
-                    this.abortConnecting();
-                    this.handshakeCallbacks[handshake.action](handshake);
+                    // make sure the `error` event handler that's user-set
+                    // does not throw in the same tick and gets caught here
+                    this.setTimeoutFn(() => {
+                        this._onError(typeof xhr.status === "number" ? xhr.status : 0);
+                    }, 0);
                 }
-            }
-        };
-        this.runner = this.strategy.connect(0, callback);
-    }
-    abortConnecting() {
-        if (this.runner) {
-            this.runner.abort();
-            this.runner = null;
-        }
-    }
-    disconnectInternally() {
-        this.abortConnecting();
-        this.clearRetryTimer();
-        this.clearUnavailableTimer();
-        if (this.connection) {
-            var connection = this.abandonConnection();
-            connection.close();
-        }
-    }
-    updateStrategy() {
-        this.strategy = this.options.getStrategy({
-            key: this.key,
-            timeline: this.timeline,
-            useTLS: this.usingTLS,
-        });
-    }
-    retryIn(delay) {
-        this.timeline.info({ action: 'retry', delay: delay });
-        if (delay > 0) {
-            this.emit('connecting_in', Math.round(delay / 1000));
-        }
-        this.retryTimer = new OneOffTimer(delay || 0, () => {
-            this.disconnectInternally();
-            this.connect();
-        });
-    }
-    clearRetryTimer() {
-        if (this.retryTimer) {
-            this.retryTimer.ensureAborted();
-            this.retryTimer = null;
-        }
-    }
-    setUnavailableTimer() {
-        this.unavailableTimer = new OneOffTimer(this.options.unavailableTimeout, () => {
-            this.updateState('unavailable');
-        });
-    }
-    clearUnavailableTimer() {
-        if (this.unavailableTimer) {
-            this.unavailableTimer.ensureAborted();
-        }
-    }
-    sendActivityCheck() {
-        this.stopActivityCheck();
-        this.connection.ping();
-        this.activityTimer = new OneOffTimer(this.options.pongTimeout, () => {
-            this.timeline.error({ pong_timed_out: this.options.pongTimeout });
-            this.retryIn(0);
-        });
-    }
-    resetActivityCheck() {
-        this.stopActivityCheck();
-        if (this.connection && !this.connection.handlesActivityChecks()) {
-            this.activityTimer = new OneOffTimer(this.activityTimeout, () => {
-                this.sendActivityCheck();
-            });
-        }
-    }
-    stopActivityCheck() {
-        if (this.activityTimer) {
-            this.activityTimer.ensureAborted();
-        }
-    }
-    buildConnectionCallbacks(errorCallbacks) {
-        return extend({}, errorCallbacks, {
-            message: (message) => {
-                this.resetActivityCheck();
-                this.emit('message', message);
-            },
-            ping: () => {
-                this.send_event('pusher:pong', {});
-            },
-            activity: () => {
-                this.resetActivityCheck();
-            },
-            error: (error) => {
-                this.emit('error', error);
-            },
-            closed: () => {
-                this.abandonConnection();
-                if (this.shouldRetry()) {
-                    this.retryIn(1000);
-                }
-            },
-        });
-    }
-    buildHandshakeCallbacks(errorCallbacks) {
-        return extend({}, errorCallbacks, {
-            connected: (handshake) => {
-                this.activityTimeout = Math.min(this.options.activityTimeout, handshake.activityTimeout, handshake.connection.activityTimeout || Infinity);
-                this.clearUnavailableTimer();
-                this.setConnection(handshake.connection);
-                this.socket_id = this.connection.id;
-                this.updateState('connected', { socket_id: this.socket_id });
-            },
-        });
-    }
-    buildErrorCallbacks() {
-        let withErrorEmitted = (callback) => {
-            return (result) => {
-                if (result.error) {
-                    this.emit('error', { type: 'WebSocketError', error: result.error });
-                }
-                callback(result);
             };
-        };
-        return {
-            tls_only: withErrorEmitted(() => {
-                this.usingTLS = true;
-                this.updateStrategy();
-                this.retryIn(0);
-            }),
-            refused: withErrorEmitted(() => {
-                this.disconnect();
-            }),
-            backoff: withErrorEmitted(() => {
-                this.retryIn(1000);
-            }),
-            retry: withErrorEmitted(() => {
-                this.retryIn(0);
-            }),
-        };
-    }
-    setConnection(connection) {
-        this.connection = connection;
-        for (var event in this.connectionCallbacks) {
-            this.connection.bind(event, this.connectionCallbacks[event]);
-        }
-        this.resetActivityCheck();
-    }
-    abandonConnection() {
-        if (!this.connection) {
-            return;
-        }
-        this.stopActivityCheck();
-        for (var event in this.connectionCallbacks) {
-            this.connection.unbind(event, this.connectionCallbacks[event]);
-        }
-        var connection = this.connection;
-        this.connection = null;
-        return connection;
-    }
-    updateState(newState, data) {
-        var previousState = this.state;
-        this.state = newState;
-        if (previousState !== newState) {
-            var newStateDescription = newState;
-            if (newStateDescription === 'connected') {
-                newStateDescription += ' with new socket ID ' + data.socket_id;
-            }
-            logger.debug('State changed', previousState + ' -> ' + newStateDescription);
-            this.timeline.info({ state: newState, params: data });
-            this.emit('state_change', { previous: previousState, current: newState });
-            this.emit(newState, data);
-        }
-    }
-    shouldRetry() {
-        return this.state === 'connecting' || this.state === 'connected';
-    }
-}
-
-;// ./src/core/channels/channels.ts
-
-
-
-
-class Channels {
-    constructor() {
-        this.channels = {};
-    }
-    add(name, pusher) {
-        if (!this.channels[name]) {
-            this.channels[name] = createChannel(name, pusher);
-        }
-        return this.channels[name];
-    }
-    all() {
-        return values(this.channels);
-    }
-    find(name) {
-        return this.channels[name];
-    }
-    remove(name) {
-        var channel = this.channels[name];
-        delete this.channels[name];
-        return channel;
-    }
-    disconnect() {
-        objectApply(this.channels, function (channel) {
-            channel.disconnect();
-        });
-    }
-}
-function createChannel(name, pusher) {
-    if (name.indexOf('private-encrypted-') === 0) {
-        if (pusher.config.nacl) {
-            return factory.createEncryptedChannel(name, pusher, pusher.config.nacl);
-        }
-        let errMsg = 'Tried to subscribe to a private-encrypted- channel but no nacl implementation available';
-        let suffix = url_store.buildLogSuffix('encryptedChannelSupport');
-        throw new UnsupportedFeature(`${errMsg}. ${suffix}`);
-    }
-    else if (name.indexOf('private-') === 0) {
-        return factory.createPrivateChannel(name, pusher);
-    }
-    else if (name.indexOf('presence-') === 0) {
-        return factory.createPresenceChannel(name, pusher);
-    }
-    else if (name.indexOf('#') === 0) {
-        throw new BadChannelName('Cannot create a channel with name "' + name + '".');
-    }
-    else {
-        return factory.createChannel(name, pusher);
-    }
-}
-
-;// ./src/core/utils/factory.ts
-
-
-
-
-
-
-
-
-
-var Factory = {
-    createChannels() {
-        return new Channels();
-    },
-    createConnectionManager(key, options) {
-        return new ConnectionManager(key, options);
-    },
-    createChannel(name, pusher) {
-        return new Channel(name, pusher);
-    },
-    createPrivateChannel(name, pusher) {
-        return new PrivateChannel(name, pusher);
-    },
-    createPresenceChannel(name, pusher) {
-        return new PresenceChannel(name, pusher);
-    },
-    createEncryptedChannel(name, pusher, nacl) {
-        return new EncryptedChannel(name, pusher, nacl);
-    },
-    createTimelineSender(timeline, options) {
-        return new TimelineSender(timeline, options);
-    },
-    createHandshake(transport, callback) {
-        return new Handshake(transport, callback);
-    },
-    createAssistantToTheTransportManager(manager, transport, options) {
-        return new AssistantToTheTransportManager(manager, transport, options);
-    },
-};
-/* harmony default export */ const factory = (Factory);
-
-;// ./src/core/transports/transport_manager.ts
-
-class TransportManager {
-    constructor(options) {
-        this.options = options || {};
-        this.livesLeft = this.options.lives || Infinity;
-    }
-    getAssistant(transport) {
-        return factory.createAssistantToTheTransportManager(this, transport, {
-            minPingDelay: this.options.minPingDelay,
-            maxPingDelay: this.options.maxPingDelay,
-        });
-    }
-    isAlive() {
-        return this.livesLeft > 0;
-    }
-    reportDeath() {
-        this.livesLeft -= 1;
-    }
-}
-
-;// ./src/core/strategies/sequential_strategy.ts
-
-
-
-class SequentialStrategy {
-    constructor(strategies, options) {
-        this.strategies = strategies;
-        this.loop = Boolean(options.loop);
-        this.failFast = Boolean(options.failFast);
-        this.timeout = options.timeout;
-        this.timeoutLimit = options.timeoutLimit;
-    }
-    isSupported() {
-        return any(this.strategies, util.method('isSupported'));
-    }
-    connect(minPriority, callback) {
-        var strategies = this.strategies;
-        var current = 0;
-        var timeout = this.timeout;
-        var runner = null;
-        var tryNextStrategy = (error, handshake) => {
-            if (handshake) {
-                callback(null, handshake);
-            }
-            else {
-                current = current + 1;
-                if (this.loop) {
-                    current = current % strategies.length;
-                }
-                if (current < strategies.length) {
-                    if (timeout) {
-                        timeout = timeout * 2;
-                        if (this.timeoutLimit) {
-                            timeout = Math.min(timeout, this.timeoutLimit);
-                        }
-                    }
-                    runner = this.tryStrategy(strategies[current], minPriority, { timeout, failFast: this.failFast }, tryNextStrategy);
-                }
-                else {
-                    callback(true);
-                }
-            }
-        };
-        runner = this.tryStrategy(strategies[current], minPriority, { timeout: timeout, failFast: this.failFast }, tryNextStrategy);
-        return {
-            abort: function () {
-                runner.abort();
-            },
-            forceMinPriority: function (p) {
-                minPriority = p;
-                if (runner) {
-                    runner.forceMinPriority(p);
-                }
-            },
-        };
-    }
-    tryStrategy(strategy, minPriority, options, callback) {
-        var timer = null;
-        var runner = null;
-        if (options.timeout > 0) {
-            timer = new OneOffTimer(options.timeout, function () {
-                runner.abort();
-                callback(true);
-            });
-        }
-        runner = strategy.connect(minPriority, function (error, handshake) {
-            if (error && timer && timer.isRunning() && !options.failFast) {
-                return;
-            }
-            if (timer) {
-                timer.ensureAborted();
-            }
-            callback(error, handshake);
-        });
-        return {
-            abort: function () {
-                if (timer) {
-                    timer.ensureAborted();
-                }
-                runner.abort();
-            },
-            forceMinPriority: function (p) {
-                runner.forceMinPriority(p);
-            },
-        };
-    }
-}
-
-;// ./src/core/strategies/best_connected_ever_strategy.ts
-
-
-class BestConnectedEverStrategy {
-    constructor(strategies) {
-        this.strategies = strategies;
-    }
-    isSupported() {
-        return any(this.strategies, util.method('isSupported'));
-    }
-    connect(minPriority, callback) {
-        return connect(this.strategies, minPriority, function (i, runners) {
-            return function (error, handshake) {
-                runners[i].error = error;
-                if (error) {
-                    if (allRunnersFailed(runners)) {
-                        callback(true);
-                    }
-                    return;
-                }
-                apply(runners, function (runner) {
-                    runner.forceMinPriority(handshake.transport.priority);
-                });
-                callback(null, handshake);
-            };
-        });
-    }
-}
-function connect(strategies, minPriority, callbackBuilder) {
-    var runners = map(strategies, function (strategy, i, _, rs) {
-        return strategy.connect(minPriority, callbackBuilder(i, rs));
-    });
-    return {
-        abort: function () {
-            apply(runners, abortRunner);
-        },
-        forceMinPriority: function (p) {
-            apply(runners, function (runner) {
-                runner.forceMinPriority(p);
-            });
-        },
-    };
-}
-function allRunnersFailed(runners) {
-    return collections_all(runners, function (runner) {
-        return Boolean(runner.error);
-    });
-}
-function abortRunner(runner) {
-    if (!runner.error && !runner.aborted) {
-        runner.abort();
-        runner.aborted = true;
-    }
-}
-
-;// ./src/core/strategies/websocket_prioritized_cached_strategy.ts
-
-
-
-
-class WebSocketPrioritizedCachedStrategy {
-    constructor(strategy, transports, options) {
-        this.strategy = strategy;
-        this.transports = transports;
-        this.ttl = options.ttl || 1800 * 1000;
-        this.usingTLS = options.useTLS;
-        this.timeline = options.timeline;
-    }
-    isSupported() {
-        return this.strategy.isSupported();
-    }
-    connect(minPriority, callback) {
-        var usingTLS = this.usingTLS;
-        var info = fetchTransportCache(usingTLS);
-        var cacheSkipCount = info && info.cacheSkipCount ? info.cacheSkipCount : 0;
-        var strategies = [this.strategy];
-        if (info && info.timestamp + this.ttl >= util.now()) {
-            var transport = this.transports[info.transport];
-            if (transport) {
-                if (['ws', 'wss'].includes(info.transport) || cacheSkipCount > 3) {
-                    this.timeline.info({
-                        cached: true,
-                        transport: info.transport,
-                        latency: info.latency,
-                    });
-                    strategies.push(new SequentialStrategy([transport], {
-                        timeout: info.latency * 2 + 1000,
-                        failFast: true,
-                    }));
-                }
-                else {
-                    cacheSkipCount++;
-                }
-            }
-        }
-        var startTimestamp = util.now();
-        var runner = strategies
-            .pop()
-            .connect(minPriority, function cb(error, handshake) {
-            if (error) {
-                flushTransportCache(usingTLS);
-                if (strategies.length > 0) {
-                    startTimestamp = util.now();
-                    runner = strategies.pop().connect(minPriority, cb);
-                }
-                else {
-                    callback(error);
-                }
-            }
-            else {
-                storeTransportCache(usingTLS, handshake.transport.name, util.now() - startTimestamp, cacheSkipCount);
-                callback(null, handshake);
-            }
-        });
-        return {
-            abort: function () {
-                runner.abort();
-            },
-            forceMinPriority: function (p) {
-                minPriority = p;
-                if (runner) {
-                    runner.forceMinPriority(p);
-                }
-            },
-        };
-    }
-}
-function getTransportCacheKey(usingTLS) {
-    return 'pusherTransport' + (usingTLS ? 'TLS' : 'NonTLS');
-}
-function fetchTransportCache(usingTLS) {
-    var storage = runtime.getLocalStorage();
-    if (storage) {
-        try {
-            var serializedCache = storage[getTransportCacheKey(usingTLS)];
-            if (serializedCache) {
-                return JSON.parse(serializedCache);
-            }
+            xhr.send(this._data);
         }
         catch (e) {
-            flushTransportCache(usingTLS);
+            // Need to defer since .create() is called directly from the constructor
+            // and thus the 'error' event can only be only bound *after* this exception
+            // occurs.  Therefore, also, we cannot throw here at all.
+            this.setTimeoutFn(() => {
+                this._onError(e);
+            }, 0);
+            return;
+        }
+        if (typeof document !== "undefined") {
+            this._index = Request.requestsCount++;
+            Request.requests[this._index] = this;
         }
     }
-    return null;
-}
-function storeTransportCache(usingTLS, transport, latency, cacheSkipCount) {
-    var storage = runtime.getLocalStorage();
-    if (storage) {
-        try {
-            storage[getTransportCacheKey(usingTLS)] = safeJSONStringify({
-                timestamp: util.now(),
-                transport: transport,
-                latency: latency,
-                cacheSkipCount: cacheSkipCount,
-            });
+    /**
+     * Called upon error.
+     *
+     * @private
+     */
+    _onError(err) {
+        this.emitReserved("error", err, this._xhr);
+        this._cleanup(true);
+    }
+    /**
+     * Cleans up house.
+     *
+     * @private
+     */
+    _cleanup(fromError) {
+        if ("undefined" === typeof this._xhr || null === this._xhr) {
+            return;
         }
-        catch (e) {
-        }
-    }
-}
-function flushTransportCache(usingTLS) {
-    var storage = runtime.getLocalStorage();
-    if (storage) {
-        try {
-            delete storage[getTransportCacheKey(usingTLS)];
-        }
-        catch (e) {
-        }
-    }
-}
-
-;// ./src/core/strategies/delayed_strategy.ts
-
-class DelayedStrategy {
-    constructor(strategy, { delay: number }) {
-        this.strategy = strategy;
-        this.options = { delay: number };
-    }
-    isSupported() {
-        return this.strategy.isSupported();
-    }
-    connect(minPriority, callback) {
-        var strategy = this.strategy;
-        var runner;
-        var timer = new OneOffTimer(this.options.delay, function () {
-            runner = strategy.connect(minPriority, callback);
-        });
-        return {
-            abort: function () {
-                timer.ensureAborted();
-                if (runner) {
-                    runner.abort();
-                }
-            },
-            forceMinPriority: function (p) {
-                minPriority = p;
-                if (runner) {
-                    runner.forceMinPriority(p);
-                }
-            },
-        };
-    }
-}
-
-;// ./src/core/strategies/if_strategy.ts
-class IfStrategy {
-    constructor(test, trueBranch, falseBranch) {
-        this.test = test;
-        this.trueBranch = trueBranch;
-        this.falseBranch = falseBranch;
-    }
-    isSupported() {
-        var branch = this.test() ? this.trueBranch : this.falseBranch;
-        return branch.isSupported();
-    }
-    connect(minPriority, callback) {
-        var branch = this.test() ? this.trueBranch : this.falseBranch;
-        return branch.connect(minPriority, callback);
-    }
-}
-
-;// ./src/core/strategies/first_connected_strategy.ts
-class FirstConnectedStrategy {
-    constructor(strategy) {
-        this.strategy = strategy;
-    }
-    isSupported() {
-        return this.strategy.isSupported();
-    }
-    connect(minPriority, callback) {
-        var runner = this.strategy.connect(minPriority, function (error, handshake) {
-            if (handshake) {
-                runner.abort();
-            }
-            callback(error, handshake);
-        });
-        return runner;
-    }
-}
-
-;// ./src/runtimes/web/default_strategy.ts
-
-
-
-
-
-
-
-function testSupportsStrategy(strategy) {
-    return function () {
-        return strategy.isSupported();
-    };
-}
-var getDefaultStrategy = function (config, baseOptions, defineTransport) {
-    var definedTransports = {};
-    function defineTransportStrategy(name, type, priority, options, manager) {
-        var transport = defineTransport(config, name, type, priority, options, manager);
-        definedTransports[name] = transport;
-        return transport;
-    }
-    var ws_options = Object.assign({}, baseOptions, {
-        hostNonTLS: config.wsHost + ':' + config.wsPort,
-        hostTLS: config.wsHost + ':' + config.wssPort,
-        httpPath: config.wsPath,
-    });
-    var wss_options = Object.assign({}, ws_options, {
-        useTLS: true,
-    });
-    var sockjs_options = Object.assign({}, baseOptions, {
-        hostNonTLS: config.httpHost + ':' + config.httpPort,
-        hostTLS: config.httpHost + ':' + config.httpsPort,
-        httpPath: config.httpPath,
-    });
-    var timeouts = {
-        loop: true,
-        timeout: 15000,
-        timeoutLimit: 60000,
-    };
-    var ws_manager = new TransportManager({
-        minPingDelay: 10000,
-        maxPingDelay: config.activityTimeout,
-    });
-    var streaming_manager = new TransportManager({
-        lives: 2,
-        minPingDelay: 10000,
-        maxPingDelay: config.activityTimeout,
-    });
-    var ws_transport = defineTransportStrategy('ws', 'ws', 3, ws_options, ws_manager);
-    var wss_transport = defineTransportStrategy('wss', 'ws', 3, wss_options, ws_manager);
-    var sockjs_transport = defineTransportStrategy('sockjs', 'sockjs', 1, sockjs_options);
-    var xhr_streaming_transport = defineTransportStrategy('xhr_streaming', 'xhr_streaming', 1, sockjs_options, streaming_manager);
-    var xdr_streaming_transport = defineTransportStrategy('xdr_streaming', 'xdr_streaming', 1, sockjs_options, streaming_manager);
-    var xhr_polling_transport = defineTransportStrategy('xhr_polling', 'xhr_polling', 1, sockjs_options);
-    var xdr_polling_transport = defineTransportStrategy('xdr_polling', 'xdr_polling', 1, sockjs_options);
-    var ws_loop = new SequentialStrategy([ws_transport], timeouts);
-    var wss_loop = new SequentialStrategy([wss_transport], timeouts);
-    var sockjs_loop = new SequentialStrategy([sockjs_transport], timeouts);
-    var streaming_loop = new SequentialStrategy([
-        new IfStrategy(testSupportsStrategy(xhr_streaming_transport), xhr_streaming_transport, xdr_streaming_transport),
-    ], timeouts);
-    var polling_loop = new SequentialStrategy([
-        new IfStrategy(testSupportsStrategy(xhr_polling_transport), xhr_polling_transport, xdr_polling_transport),
-    ], timeouts);
-    var http_loop = new SequentialStrategy([
-        new IfStrategy(testSupportsStrategy(streaming_loop), new BestConnectedEverStrategy([
-            streaming_loop,
-            new DelayedStrategy(polling_loop, { delay: 4000 }),
-        ]), polling_loop),
-    ], timeouts);
-    var http_fallback_loop = new IfStrategy(testSupportsStrategy(http_loop), http_loop, sockjs_loop);
-    var wsStrategy;
-    if (baseOptions.useTLS) {
-        wsStrategy = new BestConnectedEverStrategy([
-            ws_loop,
-            new DelayedStrategy(http_fallback_loop, { delay: 2000 }),
-        ]);
-    }
-    else {
-        wsStrategy = new BestConnectedEverStrategy([
-            ws_loop,
-            new DelayedStrategy(wss_loop, { delay: 2000 }),
-            new DelayedStrategy(http_fallback_loop, { delay: 5000 }),
-        ]);
-    }
-    return new WebSocketPrioritizedCachedStrategy(new FirstConnectedStrategy(new IfStrategy(testSupportsStrategy(ws_transport), wsStrategy, http_fallback_loop)), definedTransports, {
-        ttl: 1800000,
-        timeline: baseOptions.timeline,
-        useTLS: baseOptions.useTLS,
-    });
-};
-/* harmony default export */ const default_strategy = (getDefaultStrategy);
-
-;// ./src/runtimes/web/transports/transport_connection_initializer.ts
-
-/* harmony default export */ function transport_connection_initializer() {
-    var self = this;
-    self.timeline.info(self.buildTimelineMessage({
-        transport: self.name + (self.options.useTLS ? 's' : ''),
-    }));
-    if (self.hooks.isInitialized()) {
-        self.changeState('initialized');
-    }
-    else if (self.hooks.file) {
-        self.changeState('initializing');
-        Dependencies.load(self.hooks.file, { useTLS: self.options.useTLS }, function (error, callback) {
-            if (self.hooks.isInitialized()) {
-                self.changeState('initialized');
-                callback(true);
-            }
-            else {
-                if (error) {
-                    self.onError(error);
-                }
-                self.onClose();
-                callback(false);
-            }
-        });
-    }
-    else {
-        self.onClose();
-    }
-}
-
-;// ./src/runtimes/web/http/http_xdomain_request.ts
-
-var hooks = {
-    getRequest: function (socket) {
-        var xdr = new window.XDomainRequest();
-        xdr.ontimeout = function () {
-            socket.emit('error', new RequestTimedOut());
-            socket.close();
-        };
-        xdr.onerror = function (e) {
-            socket.emit('error', e);
-            socket.close();
-        };
-        xdr.onprogress = function () {
-            if (xdr.responseText && xdr.responseText.length > 0) {
-                socket.onChunk(200, xdr.responseText);
-            }
-        };
-        xdr.onload = function () {
-            if (xdr.responseText && xdr.responseText.length > 0) {
-                socket.onChunk(200, xdr.responseText);
-            }
-            socket.emit('finished', 200);
-            socket.close();
-        };
-        return xdr;
-    },
-    abortRequest: function (xdr) {
-        xdr.ontimeout = xdr.onerror = xdr.onprogress = xdr.onload = null;
-        xdr.abort();
-    },
-};
-/* harmony default export */ const http_xdomain_request = (hooks);
-
-;// ./src/core/http/http_request.ts
-
-
-const MAX_BUFFER_LENGTH = 256 * 1024;
-class HTTPRequest extends Dispatcher {
-    constructor(hooks, method, url) {
-        super();
-        this.hooks = hooks;
-        this.method = method;
-        this.url = url;
-    }
-    start(payload) {
-        this.position = 0;
-        this.xhr = this.hooks.getRequest(this);
-        this.unloader = () => {
-            this.close();
-        };
-        runtime.addUnloadListener(this.unloader);
-        this.xhr.open(this.method, this.url, true);
-        if (this.xhr.setRequestHeader) {
-            this.xhr.setRequestHeader('Content-Type', 'application/json');
-        }
-        this.xhr.send(payload);
-    }
-    close() {
-        if (this.unloader) {
-            runtime.removeUnloadListener(this.unloader);
-            this.unloader = null;
-        }
-        if (this.xhr) {
-            this.hooks.abortRequest(this.xhr);
-            this.xhr = null;
-        }
-    }
-    onChunk(status, data) {
-        while (true) {
-            var chunk = this.advanceBuffer(data);
-            if (chunk) {
-                this.emit('chunk', { status: status, data: chunk });
-            }
-            else {
-                break;
-            }
-        }
-        if (this.isBufferTooLong(data)) {
-            this.emit('buffer_too_long');
-        }
-    }
-    advanceBuffer(buffer) {
-        var unreadData = buffer.slice(this.position);
-        var endOfLinePosition = unreadData.indexOf('\n');
-        if (endOfLinePosition !== -1) {
-            this.position += endOfLinePosition + 1;
-            return unreadData.slice(0, endOfLinePosition);
-        }
-        else {
-            return null;
-        }
-    }
-    isBufferTooLong(buffer) {
-        return this.position === buffer.length && buffer.length > MAX_BUFFER_LENGTH;
-    }
-}
-
-;// ./src/core/http/state.ts
-var State;
-(function (State) {
-    State[State["CONNECTING"] = 0] = "CONNECTING";
-    State[State["OPEN"] = 1] = "OPEN";
-    State[State["CLOSED"] = 3] = "CLOSED";
-})(State || (State = {}));
-/* harmony default export */ const state = (State);
-
-;// ./src/core/http/http_socket.ts
-
-
-
-var autoIncrement = 1;
-class HTTPSocket {
-    constructor(hooks, url) {
-        this.hooks = hooks;
-        this.session = randomNumber(1000) + '/' + randomString(8);
-        this.location = getLocation(url);
-        this.readyState = state.CONNECTING;
-        this.openStream();
-    }
-    send(payload) {
-        return this.sendRaw(JSON.stringify([payload]));
-    }
-    ping() {
-        this.hooks.sendHeartbeat(this);
-    }
-    close(code, reason) {
-        this.onClose(code, reason, true);
-    }
-    sendRaw(payload) {
-        if (this.readyState === state.OPEN) {
+        this._xhr.onreadystatechange = empty;
+        if (fromError) {
             try {
-                runtime.createSocketRequest('POST', getUniqueURL(getSendURL(this.location, this.session))).start(payload);
-                return true;
+                this._xhr.abort();
             }
-            catch (e) {
+            catch (e) { }
+        }
+        if (typeof document !== "undefined") {
+            delete Request.requests[this._index];
+        }
+        this._xhr = null;
+    }
+    /**
+     * Called upon load.
+     *
+     * @private
+     */
+    _onLoad() {
+        const data = this._xhr.responseText;
+        if (data !== null) {
+            this.emitReserved("data", data);
+            this.emitReserved("success");
+            this._cleanup();
+        }
+    }
+    /**
+     * Aborts the request.
+     *
+     * @package
+     */
+    abort() {
+        this._cleanup();
+    }
+}
+Request.requestsCount = 0;
+Request.requests = {};
+/**
+ * Aborts pending requests when unloading the window. This is needed to prevent
+ * memory leaks (e.g. when using IE) and to ensure that no spurious error is
+ * emitted.
+ */
+if (typeof document !== "undefined") {
+    // @ts-ignore
+    if (typeof attachEvent === "function") {
+        // @ts-ignore
+        attachEvent("onunload", unloadHandler);
+    }
+    else if (typeof addEventListener === "function") {
+        const terminationEvent = "onpagehide" in _globals_node_js__WEBPACK_IMPORTED_MODULE_3__.globalThisShim ? "pagehide" : "unload";
+        addEventListener(terminationEvent, unloadHandler, false);
+    }
+}
+function unloadHandler() {
+    for (let i in Request.requests) {
+        if (Request.requests.hasOwnProperty(i)) {
+            Request.requests[i].abort();
+        }
+    }
+}
+const hasXHR2 = (function () {
+    const xhr = newRequest({
+        xdomain: false,
+    });
+    return xhr && xhr.responseType !== null;
+})();
+/**
+ * HTTP long-polling based on the built-in `XMLHttpRequest` object.
+ *
+ * Usage: browser
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
+ */
+class XHR extends BaseXHR {
+    constructor(opts) {
+        super(opts);
+        const forceBase64 = opts && opts.forceBase64;
+        this.supportsBinary = hasXHR2 && !forceBase64;
+    }
+    request(opts = {}) {
+        Object.assign(opts, { xd: this.xd }, this.opts);
+        return new Request(newRequest, this.uri(), opts);
+    }
+}
+function newRequest(opts) {
+    const xdomain = opts.xdomain;
+    // XMLHttpRequest can be disabled on IE
+    try {
+        if ("undefined" !== typeof XMLHttpRequest && (!xdomain || _contrib_has_cors_js__WEBPACK_IMPORTED_MODULE_4__.hasCORS)) {
+            return new XMLHttpRequest();
+        }
+    }
+    catch (e) { }
+    if (!xdomain) {
+        try {
+            return new _globals_node_js__WEBPACK_IMPORTED_MODULE_3__.globalThisShim[["Active"].concat("Object").join("X")]("Microsoft.XMLHTTP");
+        }
+        catch (e) { }
+    }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-client/build/esm/transports/polling.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/transports/polling.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Polling: () => (/* binding */ Polling)
+/* harmony export */ });
+/* harmony import */ var _transport_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../transport.js */ "./node_modules/engine.io-client/build/esm/transport.js");
+/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util.js */ "./node_modules/engine.io-client/build/esm/util.js");
+/* harmony import */ var engine_io_parser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! engine.io-parser */ "./node_modules/engine.io-parser/build/esm/index.js");
+
+
+
+class Polling extends _transport_js__WEBPACK_IMPORTED_MODULE_0__.Transport {
+    constructor() {
+        super(...arguments);
+        this._polling = false;
+    }
+    get name() {
+        return "polling";
+    }
+    /**
+     * Opens the socket (triggers polling). We write a PING message to determine
+     * when the transport is open.
+     *
+     * @protected
+     */
+    doOpen() {
+        this._poll();
+    }
+    /**
+     * Pauses polling.
+     *
+     * @param {Function} onPause - callback upon buffers are flushed and transport is paused
+     * @package
+     */
+    pause(onPause) {
+        this.readyState = "pausing";
+        const pause = () => {
+            this.readyState = "paused";
+            onPause();
+        };
+        if (this._polling || !this.writable) {
+            let total = 0;
+            if (this._polling) {
+                total++;
+                this.once("pollComplete", function () {
+                    --total || pause();
+                });
+            }
+            if (!this.writable) {
+                total++;
+                this.once("drain", function () {
+                    --total || pause();
+                });
+            }
+        }
+        else {
+            pause();
+        }
+    }
+    /**
+     * Starts polling cycle.
+     *
+     * @private
+     */
+    _poll() {
+        this._polling = true;
+        this.doPoll();
+        this.emitReserved("poll");
+    }
+    /**
+     * Overloads onData to detect payloads.
+     *
+     * @protected
+     */
+    onData(data) {
+        const callback = (packet) => {
+            // if its the first message we consider the transport open
+            if ("opening" === this.readyState && packet.type === "open") {
+                this.onOpen();
+            }
+            // if its a close packet, we close the ongoing requests
+            if ("close" === packet.type) {
+                this.onClose({ description: "transport closed by the server" });
                 return false;
             }
+            // otherwise bypass onData and handle the message
+            this.onPacket(packet);
+        };
+        // decode payload
+        (0,engine_io_parser__WEBPACK_IMPORTED_MODULE_2__.decodePayload)(data, this.socket.binaryType).forEach(callback);
+        // if an event did not trigger closing
+        if ("closed" !== this.readyState) {
+            // if we got data we're not polling
+            this._polling = false;
+            this.emitReserved("pollComplete");
+            if ("open" === this.readyState) {
+                this._poll();
+            }
+            else {
+            }
+        }
+    }
+    /**
+     * For polling, send a close packet.
+     *
+     * @protected
+     */
+    doClose() {
+        const close = () => {
+            this.write([{ type: "close" }]);
+        };
+        if ("open" === this.readyState) {
+            close();
         }
         else {
+            // in case we're trying to close while
+            // handshaking is in progress (GH-164)
+            this.once("open", close);
+        }
+    }
+    /**
+     * Writes a packets payload.
+     *
+     * @param {Array} packets - data packets
+     * @protected
+     */
+    write(packets) {
+        this.writable = false;
+        (0,engine_io_parser__WEBPACK_IMPORTED_MODULE_2__.encodePayload)(packets, (data) => {
+            this.doWrite(data, () => {
+                this.writable = true;
+                this.emitReserved("drain");
+            });
+        });
+    }
+    /**
+     * Generates uri for connection.
+     *
+     * @private
+     */
+    uri() {
+        const schema = this.opts.secure ? "https" : "http";
+        const query = this.query || {};
+        // cache busting is forced
+        if (false !== this.opts.timestampRequests) {
+            query[this.opts.timestampParam] = (0,_util_js__WEBPACK_IMPORTED_MODULE_1__.randomString)();
+        }
+        if (!this.supportsBinary && !query.sid) {
+            query.b64 = 1;
+        }
+        return this.createUri(schema, query);
+    }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-client/build/esm/transports/websocket.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/transports/websocket.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   BaseWS: () => (/* binding */ BaseWS),
+/* harmony export */   WS: () => (/* binding */ WS)
+/* harmony export */ });
+/* harmony import */ var _transport_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../transport.js */ "./node_modules/engine.io-client/build/esm/transport.js");
+/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util.js */ "./node_modules/engine.io-client/build/esm/util.js");
+/* harmony import */ var engine_io_parser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! engine.io-parser */ "./node_modules/engine.io-parser/build/esm/index.js");
+/* harmony import */ var _globals_node_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../globals.node.js */ "./node_modules/engine.io-client/build/esm/globals.js");
+
+
+
+
+// detect ReactNative environment
+const isReactNative = typeof navigator !== "undefined" &&
+    typeof navigator.product === "string" &&
+    navigator.product.toLowerCase() === "reactnative";
+class BaseWS extends _transport_js__WEBPACK_IMPORTED_MODULE_0__.Transport {
+    get name() {
+        return "websocket";
+    }
+    doOpen() {
+        const uri = this.uri();
+        const protocols = this.opts.protocols;
+        // React Native only supports the 'headers' option, and will print a warning if anything else is passed
+        const opts = isReactNative
+            ? {}
+            : (0,_util_js__WEBPACK_IMPORTED_MODULE_1__.pick)(this.opts, "agent", "perMessageDeflate", "pfx", "key", "passphrase", "cert", "ca", "ciphers", "rejectUnauthorized", "localAddress", "protocolVersion", "origin", "maxPayload", "family", "checkServerIdentity");
+        if (this.opts.extraHeaders) {
+            opts.headers = this.opts.extraHeaders;
+        }
+        try {
+            this.ws = this.createSocket(uri, protocols, opts);
+        }
+        catch (err) {
+            return this.emitReserved("error", err);
+        }
+        this.ws.binaryType = this.socket.binaryType;
+        this.addEventListeners();
+    }
+    /**
+     * Adds event listeners to the socket
+     *
+     * @private
+     */
+    addEventListeners() {
+        this.ws.onopen = () => {
+            if (this.opts.autoUnref) {
+                this.ws._socket.unref();
+            }
+            this.onOpen();
+        };
+        this.ws.onclose = (closeEvent) => this.onClose({
+            description: "websocket connection closed",
+            context: closeEvent,
+        });
+        this.ws.onmessage = (ev) => this.onData(ev.data);
+        this.ws.onerror = (e) => this.onError("websocket error", e);
+    }
+    write(packets) {
+        this.writable = false;
+        // encodePacket efficient as it uses WS framing
+        // no need for encodePayload
+        for (let i = 0; i < packets.length; i++) {
+            const packet = packets[i];
+            const lastPacket = i === packets.length - 1;
+            (0,engine_io_parser__WEBPACK_IMPORTED_MODULE_2__.encodePacket)(packet, this.supportsBinary, (data) => {
+                // Sometimes the websocket has already been closed but the browser didn't
+                // have a chance of informing us about it yet, in that case send will
+                // throw an error
+                try {
+                    this.doWrite(packet, data);
+                }
+                catch (e) {
+                }
+                if (lastPacket) {
+                    // fake drain
+                    // defer to next tick to allow Socket to clear writeBuffer
+                    (0,_globals_node_js__WEBPACK_IMPORTED_MODULE_3__.nextTick)(() => {
+                        this.writable = true;
+                        this.emitReserved("drain");
+                    }, this.setTimeoutFn);
+                }
+            });
+        }
+    }
+    doClose() {
+        if (typeof this.ws !== "undefined") {
+            this.ws.onerror = () => { };
+            this.ws.close();
+            this.ws = null;
+        }
+    }
+    /**
+     * Generates uri for connection.
+     *
+     * @private
+     */
+    uri() {
+        const schema = this.opts.secure ? "wss" : "ws";
+        const query = this.query || {};
+        // append timestamp to URI
+        if (this.opts.timestampRequests) {
+            query[this.opts.timestampParam] = (0,_util_js__WEBPACK_IMPORTED_MODULE_1__.randomString)();
+        }
+        // communicate binary support capabilities
+        if (!this.supportsBinary) {
+            query.b64 = 1;
+        }
+        return this.createUri(schema, query);
+    }
+}
+const WebSocketCtor = _globals_node_js__WEBPACK_IMPORTED_MODULE_3__.globalThisShim.WebSocket || _globals_node_js__WEBPACK_IMPORTED_MODULE_3__.globalThisShim.MozWebSocket;
+/**
+ * WebSocket transport based on the built-in `WebSocket` object.
+ *
+ * Usage: browser, Node.js (since v21), Deno, Bun
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/WebSocket
+ * @see https://caniuse.com/mdn-api_websocket
+ * @see https://nodejs.org/api/globals.html#websocket
+ */
+class WS extends BaseWS {
+    createSocket(uri, protocols, opts) {
+        return !isReactNative
+            ? protocols
+                ? new WebSocketCtor(uri, protocols)
+                : new WebSocketCtor(uri)
+            : new WebSocketCtor(uri, protocols, opts);
+    }
+    doWrite(_packet, data) {
+        this.ws.send(data);
+    }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-client/build/esm/transports/webtransport.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/transports/webtransport.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   WT: () => (/* binding */ WT)
+/* harmony export */ });
+/* harmony import */ var _transport_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../transport.js */ "./node_modules/engine.io-client/build/esm/transport.js");
+/* harmony import */ var _globals_node_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../globals.node.js */ "./node_modules/engine.io-client/build/esm/globals.js");
+/* harmony import */ var engine_io_parser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! engine.io-parser */ "./node_modules/engine.io-parser/build/esm/index.js");
+
+
+
+/**
+ * WebTransport transport based on the built-in `WebTransport` object.
+ *
+ * Usage: browser, Node.js (with the `@fails-components/webtransport` package)
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/WebTransport
+ * @see https://caniuse.com/webtransport
+ */
+class WT extends _transport_js__WEBPACK_IMPORTED_MODULE_0__.Transport {
+    get name() {
+        return "webtransport";
+    }
+    doOpen() {
+        try {
+            // @ts-ignore
+            this._transport = new WebTransport(this.createUri("https"), this.opts.transportOptions[this.name]);
+        }
+        catch (err) {
+            return this.emitReserved("error", err);
+        }
+        this._transport.closed
+            .then(() => {
+            this.onClose();
+        })
+            .catch((err) => {
+            this.onError("webtransport error", err);
+        });
+        // note: we could have used async/await, but that would require some additional polyfills
+        this._transport.ready.then(() => {
+            this._transport.createBidirectionalStream().then((stream) => {
+                const decoderStream = (0,engine_io_parser__WEBPACK_IMPORTED_MODULE_2__.createPacketDecoderStream)(Number.MAX_SAFE_INTEGER, this.socket.binaryType);
+                const reader = stream.readable.pipeThrough(decoderStream).getReader();
+                const encoderStream = (0,engine_io_parser__WEBPACK_IMPORTED_MODULE_2__.createPacketEncoderStream)();
+                encoderStream.readable.pipeTo(stream.writable);
+                this._writer = encoderStream.writable.getWriter();
+                const read = () => {
+                    reader
+                        .read()
+                        .then(({ done, value }) => {
+                        if (done) {
+                            return;
+                        }
+                        this.onPacket(value);
+                        read();
+                    })
+                        .catch((err) => {
+                    });
+                };
+                read();
+                const packet = { type: "open" };
+                if (this.query.sid) {
+                    packet.data = `{"sid":"${this.query.sid}"}`;
+                }
+                this._writer.write(packet).then(() => this.onOpen());
+            });
+        });
+    }
+    write(packets) {
+        this.writable = false;
+        for (let i = 0; i < packets.length; i++) {
+            const packet = packets[i];
+            const lastPacket = i === packets.length - 1;
+            this._writer.write(packet).then(() => {
+                if (lastPacket) {
+                    (0,_globals_node_js__WEBPACK_IMPORTED_MODULE_1__.nextTick)(() => {
+                        this.writable = true;
+                        this.emitReserved("drain");
+                    }, this.setTimeoutFn);
+                }
+            });
+        }
+    }
+    doClose() {
+        var _a;
+        (_a = this._transport) === null || _a === void 0 ? void 0 : _a.close();
+    }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-client/build/esm/util.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/engine.io-client/build/esm/util.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   byteLength: () => (/* binding */ byteLength),
+/* harmony export */   installTimerFunctions: () => (/* binding */ installTimerFunctions),
+/* harmony export */   pick: () => (/* binding */ pick),
+/* harmony export */   randomString: () => (/* binding */ randomString)
+/* harmony export */ });
+/* harmony import */ var _globals_node_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./globals.node.js */ "./node_modules/engine.io-client/build/esm/globals.js");
+
+function pick(obj, ...attr) {
+    return attr.reduce((acc, k) => {
+        if (obj.hasOwnProperty(k)) {
+            acc[k] = obj[k];
+        }
+        return acc;
+    }, {});
+}
+// Keep a reference to the real timeout functions so they can be used when overridden
+const NATIVE_SET_TIMEOUT = _globals_node_js__WEBPACK_IMPORTED_MODULE_0__.globalThisShim.setTimeout;
+const NATIVE_CLEAR_TIMEOUT = _globals_node_js__WEBPACK_IMPORTED_MODULE_0__.globalThisShim.clearTimeout;
+function installTimerFunctions(obj, opts) {
+    if (opts.useNativeTimers) {
+        obj.setTimeoutFn = NATIVE_SET_TIMEOUT.bind(_globals_node_js__WEBPACK_IMPORTED_MODULE_0__.globalThisShim);
+        obj.clearTimeoutFn = NATIVE_CLEAR_TIMEOUT.bind(_globals_node_js__WEBPACK_IMPORTED_MODULE_0__.globalThisShim);
+    }
+    else {
+        obj.setTimeoutFn = _globals_node_js__WEBPACK_IMPORTED_MODULE_0__.globalThisShim.setTimeout.bind(_globals_node_js__WEBPACK_IMPORTED_MODULE_0__.globalThisShim);
+        obj.clearTimeoutFn = _globals_node_js__WEBPACK_IMPORTED_MODULE_0__.globalThisShim.clearTimeout.bind(_globals_node_js__WEBPACK_IMPORTED_MODULE_0__.globalThisShim);
+    }
+}
+// base64 encoded buffers are about 33% bigger (https://en.wikipedia.org/wiki/Base64)
+const BASE64_OVERHEAD = 1.33;
+// we could also have used `new Blob([obj]).size`, but it isn't supported in IE9
+function byteLength(obj) {
+    if (typeof obj === "string") {
+        return utf8Length(obj);
+    }
+    // arraybuffer or blob
+    return Math.ceil((obj.byteLength || obj.size) * BASE64_OVERHEAD);
+}
+function utf8Length(str) {
+    let c = 0, length = 0;
+    for (let i = 0, l = str.length; i < l; i++) {
+        c = str.charCodeAt(i);
+        if (c < 0x80) {
+            length += 1;
+        }
+        else if (c < 0x800) {
+            length += 2;
+        }
+        else if (c < 0xd800 || c >= 0xe000) {
+            length += 3;
+        }
+        else {
+            i++;
+            length += 4;
+        }
+    }
+    return length;
+}
+/**
+ * Generates a random 8-characters string.
+ */
+function randomString() {
+    return (Date.now().toString(36).substring(3) +
+        Math.random().toString(36).substring(2, 5));
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-parser/build/esm/commons.js":
+/*!************************************************************!*\
+  !*** ./node_modules/engine.io-parser/build/esm/commons.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ERROR_PACKET: () => (/* binding */ ERROR_PACKET),
+/* harmony export */   PACKET_TYPES: () => (/* binding */ PACKET_TYPES),
+/* harmony export */   PACKET_TYPES_REVERSE: () => (/* binding */ PACKET_TYPES_REVERSE)
+/* harmony export */ });
+const PACKET_TYPES = Object.create(null); // no Map = no polyfill
+PACKET_TYPES["open"] = "0";
+PACKET_TYPES["close"] = "1";
+PACKET_TYPES["ping"] = "2";
+PACKET_TYPES["pong"] = "3";
+PACKET_TYPES["message"] = "4";
+PACKET_TYPES["upgrade"] = "5";
+PACKET_TYPES["noop"] = "6";
+const PACKET_TYPES_REVERSE = Object.create(null);
+Object.keys(PACKET_TYPES).forEach((key) => {
+    PACKET_TYPES_REVERSE[PACKET_TYPES[key]] = key;
+});
+const ERROR_PACKET = { type: "error", data: "parser error" };
+
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-parser/build/esm/contrib/base64-arraybuffer.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/engine.io-parser/build/esm/contrib/base64-arraybuffer.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   decode: () => (/* binding */ decode),
+/* harmony export */   encode: () => (/* binding */ encode)
+/* harmony export */ });
+// imported from https://github.com/socketio/base64-arraybuffer
+const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+// Use a lookup table to find the index.
+const lookup = typeof Uint8Array === 'undefined' ? [] : new Uint8Array(256);
+for (let i = 0; i < chars.length; i++) {
+    lookup[chars.charCodeAt(i)] = i;
+}
+const encode = (arraybuffer) => {
+    let bytes = new Uint8Array(arraybuffer), i, len = bytes.length, base64 = '';
+    for (i = 0; i < len; i += 3) {
+        base64 += chars[bytes[i] >> 2];
+        base64 += chars[((bytes[i] & 3) << 4) | (bytes[i + 1] >> 4)];
+        base64 += chars[((bytes[i + 1] & 15) << 2) | (bytes[i + 2] >> 6)];
+        base64 += chars[bytes[i + 2] & 63];
+    }
+    if (len % 3 === 2) {
+        base64 = base64.substring(0, base64.length - 1) + '=';
+    }
+    else if (len % 3 === 1) {
+        base64 = base64.substring(0, base64.length - 2) + '==';
+    }
+    return base64;
+};
+const decode = (base64) => {
+    let bufferLength = base64.length * 0.75, len = base64.length, i, p = 0, encoded1, encoded2, encoded3, encoded4;
+    if (base64[base64.length - 1] === '=') {
+        bufferLength--;
+        if (base64[base64.length - 2] === '=') {
+            bufferLength--;
+        }
+    }
+    const arraybuffer = new ArrayBuffer(bufferLength), bytes = new Uint8Array(arraybuffer);
+    for (i = 0; i < len; i += 4) {
+        encoded1 = lookup[base64.charCodeAt(i)];
+        encoded2 = lookup[base64.charCodeAt(i + 1)];
+        encoded3 = lookup[base64.charCodeAt(i + 2)];
+        encoded4 = lookup[base64.charCodeAt(i + 3)];
+        bytes[p++] = (encoded1 << 2) | (encoded2 >> 4);
+        bytes[p++] = ((encoded2 & 15) << 4) | (encoded3 >> 2);
+        bytes[p++] = ((encoded3 & 3) << 6) | (encoded4 & 63);
+    }
+    return arraybuffer;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-parser/build/esm/decodePacket.browser.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/engine.io-parser/build/esm/decodePacket.browser.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   decodePacket: () => (/* binding */ decodePacket)
+/* harmony export */ });
+/* harmony import */ var _commons_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./commons.js */ "./node_modules/engine.io-parser/build/esm/commons.js");
+/* harmony import */ var _contrib_base64_arraybuffer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./contrib/base64-arraybuffer.js */ "./node_modules/engine.io-parser/build/esm/contrib/base64-arraybuffer.js");
+
+
+const withNativeArrayBuffer = typeof ArrayBuffer === "function";
+const decodePacket = (encodedPacket, binaryType) => {
+    if (typeof encodedPacket !== "string") {
+        return {
+            type: "message",
+            data: mapBinary(encodedPacket, binaryType),
+        };
+    }
+    const type = encodedPacket.charAt(0);
+    if (type === "b") {
+        return {
+            type: "message",
+            data: decodeBase64Packet(encodedPacket.substring(1), binaryType),
+        };
+    }
+    const packetType = _commons_js__WEBPACK_IMPORTED_MODULE_0__.PACKET_TYPES_REVERSE[type];
+    if (!packetType) {
+        return _commons_js__WEBPACK_IMPORTED_MODULE_0__.ERROR_PACKET;
+    }
+    return encodedPacket.length > 1
+        ? {
+            type: _commons_js__WEBPACK_IMPORTED_MODULE_0__.PACKET_TYPES_REVERSE[type],
+            data: encodedPacket.substring(1),
+        }
+        : {
+            type: _commons_js__WEBPACK_IMPORTED_MODULE_0__.PACKET_TYPES_REVERSE[type],
+        };
+};
+const decodeBase64Packet = (data, binaryType) => {
+    if (withNativeArrayBuffer) {
+        const decoded = (0,_contrib_base64_arraybuffer_js__WEBPACK_IMPORTED_MODULE_1__.decode)(data);
+        return mapBinary(decoded, binaryType);
+    }
+    else {
+        return { base64: true, data }; // fallback for old browsers
+    }
+};
+const mapBinary = (data, binaryType) => {
+    switch (binaryType) {
+        case "blob":
+            if (data instanceof Blob) {
+                // from WebSocket + binaryType "blob"
+                return data;
+            }
+            else {
+                // from HTTP long-polling or WebTransport
+                return new Blob([data]);
+            }
+        case "arraybuffer":
+        default:
+            if (data instanceof ArrayBuffer) {
+                // from HTTP long-polling (base64) or WebSocket + binaryType "arraybuffer"
+                return data;
+            }
+            else {
+                // from WebTransport (Uint8Array)
+                return data.buffer;
+            }
+    }
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-parser/build/esm/encodePacket.browser.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/engine.io-parser/build/esm/encodePacket.browser.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   encodePacket: () => (/* binding */ encodePacket),
+/* harmony export */   encodePacketToBinary: () => (/* binding */ encodePacketToBinary)
+/* harmony export */ });
+/* harmony import */ var _commons_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./commons.js */ "./node_modules/engine.io-parser/build/esm/commons.js");
+
+const withNativeBlob = typeof Blob === "function" ||
+    (typeof Blob !== "undefined" &&
+        Object.prototype.toString.call(Blob) === "[object BlobConstructor]");
+const withNativeArrayBuffer = typeof ArrayBuffer === "function";
+// ArrayBuffer.isView method is not defined in IE10
+const isView = (obj) => {
+    return typeof ArrayBuffer.isView === "function"
+        ? ArrayBuffer.isView(obj)
+        : obj && obj.buffer instanceof ArrayBuffer;
+};
+const encodePacket = ({ type, data }, supportsBinary, callback) => {
+    if (withNativeBlob && data instanceof Blob) {
+        if (supportsBinary) {
+            return callback(data);
+        }
+        else {
+            return encodeBlobAsBase64(data, callback);
+        }
+    }
+    else if (withNativeArrayBuffer &&
+        (data instanceof ArrayBuffer || isView(data))) {
+        if (supportsBinary) {
+            return callback(data);
+        }
+        else {
+            return encodeBlobAsBase64(new Blob([data]), callback);
+        }
+    }
+    // plain string
+    return callback(_commons_js__WEBPACK_IMPORTED_MODULE_0__.PACKET_TYPES[type] + (data || ""));
+};
+const encodeBlobAsBase64 = (data, callback) => {
+    const fileReader = new FileReader();
+    fileReader.onload = function () {
+        const content = fileReader.result.split(",")[1];
+        callback("b" + (content || ""));
+    };
+    return fileReader.readAsDataURL(data);
+};
+function toArray(data) {
+    if (data instanceof Uint8Array) {
+        return data;
+    }
+    else if (data instanceof ArrayBuffer) {
+        return new Uint8Array(data);
+    }
+    else {
+        return new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
+    }
+}
+let TEXT_ENCODER;
+function encodePacketToBinary(packet, callback) {
+    if (withNativeBlob && packet.data instanceof Blob) {
+        return packet.data.arrayBuffer().then(toArray).then(callback);
+    }
+    else if (withNativeArrayBuffer &&
+        (packet.data instanceof ArrayBuffer || isView(packet.data))) {
+        return callback(toArray(packet.data));
+    }
+    encodePacket(packet, false, (encoded) => {
+        if (!TEXT_ENCODER) {
+            TEXT_ENCODER = new TextEncoder();
+        }
+        callback(TEXT_ENCODER.encode(encoded));
+    });
+}
+
+
+
+/***/ }),
+
+/***/ "./node_modules/engine.io-parser/build/esm/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/engine.io-parser/build/esm/index.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createPacketDecoderStream: () => (/* binding */ createPacketDecoderStream),
+/* harmony export */   createPacketEncoderStream: () => (/* binding */ createPacketEncoderStream),
+/* harmony export */   decodePacket: () => (/* reexport safe */ _decodePacket_js__WEBPACK_IMPORTED_MODULE_1__.decodePacket),
+/* harmony export */   decodePayload: () => (/* binding */ decodePayload),
+/* harmony export */   encodePacket: () => (/* reexport safe */ _encodePacket_js__WEBPACK_IMPORTED_MODULE_0__.encodePacket),
+/* harmony export */   encodePayload: () => (/* binding */ encodePayload),
+/* harmony export */   protocol: () => (/* binding */ protocol)
+/* harmony export */ });
+/* harmony import */ var _encodePacket_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./encodePacket.js */ "./node_modules/engine.io-parser/build/esm/encodePacket.browser.js");
+/* harmony import */ var _decodePacket_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./decodePacket.js */ "./node_modules/engine.io-parser/build/esm/decodePacket.browser.js");
+/* harmony import */ var _commons_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./commons.js */ "./node_modules/engine.io-parser/build/esm/commons.js");
+
+
+
+const SEPARATOR = String.fromCharCode(30); // see https://en.wikipedia.org/wiki/Delimiter#ASCII_delimited_text
+const encodePayload = (packets, callback) => {
+    // some packets may be added to the array while encoding, so the initial length must be saved
+    const length = packets.length;
+    const encodedPackets = new Array(length);
+    let count = 0;
+    packets.forEach((packet, i) => {
+        // force base64 encoding for binary packets
+        (0,_encodePacket_js__WEBPACK_IMPORTED_MODULE_0__.encodePacket)(packet, false, (encodedPacket) => {
+            encodedPackets[i] = encodedPacket;
+            if (++count === length) {
+                callback(encodedPackets.join(SEPARATOR));
+            }
+        });
+    });
+};
+const decodePayload = (encodedPayload, binaryType) => {
+    const encodedPackets = encodedPayload.split(SEPARATOR);
+    const packets = [];
+    for (let i = 0; i < encodedPackets.length; i++) {
+        const decodedPacket = (0,_decodePacket_js__WEBPACK_IMPORTED_MODULE_1__.decodePacket)(encodedPackets[i], binaryType);
+        packets.push(decodedPacket);
+        if (decodedPacket.type === "error") {
+            break;
+        }
+    }
+    return packets;
+};
+function createPacketEncoderStream() {
+    return new TransformStream({
+        transform(packet, controller) {
+            (0,_encodePacket_js__WEBPACK_IMPORTED_MODULE_0__.encodePacketToBinary)(packet, (encodedPacket) => {
+                const payloadLength = encodedPacket.length;
+                let header;
+                // inspired by the WebSocket format: https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_servers#decoding_payload_length
+                if (payloadLength < 126) {
+                    header = new Uint8Array(1);
+                    new DataView(header.buffer).setUint8(0, payloadLength);
+                }
+                else if (payloadLength < 65536) {
+                    header = new Uint8Array(3);
+                    const view = new DataView(header.buffer);
+                    view.setUint8(0, 126);
+                    view.setUint16(1, payloadLength);
+                }
+                else {
+                    header = new Uint8Array(9);
+                    const view = new DataView(header.buffer);
+                    view.setUint8(0, 127);
+                    view.setBigUint64(1, BigInt(payloadLength));
+                }
+                // first bit indicates whether the payload is plain text (0) or binary (1)
+                if (packet.data && typeof packet.data !== "string") {
+                    header[0] |= 0x80;
+                }
+                controller.enqueue(header);
+                controller.enqueue(encodedPacket);
+            });
+        },
+    });
+}
+let TEXT_DECODER;
+function totalLength(chunks) {
+    return chunks.reduce((acc, chunk) => acc + chunk.length, 0);
+}
+function concatChunks(chunks, size) {
+    if (chunks[0].length === size) {
+        return chunks.shift();
+    }
+    const buffer = new Uint8Array(size);
+    let j = 0;
+    for (let i = 0; i < size; i++) {
+        buffer[i] = chunks[0][j++];
+        if (j === chunks[0].length) {
+            chunks.shift();
+            j = 0;
+        }
+    }
+    if (chunks.length && j < chunks[0].length) {
+        chunks[0] = chunks[0].slice(j);
+    }
+    return buffer;
+}
+function createPacketDecoderStream(maxPayload, binaryType) {
+    if (!TEXT_DECODER) {
+        TEXT_DECODER = new TextDecoder();
+    }
+    const chunks = [];
+    let state = 0 /* State.READ_HEADER */;
+    let expectedLength = -1;
+    let isBinary = false;
+    return new TransformStream({
+        transform(chunk, controller) {
+            chunks.push(chunk);
+            while (true) {
+                if (state === 0 /* State.READ_HEADER */) {
+                    if (totalLength(chunks) < 1) {
+                        break;
+                    }
+                    const header = concatChunks(chunks, 1);
+                    isBinary = (header[0] & 0x80) === 0x80;
+                    expectedLength = header[0] & 0x7f;
+                    if (expectedLength < 126) {
+                        state = 3 /* State.READ_PAYLOAD */;
+                    }
+                    else if (expectedLength === 126) {
+                        state = 1 /* State.READ_EXTENDED_LENGTH_16 */;
+                    }
+                    else {
+                        state = 2 /* State.READ_EXTENDED_LENGTH_64 */;
+                    }
+                }
+                else if (state === 1 /* State.READ_EXTENDED_LENGTH_16 */) {
+                    if (totalLength(chunks) < 2) {
+                        break;
+                    }
+                    const headerArray = concatChunks(chunks, 2);
+                    expectedLength = new DataView(headerArray.buffer, headerArray.byteOffset, headerArray.length).getUint16(0);
+                    state = 3 /* State.READ_PAYLOAD */;
+                }
+                else if (state === 2 /* State.READ_EXTENDED_LENGTH_64 */) {
+                    if (totalLength(chunks) < 8) {
+                        break;
+                    }
+                    const headerArray = concatChunks(chunks, 8);
+                    const view = new DataView(headerArray.buffer, headerArray.byteOffset, headerArray.length);
+                    const n = view.getUint32(0);
+                    if (n > Math.pow(2, 53 - 32) - 1) {
+                        // the maximum safe integer in JavaScript is 2^53 - 1
+                        controller.enqueue(_commons_js__WEBPACK_IMPORTED_MODULE_2__.ERROR_PACKET);
+                        break;
+                    }
+                    expectedLength = n * Math.pow(2, 32) + view.getUint32(4);
+                    state = 3 /* State.READ_PAYLOAD */;
+                }
+                else {
+                    if (totalLength(chunks) < expectedLength) {
+                        break;
+                    }
+                    const data = concatChunks(chunks, expectedLength);
+                    controller.enqueue((0,_decodePacket_js__WEBPACK_IMPORTED_MODULE_1__.decodePacket)(isBinary ? data : TEXT_DECODER.decode(data), binaryType));
+                    state = 0 /* State.READ_HEADER */;
+                }
+                if (expectedLength === 0 || expectedLength > maxPayload) {
+                    controller.enqueue(_commons_js__WEBPACK_IMPORTED_MODULE_2__.ERROR_PACKET);
+                    break;
+                }
+            }
+        },
+    });
+}
+const protocol = 4;
+
+
+
+/***/ }),
+
+/***/ "./node_modules/socket.io-client/build/esm/contrib/backo2.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/socket.io-client/build/esm/contrib/backo2.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Backoff: () => (/* binding */ Backoff)
+/* harmony export */ });
+/**
+ * Initialize backoff timer with `opts`.
+ *
+ * - `min` initial timeout in milliseconds [100]
+ * - `max` max timeout [10000]
+ * - `jitter` [0]
+ * - `factor` [2]
+ *
+ * @param {Object} opts
+ * @api public
+ */
+function Backoff(opts) {
+    opts = opts || {};
+    this.ms = opts.min || 100;
+    this.max = opts.max || 10000;
+    this.factor = opts.factor || 2;
+    this.jitter = opts.jitter > 0 && opts.jitter <= 1 ? opts.jitter : 0;
+    this.attempts = 0;
+}
+/**
+ * Return the backoff duration.
+ *
+ * @return {Number}
+ * @api public
+ */
+Backoff.prototype.duration = function () {
+    var ms = this.ms * Math.pow(this.factor, this.attempts++);
+    if (this.jitter) {
+        var rand = Math.random();
+        var deviation = Math.floor(rand * this.jitter * ms);
+        ms = (Math.floor(rand * 10) & 1) == 0 ? ms - deviation : ms + deviation;
+    }
+    return Math.min(ms, this.max) | 0;
+};
+/**
+ * Reset the number of attempts.
+ *
+ * @api public
+ */
+Backoff.prototype.reset = function () {
+    this.attempts = 0;
+};
+/**
+ * Set the minimum duration
+ *
+ * @api public
+ */
+Backoff.prototype.setMin = function (min) {
+    this.ms = min;
+};
+/**
+ * Set the maximum duration
+ *
+ * @api public
+ */
+Backoff.prototype.setMax = function (max) {
+    this.max = max;
+};
+/**
+ * Set the jitter
+ *
+ * @api public
+ */
+Backoff.prototype.setJitter = function (jitter) {
+    this.jitter = jitter;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/socket.io-client/build/esm/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/socket.io-client/build/esm/index.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Fetch: () => (/* reexport safe */ engine_io_client__WEBPACK_IMPORTED_MODULE_4__.Fetch),
+/* harmony export */   Manager: () => (/* reexport safe */ _manager_js__WEBPACK_IMPORTED_MODULE_1__.Manager),
+/* harmony export */   NodeWebSocket: () => (/* reexport safe */ engine_io_client__WEBPACK_IMPORTED_MODULE_4__.NodeWebSocket),
+/* harmony export */   NodeXHR: () => (/* reexport safe */ engine_io_client__WEBPACK_IMPORTED_MODULE_4__.NodeXHR),
+/* harmony export */   Socket: () => (/* reexport safe */ _socket_js__WEBPACK_IMPORTED_MODULE_2__.Socket),
+/* harmony export */   WebSocket: () => (/* reexport safe */ engine_io_client__WEBPACK_IMPORTED_MODULE_4__.WebSocket),
+/* harmony export */   WebTransport: () => (/* reexport safe */ engine_io_client__WEBPACK_IMPORTED_MODULE_4__.WebTransport),
+/* harmony export */   XHR: () => (/* reexport safe */ engine_io_client__WEBPACK_IMPORTED_MODULE_4__.XHR),
+/* harmony export */   connect: () => (/* binding */ lookup),
+/* harmony export */   "default": () => (/* binding */ lookup),
+/* harmony export */   io: () => (/* binding */ lookup),
+/* harmony export */   protocol: () => (/* reexport safe */ socket_io_parser__WEBPACK_IMPORTED_MODULE_3__.protocol)
+/* harmony export */ });
+/* harmony import */ var _url_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./url.js */ "./node_modules/socket.io-client/build/esm/url.js");
+/* harmony import */ var _manager_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./manager.js */ "./node_modules/socket.io-client/build/esm/manager.js");
+/* harmony import */ var _socket_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./socket.js */ "./node_modules/socket.io-client/build/esm/socket.js");
+/* harmony import */ var socket_io_parser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! socket.io-parser */ "./node_modules/socket.io-parser/build/esm-debug/index.js");
+/* harmony import */ var engine_io_client__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! engine.io-client */ "./node_modules/engine.io-client/build/esm/index.js");
+
+
+
+/**
+ * Managers cache.
+ */
+const cache = {};
+function lookup(uri, opts) {
+    if (typeof uri === "object") {
+        opts = uri;
+        uri = undefined;
+    }
+    opts = opts || {};
+    const parsed = (0,_url_js__WEBPACK_IMPORTED_MODULE_0__.url)(uri, opts.path || "/socket.io");
+    const source = parsed.source;
+    const id = parsed.id;
+    const path = parsed.path;
+    const sameNamespace = cache[id] && path in cache[id]["nsps"];
+    const newConnection = opts.forceNew ||
+        opts["force new connection"] ||
+        false === opts.multiplex ||
+        sameNamespace;
+    let io;
+    if (newConnection) {
+        io = new _manager_js__WEBPACK_IMPORTED_MODULE_1__.Manager(source, opts);
+    }
+    else {
+        if (!cache[id]) {
+            cache[id] = new _manager_js__WEBPACK_IMPORTED_MODULE_1__.Manager(source, opts);
+        }
+        io = cache[id];
+    }
+    if (parsed.query && !opts.query) {
+        opts.query = parsed.queryKey;
+    }
+    return io.socket(parsed.path, opts);
+}
+// so that "lookup" can be used both as a function (e.g. `io(...)`) and as a
+// namespace (e.g. `io.connect(...)`), for backward compatibility
+Object.assign(lookup, {
+    Manager: _manager_js__WEBPACK_IMPORTED_MODULE_1__.Manager,
+    Socket: _socket_js__WEBPACK_IMPORTED_MODULE_2__.Socket,
+    io: lookup,
+    connect: lookup,
+});
+/**
+ * Protocol version.
+ *
+ * @public
+ */
+
+/**
+ * Expose constructors for standalone build.
+ *
+ * @public
+ */
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/socket.io-client/build/esm/manager.js":
+/*!************************************************************!*\
+  !*** ./node_modules/socket.io-client/build/esm/manager.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Manager: () => (/* binding */ Manager)
+/* harmony export */ });
+/* harmony import */ var engine_io_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! engine.io-client */ "./node_modules/engine.io-client/build/esm/index.js");
+/* harmony import */ var _socket_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./socket.js */ "./node_modules/socket.io-client/build/esm/socket.js");
+/* harmony import */ var socket_io_parser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! socket.io-parser */ "./node_modules/socket.io-parser/build/esm-debug/index.js");
+/* harmony import */ var _on_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./on.js */ "./node_modules/socket.io-client/build/esm/on.js");
+/* harmony import */ var _contrib_backo2_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./contrib/backo2.js */ "./node_modules/socket.io-client/build/esm/contrib/backo2.js");
+/* harmony import */ var _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @socket.io/component-emitter */ "./node_modules/@socket.io/component-emitter/lib/esm/index.js");
+
+
+
+
+
+
+class Manager extends _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_5__.Emitter {
+    constructor(uri, opts) {
+        var _a;
+        super();
+        this.nsps = {};
+        this.subs = [];
+        if (uri && "object" === typeof uri) {
+            opts = uri;
+            uri = undefined;
+        }
+        opts = opts || {};
+        opts.path = opts.path || "/socket.io";
+        this.opts = opts;
+        (0,engine_io_client__WEBPACK_IMPORTED_MODULE_0__.installTimerFunctions)(this, opts);
+        this.reconnection(opts.reconnection !== false);
+        this.reconnectionAttempts(opts.reconnectionAttempts || Infinity);
+        this.reconnectionDelay(opts.reconnectionDelay || 1000);
+        this.reconnectionDelayMax(opts.reconnectionDelayMax || 5000);
+        this.randomizationFactor((_a = opts.randomizationFactor) !== null && _a !== void 0 ? _a : 0.5);
+        this.backoff = new _contrib_backo2_js__WEBPACK_IMPORTED_MODULE_4__.Backoff({
+            min: this.reconnectionDelay(),
+            max: this.reconnectionDelayMax(),
+            jitter: this.randomizationFactor(),
+        });
+        this.timeout(null == opts.timeout ? 20000 : opts.timeout);
+        this._readyState = "closed";
+        this.uri = uri;
+        const _parser = opts.parser || socket_io_parser__WEBPACK_IMPORTED_MODULE_2__;
+        this.encoder = new _parser.Encoder();
+        this.decoder = new _parser.Decoder();
+        this._autoConnect = opts.autoConnect !== false;
+        if (this._autoConnect)
+            this.open();
+    }
+    reconnection(v) {
+        if (!arguments.length)
+            return this._reconnection;
+        this._reconnection = !!v;
+        if (!v) {
+            this.skipReconnect = true;
+        }
+        return this;
+    }
+    reconnectionAttempts(v) {
+        if (v === undefined)
+            return this._reconnectionAttempts;
+        this._reconnectionAttempts = v;
+        return this;
+    }
+    reconnectionDelay(v) {
+        var _a;
+        if (v === undefined)
+            return this._reconnectionDelay;
+        this._reconnectionDelay = v;
+        (_a = this.backoff) === null || _a === void 0 ? void 0 : _a.setMin(v);
+        return this;
+    }
+    randomizationFactor(v) {
+        var _a;
+        if (v === undefined)
+            return this._randomizationFactor;
+        this._randomizationFactor = v;
+        (_a = this.backoff) === null || _a === void 0 ? void 0 : _a.setJitter(v);
+        return this;
+    }
+    reconnectionDelayMax(v) {
+        var _a;
+        if (v === undefined)
+            return this._reconnectionDelayMax;
+        this._reconnectionDelayMax = v;
+        (_a = this.backoff) === null || _a === void 0 ? void 0 : _a.setMax(v);
+        return this;
+    }
+    timeout(v) {
+        if (!arguments.length)
+            return this._timeout;
+        this._timeout = v;
+        return this;
+    }
+    /**
+     * Starts trying to reconnect if reconnection is enabled and we have not
+     * started reconnecting yet
+     *
+     * @private
+     */
+    maybeReconnectOnOpen() {
+        // Only try to reconnect if it's the first time we're connecting
+        if (!this._reconnecting &&
+            this._reconnection &&
+            this.backoff.attempts === 0) {
+            // keeps reconnection from firing twice for the same reconnection loop
+            this.reconnect();
+        }
+    }
+    /**
+     * Sets the current transport `socket`.
+     *
+     * @param {Function} fn - optional, callback
+     * @return self
+     * @public
+     */
+    open(fn) {
+        if (~this._readyState.indexOf("open"))
+            return this;
+        this.engine = new engine_io_client__WEBPACK_IMPORTED_MODULE_0__.Socket(this.uri, this.opts);
+        const socket = this.engine;
+        const self = this;
+        this._readyState = "opening";
+        this.skipReconnect = false;
+        // emit `open`
+        const openSubDestroy = (0,_on_js__WEBPACK_IMPORTED_MODULE_3__.on)(socket, "open", function () {
+            self.onopen();
+            fn && fn();
+        });
+        const onError = (err) => {
+            this.cleanup();
+            this._readyState = "closed";
+            this.emitReserved("error", err);
+            if (fn) {
+                fn(err);
+            }
+            else {
+                // Only do this if there is no fn to handle the error
+                this.maybeReconnectOnOpen();
+            }
+        };
+        // emit `error`
+        const errorSub = (0,_on_js__WEBPACK_IMPORTED_MODULE_3__.on)(socket, "error", onError);
+        if (false !== this._timeout) {
+            const timeout = this._timeout;
+            // set timer
+            const timer = this.setTimeoutFn(() => {
+                openSubDestroy();
+                onError(new Error("timeout"));
+                socket.close();
+            }, timeout);
+            if (this.opts.autoUnref) {
+                timer.unref();
+            }
+            this.subs.push(() => {
+                this.clearTimeoutFn(timer);
+            });
+        }
+        this.subs.push(openSubDestroy);
+        this.subs.push(errorSub);
+        return this;
+    }
+    /**
+     * Alias for open()
+     *
+     * @return self
+     * @public
+     */
+    connect(fn) {
+        return this.open(fn);
+    }
+    /**
+     * Called upon transport open.
+     *
+     * @private
+     */
+    onopen() {
+        // clear old subs
+        this.cleanup();
+        // mark as open
+        this._readyState = "open";
+        this.emitReserved("open");
+        // add new subs
+        const socket = this.engine;
+        this.subs.push((0,_on_js__WEBPACK_IMPORTED_MODULE_3__.on)(socket, "ping", this.onping.bind(this)), (0,_on_js__WEBPACK_IMPORTED_MODULE_3__.on)(socket, "data", this.ondata.bind(this)), (0,_on_js__WEBPACK_IMPORTED_MODULE_3__.on)(socket, "error", this.onerror.bind(this)), (0,_on_js__WEBPACK_IMPORTED_MODULE_3__.on)(socket, "close", this.onclose.bind(this)), 
+        // @ts-ignore
+        (0,_on_js__WEBPACK_IMPORTED_MODULE_3__.on)(this.decoder, "decoded", this.ondecoded.bind(this)));
+    }
+    /**
+     * Called upon a ping.
+     *
+     * @private
+     */
+    onping() {
+        this.emitReserved("ping");
+    }
+    /**
+     * Called with data.
+     *
+     * @private
+     */
+    ondata(data) {
+        try {
+            this.decoder.add(data);
+        }
+        catch (e) {
+            this.onclose("parse error", e);
+        }
+    }
+    /**
+     * Called when parser fully decodes a packet.
+     *
+     * @private
+     */
+    ondecoded(packet) {
+        // the nextTick call prevents an exception in a user-provided event listener from triggering a disconnection due to a "parse error"
+        (0,engine_io_client__WEBPACK_IMPORTED_MODULE_0__.nextTick)(() => {
+            this.emitReserved("packet", packet);
+        }, this.setTimeoutFn);
+    }
+    /**
+     * Called upon socket error.
+     *
+     * @private
+     */
+    onerror(err) {
+        this.emitReserved("error", err);
+    }
+    /**
+     * Creates a new socket for the given `nsp`.
+     *
+     * @return {Socket}
+     * @public
+     */
+    socket(nsp, opts) {
+        let socket = this.nsps[nsp];
+        if (!socket) {
+            socket = new _socket_js__WEBPACK_IMPORTED_MODULE_1__.Socket(this, nsp, opts);
+            this.nsps[nsp] = socket;
+        }
+        else if (this._autoConnect && !socket.active) {
+            socket.connect();
+        }
+        return socket;
+    }
+    /**
+     * Called upon a socket close.
+     *
+     * @param socket
+     * @private
+     */
+    _destroy(socket) {
+        const nsps = Object.keys(this.nsps);
+        for (const nsp of nsps) {
+            const socket = this.nsps[nsp];
+            if (socket.active) {
+                return;
+            }
+        }
+        this._close();
+    }
+    /**
+     * Writes a packet.
+     *
+     * @param packet
+     * @private
+     */
+    _packet(packet) {
+        const encodedPackets = this.encoder.encode(packet);
+        for (let i = 0; i < encodedPackets.length; i++) {
+            this.engine.write(encodedPackets[i], packet.options);
+        }
+    }
+    /**
+     * Clean up transport subscriptions and packet buffer.
+     *
+     * @private
+     */
+    cleanup() {
+        this.subs.forEach((subDestroy) => subDestroy());
+        this.subs.length = 0;
+        this.decoder.destroy();
+    }
+    /**
+     * Close the current socket.
+     *
+     * @private
+     */
+    _close() {
+        this.skipReconnect = true;
+        this._reconnecting = false;
+        this.onclose("forced close");
+    }
+    /**
+     * Alias for close()
+     *
+     * @private
+     */
+    disconnect() {
+        return this._close();
+    }
+    /**
+     * Called when:
+     *
+     * - the low-level engine is closed
+     * - the parser encountered a badly formatted packet
+     * - all sockets are disconnected
+     *
+     * @private
+     */
+    onclose(reason, description) {
+        var _a;
+        this.cleanup();
+        (_a = this.engine) === null || _a === void 0 ? void 0 : _a.close();
+        this.backoff.reset();
+        this._readyState = "closed";
+        this.emitReserved("close", reason, description);
+        if (this._reconnection && !this.skipReconnect) {
+            this.reconnect();
+        }
+    }
+    /**
+     * Attempt a reconnection.
+     *
+     * @private
+     */
+    reconnect() {
+        if (this._reconnecting || this.skipReconnect)
+            return this;
+        const self = this;
+        if (this.backoff.attempts >= this._reconnectionAttempts) {
+            this.backoff.reset();
+            this.emitReserved("reconnect_failed");
+            this._reconnecting = false;
+        }
+        else {
+            const delay = this.backoff.duration();
+            this._reconnecting = true;
+            const timer = this.setTimeoutFn(() => {
+                if (self.skipReconnect)
+                    return;
+                this.emitReserved("reconnect_attempt", self.backoff.attempts);
+                // check again for the case socket closed in above events
+                if (self.skipReconnect)
+                    return;
+                self.open((err) => {
+                    if (err) {
+                        self._reconnecting = false;
+                        self.reconnect();
+                        this.emitReserved("reconnect_error", err);
+                    }
+                    else {
+                        self.onreconnect();
+                    }
+                });
+            }, delay);
+            if (this.opts.autoUnref) {
+                timer.unref();
+            }
+            this.subs.push(() => {
+                this.clearTimeoutFn(timer);
+            });
+        }
+    }
+    /**
+     * Called upon successful reconnect.
+     *
+     * @private
+     */
+    onreconnect() {
+        const attempt = this.backoff.attempts;
+        this._reconnecting = false;
+        this.backoff.reset();
+        this.emitReserved("reconnect", attempt);
+    }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/socket.io-client/build/esm/on.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/socket.io-client/build/esm/on.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   on: () => (/* binding */ on)
+/* harmony export */ });
+function on(obj, ev, fn) {
+    obj.on(ev, fn);
+    return function subDestroy() {
+        obj.off(ev, fn);
+    };
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/socket.io-client/build/esm/socket.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/socket.io-client/build/esm/socket.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Socket: () => (/* binding */ Socket)
+/* harmony export */ });
+/* harmony import */ var socket_io_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! socket.io-parser */ "./node_modules/socket.io-parser/build/esm-debug/index.js");
+/* harmony import */ var _on_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./on.js */ "./node_modules/socket.io-client/build/esm/on.js");
+/* harmony import */ var _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @socket.io/component-emitter */ "./node_modules/@socket.io/component-emitter/lib/esm/index.js");
+
+
+
+/**
+ * Internal events.
+ * These events can't be emitted by the user.
+ */
+const RESERVED_EVENTS = Object.freeze({
+    connect: 1,
+    connect_error: 1,
+    disconnect: 1,
+    disconnecting: 1,
+    // EventEmitter reserved events: https://nodejs.org/api/events.html#events_event_newlistener
+    newListener: 1,
+    removeListener: 1,
+});
+/**
+ * A Socket is the fundamental class for interacting with the server.
+ *
+ * A Socket belongs to a certain Namespace (by default /) and uses an underlying {@link Manager} to communicate.
+ *
+ * @example
+ * const socket = io();
+ *
+ * socket.on("connect", () => {
+ *   console.log("connected");
+ * });
+ *
+ * // send an event to the server
+ * socket.emit("foo", "bar");
+ *
+ * socket.on("foobar", () => {
+ *   // an event was received from the server
+ * });
+ *
+ * // upon disconnection
+ * socket.on("disconnect", (reason) => {
+ *   console.log(`disconnected due to ${reason}`);
+ * });
+ */
+class Socket extends _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_2__.Emitter {
+    /**
+     * `Socket` constructor.
+     */
+    constructor(io, nsp, opts) {
+        super();
+        /**
+         * Whether the socket is currently connected to the server.
+         *
+         * @example
+         * const socket = io();
+         *
+         * socket.on("connect", () => {
+         *   console.log(socket.connected); // true
+         * });
+         *
+         * socket.on("disconnect", () => {
+         *   console.log(socket.connected); // false
+         * });
+         */
+        this.connected = false;
+        /**
+         * Whether the connection state was recovered after a temporary disconnection. In that case, any missed packets will
+         * be transmitted by the server.
+         */
+        this.recovered = false;
+        /**
+         * Buffer for packets received before the CONNECT packet
+         */
+        this.receiveBuffer = [];
+        /**
+         * Buffer for packets that will be sent once the socket is connected
+         */
+        this.sendBuffer = [];
+        /**
+         * The queue of packets to be sent with retry in case of failure.
+         *
+         * Packets are sent one by one, each waiting for the server acknowledgement, in order to guarantee the delivery order.
+         * @private
+         */
+        this._queue = [];
+        /**
+         * A sequence to generate the ID of the {@link QueuedPacket}.
+         * @private
+         */
+        this._queueSeq = 0;
+        this.ids = 0;
+        /**
+         * A map containing acknowledgement handlers.
+         *
+         * The `withError` attribute is used to differentiate handlers that accept an error as first argument:
+         *
+         * - `socket.emit("test", (err, value) => { ... })` with `ackTimeout` option
+         * - `socket.timeout(5000).emit("test", (err, value) => { ... })`
+         * - `const value = await socket.emitWithAck("test")`
+         *
+         * From those that don't:
+         *
+         * - `socket.emit("test", (value) => { ... });`
+         *
+         * In the first case, the handlers will be called with an error when:
+         *
+         * - the timeout is reached
+         * - the socket gets disconnected
+         *
+         * In the second case, the handlers will be simply discarded upon disconnection, since the client will never receive
+         * an acknowledgement from the server.
+         *
+         * @private
+         */
+        this.acks = {};
+        this.flags = {};
+        this.io = io;
+        this.nsp = nsp;
+        if (opts && opts.auth) {
+            this.auth = opts.auth;
+        }
+        this._opts = Object.assign({}, opts);
+        if (this.io._autoConnect)
+            this.open();
+    }
+    /**
+     * Whether the socket is currently disconnected
+     *
+     * @example
+     * const socket = io();
+     *
+     * socket.on("connect", () => {
+     *   console.log(socket.disconnected); // false
+     * });
+     *
+     * socket.on("disconnect", () => {
+     *   console.log(socket.disconnected); // true
+     * });
+     */
+    get disconnected() {
+        return !this.connected;
+    }
+    /**
+     * Subscribe to open, close and packet events
+     *
+     * @private
+     */
+    subEvents() {
+        if (this.subs)
+            return;
+        const io = this.io;
+        this.subs = [
+            (0,_on_js__WEBPACK_IMPORTED_MODULE_1__.on)(io, "open", this.onopen.bind(this)),
+            (0,_on_js__WEBPACK_IMPORTED_MODULE_1__.on)(io, "packet", this.onpacket.bind(this)),
+            (0,_on_js__WEBPACK_IMPORTED_MODULE_1__.on)(io, "error", this.onerror.bind(this)),
+            (0,_on_js__WEBPACK_IMPORTED_MODULE_1__.on)(io, "close", this.onclose.bind(this)),
+        ];
+    }
+    /**
+     * Whether the Socket will try to reconnect when its Manager connects or reconnects.
+     *
+     * @example
+     * const socket = io();
+     *
+     * console.log(socket.active); // true
+     *
+     * socket.on("disconnect", (reason) => {
+     *   if (reason === "io server disconnect") {
+     *     // the disconnection was initiated by the server, you need to manually reconnect
+     *     console.log(socket.active); // false
+     *   }
+     *   // else the socket will automatically try to reconnect
+     *   console.log(socket.active); // true
+     * });
+     */
+    get active() {
+        return !!this.subs;
+    }
+    /**
+     * "Opens" the socket.
+     *
+     * @example
+     * const socket = io({
+     *   autoConnect: false
+     * });
+     *
+     * socket.connect();
+     */
+    connect() {
+        if (this.connected)
+            return this;
+        this.subEvents();
+        if (!this.io["_reconnecting"])
+            this.io.open(); // ensure open
+        if ("open" === this.io._readyState)
+            this.onopen();
+        return this;
+    }
+    /**
+     * Alias for {@link connect()}.
+     */
+    open() {
+        return this.connect();
+    }
+    /**
+     * Sends a `message` event.
+     *
+     * This method mimics the WebSocket.send() method.
+     *
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/send
+     *
+     * @example
+     * socket.send("hello");
+     *
+     * // this is equivalent to
+     * socket.emit("message", "hello");
+     *
+     * @return self
+     */
+    send(...args) {
+        args.unshift("message");
+        this.emit.apply(this, args);
+        return this;
+    }
+    /**
+     * Override `emit`.
+     * If the event is in `events`, it's emitted normally.
+     *
+     * @example
+     * socket.emit("hello", "world");
+     *
+     * // all serializable datastructures are supported (no need to call JSON.stringify)
+     * socket.emit("hello", 1, "2", { 3: ["4"], 5: Uint8Array.from([6]) });
+     *
+     * // with an acknowledgement from the server
+     * socket.emit("hello", "world", (val) => {
+     *   // ...
+     * });
+     *
+     * @return self
+     */
+    emit(ev, ...args) {
+        var _a, _b, _c;
+        if (RESERVED_EVENTS.hasOwnProperty(ev)) {
+            throw new Error('"' + ev.toString() + '" is a reserved event name');
+        }
+        args.unshift(ev);
+        if (this._opts.retries && !this.flags.fromQueue && !this.flags.volatile) {
+            this._addToQueue(args);
+            return this;
+        }
+        const packet = {
+            type: socket_io_parser__WEBPACK_IMPORTED_MODULE_0__.PacketType.EVENT,
+            data: args,
+        };
+        packet.options = {};
+        packet.options.compress = this.flags.compress !== false;
+        // event ack callback
+        if ("function" === typeof args[args.length - 1]) {
+            const id = this.ids++;
+            const ack = args.pop();
+            this._registerAckCallback(id, ack);
+            packet.id = id;
+        }
+        const isTransportWritable = (_b = (_a = this.io.engine) === null || _a === void 0 ? void 0 : _a.transport) === null || _b === void 0 ? void 0 : _b.writable;
+        const isConnected = this.connected && !((_c = this.io.engine) === null || _c === void 0 ? void 0 : _c._hasPingExpired());
+        const discardPacket = this.flags.volatile && !isTransportWritable;
+        if (discardPacket) {
+        }
+        else if (isConnected) {
+            this.notifyOutgoingListeners(packet);
+            this.packet(packet);
+        }
+        else {
+            this.sendBuffer.push(packet);
+        }
+        this.flags = {};
+        return this;
+    }
+    /**
+     * @private
+     */
+    _registerAckCallback(id, ack) {
+        var _a;
+        const timeout = (_a = this.flags.timeout) !== null && _a !== void 0 ? _a : this._opts.ackTimeout;
+        if (timeout === undefined) {
+            this.acks[id] = ack;
+            return;
+        }
+        // @ts-ignore
+        const timer = this.io.setTimeoutFn(() => {
+            delete this.acks[id];
+            for (let i = 0; i < this.sendBuffer.length; i++) {
+                if (this.sendBuffer[i].id === id) {
+                    this.sendBuffer.splice(i, 1);
+                }
+            }
+            ack.call(this, new Error("operation has timed out"));
+        }, timeout);
+        const fn = (...args) => {
+            // @ts-ignore
+            this.io.clearTimeoutFn(timer);
+            ack.apply(this, args);
+        };
+        fn.withError = true;
+        this.acks[id] = fn;
+    }
+    /**
+     * Emits an event and waits for an acknowledgement
+     *
+     * @example
+     * // without timeout
+     * const response = await socket.emitWithAck("hello", "world");
+     *
+     * // with a specific timeout
+     * try {
+     *   const response = await socket.timeout(1000).emitWithAck("hello", "world");
+     * } catch (err) {
+     *   // the server did not acknowledge the event in the given delay
+     * }
+     *
+     * @return a Promise that will be fulfilled when the server acknowledges the event
+     */
+    emitWithAck(ev, ...args) {
+        return new Promise((resolve, reject) => {
+            const fn = (arg1, arg2) => {
+                return arg1 ? reject(arg1) : resolve(arg2);
+            };
+            fn.withError = true;
+            args.push(fn);
+            this.emit(ev, ...args);
+        });
+    }
+    /**
+     * Add the packet to the queue.
+     * @param args
+     * @private
+     */
+    _addToQueue(args) {
+        let ack;
+        if (typeof args[args.length - 1] === "function") {
+            ack = args.pop();
+        }
+        const packet = {
+            id: this._queueSeq++,
+            tryCount: 0,
+            pending: false,
+            args,
+            flags: Object.assign({ fromQueue: true }, this.flags),
+        };
+        args.push((err, ...responseArgs) => {
+            if (packet !== this._queue[0]) {
+            }
+            const hasError = err !== null;
+            if (hasError) {
+                if (packet.tryCount > this._opts.retries) {
+                    this._queue.shift();
+                    if (ack) {
+                        ack(err);
+                    }
+                }
+            }
+            else {
+                this._queue.shift();
+                if (ack) {
+                    ack(null, ...responseArgs);
+                }
+            }
+            packet.pending = false;
+            return this._drainQueue();
+        });
+        this._queue.push(packet);
+        this._drainQueue();
+    }
+    /**
+     * Send the first packet of the queue, and wait for an acknowledgement from the server.
+     * @param force - whether to resend a packet that has not been acknowledged yet
+     *
+     * @private
+     */
+    _drainQueue(force = false) {
+        if (!this.connected || this._queue.length === 0) {
+            return;
+        }
+        const packet = this._queue[0];
+        if (packet.pending && !force) {
+            return;
+        }
+        packet.pending = true;
+        packet.tryCount++;
+        this.flags = packet.flags;
+        this.emit.apply(this, packet.args);
+    }
+    /**
+     * Sends a packet.
+     *
+     * @param packet
+     * @private
+     */
+    packet(packet) {
+        packet.nsp = this.nsp;
+        this.io._packet(packet);
+    }
+    /**
+     * Called upon engine `open`.
+     *
+     * @private
+     */
+    onopen() {
+        if (typeof this.auth == "function") {
+            this.auth((data) => {
+                this._sendConnectPacket(data);
+            });
+        }
+        else {
+            this._sendConnectPacket(this.auth);
+        }
+    }
+    /**
+     * Sends a CONNECT packet to initiate the Socket.IO session.
+     *
+     * @param data
+     * @private
+     */
+    _sendConnectPacket(data) {
+        this.packet({
+            type: socket_io_parser__WEBPACK_IMPORTED_MODULE_0__.PacketType.CONNECT,
+            data: this._pid
+                ? Object.assign({ pid: this._pid, offset: this._lastOffset }, data)
+                : data,
+        });
+    }
+    /**
+     * Called upon engine or manager `error`.
+     *
+     * @param err
+     * @private
+     */
+    onerror(err) {
+        if (!this.connected) {
+            this.emitReserved("connect_error", err);
+        }
+    }
+    /**
+     * Called upon engine `close`.
+     *
+     * @param reason
+     * @param description
+     * @private
+     */
+    onclose(reason, description) {
+        this.connected = false;
+        delete this.id;
+        this.emitReserved("disconnect", reason, description);
+        this._clearAcks();
+    }
+    /**
+     * Clears the acknowledgement handlers upon disconnection, since the client will never receive an acknowledgement from
+     * the server.
+     *
+     * @private
+     */
+    _clearAcks() {
+        Object.keys(this.acks).forEach((id) => {
+            const isBuffered = this.sendBuffer.some((packet) => String(packet.id) === id);
+            if (!isBuffered) {
+                // note: handlers that do not accept an error as first argument are ignored here
+                const ack = this.acks[id];
+                delete this.acks[id];
+                if (ack.withError) {
+                    ack.call(this, new Error("socket has been disconnected"));
+                }
+            }
+        });
+    }
+    /**
+     * Called with socket packet.
+     *
+     * @param packet
+     * @private
+     */
+    onpacket(packet) {
+        const sameNamespace = packet.nsp === this.nsp;
+        if (!sameNamespace)
+            return;
+        switch (packet.type) {
+            case socket_io_parser__WEBPACK_IMPORTED_MODULE_0__.PacketType.CONNECT:
+                if (packet.data && packet.data.sid) {
+                    this.onconnect(packet.data.sid, packet.data.pid);
+                }
+                else {
+                    this.emitReserved("connect_error", new Error("It seems you are trying to reach a Socket.IO server in v2.x with a v3.x client, but they are not compatible (more information here: https://socket.io/docs/v3/migrating-from-2-x-to-3-0/)"));
+                }
+                break;
+            case socket_io_parser__WEBPACK_IMPORTED_MODULE_0__.PacketType.EVENT:
+            case socket_io_parser__WEBPACK_IMPORTED_MODULE_0__.PacketType.BINARY_EVENT:
+                this.onevent(packet);
+                break;
+            case socket_io_parser__WEBPACK_IMPORTED_MODULE_0__.PacketType.ACK:
+            case socket_io_parser__WEBPACK_IMPORTED_MODULE_0__.PacketType.BINARY_ACK:
+                this.onack(packet);
+                break;
+            case socket_io_parser__WEBPACK_IMPORTED_MODULE_0__.PacketType.DISCONNECT:
+                this.ondisconnect();
+                break;
+            case socket_io_parser__WEBPACK_IMPORTED_MODULE_0__.PacketType.CONNECT_ERROR:
+                this.destroy();
+                const err = new Error(packet.data.message);
+                err.data = packet.data.data;
+                this.emitReserved("connect_error", err);
+                break;
+        }
+    }
+    /**
+     * Called upon a server event.
+     *
+     * @param packet
+     * @private
+     */
+    onevent(packet) {
+        const args = packet.data || [];
+        if (null != packet.id) {
+            args.push(this.ack(packet.id));
+        }
+        if (this.connected) {
+            this.emitEvent(args);
+        }
+        else {
+            this.receiveBuffer.push(Object.freeze(args));
+        }
+    }
+    emitEvent(args) {
+        if (this._anyListeners && this._anyListeners.length) {
+            const listeners = this._anyListeners.slice();
+            for (const listener of listeners) {
+                listener.apply(this, args);
+            }
+        }
+        super.emit.apply(this, args);
+        if (this._pid && args.length && typeof args[args.length - 1] === "string") {
+            this._lastOffset = args[args.length - 1];
+        }
+    }
+    /**
+     * Produces an ack callback to emit with an event.
+     *
+     * @private
+     */
+    ack(id) {
+        const self = this;
+        let sent = false;
+        return function (...args) {
+            // prevent double callbacks
+            if (sent)
+                return;
+            sent = true;
+            self.packet({
+                type: socket_io_parser__WEBPACK_IMPORTED_MODULE_0__.PacketType.ACK,
+                id: id,
+                data: args,
+            });
+        };
+    }
+    /**
+     * Called upon a server acknowledgement.
+     *
+     * @param packet
+     * @private
+     */
+    onack(packet) {
+        const ack = this.acks[packet.id];
+        if (typeof ack !== "function") {
+            return;
+        }
+        delete this.acks[packet.id];
+        // @ts-ignore FIXME ack is incorrectly inferred as 'never'
+        if (ack.withError) {
+            packet.data.unshift(null);
+        }
+        // @ts-ignore
+        ack.apply(this, packet.data);
+    }
+    /**
+     * Called upon server connect.
+     *
+     * @private
+     */
+    onconnect(id, pid) {
+        this.id = id;
+        this.recovered = pid && this._pid === pid;
+        this._pid = pid; // defined only if connection state recovery is enabled
+        this.connected = true;
+        this.emitBuffered();
+        this._drainQueue(true);
+        this.emitReserved("connect");
+    }
+    /**
+     * Emit buffered events (received and emitted).
+     *
+     * @private
+     */
+    emitBuffered() {
+        this.receiveBuffer.forEach((args) => this.emitEvent(args));
+        this.receiveBuffer = [];
+        this.sendBuffer.forEach((packet) => {
+            this.notifyOutgoingListeners(packet);
+            this.packet(packet);
+        });
+        this.sendBuffer = [];
+    }
+    /**
+     * Called upon server disconnect.
+     *
+     * @private
+     */
+    ondisconnect() {
+        this.destroy();
+        this.onclose("io server disconnect");
+    }
+    /**
+     * Called upon forced client/server side disconnections,
+     * this method ensures the manager stops tracking us and
+     * that reconnections don't get triggered for this.
+     *
+     * @private
+     */
+    destroy() {
+        if (this.subs) {
+            // clean subscriptions to avoid reconnections
+            this.subs.forEach((subDestroy) => subDestroy());
+            this.subs = undefined;
+        }
+        this.io["_destroy"](this);
+    }
+    /**
+     * Disconnects the socket manually. In that case, the socket will not try to reconnect.
+     *
+     * If this is the last active Socket instance of the {@link Manager}, the low-level connection will be closed.
+     *
+     * @example
+     * const socket = io();
+     *
+     * socket.on("disconnect", (reason) => {
+     *   // console.log(reason); prints "io client disconnect"
+     * });
+     *
+     * socket.disconnect();
+     *
+     * @return self
+     */
+    disconnect() {
+        if (this.connected) {
+            this.packet({ type: socket_io_parser__WEBPACK_IMPORTED_MODULE_0__.PacketType.DISCONNECT });
+        }
+        // remove socket from pool
+        this.destroy();
+        if (this.connected) {
+            // fire events
+            this.onclose("io client disconnect");
+        }
+        return this;
+    }
+    /**
+     * Alias for {@link disconnect()}.
+     *
+     * @return self
+     */
+    close() {
+        return this.disconnect();
+    }
+    /**
+     * Sets the compress flag.
+     *
+     * @example
+     * socket.compress(false).emit("hello");
+     *
+     * @param compress - if `true`, compresses the sending data
+     * @return self
+     */
+    compress(compress) {
+        this.flags.compress = compress;
+        return this;
+    }
+    /**
+     * Sets a modifier for a subsequent event emission that the event message will be dropped when this socket is not
+     * ready to send messages.
+     *
+     * @example
+     * socket.volatile.emit("hello"); // the server may or may not receive it
+     *
+     * @returns self
+     */
+    get volatile() {
+        this.flags.volatile = true;
+        return this;
+    }
+    /**
+     * Sets a modifier for a subsequent event emission that the callback will be called with an error when the
+     * given number of milliseconds have elapsed without an acknowledgement from the server:
+     *
+     * @example
+     * socket.timeout(5000).emit("my-event", (err) => {
+     *   if (err) {
+     *     // the server did not acknowledge the event in the given delay
+     *   }
+     * });
+     *
+     * @returns self
+     */
+    timeout(timeout) {
+        this.flags.timeout = timeout;
+        return this;
+    }
+    /**
+     * Adds a listener that will be fired when any event is emitted. The event name is passed as the first argument to the
+     * callback.
+     *
+     * @example
+     * socket.onAny((event, ...args) => {
+     *   console.log(`got ${event}`);
+     * });
+     *
+     * @param listener
+     */
+    onAny(listener) {
+        this._anyListeners = this._anyListeners || [];
+        this._anyListeners.push(listener);
+        return this;
+    }
+    /**
+     * Adds a listener that will be fired when any event is emitted. The event name is passed as the first argument to the
+     * callback. The listener is added to the beginning of the listeners array.
+     *
+     * @example
+     * socket.prependAny((event, ...args) => {
+     *   console.log(`got event ${event}`);
+     * });
+     *
+     * @param listener
+     */
+    prependAny(listener) {
+        this._anyListeners = this._anyListeners || [];
+        this._anyListeners.unshift(listener);
+        return this;
+    }
+    /**
+     * Removes the listener that will be fired when any event is emitted.
+     *
+     * @example
+     * const catchAllListener = (event, ...args) => {
+     *   console.log(`got event ${event}`);
+     * }
+     *
+     * socket.onAny(catchAllListener);
+     *
+     * // remove a specific listener
+     * socket.offAny(catchAllListener);
+     *
+     * // or remove all listeners
+     * socket.offAny();
+     *
+     * @param listener
+     */
+    offAny(listener) {
+        if (!this._anyListeners) {
+            return this;
+        }
+        if (listener) {
+            const listeners = this._anyListeners;
+            for (let i = 0; i < listeners.length; i++) {
+                if (listener === listeners[i]) {
+                    listeners.splice(i, 1);
+                    return this;
+                }
+            }
+        }
+        else {
+            this._anyListeners = [];
+        }
+        return this;
+    }
+    /**
+     * Returns an array of listeners that are listening for any event that is specified. This array can be manipulated,
+     * e.g. to remove listeners.
+     */
+    listenersAny() {
+        return this._anyListeners || [];
+    }
+    /**
+     * Adds a listener that will be fired when any event is emitted. The event name is passed as the first argument to the
+     * callback.
+     *
+     * Note: acknowledgements sent to the server are not included.
+     *
+     * @example
+     * socket.onAnyOutgoing((event, ...args) => {
+     *   console.log(`sent event ${event}`);
+     * });
+     *
+     * @param listener
+     */
+    onAnyOutgoing(listener) {
+        this._anyOutgoingListeners = this._anyOutgoingListeners || [];
+        this._anyOutgoingListeners.push(listener);
+        return this;
+    }
+    /**
+     * Adds a listener that will be fired when any event is emitted. The event name is passed as the first argument to the
+     * callback. The listener is added to the beginning of the listeners array.
+     *
+     * Note: acknowledgements sent to the server are not included.
+     *
+     * @example
+     * socket.prependAnyOutgoing((event, ...args) => {
+     *   console.log(`sent event ${event}`);
+     * });
+     *
+     * @param listener
+     */
+    prependAnyOutgoing(listener) {
+        this._anyOutgoingListeners = this._anyOutgoingListeners || [];
+        this._anyOutgoingListeners.unshift(listener);
+        return this;
+    }
+    /**
+     * Removes the listener that will be fired when any event is emitted.
+     *
+     * @example
+     * const catchAllListener = (event, ...args) => {
+     *   console.log(`sent event ${event}`);
+     * }
+     *
+     * socket.onAnyOutgoing(catchAllListener);
+     *
+     * // remove a specific listener
+     * socket.offAnyOutgoing(catchAllListener);
+     *
+     * // or remove all listeners
+     * socket.offAnyOutgoing();
+     *
+     * @param [listener] - the catch-all listener (optional)
+     */
+    offAnyOutgoing(listener) {
+        if (!this._anyOutgoingListeners) {
+            return this;
+        }
+        if (listener) {
+            const listeners = this._anyOutgoingListeners;
+            for (let i = 0; i < listeners.length; i++) {
+                if (listener === listeners[i]) {
+                    listeners.splice(i, 1);
+                    return this;
+                }
+            }
+        }
+        else {
+            this._anyOutgoingListeners = [];
+        }
+        return this;
+    }
+    /**
+     * Returns an array of listeners that are listening for any event that is specified. This array can be manipulated,
+     * e.g. to remove listeners.
+     */
+    listenersAnyOutgoing() {
+        return this._anyOutgoingListeners || [];
+    }
+    /**
+     * Notify the listeners for each packet sent
+     *
+     * @param packet
+     *
+     * @private
+     */
+    notifyOutgoingListeners(packet) {
+        if (this._anyOutgoingListeners && this._anyOutgoingListeners.length) {
+            const listeners = this._anyOutgoingListeners.slice();
+            for (const listener of listeners) {
+                listener.apply(this, packet.data);
+            }
+        }
+    }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/socket.io-client/build/esm/url.js":
+/*!********************************************************!*\
+  !*** ./node_modules/socket.io-client/build/esm/url.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   url: () => (/* binding */ url)
+/* harmony export */ });
+/* harmony import */ var engine_io_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! engine.io-client */ "./node_modules/engine.io-client/build/esm/index.js");
+
+/**
+ * URL parser.
+ *
+ * @param uri - url
+ * @param path - the request path of the connection
+ * @param loc - An object meant to mimic window.location.
+ *        Defaults to window.location.
+ * @public
+ */
+function url(uri, path = "", loc) {
+    let obj = uri;
+    // default to window.location
+    loc = loc || (typeof location !== "undefined" && location);
+    if (null == uri)
+        uri = loc.protocol + "//" + loc.host;
+    // relative path support
+    if (typeof uri === "string") {
+        if ("/" === uri.charAt(0)) {
+            if ("/" === uri.charAt(1)) {
+                uri = loc.protocol + uri;
+            }
+            else {
+                uri = loc.host + uri;
+            }
+        }
+        if (!/^(https?|wss?):\/\//.test(uri)) {
+            if ("undefined" !== typeof loc) {
+                uri = loc.protocol + "//" + uri;
+            }
+            else {
+                uri = "https://" + uri;
+            }
+        }
+        // parse
+        obj = (0,engine_io_client__WEBPACK_IMPORTED_MODULE_0__.parse)(uri);
+    }
+    // make sure we treat `localhost:80` and `localhost` equally
+    if (!obj.port) {
+        if (/^(http|ws)$/.test(obj.protocol)) {
+            obj.port = "80";
+        }
+        else if (/^(http|ws)s$/.test(obj.protocol)) {
+            obj.port = "443";
+        }
+    }
+    obj.path = obj.path || "/";
+    const ipv6 = obj.host.indexOf(":") !== -1;
+    const host = ipv6 ? "[" + obj.host + "]" : obj.host;
+    // define unique id
+    obj.id = obj.protocol + "://" + host + ":" + obj.port + path;
+    // define href
+    obj.href =
+        obj.protocol +
+            "://" +
+            host +
+            (loc && loc.port === obj.port ? "" : ":" + obj.port);
+    return obj;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/socket.io-parser/build/esm-debug/binary.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/socket.io-parser/build/esm-debug/binary.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   deconstructPacket: () => (/* binding */ deconstructPacket),
+/* harmony export */   reconstructPacket: () => (/* binding */ reconstructPacket)
+/* harmony export */ });
+/* harmony import */ var _is_binary_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./is-binary.js */ "./node_modules/socket.io-parser/build/esm-debug/is-binary.js");
+
+/**
+ * Replaces every Buffer | ArrayBuffer | Blob | File in packet with a numbered placeholder.
+ *
+ * @param {Object} packet - socket.io event packet
+ * @return {Object} with deconstructed packet and list of buffers
+ * @public
+ */
+function deconstructPacket(packet) {
+    const buffers = [];
+    const packetData = packet.data;
+    const pack = packet;
+    pack.data = _deconstructPacket(packetData, buffers);
+    pack.attachments = buffers.length; // number of binary 'attachments'
+    return { packet: pack, buffers: buffers };
+}
+function _deconstructPacket(data, buffers, toJSON) {
+    if (!data)
+        return data;
+    if ((0,_is_binary_js__WEBPACK_IMPORTED_MODULE_0__.isBinary)(data)) {
+        const placeholder = { _placeholder: true, num: buffers.length };
+        buffers.push(data);
+        return placeholder;
+    }
+    else if (Array.isArray(data)) {
+        const newData = new Array(data.length);
+        for (let i = 0; i < data.length; i++) {
+            newData[i] = _deconstructPacket(data[i], buffers);
+        }
+        return newData;
+    }
+    else if (typeof data === "object" && !(data instanceof Date)) {
+        if (data.toJSON && typeof data.toJSON === "function" && !toJSON) {
+            return _deconstructPacket(data.toJSON(), buffers, true);
+        }
+        const newData = {};
+        for (const key in data) {
+            if (Object.prototype.hasOwnProperty.call(data, key)) {
+                newData[key] = _deconstructPacket(data[key], buffers);
+            }
+        }
+        return newData;
+    }
+    return data;
+}
+/**
+ * Reconstructs a binary packet from its placeholder packet and buffers
+ *
+ * @param {Object} packet - event packet with placeholders
+ * @param {Array} buffers - binary buffers to put in placeholder positions
+ * @return {Object} reconstructed packet
+ * @public
+ */
+function reconstructPacket(packet, buffers) {
+    packet.data = _reconstructPacket(packet.data, buffers);
+    delete packet.attachments; // no longer useful
+    return packet;
+}
+function _reconstructPacket(data, buffers) {
+    if (!data)
+        return data;
+    if (data && data._placeholder === true) {
+        const isIndexValid = typeof data.num === "number" &&
+            data.num >= 0 &&
+            data.num < buffers.length;
+        if (isIndexValid) {
+            return buffers[data.num]; // appropriate buffer (should be natural order anyway)
+        }
+        else {
+            throw new Error("illegal attachments");
+        }
+    }
+    else if (Array.isArray(data)) {
+        for (let i = 0; i < data.length; i++) {
+            data[i] = _reconstructPacket(data[i], buffers);
+        }
+    }
+    else if (typeof data === "object") {
+        for (const key in data) {
+            if (Object.prototype.hasOwnProperty.call(data, key)) {
+                data[key] = _reconstructPacket(data[key], buffers);
+            }
+        }
+    }
+    return data;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/socket.io-parser/build/esm-debug/index.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/socket.io-parser/build/esm-debug/index.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Decoder: () => (/* binding */ Decoder),
+/* harmony export */   Encoder: () => (/* binding */ Encoder),
+/* harmony export */   PacketType: () => (/* binding */ PacketType),
+/* harmony export */   isPacketValid: () => (/* binding */ isPacketValid),
+/* harmony export */   protocol: () => (/* binding */ protocol)
+/* harmony export */ });
+/* harmony import */ var _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @socket.io/component-emitter */ "./node_modules/@socket.io/component-emitter/lib/esm/index.js");
+/* harmony import */ var _binary_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./binary.js */ "./node_modules/socket.io-parser/build/esm-debug/binary.js");
+/* harmony import */ var _is_binary_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./is-binary.js */ "./node_modules/socket.io-parser/build/esm-debug/is-binary.js");
+/* harmony import */ var debug__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! debug */ "./node_modules/debug/src/browser.js");
+
+
+
+ // debug()
+const debug = debug__WEBPACK_IMPORTED_MODULE_3__("socket.io-parser"); // debug()
+/**
+ * These strings must not be used as event names, as they have a special meaning.
+ */
+const RESERVED_EVENTS = [
+    "connect", // used on the client side
+    "connect_error", // used on the client side
+    "disconnect", // used on both sides
+    "disconnecting", // used on the server side
+    "newListener", // used by the Node.js EventEmitter
+    "removeListener", // used by the Node.js EventEmitter
+];
+/**
+ * Protocol version.
+ *
+ * @public
+ */
+const protocol = 5;
+var PacketType;
+(function (PacketType) {
+    PacketType[PacketType["CONNECT"] = 0] = "CONNECT";
+    PacketType[PacketType["DISCONNECT"] = 1] = "DISCONNECT";
+    PacketType[PacketType["EVENT"] = 2] = "EVENT";
+    PacketType[PacketType["ACK"] = 3] = "ACK";
+    PacketType[PacketType["CONNECT_ERROR"] = 4] = "CONNECT_ERROR";
+    PacketType[PacketType["BINARY_EVENT"] = 5] = "BINARY_EVENT";
+    PacketType[PacketType["BINARY_ACK"] = 6] = "BINARY_ACK";
+})(PacketType || (PacketType = {}));
+/**
+ * A socket.io Encoder instance
+ */
+class Encoder {
+    /**
+     * Encoder constructor
+     *
+     * @param {function} replacer - custom replacer to pass down to JSON.parse
+     */
+    constructor(replacer) {
+        this.replacer = replacer;
+    }
+    /**
+     * Encode a packet as a single string if non-binary, or as a
+     * buffer sequence, depending on packet type.
+     *
+     * @param {Object} obj - packet object
+     */
+    encode(obj) {
+        debug("encoding packet %j", obj);
+        if (obj.type === PacketType.EVENT || obj.type === PacketType.ACK) {
+            if ((0,_is_binary_js__WEBPACK_IMPORTED_MODULE_2__.hasBinary)(obj)) {
+                return this.encodeAsBinary({
+                    type: obj.type === PacketType.EVENT
+                        ? PacketType.BINARY_EVENT
+                        : PacketType.BINARY_ACK,
+                    nsp: obj.nsp,
+                    data: obj.data,
+                    id: obj.id,
+                });
+            }
+        }
+        return [this.encodeAsString(obj)];
+    }
+    /**
+     * Encode packet as string.
+     */
+    encodeAsString(obj) {
+        // first is type
+        let str = "" + obj.type;
+        // attachments if we have them
+        if (obj.type === PacketType.BINARY_EVENT ||
+            obj.type === PacketType.BINARY_ACK) {
+            str += obj.attachments + "-";
+        }
+        // if we have a namespace other than `/`
+        // we append it followed by a comma `,`
+        if (obj.nsp && "/" !== obj.nsp) {
+            str += obj.nsp + ",";
+        }
+        // immediately followed by the id
+        if (null != obj.id) {
+            str += obj.id;
+        }
+        // json data
+        if (null != obj.data) {
+            str += JSON.stringify(obj.data, this.replacer);
+        }
+        debug("encoded %j as %s", obj, str);
+        return str;
+    }
+    /**
+     * Encode packet as 'buffer sequence' by removing blobs, and
+     * deconstructing packet into object with placeholders and
+     * a list of buffers.
+     */
+    encodeAsBinary(obj) {
+        const deconstruction = (0,_binary_js__WEBPACK_IMPORTED_MODULE_1__.deconstructPacket)(obj);
+        const pack = this.encodeAsString(deconstruction.packet);
+        const buffers = deconstruction.buffers;
+        buffers.unshift(pack); // add packet info to beginning of data list
+        return buffers; // write all the buffers
+    }
+}
+/**
+ * A socket.io Decoder instance
+ *
+ * @return {Object} decoder
+ */
+class Decoder extends _socket_io_component_emitter__WEBPACK_IMPORTED_MODULE_0__.Emitter {
+    /**
+     * Decoder constructor
+     */
+    constructor(opts) {
+        super();
+        this.opts = Object.assign({
+            reviver: undefined,
+            maxAttachments: 10,
+        }, typeof opts === "function" ? { reviver: opts } : opts);
+    }
+    /**
+     * Decodes an encoded packet string into packet JSON.
+     *
+     * @param {String} obj - encoded packet
+     */
+    add(obj) {
+        let packet;
+        if (typeof obj === "string") {
+            if (this.reconstructor) {
+                throw new Error("got plaintext data when reconstructing a packet");
+            }
+            packet = this.decodeString(obj);
+            const isBinaryEvent = packet.type === PacketType.BINARY_EVENT;
+            if (isBinaryEvent || packet.type === PacketType.BINARY_ACK) {
+                packet.type = isBinaryEvent ? PacketType.EVENT : PacketType.ACK;
+                // binary packet's json
+                this.reconstructor = new BinaryReconstructor(packet);
+            }
+            else {
+                // non-binary full packet
+                super.emitReserved("decoded", packet);
+            }
+        }
+        else if ((0,_is_binary_js__WEBPACK_IMPORTED_MODULE_2__.isBinary)(obj) || obj.base64) {
+            // raw binary data
+            if (!this.reconstructor) {
+                throw new Error("got binary data when not reconstructing a packet");
+            }
+            else {
+                packet = this.reconstructor.takeBinaryData(obj);
+                if (packet) {
+                    // received final buffer
+                    this.reconstructor = null;
+                    super.emitReserved("decoded", packet);
+                }
+            }
+        }
+        else {
+            throw new Error("Unknown type: " + obj);
+        }
+    }
+    /**
+     * Decode a packet String (JSON data)
+     *
+     * @param {String} str
+     * @return {Object} packet
+     */
+    decodeString(str) {
+        let i = 0;
+        // look up type
+        const p = {
+            type: Number(str.charAt(0)),
+        };
+        if (PacketType[p.type] === undefined) {
+            throw new Error("unknown packet type " + p.type);
+        }
+        // look up attachments if type binary
+        if (p.type === PacketType.BINARY_EVENT ||
+            p.type === PacketType.BINARY_ACK) {
+            const start = i + 1;
+            while (str.charAt(++i) !== "-" && i != str.length) { }
+            const buf = str.substring(start, i);
+            if (buf != Number(buf) || str.charAt(i) !== "-") {
+                throw new Error("Illegal attachments");
+            }
+            const n = Number(buf);
+            if (!isInteger(n) || n < 1) {
+                throw new Error("Illegal attachments");
+            }
+            else if (n > this.opts.maxAttachments) {
+                throw new Error("too many attachments");
+            }
+            p.attachments = n;
+        }
+        // look up namespace (if any)
+        if ("/" === str.charAt(i + 1)) {
+            const start = i + 1;
+            while (++i) {
+                const c = str.charAt(i);
+                if ("," === c)
+                    break;
+                if (i === str.length)
+                    break;
+            }
+            p.nsp = str.substring(start, i);
+        }
+        else {
+            p.nsp = "/";
+        }
+        // look up id
+        const next = str.charAt(i + 1);
+        if ("" !== next && Number(next) == next) {
+            const start = i + 1;
+            while (++i) {
+                const c = str.charAt(i);
+                if (null == c || Number(c) != c) {
+                    --i;
+                    break;
+                }
+                if (i === str.length)
+                    break;
+            }
+            p.id = Number(str.substring(start, i + 1));
+        }
+        // look up json data
+        if (str.charAt(++i)) {
+            const payload = this.tryParse(str.substr(i));
+            if (Decoder.isPayloadValid(p.type, payload)) {
+                p.data = payload;
+            }
+            else {
+                throw new Error("invalid payload");
+            }
+        }
+        debug("decoded %s as %j", str, p);
+        return p;
+    }
+    tryParse(str) {
+        try {
+            return JSON.parse(str, this.opts.reviver);
+        }
+        catch (e) {
             return false;
         }
     }
-    reconnect() {
-        this.closeStream();
-        this.openStream();
-    }
-    onClose(code, reason, wasClean) {
-        this.closeStream();
-        this.readyState = state.CLOSED;
-        if (this.onclose) {
-            this.onclose({
-                code: code,
-                reason: reason,
-                wasClean: wasClean,
-            });
-        }
-    }
-    onChunk(chunk) {
-        if (chunk.status !== 200) {
-            return;
-        }
-        if (this.readyState === state.OPEN) {
-            this.onActivity();
-        }
-        var payload;
-        var type = chunk.data.slice(0, 1);
+    static isPayloadValid(type, payload) {
         switch (type) {
-            case 'o':
-                payload = JSON.parse(chunk.data.slice(1) || '{}');
-                this.onOpen(payload);
-                break;
-            case 'a':
-                payload = JSON.parse(chunk.data.slice(1) || '[]');
-                for (var i = 0; i < payload.length; i++) {
-                    this.onEvent(payload[i]);
-                }
-                break;
-            case 'm':
-                payload = JSON.parse(chunk.data.slice(1) || 'null');
-                this.onEvent(payload);
-                break;
-            case 'h':
-                this.hooks.onHeartbeat(this);
-                break;
-            case 'c':
-                payload = JSON.parse(chunk.data.slice(1) || '[]');
-                this.onClose(payload[0], payload[1], true);
-                break;
+            case PacketType.CONNECT:
+                return isObject(payload);
+            case PacketType.DISCONNECT:
+                return payload === undefined;
+            case PacketType.CONNECT_ERROR:
+                return typeof payload === "string" || isObject(payload);
+            case PacketType.EVENT:
+            case PacketType.BINARY_EVENT:
+                return (Array.isArray(payload) &&
+                    (typeof payload[0] === "number" ||
+                        (typeof payload[0] === "string" &&
+                            RESERVED_EVENTS.indexOf(payload[0]) === -1)));
+            case PacketType.ACK:
+            case PacketType.BINARY_ACK:
+                return Array.isArray(payload);
         }
     }
-    onOpen(options) {
-        if (this.readyState === state.CONNECTING) {
-            if (options && options.hostname) {
-                this.location.base = replaceHost(this.location.base, options.hostname);
-            }
-            this.readyState = state.OPEN;
-            if (this.onopen) {
-                this.onopen();
-            }
-        }
-        else {
-            this.onClose(1006, 'Server lost session', true);
-        }
-    }
-    onEvent(event) {
-        if (this.readyState === state.OPEN && this.onmessage) {
-            this.onmessage({ data: event });
-        }
-    }
-    onActivity() {
-        if (this.onactivity) {
-            this.onactivity();
-        }
-    }
-    onError(error) {
-        if (this.onerror) {
-            this.onerror(error);
-        }
-    }
-    openStream() {
-        this.stream = runtime.createSocketRequest('POST', getUniqueURL(this.hooks.getReceiveURL(this.location, this.session)));
-        this.stream.bind('chunk', (chunk) => {
-            this.onChunk(chunk);
-        });
-        this.stream.bind('finished', (status) => {
-            this.hooks.onFinished(this, status);
-        });
-        this.stream.bind('buffer_too_long', () => {
-            this.reconnect();
-        });
-        try {
-            this.stream.start();
-        }
-        catch (error) {
-            util.defer(() => {
-                this.onError(error);
-                this.onClose(1006, 'Could not start streaming', false);
-            });
-        }
-    }
-    closeStream() {
-        if (this.stream) {
-            this.stream.unbind_all();
-            this.stream.close();
-            this.stream = null;
+    /**
+     * Deallocates a parser's resources
+     */
+    destroy() {
+        if (this.reconstructor) {
+            this.reconstructor.finishedReconstruction();
+            this.reconstructor = null;
         }
     }
 }
-function getLocation(url) {
-    var parts = /([^\?]*)\/*(\??.*)/.exec(url);
-    return {
-        base: parts[1],
-        queryString: parts[2],
+/**
+ * A manager of a binary event's 'buffer sequence'. Should
+ * be constructed whenever a packet of type BINARY_EVENT is
+ * decoded.
+ *
+ * @param {Object} packet
+ * @return {BinaryReconstructor} initialized reconstructor
+ */
+class BinaryReconstructor {
+    constructor(packet) {
+        this.packet = packet;
+        this.buffers = [];
+        this.reconPack = packet;
+    }
+    /**
+     * Method to be called when binary data received from connection
+     * after a BINARY_EVENT packet.
+     *
+     * @param {Buffer | ArrayBuffer} binData - the raw binary data received
+     * @return {null | Object} returns null if more binary data is expected or
+     *   a reconstructed packet object if all buffers have been received.
+     */
+    takeBinaryData(binData) {
+        this.buffers.push(binData);
+        if (this.buffers.length === this.reconPack.attachments) {
+            // done with buffer list
+            const packet = (0,_binary_js__WEBPACK_IMPORTED_MODULE_1__.reconstructPacket)(this.reconPack, this.buffers);
+            this.finishedReconstruction();
+            return packet;
+        }
+        return null;
+    }
+    /**
+     * Cleans up binary packet reconstruction variables.
+     */
+    finishedReconstruction() {
+        this.reconPack = null;
+        this.buffers = [];
+    }
+}
+function isNamespaceValid(nsp) {
+    return typeof nsp === "string";
+}
+// see https://caniuse.com/mdn-javascript_builtins_number_isinteger
+const isInteger = Number.isInteger ||
+    function (value) {
+        return (typeof value === "number" &&
+            isFinite(value) &&
+            Math.floor(value) === value);
     };
+function isAckIdValid(id) {
+    return id === undefined || isInteger(id);
 }
-function getSendURL(url, session) {
-    return url.base + '/' + session + '/xhr_send';
+// see https://stackoverflow.com/questions/8511281/check-if-a-value-is-an-object-in-javascript
+function isObject(value) {
+    return Object.prototype.toString.call(value) === "[object Object]";
 }
-function getUniqueURL(url) {
-    var separator = url.indexOf('?') === -1 ? '?' : '&';
-    return url + separator + 't=' + +new Date() + '&n=' + autoIncrement++;
-}
-function replaceHost(url, hostname) {
-    var urlParts = /(https?:\/\/)([^\/:]+)((\/|:)?.*)/.exec(url);
-    return urlParts[1] + hostname + urlParts[3];
-}
-function randomNumber(max) {
-    return runtime.randomInt(max);
-}
-function randomString(length) {
-    var result = [];
-    for (var i = 0; i < length; i++) {
-        result.push(randomNumber(32).toString(32));
+function isDataValid(type, payload) {
+    switch (type) {
+        case PacketType.CONNECT:
+            return payload === undefined || isObject(payload);
+        case PacketType.DISCONNECT:
+            return payload === undefined;
+        case PacketType.EVENT:
+            return (Array.isArray(payload) &&
+                (typeof payload[0] === "number" ||
+                    (typeof payload[0] === "string" &&
+                        RESERVED_EVENTS.indexOf(payload[0]) === -1)));
+        case PacketType.ACK:
+            return Array.isArray(payload);
+        case PacketType.CONNECT_ERROR:
+            return typeof payload === "string" || isObject(payload);
+        default:
+            return false;
     }
-    return result.join('');
 }
-/* harmony default export */ const http_socket = (HTTPSocket);
+function isPacketValid(packet) {
+    return (isNamespaceValid(packet.nsp) &&
+        isAckIdValid(packet.id) &&
+        isDataValid(packet.type, packet.data));
+}
 
-;// ./src/core/http/http_streaming_socket.ts
-var http_streaming_socket_hooks = {
-    getReceiveURL: function (url, session) {
-        return url.base + '/' + session + '/xhr_streaming' + url.queryString;
-    },
-    onHeartbeat: function (socket) {
-        socket.sendRaw('[]');
-    },
-    sendHeartbeat: function (socket) {
-        socket.sendRaw('[]');
-    },
-    onFinished: function (socket, status) {
-        socket.onClose(1006, 'Connection interrupted (' + status + ')', false);
-    },
+
+/***/ }),
+
+/***/ "./node_modules/socket.io-parser/build/esm-debug/is-binary.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/socket.io-parser/build/esm-debug/is-binary.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   hasBinary: () => (/* binding */ hasBinary),
+/* harmony export */   isBinary: () => (/* binding */ isBinary)
+/* harmony export */ });
+const withNativeArrayBuffer = typeof ArrayBuffer === "function";
+const isView = (obj) => {
+    return typeof ArrayBuffer.isView === "function"
+        ? ArrayBuffer.isView(obj)
+        : obj.buffer instanceof ArrayBuffer;
 };
-/* harmony default export */ const http_streaming_socket = (http_streaming_socket_hooks);
-
-;// ./src/core/http/http_polling_socket.ts
-var http_polling_socket_hooks = {
-    getReceiveURL: function (url, session) {
-        return url.base + '/' + session + '/xhr' + url.queryString;
-    },
-    onHeartbeat: function () {
-    },
-    sendHeartbeat: function (socket) {
-        socket.sendRaw('[]');
-    },
-    onFinished: function (socket, status) {
-        if (status === 200) {
-            socket.reconnect();
-        }
-        else {
-            socket.onClose(1006, 'Connection interrupted (' + status + ')', false);
-        }
-    },
-};
-/* harmony default export */ const http_polling_socket = (http_polling_socket_hooks);
-
-;// ./src/runtimes/isomorphic/http/http_xhr_request.ts
-
-var http_xhr_request_hooks = {
-    getRequest: function (socket) {
-        var Constructor = runtime.getXHRAPI();
-        var xhr = new Constructor();
-        xhr.onreadystatechange = xhr.onprogress = function () {
-            switch (xhr.readyState) {
-                case 3:
-                    if (xhr.responseText && xhr.responseText.length > 0) {
-                        socket.onChunk(xhr.status, xhr.responseText);
-                    }
-                    break;
-                case 4:
-                    if (xhr.responseText && xhr.responseText.length > 0) {
-                        socket.onChunk(xhr.status, xhr.responseText);
-                    }
-                    socket.emit('finished', xhr.status);
-                    socket.close();
-                    break;
-            }
-        };
-        return xhr;
-    },
-    abortRequest: function (xhr) {
-        xhr.onreadystatechange = null;
-        xhr.abort();
-    },
-};
-/* harmony default export */ const http_xhr_request = (http_xhr_request_hooks);
-
-;// ./src/runtimes/isomorphic/http/http.ts
-
-
-
-
-
-var HTTP = {
-    createStreamingSocket(url) {
-        return this.createSocket(http_streaming_socket, url);
-    },
-    createPollingSocket(url) {
-        return this.createSocket(http_polling_socket, url);
-    },
-    createSocket(hooks, url) {
-        return new http_socket(hooks, url);
-    },
-    createXHR(method, url) {
-        return this.createRequest(http_xhr_request, method, url);
-    },
-    createRequest(hooks, method, url) {
-        return new HTTPRequest(hooks, method, url);
-    },
-};
-/* harmony default export */ const http_http = (HTTP);
-
-;// ./src/runtimes/web/http/http.ts
-
-
-http_http.createXDR = function (method, url) {
-    return this.createRequest(http_xdomain_request, method, url);
-};
-/* harmony default export */ const web_http_http = (http_http);
-
-;// ./src/runtimes/web/runtime.ts
-
-
-
-
-
-
-
-
-
-
-
-
-var Runtime = {
-    nextAuthCallbackID: 1,
-    auth_callbacks: {},
-    ScriptReceivers: ScriptReceivers,
-    DependenciesReceivers: DependenciesReceivers,
-    getDefaultStrategy: default_strategy,
-    Transports: transports_transports,
-    transportConnectionInitializer: transport_connection_initializer,
-    HTTPFactory: web_http_http,
-    TimelineTransport: jsonp_timeline,
-    getXHRAPI() {
-        return window.XMLHttpRequest;
-    },
-    getWebSocketAPI() {
-        return window.WebSocket || window.MozWebSocket;
-    },
-    setup(PusherClass) {
-        if (typeof window !== 'undefined') {
-            window.Pusher = PusherClass;
-            var initializeOnDocumentBody = () => {
-                this.onDocumentBody(PusherClass.ready);
-            };
-            if (!window.JSON) {
-                Dependencies.load('json2', {}, initializeOnDocumentBody);
-            }
-            else {
-                initializeOnDocumentBody();
-            }
-        }
-    },
-    getDocument() {
-        return document;
-    },
-    getProtocol() {
-        return this.getDocument().location.protocol;
-    },
-    getAuthorizers() {
-        return { ajax: xhr_auth, jsonp: jsonp_auth };
-    },
-    onDocumentBody(callback) {
-        if (document.body) {
-            callback();
-        }
-        else {
-            setTimeout(() => {
-                this.onDocumentBody(callback);
-            }, 0);
-        }
-    },
-    createJSONPRequest(url, data) {
-        return new JSONPRequest(url, data);
-    },
-    createScriptRequest(src) {
-        return new ScriptRequest(src);
-    },
-    getLocalStorage() {
-        try {
-            return window.localStorage;
-        }
-        catch (e) {
-            return undefined;
-        }
-    },
-    createXHR() {
-        if (this.getXHRAPI()) {
-            return this.createXMLHttpRequest();
-        }
-        else {
-            return this.createMicrosoftXHR();
-        }
-    },
-    createXMLHttpRequest() {
-        var Constructor = this.getXHRAPI();
-        return new Constructor();
-    },
-    createMicrosoftXHR() {
-        return new ActiveXObject('Microsoft.XMLHTTP');
-    },
-    getNetwork() {
-        return Network;
-    },
-    createWebSocket(url) {
-        var Constructor = this.getWebSocketAPI();
-        return new Constructor(url);
-    },
-    createSocketRequest(method, url) {
-        if (this.isXHRSupported()) {
-            return this.HTTPFactory.createXHR(method, url);
-        }
-        else if (this.isXDRSupported(url.indexOf('https:') === 0)) {
-            return this.HTTPFactory.createXDR(method, url);
-        }
-        else {
-            throw 'Cross-origin HTTP requests are not supported';
-        }
-    },
-    isXHRSupported() {
-        var Constructor = this.getXHRAPI();
-        return (Boolean(Constructor) && new Constructor().withCredentials !== undefined);
-    },
-    isXDRSupported(useTLS) {
-        var protocol = useTLS ? 'https:' : 'http:';
-        var documentProtocol = this.getProtocol();
-        return (Boolean(window['XDomainRequest']) && documentProtocol === protocol);
-    },
-    addUnloadListener(listener) {
-        if (window.addEventListener !== undefined) {
-            window.addEventListener('pagehide', listener, false);
-        }
-        else if (window.attachEvent !== undefined) {
-            window.attachEvent('onunload', listener);
-        }
-    },
-    removeUnloadListener(listener) {
-        if (window.addEventListener !== undefined) {
-            window.removeEventListener('pagehide', listener, false);
-        }
-        else if (window.detachEvent !== undefined) {
-            window.detachEvent('onunload', listener);
-        }
-    },
-    randomInt(max) {
-        const crypto = window.crypto || window['msCrypto'];
-        const limit = Math.floor(Math.pow(2, 32) / max) * max;
-        let random;
-        do {
-            random = crypto.getRandomValues(new Uint32Array(1))[0];
-        } while (random >= limit);
-        return random % max;
-    },
-};
-/* harmony default export */ const runtime = (Runtime);
-
-;// ./src/core/timeline/level.ts
-var TimelineLevel;
-(function (TimelineLevel) {
-    TimelineLevel[TimelineLevel["ERROR"] = 3] = "ERROR";
-    TimelineLevel[TimelineLevel["INFO"] = 6] = "INFO";
-    TimelineLevel[TimelineLevel["DEBUG"] = 7] = "DEBUG";
-})(TimelineLevel || (TimelineLevel = {}));
-/* harmony default export */ const level = (TimelineLevel);
-
-;// ./src/core/timeline/timeline.ts
-
-
-
-class Timeline {
-    constructor(key, session, options) {
-        this.key = key;
-        this.session = session;
-        this.events = [];
-        this.options = options || {};
-        this.sent = 0;
-        this.uniqueID = 0;
-    }
-    log(level, event) {
-        if (level <= this.options.level) {
-            this.events.push(extend({}, event, { timestamp: util.now() }));
-            if (this.options.limit && this.events.length > this.options.limit) {
-                this.events.shift();
-            }
-        }
-    }
-    error(event) {
-        this.log(level.ERROR, event);
-    }
-    info(event) {
-        this.log(level.INFO, event);
-    }
-    debug(event) {
-        this.log(level.DEBUG, event);
-    }
-    isEmpty() {
-        return this.events.length === 0;
-    }
-    send(sendfn, callback) {
-        var data = extend({
-            session: this.session,
-            bundle: this.sent + 1,
-            key: this.key,
-            lib: 'js',
-            version: this.options.version,
-            cluster: this.options.cluster,
-            features: this.options.features,
-            timeline: this.events,
-        }, this.options.params);
-        this.events = [];
-        sendfn(data, (error, result) => {
-            if (!error) {
-                this.sent++;
-            }
-            if (callback) {
-                callback(error, result);
-            }
-        });
-        return true;
-    }
-    generateUniqueID() {
-        this.uniqueID++;
-        return this.uniqueID;
-    }
+const toString = Object.prototype.toString;
+const withNativeBlob = typeof Blob === "function" ||
+    (typeof Blob !== "undefined" &&
+        toString.call(Blob) === "[object BlobConstructor]");
+const withNativeFile = typeof File === "function" ||
+    (typeof File !== "undefined" &&
+        toString.call(File) === "[object FileConstructor]");
+/**
+ * Returns true if obj is a Buffer, an ArrayBuffer, a Blob or a File.
+ *
+ * @private
+ */
+function isBinary(obj) {
+    return ((withNativeArrayBuffer && (obj instanceof ArrayBuffer || isView(obj))) ||
+        (withNativeBlob && obj instanceof Blob) ||
+        (withNativeFile && obj instanceof File));
 }
-
-;// ./src/core/strategies/transport_strategy.ts
-
-
-
-
-class TransportStrategy {
-    constructor(name, priority, transport, options) {
-        this.name = name;
-        this.priority = priority;
-        this.transport = transport;
-        this.options = options || {};
-    }
-    isSupported() {
-        return this.transport.isSupported({
-            useTLS: this.options.useTLS,
-        });
-    }
-    connect(minPriority, callback) {
-        if (!this.isSupported()) {
-            return failAttempt(new UnsupportedStrategy(), callback);
-        }
-        else if (this.priority < minPriority) {
-            return failAttempt(new TransportPriorityTooLow(), callback);
-        }
-        var connected = false;
-        var transport = this.transport.createConnection(this.name, this.priority, this.options.key, this.options);
-        var handshake = null;
-        var onInitialized = function () {
-            transport.unbind('initialized', onInitialized);
-            transport.connect();
-        };
-        var onOpen = function () {
-            handshake = factory.createHandshake(transport, function (result) {
-                connected = true;
-                unbindListeners();
-                callback(null, result);
-            });
-        };
-        var onError = function (error) {
-            unbindListeners();
-            callback(error);
-        };
-        var onClosed = function () {
-            unbindListeners();
-            var serializedTransport;
-            serializedTransport = safeJSONStringify(transport);
-            callback(new TransportClosed(serializedTransport));
-        };
-        var unbindListeners = function () {
-            transport.unbind('initialized', onInitialized);
-            transport.unbind('open', onOpen);
-            transport.unbind('error', onError);
-            transport.unbind('closed', onClosed);
-        };
-        transport.bind('initialized', onInitialized);
-        transport.bind('open', onOpen);
-        transport.bind('error', onError);
-        transport.bind('closed', onClosed);
-        transport.initialize();
-        return {
-            abort: () => {
-                if (connected) {
-                    return;
-                }
-                unbindListeners();
-                if (handshake) {
-                    handshake.close();
-                }
-                else {
-                    transport.close();
-                }
-            },
-            forceMinPriority: (p) => {
-                if (connected) {
-                    return;
-                }
-                if (this.priority < p) {
-                    if (handshake) {
-                        handshake.close();
-                    }
-                    else {
-                        transport.close();
-                    }
-                }
-            },
-        };
-    }
-}
-function failAttempt(error, callback) {
-    util.defer(function () {
-        callback(error);
-    });
-    return {
-        abort: function () { },
-        forceMinPriority: function () { },
-    };
-}
-
-;// ./src/core/strategies/strategy_builder.ts
-
-
-
-
-
-const { Transports: strategy_builder_Transports } = runtime;
-var defineTransport = function (config, name, type, priority, options, manager) {
-    var transportClass = strategy_builder_Transports[type];
-    if (!transportClass) {
-        throw new UnsupportedTransport(type);
-    }
-    var enabled = (!config.enabledTransports ||
-        arrayIndexOf(config.enabledTransports, name) !== -1) &&
-        (!config.disabledTransports ||
-            arrayIndexOf(config.disabledTransports, name) === -1);
-    var transport;
-    if (enabled) {
-        options = Object.assign({ ignoreNullOrigin: config.ignoreNullOrigin }, options);
-        transport = new TransportStrategy(name, priority, manager ? manager.getAssistant(transportClass) : transportClass, options);
-    }
-    else {
-        transport = strategy_builder_UnsupportedStrategy;
-    }
-    return transport;
-};
-var strategy_builder_UnsupportedStrategy = {
-    isSupported: function () {
-        return false;
-    },
-    connect: function (_, callback) {
-        var deferred = util.defer(function () {
-            callback(new UnsupportedStrategy());
-        });
-        return {
-            abort: function () {
-                deferred.ensureAborted();
-            },
-            forceMinPriority: function () { },
-        };
-    },
-};
-
-;// ./src/core/options.ts
-
-function validateOptions(options) {
-    if (options == null) {
-        throw 'You must pass an options object';
-    }
-    if (options.cluster == null) {
-        throw 'Options object must provide a cluster';
-    }
-    if ('disableStats' in options) {
-        logger.warn('The disableStats option is deprecated in favor of enableStats');
-    }
-}
-
-;// ./src/core/auth/user_authenticator.ts
-
-
-const composeChannelQuery = (params, authOptions) => {
-    var query = 'socket_id=' + encodeURIComponent(params.socketId);
-    for (var key in authOptions.params) {
-        query +=
-            '&' +
-                encodeURIComponent(key) +
-                '=' +
-                encodeURIComponent(authOptions.params[key]);
-    }
-    if (authOptions.paramsProvider != null) {
-        let dynamicParams = authOptions.paramsProvider();
-        for (var key in dynamicParams) {
-            query +=
-                '&' +
-                    encodeURIComponent(key) +
-                    '=' +
-                    encodeURIComponent(dynamicParams[key]);
-        }
-    }
-    return query;
-};
-const UserAuthenticator = (authOptions) => {
-    if (typeof runtime.getAuthorizers()[authOptions.transport] === 'undefined') {
-        throw `'${authOptions.transport}' is not a recognized auth transport`;
-    }
-    return (params, callback) => {
-        const query = composeChannelQuery(params, authOptions);
-        runtime.getAuthorizers()[authOptions.transport](runtime, query, authOptions, AuthRequestType.UserAuthentication, callback);
-    };
-};
-/* harmony default export */ const user_authenticator = (UserAuthenticator);
-
-;// ./src/core/auth/channel_authorizer.ts
-
-
-const channel_authorizer_composeChannelQuery = (params, authOptions) => {
-    var query = 'socket_id=' + encodeURIComponent(params.socketId);
-    query += '&channel_name=' + encodeURIComponent(params.channelName);
-    for (var key in authOptions.params) {
-        query +=
-            '&' +
-                encodeURIComponent(key) +
-                '=' +
-                encodeURIComponent(authOptions.params[key]);
-    }
-    if (authOptions.paramsProvider != null) {
-        let dynamicParams = authOptions.paramsProvider();
-        for (var key in dynamicParams) {
-            query +=
-                '&' +
-                    encodeURIComponent(key) +
-                    '=' +
-                    encodeURIComponent(dynamicParams[key]);
-        }
-    }
-    return query;
-};
-const ChannelAuthorizer = (authOptions) => {
-    if (typeof runtime.getAuthorizers()[authOptions.transport] === 'undefined') {
-        throw `'${authOptions.transport}' is not a recognized auth transport`;
-    }
-    return (params, callback) => {
-        const query = channel_authorizer_composeChannelQuery(params, authOptions);
-        runtime.getAuthorizers()[authOptions.transport](runtime, query, authOptions, AuthRequestType.ChannelAuthorization, callback);
-    };
-};
-/* harmony default export */ const channel_authorizer = (ChannelAuthorizer);
-
-;// ./src/core/auth/deprecated_channel_authorizer.ts
-const ChannelAuthorizerProxy = (pusher, authOptions, channelAuthorizerGenerator) => {
-    const deprecatedAuthorizerOptions = {
-        authTransport: authOptions.transport,
-        authEndpoint: authOptions.endpoint,
-        auth: {
-            params: authOptions.params,
-            headers: authOptions.headers,
-        },
-    };
-    return (params, callback) => {
-        const channel = pusher.channel(params.channelName);
-        const channelAuthorizer = channelAuthorizerGenerator(channel, deprecatedAuthorizerOptions);
-        channelAuthorizer.authorize(params.socketId, callback);
-    };
-};
-
-;// ./src/core/config.ts
-
-
-
-
-
-function getConfig(opts, pusher) {
-    let config = {
-        activityTimeout: opts.activityTimeout || defaults.activityTimeout,
-        cluster: opts.cluster,
-        httpPath: opts.httpPath || defaults.httpPath,
-        httpPort: opts.httpPort || defaults.httpPort,
-        httpsPort: opts.httpsPort || defaults.httpsPort,
-        pongTimeout: opts.pongTimeout || defaults.pongTimeout,
-        statsHost: opts.statsHost || defaults.stats_host,
-        unavailableTimeout: opts.unavailableTimeout || defaults.unavailableTimeout,
-        wsPath: opts.wsPath || defaults.wsPath,
-        wsPort: opts.wsPort || defaults.wsPort,
-        wssPort: opts.wssPort || defaults.wssPort,
-        enableStats: getEnableStatsConfig(opts),
-        httpHost: getHttpHost(opts),
-        useTLS: shouldUseTLS(opts),
-        wsHost: getWebsocketHost(opts),
-        userAuthenticator: buildUserAuthenticator(opts),
-        channelAuthorizer: buildChannelAuthorizer(opts, pusher),
-    };
-    if ('disabledTransports' in opts)
-        config.disabledTransports = opts.disabledTransports;
-    if ('enabledTransports' in opts)
-        config.enabledTransports = opts.enabledTransports;
-    if ('ignoreNullOrigin' in opts)
-        config.ignoreNullOrigin = opts.ignoreNullOrigin;
-    if ('timelineParams' in opts)
-        config.timelineParams = opts.timelineParams;
-    if ('nacl' in opts) {
-        config.nacl = opts.nacl;
-    }
-    return config;
-}
-function getHttpHost(opts) {
-    if (opts.httpHost) {
-        return opts.httpHost;
-    }
-    if (opts.cluster) {
-        return `sockjs-${opts.cluster}.pusher.com`;
-    }
-    return defaults.httpHost;
-}
-function getWebsocketHost(opts) {
-    if (opts.wsHost) {
-        return opts.wsHost;
-    }
-    return getWebsocketHostFromCluster(opts.cluster);
-}
-function getWebsocketHostFromCluster(cluster) {
-    return `ws-${cluster}.pusher.com`;
-}
-function shouldUseTLS(opts) {
-    if (runtime.getProtocol() === 'https:') {
-        return true;
-    }
-    else if (opts.forceTLS === false) {
+function hasBinary(obj, toJSON) {
+    if (!obj || typeof obj !== "object") {
         return false;
     }
-    return true;
-}
-function getEnableStatsConfig(opts) {
-    if ('enableStats' in opts) {
-        return opts.enableStats;
+    if (Array.isArray(obj)) {
+        for (let i = 0, l = obj.length; i < l; i++) {
+            if (hasBinary(obj[i])) {
+                return true;
+            }
+        }
+        return false;
     }
-    if ('disableStats' in opts) {
-        return !opts.disableStats;
+    if (isBinary(obj)) {
+        return true;
+    }
+    if (obj.toJSON &&
+        typeof obj.toJSON === "function" &&
+        arguments.length === 1) {
+        return hasBinary(obj.toJSON(), true);
+    }
+    for (const key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key) && hasBinary(obj[key])) {
+            return true;
+        }
     }
     return false;
 }
-const hasCustomHandler = (auth) => {
-    return 'customHandler' in auth && auth['customHandler'] != null;
-};
-function buildUserAuthenticator(opts) {
-    const userAuthentication = Object.assign(Object.assign({}, defaults.userAuthentication), opts.userAuthentication);
-    if (hasCustomHandler(userAuthentication)) {
-        return userAuthentication['customHandler'];
-    }
-    return user_authenticator(userAuthentication);
-}
-function buildChannelAuth(opts, pusher) {
-    let channelAuthorization;
-    if ('channelAuthorization' in opts) {
-        channelAuthorization = Object.assign(Object.assign({}, defaults.channelAuthorization), opts.channelAuthorization);
-    }
-    else {
-        channelAuthorization = {
-            transport: opts.authTransport || defaults.authTransport,
-            endpoint: opts.authEndpoint || defaults.authEndpoint,
-        };
-        if ('auth' in opts) {
-            if ('params' in opts.auth)
-                channelAuthorization.params = opts.auth.params;
-            if ('headers' in opts.auth)
-                channelAuthorization.headers = opts.auth.headers;
-        }
-        if ('authorizer' in opts) {
-            channelAuthorization.customHandler = ChannelAuthorizerProxy(pusher, channelAuthorization, opts.authorizer);
-        }
-    }
-    return channelAuthorization;
-}
-function buildChannelAuthorizer(opts, pusher) {
-    const channelAuthorization = buildChannelAuth(opts, pusher);
-    if (hasCustomHandler(channelAuthorization)) {
-        return channelAuthorization['customHandler'];
-    }
-    return channel_authorizer(channelAuthorization);
-}
 
-;// ./src/core/watchlist.ts
-
-
-class WatchlistFacade extends Dispatcher {
-    constructor(pusher) {
-        super(function (eventName, data) {
-            logger.debug(`No callbacks on watchlist events for ${eventName}`);
-        });
-        this.pusher = pusher;
-        this.bindWatchlistInternalEvent();
-    }
-    handleEvent(pusherEvent) {
-        pusherEvent.data.events.forEach((watchlistEvent) => {
-            this.emit(watchlistEvent.name, watchlistEvent);
-        });
-    }
-    bindWatchlistInternalEvent() {
-        this.pusher.connection.bind('message', (pusherEvent) => {
-            var eventName = pusherEvent.event;
-            if (eventName === 'pusher_internal:watchlist_events') {
-                this.handleEvent(pusherEvent);
-            }
-        });
-    }
-}
-
-;// ./src/core/utils/flat_promise.ts
-function flatPromise() {
-    let resolve, reject;
-    const promise = new Promise((res, rej) => {
-        resolve = res;
-        reject = rej;
-    });
-    return { promise, resolve, reject };
-}
-/* harmony default export */ const flat_promise = (flatPromise);
-
-;// ./src/core/user.ts
-
-
-
-
-
-
-class UserFacade extends Dispatcher {
-    constructor(pusher) {
-        super(function (eventName, data) {
-            logger.debug('No callbacks on user for ' + eventName);
-        });
-        this.signin_requested = false;
-        this.user_data = null;
-        this.serverToUserChannel = null;
-        this.signinDonePromise = null;
-        this._signinDoneResolve = null;
-        this._onAuthorize = (err, authData) => {
-            if (err) {
-                logger.warn(`Error during signin: ${err}`);
-                this.emit('pusher:signin_error', Object.assign({}, {
-                    type: 'AuthError',
-                    error: err.message,
-                }, err instanceof HTTPAuthError ? { status: err.status } : {}));
-                this._cleanup();
-                return;
-            }
-            this.pusher.send_event('pusher:signin', {
-                auth: authData.auth,
-                user_data: authData.user_data,
-            });
-        };
-        this.pusher = pusher;
-        this.pusher.connection.bind('state_change', ({ previous, current }) => {
-            if (previous !== 'connected' && current === 'connected') {
-                this._signin();
-            }
-            if (previous === 'connected' && current !== 'connected') {
-                this._cleanup();
-                this._newSigninPromiseIfNeeded();
-            }
-        });
-        this.watchlist = new WatchlistFacade(pusher);
-        this.pusher.connection.bind('message', (event) => {
-            var eventName = event.event;
-            if (eventName === 'pusher:signin_success') {
-                this._onSigninSuccess(event.data);
-            }
-            if (this.serverToUserChannel &&
-                this.serverToUserChannel.name === event.channel) {
-                this.serverToUserChannel.handleEvent(event);
-            }
-        });
-    }
-    signin() {
-        if (this.signin_requested) {
-            return;
-        }
-        this.signin_requested = true;
-        this._signin();
-    }
-    _signin() {
-        if (!this.signin_requested) {
-            return;
-        }
-        this._newSigninPromiseIfNeeded();
-        if (this.pusher.connection.state !== 'connected') {
-            return;
-        }
-        this.pusher.config.userAuthenticator({
-            socketId: this.pusher.connection.socket_id,
-        }, this._onAuthorize);
-    }
-    _onSigninSuccess(data) {
-        try {
-            this.user_data = JSON.parse(data.user_data);
-        }
-        catch (e) {
-            logger.error(`Failed parsing user data after signin: ${data.user_data}`);
-            this._cleanup();
-            return;
-        }
-        if (typeof this.user_data.id !== 'string' || this.user_data.id === '') {
-            logger.error(`user_data doesn't contain an id. user_data: ${this.user_data}`);
-            this._cleanup();
-            return;
-        }
-        this._signinDoneResolve();
-        this._subscribeChannels();
-    }
-    _subscribeChannels() {
-        const ensure_subscribed = (channel) => {
-            if (channel.subscriptionPending && channel.subscriptionCancelled) {
-                channel.reinstateSubscription();
-            }
-            else if (!channel.subscriptionPending &&
-                this.pusher.connection.state === 'connected') {
-                channel.subscribe();
-            }
-        };
-        this.serverToUserChannel = new Channel(`#server-to-user-${this.user_data.id}`, this.pusher);
-        this.serverToUserChannel.bind_global((eventName, data) => {
-            if (eventName.indexOf('pusher_internal:') === 0 ||
-                eventName.indexOf('pusher:') === 0) {
-                return;
-            }
-            this.emit(eventName, data);
-        });
-        ensure_subscribed(this.serverToUserChannel);
-    }
-    _cleanup() {
-        this.user_data = null;
-        if (this.serverToUserChannel) {
-            this.serverToUserChannel.unbind_all();
-            this.serverToUserChannel.disconnect();
-            this.serverToUserChannel = null;
-        }
-        if (this.signin_requested) {
-            this._signinDoneResolve();
-        }
-    }
-    _newSigninPromiseIfNeeded() {
-        if (!this.signin_requested) {
-            return;
-        }
-        if (this.signinDonePromise && !this.signinDonePromise.done) {
-            return;
-        }
-        const { promise, resolve, reject: _ } = flat_promise();
-        promise.done = false;
-        const setDone = () => {
-            promise.done = true;
-        };
-        promise.then(setDone).catch(setDone);
-        this.signinDonePromise = promise;
-        this._signinDoneResolve = resolve;
-    }
-}
-
-;// ./src/core/pusher.ts
-
-
-
-
-
-
-
-
-
-
-
-
-
-class Pusher {
-    static ready() {
-        Pusher.isReady = true;
-        for (var i = 0, l = Pusher.instances.length; i < l; i++) {
-            Pusher.instances[i].connect();
-        }
-    }
-    static getClientFeatures() {
-        return keys(filterObject({ ws: runtime.Transports.ws }, function (t) {
-            return t.isSupported({});
-        }));
-    }
-    constructor(app_key, options) {
-        checkAppKey(app_key);
-        validateOptions(options);
-        this.key = app_key;
-        this.options = options;
-        this.config = getConfig(this.options, this);
-        this.channels = factory.createChannels();
-        this.global_emitter = new Dispatcher();
-        this.sessionID = runtime.randomInt(1000000000);
-        this.timeline = new Timeline(this.key, this.sessionID, {
-            cluster: this.config.cluster,
-            features: Pusher.getClientFeatures(),
-            params: this.config.timelineParams || {},
-            limit: 50,
-            level: level.INFO,
-            version: defaults.VERSION,
-        });
-        if (this.config.enableStats) {
-            this.timelineSender = factory.createTimelineSender(this.timeline, {
-                host: this.config.statsHost,
-                path: '/timeline/v2/' + runtime.TimelineTransport.name,
-            });
-        }
-        var getStrategy = (options) => {
-            return runtime.getDefaultStrategy(this.config, options, defineTransport);
-        };
-        this.connection = factory.createConnectionManager(this.key, {
-            getStrategy: getStrategy,
-            timeline: this.timeline,
-            activityTimeout: this.config.activityTimeout,
-            pongTimeout: this.config.pongTimeout,
-            unavailableTimeout: this.config.unavailableTimeout,
-            useTLS: Boolean(this.config.useTLS),
-        });
-        this.connection.bind('connected', () => {
-            this.subscribeAll();
-            if (this.timelineSender) {
-                this.timelineSender.send(this.connection.isUsingTLS());
-            }
-        });
-        this.connection.bind('message', (event) => {
-            var eventName = event.event;
-            var internal = eventName.indexOf('pusher_internal:') === 0;
-            if (event.channel) {
-                var channel = this.channel(event.channel);
-                if (channel) {
-                    channel.handleEvent(event);
-                }
-            }
-            if (!internal) {
-                this.global_emitter.emit(event.event, event.data);
-            }
-        });
-        this.connection.bind('connecting', () => {
-            this.channels.disconnect();
-        });
-        this.connection.bind('disconnected', () => {
-            this.channels.disconnect();
-        });
-        this.connection.bind('error', (err) => {
-            logger.warn(err);
-        });
-        Pusher.instances.push(this);
-        this.timeline.info({ instances: Pusher.instances.length });
-        this.user = new UserFacade(this);
-        if (Pusher.isReady) {
-            this.connect();
-        }
-    }
-    switchCluster(options) {
-        const { appKey, cluster } = options;
-        this.key = appKey;
-        this.options = Object.assign(Object.assign({}, this.options), { cluster });
-        this.config = getConfig(this.options, this);
-        this.connection.switchCluster(this.key);
-    }
-    channel(name) {
-        return this.channels.find(name);
-    }
-    allChannels() {
-        return this.channels.all();
-    }
-    connect() {
-        this.connection.connect();
-        if (this.timelineSender) {
-            if (!this.timelineSenderTimer) {
-                var usingTLS = this.connection.isUsingTLS();
-                var timelineSender = this.timelineSender;
-                this.timelineSenderTimer = new PeriodicTimer(60000, function () {
-                    timelineSender.send(usingTLS);
-                });
-            }
-        }
-    }
-    disconnect() {
-        this.connection.disconnect();
-        if (this.timelineSenderTimer) {
-            this.timelineSenderTimer.ensureAborted();
-            this.timelineSenderTimer = null;
-        }
-    }
-    bind(event_name, callback, context) {
-        this.global_emitter.bind(event_name, callback, context);
-        return this;
-    }
-    unbind(event_name, callback, context) {
-        this.global_emitter.unbind(event_name, callback, context);
-        return this;
-    }
-    bind_global(callback) {
-        this.global_emitter.bind_global(callback);
-        return this;
-    }
-    unbind_global(callback) {
-        this.global_emitter.unbind_global(callback);
-        return this;
-    }
-    unbind_all(callback) {
-        this.global_emitter.unbind_all();
-        return this;
-    }
-    subscribeAll() {
-        var channelName;
-        for (channelName in this.channels.channels) {
-            if (this.channels.channels.hasOwnProperty(channelName)) {
-                this.subscribe(channelName);
-            }
-        }
-    }
-    subscribe(channel_name) {
-        var channel = this.channels.add(channel_name, this);
-        if (channel.subscriptionPending && channel.subscriptionCancelled) {
-            channel.reinstateSubscription();
-        }
-        else if (!channel.subscriptionPending &&
-            this.connection.state === 'connected') {
-            channel.subscribe();
-        }
-        return channel;
-    }
-    unsubscribe(channel_name) {
-        var channel = this.channels.find(channel_name);
-        if (channel && channel.subscriptionPending) {
-            channel.cancelSubscription();
-        }
-        else {
-            channel = this.channels.remove(channel_name);
-            if (channel && channel.subscribed) {
-                channel.unsubscribe();
-            }
-        }
-    }
-    send_event(event_name, data, channel) {
-        return this.connection.send_event(event_name, data, channel);
-    }
-    shouldUseTLS() {
-        return this.config.useTLS;
-    }
-    signin() {
-        this.user.signin();
-    }
-}
-Pusher.instances = [];
-Pusher.isReady = false;
-Pusher.logToConsole = false;
-Pusher.Runtime = runtime;
-Pusher.ScriptReceivers = runtime.ScriptReceivers;
-Pusher.DependenciesReceivers = runtime.DependenciesReceivers;
-Pusher.auth_callbacks = runtime.auth_callbacks;
-/* harmony default export */ const pusher = (Pusher);
-function checkAppKey(key) {
-    if (key === null || key === undefined) {
-        throw 'You must pass your app key when you instantiate Pusher.';
-    }
-}
-runtime.setup(Pusher);
-
-
-/***/ }
-
-/******/ 	});
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __nested_webpack_require_142595__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __nested_webpack_require_142595__);
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__nested_webpack_require_142595__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__nested_webpack_require_142595__.o(definition, key) && !__nested_webpack_require_142595__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__nested_webpack_require_142595__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module used 'module' so it can't be inlined
-/******/ 	var __nested_webpack_exports__ = __nested_webpack_require_142595__(721);
-/******/ 	
-/******/ 	return __nested_webpack_exports__;
-/******/ })()
-;
-});
-//# sourceMappingURL=pusher.js.map
 
 /***/ })
 
@@ -9018,18 +8107,6 @@ runtime.setup(Pusher);
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
