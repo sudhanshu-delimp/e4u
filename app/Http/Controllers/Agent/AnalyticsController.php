@@ -673,7 +673,7 @@ class AnalyticsController extends Controller
             'locations.Purchase.membershipPlan' 
         ])->find($tourId);
 
-        // dd($tour->toArray());
+       //  dd($tour->toArray());
 
         if (!$tour) {
             return response()->json([
@@ -682,93 +682,98 @@ class AnalyticsController extends Controller
             ], 404);
         }
 
-        $summaryData = [];
+        $membership = [];
         $totalDaysSum = 0;
         $totalFeeSum = 0;
+        $listingFee = 0;
+        $total_amount = 0;
+        $i=0;
 
         foreach ($tour->locations as $location) {
           
             $start = $location->start_date ? Carbon::parse($location->start_date) : null;
             $end   = $location->end_date ? Carbon::parse($location->end_date) : null;
-
-           
             $days = ($start && $end) ? $start->diffInDays($end) + 1 : 0;
-            $totalDaysSum += $days;
-
+           
             $startDate = $start ? $start->format('d-m-Y') : '';
             $endDate   = $end ? $end->format('d-m-Y') : '';
+            $tour_location  = optional($location->state)->iso2 ?? optional($location->state)->iso2 ?? 'N/A';
 
-
-            $listingFee = 0;
-            $membership = [];
-            $i=0;
-            foreach ($location->purchase as $purc) {
-            $listingFee += $purc->paid_rate ? $purc->paid_rate : 0.00;
-            
-            $escort =  $purc->escort->slug ?  $purc->escort->slug : 'NA';
-            $plan = $purc->membershipPlan->name ? $purc->membershipPlan->name : 'NA';
-            $membership[$i]['member_id'] = $escort;
-            $membership[$i]['plan'] = $plan;
-            $i++;
-            }
-
-            $is_pinup = 0;
-            $total_pinup_amount = 0;
-            $pinup_data = [];
-            $pinup_array = [];
-  
-            if($location->is_pinup =='1')
+            foreach ($location->purchase as $purc) 
             {
-                $is_pinup = 1;
-                $pinup_profiles = $location->profiles->whereNotNull('is_pinup');
-                $pinup_data = $pinup_profiles[0] ?? null;
 
-                if ($pinup_data && !empty($pinup_data['is_pinup'])) 
+                $totalDaysSum += $days;
+                $listingFee = $purc->paid_rate ? $purc->paid_rate : 0.00;
+                $escort =  $purc->escort->slug ?  $purc->escort->slug : 'NA';
+                $plan = $purc->membershipPlan->name ? $purc->membershipPlan->name : 'NA';
+                $total_amount += $listingFee;
+            
+                $membership[$i]['location']   = $tour_location;
+                $membership[$i]['start_date'] = $startDate;
+                $membership[$i]['end_date'] = $endDate;
+                $membership[$i]['days'] = $days;
+                $membership[$i]['listing_fee'] = formatAmount($listingFee);
+                $membership[$i]['membership'] = $plan;
+                $membership[$i]['purchase_id'] = $purc->id;
+
+                
+                $i++;
+
+    
+                $pinup_data = [];
+                $pinup_array = [];
+
+                Log::info(isPinupDoneForPurchase($membership, $purc->id));
+
+                if($location->is_pinup =='1' && isPinupDoneForPurchase($membership, $purc->id))
                 {
-                    $PaymentItem = PaymentItem::where('item_id', $pinup_data['is_pinup'])
-                        ->where('item_type', 'App\Models\EscortPinup')
-                        ->first();
+                   
+                    $pinup_profiles = $location->profiles->whereNotNull('is_pinup');
+                    $pinup_data = $pinup_profiles[0] ?? null;
 
-                    $escort_pinup = EscortPinup::with('escort')->where('id', $pinup_data['is_pinup'])->first();
-                    if($escort_pinup)
+                    if ($pinup_data && !empty($pinup_data['is_pinup'])) 
                     {
-                        $escort_start = $escort_pinup->start_date ? Carbon::parse($escort_pinup->start_date) : null;
-                        $escort_end   = $escort_pinup->end_date ? Carbon::parse($escort_pinup->end_date) : null;
-                        $pin_days = ($escort_start && $escort_end) ? $escort_start->diffInDays($escort_end) + 1 : 0;
+                        $PaymentItem = PaymentItem::where('item_id', $pinup_data['is_pinup'])
+                            ->where('item_type', 'App\Models\EscortPinup')
+                            ->first();
+
+                        $escort_pinup = EscortPinup::with('escort')->where('id', $pinup_data['is_pinup'])->first();
+                        if($escort_pinup)
+                        {
+                            $escort_start = $escort_pinup->start_date ? Carbon::parse($escort_pinup->start_date) : null;
+                            $escort_end   = $escort_pinup->end_date ? Carbon::parse($escort_pinup->end_date) : null;
+                           
+                        }
+
+                        $membership_pinup =  'Pin Up';
+                        $membership[$i]['location'] = $tour_location;
+                        $membership[$i]['start_date'] = date('d-m-Y',strtotime($escort_pinup->start_date));
+                        $membership[$i]['end_date'] = date('d-m-Y',strtotime($escort_pinup->end_date)); 
+                        $membership[$i]['days'] = '(1 week)';
+                        $membership[$i]['listing_fee'] = $PaymentItem ? $PaymentItem->amount: 0;
+                        $membership[$i]['membership'] = $membership_pinup;
+                        $membership[$i]['is_pinup_done'] = 1;
+                        $membership[$i]['purchase_id'] = $purc->id;
+                        
+                        $total_amount += $PaymentItem->amount;
+                        $i++;
                     }
 
-                    $membership_pinup = isset($escort_pinup->escort->slug) ?  'Pin Up (' .$escort_pinup->escort->slug.')' : 'Pin Up';
-                    $pinup_array['location'] = optional($location->state)->iso2 ?? optional($location->state)->iso2 ?? 'N/A';
-                    $pinup_array['membership'] = $membership_pinup;
-                    $pinup_array['start_date'] = date('d-m-Y',strtotime($escort_pinup->start_date));
-                    $pinup_array['end_date'] = date('d-m-Y',strtotime($escort_pinup->end_date));  
-                    $pinup_array['days'] = '(1 week)';
-                    $pinup_array['listing_fee'] = $PaymentItem ? $PaymentItem->amount: 0;
-                    $total_pinup_amount += $PaymentItem->amount;
                 }
+
+                //$totalFeeSum += $total_amount;
 
             }
             
-            $totalFeeSum += $listingFee+$total_pinup_amount;
-            $summaryData[] = [
-                'location'        => optional($location->state)->iso2 ?? optional($location->state)->iso2 ?? 'N/A',
-                'start_date'      => $startDate,
-                'end_date'        => $endDate,
-                'days'            => $days,
-                'listing_fee'     => formatAmount($listingFee),
-                'membership'      => $membership,
-                'is_pinup'        => $is_pinup,
-                'pinup_data'      => $pinup_array,
-            ];
         }
 
         return response()->json([
             'status'     => true,
             'member_id'  => optional($tour->user)->member_id ?? '',
             'tour_id'    => $tour->id,
-            'data'       => $summaryData,
+            'data'       => $membership,
             'total_days' => $totalDaysSum,
-            'total_fee'  => number_format($totalFeeSum, 2)
+            'total_fee'  => number_format($total_amount, 2)
         ]);
     }
 

@@ -756,23 +756,7 @@
                                 `;
                             }
 
-                        // if(row.is_pinup)
-                        // {
-                        //     html += `
-                        //     <tr ${bgStyle}>
-                        //         <td style="text-align:center;">${row.pinup_data.location}</td>
-                        //         <td style="text-align:center;">${row.pinup_data.start_date}</td>
-                        //         <td style="text-align:center;">${row.pinup_data.end_date}</td>
-                        //         <td style="text-align:center;">${row.pinup_data.membership}</td>
-                        //         <td style="text-align:center;">${row.pinup_data.days}</td>
-                        //         <td style="text-align:right;">
-                        //             <div class="num_value"><x-curFormat/><span>${row.pinup_data.listing_fee}</span></div>
-                        //         </td>
-                        //     </tr>
-                        // `;
-  
-                        // }
-
+                       
                     });
 
                     // Append Totals row
