@@ -383,6 +383,7 @@ class PaymentController extends Controller
                             'payment_history_id' => $payment->id,
                             'amount' => $payment->amount,
                         ]);
+                        Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], compact('payment'), $mailConfig['subject']));
                     }
                     break;
 

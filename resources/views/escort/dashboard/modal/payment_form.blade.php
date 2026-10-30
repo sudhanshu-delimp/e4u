@@ -352,7 +352,6 @@
                 });
             }
             break;
-
             default: {
                 displaySwal(xhr).then((result) => {
                     if (result.isConfirmed) {
