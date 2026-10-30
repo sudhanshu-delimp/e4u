@@ -367,7 +367,6 @@ class PaymentController extends Controller
                     }
                     break;
                     case 'support_service': {
-                        Log::info($payload);
                         $payment_service = 'Support Service';
                         $supportServices = array_filter($payload, function ($key) {
                         return preg_match('/^support_service_item_\d+$/', $key);
@@ -383,7 +382,7 @@ class PaymentController extends Controller
                             'payment_history_id' => $payment->id,
                             'amount' => $payment->amount,
                         ]);
-                        Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], compact('payment'), $mailConfig['subject']));
+                        Mail::to($payment->user->email)->send(new PaymentMailer($mailConfig['template'], compact('payment'), $mailConfig['subject']));
                     }
                     break;
 
