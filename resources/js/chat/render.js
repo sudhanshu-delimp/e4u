@@ -192,16 +192,15 @@ export function chatItemHtml(conv, ctx) {
 
             <div class="avatar avatar-light" style="${avatarStyle(user.color)}">
                 ${avatarInner(user)}
+                 
             </div>
 
             <div class="user-info">
 
-                <div class="user-top">
-                    <span class="user-type">${escapeHtml(user.member_id)}</span>
-                </div>
-
+               
                 <div class="user-name">
                     ${escapeHtml(user.name)}
+                    <span class="user-type">(${escapeHtml(user.member_id)})</span>
                     <span class="status-dot${online ? '' : ' offline'}"></span>
                 </div>
 
@@ -259,7 +258,7 @@ function attachmentsHtml(msg) {
         const mime = String(a.mime || '').toLowerCase();
 
         if (a.kind === 'image' && SHOWABLE_IMAGES.indexOf(mime) !== -1) {
-            const size = many ? 'width:120px;height:120px;object-fit:cover;' : 'max-width:240px;max-height:260px;';
+            const size = many ? 'width:110px;height:110px;object-fit:cover;' : 'max-width:240px;max-height:260px;';
 
             return `<a href="${url}" class="chat-media" data-kind="image" target="_blank" rel="noopener">
                 <img src="${url}" alt="" loading="lazy" style="${size}border-radius:8px;display:block;">
@@ -284,7 +283,7 @@ function attachmentsHtml(msg) {
         </a>`;
     }).join('');
 
-    return many ? `<div style="display:flex;flex-wrap:wrap;gap:6px;">${html}</div>` : html;
+    return many ? `<div style="display:flex;flex-wrap:wrap;gap:7px;">${html}</div>` : html;
 }
 
 /**
@@ -332,7 +331,7 @@ export function messageHtml(msg, prev, ctx) {
     let actions = '';
 
     if (!msg.deleted) {
-        const buttonStyle = 'border:0;background:transparent;padding:0 4px;cursor:pointer;color:inherit;font-size:12px;';
+        const buttonStyle = 'border:0;background:transparent;padding:0 4px;cursor:pointer;color:inherit;font-size:12px; margin:0px;';
         const hasFiles = (msg.attachments || []).length > 0;
 
         const edit = (mine && !hasFiles && msg.body && canEdit(msg))
