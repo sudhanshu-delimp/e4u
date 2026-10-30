@@ -1279,14 +1279,10 @@
                 showLoadingPopup();
                 $("#suspend_form").find('button[type=submit]').attr('disabled', 'disabled');
             },
-            success: function(data) {
+            success: function(response, textStatus, xhr) {
                 Swal.close();
-                if (data.response.success) {
-                    Swal.fire({
-                        icon: "success",
-                        text: data.response.message
-                    });
-
+                if (response.success) {
+                    displaySwal(xhr);
                     // set suspend icon to profile 
                     $('#suspend_profile').modal('hide');
                     table.draw();
@@ -1298,6 +1294,12 @@
                 }
                 $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
             },
+            error: function(xhr, status, error){
+                displaySwal(xhr);
+            },
+            complete: function(){
+                $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
+            }
 
         });
     });

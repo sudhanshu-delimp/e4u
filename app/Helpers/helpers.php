@@ -1491,7 +1491,7 @@ if (!function_exists('getSuspendRefundAmount')) {
         $refundAmount = 0.00;
         if (!empty($startDate)  && !empty($endDate)) {
             $profileDetail = is_object($profile) ? $profile : getEscortDetail($profile);
-            $purchase = $profileDetail->mainPurchase;
+            $purchase = $profileDetail->currentPurchase;
             $piadAmount = $purchase->paid_rate;
 
             $dayBeforeSuspendStart = Carbon::parse($purchase->start_date)->diffInDays(Carbon::parse($startDate));
