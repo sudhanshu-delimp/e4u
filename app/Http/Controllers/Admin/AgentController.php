@@ -176,6 +176,18 @@ class AgentController extends BaseController
                                           </div>';
              }
             
+                      $preferences = getUserNotificationPreferences($item);
+                      $communication = [];
+
+                      if ($preferences['text_enabled']) 
+                          $communication[] = 'Text';
+                      
+
+                      if ($preferences['email_enabled']) 
+                          $communication[] = 'Email';
+                      
+
+                      $item->communication = implode(', ', $communication);
             $item->status_text = "<span class='custom_badge {$badgeClass}'>{$statusText}</span>";
             $item->action = $dropdown;
             $i++;
