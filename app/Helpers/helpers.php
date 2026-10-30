@@ -3441,8 +3441,8 @@ if (!function_exists('getMasseurWorkingDetails'))
         $schedule = json_decode($scheduleJson, true);
         $massageSchedule = json_decode($massageJson, true);
 
-        Log::info($schedule);
-        Log::info($massageSchedule);
+        // Log::info($schedule);
+        // Log::info($massageSchedule);
 
         if (!$schedule || !$massageSchedule) {
             return [
