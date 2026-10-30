@@ -59,10 +59,10 @@
                             <td></td>
                             <td class="text-center">{{ $esortReport['total_days'] }}</td>
                             <td class="text-right">
-                                <div class="num_value">$<span>{{ $esortReport['total_purchase_amount'] }}</span></div>
+                                <div class="num_value">$<span>{{  number_format($esortReport['total_purchase_amount'], 2) }}</span></div>
                             </td>
                             <td class="text-right">
-                                <div class="num_value">$<span>{{ $esortReport['total_commission_amount'] }}</span></div>
+                                <div class="num_value">$<span>{{  number_format($esortReport['total_commission_amount'], 2) }}</span></div>
                             </td>
                         </tr>
                         <!-- Detail rows -->

@@ -23,6 +23,7 @@
                 border-bottom: 0px;
             }
         }
+ 
         table th,
         table td {
             font-family: "Poppins", sans-serif;
@@ -59,9 +60,10 @@
            font-family: "Poppins", sans-serif;
         }
         .font-weight-bold{color:#fff !important; border: 0.5px solid #fff !important;}
-     
+     .modal-thaed td {padding: .45rem .75rem .55rem !important;font-size: 14px;font-weight: 500 !important;color:#fff }
     </style>
 </head>
+
 
 <body style="margin:0;width:100%">
     @php
@@ -89,11 +91,11 @@
                             <td style="text-align: left !important;"> <span>
                                     <img src="{{ $base64 }}" style="width: 25px;">
                                 </span><span
-                                    style="color:#fff; font-weight:bold;text-align: left !important;padding-top:-20px;font-size: 14px;">Operator
+                                    style="color:#fff; font-weight:500;text-align: left !important;padding-top:-20px;font-size: 16px;">Operator
                                     Montly Fee Report (Period Ending: {{ $reportEndDate }})</span> </td>
                             <td style="text-align: right">
                                 <span
-                                    style="color:#fff; font-weight:bold;text-align: right !important;padding-top:-20px;font-size: 14px;">Operator
+                                    style="color:#fff; font-weight:500;text-align: right !important;padding-top:-20px;font-size: 16px;">Operator
                                     ID: {{ $operatorMemberId }}</span>
                             </td>
                         </tr>
@@ -103,8 +105,8 @@
                             <td style="width: 100%;padding: 10px 5px 20px 5px;">
                                 <table class="table mb-0 common_accordian_table">
                                     <thead class="table-bg modal-thaed">
-                                        <tr>
-                                            <td class="font-weight-bold text-left">Agent ID</th>
+                                        <tr style="background-color:#0c223d;">
+                                            <td class="font-weight-bold text-left" >Agent ID</th>
                                             <td class="font-weight-bold text-left">Name</th>
                                             <td class="font-weight-bold">Territory</th>
                                            <td class="font-weight-bold">Type</th>
@@ -152,12 +154,12 @@
                                                         <td class="text-center" >{{ $esortReport['total_days'] }}</td>
                                                         <td class="text-right">
                                                             <div class="num_value">
-                                                                $<span>{{ $esortReport['total_purchase_amount'] }}</span>
+                                                                $<span>{{ number_format($esortReport['total_purchase_amount'], 2) }}</span>
                                                             </div>
                                                         </td>
                                                         <td class="text-right">
                                                             <div class="num_value">
-                                                                $<span>{{ $esortReport['total_commission_amount'] }}</span>
+                                                                $<span>{{ number_format($esortReport['total_commission_amount'], 2) }}</span>
                                                             </div>
                                                         </td>
                                                     </tr>

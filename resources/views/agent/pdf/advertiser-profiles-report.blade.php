@@ -112,6 +112,7 @@
                 <th>Total Days</th>
 
                 @if($advertiserType == 'escort')
+                <th>Type</th>
                 <th>Pin Up</th>
                 @endif
 
@@ -126,6 +127,7 @@
 
             @php
             $memberId = $row->advertiser->user->member_id ?? '';
+            $member_type = "";
 
 
             $name = $advertiserType != 'massage' ? $row->advertiser->name : $row->advertiser->business_name;
@@ -144,6 +146,7 @@
             $pinUp = '--';
 
             if ($advertiserType == 'escort') {
+            $member_type = $row->membershipPlan->name;
             $pinUp = isset($row->advertiser->escort->pinup)
             && count($row->advertiser->escort->pinup) > 0
             ? 'Yes'
@@ -152,16 +155,16 @@
 
             $listingFee = $row->paid_rate ?? 0;
 
-            if (
-            $row->paymentItems &&
-            $row->paymentItems->payment &&
-            $row->paymentItems->payment->agent_commission_percent > 0
-            ) {
-            $agentFee = calculate_agent_commission(
-            $row->paymentItems->payment->net_amount,
-            $row->paymentItems->payment->agent_commission_percent
-            );
-            } else {
+            if ($row->paymentItems && $row->paymentItems->payment && $row->paymentItems->payment->agent_commission_percent > 0) 
+            {
+                $payment = $row->paymentItems?->payment;
+                if ($payment && $payment->agent_commission_percent > 0) 
+                $agentFee = calculate_agent_commission($listingFee,$payment->agent_commission_percent);
+                else
+                $agentFee = 0.00;
+            } 
+            
+            else {
             $agentFee = 0;
             }
             @endphp
@@ -194,6 +197,10 @@
                 </td>
 
                 @if($advertiserType == 'escort')
+                  <td class="text-center">
+                    {{ $member_type }}
+                </td>
+
                 <td class="text-center">
                     {{ $pinUp }}
                 </td>

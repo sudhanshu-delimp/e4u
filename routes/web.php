@@ -55,6 +55,7 @@ use App\Http\Controllers\Viewer\ViewerReviewsController;
 use App\Http\Controllers\Escort\EscortAccountController;
 use App\Http\Controllers\EscortListingController;
 use App\Http\Controllers\User\NoteBoxController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CommonController;
 
 /*
@@ -277,7 +278,12 @@ Route::middleware('auth')->group(function () {
         Route::get('reviews-by-ajax', [ViewerReviewsController::class, 'getProfileReviewsByAjax'])->name('user.reviews-profile-by-ajax');
         Route::post('user-review-status-update', [ViewerReviewsController::class, "updateUserReviewStatus"])->name('user.user-review-status-update');
         Route::get('get-user-review-details/{id}', [ViewerReviewsController::class, "getSingleUserReviewDetails"])->name('user.get-single-user-review-details');
-    });
+        
+        Route::get('viewer-messages', function () {
+            return view('user.dashboard.communication.viewer-messages');
+        })->name('user.viewer-messages');
+   
+        });
     ################ End All Authencated User Url #################################
     Route::get('back-to-agent', [ImpersonateController::class, 'backToParent'])->name('agent.back-to-parent');
 });
@@ -636,17 +642,14 @@ Route::get('/escort-dashboard/my-playbox', function () {
 
 Route::get('/escort-dashboard/my-legbox-viewers', [EscortMyLegboxViewerController::class, 'index'])->name('escort.dashboard.my-legbox-viewers');
 
-Route::get('/escort-dashboard/agent-messages', function () {
+Route::get('/escort-dashboard/escort-messages', function () {
     return view('escort.dashboard.agent-messages');
-})->name('escort.dashboard.agent-messages');
+})->name('escort.dashboard.agent-messages')->middleware('auth');
 
 Route::get('/escort-dashboard/viewers-messages', function () {
     return view('escort.dashboard.viewers-messages');
 })->name('escort.dashboard.viewers-messages');
 
-Route::get('/user-dashboard/viewer-messages', function () {
-    return view('user.dashboard.communication.viewer-messages');
-})->name('user.viewer-messages');
 
 Route::get('/escort-dashboard/tour-schedule', [EscortTourScheduleContoller::class, 'index'])->name('escort.dashboard.tour-schedule');
 Route::get('/escort-dashboard/tour-schedule-ajax', [EscortTourScheduleContoller::class, 'tourScheduleAjax'])->name('escort.dashboard.tour-schedule-ajax');
@@ -986,4 +989,43 @@ Route::get('/robots.txt', function () {
 
     return response(implode("\n", $lines), 200)
         ->header('Content-Type', 'text/plain');
+});
+
+
+
+Route::middleware(['web', 'auth'])->prefix('chat')->name('chat.')->group(function () {
+    Route::get('/members', [ChatController::class, 'members'])->name('members');
+
+    Route::get('/conversations', [ChatController::class, 'index'])->name('index');
+    Route::post('/conversations', [ChatController::class, 'store'])->name('store');
+
+    Route::get('/conversations/{conversation}/messages', [ChatController::class, 'messages'])
+        ->whereNumber('conversation')->name('messages');
+    Route::post('/conversations/{conversation}/messages', [ChatController::class, 'send'])
+        ->whereNumber('conversation')->name('send');
+    Route::post('/conversations/{conversation}/read', [ChatController::class, 'read'])
+        ->whereNumber('conversation')->name('read');
+    Route::post('/conversations/{conversation}/typing', [ChatController::class, 'typing'])
+        ->whereNumber('conversation')->middleware('throttle:90,1')->name('typing');
+
+    Route::get('/attachments/{attachment}', [ChatController::class, 'attachment'])
+        ->whereNumber('attachment')->name('attachment');
+
+    Route::get('/conversations/{conversation}/contact', [ChatController::class, 'contact'])
+        ->whereNumber('conversation')->name('contact');
+    Route::post('/conversations/{conversation}/archive', [ChatController::class, 'archive'])
+        ->whereNumber('conversation')->name('archive');
+    Route::post('/conversations/{conversation}/delete', [ChatController::class, 'destroy'])
+        ->whereNumber('conversation')->name('delete');
+
+    Route::post('/conversations/{conversation}/clear', [ChatController::class, 'clear'])
+        ->whereNumber('conversation')->name('clear');
+    Route::post('/conversations/{conversation}/block', [ChatController::class, 'block'])
+        ->whereNumber('conversation')->name('block');
+    Route::delete('/conversations/{conversation}/block', [ChatController::class, 'unblock'])
+        ->whereNumber('conversation')->name('unblock');
+    Route::patch('/messages/{message}', [ChatController::class, 'updateMessage'])
+        ->whereNumber('message')->name('message.update');
+    Route::delete('/messages/{message}', [ChatController::class, 'deleteMessage'])
+        ->whereNumber('message')->name('message.delete');
 });

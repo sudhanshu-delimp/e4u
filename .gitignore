@@ -48,6 +48,7 @@ public/massageProfile/images/*
 
 
 public/escorts/images/*
+/public/escorts/chat/
 public/avatars/*
 laravel.log
 .DS_Store

@@ -211,7 +211,7 @@ class FeesSummeryService
         $availableFYs = $this->getAvailableFYs();
         $selectedFY   = $this->resolveSelectedFY($requestedFY, $availableFYs);
         $earnings     = $this->getEarnings($selectedFY, $displayType);
-        //dd($earnings);
+       
         $totalEarnings = $this->totalEarning($earnings);
         $averageEarning = $this->averageEarning($earnings);
         $totalAdvertiserCount = $this->totalAdvertisers($earnings);
@@ -456,14 +456,17 @@ class FeesSummeryService
             $availabilityRows = DB::table('massage_time_availabilities as mta')
                 ->join('masseurs as m', 'm.id', '=', 'mta.masseur_id')
                 ->whereIn('mta.purchase_id', $purchaseIds)
+                //->whereNUll('mta.masseur_id')
                 ->select(
                     'mta.purchase_id',
                     'mta.masseur_id',
                     'mta.masseur_availibility',
+                    'mta.massage_availibility',
                     'm.member_id'
                 )
                 ->orderBy('mta.id')
                 ->get();
+           
         }
 
         $masseursById = $masseurRows->keyBy('id');
@@ -534,20 +537,23 @@ class FeesSummeryService
             $processedAvailability[$purchaseId][$masseurId] = true;
 
             $fy = $fyByPurchaseId[$purchaseId];
+            $massageAva =  $row->massage_availibility;
+           // dd($massageAva);
             $days = $row->masseur_availibility
-                ? countOpenDays(
+                ? getMasseurWorkingDetails(
                     (string) $purchaseRows->firstWhere('id', $purchaseId)->start_date,
                     (string) $purchaseRows->firstWhere('id', $purchaseId)->end_date,
-                    $row->masseur_availibility
+                    $row->masseur_availibility,
+                    $massageAva,
                 )
                 : 0;
 
-            $fyData[$fy]['masseurs'][$masseurId]['listings']++;
-            $fyData[$fy]['masseurs'][$masseurId]['days'] += $days;
-            $grandTotals['masseurs'][$masseurId]['listings']++;
-            $grandTotals['masseurs'][$masseurId]['days'] += $days;
-        }
 
+            $fyData[$fy]['masseurs'][$masseurId]['listings']++;
+            $fyData[$fy]['masseurs'][$masseurId]['days'] += $days['count'];
+            $grandTotals['masseurs'][$masseurId]['listings']++;
+            $grandTotals['masseurs'][$masseurId]['days'] += $days['count'];
+        }
 
         krsort($fyData);
         $user = DB::table('users')->where('id', $userId)->first(['name', 'member_id']);
@@ -666,6 +672,7 @@ class FeesSummeryService
             ->sum('agent_signedup_fee');
     }
 
+    //re-use function for escort spending amount
     protected function getEscortMembershipSpend(int $membership): float
     {
         $fy = $this->getCurrentFYToDateRange();
@@ -683,21 +690,24 @@ class FeesSummeryService
             ->sum(DB::raw('COALESCE(pi.amount, ph.amount)'));
     }
 
+    //Escorts Summary Platinum spending amount get
     public function getEscortPlatinumSpend(): float
     {
         return $this->getEscortMembershipSpend(1);
     }
 
+    //Escirt Summyer gold spending amount get
     public function getEscortGoldSpend(): float
     {
         return $this->getEscortMembershipSpend(2);
     }
 
+    //Escort Summery silver spending amount get
     public function getEscortSilverSpend(): float
     {
         return $this->getEscortMembershipSpend(3);
     }
-
+    //Escort spending pinup amount
     public function getEscortPinupSpend(): float
     {
         $fy = $this->getCurrentFYToDateRange();
@@ -714,6 +724,7 @@ class FeesSummeryService
             ->sum(DB::raw('COALESCE(pi.amount, ph.amount)'));
     }
 
+    // Total sum escort amount
     public function getEscortTotalSpend(
         float $platinumSpend,
         float $goldSpend,
