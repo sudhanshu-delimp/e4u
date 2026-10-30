@@ -89,7 +89,8 @@ class User extends Authenticatable
 
     public function getTourPermissitionTypeAttribute($value)
     {
-        return $value ?? [];
+
+        return json_decode($value) ?? [];
     }
 
 
