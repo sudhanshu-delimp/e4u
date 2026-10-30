@@ -66,7 +66,7 @@ function initChatActions(ctx) {
     } else if (info.last_online_at) {
       status = 'Last seen ' + info.last_online_at;
     }
-    var rows = [['Member ID', info.member_id], ['Type', info.type], ['Phone', info.phone || 'N/A'], ['Location', info.location], ['Home state', info.home_state], ['Member since', info.member_since]
+    var rows = [['Member ID', info.member_id], ['Type', info.type], ['Phone', info.phone || 'N/A'], ['Email', info.email || 'N/A'], ['Location', info.location], ['Home state', info.home_state], ['Member since', info.member_since]
     // ['Status', status],
     ].filter(function (row) {
       return row[1];
