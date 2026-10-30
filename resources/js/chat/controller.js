@@ -699,9 +699,9 @@ export function initChat(root) {
         const banner = document.createElement('div');
 
         banner.id = 'chatEditBanner';
-        banner.setAttribute('style', 'display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;border-top:1px solid #e5e7eb;background:#eff6ff;font-size:13px;');
+        banner.setAttribute('style', 'display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 25px;border-top:1px solid #e5e7eb;background:#eff6ff;font-size:13px;');
         banner.innerHTML = '<span><i class="bi bi-pencil"></i> Editing message</span>' +
-            '<button type="button" class="chat-edit-cancel" aria-label="Cancel" style="border:0;background:transparent;font-size:20px;line-height:1;cursor:pointer;">&times;</button>';
+            '<button type="button" class="chat-edit-cancel" aria-label="Cancel" style="border:0;background:transparent;font-size:20px;line-height:1;cursor:pointer;color:#0c223d;">&times;</button>';
 
         el.composer.parentNode.insertBefore(banner, el.composer);
 
