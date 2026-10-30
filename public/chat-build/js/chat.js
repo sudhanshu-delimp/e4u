@@ -814,7 +814,7 @@ function initChat(root) {
     var row = document.createElement('div');
     row.id = 'chatSending';
     row.className = 'message-row sent';
-    row.innerHTML = "<div class=\"message-wrapper\"><div class=\"message-bubble\" style=\"display:flex;align-items:center;gap:10px;\">\n        <span style=\"width:18px;height:18px;border:3px solid #e5e7eb;border-top-color:#ff3c5f;border-radius:50%;display:inline-block;animation:chatSpin .8s linear infinite;\"></span>\n        <span>Sending ".concat(files.length, " file(s)... large videos can take a few minutes. Please do not close this page.</span>\n    </div></div>");
+    row.innerHTML = "<div class=\"message-wrapper\"><div class=\"message-bubble\" style=\"display:flex;align-items:center;gap:10px;\">\n        <span style=\"width:18px;height:18px;border:3px solid #e5e7eb;border-top-color:#ff3c5f;border-radius:50%;display:inline-block;animation:chatSpin .8s linear infinite;\"></span>\n        <span>Sending ".concat(files.length, " media file(s)... This may take a few minutes. Please do not close this page.</span>\n    </div></div>");
     el.messages.appendChild(row);
     scrollBottom();
   }

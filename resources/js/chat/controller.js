@@ -192,7 +192,7 @@ export function initChat(root) {
         row.className = 'message-row sent';
         row.innerHTML = `<div class="message-wrapper"><div class="message-bubble" style="display:flex;align-items:center;gap:10px;">
         <span style="width:18px;height:18px;border:3px solid #e5e7eb;border-top-color:#ff3c5f;border-radius:50%;display:inline-block;animation:chatSpin .8s linear infinite;"></span>
-        <span>Sending ${files.length} file(s)... large videos can take a few minutes. Please do not close this page.</span>
+        <span>Sending ${files.length} media file(s)... This may take a few minutes. Please do not close this page.</span>
     </div></div>`;
 
         el.messages.appendChild(row);
