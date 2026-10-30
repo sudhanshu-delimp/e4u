@@ -382,8 +382,8 @@
 }
 
 .header-avatar {
-    width: 50px;
-    height: 50px;
+    width: 75px;
+    height: 75px;
     border-radius: 13px;
     background: var(--icon-bg);
     display: flex;
@@ -431,8 +431,8 @@
 
 .header-actions button,
 .mobile-menu {
-    width: 48px;
-    height: 48px;
+    width: 45px;
+    height: 45px;
     border: 0;
     border-radius: 10px;
     background: var(--icon-bg);
@@ -479,21 +479,6 @@
     max-height: none !important;
     min-height: auto !important;
     height: 100%;
-}
-/* =========================================
-   FIX: Modals aur Swal ko Chat ke upar laane ke liye
-========================================= */
-
-/* SweetAlert 2 (swal) ko sabse upar lane ke liye */
-.swal2-container,
-.swal-overlay,
-.swal-modal {
-    z-index: 100001 !important;
-}
-
-/* Aapka Member Modal aur dusre modals upar dikhane ke liye */
-.modal-overlay {
-    z-index: 100000 !important;
 }
 .mobile-menu {
     display: none;
@@ -1613,8 +1598,8 @@ emoji-picker {
         padding: 15px;
     }
     .avatar {
-        width: 70px;
-        height: 70px;
+        width: 45px;
+        height: 45px;
     }
     .message-row {
         max-width: 88%;
@@ -1632,6 +1617,14 @@ emoji-picker {
         transition: transform .3s ease;
         box-shadow: 10px 0 30px rgba(0, 0, 0, .12);
     }
+    .avatar-light {
+    background: var(--icon-bg);
+    color: var(--icon-text);
+    font-size: 14px;
+}
+.user-name {
+    font-size: 14px;
+}
     .chat_sidebar.open {
         transform: translateX(0);
     }
@@ -1650,18 +1643,19 @@ emoji-picker {
         justify-content: center;
     }
     .chat-header {
-        min-height: 85px;
-        padding: 12px 15px;
+        min-height: 75px;
+        padding: 10px;
         gap: 10px;
     }
     .header-avatar {
-        width: 55px;
-        height: 55px;
+        width: 40px;
+        height: 40px;
         border-radius: 10px;
         font-size: 12px;
     }
     .header-user h2 {
-        font-size: 19px;
+        font-size: 14px;
+        margin-bottom: 0px;
     }
     .user-meta {
         display: none;
