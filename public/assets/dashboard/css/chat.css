@@ -382,8 +382,8 @@
 }
 
 .header-avatar {
-    width: 50px;
-    height: 50px;
+    width: 75px;
+    height: 75px;
     border-radius: 13px;
     background: var(--icon-bg);
     display: flex;
@@ -400,7 +400,7 @@
 .header-user h2 {
     font-size: 18px;
     line-height: 1.2;
-    margin-bottom: 7px;
+    margin-bottom: 0px;
     font-weight: 750;
     letter-spacing: -.4px;
 }
@@ -416,7 +416,7 @@
 .user-meta {
     color: #7b8b9e;
     font-size: 13px;
-    margin-top: 6px;
+    margin-top: 0px;
 }
 
 .user-meta span {
@@ -427,20 +427,23 @@
     margin-left: auto;
     display: flex;
     gap: 12px;
+    margin-right: 10px;
 }
 
 .header-actions button,
 .mobile-menu {
-    width: 48px;
-    height: 48px;
+    
+    width: 40px;
+    height: 40px;
     border: 0;
     border-radius: 10px;
     background: var(--icon-bg);
     color: #18334e;
-    font-size: 20px;
+    font-size: 14px;
     cursor: pointer;
     transition: .2s;
     padding: unset !important;
+    margin: 0px;
 }
 
 .header-actions button:hover {
@@ -483,7 +486,9 @@
 /* =========================================
    FIX: Modals aur Swal ko Chat ke upar laane ke liye
 ========================================= */
-
+.chat-app.is-fullscreen .header-actions {
+    margin-right: 10px;
+}
 /* SweetAlert 2 (swal) ko sabse upar lane ke liye */
 .swal2-container,
 .swal-overlay,
