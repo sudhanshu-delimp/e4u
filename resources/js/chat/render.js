@@ -8,6 +8,12 @@ export function canEdit(msg) {
 const SHOWABLE_IMAGES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp', 'image/avif'];
 const PLAYABLE_VIDEOS = ['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime'];
 
+function hasImageGallery(attachments) {
+    return attachments.length >= 4 && attachments.every((attachment) =>
+        attachment.kind === 'image' && SHOWABLE_IMAGES.indexOf(String(attachment.mime || '').toLowerCase()) !== -1
+    );
+}
+
 const settings = { avatarBase: '' };
 
 export function configure(options) {
@@ -253,6 +259,24 @@ function attachmentsHtml(msg) {
     const list = msg.attachments || [];
     const many = list.length > 1;
 
+    if (hasImageGallery(list)) {
+        const tiles = list.map((attachment, index) => {
+            const url = escapeHtml(attachment.url);
+            const hidden = index > 3 ? ' chat-gallery-hidden' : '';
+            const overlay = index === 3
+                ? `<span class="chat-gallery-more" aria-hidden="true"><i class="bi bi-plus-lg"></i><span>${list.length - 3}</span></span>`
+                : '';
+
+            return `<a href="${url}" class="chat-media chat-gallery-tile${hidden}" data-kind="image"
+                target="_blank" rel="noopener" aria-label="View image ${index + 1} of ${list.length}">
+                <img src="${url}" alt="" loading="lazy">
+                ${overlay}
+            </a>`;
+        }).join('');
+
+        return `<div class="chat-image-gallery">${tiles}</div>`;
+    }
+
     const html = list.map((a) => {
         const url = escapeHtml(a.url);
         const mime = String(a.mime || '').toLowerCase();
@@ -344,7 +368,7 @@ export function messageHtml(msg, prev, ctx) {
 
     const bubble = `
         <div class="message-wrapper">
-            <div class="message-bubble">${content}</div>
+            <div class="message-bubble${hasImageGallery(msg.attachments || []) ? ' chat-gallery-bubble' : ''}">${content}</div>
             <div class="message-time">
                 ${escapeHtml(formatTime(msg.created_at))}${edited}
                 ${tick}

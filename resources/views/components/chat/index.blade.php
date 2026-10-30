@@ -72,16 +72,17 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
 
                     <div class="filter-wrapper">
 
-                        <button id="filterBtn" type="button">
-                            <i class="bi bi-funnel"></i>
-                            Filter
+                        <button id="filterBtn" type="button" aria-label="Conversation filters" aria-haspopup="menu" aria-controls="filterDropdown" aria-expanded="false">
+                            <i class="bi bi-funnel filter-desktop-icon" aria-hidden="true"></i>
+                            <i class="bi bi-three-dots-vertical filter-mobile-icon" aria-hidden="true"></i>
+                            <span class="filter-label">Filter</span>
                         </button>
 
-                        <div class="filter-dropdown more-dropdown" id="filterDropdown">
-                            <button type="button" class="filter-option active" data-filter="chats">
+                        <div class="filter-dropdown more-dropdown" id="filterDropdown" role="menu" aria-label="Conversation filters">
+                            <button type="button" class="filter-option active" data-filter="chats" role="menuitem">
                                 <i class="bi bi-person-check"></i> {{ [4 => 'Active Viewers', 5 => 'Active Advertisers'][(int) auth()->user()->type] ?? 'Active Users' }}
                             </button>
-                            <button type="button" class="filter-option" data-filter="archived">
+                            <button type="button" class="filter-option" data-filter="archived" role="menuitem">
                                 <i class="bi bi-archive"></i> Archived Chats
                             </button>
 
@@ -112,8 +113,8 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
         <!-- CHAT HEADER -->
         <header class="chat-header">
 
-            <button class="mobile-menu" id="mobileMenu">
-                <i class="bi bi-list"></i>
+            <button class="mobile-menu" id="mobileMenu" type="button" aria-label="Back to conversations" title="Back to conversations">
+                <i class="bi bi-arrow-left" aria-hidden="true"></i>
             </button>
 
             <div class="header-avatar avatar" id="chatHeaderAvatar"></div>
@@ -199,22 +200,31 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
         <!-- MESSAGE COMPOSER -->
         <footer class="message-composer">
 
-            <button class="composer-btn" id="attachmentBtn" title="Attach">
-                <i class="bi bi-paperclip"></i>
-            </button>
+            <div class="composer-tools-menu">
+                <button class="composer-menu-btn" id="composerMenuBtn" type="button" aria-label="Message tools" aria-haspopup="menu" aria-controls="composerToolsDropdown" aria-expanded="false">
+                    <i class="bi bi-three-dots-vertical" aria-hidden="true"></i>
+                </button>
 
-            <button class="composer-btn" id="emojiBtn" title="Emoji">
-                <i class="bi bi-emoji-smile"></i>
-            </button>
+                <div class="composer-tools-dropdown" id="composerToolsDropdown" role="menu" aria-label="Message tools">
+                    <button class="composer-btn" id="attachmentBtn" type="button" title="Attach" aria-label="Attach files" role="menuitem">
+                        <i class="bi bi-paperclip" aria-hidden="true"></i>
+                    </button>
+
+                    <button class="composer-btn" id="emojiBtn" type="button" title="Emoji" aria-label="Choose emoji" role="menuitem">
+                        <i class="bi bi-emoji-smile" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
 
             <div id="emojiPicker" class="emoji-picker-container"></div>
 
             <div class="input-wrapper">
-                <input
-                    type="text"
+                <textarea
                     id="messageInput"
                     placeholder="Type a message..."
-                    autocomplete="off">
+                    autocomplete="off"
+                    rows="1"
+                    aria-label="Type a message"></textarea>
             </div>
 
             <button class="send-btn" id="sendBtn" title="Send">
