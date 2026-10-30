@@ -608,16 +608,14 @@
 
             const total = await calculateTotal();
 
-            // Demo only: connect this to your actual payment flow.
-            alert(
-                'Advertiser: ' + selectedAdvertiser.name +
-                '\nSelected services: ' + selectedServices.length +
-                '\nTotal payable: ' + formatCurrency(total)
-            );
+          
+            
         });
 
         // Initial state: hide total until a service is selected.
         updateTotalAmount();
     });
+
+  
 </script>
 @endprepend

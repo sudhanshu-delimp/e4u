@@ -313,7 +313,9 @@
         if (!response.redirect_url || response.redirect_url.trim() === '') {
             form.closest('.modal').modal('hide');
             otherModalForm = $(`.modal-form-${response.action}`).find('form');
-            otherModalForm.append('<input type="hidden" name="payment_token" value="' + response.payment_id + '">');
+            if(otherModalForm.length > 0){
+                otherModalForm.append('<input type="hidden" name="payment_token" value="' + response.payment_id + '">');
+            }
         }
         switch (response.action) {
 
@@ -340,8 +342,14 @@
             }
             break;
             case 'support_service': {
-                displaySwal(xhr, false);
-                console.log(`response: ${response}`)
+                displaySwal(xhr).then((result) => {
+                    if (result.isConfirmed) {
+                       let parentForm = $("#modalPaymentButton").parents('form');
+                       parentForm[0].reset();
+                       parentForm.find('select.select2-hidden-accessible').val(null).trigger('change');
+                       parentForm.find(".service-remove").click();
+                    }
+                });
             }
             break;
 
