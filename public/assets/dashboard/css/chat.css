@@ -480,6 +480,21 @@
     min-height: auto !important;
     height: 100%;
 }
+/* =========================================
+   FIX: Modals aur Swal ko Chat ke upar laane ke liye
+========================================= */
+
+/* SweetAlert 2 (swal) ko sabse upar lane ke liye */
+.swal2-container,
+.swal-overlay,
+.swal-modal {
+    z-index: 100001 !important;
+}
+
+/* Aapka Member Modal aur dusre modals upar dikhane ke liye */
+.modal-overlay {
+    z-index: 100000 !important;
+}
 .mobile-menu {
     display: none;
 }
