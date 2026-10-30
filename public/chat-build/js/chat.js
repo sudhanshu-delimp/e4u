@@ -826,6 +826,7 @@ function initChat(root) {
   }
   function closeSidebarOnMobile() {
     if (window.innerWidth <= 800) {
+      root.classList.add('mobile-chat-open');
       if (el.sidebar) {
         el.sidebar.classList.remove('open');
       }
@@ -851,6 +852,7 @@ function initChat(root) {
     state.activeId = null;
     state.messages = [];
     state.hasMore = false;
+    root.classList.remove('mobile-chat-open');
     clearAttachPreview();
     renderHeader(null);
     renderMessages();
@@ -1108,7 +1110,9 @@ function initChat(root) {
           case 5:
             if (state.activeId === id) {
               markRead(id);
-              el.input.focus();
+              if (window.innerWidth > 800) {
+                el.input.focus();
+              }
             }
           case 6:
             return _context4.a(2);
@@ -1183,7 +1187,7 @@ function initChat(root) {
         var icon = fileKind(file) === 'image' ? 'bi-image' : 'bi-camera-video';
         thumb = "<span style=\"width:56px;height:56px;border-radius:6px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:22px;\"><i class=\"bi ".concat(icon, "\"></i></span>");
       }
-      return "<div style=\"position:relative;flex:0 0 auto;\" title=\"".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(file.name), "\">\n                ").concat(thumb, "\n                <button type=\"button\" class=\"chat-attach-remove\" data-index=\"").concat(index, "\" title=\"Remove\"\n                    style=\"position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;border:0;background:#111827;color:#fff;font-size:14px;line-height:20px;padding:0;cursor:pointer;\">&times;</button>\n            </div>");
+      return "<div style=\"position:relative;flex:0 0 auto;\" title=\"".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(file.name), "\">\n                ").concat(thumb, "\n                <button type=\"button\" class=\"chat-attach-remove\" data-index=\"").concat(index, "\" title=\"Remove\"\n                    style=\"position:absolute;top:-6px;right:-14px;width:20px;height:20px;border-radius:50%;border:0;background:#ff3c5f;color:#fff;font-size:14px;line-height:20px;padding:0;cursor:pointer;\">&times;</button>\n            </div>");
     }).join('');
     var box = document.createElement('div');
     box.id = 'chatAttachPreview';
@@ -1301,6 +1305,7 @@ function initChat(root) {
     banner.innerHTML = '<span><i class="bi bi-pencil"></i> Editing message</span>' + '<button type="button" class="chat-edit-cancel" aria-label="Cancel" style="border:0;background:transparent;font-size:20px;line-height:1;cursor:pointer;">&times;</button>';
     el.composer.parentNode.insertBefore(banner, el.composer);
     el.input.value = msg.body || '';
+    resizeComposerInput();
     el.input.focus();
   }
   function deleteMessage(_x3) {
@@ -1339,6 +1344,7 @@ function initChat(root) {
             if (state.editingId === id) {
               cancelEdit();
               el.input.value = '';
+              resizeComposerInput();
             }
             if (mode === 'me') {
               scroll = el.messages.scrollTop;
@@ -1417,6 +1423,7 @@ function initChat(root) {
             replaceMessage(res.data);
             cancelEdit();
             el.input.value = '';
+            resizeComposerInput();
             loadList();
             _context6.n = 7;
             break;
@@ -1449,7 +1456,9 @@ function initChat(root) {
           case 12:
             _res = _context6.v;
             hideSending();
+            root.querySelector('#emojiPicker').classList.remove('show');
             el.input.value = '';
+            resizeComposerInput();
             clearAttachPreview();
             appendMessage(_res.data);
             touchConversation(_res.data, {
@@ -1526,6 +1535,7 @@ function initChat(root) {
     refreshLiveUi();
   }
   function onInputTyping() {
+    resizeComposerInput();
     if (!state.activeId || !el.input.value) {
       return;
     }
@@ -1535,6 +1545,13 @@ function initChat(root) {
     }
     state.lastTypingSent = now;
     api.typing(state.activeId)["catch"](function () {});
+  }
+  function resizeComposerInput() {
+    if (el.input.tagName !== 'TEXTAREA') {
+      return;
+    }
+    el.input.style.height = 'auto';
+    el.input.style.height = Math.min(el.input.scrollHeight, 160) + 'px';
   }
 
   // A person went offline: drop every online sign for them right away
@@ -1709,8 +1726,50 @@ function initChat(root) {
 
   document.addEventListener('click', function (event) {
     var target = event.target;
+    var filterWrapper = root.querySelector('.filter-wrapper');
+    var filterBtn = root.querySelector('#filterBtn');
     if (!root.contains(target)) {
+      filterWrapper.classList.remove('open');
+      filterBtn.setAttribute('aria-expanded', 'false');
       return;
+    }
+    if (target.closest('#mobileMenu')) {
+      event.preventDefault();
+      event.stopPropagation();
+      root.classList.remove('mobile-chat-open');
+      return;
+    }
+    var composerTools = root.querySelector('.composer-tools-menu');
+    var composerMenuBtn = root.querySelector('#composerMenuBtn');
+    if (target.closest('#composerMenuBtn')) {
+      event.preventDefault();
+      event.stopPropagation();
+      var isOpen = composerTools.classList.toggle('open');
+      composerMenuBtn.setAttribute('aria-expanded', String(isOpen));
+      return;
+    }
+    if (!target.closest('.composer-tools-menu')) {
+      composerTools.classList.remove('open');
+      composerMenuBtn.setAttribute('aria-expanded', 'false');
+    } else if (target.closest('#attachmentBtn, #emojiBtn')) {
+      composerTools.classList.remove('open');
+      composerMenuBtn.setAttribute('aria-expanded', 'false');
+    }
+    if (target.closest('#filterBtn')) {
+      event.preventDefault();
+      event.stopPropagation();
+      var _isOpen = filterWrapper.classList.toggle('open');
+      var headerMenu = root.querySelector('.more-wrapper');
+      filterBtn.setAttribute('aria-expanded', String(_isOpen));
+      if (headerMenu) {
+        headerMenu.classList.remove('open');
+      }
+      closeAllChatMenus();
+      return;
+    }
+    if (!target.closest('.filter-wrapper')) {
+      filterWrapper.classList.remove('open');
+      filterBtn.setAttribute('aria-expanded', 'false');
     }
 
     // Send button
@@ -1740,6 +1799,7 @@ function initChat(root) {
       event.stopPropagation();
       cancelEdit();
       el.input.value = '';
+      resizeComposerInput();
       return;
     }
 
@@ -1789,11 +1849,45 @@ function initChat(root) {
     // Filter options (do not stop propagation, the old script still closes the dropdown)
     var option = target.closest('#filterDropdown .filter-option');
     if (option) {
+      event.preventDefault();
+      event.stopPropagation();
       state.filter = FILTERS[option.dataset.filter] || 'active';
+      root.querySelectorAll('#filterDropdown .filter-option').forEach(function (filterOption) {
+        filterOption.classList.toggle('active', filterOption === option);
+      });
+      filterWrapper.classList.remove('open');
+      filterBtn.setAttribute('aria-expanded', 'false');
       loadList();
     }
   }, true);
   document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+      var filterWrapper = root.querySelector('.filter-wrapper');
+      var filterBtn = root.querySelector('#filterBtn');
+      var headerMenu = root.querySelector('.more-wrapper');
+      var emojiPicker = root.querySelector('#emojiPicker');
+      var composerTools = root.querySelector('.composer-tools-menu');
+      var composerMenuBtn = root.querySelector('#composerMenuBtn');
+      var filterWasOpen = filterWrapper.classList.contains('open');
+      var composerMenuWasOpen = composerTools.classList.contains('open');
+      filterWrapper.classList.remove('open');
+      filterBtn.setAttribute('aria-expanded', 'false');
+      composerTools.classList.remove('open');
+      composerMenuBtn.setAttribute('aria-expanded', 'false');
+      if (filterWasOpen) {
+        filterBtn.focus();
+      } else if (composerMenuWasOpen) {
+        composerMenuBtn.focus();
+      }
+      if (headerMenu) {
+        headerMenu.classList.remove('open');
+      }
+      if (emojiPicker) {
+        emojiPicker.classList.remove('show');
+      }
+      closeAllChatMenus();
+      return;
+    }
     if (event.target !== el.input || event.isComposing) {
       return;
     }
@@ -1826,6 +1920,7 @@ function initChat(root) {
     }
   }, true);
   el.input.addEventListener('input', onInputTyping);
+  resizeComposerInput();
   el.list.addEventListener('click', function (event) {
     if (event.target.closest('.more-info-wrapper')) {
       return;
@@ -2260,6 +2355,11 @@ function canEdit(msg) {
 }
 var SHOWABLE_IMAGES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp', 'image/avif'];
 var PLAYABLE_VIDEOS = ['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime'];
+function hasImageGallery(attachments) {
+  return attachments.length >= 4 && attachments.every(function (attachment) {
+    return attachment.kind === 'image' && SHOWABLE_IMAGES.indexOf(String(attachment.mime || '').toLowerCase()) !== -1;
+  });
+}
 var settings = {
   avatarBase: ''
 };
@@ -2410,6 +2510,15 @@ function chatItemHtml(conv, ctx) {
 function attachmentsHtml(msg) {
   var list = msg.attachments || [];
   var many = list.length > 1;
+  if (hasImageGallery(list)) {
+    var tiles = list.map(function (attachment, index) {
+      var url = escapeHtml(attachment.url);
+      var hidden = index > 3 ? ' chat-gallery-hidden' : '';
+      var overlay = index === 3 ? "<span class=\"chat-gallery-more\" aria-hidden=\"true\"><i class=\"bi bi-plus-lg\"></i><span>".concat(list.length - 3, "</span></span>") : '';
+      return "<a href=\"".concat(url, "\" class=\"chat-media chat-gallery-tile").concat(hidden, "\" data-kind=\"image\"\n                target=\"_blank\" rel=\"noopener\" aria-label=\"View image ").concat(index + 1, " of ").concat(list.length, "\">\n                <img src=\"").concat(url, "\" alt=\"\" loading=\"lazy\">\n                ").concat(overlay, "\n            </a>");
+    }).join('');
+    return "<div class=\"chat-image-gallery\">".concat(tiles, "</div>");
+  }
   var html = list.map(function (a) {
     var url = escapeHtml(a.url);
     var mime = String(a.mime || '').toLowerCase();
@@ -2464,7 +2573,7 @@ function messageHtml(msg, prev, ctx) {
     var remove = "<button type=\"button\" class=\"chat-msg-delete\" title=\"Delete\" style=\"".concat(buttonStyle, "\"><i class=\"bi bi-trash3\"></i></button>");
     actions = "<span class=\"chat-msg-actions\" style=\"margin-left:8px;opacity:.65;\">".concat(edit).concat(remove, "</span>");
   }
-  var bubble = "\n        <div class=\"message-wrapper\">\n            <div class=\"message-bubble\">".concat(content, "</div>\n            <div class=\"message-time\">\n                ").concat(escapeHtml(formatTime(msg.created_at))).concat(edited, "\n                ").concat(tick, "\n                ").concat(actions, "\n            </div>\n        </div>");
+  var bubble = "\n        <div class=\"message-wrapper\">\n            <div class=\"message-bubble".concat(hasImageGallery(msg.attachments || []) ? ' chat-gallery-bubble' : '', "\">").concat(content, "</div>\n            <div class=\"message-time\">\n                ").concat(escapeHtml(formatTime(msg.created_at))).concat(edited, "\n                ").concat(tick, "\n                ").concat(actions, "\n            </div>\n        </div>");
   return "\n        ".concat(divider, "\n        <div class=\"message-row ").concat(mine ? 'sent' : 'received', "\" data-id=\"").concat(msg.id, "\">\n            ").concat(mine ? bubble + avatar : avatar + bubble, "\n        </div>\n    ");
 }
 
