@@ -9,6 +9,7 @@ use App\Repositories\Escort\EscortInterface;
 use App\Models\Purchase;
 use App\Models\PaymentHistory;
 use App\Models\PaymentProcess;
+use App\Models\SupportService;
 use App\Services\WalletService;
 use App\Services\PinPaymentService;
 use Carbon\Carbon;
@@ -106,6 +107,7 @@ class PaymentController extends Controller
                 'bumpUp' => getBumpupFee(),
                 'upgrade' => $feeAmount,
                 'wallet' => $feeAmount,
+                'support_service' => $feeAmount,
                 default => null,
             };
 
@@ -252,6 +254,11 @@ class PaymentController extends Controller
                     case 'wallet': {
                         }
                         break;
+                    case 'support_service': {
+                        parse_str($payload_token, $payload);
+                        $insert['user_id'] = $payload['advertiser_id'];
+                    }
+                    break;
 
                     default:
                         # code...
@@ -298,7 +305,7 @@ class PaymentController extends Controller
 
             /** Calulate agent commisson and save the commission */
 
-            if ($payment && !in_array($benefit_token['action'], ['wallet'])) {
+            if ($payment && !in_array($benefit_token['action'], ['wallet','support_service'])) {
                 $agentCommission = (new \App\Models\AgentCommission);
                 Log::info("saveCommissionData fuction calling from payment controller.");
                 $agentResponse = $agentCommission->saveCommissionData($payment, $this->account->id, $benefit_token['sub_total_amount']);
@@ -359,6 +366,26 @@ class PaymentController extends Controller
                         $redirect_url = ($mainAccount->type == '4') ? route('center.my_wallet') : route('escort.my_wallet');
                     }
                     break;
+                    case 'support_service': {
+                        Log::info($payload);
+                        $payment_service = 'Support Service';
+                        $supportServices = array_filter($payload, function ($key) {
+                        return preg_match('/^support_service_item_\d+$/', $key);
+                        }, ARRAY_FILTER_USE_KEY);
+
+                        $supportService = SupportService::create([
+                        'advertiser_id' => $payload['advertiser_id'],
+                        'services' => $supportServices,
+                        'booked_by' => $this->account->id,
+                        ]);
+
+                         $supportService->paymentItems()->create([
+                            'payment_history_id' => $payment->id,
+                            'amount' => $payment->amount,
+                        ]);
+                        Mail::to($mainAccount->email)->send(new PaymentMailer($mailConfig['template'], compact('payment'), $mailConfig['subject']));
+                    }
+                    break;
 
                 default:
                     # code...
@@ -408,6 +435,7 @@ class PaymentController extends Controller
                 'message' => $e->getMessage(),
                 'line' => $e->getLine(),
                 'file' => $e->getFile(),
+                'trace'   => $e->getTraceAsString(),
             ]);
             return response()->json([
                 'status' => 'error',
@@ -415,6 +443,7 @@ class PaymentController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
+       
     }
 
     public function saveCheckout($action = null, $payment = null)

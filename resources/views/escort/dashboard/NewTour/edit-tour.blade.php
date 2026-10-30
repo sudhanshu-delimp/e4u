@@ -45,7 +45,7 @@ $is_checkout = $tour->tourPurchase->count();
                 data-target="#pinup_profile" id="btn_pinup_profile" data-tour-id="{{$tour->id}}">List Pin Up</button>
         </div>
         @include('escort.dashboard.NewTour.modal.register_pinup')
-        @include('escort.dashboard.modal.payment_form')
+        @include('escort.dashboard.modal.payment_form',['adjustment_form_action' => route('payment.adjustment') , 'payment_form_action' => route('escort.payment.process')])
         @include('modal.two-step-verification',['action'=>true,'inPaymentMode'=>true])
         @endif
         <div class="col-md-9">

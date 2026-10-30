@@ -56,12 +56,17 @@ use App\Http\Controllers\Admin\SeoManagementController;
 use App\Http\Controllers\Admin\StatisticsController;
 use App\Http\Controllers\Admin\Administration\SupportServicController;
 use App\Http\Controllers\Admin\Management\ReportingController as ManagementReportingController;
+use App\Http\Controllers\Escort\PaymentController as EscortPaymentController;
 
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {
   Route::get('/dashboard', 'DashboardController@index')->name('admin.index');
 });
+
+
+Route::post('advertiser/payments/adjustment', [EscortPaymentController::class, 'paymentAdjustment'])->name('operation.payment.adjustment');
+Route::post('advertiser/payments/process', [EscortPaymentController::class, 'processPayment'])->name('operation.payment.process');
 
 Route::get('/update-account', [DashboardController::class, 'edit'])->name('admin.account.edit');
 Route::post('/update-account', [DashboardController::class, 'update'])->name('admin.account.update');
