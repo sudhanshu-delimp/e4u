@@ -354,6 +354,7 @@ export function initChat(root) {
         el.messages.innerHTML = state.messages
             .map((msg, i) => view.messageHtml(msg, state.messages[i - 1], ctx))
             .join('');
+        prepareVideos(el.messages);
     }
 
     function appendMessage(msg) {
@@ -370,7 +371,8 @@ export function initChat(root) {
         } else {
             el.messages.insertAdjacentHTML('beforeend', view.messageHtml(msg, prev, messageContext()));
         }
-
+        
+        prepareVideos(el.messages);
         scrollBottom();
     }
 

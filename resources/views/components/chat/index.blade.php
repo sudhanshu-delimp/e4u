@@ -164,7 +164,10 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
                     </div>
 
                 </div>
-
+                <!-- FULLSCREEN BUTTON -->
+                <button type="button" id="toggleFullscreenBtn" title="Full Screen">
+                    <i class="bi bi-arrows-fullscreen" id="fullscreenIcon"></i>
+                </button>
             </div>
 
         </header>
@@ -274,3 +277,29 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
 <script src="{{ asset('chat-build/js/chat.js') }}?v={{ $chatAssetVersion }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const chatApp = document.getElementById('chatApp');
+    const fullscreenBtn = document.getElementById('toggleFullscreenBtn');
+    const fullscreenIcon = document.getElementById('fullscreenIcon');
+
+    function toggleFullscreen() {
+        chatApp.classList.toggle('is-fullscreen');
+        const isFull = chatApp.classList.contains('is-fullscreen');
+        
+        // Icon change
+        fullscreenIcon.classList.toggle('bi-arrows-fullscreen', !isFull);
+        fullscreenIcon.classList.toggle('bi-fullscreen-exit', isFull);
+    }
+
+    // Click par Full Window toggle
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+    // ESC key dabane par Back/Normal view
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && chatApp.classList.contains('is-fullscreen')) {
+            toggleFullscreen();
+        }
+    });
+});
+</script>

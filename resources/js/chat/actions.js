@@ -51,6 +51,7 @@ export function initChatActions(ctx) {
             ['Member ID', info.member_id],
             ['Type', info.type],
             ['Phone', info.phone || 'N/A'],
+            ['Email', info.email || 'N/A'],
             ['Location', info.location],
             ['Home state', info.home_state],
             ['Member since', info.member_since],
