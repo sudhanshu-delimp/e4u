@@ -25,230 +25,218 @@ use Yajra\DataTables\DataTables;
 class AnalyticsController extends Controller
 {
 
-        public $logService;
+    public $logService;
 
-        public function __construct( LogService $logService)
-        {
-            $this->logService = $logService;
+    public function __construct(LogService $logService)
+    {
+        $this->logService = $logService;
+    }
 
-        }
-
-        public function analytic_profiles_list_ajax($advertiserType)
-        {
-            if($advertiserType=='escort')
+    public function analytic_profiles_list_ajax($advertiserType)
+    {
+        if ($advertiserType == 'escort')
             $type = '3';
-            else
+        else
             $type = '4';
 
-            $userIds = User::where(['assigned_agent_id' => auth()->user()->id,'type'=> $type])->pluck('id')->toArray();
-
-           
-            $search = request()->get('search')['value'];
-            $today = Carbon::now();
-            switch ($advertiserType) {
-
-                case 'escort': {
-                        $escortIds = Escort::whereIn('user_id', $userIds)->where('purchase_id','!=',"")->pluck('id')->toArray();
-                        $advertisers = Purchase::with('membershipPlan','escort.pinup','paymentItems.payment')->where('status', 'listed')->whereIn('escort_id',$escortIds)->get();
-                    }
-                    break;
-
-                case 'massage': {
-                        $massageIds = MassageProfile::whereIn('user_id', $userIds)->where('purchase_id','!=',"")->pluck('id')->toArray();
-                        $advertisers = MassagePurchase::with('paymentItems.payment')->where('status', 'listed')->whereIn('massage_profile_id',$massageIds)->get();  
-                    }
-                    break;
-
-                    default:
-                    # code...
-                    break;
-            }
+        $userIds = User::where(['assigned_agent_id' => auth()->user()->id, 'type' => $type])->pluck('id')->toArray();
 
 
-            // echo '<pre>';
-            // print_r($advertisers->toArray());
-            // exit;
+        $search = request()->get('search')['value'];
+        $today = Carbon::now();
+        switch ($advertiserType) {
 
-                return DataTables::of($advertisers)
-               
-                ->addColumn('member_id', function ($row) {
-                     return $row->advertiser->user->member_id; //.'--'.$row->id.'--'.$row->advertiser->id;
-                })
-                ->addColumn('name', function ($row) use($advertiserType) {
+            case 'escort': {
+                    $escortIds = Escort::whereIn('user_id', $userIds)->where('purchase_id', '!=', "")->pluck('id')->toArray();
+                    $advertisers = Purchase::with('membershipPlan', 'escort.pinup', 'paymentItems.payment')->where('status', 'listed')->whereIn('escort_id', $escortIds)->get();
+                }
+                break;
 
-                    if($advertiserType=='escort')
+            case 'massage': {
+                    $massageIds = MassageProfile::whereIn('user_id', $userIds)->where('purchase_id', '!=', "")->pluck('id')->toArray();
+                    $advertisers = MassagePurchase::with('paymentItems.payment')->where('status', 'listed')->whereIn('massage_profile_id', $massageIds)->get();
+                }
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
+
+        // echo '<pre>';
+        // print_r($advertisers->toArray());
+        // exit;
+
+        return DataTables::of($advertisers)
+
+            ->addColumn('member_id', function ($row) {
+                return $row->advertiser->user->member_id; //.'--'.$row->id.'--'.$row->advertiser->id;
+            })
+            ->addColumn('name', function ($row) use ($advertiserType) {
+
+                if ($advertiserType == 'escort')
                     return $row->advertiser->name ?? '';
-                    else
-                    return $row->advertiser->business_name ?? '';    
-                    
-                })
-                 ->addColumn('mobile', function ($row) {
-                    return $row->advertiser->phone ?? '';
-                })
-                ->addColumn('start_date', function ($row) {
-                    return !empty($row->start_date) 
-                        ? \Carbon\Carbon::parse($row->start_date)->format('d-m-Y') 
-                        : '';
-                })
-                ->addColumn('end_date', function ($row) {
-                    return !empty($row->end_date) 
-                        ? \Carbon\Carbon::parse($row->end_date)->format('d-m-Y') 
-                        : '';
-                })
-                
-                ->addColumn('total_days', function ($row) {
-                    return Carbon::parse($row->start_date)
-                        ->diffInDays(Carbon::parse($row->end_date)) + 1;
-                })
+                else
+                    return $row->advertiser->business_name ?? '';
+            })
+            ->addColumn('mobile', function ($row) {
+                return $row->advertiser->phone ?? '';
+            })
+            ->addColumn('start_date', function ($row) {
+                return !empty($row->start_date)
+                    ? \Carbon\Carbon::parse($row->start_date)->format('d-m-Y')
+                    : '';
+            })
+            ->addColumn('end_date', function ($row) {
+                return !empty($row->end_date)
+                    ? \Carbon\Carbon::parse($row->end_date)->format('d-m-Y')
+                    : '';
+            })
 
-                ->addColumn('member_type', function ($row) use($advertiserType) {
+            ->addColumn('total_days', function ($row) {
+                return Carbon::parse($row->start_date)
+                    ->diffInDays(Carbon::parse($row->end_date)) + 1;
+            })
 
-                   if($advertiserType=='escort')
+            ->addColumn('member_type', function ($row) use ($advertiserType) {
+
+                if ($advertiserType == 'escort')
                     return $row->membershipPlan->name ?? '';
-                    else
+                else
                     return 'NA';
-                })
+            })
 
-                
-                ->addColumn('pin_up', function ($row) use($advertiserType) {
-                    if($advertiserType=='escort')
+
+            ->addColumn('pin_up', function ($row) use ($advertiserType) {
+                if ($advertiserType == 'escort')
                     return isset($row->advertiser->escort->pinup)
-                    && count($row->advertiser->escort->pinup) > 0 ? 'Yes' : 'No';
-                    else
+                        && count($row->advertiser->escort->pinup) > 0 ? 'Yes' : 'No';
+                else
                     return 'NA';
-                })
+            })
 
-                ->addColumn('lsiting_fee', function ($row) use($advertiserType)  {
-                   
-                    $fee = formatCurrency($row->paid_rate,'');
-                    $lsiting_fee = '<div class="num_value">$<span>'.$fee .'</span></div>';
-                    return $lsiting_fee;
+            ->addColumn('lsiting_fee', function ($row) use ($advertiserType) {
 
-                })
-                ->addColumn('adgent_fee', function ($row) {
+                $fee = formatCurrency($row->paid_rate, '');
+                $lsiting_fee = '<div class="num_value">$<span>' . $fee . '</span></div>';
+                return $lsiting_fee;
+            })
+            ->addColumn('adgent_fee', function ($row) {
 
-                    $payment = $row->paymentItems?->payment;
-                    if ($payment && $payment->agent_commission_percent > 0) 
-                    $commission = calculate_agent_commission($row->paid_rate,$payment->agent_commission_percent);
-                    else
+                $payment = $row->paymentItems?->payment;
+                if ($payment && $payment->agent_commission_percent > 0)
+                    $commission = calculate_agent_commission($row->paid_rate, $payment->agent_commission_percent);
+                else
                     $commission = 0.00;
 
-                    // if($row->paymentItems->payment && $row->paymentItems->payment->agent_commission_percent>0)
-                    // $commission = calculate_agent_commission($row->paymentItems->payment->net_amount,$row->paymentItems->payment->agent_commission_percent);
-                    // else
-                    // $commission = 0.00;
+                // if($row->paymentItems->payment && $row->paymentItems->payment->agent_commission_percent>0)
+                // $commission = calculate_agent_commission($row->paymentItems->payment->net_amount,$row->paymentItems->payment->agent_commission_percent);
+                // else
+                // $commission = 0.00;
 
-                    $adgent_fee = '<div class="num_value">$<span>'.formatCurrency($commission,'').'</span></div>';
-                    return $adgent_fee;
-                })
+                $adgent_fee = '<div class="num_value">$<span>' . formatCurrency($commission, '') . '</span></div>';
+                return $adgent_fee;
+            })
 
-                ->addColumn('action', function ($row) use($advertiserType) {
+            ->addColumn('action', function ($row) use ($advertiserType) {
 
-                     if($advertiserType=='escort')
-                     {
-                        $member_name = $row->advertiser->name;
-                        $massager_masseures ="";
-                        $profile_id = $row->escort_id;
-                        $state_id = $row->advertiser?->user?->current_state_id;
-                        $current_state = !empty($state_id) ? (config("escorts.profile.states.{$state_id}.stateName") ?? null) : config("escorts.profile.states.{$row->advertiser?->user?->state_id}.stateName");
-                     }
-                     else
-                     {
-                         $member_name = $row->advertiser->business_name;
-                        $profile_id = $row->massage_profile_id;
-                        $current_state = config("escorts.profile.states.{$row->advertiser?->user?->state_id}.stateName");
-                         $massager_masseures = ' <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 open-summary-modal" href="#" data-id="'. $row->id.'" > <i class="fa fa-file-alt"></i>
+                if ($advertiserType == 'escort') {
+                    $member_name = $row->advertiser->name;
+                    $massager_masseures = "";
+                    $profile_id = $row->escort_id;
+                    $state_id = $row->advertiser?->user?->current_state_id;
+                    $current_state = !empty($state_id) ? (config("escorts.profile.states.{$state_id}.stateName") ?? null) : config("escorts.profile.states.{$row->advertiser?->user?->state_id}.stateName");
+                } else {
+                    $member_name = $row->advertiser->business_name;
+                    $profile_id = $row->massage_profile_id;
+                    $current_state = config("escorts.profile.states.{$row->advertiser?->user?->state_id}.stateName");
+                    $massager_masseures = ' <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 open-summary-modal" href="#" data-id="' . $row->id . '" > <i class="fa fa-file-alt"></i>
                                                                 Profile Summary</a>';
-                     }
-                                
+                }
 
-                       
-                        $actionBtn = '
+
+
+                $actionBtn = '
                                 <div class="dropdown no-arrow">
                                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                                         </a>
                                                         <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
 
-                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 open-activity-modal" data-advertiser_type="'.$advertiserType.'" data-profile_id="'.$profile_id.'" href="#"   data-id="'. $row->id.'" >
+                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 open-activity-modal" data-advertiser_type="' . $advertiserType . '" data-profile_id="' . $profile_id . '" href="#"   data-id="' . $row->id . '" >
                                                                 <i class="fa fa-file-alt"></i> Activity Summary</a>
                                                             <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#current_location" data-membername="'.$member_name.'" data-memberid="'.$row->advertiser->user->member_id.'" data-location="'. $current_state.'"> <i class="fa fa-map-marker"></i> Current Location</a>
-                                                            '. $massager_masseures.'</div>
+                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#current_location" data-membername="' . $member_name . '" data-memberid="' . $row->advertiser->user->member_id . '" data-location="' . $current_state . '"> <i class="fa fa-map-marker"></i> Current Location</a>
+                                                            ' . $massager_masseures . '</div>
                                 </div>';
 
-                    return $actionBtn;
-                })
-                ->rawColumns(['action','lsiting_fee','adgent_fee']) 
-                ->make(true);
+                return $actionBtn;
+            })
+            ->rawColumns(['action', 'lsiting_fee', 'adgent_fee'])
+            ->make(true);
+    }
 
-        } 
-        
-        public function getProfileSummary(Request $request, $id)
-        {
-        
-            $listing = MassagePurchase::with('paymentItems.payment')->where('status', 'listed')
-                                ->where('id',$id)->first();
+    public function getProfileSummary(Request $request, $id)
+    {
 
-            $start_date = strtotime($listing['start_date']);
-            $end_date = strtotime($listing['end_date']);      
-            $days = round(abs($end_date - $start_date) / 86400) + 1; 
-            $masseures = false;   
-            $massage_availibility = false;
-            
-            if($listing)
-            {
-                $masseures  = MassageTimeAvailability::with('masseur')
-                ->where('purchase_id',$listing['id'])
+        $listing = MassagePurchase::with('paymentItems.payment')->where('status', 'listed')
+            ->where('id', $id)->first();
+
+        $start_date = strtotime($listing['start_date']);
+        $end_date = strtotime($listing['end_date']);
+        $days = round(abs($end_date - $start_date) / 86400) + 1;
+        $masseures = false;
+        $massage_availibility = false;
+
+        if ($listing) {
+            $masseures  = MassageTimeAvailability::with('masseur')
+                ->where('purchase_id', $listing['id'])
                 ->whereNotNUll('masseur_id')
                 ->get();
 
-                 $is_availibility = MassageTimeAvailability::where('purchase_id',$listing['id'])
+            $is_availibility = MassageTimeAvailability::where('purchase_id', $listing['id'])
                 ->whereNUll('masseur_id')
                 ->first();
 
-                 if($is_availibility)
-                 {
-                   
-                   $massage_availibility =  json_decode(json_encode($is_availibility->massage_availibility),true);
-                 }
-                
-                
-            
-            }        
+            if ($is_availibility) {
 
-
-            $html = view('agent.dashboard.Annalytics.profile_summary',compact('listing','days','masseures','massage_availibility'))->render();
-
-            return response()->json([
-                'status' => 'success',
-                'html' => $html
-            ]);
+                $massage_availibility =  json_decode(json_encode($is_availibility->massage_availibility), true);
+            }
         }
 
-        public function getActivitySummary(Request $request, $id)
-        {
-        
-            $advertiserType = $request->advertiser_type;
-            $profile_id     = $request->profile_id;
-            
-            $views = [] ;
-            $advertiserType = strtolower(trim($advertiserType));
-            if (in_array($advertiserType, ['massage', 'escort'])) 
-            $views = $this->logService->getProfileViews($advertiserType,$profile_id);
-            $html = view('agent.dashboard.Annalytics.profile_activity_summury', compact('views'))->render();
 
-            // Log::info('views========');
-            // Log::info($views);
+        $html = view('agent.dashboard.Annalytics.profile_summary', compact('listing', 'days', 'masseures', 'massage_availibility'))->render();
 
-            return response()->json([
-                'status' => 'success',
-                'html' => $html
-            ])->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+        return response()->json([
+            'status' => 'success',
+            'html' => $html
+        ]);
+    }
+
+    public function getActivitySummary(Request $request, $id)
+    {
+
+        $advertiserType = $request->advertiser_type;
+        $profile_id     = $request->profile_id;
+
+        $views = [];
+        $advertiserType = strtolower(trim($advertiserType));
+        if (in_array($advertiserType, ['massage', 'escort']))
+            $views = $this->logService->getProfileViews($advertiserType, $profile_id);
+        $html = view('agent.dashboard.Annalytics.profile_activity_summury', compact('views'))->render();
+
+        // Log::info('views========');
+        // Log::info($views);
+
+        return response()->json([
+            'status' => 'success',
+            'html' => $html
+        ])->header('Cache-Control', 'no-cache, no-store, must-revalidate')
             ->header('Pragma', 'no-cache')
             ->header('Expires', '0');
-        }
+    }
 
 
 
@@ -284,9 +272,9 @@ class AnalyticsController extends Controller
                 ->toArray();
 
             $advertisers = Purchase::with([
-                    'escort.pinup',
-                    'paymentItems.payment'
-                ])
+                'escort.pinup',
+                'paymentItems.payment'
+            ])
                 ->where('status', 'listed')
                 ->whereIn('escort_id', $escortIds)
                 ->whereDate('start_date', '>=', $fromDate)
@@ -300,8 +288,8 @@ class AnalyticsController extends Controller
                 ->toArray();
 
             $advertisers = MassagePurchase::with([
-                    'paymentItems.payment'
-                ])
+                'paymentItems.payment'
+            ])
                 ->where('status', 'listed')
                 ->whereIn('massage_profile_id', $massageIds)
                 ->whereDate('start_date', '>=', $fromDate)
@@ -327,37 +315,32 @@ class AnalyticsController extends Controller
             $item->member_id = $item->advertiser->user->member_id ?? '';
 
 
-          
 
 
-            if($advertiserType=='escort')
-            {
-                    $item->member_name = $item->advertiser->name ?? ''; 
-                    $item->member_type = $item->membershipPlan->name;
-            }
-           
-            else
-            {
-                $item->member_name = $item->advertiser->business_name ?? ''; 
+
+            if ($advertiserType == 'escort') {
+                $item->member_name = $item->advertiser->name ?? '';
+                $item->member_type = $item->membershipPlan->name;
+            } else {
+                $item->member_name = $item->advertiser->business_name ?? '';
                 $item->member_type = "";
             }
-          
+
 
             //$item->member_name = $item->advertiser->name ?? '';
             $item->member_mobile = $item->advertiser->phone ?? '';
 
             $item->start_date =  !empty($item->start_date) ? \Carbon\Carbon::parse($item->start_date)->format('d-m-Y') : '';
             $item->end_date =  !empty($item->end_date) ? \Carbon\Carbon::parse($item->end_date)->format('d-m-Y') : '';
-
         }
 
-        
+
         $formattedType = ucfirst($advertiserType);
         if (strtolower($advertiserType) === 'massage') {
             $formattedType .= ' Centre';
         }
 
-       
+
         if ($request->get('format') === 'json') {
             return response()->json([
                 'status'         => true,
@@ -368,7 +351,7 @@ class AnalyticsController extends Controller
 
 
 
-        
+
         $pdf = Pdf::loadView('agent.pdf.advertiser-profiles-report', [
             'advertisers'    => $advertisers,
             'advertiserType' => $advertiserType,
@@ -391,90 +374,84 @@ class AnalyticsController extends Controller
 
     public function analytic_tour_list_ajax()
     {
-           
+
         $userIds = User::where(['assigned_agent_id' => auth()->user()->id])->pluck('id')->toArray();
         $search = request()->get('search')['value'];
         $today = Carbon::now();
-        $tours = Tour::with('user','locations','tourProfiles','tourPurchase')->whereIn('user_id', $userIds)->get();
+        $tours = Tour::with('user', 'locations', 'tourProfiles', 'tourPurchase')->whereIn('user_id', $userIds)->get();
 
-            
-            return DataTables::of($tours)
-               
-                ->addColumn('member_id', function ($row) {
-                     return $row->user->member_id;
-                })
-                ->addColumn('name', function ($row)  {
-                  return $row->user->name ?? '';
-                })
-                 ->addColumn('mobile', function ($row) {
-                    return $row->user->phone ?? '';
-                })
+        //dd($tours->toArray());
 
-                ->addColumn('tour_name', function ($row)  {
-                  return $row->name ?? '';
-                })
+        return DataTables::of($tours)
 
-               ->addColumn('no_of_location', function ($row)  {
-                    return $row->locations->count(); 
-                })
+            ->addColumn('member_id', function ($row) {
+                return $row->user->member_id;
+            })
+            ->addColumn('name', function ($row) {
+                return $row->user->name ?? '';
+            })
+            ->addColumn('mobile', function ($row) {
+                return $row->user->phone ?? '';
+            })
 
-                ->addColumn('start_date', function ($row) {
-                    return !empty($row->start_date) 
-                        ? \Carbon\Carbon::parse($row->start_date)->format('d-m-Y') 
-                        : '';
-                })
-                ->addColumn('end_date', function ($row) {
-                    return !empty($row->end_date) 
-                        ? \Carbon\Carbon::parse($row->end_date)->format('d-m-Y') 
-                        : '';
-                })
-                
-                ->addColumn('total_days', function ($row) {
-                    return Carbon::parse($row->start_date)
-                        ->diffInDays(Carbon::parse($row->end_date)) + 1;
-                })
-                ->addColumn('pin_up', function ($row) {
+            ->addColumn('tour_name', function ($row) {
+                return $row->name ?? '';
+            })
 
-                     $pinup = $this->getPinup($row);
-                     return ($pinup) ? 'Yes' : 'No';
-                
-                })
+            ->addColumn('no_of_location', function ($row) {
+                return $row->locations->count();
+            })
 
-                ->addColumn('listing_fee', function ($row)  {
+            ->addColumn('start_date', function ($row) {
+                return !empty($row->start_date)
+                    ? \Carbon\Carbon::parse($row->start_date)->format('d-m-Y')
+                    : '';
+            })
+            ->addColumn('end_date', function ($row) {
+                return !empty($row->end_date)
+                    ? \Carbon\Carbon::parse($row->end_date)->format('d-m-Y')
+                    : '';
+            })
 
-                      
-                        $pin_up_amount = $this->getPinupAmount($row);
-                        $sum_listing_fees = $this->getPaymentAmount($row);
-                        $totalFee  = $pin_up_amount + $sum_listing_fees;
-                        $fee = formatCurrency($totalFee, '');
-                        return '<div class="num_value">$<span>' . $fee . '</span></div>';
-                })
-                                        
-                ->addColumn('adgent_fee', function ($row) {
+            ->addColumn('total_days', function ($row) {
+                $totalDays = $this->getTotalDays($row);
+                return $totalDays;
+            })
+            ->addColumn('pin_up', function ($row) {
 
-                    $paymentHistory = $this->getPaymentHistoryData($row);
-                    $comm_fee = ($paymentHistory && $paymentHistory->commissions) ? $paymentHistory->commissions->sum('total_commission_amount') : 0;
-                    $adgent_fee = '<div class="num_value">$<span>'.formatCurrency($comm_fee, '').'</span></div>';
-                    return $adgent_fee;
+                $pinup = $this->getPinup($row);
+                return ($pinup) ? 'Yes' : 'No';
+            })
 
-                   
-                })
+            ->addColumn('listing_fee', function ($row) {
+                $total_amount = $this->getListingFee($row);
+                $fee = formatCurrency($total_amount, '');
+                return '<div class="num_value">$<span>' . $fee . '</span></div>';
+            })
 
-                ->addColumn('action', function ($row)  {
+            ->addColumn('adgent_fee', function ($row) {
 
-                     $member_name = $row->user?->name;
-                     $profile_id = $row->id;
-                     $state_id = $row->user?->current_state_id;
-                     $current_state = !empty($state_id) ? (config("escorts.profile.states.{$state_id}.stateName") ?? null) : config("escorts.profile.states.{$row->user?->state_id}.stateName");
+                $paymentHistory = $this->getPaymentHistoryData($row);
+                $comm_fee = ($paymentHistory && $paymentHistory->commissions) ? $paymentHistory->commissions->sum('total_commission_amount') : 0;
+                $adgent_fee = '<div class="num_value">$<span>' . formatCurrency($comm_fee, '') . '</span></div>';
+                return $adgent_fee;
+            })
 
-                   
-                    $massager_masseures = ' <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 open-summary-modal" href="#" data-member_id="'.$row->user->member_id.'" data-id="'. $row->id.'" > <i class="fa fa-file-alt"></i>
+            ->addColumn('action', function ($row) {
+
+                $member_name = $row->user?->name;
+                $profile_id = $row->id;
+                $state_id = $row->user?->current_state_id;
+                $current_state = !empty($state_id) ? (config("escorts.profile.states.{$state_id}.stateName") ?? null) : config("escorts.profile.states.{$row->user?->state_id}.stateName");
+
+
+                $massager_masseures = ' <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 open-summary-modal" href="#" data-member_id="' . $row->user->member_id . '" data-id="' . $row->id . '" > <i class="fa fa-file-alt"></i>
                                                                 Tour Summary</a>';
-                                
 
-                       
-                        $actionBtn = '
+
+
+                $actionBtn = '
                                 <div class="dropdown no-arrow">
                                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -482,16 +459,15 @@ class AnalyticsController extends Controller
                                                         <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
 
                                                           
-                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#current_location" data-membername="'.$member_name.'" data-memberid="'.$row->user->member_id.'" data-location="'. $current_state.'"> <i class="fa fa-map-marker"></i> Current Location</a>
-                                                            '. $massager_masseures.'</div>
+                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#current_location" data-membername="' . $member_name . '" data-memberid="' . $row->user->member_id . '" data-location="' . $current_state . '"> <i class="fa fa-map-marker"></i> Current Location</a>
+                                                            ' . $massager_masseures . '</div>
                                 </div>';
 
-                    return $actionBtn;
-                })
-                ->rawColumns(['action','listing_fee','adgent_fee']) 
-                ->make(true);
-
-    } 
+                return $actionBtn;
+            })
+            ->rawColumns(['action', 'listing_fee', 'adgent_fee'])
+            ->make(true);
+    }
 
 
     private function getPaymentAmount($row)
@@ -508,8 +484,8 @@ class AnalyticsController extends Controller
         }
 
         $totalAmount = PaymentItem::whereIn('item_id', $purchaseIds)
-        ->where('item_type', 'App\Models\Purchase')
-        ->sum('amount');
+            ->where('item_type', 'App\Models\Purchase')
+            ->sum('amount');
         return  $totalAmount;
     }
 
@@ -517,17 +493,16 @@ class AnalyticsController extends Controller
     {
         $purchaseIds = collect($row->tourPurchase)->pluck('id')->filter()->unique();
 
-        //  Log::info($row->id.'========'.$row->name);
-        //  Log::info($purchaseIds);
-        //  Log::info('========');
+         Log::info($row->id.'========'.$row->name);
+         Log::info($purchaseIds);
+         Log::info('========');
 
 
         if ($purchaseIds->isEmpty()) {
             return null;
         }
 
-        $paymentHistoryIds = PaymentItem::
-             whereIn('item_id', $purchaseIds)
+        $paymentHistoryIds = PaymentItem::whereIn('item_id', $purchaseIds)
             ->where('item_type', 'App\Models\Purchase')
             ->pluck('payment_history_id')
             ->unique();
@@ -535,54 +510,89 @@ class AnalyticsController extends Controller
         return PaymentHistory::with('commissions')->whereIn('id', $paymentHistoryIds)->first();
     }
 
-    private function getPinupAmount($row)
-    {
-       
-        $pinup_amount = 0; 
-        if(!empty($row->locations))
-        {
-           foreach($row->locations as $location) 
-            {
-                if($location->is_pinup=='1')
-                {
-                    $pinup_profiles = $location->profiles->whereNotNull('is_pinup');
-                    $pinup_data = $pinup_profiles[0] ?? null;
 
-                    if ($pinup_data && !empty($pinup_data['is_pinup'])) 
-                    {
+    private function getListingFee($row)
+    {
+        $total_amount = 0;
+        foreach ($row->locations as $location) {
+            $locationPinupDone = false;
+            foreach ($location->purchase as $purc) {
+                $listingFee = $purc->paid_rate ? $purc->paid_rate : 0.00;
+                $total_amount += $listingFee;
+
+                if ($location->is_pinup == '1' && !$locationPinupDone) {
+                    $pinup_data = $location->profiles->whereNotNull('is_pinup')->first();
+                    if ($pinup_data) {
                         $PaymentItem = PaymentItem::where('item_id', $pinup_data['is_pinup'])
                             ->where('item_type', 'App\Models\EscortPinup')
                             ->first();
 
-                        $pinup_amount  += $PaymentItem ? $PaymentItem->amount : 0;
+                        $total_amount += $PaymentItem ? $PaymentItem->amount : 0;
+                        $locationPinupDone = true;
                     }
                 }
             }
         }
-      
-        return $pinup_amount;
+
+        return $total_amount;
     }
+
+    private function getTotalDays($row)
+    {
+        $totalDays = 0;
+        foreach ($row->locations as $location) {
+            foreach ($location->purchase as $purc) {
+                if (!empty($location->start_date) && !empty($location->end_date)) {
+                    $start = $location->start_date ? Carbon::parse($location->start_date) : null;
+                    $end   = $location->end_date ? Carbon::parse($location->end_date) : null;
+                    $totalDays += ($start && $end) ? $start->diffInDays($end) + 1 : 0;
+                }
+            }
+        }
+        return $totalDays;
+    }
+
+    // private function getPinupAmount($row)
+    // {
+
+    //     $pinup_amount = 0;
+    //     if (!empty($row->locations)) {
+    //         foreach ($row->locations as $location) {
+    //             if ($location->is_pinup == '1') {
+    //                 $pinup_profiles = $location->profiles->whereNotNull('is_pinup');
+    //                 $pinup_data = $pinup_profiles[0] ?? null;
+
+    //                 if ($pinup_data && !empty($pinup_data['is_pinup'])) {
+    //                     $PaymentItem = PaymentItem::where('item_id', $pinup_data['is_pinup'])
+    //                         ->where('item_type', 'App\Models\EscortPinup')
+    //                         ->first();
+
+    //                     $pinup_amount  += $PaymentItem ? $PaymentItem->amount : 0;
+    //                 }
+    //             }
+    //         }
+    //     }
+
+    //     return $pinup_amount;
+    // }
 
 
     private function getPinup($row)
     {
         $pinup = false;
 
-        if(!empty($row->locations))
-        {
-           foreach($row->locations as $location) 
-            {
-                if($location->is_pinup=='1')
-                {
+        if (!empty($row->locations)) {
+            foreach ($row->locations as $location) {
+                if ($location->is_pinup == '1') {
                     $pinup  = true;
                     break;
                 }
             }
         }
-      
+
         return $pinup;
     }
-        
+
     public function getTourPdf(Request $request)
     {
         $request->validate([
@@ -592,12 +602,12 @@ class AnalyticsController extends Controller
 
         $fromDate = date('Y-m-d', strtotime($request->from_date));
         $toDate   = date('Y-m-d', strtotime($request->to_date));
-        
+
         $userIds = User::where(['assigned_agent_id' => auth()->user()->id])->pluck('id')->toArray();
-        $tours = Tour::with('user','locations','tourProfiles','tourPurchase')->whereIn('user_id', $userIds)
-                        ->whereDate('start_date', '>=', $fromDate)
-                        ->whereDate('end_date', '<=', $toDate)
-                        ->get();
+        $tours = Tour::with('user', 'locations', 'tourProfiles', 'tourPurchase')->whereIn('user_id', $userIds)
+            ->whereDate('start_date', '>=', $fromDate)
+            ->whereDate('end_date', '<=', $toDate)
+            ->get();
 
 
         if ($tours->isEmpty()) {
@@ -610,13 +620,16 @@ class AnalyticsController extends Controller
         $alltours = $tours->map(function ($row, $index) {
 
             $paymentHistory = $this->getPaymentHistoryData($row);
-            $pin_up_amount = $this->getPinupAmount($row);
-            $sum_listing_fees = $this->getPaymentAmount($row);
-            $totalFee  = $pin_up_amount + $sum_listing_fees;
+            $sum_listing_fees = $this->getListingFee($row);
+            
+            $totalFee  = $sum_listing_fees;
 
-            $comm_fee = ($paymentHistory && $paymentHistory->commissions) 
-                ? $paymentHistory->commissions->sum('total_commission_amount') 
+            $comm_fee = ($paymentHistory && $paymentHistory->commissions)
+                ? $paymentHistory->commissions->sum('total_commission_amount')
                 : 0;
+
+                $totalDays = $this->getTotalDays($row);
+              
 
             return [
                 's_no'           => $index + 1,
@@ -626,15 +639,13 @@ class AnalyticsController extends Controller
                 'mobile'         => optional($row->user)->phone ?? '',
                 'tour_name'      => $row->name ?? '',
                 'no_of_location' => $row->locations ? $row->locations->count() : 0,
-                'start_date'     => !empty($row->start_date) 
-                                    ? \Carbon\Carbon::parse($row->start_date)->format('d-m-Y') 
-                                    : '',
-                'end_date'       => !empty($row->end_date) 
-                                    ? \Carbon\Carbon::parse($row->end_date)->format('d-m-Y') 
-                                    : '',
-                'total_days'     => (!empty($row->start_date) && !empty($row->end_date)) 
-                                    ? \Carbon\Carbon::parse($row->start_date)->diffInDays(\Carbon\Carbon::parse($row->end_date)) + 1 
-                                    : 0,
+                'start_date'     => !empty($row->start_date)
+                    ? \Carbon\Carbon::parse($row->start_date)->format('d-m-Y')
+                    : '',
+                'end_date'       => !empty($row->end_date)
+                    ? \Carbon\Carbon::parse($row->end_date)->format('d-m-Y')
+                    : '',
+                'total_days'     => $totalDays,
                 'pin_up'         => $this->getPinup($row) ? 'Yes' : 'No',
                 'listing_fee'    => formatCurrency($totalFee, ''),
                 'agent_fee'     =>  formatCurrency($comm_fee, ''),
@@ -643,9 +654,9 @@ class AnalyticsController extends Controller
 
 
         if ($request->get('format') === 'json') {
-           return response()->json([
-            'status' => true,
-            'data'   => $alltours
+            return response()->json([
+                'status' => true,
+                'data'   => $alltours
             ]);
         }
 
@@ -670,10 +681,10 @@ class AnalyticsController extends Controller
         $tour = Tour::with([
             'locations',
             'locations.Purchase',
-            'locations.Purchase.membershipPlan' 
+            'locations.Purchase.membershipPlan'
         ])->find($tourId);
 
-       //  dd($tour->toArray());
+        //  dd($tour->toArray());
 
         if (!$tour) {
             return response()->json([
@@ -684,30 +695,28 @@ class AnalyticsController extends Controller
 
         $membership = [];
         $totalDaysSum = 0;
-        $totalFeeSum = 0;
         $listingFee = 0;
         $total_amount = 0;
-        $i=0;
+        $i = 0;
 
         foreach ($tour->locations as $location) {
-          
+
+            $locationPinupDone = false;
             $start = $location->start_date ? Carbon::parse($location->start_date) : null;
             $end   = $location->end_date ? Carbon::parse($location->end_date) : null;
             $days = ($start && $end) ? $start->diffInDays($end) + 1 : 0;
-           
+
             $startDate = $start ? $start->format('d-m-Y') : '';
             $endDate   = $end ? $end->format('d-m-Y') : '';
             $tour_location  = optional($location->state)->iso2 ?? optional($location->state)->iso2 ?? 'N/A';
 
-            foreach ($location->purchase as $purc) 
-            {
+            foreach ($location->purchase as $purc) {
 
                 $totalDaysSum += $days;
                 $listingFee = $purc->paid_rate ? $purc->paid_rate : 0.00;
-                $escort =  $purc->escort->slug ?  $purc->escort->slug : 'NA';
                 $plan = $purc->membershipPlan->name ? $purc->membershipPlan->name : 'NA';
                 $total_amount += $listingFee;
-            
+
                 $membership[$i]['location']   = $tour_location;
                 $membership[$i]['start_date'] = $startDate;
                 $membership[$i]['end_date'] = $endDate;
@@ -715,56 +724,34 @@ class AnalyticsController extends Controller
                 $membership[$i]['listing_fee'] = formatAmount($listingFee);
                 $membership[$i]['membership'] = $plan;
                 $membership[$i]['purchase_id'] = $purc->id;
-
-                
                 $i++;
 
-    
-                $pinup_data = [];
-                $pinup_array = [];
 
-                Log::info(isPinupDoneForPurchase($membership, $purc->id));
-
-                if($location->is_pinup =='1' && isPinupDoneForPurchase($membership, $purc->id))
-                {
-                   
-                    $pinup_profiles = $location->profiles->whereNotNull('is_pinup');
-                    $pinup_data = $pinup_profiles[0] ?? null;
-
-                    if ($pinup_data && !empty($pinup_data['is_pinup'])) 
-                    {
+                if ($location->is_pinup == '1' && !$locationPinupDone) {
+                    $pinup_data = $location->profiles->whereNotNull('is_pinup')->first();
+                    if ($pinup_data) {
                         $PaymentItem = PaymentItem::where('item_id', $pinup_data['is_pinup'])
                             ->where('item_type', 'App\Models\EscortPinup')
                             ->first();
 
                         $escort_pinup = EscortPinup::with('escort')->where('id', $pinup_data['is_pinup'])->first();
-                        if($escort_pinup)
-                        {
-                            $escort_start = $escort_pinup->start_date ? Carbon::parse($escort_pinup->start_date) : null;
-                            $escort_end   = $escort_pinup->end_date ? Carbon::parse($escort_pinup->end_date) : null;
-                           
-                        }
 
                         $membership_pinup =  'Pin Up';
                         $membership[$i]['location'] = $tour_location;
-                        $membership[$i]['start_date'] = date('d-m-Y',strtotime($escort_pinup->start_date));
-                        $membership[$i]['end_date'] = date('d-m-Y',strtotime($escort_pinup->end_date)); 
+                        $membership[$i]['start_date'] = date('d-m-Y', strtotime($escort_pinup->start_date));
+                        $membership[$i]['end_date'] = date('d-m-Y', strtotime($escort_pinup->end_date));
                         $membership[$i]['days'] = '(1 week)';
-                        $membership[$i]['listing_fee'] = $PaymentItem ? $PaymentItem->amount: 0;
+                        $membership[$i]['listing_fee'] = $PaymentItem ? $PaymentItem->amount : 0;
                         $membership[$i]['membership'] = $membership_pinup;
                         $membership[$i]['is_pinup_done'] = 1;
                         $membership[$i]['purchase_id'] = $purc->id;
-                        
+
                         $total_amount += $PaymentItem->amount;
                         $i++;
+                        $locationPinupDone = true;
                     }
-
                 }
-
-                //$totalFeeSum += $total_amount;
-
             }
-            
         }
 
         return response()->json([
@@ -788,9 +775,8 @@ class AnalyticsController extends Controller
         }
 
         $pdf = Pdf::loadView('agent.pdf.tour_summary', $data)
-                ->setPaper('a4', 'portrait');
+            ->setPaper('a4', 'portrait');
 
         return $pdf->stream('tour_summary_' . $data['member_id'] . '.pdf');
     }
-
 }

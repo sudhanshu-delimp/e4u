@@ -3648,22 +3648,3 @@ if (!function_exists('generateReferenceNunber')) {
         return $refNumber;
     }
 }
-
-
-if (!function_exists('isPinupDoneForPurchase')) {
-function isPinupDoneForPurchase(array $items, int $purchaseId): bool {
-
-    // Log::info($items);
-    // Log::info($purchaseId);
-
-    foreach ($items as $item) {
-        if (isset($item['purchase_id'], $item['is_pinup_done']) &&
-            (int)$item['purchase_id'] === $purchaseId &&
-            (int)$item['is_pinup_done'] === 1
-        ) {
-            return 'true';
-        }
-    }
-    return 'false';
-}
-}

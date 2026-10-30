@@ -69,11 +69,11 @@
                                 <table class="table w-100 listing-table" id="advProfileSummaryTable">
                                     <thead class="table-bg">
                                         <tr>
-                                            <th>Tour Title</th>
+                                           
                                             <th>Member ID</th>
-                                            <th>Name</th>
+                                            <th>Tour Title</th>
                                             <th>Mobile</th>
-                                            <th>Number of Locations</th>
+                                            <th style="width: 12%;">Number of Locations</th>
                                             <th>Start Date</th>
                                             <th>End Date</th>
                                             <th>Total Days</th>
@@ -232,9 +232,9 @@
                                     <thead>
                                         <tr style="background-color: #0c223d; color: white; font-weight: bold; text-align:center">
                                         
-                                            <th style="text-align:center;">Tour Name</th>
+                                           
                                             <th style="text-align:center;">Member ID</th>
-                                            <th style="text-align:center;">Name</th>
+                                            <th style="text-align:center;">Tour Name</th>
                                             <th style="text-align:center;">Mobile</th>
                                             <th style="text-align:center;">Locations</th>
                                             <th style="text-align:center;">Start Date</th>
@@ -389,12 +389,7 @@
          }
       },
       columns: [
-        {
-            data: 'tour_name',
-            name: 'tour_name',
-            searchable: false,
-            orderable: false,
-        },
+        
         {
             data: 'member_id',
             name: 'member_id',
@@ -402,8 +397,9 @@
         },
 
         {
-            data: 'name',
-            name: 'name',
+            data: 'tour_name',
+            name: 'tour_name',
+            searchable: false,
             orderable: false,
         },
 
@@ -635,10 +631,8 @@
                     res.data.forEach((item, index) => {
                         html += `
                             <tr>
-                               
-                                <td class="text-center">${item.tour_name}</td>
                                 <td class="text-center">${item.member_id}</td>
-                                <td class="text-center">${item.name}</td>
+                                <td class="text-center">${item.tour_name}</td>
                                 <td class="text-center">${item.mobile}</td>
                                 <td class="text-center">${item.no_of_location}</td>
                                 <td class="text-center">${item.start_date}</td>
@@ -684,7 +678,6 @@
 
         if (!tourId) return;
 
-        // Show waiting popup
         swal_waiting_popup({'title': 'Loading Summary...'});
 
         $.ajax({
@@ -729,37 +722,9 @@
                                 <td style="text-align:right;">
                                     <div class="num_value"><x-curFormat/><span>${row.listing_fee}</span></div>
                                 </td>
-                            </tr>
-                        `;
-
-
-                            if (row.is_pinup && row.pinup_data) {
-                                // Format membership array/string into "member_id - plan"
-                               
-
-                                // Format listing fee to 2 decimal places
-                                let pinupFee = typeof row.pinup_data.listing_fee === 'number'
-                                    ? row.pinup_data.listing_fee.toFixed(2)
-                                    : (row.pinup_data.listing_fee || '0.00');
-
-                                html += `
-                                    <tr ${bgStyle}>
-                                        <td style="text-align:center;">${row.pinup_data.location}</td>
-                                        <td style="text-align:center;">${row.pinup_data.start_date}</td>
-                                        <td style="text-align:center;">${row.pinup_data.end_date}</td>
-                                        <td style="text-align:center;">${row.pinup_data.membership}</td>
-                                        <td style="text-align:center;">${row.pinup_data.days}</td>
-                                        <td style="text-align:right;">
-                                            <div class="num_value"><x-curFormat/><span>${pinupFee}</span></div>
-                                        </td>
-                                    </tr>
-                                `;
-                            }
-
-                       
+                            </tr>`;
                     });
 
-                    // Append Totals row
                     html += `
                         <tr style="font-weight:bold;">
                             <td colspan="4" style="text-align:right;">Totals:</td>
@@ -767,8 +732,7 @@
                             <td style="border-top: 1px solid; border-bottom: 1px solid; text-align:right;">
                                 <div class="num_value"><x-curFormat/><span>${res.total_fee}</span></div>
                             </td>
-                        </tr>
-                    `;
+                        </tr>`;
                 } else {
                     html = `<tr><td colspan="6" class="text-center">No location details found.</td></tr>`;
                 }
