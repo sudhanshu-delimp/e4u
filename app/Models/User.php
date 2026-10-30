@@ -1067,7 +1067,7 @@ class User extends Authenticatable
     public static function getAdvertiserrByMemberId($memberId)
     {
         try {
-            return self::where('member_id', $memberId)->whereIn('type', [3,4])->first();
+            return self::where('member_id', $memberId)->whereIn('type', ['3','4'])->first();
         } catch (\Throwable $e) {
             throw $e;
         }
