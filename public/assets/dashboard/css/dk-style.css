@@ -10939,8 +10939,6 @@ td {
 
 #wrapper #content-wrapper {
     overflow-x: visible !important;
-    padding-bottom: 75px;
-    background-color: transparent !important;
 }
 
 .select2-selection__rendered {
