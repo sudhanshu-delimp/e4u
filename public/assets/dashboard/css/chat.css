@@ -629,7 +629,7 @@
 }
 
 .message-bubble {
-    padding: 10px 18px;
+    padding: 10px;
     border-radius: 15px;
     background: var(--white);
     color: var(--text);
@@ -2163,7 +2163,7 @@ emoji-picker {
 
     .input-wrapper textarea {
         min-height: 44px;
-        max-height: 96px;
+        max-height: 44px;
         padding: 10px 12px;
     }
 
@@ -2342,7 +2342,107 @@ emoji-picker {
     font-size: 20px;
     color: #fff !important;
 }
+/* Video ko image tile ki tarah square/box fit karne ke liye */
+.chat-video-tile video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none; /* Click a tag par trigger hone ke liye */
+}
 
+/* Center me play icon dikhane ke liye */
+.chat-video-play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 28px;
+    color: rgba(255, 255, 255, 0.85);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* 4th tile par agar +overlay ho to play icon hide kar sakte hain */
+.chat-video-tile:has(.chat-gallery-more) .chat-video-play-icon {
+    display: none;
+}
+/* Gallery Tiles layout */
+.chat-gallery-tile {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f3f5;
+    border-radius: 8px;
+}
+
+/* Hidden items jo 4 ke baad aate hain */
+.chat-gallery-hidden {
+    display: none !important;
+}
+
+/* Video tile */
+.chat-gallery-tile video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+/* Play button for video */
+.chat-video-play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 26px;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Document Tile inside Gallery */
+.chat-gallery-doc-tile {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    box-sizing: border-box;
+    text-align: center;
+    color: #495057;
+    background: #e9ecef;
+}
+
+.chat-gallery-doc-icon {
+    font-size: 28px;
+    margin-bottom: 4px;
+    color: #0d6efd;
+}
+
+.chat-gallery-doc-name {
+    font-size: 11px;
+    font-weight: 600;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chat-gallery-doc-size {
+    font-size: 10px;
+    opacity: 0.7;
+}
+
+/* Agar 4th item par +badge hai to video icon ya doc text overlap na ho */
+.chat-gallery-tile:has(.chat-gallery-more) .chat-video-play-icon {
+    display: none;
+}
 .message-wrapper:focus-within .chat-msg-actions {
     opacity: 1 !important;
     visibility: visible;

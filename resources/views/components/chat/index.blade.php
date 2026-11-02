@@ -135,7 +135,11 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
                 <button id="chatSearchBtn" title="Search messages">
                     <i class="bi bi-search"></i>
                 </button>
-
+                
+                <!-- FULLSCREEN BUTTON -->
+                <button type="button" id="toggleFullscreenBtn" title="Full Screen">
+                    <i class="bi bi-arrows-fullscreen" id="fullscreenIcon"></i>
+                </button>
                 <!-- THREE DOTS -->
                 <div class="more-wrapper">
 
@@ -165,10 +169,6 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
                     </div>
 
                 </div>
-                <!-- FULLSCREEN BUTTON -->
-                <button type="button" id="toggleFullscreenBtn" title="Full Screen">
-                    <i class="bi bi-arrows-fullscreen" id="fullscreenIcon"></i>
-                </button>
             </div>
 
         </header>

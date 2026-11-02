@@ -2507,38 +2507,69 @@ function chatItemHtml(conv, ctx) {
   var time = conv.last ? listTime(conv.last.created_at) : '';
   return "\n        <div class=\"chat-user".concat(active, "\"\n            data-id=\"").concat(conv.id, "\"\n            data-name=\"").concat(escapeHtml(user.name), "\"\n            data-member=\"").concat(escapeHtml(user.member_id), "\"\n            data-location=\"").concat(escapeHtml(abbr), "\">\n\n            <div class=\"avatar avatar-light\" style=\"").concat(avatarStyle(user.color), "\">\n                ").concat(avatarInner(user), "\n                 \n            </div>\n\n            <div class=\"user-info\">\n\n               \n                <div class=\"user-name\">\n                    ").concat(escapeHtml(user.name), "\n                    <span class=\"user-type\">(").concat(escapeHtml(user.member_id), ")</span>\n                    <span class=\"status-dot").concat(online ? '' : ' offline', "\"></span>\n                </div>\n\n                <div class=\"user-top\">\n                    <span class=\"user-type\">").concat(previewHtml, "</span>\n                    <span class=\"user-time\">").concat(escapeHtml(time), "</span>\n                </div>\n\n                <div class=\"more-info-wrapper\">\n\n                    <button type=\"button\" class=\"chatInfoBtn\" aria-label=\"More options\">\n                        <i class=\"bi bi-three-dots-vertical\"></i>\n                    </button>\n\n                    <div class=\"more-info-dropdown\">\n\n                        <button type=\"button\" class=\"contactInfoBtn chat-mark-read\">\n                            <i class=\"bi bi-check-circle\"></i>\n                            Mark as Read\n                        </button>\n\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"contact\">\n                            <i class=\"bi bi-person-vcard\"></i>\n                            Contact Info\n                        </button>\n\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"archive\">\n                            <i class=\"bi bi-archive\"></i>\n                            ").concat(conv.is_archived ? 'Unarchive' : 'Archive', "\n                        </button>\n                        <div class=\"dropdown-divider\"></div>\n                        <button type=\"button\" class=\"filter-option chat-action danger-option\" data-action=\"delete\">\n                            <i class=\"bi bi-trash3\"></i>\n                            Delete\n                        </button>\n\n                    </div>\n\n                </div>\n\n            </div>\n\n            ").concat(conv.unread > 0 ? "<span class=\"unread-count\">".concat(conv.unread, "</span>") : '', "\n\n        </div>\n    ");
 }
+function hasVideoGallery(list) {
+  // Agar 1 se zyada videos hain aur sabhi playable hain
+  return list.length > 1 && list.every(function (a) {
+    return a.kind === 'video' && PLAYABLE_VIDEOS.indexOf(String(a.mime || '').toLowerCase()) !== -1;
+  });
+}
 function attachmentsHtml(msg) {
   var list = msg.attachments || [];
-  var many = list.length > 1;
-  if (hasImageGallery(list)) {
-    var tiles = list.map(function (attachment, index) {
-      var url = escapeHtml(attachment.url);
-      var hidden = index > 3 ? ' chat-gallery-hidden' : '';
-      var overlay = index === 3 ? "<span class=\"chat-gallery-more\" aria-hidden=\"true\"><i class=\"bi bi-plus-lg\"></i><span>".concat(list.length - 3, "</span></span>") : '';
-      return "<a href=\"".concat(url, "\" class=\"chat-media chat-gallery-tile").concat(hidden, "\" data-kind=\"image\"\n                target=\"_blank\" rel=\"noopener\" aria-label=\"View image ").concat(index + 1, " of ").concat(list.length, "\">\n                <img src=\"").concat(url, "\" alt=\"\" loading=\"lazy\">\n                ").concat(overlay, "\n            </a>");
-    }).join('');
-    return "<div class=\"chat-image-gallery\">".concat(tiles, "</div>");
-  }
-  var html = list.map(function (a) {
-    var url = escapeHtml(a.url);
+  if (!list.length) return '';
+
+  // Safety checks (Taaki undefined variables ka koi error na aaye)
+  var showableImages = typeof SHOWABLE_IMAGES !== 'undefined' ? SHOWABLE_IMAGES : ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+  var playableVideos = typeof PLAYABLE_VIDEOS !== 'undefined' ? PLAYABLE_VIDEOS : ['video/mp4', 'video/webm', 'video/ogg'];
+  var esc = typeof escapeHtml === 'function' ? escapeHtml : function (s) {
+    return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  };
+  var fmtSize = typeof formatSize === 'function' ? formatSize : function (b) {
+    return b ? (b / (1024 * 1024)).toFixed(1) + ' MB' : '';
+  };
+
+  // CASE 1: AGAR SIRF 1 ATTACHMENT HAI (Normal Display)
+  if (list.length === 1) {
+    var a = list[0];
+    var url = esc(a.url);
     var mime = String(a.mime || '').toLowerCase();
-    if (a.kind === 'image' && SHOWABLE_IMAGES.indexOf(mime) !== -1) {
-      var size = many ? 'width:110px;height:110px;object-fit:cover;' : 'max-width:240px;max-height:260px;';
-      return "<a href=\"".concat(url, "\" class=\"chat-media\" data-kind=\"image\" target=\"_blank\" rel=\"noopener\">\n                <img src=\"").concat(url, "\" alt=\"\" loading=\"lazy\" style=\"").concat(size, "border-radius:8px;display:block;\">\n            </a>");
+    if (a.kind === 'image' && showableImages.indexOf(mime) !== -1) {
+      return "<a href=\"".concat(url, "\" class=\"chat-media\" data-kind=\"image\" target=\"_blank\" rel=\"noopener\">\n                <img src=\"").concat(url, "\" alt=\"\" loading=\"lazy\" style=\"max-width:240px;max-height:260px;border-radius:8px;display:block;\">\n            </a>");
     }
-    if (a.kind === 'video' && PLAYABLE_VIDEOS.indexOf(mime) !== -1) {
-      var _size = many ? 'width:180px;height:120px;object-fit:cover;' : 'max-width:260px;max-height:260px;';
-      return "<video src=\"".concat(url, "\" class=\"chat-media\" data-kind=\"video\" controls preload=\"metadata\"\n                style=\"").concat(_size, "border-radius:8px;display:block;\"></video>");
+    if (a.kind === 'video' && playableVideos.indexOf(mime) !== -1) {
+      return "<video src=\"".concat(url, "\" class=\"chat-media\" data-kind=\"video\" controls preload=\"metadata\"\n                style=\"max-width:260px;max-height:260px;border-radius:8px;display:block;\"></video>");
     }
 
-    // Formats a browser cannot show inline (HEIC, MKV, AVI...): download card
-    var label = a.kind === 'image' ? 'Photo' : 'Video';
-    var format = escapeHtml((mime.split('/')[1] || 'file').replace(/^x-/, '').toUpperCase());
-    return "<a href=\"".concat(url, "\" download\n            style=\"display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit;\">\n            <i class=\"bi bi-file-earmark-arrow-down\" style=\"font-size:22px;\"></i>\n            <span>").concat(label, " (").concat(format, ", ").concat(escapeHtml(formatSize(a.size)), ")<br><small>Tap to download</small></span>\n        </a>");
+    // Single Document / File
+    var label = esc(a.name || (a.kind === 'image' ? 'Photo' : 'Document'));
+    var format = esc((mime.split('/')[1] || 'FILE').replace(/^x-/, '').toUpperCase());
+    return "<a href=\"".concat(url, "\" download style=\"display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;padding:8px 12px;background:rgba(0,0,0,0.05);border-radius:8px;\">\n            <i class=\"bi bi-file-earmark-arrow-down\" style=\"font-size:24px;\"></i>\n            <span><b>").concat(label, "</b><br><small>").concat(format, " \u2022 ").concat(fmtSize(a.size), "</small></span>\n        </a>");
+  }
+
+  // CASE 2: MULTIPLE ATTACHMENTS (Images + Videos + Documents sabhi ke liye Gallery)
+  var tiles = list.map(function (a, index) {
+    var url = esc(a.url);
+    var mime = String(a.mime || '').toLowerCase();
+    var hidden = index > 3 ? ' chat-gallery-hidden' : '';
+
+    // 4th item (index 3) par +count aayega agar 3 se zyada hain
+    var overlay = index === 3 && list.length > 3 ? "<span class=\"chat-gallery-more\" aria-hidden=\"true\"><i class=\"bi bi-plus-lg\"></i><span>".concat(list.length - 3, "</span></span>") : '';
+    var content = '';
+    if (a.kind === 'image' && showableImages.indexOf(mime) !== -1) {
+      // Image Tile
+      content = "<img src=\"".concat(url, "\" alt=\"\" loading=\"lazy\">");
+    } else if (a.kind === 'video' && playableVideos.indexOf(mime) !== -1) {
+      // Video Tile
+      content = "<video src=\"".concat(url, "#t=0.5\" preload=\"metadata\" muted playsinline></video>\n                       <i class=\"bi bi-play-circle-fill chat-video-play-icon\" aria-hidden=\"true\"></i>");
+    } else {
+      // Document / PDF / ZIP Tile
+      var _format = esc((mime.split('/')[1] || 'FILE').replace(/^x-/, '').toUpperCase());
+      var fileName = esc(a.name || "".concat(_format, " File"));
+      content = "<div class=\"chat-gallery-doc\">\n                <i class=\"bi bi-file-earmark-text\" style=\"font-size:24px;\"></i>\n                <span class=\"chat-gallery-doc-name\">".concat(fileName, "</span>\n                <small>").concat(_format, "</small>\n            </div>");
+    }
+    return "<a href=\"".concat(url, "\" class=\"chat-media chat-gallery-tile").concat(hidden, "\" data-kind=\"").concat(esc(a.kind || 'file'), "\"\n            target=\"_blank\" rel=\"noopener\" ").concat(a.kind !== 'image' && a.kind !== 'video' ? 'download' : '', ">\n            ").concat(content, "\n            ").concat(overlay, "\n        </a>");
   }).join('');
-  return many ? "<div style=\"display:flex;flex-wrap:wrap;gap:7px;\">".concat(html, "</div>") : html;
+  return "<div class=\"chat-image-gallery\">".concat(tiles, "</div>");
 }
-
 /**
  * One message bubble, with a date divider when the day changes.
  * ctx: { me: {id, name, avatar, color}, peer: {name, avatar, color} }
