@@ -102,7 +102,7 @@
         let suspendProfileObject = $('#suspendProfileId');
         let suspendStartDateObject = $('#suspendStartDate');
         let suspendEndDateObject = $('#suspendEndDate');
-        let suspendFrom = $(".modal-form-suspend");
+        let suspendFrom = $(".modal-form-suspend form");
         let suspendFromButton = suspendFrom.find('.modal-footer button[type="submit"]');
         let creditAmount = suspendFrom.find('#creditCalculationLive');
         
@@ -164,20 +164,13 @@
                         suspendFromButton.prop('disabled', true);
                         creditAmount.html('0.00');
                     },
-                    success: function(response) {
-                        console.log(`response ${response.refund_amount}`);
-                        if (response.success) {
-                            creditAmount.html(response.refund_amount);
-                            $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
-                            suspendFromButton.prop('disabled', false);
-                        } else {
-                            $("#suspend_form").find('button[type=submit]').attr('disabled',
-                                'disabled');
-                            Swal.fire({
-                                icon: "error",
-                                text: response.message
-                            });
-                        }
+                    success: function(response, textStatus, xhr) {
+                        creditAmount.html(response.refund_amount);
+                        suspendFromButton.prop('disabled', false);
+                    },
+                    error: function (xhr) {
+                        suspendFromButton.prop('disabled', true);
+                        displaySwal(xhr);
                     }
                 });
             }
@@ -186,11 +179,10 @@
         /* end handle suspend modal start and end date calendars */
     });
 
-     $("#suspend_form").on('submit', function(e) {
+     suspendFrom.on('submit', function(e) {
         e.preventDefault();
-        var form = $(this);
         var url = "{{ route('escort.profile.suspend') }}";
-        var data = new FormData(form[0]);
+        var data = new FormData(suspendFrom[0]);
 
         $.ajax({
             method: 'POST',
@@ -203,28 +195,18 @@
             },
             beforeSend: function() {
                 showLoadingPopup();
-                $("#suspend_form").find('button[type=submit]').attr('disabled', 'disabled');
+                suspendFromButton.prop('disabled', true);
             },
             success: function(response, textStatus, xhr) {
-                Swal.close();
-                if (response.success) {
-                    displaySwal(xhr);
-                    // set suspend icon to profile 
-                    $('#suspend_profile').modal('hide');
-                    table.draw();
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        text: data.response.message
-                    });
-                }
-                $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
+                displaySwal(xhr);
+                $('#suspend_profile').modal('hide');
+                table.draw();
             },
             error: function(xhr, status, error){
                 displaySwal(xhr);
             },
             complete: function(){
-                $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
+                suspendFromButton.prop('disabled', false);
             }
 
         });

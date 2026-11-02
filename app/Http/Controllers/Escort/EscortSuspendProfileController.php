@@ -35,10 +35,7 @@ class EscortSuspendProfileController extends Controller
             $startDate = $request->start_date;
             $endDate = $request->end_date;
             $refund = getSuspendRefundAmount($escortProfile, $startDate, $endDate);
-            // $existSuspendedDate = $escortProfile->mainPurchase
-            //     ->suspendProfile()
-            //     ->overlapping($startDate, $endDate)
-            //     ->exists();
+            
 
             $existSuspendedDate = $escortProfile->currentPurchase
             ?->suspendProfile()
@@ -49,12 +46,12 @@ class EscortSuspendProfileController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => "This date range overlaps with an already suspended period for this listing.",
-                ]);
+                ],422);
             } else {
                 return response()->json([
                     'success' => true,
                     'refund_amount' => $refund,
-                ]);
+                ],200);
             }
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'An error occurred. Please try again.', 'error' => $e->getMessage()], 500);
@@ -121,7 +118,7 @@ class EscortSuspendProfileController extends Controller
             return response()->json([
                 'success' => true,
                 'suspend' => $suspendProfile,
-                'message' => 'Profile ID ' . $request->suspend_profile_id . ' has been suspended for ' . (Carbon::parse($requestStartDate)->diffInDays(Carbon::parse($requestEndDate)) + 1) . ' days.',
+                'message' => 'Profile ID ' . $suspendProfile->escort->slug . ' has been suspended for ' . (Carbon::parse($requestStartDate)->diffInDays(Carbon::parse($requestEndDate)) + 1) . ' days.',
                 'suspended_at' => Carbon::parse($suspendProfile->created_at)->setTimezone($escortTimezone)->format('d-m-Y h:i A'),
                 'profile_id' => $request->suspend_profile_id,
             ],200);
