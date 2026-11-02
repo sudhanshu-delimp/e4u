@@ -99,11 +99,12 @@
 <!-- end suspend profile modal -->
 @prepend('script')
 <script>
-   let suspendProfileObject = $('#suspendProfileId');
+        let suspendProfileObject = $('#suspendProfileId');
         let suspendStartDateObject = $('#suspendStartDate');
         let suspendEndDateObject = $('#suspendEndDate');
         let suspendFrom = $(".modal-form-suspend");
         let suspendFromButton = suspendFrom.find('.modal-footer button[type="submit"]');
+        let creditAmount = suspendFrom.find('#creditCalculationLive');
         
     $(document).ready(function() {
         /* start handle suspend modal start and end date calendars */
@@ -138,13 +139,12 @@
             let option_start_Date = $.datepicker.parseDate('dd-mm-yy', listingStartDate);
             (minDate < option_start_Date) ? suspendStartDateObject.datepicker('setDate', option_start_Date) : suspendStartDateObject.datepicker('setDate', +1);
             (minDate < option_start_Date) ? suspendStartDateObject.datepicker('option', 'minDate', option_start_Date) : suspendStartDateObject.datepicker('option', 'minDate', +1);
+            (minDate < option_start_Date) ? suspendEndDateObject.datepicker('option', 'minDate', option_start_Date) : suspendEndDateObject.datepicker('option', 'minDate', +1);
             
             suspendStartDateObject.datepicker('option', 'maxDate', listingEndDate);
-
-            
             suspendEndDateObject.datepicker('setDate', null);
             suspendEndDateObject.datepicker('option', 'maxDate', listingEndDate);
-            $("#creditCalculationLive").html('0.00');
+            creditAmount.html('0.00');
             suspendFromButton.prop('disabled', true);
         });
 
@@ -162,11 +162,12 @@
                     },
                     beforeSend: function() {
                         suspendFromButton.prop('disabled', true);
+                        creditAmount.html('0.00');
                     },
                     success: function(response) {
-                        $("#creditCalculationLive").html('0.00');
+                        console.log(`response ${response.refund_amount}`);
                         if (response.success) {
-                            $("#creditCalculationLive").html(response.refund_amount);
+                            creditAmount.html(response.refund_amount);
                             $("#suspend_form").find('button[type=submit]').removeAttr('disabled');
                             suspendFromButton.prop('disabled', false);
                         } else {
