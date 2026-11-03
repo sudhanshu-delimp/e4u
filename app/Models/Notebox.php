@@ -44,6 +44,7 @@ class Notebox extends Model
         'admin_action',
         'admin_id',
         'rating',
+        'user_id',
     ];
 
 

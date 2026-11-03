@@ -8,16 +8,20 @@ use App\Http\Controllers\AdvertiserSpamReportController;
 use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRegisterController;
 use App\Http\Controllers\Agent\AgentRequestController;
+use App\Http\Controllers\Agent\ImpersonateController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
 use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\Center\CenterController;
 use App\Http\Controllers\Center\Profile\MassageController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\CommonController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
 use App\Http\Controllers\Escort\ConciergeController;
+use App\Http\Controllers\Escort\EscortAccountController;
 use App\Http\Controllers\Escort\EscortController;
 use App\Http\Controllers\Escort\EscortMyLegboxViewerController;
 use App\Http\Controllers\Escort\EscortStatisticsController;
@@ -25,23 +29,29 @@ use App\Http\Controllers\Escort\EscortTourScheduleContoller;
 use App\Http\Controllers\Escort\EscortViewerInteractionController;
 use App\Http\Controllers\Escort\MyPlaymatesContoller;
 use App\Http\Controllers\Escort\PinUpsController;
+use App\Http\Controllers\EscortListingController;
 use App\Http\Controllers\GetCurrentUserGeolocationController;
 use App\Http\Controllers\InfluencerController;
 use App\Http\Controllers\MassageCentre;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\NotificationSetting;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ReportMassageController;
 use App\Http\Controllers\SupportTicketsController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\Auth\RegisterController;
 use App\Http\Controllers\User\Dashboard\UserController;
+use App\Http\Controllers\User\NoteBoxController;
+use App\Http\Controllers\Viewer\PunterBoxController;
+use App\Http\Controllers\Viewer\StatisticsController;
 use App\Http\Controllers\Viewer\ViewerController;
 use App\Http\Controllers\Viewer\ViewerEscortInteractionController;
 use App\Http\Controllers\Viewer\ViewerMassageInteractionController;
 use App\Http\Controllers\Viewer\ViewerPrefrenceController;
+use App\Http\Controllers\Viewer\ViewerReviewsController;
 use App\Http\Controllers\Viewer\ViewerTaskListController;
+use App\Http\Controllers\Viewer\ViwerStatisticsController;
 use App\Http\Controllers\WebController;
-use App\Http\Controllers\PageController;
 use App\Mail\sendPlaymateAccountDisableMail;
 use App\Models\Pricing;
 use App\Models\User;
@@ -49,14 +59,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Agent\ImpersonateController;
-use App\Http\Controllers\Viewer\PunterBoxController;
-use App\Http\Controllers\Viewer\ViewerReviewsController;
-use App\Http\Controllers\Escort\EscortAccountController;
-use App\Http\Controllers\EscortListingController;
-use App\Http\Controllers\User\NoteBoxController;
-use App\Http\Controllers\ChatController;
-use App\Http\Controllers\CommonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -224,9 +226,10 @@ Route::middleware('auth')->group(function () {
 
         // Route::get('/logs-and-statistics',function(){ return view('user.dashboard.logs-and-statistics');})->name('user.logs-and-statistics');
 
-        Route::get('/my-statistics', function () {
-            return view('user.dashboard.my-statistics');
-        })->name('user.my-statistics');
+
+        Route::get('my-statistics',[StatisticsController::class, 'index'])->name('viewer.dashboard.my-statistics');
+
+        //My Statistics
 
         // Route::get('/task-list',function(){
         //     return view('user.dashboard.task-list');
