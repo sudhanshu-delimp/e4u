@@ -852,4 +852,9 @@ class Escort extends Model
     {
         return  config('escorts.profile.states')[$this->state_id]['stateAbbr'];
     }
+
+    public function socialMediaVisitors()
+    {
+        return $this->hasMany(SocialMediaVisitor::class, 'listing_profile_id', 'id');
+    }
 }
