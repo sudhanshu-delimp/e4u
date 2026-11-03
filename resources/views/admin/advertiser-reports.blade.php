@@ -13,22 +13,10 @@
         height: 150px !important;
     }
 
-    /* table td,th{
-    border-top: 0px !important;
-    border: none;
-}
-
-table td,th{
-    border-top: 0px !important;
-    border: none;
-} */
     .paging_simple_numbers {
         margin-top: 18px;
     }
 
-    /* .dataTables_info{
-    margin-top: 18px;
- } */
     .table-report-info tr td {
         border: 0;
     }
@@ -56,7 +44,9 @@ table td,th{
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
                 ><b>Help?</b> </span>
         </div>
-        <div class="col-md-12 mb-4">
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             <div class="card collapse" id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -137,7 +127,7 @@ table td,th{
             </div>
         </div>
 
-        <div class="col-sm-12 col-md-12 col-lg-12 ">
+        <div class="col-lg-12 ">
             <div class="table-responsive custom-badge common-card">
                 <table class="table" id="AdvertiserReportTable" style="width: 100%">
                     <thead class="table-bg">
@@ -190,8 +180,9 @@ table td,th{
                     </tfoot>
                 </table>
             </div>
-        </div>
-
+        </div>        
+    </div>
+    <div class="row">
         <div class="col-md-12" id="print-advertiser-report">
             <div class="my-account-card">
                 <div class="card-head">
@@ -296,13 +287,9 @@ table td,th{
 
         </div>
     </div>
+    
 </div>
 
-<!--middle content end here-->
-<!--right side bar start from here-->
-</div>
-<!--right side bar end-->
-</div>
 <div class="modal fade upload-modal" id="confirm-popup" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
