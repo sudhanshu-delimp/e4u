@@ -179,7 +179,50 @@
 
 
 /* SEARCH */
+.search-box-wrapper{
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+.search-box-wrapper .chat-my-id{   
+    height: 48px;
+    margin-top: 10px;
+    background: var(--icon-bg);
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    border-radius: 100px;
+    line-height: 25px;
+}
+.search-box-wrapper .chat-my-id i{
+    
+    background: var(--white);
+    padding: 8px 9px;
+    border-radius: 100px;
+    font-size: 12px;
+    color: var(--icon-text);
+}
+.search-box-wrapper .chat-my-id strong{
+    color: var(--primary);
+}
+.search-box-wrapper .chat-my-id span {
+    max-width: 29px;
+    opacity: 1;
+    overflow: hidden;
+    white-space: nowrap; 
+    display: inline-block;
+    transition: max-width 0.4s ease-in-out, opacity 0.3s ease-in-out;
+}
 
+.search-box-wrapper .chat-my-id:hover span {
+    max-width: 200px; 
+    opacity: 1;
+}
+
+.search-box-wrapper .chat-my-id:hover i {
+    margin-right: 5px;
+}
 .search-box {
     height: 48px;
     border: 1px solid #dce3ec;
@@ -189,6 +232,7 @@
     align-items: center;
     padding: 0 17px;
     background: var(--white);
+    flex: 1;
 }
 
 .search-box i {
