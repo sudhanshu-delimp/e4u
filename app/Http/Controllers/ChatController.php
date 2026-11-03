@@ -201,7 +201,7 @@ class ChatController extends Controller
                 ],
                 'last'         => $last ? [
                     'preview'    => $this->preview($last),
-                    'created_at' => \Carbon\Carbon::parse($last->created_at)->toIso8601String(),
+                    'created_at' => \Carbon\Carbon::parse($last->created_at)->toIso8601String(), 
                     'mine'       => (int) $last->sender_id === $me->id,
                 ] : null,
                 'unread'       => (int) ($unread[$r->id] ?? 0),
