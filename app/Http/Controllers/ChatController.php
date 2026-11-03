@@ -625,6 +625,7 @@ class ChatController extends Controller
                 'name'           => ChatState::displayName($user),
                 'phone'          => formatMobileNumber($user->phone),
                 'member_id'      => $user->member_id,
+                'email'      => $user->email,
                 'avatar'         => $user->avatar_img,
                 'color'          => ChatState::color($user->state_id),
                 'type'           => config('chat.type_labels.' . (int) $user->type, ''),

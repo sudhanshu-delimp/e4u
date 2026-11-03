@@ -35,21 +35,23 @@ class EscortSuspendProfileController extends Controller
             $startDate = $request->start_date;
             $endDate = $request->end_date;
             $refund = getSuspendRefundAmount($escortProfile, $startDate, $endDate);
-            $existSuspendedDate = $escortProfile->mainPurchase
-                ->suspendProfile()
-                ->overlapping($startDate, $endDate)
-                ->exists();
+            
+
+            $existSuspendedDate = $escortProfile->currentPurchase
+            ?->suspendProfile()
+            ->overlapping($startDate, $endDate)
+            ->exists() ?? false;
 
             if ($existSuspendedDate) {
                 return response()->json([
                     'success' => false,
                     'message' => "This date range overlaps with an already suspended period for this listing.",
-                ]);
+                ],422);
             } else {
                 return response()->json([
                     'success' => true,
                     'refund_amount' => $refund,
-                ]);
+                ],200);
             }
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'An error occurred. Please try again.', 'error' => $e->getMessage()], 500);
@@ -71,7 +73,7 @@ class EscortSuspendProfileController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => "This date range overlaps with an already suspended period for this listing.",
-            ]);
+            ],422);
         }
 
         # calculate credit
@@ -84,7 +86,7 @@ class EscortSuspendProfileController extends Controller
         # Store suspend profile details
         $suspendProfile = SuspendProfile::create(
             [
-                'purchase_id' => $escortProfile->purchase_id,
+                'purchase_id' => $escortProfile->currentPurchase->id,
                 'escort_profile_id' => $request->suspend_profile_id,
                 'user_id' => $user->id,
                 'start_date' => Carbon::parse($request->start_date),
@@ -111,23 +113,24 @@ class EscortSuspendProfileController extends Controller
             );
             /* Send Suspend Mail */
             Mail::to($this->account->email)->send(new SuspendMailer(compact('suspendProfile')));
-            $response = [
+            
+
+            return response()->json([
                 'success' => true,
                 'suspend' => $suspendProfile,
-                'message' => 'Profile ID ' . $request->suspend_profile_id . ' has been suspended for ' . (Carbon::parse($requestStartDate)->diffInDays(Carbon::parse($requestEndDate)) + 1) . ' days.',
+                'message' => 'Profile ID ' . $suspendProfile->escort->slug . ' has been suspended for ' . (Carbon::parse($requestStartDate)->diffInDays(Carbon::parse($requestEndDate)) + 1) . ' days.',
                 'suspended_at' => Carbon::parse($suspendProfile->created_at)->setTimezone($escortTimezone)->format('d-m-Y h:i A'),
                 'profile_id' => $request->suspend_profile_id,
-            ];
+            ],200);
         } else {
-            $response = [
+            
+            return response()->json([
                 'success' => false,
                 'suspend' => '',
                 'message' => 'Profile not suspended!',
                 'suspended_at' => '',
                 'profile_id' => '',
-            ];
+            ],500);
         }
-
-        return response()->json(compact('response'));
     }
 }

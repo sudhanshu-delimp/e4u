@@ -66,7 +66,7 @@ function initChatActions(ctx) {
     } else if (info.last_online_at) {
       status = 'Last seen ' + info.last_online_at;
     }
-    var rows = [['Member ID', info.member_id], ['Type', info.type], ['Phone', info.phone || 'N/A'], ['Location', info.location], ['Home state', info.home_state], ['Member since', info.member_since]
+    var rows = [['Member ID', info.member_id], ['Type', info.type], ['Phone', info.phone || 'N/A'], ['Email', info.email || 'N/A'], ['Location', info.location], ['Home state', info.home_state], ['Member since', info.member_since]
     // ['Status', status],
     ].filter(function (row) {
       return row[1];
@@ -814,7 +814,7 @@ function initChat(root) {
     var row = document.createElement('div');
     row.id = 'chatSending';
     row.className = 'message-row sent';
-    row.innerHTML = "<div class=\"message-wrapper\"><div class=\"message-bubble\" style=\"display:flex;align-items:center;gap:10px;\">\n        <span style=\"width:18px;height:18px;border:3px solid #e5e7eb;border-top-color:#ff3c5f;border-radius:50%;display:inline-block;animation:chatSpin .8s linear infinite;\"></span>\n        <span>Sending ".concat(files.length, " file(s)... large videos can take a few minutes. Please do not close this page.</span>\n    </div></div>");
+    row.innerHTML = "<div class=\"message-wrapper\"><div class=\"message-bubble\" style=\"display:flex;align-items:center;gap:10px;\">\n        <span style=\"width:18px;height:18px;border:3px solid #e5e7eb;border-top-color:#ff3c5f;border-radius:50%;display:inline-block;animation:chatSpin .8s linear infinite;\"></span>\n        <span>Sending ".concat(files.length, " media file(s)... This may take a few minutes. Please do not close this page.</span>\n    </div></div>");
     el.messages.appendChild(row);
     scrollBottom();
   }
@@ -826,6 +826,7 @@ function initChat(root) {
   }
   function closeSidebarOnMobile() {
     if (window.innerWidth <= 800) {
+      root.classList.add('mobile-chat-open');
       if (el.sidebar) {
         el.sidebar.classList.remove('open');
       }
@@ -851,6 +852,7 @@ function initChat(root) {
     state.activeId = null;
     state.messages = [];
     state.hasMore = false;
+    root.classList.remove('mobile-chat-open');
     clearAttachPreview();
     renderHeader(null);
     renderMessages();
@@ -943,6 +945,7 @@ function initChat(root) {
     el.messages.innerHTML = state.messages.map(function (msg, i) {
       return _render__WEBPACK_IMPORTED_MODULE_2__.messageHtml(msg, state.messages[i - 1], ctx);
     }).join('');
+    prepareVideos(el.messages);
   }
   function appendMessage(msg) {
     if (state.messages.some(function (m) {
@@ -957,6 +960,7 @@ function initChat(root) {
     } else {
       el.messages.insertAdjacentHTML('beforeend', _render__WEBPACK_IMPORTED_MODULE_2__.messageHtml(msg, prev, messageContext()));
     }
+    prepareVideos(el.messages);
     scrollBottom();
   }
 
@@ -1106,7 +1110,9 @@ function initChat(root) {
           case 5:
             if (state.activeId === id) {
               markRead(id);
-              el.input.focus();
+              if (window.innerWidth > 800) {
+                el.input.focus();
+              }
             }
           case 6:
             return _context4.a(2);
@@ -1181,7 +1187,7 @@ function initChat(root) {
         var icon = fileKind(file) === 'image' ? 'bi-image' : 'bi-camera-video';
         thumb = "<span style=\"width:56px;height:56px;border-radius:6px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:22px;\"><i class=\"bi ".concat(icon, "\"></i></span>");
       }
-      return "<div style=\"position:relative;flex:0 0 auto;\" title=\"".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(file.name), "\">\n                ").concat(thumb, "\n                <button type=\"button\" class=\"chat-attach-remove\" data-index=\"").concat(index, "\" title=\"Remove\"\n                    style=\"position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;border:0;background:#111827;color:#fff;font-size:14px;line-height:20px;padding:0;cursor:pointer;\">&times;</button>\n            </div>");
+      return "<div style=\"position:relative;flex:0 0 auto;\" title=\"".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(file.name), "\">\n                ").concat(thumb, "\n                <button type=\"button\" class=\"chat-attach-remove\" data-index=\"").concat(index, "\" title=\"Remove\"\n                    style=\"position:absolute;top:-6px;right:-14px;width:20px;height:20px;border-radius:50%;border:0;background:#ff3c5f;color:#fff;font-size:14px;line-height:20px;padding:0;cursor:pointer;\">&times;</button>\n            </div>");
     }).join('');
     var box = document.createElement('div');
     box.id = 'chatAttachPreview';
@@ -1295,10 +1301,11 @@ function initChat(root) {
     state.editingId = id;
     var banner = document.createElement('div');
     banner.id = 'chatEditBanner';
-    banner.setAttribute('style', 'display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;border-top:1px solid #e5e7eb;background:#eff6ff;font-size:13px;');
-    banner.innerHTML = '<span><i class="bi bi-pencil"></i> Editing message</span>' + '<button type="button" class="chat-edit-cancel" aria-label="Cancel" style="border:0;background:transparent;font-size:20px;line-height:1;cursor:pointer;">&times;</button>';
+    banner.setAttribute('style', 'display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 25px;border-top:1px solid #e5e7eb;background:#eff6ff;font-size:13px;');
+    banner.innerHTML = '<span><i class="bi bi-pencil"></i> Editing message</span>' + '<button type="button" class="chat-edit-cancel" aria-label="Cancel" style="border:0;background:transparent;font-size:20px;line-height:1;cursor:pointer;color:#0c223d;">&times;</button>';
     el.composer.parentNode.insertBefore(banner, el.composer);
     el.input.value = msg.body || '';
+    resizeComposerInput();
     el.input.focus();
   }
   function deleteMessage(_x3) {
@@ -1337,6 +1344,7 @@ function initChat(root) {
             if (state.editingId === id) {
               cancelEdit();
               el.input.value = '';
+              resizeComposerInput();
             }
             if (mode === 'me') {
               scroll = el.messages.scrollTop;
@@ -1415,6 +1423,7 @@ function initChat(root) {
             replaceMessage(res.data);
             cancelEdit();
             el.input.value = '';
+            resizeComposerInput();
             loadList();
             _context6.n = 7;
             break;
@@ -1447,7 +1456,9 @@ function initChat(root) {
           case 12:
             _res = _context6.v;
             hideSending();
+            root.querySelector('#emojiPicker').classList.remove('show');
             el.input.value = '';
+            resizeComposerInput();
             clearAttachPreview();
             appendMessage(_res.data);
             touchConversation(_res.data, {
@@ -1524,6 +1535,7 @@ function initChat(root) {
     refreshLiveUi();
   }
   function onInputTyping() {
+    resizeComposerInput();
     if (!state.activeId || !el.input.value) {
       return;
     }
@@ -1533,6 +1545,13 @@ function initChat(root) {
     }
     state.lastTypingSent = now;
     api.typing(state.activeId)["catch"](function () {});
+  }
+  function resizeComposerInput() {
+    if (el.input.tagName !== 'TEXTAREA') {
+      return;
+    }
+    el.input.style.height = 'auto';
+    el.input.style.height = Math.min(el.input.scrollHeight, 160) + 'px';
   }
 
   // A person went offline: drop every online sign for them right away
@@ -1707,8 +1726,50 @@ function initChat(root) {
 
   document.addEventListener('click', function (event) {
     var target = event.target;
+    var filterWrapper = root.querySelector('.filter-wrapper');
+    var filterBtn = root.querySelector('#filterBtn');
     if (!root.contains(target)) {
+      filterWrapper.classList.remove('open');
+      filterBtn.setAttribute('aria-expanded', 'false');
       return;
+    }
+    if (target.closest('#mobileMenu')) {
+      event.preventDefault();
+      event.stopPropagation();
+      root.classList.remove('mobile-chat-open');
+      return;
+    }
+    var composerTools = root.querySelector('.composer-tools-menu');
+    var composerMenuBtn = root.querySelector('#composerMenuBtn');
+    if (target.closest('#composerMenuBtn')) {
+      event.preventDefault();
+      event.stopPropagation();
+      var isOpen = composerTools.classList.toggle('open');
+      composerMenuBtn.setAttribute('aria-expanded', String(isOpen));
+      return;
+    }
+    if (!target.closest('.composer-tools-menu')) {
+      composerTools.classList.remove('open');
+      composerMenuBtn.setAttribute('aria-expanded', 'false');
+    } else if (target.closest('#attachmentBtn, #emojiBtn')) {
+      composerTools.classList.remove('open');
+      composerMenuBtn.setAttribute('aria-expanded', 'false');
+    }
+    if (target.closest('#filterBtn')) {
+      event.preventDefault();
+      event.stopPropagation();
+      var _isOpen = filterWrapper.classList.toggle('open');
+      var headerMenu = root.querySelector('.more-wrapper');
+      filterBtn.setAttribute('aria-expanded', String(_isOpen));
+      if (headerMenu) {
+        headerMenu.classList.remove('open');
+      }
+      closeAllChatMenus();
+      return;
+    }
+    if (!target.closest('.filter-wrapper')) {
+      filterWrapper.classList.remove('open');
+      filterBtn.setAttribute('aria-expanded', 'false');
     }
 
     // Send button
@@ -1738,6 +1799,7 @@ function initChat(root) {
       event.stopPropagation();
       cancelEdit();
       el.input.value = '';
+      resizeComposerInput();
       return;
     }
 
@@ -1787,11 +1849,45 @@ function initChat(root) {
     // Filter options (do not stop propagation, the old script still closes the dropdown)
     var option = target.closest('#filterDropdown .filter-option');
     if (option) {
+      event.preventDefault();
+      event.stopPropagation();
       state.filter = FILTERS[option.dataset.filter] || 'active';
+      root.querySelectorAll('#filterDropdown .filter-option').forEach(function (filterOption) {
+        filterOption.classList.toggle('active', filterOption === option);
+      });
+      filterWrapper.classList.remove('open');
+      filterBtn.setAttribute('aria-expanded', 'false');
       loadList();
     }
   }, true);
   document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+      var filterWrapper = root.querySelector('.filter-wrapper');
+      var filterBtn = root.querySelector('#filterBtn');
+      var headerMenu = root.querySelector('.more-wrapper');
+      var emojiPicker = root.querySelector('#emojiPicker');
+      var composerTools = root.querySelector('.composer-tools-menu');
+      var composerMenuBtn = root.querySelector('#composerMenuBtn');
+      var filterWasOpen = filterWrapper.classList.contains('open');
+      var composerMenuWasOpen = composerTools.classList.contains('open');
+      filterWrapper.classList.remove('open');
+      filterBtn.setAttribute('aria-expanded', 'false');
+      composerTools.classList.remove('open');
+      composerMenuBtn.setAttribute('aria-expanded', 'false');
+      if (filterWasOpen) {
+        filterBtn.focus();
+      } else if (composerMenuWasOpen) {
+        composerMenuBtn.focus();
+      }
+      if (headerMenu) {
+        headerMenu.classList.remove('open');
+      }
+      if (emojiPicker) {
+        emojiPicker.classList.remove('show');
+      }
+      closeAllChatMenus();
+      return;
+    }
     if (event.target !== el.input || event.isComposing) {
       return;
     }
@@ -1824,6 +1920,7 @@ function initChat(root) {
     }
   }, true);
   el.input.addEventListener('input', onInputTyping);
+  resizeComposerInput();
   el.list.addEventListener('click', function (event) {
     if (event.target.closest('.more-info-wrapper')) {
       return;
@@ -2258,6 +2355,11 @@ function canEdit(msg) {
 }
 var SHOWABLE_IMAGES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp', 'image/avif'];
 var PLAYABLE_VIDEOS = ['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime'];
+function hasImageGallery(attachments) {
+  return attachments.length >= 4 && attachments.every(function (attachment) {
+    return attachment.kind === 'image' && SHOWABLE_IMAGES.indexOf(String(attachment.mime || '').toLowerCase()) !== -1;
+  });
+}
 var settings = {
   avatarBase: ''
 };
@@ -2403,31 +2505,71 @@ function chatItemHtml(conv, ctx) {
     previewHtml = escapeHtml(preview);
   }
   var time = conv.last ? listTime(conv.last.created_at) : '';
-  return "\n        <div class=\"chat-user".concat(active, "\"\n            data-id=\"").concat(conv.id, "\"\n            data-name=\"").concat(escapeHtml(user.name), "\"\n            data-member=\"").concat(escapeHtml(user.member_id), "\"\n            data-location=\"").concat(escapeHtml(abbr), "\">\n\n            <div class=\"avatar avatar-light\" style=\"").concat(avatarStyle(user.color), "\">\n                ").concat(avatarInner(user), "\n            </div>\n\n            <div class=\"user-info\">\n\n                <div class=\"user-top\">\n                    <span class=\"user-type\">").concat(escapeHtml(user.member_id), "</span>\n                </div>\n\n                <div class=\"user-name\">\n                    ").concat(escapeHtml(user.name), "\n                    <span class=\"status-dot").concat(online ? '' : ' offline', "\"></span>\n                </div>\n\n                <div class=\"user-top\">\n                    <span class=\"user-type\">").concat(previewHtml, "</span>\n                    <span class=\"user-time\">").concat(escapeHtml(time), "</span>\n                </div>\n\n                <div class=\"more-info-wrapper\">\n\n                    <button type=\"button\" class=\"chatInfoBtn\" aria-label=\"More options\">\n                        <i class=\"bi bi-three-dots-vertical\"></i>\n                    </button>\n\n                    <div class=\"more-info-dropdown\">\n\n                        <button type=\"button\" class=\"contactInfoBtn chat-mark-read\">\n                            <i class=\"bi bi-check-circle\"></i>\n                            Mark as Read\n                        </button>\n\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"contact\">\n                            <i class=\"bi bi-person-vcard\"></i>\n                            Contact Info\n                        </button>\n\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"archive\">\n                            <i class=\"bi bi-archive\"></i>\n                            ").concat(conv.is_archived ? 'Unarchive' : 'Archive', "\n                        </button>\n                        <div class=\"dropdown-divider\"></div>\n                        <button type=\"button\" class=\"filter-option chat-action danger-option\" data-action=\"delete\">\n                            <i class=\"bi bi-trash3\"></i>\n                            Delete\n                        </button>\n\n                    </div>\n\n                </div>\n\n            </div>\n\n            ").concat(conv.unread > 0 ? "<span class=\"unread-count\">".concat(conv.unread, "</span>") : '', "\n\n        </div>\n    ");
+  return "\n        <div class=\"chat-user".concat(active, "\"\n            data-id=\"").concat(conv.id, "\"\n            data-name=\"").concat(escapeHtml(user.name), "\"\n            data-member=\"").concat(escapeHtml(user.member_id), "\"\n            data-location=\"").concat(escapeHtml(abbr), "\">\n\n            <div class=\"avatar avatar-light\" style=\"").concat(avatarStyle(user.color), "\">\n                ").concat(avatarInner(user), "\n                 \n            </div>\n\n            <div class=\"user-info\">\n\n               \n                <div class=\"user-name\">\n                    ").concat(escapeHtml(user.name), "\n                    <span class=\"user-type\">(").concat(escapeHtml(user.member_id), ")</span>\n                    <span class=\"status-dot").concat(online ? '' : ' offline', "\"></span>\n                </div>\n\n                <div class=\"user-top\">\n                    <span class=\"user-type\">").concat(previewHtml, "</span>\n                    <span class=\"user-time\">").concat(escapeHtml(time), "</span>\n                </div>\n\n                <div class=\"more-info-wrapper\">\n\n                    <button type=\"button\" class=\"chatInfoBtn\" aria-label=\"More options\">\n                        <i class=\"bi bi-three-dots-vertical\"></i>\n                    </button>\n\n                    <div class=\"more-info-dropdown\">\n\n                        <button type=\"button\" class=\"contactInfoBtn chat-mark-read\">\n                            <i class=\"bi bi-check-circle\"></i>\n                            Mark as Read\n                        </button>\n\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"contact\">\n                            <i class=\"bi bi-person-vcard\"></i>\n                            Contact Info\n                        </button>\n\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"archive\">\n                            <i class=\"bi bi-archive\"></i>\n                            ").concat(conv.is_archived ? 'Unarchive' : 'Archive', "\n                        </button>\n                        <div class=\"dropdown-divider\"></div>\n                        <button type=\"button\" class=\"filter-option chat-action danger-option\" data-action=\"delete\">\n                            <i class=\"bi bi-trash3\"></i>\n                            Delete\n                        </button>\n\n                    </div>\n\n                </div>\n\n            </div>\n\n            ").concat(conv.unread > 0 ? "<span class=\"unread-count\">".concat(conv.unread, "</span>") : '', "\n\n        </div>\n    ");
+}
+function hasVideoGallery(list) {
+  // Agar 1 se zyada videos hain aur sabhi playable hain
+  return list.length > 1 && list.every(function (a) {
+    return a.kind === 'video' && PLAYABLE_VIDEOS.indexOf(String(a.mime || '').toLowerCase()) !== -1;
+  });
 }
 function attachmentsHtml(msg) {
   var list = msg.attachments || [];
-  var many = list.length > 1;
-  var html = list.map(function (a) {
-    var url = escapeHtml(a.url);
+  if (!list.length) return '';
+
+  // Safety checks (Taaki undefined variables ka koi error na aaye)
+  var showableImages = typeof SHOWABLE_IMAGES !== 'undefined' ? SHOWABLE_IMAGES : ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+  var playableVideos = typeof PLAYABLE_VIDEOS !== 'undefined' ? PLAYABLE_VIDEOS : ['video/mp4', 'video/webm', 'video/ogg'];
+  var esc = typeof escapeHtml === 'function' ? escapeHtml : function (s) {
+    return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  };
+  var fmtSize = typeof formatSize === 'function' ? formatSize : function (b) {
+    return b ? (b / (1024 * 1024)).toFixed(1) + ' MB' : '';
+  };
+
+  // CASE 1: AGAR SIRF 1 ATTACHMENT HAI (Normal Display)
+  if (list.length === 1) {
+    var a = list[0];
+    var url = esc(a.url);
     var mime = String(a.mime || '').toLowerCase();
-    if (a.kind === 'image' && SHOWABLE_IMAGES.indexOf(mime) !== -1) {
-      var size = many ? 'width:120px;height:120px;object-fit:cover;' : 'max-width:240px;max-height:260px;';
-      return "<a href=\"".concat(url, "\" class=\"chat-media\" data-kind=\"image\" target=\"_blank\" rel=\"noopener\">\n                <img src=\"").concat(url, "\" alt=\"\" loading=\"lazy\" style=\"").concat(size, "border-radius:8px;display:block;\">\n            </a>");
+    if (a.kind === 'image' && showableImages.indexOf(mime) !== -1) {
+      return "<a href=\"".concat(url, "\" class=\"chat-media\" data-kind=\"image\" target=\"_blank\" rel=\"noopener\">\n                <img src=\"").concat(url, "\" alt=\"\" loading=\"lazy\" style=\"max-width:240px;max-height:260px;border-radius:8px;display:block;\">\n            </a>");
     }
-    if (a.kind === 'video' && PLAYABLE_VIDEOS.indexOf(mime) !== -1) {
-      var _size = many ? 'width:180px;height:120px;object-fit:cover;' : 'max-width:260px;max-height:260px;';
-      return "<video src=\"".concat(url, "\" class=\"chat-media\" data-kind=\"video\" controls preload=\"metadata\"\n                style=\"").concat(_size, "border-radius:8px;display:block;\"></video>");
+    if (a.kind === 'video' && playableVideos.indexOf(mime) !== -1) {
+      return "<video src=\"".concat(url, "\" class=\"chat-media\" data-kind=\"video\" controls preload=\"metadata\"\n                style=\"max-width:260px;max-height:260px;border-radius:8px;display:block;\"></video>");
     }
 
-    // Formats a browser cannot show inline (HEIC, MKV, AVI...): download card
-    var label = a.kind === 'image' ? 'Photo' : 'Video';
-    var format = escapeHtml((mime.split('/')[1] || 'file').replace(/^x-/, '').toUpperCase());
-    return "<a href=\"".concat(url, "\" download\n            style=\"display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit;\">\n            <i class=\"bi bi-file-earmark-arrow-down\" style=\"font-size:22px;\"></i>\n            <span>").concat(label, " (").concat(format, ", ").concat(escapeHtml(formatSize(a.size)), ")<br><small>Tap to download</small></span>\n        </a>");
+    // Single Document / File
+    var label = esc(a.name || (a.kind === 'image' ? 'Photo' : 'Document'));
+    var format = esc((mime.split('/')[1] || 'FILE').replace(/^x-/, '').toUpperCase());
+    return "<a href=\"".concat(url, "\" download style=\"display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;padding:8px 12px;background:rgba(0,0,0,0.05);border-radius:8px;\">\n            <i class=\"bi bi-file-earmark-arrow-down\" style=\"font-size:24px;\"></i>\n            <span><b>").concat(label, "</b><br><small>").concat(format, " \u2022 ").concat(fmtSize(a.size), "</small></span>\n        </a>");
+  }
+
+  // CASE 2: MULTIPLE ATTACHMENTS (Images + Videos + Documents sabhi ke liye Gallery)
+  var tiles = list.map(function (a, index) {
+    var url = esc(a.url);
+    var mime = String(a.mime || '').toLowerCase();
+    var hidden = index > 3 ? ' chat-gallery-hidden' : '';
+
+    // 4th item (index 3) par +count aayega agar 3 se zyada hain
+    var overlay = index === 3 && list.length > 3 ? "<span class=\"chat-gallery-more\" aria-hidden=\"true\"><i class=\"bi bi-plus-lg\"></i><span>".concat(list.length - 3, "</span></span>") : '';
+    var content = '';
+    if (a.kind === 'image' && showableImages.indexOf(mime) !== -1) {
+      // Image Tile
+      content = "<img src=\"".concat(url, "\" alt=\"\" loading=\"lazy\">");
+    } else if (a.kind === 'video' && playableVideos.indexOf(mime) !== -1) {
+      // Video Tile
+      content = "<video src=\"".concat(url, "#t=0.5\" preload=\"metadata\" muted playsinline></video>\n                       <i class=\"bi bi-play-circle-fill chat-video-play-icon\" aria-hidden=\"true\"></i>");
+    } else {
+      // Document / PDF / ZIP Tile
+      var _format = esc((mime.split('/')[1] || 'FILE').replace(/^x-/, '').toUpperCase());
+      var fileName = esc(a.name || "".concat(_format, " File"));
+      content = "<div class=\"chat-gallery-doc\">\n                <i class=\"bi bi-file-earmark-text\" style=\"font-size:24px;\"></i>\n                <span class=\"chat-gallery-doc-name\">".concat(fileName, "</span>\n                <small>").concat(_format, "</small>\n            </div>");
+    }
+    return "<a href=\"".concat(url, "\" class=\"chat-media chat-gallery-tile").concat(hidden, "\" data-kind=\"").concat(esc(a.kind || 'file'), "\"\n            target=\"_blank\" rel=\"noopener\" ").concat(a.kind !== 'image' && a.kind !== 'video' ? 'download' : '', ">\n            ").concat(content, "\n            ").concat(overlay, "\n        </a>");
   }).join('');
-  return many ? "<div style=\"display:flex;flex-wrap:wrap;gap:6px;\">".concat(html, "</div>") : html;
+  return "<div class=\"chat-image-gallery\">".concat(tiles, "</div>");
 }
-
 /**
  * One message bubble, with a date divider when the day changes.
  * ctx: { me: {id, name, avatar, color}, peer: {name, avatar, color} }
@@ -2456,13 +2598,13 @@ function messageHtml(msg, prev, ctx) {
   // Delete on every message, edit only on my own text messages (first 15 minutes)
   var actions = '';
   if (!msg.deleted) {
-    var buttonStyle = 'border:0;background:transparent;padding:0 4px;cursor:pointer;color:inherit;font-size:12px;';
+    var buttonStyle = 'border:0;background:transparent;padding:0 4px;cursor:pointer;color:inherit;font-size:12px; margin:0px;';
     var hasFiles = (msg.attachments || []).length > 0;
     var edit = mine && !hasFiles && msg.body && canEdit(msg) ? "<button type=\"button\" class=\"chat-msg-edit\" title=\"Edit\" style=\"".concat(buttonStyle, "\"><i class=\"bi bi-pencil\"></i></button>") : '';
     var remove = "<button type=\"button\" class=\"chat-msg-delete\" title=\"Delete\" style=\"".concat(buttonStyle, "\"><i class=\"bi bi-trash3\"></i></button>");
     actions = "<span class=\"chat-msg-actions\" style=\"margin-left:8px;opacity:.65;\">".concat(edit).concat(remove, "</span>");
   }
-  var bubble = "\n        <div class=\"message-wrapper\">\n            <div class=\"message-bubble\">".concat(content, "</div>\n            <div class=\"message-time\">\n                ").concat(escapeHtml(formatTime(msg.created_at))).concat(edited, "\n                ").concat(tick, "\n                ").concat(actions, "\n            </div>\n        </div>");
+  var bubble = "\n        <div class=\"message-wrapper\">\n            <div class=\"message-bubble".concat(hasImageGallery(msg.attachments || []) ? ' chat-gallery-bubble' : '', "\">").concat(content, "</div>\n            <div class=\"message-time\">\n                ").concat(escapeHtml(formatTime(msg.created_at))).concat(edited, "\n                ").concat(tick, "\n                ").concat(actions, "\n            </div>\n        </div>");
   return "\n        ".concat(divider, "\n        <div class=\"message-row ").concat(mine ? 'sent' : 'received', "\" data-id=\"").concat(msg.id, "\">\n            ").concat(mine ? bubble + avatar : avatar + bubble, "\n        </div>\n    ");
 }
 

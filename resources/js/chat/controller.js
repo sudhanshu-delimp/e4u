@@ -192,7 +192,7 @@ export function initChat(root) {
         row.className = 'message-row sent';
         row.innerHTML = `<div class="message-wrapper"><div class="message-bubble" style="display:flex;align-items:center;gap:10px;">
         <span style="width:18px;height:18px;border:3px solid #e5e7eb;border-top-color:#ff3c5f;border-radius:50%;display:inline-block;animation:chatSpin .8s linear infinite;"></span>
-        <span>Sending ${files.length} file(s)... large videos can take a few minutes. Please do not close this page.</span>
+        <span>Sending ${files.length} media file(s)... This may take a few minutes. Please do not close this page.</span>
     </div></div>`;
 
         el.messages.appendChild(row);
@@ -209,6 +209,8 @@ export function initChat(root) {
 
     function closeSidebarOnMobile() {
         if (window.innerWidth <= 800) {
+            root.classList.add('mobile-chat-open');
+
             if (el.sidebar) {
                 el.sidebar.classList.remove('open');
             }
@@ -235,6 +237,7 @@ export function initChat(root) {
         state.activeId = null;
         state.messages = [];
         state.hasMore = false;
+        root.classList.remove('mobile-chat-open');
 
         clearAttachPreview();
         renderHeader(null);
@@ -354,6 +357,7 @@ export function initChat(root) {
         el.messages.innerHTML = state.messages
             .map((msg, i) => view.messageHtml(msg, state.messages[i - 1], ctx))
             .join('');
+        prepareVideos(el.messages);
     }
 
     function appendMessage(msg) {
@@ -370,7 +374,8 @@ export function initChat(root) {
         } else {
             el.messages.insertAdjacentHTML('beforeend', view.messageHtml(msg, prev, messageContext()));
         }
-
+        
+        prepareVideos(el.messages);
         scrollBottom();
     }
 
@@ -474,7 +479,10 @@ export function initChat(root) {
 
         if (state.activeId === id) {
             markRead(id);
-            el.input.focus();
+
+            if (window.innerWidth > 800) {
+                el.input.focus();
+            }
         }
     }
 
@@ -557,7 +565,7 @@ export function initChat(root) {
             return `<div style="position:relative;flex:0 0 auto;" title="${view.escapeHtml(file.name)}">
                 ${thumb}
                 <button type="button" class="chat-attach-remove" data-index="${index}" title="Remove"
-                    style="position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;border:0;background:#111827;color:#fff;font-size:14px;line-height:20px;padding:0;cursor:pointer;">&times;</button>
+                    style="position:absolute;top:-6px;right:-14px;width:20px;height:20px;border-radius:50%;border:0;background:#ff3c5f;color:#fff;font-size:14px;line-height:20px;padding:0;cursor:pointer;">&times;</button>
             </div>`;
         }).join('');
 
@@ -691,13 +699,14 @@ export function initChat(root) {
         const banner = document.createElement('div');
 
         banner.id = 'chatEditBanner';
-        banner.setAttribute('style', 'display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;border-top:1px solid #e5e7eb;background:#eff6ff;font-size:13px;');
+        banner.setAttribute('style', 'display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 25px;border-top:1px solid #e5e7eb;background:#eff6ff;font-size:13px;');
         banner.innerHTML = '<span><i class="bi bi-pencil"></i> Editing message</span>' +
-            '<button type="button" class="chat-edit-cancel" aria-label="Cancel" style="border:0;background:transparent;font-size:20px;line-height:1;cursor:pointer;">&times;</button>';
+            '<button type="button" class="chat-edit-cancel" aria-label="Cancel" style="border:0;background:transparent;font-size:20px;line-height:1;cursor:pointer;color:#0c223d;">&times;</button>';
 
         el.composer.parentNode.insertBefore(banner, el.composer);
 
         el.input.value = msg.body || '';
+        resizeComposerInput();
         el.input.focus();
     }
 
@@ -721,6 +730,7 @@ export function initChat(root) {
             if (state.editingId === id) {
                 cancelEdit();
                 el.input.value = '';
+                resizeComposerInput();
             }
 
             if (mode === 'me') {
@@ -780,6 +790,7 @@ export function initChat(root) {
                 replaceMessage(res.data);
                 cancelEdit();
                 el.input.value = '';
+                resizeComposerInput();
                 loadList();
             } catch (error) {
                 notify(error.message || 'Message could not be edited.', 'error');
@@ -806,7 +817,9 @@ export function initChat(root) {
             const res = await api.send(state.activeId, body, files);
 
             hideSending();
+            root.querySelector('#emojiPicker').classList.remove('show');
             el.input.value = '';
+            resizeComposerInput();
             clearAttachPreview();
             appendMessage(res.data);
             touchConversation(res.data, { mine: true, unread: 0 });
@@ -883,6 +896,8 @@ export function initChat(root) {
     }
 
     function onInputTyping() {
+        resizeComposerInput();
+
         if (!state.activeId || !el.input.value) {
             return;
         }
@@ -895,6 +910,15 @@ export function initChat(root) {
 
         state.lastTypingSent = now;
         api.typing(state.activeId).catch(() => { });
+    }
+
+    function resizeComposerInput() {
+        if (el.input.tagName !== 'TEXTAREA') {
+            return;
+        }
+
+        el.input.style.height = 'auto';
+        el.input.style.height = Math.min(el.input.scrollHeight, 160) + 'px';
     }
 
     // A person went offline: drop every online sign for them right away
@@ -1044,9 +1068,60 @@ export function initChat(root) {
 
     document.addEventListener('click', (event) => {
         const target = event.target;
+        const filterWrapper = root.querySelector('.filter-wrapper');
+        const filterBtn = root.querySelector('#filterBtn');
 
         if (!root.contains(target)) {
+            filterWrapper.classList.remove('open');
+            filterBtn.setAttribute('aria-expanded', 'false');
             return;
+        }
+
+        if (target.closest('#mobileMenu')) {
+            event.preventDefault();
+            event.stopPropagation();
+            root.classList.remove('mobile-chat-open');
+            return;
+        }
+
+        const composerTools = root.querySelector('.composer-tools-menu');
+        const composerMenuBtn = root.querySelector('#composerMenuBtn');
+
+        if (target.closest('#composerMenuBtn')) {
+            event.preventDefault();
+            event.stopPropagation();
+            const isOpen = composerTools.classList.toggle('open');
+            composerMenuBtn.setAttribute('aria-expanded', String(isOpen));
+            return;
+        }
+
+        if (!target.closest('.composer-tools-menu')) {
+            composerTools.classList.remove('open');
+            composerMenuBtn.setAttribute('aria-expanded', 'false');
+        } else if (target.closest('#attachmentBtn, #emojiBtn')) {
+            composerTools.classList.remove('open');
+            composerMenuBtn.setAttribute('aria-expanded', 'false');
+        }
+
+        if (target.closest('#filterBtn')) {
+            event.preventDefault();
+            event.stopPropagation();
+            const isOpen = filterWrapper.classList.toggle('open');
+            const headerMenu = root.querySelector('.more-wrapper');
+
+            filterBtn.setAttribute('aria-expanded', String(isOpen));
+
+            if (headerMenu) {
+                headerMenu.classList.remove('open');
+            }
+
+            closeAllChatMenus();
+            return;
+        }
+
+        if (!target.closest('.filter-wrapper')) {
+            filterWrapper.classList.remove('open');
+            filterBtn.setAttribute('aria-expanded', 'false');
         }
 
         // Send button
@@ -1080,6 +1155,7 @@ export function initChat(root) {
             event.stopPropagation();
             cancelEdit();
             el.input.value = '';
+            resizeComposerInput();
             return;
         }
 
@@ -1141,12 +1217,52 @@ export function initChat(root) {
         const option = target.closest('#filterDropdown .filter-option');
 
         if (option) {
+            event.preventDefault();
+            event.stopPropagation();
             state.filter = FILTERS[option.dataset.filter] || 'active';
+            root.querySelectorAll('#filterDropdown .filter-option').forEach((filterOption) => {
+                filterOption.classList.toggle('active', filterOption === option);
+            });
+            filterWrapper.classList.remove('open');
+            filterBtn.setAttribute('aria-expanded', 'false');
             loadList();
         }
     }, true);
 
     document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            const filterWrapper = root.querySelector('.filter-wrapper');
+            const filterBtn = root.querySelector('#filterBtn');
+            const headerMenu = root.querySelector('.more-wrapper');
+            const emojiPicker = root.querySelector('#emojiPicker');
+            const composerTools = root.querySelector('.composer-tools-menu');
+            const composerMenuBtn = root.querySelector('#composerMenuBtn');
+            const filterWasOpen = filterWrapper.classList.contains('open');
+            const composerMenuWasOpen = composerTools.classList.contains('open');
+
+            filterWrapper.classList.remove('open');
+            filterBtn.setAttribute('aria-expanded', 'false');
+            composerTools.classList.remove('open');
+            composerMenuBtn.setAttribute('aria-expanded', 'false');
+
+            if (filterWasOpen) {
+                filterBtn.focus();
+            } else if (composerMenuWasOpen) {
+                composerMenuBtn.focus();
+            }
+
+            if (headerMenu) {
+                headerMenu.classList.remove('open');
+            }
+
+            if (emojiPicker) {
+                emojiPicker.classList.remove('show');
+            }
+
+            closeAllChatMenus();
+            return;
+        }
+
         if (event.target !== el.input || event.isComposing) {
             return;
         }
@@ -1183,6 +1299,7 @@ export function initChat(root) {
     }, true);
 
     el.input.addEventListener('input', onInputTyping);
+    resizeComposerInput();
 
     el.list.addEventListener('click', (event) => {
         if (event.target.closest('.more-info-wrapper')) {
