@@ -314,13 +314,13 @@
                 <div class="collapse-inner">
 
                     {{-- ===== ANALYTICS ===== --}}
-                    <a class="nav-link collapsed disabled-link" href="#" data-toggle="collapse"
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse"
                         data-target="#ManagementAnalytics">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
                         <span>Analytics</span>
                     </a>
 
-                    {{-- <div id="ManagementAnalytics"
+                    <div id="ManagementAnalytics"
                         class="collapse
                      @if (in_array(request()->segment(2), ['profiles-tours', 'social-media', 'feedback', 'criticalinformation'])) show @endif"
                         data-parent="#Management">
@@ -345,7 +345,7 @@
                             <img src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
                             <span>Social Media</span>
                         </a>
-                    </div> --}}
+                    </div>
 
                     {{-- ===== BOOKKEEPING ===== --}}
                     <a class="nav-link collapsed" href="#" data-toggle="collapse"
