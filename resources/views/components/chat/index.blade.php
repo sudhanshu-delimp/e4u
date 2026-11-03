@@ -111,17 +111,17 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
                 </div>
 
             </div>
-            <div>
+            <div class="search-box-wrapper">
+                
                 <div class="search-box">
                     <i class="bi bi-search"></i>
                     <input type="text" id="searchInput" placeholder="Search User by Member ID or Name...">
                 </div>
                 <div class="chat-my-id">
-                    Member ID: <strong>{{ $chatMe->member_id }}</strong>
+                    
+                    <span><i class="fa fa-user"> </i> Member ID: <strong>{{ $chatMe->member_id }}</strong></span>
                 </div>
-
             </div>
-
         </div>
 
         <!-- CHAT LIST (rendered by chat.js) -->
