@@ -28,7 +28,7 @@ $chatConfig = [
 'typeLabels' => config('chat.type_labels', []),
 // Types that cannot be blocked (Agent)
 'unblockable' => config('chat.unblockable', []),
-'socketUrl'   => config('chat.socket.public_url'),
+'socketUrl' => config('chat.socket.public_url'),
 'socketToken' => \App\Services\ChatSocket::token(auth()->id()),
 // Massage Centre: a blocked person leaves the list right away
 'hideBlockedChats' => in_array((int) $chatMe->type, config('chat.hide_blocked_for', []), true),
@@ -36,6 +36,24 @@ $chatConfig = [
 
 $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
 @endphp
+
+<style>
+    /* The user's own Member ID is shown only in full screen mode */
+    .chat-my-id {
+        display: none;
+        padding: 2px 2px 8px;
+        font-size: 13px;
+        color: #6b7280;
+    }
+
+    .chat-my-id strong {
+        color: #111827;
+    }
+
+    .is-fullscreen .chat-my-id {
+        display: block;
+    }
+</style>
 
 <div class="chat-app" id="chatApp" data-config="{{ json_encode($chatConfig) }}">
 
@@ -93,10 +111,15 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
                 </div>
 
             </div>
+            <div>
+                <div class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search User by Member ID or Name...">
+                </div>
+                <div class="chat-my-id">
+                    Member ID: <strong>{{ $chatMe->member_id }}</strong>
+                </div>
 
-            <div class="search-box">
-                <i class="bi bi-search"></i>
-                <input type="text" id="searchInput" placeholder="Search User by Member ID or Name...">
             </div>
 
         </div>
@@ -135,7 +158,7 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
                 <button id="chatSearchBtn" title="Search messages">
                     <i class="bi bi-search"></i>
                 </button>
-                
+
                 <!-- FULLSCREEN BUTTON -->
                 <button type="button" id="toggleFullscreenBtn" title="Full Screen">
                     <i class="bi bi-arrows-fullscreen" id="fullscreenIcon"></i>
@@ -289,27 +312,27 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
 <script src="{{ asset('chat-build/js/chat.js') }}?v={{ $chatAssetVersion }}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-    const chatApp = document.getElementById('chatApp');
-    const fullscreenBtn = document.getElementById('toggleFullscreenBtn');
-    const fullscreenIcon = document.getElementById('fullscreenIcon');
+        const chatApp = document.getElementById('chatApp');
+        const fullscreenBtn = document.getElementById('toggleFullscreenBtn');
+        const fullscreenIcon = document.getElementById('fullscreenIcon');
 
-    function toggleFullscreen() {
-        chatApp.classList.toggle('is-fullscreen');
-        const isFull = chatApp.classList.contains('is-fullscreen');
-        
-        // Icon change
-        fullscreenIcon.classList.toggle('bi-arrows-fullscreen', !isFull);
-        fullscreenIcon.classList.toggle('bi-fullscreen-exit', isFull);
-    }
+        function toggleFullscreen() {
+            chatApp.classList.toggle('is-fullscreen');
+            const isFull = chatApp.classList.contains('is-fullscreen');
 
-    // Click par Full Window toggle
-    fullscreenBtn.addEventListener('click', toggleFullscreen);
-
-    // ESC key dabane par Back/Normal view
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && chatApp.classList.contains('is-fullscreen')) {
-            toggleFullscreen();
+            // Icon change
+            fullscreenIcon.classList.toggle('bi-arrows-fullscreen', !isFull);
+            fullscreenIcon.classList.toggle('bi-fullscreen-exit', isFull);
         }
+
+        // Click par Full Window toggle
+        fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+        // ESC key dabane par Back/Normal view
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && chatApp.classList.contains('is-fullscreen')) {
+                toggleFullscreen();
+            }
+        });
     });
-});
 </script>
