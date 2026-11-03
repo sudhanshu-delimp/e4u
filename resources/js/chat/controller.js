@@ -319,7 +319,11 @@ export function initChat(root) {
 
     function renderHeader(conv) {
         if (!conv) {
-            el.headerAvatar.innerHTML = '';
+            el.headerAvatar.innerHTML = `
+                <img 
+                    src="${window.location.origin}/assets/dashboard/img/menu-icon/my-account.png" 
+                    alt="User Avatar" style="width: 40px;height: 40px;object-fit: cover;border-radius: 50%;">
+            `;
             el.headerAvatar.removeAttribute('style');
             el.headerName.textContent = 'Select a chat';
             el.headerStatus.innerHTML = '';
