@@ -207,7 +207,7 @@ class ChatController extends Controller
                 'unread'       => (int) ($unread[$r->id] ?? 0),
                 'is_muted'     => (bool) $r->is_muted,
                 'is_archived'  => (bool) $r->is_archived,
-                'is_appointed' => $myAgentIds > 0 && (int) $other->id === $myAgentIds,
+                'is_appointed' => in_array((int) $other->id, $myAgentIds, true),
                 'blocked_by_me' => in_array($other->id, $blockedByMe),
                 'blocked_me'    => in_array($other->id, $blockedMe),
             ];
