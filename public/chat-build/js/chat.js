@@ -1097,6 +1097,7 @@ function initChat(root) {
             state.activeId = id;
             state.messages = [];
             state.hasMore = false;
+            resetSearch();
             clearAttachPreview();
             renderList();
             renderHeader(conv);
@@ -1615,55 +1616,66 @@ function initChat(root) {
   var searchTimer = null;
   var searchHits = [];
   var searchPos = -1;
-  function searchBox() {
-    var box = document.getElementById('chatSearchResults');
-    if (!box) {
-      box = document.createElement('div');
-      box.id = 'chatSearchResults';
-      box.setAttribute('style', 'max-height:220px;overflow-y:auto;border-bottom:1px solid #e5e7eb;background:#fff;display:none;');
-      searchEls.area.insertAdjacentElement('afterend', box);
+  var searchTotal = 0;
+
+  // Up/down arrows, created once inside the search bar
+  function searchNav() {
+    var nav = document.getElementById('chatSearchNav');
+    if (!nav) {
+      nav = document.createElement('span');
+      nav.id = 'chatSearchNav';
+      nav.setAttribute('style', 'display:none;align-items:center;gap:2px;');
+      nav.innerHTML = '<button type="button" id="chatSearchUp" title="Older match" style="border:0;background:transparent;cursor:pointer;"><i class="bi bi-chevron-up"></i></button>' + '<button type="button" id="chatSearchDown" title="Newer match" style="border:0;background:transparent;cursor:pointer;"><i class="bi bi-chevron-down"></i></button>';
+      searchEls.close.insertAdjacentElement('beforebegin', nav);
     }
-    return box;
+    return nav;
   }
-  function hitSnippet(body, term) {
-    var lower = body.toLowerCase();
-    var t = term.toLowerCase();
-    var first = Math.max(0, lower.indexOf(t) - 25);
-    var part = body.slice(first, first + 100);
-    var low = part.toLowerCase();
-    var out = first > 0 ? '…' : '';
-    var pos = 0;
-    var idx;
-    while ((idx = low.indexOf(t, pos)) !== -1) {
-      out += _render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(part.slice(pos, idx)) + '<mark>' + _render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(part.slice(idx, idx + t.length)) + '</mark>';
-      pos = idx + t.length;
+  function updateSearchCount() {
+    if (!searchHits.length) {
+      return;
     }
-    return out + _render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(part.slice(pos)) + (first + 100 < body.length ? '…' : '');
+    searchEls.count.textContent = searchPos + 1 + ' of ' + searchHits.length + (searchTotal > searchHits.length ? '+' : '');
+  }
+  function resetSearch() {
+    searchHits = [];
+    searchPos = -1;
+    searchTotal = 0;
+    searchEls.input.value = '';
+    searchEls.count.textContent = 'Search messages';
+    searchNav().style.display = 'none';
+  }
+
+  // step +1 = older match, -1 = newer match
+  function stepSearch(step) {
+    if (!searchHits.length) {
+      return;
+    }
+    searchPos = (searchPos + step + searchHits.length) % searchHits.length;
+    updateSearchCount();
+    jumpToMessage(searchHits[searchPos].id);
   }
   function runSearch(_x4) {
     return _runSearch.apply(this, arguments);
   }
   function _runSearch() {
     _runSearch = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7(term) {
-      var box, id, url, r, res, _t7;
+      var id, url, r, res, _t7;
       return _regenerator().w(function (_context7) {
         while (1) switch (_context7.p = _context7.n) {
           case 0:
-            box = searchBox();
             searchHits = [];
             searchPos = -1;
+            searchNav().style.display = 'none';
             if (!(!state.activeId || term.length < 2)) {
               _context7.n = 1;
               break;
             }
-            box.style.display = 'none';
-            box.innerHTML = '';
             searchEls.count.textContent = term ? 'Type at least 2 characters' : 'Search messages';
             return _context7.a(2);
           case 1:
             id = state.activeId;
             _context7.p = 2;
-            url = config.urls.search.replace('__ID__', id) + '?q=' + encodeURIComponent(term);
+            url = config.routes.search.replace('__ID__', id) + '?q=' + encodeURIComponent(term);
             _context7.n = 3;
             return fetch(url, {
               headers: {
@@ -1674,7 +1686,6 @@ function initChat(root) {
             });
           case 3:
             r = _context7.v;
-            console.log('search', url, r.status, r.ok);
             if (r.ok) {
               _context7.n = 4;
               break;
@@ -1692,23 +1703,65 @@ function initChat(root) {
             return _context7.a(2);
           case 6:
             searchHits = res.data || [];
-            searchEls.count.textContent = res.total ? res.total + (res.total === 1 ? ' match' : ' matches') + (res.total > searchHits.length ? ' (showing latest ' + searchHits.length + ')' : '') : 'No matches';
-            box.innerHTML = searchHits.map(function (h) {
-              return "<div class=\"chat-hit\" data-id=\"".concat(h.id, "\">").concat(hitSnippet(h.body, term), "<small>").concat(new Date(h.created_at).toLocaleString(), "</small></div>");
-            }).join('');
-            box.style.display = searchHits.length ? 'block' : 'none';
-            _context7.n = 8;
-            break;
+            searchTotal = res.total || 0;
+            if (searchHits.length) {
+              _context7.n = 7;
+              break;
+            }
+            searchEls.count.textContent = 'No matches';
+            return _context7.a(2);
           case 7:
-            _context7.p = 7;
-            _t7 = _context7.v;
-            searchEls.count.textContent = 'Search failed';
+            searchNav().style.display = 'inline-flex';
+            searchPos = 0; // newest match first
+            updateSearchCount();
+            jumpToMessage(searchHits[0].id);
+            _context7.n = 9;
+            break;
           case 8:
+            _context7.p = 8;
+            _t7 = _context7.v;
+            console.error(_t7);
+            searchEls.count.textContent = 'Search failed';
+          case 9:
             return _context7.a(2);
         }
-      }, _callee7, null, [[2, 7]]);
+      }, _callee7, null, [[2, 8]]);
     }));
     return _runSearch.apply(this, arguments);
+  }
+  if (searchEls.input) {
+    // Replaces the older static demo search
+    document.addEventListener('input', function (event) {
+      if (event.target !== searchEls.input) {
+        return;
+      }
+      event.stopImmediatePropagation();
+      clearTimeout(searchTimer);
+      var term = searchEls.input.value.trim();
+      searchTimer = setTimeout(function () {
+        return runSearch(term);
+      }, 300);
+    }, true);
+
+    // Enter = older match, Shift+Enter = newer match
+    document.addEventListener('keydown', function (event) {
+      if (event.target !== searchEls.input || event.key !== 'Enter') {
+        return;
+      }
+      event.preventDefault();
+      event.stopPropagation();
+      stepSearch(event.shiftKey ? -1 : 1);
+    }, true);
+    searchNav().addEventListener('click', function (event) {
+      if (event.target.closest('#chatSearchUp')) {
+        stepSearch(1);
+      } else if (event.target.closest('#chatSearchDown')) {
+        stepSearch(-1);
+      }
+    });
+
+    // Cross button clears the text and the count
+    searchEls.close.addEventListener('click', resetSearch);
   }
   function jumpToMessage(_x5) {
     return _jumpToMessage.apply(this, arguments);
@@ -1811,46 +1864,6 @@ function initChat(root) {
       }, _callee9, null, [[1, 3]]);
     }));
     return _goLatest.apply(this, arguments);
-  }
-  if (searchEls.input) {
-    // Purani demo script ka search band, ye naya chalega
-    document.addEventListener('input', function (event) {
-      if (event.target !== searchEls.input) {
-        return;
-      }
-      event.stopImmediatePropagation();
-      clearTimeout(searchTimer);
-      var term = searchEls.input.value.trim();
-      searchTimer = setTimeout(function () {
-        return runSearch(term);
-      }, 300);
-    }, true);
-    document.addEventListener('keydown', function (event) {
-      if (event.target !== searchEls.input || event.key !== 'Enter' || !searchHits.length) {
-        return;
-      }
-      event.preventDefault();
-      event.stopPropagation();
-      searchPos = (searchPos + 1) % searchHits.length;
-      jumpToMessage(searchHits[searchPos].id);
-    }, true);
-    searchBox().addEventListener('click', function (event) {
-      var hit = event.target.closest('.chat-hit');
-      if (hit) {
-        jumpToMessage(Number(hit.dataset.id));
-      }
-    });
-    if (searchEls.close) {
-      searchEls.close.addEventListener('click', function () {
-        searchEls.input.value = '';
-        searchHits = [];
-        var box = document.getElementById('chatSearchResults');
-        if (box) {
-          box.style.display = 'none';
-          box.innerHTML = '';
-        }
-      });
-    }
   }
   var MEMBER_HINT = "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">Type a Member ID to search.</div>");
   var memberTimer = null;
