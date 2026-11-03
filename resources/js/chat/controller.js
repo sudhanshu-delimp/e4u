@@ -491,7 +491,7 @@ export function initChat(root) {
             markRead(id);
 
             if (window.innerWidth > 800) {
-                el.input.focus();
+                el.input.focus({ preventScroll: true });
             }
         }
     }
@@ -623,7 +623,7 @@ export function initChat(root) {
         }
 
         renderAttachPreview();
-        el.input.focus();
+        el.input.focus({ preventScroll: true });
     }
 
     /* ---------------------------------------------------
@@ -717,7 +717,7 @@ export function initChat(root) {
 
         el.input.value = msg.body || '';
         resizeComposerInput();
-        el.input.focus();
+        el.input.focus({ preventScroll: true });
     }
 
     async function deleteMessage(id) {
@@ -806,7 +806,7 @@ export function initChat(root) {
                 notify(error.message || 'Message could not be edited.', 'error');
             } finally {
                 state.sending = false;
-                el.input.focus();
+                el.input.focus({ preventScroll: true });
             }
 
             return;
@@ -843,7 +843,7 @@ export function initChat(root) {
             hideSending();
             state.sending = false;
             el.sendBtn.disabled = false;
-            el.input.focus();
+            el.input.focus({ preventScroll: true });
         }
     }
 

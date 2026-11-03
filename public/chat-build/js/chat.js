@@ -1120,7 +1120,9 @@ function initChat(root) {
             if (state.activeId === id) {
               markRead(id);
               if (window.innerWidth > 800) {
-                el.input.focus();
+                el.input.focus({
+                  preventScroll: true
+                });
               }
             }
           case 6:
@@ -1233,7 +1235,9 @@ function initChat(root) {
       state.pendingFiles.push(file);
     }
     renderAttachPreview();
-    el.input.focus();
+    el.input.focus({
+      preventScroll: true
+    });
   }
 
   /* ---------------------------------------------------
@@ -1315,7 +1319,9 @@ function initChat(root) {
     el.composer.parentNode.insertBefore(banner, el.composer);
     el.input.value = msg.body || '';
     resizeComposerInput();
-    el.input.focus();
+    el.input.focus({
+      preventScroll: true
+    });
   }
   function deleteMessage(_x3) {
     return _deleteMessage.apply(this, arguments);
@@ -1443,7 +1449,9 @@ function initChat(root) {
           case 7:
             _context6.p = 7;
             state.sending = false;
-            el.input.focus();
+            el.input.focus({
+              preventScroll: true
+            });
             return _context6.f(7);
           case 8:
             return _context6.a(2);
@@ -1489,7 +1497,9 @@ function initChat(root) {
             hideSending();
             state.sending = false;
             el.sendBtn.disabled = false;
-            el.input.focus();
+            el.input.focus({
+              preventScroll: true
+            });
             return _context6.f(14);
           case 15:
             return _context6.a(2);
