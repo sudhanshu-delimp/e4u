@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Storage;
 class NoteBoxController extends Controller
 {
 
+    public function list()
+    {
+        return view('user.dashboard.notebox.list');
+    }
+
+
     public function index(Request $request, $profile_id = null)
     {
         $profile_data = null;
@@ -132,12 +138,17 @@ class NoteBoxController extends Controller
                 }
 
                 $deleteAction = (int) $row->user_id === (int) Auth::id()
-                    ? '<div class="dropdown-divider"></div>
+                    ? '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 edit_report"
+                             href="' . route('user.edit-notebox', [$row->id]) . '">
+                            <i class="fa fa-pen"></i> Edit
+                        </a>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 delete_report"
                             href="#"
                             data-id="' . $row->id . '">
                             <i class="fa fa-trash"></i> Delete
-                        </a>'
+                        </a>
+                         <div class="dropdown-divider"></div>'
                     : '';
 
                 $row->actions = '
@@ -151,12 +162,8 @@ class NoteBoxController extends Controller
 
                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">
                        
-                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 edit_report"
-                             href="' . route('user.edit-notebox', [$row->id]) . '">
-                            <i class="fa fa-pen"></i> Edit
-                        </a>
                         ' . $deleteAction . '
-                        <div class="dropdown-divider"></div>
+                        
                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view_report"
                             href="#"
                             data-id="' . $row->id . '">
