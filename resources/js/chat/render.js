@@ -233,15 +233,16 @@ export function chatItemHtml(conv, ctx) {
                             Contact Info
                         </button>
 
+                        ${conv.is_appointed ? '' : `
                         <button type="button" class="filter-option chat-action" data-action="archive">
                             <i class="bi bi-archive"></i>
                             ${conv.is_archived ? 'Unarchive' : 'Archive'}
                         </button>
-                        <div class="dropdown-divider"></div>
-                        <button type="button" class="filter-option chat-action danger-option" data-action="delete">
+
+                        <button type="button" class="filter-option chat-action" data-action="delete">
                             <i class="bi bi-trash3"></i>
                             Delete
-                        </button>
+                        </button>`}
 
                     </div>
 
