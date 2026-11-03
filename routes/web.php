@@ -1028,4 +1028,5 @@ Route::middleware(['web', 'auth'])->prefix('chat')->name('chat.')->group(functio
         ->whereNumber('message')->name('message.update');
     Route::delete('/messages/{message}', [ChatController::class, 'deleteMessage'])
         ->whereNumber('message')->name('message.delete');
+    Route::get('conversations/{conversation}/search', [ChatController::class, 'search'])->name('chat.search');
 });

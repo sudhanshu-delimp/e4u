@@ -738,7 +738,8 @@ function initChat(root) {
     lastTypingSent: 0,
     pendingFiles: [],
     editingId: null,
-    previewUrls: []
+    previewUrls: [],
+    detached: false
   };
 
   /* ---------------------------------------------------
@@ -854,6 +855,8 @@ function initChat(root) {
     state.messages = [];
     state.hasMore = false;
     root.classList.remove('mobile-chat-open');
+    state.detached = false;
+    hideLatestBtn();
     clearAttachPreview();
     renderHeader(null);
     renderMessages();
@@ -949,6 +952,10 @@ function initChat(root) {
     prepareVideos(el.messages);
   }
   function appendMessage(msg) {
+    if (state.detached) {
+      showLatestBtn();
+      return;
+    }
     if (state.messages.some(function (m) {
       return m.id === msg.id;
     })) {
@@ -1462,6 +1469,9 @@ function initChat(root) {
             resizeComposerInput();
             clearAttachPreview();
             appendMessage(_res.data);
+            if (state.detached) {
+              goLatest();
+            }
             touchConversation(_res.data, {
               mine: true,
               unread: 0
@@ -1594,31 +1604,279 @@ function initChat(root) {
      New chat modal
   --------------------------------------------------- */
 
+  /* ---------- In-chat search and jump ---------- */
+
+  var searchEls = {
+    input: document.getElementById('messageSearchInput'),
+    count: document.getElementById('searchResultCount'),
+    area: document.getElementById('chatSearchArea'),
+    close: document.getElementById('closeMessageSearch')
+  };
+  var searchTimer = null;
+  var searchHits = [];
+  var searchPos = -1;
+  function searchBox() {
+    var box = document.getElementById('chatSearchResults');
+    if (!box) {
+      box = document.createElement('div');
+      box.id = 'chatSearchResults';
+      box.setAttribute('style', 'max-height:220px;overflow-y:auto;border-bottom:1px solid #e5e7eb;background:#fff;display:none;');
+      searchEls.area.insertAdjacentElement('afterend', box);
+    }
+    return box;
+  }
+  function hitSnippet(body, term) {
+    var lower = body.toLowerCase();
+    var t = term.toLowerCase();
+    var first = Math.max(0, lower.indexOf(t) - 25);
+    var part = body.slice(first, first + 100);
+    var low = part.toLowerCase();
+    var out = first > 0 ? '…' : '';
+    var pos = 0;
+    var idx;
+    while ((idx = low.indexOf(t, pos)) !== -1) {
+      out += _render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(part.slice(pos, idx)) + '<mark>' + _render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(part.slice(idx, idx + t.length)) + '</mark>';
+      pos = idx + t.length;
+    }
+    return out + _render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(part.slice(pos)) + (first + 100 < body.length ? '…' : '');
+  }
+  function runSearch(_x4) {
+    return _runSearch.apply(this, arguments);
+  }
+  function _runSearch() {
+    _runSearch = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7(term) {
+      var box, id, url, r, res, _t7;
+      return _regenerator().w(function (_context7) {
+        while (1) switch (_context7.p = _context7.n) {
+          case 0:
+            box = searchBox();
+            searchHits = [];
+            searchPos = -1;
+            if (!(!state.activeId || term.length < 2)) {
+              _context7.n = 1;
+              break;
+            }
+            box.style.display = 'none';
+            box.innerHTML = '';
+            searchEls.count.textContent = term ? 'Type at least 2 characters' : 'Search messages';
+            return _context7.a(2);
+          case 1:
+            id = state.activeId;
+            _context7.p = 2;
+            url = config.urls.search.replace('__ID__', id) + '?q=' + encodeURIComponent(term);
+            _context7.n = 3;
+            return fetch(url, {
+              headers: {
+                Accept: 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+              },
+              credentials: 'same-origin'
+            });
+          case 3:
+            r = _context7.v;
+            console.log('search', url, r.status, r.ok);
+            if (r.ok) {
+              _context7.n = 4;
+              break;
+            }
+            throw new Error('search failed');
+          case 4:
+            _context7.n = 5;
+            return r.json();
+          case 5:
+            res = _context7.v;
+            if (!(state.activeId !== id || searchEls.input.value.trim() !== term)) {
+              _context7.n = 6;
+              break;
+            }
+            return _context7.a(2);
+          case 6:
+            searchHits = res.data || [];
+            searchEls.count.textContent = res.total ? res.total + (res.total === 1 ? ' match' : ' matches') + (res.total > searchHits.length ? ' (showing latest ' + searchHits.length + ')' : '') : 'No matches';
+            box.innerHTML = searchHits.map(function (h) {
+              return "<div class=\"chat-hit\" data-id=\"".concat(h.id, "\">").concat(hitSnippet(h.body, term), "<small>").concat(new Date(h.created_at).toLocaleString(), "</small></div>");
+            }).join('');
+            box.style.display = searchHits.length ? 'block' : 'none';
+            _context7.n = 8;
+            break;
+          case 7:
+            _context7.p = 7;
+            _t7 = _context7.v;
+            searchEls.count.textContent = 'Search failed';
+          case 8:
+            return _context7.a(2);
+        }
+      }, _callee7, null, [[2, 7]]);
+    }));
+    return _runSearch.apply(this, arguments);
+  }
+  function jumpToMessage(_x5) {
+    return _jumpToMessage.apply(this, arguments);
+  }
+  function _jumpToMessage() {
+    _jumpToMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8(id) {
+      var convId, row, res, bubble;
+      return _regenerator().w(function (_context8) {
+        while (1) switch (_context8.n) {
+          case 0:
+            convId = state.activeId;
+            row = el.messages.querySelector('.message-row[data-id="' + id + '"]');
+            if (row) {
+              _context8.n = 3;
+              break;
+            }
+            _context8.n = 1;
+            return api.messages(convId, {
+              limit: 30,
+              before_id: id + 1
+            });
+          case 1:
+            res = _context8.v;
+            if (!(state.activeId !== convId)) {
+              _context8.n = 2;
+              break;
+            }
+            return _context8.a(2);
+          case 2:
+            state.messages = res.data;
+            state.hasMore = !!res.has_more;
+            state.detached = true;
+            renderMessages();
+            showLatestBtn();
+            row = el.messages.querySelector('.message-row[data-id="' + id + '"]');
+          case 3:
+            if (row) {
+              _context8.n = 4;
+              break;
+            }
+            return _context8.a(2);
+          case 4:
+            row.scrollIntoView({
+              block: 'center'
+            });
+            bubble = row.querySelector('.message-bubble') || row;
+            bubble.classList.remove('chat-jump-flash');
+            void bubble.offsetWidth;
+            bubble.classList.add('chat-jump-flash');
+          case 5:
+            return _context8.a(2);
+        }
+      }, _callee8);
+    }));
+    return _jumpToMessage.apply(this, arguments);
+  }
+  function showLatestBtn() {
+    if (document.getElementById('chatLatestBtn')) {
+      return;
+    }
+    var btn = document.createElement('button');
+    btn.id = 'chatLatestBtn';
+    btn.type = 'button';
+    btn.innerHTML = '<i class="bi bi-chevron-double-down"></i> Latest messages';
+    btn.setAttribute('style', 'position:absolute;right:18px;bottom:76px;z-index:5;border:0;border-radius:20px;padding:8px 14px;background:#ff3c5f;color:#fff;font-size:13px;box-shadow:0 2px 8px rgba(0,0,0,.2);cursor:pointer;');
+    btn.addEventListener('click', goLatest);
+    el.composer.parentNode.style.position = 'relative';
+    el.composer.parentNode.appendChild(btn);
+  }
+  function hideLatestBtn() {
+    var btn = document.getElementById('chatLatestBtn');
+    if (btn) {
+      btn.remove();
+    }
+  }
+  function goLatest() {
+    return _goLatest.apply(this, arguments);
+  }
+  function _goLatest() {
+    _goLatest = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
+      var _t8;
+      return _regenerator().w(function (_context9) {
+        while (1) switch (_context9.p = _context9.n) {
+          case 0:
+            state.detached = false;
+            hideLatestBtn();
+            _context9.p = 1;
+            _context9.n = 2;
+            return loadMessages(false);
+          case 2:
+            _context9.n = 4;
+            break;
+          case 3:
+            _context9.p = 3;
+            _t8 = _context9.v;
+            console.error('Latest messages failed', _t8);
+          case 4:
+            return _context9.a(2);
+        }
+      }, _callee9, null, [[1, 3]]);
+    }));
+    return _goLatest.apply(this, arguments);
+  }
+  if (searchEls.input) {
+    // Purani demo script ka search band, ye naya chalega
+    document.addEventListener('input', function (event) {
+      if (event.target !== searchEls.input) {
+        return;
+      }
+      event.stopImmediatePropagation();
+      clearTimeout(searchTimer);
+      var term = searchEls.input.value.trim();
+      searchTimer = setTimeout(function () {
+        return runSearch(term);
+      }, 300);
+    }, true);
+    document.addEventListener('keydown', function (event) {
+      if (event.target !== searchEls.input || event.key !== 'Enter' || !searchHits.length) {
+        return;
+      }
+      event.preventDefault();
+      event.stopPropagation();
+      searchPos = (searchPos + 1) % searchHits.length;
+      jumpToMessage(searchHits[searchPos].id);
+    }, true);
+    searchBox().addEventListener('click', function (event) {
+      var hit = event.target.closest('.chat-hit');
+      if (hit) {
+        jumpToMessage(Number(hit.dataset.id));
+      }
+    });
+    if (searchEls.close) {
+      searchEls.close.addEventListener('click', function () {
+        searchEls.input.value = '';
+        searchHits = [];
+        var box = document.getElementById('chatSearchResults');
+        if (box) {
+          box.style.display = 'none';
+          box.innerHTML = '';
+        }
+      });
+    }
+  }
   var MEMBER_HINT = "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">Type a Member ID to search.</div>");
   var memberTimer = null;
-  function searchMembers(_x4) {
+  function searchMembers(_x6) {
     return _searchMembers.apply(this, arguments);
   }
   function _searchMembers() {
-    _searchMembers = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7(term) {
-      var res, _t7;
-      return _regenerator().w(function (_context7) {
-        while (1) switch (_context7.p = _context7.n) {
+    _searchMembers = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0(term) {
+      var res, _t9;
+      return _regenerator().w(function (_context0) {
+        while (1) switch (_context0.p = _context0.n) {
           case 0:
             // Show a loading line only when there are no results on screen yet
             if (!el.memberResults.querySelector('.member-result')) {
               el.memberResults.innerHTML = "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">Loading...</div>");
             }
-            _context7.p = 1;
-            _context7.n = 2;
+            _context0.p = 1;
+            _context0.n = 2;
             return api.members(term);
           case 2:
-            res = _context7.v;
+            res = _context0.v;
             if (!(el.memberSearch.value.trim() !== term)) {
-              _context7.n = 3;
+              _context0.n = 3;
               break;
             }
-            return _context7.a(2);
+            return _context0.a(2);
           case 3:
             if (res.data.length) {
               el.memberResults.innerHTML = res.data.map(function (m) {
@@ -1634,33 +1892,33 @@ function initChat(root) {
             } else {
               el.memberResults.innerHTML = term ? '<div class="no-search-result"><i class="bi bi-person-x"></i> No eligible member found</div>' : "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">No members available to add.</div>");
             }
-            _context7.n = 5;
+            _context0.n = 5;
             break;
           case 4:
-            _context7.p = 4;
-            _t7 = _context7.v;
+            _context0.p = 4;
+            _t9 = _context0.v;
             el.memberResults.innerHTML = "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">Could not load members. Try again.</div>");
           case 5:
-            return _context7.a(2);
+            return _context0.a(2);
         }
-      }, _callee7, null, [[1, 4]]);
+      }, _callee0, null, [[1, 4]]);
     }));
     return _searchMembers.apply(this, arguments);
   }
-  function startChat(_x5) {
+  function startChat(_x7) {
     return _startChat.apply(this, arguments);
   }
   function _startChat() {
-    _startChat = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8(member) {
-      var res, _t8;
-      return _regenerator().w(function (_context8) {
-        while (1) switch (_context8.p = _context8.n) {
+    _startChat = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1(member) {
+      var res, _t0;
+      return _regenerator().w(function (_context1) {
+        while (1) switch (_context1.p = _context1.n) {
           case 0:
-            _context8.p = 0;
-            _context8.n = 1;
+            _context1.p = 0;
+            _context1.n = 1;
             return api.start(member.id);
           case 1:
-            res = _context8.v;
+            res = _context1.v;
             if (!findConv(res.conversation_id)) {
               state.pending = {
                 id: res.conversation_id,
@@ -1681,16 +1939,16 @@ function initChat(root) {
             renderList();
             openConversation(res.conversation_id);
             loadList();
-            _context8.n = 3;
+            _context1.n = 3;
             break;
           case 2:
-            _context8.p = 2;
-            _t8 = _context8.v;
-            notify(_t8.message || 'Chat could not be started.', 'error');
+            _context1.p = 2;
+            _t0 = _context1.v;
+            notify(_t0.message || 'Chat could not be started.', 'error');
           case 3:
-            return _context8.a(2);
+            return _context1.a(2);
         }
-      }, _callee8, null, [[0, 2]]);
+      }, _callee1, null, [[0, 2]]);
     }));
     return _startChat.apply(this, arguments);
   }

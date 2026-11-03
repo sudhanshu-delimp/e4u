@@ -653,8 +653,10 @@ class ChatController extends Controller
         $me   = $request->user();
         $conv = $this->conversationFor($me->id, $conversation);
         // The chat with the appointed Agent always stays in the list
-        if ($request->boolean('archived', true)
-            && in_array($conv->otherUserId($me->id), $this->appointedAgentIds($me), true)) {
+        if (
+            $request->boolean('archived', true)
+            && in_array($conv->otherUserId($me->id), $this->appointedAgentIds($me), true)
+        ) {
             return response()->json(['message' => 'The chat with your appointed Agent cannot be archived.'], 422);
         }
 
@@ -667,6 +669,30 @@ class ChatController extends Controller
 
         return response()->json(['archived' => $archived]);
     }
+
+    public function search(Request $request, ChatConversation $conversation)
+    {
+        abort_unless($conversation->hasParticipant($request->user()->id), 403);
+
+        $term = trim((string) $request->query('q', ''));
+
+        if (mb_strlen($term) < 2) {
+            return response()->json(['total' => 0, 'data' => []]);
+        }
+
+        $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $term) . '%';
+
+        $query = ChatMessage::where('conversation_id', $conversation->id)
+            ->whereNotNull('body')
+            ->where('body', 'like', $like);
+
+        $total = (clone $query)->count();
+
+        $rows = $query->orderByDesc('id')->limit(50)->get(['id', 'sender_id', 'body', 'created_at']);
+
+        return response()->json(['total' => $total, 'data' => $rows]);
+    }
+
 
     /**
      * Delete a conversation for me only. The other person keeps it and
