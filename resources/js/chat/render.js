@@ -8,6 +8,12 @@ export function canEdit(msg) {
 const SHOWABLE_IMAGES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp', 'image/avif'];
 const PLAYABLE_VIDEOS = ['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime'];
 
+function hasImageGallery(attachments) {
+    return attachments.length >= 4 && attachments.every((attachment) =>
+        attachment.kind === 'image' && SHOWABLE_IMAGES.indexOf(String(attachment.mime || '').toLowerCase()) !== -1
+    );
+}
+
 const settings = { avatarBase: '' };
 
 export function configure(options) {
@@ -192,16 +198,15 @@ export function chatItemHtml(conv, ctx) {
 
             <div class="avatar avatar-light" style="${avatarStyle(user.color)}">
                 ${avatarInner(user)}
+                 
             </div>
 
             <div class="user-info">
 
-                <div class="user-top">
-                    <span class="user-type">${escapeHtml(user.member_id)}</span>
-                </div>
-
+               
                 <div class="user-name">
                     ${escapeHtml(user.name)}
+                    <span class="user-type">(${escapeHtml(user.member_id)})</span>
                     <span class="status-dot${online ? '' : ' offline'}"></span>
                 </div>
 
@@ -228,15 +233,16 @@ export function chatItemHtml(conv, ctx) {
                             Contact Info
                         </button>
 
+                        ${conv.is_appointed ? '' : `
                         <button type="button" class="filter-option chat-action" data-action="archive">
                             <i class="bi bi-archive"></i>
                             ${conv.is_archived ? 'Unarchive' : 'Archive'}
                         </button>
-                        <div class="dropdown-divider"></div>
-                        <button type="button" class="filter-option chat-action danger-option" data-action="delete">
+
+                        <button type="button" class="filter-option chat-action" data-action="delete">
                             <i class="bi bi-trash3"></i>
                             Delete
-                        </button>
+                        </button>`}
 
                     </div>
 
@@ -250,43 +256,88 @@ export function chatItemHtml(conv, ctx) {
     `;
 }
 
+function hasVideoGallery(list) {
+    // Agar 1 se zyada videos hain aur sabhi playable hain
+    return list.length > 1 && list.every(a => 
+        a.kind === 'video' && PLAYABLE_VIDEOS.indexOf(String(a.mime || '').toLowerCase()) !== -1
+    );
+}
 function attachmentsHtml(msg) {
     const list = msg.attachments || [];
-    const many = list.length > 1;
+    if (!list.length) return '';
 
-    const html = list.map((a) => {
-        const url = escapeHtml(a.url);
+    // Safety checks (Taaki undefined variables ka koi error na aaye)
+    const showableImages = (typeof SHOWABLE_IMAGES !== 'undefined') ? SHOWABLE_IMAGES : ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    const playableVideos = (typeof PLAYABLE_VIDEOS !== 'undefined') ? PLAYABLE_VIDEOS : ['video/mp4', 'video/webm', 'video/ogg'];
+    const esc = (typeof escapeHtml === 'function') ? escapeHtml : (s) => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    const fmtSize = (typeof formatSize === 'function') ? formatSize : (b) => b ? (b / (1024 * 1024)).toFixed(1) + ' MB' : '';
+
+    // CASE 1: AGAR SIRF 1 ATTACHMENT HAI (Normal Display)
+    if (list.length === 1) {
+        const a = list[0];
+        const url = esc(a.url);
         const mime = String(a.mime || '').toLowerCase();
 
-        if (a.kind === 'image' && SHOWABLE_IMAGES.indexOf(mime) !== -1) {
-            const size = many ? 'width:120px;height:120px;object-fit:cover;' : 'max-width:240px;max-height:260px;';
-
+        if (a.kind === 'image' && showableImages.indexOf(mime) !== -1) {
             return `<a href="${url}" class="chat-media" data-kind="image" target="_blank" rel="noopener">
-                <img src="${url}" alt="" loading="lazy" style="${size}border-radius:8px;display:block;">
+                <img src="${url}" alt="" loading="lazy" style="max-width:240px;max-height:260px;border-radius:8px;display:block;">
             </a>`;
         }
 
-        if (a.kind === 'video' && PLAYABLE_VIDEOS.indexOf(mime) !== -1) {
-            const size = many ? 'width:180px;height:120px;object-fit:cover;' : 'max-width:260px;max-height:260px;';
-
+        if (a.kind === 'video' && playableVideos.indexOf(mime) !== -1) {
             return `<video src="${url}" class="chat-media" data-kind="video" controls preload="metadata"
-                style="${size}border-radius:8px;display:block;"></video>`;
+                style="max-width:260px;max-height:260px;border-radius:8px;display:block;"></video>`;
         }
 
-        // Formats a browser cannot show inline (HEIC, MKV, AVI...): download card
-        const label = a.kind === 'image' ? 'Photo' : 'Video';
-        const format = escapeHtml((mime.split('/')[1] || 'file').replace(/^x-/, '').toUpperCase());
+        // Single Document / File
+        const label = esc(a.name || (a.kind === 'image' ? 'Photo' : 'Document'));
+        const format = esc((mime.split('/')[1] || 'FILE').replace(/^x-/, '').toUpperCase());
+        return `<a href="${url}" download style="display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;padding:8px 12px;background:rgba(0,0,0,0.05);border-radius:8px;">
+            <i class="bi bi-file-earmark-arrow-down" style="font-size:24px;"></i>
+            <span><b>${label}</b><br><small>${format} • ${fmtSize(a.size)}</small></span>
+        </a>`;
+    }
 
-        return `<a href="${url}" download
-            style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit;">
-            <i class="bi bi-file-earmark-arrow-down" style="font-size:22px;"></i>
-            <span>${label} (${format}, ${escapeHtml(formatSize(a.size))})<br><small>Tap to download</small></span>
+    // CASE 2: MULTIPLE ATTACHMENTS (Images + Videos + Documents sabhi ke liye Gallery)
+    const tiles = list.map((a, index) => {
+        const url = esc(a.url);
+        const mime = String(a.mime || '').toLowerCase();
+        const hidden = index > 3 ? ' chat-gallery-hidden' : '';
+        
+        // 4th item (index 3) par +count aayega agar 3 se zyada hain
+        const overlay = (index === 3 && list.length > 3)
+            ? `<span class="chat-gallery-more" aria-hidden="true"><i class="bi bi-plus-lg"></i><span>${list.length - 3}</span></span>`
+            : '';
+
+        let content = '';
+
+        if (a.kind === 'image' && showableImages.indexOf(mime) !== -1) {
+            // Image Tile
+            content = `<img src="${url}" alt="" loading="lazy">`;
+        } else if (a.kind === 'video' && playableVideos.indexOf(mime) !== -1) {
+            // Video Tile
+            content = `<video src="${url}#t=0.5" preload="metadata" muted playsinline></video>
+                       <i class="bi bi-play-circle-fill chat-video-play-icon" aria-hidden="true"></i>`;
+        } else {
+            // Document / PDF / ZIP Tile
+            const format = esc((mime.split('/')[1] || 'FILE').replace(/^x-/, '').toUpperCase());
+            const fileName = esc(a.name || `${format} File`);
+            content = `<div class="chat-gallery-doc">
+                <i class="bi bi-file-earmark-text" style="font-size:24px;"></i>
+                <span class="chat-gallery-doc-name">${fileName}</span>
+                <small>${format}</small>
+            </div>`;
+        }
+
+        return `<a href="${url}" class="chat-media chat-gallery-tile${hidden}" data-kind="${esc(a.kind || 'file')}"
+            target="_blank" rel="noopener" ${a.kind !== 'image' && a.kind !== 'video' ? 'download' : ''}>
+            ${content}
+            ${overlay}
         </a>`;
     }).join('');
 
-    return many ? `<div style="display:flex;flex-wrap:wrap;gap:6px;">${html}</div>` : html;
+    return `<div class="chat-image-gallery">${tiles}</div>`;
 }
-
 /**
  * One message bubble, with a date divider when the day changes.
  * ctx: { me: {id, name, avatar, color}, peer: {name, avatar, color} }
@@ -332,7 +383,7 @@ export function messageHtml(msg, prev, ctx) {
     let actions = '';
 
     if (!msg.deleted) {
-        const buttonStyle = 'border:0;background:transparent;padding:0 4px;cursor:pointer;color:inherit;font-size:12px;';
+        const buttonStyle = 'border:0;background:transparent;padding:0 4px;cursor:pointer;color:inherit;font-size:12px; margin:0px;';
         const hasFiles = (msg.attachments || []).length > 0;
 
         const edit = (mine && !hasFiles && msg.body && canEdit(msg))
@@ -345,7 +396,7 @@ export function messageHtml(msg, prev, ctx) {
 
     const bubble = `
         <div class="message-wrapper">
-            <div class="message-bubble">${content}</div>
+            <div class="message-bubble${hasImageGallery(msg.attachments || []) ? ' chat-gallery-bubble' : ''}">${content}</div>
             <div class="message-time">
                 ${escapeHtml(formatTime(msg.created_at))}${edited}
                 ${tick}

@@ -44,4 +44,9 @@ return [
         'subject' => 'Wallet Top Up Confirmation',
     ],
 
+    'support_service' => [
+        'service_title' => 'Support Service',
+        'template' => 'emails.payment.admin.support_service',
+        'subject' => 'Support Service Confirmation',
+    ],
 ];

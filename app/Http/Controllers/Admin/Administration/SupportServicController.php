@@ -42,19 +42,34 @@ class SupportServicController extends Controller
         $fees_concierge_services = FeesConciergeService::all()
         ->map(function ($item) {
         $item->name = $item->service_type;
+        $item->category = 'Concierge';
+
         return $item;
         });
 
         $fees_support_services = FeesSupportService::all()
         ->map(function ($item) {
         $item->name = $item->fee;
+
         return $item;
         });
+
+        $categoryOrder = [
+        'My Account',
+        'Profile Management',
+        'Concierge',
+        'My Playbox',
+        ];
 
         $services = $fees_concierge_services
         ->concat($fees_support_services)
         ->sortBy('name')
-        ->values();
+        ->groupBy('category')
+        ->sortBy(function ($items, $category) use ($categoryOrder) {
+        return array_search($category, $categoryOrder);
+        });
+
+       // print_this($services,1);
         return view('admin.support-services.process-payment', compact('services'));
     }
 

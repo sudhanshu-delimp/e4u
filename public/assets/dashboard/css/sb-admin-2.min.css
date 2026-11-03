@@ -10464,7 +10464,10 @@
     .rotate-n-15 {
         transform: rotate(-15deg)
     }
-    
+    /* Jab sidebar band (toggled) ho to icon cross ban jaye */
+        body.sidebar-toggled #sidebarToggleTop i::before {
+            content: "\f00d"; /* FontAwesome cross (fa-times) icon code */
+        }
     .dropdown .dropdown-menu {
         font-size: .85rem
     }
@@ -10521,9 +10524,15 @@
         height: 4.375rem
     }
     
-    .topbar #sidebarToggleTop {
-        height: 2.5rem;
-        width: 2.5rem
+    .topbar #sidebarToggleTop {        
+    height: 2.5rem;
+    width: 2.5rem;
+    background: #eff0f6;
+    padding: 0px;
+    margin-left: 0px !important;
+    margin-right: 25px;
+    border-radius: 100%;
+        
     }
     
     .topbar #sidebarToggleTop:hover {

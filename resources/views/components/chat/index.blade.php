@@ -28,7 +28,7 @@ $chatConfig = [
 'typeLabels' => config('chat.type_labels', []),
 // Types that cannot be blocked (Agent)
 'unblockable' => config('chat.unblockable', []),
-'socketUrl'   => config('chat.socket.public_url'),
+'socketUrl' => config('chat.socket.public_url'),
 'socketToken' => \App\Services\ChatSocket::token(auth()->id()),
 // Massage Centre: a blocked person leaves the list right away
 'hideBlockedChats' => in_array((int) $chatMe->type, config('chat.hide_blocked_for', []), true),
@@ -36,6 +36,24 @@ $chatConfig = [
 
 $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
 @endphp
+
+<style>
+    /* The user's own Member ID is shown only in full screen mode */
+    .chat-my-id {
+        display: none;
+        padding: 2px 2px 8px;
+        font-size: 13px;
+        color: #6b7280;
+    }
+
+    .chat-my-id strong {
+        color: #111827;
+    }
+
+    .is-fullscreen .chat-my-id {
+        display: block;
+    }
+</style>
 
 <div class="chat-app" id="chatApp" data-config="{{ json_encode($chatConfig) }}">
 
@@ -72,16 +90,17 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
 
                     <div class="filter-wrapper">
 
-                        <button id="filterBtn" type="button">
-                            <i class="bi bi-funnel"></i>
-                            Filter
+                        <button id="filterBtn" type="button" aria-label="Conversation filters" aria-haspopup="menu" aria-controls="filterDropdown" aria-expanded="false">
+                            <i class="bi bi-funnel filter-desktop-icon" aria-hidden="true"></i>
+                            <i class="bi bi-three-dots-vertical filter-mobile-icon" aria-hidden="true"></i>
+                            <span class="filter-label">Filter</span>
                         </button>
 
-                        <div class="filter-dropdown more-dropdown" id="filterDropdown">
-                            <button type="button" class="filter-option active" data-filter="chats">
+                        <div class="filter-dropdown more-dropdown" id="filterDropdown" role="menu" aria-label="Conversation filters">
+                            <button type="button" class="filter-option active" data-filter="chats" role="menuitem">
                                 <i class="bi bi-person-check"></i> {{ [4 => 'Active Viewers', 5 => 'Active Advertisers'][(int) auth()->user()->type] ?? 'Active Users' }}
                             </button>
-                            <button type="button" class="filter-option" data-filter="archived">
+                            <button type="button" class="filter-option" data-filter="archived" role="menuitem">
                                 <i class="bi bi-archive"></i> Archived Chats
                             </button>
 
@@ -92,10 +111,15 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
                 </div>
 
             </div>
+            <div>
+                <div class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search User by Member ID or Name...">
+                </div>
+                <div class="chat-my-id">
+                    Member ID: <strong>{{ $chatMe->member_id }}</strong>
+                </div>
 
-            <div class="search-box">
-                <i class="bi bi-search"></i>
-                <input type="text" id="searchInput" placeholder="Search User by Member ID or Name...">
             </div>
 
         </div>
@@ -112,8 +136,8 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
         <!-- CHAT HEADER -->
         <header class="chat-header">
 
-            <button class="mobile-menu" id="mobileMenu">
-                <i class="bi bi-list"></i>
+            <button class="mobile-menu" id="mobileMenu" type="button" aria-label="Back to conversations" title="Back to conversations">
+                <i class="bi bi-arrow-left" aria-hidden="true"></i>
             </button>
 
             <div class="header-avatar avatar" id="chatHeaderAvatar"></div>
@@ -135,6 +159,10 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
                     <i class="bi bi-search"></i>
                 </button>
 
+                <!-- FULLSCREEN BUTTON -->
+                <button type="button" id="toggleFullscreenBtn" title="Full Screen">
+                    <i class="bi bi-arrows-fullscreen" id="fullscreenIcon"></i>
+                </button>
                 <!-- THREE DOTS -->
                 <div class="more-wrapper">
 
@@ -164,7 +192,6 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
                     </div>
 
                 </div>
-
             </div>
 
         </header>
@@ -196,22 +223,31 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
         <!-- MESSAGE COMPOSER -->
         <footer class="message-composer">
 
-            <button class="composer-btn" id="attachmentBtn" title="Attach">
-                <i class="bi bi-paperclip"></i>
-            </button>
+            <div class="composer-tools-menu">
+                <button class="composer-menu-btn" id="composerMenuBtn" type="button" aria-label="Message tools" aria-haspopup="menu" aria-controls="composerToolsDropdown" aria-expanded="false">
+                    <i class="bi bi-three-dots-vertical" aria-hidden="true"></i>
+                </button>
 
-            <button class="composer-btn" id="emojiBtn" title="Emoji">
-                <i class="bi bi-emoji-smile"></i>
-            </button>
+                <div class="composer-tools-dropdown" id="composerToolsDropdown" role="menu" aria-label="Message tools">
+                    <button class="composer-btn" id="attachmentBtn" type="button" title="Attach" aria-label="Attach files" role="menuitem">
+                        <i class="bi bi-paperclip" aria-hidden="true"></i>
+                    </button>
+
+                    <button class="composer-btn" id="emojiBtn" type="button" title="Emoji" aria-label="Choose emoji" role="menuitem">
+                        <i class="bi bi-emoji-smile" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
 
             <div id="emojiPicker" class="emoji-picker-container"></div>
 
             <div class="input-wrapper">
-                <input
-                    type="text"
+                <textarea
                     id="messageInput"
                     placeholder="Type a message..."
-                    autocomplete="off">
+                    autocomplete="off"
+                    rows="1"
+                    aria-label="Type a message"></textarea>
             </div>
 
             <button class="send-btn" id="sendBtn" title="Send">
@@ -274,3 +310,29 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
 <script src="{{ asset('chat-build/js/chat.js') }}?v={{ $chatAssetVersion }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const chatApp = document.getElementById('chatApp');
+        const fullscreenBtn = document.getElementById('toggleFullscreenBtn');
+        const fullscreenIcon = document.getElementById('fullscreenIcon');
+
+        function toggleFullscreen() {
+            chatApp.classList.toggle('is-fullscreen');
+            const isFull = chatApp.classList.contains('is-fullscreen');
+
+            // Icon change
+            fullscreenIcon.classList.toggle('bi-arrows-fullscreen', !isFull);
+            fullscreenIcon.classList.toggle('bi-fullscreen-exit', isFull);
+        }
+
+        // Click par Full Window toggle
+        fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+        // ESC key dabane par Back/Normal view
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && chatApp.classList.contains('is-fullscreen')) {
+                toggleFullscreen();
+            }
+        });
+    });
+</script>
