@@ -380,7 +380,7 @@ class ReportingController extends BaseController
           $send = new MessageMedia();
           $dashboardUrl = config('app.url');
           $smsMessage = "Account Notification\n\nYour account status has been updated. Please log in to your dashboard to view the details:\n{$dashboardUrl}";
-          $send->sendMessages("61".$user->phone, $smsMessage);
+          $send->sendMessages($user->phone, $smsMessage);
 
           // Save in-app notification
           $payload = buildUserNotificationPayload(

@@ -996,6 +996,7 @@
 
          $("body").on('submit', '#agent_bank', function(e) {
             $('.head_modal_title').html('Fee Value Setting');
+            alert("sdfh");
             e.preventDefault();
             var form = $(this);
             var url = form.attr('action');

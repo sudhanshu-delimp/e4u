@@ -409,7 +409,7 @@ class StaffController extends BaseController
               $send = new MessageMedia();
               $dashboardUrl = route("advertiser.login");
               $smsMessage = "Password Reset Notification\n\nYour account password has been reset successfully. If you did not make this change, please contact support immediately. Please log in to your dashboard to verify the change:\n{$dashboardUrl}";         
-              $send->sendMessages("61480089451", $smsMessage);
+              $send->sendMessages($user->phone, $smsMessage);
 
               // Save in-app notification
               $payload = buildUserNotificationPayload(
