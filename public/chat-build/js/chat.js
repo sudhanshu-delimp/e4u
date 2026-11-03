@@ -1768,7 +1768,7 @@ function initChat(root) {
   }
   function _jumpToMessage() {
     _jumpToMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8(id) {
-      var convId, row, res, bubble;
+      var convId, row, res, boxRect, rowRect, bubble;
       return _regenerator().w(function (_context8) {
         while (1) switch (_context8.n) {
           case 0:
@@ -1804,9 +1804,10 @@ function initChat(root) {
             }
             return _context8.a(2);
           case 4:
-            row.scrollIntoView({
-              block: 'center'
-            });
+            // Scroll only the messages box, never the whole page
+            boxRect = el.messages.getBoundingClientRect();
+            rowRect = row.getBoundingClientRect();
+            el.messages.scrollTop += rowRect.top - boxRect.top - boxRect.height / 2 + rowRect.height / 2;
             bubble = row.querySelector('.message-bubble') || row;
             bubble.classList.remove('chat-jump-flash');
             void bubble.offsetWidth;

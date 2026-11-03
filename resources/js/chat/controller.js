@@ -1153,7 +1153,11 @@ export function initChat(root) {
             return;
         }
 
-        row.scrollIntoView({ block: 'center' });
+        // Scroll only the messages box, never the whole page
+        const boxRect = el.messages.getBoundingClientRect();
+        const rowRect = row.getBoundingClientRect();
+
+        el.messages.scrollTop += (rowRect.top - boxRect.top) - (boxRect.height / 2) + (rowRect.height / 2);
 
         const bubble = row.querySelector('.message-bubble') || row;
 
