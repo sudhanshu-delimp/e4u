@@ -18,8 +18,8 @@
                <h1 class="h1">Console Report</h1>
                <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
             </div>
-            <div class="col-md-12 mb-4">
-                <div class="card collapse" id="notes" style="">
+            <div class="col-md-12">
+                <div class="card collapse" id="notes">
                   <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b></h3>
                      <ol></ol>
@@ -30,7 +30,7 @@
         {{-- end --}}
          <div class="row">
             <div class="col-md-12">
-               <div  class="table-responsive-xl">
+               <div  class="table-responsive common-card">
                   <table class="table" id="consoleDatatable">
                      <thead class="table-bg">
                         <tr>
