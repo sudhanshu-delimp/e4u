@@ -3,10 +3,6 @@
 @stop
 @section('content')
 
-<!-- Content Wrapper -->
-<div id="content-wrapper" class="d-flex flex-column">
-    <!-- Main Content -->
-    <div id="content">
         <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <!--middle content-->
             <div class="row">
@@ -34,7 +30,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row my-3">
+            <div class="row mb-3">
                 <div class="col-sm-12 d-flex justify-content-end" style="gap: 50px;">
 
                     <div class="total_listing">
@@ -45,7 +41,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="table-responsive">
+                    <div class="table-responsive common-card">
                         <table class="table w-100" id="noteboxReportTable" width="100%">
                             <thead class="table-bg">
                                 <tr>
@@ -83,16 +79,16 @@
                                                     <i class="fa fa-check "></i> Active</a>
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-feedback-btn"
-    href="javascript:void(0)">
-    <i class="fa fa-ban"></i> Withdrawn
-</a>
+                                                    href="javascript:void(0)">
+                                                    <i class="fa fa-ban"></i> Withdrawn
+                                                </a>
 
-<div class="dropdown-divider"></div>
+                                                <div class="dropdown-divider"></div>
 
-<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-feedback-btn"
-    href="javascript:void(0)">
-    <i class="fa fa-clock"></i> Pending
-</a>
+                                                <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-feedback-btn"
+                                                    href="javascript:void(0)">
+                                                    <i class="fa fa-clock"></i> Pending
+                                                </a>
 
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-feedback-btn"
@@ -109,12 +105,6 @@
             </div>
 
         </div>
-
-    </div>
-</div>
-
-
-
 <div class="modal fade upload-modal" id="viewMemberdetails" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content">

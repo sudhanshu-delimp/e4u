@@ -63,8 +63,8 @@
         <div class="col-md-12">
 
             <div class="row">
-                <div class="col-md-12 mt-2">
-                    <div class="table-responsive">
+                <div class="col-md-12">
+                    <div class="table-responsive common-card">
                         <table class="table mb-3 w-100" id="ManageInfTable">
                             <thead class="table-bg">
                                 <tr>

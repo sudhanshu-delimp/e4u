@@ -2,8 +2,6 @@
 @section('style') 
 @stop
 @section('content')
-<!-- Content Wrapper -->
-<div id="content-wrapper" class="d-flex flex-column">
       <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
          <div class="row">
 
@@ -56,7 +54,7 @@
 
           <div class="row">
             <div class="col-sm-12">
-               <div class="table-responsive">
+               <div class="table-responsive common-card">
                   <table class="table w-100 " id="discountFeetable">
                      <thead class="table-bg">
                         
@@ -80,7 +78,6 @@
          </div>
 
       </div>
-</div>
 
 @include('admin/management/fee_discount/modal/discount_history_modal')
 @include('admin/management/fee_discount/modal/advertiser_discount_modal')
