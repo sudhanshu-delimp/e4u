@@ -353,13 +353,12 @@ class ProductOrderController extends Controller
 
                     $mail->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
                     
-                // Mail::to($order->createdBy->email)
-                //   ->cc($billing->email)
-                //   ->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
-              } else {
-                Mail::to($billing->email)
-                  ->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
-              }
+         
+              }  
+
+
+
+
             } else {
               $mail = Mail::to($billing->email);
               if (!empty($agent) && !empty($agent->email)) {
