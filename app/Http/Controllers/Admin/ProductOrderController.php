@@ -329,37 +329,25 @@ class ProductOrderController extends Controller
             // get details notifications 
             $user = User::where('id', $order->user_id)->first();
             $agentPreferences = getUserNotificationPreferences($agent);
-
+            $customerPreferences = getUserNotificationPreferences($user);
             if ($order->createdBy &&  $order->createdBy->email && $order->user_id != $order->createdBy->id) {
-
-              if ($agentPreferences['text_enabled']) {
-                $send = new MessageMedia();
+                $message = "Your Order Has Been Successfully Completed – Member ID: {$user->member_id} | Order Ref: {$mailData['communication_id']}";
+                $payload = buildUserNotificationPayload($agent, $message, $message, config('constants.NotificationIcon.general'));
                 $dashboardUrl = config('app.url');
                 $smsMessage = "Product Order Notification\n\nA product order update is available. Member ID: {$user->member_id} | Order Ref: {$mailData['communication_id']}.\n\nPlease log in to your dashboard to view the details:\n{$dashboardUrl}";
-                $send->sendMessages($user->phone, $smsMessage);
-
-                $message = "Your Order Has Been Successfully Completed – Member ID: {$user->member_id} | Order Ref: {$mailData['communication_id']}";
-                // Save in-app notification
-                $payload = buildUserNotificationPayload($agent, $message, $message, config('constants.NotificationIcon.general'));
+               
+              if ($agentPreferences['text_enabled']) {
+                $send = new MessageMedia();
+                $send->sendMessages($agent->phone, $smsMessage);
                 Notification::create($payload);
               }
+              
               if ($agentPreferences['email_enabled']) {
-                      $customerPreferences = getUserNotificationPreferences($user);
-                    $mail = Mail::to($order->createdBy->email);
-
-                    if ($customerPreferences['email_enabled']) {
-                        $mail->cc($billing->email);
-                    }
-
-                    $mail->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
-                    
-                // Mail::to($order->createdBy->email)
-                //   ->cc($billing->email)
-                //   ->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
-              } else {
-                Mail::to($billing->email)
-                  ->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
+                Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
+              } elseif ($customerPreferences['email_enabled']) {
+                Mail::to($billing->email)->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
               }
+
             } else {
               $mail = Mail::to($billing->email);
               if (!empty($agent) && !empty($agent->email)) {
