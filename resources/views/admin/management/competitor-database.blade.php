@@ -48,7 +48,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive-xl">
-                                <table class="table" id="competitorDatabase">
+                                <table class="table w-100" id="competitorDatabase">
                                     <thead class="table-bg">
                                         <tr>
                                             <th scope="col">#</th>

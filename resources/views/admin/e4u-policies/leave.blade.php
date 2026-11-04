@@ -245,7 +245,7 @@
                                                 to give the following notice of taking annual leave.
                                             </p>
                                             <div class="my-4">
-                                                <table class="table">
+                                                <table class="table w-100" >
                                                     <thead class="table-bg">
                                                         <tr>
                                                             <th class="text-center font-weight-bold">Period of leave to

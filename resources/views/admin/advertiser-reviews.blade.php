@@ -139,7 +139,7 @@
             <div class="col-sm-12 col-md-12 col-lg-12 ">
 
                 <div class="table-responsive common-card">
-                    <table class="table" id="advertiserReviewTable">
+                    <table class="table w-100" id="advertiserReviewTable">
                         <thead class="table-bg">
                             <tr>
                                 <th width="10%">Ref</th>

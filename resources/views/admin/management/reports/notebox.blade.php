@@ -46,7 +46,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="table-responsive">
-                        <table class="table" id="noteboxReportTable" width="100%">
+                        <table class="table w-100" id="noteboxReportTable" width="100%">
                             <thead class="table-bg">
                                 <tr>
                                     <th>Ref</th>

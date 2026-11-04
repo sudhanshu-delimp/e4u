@@ -64,7 +64,7 @@
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b>
                 </span>
             </div>
-            <div class="mb-4 col-md-12">
+            <div class="col-md-12">
                 <div class="card collapse" id="notes">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -86,7 +86,7 @@
                 <button type="button" class="common-save-btn dctour float-right" id="change_pin_modal"
                     data-toggle="modal" data-target="#sendOtp_modal">Change PIN</button>
             </div>
-            <div class="col-md-12 mb-5">
+            <div class="col-md-12">
 
                
                 <div id="accordion" class="myacording-design mb-5">

@@ -48,7 +48,7 @@
                            <div class="tab-content">
                               <div class="tab-pane fade in active show" id="tab1warning">
                                  <div class="table-responsive-xl">
-                                    <table class="table">
+                                    <table class="table w-100" >
                                        <thead class="table-bg">
                                           <tr>
                                              <th scope="col"> </th>
@@ -109,7 +109,7 @@
                            <div class="tab-content">
                               <div class="tab-pane fade in active show" id="tab1warning">
                                  <div class="table-responsive-xl">
-                                    <table class="table">
+                                    <table class="table w-100" >
                                        <thead class="table-bg">
                                           <tr>
                                              <th scope="col"> </th>

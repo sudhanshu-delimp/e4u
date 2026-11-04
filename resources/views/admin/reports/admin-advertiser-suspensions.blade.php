@@ -62,7 +62,7 @@
          </div>
 
          <div class="table-responsive common-card">
-            <table class="table" id="advertiserSuspenstionTable">
+            <table class="table w-100" id="advertiserSuspenstionTable">
                <thead class="table-bg">
                   <tr>
                      <th>Profile ID</th>

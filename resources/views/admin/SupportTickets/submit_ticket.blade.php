@@ -18,7 +18,7 @@
             <h1 class="h1">Submit</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b></span>
         </div>
-        <div class="col-md-12 mb-4 mycont">
+        <div class="col-md-12 mycont">
             <div class="card collapse" id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -142,7 +142,7 @@
 
 
                 <input type="hidden"  name="user_type"  value="admin">
-                <input type="submit" name="submit" id="submitTicketBtn" class=" create-tour-sec dctour mt-3" value="Submit Ticket">
+                <input type="submit" name="submit" id="submitTicketBtn" class=" create-tour-sec dctour " value="Submit Ticket">
             </form>
             </div>
         </div>

@@ -77,7 +77,7 @@
                 </div>
             </div>
             <div class="massage_table_class table-responsive common-card">
-                <table class="table" id="listings" style="width:100%;">
+                <table class="table w-100" id="listings" style="width:100%;">
                     <thead class="table-bg">
                         <tr>
                             <th>Profile ID</th>

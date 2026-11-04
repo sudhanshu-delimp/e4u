@@ -41,8 +41,8 @@
                </div>
             </div>
          </div>
-         <div class="table-responsive membership--inner">
-            <table class="table table-bordered text-center mb-0" id="tourStatisticTable">
+         <div class="table-responsive membership--inner common-card">
+            <table class="table table-bordered text-center mb-0 w-100" id="tourStatisticTable">
                <colgroup>
                   <col style="width: 7%;">
                   <col style="width: 7%;">
@@ -936,16 +936,17 @@
                </tbody>
 
             </table>
+            <div class="mt-4">
+               <div class="timer_section">
+                  <p>Server time: <span>10:23:51 am</span></p>
+                  <p>Refresh time:<span> 15 seconds</span></p>
+                  <p>Up time: <span>214 days & 09 hours 12 minutes</span></p>
+               </div>
+            </div>
          </div>
       </div>
 
-      <div class="col-md-12">
-         <div class="timer_section">
-            <p>Server time: <span>10:23:51 am</span></p>
-            <p>Refresh time:<span> 15 seconds</span></p>
-            <p>Up time: <span>214 days & 09 hours 12 minutes</span></p>
-         </div>
-      </div>
+      
    </div>
 </div>
 @endsection

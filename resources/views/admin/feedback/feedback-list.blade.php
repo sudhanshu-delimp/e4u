@@ -117,7 +117,7 @@
                 <div class="row">
                     <div class="col-md-12 ">
                         <div class="table-responsive common-card">
-                                            <table class="table" id="feedbackReportTable">
+                                            <table class="table w-100" id="feedbackReportTable">
                                                 <thead class="table-bg">
                                                     <tr>
                                                         <th scope="col">Ref </th>

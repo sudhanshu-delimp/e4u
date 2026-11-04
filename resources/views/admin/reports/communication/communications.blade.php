@@ -54,7 +54,7 @@
     <div class="row">
         <div class="col-lg-12 ">
             <div class="table-responsive common-card">
-                <table class="table" id="communicationsReportTable">
+                <table class="table w-100" id="communicationsReportTable">
                     <thead class="table-bg">
                         <tr>
                             <th>Ref</th>

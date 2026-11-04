@@ -61,7 +61,7 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade in active show" id="tab1warning">
                                     <div class="table-responsive-xl">
-                                        <table class="table" id="ReportTable">
+                                        <table class="table w-100" id="ReportTable">
                                             <thead class="table-bg">
                                                 <tr>
                                                     <th scope="col">Email ID <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">

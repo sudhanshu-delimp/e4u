@@ -57,7 +57,7 @@ $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes
          </div>
          @endif
          <div class="table-responsive">
-            <table class="table" id="AlertTable">
+            <table class="table w-100" id="AlertTable">
                <thead class="table-bg">
                   <tr>
                      <th scope="col">

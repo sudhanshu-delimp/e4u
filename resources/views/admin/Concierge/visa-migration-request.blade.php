@@ -28,7 +28,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="table-responsive custom-badge common-card">
-                            <table id="visaMigrationRequestTable" class="table" style="width: 100%;">
+                            <table id="visaMigrationRequestTable" class="table w-100"  style="width: 100%;">
                                 <thead class="table-bg">
                                     <tr>
                                         <th>Ref</th>

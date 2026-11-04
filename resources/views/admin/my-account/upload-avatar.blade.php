@@ -25,13 +25,7 @@
     </style>
 @stop
 @section('content')
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-        <!-- Main Content -->
-        <div id="content">
             <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-                <!--middle content start here-->
-                {{-- Page Heading   --}}
                 <div class="row">
                     <div class="custom-heading-wrapper col-lg-12">
                         <h1 class="h1">Upload your avatar</h1>
@@ -51,7 +45,6 @@
                         </div>
                     </div>
                 </div>
-                {{-- end --}}
                 <div class="row">
                     <div class="col-md-12">
                         <!-- File Types -->
@@ -63,107 +56,8 @@
                         <x-upload-info />
                     </div>
                 </div>
-                {{-- <div class="row">
-                <div class="col-md-12" id="profile_and_tour_options">
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card border-0">
-                                <div class="card-body">
-                                    <h2 class="primery_color normal_heading">File types</h2>
-                                    <p>When selecting your avatar, please be mindful of the following:</p>
-                                    <ul>
-                                        <li>Yes you can use a photo, but we do not recommend it</li>
-                                        <li>Acceptable formats include; .jpg, .gif or .png .pdf, .psd, .tff, and .doc files are not compatible</li>
-                                    </ul>
-                                    <div class="row">
-                                        <div class="col-lg-4 mt-4">
-                                            <h2 class="primery_color normal_heading">Upload your avatar</h2>
-                                            <form id="my_avatar" action="{{ route('admin.save.avatar', auth()->user()->id)}}" method="POST" enctype="multipart/form-data">
-                                                <div class="file-upload">
-                                                    <div class="image-upload-wrap">
-                                                        <input class="file-upload-input gambar item-img" name="avatar_img" type='file' onchange="readURL(this);" accept="image/*" />
-                                                        <div class="drag-text">
-                                                            <h3>Drag and drop a file or select add Image</h3>
-                                                        </div>
-                                                    </div>
-                                                    <div class="file-upload-content">
-                                                        <img class="file-upload-image item-img" src="#" alt="your image" id="item-img-output" />
-                                                        <div class="image-title-wrap">
-
-                                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
-                                                            <button type="submit" class="remove-image crop_image">Save <span class="image-title">Uploaded Image</span></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="col-lg-4 mt-4 current-avatar">
-
-                                            <h2 class="primery_color normal_heading">Current Avatar</h2><!-- <i class="fab fa-twitter delete_avatar"></i> -->
-                                            @if (auth()->user()->hasUploadedAvatar())
-                                            <button type="button" class="avatar close delete_avatar" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                            @endif
-                                           <img src="{{ !auth()->user()->avatar_img ? asset('avatars/default/staff_default.png') :asset('avatars/'.auth()->user()->avatar_img) }}" alt="" class="img-rounded avatarName">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-md-12 mt-4">
-                            <div id="accordion" class="myacording-design mb-5">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <a class="card-link" data-toggle="collapse" href="#File_name" aria-expanded="false">
-                                            Additional Upload Information
-                                        </a>
-                                    </div>
-                                    <div id="File_name" class="collapse" data-parent="#accordion" style="">
-                                        <div class="card-body">
-                                            <p style="font-size: 20px;"><b>File name</b> </p>
-                                            <p>Only use letters, numbers, underscores, and hyphens in file names.</p>
-                                            <p style="font-size: 20px;"><b>File size</b> </p>
-                                            <p>We recommend using image files of less than 500 KB for best results, though the limit for an individual image upload is 2 MB.</p>
-                                            <p style="font-size: 20px;"><b>Resolution</b> </p>
-                                            <p>There is an image resolution limit of 60 MP (megapixels).</p>
-                                            <p style="font-size: 20px;"><b>Colour mode</b> </p>
-                                            <p>Save images in RGB color mode. Print mode (CMYK) won't render in most browsers.
-                                            </p>
-                                            <p style="font-size: 20px;"><b>Colour profile</b> </p>
-                                            <p>Save images in the sRGB color profile. If images don't look right on mobile devices, it's probably because they don't have an sRGB color profile.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-                <!--middle content end here-->
+                
             </div>
-        </div>
-        <!-- End of Main Content -->
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span> </span>
-                </div>
-            </div>
-        </footer>
-        <!-- End of Footer -->
-    </div>
-    <!-- End of Content Wrapper -->
-    </div>
-    <!-- End of Page Wrapper -->
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
     <x-crop-image-modal
         title="Crop Photo"
         subtitle="Adjust your image before uploading"

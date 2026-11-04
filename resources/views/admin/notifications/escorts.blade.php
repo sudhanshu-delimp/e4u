@@ -44,7 +44,7 @@
                         <div class="tab-content">
                            <div class="tab-pane fade in active show" id="tab1warning">
                               <div class="table-responsive-xl">
-                                 <table class="table" id="escortNotificationTable">
+                                 <table class="table w-100" id="escortNotificationTable">
                                     <thead class="table-bg">
                                        <tr>
                                           <th scope="col">Ref

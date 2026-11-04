@@ -129,7 +129,7 @@
 
         <div class="col-lg-12 ">
             <div class="table-responsive custom-badge common-card">
-                <table class="table" id="AdvertiserReportTable" style="width: 100%">
+                <table class="table w-100" id="AdvertiserReportTable" style="width: 100%">
                     <thead class="table-bg">
                         <tr>
                             <th scope="col">

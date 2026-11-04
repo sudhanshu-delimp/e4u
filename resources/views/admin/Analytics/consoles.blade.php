@@ -31,7 +31,7 @@
          <div class="row">
             <div class="col-md-12">
                <div  class="table-responsive common-card">
-                  <table class="table" id="consoleDatatable">
+                  <table class="table w-100" id="consoleDatatable">
                      <thead class="table-bg">
                         <tr>
                            <th scope="col">Member ID</th>

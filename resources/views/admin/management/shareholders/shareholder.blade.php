@@ -13,11 +13,11 @@
             <h1 class="h1">Shareholders</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
         </div>
-        <div class="col-md-12 mb-5">
+        <div class="col-md-12">
             <div class="card  collapse" id="notes">
                 <div class="card-body ">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                    <ol class="level-1">
+                    <ol>
                         <li>Set up and manage Member shareholdings here.</li>
                         <li>A Shareholder must first be created in, and are managed from, <a
                                 href="{{ route('admin.manage-shareholders') }}"
@@ -28,18 +28,16 @@
         </div>
     </div>
 
-    <div class="row pb-3">
-
+    <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
             <div class="bothsearch-form" style="gap: 10px;">
                 <button type="button" class="btn-common" data-toggle="modal" data-target="#addShareholder">Add New
                     Shareholding</button>
             </div>
         </div>
-
         <div class="col-sm-12">
-            <div class="table-responsive">
-                <table class="table mb-3 w-100" id="manage_shareholder_table">
+            <div class="table-responsive common-card">
+                <table class="table w-100" id="manage_shareholder_table">
                     <thead class="table-bg">
                         <tr>
                             <th>ID</th>

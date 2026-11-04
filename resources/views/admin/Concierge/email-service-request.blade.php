@@ -41,7 +41,7 @@ $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes
          <div class="row">
             <div class="col-md-12">
                <div class="table-responsive custom-badge common-card">
-                  <table class="table" id="EmailRequestTable">
+                  <table class="table w-100" id="EmailRequestTable">
                      <thead class="table-bg">
                         <tr>
                            <th>Ref</th>

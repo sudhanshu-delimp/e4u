@@ -108,7 +108,7 @@
       <div class="col-lg-12">
          <div class="common-card">
             <div class="table-responsive w-100 mt-2">
-               <table class="table" id="securityDatatable">
+               <table class="table w-100" id="securityDatatable">
                   <thead class="table-bg">
                      <th scope="col">Member ID</th>
                      <th scope="col">Name</th>

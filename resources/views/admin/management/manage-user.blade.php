@@ -70,7 +70,7 @@
                                     </div>
                                  </div>
                                  <div class="table-responsive-xl">
-                                    <table class="table" style="margin-bottom:0px;">
+                                    <table class="table w-100" style="margin-bottom:0px;">
                                        <thead class="table-bg">
                                           <tr>
                                              <th scope="col">ID</th>
@@ -150,7 +150,7 @@
                                  </div>
                                  
                                  <div class="table-responsive-xl">
-                                    <table class="table">
+                                    <table class="table w-100" >
                                        <thead class="table-bg">
                                           <tr>
                                              <th scope="col">ID</th>
@@ -263,7 +263,7 @@
                                     </div>
                                  </div>                                    
                                  <div class="table-responsive-xl">
-                                    <table class="table">
+                                    <table class="table w-100" >
                                        <thead class="table-bg">
                                        <tr>
                                           <th scope="col">
@@ -367,7 +367,7 @@
                                     </div>
                                  </div>
                                  <div class="table-responsive-xl">
-                                    <table class="table">
+                                    <table class="table w-100" >
                                        <thead class="table-bg">
                                           <tr>
                                              <th scope="col">Member Id</th>

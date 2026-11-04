@@ -90,7 +90,7 @@
 
         <div class="col-sm-12 col-md-12 col-lg-12 ">
             <div class="table-responsive common-card">
-                <table class="table" id="PunterboxReportTable">
+                <table class="table w-100" id="PunterboxReportTable">
                     <thead class="table-bg">
                         <tr>
                             <th>Ref</th>

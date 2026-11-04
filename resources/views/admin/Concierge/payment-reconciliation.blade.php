@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-md-12 mt-2">
                     <div id="table-sec" class="table-responsive-xl">
-                        <table class="table" id="AgentReportTable">
+                        <table class="table w-100" id="AgentReportTable">
                             <thead class="table-bg">
                                 <tr>
                                     <th>Date</th>

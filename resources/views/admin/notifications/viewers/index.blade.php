@@ -56,7 +56,7 @@ $addAccessEnabled = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
                     @endif
                     <div class="col-md-12">
                         <div class="table-responsive-xl common-card">
-                            <table class="table" id="agentNotificationTable">
+                            <table class="table w-100" id="agentNotificationTable">
                                 <thead class="table-bg">
                                     <tr>
                                         <th scope="col">Ref</th>

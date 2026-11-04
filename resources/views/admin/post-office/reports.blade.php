@@ -47,7 +47,7 @@
    <div class="row">
       <div class="col-md-12 ">
          <div class="table-responsive common-card">
-            <table class="table" id="postReportTable">
+            <table class="table w-100" id="postReportTable">
                <thead class="table-bg">
                   <tr>
                      <th scope="col">Ref

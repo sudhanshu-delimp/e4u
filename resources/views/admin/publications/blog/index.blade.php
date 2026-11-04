@@ -55,7 +55,7 @@ $addAccessEnabled = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
         </div>
         <div class="col-md-12">
             <div class="table-responsive common-card">
-                <table class="table" id="BlogListTable">
+                <table class="table w-100" id="BlogListTable">
                     <thead class="table-bg">
                         <tr>
                             <th scope="col">#

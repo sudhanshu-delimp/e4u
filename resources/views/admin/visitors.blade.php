@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="visitor_table_class table-responsive common-card">
-                <table class="table" id="visitorTable" style="width:100%;">
+                <table class="table w-100" id="visitorTable" style="width:100%;">
                     <thead class="table-bg">
                         <tr>
                             <th scope="col">

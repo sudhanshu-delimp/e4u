@@ -36,7 +36,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive-xl">
-                                <table class="table" id="logOfficeTable">
+                                <table class="table w-100" id="logOfficeTable">
                                     <thead class="table-bg">
                                         <tr>
                                             <th scope="col">ID</th>
