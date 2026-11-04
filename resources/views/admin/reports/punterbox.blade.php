@@ -16,10 +16,9 @@
                 <h1 class="h1">Punterbox Reports</h1>
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b> </span>
             </div>
-
         </div>
 
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12">
             <div class="card collapse" id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -120,7 +119,7 @@
         </div>
     </div>
 </div>
-</div>
+
 
 <div class="modal fade upload-modal" id="success_popup" tabindex="-1" role="dialog"
     aria-labelledby="confirmPopupLabel" aria-hidden="true">

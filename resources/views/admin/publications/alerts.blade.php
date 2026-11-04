@@ -30,7 +30,7 @@ $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes
          <h1 class="h1"> Alerts</h1>
          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span>
       </div>
-      <div class="col-md-12 mb-4">
+      <div class="col-md-12">
          <div class="card collapse" id="notes">
             <div class="card-body">
                <h3 class="NotesHeader"><b>Notes:</b> </h3>

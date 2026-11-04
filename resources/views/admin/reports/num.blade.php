@@ -27,7 +27,7 @@
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
                 aria-expanded="true"><b>Help?</b></span>
         </div>
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12">
             <div class="card collapse" id="notes" style="">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -45,7 +45,7 @@
     </div>
     <!-- Page Heading -->
     <div class="row">
-        <div class="col-md-12 mb-4">        
+        <div class="col-md-12">        
             <div class="common-card">
                 <div class="stats-card-grid">
                     <div class="stats-card">

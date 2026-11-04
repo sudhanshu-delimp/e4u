@@ -130,7 +130,7 @@
             }
 
             .sidebar.toggled:hover {
-                width: 350px !important;
+                width: 300px !important;
                 position: relative !important;
                 /* Content ke upar chadhega nahi, use aage khiskayega */
                 flex-shrink: 0 !important;
