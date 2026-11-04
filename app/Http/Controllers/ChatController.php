@@ -57,6 +57,21 @@ class ChatController extends Controller
         '3g2'  => ['video', 'video/3gpp2'],
         'mpg'  => ['video', 'video/mpeg'],
         'mpeg' => ['video', 'video/mpeg'],
+
+                // Documents
+        'pdf'  => ['document', 'application/pdf'],
+        'doc'  => ['document', 'application/msword'],
+        'docx' => ['document', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+        'xls'  => ['document', 'application/vnd.ms-excel'],
+        'xlsx' => ['document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+        'ppt'  => ['document', 'application/vnd.ms-powerpoint'],
+        'pptx' => ['document', 'application/vnd.openxmlformats-officedocument.presentationml.presentation'],
+        'txt'  => ['document', 'text/plain'],
+        'csv'  => ['document', 'text/csv'],
+        'rtf'  => ['document', 'application/rtf'],
+        'odt'  => ['document', 'application/vnd.oasis.opendocument.text'],
+        'ods'  => ['document', 'application/vnd.oasis.opendocument.spreadsheet'],
+        'odp'  => ['document', 'application/vnd.oasis.opendocument.presentation'],
     ];
 
     public function __construct(private ChatEligibility $eligibility)
@@ -529,6 +544,7 @@ class ChatController extends Controller
                 ChatAttachment::create([
                     'message_id' => $message->id,
                     'path'       => $path,
+                    'name'       => $item['name'] ?? null,
                     'kind'       => $item['kind'],
                     'mime'       => $item['mime'],
                     'size'       => $item['size'],
@@ -1067,23 +1083,35 @@ class ChatController extends Controller
         return match ($message->type) {
             'image' => 'Photo',
             'video' => 'Video',
+            'document' => 'Document',
             default => (string) $message->body,
         };
     }
 
-    /**
-     * Work out whether an uploaded file is an image or a video we accept.
-     * Returns ['kind' => 'image|video', 'mime' => string, 'ext' => string] or null.
+        /**
+     * Work out whether an uploaded file is an image, a video or a document we accept.
+     * Returns ['kind' => 'image|video|document', 'mime' => string, 'ext' => string, 'name' => string] or null.
      */
     private function detectAttachment(UploadedFile $file): ?array
     {
         $mime  = strtolower((string) $file->getMimeType());
         $ext   = preg_replace('/[^a-z0-9]/', '', strtolower((string) $file->getClientOriginalExtension()));
         $known = self::ATTACHMENT_EXTENSIONS[$ext] ?? null;
+        $name  = mb_substr(preg_replace('/[\x00-\x1F\x7F\/\\\\]/', '', basename((string) $file->getClientOriginalName())), 0, 150);
 
-        // SVG files can carry scripts, so they are not accepted
-        if ($mime === 'image/svg+xml' || $ext === 'svg') {
+        // SVG files and anything that can run as a page or a program are never accepted
+        $blocked = [
+            'image/svg+xml', 'text/html', 'application/xhtml+xml', 'application/javascript', 'text/javascript',
+            'application/x-httpd-php', 'text/x-php', 'application/x-dosexec', 'application/x-executable',
+        ];
+
+        if ($ext === 'svg' || in_array($mime, $blocked, true)) {
             return null;
+        }
+
+        // Documents are accepted by their extension (servers report office files in many ways)
+        if ($known && $known[0] === 'document') {
+            return ['kind' => 'document', 'mime' => $known[1], 'ext' => $ext, 'name' => $name];
         }
 
         // The server recognised it as an image or a video
@@ -1092,6 +1120,7 @@ class ChatController extends Controller
                 'kind' => str_starts_with($mime, 'image/') ? 'image' : 'video',
                 'mime' => $mime,
                 'ext'  => $known ? $ext : ($file->guessExtension() ?: ($ext ?: 'bin')),
+                'name' => $name,
             ];
         }
 
@@ -1100,7 +1129,7 @@ class ChatController extends Controller
         $generic = ['', 'application/octet-stream', 'binary/octet-stream'];
 
         if ($known && in_array($mime, $generic, true)) {
-            return ['kind' => $known[0], 'mime' => $known[1], 'ext' => $ext];
+            return ['kind' => $known[0], 'mime' => $known[1], 'ext' => $ext, 'name' => $name];
         }
 
         return null;
@@ -1125,6 +1154,7 @@ class ChatController extends Controller
                 'kind' => $a->kind,
                 'mime' => $a->mime,
                 'size' => $a->size,
+                'name' => $a->name,
                 // The escorts disk root is public/escorts, so files open at /escorts/{path}
                 'url'  => '/escorts/' . ltrim($a->path, '/'),
             ])->values()->all(),

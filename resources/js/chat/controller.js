@@ -17,9 +17,10 @@ const MAX_FILES = 10;
 const TYPING_SEND_GAP_MS = 2000;
 const TYPING_SHOW_MS = 3500;
 
-const FILE_ACCEPT = 'image/*,video/*,.heic,.heif,.avif,.tif,.tiff,.mkv,.avi,.wmv,.flv,.3gp,.3g2,.mpg,.mpeg,.ogv,.m4v';
+const FILE_ACCEPT = 'image/*,video/*,.heic,.heif,.avif,.tif,.tiff,.mkv,.avi,.wmv,.flv,.3gp,.3g2,.mpg,.mpeg,.ogv,.m4v,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.rtf,.odt,.ods,.odp';
 const IMAGE_EXT = ['jpg', 'jpeg', 'jpe', 'jfif', 'png', 'gif', 'webp', 'bmp', 'avif', 'heic', 'heif', 'tif', 'tiff', 'ico'];
 const VIDEO_EXT = ['mp4', 'm4v', 'mov', 'webm', 'ogv', 'mkv', 'avi', 'wmv', 'flv', '3gp', '3g2', 'mpg', 'mpeg'];
+const DOC_EXT = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt', 'csv', 'rtf', 'odt', 'ods', 'odp'];
 const PREVIEWABLE_IMAGES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp', 'image/avif'];
 
 // 'image', 'video' or null when the file type is not supported
@@ -36,6 +37,10 @@ function fileKind(file) {
 
     if (file.type.indexOf('video/') === 0 || VIDEO_EXT.indexOf(ext) !== -1) {
         return 'video';
+    }
+
+    if (DOC_EXT.indexOf(ext) !== -1) {
+        return 'document';
     }
 
     return null;
@@ -571,9 +576,13 @@ export function initChat(root) {
                 state.previewUrls.push(url);
                 thumb = `<img src="${url}" alt="" style="width:56px;height:56px;object-fit:cover;border-radius:6px;display:block;">`;
             } else {
-                const icon = fileKind(file) === 'image' ? 'bi-image' : 'bi-camera-video';
+                const kind = fileKind(file);
+                const icon = kind === 'image' ? 'bi-image' : (kind === 'document' ? 'bi-file-earmark-text' : 'bi-camera-video');
+                const label = kind === 'document'
+                    ? `<div style="max-width:72px;margin-top:2px;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${view.escapeHtml(file.name)}</div>`
+                    : '';
 
-                thumb = `<span style="width:56px;height:56px;border-radius:6px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:22px;"><i class="bi ${icon}"></i></span>`;
+                thumb = `<span style="width:56px;height:56px;border-radius:6px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:22px;"><i class="bi ${icon}"></i></span>${label}`;
             }
 
             return `<div style="position:relative;flex:0 0 auto;" title="${view.escapeHtml(file.name)}">

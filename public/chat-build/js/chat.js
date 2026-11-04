@@ -657,9 +657,10 @@ var MAX_FILE_BYTES = 50 * 1024 * 1024;
 var MAX_FILES = 10;
 var TYPING_SEND_GAP_MS = 2000;
 var TYPING_SHOW_MS = 3500;
-var FILE_ACCEPT = 'image/*,video/*,.heic,.heif,.avif,.tif,.tiff,.mkv,.avi,.wmv,.flv,.3gp,.3g2,.mpg,.mpeg,.ogv,.m4v';
+var FILE_ACCEPT = 'image/*,video/*,.heic,.heif,.avif,.tif,.tiff,.mkv,.avi,.wmv,.flv,.3gp,.3g2,.mpg,.mpeg,.ogv,.m4v,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.rtf,.odt,.ods,.odp';
 var IMAGE_EXT = ['jpg', 'jpeg', 'jpe', 'jfif', 'png', 'gif', 'webp', 'bmp', 'avif', 'heic', 'heif', 'tif', 'tiff', 'ico'];
 var VIDEO_EXT = ['mp4', 'm4v', 'mov', 'webm', 'ogv', 'mkv', 'avi', 'wmv', 'flv', '3gp', '3g2', 'mpg', 'mpeg'];
+var DOC_EXT = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt', 'csv', 'rtf', 'odt', 'ods', 'odp'];
 var PREVIEWABLE_IMAGES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/bmp', 'image/avif'];
 
 // 'image', 'video' or null when the file type is not supported
@@ -673,6 +674,9 @@ function fileKind(file) {
   }
   if (file.type.indexOf('video/') === 0 || VIDEO_EXT.indexOf(ext) !== -1) {
     return 'video';
+  }
+  if (DOC_EXT.indexOf(ext) !== -1) {
+    return 'document';
   }
   return null;
 }
@@ -1195,8 +1199,10 @@ function initChat(root) {
         state.previewUrls.push(url);
         thumb = "<img src=\"".concat(url, "\" alt=\"\" style=\"width:56px;height:56px;object-fit:cover;border-radius:6px;display:block;\">");
       } else {
-        var icon = fileKind(file) === 'image' ? 'bi-image' : 'bi-camera-video';
-        thumb = "<span style=\"width:56px;height:56px;border-radius:6px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:22px;\"><i class=\"bi ".concat(icon, "\"></i></span>");
+        var kind = fileKind(file);
+        var icon = kind === 'image' ? 'bi-image' : kind === 'document' ? 'bi-file-earmark-text' : 'bi-camera-video';
+        var label = kind === 'document' ? "<div style=\"max-width:72px;margin-top:2px;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;\">".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(file.name), "</div>") : '';
+        thumb = "<span style=\"width:56px;height:56px;border-radius:6px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:22px;\"><i class=\"bi ".concat(icon, "\"></i></span>").concat(label);
       }
       return "<div style=\"position:relative;flex:0 0 auto;\" title=\"".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(file.name), "\">\n                ").concat(thumb, "\n                <button type=\"button\" class=\"chat-attach-remove\" data-index=\"").concat(index, "\" title=\"Remove\"\n                    style=\"position:absolute;top:-6px;right:-14px;width:20px;height:20px;border-radius:50%;border:0;background:#ff3c5f;color:#fff;font-size:14px;line-height:20px;padding:0;cursor:pointer;\">&times;</button>\n            </div>");
     }).join('');
@@ -2789,6 +2795,9 @@ function previewText(message) {
   if (message.type === 'video') {
     return 'Video';
   }
+  if (message.type === 'document') {
+    return 'Document';
+  }
   return message.body || '';
 }
 
@@ -2849,13 +2858,13 @@ function attachmentsHtml(msg) {
     return "<a href=\"".concat(url, "\" download style=\"display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;padding:8px 12px;background:rgba(0,0,0,0.05);border-radius:8px;\">\n            <i class=\"bi bi-file-earmark-arrow-down\" style=\"font-size:24px;\"></i>\n            <span><b>").concat(label, "</b><br><small>").concat(format, " \u2022 ").concat(fmtSize(a.size), "</small></span>\n        </a>");
   }
 
-  // CASE 2: MULTIPLE ATTACHMENTS (Images + Videos + Documents sabhi ke liye Gallery)
+  // CASE 2: MULTIPLE ATTACHMENTS (Images + Videos + Documents all for Gallery)
   var tiles = list.map(function (a, index) {
     var url = esc(a.url);
     var mime = String(a.mime || '').toLowerCase();
     var hidden = index > 3 ? ' chat-gallery-hidden' : '';
 
-    // 4th item (index 3) par +count aayega agar 3 se zyada hain
+    // 4th item (index 3) par +count id greater the 3 greater than 3 attachments  to overlay show 
     var overlay = index === 3 && list.length > 3 ? "<span class=\"chat-gallery-more\" aria-hidden=\"true\"><i class=\"bi bi-plus-lg\"></i><span>".concat(list.length - 3, "</span></span>") : '';
     var content = '';
     if (a.kind === 'image' && showableImages.indexOf(mime) !== -1) {
@@ -2864,11 +2873,13 @@ function attachmentsHtml(msg) {
     } else if (a.kind === 'video' && playableVideos.indexOf(mime) !== -1) {
       // Video Tile
       content = "<video src=\"".concat(url, "#t=0.5\" preload=\"metadata\" muted playsinline></video>\n                       <i class=\"bi bi-play-circle-fill chat-video-play-icon\" aria-hidden=\"true\"></i>");
-    } else {
-      // Document / PDF / ZIP Tile
-      var _format = esc((mime.split('/')[1] || 'FILE').replace(/^x-/, '').toUpperCase());
-      var fileName = esc(a.name || "".concat(_format, " File"));
-      content = "<div class=\"chat-gallery-doc\">\n                <i class=\"bi bi-file-earmark-text\" style=\"font-size:24px;\"></i>\n                <span class=\"chat-gallery-doc-name\">".concat(fileName, "</span>\n                <small>").concat(_format, "</small>\n            </div>");
+    }
+
+    // Documents: a card, a click downloads the file with its original name
+    else if (a.kind === 'document') {
+      var fileName = escapeHtml(a.name || 'Document');
+      var type = escapeHtml((String(a.name || '').split('.').pop() || 'FILE').toUpperCase());
+      return "<a href=\"".concat(url, "\" download=\"").concat(fileName, "\"\n                style=\"display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;min-width:200px;max-width:280px;\">\n                <i class=\"bi bi-file-earmark-text\" style=\"font-size:30px;\"></i>\n                <span style=\"flex:1;overflow:hidden;\">\n                    <strong style=\"display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;\"></strong>\n                    <small>").concat(type, " &middot; ").concat(escapeHtml(formatSize(a.size)), "</small>\n                </span>\n                <i class=\"bi bi-download\"></i>\n            </a>");
     }
     return "<a href=\"".concat(url, "\" class=\"chat-media chat-gallery-tile").concat(hidden, "\" data-kind=\"").concat(esc(a.kind || 'file'), "\"\n            target=\"_blank\" rel=\"noopener\" ").concat(a.kind !== 'image' && a.kind !== 'video' ? 'download' : '', ">\n            ").concat(content, "\n            ").concat(overlay, "\n        </a>");
   }).join('');
