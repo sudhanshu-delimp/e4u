@@ -568,7 +568,20 @@ class ChatController extends Controller
 
         $payload = $this->payload($message);
 
-        broadcast(new MessageSent($payload, $otherId));
+        $sender = $request->user();
+
+        $muted = (bool) DB::table('chat_participants')
+            ->where('conversation_id', $conv->id)
+            ->where('user_id', $otherId)
+            ->value('is_muted');
+
+        // Extra info is only for the notification, the saved message is unchanged
+        broadcast(new MessageSent($payload + ['notify' => [
+            'muted'  => $muted,
+            'name'   => ChatState::displayName($sender),
+            'avatar' => $sender->avatar_img,
+            'color'  => ChatState::color($sender->state_id),
+        ]], $otherId));
 
         return response()->json(['data' => $payload], 201);
     }
