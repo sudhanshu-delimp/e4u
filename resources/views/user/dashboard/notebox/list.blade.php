@@ -238,14 +238,6 @@
 
     <script>
         $(document).ready(function() {
-            $('.notebox-profile-wrap').off('click');
-            $('.notebox-profile-wrap').on('click', function() {
-                alert("df");
-                var image = $(this).find('.note-box-profile');
-                var source = image.attr('src');
-
-                console.log(source);
-            });
             // Initialize DataTable
             var table = $('#myNoteBoxReportListTable').DataTable({
 
@@ -410,6 +402,66 @@
                     row.child.hide();
                     parentTr.removeClass('shown');
                     parentTr.find('.view_report').removeClass('open');
+                });
+            });
+
+            $(document).on('click', '.delete_report', function(e) {
+                e.preventDefault();
+
+                const id = $(this).data('id');
+                const url = "{{ route('user.notebox.delete', ':id') }}".replace(':id', encodeURIComponent(id));
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'This Notebox will be permanently deleted.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Yes, delete',
+                    cancelButtonText: 'Cancel'
+                }).then(function(result) {
+                    if (!result.isConfirmed) {
+                        return;
+                    }
+
+                    $.ajax({
+                        url: url,
+                        type: 'DELETE',
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            if (!response.success) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Unable to delete',
+                                    text: response.message || 'The Notebox could not be deleted.'
+                                });
+                                return;
+                            }
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Deleted!',
+                                text: response.message,
+                                confirmButtonText: 'OK',
+                                confirmButtonColor: '#3085d6'
+                            });
+                            table.ajax.reload(null, false);
+                        },
+                        error: function(xhr) {
+                            const message = xhr.responseJSON && xhr.responseJSON.message
+                                ? xhr.responseJSON.message
+                                : 'The Notebox could not be deleted. Please try again.';
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Unable to delete',
+                                text: message
+                            });
+                        }
+                    });
                 });
             });
 

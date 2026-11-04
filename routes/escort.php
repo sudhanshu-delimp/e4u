@@ -38,6 +38,7 @@ use App\Http\Controllers\SupportTicketsController;
 use App\Http\Controllers\User\Dashboard\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Escort\LegboxNotificationforEscortController;
+use App\Http\Controllers\Escort\AnalyticsController;
 
 //remove before prod
 Route::post('/test-paymentUrl', [EscortController::class, 'pinup_test_payment'])->name('escort.payment');
@@ -299,32 +300,15 @@ Route::post('/task-status', [TaskListController::class, 'statusTask'])->name('da
 Route::post('/task-open', [TaskListController::class, 'openTask'])->name('dashboard.ajax-open-task');
 Route::post('/task-delete', [TaskListController::class, 'destroy'])->name('dashboard.ajax-delete-task');
 
-
-
-
-
 //
 Route::get('archive-histories', function () {
   return view('escort.dashboard.archives.archive-histories');
 });
 
-
-
-
-
-
 Route::get('photo-video-verification', function () {
   return view('escort.dashboard.archives.photo-video-verification');
 });
-Route::get('profiles-tours', function () {
-  return view('escort.dashboard.Annalytics.profiles-tours');
-});
-Route::get('social-media', function () {
-  return view('escort.dashboard.Annalytics.social-media');
-});
-Route::get('feedback', function () {
-  return view('escort.dashboard.Annalytics.feedback');
-});
+
 Route::get('criticalinformation', function () {
   return view('escort.dashboard.Annalytics.criticalinformation');
 });
@@ -574,3 +558,9 @@ Route::get('tours', function () {
 })->name('escort.tours');
 
 Route::get('/my-statistics', [EscortStatisticsController::class, 'index'])->name('escort.dashboard.my-statistics');
+
+/** Analytics */
+Route::get('/social-media', [AnalyticsController::class, 'index'])->name('escort.dashboard.annalytics.social-media');
+Route::get('/profiles-tours', [AnalyticsController::class, 'profilesTours'])->name('escort.dashboard.annalytics.profiles-tours');
+Route::get('/feedback', [AnalyticsController::class, 'feedback'])->name('escort.dashboard.Annalytics.social-media');
+

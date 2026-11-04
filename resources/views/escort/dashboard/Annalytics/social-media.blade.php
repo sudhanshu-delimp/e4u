@@ -54,34 +54,34 @@
                                     <img src="{{ asset('assets/dashboard/img/twitter-icon.png') }}" alt="icon">
                                 </div></td>
                                 <td>X</td>
-                                <td class="text-center">25</td>
-                                <td class="text-center">125</td>
-                                <td class="text-center">1,500</td>
+                                <td class="text-center">{{$views['today']['social_media_twitter_count']}}</td>
+                                <td class="text-center">{{$views['this_week']['social_media_twitter_count']}}</td>
+                                <td class="text-center">{{$views['year_to_date']['social_media_twitter_count']}}</td>
                             </tr>
                             <tr>
                                 <td><div class="statistics-icon">
                                     <img src="{{ asset('assets/dashboard/img/instagram-icon.png') }}" alt="icon">
                                 </div></td>
                                 <td>Instagram</td>
-                                <td class="text-center">25</td>
-                                <td class="text-center">125</td>
-                                <td class="text-center">1,500</td>
+                                 <td class="text-center">{{$views['today']['social_media_instagram_count']}}</td>
+                                <td class="text-center">{{$views['this_week']['social_media_instagram_count']}}</td>
+                                <td class="text-center">{{$views['year_to_date']['social_media_instagram_count']}}</td>
                             </tr>
                             <tr>
                                 <td><div class="statistics-icon">
                                     <img src="{{ asset('assets/dashboard/img/facebook-icon.png') }}" alt="icon">
                                 </div></td>
                                 <td>Facebook</td>
-                                <td class="text-center">25</td>
-                                <td class="text-center">125</td>
-                                <td class="text-center">1,500</td>
+                                <td class="text-center">{{$views['today']['social_media_facebook_count']}}</td>
+                                <td class="text-center">{{$views['this_week']['social_media_facebook_count']}}</td>
+                                <td class="text-center">{{$views['year_to_date']['social_media_facebook_count']}}</td>
                             </tr>
                             <tr>
                                 <td><div class="statistics-icon">
                                     <img src="{{ asset('assets/dashboard/img/click.png') }}" alt="icon">
                                 </div></td>
                                 <td class="text-right font-weight-bold" colspan="3">Total Clicks</td>
-                                <td class="text-center font-weight-bold">4,500</td>
+                                <td class="text-center font-weight-bold">{{$views['year_to_date']['social_media_count']}}</td>
                             </tr>
                         </tbody>
                     </table>

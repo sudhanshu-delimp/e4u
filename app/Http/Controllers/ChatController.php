@@ -57,6 +57,21 @@ class ChatController extends Controller
         '3g2'  => ['video', 'video/3gpp2'],
         'mpg'  => ['video', 'video/mpeg'],
         'mpeg' => ['video', 'video/mpeg'],
+
+                // Documents
+        'pdf'  => ['document', 'application/pdf'],
+        'doc'  => ['document', 'application/msword'],
+        'docx' => ['document', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+        'xls'  => ['document', 'application/vnd.ms-excel'],
+        'xlsx' => ['document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+        'ppt'  => ['document', 'application/vnd.ms-powerpoint'],
+        'pptx' => ['document', 'application/vnd.openxmlformats-officedocument.presentationml.presentation'],
+        'txt'  => ['document', 'text/plain'],
+        'csv'  => ['document', 'text/csv'],
+        'rtf'  => ['document', 'application/rtf'],
+        'odt'  => ['document', 'application/vnd.oasis.opendocument.text'],
+        'ods'  => ['document', 'application/vnd.oasis.opendocument.spreadsheet'],
+        'odp'  => ['document', 'application/vnd.oasis.opendocument.presentation'],
     ];
 
     public function __construct(private ChatEligibility $eligibility)
@@ -201,13 +216,13 @@ class ChatController extends Controller
                 ],
                 'last'         => $last ? [
                     'preview'    => $this->preview($last),
-                    'created_at' => \Carbon\Carbon::parse($last->created_at)->toIso8601String(),
+                    'created_at' => \Carbon\Carbon::parse($last->created_at)->toIso8601String(), 
                     'mine'       => (int) $last->sender_id === $me->id,
                 ] : null,
                 'unread'       => (int) ($unread[$r->id] ?? 0),
                 'is_muted'     => (bool) $r->is_muted,
                 'is_archived'  => (bool) $r->is_archived,
-                'is_appointed' => $myAgentIds > 0 && (int) $other->id === $myAgentIds,
+                'is_appointed' => in_array((int) $other->id, $myAgentIds, true),
                 'blocked_by_me' => in_array($other->id, $blockedByMe),
                 'blocked_me'    => in_array($other->id, $blockedMe),
             ];
@@ -529,6 +544,7 @@ class ChatController extends Controller
                 ChatAttachment::create([
                     'message_id' => $message->id,
                     'path'       => $path,
+                    'name'       => $item['name'] ?? null,
                     'kind'       => $item['kind'],
                     'mime'       => $item['mime'],
                     'size'       => $item['size'],
@@ -653,8 +669,10 @@ class ChatController extends Controller
         $me   = $request->user();
         $conv = $this->conversationFor($me->id, $conversation);
         // The chat with the appointed Agent always stays in the list
-        if ($request->boolean('archived', true)
-            && in_array($conv->otherUserId($me->id), $this->appointedAgentIds($me), true)) {
+        if (
+            $request->boolean('archived', true)
+            && in_array($conv->otherUserId($me->id), $this->appointedAgentIds($me), true)
+        ) {
             return response()->json(['message' => 'The chat with your appointed Agent cannot be archived.'], 422);
         }
 
@@ -667,6 +685,30 @@ class ChatController extends Controller
 
         return response()->json(['archived' => $archived]);
     }
+
+    public function search(Request $request, ChatConversation $conversation)
+    {
+        abort_unless($conversation->hasParticipant($request->user()->id), 403);
+
+        $term = trim((string) $request->query('q', ''));
+
+        if (mb_strlen($term) < 2) {
+            return response()->json(['total' => 0, 'data' => []]);
+        }
+
+        $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $term) . '%';
+
+        $query = ChatMessage::where('conversation_id', $conversation->id)
+            ->whereNotNull('body')
+            ->where('body', 'like', $like);
+
+        $total = (clone $query)->count();
+
+        $rows = $query->orderByDesc('id')->limit(50)->get(['id', 'sender_id', 'body', 'created_at']);
+
+        return response()->json(['total' => $total, 'data' => $rows]);
+    }
+
 
     /**
      * Delete a conversation for me only. The other person keeps it and
@@ -1041,23 +1083,35 @@ class ChatController extends Controller
         return match ($message->type) {
             'image' => 'Photo',
             'video' => 'Video',
+            'document' => 'Document',
             default => (string) $message->body,
         };
     }
 
-    /**
-     * Work out whether an uploaded file is an image or a video we accept.
-     * Returns ['kind' => 'image|video', 'mime' => string, 'ext' => string] or null.
+        /**
+     * Work out whether an uploaded file is an image, a video or a document we accept.
+     * Returns ['kind' => 'image|video|document', 'mime' => string, 'ext' => string, 'name' => string] or null.
      */
     private function detectAttachment(UploadedFile $file): ?array
     {
         $mime  = strtolower((string) $file->getMimeType());
         $ext   = preg_replace('/[^a-z0-9]/', '', strtolower((string) $file->getClientOriginalExtension()));
         $known = self::ATTACHMENT_EXTENSIONS[$ext] ?? null;
+        $name  = mb_substr(preg_replace('/[\x00-\x1F\x7F\/\\\\]/', '', basename((string) $file->getClientOriginalName())), 0, 150);
 
-        // SVG files can carry scripts, so they are not accepted
-        if ($mime === 'image/svg+xml' || $ext === 'svg') {
+        // SVG files and anything that can run as a page or a program are never accepted
+        $blocked = [
+            'image/svg+xml', 'text/html', 'application/xhtml+xml', 'application/javascript', 'text/javascript',
+            'application/x-httpd-php', 'text/x-php', 'application/x-dosexec', 'application/x-executable',
+        ];
+
+        if ($ext === 'svg' || in_array($mime, $blocked, true)) {
             return null;
+        }
+
+        // Documents are accepted by their extension (servers report office files in many ways)
+        if ($known && $known[0] === 'document') {
+            return ['kind' => 'document', 'mime' => $known[1], 'ext' => $ext, 'name' => $name];
         }
 
         // The server recognised it as an image or a video
@@ -1066,6 +1120,7 @@ class ChatController extends Controller
                 'kind' => str_starts_with($mime, 'image/') ? 'image' : 'video',
                 'mime' => $mime,
                 'ext'  => $known ? $ext : ($file->guessExtension() ?: ($ext ?: 'bin')),
+                'name' => $name,
             ];
         }
 
@@ -1074,7 +1129,7 @@ class ChatController extends Controller
         $generic = ['', 'application/octet-stream', 'binary/octet-stream'];
 
         if ($known && in_array($mime, $generic, true)) {
-            return ['kind' => $known[0], 'mime' => $known[1], 'ext' => $ext];
+            return ['kind' => $known[0], 'mime' => $known[1], 'ext' => $ext, 'name' => $name];
         }
 
         return null;
@@ -1099,6 +1154,7 @@ class ChatController extends Controller
                 'kind' => $a->kind,
                 'mime' => $a->mime,
                 'size' => $a->size,
+                'name' => $a->name,
                 // The escorts disk root is public/escorts, so files open at /escorts/{path}
                 'url'  => '/escorts/' . ltrim($a->path, '/'),
             ])->values()->all(),

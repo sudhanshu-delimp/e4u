@@ -19,6 +19,7 @@ $chatConfig = [
 'read' => route('chat.read', ['conversation' => '__ID__']),
 'typing' => route('chat.typing', ['conversation' => '__ID__']),
 'message' => route('chat.message.update', ['message' => '__ID__']),
+'search' => route('chat.chat.search', ['conversation' => '__ID__']),
 ],
 // state id => abbreviation (ACT, NSW...)
 'states' => collect(config('escorts.profile.states', []))
@@ -52,6 +53,44 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
 
     .is-fullscreen .chat-my-id {
         display: block;
+    }
+
+    @keyframes chatFlash {
+
+        0%,
+        60% {
+            box-shadow: 0 0 0 4px #fde047;
+        }
+
+        100% {
+            box-shadow: 0 0 0 0 transparent;
+        }
+    }
+
+    .chat-jump-flash {
+        animation: chatFlash 2.2s ease-out;
+    }
+
+    .chat-hit {
+        padding: 8px 14px;
+        cursor: pointer;
+        border-bottom: 1px solid #f3f4f6;
+        font-size: 13px;
+    }
+
+    .chat-hit:hover {
+        background: #f9fafb;
+    }
+
+    .chat-hit small {
+        display: block;
+        color: #9ca3af;
+        font-size: 11px;
+    }
+
+    .chat-hit mark {
+        background: #fde047;
+        padding: 0 1px;
     }
 </style>
 

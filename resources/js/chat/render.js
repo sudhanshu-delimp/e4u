@@ -162,6 +162,10 @@ export function previewText(message) {
         return 'Video';
     }
 
+    if (message.type === 'document') {
+        return 'Document';
+    }
+
     return message.body || '';
 }
 
@@ -298,13 +302,13 @@ function attachmentsHtml(msg) {
         </a>`;
     }
 
-    // CASE 2: MULTIPLE ATTACHMENTS (Images + Videos + Documents sabhi ke liye Gallery)
+    // CASE 2: MULTIPLE ATTACHMENTS (Images + Videos + Documents all for Gallery)
     const tiles = list.map((a, index) => {
         const url = esc(a.url);
         const mime = String(a.mime || '').toLowerCase();
         const hidden = index > 3 ? ' chat-gallery-hidden' : '';
         
-        // 4th item (index 3) par +count aayega agar 3 se zyada hain
+        // 4th item (index 3) par +count id greater the 3 greater than 3 attachments  to overlay show 
         const overlay = (index === 3 && list.length > 3)
             ? `<span class="chat-gallery-more" aria-hidden="true"><i class="bi bi-plus-lg"></i><span>${list.length - 3}</span></span>`
             : '';
@@ -318,15 +322,23 @@ function attachmentsHtml(msg) {
             // Video Tile
             content = `<video src="${url}#t=0.5" preload="metadata" muted playsinline></video>
                        <i class="bi bi-play-circle-fill chat-video-play-icon" aria-hidden="true"></i>`;
-        } else {
-            // Document / PDF / ZIP Tile
-            const format = esc((mime.split('/')[1] || 'FILE').replace(/^x-/, '').toUpperCase());
-            const fileName = esc(a.name || `${format} File`);
-            content = `<div class="chat-gallery-doc">
-                <i class="bi bi-file-earmark-text" style="font-size:24px;"></i>
-                <span class="chat-gallery-doc-name">${fileName}</span>
-                <small>${format}</small>
-            </div>`;
+        } 
+        
+        
+        // Documents: a card, a click downloads the file with its original name
+        else if (a.kind === 'document') {
+            const fileName = escapeHtml(a.name || 'Document');
+            const type = escapeHtml((String(a.name || '').split('.').pop() || 'FILE').toUpperCase());
+
+            return `<a href="${url}" download="${fileName}"
+                style="display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;min-width:200px;max-width:280px;">
+                <i class="bi bi-file-earmark-text" style="font-size:30px;"></i>
+                <span style="flex:1;overflow:hidden;">
+                    <strong style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${fileName}</strong>
+                    <small>${type} &middot; ${escapeHtml(formatSize(a.size))}</small>
+                </span>
+                <i class="bi bi-download"></i>
+            </a>`;
         }
 
         return `<a href="${url}" class="chat-media chat-gallery-tile${hidden}" data-kind="${esc(a.kind || 'file')}"

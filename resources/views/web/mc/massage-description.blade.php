@@ -1864,10 +1864,9 @@ margin-right: 5px;
                        
 
                         <div class="col-md-12 mb-4">
-
                             @if(auth()->user())
-                                @if(auth()->user()->type == 0)
-                                    <button type="button" class="btn add_reviews_btn all_btn_flx open_review_box disabled-button">
+                                @if(auth()->user()->type == '0')
+                                    <button type="button" class="btn add_reviews_btn all_btn_flx open_review_box @if(auth()->user()->viewer_settings?->features_write_reviews == '0') disabled-button @endif">
                                         <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
                                         Add Review
                                     </button>
@@ -2937,14 +2936,16 @@ document.addEventListener('keydown', function (e) {
  window.authUser = {
         isLoggedIn: "{{ auth()->check() ? 'true' : 'false' }}",
         auth_user_type: "{{ auth()->check() ? auth()->user()->type : 'false' }}" ,
-        myLegboxDisabled: "{{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == 0 ? 'true' : 'false'}}" ,
-        write_reviews_disable: "{{ auth()->check() && auth()->user()->viewer_settings?->features_write_reviews == 0 ? 'true' : 'false' }}" ,
+        myLegboxDisabled: "{{ auth()->check() && auth()->user()->viewer_settings?->features_enable_my_legbox == '0' ? 'true' : 'false'}}" ,
+        write_reviews_disable: "{{ auth()->check() && auth()->user()->viewer_settings?->features_write_reviews == '0' ? 'true' : 'false' }}" ,
    };
+
 
 
 $(document).on('click', '.open_review_box', function (e) {
         e.preventDefault();
-       if (window.authUser.write_reviews_disable && window.authUser.auth_user_type=='0') {
+
+       if (window.authUser.write_reviews_disable == "true" && window.authUser.auth_user_type=='0') {
             swal_error_warning('Reviews','Please note you have disabled this feature. <br> To access this feature, go to your setting in My Account.');
             return false;
         } else {
