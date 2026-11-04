@@ -955,6 +955,19 @@ export function initChat(root) {
         refreshLiveUi();
     }
 
+    // A person logged in: show them online right away
+    function markOnline(userId) {
+        state.online.add(userId);
+
+        state.conversations.forEach((conv) => {
+            if (conv.user.id === userId) {
+                conv.user.last_online_at = new Date().toISOString();
+            }
+        });
+
+        refreshLiveUi();
+    }
+
     function onMessagesRead(event) {
         if (!event || event.conversation_id !== state.activeId) {
             return;
@@ -1595,6 +1608,7 @@ export function initChat(root) {
     });
     socket.on('presence:leaving', (u) => markOffline(u.id));
     socket.on('UserOffline', (e) => markOffline(Number(e.user_id)));
+    socket.on('.UserOnline', (event) => markOnline(Number(event.user_id)));
 
     initChatActions({
         root,
@@ -1612,5 +1626,11 @@ export function initChat(root) {
         updateBlockUi,
     });
 
+        // Refresh the list every minute so online dots follow people who log in or out elsewhere
+    setInterval(() => {
+        if (!document.hidden) {
+            loadList();
+        }
+    }, 60000);
     loadList();
 }
