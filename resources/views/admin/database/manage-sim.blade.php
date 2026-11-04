@@ -13,17 +13,13 @@ $securityLevel = isset(auth()->user()->staff_detail->security_level) ? auth()->u
 $editAccess = staffPageAccessPermission($securityLevel, 'edit');
 $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
 @endphp
-<!-- Content Wrapper -->
-<div id="content-wrapper" class="d-flex flex-column">
-   <!-- Main Content -->
-   <div id="content">
       <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
          <div class="row">
             <div class="custom-heading-wrapper col-md-12">
                <h1 class="h1">Manage SIMs</h1>
                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span>
             </div>
-            <div class="col-md-12 mb-4">
+            <div class="col-md-12">
                <div class="card collapse" id="notes">
                   <div class="card-body">
                      <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -53,7 +49,7 @@ $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes
             </div>
          </div>
          <div class="row">
-            <div class="col-md-12 col-sm-12 d-flex justify-content-end my-3 gap-20">
+            <div class="col-md-12 col-sm-12 d-flex justify-content-end mb-3 gap-20">
 
                <div class="total_listing">
                   <div><span>Available SIMs : </span></div>
@@ -65,7 +61,7 @@ $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes
                </div>
             </div>
             <div class="col-md-12">
-               <div class="table-responsive custom-badge">
+               <div class="table-responsive custom-badge common-card">
                   <table class="table table-bordered " id="EmailRequestTable">
                      <thead class="table-bg">
                         <tr>
@@ -114,14 +110,6 @@ $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes
             </div>
          </div>
       </div>
-   </div>
-   <!-- End of Main Content -->
-</div>
-<!-- End of Content Wrapper -->
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-   <i class="fas fa-angle-up"></i>
-</a>
 
 
 @endsection

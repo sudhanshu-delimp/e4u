@@ -52,7 +52,7 @@
             </div>
             @endif
         </div>
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12">
             <div class="card collapse" id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -65,7 +65,7 @@
         </div>
 
         <div class="col-sm-12 col-md-12 col-lg-12">
-            <div class="my-3 col-md-12 col-sm-12 d-flex justify-content-end gap-10 js_table_total_listing_container">
+            <div class="mb-3 col-md-12 col-sm-12 d-flex justify-content-end gap-10 js_table_total_listing_container">
             <a href="" class="text-white btn-cancel-modal">Refresh</a>    
             <div class="total_listing">
                     <div><span>Total Current : </span></div>
@@ -81,7 +81,7 @@
                 </div>
             </div>
 
-            <div class="table-responsive-xl">
+            <div class="table-responsive common-card">
                 <table class="table pin-table" id="pinUpListingTable">
                     <thead class="table-bg">
                         <tr>
