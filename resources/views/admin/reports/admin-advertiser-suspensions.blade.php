@@ -23,7 +23,7 @@
    <!--middle content-->
    <div class="row mt-5">
       <div class="custom-heading-wrapper col-md-12">
-         <h1 class="h1">Listings Suspended (Massage centre)</h1>
+         <h1 class="h1">Listings Suspended (E4U)</h1>
          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
       </div>
       <div class="col-md-12 ">
@@ -91,9 +91,6 @@
       </div>
    </div>
 </div>
-
-
-
 <!-- View Merchant popupform -->
 <div class="modal fade upload-modal" id="view-profile" tabindex="-1" role="dialog" aria-labelledby="view-profileLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
