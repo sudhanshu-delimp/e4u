@@ -543,7 +543,7 @@ Route::get('agent-request', function () {
 })->name('agent-request');
 
 
-Route::get('agent-messages', function () {
+Route::get('messages', function () {
   return view('center.dashboard.Communication.agent-messages');
 })->name('agent-messages');
 

@@ -245,6 +245,7 @@ export function initChat(root) {
     // Leave the open chat (after it is archived or deleted)
     function closeActive() {
         state.activeId = null;
+        window.chatActiveId = null;
         state.messages = [];
         state.hasMore = false;
         root.classList.remove('mobile-chat-open');
@@ -478,6 +479,7 @@ export function initChat(root) {
         }
 
         state.activeId = id;
+        window.chatActiveId = id;
         state.messages = [];
         state.hasMore = false;
         resetSearch();
@@ -1641,5 +1643,17 @@ export function initChat(root) {
             loadList();
         }
     }, 60000);
-    loadList();
+
+    window.addEventListener('chat:open', async (event) => {
+        await loadList();
+        openConversation(Number(event.detail));
+    });
+
+    const fromHash = location.hash.match(/^#chat-(\d+)$/);
+
+    loadList().then(() => {
+        if (fromHash) {
+            openConversation(Number(fromHash[1]));
+        }
+    });
 }
