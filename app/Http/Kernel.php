@@ -45,6 +45,7 @@ class Kernel extends HttpKernel
       \App\Http\Middleware\VerifyCsrfToken::class,
       \Illuminate\Routing\Middleware\SubstituteBindings::class,
       'HeaderInfo' => \App\Http\Middleware\HeaderInfo::class,
+      \App\Http\Middleware\TouchLastOnline::class,
 
     ],
 

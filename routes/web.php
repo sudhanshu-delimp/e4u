@@ -8,16 +8,20 @@ use App\Http\Controllers\AdvertiserSpamReportController;
 use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRegisterController;
 use App\Http\Controllers\Agent\AgentRequestController;
+use App\Http\Controllers\Agent\ImpersonateController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
 use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\Center\CenterController;
 use App\Http\Controllers\Center\Profile\MassageController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\CommonController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
 use App\Http\Controllers\Escort\ConciergeController;
+use App\Http\Controllers\Escort\EscortAccountController;
 use App\Http\Controllers\Escort\EscortController;
 use App\Http\Controllers\Escort\EscortMyLegboxViewerController;
 use App\Http\Controllers\Escort\EscortStatisticsController;
@@ -25,23 +29,29 @@ use App\Http\Controllers\Escort\EscortTourScheduleContoller;
 use App\Http\Controllers\Escort\EscortViewerInteractionController;
 use App\Http\Controllers\Escort\MyPlaymatesContoller;
 use App\Http\Controllers\Escort\PinUpsController;
+use App\Http\Controllers\EscortListingController;
 use App\Http\Controllers\GetCurrentUserGeolocationController;
 use App\Http\Controllers\InfluencerController;
 use App\Http\Controllers\MassageCentre;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\NotificationSetting;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ReportMassageController;
 use App\Http\Controllers\SupportTicketsController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\User\Auth\RegisterController;
 use App\Http\Controllers\User\Dashboard\UserController;
+use App\Http\Controllers\User\NoteBoxController;
+use App\Http\Controllers\Viewer\PunterBoxController;
+use App\Http\Controllers\Viewer\StatisticsController;
 use App\Http\Controllers\Viewer\ViewerController;
 use App\Http\Controllers\Viewer\ViewerEscortInteractionController;
 use App\Http\Controllers\Viewer\ViewerMassageInteractionController;
 use App\Http\Controllers\Viewer\ViewerPrefrenceController;
+use App\Http\Controllers\Viewer\ViewerReviewsController;
 use App\Http\Controllers\Viewer\ViewerTaskListController;
+use App\Http\Controllers\Viewer\ViwerStatisticsController;
 use App\Http\Controllers\WebController;
-use App\Http\Controllers\PageController;
 use App\Mail\sendPlaymateAccountDisableMail;
 use App\Models\Pricing;
 use App\Models\User;
@@ -49,14 +59,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Agent\ImpersonateController;
-use App\Http\Controllers\Viewer\PunterBoxController;
-use App\Http\Controllers\Viewer\ViewerReviewsController;
-use App\Http\Controllers\Escort\EscortAccountController;
-use App\Http\Controllers\EscortListingController;
-use App\Http\Controllers\User\NoteBoxController;
-use App\Http\Controllers\ChatController;
-use App\Http\Controllers\CommonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -224,9 +226,10 @@ Route::middleware('auth')->group(function () {
 
         // Route::get('/logs-and-statistics',function(){ return view('user.dashboard.logs-and-statistics');})->name('user.logs-and-statistics');
 
-        Route::get('/my-statistics', function () {
-            return view('user.dashboard.my-statistics');
-        })->name('user.my-statistics');
+
+        Route::get('/my-statistics',[StatisticsController::class, 'index'])->name('viewer.dashboard.my-statistics');
+
+        //My Statistics
 
         // Route::get('/task-list',function(){
         //     return view('user.dashboard.task-list');
@@ -250,11 +253,11 @@ Route::middleware('auth')->group(function () {
         Route::delete('my-report/{id}', [PunterBoxController::class, 'destroy'])->name('user.my-report.delete');
         Route::get('num-dashboard', [PunterBoxController::class, 'showReportOnDashboardAjax'])->name('user.punterboxdashboard');
         
-        Route::get('/notebox/list', function () {
-            return view('user.dashboard.notebox.list');
-        })->name('user.list');
+        // Route::get('/notebox/list', function () {
+        //     return view('user.dashboard.notebox.list');
+        // })->name('user.list');
 
-
+        Route::get('/notebox/list', [NoteBoxController::class, 'list'])->name('user.list');
         Route::get('/notebox/new/{id?}', [NoteBoxController::class, 'index'])->name('user.notebox.new');
         Route::get('/notebox/edit/{id}', [NoteBoxController::class, 'editNotebox'])->name('user.edit-notebox');
         Route::get('/notebox/my-reports', [NoteBoxController::class, 'myNotesBox'])->name('user.my-notebox-reports');
@@ -968,22 +971,39 @@ Route::get('supplier-login', [App\Http\Controllers\Admin\AuthController::class, 
 
 // routes/web.php
 Route::get('/robots.txt', function () {
-    if (app()->environment() !== 'production') {
-        // Staging/dev pe pura site block — Google isko kabhi index na kare
-        return response("User-agent: *\nDisallow: /", 200)
-            ->header('Content-Type', 'text/plain');
-    }
+    // if (app()->environment() !== 'production') {
+    //     return response("User-agent: *\nDisallow: /", 200)
+    //         ->header('Content-Type', 'text/plain');
+    // }
+
 
     $lines = [
-        //"User-agent: *",
+        "User-agent: *",
         "Allow: /",
-        //"Disallow: /admin",
-        //"Disallow: /login",
-        //"Disallow: /register",
-       // "Disallow: /password/*",
-        //"Disallow: /dashboard",
-       // "Disallow: /api/*",
-     //   "",
+
+        # Block administrative and user account pages
+        "Disallow: /admin/",
+        "Disallow: /dashboard/",
+        "Disallow: /login/",
+        "Disallow: /register/",
+        "Disallow: /account/",
+
+        # Block internal search results and dynamic filters to prevent duplicate content
+        "Disallow: /search/",
+        "Disallow: /*?q=*",
+        "Disallow: /*?filter=*",
+        "Disallow: /*?sort=*",
+
+        # Block system and API endpoints
+        "Disallow: /api/",
+        "Disallow: /includes/",
+        "Disallow: /checkout/",
+
+        # Allow crawling of all CSS and JS files for proper rendering
+        "Allow: /*.css$",
+        "Allow: /*.js$",
+
+        "",
         "Sitemap: " . url('/sitemap.xml'),
     ];
 
@@ -1028,4 +1048,5 @@ Route::middleware(['web', 'auth'])->prefix('chat')->name('chat.')->group(functio
         ->whereNumber('message')->name('message.update');
     Route::delete('/messages/{message}', [ChatController::class, 'deleteMessage'])
         ->whereNumber('message')->name('message.delete');
+    Route::get('conversations/{conversation}/search', [ChatController::class, 'search'])->name('chat.search');
 });

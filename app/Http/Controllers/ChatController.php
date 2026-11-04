@@ -57,6 +57,21 @@ class ChatController extends Controller
         '3g2'  => ['video', 'video/3gpp2'],
         'mpg'  => ['video', 'video/mpeg'],
         'mpeg' => ['video', 'video/mpeg'],
+
+                // Documents
+        'pdf'  => ['document', 'application/pdf'],
+        'doc'  => ['document', 'application/msword'],
+        'docx' => ['document', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+        'xls'  => ['document', 'application/vnd.ms-excel'],
+        'xlsx' => ['document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+        'ppt'  => ['document', 'application/vnd.ms-powerpoint'],
+        'pptx' => ['document', 'application/vnd.openxmlformats-officedocument.presentationml.presentation'],
+        'txt'  => ['document', 'text/plain'],
+        'csv'  => ['document', 'text/csv'],
+        'rtf'  => ['document', 'application/rtf'],
+        'odt'  => ['document', 'application/vnd.oasis.opendocument.text'],
+        'ods'  => ['document', 'application/vnd.oasis.opendocument.spreadsheet'],
+        'odp'  => ['document', 'application/vnd.oasis.opendocument.presentation'],
     ];
 
     public function __construct(private ChatEligibility $eligibility)
@@ -77,7 +92,10 @@ class ChatController extends Controller
 
         // Current location, falling back to the home state when it is empty
         $myLocation = (int) ($me->current_state_id ?: $me->state_id);
-        $myAgentId  = (int) $me->assigned_agent_id;
+        $myAgentIds = $this->appointedAgentIds($me);
+
+        // The appointed Agent always has a chat in the list, nobody has to search for it
+        $this->ensureAgentChats($me);
 
         $query = DB::table('chat_participants as p')
             ->join('chat_conversations as c', 'c.id', '=', 'p.conversation_id')
@@ -172,7 +190,7 @@ class ChatController extends Controller
             ->map(fn($k) => (int) $k)
             ->all();
 
-        $data = $rows->map(function ($r) use ($me, $users, $lastMessages, $unread, $myAgentId, $blockedByMe, $blockedMe, $lastIds) {
+        $data = $rows->map(function ($r) use ($me, $users, $lastMessages, $unread, $myAgentIds, $blockedByMe, $blockedMe, $lastIds) {
             $otherId = (int) $r->user_one_id === $me->id ? (int) $r->user_two_id : (int) $r->user_one_id;
             $other   = $users->get($otherId);
             $last    = $lastMessages->get($lastIds[$r->id] ?? 0);
@@ -198,13 +216,13 @@ class ChatController extends Controller
                 ],
                 'last'         => $last ? [
                     'preview'    => $this->preview($last),
-                    'created_at' => \Carbon\Carbon::parse($last->created_at)->toIso8601String(),
+                    'created_at' => \Carbon\Carbon::parse($last->created_at)->toIso8601String(), 
                     'mine'       => (int) $last->sender_id === $me->id,
                 ] : null,
                 'unread'       => (int) ($unread[$r->id] ?? 0),
                 'is_muted'     => (bool) $r->is_muted,
                 'is_archived'  => (bool) $r->is_archived,
-                'is_appointed' => $myAgentId > 0 && (int) $other->id === $myAgentId,
+                'is_appointed' => in_array((int) $other->id, $myAgentIds, true),
                 'blocked_by_me' => in_array($other->id, $blockedByMe),
                 'blocked_me'    => in_array($other->id, $blockedMe),
             ];
@@ -215,9 +233,12 @@ class ChatController extends Controller
         // "australia" = any Australian state
         $isAustralian = fn($id) => in_array((int) $id, $australiaIds, true);
 
-        // Your Location: people in my state (all chats when my own location is unknown).
-        // Australia: people in any Australian state.
         $data = $data->filter(function ($item) use ($location, $myLocation, $australiaIds) {
+            // The appointed Agent is listed under both radios
+            if ($item['is_appointed']) {
+                return true;
+            }
+
             $stateId = $item['user']['location_id'];
 
             if ($location === 'mine') {
@@ -226,7 +247,6 @@ class ChatController extends Controller
 
             return in_array($stateId, $australiaIds, true);
         });
-
         // The appointed Agent stays on top, the rest keep the latest-message order
         $data = $data->sortBy(fn($item) => $item['is_appointed'] ? 0 : 1);
 
@@ -524,6 +544,7 @@ class ChatController extends Controller
                 ChatAttachment::create([
                     'message_id' => $message->id,
                     'path'       => $path,
+                    'name'       => $item['name'] ?? null,
                     'kind'       => $item['kind'],
                     'mime'       => $item['mime'],
                     'size'       => $item['size'],
@@ -547,7 +568,20 @@ class ChatController extends Controller
 
         $payload = $this->payload($message);
 
-        broadcast(new MessageSent($payload, $otherId));
+        $sender = $request->user();
+
+        $muted = (bool) DB::table('chat_participants')
+            ->where('conversation_id', $conv->id)
+            ->where('user_id', $otherId)
+            ->value('is_muted');
+
+        // Extra info is only for the notification, the saved message is unchanged
+        broadcast(new MessageSent($payload + ['notify' => [
+            'muted'  => $muted,
+            'name'   => ChatState::displayName($sender),
+            'avatar' => $sender->avatar_img,
+            'color'  => ChatState::color($sender->state_id),
+        ]], $otherId));
 
         return response()->json(['data' => $payload], 201);
     }
@@ -625,6 +659,7 @@ class ChatController extends Controller
                 'name'           => ChatState::displayName($user),
                 'phone'          => formatMobileNumber($user->phone),
                 'member_id'      => $user->member_id,
+                'email'      => $user->email,
                 'avatar'         => $user->avatar_img,
                 'color'          => ChatState::color($user->state_id),
                 'type'           => config('chat.type_labels.' . (int) $user->type, ''),
@@ -646,6 +681,13 @@ class ChatController extends Controller
     {
         $me   = $request->user();
         $conv = $this->conversationFor($me->id, $conversation);
+        // The chat with the appointed Agent always stays in the list
+        if (
+            $request->boolean('archived', true)
+            && in_array($conv->otherUserId($me->id), $this->appointedAgentIds($me), true)
+        ) {
+            return response()->json(['message' => 'The chat with your appointed Agent cannot be archived.'], 422);
+        }
 
         $archived = $request->boolean('archived', true);
 
@@ -657,6 +699,30 @@ class ChatController extends Controller
         return response()->json(['archived' => $archived]);
     }
 
+    public function search(Request $request, ChatConversation $conversation)
+    {
+        abort_unless($conversation->hasParticipant($request->user()->id), 403);
+
+        $term = trim((string) $request->query('q', ''));
+
+        if (mb_strlen($term) < 2) {
+            return response()->json(['total' => 0, 'data' => []]);
+        }
+
+        $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $term) . '%';
+
+        $query = ChatMessage::where('conversation_id', $conversation->id)
+            ->whereNotNull('body')
+            ->where('body', 'like', $like);
+
+        $total = (clone $query)->count();
+
+        $rows = $query->orderByDesc('id')->limit(50)->get(['id', 'sender_id', 'body', 'created_at']);
+
+        return response()->json(['total' => $total, 'data' => $rows]);
+    }
+
+
     /**
      * Delete a conversation for me only. The other person keeps it and
      * every message stays in the database. A new message brings the chat back,
@@ -666,6 +732,10 @@ class ChatController extends Controller
     {
         $me   = $request->user();
         $conv = $this->conversationFor($me->id, $conversation);
+        // The chat with the appointed Agent always stays in the list
+        if (in_array($conv->otherUserId($me->id), $this->appointedAgentIds($me), true)) {
+            return response()->json(['message' => 'The chat with your appointed Agent cannot be deleted.'], 422);
+        }
 
         $latestId = ChatMessage::withTrashed()->where('conversation_id', $conv->id)->max('id');
 
@@ -866,6 +936,69 @@ class ChatController extends Controller
 
 
     /**
+     * users.id of the Agents this escort or massage centre appointed.
+     */
+    private function appointedAgentIds(User $user): array
+    {
+        if ((int) $user->type === (int) config('chat.types.agent')) {
+            return [];
+        }
+
+        return collect([(int) $user->assigned_agent_id])
+            ->merge(DB::table('agent_escorts')->where('escort_id', $user->id)->pluck('agent_id'))
+            ->map(fn($id) => (int) $id)
+            ->filter()
+            ->unique()
+            ->values()
+            ->all();
+    }
+
+    /**
+     * The appointed Agent always has a chat in the list, so nobody has to search for them.
+     * The chat cannot be deleted or archived, and its history is always shown.
+     */
+    private function ensureAgentChats(User $me): void
+    {
+        foreach ($this->appointedAgentIds($me) as $agentId) {
+            $agent = User::query()->find($agentId, ['id', 'type', 'assigned_agent_id']);
+
+            if (! $agent || ! $this->eligibility->canStart($me, $agent)['ok']) {
+                continue;
+            }
+
+            $conv = ChatConversation::between($me->id, $agentId)
+                ?? ChatConversation::forceCreate([
+                    'user_one_id' => min($me->id, $agentId),
+                    'user_two_id' => max($me->id, $agentId),
+                ]);
+
+            foreach ([$me->id, $agentId] as $userId) {
+                $exists = DB::table('chat_participants')
+                    ->where('conversation_id', $conv->id)
+                    ->where('user_id', $userId)
+                    ->exists();
+
+                if (! $exists) {
+                    DB::table('chat_participants')->insert([
+                        'conversation_id' => $conv->id,
+                        'user_id'         => $userId,
+                    ]);
+                }
+            }
+
+            // Only touch the row when something hides the chat
+            DB::table('chat_participants')
+                ->where('conversation_id', $conv->id)
+                ->where('user_id', $me->id)
+                ->where(function ($q) {
+                    $q->where('is_listed', 0)->orWhere('is_archived', 1)->orWhereNotNull('deleted_at');
+                })
+                ->update(['is_listed' => 1, 'is_archived' => 0, 'deleted_at' => null]);
+        }
+    }
+
+
+    /**
      * Limit a participants+conversations query to chats that are shown in the list:
      * added by this person, or having messages and not deleted by this person
      * (or deleted, but a newer message arrived).
@@ -963,23 +1096,35 @@ class ChatController extends Controller
         return match ($message->type) {
             'image' => 'Photo',
             'video' => 'Video',
+            'document' => 'Document',
             default => (string) $message->body,
         };
     }
 
-    /**
-     * Work out whether an uploaded file is an image or a video we accept.
-     * Returns ['kind' => 'image|video', 'mime' => string, 'ext' => string] or null.
+        /**
+     * Work out whether an uploaded file is an image, a video or a document we accept.
+     * Returns ['kind' => 'image|video|document', 'mime' => string, 'ext' => string, 'name' => string] or null.
      */
     private function detectAttachment(UploadedFile $file): ?array
     {
         $mime  = strtolower((string) $file->getMimeType());
         $ext   = preg_replace('/[^a-z0-9]/', '', strtolower((string) $file->getClientOriginalExtension()));
         $known = self::ATTACHMENT_EXTENSIONS[$ext] ?? null;
+        $name  = mb_substr(preg_replace('/[\x00-\x1F\x7F\/\\\\]/', '', basename((string) $file->getClientOriginalName())), 0, 150);
 
-        // SVG files can carry scripts, so they are not accepted
-        if ($mime === 'image/svg+xml' || $ext === 'svg') {
+        // SVG files and anything that can run as a page or a program are never accepted
+        $blocked = [
+            'image/svg+xml', 'text/html', 'application/xhtml+xml', 'application/javascript', 'text/javascript',
+            'application/x-httpd-php', 'text/x-php', 'application/x-dosexec', 'application/x-executable',
+        ];
+
+        if ($ext === 'svg' || in_array($mime, $blocked, true)) {
             return null;
+        }
+
+        // Documents are accepted by their extension (servers report office files in many ways)
+        if ($known && $known[0] === 'document') {
+            return ['kind' => 'document', 'mime' => $known[1], 'ext' => $ext, 'name' => $name];
         }
 
         // The server recognised it as an image or a video
@@ -988,6 +1133,7 @@ class ChatController extends Controller
                 'kind' => str_starts_with($mime, 'image/') ? 'image' : 'video',
                 'mime' => $mime,
                 'ext'  => $known ? $ext : ($file->guessExtension() ?: ($ext ?: 'bin')),
+                'name' => $name,
             ];
         }
 
@@ -996,7 +1142,7 @@ class ChatController extends Controller
         $generic = ['', 'application/octet-stream', 'binary/octet-stream'];
 
         if ($known && in_array($mime, $generic, true)) {
-            return ['kind' => $known[0], 'mime' => $known[1], 'ext' => $ext];
+            return ['kind' => $known[0], 'mime' => $known[1], 'ext' => $ext, 'name' => $name];
         }
 
         return null;
@@ -1021,6 +1167,7 @@ class ChatController extends Controller
                 'kind' => $a->kind,
                 'mime' => $a->mime,
                 'size' => $a->size,
+                'name' => $a->name,
                 // The escorts disk root is public/escorts, so files open at /escorts/{path}
                 'url'  => '/escorts/' . ltrim($a->path, '/'),
             ])->values()->all(),

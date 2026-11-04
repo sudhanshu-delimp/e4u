@@ -6,10 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\Escort;
 use App\Models\Notebox;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class NoteBoxController extends Controller
 {
+
+    public function list()
+    {
+        return view('user.dashboard.notebox.list');
+    }
+
 
     public function index(Request $request, $profile_id = null)
     {
@@ -43,12 +50,13 @@ class NoteBoxController extends Controller
 
     public function storeNotesBox(Request $request)
     {
+    
         $request->merge([
             'mobile' => preg_replace('/\s+/', '', $request->mobile),
             'advertised_price_per_hour' => str_replace(',', '', $request->advertised_price_per_hour),
         ]);
 
-        $notebox_exist =  Notebox::where('member_id' , $request->member_id)->first(); //E50126
+        $notebox_exist =  Notebox::where(['user_id' => Auth::id(), 'member_id' => $request->member_id])->first(); //E50126
 
         if ($notebox_exist) {
             return response()->json([
@@ -95,6 +103,9 @@ class NoteBoxController extends Controller
             'profile_pic' => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
         ]);
 
+        //pass Login Viewer Id
+        $validated['user_id'] = Auth::id(); 
+
         if ($request->hasFile('profile_pic')) {
             $file = $request->file('profile_pic');
             $filename = time() . '_' . $file->getClientOriginalName();
@@ -126,6 +137,20 @@ class NoteBoxController extends Controller
                         $row->profile_pic;
                 }
 
+                $deleteAction = (int) $row->user_id === (int) Auth::id()
+                    ? '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 edit_report"
+                             href="' . route('user.edit-notebox', [$row->id]) . '">
+                            <i class="fa fa-pen"></i> Edit
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 delete_report"
+                            href="#"
+                            data-id="' . $row->id . '">
+                            <i class="fa fa-trash"></i> Delete
+                        </a>
+                         <div class="dropdown-divider"></div>'
+                    : '';
+
                 $row->actions = '
                 <div class="dropdown no-arrow text-center">
                     <a class="dropdown-toggle" href="#" role="button"
@@ -137,17 +162,8 @@ class NoteBoxController extends Controller
 
                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in">
                        
-                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 edit_report"
-                             href="' . route('user.edit-notebox', [$row->id]) . '">
-                            <i class="fa fa-pen"></i> Edit
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 delete_report"
-                            href="#"
-                            data-id="' . $row->id . '">
-                            <i class="fa fa-trash"></i> Delete
-                        </a>
-                            <div class="dropdown-divider"></div>
+                        ' . $deleteAction . '
+                        
                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view_report"
                             href="#"
                             data-id="' . $row->id . '">
@@ -181,6 +197,7 @@ class NoteBoxController extends Controller
 
     public function updateNotesBox(Request $request)
     {
+
         $request->merge([
             'mobile' => preg_replace('/\s+/', '', $request->mobile),
             'advertised_price_per_hour' => str_replace(',', '', $request->advertised_price_per_hour),
@@ -223,7 +240,16 @@ class NoteBoxController extends Controller
             'profile_pic' => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
         ]);
 
-        $noteBox = NoteBox::findOrFail($request->notebox_id);
+        $noteBoxCheck = Notebox::where(['user_id' => Auth::id(), 'member_id' => $request->member_id])->where('id', '!=', $request->notebox_id)->first(); 
+
+        if ($noteBoxCheck) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Notebox Already Exists',
+                'data' => $noteBoxCheck
+            ]);
+        }
+        $noteBox = Notebox::where('id',$request->notebox_id)->first(); 
 
         /*
      * Update image only if a new image is uploaded.
@@ -253,6 +279,10 @@ class NoteBoxController extends Controller
             $validated['profile_pic'] = $request->existing_profile_pic;
         }
 
+        //update User id
+        $validated['user_id'] = Auth::id();
+
+
         $noteBox->update($validated);
 
         return response()->json([
@@ -263,13 +293,11 @@ class NoteBoxController extends Controller
 
     public function deleteNotesBox($id)
     {
-        $noteBox = NoteBox::findOrFail($id);
+        $noteBox = NoteBox::where('user_id', Auth::id())->findOrFail($id);
 
         // Delete the associated image if it exists
         if (!empty($noteBox->profile_pic)) {
-            Storage::disk('escorts')->delete(
-                'uploads/notebox/' . $noteBox->profile_pic
-            );
+            Storage::disk('escorts')->delete('uploads/notebox/' . $noteBox->profile_pic);
         }
 
         $noteBox->delete();

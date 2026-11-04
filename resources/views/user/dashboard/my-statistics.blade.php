@@ -66,30 +66,30 @@
                             <div class="stats-detail">
                                 <div class="stats-label">My Legbox
                                 </div>
-                                <div class="stats-value">25</div>
+                                <div class="stats-value">{{$statistics['MyLegbox']}}</div>
                             </div>
 
                             <div class="stats-detail">
                                 <div class="stats-label">Notes
                                 </div>
-                                <div class="stats-value">125</div>
+                                <div class="stats-value">{{$statistics['notBox']}}</div>
                             </div>
 
                             <div class="stats-detail">
                                 <div class="stats-label">Reviews Posted
                                 </div>
-                                <div class="stats-value">32</div>
+                                <div class="stats-value">{{$statistics['reviewPosted']}}</div>
                             </div>
 
                             <div class="stats-detail">
                                 <div class="stats-label">E4U Reports
                                 </div>
-                                <div class="stats-value">125</div>
+                                <div class="stats-value">{{$statistics['report']}}</div>
                             </div>
                             <div class="stats-detail">
                                 <div class="stats-label">Punterbox Reports
                                 </div>
-                                <div class="stats-value">125</div>
+                                <div class="stats-value">{{$statistics['penterBox']}}</div>
                             </div>
                         </div>
                     </div>

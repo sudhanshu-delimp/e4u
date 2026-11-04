@@ -73,10 +73,11 @@
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b></h3>
-                        
+
                         <ol>
                             <li>Click the card to view information.</li>
-                            <li>Some features can be changed here as well as from the relevant subject page. Where you make a change, the relevant subject page will be updated.</li>
+                            <li>Some features can be changed here as well as from the relevant subject page. Where you make
+                                a change, the relevant subject page will be updated.</li>
                             <li>Note also the default setting for 2FA authentification.</li>
                         </ol>
                     </div>
@@ -85,7 +86,7 @@
         </div>
 
         <div class="row">
-            
+
             {{-- box start --}}
             <div class="col-lg-3 box-wrapper">
                 <div class="my-custom-box shadow-sm">
@@ -101,11 +102,11 @@
                 </div>
             </div>
             {{-- end --}}
-            
+
             {{-- box start --}}
             <div class="col-lg-3 box-wrapper">
                 <div class="my-custom-box shadow-sm">
-                    <a href="{{ route('user.list') }}?from=dashboard" >
+                    <a href="{{ route('user.list') }}?from=dashboard">
                         <div class="box-icon">
                             <img src="{{ asset('assets/dashboard/img/MyNotebox.png') }}" alt="Logs & Status">
                         </div>
@@ -132,7 +133,7 @@
                 </div>
             </div>
             {{-- end --}}
-            
+
             {{-- box start --}}
             <div class="col-lg-3 box-wrapper">
                 <div class="my-custom-box shadow-sm">
@@ -195,11 +196,11 @@
                 </div>
             </div>
             {{-- end --}}
-            
+
             {{-- box start --}}
             <div class="col-lg-3 box-wrapper">
                 <div class="my-custom-box shadow-sm">
-                    <a href="{{ route('user.my-statistics') }}">
+                    <a href="{{ route('viewer.dashboard.my-statistics') }}">
                         <div class="box-icon">
                             <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-statistics.png') }}"
                                 alt="Viewer Statistics">
@@ -485,6 +486,7 @@
 
         });
     });
+
 </script>
 
 @push('script')

@@ -182,7 +182,7 @@
                     </form>
                 </div>
             </div>
-            @include('escort.dashboard.modal.payment_form')
+            @include('escort.dashboard.modal.payment_form',['adjustment_form_action' => route('advertiser.payment.adjustment') , 'payment_form_action' => route('advertiser.payment.process')])
             @include('modal.two-step-verification', ['action' => true, 'inPaymentMode' => true])
             <div class="col-lg-12 mt-3">
                 <!-- Transaction History -->

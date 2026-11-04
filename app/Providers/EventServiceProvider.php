@@ -40,6 +40,9 @@ class EventServiceProvider extends ServiceProvider
         \Illuminate\Auth\Events\Logout::class => [
             \App\Listeners\MarkUserOffline::class,
         ],
+        \Illuminate\Auth\Events\Login::class => [
+            \App\Listeners\MarkUserOnline::class,
+        ],
         EscortRegister::class => [
             RegisterListenerForEscort::class,
             RegisterListenerForAdmin::class,

@@ -318,5 +318,6 @@
                 </script>
             @endif
         @endforeach
+        <x-chat.notifier :url="url('/center-dashboard/messages')" />
     </body>
 </html>
