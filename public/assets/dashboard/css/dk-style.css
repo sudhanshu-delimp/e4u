@@ -8744,7 +8744,26 @@ table#myTable\ price-sec {
     z-index: -1;
     transform: translate(-50%, -10%) rotate(45deg);
 }
+.modern_para p {
+    position: relative;
+    padding-left: 35px;
+}
 
+.modern_para p::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #2ea522;
+    font-weight: bold;
+}
+.success_box{
+    border: 1px solid #2ea522; padding:15px 20px; background:#2ea52221;
+    border-radius: 5px;
+}
+.success_box p{
+    margin-bottom: 0px;
+}
 .profile_icon_box:hover .profile_icon_item {
     display: block;
 }
