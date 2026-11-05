@@ -431,8 +431,8 @@ class AnalyticsController extends Controller
 
             ->addColumn('adgent_fee', function ($row) {
 
-                $paymentHistory = $this->getPaymentHistoryData($row);
-                $comm_fee = ($paymentHistory && $paymentHistory->commissions) ? $paymentHistory->commissions->sum('total_commission_amount') : 0;
+                //$paymentHistory = $this->getPaymentHistoryData($row);
+                $comm_fee = $this->getAgentCommisionFee($row);
                 $adgent_fee = '<div class="num_value">$<span>' . formatCurrency($comm_fee, '') . '</span></div>';
                 return $adgent_fee;
             })
@@ -510,9 +510,72 @@ class AnalyticsController extends Controller
         return PaymentHistory::with('commissions')->whereIn('id', $paymentHistoryIds)->first();
     }
 
+    private function getAgentCommisionFee($row)
+    {
+
+        $pin_comm_fee = 0;
+        $purchaseIds = collect($row->tourPurchase)->pluck('id')->filter()->unique();
+        $total_commision_fee = 0;
+
+
+         Log::info('Location');
+         Log::info($row->id.'========'.$row->name);
+         Log::info($row->locations);
+         Log::info('-------------');
+        
+
+        // if ($purchaseIds->isEmpty()) {
+        //     return null;
+        // }
+
+        $paymentHistoryIds = PaymentItem::whereIn('item_id', $purchaseIds)
+            ->where('item_type', 'App\Models\Purchase')
+            ->pluck('payment_history_id')
+            ->unique();
+
+         $tour_payment = PaymentHistory::with('commissions')->whereIn('id', $paymentHistoryIds)->first();   
+         $tour_comm_fee = ($tour_payment && $tour_payment->commissions) ? $tour_payment->commissions->sum('total_commission_amount'): 0;
+
+        
+         foreach ($row->locations as $location) {
+            $locationPinupDone = false;
+            foreach ($location->purchase as $purc) {
+                if ($location->is_pinup == '1' && !$locationPinupDone) {
+                    $pinup_data = $location->profiles->whereNotNull('is_pinup')->first();
+                    if ($pinup_data) {
+                        $PinupItemIds = PaymentItem::where('item_id', $pinup_data['is_pinup'])
+                            ->where('item_type', 'App\Models\EscortPinup')
+                            ->pluck('payment_history_id');
+                           
+
+                        Log::info('PinupItemIds');
+                        Log::info($PinupItemIds);
+
+                        if(!empty($PinupItemIds))     
+                        {
+                            $pin_payment = PaymentHistory::with('commissions')->whereIn('id', $PinupItemIds)->first();   
+                            $pin_comm_fee+= ($pin_payment && $pin_payment->commissions) ? $pin_payment->commissions->sum('total_commission_amount'): 0;
+                            $locationPinupDone = true;
+                        }    
+                      
+                    }
+                }
+            }
+        }
+
+        $total_commision_fee = $tour_comm_fee + $pin_comm_fee;
+        return $total_commision_fee;
+        
+    }
+
 
     private function getListingFee($row)
     {
+
+         
+        //  Log::info('getListingFee');
+        //  Log::info($row);
+
         $total_amount = 0;
         foreach ($row->locations as $location) {
             $locationPinupDone = false;
@@ -619,14 +682,12 @@ class AnalyticsController extends Controller
 
         $alltours = $tours->map(function ($row, $index) {
 
-            $paymentHistory = $this->getPaymentHistoryData($row);
+            //$paymentHistory = $this->getPaymentHistoryData($row);
             $sum_listing_fees = $this->getListingFee($row);
             
             $totalFee  = $sum_listing_fees;
 
-            $comm_fee = ($paymentHistory && $paymentHistory->commissions)
-                ? $paymentHistory->commissions->sum('total_commission_amount')
-                : 0;
+            $comm_fee = $this->getAgentCommisionFee($row);
 
                 $totalDays = $this->getTotalDays($row);
               
