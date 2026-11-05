@@ -212,8 +212,8 @@
 
       </div>
 
-      <div class="col-md-12 mb-4 collapse" id="notes">
-         <div class="card">
+      <div class="col-md-12">
+         <div class="card collapse" id="notes">
             <div class="card-body">
                <h3 class="NotesHeader"><b>Notes:</b> </h3>
                <ol>
@@ -231,7 +231,7 @@
       </div>
    </div>
 
-   <div class="row mb-2">
+   <div class="row mb-3">
       <div class="col-lg-12 col-md-12 col-sm-12">
 
          <div class="bothsearch-form d-flex gap-20">
@@ -244,7 +244,7 @@
 
    <div class="row">
       <div class="col-md-12 mt-2 ">
-         <div id="" class="table-responsive-xl common-card">
+         <div id="" class="table-responsive common-card">
             <table class="table" id="bankAccountTable">
                <thead class="table-bg">
                   <tr>

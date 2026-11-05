@@ -19,9 +19,6 @@
 @endsection
 @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 add-punterbox-report">
-        <!--middle content start here-->
-
-        {{-- Page Heading   --}}
         <div class="row">
             <div class="d-flex justify-content-between align-items-center flex-wrap col-md-12">
                 <div class="custom-heading-wrapper">
@@ -30,7 +27,7 @@
                 </div>
             </div>
 
-            <div class="col-md-12 mb-4">
+            <div class="col-md-12">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -43,11 +40,9 @@
                 </div>
             </div>
         </div>
-        {{-- end --}}
-
-        <!--middle content-->
-            <div class="col-lg-12 common-card">
-                <div class="table-responsive">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-responsive common-card">
                     <table class="table w-100" id="productsHistoryTable">
                         <thead class="table-bg">
                             <tr>
@@ -71,16 +66,7 @@
                     </table>
                 </div>
             </div>
-        <!-- End of Main Content -->
-
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span> </span>
-                </div>
-            </div>
-        </footer>
+        </div>    
         <div class="modal fade upload-modal" id="view-details" tabindex="-1" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content basic-modal">

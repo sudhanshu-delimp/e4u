@@ -25,10 +25,8 @@
             <h1 class="h1">Transaction Summary</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
         </div>
-    </div>
-    <div class="row collapse" id="notes">
-        <div class="col-md-12 mb-4">
-            <div class="card">
+        <div class="col-md-12">
+            <div class="card collapse" id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
                     <ol class="mb-0">
@@ -41,28 +39,27 @@
             </div>
         </div>
     </div>
-
-    <!--middle content-->
-    <div class="col-md-12 common-card">
-        <div class="table-responsive">
-            <table class="table w-100" id="transactionSummaryTable">
-                <thead class="table-bg">
-                    <tr>
-                        <th>Ref</th>
-                        <th>Service Type</th>
-                        <th>Transaction Date</th>
-                        <th>Transaction Value (Inc. GST)</th>
-                        <th>Card</th>
-                        <th>Completed By</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive common-card">
+                <table class="table w-100" id="transactionSummaryTable">
+                    <thead class="table-bg">
+                        <tr>
+                            <th>Ref</th>
+                            <th>Service Type</th>
+                            <th>Transaction Date</th>
+                            <th>Transaction Value (Inc. GST)</th>
+                            <th>Card</th>
+                            <th>Completed By</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-
 </div>
 @include('center.dashboard.modal.transaction-summary')
 @endsection

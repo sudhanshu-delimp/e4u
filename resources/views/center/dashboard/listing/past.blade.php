@@ -13,19 +13,15 @@
 </style>
 @stop
 @section('content')
-<!-- Content Wrapper -->
-<div id="content-wrapper" class="d-flex flex-column">
-   <!-- Main Content -->
-   <div id="content">
       <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
-      {{-- middle content start here --}}
+     
          <div class="row">
             
                <div class="col-md-12 custom-heading-wrapper">
                   <h1 class="h1">Past Listings</h1>
                   <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
                </div>
-               <div class="col-md-12 mb-4">
+               <div class="col-md-12">
                   <div class="card collapse" id="notes" style="">
                      <div class="card-body">
                        <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -39,8 +35,9 @@
                   </div>
                </div>
          </div>
-            <div class="col-md-12 common-card">
-               <div class="table-responsive custom-table-responsive">
+         <div class="row">
+            <div class="col-md-12 ">
+               <div class="table-responsive custom-table-responsive common-card">
                   <table id="currentListings" class="table  custom--common-table" width="100%">
                         <thead class="table-bg">
                            <tr>
@@ -61,10 +58,8 @@
                   </table>
                </div>
             </div>
-      </div>  
-      {{-- end here --}}
-   </div>
-</div>      
+            </div>
+      </div>
 @endsection
 @push('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>

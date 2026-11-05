@@ -50,7 +50,7 @@
             <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes"
                 aria-expanded="true">Help?</span>
         </div>
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12">
             <div class="card collapse" id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -68,43 +68,43 @@
             </div>
         </div>
     </div>
-
     <!-- DataTable -->
-    <div class="col-md-12 common-card">
-        <div class="table-responsive">
-            <table id="myReportTable" class="table display nowrap num_table" width="100%">
-                <thead class="bg-first">
-                    <tr>
-                        <th>REF</th>
-                        <th>Mobile</th>
-                        <th>Incident Type</th>
-                        <th>Incident Date</th>
-                        <th>Location</th>
-                        <th class="text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($nums as $num)
-                    <tr class="data-row">
-                        <td>#{{ $num->id }}</td>
-                        <td>{{ $num->offender_mobile }}</td>
-                        <td>{{ $num->incident_nature }}</td>
-                        <td>{{ $num->incident_date }}</td>
-                        <td>{{ $num->state ? $num->state->iso2 : '' }} - {{ $num->state ? $num->state->name : '' }}
-                        </td>
-                        <td>
-                            <a href="javascript:void(0);" class="toggle-details">
-                                <i class="fa fa-search" data-toggle="tooltip" data-placement="top"
-                                    title="View"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+     <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive common-card">
+                <table id="myReportTable" class="table display nowrap num_table" width="100%">
+                    <thead class="bg-first">
+                        <tr>
+                            <th>REF</th>
+                            <th>Mobile</th>
+                            <th>Incident Type</th>
+                            <th>Incident Date</th>
+                            <th>Location</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($nums as $num)
+                        <tr class="data-row">
+                            <td>#{{ $num->id }}</td>
+                            <td>{{ $num->offender_mobile }}</td>
+                            <td>{{ $num->incident_nature }}</td>
+                            <td>{{ $num->incident_date }}</td>
+                            <td>{{ $num->state ? $num->state->iso2 : '' }} - {{ $num->state ? $num->state->name : '' }}
+                            </td>
+                            <td>
+                                <a href="javascript:void(0);" class="toggle-details">
+                                    <i class="fa fa-search" data-toggle="tooltip" data-placement="top"
+                                        title="View"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 </div>
 @endsection
 
