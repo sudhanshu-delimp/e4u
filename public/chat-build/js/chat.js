@@ -1535,8 +1535,11 @@ function initChat(root) {
       loadList();
       return;
     }
-    renderList();
+
+    // Also redraws the header, so "typing..." goes away when the message arrives
+    refreshLiveUi();
     if (active) {
+      // This also turns the sender's ticks blue
       // This also turns the sender's ticks blue
       api.read(msg.conversation_id)["catch"](function () {});
     }

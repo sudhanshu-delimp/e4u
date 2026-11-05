@@ -887,9 +887,11 @@ export function initChat(root) {
             return;
         }
 
-        renderList();
+        // Also redraws the header, so "typing..." goes away when the message arrives
+        refreshLiveUi();
 
         if (active) {
+            // This also turns the sender's ticks blue
             // This also turns the sender's ticks blue
             api.read(msg.conversation_id).catch(() => { });
         }
@@ -1637,7 +1639,7 @@ export function initChat(root) {
         updateBlockUi,
     });
 
-        // Refresh the list every minute so online dots follow people who log in or out elsewhere
+    // Refresh the list every minute so online dots follow people who log in or out elsewhere
     setInterval(() => {
         if (!document.hidden) {
             loadList();
