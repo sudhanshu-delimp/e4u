@@ -1,45 +1,5 @@
 @extends('layouts.web')
 @section('style')
-<style>
-    .loader {
-        border: 16px solid #f3f3f3;
-        border-radius: 50%;
-        border-top: 16px solid #3498db;
-        width: 120px;
-        height: 120px;
-        -webkit-animation: spin 2s linear infinite;
-        /* Safari */
-        animation: spin 2s linear infinite;
-    }
-
-    /* Safari */
-    @-webkit-keyframes spin {
-        0% {
-            -webkit-transform: rotate(0deg);
-        }
-
-        100% {
-            -webkit-transform: rotate(360deg);
-        }
-    }
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-
-    p,
-    ol,
-    ul {
-        text-align: justify
-    }
-    
-</style>
 @endsection
 @section('content')
 
@@ -49,7 +9,7 @@
         <p>At Escorts4U we greatly appreciate your Membership. Our company offers the best in
             accessible highly managed support for all the Services delivered on our Website. We pledge
             to ensure the continual delivery of superior website services, technical and customer support
-            while simultaneously providing industry- leading customer satisfaction and service delivery.
+            while simultaneously providing industry-leading customer satisfaction and service delivery.
         </p>
         <p>As a Member of Escorts4U, you are entitled to the following rights:</p>
 
@@ -65,9 +25,9 @@
                 professional commitment, employee and Support Agent empowerment in your every
                 interaction with our organisation and Support Agents. We pledge to treat you with the
                 utmost levels of courtesy, responsiveness, integrity, and respect; and to work with you
-                to insure that your relationship with us is a pleasant and co-operative experience.</p>
+                to insure that your relationship with us is a pleasant and  co-operative experience.</p>
             <p>To expect us to lead the way in fostering and implementing innovation and creativity
-                in our service offerings via the E4U Website through an unyielding commitment to
+                in our service offerings via the E4U Website, through an unyielding commitment to
                 providing the best technology and services possible. We pledge to provide
                 exceptional technology within the Website and will provide the best technical talent to
                 manage that technology and surpass your expectations for a website such as ours.</p>
