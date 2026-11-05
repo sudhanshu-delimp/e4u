@@ -367,7 +367,6 @@
         </script>
         @endif
         @endforeach
-        <x-chat.notifier :url="url('/escort-dashboard/escort-messages')" />
         </body>
 
         </html>

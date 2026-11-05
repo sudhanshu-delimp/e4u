@@ -282,6 +282,5 @@
                 </script>
             @endif
         @endforeach
-        <x-chat.notifier :url="url('/agent-dashboard/agent-messages')" />
         </body>
         </html>
