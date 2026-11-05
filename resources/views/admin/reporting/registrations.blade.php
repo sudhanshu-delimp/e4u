@@ -64,7 +64,7 @@
             @endif
         </div>
 
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12">
             <div class="card collapse" id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -137,7 +137,7 @@
 
         <div class="col-sm-12 col-md-12 col-lg-12 ">
             <div class="table-responsive custom-badge common-card">
-                <table class="table" id="RegistrationsReportTable">
+                <table class="table w-100" id="RegistrationsReportTable">
                     <thead class="table-bg">
                         <tr>
                             <th>Ref</th>

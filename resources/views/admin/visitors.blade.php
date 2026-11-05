@@ -39,7 +39,7 @@
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
                 style="font-size:16px"><b>Help?</b> </span>
         </div>
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12">
             <div class="card collapse" id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -53,9 +53,10 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12 ">
-            <div class="my-3">
+            <div class="mb-3">
                 <div class="col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 10px;">
                      <a href="" class="text-white btn-cancel-modal">Refresh</a>
                     <div class="total_listing">
@@ -64,8 +65,8 @@
                     </div>
                 </div>
             </div>
-            <div class="visitor_table_class">
-                <table class="table" id="visitorTable" style="width:100%;">
+            <div class="visitor_table_class table-responsive common-card">
+                <table class="table w-100" id="visitorTable" style="width:100%;">
                     <thead class="table-bg">
                         <tr>
                             <th scope="col">
@@ -109,18 +110,10 @@
                         </tr>
                     </tfoot>
                 </table>
-                {{-- <div class="timer_section">
-                    <p>Server time: <span class="serverTime">10:23:51 am</span></p>
-                    <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
-                    <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
             </div>
-            <div class="customPaginationContainer mt-4 d-flex justify-content-between"></div>
-            <nav aria-label="Page navigation example" class="customPagination">
-            </nav> --}}
         </div>
-    </div>
 
-</div>
+    </div>
 </div>
 <div class="modal fade upload-modal" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="view-listingLabel"
     aria-hidden="true">

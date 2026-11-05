@@ -60,7 +60,7 @@
                                     <div class="tab-content">
                                         <div class="tab-pane fade in active show" id="tab1warning">
                                             <div class="table-responsive-xl">
-                                                <table class="table">
+                                                <table class="table w-100" >
                                                     <thead class="table-bg">
                                                         <tr>
                                                             <th scope="col">Days</th>
@@ -206,7 +206,7 @@
                                         </div>
                                         <div class="tab-pane fade" id="tab2warning">
                                             <div class="table-responsive-xl">
-                                                <table class="table">
+                                                <table class="table w-100" >
                                                     <thead class="table-bg">
                                                         <tr>
                                                             <th scope="col">Service Type(1)</th>
@@ -286,7 +286,7 @@
                                         </div>
                                         <div class="tab-pane fade" id="tab3warning">
                                             <div class="table-responsive-xl">
-                                                <table class="table">
+                                                <table class="table w-100" >
                                                     <thead class="table-bg">
                                                         <tr>
                                                             <th scope="col">Service Type(1)</th>

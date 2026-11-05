@@ -42,7 +42,7 @@
             @endif
         </div>
 
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12">
             <div class="card collapse" id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -71,7 +71,7 @@
                 </div>
             </div>
             <div class="massage_table_class">
-                <table class="table" id="listings" style="width:100%;">
+                <table class="table w-100" id="listings" style="width:100%;">
                     <thead class="table-bg">
                         <tr>
                             <th>

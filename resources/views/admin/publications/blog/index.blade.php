@@ -25,76 +25,59 @@ $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes
 $addAccess = staffPageAccessPermission($securityLevel, 'add');
 $addAccessEnabled = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
 @endphp
-<div id="wrapper">
-    <div id="content-wrapper" class="d-flex flex-column">
-        <div id="content">
-            <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-                <div class="row">
-                    <div class="custom-heading-wrapper col-md-12">
-                        <h1 class="h1">Blog</h1>
-                        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
-                    </div>
-                    <div class="col-md-12 mb-4">
-                        <div class="card collapse" id="notes">
-                            <div class="card-body">
-                                <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                <ol class="pl-4">
-                                    <li>You can create a Notification, published at the top of the Website.</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="bothsearch-form mb-3">
-                            @if ($addAccessEnabled)
-                            <button type="button" class="create-tour-sec dctour" data-toggle="modal"
-                                data-target="#createBlog">
-                                Add Blog</button>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="panel with-nav-tabs panel-warning">
-                            <div class="panel-body">
-                                <div class="tab-content">
-                                    <div class="tab-pane fade in active show" id="tab1warning">
-                                        <div class="table-responsive-xl">
-                                            <table class="table" id="BlogListTable">
-                                                <thead class="table-bg">
-                                                    <tr>
-                                                        <th scope="col">#
-                                                        </th>
-                                                        <th scope="col">Images</th>
-                                                        <th scope="col">Title</th>
-                                                        {{-- <th scope="col">
-                                                                Short Description
-                                                            </th> --}}
-                                                        <th scope="col">Posted Date</th>
-                                                        <th scope="col">Status</th>
-                                                        <th scope="col">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="table-content">
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+    <div class="row">
+        <div class="custom-heading-wrapper col-md-12">
+            <h1 class="h1">Blog</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
+        </div>
+        <div class="col-md-12">
+            <div class="card collapse" id="notes">
+                <div class="card-body">
+                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                    <ol class="pl-4">
+                        <li>You can create a Notification, published at the top of the Website.</li>
+                    </ol>
                 </div>
             </div>
-            <!--right side bar end-->
         </div>
     </div>
-    <!-- End of Main Content -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="bothsearch-form mb-3">
+                @if ($addAccessEnabled)
+                <button type="button" class="create-tour-sec dctour" data-toggle="modal"
+                    data-target="#createBlog">
+                    Add Blog</button>
+                @endif
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="table-responsive common-card">
+                <table class="table w-100" id="BlogListTable">
+                    <thead class="table-bg">
+                        <tr>
+                            <th scope="col">#
+                            </th>
+                            <th scope="col">Images</th>
+                            <th scope="col">Title</th>
+                            {{-- <th scope="col">
+                                    Short Description
+                                </th> --}}
+                            <th scope="col">Posted Date</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-content">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
-<!-- End of Content Wrapper -->
 {{-- add blog popup modal --}}
 <div class="modal fade upload-modal" id="createBlog" tabindex="-1" role="dialog" aria-labelledby="createBlog"
     aria-hidden="true">

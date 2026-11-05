@@ -146,7 +146,7 @@
 
     /* 2. Hover hone par width full karein aur content ko aage push karein (No Absolute) */
     .sidebar.toggled:hover {
-        width: 350px !important;
+        width: 300px !important;
         position: relative !important; /* Content ke upar chadhega nahi, use aage khiskayega */
         flex-shrink: 0 !important;
         overflow-y: auto !important;

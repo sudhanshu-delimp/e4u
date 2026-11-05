@@ -106,7 +106,7 @@
                                     </td>
                         </tr>
                     </table>
-                    <table class="table" style="border: 1px solid #ccc;padding: 0;font-family: 'Poppins', sans-serif;">
+                    <table class="table w-100" style="border: 1px solid #ccc;padding: 0;font-family: 'Poppins', sans-serif;">
                         <tr>
                             <td style="width: 100%;padding: 10px 5px 20px 5px;">
                                 <table class="table mb-0 common_accordian_table">

@@ -27,16 +27,13 @@ $securityLevel = isset(auth()->user()->staff_detail->security_level)
 $addAccess = staffPageAccessPermission($securityLevel, 'add');
 $addAccessEnabled = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
 @endphp
-<div id="wrapper">
-    <div id="content-wrapper" class="d-flex flex-column">
-        <div id="content">
             <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
                 <div class="row">
                     <div class="custom-heading-wrapper col-md-12">
                         <h1 class="h1">Viewer (Notifications)</h1>
                         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                     </div>
-                    <div class="col-md-12 mb-4">
+                    <div class="col-md-12">
                         <div class="card collapse" id="notes">
                             <div class="card-body">
                                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -58,40 +55,26 @@ $addAccessEnabled = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
                     </div>
                     @endif
                     <div class="col-md-12">
-                        <div class="panel with-nav-tabs panel-warning">
-                            <div class="panel-body">
-                                <div class="tab-content">
-                                    <div class="tab-pane fade in active show" id="tab1warning">
-                                        <div class="table-responsive-xl">
-                                            <table class="table" id="agentNotificationTable">
-                                                <thead class="table-bg">
-                                                    <tr>
-                                                        <th scope="col">Ref</th>
-                                                        <th scope="col">Start</th>
-                                                        <th scope="col">End</th>
-                                                        <th scope="col">Type</th>
-                                                        <th scope="col">Status</th>
-                                                        <th scope="col" class="text-center">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="table-content">
+                        <div class="table-responsive-xl common-card">
+                            <table class="table w-100" id="agentNotificationTable">
+                                <thead class="table-bg">
+                                    <tr>
+                                        <th scope="col">Ref</th>
+                                        <th scope="col">Start</th>
+                                        <th scope="col">End</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col" class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-content">
 
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--right side bar end-->
-        </div>
-    </div>
-    <!-- End of Main Content -->
-</div>
-<!-- End of Content Wrapper -->
 @if ($addAccessEnabled)
 <div class="modal fade upload-modal" id="createNotification" tabindex="-1" role="dialog"
     aria-labelledby="createNotification" aria-hidden="true">

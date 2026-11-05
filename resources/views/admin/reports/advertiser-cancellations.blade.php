@@ -55,7 +55,7 @@
             </div>
          </div>
          <div class="table-responsive">
-            <table class="table" id="advertiserCancellationTable">
+            <table class="table w-100" id="advertiserCancellationTable">
                <thead class="table-bg">
                   <tr>
                      <th>Profile ID</th>

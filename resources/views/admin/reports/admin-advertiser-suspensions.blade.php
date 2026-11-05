@@ -21,13 +21,13 @@
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!--middle content-->
-   <div class="row mt-5">
+   <div class="row">
       <div class="custom-heading-wrapper col-md-12">
-         <h1 class="h1">Listings Suspended (Massage centre)</h1>
+         <h1 class="h1">Listings Suspended (E4U)</h1>
          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
       </div>
       <div class="col-md-12 ">
-         <div class="card collapse mb-4" id="notes">
+         <div class="card collapse" id="notes">
             <div class="card-body">
                <h3 class="NotesHeader"><b>Notes:</b> </h3>
                <ol>
@@ -39,8 +39,11 @@
             </div>
          </div>
       </div>
+   </div>
+
+   <div class="row">   
       <div class="col-md-12">
-         <div class="row my-3">
+         <div class="row mb-3">
             <div class="col-md-12 col-sm-12 d-flex justify-content-between" style="gap: 50px;">
                <div class="d-flex justify-content-between align-items-center gap-10">
                   <select id="advertiserFilter" name="advertiser_type" class="form-select form-select-sm p-2" style="width: 200px;">
@@ -57,8 +60,9 @@
                </div>
             </div>
          </div>
-         <div class="table-responsive">
-            <table class="table" id="advertiserSuspenstionTable">
+
+         <div class="table-responsive common-card">
+            <table class="table w-100" id="advertiserSuspenstionTable">
                <thead class="table-bg">
                   <tr>
                      <th>Profile ID</th>
@@ -91,9 +95,6 @@
       </div>
    </div>
 </div>
-
-
-
 <!-- View Merchant popupform -->
 <div class="modal fade upload-modal" id="view-profile" tabindex="-1" role="dialog" aria-labelledby="view-profileLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">

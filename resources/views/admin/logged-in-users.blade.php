@@ -46,7 +46,7 @@
             </div>
             @endif
         </div>
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12">
             <div class="card collapse" id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -67,8 +67,9 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-12 col-md-12 col-lg-12 ">
-        <div class="row my-3">
+    <div class="row">
+        <div class="col-lg-12 ">
+        <div class="row mb-3">
 
             <div class="col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 10px;">
                  <a href="" class="text-white btn-cancel-modal">Refresh</a>
@@ -78,8 +79,8 @@
                 </div>
             </div>
         </div>
-        <div class="logged_in_table_class">
-            <table class="table" id="listings" style="width:100%;">
+        <div class="logged_in_table_class table-responsive common-card">
+            <table class="table w-100" id="listings" style="width:100%;">
                 <thead class="table-bg">
                     <tr>
                         <th scope="col">
@@ -120,19 +121,9 @@
             </table>
         </div>
     </div>
+    </div>
 
 </div>
-</div>
-
-<!--middle content end here-->
-<!--right side bar start from here-->
-</div>
-<!--right side bar end-->
-</div>
-
-<!-- See Email Report popup -->
-
-
 <div class="modal fade upload-modal bd-example-modal-lg" id="view-listing" tabindex="-1" role="dialog"
     aria-labelledby="emailReportLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">

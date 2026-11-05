@@ -3,10 +3,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
 @section('content')
 
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-        <!-- Main Content -->
-        <div id="content">
             <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
                 <div class="row">
                     <div class="custom-heading-wrapper col-md-12">
@@ -14,7 +10,7 @@
                         <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes"
                             aria-expanded="true">Help?</span>
                     </div>
-                    <div class="col-md-12 mb-4">
+                    <div class="col-md-12">
                         <div class="card collapse" id="notes" style="">
                             <div class="card-body">
                                <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -31,8 +27,8 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="table-responsive custom-badge">
-                            <table id="visaMigrationRequestTable" class="table" style="width: 100%;">
+                        <div class="table-responsive custom-badge common-card">
+                            <table id="visaMigrationRequestTable" class="table w-100"  style="width: 100%;">
                                 <thead class="table-bg">
                                     <tr>
                                         <th>Ref</th>
@@ -67,15 +63,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- End of Main Content -->
-    </div>
-    <!-- End of Content Wrapper -->
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
 
 @endsection
 

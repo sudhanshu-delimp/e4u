@@ -24,7 +24,7 @@
         <div class="row">
             <div class="d-sm-flex align-items-center justify-content-between col-md-12">
                 <div class="custom-heading-wrapper">
-                    <h1 class="h1">Transaction Summary</h1>
+                    <h1 class="h1">Transaction Summary  </h1>
                     <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>                     </span>
                 </div>
                 @if (request('from') == 'dashboard')
@@ -36,7 +36,7 @@
                 @endif
             </div>
             <div class="col-md-12 ">
-                <div class="card collapse mb-4" id="notes">
+                <div class="card collapse" id="notes">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
                         <ol>
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <div class="table-responsive">
+                <div class="table-responsive common-card">
                     <table class="table w-100" id="transactionSummaryTable">
                         <thead class="table-bg">
                             <tr>

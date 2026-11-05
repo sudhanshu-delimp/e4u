@@ -21,7 +21,7 @@
                   <h1 class="h1">Escort (Notifications)</h1>
                   <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                </div>
-               <div class="col-md-12 mb-4">
+               <div class="col-md-12">
                   <div class="card collapse" id="notes">
                      <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -44,7 +44,7 @@
                         <div class="tab-content">
                            <div class="tab-pane fade in active show" id="tab1warning">
                               <div class="table-responsive-xl">
-                                 <table class="table" id="escortNotificationTable">
+                                 <table class="table w-100" id="escortNotificationTable">
                                     <thead class="table-bg">
                                        <tr>
                                           <th scope="col">Ref

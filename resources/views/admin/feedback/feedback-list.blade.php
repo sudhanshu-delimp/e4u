@@ -32,208 +32,202 @@
         overflow-wrap: break-word;
     }
 </style>
-<div id="wrapper">
-    <div id="content-wrapper" class="d-flex flex-column">
-        <div id="content">
-            <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-                <!--middle content-->
-                <div class="row">
-                    <div class="custom-heading-wrapper col-md-12">
-                        <h1 class="h1">Feedback</h1>
-                        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
-                    </div>
+    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+        <!--middle content-->
+        <div class="row">
+            <div class="custom-heading-wrapper col-md-12">
+                <h1 class="h1">Feedback</h1>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
+            </div>
 
-                    <div class="col-md-12 mb-4">
-                        <div class="card collapse" id="notes">
-                            <div class="card-body">
-                                <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                <ol>
-                                    <li>Feedback is generated from the public Website.</li>
-                                    <li>When Feedback is received, print and refer the Feedback to the Managing
-                                        Director.</li>
-                                    <li>No action is to be taken on Feedback without the Managing Director’s approval.
-                                    </li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-md-12 mb-4">
-                        <div class="common-card">
-                            <div class="stats-card-grid">
-                                <div class="stats-card">
-                                    <div class="stats-details">
-                                        <div class="stats-icon">
-                                            <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"></path> </g></svg>
-                                        </div>
-                                        <div class="stat-text">
-                                            <div class="stats-label ">Today</div>
-                                            <div class="stats-value">{{ $todayCount }}</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="stats-card">
-                                    <div class="stats-details">
-                                        <div class="stats-icon">
-                                            <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"></path> </g></svg>
-                                        </div>
-                                        <div class="stat-text">
-                                            <div class="stats-label ">This Month</div>
-                                            <div class="stats-value">{{$thisMonthCount}}</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="stats-card">
-                                    <div class="stats-details">
-                                        <div class="stats-icon">
-                                            <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"></path> </g></svg>
-                                        </div>
-                                        <div class="stat-text">
-                                            <div class="stats-label ">This Year</div>
-                                            <div class="stats-value"id="">{{$yearCount}}</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="stats-card">
-                                    <div class="stats-details">
-                                        <div class="stat-icon">
-                                            <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"></path> </g></svg>
-                                        </div>
-                                        <div class="stat-text">
-                                            <div class="stats-label ">All Time</div>
-                                            <div class="stats-value">{{$totalCount}}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <div class="col-md-12">
+                <div class="card collapse" id="notes">
+                    <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol>
+                            <li>Feedback is generated from the public Website.</li>
+                            <li>When Feedback is received, print and refer the Feedback to the Managing
+                                Director.</li>
+                            <li>No action is to be taken on Feedback without the Managing Director’s approval.
+                            </li>
+                        </ol>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12 ">
-                        <div class="table-responsive common-card">
-                                            <table class="table" id="feedbackReportTable">
-                                                <thead class="table-bg">
-                                                    <tr>
-                                                        <th scope="col">Ref </th>
-                                                        <th scope="col">Date</th>
-                                                        <th scope="col">Subject</th>
-                                                        <th scope="col">Email</th>
-                                                        <th scope="col">Status</th>
-                                                        <th scope="col" class="text-center">Action</th>
-                                                    </tr>
-                                                </thead>
+            </div>
 
-                                            </table>
-                                        </div>
-                    </div>
-
-                    <div class="col-md-12" id="print-feedback-report">
-                        <div class="my-account-card">
-                            <div class="card-head">
-                                <h2 class="font-weight-bold">My Report Information </h2>
-                                <button class="print-btns" type="button"><i class="fa fa-print"></i> Print Report</button>
-                                <input type="hidden" id="printReportId" value="">
-                            </div>
-                            <table class="table  w-100 table-report-info">
-                                <tr class="details-row">
-                                    <td colspan="7">
-                                        <div class="container-fluid">
-
-                                            <!-- Row 1 -->
-                                            <div class="row mb-4">
-                                                <div class="col-md-2 col-4"><strong>Ref:</strong></div>
-                                                <div class="col-md-4 col-8 ref">#30</div>
-
-                                                <div class="col-md-2 col-4"><strong>Date:</strong></div>
-                                                <div class="col-md-4 col-8 feedback_date">14-05-2025</div>
-                                            </div>
-
-                                            <!-- Row 2 -->
-                                            <div class="row mb-4">
-                                                <div class="col-md-2 col-4"><strong>Subject:</strong></div>
-                                                <div class="col-md-4 col-8 subject_text">
-                                                    Very long subject text will wrap properly without breaking layout
-                                                </div>
-
-                                                <div class="col-md-2 col-4"><strong>Option:</strong></div>
-                                                <div class="col-md-4 col-8 option_text">NA</div>
-                                            </div>
-
-                                            <!-- Row 3 -->
-                                            <div class="row mb-4">
-                                                <div class="col-md-2 col-4"><strong>Email:</strong></div>
-                                                <div class="col-md-4 col-8 email_text">
-                                                    verylongemailaddress@exampledomain.com
-                                                </div>
-
-                                                <div class="col-md-2 col-4"><strong>Status:</strong></div>
-                                                <div class="col-md-4 col-8 status_text">Completed</div>
-                                            </div>
-
-                                            <!-- Row 4 (Full width comment) -->
-                                            <div class="row">
-                                                <div class="col-md-2 col-4"><strong>Comment:</strong></div>
-                                                <div class="col-md-10 col-8 comment_text">
-                                                    Very long comment text will automatically wrap and stay responsive on all screen sizes.
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </td>
-                                </tr>
-
-                            </table>
-                            <div class="notes-section">
-                                <div class="notes-label">Notes:</div>
-                                <div class="lines"></div>
-                                <div class="lines"></div>
-                                <div class="lines"></div>
-                                <div class="lines"></div>
-                                <div class="lines"></div>
-
-                                <div class="mt-5 table-responsive">
-                                    <table style="width:100%; border-collapse:collapse;">
-                                        <tr>
-                                            <td colspan="2" style="border:1px solid #000; padding:8px; font-weight:bold;">Management only:</td>
-                                            <td colspan="2" style="border:1px solid #000; padding:8px;">
-                                                <label style="display:inline-flex; align-items:center; gap:6px; margin:0;">
-                                                    <input type="checkbox" style="margin:0;"> <span style="font-weight:600;">Action feedback</span>
-                                                </label>
-                                            </td>
-                                            <td colspan="2" style="border:1px solid #000; padding:8px;">
-                                                <label style="display:inline-flex; align-items:center; gap:6px; margin:0;">
-                                                    <input type="checkbox" style="margin:0;"> <span style="font-weight:600;">Dismiss feedback</span>
-                                                </label>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td colspan="1" style="border:1px solid #000; padding:25px 12px; font-weight:bold; width:110px;" colspan="1">Name:</td>
-                                            <td colspan="2" style="border:1px solid #000; padding:25px 12px;"></td>
-                                            <td colspan="1" style="border:1px solid #000; padding:25px 12px; font-weight:bold; width:120px">Signature:</td>
-                                            <td colspan="2" style="border:1px solid #000; padding:25px 12px;"></td>
-                                        </tr>
-                                    </table>
-
-
-
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="common-card">
+                    <div class="stats-card-grid">
+                        <div class="stats-card">
+                            <div class="stats-details">
+                                <div class="stats-icon">
+                                    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"></path> </g></svg>
                                 </div>
-
+                                <div class="stat-text">
+                                    <div class="stats-label ">Today</div>
+                                    <div class="stats-value">{{ $todayCount }}</div>
+                                </div>
                             </div>
                         </div>
 
+                        <div class="stats-card">
+                            <div class="stats-details">
+                                <div class="stats-icon">
+                                    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"></path> </g></svg>
+                                </div>
+                                <div class="stat-text">
+                                    <div class="stats-label ">This Month</div>
+                                    <div class="stats-value">{{$thisMonthCount}}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stats-card">
+                            <div class="stats-details">
+                                <div class="stats-icon">
+                                    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"></path> </g></svg>
+                                </div>
+                                <div class="stat-text">
+                                    <div class="stats-label ">This Year</div>
+                                    <div class="stats-value"id="">{{$yearCount}}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stats-card">
+                            <div class="stats-details">
+                                <div class="stat-icon">
+                                    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"></path> </g></svg>
+                                </div>
+                                <div class="stat-text">
+                                    <div class="stats-label ">All Time</div>
+                                    <div class="stats-value">{{$totalCount}}</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="table-responsive common-card">
+                                    <table class="table w-100" id="feedbackReportTable">
+                                        <thead class="table-bg">
+                                            <tr>
+                                                <th scope="col">Ref </th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Subject</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col" class="text-center">Action</th>
+                                            </tr>
+                                        </thead>
+
+                                    </table>
+                                </div>
+            </div>
+
+            <div class="col-md-12" id="print-feedback-report">
+                <div class="my-account-card">
+                    <div class="card-head">
+                        <h2 class="font-weight-bold">My Report Information </h2>
+                        <button class="print-btns" type="button"><i class="fa fa-print"></i> Print Report</button>
+                        <input type="hidden" id="printReportId" value="">
+                    </div>
+                    <table class="table  w-100 table-report-info">
+                        <tr class="details-row">
+                            <td colspan="7">
+                                <div class="container-fluid">
+
+                                    <!-- Row 1 -->
+                                    <div class="row mb-4">
+                                        <div class="col-md-2 col-4"><strong>Ref:</strong></div>
+                                        <div class="col-md-4 col-8 ref">#30</div>
+
+                                        <div class="col-md-2 col-4"><strong>Date:</strong></div>
+                                        <div class="col-md-4 col-8 feedback_date">14-05-2025</div>
+                                    </div>
+
+                                    <!-- Row 2 -->
+                                    <div class="row mb-4">
+                                        <div class="col-md-2 col-4"><strong>Subject:</strong></div>
+                                        <div class="col-md-4 col-8 subject_text">
+                                            Very long subject text will wrap properly without breaking layout
+                                        </div>
+
+                                        <div class="col-md-2 col-4"><strong>Option:</strong></div>
+                                        <div class="col-md-4 col-8 option_text">NA</div>
+                                    </div>
+
+                                    <!-- Row 3 -->
+                                    <div class="row mb-4">
+                                        <div class="col-md-2 col-4"><strong>Email:</strong></div>
+                                        <div class="col-md-4 col-8 email_text">
+                                            verylongemailaddress@exampledomain.com
+                                        </div>
+
+                                        <div class="col-md-2 col-4"><strong>Status:</strong></div>
+                                        <div class="col-md-4 col-8 status_text">Completed</div>
+                                    </div>
+
+                                    <!-- Row 4 (Full width comment) -->
+                                    <div class="row">
+                                        <div class="col-md-2 col-4"><strong>Comment:</strong></div>
+                                        <div class="col-md-10 col-8 comment_text">
+                                            Very long comment text will automatically wrap and stay responsive on all screen sizes.
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                    <div class="notes-section">
+                        <div class="notes-label">Notes:</div>
+                        <div class="lines"></div>
+                        <div class="lines"></div>
+                        <div class="lines"></div>
+                        <div class="lines"></div>
+                        <div class="lines"></div>
+
+                        <div class="mt-5 table-responsive">
+                            <table style="width:100%; border-collapse:collapse;">
+                                <tr>
+                                    <td colspan="2" style="border:1px solid #000; padding:8px; font-weight:bold;">Management only:</td>
+                                    <td colspan="2" style="border:1px solid #000; padding:8px;">
+                                        <label style="display:inline-flex; align-items:center; gap:6px; margin:0;">
+                                            <input type="checkbox" style="margin:0;"> <span style="font-weight:600;">Action feedback</span>
+                                        </label>
+                                    </td>
+                                    <td colspan="2" style="border:1px solid #000; padding:8px;">
+                                        <label style="display:inline-flex; align-items:center; gap:6px; margin:0;">
+                                            <input type="checkbox" style="margin:0;"> <span style="font-weight:600;">Dismiss feedback</span>
+                                        </label>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="1" style="border:1px solid #000; padding:25px 12px; font-weight:bold; width:110px;" colspan="1">Name:</td>
+                                    <td colspan="2" style="border:1px solid #000; padding:25px 12px;"></td>
+                                    <td colspan="1" style="border:1px solid #000; padding:25px 12px; font-weight:bold; width:120px">Signature:</td>
+                                    <td colspan="2" style="border:1px solid #000; padding:25px 12px;"></td>
+                                </tr>
+                            </table>
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
-</div>
 
 <!-- confirm modal here  -->
 
@@ -277,7 +271,7 @@
 @include('escort.dashboard.partials.playmates-modal')
 @endsection
 @push('script')
-confirm-popup
+
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
 </script>

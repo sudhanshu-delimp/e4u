@@ -827,7 +827,101 @@ emoji-picker {
 .sidebar-overlay {
     display: none;
 }
+/* Document List Container - डॉक्यूमेंट्स को एक के नीचे एक लाएगा */
+.chat-doc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    margin-top: 6px;
+}
 
+/* Document Card */
+.doc-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    width: 100%;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #1e293b;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease-in-out;
+}
+
+.doc-card:hover {
+    background-color: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+/* Icon Box */
+.doc-icon-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 20px;
+}
+
+.doc-icon-box.pdf {
+    background-color: #fee2e2;
+    color: #ef4444;
+}
+
+.doc-icon-box.other {
+    background-color: #e0f2fe;
+    color: #0284c7;
+}
+
+/* File Details */
+.doc-info {
+    flex: 1;
+    min-width: 0; /* बहुत ज़रूरी: नाम लंबा होने पर ओवरफ्लो रोकेगा */
+    display: flex;
+    flex-direction: column;
+}
+
+.doc-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e293b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+}
+
+.doc-meta {
+    font-size: 11px;
+    color: #64748b;
+    margin-top: 2px;
+}
+
+/* Download Circle Button */
+.doc-download-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.doc-card:hover .doc-download-btn {
+    background-color: #e2e8f0;
+    color: #0f172a;
+}
 
 /* =====================================================
    FILTER DROPDOWN

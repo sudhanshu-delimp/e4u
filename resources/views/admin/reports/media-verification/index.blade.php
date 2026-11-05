@@ -38,7 +38,7 @@
             <h1 class="h1">Media Verification</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
         </div>
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12">
             <div class="card collapse" id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -98,7 +98,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-12 my-3">
+        <div class="col-lg-12 mb-3">
             <div class="d-flex justify-content-end ">
                 <div class="total_listing">
                     <div><span>Pending Verifications: : </span></div>
@@ -107,8 +107,8 @@
             </div>
         </div>
         <div class="col-md-12">
-            <div class="table-responsive">
-                <table class="table" id="mediaverifyTable">
+            <div class="table-responsive common-card">
+                <table class="table w-100" id="mediaverifyTable">
                     <thead class="table-bg">
                         <tr>
                             <th>Member ID</th>

@@ -39,7 +39,7 @@
             </div>
         </div>
 
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12">
             <div class="card collapse" id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -50,10 +50,11 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-sm-12 col-md-12 col-lg-12 ">
-            <div class="table-responsive">
-                <table class="table" id="communicationsReportTable">
+    </div>
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="table-responsive common-card">
+                <table class="table w-100" id="communicationsReportTable">
                     <thead class="table-bg">
                         <tr>
                             <th>Ref</th>

@@ -21,7 +21,7 @@
                      <h1 class="h1">Accounting Reports</h1>
                     <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
                 </div>
-                <div class="col-md-12 mb-4">
+                <div class="col-md-12">
                     <div class="card collapse" id="notes" style="">
                         <div class="card-body">
                            <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -53,7 +53,7 @@
                                     <div class="tab-content">
                                         <div class="tab-pane fade in active show" id="tab1warning">
                                             <div class="table-responsive-xl">
-                                                <table class="table" id="AccountReportTable">
+                                                <table class="table w-100" id="AccountReportTable">
                                                     <thead class="table-bg">
                                                         <tr>
                                                         <th scope="col">Alert Type <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -270,85 +270,100 @@ function attachmentsHtml(msg) {
     const list = msg.attachments || [];
     if (!list.length) return '';
 
-    // Safety checks (Taaki undefined variables ka koi error na aaye)
     const showableImages = (typeof SHOWABLE_IMAGES !== 'undefined') ? SHOWABLE_IMAGES : ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
     const playableVideos = (typeof PLAYABLE_VIDEOS !== 'undefined') ? PLAYABLE_VIDEOS : ['video/mp4', 'video/webm', 'video/ogg'];
     const esc = (typeof escapeHtml === 'function') ? escapeHtml : (s) => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     const fmtSize = (typeof formatSize === 'function') ? formatSize : (b) => b ? (b / (1024 * 1024)).toFixed(1) + ' MB' : '';
 
-    // CASE 1: AGAR SIRF 1 ATTACHMENT HAI (Normal Display)
-    if (list.length === 1) {
-        const a = list[0];
+    // 1. Separate Media (Image/Video) and Documents
+    const mediaList = [];
+    const docList = [];
+
+    list.forEach(a => {
+        const mime = String(a.mime || '').toLowerCase();
+        const isImg = a.kind === 'image' && showableImages.indexOf(mime) !== -1;
+        const isVid = a.kind === 'video' && playableVideos.indexOf(mime) !== -1;
+
+        if (isImg || isVid) {
+            mediaList.push(a);
+        } else {
+            docList.push(a);
+        }
+    });
+
+    let outputHtml = '';
+
+    // 2. RENDER MEDIA (IMAGES / VIDEOS) IN GALLERY GRID
+    if (mediaList.length === 1) {
+        const a = mediaList[0];
         const url = esc(a.url);
         const mime = String(a.mime || '').toLowerCase();
 
-        if (a.kind === 'image' && showableImages.indexOf(mime) !== -1) {
-            return `<a href="${url}" class="chat-media" data-kind="image" target="_blank" rel="noopener">
-                <img src="${url}" alt="" loading="lazy" style="max-width:240px;max-height:260px;border-radius:8px;display:block;">
+        if (a.kind === 'image') {
+            outputHtml += `<div class="chat-single-media">
+                <a href="${url}" class="chat-media" data-kind="image" target="_blank" rel="noopener">
+                    <img src="${url}" alt="" loading="lazy" style="max-width:260px;max-height:260px;border-radius:12px;display:block;">
+                </a>
+            </div>`;
+        } else {
+            outputHtml += `<div class="chat-single-media">
+                <video src="${url}" class="chat-media" data-kind="video" controls preload="metadata"
+                    style="max-width:260px;max-height:260px;border-radius:12px;display:block;"></video>
+            </div>`;
+        }
+    } else if (mediaList.length > 1) {
+        const tiles = mediaList.map((a, index) => {
+            const url = esc(a.url);
+            const hidden = index > 3 ? ' chat-gallery-hidden' : '';
+            const overlay = (index === 3 && mediaList.length > 3)
+                ? `<span class="chat-gallery-more" aria-hidden="true"><i class="bi bi-plus-lg"></i><span>${mediaList.length - 3}</span></span>`
+                : '';
+
+            let content = '';
+            if (a.kind === 'image') {
+                content = `<img src="${url}" alt="" loading="lazy">`;
+            } else {
+                content = `<video src="${url}#t=0.5" preload="metadata" muted playsinline></video>
+                           <i class="bi bi-play-circle-fill chat-video-play-icon" aria-hidden="true"></i>`;
+            }
+
+            return `<a href="${url}" class="chat-media chat-gallery-tile${hidden}" data-kind="${esc(a.kind || 'file')}" target="_blank" rel="noopener">
+                ${content}
+                ${overlay}
             </a>`;
-        }
+        }).join('');
 
-        if (a.kind === 'video' && playableVideos.indexOf(mime) !== -1) {
-            return `<video src="${url}" class="chat-media" data-kind="video" controls preload="metadata"
-                style="max-width:260px;max-height:260px;border-radius:8px;display:block;"></video>`;
-        }
-
-        // Single Document / File
-        const label = esc(a.name || (a.kind === 'image' ? 'Photo' : 'Document'));
-        const format = esc((mime.split('/')[1] || 'FILE').replace(/^x-/, '').toUpperCase());
-        return `<a href="${url}" download style="display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;padding:8px 12px;background:rgba(0,0,0,0.05);border-radius:8px;">
-            <i class="bi bi-file-earmark-arrow-down" style="font-size:24px;"></i>
-            <span><b>${label}</b><br><small>${format} • ${fmtSize(a.size)}</small></span>
-        </a>`;
+        outputHtml += `<div class="chat-image-gallery">${tiles}</div>`;
     }
 
-    // CASE 2: MULTIPLE ATTACHMENTS (Images + Videos + Documents all for Gallery)
-    const tiles = list.map((a, index) => {
-        const url = esc(a.url);
-        const mime = String(a.mime || '').toLowerCase();
-        const hidden = index > 3 ? ' chat-gallery-hidden' : '';
-        
-        // 4th item (index 3) par +count id greater the 3 greater than 3 attachments  to overlay show 
-        const overlay = (index === 3 && list.length > 3)
-            ? `<span class="chat-gallery-more" aria-hidden="true"><i class="bi bi-plus-lg"></i><span>${list.length - 3}</span></span>`
-            : '';
+    // 3. RENDER DOCUMENTS (Clean Stacked List at bottom)
+    if (docList.length > 0) {
+        const docs = docList.map(a => {
+            const url = esc(a.url);
+            const fileName = esc(a.name || 'Document');
+            const ext = esc((String(a.name || '').split('.').pop() || 'FILE').toUpperCase());
+            const isPdf = ext === 'PDF';
+            const sizeStr = fmtSize(a.size);
 
-        let content = '';
-
-        if (a.kind === 'image' && showableImages.indexOf(mime) !== -1) {
-            // Image Tile
-            content = `<img src="${url}" alt="" loading="lazy">`;
-        } else if (a.kind === 'video' && playableVideos.indexOf(mime) !== -1) {
-            // Video Tile
-            content = `<video src="${url}#t=0.5" preload="metadata" muted playsinline></video>
-                       <i class="bi bi-play-circle-fill chat-video-play-icon" aria-hidden="true"></i>`;
-        } 
-        
-        
-        // Documents: a card, a click downloads the file with its original name
-        else if (a.kind === 'document') {
-            const fileName = escapeHtml(a.name || 'Document');
-            const type = escapeHtml((String(a.name || '').split('.').pop() || 'FILE').toUpperCase());
-
-            return `<a href="${url}" download="${fileName}"
-                style="display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;min-width:200px;max-width:280px;">
-                <i class="bi bi-file-earmark-text" style="font-size:30px;"></i>
-                <span style="flex:1;overflow:hidden;">
-                    <strong style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${fileName}</strong>
-                    <small>${type} &middot; ${escapeHtml(formatSize(a.size))}</small>
-                </span>
-                <i class="bi bi-download"></i>
+            return `
+            <a href="${url}" download="${fileName}" class="doc-card" title="${fileName}">
+                <div class="doc-icon-box ${isPdf ? 'pdf' : 'other'}">
+                    <i class="bi ${isPdf ? 'bi-file-earmark-pdf-fill' : 'bi-file-earmark-text-fill'}"></i>
+                </div>
+                <div class="doc-info">
+                    <span class="doc-name">${fileName}</span>
+                    <span class="doc-meta"><strong>${ext}</strong> ${sizeStr ? '&bull; ' + sizeStr : ''}</span>
+                </div>
+                <div class="doc-download-btn">
+                    <i class="bi bi-download"></i>
+                </div>
             </a>`;
-        }
+        }).join('');
 
-        return `<a href="${url}" class="chat-media chat-gallery-tile${hidden}" data-kind="${esc(a.kind || 'file')}"
-            target="_blank" rel="noopener" ${a.kind !== 'image' && a.kind !== 'video' ? 'download' : ''}>
-            ${content}
-            ${overlay}
-        </a>`;
-    }).join('');
+        outputHtml += `<div class="chat-doc-list">${docs}</div>`;
+    }
 
-    return `<div class="chat-image-gallery">${tiles}</div>`;
+    return outputHtml;
 }
 /**
  * One message bubble, with a date divider when the day changes.

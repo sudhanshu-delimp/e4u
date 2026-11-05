@@ -54,7 +54,7 @@
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b>
                 </span>
             </div>
-            <div class="col-md-12 mb-4">
+            <div class="col-md-12">
                 <div class="card collapse" id="notes">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -139,7 +139,7 @@
             <div class="col-sm-12 col-md-12 col-lg-12 ">
 
                 <div class="table-responsive common-card">
-                    <table class="table" id="advertiserReviewTable">
+                    <table class="table w-100" id="advertiserReviewTable">
                         <thead class="table-bg">
                             <tr>
                                 <th width="10%">Ref</th>

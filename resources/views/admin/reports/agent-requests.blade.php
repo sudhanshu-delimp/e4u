@@ -51,7 +51,7 @@
       </div>
 
       <div class="col-md-12 ">
-         <div class="card collapse  mb-4" id="notes">
+         <div class="card collapse" id="notes">
             <div class="card-body">
                <h3 class="NotesHeader"><b>Notes:</b> </h3>
                <ol>
@@ -68,7 +68,7 @@
                <div><span class="totalCompletedTask"></span></div>
             </div>
          </div>
-         <div class="table-responsive">
+         <div class="table-responsive common-card">
             <table class="table w-100" id="agentRequestreportTable">
                <thead class="table-bg">
                   <tr>

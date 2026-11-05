@@ -15,10 +15,6 @@ $securityLevel = isset(auth()->user()->staff_detail->security_level)
 $editAccess = staffPageAccessPermission($securityLevel, 'edit');
 $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
 @endphp
-<!-- Content Wrapper -->
-<div id="content-wrapper" class="d-flex flex-column">
-    <!-- Main Content -->
-    <div id="content">
         <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <div class="row">
                 <div class="custom-heading-wrapper col-md-12">
@@ -26,7 +22,7 @@ $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes
                     <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes"
                         aria-expanded="true">Help?</span>
                 </div>
-                <div class="col-md-12 mb-4">
+                <div class="col-md-12">
                     <div class="card collapse" id="notes" style="">
                         <div class="card-body">
                             <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -44,9 +40,9 @@ $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes
             </div>
             {{-- end --}}
 
-            <div class="row mb-3">
+            <div class="row">
                 <div class="col-md-12">
-                    <div class="table-responsive custom-badge">
+                    <div class="table-responsive custom-badge common-card">
                         <table class="table w-100" id="productsHistoryTable">
                             <thead class="table-bg">
                                 <tr>
@@ -87,23 +83,6 @@ $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes
                 </div>
             </div>
         </div>
-    </div>
-    <!-- End of Main Content -->
-    <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span> </span>
-            </div>
-        </div>
-    </footer>
-    <!-- End of Footer -->
-</div>
-<!-- End of Content Wrapper -->
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
 
 
 <div class="modal fade upload-modal" id="processingModal" tabindex="-1" aria-labelledby="active_reqLabel"

@@ -11,7 +11,7 @@
             <h1 class="h1">Monthly Report</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12">
             <div class="card collapse" id="notes" style="">
                 <div class="card-body">
                     <p class="notes"><b>Notes:</b> </p>
@@ -49,7 +49,7 @@
             <div class="row">
                 <div class="col-md-12 mt-2">
                     <div id="table-sec" class="table-responsive-xl">
-                        <table class="table" id="AgentReportTable">
+                        <table class="table w-100" id="AgentReportTable">
                             <thead class="table-bg">
                                 <tr>
                                     <th>Date Issued</th>

@@ -66,7 +66,7 @@
                     </div>
                 @endif
             </div>
-            <div class="col-md-12 mb-4">
+            <div class="col-md-12">
                 <div class="card collapse" id="notes">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -81,7 +81,8 @@
                 </div>
             </div>
         </div>
-        <div class="row my-3">
+
+        <div class="row mb-3">
             <div class="col-lg-12 d-flex justify-content-between" style="gap: 10px;">
                 
                 <a class="nav-link collapse-item btn-switch" href="{{ route('admin.massage-centre-listings') }}">
@@ -118,8 +119,11 @@
             </div>
 
         </div>
-        <div class="massage_table_class">
-            <table class="table" id="escort_listings" style="width:100%;">
+
+       <div class="row">
+        <div class="col-lg-12">
+             <div class="massage_table_class table-responsive common-card">
+            <table class="table w-100" id="escort_listings" style="width:100%;">
                 <thead class="table-bg">
                     <tr>
                         <th>Profile ID</th>
@@ -157,18 +161,10 @@
 
             </table>
         </div>
-    </div>
-    </div>
-    </div>
+        </div>
+       </div>
 
-    <!--middle content end here-->
-    <!--right side bar start from here-->
     </div>
-    <!--right side bar end-->
-    </div>
-
-
-    <!-- See Email Report popup -->
 
 
     <div class="modal fade upload-modal bd-example-modal-lg" id="view-listing" tabindex="-1" role="dialog"

@@ -112,151 +112,130 @@ $addAccessEnabled = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
 $editAccess = staffPageAccessPermission($securityLevel, 'edit');
 $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
 @endphp
-<!-- Content Wrapper -->
-<div id="content-wrapper" class="d-flex flex-column">
-    <!-- Main Content -->
-    <div id="content">
-        <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-            <!--middle content-->
-            <div class="row">
-                <div class="custom-heading-wrapper col-md-12">
-                    <h1 class="h1">Influencer Requests</h1>
-                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
-                        style="font-size:16px"><b>Help?</b> </span>
-                </div>
-                <div class="col-md-12 mb-4">
-                    <div class="card collapse" id="notes">
-                        <div class="card-body">
-                            <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                            <ol>
-                                <li>Applications to become an E4U Influencer (<b>Influencer</b>) are summarised here.
-                                </li>
-                                <li>Complete the Influencer data, Edit action, before the assessment is undertaken.</li>
-                                <li>Only the Managing Director can approve the status of an Influencer to an Escort.
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+    <!--middle content-->
+    <div class="row">
+        <div class="custom-heading-wrapper col-md-12">
+            <h1 class="h1">Influencer Requests</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
+                style="font-size:16px"><b>Help?</b> </span>
+        </div>
+        <div class="col-md-12">
+            <div class="card collapse" id="notes">
+                <div class="card-body">
+                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                    <ol>
+                        <li>Applications to become an E4U Influencer (<b>Influencer</b>) are summarised here.
+                        </li>
+                        <li>Complete the Influencer data, Edit action, before the assessment is undertaken.</li>
+                        <li>Only the Managing Director can approve the status of an Influencer to an Escort.
+                        </li>
+                    </ol>
                 </div>
             </div>
+        </div>
+    </div>
 
 
 
+
+    <div class="row">
+        <div class="col-md-12">
 
             <div class="row">
                 <div class="col-md-12">
+                    <div id="table-sec" class="table-responsive common-card">
+                        <table class="table w-100" id="InfluencerReportTable">
+                            <thead class="table-bg">
+                                <tr>
+                                    <th>Ref</th>
+                                    <th>Requested</th>
+                                    <th>Member ID</th>
+                                    <th>Mobile</th>
+                                    <th>Home State</th>
+                                    <th>Social Media</th>
+                                    <th>Approved</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>123</td>
+                                    <td>01-11-2025</td>
+                                    <td>M40161</td>
+                                    <td>1438 028 733</td>
+                                    <td>Qld</td>
+                                    <td>
+                                        <ul class="pl-3 mb-0">
+                                            <li class="mb-0">address</li>
+                                            <li class="mb-0">address</li>
+                                        </ul>
+                                    </td>
+                                    <td>28-12-2025</td>
+                                    <td><span class="custom_badge badge_pending">Pending</span></td>
+                                    <td>
 
-                    <div class="row">
-                        <div class="col-md-12 mt-2">
-                            <div id="table-sec" class="table-responsive-xl">
-                                <table class="table" id="InfluencerReportTable">
-                                    <thead class="table-bg">
-                                        <tr>
-                                            <th>Ref</th>
-                                            <th>Requested</th>
-                                            <th>Member ID</th>
-                                            <th>Mobile</th>
-                                            <th>Home State</th>
-                                            <th>Social Media</th>
-                                            <th>Approved</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>123</td>
-                                            <td>01-11-2025</td>
-                                            <td>M40161</td>
-                                            <td>1438 028 733</td>
-                                            <td>Qld</td>
-                                            <td>
-                                                <ul class="pl-3 mb-0">
-                                                    <li class="mb-0">address</li>
-                                                    <li class="mb-0">address</li>
-                                                </ul>
-                                            </td>
-                                            <td>28-12-2025</td>
-                                            <td><span class="custom_badge badge_pending">Pending</span></td>
-                                            <td>
-
-                                                <div class="dropdown no-arrow">
-                                                    <a class="dropdown-toggle" href="#" role="button"
-                                                        id="dropdownMenuLink" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                        <i
-                                                            class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                    </a>
-                                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                        aria-labelledby="dropdownMenuLink">
-                                                        <div class="custom-tooltip-container">
-                                                            <a
-                                                                class="dropdown-item align-item-custom toggle-massage-notification"
-                                                                href="#" title="Click to disable notification">
-                                                                @if($editAccessEnabled)
-                                                                <a class="dropdown-item align-item-custom"
-                                                                    data-toggle="modal" data-target="#payAgentreport"
-                                                                    href=""> <i class="fa fa-check-circle"
-                                                                        aria-hidden="true"></i>
-                                                                    Approve</a>
-                                                                <div class="dropdown-divider"></div>
-                                                                <a class="dropdown-item align-item-custom"
-                                                                    href="#" data-toggle="modal"
-                                                                    data-target="#viewAgentreport"> <i
-                                                                        class="fa fa-thumbs-down"
-                                                                        aria-hidden="true"></i>
-                                                                    Decline</a>
-                                                                <div class="dropdown-divider"></div>
-                                                                <a class="dropdown-item align-item-custom"
-                                                                    href="#" data-toggle="modal"
-                                                                    data-target="#editSocialMediaAccount"> <i
-                                                                        class="fa fa-pen" aria-hidden="true"></i>
-                                                                    Edit</a>
-                                                                <div class="dropdown-divider"></div>
-                                                                <a class="dropdown-item align-item-custom"
-                                                                    href="#" data-toggle="modal"
-                                                                    data-target="#viewAgentreport"> <i class="fa fa-ban"
-                                                                        aria-hidden="true"></i>
-                                                                    Suspend</a>
-                                                                <div class="dropdown-divider"></div>
-                                                                @endif
-                                                                <a class="dropdown-item align-item-custom"
-                                                                    href="#" data-toggle="modal"
-                                                                    data-target="#viewSummarydetails"> <i class="fa fa-eye"
-                                                                        aria-hidden="true"></i>
-                                                                    View Summary</a>
-                                                        </div>
-                                                    </div>
-
+                                        <div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button"
+                                                id="dropdownMenuLink" data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <i
+                                                    class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                            </a>
+                                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                aria-labelledby="dropdownMenuLink">
+                                                <div class="custom-tooltip-container">
+                                                    <a
+                                                        class="dropdown-item align-item-custom toggle-massage-notification"
+                                                        href="#" title="Click to disable notification">
+                                                        @if($editAccessEnabled)
+                                                        <a class="dropdown-item align-item-custom"
+                                                            data-toggle="modal" data-target="#payAgentreport"
+                                                            href=""> <i class="fa fa-check-circle"
+                                                                aria-hidden="true"></i>
+                                                            Approve</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item align-item-custom"
+                                                            href="#" data-toggle="modal"
+                                                            data-target="#viewAgentreport"> <i
+                                                                class="fa fa-thumbs-down"
+                                                                aria-hidden="true"></i>
+                                                            Decline</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item align-item-custom"
+                                                            href="#" data-toggle="modal"
+                                                            data-target="#editSocialMediaAccount"> <i
+                                                                class="fa fa-pen" aria-hidden="true"></i>
+                                                            Edit</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item align-item-custom"
+                                                            href="#" data-toggle="modal"
+                                                            data-target="#viewAgentreport"> <i class="fa fa-ban"
+                                                                aria-hidden="true"></i>
+                                                            Suspend</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        @endif
+                                                        <a class="dropdown-item align-item-custom"
+                                                            href="#" data-toggle="modal"
+                                                            data-target="#viewSummarydetails"> <i class="fa fa-eye"
+                                                                aria-hidden="true"></i>
+                                                            View Summary</a>
                                                 </div>
+                                            </div>
 
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-        <!--middle content end here-->
     </div>
-    <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span> </span>
-            </div>
-        </div>
-    </footer>
-    <!-- End of Footer -->
 </div>
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
 
 <div class="modal fade upload-modal" id="editSocialMediaAccount" tabindex="-1" role="dialog"
     aria-labelledby="confirmPopupLabel" aria-hidden="true">

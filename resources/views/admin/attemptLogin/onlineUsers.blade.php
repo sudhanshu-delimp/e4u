@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive-xl">
-                        <table class="table" id="service-table">
+                        <table class="table w-100" id="service-table">
                             <thead class="table-bg">
                                 <tr>
                                     <th scope="col">

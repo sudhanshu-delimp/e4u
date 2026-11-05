@@ -58,7 +58,7 @@
                     </div>
                 @endif 
             </div>
-            <div class="col-md-12 mb-4" id="profile_and_tour_options">
+            <div class="col-md-12" id="profile_and_tour_options">
                 <div class="card collapse" id="notes">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -73,8 +73,8 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="box-body table-responsive custom-tabale-layout">
-                    <table class="table" id="supportTicketsTable">
+                <div class="box-body table-responsive custom-tabale-layout common-card">
+                    <table class="table w-100" id="supportTicketsTable">
                         <thead id="table-sec" class="table-bg">
                             <tr>
                                 <th> ID</th>

@@ -70,7 +70,7 @@ $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
-                <table class="table" id="EmailManageTable">
+                <table class="table w-100" id="EmailManageTable">
                     <thead class="table-bg">
                         <tr>
                             <th>Server

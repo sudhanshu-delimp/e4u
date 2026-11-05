@@ -33,7 +33,7 @@ $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b>
             </span>
         </div>
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12">
             <div class="card collapse" id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -54,14 +54,14 @@ $editAccessEnabled = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12 ">
             @if ($addAccessEnabled)
-            <div class="d-flex justify-content-end gap-20 my-3">
+            <div class="d-flex justify-content-end gap-20 mb-3">
                 <button type="button" class="btn-common mr-0" data-toggle="modal" data-target="#Create_Notice">Notices</button>
                 <button type="button" class="btn-common mr-0" data-toggle="modal" data-target="#Create_Alert">New
                     Alert</button>
             </div>
             @endif
-            <div class="table-responsive">
-                <table class="table" id="AlertTable">
+            <div class="table-responsive common-card">
+                <table class="table w-100" id="AlertTable">
                     <thead class="table-bg">
                         <tr>
                             <th scope="col">Ref</th>

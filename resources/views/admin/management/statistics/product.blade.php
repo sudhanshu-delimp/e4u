@@ -7,7 +7,7 @@
          <h1 class="h1">Reports - Product</h1>
          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
       </div>
-      <div class="col-md-12 mb-4">
+      <div class="col-md-12">
          <div class="card collapse" id="notes">
             <div class="card-body">
                <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -33,7 +33,7 @@
                </div>
             </div>
          </div>
-         <div class="table-responsive membership--inner">
+         <div class="table-responsive membership--inner common-card">
             <table class="table table-bordered text-center mb-0" id="tourStatisticTable">
                <colgroup>
                   <col style="width: 7%;">
@@ -2844,14 +2844,14 @@
                </tbody>
 
             </table>
-         </div>
-      </div>
 
-      <div class="col-md-12">
+      <div class="mt-4">
          <div class="timer_section">
             <p>Server time: <span>10:23:51 am</span></p>
             <p>Refresh time:<span> seconds</span></p>
             <p>Up time: <span>214 days & 09 hours 12 minutes</span></p>
+         </div>
+      </div>
          </div>
       </div>
    </div>

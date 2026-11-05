@@ -2,10 +2,6 @@
 @section('style')
 @stop
 @section('content')
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-        <!-- Main Content -->
-
         <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <div class="row">
                 <div class="custom-heading-wrapper col-md-12">
@@ -13,7 +9,7 @@
                     <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes"
                         aria-expanded="true">Help?</span>
                 </div>
-                <div class="col-md-12 mb-4">
+                <div class="col-md-12">
                     <div class="card collapse" id="notes" style="">
                         <div class="card-body">
                            <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -29,5 +25,4 @@
                 </div>
             </div>
         </div>
-    </div>
 @endsection

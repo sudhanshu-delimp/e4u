@@ -1,10 +1,7 @@
 @extends('layouts.admin')
 @section('style')
 @endsection
-@section('content')
-    <div id="wrapper">
-        <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content"> 
+@section('content') 
                 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
                     <!--middle content-->
                     <div class="row">
@@ -16,7 +13,7 @@
                             </span>
                         </div>
                         <div class="col-lg-12">
-                             <div class="card collapse   mb-4" id="notes">
+                             <div class="card collapse" id="notes">
                                 <div class="card-body">
                                    <h3 class="NotesHeader"><b>Notes:</b></h3>
                                     <ol>
@@ -1389,9 +1386,6 @@
                     </div>
                     {{-- end --}}
                 </div>
-            </div>
-        </div>
-    </div>
 @endsection
 @push('script')
     <script>
