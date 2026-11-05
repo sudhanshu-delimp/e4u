@@ -13,10 +13,6 @@
 </style>
 @stop
 @section('content')
-<!-- Content Wrapper -->
-<div id="content-wrapper" class="d-flex flex-column">
-   <!-- Main Content -->
-   <div id="content">
       <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
          {{-- middle content start here --}}
          <div class="row">
@@ -38,32 +34,31 @@
                </div>
             </div>
          </div>
-         <div class="col-md-12 common-card">
-            <div class="table-responsive custom-table-responsive">
-               <table id="currentListings" class="table  custom--common-table" width="100%">
-                  <thead class="table-bg">
-                     <tr>
+         <div class="row">
+            <div class="col-md-12 ">
+               <div class="table-responsive custom-table-responsive common-card">
+                  <table id="currentListings" class="table  custom--common-table" width="100%">
+                     <thead class="table-bg">
+                        <tr>
 
-                        <th>Profile Name</th>
-                        <th>Location</th>
-                        <th>Business Name</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Days</th>
-                        <th>Status</th>
-                        <th style="width:120px">Fee Paid</th>
-                     </tr>
-                  </thead>
-                  <tbody>
+                           <th>Profile Name</th>
+                           <th>Location</th>
+                           <th>Business Name</th>
+                           <th>Start Date</th>
+                           <th>End Date</th>
+                           <th>Days</th>
+                           <th>Status</th>
+                           <th style="width:120px">Fee Paid</th>
+                        </tr>
+                     </thead>
+                     <tbody>
 
-                  </tbody>
-               </table>
+                     </tbody>
+                  </table>
+               </div>
             </div>
          </div>
       </div>
-      {{-- end here --}}
-   </div>
-</div>
 @endsection
 @push('script')
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>

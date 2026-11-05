@@ -42,7 +42,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="photo-top-header" style="">
+            <div class="photo-top-header">
                 <div class="photo-header border-0">
                     <div class="modal-header border-0 p-0" style="display: block;position: relative;top: 30%;">
                         <div class="row">

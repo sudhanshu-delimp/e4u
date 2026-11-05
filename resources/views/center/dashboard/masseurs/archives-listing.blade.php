@@ -59,44 +59,40 @@
 </style>
 @stop
 @section('content')
-<!-- Content Wrapper -->
-<div id="content-wrapper" class="d-flex flex-column">
-   <!-- Main Content -->
-   <div id="content">
-      <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
-         <div class="row">
-            <div class="col-lg-12">
-               <div class="d-sm-flex align-items-center justify-content-between">
-                  <div class="custom-heading-wrapper">
-                     <h1 class="h1">Manage Masseurs</h1>
-                     <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true">
-                        <b>Help?</b></span>
-                  </div>
-                  @if (request('from') == 'dashboard')
-                  <div class="back-to-dashboard">
-                     <a href="{{ url()->previous() ?? route('dashboard.home') }}">
-                        <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
-                     </a>
-                  </div>
-                  @endif
+   <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="d-sm-flex align-items-center justify-content-between">
+               <div class="custom-heading-wrapper">
+                  <h1 class="h1">Manage Masseurs</h1>
+                  <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true">
+                     <b>Help?</b></span>
                </div>
+               @if (request('from') == 'dashboard')
+               <div class="back-to-dashboard">
+                  <a href="{{ url()->previous() ?? route('dashboard.home') }}">
+                     <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+                  </a>
+               </div>
+               @endif
             </div>
+         </div>
 
-            <div class="col-md-12">
-               <div class="card collapse" id="notes" style="">
-                  <div class="card-body">
-                     <h3 class="NotesHeader"><b>Notes:</b></h3>
-                     <ol>
-                        <li>Activate and deactivate Masseurs. The status must be Active to include the Masseur in the Default Listing.</li>
-                        <li>Edit a Masseur's details here.</li>
-                        <li>You can have up to eight Masseur Profiles at any one time appearing in a Centre Profile. You can also designate which Masseur Profiles are Default Listings in your Centre Profile.</li>
-                     </ol>
-                  </div>
+         <div class="col-md-12">
+            <div class="card collapse" id="notes" >
+               <div class="card-body">
+                  <h3 class="NotesHeader"><b>Notes:</b></h3>
+                  <ol>
+                     <li>Activate and deactivate Masseurs. The status must be Active to include the Masseur in the Default Listing.</li>
+                     <li>Edit a Masseur's details here.</li>
+                     <li>You can have up to eight Masseur Profiles at any one time appearing in a Centre Profile. You can also designate which Masseur Profiles are Default Listings in your Centre Profile.</li>
+                  </ol>
                </div>
             </div>
          </div>
-         {{-- start content --}}
-
+      </div>
+      
+      <div class="row">
          <div class="col-md-12 d-flex align-items-center justify-content-between flex-wrap gap-10 mb-3">
 
             <div class="mb-2 d-flex align-items-center justify-content-between flex-wrap gap-10">
@@ -112,8 +108,8 @@
                <a href="./create-new-masseur" id="new_task" name="submit" class="btn btn-sm btn-primary shadow-none create-tour-sec">Add Masseure</a>
             </div>
          </div>
-         <div class="col-lg-12 common-card">
-            <div class="table-responsive-xl">
+         <div class="col-lg-12 ">
+            <div class="table-responsive-xl common-card">
                <table class="table mb-3" id="masseurs_list">
                   <thead class="table-bg">
                      <tr>
@@ -136,24 +132,8 @@
                </table>
             </div>
          </div>
-
       </div>
-      <!-- End of Main Content -->
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-         <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-               <span> </span>
-            </div>
-         </div>
-      </footer>
-      <!-- End of Footer -->
    </div>
-   <!-- Scroll to Top Button-->
-   <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fas fa-angle-up"></i>
-   </a>
-
 
    @endsection
 

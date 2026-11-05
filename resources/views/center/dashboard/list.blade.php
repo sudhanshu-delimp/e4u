@@ -163,129 +163,109 @@
 </style>
 @stop
 @section('content')
-<!-- Content Wrapper -->
-<div id="content-wrapper" class="d-flex flex-column">
-   <!-- Main Content -->
-   <div id="content">
 
-      <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
-         <div class="row">
-            <div class="custom-heading-wrapper col-md-12">
-               <h1 class="h1">Our Profiles</h1>
-               <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
-            </div>
-            <div class="col-md-12">
-               <div class="card collapse" id="notes" style="">
-                  <div class="card-body">
-                     <h3 class="NotesHeader"><b>Notes:</b></h3>
-                     <ol>
-                        <li>Use this feature to review and make changes to your Profile.</li>
-                        <li>You can view and edit your Profile by selecting 'Action'. By selecting the Action function, you will be able to Edit and View your Profile.</li>
-                        <li>Remember, you can create as many Profiles as you like, but you can only List one at a time.</li>
-                     </ol>
-                  </div>
-               </div>
+<div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
+   <div class="row">
+      <div class="custom-heading-wrapper col-md-12">
+         <h1 class="h1">Our Profiles</h1>
+         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+      </div>
+      <div class="col-md-12">
+         <div class="card collapse" id="notes">
+            <div class="card-body">
+               <h3 class="NotesHeader"><b>Notes:</b></h3>
+               <ol>
+                  <li>Use this feature to review and make changes to your Profile.</li>
+                  <li>You can view and edit your Profile by selecting 'Action'. By selecting the Action function, you will be able to Edit and View your Profile.</li>
+                  <li>Remember, you can create as many Profiles as you like, but you can only List one at a time.</li>
+               </ol>
             </div>
          </div>
-         {{-- start content --}}
-
-
-         <div class="row">
-            <div class="col-md-12">
-               <div class="panel with-nav-tabs panel-warning common-card">
-                  <div class="panel-body">
-
-                     @if($active_profile)
-                     <div class="action_buttons">
-                        <div class="add--list listingActionButtons">
-                           <div class="action_class">
-
-                              
-                              <button style="padding: 10px;" class="btn btn-bump-up esc-tooltip-wrap" data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump Up
-                                 <span class="esc-tooltip-2">Bump your Listing up to <br> the top of the
-                                    Listings</span>
-                              </button>
-                              <button style="padding: 10px;" class="btn btn-custom-success esc-tooltip-wrap" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Listing
-
-                                 <span class="esc-tooltip-2">Extend your Listing to a <br> new end date</span>
-                              </button>
-                              <button style="padding: 10px;" class="btn btn-primary esc-tooltip-wrap" data-toggle="modal" data-target="#suspend_profile" id="btn_suspend_profile">Suspend Listing
-                                 <span class="esc-tooltip-2">Take down your Listing <br> for a set period</span>
-                              </button>
-
-
-                           </div>
-                           <button class="btn brb-btn esc-tooltip-wrap" data-toggle="modal"
-                              data-target="#add_brb" id="btn_add_brb">Shop Closed
-                              <span class="esc-tooltip-2">Be Right Back display</span>
-                           </button>
-                        </div>
-                     </div>
-                     @endif
-
-
-
-                     <div class="tab-content">
-                        <div class="tab-pane fade active show" id="tab3warning">
-                           <div class="row pb-3">
-
-                              <!-- <div class="col-md-12 col-sm-12">
-                                    <div class="bothsearch-form d-flex align-items-center justify-content-end" style="gap: 10px;">
-                                       <div class="total_listing">
-                                          <div><span>Current Active : </span></div>
-                                          <div><span id="totalViewerLegboxList">1</span></div>
-                                       </div>
-                                       
-                                    </div>
-                                 </div> -->
-                           </div>
-                           <div class="table-responsive-xl">
-
-
-                              <table class="table mb-3" id="massage_list">
-                                 <thead class="table-bg">
-                                    <tr>
-                                       <th>Is Live</th>
-                                       <th>ID</th>
-                                       <th>Profile Name</th>
-                                       <th>Business Name</th>
-                                       <th>Business No</th>
-                                       <th>Mobile</th>
-                                       <th>Created Date</th>
-                                       <th>Status</th>
-                                       <th class="text-center">Action</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody class="table-content">
-
-                                 </tbody>
-                              </table>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-
-         {{-- end --}}
       </div>
    </div>
-   <!-- End of Main Content -->
-   <!-- Footer -->
-   <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-         <div class="copyright text-center my-auto">
-            <span> </span>
+   {{-- start content --}}
+
+
+   <div class="row">
+      <div class="col-md-12">
+         <div class="panel with-nav-tabs panel-warning common-card">
+            <div class="panel-body">
+
+               @if($active_profile)
+               <div class="action_buttons">
+                  <div class="add--list listingActionButtons">
+                     <div class="action_class">
+
+                        
+                        <button style="padding: 10px;" class="btn btn-bump-up esc-tooltip-wrap" data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump Up
+                           <span class="esc-tooltip-2">Bump your Listing up to <br> the top of the
+                              Listings</span>
+                        </button>
+                        <button style="padding: 10px;" class="btn btn-custom-success esc-tooltip-wrap" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Listing
+
+                           <span class="esc-tooltip-2">Extend your Listing to a <br> new end date</span>
+                        </button>
+                        <button style="padding: 10px;" class="btn btn-primary esc-tooltip-wrap" data-toggle="modal" data-target="#suspend_profile" id="btn_suspend_profile">Suspend Listing
+                           <span class="esc-tooltip-2">Take down your Listing <br> for a set period</span>
+                        </button>
+
+
+                     </div>
+                     <button class="btn brb-btn esc-tooltip-wrap" data-toggle="modal"
+                        data-target="#add_brb" id="btn_add_brb">Shop Closed
+                        <span class="esc-tooltip-2">Be Right Back display</span>
+                     </button>
+                  </div>
+               </div>
+               @endif
+
+
+
+               <div class="tab-content">
+                  <div class="tab-pane fade active show" id="tab3warning">
+                     <div class="row pb-3">
+
+                        <!-- <div class="col-md-12 col-sm-12">
+                              <div class="bothsearch-form d-flex align-items-center justify-content-end" style="gap: 10px;">
+                                 <div class="total_listing">
+                                    <div><span>Current Active : </span></div>
+                                    <div><span id="totalViewerLegboxList">1</span></div>
+                                 </div>
+                                 
+                              </div>
+                           </div> -->
+                     </div>
+                     <div class="table-responsive">
+
+
+                        <table class="table mb-3 w-100" id="massage_list">
+                           <thead class="table-bg">
+                              <tr>
+                                 <th>Is Live</th>
+                                 <th>ID</th>
+                                 <th>Profile Name</th>
+                                 <th>Business Name</th>
+                                 <th>Business No</th>
+                                 <th>Mobile</th>
+                                 <th>Created Date</th>
+                                 <th>Status</th>
+                                 <th class="text-center">Action</th>
+                              </tr>
+                           </thead>
+                           <tbody class="table-content">
+
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
          </div>
       </div>
-   </footer>
-   <!-- End of Footer -->
+   </div>
+
+   {{-- end --}}
 </div>
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-   <i class="fas fa-angle-up"></i>
-</a>
 
 @if($active_profile)
 @include('center.dashboard.modal.listing_action_popup.index')
