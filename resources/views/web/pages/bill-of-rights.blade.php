@@ -38,19 +38,7 @@
     ul {
         text-align: justify
     }
-    .modern_para p {
-    position: relative;
-    padding-left: 35px;
-}
-
-.modern_para p::before {
-    content: "✔";
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: #2ea522;
-    font-weight: bold;
-}
+    
 </style>
 @endsection
 @section('content')
@@ -119,7 +107,7 @@
         </div>
         
         <hr class="my-4">
-        <div style="border: 2px solid #2ea522; padding:15px; background:#2ea52221;">
+        <div class="success_box">
             <p>A large part of our business comes through word of mouth and referrals from happy,
                 satisfied Members. We want you to recommend us, and we know that you will only do this
                 if you are happy with the services we provide. That is why we work so hard to go above
