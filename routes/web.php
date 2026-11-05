@@ -484,6 +484,11 @@ Route::get('/spam-policy', function () {
     return view('web.pages.spam-policy');
 })->name('spam-policy')->seo_name('Spam Policy')->seo_group('Legal')->middleware('seo');
 
+Route::get('/bill-of-rights', function () {
+    return view('web.pages.bill-of-rights');
+})->name('bill-of-rights')->seo_name('Bill of Rights')->seo_group('Legal')->middleware('seo');
+
+
 Route::get('/terms-conditions', [PageController::class, 'termsConditions'])
 ->name('pages.terms-conditions')->seo_name('Terms & Conditions')->seo_group('Legal')->middleware('seo');
 
