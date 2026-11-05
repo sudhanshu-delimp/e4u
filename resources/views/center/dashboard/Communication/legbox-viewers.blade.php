@@ -60,7 +60,7 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <!--middle content start here-->
     <div class="row">
 
@@ -78,8 +78,8 @@
             </div>
             @endif
         </div>
-        <div class="col-md-12 mb-4">
-            <div class="card collapse" id="notes" style="">
+        <div class="col-md-12">
+            <div class="card collapse" id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b></h3>
                     <ol>
@@ -105,8 +105,8 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12 mb-4 common-card">
-        <div class="table-responsive">
+    <div class="col-md-12">
+        <div class="table-responsive common-card">
             <table class="table w-100" id="legboxNotificationTable">
                 <thead class="table-bg">
                     <tr>

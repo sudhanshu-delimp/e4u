@@ -11,9 +11,6 @@
     </style>
 @endsection
 @section('content')
-    <div id="wrapper">
-
-
         <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <!--middle content start here-->
 
@@ -23,7 +20,7 @@
                     <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes"
                         aria-expanded="true">Help?</span>
                 </div>
-                <div class="col-md-12 mb-4">
+                <div class="col-md-12">
                     <div class="card collapse" id="notes" style="">
                         <div class="card-body">
                             <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -40,8 +37,9 @@
                     </div>
                 </div>
             </div>
-
-                    <div class="col-lg-12 common-card">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="common-card">
                         <form class="common-form" id="simOrderForm" action="{{ route('mobile-read-sim') }}" method="POST">
                             <div class="row inner-row">
                                 <div class="col-md-12 card-heading">
@@ -124,7 +122,7 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                     <div class="inner-field-row">                                     
+                                    <div class="inner-field-row">                                     
                                         
                                         <div class="form-group">
                                             <label for="email"><b>Your Name</b><span class="text-danger">*</span>
@@ -179,7 +177,7 @@
                                             </div>
                                         </div>
                                         
-                                                                              
+                                                                            
                                     </div>
                                     <div class="inner-field-row">
                                         <div class="form-group">
@@ -203,7 +201,7 @@
                                             <label for="exampleFormControlTextarea1">Comments</label>
                                             <textarea class="form-control what_happened" name="comments" id="exampleFormControlTextarea1" rows="5"
                                                 placeholder="Up to 300 character">{{ old('comments') }}</textarea>
-                                                 <p class="cp-hint mb-0">
+                                                <p class="cp-hint mb-0">
                                             <small><i>Please provide any additional information to assist us</i> </small>
                                         </p>
                                         </div>
@@ -243,17 +241,18 @@
 
                                 </div>
                                 <div class="common-footer">
-                                         <button type="submit" class="common-save-btn">
+                                        <button type="submit" class="common-save-btn">
                                             Place Order
                                         </button>
                                     </div>
                             </div>
                         </form>
                     </div>
-            <!--middle content end here-->
+                </div>
+            </div>
         </div>
 
-        {{-- popup --}}
+      
 
         <div class="modal fade upload-modal" id="new-ban" style="backdrop-filter: brightness(0.5);" tabindex="-1"
             role="dialog" aria-labelledby="new-ban" aria-hidden="true" data-backdrop="static">
@@ -282,8 +281,6 @@
         </div>
     @endsection
     @push('script')
-        <!-- file upload plugin start here -->
-        <!-- file upload plugin end here -->
         <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
@@ -300,41 +297,5 @@
             @endif
         </script>
 
-        <script>
-            // $(document).ready(function () {
-            //     $('#simOrderForm').on('submit', function (e) {
-            //         e.preventDefault();
-
-            //         let formData = new FormData(this);
-
-            //         $.ajax({
-            //             url: $(this).attr('action'),
-            //             method: 'POST',
-            //             data: formData,
-            //             processData: false,
-            //             contentType: false,
-            //             headers: {
-            //                 'X-CSRF-TOKEN': $('input[name="_token"]').val()
-            //             },
-            //             success: function (response) {
-
-            //                 $(".sent_date").text(response.data.created_at)
-            //                 $('#new-ban').show();
-            //                 //alert('Order submitted successfully!');
-            //                 // Optionally reset the form or redirect
-            //                 $('#simOrderForm')[0].reset();
-            //             },
-            //             error: function (xhr) {
-            //                 if (xhr.status === 422) {
-            //                     let errors = xhr.responseJSON.errors;
-            //                     let errorMessages = Object.values(errors).map(msg => msg[0]).join('\n');
-            //                     alert('Validation Error:\n' + errorMessages);
-            //                 } else {
-            //                     alert('Something went wrong. Please try again.');
-            //                 }
-            //             }
-            //         });
-            //     });
-            // });
-        </script>
+        
     @endpush

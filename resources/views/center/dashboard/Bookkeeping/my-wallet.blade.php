@@ -13,7 +13,6 @@
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-    <!--middle content start here-->
     <div class="row">
         <div class="d-sm-flex align-items-center justify-content-between col-md-12">
             <div class="custom-heading-wrapper">
@@ -29,11 +28,8 @@
             @endif
         </div>
 
-    </div>
-
-    <div class="row collapse" id="notes">
-        <div class="col-md-12 mb-4">
-            <div class="card">
+        <div class="col-md-12">
+            <div class="card collapse" id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
                     <ol>
@@ -252,16 +248,7 @@
                 <p>Are you sure that is the correct amount? If the amount is correct click <strong>Proceed</strong> to
                     complete your payment.</p>
 
-                <!-- <div class="mt-3 p-2 bg-light rounded">
-                        <h5>Never Worry About Running Out of Credit</h5>
-                        <p>Would you like to enable Auto-recharge?</p>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="autoRechargeCheck">
-                            <label class="form-check-label" for="autoRechargeCheck">Yes</label>
-                        </div>
-                        <small class="d-block text-muted mt-2">If enabled, the recharge will occur automatically when
-                            balance falls below AU$100.00.</small>
-                    </div> -->
+               
 
             </div>
 
@@ -273,8 +260,6 @@
 
         </div>
     </div>
-</div>
-
 </div>
 @endsection
 @prepend('script')
