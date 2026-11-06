@@ -63,43 +63,40 @@ class ReportAdvertiserSuspensionContoller extends Controller
         $today = Carbon::now();
         switch ($advertiserType) {
             case 'escort': {
-                    $advertisers = SuspendProfile::where('status', 1)
-                        ->whereHas('advertiser', function ($subQuery) {
-                            $subQuery->whereNotNull('purchase_id');
-                        })
-                        ->whereRaw('? BETWEEN utc_start_date AND utc_end_date', [$today])
-                        ->get();
+                    $advertisers = SuspendProfile::query()
+                    ->where('status', 1)
+                    ->where('utc_end_date', '>=', $today)
+                    ->when($search, function ($query) use ($search) {
+                        $query->where(function ($subQuery) use ($search) {
+                            $subQuery->whereHas('user', function ($q) use ($search) {
+                                $q->where('member_id', 'LIKE', "%{$search}%");
+                            })
+                            ->orWhereHas('advertiser', function ($q) use ($search) {
+                                $q->where('slug', 'LIKE', "%{$search}%");
+                            });
+                        });
+                    });
                 }
                 break;
             case 'massage': {
-                    $advertisers = MassageSuspendProfile::where('status', 1)
-                        ->whereHas('advertiser', function ($subQuery) {
-                            $subQuery->whereNotNull('purchase_id');
-                        })
-                        ->whereRaw('? BETWEEN utc_start_date AND utc_end_date', [$today])
-                        ->get();
+                    $advertisers = MassageSuspendProfile::query()
+                ->where('status', 1)
+                ->where('utc_end_date', '>=', $today)
+                ->when($search, function ($query) use ($search) {
+                        $query->where(function ($subQuery) use ($search) {
+                            $subQuery->whereHas('user', function ($q) use ($search) {
+                                $q->where('member_id', 'LIKE', "%{$search}%");
+                            })
+                            ->orWhereHas('advertiser', function ($q) use ($search) {
+                                $q->where('slug', 'LIKE', "%{$search}%");
+                            });
+                        });
+                    });
                 }
                 break;
             default:
                 # code...
                 break;
-        }
-
-
-        if ($search) {
-            $advertisers = $advertisers->filter(function ($item) use ($search, $advertiserType) {
-                $matchesMemberId = $item->user &&
-                    stripos($item->user->member_id ?? '', $search) !== false;
-                if($advertiserType == 'massage') {
-                     $matchesRefNumber = $item->massage_profile &&
-                    stripos($item->massage_profile->slug ?? '', $search) !== false;
-                } else {
-                $matchesRefNumber = $item->escort &&
-                    stripos($item->escort->slug ?? '', $search) !== false;
-                }
-
-                return $matchesMemberId || $matchesRefNumber;
-            })->values();; // reset the keys
         }
 
         return DataTables::of($advertisers)

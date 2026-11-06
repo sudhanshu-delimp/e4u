@@ -151,9 +151,6 @@
       lengthChange: true,
       searching: true,
       bStateSave: true,
-      order: [
-         [1, 'desc']
-      ],
       processing: true,
       serverSide: true,
       paging: true,
@@ -171,8 +168,6 @@
          }
       },
       columns: [{
-            /*data: 'advertiser_id',
-            name: 'advertiser_id',*/
             data: 'profile_id',
             name: 'profile_id',
             orderable: false,
@@ -204,7 +199,7 @@
             orderable: false,
             class: 'text-center'
          }
-      ]
+      ],
    });
 
    $("select[name='advertiser_type']").on("change", function() {

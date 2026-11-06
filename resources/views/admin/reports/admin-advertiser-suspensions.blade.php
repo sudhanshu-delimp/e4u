@@ -70,8 +70,8 @@
                      <th>Start Date</th>
                      <th>End Date</th>
                      <th>Days</th>
-                     <th>Suspended At</th>
                      <th>Location</th>
+                     <th>Date of Suspended</th>
                      <th>Action</th>
                   </tr>
                </thead>
@@ -194,12 +194,12 @@
             name: 'days'
          },
          {
-            data: 'suspended_at',
-            name: 'suspended_at'
-         },
-         {
             data: 'location',
             name: 'location'
+         },
+         {
+            data: 'suspended_at',
+            name: 'suspended_at'
          },
          {
             data: 'action',
