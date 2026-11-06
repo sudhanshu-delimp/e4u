@@ -181,7 +181,7 @@
          },
          {
             data: 'start_date',
-            name: 'start_date'
+            name: 'utc_start_date'
          },
          {
             data: 'end_date',
