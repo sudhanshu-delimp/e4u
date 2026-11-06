@@ -150,10 +150,11 @@
       info: true,
       lengthChange: true,
       searching: true,
-      bStateSave: true,
+      bStateSave: false,
       processing: true,
       serverSide: true,
       paging: true,
+      order: [[2, 'asc']],
       ajax: {
          url: $("select[name='advertiser_type']").val(),
          type: "GET",
@@ -170,8 +171,6 @@
       columns: [{
             data: 'profile_id',
             name: 'profile_id',
-            orderable: false,
-            orderable: false,
          },
          {
             data: 'member_id',
