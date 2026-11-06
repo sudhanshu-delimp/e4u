@@ -576,7 +576,7 @@
                             <tr><th><b>Home State</b></th><td>${rowData.territory ? rowData.territory : 'NA'}</td></tr>
                             <tr><th><b>Agent ID</b></th><td>${rowData.referred_by_agent_id ? rowData.referred_by_agent_id : '--'}</td></tr>
                             <tr><th><b>Status</b></th><td class="border-0">${rowData.status_name ? rowData.status_name.replace(/<[^>]*>/g, '') : 'N/A'} </td></tr>
-                            <tr><th><b>Date</b></th><td>${rowData.registration_date ? rowData.registration_date : 'NA'}</td></tr>`;
+                            <tr><th><b>Date Joined</b></th><td>${rowData.registration_date ? rowData.registration_date : 'NA'}</td></tr>`;
 
 
         if (rowData.status === 'Rejected' && rowData.rejection_reason) {
