@@ -47,9 +47,9 @@ class AnalyticsController extends Controller
      */
     public function feedback()
     {
-         $userId = Auth::id();
+        $userId = Auth::id();
         $viewsCnts = $this->logService->getReviewsrecommendationsCount('escort', $userId);
-    
+
         return view('escort.dashboard.Annalytics.feedback', compact('viewsCnts'));
     }
 
@@ -58,6 +58,23 @@ class AnalyticsController extends Controller
      */
     public function profilesTours()
     {
+        $userId = Auth::id();
+        $viewsCnts = $this->logService->getAdvertisersProfileViews('escort', $userId);
+        //dd($viewsCnts);
         return view('escort.dashboard.Annalytics.profiles-tours');
+    }
+
+    /**
+     * Critical Information Analytics
+     */
+    public function criticalinformation()
+    {
+        $userId = Auth::id();
+        $viewsCnts = $this->logService->getCriticalInformation('escort', $userId);
+        $currentlyPostedProfilesCount = $viewsCnts['currentlyPostedProfilesCount'];
+        $upcomingProfilesCount = $viewsCnts['upcomingProfilesCount'];
+        $playboxSubscriptionsCount = $viewsCnts['playboxSubscriptionsCount'];
+
+        return view('escort.dashboard.Annalytics.criticalinformation', compact('currentlyPostedProfilesCount', 'upcomingProfilesCount', 'playboxSubscriptionsCount'));
     }
 }

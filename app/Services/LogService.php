@@ -407,4 +407,78 @@ class LogService
             ],
         ];
     }
+
+    public function getCriticalInformation($advertiserType, $advertiserId = 0)
+    {
+        if ($advertiserType == 'massage') {
+            $currentlyPostedProfilesCount = MassageProfile::where('user_id', $advertiserId)
+                ->where('default_setting', 0)
+                ->whereHas('purchase', fn($q) => $q->where('status', 'listed'))
+                ->count();
+
+            $upcomingProfilesCount = MassageProfile::where('user_id', $advertiserId)
+                ->where('default_setting', 0)
+                ->whereHas('purchase', fn($q) => $q->where('status', 'pending'))
+                ->count();
+        } else {
+            $currentlyPostedProfilesCount = Escort::where('user_id', $advertiserId)
+                ->where('default_setting', 0)
+                ->whereHas('purchase', fn($q) => $q->where('status', 'listed'))
+                ->count();
+
+            $upcomingProfilesCount = Escort::where('user_id', $advertiserId)
+                ->where('default_setting', 0)
+                ->whereHas('purchase', fn($q) => $q->where('status', 'pending'))
+                ->count();
+        }
+        $playboxSubscriptionsCount = 0;
+
+        return [
+            'currentlyPostedProfilesCount' => $currentlyPostedProfilesCount,
+            'upcomingProfilesCount' =>  $upcomingProfilesCount,
+            'playboxSubscriptionsCount' => $playboxSubscriptionsCount
+        ];
+    }
+                                                
+    public function getAdvertisersProfileViews($advertiserType, $advertiserId = 0)
+    {
+        if ($advertiserType == 'massage') {
+            $page = 'massage-detail-page';
+            $relationTo = 'massage';
+        } else {
+            $page = 'escort-detail-page';
+            $relationTo = 'escorts';
+        }
+        $startOfToday = Carbon::today()->format("Y-m-d 00:00:00");
+        $endOfToday = Carbon::today()->format("Y-m-d 23:59:59");
+        $startOfWeek = Carbon::now()->startOfWeek()->format("Y-m-d 00:00:00");
+        $endOfWeek = Carbon::now()->endOfWeek()->format("Y-m-d 23:59:59");
+        $monthStart = Carbon::now()->startOfMonth()->format("Y-m-d 00:00:00");
+        $monthEnd = Carbon::now()->endOfMonth()->format("Y-m-d 23:59:59");;
+        $startOfYear = Carbon::now()->startOfYear()->format("Y-m-d 00:00:00");
+        $endOfDay = Carbon::now()->endOfYear()->format("Y-m-d 23:59:59");
+
+        $visitors = Visitor::whereHas($relationTo, function ($query) use ($advertiserId) {
+            $query->where('user_id', $advertiserId);
+        });
+
+        $todayVisitor = $visitors->where('page', $page)->whereBetween('created_at', [$startOfToday, $endOfToday]);
+        $thisWeekVisitor = $visitors->where('page', $page)->whereBetween('created_at', [$startOfWeek, $endOfWeek]);
+        $ytdVisitor = $visitors->where('page', $page)->whereBetween('created_at', [$startOfYear, $endOfDay]);
+
+        return [
+            'today' => [
+                'profile_views' => (clone $thisWeekVisitor)->where('is_profile_media_visit', '0')->count(),
+                'media_views'   => (clone $thisWeekVisitor)->where('is_profile_media_visit', '1')->count(),
+            ],
+            'this_week' => [
+                'profile_views' => (clone $thisWeekVisitor)->where('is_profile_media_visit', '0')->count(),
+                'media_views'   => (clone $thisWeekVisitor)->where('is_profile_media_visit', '1')->count(),
+            ],
+            'year_to_date' => [
+                'profile_views' => (clone $ytdVisitor)->where('is_profile_media_visit', '0')->count(),
+                'media_views'   => (clone $ytdVisitor)->where('is_profile_media_visit', '1')->count(),
+            ],
+        ];
+    }
 }
