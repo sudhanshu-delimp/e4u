@@ -144,6 +144,18 @@ class Purchase extends Model
         return $this->escort->user;
     }
 
+    public function member()
+    {
+        return $this->hasOneThrough(
+            User::class,
+            Escort::class,
+            'id',        // Primary key on escorts
+            'id',        // Primary key on users
+            'escort_id', // Foreign key on purchases
+            'user_id'    // Foreign key on escorts
+        );
+    }
+
     public function tour_location()
     {
         return $this->belongsTo(TourLocation::class);
