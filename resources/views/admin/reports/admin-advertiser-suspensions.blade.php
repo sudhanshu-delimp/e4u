@@ -150,7 +150,7 @@
       info: true,
       lengthChange: true,
       searching: true,
-      bStateSave: false,
+      bStateSave: true,
       order: [
          [1, 'desc']
       ],
