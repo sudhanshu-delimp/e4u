@@ -154,6 +154,9 @@
       order: [
          [1, 'desc']
       ],
+       stateLoadParams: function (settings, data) {
+        data.order = [[2, 'asc']];
+      },
       processing: true,
       serverSide: true,
       paging: true,

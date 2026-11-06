@@ -155,6 +155,9 @@
       serverSide: true,
       paging: true,
       order: [[2, 'asc']],
+       stateLoadParams: function (settings, data) {
+        data.order = [[2, 'asc']];
+      },
       ajax: {
          url: $("select[name='advertiser_type']").val(),
          type: "GET",
