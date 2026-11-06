@@ -47,8 +47,10 @@ class AnalyticsController extends Controller
      */
     public function feedback()
     {
-
-        return view('escort.dashboard.Annalytics.feedback');
+         $userId = Auth::id();
+        $viewsCnts = $this->logService->getReviewsrecommendationsCount('escort', $userId);
+    
+        return view('escort.dashboard.Annalytics.feedback', compact('viewsCnts'));
     }
 
     /**

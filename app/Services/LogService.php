@@ -211,7 +211,8 @@ class LogService
                     'idle'       => $now->format('Y-m-d h:i:s a'),
                     'origin'     => $this->getVisitorCountry()[0],
                     'date'       => $now,
-                    'listing_profile_id' => $listing_profile_id,115
+                    'listing_profile_id' => $listing_profile_id,
+                    115
                 ];
 
                 if ($is_profile_media_visit == '1')
@@ -327,15 +328,14 @@ class LogService
             $page = 'massage-detail-page';
             ///$profile = MassageProfile::where('user_id', $adevertiserId);
             //$socialMediaModel = SocialMediaVisitor::where('listing_profile_id', $adevertiserId)->where('page', $page);
-            $visitors = SocialMediaVisitor::whereHas('massgeSocialMediaViews', function ($query) use($adevertiserId) {
+            $visitors = SocialMediaVisitor::whereHas('massgeSocialMediaViews', function ($query) use ($adevertiserId) {
                 $query->where('user_id', $adevertiserId);
             })->get();
-
         } else {
             $page = 'escort-detail-page';
-             //$profile = Escort::where('user_id', $adevertiserId);
+            //$profile = Escort::where('user_id', $adevertiserId);
             //$socialMediaModel = SocialMediaVisitor::where('listing_profile_id', $adevertiserId)->where('page', $page);
-            $visitors = SocialMediaVisitor::whereHas('escortSocialMediaViews', function ($query) use($adevertiserId) {
+            $visitors = SocialMediaVisitor::whereHas('escortSocialMediaViews', function ($query) use ($adevertiserId) {
                 $query->where('user_id', $adevertiserId);
             })->get();
         }
@@ -363,10 +363,47 @@ class LogService
                 'social_media_count' => number_format((clone $visitors)->whereBetween('created_at', [$startOfWeek, $endOfWeek])->count()),
             ],
             'year_to_date' => [
-            'social_media_twitter_count' => number_format((clone $visitors)->whereBetween('created_at', [$startOfYear, $endOfDay])->where('social_media_type', 'twitter')->count()),
-            'social_media_facebook_count' => number_format((clone $visitors)->whereBetween('created_at', [$startOfYear, $endOfDay])->where('social_media_type', 'facebook')->count()),
-            'social_media_instagram_count' => number_format((clone $visitors)->whereBetween('created_at', [$startOfYear, $endOfDay])->where('social_media_type', 'instagram')->count()),
-            'social_media_count' => number_format((clone $visitors)->whereBetween('created_at', [$startOfYear, $endOfDay])->count()),
+                'social_media_twitter_count' => number_format((clone $visitors)->whereBetween('created_at', [$startOfYear, $endOfDay])->where('social_media_type', 'twitter')->count()),
+                'social_media_facebook_count' => number_format((clone $visitors)->whereBetween('created_at', [$startOfYear, $endOfDay])->where('social_media_type', 'facebook')->count()),
+                'social_media_instagram_count' => number_format((clone $visitors)->whereBetween('created_at', [$startOfYear, $endOfDay])->where('social_media_type', 'instagram')->count()),
+                'social_media_count' => number_format((clone $visitors)->whereBetween('created_at', [$startOfYear, $endOfDay])->count()),
+            ],
+        ];
+    }
+
+    public function getReviewsrecommendationsCount($advertiserType, $advertiserId = 0)
+    {
+        if ($advertiserType == 'massage') {
+            $reviewModel = Reviews::where('advertiser_type', 'massage')->whereHas('massage', function ($query) use ($advertiserId) {
+                $query->where('user_id', $advertiserId);
+            });
+        } else {
+            $reviewModel = Reviews::where('advertiser_type', 'escort')->whereHas('escort', function ($query) use ($advertiserId) {
+                $query->where('user_id', $advertiserId);
+            });
+        }
+
+        $startOfToday = Carbon::today()->format("Y-m-d 00:00:00");
+        $endOfToday = Carbon::today()->format("Y-m-d 23:59:59");
+        $startOfWeek = Carbon::now()->startOfWeek()->format("Y-m-d 00:00:00");
+        $endOfWeek = Carbon::now()->endOfWeek()->format("Y-m-d 23:59:59");
+        $monthStart = Carbon::now()->startOfMonth()->format("Y-m-d 00:00:00");
+        $monthEnd = Carbon::now()->endOfMonth()->format("Y-m-d 23:59:59");;
+        $startOfYear = Carbon::now()->startOfYear()->format("Y-m-d 00:00:00");
+        $endOfDay = Carbon::now()->endOfYear()->format("Y-m-d 23:59:59");
+
+        return [
+            'today' => [
+                'review_count'  => (clone $reviewModel)->whereBetween('created_at', [$startOfToday, $endOfToday])->count(),
+                'recommendation_count'  => 0,
+            ],
+            'this_week' => [
+                'review_count'  => (clone $reviewModel)->whereBetween('created_at', [$startOfWeek, $endOfWeek])->count(),
+                'recommendation_count'  => 0,
+            ],
+            'year_to_date' => [
+                'review_count'  => (clone $reviewModel)->whereBetween('created_at', [$startOfYear, $endOfDay])->count(),
+                'recommendation_count'  => 0,
             ],
         ];
     }
