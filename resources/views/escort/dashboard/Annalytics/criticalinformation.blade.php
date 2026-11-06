@@ -9,6 +9,7 @@
     #socialMediaTable td,th{
         vertical-align: middle;
     }
+    .statistics-card{min-width: 350px !important;}
 
 </style>
 @endsection
@@ -44,7 +45,7 @@
                             <div class="statistics-text">
                                 <div class="statistics-label">Profiles Currently Posted
                                 </div>
-                                <div class="statistics-value">125</div>
+                                <div class="statistics-value">{{$currentlyPostedProfilesCount}}</div>
                             </div>
                             <div class="statistics-icon">
                                 <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
@@ -55,18 +56,18 @@
                             <div class="statistics-text">
                                 <div class="statistics-label">Upcoming Profiles
                                 </div>
-                                <div class="statistics-value">35</div>
+                                <div class="statistics-value">{{$upcomingProfilesCount}}</div>
                             </div>
                             <div class="statistics-icon">
                                 <img src="{{ asset('assets/dashboard/img/followers.png') }}" alt="icon">
                             </div>
                         </div>
                     
-                        <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                        <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm" >
                             <div class="statistics-text">
                                 <div class="statistics-label">My Playbox Subscriptions
                                 </div>
-                                <div class="statistics-value">125</div>
+                                <div class="statistics-value"> {{$playboxSubscriptionsCount}}</div>
                             </div>
                             <div class="statistics-icon">
                                 <img src="{{ asset('assets/dashboard/img/likes.png') }}" alt="icon">
