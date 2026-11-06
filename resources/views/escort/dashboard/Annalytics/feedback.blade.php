@@ -34,7 +34,7 @@
                             <div class="statistics-text">
                                 <div class="statistics-label">Reviews Today
                                 </div>
-                                <div class="statistics-value">125</div>
+                                <div class="statistics-value">{{$viewsCnts['today']['review_count']}}</div>
                             </div>
                             <div class="statistics-icon">
                                 <img src="{{ asset('assets/dashboard/img/comment.png') }}" alt="icon">
@@ -45,7 +45,7 @@
                             <div class="statistics-text">
                                 <div class="statistics-label">Reviews This Week
                                 </div>
-                                <div class="statistics-value">35</div>
+                                <div class="statistics-value">{{$viewsCnts['this_week']['review_count']}}</div>
                             </div>
                             <div class="statistics-icon">
                                 <img src="{{ asset('assets/dashboard/img/comment.png') }}" alt="icon">
@@ -56,7 +56,7 @@
                             <div class="statistics-text">
                                 <div class="statistics-label"> Year to Date
                                 </div>
-                                <div class="statistics-value">125</div>
+                                <div class="statistics-value">{{$viewsCnts['year_to_date']['review_count']}}</div>
                             </div>
                             <div class="statistics-icon">
                                 <img src="{{ asset('assets/dashboard/img/calendar.png') }}" alt="icon">
@@ -68,7 +68,7 @@
                             <div class="statistics-text">
                                 <div class="statistics-label">Recommendations Today
                                 </div>
-                                <div class="statistics-value">125</div>
+                                <div class="statistics-value">{{$viewsCnts['today']['recommendation_count']}}</div>
                             </div>
                             <div class="statistics-icon">
                                 <img src="{{ asset('assets/dashboard/img/good-quality.png') }}" alt="icon">
@@ -79,7 +79,7 @@
                             <div class="statistics-text">
                                 <div class="statistics-label">Recommendations This Week
                                 </div>
-                                <div class="statistics-value">35</div>
+                                <div class="statistics-value">{{$viewsCnts['this_week']['recommendation_count']}}</div>
                             </div>
                             <div class="statistics-icon">
                                 <img src="{{ asset('assets/dashboard/img/good-quality.png') }}" alt="icon">
@@ -90,7 +90,7 @@
                             <div class="statistics-text">
                                 <div class="statistics-label"> Year to Date
                                 </div>
-                                <div class="statistics-value">125</div>
+                                <div class="statistics-value">{{$viewsCnts['year_to_date']['recommendation_count']}}</div>
                             </div>
                             <div class="statistics-icon">
                                 <img src="{{ asset('assets/dashboard/img/calendar.png') }}" alt="icon">

@@ -43,12 +43,14 @@ class ReportingController extends BaseController
 
     public function userRegistrationReport(Request $request)
     {
-        $todayCount = User::whereDate('created_at', Carbon::today())->count();
+
+        $todayCount = User::whereDate('created_at', Carbon::today())->whereIn('type', ['0', '2', '3', '4', '5', '8', '9'])->count();
         $thisMonthCount = User::whereMonth('created_at', Carbon::now()->month)
             ->whereYear('created_at', Carbon::now()->year)
+            ->whereIn('type', ['0', '2', '3', '4', '5', '8', '9'])
             ->count();
-        $thisYearCount = User::whereYear('created_at', Carbon::now()->year)->count();
-        $allTimeCount = User::count();
+        $thisYearCount = User::whereYear('created_at', Carbon::now()->year)->whereIn('type', ['0', '2', '3', '4', '5', '8', '9'])->count();
+        $allTimeCount = User::whereIn('type', ['0', '2', '3', '4', '5', '8', '9'])->count();
         return view('admin.reporting.registrations', compact('todayCount', 'thisMonthCount', 'thisYearCount', 'allTimeCount'));
     }
 

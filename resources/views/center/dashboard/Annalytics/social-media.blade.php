@@ -22,7 +22,7 @@
             <h1 class="h1">Social Media</h1>
             <span class="helpNoteLink font-weight-bold collapsed" data-toggle="collapse" data-target="#notes" aria-expanded="false">Help?</span>
         </div>
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12">
             <div class="card collapse" id="notes" style="">
             <div class="card-body">
                <h3 class="NotesHeader"><b>Notes:</b></h3>

@@ -19,7 +19,7 @@
       </div>
       <div class="col-md-12 mt-4 mb-5">
          <div class="row">
-            <div class="col-md-12 mb-4">
+            <div class="col-md-12">
                <div class="card">
                   <div class="card-body">
                      <h3 class="NotesHeader"><b>Notes:</b></h3>

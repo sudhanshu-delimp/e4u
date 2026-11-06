@@ -43,13 +43,13 @@
 </style>
 @endsection
 @section('content')
-<div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <div class="row">
         <div class="custom-heading-wrapper col-lg-12">
             <h1 class="h1">View & Reply</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options"><b>Help?</b> </span>
         </div>
-        <div class="col-md-12 mb-4 collapse" id="profile_and_tour_options">
+        <div class="col-md-12 collapse" id="profile_and_tour_options">
             <div class="card" id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -63,8 +63,8 @@
         </div>
     </div>
 
-    <div class="col-md-12 common-card">
-        <div class="table-responsive">
+    <div class="col-md-12">
+        <div class="table-responsive  common-card">
             <table class="table w-100" id="supportTicketsTable">
                 <thead class="table-bg">
                     <tr>

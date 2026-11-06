@@ -96,9 +96,9 @@
         <thead>
             <tr>
                
-                <th>Tour Title</th>
+               
                 <th>Member ID</th>
-                <th>Name</th>
+                <th>Tour Title</th>
                 <th>Mobile</th>
                
                 <th>Number of Locations</th>
@@ -114,9 +114,9 @@
         <tbody>
             @forelse($alltours as $row)
                 <tr>
-                    <td>{{ $row['tour_name'] }}</td>
+                    
                     <td>{{ $row['member_id'] }}</td>
-                    <td>{{ $row['name'] }}</td>
+                    <td>{{ $row['tour_name'] }}</td>
                     <td>{{ $row['mobile'] }}</td>
                     
                    

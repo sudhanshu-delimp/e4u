@@ -124,6 +124,7 @@
 
                 <ul class="footer-links location-grid">
                     <li><a href="{{ url('acceptable-usage-policy') }}">Acceptable Usage Policy</a></li>
+                    <li><a href="{{ url('bill-of-rights') }} ">Bill of Rights</a></li>
                     <li><a href="{{ url('cookie-policy') }}">Cookie Policy</a></li>
                     <li><a href="{{ url('copyright-statement') }}">Copyright Statement</a></li>
                     <li><a href="{{ url('covid-19-statement') }}">Covid-19 Statement</a></li>

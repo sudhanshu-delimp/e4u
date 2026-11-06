@@ -281,7 +281,6 @@
                 </script>
             @endif
         @endforeach
-        <x-chat.notifier :url="url('/user-dashboard/viewer-messages')" />
         </body>
 
         </html>

@@ -19,7 +19,7 @@
             <h1 class="h1" style="display: inline-block;">Videos</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
         </div>
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12">
             <div class="collapse" id="notes">
                 <div class="card">
                     <div class="card-body">
@@ -42,7 +42,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="photo-top-header" style="">
+            <div class="photo-top-header">
                 <div class="photo-header border-0">
                     <div class="modal-header border-0 p-0" style="display: block;position: relative;top: 30%;">
                         <div class="row">

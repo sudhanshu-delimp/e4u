@@ -46,8 +46,8 @@
     <link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.structure.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 
-    <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-style.css?v3.03') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css?v1.0') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v3.04') }}" rel="stylesheet">
     <!-- jquery ui cdn -->
 
     <!-- google fonts -->

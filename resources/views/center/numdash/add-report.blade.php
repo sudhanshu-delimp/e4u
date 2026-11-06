@@ -19,11 +19,11 @@
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!--middle content start here-->
    <div class="row">
-    <div class="col-md-12 custom-heading-wrapper">
-        <h1 class="h1">Add Report</h1>
+        <div class="col-md-12 custom-heading-wrapper">
+            <h1 class="h1">Add Report</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
-      </div>
-        <div class="col-md-12 mb-4 collapse" id="notes">
+        </div>
+        <div class="col-md-12 collapse" id="notes">
             <div class="card">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -68,9 +68,11 @@
             </div>
         </div>
    </div>
-            <div class=" col-md-12 common-card add-punterbox-report">
-               <form class="common-form" id="ugly_mug_registration" enctype="multipart/form-data" method="POST" action="route('escort.store-report')">
-                  <div class="row inner-row">
+   <div class="row">
+        <div class="col-md-12 ">
+            <div class="common-card add-punterbox-report">
+                <form class="common-form" id="ugly_mug_registration" enctype="multipart/form-data" method="POST" action="route('escort.store-report')">
+                    <div class="row inner-row">
                         <div class="col-lg-12">
                             <div class="inner-field-row">
                                 <div class="form-group">
@@ -155,18 +157,16 @@
                                     <small><i>Your report will remain Pending  until approved by our Operations team.</i></small>
                                 </p>
                         </div>
-                  </div>
-                  
-              </form>
+                    </div>
+                    
+                </form>
             </div>
+        </div>
    </div>
-   <!--middle content end here-->
 </div>
 
 @endsection
 @push('script')
-<!-- file upload plugin start here -->
-<!-- file upload plugin end here -->
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 
 <script>
