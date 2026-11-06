@@ -242,22 +242,16 @@
                                                 $imageData = $path->findByposition(auth()->user()->id, 1, 0);
                                                 if(!empty($imageData['id'])){
                                                     $media_details =  get_media_by_id($imageData['id'],'center');
-                                                    $status =  $media_details->varified;
+                                                    $status =  $media_details->varified ?? 0;
+                                                    $status_icon = getMediaVerificationDataBigIcon($status);
                                                 }
                                             @endphp
+]                                                
                                             <div class="lg_verify_icon" id="verify_icon_1"
-                                            style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
+                                                    style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                                 @if(!empty($imageData['id']))
-                                                    @if($status == "0")
-                                                        <img src="{{ asset('assets/app/img/verify/e4u_pending.png') }}">
-                                                        <span class="common_shield_tooltip">Media Pending</span>
-                                                    @elseif($status == "1")
-                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
-                                                        <span class="common_shield_tooltip">Media verified</span>
-                                                    @else
-                                                        <img src="{{ asset('assets/app/img/verify/unverified_dark.png') }}">
-                                                        <span class="common_shield_tooltip">Media Unverified</span>
-                                                    @endif
+                                                    <img src="{{ $status_icon['icon'] }}">
+                                                    <span class="common_shield_tooltip">{{ $status_icon['label'] }}</span>
                                                 @endif
                                             </div>
                                         </label>
@@ -284,18 +278,13 @@
                                                             $imageData = $path->findByposition(auth()->user()->id, 2, 0);
                                                             if(!empty($imageData['id'])){
                                                                 $media_details =  get_media_by_id($imageData['id'],'center');
-                                                                $status =  $media_details->varified;
+                                                                $status =  $media_details->varified ?? 0;
+                                                                $status_icon = getMediaVerificationDataSmallIcon($status);
                                                             }
                                                         @endphp
                                                         <div class="verify_icon" id="verify_icon_2" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                                             @if(!empty($imageData['id']))
-                                                                @if($status == "0")
-                                                                    <img src="{{ asset('assets/app/img/verify/e4u_pending.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
-                                                                @elseif($status == "1")
-                                                                    <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media verified</span>
-                                                                @else
-                                                                    <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
-                                                                @endif
+                                                                <img src="{{ $status_icon['icon'] }}"> <span class="mc_media_tooltip">{{ $status_icon['label'] }}</span>
                                                             @endif
                                                         </div>
                                                 </label>
@@ -316,18 +305,13 @@
                                                             $imageData = $path->findByposition(auth()->user()->id, 3, 0);
                                                             if(!empty($imageData['id'])){
                                                                 $media_details =  get_media_by_id($imageData['id'],'center');
-                                                                $status =  $media_details->varified;
+                                                                $status =  $media_details->varified ?? 0;
+                                                                $status_icon = getMediaVerificationDataSmallIcon($status);   
                                                             }
                                                         @endphp
                                                         <div class="verify_icon" id="verify_icon_3" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                                             @if(!empty($imageData['id']))
-                                                                @if($status == "0")
-                                                                    <img src="{{ asset('assets/app/img/verify/e4u_pending.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
-                                                                @elseif($status == "1")
-                                                                    <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media verified</span>
-                                                                @else
-                                                                    <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
-                                                                @endif
+                                                                <img src="{{ $status_icon['icon'] }}"> <span class="mc_media_tooltip">{{ $status_icon['label'] }}</span>
                                                             @endif
                                                         </div>
                                                 </label>
@@ -348,18 +332,13 @@
                                                             $imageData = $path->findByposition(auth()->user()->id, 4, 0);
                                                             if(!empty($imageData['id'])){
                                                                 $media_details =  get_media_by_id($imageData['id'],'center');
-                                                                $status =  $media_details->varified;
+                                                                $status =  $media_details->varified ?? 0;
+                                                                $status_icon = getMediaVerificationDataSmallIcon($status);   
                                                             }
                                                         @endphp
                                                         <div class="verify_icon" id="verify_icon_4" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
-                                                            @if(!empty($imageData['id']))
-                                                                @if($status == "0")
-                                                                    <img src="{{ asset('assets/app/img/verify/e4u_pending.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
-                                                                @elseif($status == "1")
-                                                                    <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media verified</span>
-                                                                @else
-                                                                    <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
-                                                                @endif
+                                                             @if(!empty($imageData['id']))
+                                                                <img src="{{ $status_icon['icon'] }}"> <span class="mc_media_tooltip">{{ $status_icon['label'] }}</span>
                                                             @endif
                                                         </div>
                                                 </label>
@@ -382,18 +361,13 @@
                                                             $imageData = $path->findByposition(auth()->user()->id, 5, 0);
                                                             if(!empty($imageData['id'])){
                                                                 $media_details =  get_media_by_id($imageData['id'],'center');
-                                                                $status =  $media_details->varified;
+                                                                $status =  $media_details->varified ?? 0;
+                                                                $status_icon = getMediaVerificationDataSmallIcon($status);   
                                                             }
                                                         @endphp
                                                         <div class="verify_icon" id="verify_icon_5" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
-                                                            @if(!empty($imageData['id']))
-                                                                @if($status == "0")
-                                                                    <img src="{{ asset('assets/app/img/verify/e4u_pending.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
-                                                                @elseif($status == "1")
-                                                                    <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media verified</span>
-                                                                @else
-                                                                    <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
-                                                                @endif
+                                                             @if(!empty($imageData['id']))
+                                                                <img src="{{ $status_icon['icon'] }}"> <span class="mc_media_tooltip">{{ $status_icon['label'] }}</span>
                                                             @endif
                                                         </div>
                                                 </label>
@@ -414,18 +388,13 @@
                                                             $imageData = $path->findByposition(auth()->user()->id, 6, 0);
                                                             if(!empty($imageData['id'])){
                                                                 $media_details =  get_media_by_id($imageData['id'],'center');
-                                                                $status =  $media_details->varified;
+                                                                $status =  $media_details->varified ?? 0;
+                                                                $status_icon = getMediaVerificationDataSmallIcon($status);   
                                                             }
                                                         @endphp
                                                         <div class="verify_icon" id="verify_icon_6" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                                             @if(!empty($imageData['id']))
-                                                                @if($status == "0")
-                                                                    <img src="{{ asset('assets/app/img/verify/e4u_pending.png') }}"> <span class="mc_media_tooltip">Media Pending</span>
-                                                                @elseif($status == "1")
-                                                                    <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media verified</span>
-                                                                @else
-                                                                    <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
-                                                                @endif
+                                                                <img src="{{ $status_icon['icon'] }}"> <span class="mc_media_tooltip">{{ $status_icon['label'] }}</span>
                                                             @endif
                                                         </div>
                                                 </label>
@@ -446,18 +415,13 @@
                                                             $imageData = $path->findByposition(auth()->user()->id, 7, 0);
                                                             if(!empty($imageData['id'])){
                                                                 $media_details =  get_media_by_id($imageData['id'],'center');
-                                                                $status =  $media_details->varified;
+                                                                $status =  $media_details->varified ?? 0;
+                                                                $status_icon = getMediaVerificationDataSmallIcon($status);   
                                                             }
                                                         @endphp
                                                         <div class="verify_icon" id="verify_icon_7" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                                             @if(!empty($imageData['id']))
-                                                                    @if($status == "0")
-                                                                        <img src="{{ asset('assets/app/img/verify/e4u_pending.png') }}"><span class="mc_media_tooltip">Media Pending</span>
-                                                                    @elseif($status == "1")
-                                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}"><span class="mc_media_tooltip">Media Verified</span>
-                                                                    @else
-                                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}"><span class="mc_media_tooltip">Media Unverified</span>
-                                                                    @endif
+                                                                <img src="{{ $status_icon['icon'] }}"> <span class="mc_media_tooltip">{{ $status_icon['label'] }}</span>
                                                             @endif
                                                         </div>
                                                 </label>
@@ -481,23 +445,15 @@
                                                     $imageData = $path->findByposition(auth()->user()->id, 9, 0);
                                                     if(!empty($imageData['id'])){
                                                         $media_details =  get_media_by_id($imageData['id'],'center');
-                                                        $status =  $media_details->varified;
+                                                        $status =  $media_details->varified ?? 0;
+                                                        $status_icon = getMediaVerificationDataBigIcon($status);  
                                                     }
                                                 @endphp
                                                 <div class="lg_verify_icon" id="verify_icon_9" style="{{ !empty($imageData['id']) && $media_details->template != '1' ? '' : 'display:none;' }}">
-                                                    @if(!empty($imageData['id']))   
-                                                        @if($status == "0")
-                                                                <img src="{{ asset('assets/app/img/verify/e4u_pending.png') }}">
-                                                                <span class="common_shield_tooltip">Media Pending</span>
-                                                            @elseif($status == "1")
-                                                                <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
-                                                                <span class="common_shield_tooltip">Media verified</span>
-                                                            @else
-                                                                <img src="{{ asset('assets/app/img/verify/unverified_dark.png') }}">
-                                                                <span class="common_shield_tooltip">Media Unverified</span>
-                                                        @endif
+                                                    @if(!empty($imageData['id']))
+                                                        <img src="{{ $status_icon['icon'] }}">
+                                                        <span class="common_shield_tooltip">{{ $status_icon['label'] }}</span>
                                                     @endif
-                                                    <span class="common_shield_tooltip">Media Unverified</span>
                                                 </div>
                                             </label>
                                         </div>
@@ -639,36 +595,14 @@
                                                                     @default
                                                                         <span class="badge badge-red">Gallery</span>
                                                                 @endswitch
-                                                                @switch($image->varified)
-                                                                @case(0) {{-- Pending --}}
-                                                                    <div class="verify_icon">
-                                                                        <img src="{{ asset('assets/app/img/verify/e4u_pending.png') }}">
-                                                                        <span class="mc_media_tooltip">Media Pending</span>
+                                                                    @php $status = $image->varified ?? "2";
+                                                                    $status_icon = getMediaVerificationDataSmallIcon($status); 
+                                                                    @endphp
+                                                                 <div class="verify_icon">
+                                                                        <img src="{{ $status_icon['icon'] }}">
+                                                                        <span class="mc_media_tooltip">{{ $status_icon['label'] }}</span>
                                                                     </div>
-                                                                    @break
-
-                                                                @case(1) {{-- Verified --}}
-                                                                    <div class="verify_icon">
-                                                                        <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
-                                                                        <span class="mc_media_tooltip">Media Verified</span>
-                                                                    </div>
-                                                                    @break
-
-                                                                @case(2) {{-- Unverified --}}
-                                                                    <div class="verify_icon">
-                                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
-                                                                        <span class="mc_media_tooltip">Media Unverified</span>
-                                                                    </div>
-                                                                    @break
-
-                                                                @default
-                                                                    <div class="verify_icon">
-                                                                        <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
-                                                                        <span class="mc_media_tooltip">Media Unverified</span>
-                                                                    </div>
-
-                                                            @endswitch
-                                                            @php $status = $image->varified ?? "2"; @endphp
+                                                           
                                                                 <div class="upload_date">
                                                                     @if($status == "0")
                                                                         Uploaded: <span>{{ showDateWithFormat($image->created_at) }}</span>
@@ -1087,7 +1021,7 @@
                                     iconPath = '/assets/app/img/verify/e4u_pending.png';
                                     iconText ='<span class="common_shield_tooltip">Media Pending</span>';
                                 } else if (status == "1") {
-                                    iconPath = '/assets/app/img/verify/verified_icon.png';
+                                    iconPath = '/assets/app/img/verify/e4u_verified.png';
                                     iconText ='<span class="common_shield_tooltip">Media Verified</span>';
                                 } else {
                                     iconPath = '/assets/app/img/verify/unverified_dark.png';
@@ -1096,13 +1030,13 @@
 
                             } else {
                                 if (status == "0") {
-                                    iconPath = '/assets/app/img/verify/e4u_pending.png';
+                                    iconPath = '/assets/app/img/verify/e4u_pending-icon.png';
                                     iconText =  '<span class="mc_media_tooltip">Media Pending</span>';
                                 } else if (status == "1") {
-                                    iconPath = '/assets/app/img/verify/verified_icon.png';
+                                    iconPath = '/assets/app/img/verify/verified_icon_dark.png';
                                     iconText =  '<span class="mc_media_tooltip">Media Verified</span>';
                                 } else {
-                                    iconPath = '/assets/app/img/verify/unverified_icon.png';
+                                    iconPath = '/assets/app/img/verify/unverified_icon_dark.png';
                                     iconText =  '<span class="mc_media_tooltip">Media Unverified</span>';
                                 }
                             }

@@ -87,28 +87,28 @@
                                 @switch($image->varified)
                                     @case(0) {{-- Pending --}}
                                         <div class="verify_icon">
-                                            <img src="{{ asset('assets/app/img/pending_icon/e4u_pending-icon_REV.png') }}">
+                                            <img src="{{ asset('assets/app/img/verify/e4u_pending-icon.png') }}">
                                             <span class="mc_media_tooltip">Media Pending</span>
                                         </div>
                                         @break
 
                                     @case(1) {{-- Verified --}}
                                         <div class="verify_icon">
-                                            <img src="{{ asset('assets/app/img/verify/verified_icon.png') }}">
+                                            <img src="{{ asset('assets/app/img/verify/verified_icon_dark.png') }}">
                                             <span class="mc_media_tooltip">Media Verified</span>
                                         </div>
                                         @break
 
                                     @case(2) {{-- Unverified --}}
                                         <div class="verify_icon">
-                                            <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
+                                            <img src="{{ asset('assets/app/img/verify/unverified_icon_dark.png') }}">
                                             <span class="mc_media_tooltip">Media Unverified</span>
                                         </div>
                                         @break
 
                                     @default
                                         <div class="verify_icon">
-                                            <img src="{{ asset('assets/app/img/verify/unverified_icon.png') }}">
+                                            <img src="{{ asset('assets/app/img/verify/unverified_icon_dark.png') }}">
                                             <span class="mc_media_tooltip">Media Unverified</span>
                                         </div>
 
