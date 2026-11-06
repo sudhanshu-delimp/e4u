@@ -375,11 +375,11 @@ class LogService
     {
         if ($advertiserType == 'massage') {
             $reviewModel = Reviews::where('advertiser_type', 'massage')->whereHas('massage', function ($query) use ($advertiserId) {
-                $query->where('user_id', $advertiserId);
+                $query->where('user_id', $advertiserId)->where('status', 'published');
             });
         } else {
             $reviewModel = Reviews::where('advertiser_type', 'escort')->whereHas('escort', function ($query) use ($advertiserId) {
-                $query->where('user_id', $advertiserId);
+                $query->where('user_id', $advertiserId)->where('status', 'published');
             });
         }
 
