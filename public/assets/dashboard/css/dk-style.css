@@ -4066,12 +4066,12 @@ p.notes {
     align-items: center;
     justify-content: center;
     position: absolute;
-    right: 1px;
-    bottom: 1px;
+    right: 5px;
+    bottom: 5px;
     border: none;
-    background: var(--blue--text);
+    background: var(--light-pink);
     padding: 4px;
-    border-radius: 0px;
+    border-radius: var(--radius-sm);
     width: 23px;
     height: 23px;
 }
@@ -4091,12 +4091,12 @@ p.notes {
     align-items: center;
     justify-content: center;
     position: absolute;
-    right: 0px;
-    bottom: 8px;
+    right: 5px;
+    bottom: 12px;
     border: none;
-    background: var(--blue--text);
+    background: var(--light-pink);
     padding: 4px;
-    border-radius: 0px;
+    border-radius: var(--radius-sm);
     width: 23px;
     height: 23px;
 }

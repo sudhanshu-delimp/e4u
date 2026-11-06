@@ -2219,13 +2219,13 @@ $(document).on('click', '.select_image', function () {
                     }
                 } else {
                     if (status == "0") {
-                        iconPath = '/assets/app/img/pending_icon/e4u_pending-icon_REV.png';
+                        iconPath = '/assets/app/img/verify/e4u_pending-icon.png';
                         iconText = '<span class="mass_sm_tooltip">Media Pending</span>';
                     } else if (status == "1") {
-                        iconPath = '/assets/app/img/verify/verified_icon.png';
+                        iconPath = '/assets/app/img/verify/verified_icon_dark.png';
                         iconText = '<span class="mass_sm_tooltip">Media Verified</span>';
                     } else {
-                        iconPath = '/assets/app/img/verify/unverified_icon.png';
+                        iconPath = '/assets/app/img/verify/unverified_icon_dark.png';
                         iconText = '<span class="mass_sm_tooltip">Media Unverified</span>';
                     }
                 }
