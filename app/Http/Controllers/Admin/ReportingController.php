@@ -208,6 +208,16 @@ class ReportingController extends BaseController
                 if ($item->status != 'Suspended') {
                     $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="3" data-toggle="modal" data-user-id="' . $item->id . '" data-target="#confirm-popup" href="javascript:void(0)" ><i class="fa fa-user-slash"></i> Suspended</a>';
                 } */
+                $switch_account_route =  "'".route('admin.switch-to-child', $item->id)."'";
+            $type = $item->role_type;
+            if($type == 'Agents') {
+                $type = "Agent";
+            }
+            $type = str_replace(['-'], ' ', $type);
+            $switch_confirm_message =  "'"."Are you sure you want to switch to the " . $type . " account?" ."'";
+            
+
+            $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10 toggle-report"   href="javascript:void(0)" onclick="return switchAccount('.$switch_account_route.', '.$switch_confirm_message.')" ><i class="fa fa-random"></i> Switch To</a><div class="dropdown-divider"></div>';
                 if ($item->status == 'Active') {
                     $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="8" data-toggle="modal" data-user-id="' . $item->id . '"
                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-ban "></i> Cancel</a>';
@@ -262,18 +272,11 @@ class ReportingController extends BaseController
 
                 $dropdown .= '<div class="dropdown-divider"></div>';
             }
-            $dropdown .= '<a class="view_member_report dropdown-item d-flex align-items-center gap-10 toggle-report" data-toggle="modal" data-target="#account-row-"' . $item->id . '" data-id="' . $item->id . '"  href="javascript:void(0)" ><i class="fa fa-eye"></i> View</a>';
-
-            $switch_account_route =  "'".route('admin.switch-to-child', $item->id)."'";
-            $type = $item->role_type;
-            if($type == 'Agents') {
-                $type = "Agent";
-            }
-            $type = str_replace(['-'], ' ', $type);
-            $switch_confirm_message =  "'"."Are you sure you want to switch to the " . $type . " account?" ."'";
+            $dropdown .= '<a class="view_member_report dropdown-item d-flex align-items-center gap-10 toggle-report" data-toggle="modal" data-target="#account-row-"' . $item->id . '" data-id="' . $item->id . '"  href="javascript:void(0)" ><i class="fa fa-eye"></i> View Summary</a>';
             
+             $dropdown .='</div></div>';
 
-            $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10 toggle-report"   href="javascript:void(0)" onclick="return switchAccount('.$switch_account_route.', '.$switch_confirm_message.')" ><i class="fa fa-random"></i> Switch To</a></div></div>';
+           
 
 
             $item->action = $dropdown;
