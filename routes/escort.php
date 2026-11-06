@@ -309,10 +309,6 @@ Route::get('photo-video-verification', function () {
   return view('escort.dashboard.archives.photo-video-verification');
 });
 
-Route::get('criticalinformation', function () {
-  return view('escort.dashboard.Annalytics.criticalinformation');
-});
-
 Route::get('my-bank-account', function () {
   return view('escort.dashboard.Bookkeeping.my-bank-account');
 });
@@ -563,4 +559,7 @@ Route::get('/my-statistics', [EscortStatisticsController::class, 'index'])->name
 Route::get('/social-media', [AnalyticsController::class, 'index'])->name('escort.dashboard.annalytics.social-media');
 Route::get('/profiles-tours', [AnalyticsController::class, 'profilesTours'])->name('escort.dashboard.annalytics.profiles-tours');
 Route::get('/feedback', [AnalyticsController::class, 'feedback'])->name('escort.dashboard.Annalytics.social-media');
+Route::get('/criticalinformation', [AnalyticsController::class, 'criticalinformation'])->name('escort.dashboard.Annalytics.criticalinformation');
+
+
 

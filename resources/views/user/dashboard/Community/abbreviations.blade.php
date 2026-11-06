@@ -999,55 +999,80 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-    const paragraphs = document.querySelectorAll(".accordian_wrapper p");
+        const paragraphs = document.querySelectorAll(".accordian_wrapper p");
+        const WORD_LIMIT = 15; 
 
-    const WORD_LIMIT = 20; // Uniform word limit
+        
+        function cleanAndBoldColon(html) {
+        
+            html = html.replace(/\s*:\s*(<\/(?:strong|b)>)/gi, ':$1');
 
-    paragraphs.forEach(p => {
-        const originalHTML = p.innerHTML.trim();
+        
+            html = html.replace(/(<(strong|b)[^>]*>[\s\S]*?)<\/\2>\s*:/gi, '$1:</b>');
 
-        // Extract plain text only
-        const tempDiv = document.createElement("div");
-        tempDiv.innerHTML = originalHTML;
-        const textOnly = tempDiv.textContent || tempDiv.innerText || "";
-        const words = textOnly.trim().split(/\s+/);
+            
+            html = html.replace(/\s+:/g, ':');
 
-        if (words.length > WORD_LIMIT) {
-            const shortWords = words.slice(0, WORD_LIMIT);
-            const colonIndex = shortWords.findIndex(w => w.includes(":"));
-
-            let shortText = "";
-
-            if (colonIndex > 0) {
-                const beforeColon = shortWords.slice(0, colonIndex).join(" ");
-                const afterColon = shortWords.slice(colonIndex).join(" ");
-                shortText = `<b>${beforeColon}</b> ${afterColon}...`;
-            } else {
-                shortText = shortWords.join(" ") + "...";
+            
+            if (!html.includes('<b>') && !html.includes('<strong>') && html.includes(':')) {
+                html = html.replace(/^([^:]+?):/, '<b>$1:</b>');
             }
 
-            const fullHTML = p.innerHTML;
-
-            function showShort() {
-                p.innerHTML = `
-                    <span class="short-text">${shortText}</span>
-                    <span class="toggle-btn" style="color:#FF3C5F; cursor:pointer; font-weight:500; font-size:14px;"> Read more</span>
-                `;
-                p.querySelector(".toggle-btn").addEventListener("click", showFull);
-            }
-
-            function showFull() {
-                p.innerHTML = `
-                    ${fullHTML}
-                    <span class="toggle-btn" style="color:#FF3C5F; cursor:pointer; font-weight:500; font-size:14px;"> Read less</span>
-                `;
-                p.querySelector(".toggle-btn").addEventListener("click", showShort);
-            }
-
-            showShort();
+            return html;
         }
-    });
-});
 
+        paragraphs.forEach(p => {
+        
+            let formattedFullHTML = cleanAndBoldColon(p.innerHTML.trim());
+
+        
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = formattedFullHTML;
+            let textOnly = (tempDiv.textContent || tempDiv.innerText || "").trim();
+            
+        
+            textOnly = textOnly.replace(/\s+:/g, ":");
+            const words = textOnly.split(/\s+/);
+
+            if (words.length > WORD_LIMIT) {
+            
+                const shortSlice = words.slice(0, WORD_LIMIT).join(" ");
+                
+                let shortText = "";
+                if (shortSlice.includes(":")) {
+                    
+                    const colonSplitIndex = shortSlice.indexOf(":");
+                    const beforeColon = shortSlice.substring(0, colonSplitIndex).trim();
+                    const afterColon = shortSlice.substring(colonSplitIndex + 1).trim();
+
+                    shortText = `<b>${beforeColon}:</b> ${afterColon}...`;
+                } else {
+                    shortText = shortSlice + "...";
+                }
+
+                function showShort() {
+                    p.innerHTML = `
+                        <span class="short-text">${shortText}</span>
+                        <span class="toggle-btn" style="color:#FF3C5F; cursor:pointer; font-weight:500; font-size:14px;"> Read more</span>
+                    `;
+                    p.querySelector(".toggle-btn").addEventListener("click", showFull);
+                }
+
+                function showFull() {
+                    p.innerHTML = `
+                        <span class="full-text">${formattedFullHTML}</span>
+                        <span class="toggle-btn" style="color:#FF3C5F; cursor:pointer; font-weight:500; font-size:14px;"> Read less</span>
+                    `;
+                    p.querySelector(".toggle-btn").addEventListener("click", showShort);
+                }
+
+            
+                showShort();
+            } else {
+            
+                p.innerHTML = formattedFullHTML;
+            }
+        });
+    });
 </script>
 @endpush

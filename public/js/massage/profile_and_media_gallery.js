@@ -729,88 +729,164 @@ initVideos();
 
 
 
+// function initDragDrop() {
+//             $("#dvSource img").draggable({
+//                 revert: "invalid",
+//                 helper: 'clone',
+//                 appendTo: ".upload-banner",
+//                 refreshPositions: false,
+//                 start: function (event, ui) {
+//                 ui.helper.css({
+//                     width: "82px",   // shrink preview
+//                     height: "auto",
+//                     "z-index": 9999
+//                 });
+//                 ui.helper.find("img").css({
+//                     width: "100%",
+//                     height: "auto"
+//                 });
+//                 },
+//                 drag: function(event, ui) {
+
+//                 },
+//                 stop: function(event, ui) {}
+//             });
+
+//             $(".dvDest").droppable({
+//                 drop: function(event, ui) {
+//                     let dropSlot = $(this);
+//                     let dragSlot = ui.draggable;
+//                     let dropSlotType = dropSlot.find('img').data('type');
+//                     // let dragSlotType = dragSlot.closest(".item4").find('span').text().toLowerCase();
+//                     let dragSlotType = dragSlot
+//                         .closest(".item4")
+//                         .find("span.badge")
+//                         .text()
+//                         .trim()
+//                         .toLowerCase();
+//                     if (dropSlotType != dragSlotType) {
+//                         let message = (dragSlotType == 'gallery') ?
+//                             `The photo you selected is not a Banner image. Please select a Banner image from your repository.` :
+//                             `The photo you selected is not a Gallery image. Please select a Gallery image from your repository.`;
+//                         swal.fire('Media', message, 'error');
+//                         return false;
+//                     } 
+//                     else {
+//                             let meidaId = dragSlot.data('id');
+//                             let iconBox = dropSlot.find('.verify_icon, .lg_verify_icon');
+//                             let position = iconBox.attr('id')?.split('_')[2];
+
+//                             let draggedSrc = dragSlot.attr('src');
+//                             let srcArray = $(".upld-img").map(function() {
+//                                 return $(this).attr("src");
+//                             }).get();
+
+//                             let duplicateFound = srcArray.filter(src => src === draggedSrc).length > 0;
+
+//                             if (duplicateFound) {
+//                                 swal.fire('', "<p>It's a duplicate image. Please select another image.</p>", 'error');
+//                                 return false;
+//                             }
+
+//                             dropSlot.find('img').attr('src', draggedSrc);
+//                             dropSlot.find('img').attr('data-id', meidaId);
+//                             dropSlot.find('input[type="hidden"]').val(meidaId);
+
+                        
+//                             if (typeof getMediaByIdAndStatusShow === "function") {
+//                                 getMediaByIdAndStatusShow(meidaId, position);
+//                             }
+//                         }
+//                 }
+//             });
+//         }
+
+
 function initDragDrop() {
-            $("#dvSource img").draggable({
-                revert: "invalid",
-                helper: 'clone',
-                appendTo: ".upload-banner",
-                refreshPositions: false,
-                start: function (event, ui) {
-                ui.helper.css({
-                    width: "82px",   // shrink preview
-                    height: "auto",
-                    "z-index": 9999
-                });
-                ui.helper.find("img").css({
-                    width: "100%",
-                    height: "auto"
-                });
-                },
-                drag: function(event, ui) {
-
-                },
-                stop: function(event, ui) {}
+    $("#dvSource img").draggable({
+        revert: "invalid",
+        helper: 'clone',
+        appendTo: "body", // Use body to ensure global coordinate accuracy across all containers
+        cursor: "move",
+        cursorAt: { top: 40, left: 41 }, // Centers the resized helper (82px width) directly under the cursor
+        refreshPositions: true, // Recalculates droppable positions during drag
+        start: function (event, ui) {
+            ui.helper.css({
+                width: "82px",
+                height: "auto",
+                "z-index": 99999,
+                opacity: 0.85
             });
-
-            $(".dvDest").droppable({
-                drop: function(event, ui) {
-                    let dropSlot = $(this);
-                    let dragSlot = ui.draggable;
-                    let dropSlotType = dropSlot.find('img').data('type');
-                    // let dragSlotType = dragSlot.closest(".item4").find('span').text().toLowerCase();
-                    let dragSlotType = dragSlot
-                        .closest(".item4")
-                        .find("span.badge")
-                        .text()
-                        .trim()
-                        .toLowerCase();
-                    if (dropSlotType != dragSlotType) {
-                        let message = (dragSlotType == 'gallery') ?
-                            `The photo you selected is not a Banner image. Please select a Banner image from your repository.` :
-                            `The photo you selected is not a Gallery image. Please select a Gallery image from your repository.`;
-                        swal.fire('Media', message, 'error');
-                        return false;
-                    } else {
-                        // $(this).trigger('click');
-                        let meidaId = dragSlot.data('id');
-                        let iconBox = dropSlot.find('.verify_icon, .lg_verify_icon');
-                        let position = iconBox.attr('id')?.split('_')[2];
-
-                        let draggedSrc = dragSlot.attr('src');
-                        let srcArray = $(".upld-img").map(function() {
-                            return $(this).attr("src");
-                        }).get();
-
-                        let duplicateFound = srcArray.filter(src => src === draggedSrc).length > 0;
-
-                        if (duplicateFound) {
-                            swal.fire('', "<p>It's a duplicate image. Please select another image.</p>", 'error');
-                            return false;
-                        }
-
-                        let target;
-                        switch (dragSlotType) {
-                            case 'gallery': {
-                                target = $(".modalPopup .item4 img[data-id='" + meidaId + "']").closest(
-                                    ".item4");
-                            }
-                            break;
-                            case 'banner': {
-                                target = $(".modalPopup .item2 img[data-id='" + meidaId + "']").closest(
-                                    ".item2");
-                            }
-                            break;
-                        }
-                        $(this).trigger('click')
-                        isDropTriggered = true;
-                        target.trigger('click');
-                        isDropTriggered = false;
-                        getMediaByIdAndStatusShow(meidaId, position);
-                    }
-
-                }
+            ui.helper.find("img").css({
+                width: "100%",
+                height: "auto"
             });
         }
+    });
+
+    $(".dvDest").droppable({
+        tolerance: "pointer", // Triggers drop based on exact mouse pointer position rather than helper overlap
+        drop: function(event, ui) {
+            let dropSlot = $(this);
+            let dragSlot = ui.draggable;
+            
+            // Accurately select the target image slot for both Banner and Gallery
+            let targetImg = dropSlot.find('img.upld-img').length 
+                ? dropSlot.find('img.upld-img') 
+                : dropSlot.find('img').first();
+                
+            let dropSlotType = targetImg.data('type');
+
+            // Retrieve slot type from parent badge or fallback to data attribute
+            let dragSlotType = dragSlot
+                .closest(".item4, .item2")
+                .find("span.badge")
+                .text()
+                .trim()
+                .toLowerCase();
+
+            if (!dragSlotType) {
+                dragSlotType = dragSlot.data('type') ? dragSlot.data('type').toLowerCase() : '';
+            }
+
+            // Type validation check
+            if (dropSlotType != dragSlotType) {
+                let message = (dragSlotType == 'gallery') ?
+                    `The photo you selected is not a Banner image. Please select a Banner image from your repository.` :
+                    `The photo you selected is not a Gallery image. Please select a Gallery image from your repository.`;
+                swal.fire('Media', message, 'error');
+                return false;
+            }
+
+            let meidaId = dragSlot.data('id');
+            let iconBox = dropSlot.find('.verify_icon, .lg_verify_icon');
+            let position = iconBox.attr('id')?.split('_')[2];
+
+            // Check for duplicate images
+            let draggedSrc = dragSlot.attr('src');
+            let srcArray = $(".upld-img").map(function() {
+                return $(this).attr("src");
+            }).get();
+
+            let duplicateFound = srcArray.filter(src => src === draggedSrc).length > 0;
+
+            if (duplicateFound) {
+                swal.fire('', "<p>It's a duplicate image. Please select another image.</p>", 'error');
+                return false;
+            }
+
+            // Directly update the image and attributes without triggering modal clicks
+            targetImg.attr('src', draggedSrc);
+            targetImg.attr('data-id', meidaId);
+            dropSlot.find('input[type="hidden"]').val(meidaId);
+
+            // Execute status update callback if defined
+            if (typeof getMediaByIdAndStatusShow === "function") {
+                getMediaByIdAndStatusShow(meidaId, position);
+            }
+        }
+    });
+}
 
 
     let selectedImageId = null;
@@ -880,7 +956,7 @@ function initDragDrop() {
                         iconPath = '/assets/app/img/verify/e4u_pending.png';
                         iconText = '<span class="common_shield_tooltip">Media Pending</span>';
                     } else if (status == "1") {
-                        iconPath = '/assets/app/img/verify/verified_icon.png';
+                        iconPath = '/assets/app/img/verify/e4u_verified.png';
                         iconText = '<span class="common_shield_tooltip">Media Verified</span>';
                     } else {
                         iconPath = '/assets/app/img/verify/unverified_dark.png';
@@ -888,13 +964,13 @@ function initDragDrop() {
                     }
                 } else {
                     if (status == "0") {
-                        iconPath = '/assets/app/img/verify/e4u_pending.png';
+                        iconPath = '/assets/app/img/verify/e4u_pending-icon.png';
                         iconText = '<span class="mc_media_tooltip">Media Pending</span>';
                     } else if (status == "1") {
-                        iconPath = '/assets/app/img/verify/verified_icon.png';
+                        iconPath = '/assets/app/img/verify/verified_icon_dark.png';
                         iconText = '<span class="mc_media_tooltip">Media Verified</span>';
                     } else {
-                        iconPath = '/assets/app/img/verify/unverified_icon.png';
+                        iconPath = '/assets/app/img/verify/unverified_icon_dark.png';
                         iconText = '<span class="mc_media_tooltip">Media Unverified</span>';
                     }
                 }
