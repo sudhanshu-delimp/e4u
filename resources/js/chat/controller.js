@@ -787,6 +787,87 @@ export function initChat(root) {
         loadList();
     }
 
+
+        /* ---------------------------------------------------
+       Reactions
+    --------------------------------------------------- */
+
+    function closeReactPicker() {
+        const picker = document.getElementById('chatReactPicker');
+
+        if (picker) {
+            picker.remove();
+        }
+    }
+
+    // A small bar with the available emojis, shown next to the react button
+    function openReactPicker(button, messageId) {
+        closeReactPicker();
+
+        const picker = document.createElement('div');
+
+        picker.id = 'chatReactPicker';
+        picker.dataset.messageId = messageId;
+        picker.setAttribute('style', 'position:fixed;z-index:99998;display:flex;gap:4px;padding:6px 8px;background:#fff;border:1px solid #e5e7eb;border-radius:22px;box-shadow:0 4px 16px rgba(0,0,0,.15);');
+                picker.innerHTML = (config.reactions || []).map((emoji) =>
+            `<button type="button" class="chat-react-pick" data-emoji="${view.escapeHtml(emoji)}" style="border:0;background:transparent;font-size:22px;line-height:1;cursor:pointer;padding:2px 4px;">${view.escapeHtml(emoji)}</button>`
+        ).join('') + '<button type="button" class="chat-react-more" title="More emojis" style="border:0;background:#f3f4f6;border-radius:50%;width:28px;height:28px;font-size:18px;line-height:1;cursor:pointer;">+</button>';
+
+        document.body.appendChild(picker);
+
+        const rect = button.getBoundingClientRect();
+        const width = picker.offsetWidth;
+
+        picker.style.top = Math.max(8, rect.top - picker.offsetHeight - 6) + 'px';
+        picker.style.left = Math.min(Math.max(8, rect.left - width / 2), window.innerWidth - width - 8) + 'px';
+    }
+
+        // The "+" button: swap the quick bar for the full emoji picker
+    function openFullEmojiPicker() {
+        const bar = document.getElementById('chatReactPicker');
+
+        if (!bar) {
+            return;
+        }
+
+        if (!customElements.get('emoji-picker')) {
+            notify('More emojis are not available on this page.', 'error');
+            return;
+        }
+
+        const messageId = Number(bar.dataset.messageId);
+        const full = document.createElement('emoji-picker');
+
+        bar.innerHTML = '';
+        bar.style.padding = '0';
+        bar.style.borderRadius = '12px';
+        bar.appendChild(full);
+
+        full.addEventListener('emoji-click', (event) => {
+            if (event.detail.unicode) {
+                react(messageId, event.detail.unicode);
+            }
+        });
+
+        // Keep the bigger picker inside the screen
+        const rect = bar.getBoundingClientRect();
+
+        bar.style.top = Math.max(8, Math.min(rect.top, window.innerHeight - bar.offsetHeight - 8)) + 'px';
+        bar.style.left = Math.max(8, Math.min(rect.left, window.innerWidth - bar.offsetWidth - 8)) + 'px';
+    }
+
+    async function react(messageId, emoji) {
+        closeReactPicker();
+
+        try {
+            const res = await api.react(messageId, emoji);
+
+            replaceMessage(res.data);
+        } catch (error) {
+            notify(error.message || 'Reaction could not be saved.', 'error');
+        }
+    }
+
     async function sendMessage() {
         const body = el.input.value.trim();
         const files = state.pendingFiles.slice();
@@ -1394,6 +1475,25 @@ export function initChat(root) {
             sendMessage();
             return;
         }
+
+                // Reactions: open the emoji bar, or tap a chip to add or remove that emoji
+        const reactBtn = target.closest('.chat-msg-react');
+
+        if (reactBtn) {
+            event.preventDefault();
+            event.stopPropagation();
+            openReactPicker(reactBtn, Number(reactBtn.closest('.message-row').dataset.id));
+            return;
+        }
+
+        const chip = target.closest('.chat-reaction-chip');
+
+        if (chip) {
+            event.preventDefault();
+            event.stopPropagation();
+            react(Number(chip.closest('.message-row').dataset.id), chip.dataset.emoji);
+            return;
+        }
         // Edit, delete and cancel-edit on messages
         const editBtn = target.closest('.chat-msg-edit');
 
@@ -1489,6 +1589,37 @@ export function initChat(root) {
             filterWrapper.classList.remove('open');
             filterBtn.setAttribute('aria-expanded', 'false');
             loadList();
+        }
+    }, true);
+
+
+        // The emoji bar lives outside the chat root: handle its clicks here
+    document.addEventListener('click', (event) => {
+        const pick = event.target.closest('.chat-react-pick');
+
+        if (pick) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const picker = document.getElementById('chatReactPicker');
+
+            if (picker) {
+                react(Number(picker.dataset.messageId), pick.dataset.emoji);
+            }
+
+            return;
+        }
+
+        if (event.target.closest('.chat-react-more')) {
+            event.preventDefault();
+            event.stopPropagation();
+            openFullEmojiPicker();
+            return;
+        }
+
+        // A click anywhere else closes the bar
+        if (!event.target.closest('#chatReactPicker') && !event.target.closest('.chat-msg-react')) {
+            closeReactPicker();
         }
     }, true);
 

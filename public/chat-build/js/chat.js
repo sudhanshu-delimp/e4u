@@ -607,6 +607,14 @@ function createApi(_ref) {
           mode: mode
         })
       });
+    },
+    react: function react(id, emoji) {
+      return request(withId(routes.message, id) + '/reaction', {
+        method: 'POST',
+        body: JSON.stringify({
+          emoji: emoji
+        })
+      });
     }
   };
 }
@@ -1402,84 +1410,169 @@ function initChat(root) {
     }
     loadList();
   }
+
+  /* ---------------------------------------------------
+  Reactions
+  --------------------------------------------------- */
+
+  function closeReactPicker() {
+    var picker = document.getElementById('chatReactPicker');
+    if (picker) {
+      picker.remove();
+    }
+  }
+
+  // A small bar with the available emojis, shown next to the react button
+  function openReactPicker(button, messageId) {
+    closeReactPicker();
+    var picker = document.createElement('div');
+    picker.id = 'chatReactPicker';
+    picker.dataset.messageId = messageId;
+    picker.setAttribute('style', 'position:fixed;z-index:99998;display:flex;gap:4px;padding:6px 8px;background:#fff;border:1px solid #e5e7eb;border-radius:22px;box-shadow:0 4px 16px rgba(0,0,0,.15);');
+    picker.innerHTML = (config.reactions || []).map(function (emoji) {
+      return "<button type=\"button\" class=\"chat-react-pick\" data-emoji=\"".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(emoji), "\" style=\"border:0;background:transparent;font-size:22px;line-height:1;cursor:pointer;padding:2px 4px;\">").concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(emoji), "</button>");
+    }).join('') + '<button type="button" class="chat-react-more" title="More emojis" style="border:0;background:#f3f4f6;border-radius:50%;width:28px;height:28px;font-size:18px;line-height:1;cursor:pointer;">+</button>';
+    document.body.appendChild(picker);
+    var rect = button.getBoundingClientRect();
+    var width = picker.offsetWidth;
+    picker.style.top = Math.max(8, rect.top - picker.offsetHeight - 6) + 'px';
+    picker.style.left = Math.min(Math.max(8, rect.left - width / 2), window.innerWidth - width - 8) + 'px';
+  }
+
+  // The "+" button: swap the quick bar for the full emoji picker
+  function openFullEmojiPicker() {
+    var bar = document.getElementById('chatReactPicker');
+    if (!bar) {
+      return;
+    }
+    if (!customElements.get('emoji-picker')) {
+      notify('More emojis are not available on this page.', 'error');
+      return;
+    }
+    var messageId = Number(bar.dataset.messageId);
+    var full = document.createElement('emoji-picker');
+    bar.innerHTML = '';
+    bar.style.padding = '0';
+    bar.style.borderRadius = '12px';
+    bar.appendChild(full);
+    full.addEventListener('emoji-click', function (event) {
+      if (event.detail.unicode) {
+        react(messageId, event.detail.unicode);
+      }
+    });
+
+    // Keep the bigger picker inside the screen
+    var rect = bar.getBoundingClientRect();
+    bar.style.top = Math.max(8, Math.min(rect.top, window.innerHeight - bar.offsetHeight - 8)) + 'px';
+    bar.style.left = Math.max(8, Math.min(rect.left, window.innerWidth - bar.offsetWidth - 8)) + 'px';
+  }
+  function react(_x4, _x5) {
+    return _react.apply(this, arguments);
+  }
+  function _react() {
+    _react = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7(messageId, emoji) {
+      var res, _t5;
+      return _regenerator().w(function (_context7) {
+        while (1) switch (_context7.p = _context7.n) {
+          case 0:
+            closeReactPicker();
+            _context7.p = 1;
+            _context7.n = 2;
+            return api.react(messageId, emoji);
+          case 2:
+            res = _context7.v;
+            replaceMessage(res.data);
+            _context7.n = 4;
+            break;
+          case 3:
+            _context7.p = 3;
+            _t5 = _context7.v;
+            notify(_t5.message || 'Reaction could not be saved.', 'error');
+          case 4:
+            return _context7.a(2);
+        }
+      }, _callee7, null, [[1, 3]]);
+    }));
+    return _react.apply(this, arguments);
+  }
   function sendMessage() {
     return _sendMessage.apply(this, arguments);
   }
   function _sendMessage() {
-    _sendMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7() {
-      var body, files, res, _res, _t5, _t6;
-      return _regenerator().w(function (_context7) {
-        while (1) switch (_context7.p = _context7.n) {
+    _sendMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+      var body, files, res, _res, _t6, _t7;
+      return _regenerator().w(function (_context8) {
+        while (1) switch (_context8.p = _context8.n) {
           case 0:
             body = el.input.value.trim();
             files = state.pendingFiles.slice();
             if (!state.sending) {
-              _context7.n = 1;
+              _context8.n = 1;
               break;
             }
-            return _context7.a(2);
+            return _context8.a(2);
           case 1:
             if (!state.editingId) {
-              _context7.n = 9;
+              _context8.n = 9;
               break;
             }
             if (body) {
-              _context7.n = 2;
+              _context8.n = 2;
               break;
             }
             notify('A message cannot be empty. Use delete instead.', 'error');
-            return _context7.a(2);
+            return _context8.a(2);
           case 2:
             if (!files.length) {
-              _context7.n = 3;
+              _context8.n = 3;
               break;
             }
             notify('Attachments cannot be added while editing.', 'error');
-            return _context7.a(2);
+            return _context8.a(2);
           case 3:
             state.sending = true;
-            _context7.p = 4;
-            _context7.n = 5;
+            _context8.p = 4;
+            _context8.n = 5;
             return api.editMessage(state.editingId, body);
           case 5:
-            res = _context7.v;
+            res = _context8.v;
             replaceMessage(res.data);
             cancelEdit();
             el.input.value = '';
             resizeComposerInput();
             loadList();
-            _context7.n = 7;
+            _context8.n = 7;
             break;
           case 6:
-            _context7.p = 6;
-            _t5 = _context7.v;
-            notify(_t5.message || 'Message could not be edited.', 'error');
+            _context8.p = 6;
+            _t6 = _context8.v;
+            notify(_t6.message || 'Message could not be edited.', 'error');
           case 7:
-            _context7.p = 7;
+            _context8.p = 7;
             state.sending = false;
             el.input.focus({
               preventScroll: true
             });
-            return _context7.f(7);
+            return _context8.f(7);
           case 8:
-            return _context7.a(2);
+            return _context8.a(2);
           case 9:
             if (!(!body && !files.length || !state.activeId)) {
-              _context7.n = 10;
+              _context8.n = 10;
               break;
             }
-            return _context7.a(2);
+            return _context8.a(2);
           case 10:
             state.sending = true;
             el.sendBtn.disabled = true;
             if (files.length) {
               showSending(files);
             }
-            _context7.p = 11;
-            _context7.n = 12;
+            _context8.p = 11;
+            _context8.n = 12;
             return api.send(state.activeId, body, files);
           case 12:
-            _res = _context7.v;
+            _res = _context8.v;
             hideSending();
             root.querySelector('#emojiPicker').classList.remove('show');
             el.input.value = '';
@@ -1494,25 +1587,25 @@ function initChat(root) {
               unread: 0
             });
             renderList();
-            _context7.n = 14;
+            _context8.n = 14;
             break;
           case 13:
-            _context7.p = 13;
-            _t6 = _context7.v;
-            notify(_t6.message || 'Message could not be sent.', 'error');
+            _context8.p = 13;
+            _t7 = _context8.v;
+            notify(_t7.message || 'Message could not be sent.', 'error');
           case 14:
-            _context7.p = 14;
+            _context8.p = 14;
             hideSending();
             state.sending = false;
             el.sendBtn.disabled = false;
             el.input.focus({
               preventScroll: true
             });
-            return _context7.f(14);
+            return _context8.f(14);
           case 15:
-            return _context7.a(2);
+            return _context8.a(2);
         }
-      }, _callee7, null, [[11, 13, 14, 15], [4, 6, 7, 8]]);
+      }, _callee8, null, [[11, 13, 14, 15], [4, 6, 7, 8]]);
     }));
     return _sendMessage.apply(this, arguments);
   }
@@ -1686,29 +1779,29 @@ function initChat(root) {
     updateSearchCount();
     jumpToMessage(searchHits[searchPos].id);
   }
-  function runSearch(_x4) {
+  function runSearch(_x6) {
     return _runSearch.apply(this, arguments);
   }
   function _runSearch() {
-    _runSearch = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8(term) {
-      var id, url, r, res, _t7;
-      return _regenerator().w(function (_context8) {
-        while (1) switch (_context8.p = _context8.n) {
+    _runSearch = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9(term) {
+      var id, url, r, res, _t8;
+      return _regenerator().w(function (_context9) {
+        while (1) switch (_context9.p = _context9.n) {
           case 0:
             searchHits = [];
             searchPos = -1;
             searchNav().style.display = 'none';
             if (!(!state.activeId || term.length < 2)) {
-              _context8.n = 1;
+              _context9.n = 1;
               break;
             }
             searchEls.count.textContent = term ? 'Type at least 2 characters' : 'Search messages';
-            return _context8.a(2);
+            return _context9.a(2);
           case 1:
             id = state.activeId;
-            _context8.p = 2;
+            _context9.p = 2;
             url = config.routes.search.replace('__ID__', id) + '?q=' + encodeURIComponent(term);
-            _context8.n = 3;
+            _context9.n = 3;
             return fetch(url, {
               headers: {
                 Accept: 'application/json',
@@ -1717,47 +1810,47 @@ function initChat(root) {
               credentials: 'same-origin'
             });
           case 3:
-            r = _context8.v;
+            r = _context9.v;
             if (r.ok) {
-              _context8.n = 4;
+              _context9.n = 4;
               break;
             }
             throw new Error('search failed');
           case 4:
-            _context8.n = 5;
+            _context9.n = 5;
             return r.json();
           case 5:
-            res = _context8.v;
+            res = _context9.v;
             if (!(state.activeId !== id || searchEls.input.value.trim() !== term)) {
-              _context8.n = 6;
+              _context9.n = 6;
               break;
             }
-            return _context8.a(2);
+            return _context9.a(2);
           case 6:
             searchHits = res.data || [];
             searchTotal = res.total || 0;
             if (searchHits.length) {
-              _context8.n = 7;
+              _context9.n = 7;
               break;
             }
             searchEls.count.textContent = 'No matches';
-            return _context8.a(2);
+            return _context9.a(2);
           case 7:
             searchNav().style.display = 'inline-flex';
             searchPos = 0; // newest match first
             updateSearchCount();
             jumpToMessage(searchHits[0].id);
-            _context8.n = 9;
+            _context9.n = 9;
             break;
           case 8:
-            _context8.p = 8;
-            _t7 = _context8.v;
-            console.error(_t7);
+            _context9.p = 8;
+            _t8 = _context9.v;
+            console.error(_t8);
             searchEls.count.textContent = 'Search failed';
           case 9:
-            return _context8.a(2);
+            return _context9.a(2);
         }
-      }, _callee8, null, [[2, 8]]);
+      }, _callee9, null, [[2, 8]]);
     }));
     return _runSearch.apply(this, arguments);
   }
@@ -1795,33 +1888,33 @@ function initChat(root) {
     // Cross button clears the text and the count
     searchEls.close.addEventListener('click', resetSearch);
   }
-  function jumpToMessage(_x5) {
+  function jumpToMessage(_x7) {
     return _jumpToMessage.apply(this, arguments);
   }
   function _jumpToMessage() {
-    _jumpToMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9(id) {
+    _jumpToMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0(id) {
       var convId, row, res, boxRect, rowRect, bubble;
-      return _regenerator().w(function (_context9) {
-        while (1) switch (_context9.n) {
+      return _regenerator().w(function (_context0) {
+        while (1) switch (_context0.n) {
           case 0:
             convId = state.activeId;
             row = el.messages.querySelector('.message-row[data-id="' + id + '"]');
             if (row) {
-              _context9.n = 3;
+              _context0.n = 3;
               break;
             }
-            _context9.n = 1;
+            _context0.n = 1;
             return api.messages(convId, {
               limit: 30,
               before_id: id + 1
             });
           case 1:
-            res = _context9.v;
+            res = _context0.v;
             if (!(state.activeId !== convId)) {
-              _context9.n = 2;
+              _context0.n = 2;
               break;
             }
-            return _context9.a(2);
+            return _context0.a(2);
           case 2:
             state.messages = res.data;
             state.hasMore = !!res.has_more;
@@ -1831,10 +1924,10 @@ function initChat(root) {
             row = el.messages.querySelector('.message-row[data-id="' + id + '"]');
           case 3:
             if (row) {
-              _context9.n = 4;
+              _context0.n = 4;
               break;
             }
-            return _context9.a(2);
+            return _context0.a(2);
           case 4:
             // Scroll only the messages box, never the whole page
             boxRect = el.messages.getBoundingClientRect();
@@ -1845,9 +1938,9 @@ function initChat(root) {
             void bubble.offsetWidth;
             bubble.classList.add('chat-jump-flash');
           case 5:
-            return _context9.a(2);
+            return _context0.a(2);
         }
-      }, _callee9);
+      }, _callee0);
     }));
     return _jumpToMessage.apply(this, arguments);
   }
@@ -1874,55 +1967,55 @@ function initChat(root) {
     return _goLatest.apply(this, arguments);
   }
   function _goLatest() {
-    _goLatest = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
-      var _t8;
-      return _regenerator().w(function (_context0) {
-        while (1) switch (_context0.p = _context0.n) {
+    _goLatest = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1() {
+      var _t9;
+      return _regenerator().w(function (_context1) {
+        while (1) switch (_context1.p = _context1.n) {
           case 0:
             state.detached = false;
             hideLatestBtn();
-            _context0.p = 1;
-            _context0.n = 2;
+            _context1.p = 1;
+            _context1.n = 2;
             return loadMessages(false);
           case 2:
-            _context0.n = 4;
+            _context1.n = 4;
             break;
           case 3:
-            _context0.p = 3;
-            _t8 = _context0.v;
-            console.error('Latest messages failed', _t8);
+            _context1.p = 3;
+            _t9 = _context1.v;
+            console.error('Latest messages failed', _t9);
           case 4:
-            return _context0.a(2);
+            return _context1.a(2);
         }
-      }, _callee0, null, [[1, 3]]);
+      }, _callee1, null, [[1, 3]]);
     }));
     return _goLatest.apply(this, arguments);
   }
   var MEMBER_HINT = "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">Type a Member ID to search.</div>");
   var memberTimer = null;
-  function searchMembers(_x6) {
+  function searchMembers(_x8) {
     return _searchMembers.apply(this, arguments);
   }
   function _searchMembers() {
-    _searchMembers = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1(term) {
-      var res, _t9;
-      return _regenerator().w(function (_context1) {
-        while (1) switch (_context1.p = _context1.n) {
+    _searchMembers = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee10(term) {
+      var res, _t0;
+      return _regenerator().w(function (_context10) {
+        while (1) switch (_context10.p = _context10.n) {
           case 0:
             // Show a loading line only when there are no results on screen yet
             if (!el.memberResults.querySelector('.member-result')) {
               el.memberResults.innerHTML = "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">Loading...</div>");
             }
-            _context1.p = 1;
-            _context1.n = 2;
+            _context10.p = 1;
+            _context10.n = 2;
             return api.members(term);
           case 2:
-            res = _context1.v;
+            res = _context10.v;
             if (!(el.memberSearch.value.trim() !== term)) {
-              _context1.n = 3;
+              _context10.n = 3;
               break;
             }
-            return _context1.a(2);
+            return _context10.a(2);
           case 3:
             if (res.data.length) {
               el.memberResults.innerHTML = res.data.map(function (m) {
@@ -1938,33 +2031,33 @@ function initChat(root) {
             } else {
               el.memberResults.innerHTML = term ? '<div class="no-search-result"><i class="bi bi-person-x"></i> No eligible member found</div>' : "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">No members available to add.</div>");
             }
-            _context1.n = 5;
+            _context10.n = 5;
             break;
           case 4:
-            _context1.p = 4;
-            _t9 = _context1.v;
+            _context10.p = 4;
+            _t0 = _context10.v;
             el.memberResults.innerHTML = "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">Could not load members. Try again.</div>");
           case 5:
-            return _context1.a(2);
+            return _context10.a(2);
         }
-      }, _callee1, null, [[1, 4]]);
+      }, _callee10, null, [[1, 4]]);
     }));
     return _searchMembers.apply(this, arguments);
   }
-  function startChat(_x7) {
+  function startChat(_x9) {
     return _startChat.apply(this, arguments);
   }
   function _startChat() {
-    _startChat = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee10(member) {
-      var res, _t0;
-      return _regenerator().w(function (_context10) {
-        while (1) switch (_context10.p = _context10.n) {
+    _startChat = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee11(member) {
+      var res, _t1;
+      return _regenerator().w(function (_context11) {
+        while (1) switch (_context11.p = _context11.n) {
           case 0:
-            _context10.p = 0;
-            _context10.n = 1;
+            _context11.p = 0;
+            _context11.n = 1;
             return api.start(member.id);
           case 1:
-            res = _context10.v;
+            res = _context11.v;
             if (!findConv(res.conversation_id)) {
               state.pending = {
                 id: res.conversation_id,
@@ -1985,16 +2078,16 @@ function initChat(root) {
             renderList();
             openConversation(res.conversation_id);
             loadList();
-            _context10.n = 3;
+            _context11.n = 3;
             break;
           case 2:
-            _context10.p = 2;
-            _t0 = _context10.v;
-            notify(_t0.message || 'Chat could not be started.', 'error');
+            _context11.p = 2;
+            _t1 = _context11.v;
+            notify(_t1.message || 'Chat could not be started.', 'error');
           case 3:
-            return _context10.a(2);
+            return _context11.a(2);
         }
-      }, _callee10, null, [[0, 2]]);
+      }, _callee11, null, [[0, 2]]);
     }));
     return _startChat.apply(this, arguments);
   }
@@ -2084,6 +2177,22 @@ function initChat(root) {
       sendMessage();
       return;
     }
+
+    // Reactions: open the emoji bar, or tap a chip to add or remove that emoji
+    var reactBtn = target.closest('.chat-msg-react');
+    if (reactBtn) {
+      event.preventDefault();
+      event.stopPropagation();
+      openReactPicker(reactBtn, Number(reactBtn.closest('.message-row').dataset.id));
+      return;
+    }
+    var chip = target.closest('.chat-reaction-chip');
+    if (chip) {
+      event.preventDefault();
+      event.stopPropagation();
+      react(Number(chip.closest('.message-row').dataset.id), chip.dataset.emoji);
+      return;
+    }
     // Edit, delete and cancel-edit on messages
     var editBtn = target.closest('.chat-msg-edit');
     if (editBtn) {
@@ -2163,6 +2272,31 @@ function initChat(root) {
       filterWrapper.classList.remove('open');
       filterBtn.setAttribute('aria-expanded', 'false');
       loadList();
+    }
+  }, true);
+
+  // The emoji bar lives outside the chat root: handle its clicks here
+  document.addEventListener('click', function (event) {
+    var pick = event.target.closest('.chat-react-pick');
+    if (pick) {
+      event.preventDefault();
+      event.stopPropagation();
+      var picker = document.getElementById('chatReactPicker');
+      if (picker) {
+        react(Number(picker.dataset.messageId), pick.dataset.emoji);
+      }
+      return;
+    }
+    if (event.target.closest('.chat-react-more')) {
+      event.preventDefault();
+      event.stopPropagation();
+      openFullEmojiPicker();
+      return;
+    }
+
+    // A click anywhere else closes the bar
+    if (!event.target.closest('#chatReactPicker') && !event.target.closest('.chat-msg-react')) {
+      closeReactPicker();
     }
   }, true);
   document.addEventListener('keydown', function (event) {
@@ -2336,7 +2470,7 @@ function initChat(root) {
         }
       }, _callee2);
     }));
-    return function (_x8) {
+    return function (_x0) {
       return _ref2.apply(this, arguments);
     };
   }());
@@ -2854,6 +2988,31 @@ function hasVideoGallery(list) {
     return a.kind === 'video' && PLAYABLE_VIDEOS.indexOf(String(a.mime || '').toLowerCase()) !== -1;
   });
 }
+
+// Small chips under a message: emoji and how many people used it
+function reactionsHtml(msg, meId) {
+  var list = msg.reactions || [];
+  if (!list.length) {
+    return '';
+  }
+  var groups = {};
+  list.forEach(function (r) {
+    groups[r.emoji] = groups[r.emoji] || {
+      count: 0,
+      mine: false
+    };
+    groups[r.emoji].count += 1;
+    if (r.user_id === meId) {
+      groups[r.emoji].mine = true;
+    }
+  });
+  var chips = Object.keys(groups).map(function (emoji) {
+    var g = groups[emoji];
+    var style = 'border:1px solid ' + (g.mine ? '#e11d48' : '#e5e7eb') + ';background:' + (g.mine ? '#ffe4e6' : '#fff') + ';border-radius:12px;padding:0 6px;font-size:13px;line-height:20px;cursor:pointer;';
+    return "<button type=\"button\" class=\"chat-reaction-chip\" data-emoji=\"".concat(escapeHtml(emoji), "\" style=\"").concat(style, "\">").concat(escapeHtml(emoji)).concat(g.count > 1 ? ' ' + g.count : '', "</button>");
+  }).join('');
+  return "<div class=\"chat-reactions\" style=\"display:flex;flex-wrap:wrap;gap:4px;margin-top:3px;\">".concat(chips, "</div>");
+}
 function attachmentsHtml(msg) {
   var list = msg.attachments || [];
   if (!list.length) return '';
@@ -2953,9 +3112,10 @@ function messageHtml(msg, prev, ctx) {
     var hasFiles = (msg.attachments || []).length > 0;
     var edit = mine && !hasFiles && msg.body && canEdit(msg) ? "<button type=\"button\" class=\"chat-msg-edit\" title=\"Edit\" style=\"".concat(buttonStyle, "\"><i class=\"bi bi-pencil\"></i></button>") : '';
     var remove = "<button type=\"button\" class=\"chat-msg-delete\" title=\"Delete\" style=\"".concat(buttonStyle, "\"><i class=\"bi bi-trash3\"></i></button>");
-    actions = "<span class=\"chat-msg-actions\" style=\"margin-left:8px;opacity:.65;\">".concat(edit).concat(remove, "</span>");
+    var react = "<button type=\"button\" class=\"chat-msg-react\" title=\"React\" style=\"".concat(buttonStyle, "\"><i class=\"bi bi-emoji-smile\"></i></button>");
+    actions = "<span class=\"chat-msg-actions\" style=\"margin-left:8px;opacity:.65;\">".concat(react).concat(edit).concat(remove, "</span>");
   }
-  var bubble = "\n        <div class=\"message-wrapper\">\n            <div class=\"message-bubble".concat(hasImageGallery(msg.attachments || []) ? ' chat-gallery-bubble' : '', "\">").concat(content, "</div>\n            <div class=\"message-time\">\n                ").concat(escapeHtml(formatTime(msg.created_at))).concat(edited, "\n                ").concat(tick, "\n                ").concat(actions, "\n            </div>\n        </div>");
+  var bubble = "\n        <div class=\"message-wrapper\">\n            <div class=\"message-bubble".concat(hasImageGallery(msg.attachments || []) ? ' chat-gallery-bubble' : '', "\">").concat(content, "</div> ").concat(reactionsHtml(msg, ctx.me.id), "\n            <div class=\"message-time\">\n                ").concat(escapeHtml(formatTime(msg.created_at))).concat(edited, "\n                ").concat(tick, "\n                ").concat(actions, "\n            </div>\n        </div>");
   return "\n        ".concat(divider, "\n        <div class=\"message-row ").concat(mine ? 'sent' : 'received', "\" data-id=\"").concat(msg.id, "\">\n            ").concat(mine ? bubble + avatar : avatar + bubble, "\n        </div>\n    ");
 }
 
