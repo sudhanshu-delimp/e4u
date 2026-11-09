@@ -187,10 +187,11 @@
             </div>
         </div>
     </div>
+    @include('admin.modal.advertiser-profile-suspend-history')
     @include('modal.pin-change', ['mode' => 'pinAuth'])
 @endsection
 
-@push('script')
+@prepend('script')
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script>
@@ -297,6 +298,7 @@
                     class: 'text-center',
                     render: function(data, type, row) {
                         if (row.statusOriginal == 'listed') {
+                            let advertiserSuspensionUri = `{{route('admin.advertiser-suspension-history-ajax', ['advertiserType' => 'escort','profile_id' => ':profile_id'])}}`.replace(':profile_id',row.escort.id );
                             return `
                             <div class="dropdown no-arrow ml-3">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -306,9 +308,11 @@
                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                     aria-labelledby="dropdownMenuLink">
                                     <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="` +
-                                row.profileUrl + `" target="_blank"><i class="fa fa-eye "></i> View Listing
+                                row.profileUrl + `" target="_blank"><i class="fa fa-eye "></i> View Profile
                                     </a>
                                     <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center border-top" href="#" data-toggle="modal" data-target="#SetPinModal" data-purchase-id=${row.id}><i class="fa fa-ban "></i> Suspend 
+                                    </a>
+                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center border-top" href="#" data-toggle="modal" data-target="#SuspendHistoryModal" data-suspend-uri=${advertiserSuspensionUri}><i class="fa fa-ban "></i> Suspend History
                                     </a>
                                 </div>
                             </div>
@@ -412,4 +416,4 @@
             });
         }
     </script>
-@endpush
+@endprepend
