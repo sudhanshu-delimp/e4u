@@ -266,6 +266,37 @@ function hasVideoGallery(list) {
         a.kind === 'video' && PLAYABLE_VIDEOS.indexOf(String(a.mime || '').toLowerCase()) !== -1
     );
 }
+
+// Small chips under a message: emoji and how many people used it
+function reactionsHtml(msg, meId) {
+    const list = msg.reactions || [];
+
+    if (!list.length) {
+        return '';
+    }
+
+    const groups = {};
+
+    list.forEach((r) => {
+        groups[r.emoji] = groups[r.emoji] || { count: 0, mine: false };
+        groups[r.emoji].count += 1;
+
+        if (r.user_id === meId) {
+            groups[r.emoji].mine = true;
+        }
+    });
+
+    const chips = Object.keys(groups).map((emoji) => {
+        const g = groups[emoji];
+        const style = 'border:1px solid ' + (g.mine ? '#e11d48' : '#e5e7eb') + ';background:' + (g.mine ? '#ffe4e6' : '#fff') +
+            ';border-radius:12px;padding:0 6px;font-size:13px;line-height:20px;cursor:pointer;';
+
+        return `<button type="button" class="chat-reaction-chip" data-emoji="${escapeHtml(emoji)}" style="${style}">${escapeHtml(emoji)}${g.count > 1 ? ' ' + g.count : ''}</button>`;
+    }).join('');
+
+    return `<div class="chat-reactions" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:3px;">${chips}</div>`;
+}
+
 function attachmentsHtml(msg) {
     const list = msg.attachments || [];
     if (!list.length) return '';
@@ -418,12 +449,14 @@ export function messageHtml(msg, prev, ctx) {
             : '';
         const remove = `<button type="button" class="chat-msg-delete" title="Delete" style="${buttonStyle}"><i class="bi bi-trash3"></i></button>`;
 
-        actions = `<span class="chat-msg-actions" style="margin-left:8px;opacity:.65;">${edit}${remove}</span>`;
+                const react = `<button type="button" class="chat-msg-react" title="React" style="${buttonStyle}"><i class="bi bi-emoji-smile"></i></button>`;
+
+                actions = `<span class="chat-msg-actions" style="margin-left:8px;opacity:.65;">${react}${edit}${remove}</span>`;
     }
 
     const bubble = `
         <div class="message-wrapper">
-            <div class="message-bubble${hasImageGallery(msg.attachments || []) ? ' chat-gallery-bubble' : ''}">${content}</div>
+            <div class="message-bubble${hasImageGallery(msg.attachments || []) ? ' chat-gallery-bubble' : ''}">${content}</div> ${reactionsHtml(msg, ctx.me.id)}
             <div class="message-time">
                 ${escapeHtml(formatTime(msg.created_at))}${edited}
                 ${tick}
