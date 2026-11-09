@@ -39,7 +39,7 @@
                 </div>
                 @endif
             </div>
-            <div class="col-md-12 mb-4">
+            <div class="col-md-12 ">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
                        <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -60,7 +60,7 @@
                 </div>
             </div>
         </div>
-
+        <div class="row">
             <!-- My Legbox -->
             <div class="col-lg-12">
                 <div class="mb-2 d-flex align-items-center justify-content-end flex-wrap gap-10">
@@ -71,9 +71,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 common-card">
+            <div class="col-md-12 ">
                 
-                <div class="table-responsive custom-responsive">
+                <div class="table-responsive custom-responsive common-card">
                     <table id="viewerTable" class="table custom--newtable" width="100%">
                         <thead class="bg-first">
                             <tr>
@@ -100,6 +100,7 @@
                     </table>
                 </div>
             </div>
+        </div>
     </div>
     {{-- Escort Profile Not Found Modal --}}
     <div class="modal fade upload-modal" id="escortProfileModal" tabindex="-1" role="dialog"

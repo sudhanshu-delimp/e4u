@@ -11,70 +11,65 @@
 
 @endsection
 @section('content')
-    <div id="content-wrapper" class="d-flex flex-column">
-        <!-- Main Content -->
-        <div id="content">
-            <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-                {{-- Page Heading   --}}
+    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+        
 
-                <div class="row">
-                    <div class="col-md-12 custom-heading-wrapper">
-                        <h1 class="h1">Notifications</h1>
-                        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
-                    </div>
-                    <div class="col-md-12 mb-4">
-                        <div class="card collapse" id="notes" style="">
-                            <div class="card-body">
-                               <h3 class="NotesHeader"><b>Notes:</b></h3>
-                                <ol>
-                                    <li>Use this feature for displaying a list of your Viewers who have flagged you in
-                                        their Legbox.</li>
-                                    <li>You can send a notification to a Viewer or all of the Viewers. Simply select
-                                        and click the ‘Send Notification’ button. The Viewer will be notified of your
-                                        impending visit to their Location according to their preferred method.</li>
+        <div class="row">
+            <div class="col-md-12 custom-heading-wrapper">
+                <h1 class="h1">Notifications</h1>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
+            </div>
+            <div class="col-md-12 ">
+                <div class="card collapse" id="notes" style="">
+                    <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b></h3>
+                        <ol>
+                            <li>Use this feature for displaying a list of your Viewers who have flagged you in
+                                their Legbox.</li>
+                            <li>You can send a notification to a Viewer or all of the Viewers. Simply select
+                                and click the ‘Send Notification’ button. The Viewer will be notified of your
+                                impending visit to their Location according to their preferred method.</li>
 
-                                    <li>Use the Block Viewer feature to restrict a Viewer from communicating with
-                                        you or from seeing any of your Profiles (Viewer must be logged in for feature
-                                        to have effect).</li>
+                            <li>Use the Block Viewer feature to restrict a Viewer from communicating with
+                                you or from seeing any of your Profiles (Viewer must be logged in for feature
+                                to have effect).</li>
 
-                                </ol>
-                            </div>
-                        </div>
+                        </ol>
                     </div>
                 </div>
-                {{-- my viewers --}}
-            
+            </div>
+        </div>
+       
+        <div class="row">
+    
 
-                    <div class="col-sm-12 mb-4">
-                        <div class="bothsearch-form" style="gap: 10px;">
-                            <button type="button" class="create-tour-sec" data-toggle="modal" data-target="#new-ban">Send
-                                Notification</button>
-                        </div>
-                    </div>
-                    <div class="col-md-12 common-card ">
-                        <div class="table-responsive"> 
-                            <table id="viewerTable" class="table custom--newtable" width="100%">
-                                <thead class="bg-first">
-                                    <tr>
-                                        <th>Viewer Name </th>
-                                        <th>Tagged </th>
-                                        <th>Home State</th>
-                                        <th>Contact Method</th>
-                                        <th>Notifications</th>
-                                        <th>Block Viewer</th>
-                                    
-                                    </tr>
-                                </thead>
-                            <tbody class="table-content">
-                            </tbody>
-                            </table>
-                        </div>
-                    </div>
-              
+            <div class="col-sm-12 mb-4">
+                <div class="bothsearch-form" style="gap: 10px;">
+                    <button type="button" class="create-tour-sec" data-toggle="modal" data-target="#new-ban">Send
+                        Notification</button>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="table-responsive common-card"> 
+                    <table id="viewerTable" class="table custom--newtable" width="100%">
+                        <thead class="bg-first">
+                            <tr>
+                                <th>Viewer Name </th>
+                                <th>Tagged </th>
+                                <th>Home State</th>
+                                <th>Contact Method</th>
+                                <th>Notifications</th>
+                                <th>Block Viewer</th>
+                            
+                            </tr>
+                        </thead>
+                    <tbody class="table-content">
+                    </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-
 
 
     {{-- Send Notification Popup --}}

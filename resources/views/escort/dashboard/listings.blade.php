@@ -54,7 +54,7 @@
     <div class="row">
         <div class="col-md-12" id="profile_and_tour_options">
             <div class="row collapse" id="notes">
-                <div class="col-md-12 mb-4">
+                <div class="col-md-12 ">
                     <div class="card">
                         <div class="card-body">
                             <?php
