@@ -339,7 +339,14 @@ class ProductOrderController extends Controller
   public function orderList(Request $request)
   {
     $id = session('parent_agent_id') ?? Auth::user()->id;
-    $query = ProductOrder::with(['paymentDetails', 'user', 'createdBy'])->where('created_by', $id)->orderBy('created_at', 'DESC');
+    $query = ProductOrder::with(['paymentDetails', 'user', 'createdBy']);
+    if (session('parent_agent_id'))
+      $query->where('created_by', $id);
+    else
+      $query->where('user_id', Auth::user()->id);
+
+    $query->orderBy('created_at', 'DESC');
+   
     $classes = config('escorts.payment_status');
     $classesOrder = config('escorts.order_status');
     $orderStatus = config('escorts.order_status_labels');
