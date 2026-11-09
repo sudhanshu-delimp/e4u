@@ -759,6 +759,12 @@ emoji-picker {
 
     border-radius: 10px;
 }
+.chat-react-more{    
+    background: var(--icon-bg);
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: var(--icon-text);
+}
 .composer-btn {
     width: 48px;
     height: 48px;

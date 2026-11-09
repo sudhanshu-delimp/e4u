@@ -1054,4 +1054,6 @@ Route::middleware(['web', 'auth'])->prefix('chat')->name('chat.')->group(functio
     Route::delete('/messages/{message}', [ChatController::class, 'deleteMessage'])
         ->whereNumber('message')->name('message.delete');
     Route::get('conversations/{conversation}/search', [ChatController::class, 'search'])->name('chat.search');
+    Route::post('/messages/{message}/reaction', [ChatController::class, 'react'])
+        ->whereNumber('message')->name('message.react');
 });

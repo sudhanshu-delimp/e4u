@@ -23,7 +23,7 @@
         <div class="row">
             <div class="d-sm-flex align-items-center justify-content-between col-md-12">
                 <div class="custom-heading-wrapper">
-                    <h1 class="h1">My Playbox</h1>
+                    <h1 class="h1">My Playbox </h1>
                     <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>
                     </span>
                 </div>
@@ -36,7 +36,7 @@
                 @endif
             </div>
             <!-- Help Notes Accordion -->
-            <div class="col-md-12 mb-4">
+            <div class="col-md-12 ">
                 <div class="card collapse" id="notes">
                         <div class="card-body">
                             <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -49,8 +49,8 @@
             </div>
         </div>
         <div class="row">
-            <!-- Playbox Content -->
-            <div class="col-md-10 fill_profile_headings_global text-justify">
+            <div class=" col-md-12">
+                <div class="common-card fill_profile_headings_global text-justify">
                 <p><strong>Coming soon!</strong></p>
 
                 <h2>What is this all about?</h2>
@@ -74,6 +74,7 @@
                 <img src="{{ asset('assets/dashboard/img/boxicon/icon_myplaybox.png') }}" alt="Playbox Icon"
                     class="playbox-icon">
                 <!-- Replace the image path above with the actual path -->
+            </div>
             </div>
         </div>
     </div>

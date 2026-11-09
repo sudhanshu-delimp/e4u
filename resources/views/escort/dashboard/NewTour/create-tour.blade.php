@@ -19,7 +19,7 @@
             @endif
         </div>
     <div class="row">        
-        <div class="col-md-12 mb-4 custom--tourdash" id="profile_and_tour_options">
+        <div class="col-md-12 custom--tourdash" id="profile_and_tour_options">
             <div class="card collapse" id="notes">
                     <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -35,7 +35,7 @@
     </div>
     <div class="row tour-dashrow">
         <div class="col-lg-12">
-            <div class="card shadow-sm">
+            <div class="card common-card">
                 <div class="card-body">
                     <form id="locationForm">
                         <!-- Tour Name Input -->

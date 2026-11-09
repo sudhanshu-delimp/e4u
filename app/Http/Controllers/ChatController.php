@@ -431,7 +431,7 @@ class ChatController extends Controller
                     ->whereColumn('h.message_id', 'chat_messages.id')
                     ->where('h.user_id', $me->id);
             })
-            ->with('attachments')
+            ->with('attachments', 'reactions')
             ->orderByDesc('id');
 
         if ($beforeId > 0) {
@@ -842,6 +842,68 @@ class ChatController extends Controller
         return response()->json(['data' => $payload]);
     }
 
+
+        /**
+     * React to a message with one emoji. The same emoji again removes the reaction,
+     * a different emoji replaces it.
+     */
+    public function react(Request $request, int $message): JsonResponse
+    {
+        $me   = $request->user();
+        $msg  = ChatMessage::withTrashed()->findOrFail($message);
+        $conv = $this->conversationFor($me->id, $msg->conversation_id);
+
+        if ($msg->trashed()) {
+            return response()->json(['message' => 'This message was deleted.'], 422);
+        }
+
+        $input = $request->validate([
+            'emoji' => ['required', 'string', 'max:16'],
+        ]);
+
+        // Any emoji is accepted, plain text is not
+        if (! preg_match('/[^\x00-\x7F]/u', $input['emoji']) || preg_match('/[\x00-\x20A-Za-z0-9<>"\'&]/', $input['emoji'])) {
+            return response()->json(['message' => 'This reaction is not available.'], 422);
+        }
+
+        $otherId = $conv->otherUserId($me->id);
+
+        if (! $this->eligibility->canContinue($me, User::findOrFail($otherId))) {
+            return response()->json(['message' => 'You cannot message this user.'], 403);
+        }
+
+        $existing = DB::table('chat_reactions')
+            ->where('message_id', $msg->id)
+            ->where('user_id', $me->id)
+            ->first();
+
+        if ($existing && $existing->emoji === $input['emoji']) {
+            DB::table('chat_reactions')->where('id', $existing->id)->delete();
+        } elseif ($existing) {
+            DB::table('chat_reactions')->where('id', $existing->id)
+                ->update(['emoji' => $input['emoji'], 'updated_at' => now()]);
+        } else {
+            DB::table('chat_reactions')->insert([
+                'message_id' => $msg->id,
+                'user_id'    => $me->id,
+                'emoji'      => $input['emoji'],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        $msg->load('attachments', 'reactions');
+
+        $payload = $this->payload($msg);
+
+        // The other person's page updates the message the same way as an edit
+        broadcast(new MessageChanged($payload, $otherId));
+
+        return response()->json(['data' => $payload]);
+    }
+
+
+
     /**
      * Clear the messages of a conversation for me only. The chat stays in my list
      * and the other person keeps everything.
@@ -1160,6 +1222,10 @@ class ChatController extends Controller
             'type'            => $m->type,
             'deleted'         => $deleted,
             'edited'          => ! $deleted && $m->edited_at !== null,
+            'reactions'       => $deleted ? [] : $m->reactions->map(fn ($r) => [
+                'user_id' => (int) $r->user_id,
+                'emoji'   => $r->emoji,
+            ])->values()->all(),
             'read_at'         => $m->read_at?->toIso8601String(),
             'created_at'      => $m->created_at->toIso8601String(),
             'attachments'     => $deleted ? [] : $m->attachments->map(fn($a) => [

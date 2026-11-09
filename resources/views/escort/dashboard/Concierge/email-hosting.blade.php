@@ -20,7 +20,7 @@
                     <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes"
                         aria-expanded="true">Help?</span>
                 </div>
-                <div class="col-md-12 mb-4">
+                <div class="col-md-12 ">
                     <div class="card collapse" id="notes" style="">
                         <div class="card-body">
                             <h3 class="NotesHeader"><b>Notes:</b></h3>

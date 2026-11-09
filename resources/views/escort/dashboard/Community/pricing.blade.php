@@ -32,9 +32,7 @@ padding: 2px 8px 2px 8px !important;
 </style>
 @endsection
 @section('content')
-<div id="wrapper">
-    <div id="content-wrapper" class="d-flex flex-column">
-        <div id="content">
+
             <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 custom--accordfee">
                 <!--middle content-->
                 <div class="row">
@@ -42,7 +40,7 @@ padding: 2px 8px 2px 8px !important;
                         <h1 class="h1">Pricing summary</h1>
                         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                     </div>
-                    <div class="col-md-12 mb-4">
+                    <div class="col-md-12 ">
                             <div class="card collapse" id="notes" style="">
                                 <div class="card-body">
                                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -407,9 +405,6 @@ padding: 2px 8px 2px 8px !important;
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 @include('escort.dashboard.partials.playmates-modal')
 
 @include('partials.snippet.calculater_modal')

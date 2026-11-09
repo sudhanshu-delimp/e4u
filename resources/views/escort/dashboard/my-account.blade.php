@@ -20,7 +20,7 @@
                 <span class="helpNoteLink collapsed" data-toggle="collapse" data-target="#notes"
                     aria-expanded="false"><b>Help?</b></span>
             </div>
-            <div class="col-md-12 mb-4">
+            <div class="col-md-12 ">
                 <div class="card collapse" id="notes">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -49,9 +49,9 @@
         <div class="row">
 
             <div class="col-md-12">
-                <div id="commanAlert" class="alert d-none rounded" role="alert"></div>
+                <div id="commanAlert" class="alert d-none rounded mb-3" role="alert"></div>
             </div>
-             <div class="col-md-12 mt-4">
+             <div class="col-md-12">
             <div id="accordion" class="myacording-design mb-5">
                 <div class="card common-card">
                     <div class="card-header">

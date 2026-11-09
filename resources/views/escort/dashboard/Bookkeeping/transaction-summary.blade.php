@@ -27,7 +27,7 @@
         </div>
     </div>
     <div class="row collapse" id="notes">
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12 ">
             <div class="card">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -43,9 +43,9 @@
         </div>
     </div>
 
-    <!--middle content-->
-        <div class="col-md-12 common-card">
-            <div class="table-responsive">
+    <div class="row">
+        <div class="col-md-12 ">
+            <div class="table-responsive common-card">
                 <table class="table w-100" id="transactionSummaryTable">
                     <thead class="table-bg">
                         <tr>
@@ -63,6 +63,7 @@
                 </table>
             </div>
         </div>
+    </div>    
 </div>
 
 @include('escort.dashboard.Bookkeeping.modal.transaction-summary')
