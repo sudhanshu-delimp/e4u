@@ -42,7 +42,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label">Profile Views Today
                         </div>
-                        <div class="statistics-value">125</div>
+                        <div class="statistics-value">{{$viewsCnts['today']['profile_views']}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/view-profile.png') }}" alt="icon">
@@ -53,7 +53,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label">Profile Views This Week
                         </div>
-                        <div class="statistics-value">35</div>
+                        <div class="statistics-value">{{$viewsCnts['this_week']['profile_views']}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/view-profile-time.png') }}" alt="icon">
@@ -64,7 +64,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label"> Year to Date
                         </div>
-                        <div class="statistics-value">125</div>
+                        <div class="statistics-value">{{$viewsCnts['year_to_date']['profile_views']}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/calendar.png') }}" alt="icon">
@@ -76,7 +76,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label">Playbox Views Today
                         </div>
-                        <div class="statistics-value">125</div>
+                        <div class="statistics-value">{{$viewsCnts['today']['playbox']}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/likes.png') }}" alt="icon">
@@ -88,7 +88,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label">Playbox Views This Week
                         </div>
-                        <div class="statistics-value">35</div>
+                        <div class="statistics-value">{{$viewsCnts['this_week']['playbox']}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/likes.png') }}" alt="icon">
@@ -100,7 +100,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label"> Year to Date
                         </div>
-                        <div class="statistics-value">125</div>
+                        <div class="statistics-value">{{$viewsCnts['year_to_date']['playbox']}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/calendar.png') }}" alt="icon">
@@ -122,7 +122,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label">Media Views Today
                         </div>
-                        <div class="statistics-value">125</div>
+                        <div class="statistics-value">{{$viewsCnts['today']['media_views']}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/media-view.png') }}" alt="icon">
@@ -133,7 +133,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label">Media Views This Weeks
                         </div>
-                        <div class="statistics-value">35</div>
+                        <div class="statistics-value">{{$viewsCnts['this_week']['media_views']}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/media-view.png') }}" alt="icon">
@@ -143,7 +143,7 @@
                     <div class="statistics-text">
                         <div class="statistics-label">Year to Date
                         </div>
-                        <div class="statistics-value">125</div>
+                        <div class="statistics-value">{{$viewsCnts['year_to_date']['media_views']}}</div>
                     </div>
                     <div class="statistics-icon">
                         <img src="{{ asset('assets/dashboard/img/calendar.png') }}" alt="icon">

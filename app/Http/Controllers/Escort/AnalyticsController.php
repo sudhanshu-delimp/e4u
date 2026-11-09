@@ -61,7 +61,7 @@ class AnalyticsController extends Controller
         $userId = Auth::id();
         $viewsCnts = $this->logService->getAdvertisersProfileViews('escort', $userId);
         //dd($viewsCnts);
-        return view('escort.dashboard.Annalytics.profiles-tours');
+        return view('escort.dashboard.Annalytics.profiles-tours', compact('viewsCnts'));
     }
 
     /**
