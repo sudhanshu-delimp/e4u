@@ -280,7 +280,7 @@ class ProductOrderController extends Controller
 
         $order->order_status = $request->status;
 
-        // $status = $order->save();
+        $status = $order->save();
         $status = true;
 
         $mailData = [];
