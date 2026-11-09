@@ -324,6 +324,12 @@
                                                        <tr><th><b>Term</b></th><td>${(rowData.agent_detail?.term) ? rowData.agent_detail.term : 'NA'}</td></tr>
                                                         <tr><th><b>Commission Advertising</b></th><td>${(rowData.agent_detail?.commission_advertising_percent) ? rowData.agent_detail.commission_advertising_percent +'%': '0%'}</td></tr>
                                                          <tr><th><b>Commission Registration</b></th><td>${(rowData.agent_detail?.commission_registration_amount) ? '$'+rowData.agent_detail.commission_registration_amount : '$0'}</td></tr>
+                                                         ${rowData.communication ? `
+    <tr>
+        <th><b>Communication</b></th>
+        <td>${rowData.communication}</td>
+    </tr>
+` : ''}
                                                 </table>
                                        
                                                 
