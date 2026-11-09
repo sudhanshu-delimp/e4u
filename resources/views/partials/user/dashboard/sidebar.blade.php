@@ -3,12 +3,11 @@
     id="accordionSidebar">
     
     <a class="sidebar-brand text-left pb-1" href="{{ route('home') }}">
-        <img src="{{ asset('assets/images/escorts4u-logo.svg') }}" class="mb-3 e4u_logo" alt=""><br>
+        <img src="{{ asset('assets/images/escorts4u-logo.svg') }}" class="e4u_logo" alt=""><br>
 
     </a>
     
-
-    <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-2">Viewer Console</span>
+    <span class="console_heading">Viewer Console</span>
     <!-- Divider -->
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
@@ -21,9 +20,9 @@
             <span>Dashboard</span>
         </a>
     </li>
-     <li
-        style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;margin-top: 10px;margin-bottom: 15px;">
-    </li>
+    <!-- Divider -->
+    <div class="dropdown-divider"></div>
+    <!-- end -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#myaccount"
             aria-expanded="true" aria-controls="myaccount">
@@ -81,6 +80,7 @@
             </div>
         </div>
     </li>
+
     {{-- <li class="nav-item">
         <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-controls="collapseTwo"
             aria-expanded="true">
@@ -137,10 +137,10 @@
 
    
 
-   {{-- devider --}}
-    <li style="border-bottom:1px solid rgba(255,255,255,0.8);margin:10px 30px 15px 15px;">
-    </li>
-    {{-- end --}}
+   
+    <!-- Divider -->
+    <div class="dropdown-divider"></div>
+    <!-- end -->
     
 
    
@@ -292,12 +292,10 @@
         </div>
     </li>
 
-    {{-- end --}}
-
-    {{-- devider --}}
-    <li style="border-bottom:1px solid rgba(255,255,255,0.8);margin:10px 30px 15px 15px;">
-    </li>
-    {{-- end --}}
+    
+    <!-- Divider -->
+    <div class="dropdown-divider"></div>
+    <!-- end -->
 
     {{-- Administration --}}
     <li class="nav-item">

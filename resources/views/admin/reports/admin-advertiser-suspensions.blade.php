@@ -144,31 +144,25 @@
 <script>
    var table = $('#advertiserSuspenstionTable').DataTable({
       language: {
-         search: "Search: _INPUT_",
-         searchPlaceholder: "Search by Member ID"
-      },
-      info: true,
-      lengthChange: true,
-      searching: true,
-      bStateSave: true,
-      order: [
-         [1, 'desc']
-      ],
-       stateLoadParams: function (settings, data) {
-        data.order = [[2, 'asc']];
-      },
-      processing: true,
-      serverSide: true,
-      paging: true,
-       order: [[2, 'asc']],
+                search: "Search: _INPUT_",
+                searchPlaceholder: "Search by Member or Profile ID"
+            },
+            info: true,
+            lengthChange: true,
+            searching: true,
+            order: [
+                [2, 'asc']
+            ],
+            bStateSave: true,
+            processing: true,
+            serverSide: true,
+            paging: true,
       ajax: {
          url: $("select[name='advertiser_type']").val(),
          type: "GET",
          dataSrc: function(json) {
-            // var totalRows = json.data.length; 
-            var totalRows = json.recordsTotal || json.recordsFiltered;
+            var totalRows = json.recordsFiltered;
             $(".totalListing").text(totalRows);
-            console.log(json, json.per_page, json.current_page);
             $(".serverTime").text(json.server_time);
             $(".uptimeClass").html(json.server_up_time);
             return json.data;
@@ -176,11 +170,11 @@
       },
       columns: [{
             data: 'profile_id',
-            name: 'profile_id',
+            name: 'advertiser.slug',
          },
          {
             data: 'member_id',
-            name: 'member_id'
+            name: 'member.member_id',
          },
          {
             data: 'start_date',

@@ -63,46 +63,21 @@ class ReportAdvertiserSuspensionContoller extends Controller
         $today = Carbon::now();
         switch ($advertiserType) {
             case 'escort': {
-                    $advertisers = SuspendProfile::query()
-                    ->where('status', 1)
-                    ->where('utc_end_date', '>=', $today)
-                    ->when($search, function ($query) use ($search) {
-                        $query->where(function ($subQuery) use ($search) {
-                            $subQuery->whereHas('user', function ($q) use ($search) {
-                                $q->where('member_id', 'LIKE', "%{$search}%");
-                            })
-                            ->orWhereHas('advertiser', function ($q) use ($search) {
-                                $q->where('slug', 'LIKE', "%{$search}%");
-                            });
-                        });
-                    });
+                    $advertisers = SuspendProfile::with(['user','advertiser'])
+                    ->where('utc_end_date', '>=', $today);
                 }
                 break;
             case 'massage': {
-                    $advertisers = MassageSuspendProfile::query()
-                ->where('status', 1)
-                ->where('utc_end_date', '>=', $today)
-                ->when($search, function ($query) use ($search) {
-                        $query->where(function ($subQuery) use ($search) {
-                            $subQuery->whereHas('user', function ($q) use ($search) {
-                                $q->where('member_id', 'LIKE', "%{$search}%");
-                            })
-                            ->orWhereHas('advertiser', function ($q) use ($search) {
-                                $q->where('slug', 'LIKE', "%{$search}%");
-                            });
-                        });
-                    });
+                    $advertisers = MassageSuspendProfile::with(['user','advertiser'])
+                    ->where('utc_end_date', '>=', $today);
                 }
-                break;
-            default:
-                # code...
                 break;
         }
 
         return DataTables::of($advertisers)
             ->addColumn('profile_id', fn($row) => $row->advertiser->slug)
             ->addColumn('advertiser_id', fn($row) => $row->advertiser->id)
-            ->addColumn('member_id', fn($row) => $row->user->member_id)
+            ->addColumn('member_id', fn($row) => $row->advertiser->member_id)
             ->addColumn('start_date', fn($row) =>  date('d-m-Y', strtotime($row->start_date)))
             ->addColumn('end_date', fn($row) => date('d-m-Y', strtotime($row->end_date)))
             ->addColumn('days', function ($row) {
@@ -214,13 +189,15 @@ class ReportAdvertiserSuspensionContoller extends Controller
         $today = Carbon::now();
         switch ($advertiserType) {
             case 'escort': {
-                    $advertisers = Purchase::where('status', 'suspend')
+                    $advertisers = Purchase::with(['member','advertiser'])
+                    ->where('status', 'suspend')
                         ->whereRaw('? BETWEEN suspended_at AND utc_end_time', [$today])
                         ->get();
                 }
                 break;
             case 'massage': {
-                    $advertisers = MassagePurchase::where('status', 'suspend')
+                    $advertisers = MassagePurchase::with(['user','advertiser'])
+                        ->where('status', 'suspend')
                         ->whereRaw('? BETWEEN suspended_at AND utc_end_time', [$today])
                         ->get();
                 }
@@ -228,24 +205,6 @@ class ReportAdvertiserSuspensionContoller extends Controller
             default:
                 # code...
                 break;
-        }
-
-
-        if ($search) {
-            $advertisers = $advertisers->filter(function ($item) use ($search, $advertiserType) {
-            $matchesMemberId = $item->advertiser->user && stripos($item->advertiser->user->member_id, $search) !== false;
-
-            if($advertiserType == 'massage') {
-                     $matchesRefNumber = $item->massage_profile &&
-                    stripos($item->massage_profile->slug ?? '', $search) !== false;
-                } else {
-                    $matchesRefNumber = $item->escort &&
-                    stripos($item->escort->slug ?? '', $search) !== false;
-                }
-
-                return $matchesMemberId || $matchesRefNumber;
-
-            })->values(); // reset the keys
         }
 
         return DataTables::of($advertisers)

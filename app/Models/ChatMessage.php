@@ -32,4 +32,9 @@ class ChatMessage extends Model
     {
         return $this->hasMany(ChatAttachment::class, 'message_id');
     }
+
+    public function reactions()
+    {
+        return $this->hasMany(ChatReaction::class, 'message_id');
+    }
 }

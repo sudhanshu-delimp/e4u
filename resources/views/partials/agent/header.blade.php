@@ -23,7 +23,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.7') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.8') }}" rel="stylesheet">
     <link href="{{ asset('assets/dashboard/css/dk-responsive.css?v1.7') }}" rel="stylesheet">
     <link href="{{ asset('assets/dashboard/css/common-style/style.css?v1.09') }}" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -158,7 +158,9 @@
         text-align: left !important;
         padding: 0.5rem 0 0.5rem 1rem !important;
     }
-
+    .sidebar.toggled:hover .console_heading {
+        text-align: left;
+    }
     .sidebar.toggled:hover .nav-item .nav-link span {
         font-size: 15px !important;
         font-weight: 500 !important;

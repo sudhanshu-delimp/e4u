@@ -15,7 +15,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12 mb-4">
+            <div class="col-md-12 ">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -78,7 +78,7 @@
 
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-12 mb-4">
+                            <div class="col-md-12 ">
                                 <div class="table-responsive">
                                     <table class="table w-100" id="playmateListModalTable" style="border: none;">
                                         <thead style="background-color: #0C223D; color: #ffffff;">

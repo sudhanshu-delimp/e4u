@@ -109,5 +109,10 @@ export function createApi({ csrf, routes }) {
             method: 'DELETE',
             body: JSON.stringify({ mode }),
         }),
+
+        react: (id, emoji) => request(withId(routes.message, id) + '/reaction', {
+            method: 'POST',
+            body: JSON.stringify({ emoji }),
+        }),
     };
 }
