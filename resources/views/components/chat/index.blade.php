@@ -29,6 +29,7 @@ $chatConfig = [
 'typeLabels' => config('chat.type_labels', []),
 // Types that cannot be blocked (Agent)
 'unblockable' => config('chat.unblockable', []),
+'reactions' => config('chat.reactions', []),
 'socketUrl' => config('chat.socket.public_url'),
 'socketToken' => \App\Services\ChatSocket::token(auth()->id()),
 // Massage Centre: a blocked person leaves the list right away

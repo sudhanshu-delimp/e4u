@@ -13,6 +13,7 @@ return [
         'massage_center' => 4,
         'agent'          => 5,
     ],
+     'reactions' => ['👍', '❤️', '😂', '😮', '😢', '🙏'],
 
     'socket' => [
         'url'        => env('CHAT_SOCKET_URL', 'http://127.0.0.1:6002'),
