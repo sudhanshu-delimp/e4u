@@ -800,27 +800,50 @@ export function initChat(root) {
         }
     }
 
-    // A small bar with the available emojis, shown next to the react button
+        // A small bar with the available emojis, shown inside the message's own action area
     function openReactPicker(button, messageId) {
         closeReactPicker();
 
+        const holder = button.closest('.chat-msg-actions');
+
+        if (!holder) {
+            return;
+        }
+
+        const mine = holder.closest('.message-row').classList.contains('sent');
         const picker = document.createElement('div');
 
         picker.id = 'chatReactPicker';
         picker.dataset.messageId = messageId;
-        picker.setAttribute('style', 'position:fixed;z-index:99998;display:flex;gap:4px;padding:6px 8px;background:#fff;border:1px solid #e5e7eb;border-radius:22px;box-shadow:0 4px 16px rgba(0,0,0,.15);');
-                picker.innerHTML = (config.reactions || []).map((emoji) =>
+        picker.setAttribute('style', 'position:absolute;z-index:50;bottom:100%;' + (mine ? 'right:0;' : 'left:0;') +
+            'display:flex;gap:4px;padding:6px 8px;background:#fff;border:1px solid #e5e7eb;border-radius:22px;' +
+            'box-shadow:0 4px 16px rgba(0,0,0,.15);white-space:nowrap;');
+        picker.innerHTML = (config.reactions || []).map((emoji) =>
             `<button type="button" class="chat-react-pick" data-emoji="${view.escapeHtml(emoji)}" style="border:0;background:transparent;font-size:22px;line-height:1;cursor:pointer;padding:2px 4px;">${view.escapeHtml(emoji)}</button>`
         ).join('') + '<button type="button" class="chat-react-more" title="More emojis" style="border:0;background:#f3f4f6;border-radius:50%;width:28px;height:28px;font-size:18px;line-height:1;cursor:pointer;">+</button>';
 
-        document.body.appendChild(picker);
+        holder.appendChild(picker);
 
-        const rect = button.getBoundingClientRect();
-        const width = picker.offsetWidth;
-
-        picker.style.top = Math.max(8, rect.top - picker.offsetHeight - 6) + 'px';
-        picker.style.left = Math.min(Math.max(8, rect.left - width / 2), window.innerWidth - width - 8) + 'px';
+        placeReactPicker(picker, holder);
     }
+
+    // Opens upwards, or downwards when there is no room above in the chat area
+    function placeReactPicker(picker, holder) {
+        const area = el.messages.getBoundingClientRect();
+        const spot = holder.getBoundingClientRect();
+        const room = spot.top - area.top;
+
+        if (room < picker.offsetHeight + 8) {
+            picker.style.bottom = 'auto';
+            picker.style.top = '100%';
+        } else {
+            picker.style.top = 'auto';
+            picker.style.bottom = '100%';
+        }
+    }
+
+
+
 
         // The "+" button: swap the quick bar for the full emoji picker
     function openFullEmojiPicker() {
@@ -849,11 +872,7 @@ export function initChat(root) {
             }
         });
 
-        // Keep the bigger picker inside the screen
-        const rect = bar.getBoundingClientRect();
-
-        bar.style.top = Math.max(8, Math.min(rect.top, window.innerHeight - bar.offsetHeight - 8)) + 'px';
-        bar.style.left = Math.max(8, Math.min(rect.left, window.innerWidth - bar.offsetWidth - 8)) + 'px';
+        placeReactPicker(bar, bar.parentElement);
     }
 
     async function react(messageId, emoji) {
