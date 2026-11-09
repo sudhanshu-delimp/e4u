@@ -158,7 +158,9 @@
         text-align: left !important;
         padding: 0.5rem 0 0.5rem 1rem !important;
     }
-
+    .sidebar.toggled:hover .console_heading {
+        text-align: left;
+    }
     .sidebar.toggled:hover .nav-item .nav-link span {
         font-size: 15px !important;
         font-weight: 500 !important;

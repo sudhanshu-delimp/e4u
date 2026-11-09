@@ -46,7 +46,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
             gap: 10px;
-    margin-bottom: 20px;
+            margin-bottom: 20px;
         }
 
         .grid-container>div {
@@ -126,7 +126,6 @@
 
        
     </style>
-    </style>
 @endsection
 @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -179,6 +178,9 @@
                         </div>
                 </div>
             </div>
+        </div>
+        <div class="row">    
+            
             <div class="col-md-12 mb-3 d-flex justify-content-end gap-10">
                 <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add
                     Photos</button>

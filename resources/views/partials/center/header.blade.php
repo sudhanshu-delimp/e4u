@@ -170,7 +170,7 @@
                 font-weight: 500 !important;
                 display: inline !important;
             }
-
+            
             .sidebar.toggled:hover .nav-item .nav-link i,
             .sidebar.toggled:hover .nav-item .nav-link img,
             .sidebar.toggled:hover .nav-item .nav-link svg {

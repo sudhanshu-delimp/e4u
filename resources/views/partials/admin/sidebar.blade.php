@@ -19,9 +19,9 @@ $ocLavel = 'Developer';
         @if (auth()->user() && auth()->user()->type == 1)
 
         <a class="sidebar-brand text-left pb-1" href="{{ route('home') }}">
-            <img src="{{ asset('assets/images/escorts4u-logo.svg') }}" class="mb-3 e4u_logo" alt="">
+            <img src="{{ asset('assets/images/escorts4u-logo.svg') }}" class="e4u_logo" alt="">
         </a>
-    <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-2">OC ({{ $ocLavel }})</span>
+    <span class="console_heading">OC ({{ $ocLavel }})</span>
     <li class="nav-item active">
         <a class="nav-link" href="{{ route('admin.index') }}">
             <svg width="18" height="19" viewBox="0 0 18 19" fill="none"
@@ -33,9 +33,9 @@ $ocLavel = 'Developer';
             <span>Dashboard</span>
         </a>
     </li>
-     <li
-        style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;margin-top: 10px;margin-bottom: 15px;">
-    </li>
+     <!-- Divider -->
+    <div class="dropdown-divider"></div>
+    <!-- end -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Monitoring"
             aria-expanded="false" aria-controls="collapseMonitoring">
@@ -79,10 +79,9 @@ $ocLavel = 'Developer';
     </li>
 
 
-    <li
-        style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;margin-top: 10px;margin-bottom: 15px;">
-    </li>
-
+    <!-- Divider -->
+    <div class="dropdown-divider"></div>
+    <!-- end -->
     <li class="nav-item ">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Administration"
             aria-expanded="false" aria-controls="Administration">
@@ -855,9 +854,9 @@ $ocLavel = 'Developer';
     </li>
 
     @if (isset($sidebar['management']['yesNo']) && $sidebar['management']['yesNo'] == 'yes')
-    <li
-        style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;margin-top: 10px;margin-bottom: 15px;">
-    </li>
+     <!-- Divider -->
+    <div class="dropdown-divider"></div>
+    <!-- end -->
     <li class="nav-item">
         <a class="nav-link {{ request()->segment(2) == 'feedback' ? '' : 'collapsed' }}" href="#"
             data-toggle="collapse" data-target="#Management" aria-expanded="false"
@@ -1814,9 +1813,9 @@ $ocLavel = 'Developer';
     </li>
     @endif
 
-    <li
-        style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;margin-top: 10px;margin-bottom: 15px;">
-    </li>
+     <!-- Divider -->
+    <div class="dropdown-divider"></div>
+    <!-- end -->
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#myaccount"

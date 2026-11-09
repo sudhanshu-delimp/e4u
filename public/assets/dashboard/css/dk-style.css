@@ -6402,12 +6402,56 @@ white-space: nowrap;
     background-color: #2C3E50 !important;
     border-color: #2C3E50 !important;
 }
-
-.sidebar-brand {
-    max-width: 195px;
-    width: 100%;
+.sidebar .console_heading{
+    font-size: 18px;
+    color: var(--peach);
+    padding: 15px;
+    background-color: #eff0f6;
+    margin: 15px 0px;
+    font-weight: 800;
 }
 
+.sidebar.toggled .console_heading {
+    text-align: center;
+    color: var(--peach);
+    font-size: 0;
+    margin-top: 19px;
+}
+
+.sidebar.toggled .console_heading::after {
+    content: attr(data-short-text);
+    font-size: 18px;
+    font-weight: 800;
+}
+
+/* Hover par full text show hoga */
+.sidebar.toggled:hover .console_heading {
+    font-size: 18px;
+    text-align: left;
+    font-weight: 800;
+    margin-top: 15px;
+}
+
+.sidebar.toggled:hover .console_heading::after {
+    content: none;
+}
+.sidebar-brand {  
+    max-width: 115px;
+    width: 100%;
+    margin: 17px 15px 0px 15px;
+    padding: 0 !important;
+}
+.sidebar.toggled .sidebar-brand { 
+    max-width: 118px;
+    width: 100%;
+    margin: 0;
+    padding: 25px 15px 0px 15px !important; 
+}
+.sidebar.toggled:hover .sidebar-brand {
+    max-width: 115px;
+    width: 100%;
+    margin: 17px 15px 0px 15px;
+    padding: 0 !important; }
 .sidebar-brand img {
     width: 100%;
 }
@@ -6419,7 +6463,9 @@ white-space: nowrap;
 .sidebar-dark .sidebar-brand {
     color: var(--white);
 }
-
+.sidebar .nav-item{
+    margin-bottom: 0px !important;
+}
 .sidebar .nav-item .nav-link svg,
 .sidebar .nav-item .nav-link img,
 .sidebar .nav-item.v-last-setting span.v-icon {
@@ -6437,7 +6483,15 @@ white-space: nowrap;
     justify-content: center;
     float: left;
 }
-
+.sidebar.toggled .nav-item .nav-link svg,
+.sidebar.toggled .nav-item .nav-link img,
+.sidebar.toggled .nav-item.v-last-setting span.v-icon {
+    margin: 0;
+    width: 22px;
+    height: auto;
+    object-fit: fill;
+    object-position: center;
+}
 .sidebar .nav-item .collapse-inner .collapse-item img {
     /*width: 18px;*/
 }
