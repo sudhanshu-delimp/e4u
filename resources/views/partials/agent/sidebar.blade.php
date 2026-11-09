@@ -3,11 +3,12 @@
     id="accordionSidebar">
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand text-left pb-1" href="{{ asset('/') }}">
-        <img src="{{ asset('assets/images/escorts4u-logo.svg') }} " alt="" class="mb-3 e4u_logo">
+        <img src="{{ asset('assets/images/escorts4u-logo.svg') }} " alt="" class="e4u_logo">
     </a>
 
-    <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-2">Agent Console </span>
-    <!-- Divider -->
+    <span class="console_heading">Agent Console </span>
+   
+
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
         <a class="nav-link" href="{{ route('agent.dashboard') }}" id="dashboard">
@@ -21,14 +22,10 @@
         </a>
     </li>
     <!-- Divider -->
-      <li
-        style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;margin-top: 10px;margin-bottom: 15px;">
-    </li>
-    <!-- Heading -->
+    <div class="dropdown-divider"></div>
+    <!-- end -->
 
-
-
-    {{-- my account --}}
+    <!-- my account -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
@@ -77,16 +74,15 @@
         </div>
     </li>
 
-     {{-- devider --}}
-    <li
-        style="border-bottom:1px solid rgba(255,255,255,0.8);margin:10px 30px 15px 15px;">
-    </li>
-    {{-- end --}}
+   
+    <!-- Divider -->
+      <div class="dropdown-divider"></div>
+    <!-- end -->
 
     
 
-    {{-- end --}}
-    {{-- Management --}}
+    <!-- end -->
+    <!-- Management -->
     <li class="nav-item">
         {{-- Management --}}
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Management">
@@ -249,15 +245,14 @@
         </div>
     </li>
 
-    {{-- end --}}
+    <!-- end -->
 
-    {{-- devider --}}
-    <li
-        style="border-bottom:1px solid rgba(255,255,255,0.8);margin:10px 30px 15px 15px;">
-    </li>
-    {{-- end --}}
+   
+    <!-- Divider -->
+      <div class="dropdown-divider"></div>
+    <!-- end -->
 
-    {{-- Administration --}}
+    <!-- Administration -->
     <li class="nav-item">
 
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Administration">

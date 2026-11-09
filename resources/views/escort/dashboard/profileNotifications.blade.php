@@ -19,7 +19,7 @@
                 <h1 class="h1">Notifications & Features</h1>
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
             </div>
-            <div class="mb-4 col-md-12">
+            <div class="col-md-12">
                 <div class="card collapse" id="notes">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>

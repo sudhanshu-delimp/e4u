@@ -1,40 +1,5 @@
 @extends('layouts.escort')
 @section('style')
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
-<style type="text/css">
-   .parsley-errors-list {
-   list-style: none;
-   color: rgb(248, 0, 0)
-   }
-   .details-row {
-   background-color: #f9f9f9;
-   }
-   .details-row th {
-   color: var(--blue--text);
-   font-weight: bold;
-   }
-   /* Icon default style */
-   .toggle-details i {
-   color: #333;
-   transition: color 0.3s ease, transform 0.2s ease;
-   }
-   /* Optional: Improve tooltip look slightly */
-   .tooltip-inner {
-   background-color: #000 !important;
-   color: #fff;
-   font-weight: bold;
-   padding: 6px 12px;
-   border-radius: 4px;
-   border: 0px !important;
-   font-weight: 500 !important;
-   font-size: 14px;
-   }
-   .tooltip.bs-tooltip-top .arrow::before {
-   border-top-color: #000 !important;
-   }
-</style>
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -46,8 +11,8 @@
          <h1 class="h1">Screening Tips</h1>
          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
       </div>
-      <div class="col-md-12 mb-4">
-         <div class="card collapse" id="notes" style="">
+      <div class="col-md-12 ">
+         <div class="card collapse" id="notes">
             <div class="card-body">
               <h3 class="NotesHeader"><b>Notes:</b></h3>
                <ol>
@@ -62,14 +27,14 @@
    <div class="row">
       <div class="col-md-12">
          <div id="accordion" class="myacording-design">
-            <div class="card">
+            <div class="card common-card">
                <div class="card-header">
                   <a class="card-link collapsed" data-toggle="collapse" href="#pre_book" aria-expanded="false">
                   Pre-booking Screening
                   </a>
                </div>
                <div id="pre_book" class="collapse" data-parent="#accordion" style="">
-                  <div class="card-body pb-0">
+                  <div class="card-body ">
                      <p>Escorts have lots of preferred methods to screen clients before they take a booking, here are some that you may consider helpful:</p>
                      <ul class="mb-0" style="margin-top: 5px;padding-left: 20px;">
                         <li>Using the client’s mobile number and / or email (if you know it), to undertake a number check.</li>
@@ -84,14 +49,14 @@
                   </div>
                </div>
             </div>
-            <div class="card">
+            <div class="card common-card">
                <div class="card-header">
                   <a class="card-link collapsed" data-toggle="collapse" href="#number_email" aria-expanded="false">
                   Number and Email Checking
                   </a>
                </div>
                <div id="number_email" class="collapse" data-parent="#accordion" style="">
-                  <div class="card-body pb-0">
+                  <div class="card-body ">
                      <p>Number and email checking are the most popular forms of checking, number in particular.</p>
                      <ul class="mb-0" style="margin-top: 5px;padding-left: 20px;">
                         <li>When you have the client’s mobile number, run it through google. This can bring up all sorts of helpful info on who your client might be.</li>
@@ -106,14 +71,14 @@
                </div>
             </div>
             
-            <div class="card">
+            <div class="card common-card">
                <div class="card-header">
                   <a class="card-link collapsed" data-toggle="collapse" href="#warning_schemes" aria-expanded="false">
                   Warning Schemes, Alerts, and Ugly Mugs
                   </a>
                </div>
                <div id="warning_schemes" class="collapse" data-parent="#accordion" style="">
-                  <div class="card-body pb-0">
+                  <div class="card-body ">
                      
                      <p>Ugly Mug is a term used by many Escorts to describe a ‘bad’ or dangerous (or potentially
                         dangerous) client or another problem individual. It is also used for clients and others who are
@@ -129,14 +94,14 @@
                   </div>
                </div>
             </div>
-            <div class="card">
+            <div class="card common-card">
                <div class="card-header">
                   <a class="card-link collapsed" data-toggle="collapse" href="#on_phone" aria-expanded="false">
                   On the Phone
                   </a>
                </div>
                <div id="on_phone" class="collapse" data-parent="#accordion" style="">
-                  <div class="card-body pb-0">
+                  <div class="card-body ">
                      <p>While you have the client on the phone, this is the best time to ask questions and to make an informed judgment about the client.</p>
                      <ul class="mb-0" style="margin-top: 5px;padding-left: 20px;">
                         <li>Always trust your gut instinct. Don’t confirm the booking if something doesn’t sound right.</li>
@@ -147,14 +112,14 @@
                   </div>
                </div>
             </div>
-            <div class="card">
+            <div class="card common-card">
                <div class="card-header">
                   <a class="card-link collapsed" data-toggle="collapse" href="#payments_safety" aria-expanded="false">
                   Payments, safety and spotting a scam
                   </a>
                </div>
                <div id="payments_safety" class="collapse" data-parent="#accordion" style="">
-                  <div class="card-body pb-0">
+                  <div class="card-body ">
                      <p>It is important that you make it very clear to any client as to what your payment terms are. Your E4U Profile sets out very clearly what your payment terms are.</p>
                      <ul class="mb-0" style="margin-top: 5px;padding-left: 20px;">
                         <li>Many Escorts insist on a cash payment, or in more recent times, PayID. Always get the money up front with clients before ‘anything’ happens. Some clients may say they ‘don’t usually’ pay until the end, be clear it’s your professional practice to receive payment for your companionship upon the client’s arrival.</li>
@@ -169,27 +134,27 @@
                   </div>
                </div>
             </div>
-            <div class="card">
+            <div class="card common-card">
                <div class="card-header">
                   <a class="card-link collapsed" data-toggle="collapse" href="#gut_feeling" aria-expanded="false">
                   Instinct and Gut Feeling
                   </a>
                </div>
                <div id="gut_feeling" class="collapse" data-parent="#accordion" style="">
-                  <div class="card-body pb-0">
+                  <div class="card-body ">
                      <p>Trust your instincts at pre-booking as well as at all the stages. If you think someone sounds dodgy, like they are making the call to get kicks, or if you feel your boundaries are being pushed or you feel in any way uncomfortable, end the call, and don’t take the booking. Instincts can be invaluable in this line of work and are often undervalued. Consider making a report of the incident <a href="/escort-dashboard/add-report" class="custom_links_design">here.</a></p>
                     
                   </div>
                </div>
             </div>
-            <div class="card">
+            <div class="card common-card">
                <div class="card-header">
                   <a class="card-link collapsed" data-toggle="collapse" href="#call_screening" aria-expanded="false">
                   In call screening 
                   </a>
                </div>
                <div id="call_screening" class="collapse" data-parent="#accordion" style="">
-                  <div class="card-body pb-0">
+                  <div class="card-body ">
                      <p> It is important that you always undertake some screening before you meet with your client. At the very least, you might consider following these suggestions.</p>
                      <ol class="mb-0">
                         <li>Have a sneaky peak – try to make arrangements so you are able to see the client arrive. This may be at a landmark you can see which you have asked the client to go to.</li>
@@ -211,30 +176,4 @@
 </div>
 @endsection
 @push('script')
-<!-- file upload plugin start here -->
-<!-- file upload plugin end here -->
-<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-<!-- jQuery Toggle Script -->
-<script>
-   $(document).ready(function () {
-     $('.toggle-details').on('click', function () {
-       const $this = $(this);
-       const $row = $this.closest('tr');
-       const $nextRow = $row.next('.details-row');
-       
-       // Close all others
-       $('.details-row').not($nextRow).addClass('d-none');
-   
-       // Toggle current
-       $nextRow.toggleClass('d-none');
-     });
-   });
-</script>
-<script>
-   $(function () {
-   $('[data-toggle="tooltip"]').tooltip();
-   });
-</script>
 @endpush

@@ -10,9 +10,9 @@
 
      <!-- Sidebar - Brand -->
      <a class="sidebar-brand text-left pb-1" href="{{ route('home') }}">
-         <img src="{{ asset('assets/images/escorts4u-logo.svg') }}" class="mb-3 e4u_logo" alt="">
+         <img src="{{ asset('assets/images/escorts4u-logo.svg') }}" class="e4u_logo" alt="">
      </a>
-     <span style="color:#FF3C5F;" class="font-weight-normal pl-3 pb-2">Massage Centre Console</span>
+     <span class="console_heading">Massage Centre Console</span>
      <!-- Divider -->
 
      <!-- Nav Item - Dashboard -->
@@ -25,10 +25,9 @@
              </svg>
              <span>Dashboard</span></a>
      </li>
-      <li
-        style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;margin-top: 10px;margin-bottom: 15px;">
-    </li>
-
+      <!-- Divider -->
+    <div class="dropdown-divider"></div>
+    <!-- end -->
      {{-- My Account --}}
      <li class="nav-item ">
          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -90,10 +89,9 @@
              </div>
          </div>
      </li>
-     {{-- devider --}}
-     <li
-         style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; margin-top: 10px;margin-bottom: 15px;">
-     </li>
+     <!-- Divider -->
+    <div class="dropdown-divider"></div>
+    <!-- end -->
 
      <li class="nav-item">
 
@@ -232,10 +230,9 @@
      </li>
      {{-- Listings --}}
 
-     {{-- devider --}}
-     <li
-         style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; margin-top: 10px;margin-bottom: 15px;">
-     </li>
+     <!-- Divider -->
+    <div class="dropdown-divider"></div>
+    <!-- end -->
 
      <li class="nav-item {{$hideNavBar ? ' d-none': ' '}}">
 
