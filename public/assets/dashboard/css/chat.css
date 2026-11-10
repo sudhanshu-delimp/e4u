@@ -696,8 +696,8 @@
 }
 
 .message-time {
-    margin-top: 5px;
-    font-size: 11px;
+    margin-top: 10px;
+    font-size: 10px;
     color: var(--muted);
 }
 
@@ -760,9 +760,12 @@ emoji-picker {
     border-radius: 10px;
 }
 .chat-react-more{    
-    background: var(--icon-bg);
+    background: var(--icon-bg) !important;
     padding: 5px 10px;
-    border-radius: 5px;
+    border-radius: var(--radius-sm);
+    color: var(--icon-text) !important;
+}
+.chat-react-more i{
     color: var(--icon-text);
 }
 .composer-btn {
@@ -2583,7 +2586,7 @@ emoji-picker {
     opacity: 0.7;
 }
 
-/* Agar 4th item par +badge hai to video icon ya doc text overlap na ho */
+
 .chat-gallery-tile:has(.chat-gallery-more) .chat-video-play-icon {
     display: none;
 }
@@ -2593,6 +2596,21 @@ emoji-picker {
     pointer-events: auto;
 }
 
+.message-row.has-picker-open .chat-msg-actions,
+.message-row:hover .chat-msg-actions {
+    display: inline-flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.message-row.has-picker-open {
+    z-index: 100;
+    position: relative;
+}
+
+#chatReactPicker {
+    pointer-events: auto;
+}
 @media (hover: hover) {
     .message-wrapper:hover .chat-msg-actions {
         opacity: 1 !important;

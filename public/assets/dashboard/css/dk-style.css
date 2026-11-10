@@ -6607,7 +6607,7 @@ span.removeCross {
 
 .h1 {
     font-family: Poppins;
-    font-size: clamp(28px, 8vw, 42px);
+    font-size: clamp(24px, 3vw, 35px);
     font-style: normal;
     font-weight: 700;
     line-height: 42px;
