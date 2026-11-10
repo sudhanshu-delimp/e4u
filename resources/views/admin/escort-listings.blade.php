@@ -298,7 +298,7 @@
                     class: 'text-center',
                     render: function(data, type, row) {
                         if (row.statusOriginal == 'listed') {
-                            let advertiserSuspensionUri = `{{route('admin.advertiser-suspension-history-ajax', ['advertiserType' => 'escort','profile_id' => ':profile_id'])}}`.replace(':profile_id',row.escort.id );
+                            let advertiserSuspensionUri = `{{route('common.advertiser-suspension-history', ['advertiserType' => 'escort','profile_id' => ':profile_id'])}}`.replace(':profile_id',row.escort.id );
                             return `
                             <div class="dropdown no-arrow ml-3">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"

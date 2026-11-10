@@ -1560,8 +1560,9 @@ label.cabinet input.file {
     flex-direction: row-reverse;
     align-items: center;
     gap: 20px;
-    flex: 0 1 0;
-    min-width: 250px;
+    flex: 1 1 0;
+    flex-wrap: wrap;
+    min-width: max-content;
 }
 
 .stats-details {
@@ -1577,6 +1578,7 @@ label.cabinet input.file {
     font-weight: bold;
     color: var(--blue--text);
     width: max-content;
+    display: contents;
 }
 
 .stats-details .stats-value {

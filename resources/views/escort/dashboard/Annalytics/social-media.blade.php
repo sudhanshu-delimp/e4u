@@ -14,84 +14,73 @@
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-    {{--middle content start here--}}
-        {{-- Page Heading   --}}
-        <div class="row">
-            <div class="col-md-12 custom-heading-wrapper">
-                <h1 class="h1">Social Media</h1>
-                <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+    <div class="row">
+        <div class="col-md-12 custom-heading-wrapper">
+            <h1 class="h1">Social Media</h1>
+            <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+        </div>
+        <div class="col-md-12">
+            <div class="card collapse" id="notes">
+            <div class="card-body">
+                <h3 class="NotesHeader"><b>Notes:</b></h3>
+                <ol></ol>
             </div>
-            <div class="col-md-12 ">
-                <div class="card collapse" id="notes" style="">
-                <div class="card-body">
-                   <h3 class="NotesHeader"><b>Notes:</b></h3>
-                    <ol></ol>
-                </div>
-                </div>
             </div>
         </div>
-        {{-- end --}}
-        {{-- start content --}}
-       
-        
-      {{-- fourth row --}}
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="table-responsive-xl">
-                    <table id="socialMediaTable" class="table table-bordered display" width="100%" >
-                        <thead class="bg-first">
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive common-card">
+                <table id="socialMediaTable" class="table" width="100%" >
+                    <thead class="bg-first">
                         <tr>
-                                <th>Social Icon</th>
-                                <th>Social Platform</th>
-                                <th class="text-center">Clicks Today</th>
-                                <th class="text-center">Clicks This Week</th>
-                                <th class="text-center">Year to Date</th>
+                            <th>Social Icon</th>
+                            <th>Social Platform</th>
+                            <th class="text-center">Clicks Today</th>
+                            <th class="text-center">Clicks This Week</th>
+                            <th class="text-center">Year to Date</th>
                         </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><div class="statistics-icon">
-                                    <img src="{{ asset('assets/dashboard/img/twitter-icon.png') }}" alt="icon">
-                                </div></td>
-                                <td>X</td>
-                                <td class="text-center">{{$views['today']['social_media_twitter_count']}}</td>
-                                <td class="text-center">{{$views['this_week']['social_media_twitter_count']}}</td>
-                                <td class="text-center">{{$views['year_to_date']['social_media_twitter_count']}}</td>
-                            </tr>
-                            <tr>
-                                <td><div class="statistics-icon">
-                                    <img src="{{ asset('assets/dashboard/img/instagram-icon.png') }}" alt="icon">
-                                </div></td>
-                                <td>Instagram</td>
-                                 <td class="text-center">{{$views['today']['social_media_instagram_count']}}</td>
-                                <td class="text-center">{{$views['this_week']['social_media_instagram_count']}}</td>
-                                <td class="text-center">{{$views['year_to_date']['social_media_instagram_count']}}</td>
-                            </tr>
-                            <tr>
-                                <td><div class="statistics-icon">
-                                    <img src="{{ asset('assets/dashboard/img/facebook-icon.png') }}" alt="icon">
-                                </div></td>
-                                <td>Facebook</td>
-                                <td class="text-center">{{$views['today']['social_media_facebook_count']}}</td>
-                                <td class="text-center">{{$views['this_week']['social_media_facebook_count']}}</td>
-                                <td class="text-center">{{$views['year_to_date']['social_media_facebook_count']}}</td>
-                            </tr>
-                            <tr>
-                                <td><div class="statistics-icon">
-                                    <img src="{{ asset('assets/dashboard/img/click.png') }}" alt="icon">
-                                </div></td>
-                                <td class="text-right font-weight-bold" colspan="3">Total Clicks</td>
-                                <td class="text-center font-weight-bold">{{$views['year_to_date']['social_media_count']}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div> 
-            </div>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><div class="statistics-icon">
+                                <img src="{{ asset('assets/dashboard/img/twitter-icon.png') }}" alt="icon">
+                            </div></td>
+                            <td>X</td>
+                            <td class="text-center">{{$views['today']['social_media_twitter_count']}}</td>
+                            <td class="text-center">{{$views['this_week']['social_media_twitter_count']}}</td>
+                            <td class="text-center">{{$views['year_to_date']['social_media_twitter_count']}}</td>
+                        </tr>
+                        <tr>
+                            <td><div class="statistics-icon">
+                                <img src="{{ asset('assets/dashboard/img/instagram-icon.png') }}" alt="icon">
+                            </div></td>
+                            <td>Instagram</td>
+                                <td class="text-center">{{$views['today']['social_media_instagram_count']}}</td>
+                            <td class="text-center">{{$views['this_week']['social_media_instagram_count']}}</td>
+                            <td class="text-center">{{$views['year_to_date']['social_media_instagram_count']}}</td>
+                        </tr>
+                        <tr>
+                            <td><div class="statistics-icon">
+                                <img src="{{ asset('assets/dashboard/img/facebook-icon.png') }}" alt="icon">
+                            </div></td>
+                            <td>Facebook</td>
+                            <td class="text-center">{{$views['today']['social_media_facebook_count']}}</td>
+                            <td class="text-center">{{$views['this_week']['social_media_facebook_count']}}</td>
+                            <td class="text-center">{{$views['year_to_date']['social_media_facebook_count']}}</td>
+                        </tr>
+                        <tr>
+                            <td><div class="statistics-icon">
+                                <img src="{{ asset('assets/dashboard/img/click.png') }}" alt="icon">
+                            </div></td>
+                            <td class="text-right font-weight-bold" colspan="3">Total Clicks</td>
+                            <td class="text-center font-weight-bold">{{$views['year_to_date']['social_media_count']}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> 
         </div>
-      {{-- end --}}
-
-        {{-- end content --}}
-    {{-- middle content end here --}}
+    </div>
 </div>
     
 @endsection

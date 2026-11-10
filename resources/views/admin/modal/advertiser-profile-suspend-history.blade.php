@@ -4,7 +4,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title">
                         <img src="{{ asset('assets/dashboard/img/travel.png') }}" class="custompopicon">
-                        <span class="text-white">Suspend History (Advertiser)</span>
+                        <span class="text-white">Suspend Listing History - Profile ID: <span id="suspendProfileId"></span></span>
                     </h5>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -33,7 +33,9 @@
 <script>
     $('#SuspendHistoryModal').on('show.bs.modal', function (event) {
         let button = $(event.relatedTarget);
+        let profileId = button.closest('tr').find('td:first').text().trim();
         let suspendUri = button.data('suspend-uri');
+        $("#suspendProfileId").text(profileId);
         if ($.fn.DataTable.isDataTable('#suspendHistoryTable')) {
             $('#suspendHistoryTable').DataTable().destroy();
         }
@@ -56,7 +58,7 @@
             paging: true,
             ajax: {
                 url: `${suspendUri}`,
-                type: "GET",
+                type: "POST",
             },
             columns: [
                 {

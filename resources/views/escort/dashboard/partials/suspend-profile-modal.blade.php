@@ -199,6 +199,7 @@
             },
             success: function(response, textStatus, xhr) {
                 displaySwal(xhr);
+                suspendFrom[0].reset();
                 $('#suspend_profile').modal('hide');
                 table.draw();
             },
