@@ -78,7 +78,8 @@ class Notification extends Model
                             ];
                         }
 
-                        Notification::create($send_notification);
+                        // Notification::create($send_notification);
+                        Notification::insert($send_notification);
                         return true;
                   }
             }
