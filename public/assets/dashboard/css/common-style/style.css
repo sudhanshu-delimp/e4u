@@ -1560,7 +1560,7 @@ label.cabinet input.file {
     flex-direction: row-reverse;
     align-items: center;
     gap: 20px;
-    flex: 0 1 0;
+    flex: 1 1 0;
     flex-wrap: wrap;
     min-width: max-content;
 }
