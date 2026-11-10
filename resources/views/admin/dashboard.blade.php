@@ -108,10 +108,10 @@
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('admin.logged-in-users') }}?from=dashboard">
                     <div class="box-icon">
-                        <img src="{{ asset('assets/dashboard/img/boxicon/admin/user-loged-in.png') }}" class="my-svg-icons" alt="Users Logged In">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/admin/user-loged-in.png') }}" class="my-svg-icons" alt="Users Online">
                     </div>
                     <h2>
-                        Users Logged In
+                       Users Online
                     </h2>
                 </a>
 

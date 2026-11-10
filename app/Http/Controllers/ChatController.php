@@ -19,9 +19,12 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Events\MessageChanged;
+use App\Models\Notification;
 
 class ChatController extends Controller
 {
+
+    protected $notification;
     // Filesystem disk (config/filesystems.php) where chat attachments are stored
     private const DISK = 'escorts';
     private const EDIT_MINUTES = 15;
@@ -77,6 +80,7 @@ class ChatController extends Controller
     public function __construct(private ChatEligibility $eligibility)
     {
         $this->middleware('auth');
+        $this->notification = new Notification();
     }
     /**
      * Chat list. Query: filter=active|archived|deleted, location=australia|mine
@@ -583,8 +587,51 @@ class ChatController extends Controller
             'color'  => ChatState::color($sender->state_id),
         ]], $otherId));
 
+        $this->notifyNewMessage($me, $other, $conv);
+
         return response()->json(['data' => $payload], 201);
     }
+
+        /**
+     * Alert Centre notification for a new message. Skipped when the chat is muted,
+     * or when the person still has an unseen notification from the same sender.
+     */
+    private function notifyNewMessage(User $from, User $to, ChatConversation $conv): void
+    {
+        try {
+            $muted = DB::table('chat_participants')
+                ->where('conversation_id', $conv->id)
+                ->where('user_id', $to->id)
+                ->value('is_muted');
+
+            if ($muted) {
+                return;
+            }
+
+           $title = 'New message from ' . ChatState::displayName($from);
+
+            $unseen = DB::table('notifications')
+                ->where('to_user', $to->id)
+                ->where('title', $title)
+                ->where('is_seen', 0)
+                ->exists();
+
+            if ($unseen) {
+                return;
+            }
+
+            $this->notification->sendNotification([
+                'title'                     => $title,
+                'to_user'                   => [$to->id],
+                'notification_type'         => 'general',
+                'notification_listing_type' => '2',
+            ]);
+        } catch (\Throwable $e) {
+            // A notification problem must never stop the message
+            report($e);
+        }
+    }
+
 
     /**
      * Mark everything in the conversation as read for me
