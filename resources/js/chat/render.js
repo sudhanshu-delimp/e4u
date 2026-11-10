@@ -288,8 +288,8 @@ function reactionsHtml(msg, meId) {
 
     const chips = Object.keys(groups).map((emoji) => {
         const g = groups[emoji];
-        const style = 'border:1px solid ' + (g.mine ? '#e11d48' : '#e5e7eb') + ';background:' + (g.mine ? '#ffe4e6' : '#fff') +
-            ';border-radius:12px;padding:0 6px;font-size:13px;line-height:20px;cursor:pointer;';
+        const style = 'border:1px solid ' + (g.mine ? '#ff3c5f' : '#e5e7eb') + ';background:' + (g.mine ? '#ffe4e6' : '#fff') +
+            ';border-radius:12px;padding:0 6px;font-size:13px;line-height:20px;cursor:pointer; position:absolute; top:30px; right:0px;';
 
         return `<button type="button" class="chat-reaction-chip" data-emoji="${escapeHtml(emoji)}" style="${style}">${escapeHtml(emoji)}${g.count > 1 ? ' ' + g.count : ''}</button>`;
     }).join('');
