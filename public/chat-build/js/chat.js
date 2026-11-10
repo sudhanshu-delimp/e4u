@@ -3033,7 +3033,7 @@ function reactionsHtml(msg, meId) {
   });
   var chips = Object.keys(groups).map(function (emoji) {
     var g = groups[emoji];
-    var style = 'border:1px solid ' + (g.mine ? '#ff3c5f' : '#e5e7eb') + ';background:' + (g.mine ? '#ffe4e6' : '#fff') + ';border-radius:12px;padding:0 6px;font-size:13px;line-height:20px;cursor:pointer; position:absolute; top:30px; right:0px;';
+    var style = 'border:1px solid ' + (g.mine ? '#ff3c5f' : '#e5e7eb') + ';background:' + (g.mine ? '#ffe4e6' : '#fff') + ';border-radius:12px;padding:0 6px;font-size:13px;line-height:20px;cursor:pointer; position:absolute; top:35px; right:0px;';
     return "<button type=\"button\" class=\"chat-reaction-chip\" data-emoji=\"".concat(escapeHtml(emoji), "\" style=\"").concat(style, "\">").concat(escapeHtml(emoji)).concat(g.count > 1 ? ' ' + g.count : '', "</button>");
   }).join('');
   return "<div class=\"chat-reactions\" style=\"display:flex;flex-wrap:wrap;gap:4px;margin-top:3px;\">".concat(chips, "</div>");
