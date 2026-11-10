@@ -444,7 +444,7 @@ class GlobalMonitoringController extends Controller
                 <i class="fa fa-eye "></i> View</a>';
             if ($row->status == 'listed') {
                 $actionBtn .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center border-top" href="#" data-toggle="modal" data-target="#SetPinModal" data-purchase-id="' . $row->id . '"><i class="fa fa-ban "></i> Suspend</a>';
-                $actionBtn .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center border-top" href="#" data-toggle="modal" data-target="#SuspendHistoryModal" data-suspend-uri='.route('admin.advertiser-suspension-history-ajax',['advertiserType'=>'massage','profile_id'=>$row->massageprofile->id]).'><i class="fa fa-ban "></i> Suspend History
+                $actionBtn .= '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center border-top" href="#" data-toggle="modal" data-target="#SuspendHistoryModal" data-suspend-uri='.route('common.advertiser-suspension-history',['advertiserType'=>'massage','profile_id'=>$row->massageprofile->id]).'><i class="fa fa-ban "></i> Suspend History
                                     </a>';
             }
 
