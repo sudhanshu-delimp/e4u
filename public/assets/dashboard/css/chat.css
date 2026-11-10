@@ -696,8 +696,8 @@
 }
 
 .message-time {
-    margin-top: 5px;
-    font-size: 11px;
+    margin-top: 10px;
+    font-size: 10px;
     color: var(--muted);
 }
 
@@ -2586,7 +2586,7 @@ emoji-picker {
     opacity: 0.7;
 }
 
-/* Agar 4th item par +badge hai to video icon ya doc text overlap na ho */
+
 .chat-gallery-tile:has(.chat-gallery-more) .chat-video-play-icon {
     display: none;
 }
@@ -2595,7 +2595,7 @@ emoji-picker {
     visibility: visible;
     pointer-events: auto;
 }
-/* जब तक इमोजी पिकर खुला है, तब तक actions और picker हमेशा visible रहेंगे */
+
 .message-row.has-picker-open .chat-msg-actions,
 .message-row:hover .chat-msg-actions {
     display: inline-flex !important;
@@ -2603,7 +2603,6 @@ emoji-picker {
     visibility: visible !important;
 }
 
-/* Emoji picker message container के पीछे न छुपे */
 .message-row.has-picker-open {
     z-index: 100;
     position: relative;
