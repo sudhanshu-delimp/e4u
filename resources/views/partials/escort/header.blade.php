@@ -170,7 +170,7 @@
 
     #accordionSidebar::-webkit-scrollbar-thumb,
     #content > .container-fluid::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.2);
+        background: #303e50;
         border-radius: 4px;
     } 
     /* =========================================================
@@ -188,7 +188,7 @@
 
     /* 2. Hover hone par width full karein aur content ko aage push karein (No Absolute) */
     .sidebar.toggled:hover {
-        width: 300px !important;
+        width: 265px !important;
         position: relative !important; /* Content ke upar chadhega nahi, use aage khiskayega */
         flex-shrink: 0 !important;
         overflow-y: auto !important;

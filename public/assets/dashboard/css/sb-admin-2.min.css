@@ -10679,7 +10679,7 @@
     }
     
     .sidebar {
-        width: 300px;
+        width: 265px;
         height: 100vh
     }
     
@@ -10895,7 +10895,7 @@
             display: block;
             width: 100%;
             text-align: left;
-            padding: 0.5rem 0rem .5rem 1rem;
+            padding: 0.2rem 0rem .2rem 1rem;
             width: 14rem
         }
         .sidebar .nav-item .nav-link i {
@@ -10966,7 +10966,8 @@
         }
         .sidebar.toggled .nav-item .nav-link span {
             font-size: .65rem;
-            display: block
+            display: block;            
+            line-height: 18px;
         }
         .sidebar.toggled .nav-item .nav-link i {
             margin-right: 0
