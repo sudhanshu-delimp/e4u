@@ -484,8 +484,8 @@ p {
 }
 
 .sidebar .nav-item .nav-link {
-    max-width: 20rem;
-    width: 89%;
+    max-width: 16rem;
+    width: 95%;
 }
 
 span.menu-active {
@@ -495,9 +495,7 @@ span.menu-active {
 .sidebar .nav-item .collapse .collapse-inner .collapse-item,
 .sidebar .nav-item .collapse .collapse-inner .collapse-item,
 .sidebar .nav-item .collapsing .collapse-inner .collapse-item {
-    padding-top: 0;
-    padding-bottom: 10px;
-    padding-left: 22px;
+    padding: 0px 8px 10px 8px;
     font-family: Poppins;
     font-size: 14px;
     font-style: normal;
@@ -6469,13 +6467,23 @@ white-space: nowrap;
 .sidebar .nav-item .nav-link svg,
 .sidebar .nav-item .nav-link img,
 .sidebar .nav-item.v-last-setting span.v-icon {
-    margin-right: 5px;
-    width: 22px;
-    height: auto;
+    margin-right: 5px;   
+    width: 30px;
+    height: 30px;   
     object-fit: fill;
     object-position: center;
+    
 }
+.sidebar .nav-item .collapse-inner svg,
+.sidebar .nav-item .collapse-inner img,
+.sidebar .nav-item .collapse-inner span.v-icon{
+   margin-right: 5px;   
+    width: 16px;
+    height: 15px;   
+    object-fit: fill;
+    object-position: center; 
 
+}
 .sidebar .nav-item.v-last-setting span.v-icon {
     height: 20px;
     display: flex;
