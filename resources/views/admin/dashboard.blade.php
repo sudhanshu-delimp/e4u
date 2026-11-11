@@ -109,7 +109,7 @@
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/user-loged-in.png') }}" class="my-svg-icons" alt="Users Online">
                     </div>
                     <h2>
-                       Users Online
+                       Online Users
                     </h2>
                 </a>
 
