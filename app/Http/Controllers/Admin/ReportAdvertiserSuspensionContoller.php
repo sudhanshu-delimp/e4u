@@ -90,7 +90,7 @@ class ReportAdvertiserSuspensionContoller extends Controller
                 return $row->advertiser->state_abbr;
             })
 
-            ->addColumn('action', function ($row) {
+            ->addColumn('action', function ($row)  use ($advertiserType){
                 $redirectUrl =  ($row->user->type == '4') ? route('preview.massage', $row->advertiser->slug) : route('preview.escort', $row->advertiser->slug);
                 $actionBtn = '
                         <div class="dropdown no-arrow">
@@ -98,10 +98,9 @@ class ReportAdvertiserSuspensionContoller extends Controller
                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                             </a>
                             <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                
-                                
                                 <a class="viewEscortSuspendedProfile dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . $redirectUrl . '" target="_blank"> <i class="fa fa-eye"></i> View Profile</a>
-                                
+                                <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center border-top" href="#" data-toggle="modal" data-target="#SuspendHistoryModal" data-suspend-uri='.route('common.advertiser-suspension-history',['advertiserType'=>$advertiserType,'profile_id'=>$row->advertiser->id]).'><i class="fa fa-ban "></i> Suspend History
+                                    </a>
                             </div>
                             </div>
                     ';
