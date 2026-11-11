@@ -293,11 +293,11 @@
                             <span style="{{ request()->segment(2) == 'advertiser-statistics' ? 'color: #e5365a;' : '' }}">Advertiser</span>
                         </a>
 
-                        <!-- <a class="collapse-item" href="{{ route('agent.toursummary') }}">
+                        <a class="collapse-item" href="{{ route('agent.toursummary') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/tour-summary.png') }}">
                             <span style="{{ request()->segment(2) == 'toursummary' ? 'color: #e5365a;' : '' }}">Tour
                                 Summary</span>
-                        </a> -->
+                        </a>
                     </div>
                 </div>  
                 {{-- end --}}
