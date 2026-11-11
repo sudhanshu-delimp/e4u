@@ -49,8 +49,8 @@ class AgentMonthlyReportController extends BaseController
                 ->get();
 
       //dd( $reports->toArray());
-     return  view('operator.management.reports.agents.fees.monthly-report');
-     //return view('operator.dashboard.reports.agents-monthly-report');
+     //return  view('operator.management.reports.agents.fees.monthly-report');
+     return view('operator.dashboard.reports.agents-monthly-report');
   }
 
 
