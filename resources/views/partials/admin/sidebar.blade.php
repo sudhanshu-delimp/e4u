@@ -62,8 +62,7 @@ $ocLavel = 'Developer';
                 </a>
                 <a class="collapse-item" href="{{ route('admin.logged-in-users') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/login-user.png') }}">
-                    <span style="{{ request()->is('*users-online*') ? 'color: #FF3C5F;' : '' }}"> Users
-                        Online</span>
+                    <span style="{{ request()->is('*users-online*') ? 'color: #FF3C5F;' : '' }}"> Online Users</span>
                 </a>
                 <a class="collapse-item" href="{{ route('admin.visitors') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/visitors.png') }}">
