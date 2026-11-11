@@ -57,7 +57,7 @@ $commissionRegistrationType = $commissionfee[1]['amount_type'];
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table mb-3" id="operator_data_table">
+                        <table class="table mb-3 w-100" id="operator_data_table">
                             <thead class="table-bg">
                                 <tr>
                                     <th>ID</th>
