@@ -19,12 +19,12 @@
         <thead class="opr-table-bg modal-thaed">
             <tr>
                 <th>Member ID</th>
-                <th>Name</th>
-                <th>Territory</th>
-                <th>Type</th>
-                <th>Days</th>
-                <th>Spend</th>
-                <th>Fee</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">Territory</th>
+                <th class="text-center">Type</th>
+                <th class="text-center">Days</th>
+                <th class="text-center">Spend</th>
+                <th class="text-center">Fee</th>
             </tr>
         </thead>
         <tbody id="accordionParent">
@@ -36,21 +36,23 @@
                         $totalEscortDays = $totalEscortDays + $esortReport['total_days'];
                         $totalEscortSpent = $totalEscortSpent + $esortReport['total_purchase_amount'];
                         $totalEscortAgenFee = $totalEscortAgenFee + $esortReport['total_commission_amount'];
+                        $reportEndDate = isset($esortReport['report_end_date']) ? $esortReport['report_end_date'] : '';
+                        $agentMemberId = isset($esortReport['user_member_id']) ? $esortReport['user_member_id'] : '';
                         $cnt++;
                     @endphp
 
                     <tr class="accordion-toggle" data-toggle="collapse" data-target="#details{{$cnt}}" aria-expanded="false"
                         aria-controls="details{{$cnt}}">
-                        <td class="text-left">{{ $esortReport['user_member_id'] }}</td>
+                        <td class="text-left">{{  $agentMemberId }}</td>
                         <td class="opr_expand_arrow">{{ $esortReport['user_name'] }}<i class="fa fa-chevron-down"></i>
                         </td>
                         <td>{{ $esortReport['user_state_name'] }}</td>
                         <td></td>
-                        <td>{{ $esortReport['total_days'] }}</td>
-                        <td class="text-left">
+                        <td class="text-center">{{ $esortReport['total_days'] }}</td>
+                        <td class="text-right">
                             <div class="num_value">$<span>{{ $esortReport['total_purchase_amount'] }}</span></div>
                         </td>
-                        <td class="text-left">
+                        <td class="text-right">
                             <div class="num_value">$<span>{{ $esortReport['total_commission_amount'] }}</span></div>
                         </td>
                     </tr>
@@ -73,7 +75,7 @@
                         <td></td>
                         <td></td>
                         <td title="Gold">G</td>
-                         <td>{{ $esortReport['details']['G']['days']?? 0}}</td>
+                         <td class="text-center">{{ $esortReport['details']['G']['days']?? 0}}</td>
                         <td class="text-left">
                             <div class="num_value">$<span>{{ number_format($esortReport['details']['G']['purchase'], 2)?? 0}}</span></div>
                         </td>
@@ -86,7 +88,7 @@
                         <td></td>
                         <td></td>
                         <td title="Silver">S</td>
-                         <td>{{ $esortReport['details']['S']['days']?? 0}}</td>
+                         <td class="text-center">{{ $esortReport['details']['S']['days']?? 0}}</td>
                         <td class="text-left">
                             <div class="num_value">$<span>{{ number_format($esortReport['details']['S']['purchase'], 2)?? 0}}</span></div>
                         </td>
@@ -99,7 +101,7 @@
                         <td></td>
                         <td></td>
                         <td title="Pin Up">PU</td>
-                         <td>{{ $esortReport['details']['PU']['days']?? 0}}</td>
+                         <td class="text-center">{{ $esortReport['details']['PU']['days']?? 0}}</td>
                         <td class="text-left">
                             <div class="num_value">$<span>{{ number_format($esortReport['details']['PU']['purchase'], 2)?? 0}}</span></div>
                         </td>
@@ -113,7 +115,7 @@
                         <td></td>
                         <td></td>
                         <td title="Bump Up">BU</td>
-                         <td>{{ $esortReport['details']['EBU']['days']?? 0}}</td>
+                         <td class="text-center">{{ $esortReport['details']['EBU']['days']?? 0}}</td>
                         <td class="text-left">
                             <div class="num_value">$<span>{{ number_format($esortReport['details']['EBU']['purchase'], 2)?? 0}}</span></div>
                         </td>
@@ -124,7 +126,7 @@
                     {{-- Start escort sub-total --}}
                     <tr class="detail-row" data-group="details{{$cnt}}">
                         <td colspan="4" class="text-right"><strong>Totals:</strong></td>
-                        <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold">
+                        <td style="border-top: 1px solid #444; border-bottom:3px double #444; font-weight:bold;text-align:center">
                             {{ $esortReport['total_days'] }}
                         </td>
                         <td
@@ -141,10 +143,13 @@
                         <td colspan="7" style="padding:10px"></td>
                     </tr>
                     {{-- End escort sub-total --}}
+                    @php 
+                        $agentMemberId = "";
+                        @endphp
                 @endforeach
 
                 {{-- Start Escort Total --}}
-                <tr>
+               {{--  <tr>
                     <td colspan="4" class="text-right"><strong>Total Escorts:</strong></td>
                     <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold">
                         {{ $totalEscortDays }}
@@ -161,7 +166,7 @@
 
                 <tr>
                     <td colspan="7" style="padding:10px"></td>
-                </tr>
+                </tr> --}}
             @endif
             {{-- End Escort Total --}}
 
@@ -181,14 +186,14 @@
                         aria-controls="details3">
                         <td class="text-left">{{ $massgeReport['user_member_id'] }}</td>
                         <td class="opr_expand_arrow">{{ $massgeReport['user_name'] }}</td>
-                        <td>{{ $massgeReport['user_state_name'] }}</td>
+                        <td class="text-center">{{ $massgeReport['user_state_name'] }}</td>
                         <td></td>
-                        <td>{{ $massgeReport['total_days'] }}</td>
-                        <td class="text-left">
+                        <td class="text-center">{{ $massgeReport['total_days'] }}</td>
+                        <td class="text-center">
                             <div class="num_value">$<span>{{ number_format($massgeReport['total_purchase_amount'], 2) }}
                             </span></div>
                         </td>
-                        <td class="text-left">
+                        <td class="text-center">
                             <div class="num_value">$<span>{{ number_format($massgeReport['total_commission_amount'], 2) }}</span></div>
                         </td>
                     </tr>
@@ -198,23 +203,66 @@
                     </tr>
                     {{-- end --}}
                 @endforeach
-                <tr>
+                {{-- <tr>
                     <td colspan="4" class="text-right"><strong>Total Massage Centres:</strong></td>
                     <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold">
                         {{ $totalMassageDays }}
                     </td>
                     <td
-                        style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                        style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:center;">
                         <div class="num_value">$<span>{{ number_format($totalMassageSpent, 2) }}</span></div>
                     </td>
                     <td
-                        style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                        style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:center;">
                         <div class="num_value">$<span>{{ number_format($totalMassageAgenFee, 2) }}</span></div>
                     </td>
-                </tr>
+                </tr> --}}
                 {{-- End massage listing --}}
             @endif
 
+              {{-- Start Escort Total --}}
+                    <tr>
+                        <td colspan="4" class="text-right"><strong>Total Escorts:</strong></td>
+                        <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold;text-align:center;">
+                            {{ $totalEscortDays }}
+                        </td>
+                        <td
+                            style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:right;">
+                            <div class="num_value">$<span>{{ number_format($totalEscortSpent, 2) }}</span>
+                            </div>
+                        </td>
+                        <td
+                            style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:right;">
+                            <div class="num_value">$<span>{{ number_format($totalEscortAgenFee, 2) }}</span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="7" style="padding:10px"></td>
+                    </tr>
+                {{-- End Escort Total --}}
+                    @if( $totalMassageDays > 0)
+                     <tr>
+                        <td colspan="4" class="text-right"><strong>Total Massage Centres:</strong></td>
+                        <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold;text-align:center;">
+                            {{ $totalMassageDays }}
+                        </td>
+                        <td
+                            style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:center;">
+                            <div class="num_value">$<span>{{ number_format($totalMassageSpent, 2) }}</span>
+                            </div>
+                        </td>
+                        <td
+                            style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:center;">
+                            <div class="num_value">$<span>{{ number_format($totalMassageAgenFee, 2) }}</span>
+                            </div>
+                        </td>
+                    </tr>
+                      <tr>
+                        <td colspan="7" style="padding:10px"></td>
+                    </tr>
+                    @endif
         </tbody>
 
         <tfoot>
@@ -235,11 +283,11 @@
                 <td style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold">
                     {{ $totalDays }}</td>
                 <td
-                    style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                    style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:center;">
                     <div class="num_value">$<span>{{ number_format($totalSpent, 2) }}</span></div>
                 </td>
                 <td
-                    style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:left;">
+                    style="border-top: 2px solid #444; border-bottom:6px double #444; font-weight:bold; text-align:center;">
                     <div class="num_value">$<span>{{ number_format($totalAgenFee, 2)}}</span></div>
                 </td>
             </tr>

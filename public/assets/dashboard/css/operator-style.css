@@ -219,6 +219,7 @@
     
     .opr_accordian_table td {
         border: 0px;
+        text-align: center;
     }
     
     .opr_accordian_table .detail-row {

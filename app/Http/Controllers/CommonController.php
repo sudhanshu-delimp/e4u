@@ -95,16 +95,17 @@ class CommonController extends Controller
                 return 'Current';
             })
             ->orderColumn('status_order', function ($query, $order) {
-            $today = Carbon::today('UTC')->toDateString();
+                $today = Carbon::today('UTC')->toDateString();
 
-            $query->orderByRaw("
-            CASE
-            WHEN utc_start_date <= ? AND utc_end_date >= ? THEN 1
-            WHEN utc_start_date > ? THEN 2
-            WHEN utc_end_date < ? THEN 3
-            ELSE 4
-            END {$order}
-            ", [$today, $today, $today, $today]);
+                $query->orderByRaw("
+                CASE
+                WHEN utc_start_date <= ? AND utc_end_date >= ? THEN 1
+                WHEN utc_start_date > ? THEN 2
+                WHEN utc_end_date < ? THEN 3
+                ELSE 4
+                END {$order}
+                ", [$today, $today, $today, $today])
+                ->orderBy('utc_start_date', 'ASC');
             })
             ->addColumn('days', function ($row) {
                 $startDate = Carbon::parse($row->utc_start_date);

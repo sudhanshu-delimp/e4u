@@ -20,6 +20,7 @@
                                 <th>End Date</th>
                                 <th>Days</th>
                                 <th>Date of Suspended</th>
+                                <th>Status Order</th>
                                 <th>Status</th>
                             </tr>
                             </thead>
@@ -50,9 +51,10 @@
             pageLength: 25,
             searching: false,
             order: [
-                [4, 'asc']
+                [4, 'asc'],
+                [0, 'asc']
             ],
-            bStateSave: true,
+            bStateSave: false,
             processing: true,
             serverSide: true,
             paging: true,
@@ -84,6 +86,13 @@
                     name: 'created_at',
                     searchable: false,
                     orderable: false
+                },
+                {
+                    data: 'status_order',
+                    name: 'status_order',
+                    searchable: false,
+                    orderable: true,
+                    visible: false
                 },
                 {
                     data: 'status',
