@@ -489,26 +489,26 @@ class AnalyticsController extends Controller
         return  $totalAmount;
     }
 
-    private function getPaymentHistoryData($row)
-    {
-        $purchaseIds = collect($row->tourPurchase)->pluck('id')->filter()->unique();
+    // private function getPaymentHistoryData($row)
+    // {
+    //     $purchaseIds = collect($row->tourPurchase)->pluck('id')->filter()->unique();
 
-         Log::info($row->id.'========'.$row->name);
-         Log::info($purchaseIds);
-         Log::info('========');
+    //     //  Log::info($row->id.'========'.$row->name);
+    //     //  Log::info($purchaseIds);
+    //     //  Log::info('========');
 
 
-        if ($purchaseIds->isEmpty()) {
-            return null;
-        }
+    //     if ($purchaseIds->isEmpty()) {
+    //         return null;
+    //     }
 
-        $paymentHistoryIds = PaymentItem::whereIn('item_id', $purchaseIds)
-            ->where('item_type', 'App\Models\Purchase')
-            ->pluck('payment_history_id')
-            ->unique();
+    //     $paymentHistoryIds = PaymentItem::whereIn('item_id', $purchaseIds)
+    //         ->where('item_type', 'App\Models\Purchase')
+    //         ->pluck('payment_history_id')
+    //         ->unique();
 
-        return PaymentHistory::with('commissions')->whereIn('id', $paymentHistoryIds)->first();
-    }
+    //     return PaymentHistory::with('commissions')->whereIn('id', $paymentHistoryIds)->first();
+    // }
 
     private function getAgentCommisionFee($row)
     {
@@ -518,10 +518,10 @@ class AnalyticsController extends Controller
         $total_commision_fee = 0;
 
 
-         Log::info('Location');
-         Log::info($row->id.'========'.$row->name);
-         Log::info($row->locations);
-         Log::info('-------------');
+        //  Log::info('Location');
+        //  Log::info($row->id.'========'.$row->name);
+        //  Log::info($row->locations);
+        //  Log::info('-------------');
         
 
         // if ($purchaseIds->isEmpty()) {
@@ -548,8 +548,8 @@ class AnalyticsController extends Controller
                             ->pluck('payment_history_id');
                            
 
-                        Log::info('PinupItemIds');
-                        Log::info($PinupItemIds);
+                        // Log::info('PinupItemIds');
+                        // Log::info($PinupItemIds);
 
                         if(!empty($PinupItemIds))     
                         {
