@@ -135,7 +135,7 @@
       </div>
    </div>
 </div>
-
+@include('admin.modal.advertiser-profile-suspend-history')
 
 @endsection
 @push('script')
