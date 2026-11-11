@@ -2,8 +2,6 @@
 @section('content')
 @section('style')
 @endsection
-
-
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <!-- Page Heading -->
     <div class="row">
@@ -12,7 +10,7 @@
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
         <div class="col-md-12">
-            <div class="card collapse" id="notes" style="">
+            <div class="card collapse" id="notes">
                 <div class="card-body">
                    <h3 class="NotesHeader"><b>Notes:</b></h3>
                     
@@ -26,9 +24,9 @@
         </div>
     </div>
     <div class="row">
-        {{-- box start --}}
-        <div class="col-lg-3 box-wrapper">
-            <div class="my-custom-box shadow-sm">
+        <!--box start -->
+        <div class="col-lg-3">
+            <div class="my-custom-box">
                 <a href="{{ route('admin.escort-listings') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/escort-listings.png') }}" class="my-svg-icons" alt="Escort Listings">
@@ -40,10 +38,10 @@
 
             </div>
         </div>
-        {{-- end --}}
-        {{-- box start --}}
-        <div class="col-lg-3 box-wrapper">
-            <div class="my-custom-box shadow-sm">
+        <!--end -->
+        <!--box start -->
+        <div class="col-lg-3">
+            <div class="my-custom-box">
                 <a href="{{ route('admin.massage-centre-listings') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/mcc.png') }}" class="my-svg-icons" alt="Massage Centre Listings">
@@ -55,11 +53,11 @@
 
             </div>
         </div>
-        {{-- end --}}
+        <!--end -->
         
-        {{-- box start --}}
-        <div class="col-lg-3 box-wrapper">
-            <div class="my-custom-box shadow-sm">
+        <!--box start -->
+        <div class="col-lg-3">
+            <div class="my-custom-box">
                 <a href="{{ route('admin.pin-up-listings') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/pinup.png') }}" class="my-svg-icons" alt="Pin Up Listings">
@@ -71,11 +69,11 @@
 
             </div>
         </div>
-        {{-- end --}}
+        <!--end -->
         
-        {{-- box start --}}
-        <div class="col-lg-3 box-wrapper">
-            <div class="my-custom-box shadow-sm">
+        <!--box start -->
+        <div class="col-lg-3">
+            <div class="my-custom-box">
                 <a href="{{ route('admin.agent-requests') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/agent-requests.png') }}" class="my-svg-icons" alt=" Agent Requests">
@@ -87,10 +85,10 @@
 
             </div>
         </div>
-        {{-- end --}}
-        {{-- box start --}}
-        <div class="col-lg-3 box-wrapper">
-            <div class="my-custom-box shadow-sm">
+        <!--end -->
+        <!--box start -->
+        <div class="col-lg-3">
+            <div class="my-custom-box">
                 <a  href="{{ route('admin.registrations-reports') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/registratios.png') }}" class="my-svg-icons" alt="Registrations">
@@ -102,10 +100,10 @@
 
             </div>
         </div>
-        {{-- end --}}
-        {{-- box start --}}
-        <div class="col-lg-3 box-wrapper">
-            <div class="my-custom-box shadow-sm">
+        <!--end -->
+        <!--box start -->
+        <div class="col-lg-3">
+            <div class="my-custom-box">
                 <a href="{{ route('admin.logged-in-users') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/user-loged-in.png') }}" class="my-svg-icons" alt="Users Online">
@@ -117,10 +115,10 @@
 
             </div>
         </div>
-        {{-- end --}}
-        {{-- box start --}}
-        <div class="col-lg-3 box-wrapper">
-            <div class="my-custom-box shadow-sm">
+        <!--end -->
+        <!--box start -->
+        <div class="col-lg-3">
+            <div class="my-custom-box">
                 <a href="{{ route('admin.support-ticket.list') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/support-tickets.png') }}" class="my-svg-icons" alt="Support Tickets">
@@ -132,10 +130,10 @@
 
             </div>
         </div>
-        {{-- end --}}
-        {{-- box start --}}
-        <div class="col-lg-3 box-wrapper">
-            <div class="my-custom-box shadow-sm">
+        <!--end -->
+        <!--box start -->
+        <div class="col-lg-3">
+            <div class="my-custom-box">
                 <a href="{{ route('admin.global.notification.index') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/notifications.png') }}" class="my-svg-icons" alt="Notifications (Global)">
@@ -147,10 +145,10 @@
 
             </div>
         </div>
-        {{-- end --}}
-        {{-- box start --}}
-        <div class="col-lg-3 box-wrapper">
-            <div class="my-custom-box shadow-sm">
+        <!--end -->
+        <!--box start -->
+        <div class="col-lg-3">
+            <div class="my-custom-box">
                 <a href="{{ route('admin.payment.transaction_summary') }}?from=dashboard">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/admin/transaction-summary.png') }}" alt="Transaction Summary">
@@ -162,7 +160,7 @@
 
             </div>
         </div>
-        {{-- end --}}
+        <!--end -->
 
 
     
@@ -172,7 +170,4 @@
 @include('modal.console-expiry-password')
 @endsection
 @section('script')
-<script>
-    
-</script>
 @endsection

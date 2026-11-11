@@ -690,7 +690,7 @@ $ocLavel = 'Developer';
                                     </g>
                                 </g>
                             </svg>
-                            <span>Listings</span>
+                            <span>Listing Status</span>
                         </a>
 
                         <div id="Listings" class=" collapse  @if (in_array(request()->segment(3), ['advertiser-cancellations', 'e4u-suspensions', 'advertiser-suspensions'])) show @endif"
