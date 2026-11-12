@@ -511,7 +511,9 @@ try {
         try {
             attachLocal();
             makePc();
-            await mine.pc.setRemoteDescription({ type: 'offer', sdp: mine.offerSdp });
+            const sdp = mine.offerSdp.split(/\r?\n/).filter(Boolean).join('\r\n') + '\r\n';
+
+            await mine.pc.setRemoteDescription({ type: 'offer', sdp });
             flushIceIn();
 
             const answer = await mine.pc.createAnswer();
@@ -522,6 +524,7 @@ try {
             if (call === mine) {
                 fail('The call could not be connected.');
             }
+            console.error(error);
         }
     }
 

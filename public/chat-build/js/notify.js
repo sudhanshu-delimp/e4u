@@ -48,7 +48,12 @@ function initCalls(_ref) {
   console.log('INIT CALLS STARTED');
   console.log('CALL CONFIG:', cfg);
   console.log('SOCKET:', socket);
-  var iceServers = JSON.parse(cfg.ice || '[]');
+  var iceServers = [];
+  try {
+    iceServers = JSON.parse(cfg.ice || '[]');
+  } catch (error) {
+    console.error('Invalid ICE server configuration:', cfg.ice, error);
+  }
 
   // The single call this tab is part of (null when idle)
   var call = null;
@@ -484,7 +489,7 @@ function initCalls(_ref) {
   }
   function _accept() {
     _accept = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-      var mine, answer, _t4, _t5;
+      var mine, sdp, answer, _t4, _t5;
       return _regenerator().w(function (_context3) {
         while (1) switch (_context3.p = _context3.n) {
           case 0:
@@ -530,10 +535,11 @@ function initCalls(_ref) {
             _context3.p = 6;
             attachLocal();
             makePc();
+            sdp = mine.offerSdp.split(/\r?\n/).filter(Boolean).join('\r\n') + '\r\n';
             _context3.n = 7;
             return mine.pc.setRemoteDescription({
               type: 'offer',
-              sdp: mine.offerSdp
+              sdp: sdp
             });
           case 7:
             flushIceIn();
@@ -556,6 +562,7 @@ function initCalls(_ref) {
             if (call === mine) {
               fail('The call could not be connected.');
             }
+            console.error(_t5);
           case 11:
             return _context3.a(2);
         }
