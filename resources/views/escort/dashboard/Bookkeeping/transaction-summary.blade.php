@@ -67,6 +67,7 @@
 </div>
 
 @include('escort.dashboard.Bookkeeping.modal.transaction-summary')
+@include('escort.dashboard.Bookkeeping.modal.tax-invoice')
 @endsection
 @push('script')
 <script>
@@ -171,6 +172,7 @@
             type: 'POST',
             data: {
                 id: id,
+                action: 'transaction-summary',
                 _token: $('meta[name="csrf-token"]').attr('content')
             },
             success: function(response) {
@@ -179,6 +181,31 @@
             },
             error: function() {
                 modal.find('#listingModalContent').html(
+                    `<div class="text-danger p-3">Failed to load data</div>`);
+            }
+        });
+
+    });
+
+    $('#view-tax-invoice').on('show.bs.modal', function(event) {
+        let button = $(event.relatedTarget);
+        let id = button.data('item');
+        let modal = $(this);
+        modal.find('#listingModalContent').html(`<div class="text-center p-3">Loading...</div>`);
+        $.ajax({
+            url: `{{ route('escort.payment.detail') }}`,
+            type: 'POST',
+            data: {
+                id: id,
+                action: 'tax-invoice',
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                modal.find('#invoiceModalContent').html(response.html);
+                modal.find('a.print_payment_summary').attr('href', response.print_url);
+            },
+            error: function() {
+                modal.find('#invoiceModalContent').html(
                     `<div class="text-danger p-3">Failed to load data</div>`);
             }
         });

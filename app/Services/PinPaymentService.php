@@ -157,7 +157,8 @@ class PinPaymentService
             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
             </a>
             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">';
-      $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-item="' . encrypt($item->id) . '" data-target="#view-listing" > <i class="fa fa-eye"></i> View </a>';
+      $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-item="' . encrypt($item->id) . '" data-target="#view-listing" > <i class="fa fa-eye"></i> View Summary </a>';
+      $action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-item="' . encrypt($item->id) . '" data-target="#view-tax-invoice" > <i class="fa fa-eye"></i> View Invoice </a>';
       $action .= '</div></div>';
 
       $serviceType = $item->service;

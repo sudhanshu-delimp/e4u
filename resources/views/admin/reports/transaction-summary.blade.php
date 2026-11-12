@@ -89,6 +89,8 @@
         </div>
     </div>
     @include('escort.dashboard.Bookkeeping.modal.transaction-summary')
+    @include('escort.dashboard.Bookkeeping.modal.tax-invoice')
+   
 @endsection
 @push('script')
     <script>
