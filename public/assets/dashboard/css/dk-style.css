@@ -2779,6 +2779,7 @@ color: #B9B9B9;
     position: absolute;
     z-index: 1000;
     display: none;
+    background: var(--white);
     min-width: 10rem;
     padding: 0.5rem 0;
     margin: 0;
@@ -2786,7 +2787,6 @@ color: #B9B9B9;
     color: #212529;
     text-align: left;
     list-style: none;
-    background-color: var(--white);
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, .15);
     border-radius: 0.25rem;
@@ -5542,7 +5542,9 @@ ol.custom--substyle li:before {
 
 
 /*admin dashbard start form Legbox*/
-
+.dot-dropdown{
+    background-color: #fff;
+}
 .dot-dropdown .dropdown-item {
     font-size: 14px;
     padding: 3px 15px;
