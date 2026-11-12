@@ -2786,7 +2786,7 @@ color: #B9B9B9;
     color: #212529;
     text-align: left;
     list-style: none;
-    background-color: var(--white);
+    background: var(--white);
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, .15);
     border-radius: 0.25rem;
