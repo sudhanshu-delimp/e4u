@@ -1158,38 +1158,6 @@ function initChat(root) {
     state.previewUrls = [];
     state.pendingFiles = [];
   }
-
-  // function showAttachPreview(file) {
-  //     clearAttachPreview();
-
-  //     state.pendingFile = file;
-
-  //     let thumb;
-
-  //     if (PREVIEWABLE_IMAGES.indexOf(file.type) !== -1) {
-  //         state.previewUrl = URL.createObjectURL(file);
-  //         thumb = `<img src="${state.previewUrl}" alt="" style="width:44px;height:44px;object-fit:cover;border-radius:6px;">`;
-  //     } else {
-  //         const icon = fileKind(file) === 'image' ? 'bi-image' : 'bi-camera-video';
-  //         thumb = `<span style="width:44px;height:44px;border-radius:6px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:20px;"><i class="bi ${icon}"></i></span>`;
-  //     }
-
-  //     const box = document.createElement('div');
-
-  //     box.id = 'chatAttachPreview';
-  //     box.setAttribute('style', 'display:flex;align-items:center;gap:10px;padding:8px 14px;border-top:1px solid #e5e7eb;background:#f9fafb;font-size:13px;');
-  //     box.innerHTML = `
-  //         ${thumb}
-  //         <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
-  //             ${view.escapeHtml(file.name)} (${view.formatSize(file.size)})
-  //         </span>
-  //         <button type="button" class="chat-attach-remove" title="Remove"
-  //             style="border:0;background: #ff3c5f;font-size:20px;line-height:1;cursor:pointer;">&times;</button>
-  //     `;
-
-  //     el.composer.parentNode.insertBefore(box, el.composer);
-  // }
-
   function renderAttachPreview() {
     var old = document.getElementById('chatAttachPreview');
     if (old) {
@@ -2147,6 +2115,45 @@ function initChat(root) {
      so demo handlers for the same elements never fire.
   --------------------------------------------------- */
 
+  document.addEventListener('click', function (event) {
+    var btn = event.target.closest('#audioCallBtn, #videoCallBtn');
+    if (!btn || !root.contains(btn)) {
+      return;
+    }
+    var conv = findConv(state.activeId);
+    if (!conv) {
+      return;
+    }
+    if (conv.blocked_by_me || conv.blocked_me) {
+      notify('You cannot call this user.', 'error');
+      return;
+    }
+    console.log('DISPATCHING CALL EVENT');
+    window.dispatchEvent(new CustomEvent('chat:call', {
+      detail: {
+        conversation_id: conv.id,
+        kind: btn.id === 'videoCallBtn' ? 'video' : 'audio',
+        peer: {
+          id: conv.user.id,
+          name: conv.user.name,
+          avatar: conv.user.avatar,
+          color: conv.user.color
+        }
+      }
+    }));
+    window.dispatchEvent(new CustomEvent('chat:call', {
+      detail: {
+        conversation_id: conv.id,
+        kind: btn.id === 'videoCallBtn' ? 'video' : 'audio',
+        peer: {
+          id: conv.user.id,
+          name: conv.user.name,
+          avatar: conv.user.avatar,
+          color: conv.user.color
+        }
+      }
+    }));
+  });
   document.addEventListener('click', function (event) {
     var target = event.target;
     var filterWrapper = root.querySelector('.filter-wrapper');

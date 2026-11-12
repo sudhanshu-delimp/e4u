@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Events\MessageChanged;
 use App\Models\Notification;
+use App\Events\CallOffer;
+
 
 class ChatController extends Controller
 {
@@ -1286,4 +1288,55 @@ class ChatController extends Controller
             ])->values()->all(),
         ];
     }
+
+
+
+
+
+// ---- add this method inside ChatController ----
+    /**
+     * Start an audio or video call: check the two users may talk,
+     * then ring the other person. The call itself runs browser to browser.
+     */
+    public function call(Request $request, int $conversation): JsonResponse
+    {
+        $me   = $request->user();
+        $conv = $this->conversationFor($me->id, $conversation);
+
+        $data = $request->validate([
+            'kind' => 'required|in:audio,video',
+            'sdp'  => 'required|string|max:20000',
+        ]);
+
+        // Same way the other user is found in send()
+        $otherId = (int) ($conv->user_one_id == $me->id ? $conv->user_two_id : $conv->user_one_id);
+
+        // TODO: also run the same eligibility / block checks that send() runs before it broadcasts
+        $blocked = DB::table('chat_blocks')
+            ->where(fn ($q) => $q->where('blocker_id', $me->id)->where('blocked_id', $otherId))
+            ->orWhere(fn ($q) => $q->where('blocker_id', $otherId)->where('blocked_id', $me->id))
+            ->exists();
+
+        abort_if($blocked, 403, 'You cannot call this user.');
+
+        $callId = (string) Str::uuid();
+
+        broadcast(new CallOffer([
+            'call_id'         => $callId,
+            'caller_id'       => (int) $me->id,
+            'callee_id'       => $otherId,
+            'conversation_id' => (int) $conv->id,
+            'kind'            => $data['kind'],
+            'sdp'             => $data['sdp'],
+            'from'            => [
+                'id'     => (int) $me->id,
+                'name'   => ChatState::displayName($me),
+                'avatar' => $me->avatar_img,
+                'color'  => ChatState::color($me->state_id),
+            ],
+        ], $otherId));
+
+        return response()->json(['call_id' => $callId]);
+    }
+
 }

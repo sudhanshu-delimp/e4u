@@ -1057,4 +1057,7 @@ Route::middleware(['web', 'auth'])->prefix('chat')->name('chat.')->group(functio
     Route::get('conversations/{conversation}/search', [ChatController::class, 'search'])->name('chat.search');
     Route::post('/messages/{message}/reaction', [ChatController::class, 'react'])
         ->whereNumber('message')->name('message.react');
+
+    Route::post('/conversations/{conversation}/call', [ChatController::class, 'call'])
+    ->whereNumber('conversation')->name('call');
 });

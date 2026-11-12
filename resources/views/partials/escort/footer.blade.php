@@ -367,6 +367,7 @@
         </script>
         @endif
         @endforeach
+       <x-chat.notifier />
         </body>
 
         </html>

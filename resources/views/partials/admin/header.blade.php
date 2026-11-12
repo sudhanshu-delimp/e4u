@@ -184,13 +184,9 @@
 
     @section('style')
     @show
-    <script>
-        var BASE_URL = "{{ url('/') }}";
-        var paginateLength = 25;
-        var paginateRange = [{
-            {
-                config('app.paginate_range')
-            }
-        }];
-    </script>
+  <script>
+    var BASE_URL = "https://e4u_dev.local";
+    var paginateLength = 25;
+    var paginateRange = @json(config('app.paginate_range'));
+</script>
 </head>

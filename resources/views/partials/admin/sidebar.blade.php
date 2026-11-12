@@ -1875,11 +1875,14 @@ $ocLavel = 'Developer';
 
         let toggleIconbtn = document.querySelector(".toggle-icon");
         let sidebar = document.querySelector(".db-custom-sidebar");
-        toggleIconbtn.addEventListener("click", function(){
-            sidebar.classList.toggle("toggled");        
-            this.classList.toggle("fa-toggle-off");
-            this.classList.toggle("fa-toggle-on");
-        });
+
+        if (toggleIconbtn && sidebar) {
+            toggleIconbtn.addEventListener("click", function () {
+                sidebar.classList.toggle("toggled");
+                this.classList.toggle("fa-toggle-off");
+                this.classList.toggle("fa-toggle-on");
+            });
+        }
     });
   
 </script>

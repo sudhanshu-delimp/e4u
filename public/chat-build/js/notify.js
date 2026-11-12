@@ -1,6 +1,686 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./resources/js/chat/call.js":
+/*!***********************************!*\
+  !*** ./resources/js/chat/call.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   initCalls: () => (/* binding */ initCalls)
+/* harmony export */ });
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+// WebRTC audio and video calls. Signaling goes through the chat Node server.
+// Loaded by notify.js, so calls ring on every page that has the notifier.
+
+var RING_MS = 45000;
+var svg = function svg(inner) {
+  return '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + inner + '</svg>';
+};
+var ICON = {
+  phone: svg('<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>'),
+  hangup: svg('<path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.42 19.42 0 0 1-3.33-2.67m-2.67-3.34a19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91"/><line x1="23" y1="1" x2="1" y2="23"/>'),
+  mic: svg('<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>'),
+  micOff: svg('<line x1="1" y1="1" x2="23" y2="23"/><path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"/><path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>'),
+  video: svg('<polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>'),
+  videoOff: svg('<path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2m5.66 0H14a2 2 0 0 1 2 2v3.34l1 1L23 7v10"/><line x1="1" y1="1" x2="23" y2="23"/>')
+};
+var END_TEXT = {
+  declined: 'Call declined',
+  busy: 'User is busy',
+  cancelled: 'Call cancelled',
+  no_answer: 'No answer',
+  missed: 'Missed call',
+  ended: 'Call ended',
+  error: 'Call failed'
+};
+var CSS = '#callOverlay{position:fixed;inset:0;z-index:100000;background:rgba(17,24,39,.88);display:flex;align-items:center;justify-content:center}' + '#callOverlay .call-box{position:relative;width:min(900px,96vw);height:min(600px,92vh);background:#111827;border-radius:16px;overflow:hidden;color:#fff}' + '#callOverlay .call-remote{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#111827}' + '#callOverlay .call-local{position:absolute;right:14px;top:14px;width:140px;height:100px;object-fit:cover;border-radius:10px;border:2px solid rgba(255,255,255,.25);background:#000;transform:scaleX(-1)}' + '#callOverlay .call-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;pointer-events:none}' + '#callOverlay .has-video .call-center{display:none}' + '#callOverlay .call-av{width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:600;overflow:hidden;color:#fff}' + '#callOverlay .call-av img{width:100%;height:100%;object-fit:cover}' + '#callOverlay .call-name{font-size:20px;font-weight:600}' + '#callOverlay .call-status{font-size:14px;opacity:.85}' + '#callOverlay .has-video .call-status{position:absolute;left:16px;top:16px;background:rgba(0,0,0,.45);padding:4px 10px;border-radius:12px}' + '#callOverlay .call-controls{position:absolute;bottom:22px;left:0;right:0;display:flex;justify-content:center;gap:16px}' + '#callOverlay .call-btn{width:54px;height:54px;border-radius:50%;border:0;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;background:#374151}' + '#callOverlay .call-btn.off{background:#fff;color:#111827}' + '#callOverlay .call-btn.end{background:#e11d48}' + '#callOverlay .call-btn.ok{background:#16a34a}';
+function initCalls(_ref) {
+  var socket = _ref.socket,
+    me = _ref.me,
+    cfg = _ref.cfg;
+  console.log('INIT CALLS STARTED');
+  console.log('CALL CONFIG:', cfg);
+  console.log('SOCKET:', socket);
+  var iceServers = JSON.parse(cfg.ice || '[]');
+
+  // The single call this tab is part of (null when idle)
+  var call = null;
+
+  /* ---------------------------------------------------
+     Small helpers
+  --------------------------------------------------- */
+
+  var q = function q(selector) {
+    return document.querySelector('#callOverlay ' + selector);
+  };
+  var avatarUrl = function avatarUrl(path) {
+    if (!path) {
+      return '';
+    }
+    return /^(https?:)?\//.test(path) ? path : (cfg.avatarBase || '') + '/' + path;
+  };
+  var initials = function initials(name) {
+    return (name || '?').split(' ').map(function (w) {
+      return w[0];
+    }).join('').slice(0, 2).toUpperCase();
+  };
+  var clock = function clock(ms) {
+    var total = Math.floor(ms / 1000);
+    var mm = String(Math.floor(total / 60)).padStart(2, '0');
+    var ss = String(total % 60).padStart(2, '0');
+    return mm + ':' + ss;
+  };
+  function say(message) {
+    if (typeof showAlert === 'function') {
+      showAlert('error', message);
+    } else {
+      window.alert(message);
+    }
+  }
+  function mediaError(error) {
+    if (error && error.name === 'NotAllowedError') {
+      return 'Allow camera and microphone access in your browser to make calls.';
+    }
+    if (error && error.name === 'NotFoundError') {
+      return 'No camera or microphone was found.';
+    }
+    return 'Could not access the camera or microphone.';
+  }
+  function setStatus(text) {
+    var node = q('.call-status');
+    if (node) {
+      node.textContent = text;
+    }
+  }
+
+  /* ---------------------------------------------------
+     Screen
+  --------------------------------------------------- */
+
+  function showUi() {
+    if (!document.getElementById('callCss')) {
+      var style = document.createElement('style');
+      style.id = 'callCss';
+      style.textContent = CSS;
+      document.head.appendChild(style);
+    }
+    var old = document.getElementById('callOverlay');
+    if (old) {
+      old.remove();
+    }
+    var overlay = document.createElement('div');
+    overlay.id = 'callOverlay';
+    overlay.innerHTML = '<div class="call-box">' + '<video class="call-remote" autoplay playsinline></video>' + '<video class="call-local" autoplay playsinline muted></video>' + '<div class="call-center"><div class="call-av"></div><div class="call-name"></div><div class="call-status"></div></div>' + '<div class="call-controls"></div>' + '</div>';
+    document.body.appendChild(overlay);
+    var peer = call.peer || {};
+    var av = overlay.querySelector('.call-av');
+    av.style.background = peer.color || '#ff3c5f';
+    av.textContent = initials(peer.name);
+    if (peer.avatar) {
+      var img = new Image();
+      img.alt = '';
+      img.onload = function () {
+        av.textContent = '';
+        av.appendChild(img);
+      };
+      img.src = avatarUrl(peer.avatar);
+    }
+    overlay.querySelector('.call-name').textContent = peer.name || 'Unknown';
+    if (call.kind !== 'video') {
+      overlay.querySelector('.call-local').style.display = 'none';
+    }
+  }
+  function controls(mode) {
+    var box = q('.call-controls');
+    if (!box || !call) {
+      return;
+    }
+    box.innerHTML = '';
+    var add = function add(cls, icon, label, handler) {
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'call-btn ' + cls;
+      button.title = label;
+      button.setAttribute('aria-label', label);
+      button.innerHTML = icon;
+      button.addEventListener('click', handler);
+      box.appendChild(button);
+    };
+    if (mode === 'ringing') {
+      add('end', ICON.hangup, 'Decline', function () {
+        return endCall('declined', true);
+      });
+      add('ok', call.kind === 'video' ? ICON.video : ICON.phone, 'Accept', accept);
+      return;
+    }
+    if (mode === 'active') {
+      add(call.muted ? 'off' : '', call.muted ? ICON.micOff : ICON.mic, 'Mute', function () {
+        call.muted = !call.muted;
+        call.local.getAudioTracks().forEach(function (t) {
+          t.enabled = !call.muted;
+        });
+        controls('active');
+      });
+      if (call.kind === 'video') {
+        add(call.camOff ? 'off' : '', call.camOff ? ICON.videoOff : ICON.video, 'Camera', function () {
+          call.camOff = !call.camOff;
+          call.local.getVideoTracks().forEach(function (t) {
+            t.enabled = !call.camOff;
+          });
+          controls('active');
+        });
+      }
+    }
+    add('end', ICON.hangup, mode === 'active' ? 'End call' : 'Cancel', function () {
+      return endCall(call && call.state === 'calling' ? 'cancelled' : 'ended', true);
+    });
+  }
+
+  /* ---------------------------------------------------
+     Peer connection
+  --------------------------------------------------- */
+
+  function sendIce(candidate) {
+    if (call.id) {
+      socket.emit('call:ice', {
+        call_id: call.id,
+        candidate: candidate
+      });
+    } else {
+      call.iceOut.push(candidate);
+    }
+  }
+  function flushIceIn() {
+    call.iceIn.splice(0).forEach(function (c) {
+      return call.pc.addIceCandidate(c)["catch"](function () {});
+    });
+  }
+  function makePc() {
+    var pc = new RTCPeerConnection({
+      iceServers: iceServers
+    });
+    call.pc = pc;
+    pc.ontrack = function (event) {
+      var video = q('.call-remote');
+      if (video && event.streams && event.streams[0]) {
+        video.srcObject = event.streams[0];
+        var played = video.play();
+        if (played && played["catch"]) {
+          played["catch"](function () {});
+        }
+      }
+    };
+    pc.onicecandidate = function (event) {
+      if (call && call.pc === pc && event.candidate) {
+        sendIce(event.candidate.toJSON ? event.candidate.toJSON() : event.candidate);
+      }
+    };
+    pc.onconnectionstatechange = function () {
+      if (!call || call.pc !== pc) {
+        return;
+      }
+      var state = pc.connectionState;
+      if (state === 'connected') {
+        clearTimeout(call.dropTimer);
+        onConnected();
+      } else if (state === 'disconnected') {
+        setStatus('Reconnecting...');
+        call.dropTimer = setTimeout(function () {
+          if (call && call.pc === pc && pc.connectionState !== 'connected') {
+            endCall('error', true);
+          }
+        }, 10000);
+      } else if (state === 'failed') {
+        endCall('error', true);
+      }
+    };
+    call.local.getTracks().forEach(function (track) {
+      return pc.addTrack(track, call.local);
+    });
+    return pc;
+  }
+  function attachLocal() {
+    var video = q('.call-local');
+    if (video && call.kind === 'video') {
+      video.srcObject = call.local;
+    }
+  }
+  function onConnected() {
+    if (!call || call.state === 'active') {
+      return;
+    }
+    call.state = 'active';
+    call.startedAt = Date.now();
+    clearTimeout(call.ringTimer);
+    var box = q('.call-box');
+    if (box && call.kind === 'video') {
+      box.classList.add('has-video');
+    }
+    controls('active');
+    setStatus('00:00');
+    call.tick = setInterval(function () {
+      return setStatus(clock(Date.now() - call.startedAt));
+    }, 1000);
+  }
+
+  /* ---------------------------------------------------
+     Finish
+  --------------------------------------------------- */
+
+  function finish(text) {
+    var done = call;
+    if (!done) {
+      return;
+    }
+    call = null;
+    clearTimeout(done.ringTimer);
+    clearTimeout(done.dropTimer);
+    clearInterval(done.tick);
+    if (done.pc) {
+      done.pc.ontrack = null;
+      done.pc.onicecandidate = null;
+      done.pc.onconnectionstatechange = null;
+      done.pc.close();
+    }
+    if (done.local) {
+      done.local.getTracks().forEach(function (t) {
+        return t.stop();
+      });
+    }
+    var overlay = document.getElementById('callOverlay');
+    if (overlay) {
+      var status = overlay.querySelector('.call-status');
+      var box = overlay.querySelector('.call-controls');
+      if (status) {
+        status.textContent = text || '';
+      }
+      if (box) {
+        box.innerHTML = '';
+      }
+      overlay.querySelector('.call-box').classList.remove('has-video');
+      setTimeout(function () {
+        return overlay.remove();
+      }, 1500);
+    }
+  }
+  function endCall(reason, tell) {
+    if (!call) {
+      return;
+    }
+    if (tell && call.id) {
+      socket.emit('call:end', {
+        call_id: call.id,
+        reason: reason
+      });
+    }
+    finish(END_TEXT[reason] || 'Call ended');
+  }
+  function fail(message) {
+    say(message);
+    endCall('error', true);
+  }
+
+  /* ---------------------------------------------------
+     Caller
+  --------------------------------------------------- */
+  function start(_x) {
+    return _start.apply(this, arguments);
+  }
+  function _start() {
+    _start = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(detail) {
+      var mine, offer, response, data, _t2, _t3;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.p = _context2.n) {
+          case 0:
+            if (!call) {
+              _context2.n = 1;
+              break;
+            }
+            say('You are already in a call.');
+            return _context2.a(2);
+          case 1:
+            if (!(!window.RTCPeerConnection || !navigator.mediaDevices)) {
+              _context2.n = 2;
+              break;
+            }
+            say('Calls need a secure (https) page and an up to date browser.');
+            return _context2.a(2);
+          case 2:
+            mine = newCall({
+              conversationId: detail.conversation_id,
+              kind: detail.kind === 'video' ? 'video' : 'audio',
+              role: 'caller',
+              peer: detail.peer || {},
+              state: 'calling'
+            });
+            call = mine;
+            showUi();
+            setStatus('Starting...');
+            controls('calling');
+            _context2.p = 3;
+            _context2.n = 4;
+            return navigator.mediaDevices.getUserMedia({
+              audio: true,
+              video: mine.kind === 'video'
+            });
+          case 4:
+            mine.local = _context2.v;
+            _context2.n = 6;
+            break;
+          case 5:
+            _context2.p = 5;
+            _t2 = _context2.v;
+            if (call === mine) {
+              fail(mediaError(_t2));
+            }
+            return _context2.a(2);
+          case 6:
+            if (!(call !== mine)) {
+              _context2.n = 7;
+              break;
+            }
+            mine.local.getTracks().forEach(function (t) {
+              return t.stop();
+            });
+            return _context2.a(2);
+          case 7:
+            _context2.p = 7;
+            attachLocal();
+            makePc();
+            _context2.n = 8;
+            return mine.pc.createOffer();
+          case 8:
+            offer = _context2.v;
+            _context2.n = 9;
+            return mine.pc.setLocalDescription(offer);
+          case 9:
+            _context2.n = 10;
+            return fetch(cfg.callUrl.replace('__ID__', mine.conversationId), {
+              method: 'POST',
+              credentials: 'same-origin',
+              headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                'X-CSRF-TOKEN': cfg.csrf,
+                'X-Requested-With': 'XMLHttpRequest'
+              },
+              body: JSON.stringify({
+                kind: mine.kind,
+                sdp: offer.sdp
+              })
+            });
+          case 10:
+            response = _context2.v;
+            if (response.ok) {
+              _context2.n = 11;
+              break;
+            }
+            throw new Error(response.status === 403 ? 'You cannot call this user.' : 'The call could not be started.');
+          case 11:
+            _context2.n = 12;
+            return response.json();
+          case 12:
+            data = _context2.v;
+            if (!(call !== mine)) {
+              _context2.n = 13;
+              break;
+            }
+            socket.emit('call:end', {
+              call_id: data.call_id,
+              reason: 'cancelled'
+            });
+            return _context2.a(2);
+          case 13:
+            mine.id = data.call_id;
+            mine.iceOut.splice(0).forEach(sendIce);
+            setStatus('Calling...');
+            mine.ringTimer = setTimeout(function () {
+              return endCall('no_answer', true);
+            }, RING_MS);
+            _context2.n = 15;
+            break;
+          case 14:
+            _context2.p = 14;
+            _t3 = _context2.v;
+            if (call === mine) {
+              fail(_t3.message || 'The call could not be started.');
+            }
+          case 15:
+            return _context2.a(2);
+        }
+      }, _callee2, null, [[7, 14], [3, 5]]);
+    }));
+    return _start.apply(this, arguments);
+  }
+  function newCall(props) {
+    return Object.assign({
+      id: null,
+      pc: null,
+      local: null,
+      offerSdp: null,
+      iceOut: [],
+      iceIn: [],
+      muted: false,
+      camOff: false,
+      startedAt: 0,
+      ringTimer: null,
+      dropTimer: null,
+      tick: null
+    }, props);
+  }
+
+  /* ---------------------------------------------------
+     Callee
+  --------------------------------------------------- */
+  function accept() {
+    return _accept.apply(this, arguments);
+  }
+  function _accept() {
+    _accept = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+      var mine, answer, _t4, _t5;
+      return _regenerator().w(function (_context3) {
+        while (1) switch (_context3.p = _context3.n) {
+          case 0:
+            mine = call;
+            if (!(!mine || mine.state !== 'ringing')) {
+              _context3.n = 1;
+              break;
+            }
+            return _context3.a(2);
+          case 1:
+            clearTimeout(mine.ringTimer);
+            mine.state = 'connecting';
+            setStatus('Connecting...');
+            controls('connecting');
+            _context3.p = 2;
+            _context3.n = 3;
+            return navigator.mediaDevices.getUserMedia({
+              audio: true,
+              video: mine.kind === 'video'
+            });
+          case 3:
+            mine.local = _context3.v;
+            _context3.n = 5;
+            break;
+          case 4:
+            _context3.p = 4;
+            _t4 = _context3.v;
+            if (call === mine) {
+              say(mediaError(_t4));
+              endCall('declined', true);
+            }
+            return _context3.a(2);
+          case 5:
+            if (!(call !== mine)) {
+              _context3.n = 6;
+              break;
+            }
+            mine.local.getTracks().forEach(function (t) {
+              return t.stop();
+            });
+            return _context3.a(2);
+          case 6:
+            _context3.p = 6;
+            attachLocal();
+            makePc();
+            _context3.n = 7;
+            return mine.pc.setRemoteDescription({
+              type: 'offer',
+              sdp: mine.offerSdp
+            });
+          case 7:
+            flushIceIn();
+            _context3.n = 8;
+            return mine.pc.createAnswer();
+          case 8:
+            answer = _context3.v;
+            _context3.n = 9;
+            return mine.pc.setLocalDescription(answer);
+          case 9:
+            socket.emit('call:answer', {
+              call_id: mine.id,
+              sdp: answer.sdp
+            });
+            _context3.n = 11;
+            break;
+          case 10:
+            _context3.p = 10;
+            _t5 = _context3.v;
+            if (call === mine) {
+              fail('The call could not be connected.');
+            }
+          case 11:
+            return _context3.a(2);
+        }
+      }, _callee3, null, [[6, 10], [2, 4]]);
+    }));
+    return _accept.apply(this, arguments);
+  }
+  socket.on('CallOffer', function (data) {
+    if (!data || !data.call_id || !data.from || data.from.id === me) {
+      return;
+    }
+    if (call) {
+      socket.emit('call:end', {
+        call_id: data.call_id,
+        reason: 'busy'
+      });
+      return;
+    }
+    call = newCall({
+      id: data.call_id,
+      conversationId: data.conversation_id,
+      kind: data.kind === 'video' ? 'video' : 'audio',
+      role: 'callee',
+      peer: data.from,
+      state: 'ringing',
+      offerSdp: data.sdp
+    });
+    showUi();
+    setStatus(call.kind === 'video' ? 'Incoming video call...' : 'Incoming audio call...');
+    controls('ringing');
+    call.ringTimer = setTimeout(function () {
+      return finish(END_TEXT.missed);
+    }, RING_MS + 3000);
+    if (document.hidden && 'Notification' in window && Notification.permission === 'granted') {
+      var note = new Notification((data.from.name || 'Someone') + ' is calling you', {
+        tag: 'chat-call'
+      });
+      note.onclick = function () {
+        window.focus();
+        note.close();
+      };
+    }
+  });
+
+  /* ---------------------------------------------------
+     Signals from the other person
+  --------------------------------------------------- */
+
+  socket.on('call:answer', /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(data) {
+      var _t;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.p = _context.n) {
+          case 0:
+            if (!(!call || call.role !== 'caller' || !data || data.call_id !== call.id || !call.pc)) {
+              _context.n = 1;
+              break;
+            }
+            return _context.a(2);
+          case 1:
+            clearTimeout(call.ringTimer);
+            call.state = 'connecting';
+            setStatus('Connecting...');
+            _context.p = 2;
+            _context.n = 3;
+            return call.pc.setRemoteDescription({
+              type: 'answer',
+              sdp: data.sdp
+            });
+          case 3:
+            flushIceIn();
+            _context.n = 5;
+            break;
+          case 4:
+            _context.p = 4;
+            _t = _context.v;
+            fail('The call could not be connected.');
+          case 5:
+            return _context.a(2);
+        }
+      }, _callee, null, [[2, 4]]);
+    }));
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }());
+  socket.on('call:ice', function (data) {
+    if (!call || !data || data.call_id !== call.id || !data.candidate) {
+      return;
+    }
+    if (call.pc && call.pc.remoteDescription) {
+      call.pc.addIceCandidate(data.candidate)["catch"](function () {});
+    } else {
+      call.iceIn.push(data.candidate);
+    }
+  });
+  socket.on('call:end', function (data) {
+    if (!call || !data || data.call_id !== call.id) {
+      return;
+    }
+    var text = END_TEXT[data.reason] || END_TEXT.ended;
+    if (call.role === 'callee' && call.state === 'ringing' && (data.reason === 'cancelled' || data.reason === 'no_answer')) {
+      text = END_TEXT.missed;
+    }
+    finish(text);
+  });
+
+  // Another tab of mine answered or declined this call
+  socket.on('call:handled', function (data) {
+    if (call && call.role === 'callee' && call.state === 'ringing' && data && data.call_id === call.id) {
+      finish('');
+    }
+  });
+
+  // Chat header buttons (controller.js) ask for a call with this event
+  // window.addEventListener('chat:call', (event) => start(event.detail || {}));
+
+  window.addEventListener('chat:call', function (event) {
+    console.log('CHAT CALL RECEIVED:', event.detail);
+    start(event.detail || {});
+  });
+}
+
+/***/ }),
+
 /***/ "./resources/js/chat/render.js":
 /*!*************************************!*\
   !*** ./resources/js/chat/render.js ***!
@@ -199,6 +879,31 @@ function hasVideoGallery(list) {
     return a.kind === 'video' && PLAYABLE_VIDEOS.indexOf(String(a.mime || '').toLowerCase()) !== -1;
   });
 }
+
+// Small chips under a message: emoji and how many people used it
+function reactionsHtml(msg, meId) {
+  var list = msg.reactions || [];
+  if (!list.length) {
+    return '';
+  }
+  var groups = {};
+  list.forEach(function (r) {
+    groups[r.emoji] = groups[r.emoji] || {
+      count: 0,
+      mine: false
+    };
+    groups[r.emoji].count += 1;
+    if (r.user_id === meId) {
+      groups[r.emoji].mine = true;
+    }
+  });
+  var chips = Object.keys(groups).map(function (emoji) {
+    var g = groups[emoji];
+    var style = 'border:1px solid ' + (g.mine ? '#ff3c5f' : '#e5e7eb') + ';background:' + (g.mine ? '#ffe4e6' : '#fff') + ';border-radius:12px;padding:0 6px;font-size:13px;line-height:20px;cursor:pointer; position:absolute; bottom:17px; right:0px;';
+    return "<button type=\"button\" class=\"chat-reaction-chip\" data-emoji=\"".concat(escapeHtml(emoji), "\" style=\"").concat(style, "\">").concat(escapeHtml(emoji)).concat(g.count > 1 ? ' ' + g.count : '', "</button>");
+  }).join('');
+  return "<div class=\"chat-reactions\" style=\"display:flex;flex-wrap:wrap;gap:4px;margin-top:3px;\">".concat(chips, "</div>");
+}
 function attachmentsHtml(msg) {
   var list = msg.attachments || [];
   if (!list.length) return '';
@@ -298,9 +1003,10 @@ function messageHtml(msg, prev, ctx) {
     var hasFiles = (msg.attachments || []).length > 0;
     var edit = mine && !hasFiles && msg.body && canEdit(msg) ? "<button type=\"button\" class=\"chat-msg-edit\" title=\"Edit\" style=\"".concat(buttonStyle, "\"><i class=\"bi bi-pencil\"></i></button>") : '';
     var remove = "<button type=\"button\" class=\"chat-msg-delete\" title=\"Delete\" style=\"".concat(buttonStyle, "\"><i class=\"bi bi-trash3\"></i></button>");
-    actions = "<span class=\"chat-msg-actions\" style=\"margin-left:8px;opacity:.65;\">".concat(edit).concat(remove, "</span>");
+    var react = "<button type=\"button\" class=\"chat-msg-react\" title=\"React\" style=\"".concat(buttonStyle, "\"><i class=\"bi bi-emoji-smile\"></i></button>");
+    actions = "<span class=\"chat-msg-actions\" style=\"margin-left:8px;opacity:.65;\">".concat(react).concat(edit).concat(remove, "</span>");
   }
-  var bubble = "\n        <div class=\"message-wrapper\">\n            <div class=\"message-bubble".concat(hasImageGallery(msg.attachments || []) ? ' chat-gallery-bubble' : '', "\">").concat(content, "</div>\n            <div class=\"message-time\">\n                ").concat(escapeHtml(formatTime(msg.created_at))).concat(edited, "\n                ").concat(tick, "\n                ").concat(actions, "\n            </div>\n        </div>");
+  var bubble = "\n        <div class=\"message-wrapper\">\n            <div class=\"message-bubble".concat(hasImageGallery(msg.attachments || []) ? ' chat-gallery-bubble' : '', "\">").concat(content, "</div> ").concat(reactionsHtml(msg, ctx.me.id), "\n            <div class=\"message-time\">\n                ").concat(escapeHtml(formatTime(msg.created_at))).concat(edited, "\n                ").concat(tick, "\n                ").concat(actions, "\n            </div>\n        </div>");
   return "\n        ".concat(divider, "\n        <div class=\"message-row ").concat(mine ? 'sent' : 'received', "\" data-id=\"").concat(msg.id, "\">\n            ").concat(mine ? bubble + avatar : avatar + bubble, "\n        </div>\n    ");
 }
 
@@ -6042,6 +6748,8 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _socket__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./socket */ "./resources/js/chat/socket.js");
 /* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./render */ "./resources/js/chat/render.js");
+/* harmony import */ var _call__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./call */ "./resources/js/chat/call.js");
+
 
 
 var root = document.getElementById('chat-notify');
@@ -6148,6 +6856,11 @@ if (root) {
   var cfg = root.dataset;
   var me = Number(cfg.me);
   var socket = (0,_socket__WEBPACK_IMPORTED_MODULE_0__.createSocket)(cfg.socketUrl, cfg.token);
+  (0,_call__WEBPACK_IMPORTED_MODULE_2__.initCalls)({
+    socket: socket,
+    me: me,
+    cfg: cfg
+  });
   if ('Notification' in window && Notification.permission === 'default') {
     document.addEventListener('click', function () {
       return Notification.requestPermission();

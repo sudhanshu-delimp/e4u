@@ -42,6 +42,15 @@ return [
         5 => 'Agent',
     ],
 
+    'ice_servers' => array_values(array_filter([
+        ['urls' => ['stun:stun.l.google.com:19302', 'stun:stun1.l.google.com:19302']],
+        env('CHAT_TURN_URL') ? [
+            'urls'       => array_map('trim', explode(',', env('CHAT_TURN_URL'))),
+            'username'   => env('CHAT_TURN_USER'),
+            'credential' => env('CHAT_TURN_PASS'),
+        ] : null,
+    ])),
+
     // Types that can NOT be blocked
     'unblockable' => [5],
     'hide_blocked_for' => [4],

@@ -524,37 +524,6 @@ export function initChat(root) {
         state.pendingFiles = [];
     }
 
-    // function showAttachPreview(file) {
-    //     clearAttachPreview();
-
-    //     state.pendingFile = file;
-
-    //     let thumb;
-
-    //     if (PREVIEWABLE_IMAGES.indexOf(file.type) !== -1) {
-    //         state.previewUrl = URL.createObjectURL(file);
-    //         thumb = `<img src="${state.previewUrl}" alt="" style="width:44px;height:44px;object-fit:cover;border-radius:6px;">`;
-    //     } else {
-    //         const icon = fileKind(file) === 'image' ? 'bi-image' : 'bi-camera-video';
-    //         thumb = `<span style="width:44px;height:44px;border-radius:6px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:20px;"><i class="bi ${icon}"></i></span>`;
-    //     }
-
-    //     const box = document.createElement('div');
-
-    //     box.id = 'chatAttachPreview';
-    //     box.setAttribute('style', 'display:flex;align-items:center;gap:10px;padding:8px 14px;border-top:1px solid #e5e7eb;background:#f9fafb;font-size:13px;');
-    //     box.innerHTML = `
-    //         ${thumb}
-    //         <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
-    //             ${view.escapeHtml(file.name)} (${view.formatSize(file.size)})
-    //         </span>
-    //         <button type="button" class="chat-attach-remove" title="Remove"
-    //             style="border:0;background: #ff3c5f;font-size:20px;line-height:1;cursor:pointer;">&times;</button>
-    //     `;
-
-    //     el.composer.parentNode.insertBefore(box, el.composer);
-    // }
-
     function renderAttachPreview() {
         const old = document.getElementById('chatAttachPreview');
 
@@ -788,15 +757,15 @@ export function initChat(root) {
     }
 
 
-        /* ---------------------------------------------------
-       Reactions
-    --------------------------------------------------- */
+    /* ---------------------------------------------------
+   Reactions
+--------------------------------------------------- */
 
-   function closeReactPicker() {
+    function closeReactPicker() {
         const picker = document.getElementById('chatReactPicker');
 
         if (picker) {
-           
+
             const row = picker.closest('.message-row');
             if (row) {
                 row.classList.remove('has-picker-open');
@@ -805,7 +774,7 @@ export function initChat(root) {
         }
     }
 
-        // A small bar with the available emojis, shown inside the message's own action area
+    // A small bar with the available emojis, shown inside the message's own action area
     function openReactPicker(button, messageId) {
         closeReactPicker();
 
@@ -1258,6 +1227,8 @@ export function initChat(root) {
             stepSearch(event.shiftKey ? -1 : 1);
         }, true);
 
+
+
         searchNav().addEventListener('click', (event) => {
             if (event.target.closest('#chatSearchUp')) {
                 stepSearch(1);
@@ -1441,6 +1412,48 @@ export function initChat(root) {
     --------------------------------------------------- */
 
     document.addEventListener('click', (event) => {
+        const btn = event.target.closest('#audioCallBtn, #videoCallBtn');
+
+        if (!btn || !root.contains(btn)) {
+            return;
+        }
+
+        const conv = findConv(state.activeId);
+
+        if (!conv) {
+            return;
+        }
+
+        if (conv.blocked_by_me || conv.blocked_me) {
+            notify('You cannot call this user.', 'error');
+            return;
+        }
+
+        console.log('DISPATCHING CALL EVENT');
+
+        window.dispatchEvent(new CustomEvent('chat:call', {
+            detail: {
+                conversation_id: conv.id,
+                kind: btn.id === 'videoCallBtn' ? 'video' : 'audio',
+                peer: {
+                    id: conv.user.id,
+                    name: conv.user.name,
+                    avatar: conv.user.avatar,
+                    color: conv.user.color
+                }
+            }
+        }));
+
+        window.dispatchEvent(new CustomEvent('chat:call', {
+            detail: {
+                conversation_id: conv.id,
+                kind: btn.id === 'videoCallBtn' ? 'video' : 'audio',
+                peer: { id: conv.user.id, name: conv.user.name, avatar: conv.user.avatar, color: conv.user.color },
+            },
+        }));
+    });
+
+    document.addEventListener('click', (event) => {
         const target = event.target;
         const filterWrapper = root.querySelector('.filter-wrapper');
         const filterBtn = root.querySelector('#filterBtn');
@@ -1506,7 +1519,7 @@ export function initChat(root) {
             return;
         }
 
-                // Reactions: open the emoji bar, or tap a chip to add or remove that emoji
+        // Reactions: open the emoji bar, or tap a chip to add or remove that emoji
         const reactBtn = target.closest('.chat-msg-react');
 
         if (reactBtn) {
@@ -1623,7 +1636,7 @@ export function initChat(root) {
     }, true);
 
 
-        // The emoji bar lives outside the chat root: handle its clicks here
+    // The emoji bar lives outside the chat root: handle its clicks here
     document.addEventListener('click', (event) => {
         const pick = event.target.closest('.chat-react-pick');
 

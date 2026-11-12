@@ -199,6 +199,9 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
                     <i class="bi bi-search"></i>
                 </button>
 
+                <button type="button" id="audioCallBtn" title="Audio call"><i class="bi bi-telephone-fill"></i></button>
+                <button type="button" id="videoCallBtn" title="Video call"><i class="bi bi-camera-video-fill"></i></button>
+
                 <!-- FULLSCREEN BUTTON -->
                 <button type="button" id="toggleFullscreenBtn" title="Full Screen">
                     <i class="bi bi-arrows-fullscreen" id="fullscreenIcon"></i>
@@ -350,6 +353,7 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
 <script src="{{ asset('chat-build/js/chat.js') }}?v={{ $chatAssetVersion }}"></script>
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const chatApp = document.getElementById('chatApp');
