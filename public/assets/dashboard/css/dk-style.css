@@ -1182,11 +1182,6 @@ border: 1px solid var(--border-color) !important;
 
 /* Meassage chat start */
 
-:root {
-    --site-blue: var(--blue--text);
-    --white: var(--white);
-}
-
 .main--chat--wrapper {
     display: flex;
 }
