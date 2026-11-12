@@ -42,62 +42,6 @@ $chatConfig = [
 $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
 @endphp
 
-<style>
-    /* The user's own Member ID is shown only in full screen mode */
-    .chat-my-id {
-        display: none;
-        padding: 2px 2px 8px;
-        font-size: 13px;
-        color: #6b7280;
-    }
-
-    .chat-my-id strong {
-        color: #111827;
-    }
-
-    .is-fullscreen .chat-my-id {
-        display: block;
-    }
-
-    @keyframes chatFlash {
-
-        0%,
-        60% {
-            box-shadow: 0 0 0 4px #fde047;
-        }
-
-        100% {
-            box-shadow: 0 0 0 0 transparent;
-        }
-    }
-
-    .chat-jump-flash {
-        animation: chatFlash 2.2s ease-out;
-    }
-
-    .chat-hit {
-        padding: 8px 14px;
-        cursor: pointer;
-        border-bottom: 1px solid #f3f4f6;
-        font-size: 13px;
-    }
-
-    .chat-hit:hover {
-        background: #f9fafb;
-    }
-
-    .chat-hit small {
-        display: block;
-        color: #9ca3af;
-        font-size: 11px;
-    }
-
-    .chat-hit mark {
-        background: #fde047;
-        padding: 0 1px;
-    }
-</style>
-
 <div class="chat-app" id="chatApp" data-config="{{ json_encode($chatConfig) }}">
 
     <!-- LEFT SIDEBAR -->

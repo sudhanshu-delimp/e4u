@@ -169,6 +169,7 @@ export function previewText(message) {
     return message.body || '';
 }
 
+
 /**
  * One row of the sidebar chat list.
  * ctx: { states, activeId, isOnline(user), isTyping(conversationId) }
