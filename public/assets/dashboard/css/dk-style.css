@@ -5542,7 +5542,9 @@ ol.custom--substyle li:before {
 
 
 /*admin dashbard start form Legbox*/
-
+.dot-dropdown{
+    background-color: #fff;
+}
 .dot-dropdown .dropdown-item {
     font-size: 14px;
     padding: 3px 15px;
