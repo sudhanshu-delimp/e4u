@@ -1912,10 +1912,7 @@ emoji-picker {
     min-height: 0;
 }
 
-.chat-list {
-    max-height: none;
-    min-height: 0;
-}
+
 
 .messages {
     background-attachment: scroll;
