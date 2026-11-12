@@ -50,7 +50,9 @@ function initCalls(_ref) {
   console.log('SOCKET:', socket);
   var iceServers = [];
   try {
-    iceServers = JSON.parse(cfg.ice || '[]');
+    var _iceServers = JSON.parse(cfg.ice || 'null') || [{
+      urls: ['stun:stun.l.google.com:19302']
+    }];
   } catch (error) {
     console.error('Invalid ICE server configuration:', cfg.ice, error);
   }
@@ -559,10 +561,10 @@ function initCalls(_ref) {
           case 10:
             _context3.p = 10;
             _t5 = _context3.v;
+            console.error('Call accept failed:', _t5);
             if (call === mine) {
               fail('The call could not be connected.');
             }
-            console.error(_t5);
           case 11:
             return _context3.a(2);
         }

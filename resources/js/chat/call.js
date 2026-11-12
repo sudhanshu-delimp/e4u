@@ -50,7 +50,7 @@ export function initCalls({ socket, me, cfg }) {
     let iceServers = [];
 
 try {
-    iceServers = JSON.parse(cfg.ice || '[]');
+    const iceServers = JSON.parse(cfg.ice || 'null') || [{ urls: ['stun:stun.l.google.com:19302'] }];
 } catch (error) {
     console.error('Invalid ICE server configuration:', cfg.ice, error);
 }
@@ -521,10 +521,11 @@ try {
             await mine.pc.setLocalDescription(answer);
             socket.emit('call:answer', { call_id: mine.id, sdp: answer.sdp });
         } catch (error) {
+            console.error('Call accept failed:', error);
             if (call === mine) {
                 fail('The call could not be connected.');
             }
-            console.error(error);
+            
         }
     }
 
