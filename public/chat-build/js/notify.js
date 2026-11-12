@@ -45,9 +45,10 @@ function initCalls(_ref) {
   var socket = _ref.socket,
     me = _ref.me,
     cfg = _ref.cfg;
-  console.log('INIT CALLS STARTED');
-  console.log('CALL CONFIG:', cfg);
-  console.log('SOCKET:', socket);
+  if (window.__chatCallsReady) {
+    return;
+  }
+  window.__chatCallsReady = true;
   var iceServers = [];
   try {
     var _iceServers = JSON.parse(cfg.ice || 'null') || [{
@@ -330,8 +331,8 @@ function initCalls(_ref) {
     finish(END_TEXT[reason] || 'Call ended');
   }
   function fail(message) {
-    say(message);
     endCall('error', true);
+    say(message);
   }
 
   /* ---------------------------------------------------
@@ -350,7 +351,10 @@ function initCalls(_ref) {
               _context2.n = 1;
               break;
             }
-            say('You are already in a call.');
+            // A second click or listener within 2 seconds is a duplicate, ignore it
+            if (Date.now() - call.createdAt > 2000) {
+              say('You are already in a call.');
+            }
             return _context2.a(2);
           case 1:
             if (!(!window.RTCPeerConnection || !navigator.mediaDevices)) {
@@ -365,7 +369,8 @@ function initCalls(_ref) {
               kind: detail.kind === 'video' ? 'video' : 'audio',
               role: 'caller',
               peer: detail.peer || {},
-              state: 'calling'
+              state: 'calling',
+              createdAt: Date.now()
             });
             call = mine;
             showUi();

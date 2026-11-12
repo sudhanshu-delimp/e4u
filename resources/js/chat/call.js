@@ -43,17 +43,18 @@ const CSS =
     '#callOverlay .call-btn.ok{background:#16a34a}';
 
 export function initCalls({ socket, me, cfg }) {
+    if (window.__chatCallsReady) {
+        return;
+    }
 
-    console.log('INIT CALLS STARTED');
-    console.log('CALL CONFIG:', cfg);
-    console.log('SOCKET:', socket);
+    window.__chatCallsReady = true;
     let iceServers = [];
 
-try {
-    const iceServers = JSON.parse(cfg.ice || 'null') || [{ urls: ['stun:stun.l.google.com:19302'] }];
-} catch (error) {
-    console.error('Invalid ICE server configuration:', cfg.ice, error);
-}
+    try {
+        const iceServers = JSON.parse(cfg.ice || 'null') || [{ urls: ['stun:stun.l.google.com:19302'] }];
+    } catch (error) {
+        console.error('Invalid ICE server configuration:', cfg.ice, error);
+    }
 
     // The single call this tab is part of (null when idle)
     let call = null;
@@ -364,8 +365,8 @@ try {
     }
 
     function fail(message) {
-        say(message);
         endCall('error', true);
+        say(message);
     }
 
     /* ---------------------------------------------------
@@ -374,7 +375,10 @@ try {
 
     async function start(detail) {
         if (call) {
-            say('You are already in a call.');
+            // A second click or listener within 2 seconds is a duplicate, ignore it
+            if (Date.now() - call.createdAt > 2000) {
+                say('You are already in a call.');
+            }
 
             return;
         }
@@ -391,6 +395,7 @@ try {
             role: 'caller',
             peer: detail.peer || {},
             state: 'calling',
+            createdAt: Date.now(),
         });
 
         call = mine;
@@ -525,7 +530,7 @@ try {
             if (call === mine) {
                 fail('The call could not be connected.');
             }
-            
+
         }
     }
 
@@ -619,10 +624,10 @@ try {
     // Chat header buttons (controller.js) ask for a call with this event
     // window.addEventListener('chat:call', (event) => start(event.detail || {}));
 
-window.addEventListener('chat:call', (event) => {
-    console.log('CHAT CALL RECEIVED:', event.detail);
-    start(event.detail || {});
-});
+    window.addEventListener('chat:call', (event) => {
+        console.log('CHAT CALL RECEIVED:', event.detail);
+        start(event.detail || {});
+    });
 }
 
 
