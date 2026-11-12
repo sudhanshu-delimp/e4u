@@ -24,7 +24,7 @@
         <div class="row">
             <div class="d-sm-flex align-items-center justify-content-between col-md-12">
                 <div class="custom-heading-wrapper">
-                    <h1 class="h1">Transaction Summary  </h1>
+                    <h1 class="h1">Transaction Summary</h1>
                     <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>                     </span>
                 </div>
                 @if (request('from') == 'dashboard')
@@ -36,7 +36,7 @@
                 @endif
             </div>
             <div class="col-md-12 ">
-                <div class="card collapse" id="notes">
+                <div class="card collapse mb-4" id="notes">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
                         <ol>
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <div class="table-responsive common-card">
+                <div class="table-responsive">
                     <table class="table w-100" id="transactionSummaryTable">
                         <thead class="table-bg">
                             <tr>
@@ -112,68 +112,83 @@
 
 
         });
-        
-        var table = $('#advertiserSuspenstionTable').DataTable({
-        language: {
-        search: "Search: _INPUT_",
-        searchPlaceholder: "Search by Member ID"
-        },
-        info: true,
-        lengthChange: true,
-        searching: true,
-        stateSave: true,
-        processing: true,
-        serverSide: true,
-        paging: true,
-
-        order: [[2, 'asc']], // Sort by start_date
-
-        ajax: {
-        url: $("select[name='advertiser_type']").val(),
-        type: "GET",
-        dataSrc: function(json) {
-        var totalRows = json.recordsTotal || json.recordsFiltered;
-        $(".totalListing").text(totalRows);
-        $(".serverTime").text(json.server_time);
-        $(".uptimeClass").html(json.server_up_time);
-
-        return json.data;
-        }
-        },
-
-        columns: [
-        {
-        data: 'profile_id',
-        name: 'profile_id',
-        orderable: false
-        },
-        {
-        data: 'member_id',
-        name: 'member_id'
-        },
-        {
-        data: 'start_date',
-        name: 'start_date'
-        },
-        {
-        data: 'end_date',
-        name: 'end_date'
-        },
-        {
-        data: 'days',
-        name: 'days'
-        },
-        {
-        data: 'location',
-        name: 'location'
-        },
-        {
-        data: 'action',
-        name: 'action',
-        orderable: false,
-        className: 'text-center'
-        }
-        ]
+        var table = $('#transactionSummaryTable').DataTable({
+            serverSide: true,
+            processing: true,
+            pageLength: 25,
+            language: {
+                zeroRecords: "There is no record of the search criteria you entered.",
+                searchPlaceholder: "Search by Ref, Member Id, Service Type, Card"
+            },
+            ajax: {
+                url: "{{ route('admin.payment.transaction_summary.datatable') }}"
+            },
+            columns: [{
+                    data: 'ref_no',
+                    name: 'ref_no',
+                    searchable: true,
+                    orderable: true,
+                    defaultContent: 'NA'
+                },
+                {
+                    data: 'profile_product_ref',
+                    name: 'profile_product_ref',
+                    searchable: false,
+                    orderable: false,
+                    defaultContent: 'NA'
+                },
+                {
+                    data: 'user_member_id',
+                    name: 'user.member_id',
+                    searchable: true,
+                    orderable: false,
+                    defaultContent: 'NA'
+                },
+                {
+                    data: 'completed_by_member_id',
+                    name: 'completedByUser.member_id',
+                    searchable: false,
+                    orderable: false,
+                    defaultContent: 'NA'
+                },
+                {
+                    data: 'service',
+                    name: 'service',
+                    searchable: true,
+                    orderable: false,
+                    defaultContent: 'NA'
+                },
+                {
+                    data: 'transaction_at',
+                    name: 'created_at',
+                    searchable: true,
+                    orderable: true,
+                    defaultContent: 'NA'
+                },
+                {
+                    data: 'amount',
+                    name: 'amount',
+                    searchable: true,
+                    orderable: false,
+                    defaultContent: 'NA'
+                },
+                {
+                    data: 'card',
+                    name: 'card',
+                    searchable: true,
+                    orderable: false,
+                    defaultContent: 'NA'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    searchable: false,
+                    orderable: false,
+                    defaultContent: 'NA',
+                    className: 'text-center'
+                }
+            ],
+            order: [4, 'desc'] // created_at
         });
 
         $('#view-listing').on('show.bs.modal', function(event) {
