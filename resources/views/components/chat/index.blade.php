@@ -29,6 +29,9 @@ $chatConfig = [
 'typeLabels' => config('chat.type_labels', []),
 // Types that cannot be blocked (Agent)
 'unblockable' => config('chat.unblockable', []),
+// E4U staff: records are kept, so delete options are hidden
+'meIsAdmin'  => in_array((int) $chatMe->type, config('chat.admin_types', []), true),
+'adminTypes' => config('chat.admin_types', []),
 'reactions' => config('chat.reactions', []),
 'socketUrl' => config('chat.socket.public_url'),
 'socketToken' => \App\Services\ChatSocket::token(auth()->id()),

@@ -136,11 +136,7 @@ export function initChat(root) {
     function messageContext() {
         const conv = findConv(state.activeId);
 
-        return {
-            me,
-            myMemberId: config.myMemberId,
-            peer: conv ? conv.user : { name: '?', color: '#6B7280' },
-        };
+        return { me, peer: conv ? conv.user : { name: '?', color: '#6B7280' }, meIsAdmin: !!config.meIsAdmin };
     }
 
     function isUserOnline(user) {
@@ -316,6 +312,7 @@ export function initChat(root) {
         const ctx = {
             states: config.states || {},
             activeId: state.activeId,
+            meIsAdmin: !!config.meIsAdmin,
             isOnline: isUserOnline,
             isTyping: (id) => !!state.typing[id],
         };
@@ -352,7 +349,7 @@ export function initChat(root) {
             : `<span class="status-dot${online ? '' : ' offline'}"></span> ${online ? 'Active' : 'Offline'}`;
 
         el.headerMeta.innerHTML =
-            `Type: ${view.escapeHtml((config.typeLabels || {})[user.type] || '')} <span>|</span> ` +
+            `Type: ${view.escapeHtml((user.type_label || (config.typeLabels || {})[user.type] || ''))} <span>|</span> ` +
             `Member ID: ${view.escapeHtml(user.member_id)} <span>|</span> ` +
             `Location: ${view.escapeHtml(abbr)}`;
     }
@@ -743,7 +740,10 @@ export function initChat(root) {
         }
 
         // "Delete for everyone" is only for my own messages
-        const mode = await chooseDelete({ allowEveryone: msg.sender_id === me.id });
+        // "Delete for everyone" is not offered in chats with E4U staff
+        const conv = findConv(state.activeId);
+        const peerIsAdmin = !!conv && (config.adminTypes || []).map(Number).indexOf(Number(conv.user.type)) !== -1;
+        const mode = await chooseDelete({ allowEveryone: msg.sender_id === me.id && !peerIsAdmin });
 
         if (!mode) {
             return;
@@ -788,15 +788,15 @@ export function initChat(root) {
     }
 
 
-        /* ---------------------------------------------------
-       Reactions
-    --------------------------------------------------- */
+    /* ---------------------------------------------------
+   Reactions
+--------------------------------------------------- */
 
-   function closeReactPicker() {
+    function closeReactPicker() {
         const picker = document.getElementById('chatReactPicker');
 
         if (picker) {
-           
+
             const row = picker.closest('.message-row');
             if (row) {
                 row.classList.remove('has-picker-open');
@@ -805,7 +805,7 @@ export function initChat(root) {
         }
     }
 
-        // A small bar with the available emojis, shown inside the message's own action area
+    // A small bar with the available emojis, shown inside the message's own action area
     function openReactPicker(button, messageId) {
         closeReactPicker();
 
@@ -1506,7 +1506,7 @@ export function initChat(root) {
             return;
         }
 
-                // Reactions: open the emoji bar, or tap a chip to add or remove that emoji
+        // Reactions: open the emoji bar, or tap a chip to add or remove that emoji
         const reactBtn = target.closest('.chat-msg-react');
 
         if (reactBtn) {
@@ -1623,7 +1623,7 @@ export function initChat(root) {
     }, true);
 
 
-        // The emoji bar lives outside the chat root: handle its clicks here
+    // The emoji bar lives outside the chat root: handle its clicks here
     document.addEventListener('click', (event) => {
         const pick = event.target.closest('.chat-react-pick');
 
@@ -1760,6 +1760,15 @@ export function initChat(root) {
     if (el.fileInput) {
         el.fileInput.accept = FILE_ACCEPT;
         el.fileInput.multiple = true;
+    }
+
+    // E4U staff cannot clear a chat
+    if (config.meIsAdmin) {
+        const clearButton = document.getElementById('clearChatBtn');
+
+        if (clearButton) {
+            clearButton.style.display = 'none';
+        }
     }
 
     renderHeader(null);

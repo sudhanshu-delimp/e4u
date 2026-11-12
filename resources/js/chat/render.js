@@ -241,8 +241,9 @@ export function chatItemHtml(conv, ctx) {
                         <button type="button" class="filter-option chat-action" data-action="archive">
                             <i class="bi bi-archive"></i>
                             ${conv.is_archived ? 'Unarchive' : 'Archive'}
-                        </button>
+                        </button>`}
 
+                        ${conv.is_appointed || ctx.meIsAdmin ? '' : `
                         <button type="button" class="filter-option chat-action" data-action="delete">
                             <i class="bi bi-trash3"></i>
                             Delete
@@ -447,8 +448,9 @@ export function messageHtml(msg, prev, ctx) {
         const edit = (mine && !hasFiles && msg.body && canEdit(msg))
             ? `<button type="button" class="chat-msg-edit" title="Edit" style="${buttonStyle}"><i class="bi bi-pencil"></i></button>`
             : '';
-        const remove = `<button type="button" class="chat-msg-delete" title="Delete" style="${buttonStyle}"><i class="bi bi-trash3"></i></button>`;
-
+        const remove = ctx.meIsAdmin
+            ? ''
+            : `<button type="button" class="chat-msg-delete" title="Delete" style="${buttonStyle}"><i class="bi bi-trash3"></i></button>`;
                 const react = `<button type="button" class="chat-msg-react" title="React" style="${buttonStyle}"><i class="bi bi-emoji-smile"></i></button>`;
 
                 actions = `<span class="chat-msg-actions" style="margin-left:8px;opacity:.65;">${react}${edit}${remove}</span>`;

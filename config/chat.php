@@ -42,8 +42,11 @@ return [
         5 => 'Agent',
     ],
 
+    'admin_types' => [1],
+
     // Types that can NOT be blocked
-    'unblockable' => [5],
+    'unblockable' => [5, 1],
+    
     'hide_blocked_for' => [4],
 
     // Escort starting a chat with a viewer needs extra checks

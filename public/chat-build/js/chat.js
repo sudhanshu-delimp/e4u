@@ -776,11 +776,11 @@ function initChat(root) {
     var conv = findConv(state.activeId);
     return {
       me: me,
-      myMemberId: config.myMemberId,
       peer: conv ? conv.user : {
         name: '?',
         color: '#6B7280'
-      }
+      },
+      meIsAdmin: !!config.meIsAdmin
     };
   }
   function isUserOnline(user) {
@@ -921,6 +921,7 @@ function initChat(root) {
     var ctx = {
       states: config.states || {},
       activeId: state.activeId,
+      meIsAdmin: !!config.meIsAdmin,
       isOnline: isUserOnline,
       isTyping: function isTyping(id) {
         return !!state.typing[id];
@@ -947,7 +948,7 @@ function initChat(root) {
     el.headerAvatar.innerHTML = _render__WEBPACK_IMPORTED_MODULE_2__.avatarInner(user);
     el.headerName.textContent = user.name;
     el.headerStatus.innerHTML = typing ? '<span style="color:#25a244;font-style:italic;">typing...</span>' : "<span class=\"status-dot".concat(online ? '' : ' offline', "\"></span> ").concat(online ? 'Active' : 'Offline');
-    el.headerMeta.innerHTML = "Type: ".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml((config.typeLabels || {})[user.type] || ''), " <span>|</span> ") + "Member ID: ".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(user.member_id), " <span>|</span> ") + "Location: ".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(abbr));
+    el.headerMeta.innerHTML = "Type: ".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(user.type_label || (config.typeLabels || {})[user.type] || ''), " <span>|</span> ") + "Member ID: ".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(user.member_id), " <span>|</span> ") + "Location: ".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(abbr));
   }
   function renderMessages() {
     if (!state.activeId) {
@@ -1344,7 +1345,7 @@ function initChat(root) {
   } // The other person edited or deleted a message
   function _deleteMessage() {
     _deleteMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6(id) {
-      var msg, mode, res, scroll, _t4;
+      var msg, conv, peerIsAdmin, mode, res, scroll, _t4;
       return _regenerator().w(function (_context6) {
         while (1) switch (_context6.p = _context6.n) {
           case 0:
@@ -1355,9 +1356,13 @@ function initChat(root) {
             }
             return _context6.a(2);
           case 1:
+            // "Delete for everyone" is only for my own messages
+            // "Delete for everyone" is not offered in chats with E4U staff
+            conv = findConv(state.activeId);
+            peerIsAdmin = !!conv && (config.adminTypes || []).map(Number).indexOf(Number(conv.user.type)) !== -1;
             _context6.n = 2;
             return (0,_dialogs__WEBPACK_IMPORTED_MODULE_4__.chooseDelete)({
-              allowEveryone: msg.sender_id === me.id
+              allowEveryone: msg.sender_id === me.id && !peerIsAdmin
             });
           case 2:
             mode = _context6.v;
@@ -2434,6 +2439,14 @@ function initChat(root) {
     el.fileInput.accept = FILE_ACCEPT;
     el.fileInput.multiple = true;
   }
+
+  // E4U staff cannot clear a chat
+  if (config.meIsAdmin) {
+    var clearButton = document.getElementById('clearChatBtn');
+    if (clearButton) {
+      clearButton.style.display = 'none';
+    }
+  }
   renderHeader(null);
   renderMessages();
   setComposerEnabled(false);
@@ -3005,7 +3018,7 @@ function chatItemHtml(conv, ctx) {
     previewHtml = escapeHtml(preview);
   }
   var time = conv.last ? listTime(conv.last.created_at) : '';
-  return "\n        <div class=\"chat-user".concat(active, "\"\n            data-id=\"").concat(conv.id, "\"\n            data-name=\"").concat(escapeHtml(user.name), "\"\n            data-member=\"").concat(escapeHtml(user.member_id), "\"\n            data-location=\"").concat(escapeHtml(abbr), "\">\n\n            <div class=\"avatar avatar-light\" style=\"").concat(avatarStyle(user.color), "\">\n                ").concat(avatarInner(user), "\n                 \n            </div>\n\n            <div class=\"user-info\">\n\n               \n                <div class=\"user-name\">\n                    ").concat(escapeHtml(user.name), "\n                    <span class=\"user-type\">(").concat(escapeHtml(user.member_id), ")</span>\n                    <span class=\"status-dot").concat(online ? '' : ' offline', "\"></span>\n                </div>\n\n                <div class=\"user-top\">\n                    <span class=\"user-type\">").concat(previewHtml, "</span>\n                    <span class=\"user-time\">").concat(escapeHtml(time), "</span>\n                </div>\n\n                <div class=\"more-info-wrapper\">\n\n                    <button type=\"button\" class=\"chatInfoBtn\" aria-label=\"More options\">\n                        <i class=\"bi bi-three-dots-vertical\"></i>\n                    </button>\n\n                    <div class=\"more-info-dropdown\">\n\n                        <button type=\"button\" class=\"contactInfoBtn chat-mark-read\">\n                            <i class=\"bi bi-check-circle\"></i>\n                            Mark as Read\n                        </button>\n\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"contact\">\n                            <i class=\"bi bi-person-vcard\"></i>\n                            Contact Info\n                        </button>\n\n                        ").concat(conv.is_appointed ? '' : "\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"archive\">\n                            <i class=\"bi bi-archive\"></i>\n                            ".concat(conv.is_archived ? 'Unarchive' : 'Archive', "\n                        </button>\n\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"delete\">\n                            <i class=\"bi bi-trash3\"></i>\n                            Delete\n                        </button>"), "\n\n                    </div>\n\n                </div>\n\n            </div>\n\n            ").concat(conv.unread > 0 ? "<span class=\"unread-count\">".concat(conv.unread, "</span>") : '', "\n\n        </div>\n    ");
+  return "\n        <div class=\"chat-user".concat(active, "\"\n            data-id=\"").concat(conv.id, "\"\n            data-name=\"").concat(escapeHtml(user.name), "\"\n            data-member=\"").concat(escapeHtml(user.member_id), "\"\n            data-location=\"").concat(escapeHtml(abbr), "\">\n\n            <div class=\"avatar avatar-light\" style=\"").concat(avatarStyle(user.color), "\">\n                ").concat(avatarInner(user), "\n                 \n            </div>\n\n            <div class=\"user-info\">\n\n               \n                <div class=\"user-name\">\n                    ").concat(escapeHtml(user.name), "\n                    <span class=\"user-type\">(").concat(escapeHtml(user.member_id), ")</span>\n                    <span class=\"status-dot").concat(online ? '' : ' offline', "\"></span>\n                </div>\n\n                <div class=\"user-top\">\n                    <span class=\"user-type\">").concat(previewHtml, "</span>\n                    <span class=\"user-time\">").concat(escapeHtml(time), "</span>\n                </div>\n\n                <div class=\"more-info-wrapper\">\n\n                    <button type=\"button\" class=\"chatInfoBtn\" aria-label=\"More options\">\n                        <i class=\"bi bi-three-dots-vertical\"></i>\n                    </button>\n\n                    <div class=\"more-info-dropdown\">\n\n                        <button type=\"button\" class=\"contactInfoBtn chat-mark-read\">\n                            <i class=\"bi bi-check-circle\"></i>\n                            Mark as Read\n                        </button>\n\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"contact\">\n                            <i class=\"bi bi-person-vcard\"></i>\n                            Contact Info\n                        </button>\n\n                        ").concat(conv.is_appointed ? '' : "\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"archive\">\n                            <i class=\"bi bi-archive\"></i>\n                            ".concat(conv.is_archived ? 'Unarchive' : 'Archive', "\n                        </button>"), "\n\n                        ").concat(conv.is_appointed || ctx.meIsAdmin ? '' : "\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"delete\">\n                            <i class=\"bi bi-trash3\"></i>\n                            Delete\n                        </button>", "\n\n                    </div>\n\n                </div>\n\n            </div>\n\n            ").concat(conv.unread > 0 ? "<span class=\"unread-count\">".concat(conv.unread, "</span>") : '', "\n\n        </div>\n    ");
 }
 function hasVideoGallery(list) {
   // Agar 1 se zyada videos hain aur sabhi playable hain
@@ -3136,7 +3149,7 @@ function messageHtml(msg, prev, ctx) {
     var buttonStyle = 'border:0;background:transparent;padding:0 4px;cursor:pointer;color:inherit;font-size:12px; margin:0px;';
     var hasFiles = (msg.attachments || []).length > 0;
     var edit = mine && !hasFiles && msg.body && canEdit(msg) ? "<button type=\"button\" class=\"chat-msg-edit\" title=\"Edit\" style=\"".concat(buttonStyle, "\"><i class=\"bi bi-pencil\"></i></button>") : '';
-    var remove = "<button type=\"button\" class=\"chat-msg-delete\" title=\"Delete\" style=\"".concat(buttonStyle, "\"><i class=\"bi bi-trash3\"></i></button>");
+    var remove = ctx.meIsAdmin ? '' : "<button type=\"button\" class=\"chat-msg-delete\" title=\"Delete\" style=\"".concat(buttonStyle, "\"><i class=\"bi bi-trash3\"></i></button>");
     var react = "<button type=\"button\" class=\"chat-msg-react\" title=\"React\" style=\"".concat(buttonStyle, "\"><i class=\"bi bi-emoji-smile\"></i></button>");
     actions = "<span class=\"chat-msg-actions\" style=\"margin-left:8px;opacity:.65;\">".concat(react).concat(edit).concat(remove, "</span>");
   }

@@ -151,6 +151,7 @@ class ChatController extends Controller
                 'type',
             ])
             ->keyBy('id');
+        $positions = DB::table('staff_details')->whereIn('user_id', $otherIds)->pluck('position', 'user_id');
 
         // Newest message I can still see in each chat. Messages before a delete or "Clear chat",
         // and messages I deleted for myself, are left out.
@@ -194,7 +195,7 @@ class ChatController extends Controller
             ->map(fn($k) => (int) $k)
             ->all();
 
-        $data = $rows->map(function ($r) use ($me, $users, $lastMessages, $unread, $myAgentIds, $blockedByMe, $blockedMe, $lastIds) {
+        $data = $rows->map(function ($r) use ($me, $users, $lastMessages, $unread, $myAgentIds, $blockedByMe, $blockedMe, $lastIds, $positions) {
             $otherId = (int) $r->user_one_id === $me->id ? (int) $r->user_two_id : (int) $r->user_one_id;
             $other   = $users->get($otherId);
             $last    = $lastMessages->get($lastIds[$r->id] ?? 0);
@@ -215,6 +216,7 @@ class ChatController extends Controller
                     'avatar'         => $other->avatar_img,
                     'color'          => ChatState::color($other->state_id),
                     'type'           => (int) $other->type,
+                    'type_label'     => ChatState::typeLabel($other, $positions[$other->id] ?? null),
                     'location_id'    => (int) ($other->current_state_id ?: $other->state_id),
                     'last_online_at' => $other->last_online_at,
                 ],
@@ -237,9 +239,12 @@ class ChatController extends Controller
         // "australia" = any Australian state
         $isAustralian = fn($id) => in_array((int) $id, $australiaIds, true);
 
-        $data = $data->filter(function ($item) use ($location, $myLocation, $australiaIds) {
-            // The appointed Agent is listed under both radios
-            if ($item['is_appointed']) {
+                $adminTypes = config('chat.admin_types', []);
+        $meIsAdmin  = in_array((int) $me->type, $adminTypes, true);
+
+        $data = $data->filter(function ($item) use ($location, $myLocation, $australiaIds, $meIsAdmin, $adminTypes) {
+            // The appointed Agent and E4U staff are listed under both radios, and staff see everyone
+            if ($item['is_appointed'] || $meIsAdmin || in_array($item['user']['type'], $adminTypes, true)) {
                 return true;
             }
 
@@ -251,6 +256,8 @@ class ChatController extends Controller
 
             return in_array($stateId, $australiaIds, true);
         });
+
+
         // The appointed Agent stays on top, the rest keep the latest-message order
         $data = $data->sortBy(fn($item) => $item['is_appointed'] ? 0 : 1);
 
@@ -313,6 +320,12 @@ class ChatController extends Controller
             $query->whereIn('id', $this->eligibility->advertiserIdsIn($me));
         }
 
+
+        if (in_array($type, config('chat.admin_types', []), true)) {
+            // E4U staff can message anyone who is active
+            $query->where('enabled', 1);
+        }
+
         $users = $query->orderBy('member_id')->limit(50)->get([
             'id',
             'name',
@@ -326,6 +339,8 @@ class ChatController extends Controller
             'assigned_agent_id',
         ]);
 
+        $positions = DB::table('staff_details')->whereIn('user_id', $users->pluck('id'))->pluck('position', 'user_id');
+
         // The remaining rules (settings, blocks, appointment) are checked per person
         $data = $users
             ->filter(fn(User $u) => $this->eligibility->canStart($me, $u)['ok'])
@@ -335,12 +350,17 @@ class ChatController extends Controller
                 'member_id'      => $u->member_id,
                 'avatar'         => $u->avatar_img,
                 'color'          => ChatState::color($u->state_id),
-                'type_label'     => config('chat.type_labels.' . (int) $u->type, ''),
+                'type_label'     => ChatState::typeLabel($u, $positions[$u->id] ?? null),
                 'last_online_at' => $u->last_online_at,
             ])
             ->values();
 
         return response()->json(['data' => $data]);
+    }
+
+    private function isAdminUser(User $user): bool
+    {
+        return in_array((int) $user->type, config('chat.admin_types', []), true);
     }
 
     /**
@@ -403,6 +423,7 @@ class ChatController extends Controller
                 'avatar'         => $target->avatar_img,
                 'color'          => ChatState::color($target->state_id),
                 'type'           => (int) $target->type,
+                'type_label'     => ChatState::typeLabel($target, DB::table('staff_details')->where('user_id', $target->id)->value('position')),
                 'location_id'    => (int) ($target->current_state_id ?: $target->state_id),
                 'last_online_at' => $target->last_online_at,
             ],
@@ -709,7 +730,7 @@ class ChatController extends Controller
                 'email'      => $user->email,
                 'avatar'         => $user->avatar_img,
                 'color'          => ChatState::color($user->state_id),
-                'type'           => config('chat.type_labels.' . (int) $user->type, ''),
+                'type'           => ChatState::typeLabel($user, DB::table('staff_details')->where('user_id', $user->id)->value('position')),
                 'location'       => config("escorts.profile.states.{$locationId}.stateName"),
                 'home_state'     => config("escorts.profile.states.{$homeId}.stateName"),
                 'member_since'   => $user->created_at ? $user->created_at->format('d-m-Y') : null,
@@ -779,6 +800,10 @@ class ChatController extends Controller
     {
         $me   = $request->user();
         $conv = $this->conversationFor($me->id, $conversation);
+        // OC(A): records are kept, E4U staff can archive but not delete
+        if ($this->isAdminUser($me)) {
+            return response()->json(['message' => 'Chats cannot be deleted. Use Archive instead.'], 422);
+        }
         // The chat with the appointed Agent always stays in the list
         if (in_array($conv->otherUserId($me->id), $this->appointedAgentIds($me), true)) {
             return response()->json(['message' => 'The chat with your appointed Agent cannot be deleted.'], 422);
@@ -864,6 +889,17 @@ class ChatController extends Controller
         $input = $request->validate([
             'mode' => ['required', 'in:me,everyone'],
         ]);
+
+        // Records in chats with E4U staff are kept
+        if ($this->isAdminUser($me)) {
+            return response()->json(['message' => 'Messages cannot be deleted. Use Archive instead.'], 422);
+        }
+
+        $peer = User::find($conv->otherUserId($me->id));
+
+        if ($input['mode'] === 'everyone' && $peer && $this->isAdminUser($peer)) {
+            return response()->json(['message' => 'Messages in chats with E4U staff cannot be deleted for everyone.'], 422);
+        }
 
         if ($input['mode'] === 'me') {
             DB::table('chat_message_hides')->insertOrIgnore([
@@ -959,6 +995,10 @@ class ChatController extends Controller
     {
         $me   = $request->user();
         $conv = $this->conversationFor($me->id, $conversation);
+        // OC(A): records are kept, E4U staff can archive but not delete
+        if ($this->isAdminUser($me)) {
+            return response()->json(['message' => 'Chats cannot be deleted. Use Archive instead.'], 422);
+        }
 
         $latestId = ChatMessage::withTrashed()->where('conversation_id', $conv->id)->max('id');
 
@@ -1049,7 +1089,7 @@ class ChatController extends Controller
      */
     private function appointedAgentIds(User $user): array
     {
-        if ((int) $user->type === (int) config('chat.types.agent')) {
+        if (in_array((int) $user->type, array_merge([(int) config('chat.types.agent')], config('chat.admin_types', [])), true)) {
             return [];
         }
 

@@ -50,6 +50,15 @@ class ChatEligibility
             return $this->deny('You cannot message this user.');
         }
 
+        // E4U staff can start a chat with anyone, nobody else can start one with staff
+        if ($this->permission->isAdmin($starter)) {
+            return ['ok' => true, 'reason' => null];
+        }
+
+        if ($this->permission->isAdmin($target)) {
+            return $this->deny('Only E4U staff can start a chat with staff.');
+        }
+
         if (! $this->isAppointed($starter, $target)) {
             return $this->deny(
                 $this->isAgent($starter)
@@ -81,6 +90,11 @@ class ChatEligibility
      */
     protected function isAppointed(User $a, User $b): bool
     {
+        // Chats with E4U staff do not need an appointment
+        if ($this->permission->isAdmin($a) || $this->permission->isAdmin($b)) {
+            return true;
+        }
+
         $aIsAgent = $this->isAgent($a);
         $bIsAgent = $this->isAgent($b);
 
