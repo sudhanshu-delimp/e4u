@@ -62,4 +62,4 @@ Route::post('management/fees/pay-detail', [AgentMonthlyReportController::class, 
 Route::post('management/fees/print-pay-detail', [AgentMonthlyReportController::class, 'printPayAgentreport'])->name('operator.agents.fees.print.pay-detail');
 
 //Operator Monthly Repors
-Route::get('management/reports/operator-monthly-report', [OperatorController::class, 'e4uMonthlyreport'])->name('operator.operator-monthly-report');
+Route::get('management/reports/operator-monthly-report', [OperatorController::class, 'operatorMonthlyreport'])->name('operator.operator-monthly-report');
