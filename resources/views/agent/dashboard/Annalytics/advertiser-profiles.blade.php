@@ -26,77 +26,68 @@
     </style>
 @endsection
 @section('content')
-    <div id="wrapper">
-        <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content">
-                <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-                    <!--middle content-->
-                    <!-- Page Heading   -->
-                    <div class="row">
-                        <div class="custom-heading-wrapper col-lg-12">
-                            <h1 class="h1">Listing
-                                Summary </h1>
-                            <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes"
-                                aria-expanded="true">Help?</span>
-                        </div>
-                        <div class="col-md-12 mb-4">
-                            <div class="card collapse" id="notes" style="">
-                                <div class="card-body">
-                                   <h3 class="NotesHeader"><b>Notes:</b></h3>
-                                    <ol>
-                                        <li>This report provides information associated with all of your Listings (excluding Tours).</li>
-                                        <li>
-                                            It is a summary of your Advertisers Listed Profiles and revenue (Fees) you have earned.
-                                        </li>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
+    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+        <div class="row">
+            <div class="custom-heading-wrapper col-lg-12">
+                <h1 class="h1">Listing
+                    Summary </h1>
+                <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes"
+                    aria-expanded="true">Help?</span>
+            </div>
+            <div class="col-md-12 mb-4">
+                <div class="card collapse" id="notes" style="">
+                    <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b></h3>
+                        <ol>
+                            <li>This report provides information associated with all of your Listings (excluding Tours).</li>
+                            <li>
+                                It is a summary of your Advertisers Listed Profiles and revenue (Fees) you have earned.
+                            </li>
+                        </ol>
                     </div>
-                    <!-- end -->
-                    <div class="row">
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
 
-                    <div class="col-md-12 col-sm-12 d-flex justify-content-between" style="gap: 50px;">
+            <div class="col-md-12 col-sm-12 d-flex justify-content-between" style="gap: 50px;">
 
                 <div class="d-flex justify-content-between align-items-center gap-2">
-                  <select id="advertiserFilter" name="advertiser_type" class="form-select form-select-sm p-2" style="width: 200px;">
-                     <option value="{{ route('agent.analytic-profiles-list-ajax','escort') }}">Escort</option>
-                     <option value="{{ route('agent.analytic-profiles-list-ajax','massage') }}">Massage Centre</option>
-                  </select>
-               </div>
+                    <select id="advertiserFilter" name="advertiser_type" class="form-select form-select-sm p-2" style="width: 200px;">
+                        <option value="{{ route('agent.analytic-profiles-list-ajax','escort') }}">Escort</option>
+                        <option value="{{ route('agent.analytic-profiles-list-ajax','massage') }}">Massage Centre</option>
+                    </select>
+                </div>
 
-                 <div class="d-flex justify-content-end my-3">
-                            <button class="btn-common mr-0 printReport" type="button" 
-                                    data-toggle="modal">Print Report</button>
-                            </div>
+                <div class="d-flex justify-content-end my-3">
+                        <button class="btn-common mr-0 printReport" type="button" 
+                        data-toggle="modal">Print Report</button>
+                </div>
 
-                    </div>
-                        <div class="col-sm-12 col-md-12 col-lg-12">                          
-                            <div class="table-responsive common-card">
-                                <table class="table w-100" id="advProfileSummaryTable">
-                                    <thead class="table-bg">
-                                        <tr>
-                                            <th>Member ID</th>
-                                            <th>Name</th>
-                                            <th>Mobile</th>
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
-                                            <th style="width: 7%;">Total Days</th>
-                                            <th class="member_type">Type</th>
-                                            <th>Pin Up</th>
-                                            <th>Listing Fee</th>
-                                            <th>Agent’s Fee</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <!--right side bar end-->
+            </div>
+            <div class="col-lg-12">                          
+                <div class="table-responsive common-card">
+                    <table class="table w-100" id="advProfileSummaryTable">
+                        <thead class="table-bg">
+                            <tr>
+                                <th>Member ID</th>
+                                <th>Name</th>
+                                <th>Mobile</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th style="width: 7%;">Total Days</th>
+                                <th class="member_type">Type</th>
+                                <th>Pin Up</th>
+                                <th>Listing Fee</th>
+                                <th>Agent’s Fee</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

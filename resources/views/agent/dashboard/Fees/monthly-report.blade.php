@@ -27,8 +27,8 @@
                         </div>
                     @endif
             </div>
-            <div class="col-md-12 mb-4">
-                <div class="card collapse" id="notes" style="">
+            <div class="col-md-12">
+                <div class="card collapse" id="notes">
                     <div class="card-body">
                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
@@ -89,7 +89,7 @@
                 </div>
             </div>
         </div>
-
+    </div>
         {{-- View Report --}}
         <div class="modal fade upload-modal" id="viewMonthlyReportModel" tabindex="-1" role="dialog"
             aria-labelledby="viewMonthlyReportModelLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">

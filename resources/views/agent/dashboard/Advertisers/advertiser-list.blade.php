@@ -26,108 +26,96 @@
 @endsection
 
 @section('content')
-    <div id="wrapper">
-        <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content">
-                <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5" id="replace-item">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5" id="replace-item">
+    {{-- Page Heading --}}
+    <div class="row">
+        <div class="d-flex align-items-center justify-content-between col-md-12">
+            <div class="custom-heading-wrapper">
+                <h1 class="h1">Advertiser List</h1>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
+                    aria-expanded="true"><b>Help?</b></span>
+            </div>
+            @if (request('from') == 'dashboard')
+                <div class="back-to-dashboard">
+                    <a href="{{ route('agent.dashboard') }}">
+                        <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+                    </a>
+                </div>
+            @endif
+        </div>
 
-                    {{-- Page Heading --}}
-                    <div class="row">
-                        <div class="d-flex align-items-center justify-content-between col-md-12">
-                            <div class="custom-heading-wrapper">
-                                <h1 class="h1">Advertiser List</h1>
-                                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
-                                    aria-expanded="true"><b>Help?</b></span>
-                            </div>
-                            @if (request('from') == 'dashboard')
-                                <div class="back-to-dashboard">
-                                    <a href="{{ route('agent.dashboard') }}">
-                                        <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
-                                    </a>
-                                </div>
-                            @endif
-                        </div>
-
-                        {{-- Notes Accordion --}}
-                        <div class="col-md-12 mb-4">
-                            <div class="card collapse" id="notes">
-                                <div class="card-body">
-                                    <h3 class="NotesHeader"><b>Notes:</b></h3>
-                                    <ol>
-                                        <li>
-                                            You can access all of your Advertisers here. The report 'Earnings' column is
-                                            Commission paid to you by E4U according to the Advertiser's spend.
-                                        </li>
-                                        <li>
-                                            Click the <b>'Action'</b> button and select from the range of options available
-                                            to you including Messaging to an Advertiser.
-                                        </li>
-                                        <li>
-                                            The Action dropdown includes: Profile, Tour, Media, Masseur, Account, and
-                                            Message options. Pop-ups will be used where necessary.
-                                        </li>
-                                        <li>
-                                            You can print the advertiser list summary by selecting from All Advertisers,
-                                            Escorts, or Massage Centres in the Print menu.
-                                        </li>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- End Heading --}}
-                    <div class="row my-3">
-                        <div class="col-lg-12 d-flex justify-content-end" style="gap: 20px;">
-                        
-                            <div class="d-flex justify-content-end" style="gap: 20px;">
-
-                                <div class="total_listing">
-                                    <div><span>Escorts : </span></div>
-                                    <div><span class="ec-count">01</span></div>
-                                </div>
-                                <div class="total_listing">
-                                    <div><span>Centres : </span></div>
-                                    <div><span class="mc-count">0</span></div>
-                                </div>
-                                <div class="total_listing">
-                                    <div><span>Total Advertisers : </span></div>
-                                    <div><span class="both-count">01</span></div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12">
-                            <div class="table-responsive common-card">
-                                <table class="table" id="myAdvertisersList">
-                                    <thead class="table-bg">
-                                        <tr>
-                                            <th>Member ID</th>
-                                            <th>Name</th>
-                                            <th style="width:78px;!important;">Mobile</th>
-                                            <th>Email</th>
-                                            <th>Joined</th>
-                                            <th>Appointed</th>
-                                            <th>Earnings</th>
-                                            <th>Home State</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
+        {{-- Notes Accordion --}}
+        <div class="col-md-12">
+            <div class="card collapse" id="notes">
+                <div class="card-body">
+                    <h3 class="NotesHeader"><b>Notes:</b></h3>
+                    <ol>
+                        <li>
+                            You can access all of your Advertisers here. The report 'Earnings' column is
+                            Commission paid to you by E4U according to the Advertiser's spend.
+                        </li>
+                        <li>
+                            Click the <b>'Action'</b> button and select from the range of options available
+                            to you including Messaging to an Advertiser.
+                        </li>
+                        <li>
+                            The Action dropdown includes: Profile, Tour, Media, Masseur, Account, and
+                            Message options. Pop-ups will be used where necessary.
+                        </li>
+                        <li>
+                            You can print the advertiser list summary by selecting from All Advertisers,
+                            Escorts, or Massage Centres in the Print menu.
+                        </li>
+                    </ol>
                 </div>
             </div>
         </div>
     </div>
+    {{-- End Heading --}}
+    <div class="row mb-3">
+        <div class="col-lg-12 d-flex justify-content-end" style="gap: 20px;">
+        
+            <div class="d-flex justify-content-end" style="gap: 20px;">
 
-    <!-- Action Modals (Frontend Design Only) -->
+                <div class="total_listing">
+                    <div><span>Escorts : </span></div>
+                    <div><span class="ec-count">01</span></div>
+                </div>
+                <div class="total_listing">
+                    <div><span>Centres : </span></div>
+                    <div><span class="mc-count">0</span></div>
+                </div>
+                <div class="total_listing">
+                    <div><span>Total Advertisers : </span></div>
+                    <div><span class="both-count">01</span></div>
+                </div>
+            </div>
+        </div>
 
-    <!-- Create Profile Modal -->
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="table-responsive common-card">
+                <table class="table" id="myAdvertisersList">
+                    <thead class="table-bg">
+                        <tr>
+                            <th>Member ID</th>
+                            <th>Name</th>
+                            <th style="width:78px;!important;">Mobile</th>
+                            <th>Email</th>
+                            <th>Joined</th>
+                            <th>Appointed</th>
+                            <th>Earnings</th>
+                            <th>Home State</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
     <div class="modal upload-modal fade" id="createProfileModal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">

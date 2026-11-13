@@ -51,10 +51,10 @@
                 <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes"
                     aria-expanded="true">Help?</span>
             </div>
-            <div class="col-md-12 mb-4">
-                <div class="card collapse" id="notes" style="">
+            <div class="col-md-12">
+                <div class="card collapse" id="notes">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                        <p class="mb-0"><b>Notes:</b> </p>
                         <ol>
                             <li>You can apply filters within the Fees Summary to suit your query or report type.</li>
                             <li>All Fees paid to you under the Agent Agreement will be paid into your nominated Bank
