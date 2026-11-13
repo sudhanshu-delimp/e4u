@@ -340,11 +340,11 @@
                             <img src="{{ asset('assets/dashboard/img/menu-icon/bed.png') }}">
                             <span>Profiles & Tours</span>
                         </a>
-                        <a class="collapse-item {{ request()->segment(2) == 'social-media' ? 'menu-active' : '' }}"
+                        <!-- <a class="collapse-item {{ request()->segment(2) == 'social-media' ? 'menu-active' : '' }}"
                             href="{{ url('escort-dashboard/social-media') }}">
                             <img src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
                             <span>Social Media</span>
-                        </a>
+                        </a> -->
                     </div>
 
                     {{-- ===== BOOKKEEPING ===== --}}
