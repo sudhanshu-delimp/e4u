@@ -14,8 +14,8 @@
 
                 @include('partials.admin.navigation')
 		            {{-- <div>@include('flash-message')</div> --}}
-                @yield('content')
-
+                @yield('content')                
+                @include('partials.common.db_footer')
             </div>
         </div>
 

@@ -10800,7 +10800,7 @@
     
     .sidebar.toggled {
         width: 0 !important;
-        overflow: hidden
+        overflow: hidden;
     }
     
     .sidebar.toggled #sidebarToggle::after {

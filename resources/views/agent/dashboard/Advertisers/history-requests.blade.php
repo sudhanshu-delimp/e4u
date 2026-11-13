@@ -1,8 +1,7 @@
 @extends('layouts.agent')
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-   <!--middle content end here-->
-   {{-- Page Heading   --}}
+  
    <div class="row">
       <div class="custom-heading-wrapper col-lg-12">
          <h1 class="h1">History Requests</h1>
@@ -22,7 +21,7 @@
          </div>
       </div>
    </div>
-   {{-- end --}}
+  
    <div class="row">
       <div class="col-md-12 pt-2">
          <div class="w-100">
@@ -49,7 +48,6 @@
          </div>
       </div>
    </div>
-</div>
 </div>
 @endsection
 

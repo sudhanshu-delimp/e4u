@@ -11202,22 +11202,11 @@ td {
     height: 48px;
 }
 
-.my-custom-box h2 {
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--blue--text);
-    margin: 0;
-}
-
-
 .add--list {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
-
-
 .my-custom-box .box-icon {    
     max-width: 70px;
     width: 100%;
@@ -11238,7 +11227,7 @@ td {
 }
 
 .my-custom-box h2 {
-    font-size: clamp(16px, 3vw, 20px);
+    font-size: clamp(14px, 3vw, 18px);
     color: var(--blue--text);
     font-weight: 500;
 }

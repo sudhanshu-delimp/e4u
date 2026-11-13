@@ -14,7 +14,7 @@
 
                 @include('partials.escort.navigation')
                 @yield('content')
-
+                @include('partials.common.db_footer')
             </div>
             <div class="modal" id="my_account_modal" style="display: none">
                 <div class="modal-dialog modal-dialog-centered">
@@ -76,8 +76,10 @@
                 </div>
             </div>
 
-
+            
         </div>
+        <!-- Footer -->
+        
     </div>
 
 @include('partials.escort.footer')

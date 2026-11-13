@@ -23,8 +23,8 @@
                 @include('partials.center.child_navigation')
                 @endif
                 
-                @yield('content')
-
+                @yield('content')                
+                @include('partials.common.db_footer')
             </div>
             <div class="modal upload-modal fade" id="my_account_modal" style="display: none">
                 <div class="modal-dialog modal-dialog-centered"> 

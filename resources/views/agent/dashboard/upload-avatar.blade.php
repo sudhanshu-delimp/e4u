@@ -25,10 +25,6 @@
     </style>
 @stop
 @section('content')
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-        <!-- Main Content -->
-        <div id="content">
             <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
                 <!--middle content start here-->
                 {{-- Page Heading   --}}
@@ -64,25 +60,6 @@
                 </div>
                 <!--middle content end here-->
             </div>
-        </div>
-        <!-- End of Main Content -->
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span> </span>
-                </div>
-            </div>
-        </footer>
-        <!-- End of Footer -->
-    </div>
-    <!-- End of Content Wrapper -->
-    </div>
-    <!-- End of Page Wrapper -->
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
 
    <x-crop-image-modal
         title="Crop Photo"
