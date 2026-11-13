@@ -126,24 +126,4 @@ if (root) {
         document.addEventListener('click', () => Notification.requestPermission(), { once: true });
     }
 
-    socket.on('MessageSent', (msg) => {
-        const info = (msg && msg.notify) || {};
-
-        if (!msg || msg.sender_id === me || info.muted) {
-            return;
-        }
-
-        // The conversation is open and visible, so no notification needed
-        if (window.chatActiveId === msg.conversation_id && !document.hidden) {
-            return;
-        }
-
-        if (document.hidden) {
-            if (!desktopNotify(info, msg)) {
-                showToast(info, msg);
-            }
-        } else {
-            showToast(info, msg);
-        }
-    });
 }

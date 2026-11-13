@@ -21,6 +21,10 @@ use Illuminate\Support\Str;
 use App\Events\MessageChanged;
 use App\Models\Notification;
 use App\Events\CallOffer;
+use App\Events\CallingChanged;
+use App\Events\CallLogged;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Schema;
 
 
 class ChatController extends Controller
@@ -63,7 +67,7 @@ class ChatController extends Controller
         'mpg'  => ['video', 'video/mpeg'],
         'mpeg' => ['video', 'video/mpeg'],
 
-                // Documents
+        // Documents
         'pdf'  => ['document', 'application/pdf'],
         'doc'  => ['document', 'application/msword'],
         'docx' => ['document', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
@@ -222,7 +226,7 @@ class ChatController extends Controller
                 ],
                 'last'         => $last ? [
                     'preview'    => $this->preview($last),
-                    'created_at' => \Carbon\Carbon::parse($last->created_at)->toIso8601String(), 
+                    'created_at' => \Carbon\Carbon::parse($last->created_at)->toIso8601String(),
                     'mine'       => (int) $last->sender_id === $me->id,
                 ] : null,
                 'unread'       => (int) ($unread[$r->id] ?? 0),
@@ -594,7 +598,7 @@ class ChatController extends Controller
         return response()->json(['data' => $payload], 201);
     }
 
-        /**
+    /**
      * Alert Centre notification for a new message. Skipped when the chat is muted,
      * or when the person still has an unseen notification from the same sender.
      */
@@ -610,7 +614,7 @@ class ChatController extends Controller
                 return;
             }
 
-           $title = 'New message from ' . ChatState::displayName($from);
+            $title = 'New message from ' . ChatState::displayName($from);
 
             $unseen = DB::table('notifications')
                 ->where('to_user', $to->id)
@@ -892,7 +896,7 @@ class ChatController extends Controller
     }
 
 
-        /**
+    /**
      * React to a message with one emoji. The same emoji again removes the reaction,
      * a different emoji replaces it.
      */
@@ -1212,7 +1216,7 @@ class ChatController extends Controller
         };
     }
 
-        /**
+    /**
      * Work out whether an uploaded file is an image, a video or a document we accept.
      * Returns ['kind' => 'image|video|document', 'mime' => string, 'ext' => string, 'name' => string] or null.
      */
@@ -1225,8 +1229,15 @@ class ChatController extends Controller
 
         // SVG files and anything that can run as a page or a program are never accepted
         $blocked = [
-            'image/svg+xml', 'text/html', 'application/xhtml+xml', 'application/javascript', 'text/javascript',
-            'application/x-httpd-php', 'text/x-php', 'application/x-dosexec', 'application/x-executable',
+            'image/svg+xml',
+            'text/html',
+            'application/xhtml+xml',
+            'application/javascript',
+            'text/javascript',
+            'application/x-httpd-php',
+            'text/x-php',
+            'application/x-dosexec',
+            'application/x-executable',
         ];
 
         if ($ext === 'svg' || in_array($mime, $blocked, true)) {
@@ -1259,6 +1270,78 @@ class ChatController extends Controller
         return null;
     }
 
+
+    /**
+     * Save a call as a line in the chat ("Video call · 02:14", "Missed audio call").
+     * Both browsers report the end of the call, the first report wins.
+     */
+    public function callLog(Request $request, int $conversation): JsonResponse
+    {
+        $me   = $request->user();
+        $conv = $this->conversationFor($me->id, $conversation);
+
+        $data = $request->validate([
+            'call_id' => 'required|string|max:64',
+            'outcome' => 'required|in:ended,declined,busy,cancelled,no_answer,missed,error',
+            'seconds' => 'nullable|integer|min:0|max:86400',
+        ]);
+
+        $info = Cache::get('chatcall:' . $data['call_id']);
+
+        abort_unless(
+            $info
+                && (int) $info['conversation_id'] === (int) $conv->id
+                && in_array((int) $me->id, [(int) $info['caller_id'], (int) $info['callee_id']], true),
+            404
+        );
+
+        if (! Cache::add('chatcalllog:' . $data['call_id'], 1, now()->addHours(6))) {
+            return response()->json(['logged' => false]);
+        }
+
+        $kind    = $info['kind'] === 'video' ? 'video' : 'audio';
+        $seconds = (int) ($data['seconds'] ?? 0);
+
+        $status = $seconds > 0 ? 'answered' : match ($data['outcome']) {
+            'declined' => 'declined',
+            'busy'     => 'busy',
+            'error'    => 'failed',
+            default    => 'missed', // cancelled, no answer, ended before it connected
+        };
+
+        $body = match ($status) {
+            'answered' => ucfirst($kind) . ' call · ' . sprintf('%02d:%02d', intdiv($seconds, 60), $seconds % 60),
+            'missed'   => 'Missed ' . $kind . ' call',
+            'declined' => ucfirst($kind) . ' call declined',
+            'busy'     => ucfirst($kind) . ' call · user busy',
+            default    => ucfirst($kind) . ' call failed',
+        };
+
+        $message = new ChatMessage();
+        $message->forceFill([
+            'conversation_id' => $conv->id,
+            'sender_id'       => $info['caller_id'],
+            'body'            => $body,
+            'meta'            => json_encode(['kind' => $kind, 'status' => $status, 'seconds' => $seconds]),
+        ])->save();
+
+        // Keep the chat list order and preview right (only the columns that exist)
+        foreach (['last_message_id' => $message->id, 'last_message_at' => now()] as $column => $value) {
+            if (Schema::hasColumn('chat_conversations', $column)) {
+                $conv->{$column} = $value;
+            }
+        }
+
+        $conv->save();
+
+        $payload = $this->payload($message->load('attachments'));
+
+        broadcast(new CallLogged($payload, [(int) $info['caller_id'], (int) $info['callee_id']]));
+
+        return response()->json(['logged' => true]);
+    }
+
+
     private function payload(ChatMessage $m): array
     {
         $deleted = $m->trashed();
@@ -1271,7 +1354,8 @@ class ChatController extends Controller
             'type'            => $m->type,
             'deleted'         => $deleted,
             'edited'          => ! $deleted && $m->edited_at !== null,
-            'reactions'       => $deleted ? [] : $m->reactions->map(fn ($r) => [
+            'call' => $m->meta ? json_decode($m->meta, true) : null,
+            'reactions'       => $deleted ? [] : $m->reactions->map(fn($r) => [
                 'user_id' => (int) $r->user_id,
                 'emoji'   => $r->emoji,
             ])->values()->all(),
@@ -1310,16 +1394,28 @@ class ChatController extends Controller
 
         // Same way the other user is found in send()
         $otherId = (int) ($conv->user_one_id == $me->id ? $conv->user_two_id : $conv->user_one_id);
+        abort_unless(
+            $this->callingEnabled($me->id) && $this->callingEnabled($otherId),
+            403,
+            'Calling must be enabled by both users.'
+        );
 
         // TODO: also run the same eligibility / block checks that send() runs before it broadcasts
         $blocked = DB::table('chat_blocks')
-            ->where(fn ($q) => $q->where('blocker_id', $me->id)->where('blocked_id', $otherId))
-            ->orWhere(fn ($q) => $q->where('blocker_id', $otherId)->where('blocked_id', $me->id))
+            ->where(fn($q) => $q->where('blocker_id', $me->id)->where('blocked_id', $otherId))
+            ->orWhere(fn($q) => $q->where('blocker_id', $otherId)->where('blocked_id', $me->id))
             ->exists();
 
         abort_if($blocked, 403, 'You cannot call this user.');
 
         $callId = (string) Str::uuid();
+
+        Cache::put('chatcall:' . $callId, [
+            'caller_id'       => (int) $me->id,
+            'callee_id'       => $otherId,
+            'conversation_id' => (int) $conv->id,
+            'kind'            => $data['kind'],
+        ], now()->addHours(6));
 
         broadcast(new CallOffer([
             'call_id'         => $callId,
@@ -1339,4 +1435,56 @@ class ChatController extends Controller
         return response()->json(['call_id' => $callId]);
     }
 
+
+
+    private function callingEnabled(int $userId): bool
+    {
+        return (bool) DB::table('chat_user_settings')->where('user_id', $userId)->value('calling_enabled');
+    }
+
+    /** My setting, and which of the people I chat with have calling enabled */
+    public function calling(Request $request): JsonResponse
+    {
+        $me = $request->user();
+
+        $peerIds = DB::table('chat_conversations')
+            ->where('user_one_id', $me->id)->orWhere('user_two_id', $me->id)
+            ->get(['user_one_id', 'user_two_id'])
+            ->map(fn($c) => (int) ($c->user_one_id == $me->id ? $c->user_two_id : $c->user_one_id))
+            ->unique()->values()->all();
+
+        $enabled = DB::table('chat_user_settings')
+            ->whereIn('user_id', $peerIds)->where('calling_enabled', 1)
+            ->pluck('user_id')->map(fn($id) => (int) $id)->all();
+
+        return response()->json([
+            'mine'  => $this->callingEnabled($me->id),
+            'peers' => $enabled,
+        ]);
+    }
+
+    /** Turn calling on or off for me */
+    public function setCalling(Request $request): JsonResponse
+    {
+        $me      = $request->user();
+        $enabled = $request->boolean('enabled');
+
+        DB::table('chat_user_settings')->updateOrInsert(
+            ['user_id' => $me->id],
+            ['calling_enabled' => $enabled, 'updated_at' => now()]
+        );
+
+        // Tell the people I chat with, so their call icons update at once
+        $partners = DB::table('chat_conversations')
+            ->where('user_one_id', $me->id)->orWhere('user_two_id', $me->id)
+            ->get(['user_one_id', 'user_two_id'])
+            ->map(fn($c) => (int) ($c->user_one_id == $me->id ? $c->user_two_id : $c->user_one_id))
+            ->unique()->values()->all();
+
+        if ($partners) {
+            broadcast(new CallingChanged((int) $me->id, $enabled, $partners));
+        }
+
+        return response()->json(['enabled' => $enabled]);
+    }
 }

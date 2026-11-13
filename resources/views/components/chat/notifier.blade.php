@@ -8,7 +8,8 @@
          data-chat-url="{{ $url }}"
          data-call-url="{{ route('chat.call', ['conversation' => '__ID__']) }}"
          data-csrf="{{ csrf_token() }}"
-        data-ice='@json(config("chat.ice_servers", []))'
+         data-ice='@json(config("chat.ice_servers", []))'
+         data-call-log-url="{{ route('chat.call.log', ['conversation' => '__ID__']) }}"
          data-avatar-base="{{ rtrim(asset(''), '/') }}"></div>
          
     <script src="{{ asset('chat-build/js/notify.js') }}?v={{ @filemtime(public_path('chat-build/js/notify.js')) ?: time() }}"></script>

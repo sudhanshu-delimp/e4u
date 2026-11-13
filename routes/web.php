@@ -1060,4 +1060,9 @@ Route::middleware(['web', 'auth'])->prefix('chat')->name('chat.')->group(functio
 
     Route::post('/conversations/{conversation}/call', [ChatController::class, 'call'])
     ->whereNumber('conversation')->name('call');
+
+    Route::get('/calling', [ChatController::class, 'calling'])->name('calling');
+    Route::post('/calling', [ChatController::class, 'setCalling'])->name('calling.set');
+    Route::post('/conversations/{conversation}/call-log', [ChatController::class, 'callLog'])
+    ->whereNumber('conversation')->name('call.log');
 });

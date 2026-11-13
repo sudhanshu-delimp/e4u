@@ -8,7 +8,7 @@ const { Server } = require('socket.io');
 const PORT = process.env.CHAT_SOCKET_PORT || 6002;
 const SECRET = process.env.CHAT_SOCKET_SECRET;
 const ORIGINS = (process.env.CHAT_SOCKET_ORIGINS || '').split(',');
-const EVENTS = ['MessageSent', 'MessageChanged', 'MessagesRead', 'UserTyping', 'UserOffline', 'CallOffer'];
+const EVENTS = ['MessageSent', 'MessageChanged', 'MessagesRead', 'UserTyping', 'UserOffline', 'CallOffer','CallingChanged','CallLogged'];
 if (!SECRET) { console.error('CHAT_SOCKET_SECRET missing'); process.exit(1); }
 
 const same = (a, b) => { const x = Buffer.from(String(a)), y = Buffer.from(String(b)); return x.length === y.length && crypto.timingSafeEqual(x, y); };

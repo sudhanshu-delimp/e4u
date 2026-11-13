@@ -751,7 +751,9 @@ function initChat(root) {
     pendingFiles: [],
     editingId: null,
     previewUrls: [],
-    detached: false
+    detached: false,
+    callingMine: false,
+    callingPeers: new Set()
   };
 
   /* ---------------------------------------------------
@@ -937,6 +939,7 @@ function initChat(root) {
       el.headerName.textContent = 'Select a chat';
       el.headerStatus.innerHTML = '';
       el.headerMeta.innerHTML = '';
+      updateCallUi();
       return;
     }
     var user = conv.user;
@@ -1001,38 +1004,38 @@ function initChat(root) {
     return _loadList.apply(this, arguments);
   }
   function _loadList() {
-    _loadList = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-      var res, _t2;
-      return _regenerator().w(function (_context3) {
-        while (1) switch (_context3.p = _context3.n) {
+    _loadList = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+      var res, _t3;
+      return _regenerator().w(function (_context4) {
+        while (1) switch (_context4.p = _context4.n) {
           case 0:
-            _context3.p = 0;
-            _context3.n = 1;
+            _context4.p = 0;
+            _context4.n = 1;
             return api.conversations({
               filter: state.filter,
               location: state.location
             });
           case 1:
-            res = _context3.v;
+            res = _context4.v;
             state.conversations = res.data || [];
             if (state.pending && state.conversations.some(function (c) {
               return c.id === state.pending.id;
             })) {
               state.pending = null;
             }
-            _context3.n = 3;
+            _context4.n = 3;
             break;
           case 2:
-            _context3.p = 2;
-            _t2 = _context3.v;
-            console.error('Chat list failed', _t2);
+            _context4.p = 2;
+            _t3 = _context4.v;
+            console.error('Chat list failed', _t3);
             state.conversations = [];
           case 3:
             renderList();
           case 4:
-            return _context3.a(2);
+            return _context4.a(2);
         }
-      }, _callee3, null, [[0, 2]]);
+      }, _callee4, null, [[0, 2]]);
     }));
     return _loadList.apply(this, arguments);
   }
@@ -1040,10 +1043,10 @@ function initChat(root) {
     return _loadMessages.apply(this, arguments);
   }
   function _loadMessages() {
-    _loadMessages = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4(older) {
+    _loadMessages = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5(older) {
       var id, params, res, previousHeight;
-      return _regenerator().w(function (_context4) {
-        while (1) switch (_context4.n) {
+      return _regenerator().w(function (_context5) {
+        while (1) switch (_context5.n) {
           case 0:
             id = state.activeId;
             params = {
@@ -1052,15 +1055,15 @@ function initChat(root) {
             if (older && state.messages.length) {
               params.before_id = state.messages[0].id;
             }
-            _context4.n = 1;
+            _context5.n = 1;
             return api.messages(id, params);
           case 1:
-            res = _context4.v;
+            res = _context5.v;
             if (!(state.activeId !== id)) {
-              _context4.n = 2;
+              _context5.n = 2;
               break;
             }
-            return _context4.a(2);
+            return _context5.a(2);
           case 2:
             state.hasMore = !!res.has_more;
             if (older) {
@@ -1074,9 +1077,9 @@ function initChat(root) {
               scrollBottom();
             }
           case 3:
-            return _context4.a(2);
+            return _context5.a(2);
         }
-      }, _callee4);
+      }, _callee5);
     }));
     return _loadMessages.apply(this, arguments);
   }
@@ -1095,17 +1098,17 @@ function initChat(root) {
      Attachments
   --------------------------------------------------- */
   function _openConversation() {
-    _openConversation = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5(id) {
-      var conv, _t3;
-      return _regenerator().w(function (_context5) {
-        while (1) switch (_context5.p = _context5.n) {
+    _openConversation = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6(id) {
+      var conv, _t4;
+      return _regenerator().w(function (_context6) {
+        while (1) switch (_context6.p = _context6.n) {
           case 0:
             conv = findConv(id);
             if (conv) {
-              _context5.n = 1;
+              _context6.n = 1;
               break;
             }
-            return _context5.a(2);
+            return _context6.a(2);
           case 1:
             state.activeId = id;
             window.chatActiveId = id;
@@ -1115,21 +1118,22 @@ function initChat(root) {
             clearAttachPreview();
             renderList();
             renderHeader(conv);
+            loadCalling();
             renderMessages();
             setComposerEnabled(true);
             updateBlockUi(conv);
             closeSidebarOnMobile();
-            _context5.p = 2;
-            _context5.n = 3;
+            _context6.p = 2;
+            _context6.n = 3;
             return loadMessages(false);
           case 3:
-            _context5.n = 5;
+            _context6.n = 5;
             break;
           case 4:
-            _context5.p = 4;
-            _t3 = _context5.v;
-            console.error('Messages failed', _t3);
-            return _context5.a(2);
+            _context6.p = 4;
+            _t4 = _context6.v;
+            console.error('Messages failed', _t4);
+            return _context6.a(2);
           case 5:
             if (state.activeId === id) {
               markRead(id);
@@ -1140,9 +1144,9 @@ function initChat(root) {
               }
             }
           case 6:
-            return _context5.a(2);
+            return _context6.a(2);
         }
-      }, _callee5, null, [[2, 4]]);
+      }, _callee6, null, [[2, 4]]);
     }));
     return _openConversation.apply(this, arguments);
   }
@@ -1311,35 +1315,35 @@ function initChat(root) {
     return _deleteMessage.apply(this, arguments);
   } // The other person edited or deleted a message
   function _deleteMessage() {
-    _deleteMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6(id) {
-      var msg, mode, res, scroll, _t4;
-      return _regenerator().w(function (_context6) {
-        while (1) switch (_context6.p = _context6.n) {
+    _deleteMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7(id) {
+      var msg, mode, res, scroll, _t5;
+      return _regenerator().w(function (_context7) {
+        while (1) switch (_context7.p = _context7.n) {
           case 0:
             msg = messageById(id);
             if (!(!msg || msg.deleted)) {
-              _context6.n = 1;
+              _context7.n = 1;
               break;
             }
-            return _context6.a(2);
+            return _context7.a(2);
           case 1:
-            _context6.n = 2;
+            _context7.n = 2;
             return (0,_dialogs__WEBPACK_IMPORTED_MODULE_4__.chooseDelete)({
               allowEveryone: msg.sender_id === me.id
             });
           case 2:
-            mode = _context6.v;
+            mode = _context7.v;
             if (mode) {
-              _context6.n = 3;
+              _context7.n = 3;
               break;
             }
-            return _context6.a(2);
+            return _context7.a(2);
           case 3:
-            _context6.p = 3;
-            _context6.n = 4;
+            _context7.p = 3;
+            _context7.n = 4;
             return api.deleteMessage(id, mode);
           case 4:
-            res = _context6.v;
+            res = _context7.v;
             if (state.editingId === id) {
               cancelEdit();
               el.input.value = '';
@@ -1356,16 +1360,16 @@ function initChat(root) {
               replaceMessage(res.data);
             }
             loadList();
-            _context6.n = 6;
+            _context7.n = 6;
             break;
           case 5:
-            _context6.p = 5;
-            _t4 = _context6.v;
-            notify(_t4.message || 'Message could not be deleted.', 'error');
+            _context7.p = 5;
+            _t5 = _context7.v;
+            notify(_t5.message || 'Message could not be deleted.', 'error');
           case 6:
-            return _context6.a(2);
+            return _context7.a(2);
         }
-      }, _callee6, null, [[3, 5]]);
+      }, _callee7, null, [[3, 5]]);
     }));
     return _deleteMessage.apply(this, arguments);
   }
@@ -1463,28 +1467,28 @@ function initChat(root) {
     return _react.apply(this, arguments);
   }
   function _react() {
-    _react = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7(messageId, emoji) {
-      var res, _t5;
-      return _regenerator().w(function (_context7) {
-        while (1) switch (_context7.p = _context7.n) {
+    _react = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8(messageId, emoji) {
+      var res, _t6;
+      return _regenerator().w(function (_context8) {
+        while (1) switch (_context8.p = _context8.n) {
           case 0:
             closeReactPicker();
-            _context7.p = 1;
-            _context7.n = 2;
+            _context8.p = 1;
+            _context8.n = 2;
             return api.react(messageId, emoji);
           case 2:
-            res = _context7.v;
+            res = _context8.v;
             replaceMessage(res.data);
-            _context7.n = 4;
+            _context8.n = 4;
             break;
           case 3:
-            _context7.p = 3;
-            _t5 = _context7.v;
-            notify(_t5.message || 'Reaction could not be saved.', 'error');
+            _context8.p = 3;
+            _t6 = _context8.v;
+            notify(_t6.message || 'Reaction could not be saved.', 'error');
           case 4:
-            return _context7.a(2);
+            return _context8.a(2);
         }
-      }, _callee7, null, [[1, 3]]);
+      }, _callee8, null, [[1, 3]]);
     }));
     return _react.apply(this, arguments);
   }
@@ -1492,80 +1496,80 @@ function initChat(root) {
     return _sendMessage.apply(this, arguments);
   }
   function _sendMessage() {
-    _sendMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
-      var body, files, res, _res, _t6, _t7;
-      return _regenerator().w(function (_context8) {
-        while (1) switch (_context8.p = _context8.n) {
+    _sendMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9() {
+      var body, files, res, _res, _t7, _t8;
+      return _regenerator().w(function (_context9) {
+        while (1) switch (_context9.p = _context9.n) {
           case 0:
             body = el.input.value.trim();
             files = state.pendingFiles.slice();
             if (!state.sending) {
-              _context8.n = 1;
+              _context9.n = 1;
               break;
             }
-            return _context8.a(2);
+            return _context9.a(2);
           case 1:
             if (!state.editingId) {
-              _context8.n = 9;
+              _context9.n = 9;
               break;
             }
             if (body) {
-              _context8.n = 2;
+              _context9.n = 2;
               break;
             }
             notify('A message cannot be empty. Use delete instead.', 'error');
-            return _context8.a(2);
+            return _context9.a(2);
           case 2:
             if (!files.length) {
-              _context8.n = 3;
+              _context9.n = 3;
               break;
             }
             notify('Attachments cannot be added while editing.', 'error');
-            return _context8.a(2);
+            return _context9.a(2);
           case 3:
             state.sending = true;
-            _context8.p = 4;
-            _context8.n = 5;
+            _context9.p = 4;
+            _context9.n = 5;
             return api.editMessage(state.editingId, body);
           case 5:
-            res = _context8.v;
+            res = _context9.v;
             replaceMessage(res.data);
             cancelEdit();
             el.input.value = '';
             resizeComposerInput();
             loadList();
-            _context8.n = 7;
+            _context9.n = 7;
             break;
           case 6:
-            _context8.p = 6;
-            _t6 = _context8.v;
-            notify(_t6.message || 'Message could not be edited.', 'error');
+            _context9.p = 6;
+            _t7 = _context9.v;
+            notify(_t7.message || 'Message could not be edited.', 'error');
           case 7:
-            _context8.p = 7;
+            _context9.p = 7;
             state.sending = false;
             el.input.focus({
               preventScroll: true
             });
-            return _context8.f(7);
+            return _context9.f(7);
           case 8:
-            return _context8.a(2);
+            return _context9.a(2);
           case 9:
             if (!(!body && !files.length || !state.activeId)) {
-              _context8.n = 10;
+              _context9.n = 10;
               break;
             }
-            return _context8.a(2);
+            return _context9.a(2);
           case 10:
             state.sending = true;
             el.sendBtn.disabled = true;
             if (files.length) {
               showSending(files);
             }
-            _context8.p = 11;
-            _context8.n = 12;
+            _context9.p = 11;
+            _context9.n = 12;
             return api.send(state.activeId, body, files);
           case 12:
-            _res = _context8.v;
+            _res = _context9.v;
             hideSending();
             root.querySelector('#emojiPicker').classList.remove('show');
             el.input.value = '';
@@ -1580,25 +1584,25 @@ function initChat(root) {
               unread: 0
             });
             renderList();
-            _context8.n = 14;
+            _context9.n = 14;
             break;
           case 13:
-            _context8.p = 13;
-            _t7 = _context8.v;
-            notify(_t7.message || 'Message could not be sent.', 'error');
+            _context9.p = 13;
+            _t8 = _context9.v;
+            notify(_t8.message || 'Message could not be sent.', 'error');
           case 14:
-            _context8.p = 14;
+            _context9.p = 14;
             hideSending();
             state.sending = false;
             el.sendBtn.disabled = false;
             el.input.focus({
               preventScroll: true
             });
-            return _context8.f(14);
+            return _context9.f(14);
           case 15:
-            return _context8.a(2);
+            return _context9.a(2);
         }
-      }, _callee8, null, [[11, 13, 14, 15], [4, 6, 7, 8]]);
+      }, _callee9, null, [[11, 13, 14, 15], [4, 6, 7, 8]]);
     }));
     return _sendMessage.apply(this, arguments);
   }
@@ -1776,25 +1780,25 @@ function initChat(root) {
     return _runSearch.apply(this, arguments);
   }
   function _runSearch() {
-    _runSearch = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9(term) {
-      var id, url, r, res, _t8;
-      return _regenerator().w(function (_context9) {
-        while (1) switch (_context9.p = _context9.n) {
+    _runSearch = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0(term) {
+      var id, url, r, res, _t9;
+      return _regenerator().w(function (_context0) {
+        while (1) switch (_context0.p = _context0.n) {
           case 0:
             searchHits = [];
             searchPos = -1;
             searchNav().style.display = 'none';
             if (!(!state.activeId || term.length < 2)) {
-              _context9.n = 1;
+              _context0.n = 1;
               break;
             }
             searchEls.count.textContent = term ? 'Type at least 2 characters' : 'Search messages';
-            return _context9.a(2);
+            return _context0.a(2);
           case 1:
             id = state.activeId;
-            _context9.p = 2;
+            _context0.p = 2;
             url = config.routes.search.replace('__ID__', id) + '?q=' + encodeURIComponent(term);
-            _context9.n = 3;
+            _context0.n = 3;
             return fetch(url, {
               headers: {
                 Accept: 'application/json',
@@ -1803,47 +1807,47 @@ function initChat(root) {
               credentials: 'same-origin'
             });
           case 3:
-            r = _context9.v;
+            r = _context0.v;
             if (r.ok) {
-              _context9.n = 4;
+              _context0.n = 4;
               break;
             }
             throw new Error('search failed');
           case 4:
-            _context9.n = 5;
+            _context0.n = 5;
             return r.json();
           case 5:
-            res = _context9.v;
+            res = _context0.v;
             if (!(state.activeId !== id || searchEls.input.value.trim() !== term)) {
-              _context9.n = 6;
+              _context0.n = 6;
               break;
             }
-            return _context9.a(2);
+            return _context0.a(2);
           case 6:
             searchHits = res.data || [];
             searchTotal = res.total || 0;
             if (searchHits.length) {
-              _context9.n = 7;
+              _context0.n = 7;
               break;
             }
             searchEls.count.textContent = 'No matches';
-            return _context9.a(2);
+            return _context0.a(2);
           case 7:
             searchNav().style.display = 'inline-flex';
             searchPos = 0; // newest match first
             updateSearchCount();
             jumpToMessage(searchHits[0].id);
-            _context9.n = 9;
+            _context0.n = 9;
             break;
           case 8:
-            _context9.p = 8;
-            _t8 = _context9.v;
-            console.error(_t8);
+            _context0.p = 8;
+            _t9 = _context0.v;
+            console.error(_t9);
             searchEls.count.textContent = 'Search failed';
           case 9:
-            return _context9.a(2);
+            return _context0.a(2);
         }
-      }, _callee9, null, [[2, 8]]);
+      }, _callee0, null, [[2, 8]]);
     }));
     return _runSearch.apply(this, arguments);
   }
@@ -1885,29 +1889,29 @@ function initChat(root) {
     return _jumpToMessage.apply(this, arguments);
   }
   function _jumpToMessage() {
-    _jumpToMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0(id) {
+    _jumpToMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1(id) {
       var convId, row, res, boxRect, rowRect, bubble;
-      return _regenerator().w(function (_context0) {
-        while (1) switch (_context0.n) {
+      return _regenerator().w(function (_context1) {
+        while (1) switch (_context1.n) {
           case 0:
             convId = state.activeId;
             row = el.messages.querySelector('.message-row[data-id="' + id + '"]');
             if (row) {
-              _context0.n = 3;
+              _context1.n = 3;
               break;
             }
-            _context0.n = 1;
+            _context1.n = 1;
             return api.messages(convId, {
               limit: 30,
               before_id: id + 1
             });
           case 1:
-            res = _context0.v;
+            res = _context1.v;
             if (!(state.activeId !== convId)) {
-              _context0.n = 2;
+              _context1.n = 2;
               break;
             }
-            return _context0.a(2);
+            return _context1.a(2);
           case 2:
             state.messages = res.data;
             state.hasMore = !!res.has_more;
@@ -1917,10 +1921,10 @@ function initChat(root) {
             row = el.messages.querySelector('.message-row[data-id="' + id + '"]');
           case 3:
             if (row) {
-              _context0.n = 4;
+              _context1.n = 4;
               break;
             }
-            return _context0.a(2);
+            return _context1.a(2);
           case 4:
             // Scroll only the messages box, never the whole page
             boxRect = el.messages.getBoundingClientRect();
@@ -1931,9 +1935,9 @@ function initChat(root) {
             void bubble.offsetWidth;
             bubble.classList.add('chat-jump-flash');
           case 5:
-            return _context0.a(2);
+            return _context1.a(2);
         }
-      }, _callee0);
+      }, _callee1);
     }));
     return _jumpToMessage.apply(this, arguments);
   }
@@ -1960,27 +1964,27 @@ function initChat(root) {
     return _goLatest.apply(this, arguments);
   }
   function _goLatest() {
-    _goLatest = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1() {
-      var _t9;
-      return _regenerator().w(function (_context1) {
-        while (1) switch (_context1.p = _context1.n) {
+    _goLatest = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee10() {
+      var _t0;
+      return _regenerator().w(function (_context10) {
+        while (1) switch (_context10.p = _context10.n) {
           case 0:
             state.detached = false;
             hideLatestBtn();
-            _context1.p = 1;
-            _context1.n = 2;
+            _context10.p = 1;
+            _context10.n = 2;
             return loadMessages(false);
           case 2:
-            _context1.n = 4;
+            _context10.n = 4;
             break;
           case 3:
-            _context1.p = 3;
-            _t9 = _context1.v;
-            console.error('Latest messages failed', _t9);
+            _context10.p = 3;
+            _t0 = _context10.v;
+            console.error('Latest messages failed', _t0);
           case 4:
-            return _context1.a(2);
+            return _context10.a(2);
         }
-      }, _callee1, null, [[1, 3]]);
+      }, _callee10, null, [[1, 3]]);
     }));
     return _goLatest.apply(this, arguments);
   }
@@ -1990,25 +1994,25 @@ function initChat(root) {
     return _searchMembers.apply(this, arguments);
   }
   function _searchMembers() {
-    _searchMembers = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee10(term) {
-      var res, _t0;
-      return _regenerator().w(function (_context10) {
-        while (1) switch (_context10.p = _context10.n) {
+    _searchMembers = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee11(term) {
+      var res, _t1;
+      return _regenerator().w(function (_context11) {
+        while (1) switch (_context11.p = _context11.n) {
           case 0:
             // Show a loading line only when there are no results on screen yet
             if (!el.memberResults.querySelector('.member-result')) {
               el.memberResults.innerHTML = "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">Loading...</div>");
             }
-            _context10.p = 1;
-            _context10.n = 2;
+            _context11.p = 1;
+            _context11.n = 2;
             return api.members(term);
           case 2:
-            res = _context10.v;
+            res = _context11.v;
             if (!(el.memberSearch.value.trim() !== term)) {
-              _context10.n = 3;
+              _context11.n = 3;
               break;
             }
-            return _context10.a(2);
+            return _context11.a(2);
           case 3:
             if (res.data.length) {
               el.memberResults.innerHTML = res.data.map(function (m) {
@@ -2024,16 +2028,16 @@ function initChat(root) {
             } else {
               el.memberResults.innerHTML = term ? '<div class="no-search-result"><i class="bi bi-person-x"></i> No eligible member found</div>' : "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">No members available to add.</div>");
             }
-            _context10.n = 5;
+            _context11.n = 5;
             break;
           case 4:
-            _context10.p = 4;
-            _t0 = _context10.v;
+            _context11.p = 4;
+            _t1 = _context11.v;
             el.memberResults.innerHTML = "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">Could not load members. Try again.</div>");
           case 5:
-            return _context10.a(2);
+            return _context11.a(2);
         }
-      }, _callee10, null, [[1, 4]]);
+      }, _callee11, null, [[1, 4]]);
     }));
     return _searchMembers.apply(this, arguments);
   }
@@ -2041,16 +2045,16 @@ function initChat(root) {
     return _startChat.apply(this, arguments);
   }
   function _startChat() {
-    _startChat = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee11(member) {
-      var res, _t1;
-      return _regenerator().w(function (_context11) {
-        while (1) switch (_context11.p = _context11.n) {
+    _startChat = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee12(member) {
+      var res, _t10;
+      return _regenerator().w(function (_context12) {
+        while (1) switch (_context12.p = _context12.n) {
           case 0:
-            _context11.p = 0;
-            _context11.n = 1;
+            _context12.p = 0;
+            _context12.n = 1;
             return api.start(member.id);
           case 1:
-            res = _context11.v;
+            res = _context12.v;
             if (!findConv(res.conversation_id)) {
               state.pending = {
                 id: res.conversation_id,
@@ -2071,16 +2075,16 @@ function initChat(root) {
             renderList();
             openConversation(res.conversation_id);
             loadList();
-            _context11.n = 3;
+            _context12.n = 3;
             break;
           case 2:
-            _context11.p = 2;
-            _t1 = _context11.v;
-            notify(_t1.message || 'Chat could not be started.', 'error');
+            _context12.p = 2;
+            _t10 = _context12.v;
+            notify(_t10.message || 'Chat could not be started.', 'error');
           case 3:
-            return _context11.a(2);
+            return _context12.a(2);
         }
-      }, _callee11, null, [[0, 2]]);
+      }, _callee12, null, [[0, 2]]);
     }));
     return _startChat.apply(this, arguments);
   }
@@ -2153,6 +2157,147 @@ function initChat(root) {
         }
       }
     }));
+  });
+
+  // Call icons show only when both users have enabled calling
+  function updateCallUi() {
+    var conv = findConv(state.activeId);
+    var show = !!(conv && state.callingMine && state.callingPeers.has(conv.user.id) && !conv.blocked_by_me && !conv.blocked_me);
+    ['audioCallBtn', 'videoCallBtn'].forEach(function (id) {
+      var button = document.getElementById(id);
+      if (button) {
+        button.style.display = show ? '' : 'none';
+      }
+    });
+    var toggle = document.getElementById('callingToggleBtn');
+    if (toggle) {
+      toggle.innerHTML = '<i class="bi bi-telephone"></i> ' + (state.callingMine ? 'Disable Calling' : 'Enable Calling');
+    }
+  }
+  function loadCalling() {
+    return _loadCalling.apply(this, arguments);
+  }
+  function _loadCalling() {
+    _loadCalling = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13() {
+      var response, res, _t11;
+      return _regenerator().w(function (_context13) {
+        while (1) switch (_context13.p = _context13.n) {
+          case 0:
+            _context13.p = 0;
+            _context13.n = 1;
+            return fetch(config.routes.calling, {
+              headers: {
+                Accept: 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+              },
+              credentials: 'same-origin'
+            });
+          case 1:
+            response = _context13.v;
+            if (response.ok) {
+              _context13.n = 2;
+              break;
+            }
+            return _context13.a(2);
+          case 2:
+            _context13.n = 3;
+            return response.json();
+          case 3:
+            res = _context13.v;
+            state.callingMine = !!res.mine;
+            state.callingPeers = new Set((res.peers || []).map(Number));
+            updateCallUi();
+            _context13.n = 5;
+            break;
+          case 4:
+            _context13.p = 4;
+            _t11 = _context13.v;
+          case 5:
+            return _context13.a(2);
+        }
+      }, _callee13, null, [[0, 4]]);
+    }));
+    return _loadCalling.apply(this, arguments);
+  }
+  document.addEventListener('click', /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(event) {
+      var wrapper, response, res, _t;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.p = _context.n) {
+          case 0:
+            if (event.target.closest('#callingToggleBtn')) {
+              _context.n = 1;
+              break;
+            }
+            return _context.a(2);
+          case 1:
+            event.preventDefault();
+            wrapper = document.querySelector('.more-wrapper');
+            if (wrapper) {
+              wrapper.classList.remove('open');
+            }
+            _context.p = 2;
+            _context.n = 3;
+            return fetch(config.routes.calling, {
+              method: 'POST',
+              credentials: 'same-origin',
+              headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                'X-CSRF-TOKEN': config.csrf,
+                'X-Requested-With': 'XMLHttpRequest'
+              },
+              body: JSON.stringify({
+                enabled: !state.callingMine
+              })
+            });
+          case 3:
+            response = _context.v;
+            if (response.ok) {
+              _context.n = 4;
+              break;
+            }
+            throw new Error('failed');
+          case 4:
+            _context.n = 5;
+            return response.json();
+          case 5:
+            res = _context.v;
+            state.callingMine = !!res.enabled;
+            updateCallUi();
+            notify(state.callingMine ? 'Calling enabled. Call icons appear when the other user has enabled calling too.' : 'Calling disabled.', 'success');
+            _context.n = 7;
+            break;
+          case 6:
+            _context.p = 6;
+            _t = _context.v;
+            notify('Could not change the calling setting.', 'error');
+          case 7:
+            return _context.a(2);
+        }
+      }, _callee, null, [[2, 6]]);
+    }));
+    return function (_x0) {
+      return _ref.apply(this, arguments);
+    };
+  }(), true);
+  socket.on('CallingChanged', function (event) {
+    if (event.enabled) {
+      state.callingPeers.add(Number(event.user_id));
+    } else {
+      state.callingPeers["delete"](Number(event.user_id));
+    }
+    updateCallUi();
+  });
+  socket.on('CallLogged', function (msg) {
+    if (!msg) {
+      return;
+    }
+    if (msg.conversation_id === state.activeId) {
+      appendMessage(msg);
+      markRead(msg.conversation_id);
+    }
+    loadList();
   });
   document.addEventListener('click', function (event) {
     var target = event.target;
@@ -2401,36 +2546,36 @@ function initChat(root) {
       openConversation(Number(item.dataset.id));
     }
   });
-  el.messages.addEventListener('scroll', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-    var _t;
-    return _regenerator().w(function (_context) {
-      while (1) switch (_context.p = _context.n) {
+  el.messages.addEventListener('scroll', /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+    var _t2;
+    return _regenerator().w(function (_context2) {
+      while (1) switch (_context2.p = _context2.n) {
         case 0:
           if (!(el.messages.scrollTop > 40 || !state.hasMore || state.loadingOlder || !state.activeId)) {
-            _context.n = 1;
+            _context2.n = 1;
             break;
           }
-          return _context.a(2);
+          return _context2.a(2);
         case 1:
           state.loadingOlder = true;
-          _context.p = 2;
-          _context.n = 3;
+          _context2.p = 2;
+          _context2.n = 3;
           return loadMessages(true);
         case 3:
-          _context.n = 5;
+          _context2.n = 5;
           break;
         case 4:
-          _context.p = 4;
-          _t = _context.v;
-          console.error('Older messages failed', _t);
+          _context2.p = 4;
+          _t2 = _context2.v;
+          console.error('Older messages failed', _t2);
         case 5:
-          _context.p = 5;
+          _context2.p = 5;
           state.loadingOlder = false;
-          return _context.f(5);
+          return _context2.f(5);
         case 6:
-          return _context.a(2);
+          return _context2.a(2);
       }
-    }, _callee, null, [[2, 4, 5, 6]]);
+    }, _callee2, null, [[2, 4, 5, 6]]);
   })));
 
   /* ---------------------------------------------------
@@ -2489,24 +2634,25 @@ function initChat(root) {
     }
   }, 60000);
   window.addEventListener('chat:open', /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(event) {
-      return _regenerator().w(function (_context2) {
-        while (1) switch (_context2.n) {
+    var _ref3 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(event) {
+      return _regenerator().w(function (_context3) {
+        while (1) switch (_context3.n) {
           case 0:
-            _context2.n = 1;
+            _context3.n = 1;
             return loadList();
           case 1:
             openConversation(Number(event.detail));
           case 2:
-            return _context2.a(2);
+            return _context3.a(2);
         }
-      }, _callee2);
+      }, _callee3);
     }));
-    return function (_x0) {
-      return _ref2.apply(this, arguments);
+    return function (_x1) {
+      return _ref3.apply(this, arguments);
     };
   }());
   var fromHash = location.hash.match(/^#chat-(\d+)$/);
+  loadCalling();
   loadList().then(function () {
     if (fromHash) {
       openConversation(Number(fromHash[1]));
@@ -3120,6 +3266,9 @@ function messageHtml(msg, prev, ctx) {
   var mine = msg.sender_id === ctx.me.id;
   var person = mine ? ctx.me : ctx.peer;
   var divider = !prev || !sameDay(prev.created_at, msg.created_at) ? "<div class=\"date-divider\"><span>".concat(escapeHtml(dayLabel(msg.created_at)), "</span></div>") : '';
+  if (msg.call) {
+    return divider + callLineHtml(msg);
+  }
   var avatar = "\n        <div class=\"message-avatar\" style=\"".concat(avatarStyle(person.color), "\">\n            ").concat(avatarInner(person), "\n        </div>");
 
   // One grey tick = sent, two blue ticks = seen
@@ -3156,6 +3305,16 @@ function messageHtml(msg, prev, ctx) {
  */
 function memberResultHtml(member, online) {
   return "\n        <div class=\"member-result\"\n            data-user-id=\"".concat(member.id, "\"\n            data-member-id=\"").concat(escapeHtml(member.member_id), "\"\n            data-member-name=\"").concat(escapeHtml(member.name), "\"\n            data-avatar=\"").concat(escapeHtml(member.avatar || ''), "\"\n            data-color=\"").concat(escapeHtml(member.color), "\"\n            data-location=\"\">\n\n            <div class=\"member-avatar\" style=\"").concat(avatarStyle(member.color), "\">\n                ").concat(avatarInner(member), "\n            </div>\n\n            <div class=\"member-info\">\n                <strong>").concat(escapeHtml(member.name), "</strong>\n                <span>").concat(escapeHtml(member.member_id)).concat(member.type_label ? ' · ' + escapeHtml(member.type_label) : '', "</span>\n            </div>\n            <span class=\"member-status").concat(online ? '' : ' offline', "\">").concat(online ? 'Online' : 'Offline', "</span>\n\n            <button type=\"button\" class=\"add-member-action\">\n                <i class=\"bi bi-plus-lg\"></i>\n            </button>\n\n        </div>\n    ");
+}
+function callLineHtml(msg) {
+  var call = msg.call || {};
+  var bad = ['missed', 'declined', 'busy', 'failed'].indexOf(call.status) !== -1;
+  var icon = call.kind === 'video' ? 'bi-camera-video-fill' : 'bi-telephone-fill';
+  var time = new Date(msg.created_at).toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+  return "<div class=\"message-row chat-call-row\" data-id=\"".concat(msg.id, "\" style=\"justify-content:center;\">\n        <div style=\"display:inline-flex;align-items:center;gap:8px;margin:6px auto;padding:6px 14px;border-radius:14px;font-size:13px;box-shadow:0 1px 2px rgba(0,0,0,.08);background:").concat(bad ? '#fee2e2' : '#fff', ";color:").concat(bad ? '#b91c1c' : '#374151', ";\">\n            <i class=\"bi ").concat(icon, "\"></i><span>").concat(escapeHtml(msg.body || ''), "</span><small style=\"opacity:.6;\">").concat(time, "</small>\n        </div></div>");
 }
 
 /***/ }),

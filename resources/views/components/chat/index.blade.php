@@ -20,6 +20,7 @@ $chatConfig = [
 'typing' => route('chat.typing', ['conversation' => '__ID__']),
 'message' => route('chat.message.update', ['message' => '__ID__']),
 'search' => route('chat.chat.search', ['conversation' => '__ID__']),
+'calling' => route('chat.calling'),
 ],
 // state id => abbreviation (ACT, NSW...)
 'states' => collect(config('escorts.profile.states', []))
@@ -199,8 +200,8 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
                     <i class="bi bi-search"></i>
                 </button>
 
-                <button type="button" id="audioCallBtn" title="Audio call"><i class="bi bi-telephone-fill"></i></button>
-                <button type="button" id="videoCallBtn" title="Video call"><i class="bi bi-camera-video-fill"></i></button>
+                <button type="button" id="audioCallBtn" title="Audio call" style="display:none"><i class="bi bi-telephone-fill"></i></button>
+                <button type="button" id="videoCallBtn" title="Video call" style="display:none"><i class="bi bi-camera-video-fill"></i></button>
 
                 <!-- FULLSCREEN BUTTON -->
                 <button type="button" id="toggleFullscreenBtn" title="Full Screen">
@@ -225,8 +226,8 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
                             Clear Chat
                         </button>
 
+                        <button type="button" id="callingToggleBtn"><i class="bi bi-telephone"></i> Enable Calling</button>
                         <div class="dropdown-divider"></div>
-
                         <button id="blockUserBtn" class="danger-option">
                             <i class="bi bi-slash-circle"></i>
                             Block User

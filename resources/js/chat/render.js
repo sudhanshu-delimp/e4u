@@ -262,7 +262,7 @@ export function chatItemHtml(conv, ctx) {
 
 function hasVideoGallery(list) {
     // Agar 1 se zyada videos hain aur sabhi playable hain
-    return list.length > 1 && list.every(a => 
+    return list.length > 1 && list.every(a =>
         a.kind === 'video' && PLAYABLE_VIDEOS.indexOf(String(a.mime || '').toLowerCase()) !== -1
     );
 }
@@ -408,6 +408,10 @@ export function messageHtml(msg, prev, ctx) {
         ? `<div class="date-divider"><span>${escapeHtml(dayLabel(msg.created_at))}</span></div>`
         : '';
 
+    if (msg.call) {
+        return divider + callLineHtml(msg);
+    }
+
     const avatar = `
         <div class="message-avatar" style="${avatarStyle(person.color)}">
             ${avatarInner(person)}
@@ -437,7 +441,7 @@ export function messageHtml(msg, prev, ctx) {
         : '';
 
     // Edit (first 15 minutes only) and delete, on my own messages
-       // Delete on every message, edit only on my own text messages (first 15 minutes)
+    // Delete on every message, edit only on my own text messages (first 15 minutes)
     let actions = '';
 
     if (!msg.deleted) {
@@ -449,9 +453,9 @@ export function messageHtml(msg, prev, ctx) {
             : '';
         const remove = `<button type="button" class="chat-msg-delete" title="Delete" style="${buttonStyle}"><i class="bi bi-trash3"></i></button>`;
 
-                const react = `<button type="button" class="chat-msg-react" title="React" style="${buttonStyle}"><i class="bi bi-emoji-smile"></i></button>`;
+        const react = `<button type="button" class="chat-msg-react" title="React" style="${buttonStyle}"><i class="bi bi-emoji-smile"></i></button>`;
 
-                actions = `<span class="chat-msg-actions" style="margin-left:8px;opacity:.65;">${react}${edit}${remove}</span>`;
+        actions = `<span class="chat-msg-actions" style="margin-left:8px;opacity:.65;">${react}${edit}${remove}</span>`;
     }
 
     const bubble = `
@@ -501,4 +505,16 @@ export function memberResultHtml(member, online) {
 
         </div>
     `;
+}
+
+function callLineHtml(msg) {
+    const call = msg.call || {};
+    const bad = ['missed', 'declined', 'busy', 'failed'].indexOf(call.status) !== -1;
+    const icon = call.kind === 'video' ? 'bi-camera-video-fill' : 'bi-telephone-fill';
+    const time = new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    return `<div class="message-row chat-call-row" data-id="${msg.id}" style="justify-content:center;">
+        <div style="display:inline-flex;align-items:center;gap:8px;margin:6px auto;padding:6px 14px;border-radius:14px;font-size:13px;box-shadow:0 1px 2px rgba(0,0,0,.08);background:${bad ? '#fee2e2' : '#fff'};color:${bad ? '#b91c1c' : '#374151'};">
+            <i class="bi ${icon}"></i><span>${escapeHtml(msg.body || '')}</span><small style="opacity:.6;">${time}</small>
+        </div></div>`;
 }

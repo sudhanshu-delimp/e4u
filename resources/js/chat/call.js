@@ -1,5 +1,6 @@
 // WebRTC audio and video calls. Signaling goes through the chat Node server.
 // Loaded by notify.js, so calls ring on every page that has the notifier.
+import { configure, avatarInner, avatarStyle } from './render';
 
 const RING_MS = 45000;
 const svg = (inner) =>
@@ -52,6 +53,7 @@ export function initCalls({ socket, me, cfg }) {
 
     try {
         const iceServers = JSON.parse(cfg.ice || 'null') || [{ urls: ['stun:stun.l.google.com:19302'] }];
+        configure({ avatarBase: cfg.avatarBase || '' });
     } catch (error) {
         console.error('Invalid ICE server configuration:', cfg.ice, error);
     }
@@ -62,7 +64,7 @@ export function initCalls({ socket, me, cfg }) {
 
     let audioCtx = null;
     let ringTimer = null;
-    
+
 
     // kind 'out' = tone the caller hears, 'in' = ringtone for the person being called
     function ring(kind) {
@@ -145,13 +147,13 @@ export function initCalls({ socket, me, cfg }) {
 
     const q = (selector) => document.querySelector('#callOverlay ' + selector);
 
-    const avatarUrl = (path) => {
-        if (!path) {
-            return '';
-        }
+    // const avatarUrl = (path) => {
+    //     if (!path) {
+    //         return '';
+    //     }
 
-        return /^(https?:)?\//.test(path) ? path : (cfg.avatarBase || '') + '/' + path;
-    };
+    //     return /^(https?:)?\//.test(path) ? path : (cfg.avatarBase || '') + '/' + path;
+    // };
 
     const initials = (name) => (name || '?').split(' ').map((w) => w[0]).join('').slice(0, 2).toUpperCase();
 
@@ -225,15 +227,13 @@ export function initCalls({ socket, me, cfg }) {
         const peer = call.peer || {};
         const av = overlay.querySelector('.call-av');
 
-        av.style.background = peer.color || '#ff3c5f';
-        av.textContent = initials(peer.name);
+        av.setAttribute('style', avatarStyle(peer.color) + ';width:96px;height:96px;font-size:30px;');
+        av.innerHTML = avatarInner(peer);
 
-        if (peer.avatar) {
-            const img = new Image();
+        const photo = av.querySelector('img');
 
-            img.alt = '';
-            img.onload = () => { av.textContent = ''; av.appendChild(img); };
-            img.src = avatarUrl(peer.avatar);
+        if (photo) {
+            photo.addEventListener('error', () => photo.replaceWith(document.createTextNode(initials(peer.name))));
         }
 
         overlay.querySelector('.call-name').textContent = peer.name || 'Unknown';
@@ -385,11 +385,31 @@ export function initCalls({ socket, me, cfg }) {
         call.tick = setInterval(() => setStatus(clock(Date.now() - call.startedAt)), 1000);
     }
 
+    function reportLog(done, outcome) {
+        if (!cfg.callLogUrl) {
+            return;
+        }
+
+        const seconds = done.startedAt ? Math.max(1, Math.round((Date.now() - done.startedAt) / 1000)) : 0;
+
+        fetch(cfg.callLogUrl.replace('__ID__', done.conversationId), {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                'X-CSRF-TOKEN': cfg.csrf,
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: JSON.stringify({ call_id: done.id, outcome, seconds }),
+        }).catch(() => { });
+    }
+
     /* ---------------------------------------------------
        Finish
     --------------------------------------------------- */
 
-    function finish(text) {
+    function finish(text, outcome) {
         stopRing();
         const done = call;
 
@@ -398,6 +418,10 @@ export function initCalls({ socket, me, cfg }) {
         }
 
         call = null;
+
+        if (outcome && done.id) {
+            reportLog(done, outcome);
+        }
 
         clearTimeout(done.ringTimer);
         clearTimeout(done.dropTimer);
@@ -442,7 +466,7 @@ export function initCalls({ socket, me, cfg }) {
             socket.emit('call:end', { call_id: call.id, reason });
         }
 
-        finish(END_TEXT[reason] || 'Call ended');
+        finish(END_TEXT[reason] || 'Call ended', reason);
     }
 
     function fail(message) {
@@ -641,7 +665,8 @@ export function initCalls({ socket, me, cfg }) {
         setStatus(call.kind === 'video' ? 'Incoming video call...' : 'Incoming audio call...');
         controls('ringing');
         ring('in');
-        call.ringTimer = setTimeout(() => finish(END_TEXT.missed), RING_MS + 3000);
+        // call.ringTimer = setTimeout(() => finish(END_TEXT.missed), RING_MS + 3000);
+        call.ringTimer = setTimeout(() => finish(END_TEXT.missed, 'missed'), RING_MS + 3000);
 
         if (document.hidden && 'Notification' in window && Notification.permission === 'granted') {
             const note = new Notification((data.from.name || 'Someone') + ' is calling you', { tag: 'chat-call' });
@@ -694,7 +719,7 @@ export function initCalls({ socket, me, cfg }) {
             text = END_TEXT.missed;
         }
 
-        finish(text);
+        finish(text, data.reason);
     });
 
     // Another tab of mine answered or declined this call

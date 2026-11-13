@@ -111,7 +111,8 @@ export function initChat(root) {
         pendingFiles: [],
         editingId: null,
         previewUrls: [],
-        detached: false,
+        detached: false, callingMine: false,
+        callingPeers: new Set(),
     };
 
     /* ---------------------------------------------------
@@ -334,6 +335,7 @@ export function initChat(root) {
             el.headerName.textContent = 'Select a chat';
             el.headerStatus.innerHTML = '';
             el.headerMeta.innerHTML = '';
+            updateCallUi();
             return;
         }
 
@@ -486,6 +488,7 @@ export function initChat(root) {
         clearAttachPreview();
         renderList();
         renderHeader(conv);
+        loadCalling();
         renderMessages();
         setComposerEnabled(true);
         updateBlockUi(conv);
@@ -1453,6 +1456,116 @@ export function initChat(root) {
         }));
     });
 
+    // Call icons show only when both users have enabled calling
+    function updateCallUi() {
+        const conv = findConv(state.activeId);
+        const show = !!(conv
+            && state.callingMine
+            && state.callingPeers.has(conv.user.id)
+            && !conv.blocked_by_me
+            && !conv.blocked_me);
+
+        ['audioCallBtn', 'videoCallBtn'].forEach((id) => {
+            const button = document.getElementById(id);
+
+            if (button) {
+                button.style.display = show ? '' : 'none';
+            }
+        });
+
+        const toggle = document.getElementById('callingToggleBtn');
+
+        if (toggle) {
+            toggle.innerHTML = '<i class="bi bi-telephone"></i> ' + (state.callingMine ? 'Disable Calling' : 'Enable Calling');
+        }
+    }
+
+    async function loadCalling() {
+        try {
+            const response = await fetch(config.routes.calling, {
+                headers: { Accept: 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+                credentials: 'same-origin',
+            });
+
+            if (!response.ok) {
+                return;
+            }
+
+            const res = await response.json();
+
+            state.callingMine = !!res.mine;
+            state.callingPeers = new Set((res.peers || []).map(Number));
+            updateCallUi();
+        } catch (error) {
+            // The icons simply stay hidden
+        }
+    }
+
+    document.addEventListener('click', async (event) => {
+        if (!event.target.closest('#callingToggleBtn')) {
+            return;
+        }
+
+        event.preventDefault();
+
+        const wrapper = document.querySelector('.more-wrapper');
+
+        if (wrapper) {
+            wrapper.classList.remove('open');
+        }
+
+        try {
+            const response = await fetch(config.routes.calling, {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    'X-CSRF-TOKEN': config.csrf,
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+                body: JSON.stringify({ enabled: !state.callingMine }),
+            });
+
+            if (!response.ok) {
+                throw new Error('failed');
+            }
+
+            const res = await response.json();
+
+            state.callingMine = !!res.enabled;
+            updateCallUi();
+            notify(state.callingMine
+                ? 'Calling enabled. Call icons appear when the other user has enabled calling too.'
+                : 'Calling disabled.', 'success');
+        } catch (error) {
+            notify('Could not change the calling setting.', 'error');
+        }
+    }, true);
+
+    socket.on('CallingChanged', (event) => {
+        if (event.enabled) {
+            state.callingPeers.add(Number(event.user_id));
+        } else {
+            state.callingPeers.delete(Number(event.user_id));
+        }
+
+        updateCallUi();
+    });
+
+    socket.on('CallLogged', (msg) => {
+        if (!msg) {
+            return;
+        }
+
+        if (msg.conversation_id === state.activeId) {
+            appendMessage(msg);
+            markRead(msg.conversation_id);
+        }
+
+        loadList();
+    });
+
     document.addEventListener('click', (event) => {
         const target = event.target;
         const filterWrapper = root.querySelector('.filter-wrapper');
@@ -1826,7 +1939,7 @@ export function initChat(root) {
     });
 
     const fromHash = location.hash.match(/^#chat-(\d+)$/);
-
+    loadCalling();
     loadList().then(() => {
         if (fromHash) {
             openConversation(Number(fromHash[1]));
