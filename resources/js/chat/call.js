@@ -62,6 +62,7 @@ export function initCalls({ socket, me, cfg }) {
 
     let audioCtx = null;
     let ringTimer = null;
+    
 
     // kind 'out' = tone the caller hears, 'in' = ringtone for the person being called
     function ring(kind) {

@@ -62,6 +62,30 @@ function initCalls(_ref) {
   var call = null;
   var audioCtx = null;
   var ringTimer = null;
+  function speakUthaiye() {
+    if (!('speechSynthesis' in window)) {
+      return false;
+    }
+    var voices = window.speechSynthesis.getVoices();
+    var voice = voices.find(function (v) {
+      return v.lang === 'hi-IN' && /female|heera|kalpana|google/i.test(v.name);
+    }) || voices.find(function (v) {
+      return v.lang === 'hi-IN';
+    });
+
+    // No Hindi voice on this device, so use the chime instead
+    if (!voice) {
+      return false;
+    }
+    var text = new SpeechSynthesisUtterance('उठाइए ना');
+    text.voice = voice;
+    text.lang = 'hi-IN';
+    text.rate = 0.9;
+    text.pitch = 1.2;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(text);
+    return true;
+  }
 
   // kind 'out' = tone the caller hears, 'in' = ringtone for the person being called
   function ring(kind) {
@@ -97,11 +121,19 @@ function initCalls(_ref) {
           stopRing();
           return;
         }
+
+        // if (kind === 'in') {
+        //     // Receiver: rising chime C5 E5 G5 C6, then a short pause
+        //     [523.25, 659.25, 783.99, 1046.5].forEach((hz, i) => note(hz, i * 0.18, 0.9, 0.18));
+        // } 
+
         if (kind === 'in') {
-          // Receiver: rising chime C5 E5 G5 C6, then a short pause
-          [523.25, 659.25, 783.99, 1046.5].forEach(function (hz, i) {
-            return note(hz, i * 0.18, 0.9, 0.18);
-          });
+          if (!speakUthaiye()) {
+            // Fallback chime when the device has no Hindi voice
+            [523.25, 659.25, 783.99, 1046.5].forEach(function (hz, i) {
+              return note(hz, i * 0.18, 0.9, 0.18);
+            });
+          }
         } else {
           // Caller: the original double beep
           var gain = audioCtx.createGain();
@@ -125,6 +157,9 @@ function initCalls(_ref) {
   function stopRing() {
     clearInterval(ringTimer);
     ringTimer = null;
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
   }
 
   /* ---------------------------------------------------
