@@ -19,8 +19,8 @@
             <h1 class="h1">My Legbox - Escort List</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
-       <div class="col-md-12 mb-4">
-           <div class="card collapse" id="notes" style="">
+       <div class="col-md-12">
+           <div class="card collapse" id="notes">
               <div class="card-body">
                 <h3 class="NotesHeader"><b>Notes:</b></h3>
                  <ol>
@@ -211,11 +211,6 @@
          </div>
    </div>
 </div>
-<!-- End of Page Wrapper -->
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-<i class="fas fa-angle-up"></i>
-</a>
 
    <div class="modal" id="change_all" style="display: none">
       <div class="modal-dialog modal-dialog-centered">

@@ -61,6 +61,7 @@
         </div>
     </div>
 </div>
+
 @include('center.dashboard.modal.transaction-summary')
 @endsection
 @push('script')

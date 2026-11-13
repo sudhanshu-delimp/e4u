@@ -31,7 +31,7 @@
                 @endif
             </div>
         
-            <div class="col-md-12 mb-4 mycont">
+            <div class="col-md-12">
                 <div class="card collapse" id="notes">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -47,7 +47,8 @@
                     </div>
                 </div>
             </div>
-        
+        </div>
+        <div class="row">
             <div class="col-lg-12">
                  <div class="common-card">
                     <form class="common-form" id="supportTicket" method="post" action="{{ route('support-ticket.create') }}"
@@ -56,7 +57,6 @@
                         <div class="row inner-row">
                             <div class="col-lg-12">
                                 <div class="inner-field-row">
-
                                     <div class="form-group">
                                         <label for="sel1"><b>Department</b></label>
                                         <select class="form-control" name="department" required>
@@ -98,10 +98,6 @@
                                             required>
                                         </select>
                                     </div>
-
-
-
-
                                 </div>
                                 <div class="inner-field-row">
                                     <div class="form-group">
@@ -109,43 +105,43 @@
                                         <textarea class="form-control custom-texarea" id="comment" name="message" required></textarea>
 
                                     </div>
-                                        <div class="form-group">
-                                            <label for="customFileLang">Document / Image upload</label>
+                                    <div class="form-group">
+                                        <label for="customFileLang">Document / Image upload</label>
 
-                                            <label for="customFileLang" class="file-upload-box">
+                                        <label for="customFileLang" class="file-upload-box">
 
-                                                <input type="file" name="file" id="customFileLang" class="file-input">
+                                            <input type="file" name="file" id="customFileLang" class="file-input">
 
-                                                
+                                            
 
-                                                <div class="upload-content">
-                                                    <div class="upload-icon">
-                                                        <svg width="25px" height="25px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
-                                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                            <div class="upload-content">
+                                                <div class="upload-icon">
+                                                    <svg width="25px" height="25px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+                                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
 
-                                                            <g id="SVGRepo_iconCarrier">
-                                                                <path stroke="#ff3c5f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v9m0-9l3 3m-3-3l-3 3m8.5 2c1.519 0 2.5-1.231 2.5-2.75 0-1.264-.854-2.33-2.016-2.65A5 5 0 008.37 8.108a3.5 3.5 0 00-1.87 6.746">
-                                                                </path>
-                                                            </g>
+                                                        <g id="SVGRepo_iconCarrier">
+                                                            <path stroke="#ff3c5f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v9m0-9l3 3m-3-3l-3 3m8.5 2c1.519 0 2.5-1.231 2.5-2.75 0-1.264-.854-2.33-2.016-2.65A5 5 0 008.37 8.108a3.5 3.5 0 00-1.87 6.746">
+                                                            </path>
+                                                        </g>
 
-                                                        </svg>
-                                                    </div>
-                                                    <span class="upload-title">Upload a file</span>
-                                                    <span class="upload-text">
-                                                        Drag & drop your file here or <strong>browse</strong>
-                                                    </span>
-                                                    <span class="upload-hint">PDF, DOC, DOCX, JPG or PNG</span>
+                                                    </svg>
                                                 </div>
+                                                <span class="upload-title">Upload a file</span>
+                                                <span class="upload-text">
+                                                    Drag & drop your file here or <strong>browse</strong>
+                                                </span>
+                                                <span class="upload-hint">PDF, DOC, DOCX, JPG or PNG</span>
+                                            </div>
 
-                                            </label>
-                                            <p class="cp-hint">
-                                                <small><i>If you have any other documentation that can assist us with your query,
-                                                        including images, please upload them.</i></small>
-                                            </p>
-                                        </div>
-                                        
+                                        </label>
+                                        <p class="cp-hint">
+                                            <small><i>If you have any other documentation that can assist us with your query,
+                                                    including images, please upload them.</i></small>
+                                        </p>
                                     </div>
+                                    
+                                </div>
                             </div>
                             <div class="common-footer col-lg-12">
                                 <input type="hidden" name="user_type" value="viewer">
@@ -158,7 +154,8 @@
             </div>
         </div>
         <!--middle content end here-->
-    </div>
+
+</div>
 @endsection
 @push('script')
     <!-- file upload plugin start here -->

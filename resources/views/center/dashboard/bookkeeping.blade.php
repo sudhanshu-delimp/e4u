@@ -261,13 +261,6 @@
       </div>
    </div>
 </div>
-{{-- PayID Change PIN action btn--}}
-{{-- <button class="btn-success-modal" data-toggle="modal" data-target="#AddNewAccountConfirm">New Bank Account added </button>
-<button class="btn-success-modal" data-toggle="modal" data-target="#AddPayId">PayID </button>
-<button class="btn-success-modal" data-toggle="modal" data-target="#EFTInstructions">EFT Instructions </button> --}}
-
-</div>
-</div>
 
 <div class="modal fade upload-modal" id="commission-report" tabindex="-1" role="dialog" aria-labelledby="CompetitorLabel" aria-hidden="true" style="display: none">
    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">

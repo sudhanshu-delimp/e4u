@@ -201,7 +201,7 @@
                   </div>
                </div>
             </div>
-         </d>
+         </div>
       </div>
    </div>
    <!--middle content end here-->

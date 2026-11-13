@@ -217,468 +217,436 @@ padding: 37px !important;
     </style>
 @stop
 @section('content')
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-        <!-- Main Content -->
-        <div id="content">
+<div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
+    <div class="row">
+        <div class="custom-heading-wrapper col-md-12">
+            <h1 class="h1">Add New Masseur</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
+                aria-expanded="true"><b>Help?</b></span>
+        </div>
+        <div class="col-md-12">
+            <div class="card collapse" id="notes" style="">
+                <div class="card-body">
+                    <h3 class="NotesHeader"><b>Notes:</b></h3>
+                    <ol>
+                        <li>Use these help pages for explanations and guidance on managing all of your Masseur
+                            Photos.</li>
+                        <li>You can upload four photos for each Masseur. Designate one as the Masseur’s
+                            Thumbnail.</li>
+                        <li>Activate up to eight Masseur Profiles at any one time to appear the Massage Centre
+                            Profile.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="add-mcc-section">
+                <form id="masseur_frm" name="masseur_frm" method="Post">
 
-            <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
-                <div class="row">
-                    <div class="custom-heading-wrapper col-md-12">
-                        <h1 class="h1">Add New Masseur</h1>
-                        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
-                            aria-expanded="true"><b>Help?</b></span>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="card collapse" id="notes" style="">
-                            <div class="card-body">
-                               <h3 class="NotesHeader"><b>Notes:</b></h3>
-                                <ol>
-                                    <li>Use these help pages for explanations and guidance on managing all of your Masseur
-                                        Photos.</li>
-                                    <li>You can upload four photos for each Masseur. Designate one as the Masseur’s
-                                        Thumbnail.</li>
-                                    <li>Activate up to eight Masseur Profiles at any one time to appear the Massage Centre
-                                        Profile.</li>
-                                </ol>
+                    <!-- About The Masseur -->
+                    <div class="mcc-form-tab">
+                        <h2 class="mcc-heading">About The Masseur</h2>
+                        <div class="business-info-field pt-4">
+                            <!-- Personal Info -->
+                            <div class="form-group business-field">
+                                <label for="name" class="mb-1">Name</label>
+                                <input type="text" id="name" name="name"
+                                    class="form-control rounded-0" placeholder="Enter Name" required>
+                            </div>
+                            <div class="form-group business-field">
+                                <label for="stage_name" class="mb-1">Stage Name</label>
+                                <input type="text" id="stage_name" name="stage_name"
+                                    class="form-control rounded-0" placeholder="Enter Stage Name" required>
+                            </div>
+                            <div class="form-group business-field">
+                                <label for="mobile" class="mb-1">Mobile</label>
+                                <input type="text" id="mobile" name="mobile" data-ajax="phone"
+                                    class="form-control rounded-0 allow_only_numeric" maxlength="10" minlength="10" placeholder="Enter Mobile" required>
+                            </div>
+
+
+                            <div class="form-group business-field">
+                                <label for="nationality" class="mb-1">Nationality</label>
+                                @php
+                                    $countrys = getCountryList();
+                                @endphp
+                                <select id="nationality" name="nationality" class="form-control rounded-0"
+                                    required>
+                                    <option value="">-Not Set-</option>
+                                    @if (count($countrys) > 0)
+                                        @foreach ($countrys as $ckey => $cname)
+                                            <option value="{{ old('nationality_id', $ckey) }}">
+                                                {{ $cname }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+
+
+                            <div class="form-group business-field">
+                                <label for="ethnicity" class="mb-1">Ethnicity</label>
+                                <select id="ethnicity" name="ethnicity" class="form-control rounded-0" required>
+                                    <option value="">-Not Set-</option>
+                                    @foreach (config('escorts.profile.ethnicities') as $key => $ethnicity)
+                                        <option value="{{ $key }}"> {{ $ethnicity }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group business-field">
+                                <label for="age" class="mb-1">Age</label>
+                                <input type="text" id="age" name="age" data-type="number"
+                                    data-regex="^(1[89]|[2-9][0-9])$" data-min="18" data-max-length="2"
+                                    data-label="Age" class="form-control rounded-0" placeholder="Enter Age"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="label">Vaccination</label>
+                                <div class="d-flex justify-content-start gap-10">
+                                    <div class="form-check">
+                                            <label class="form-check-label">
+                                        <input for="form-check-label" class="form-check-input" type="radio" name="vaccination"
+                                            value="1" required data-label="Vaccination">
+                                        
+                                            Vaccinated, not up to date
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                            <label class="form-check-label">
+                                        <input for="form-check-label" class="form-check-input" type="radio" name="vaccination"
+                                            value="2">
+                                        
+                                            Vaccinated, up to date
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                            <label class="form-check-label">
+                                        <input for="form-check-label" class="form-check-input" type="radio" name="vaccination"
+                                            value="3">
+                                        
+                                            Not Vaccinated
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <!-- Commentary -->
+                                <div class="form-group">
+                                    <label for="commentary" class="label">Commentary</label>
+                                    <textarea id="commentary" name="commentary" class="form-control rounded-0" placeholder="Commentary (max 300 words)"
+                                        rows="3"></textarea>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
+                        <div class="row">
+                            <div class="col-sm-12">                                
+                                <div class="form-group">
+                                    <label class="label">Services</label>
+                                    <div class="d-flex justify-content-start gap-10">
+                                        <div class="form-check">
+                                            @if(!isPriceValid($default_duration['massage_price']))
+                                            <input class="form-check-input" type="checkbox"  required data-label="Vaccination" disabled name="service[]" value="massage" >
+                                            @else
+                                            <input class="form-check-input" type="checkbox"  required data-label="Vaccination" checked name="service[]" value="massage" >
+                                            @endif
 
-
-
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="add-mcc-section">
-
-
-                            <form id="masseur_frm" name="masseur_frm" method="Post">
-
-                                <!-- About The Masseur -->
-                                <div class="mcc-form-tab">
-                                    <h2 class="mcc-heading">About The Masseur</h2>
-                                    <div class="business-info-field pt-4">
-                                        <!-- Personal Info -->
-                                        <div class="form-group business-field">
-                                            <label for="name" class="mb-1">Name</label>
-                                            <input type="text" id="name" name="name"
-                                                class="form-control rounded-0" placeholder="Enter Name" required>
+                                            <label class="form-check-label">
+                                                Massage
+                                            </label>
                                         </div>
-                                        <div class="form-group business-field">
-                                            <label for="stage_name" class="mb-1">Stage Name</label>
-                                            <input type="text" id="stage_name" name="stage_name"
-                                                class="form-control rounded-0" placeholder="Enter Stage Name" required>
-                                        </div>
-                                        <div class="form-group business-field">
-                                            <label for="mobile" class="mb-1">Mobile</label>
-                                            <input type="text" id="mobile" name="mobile" data-ajax="phone"
-                                                class="form-control rounded-0 allow_only_numeric" maxlength="10" minlength="10" placeholder="Enter Mobile" required>
-                                        </div>
+                                        <div class="form-check">
 
-
-                                        <div class="form-group business-field">
-                                            <label for="nationality" class="mb-1">Nationality</label>
-                                            @php
-                                                $countrys = getCountryList();
-                                            @endphp
-                                            <select id="nationality" name="nationality" class="form-control rounded-0"
-                                                required>
-                                                <option value="">-Not Set-</option>
-                                                @if (count($countrys) > 0)
-                                                    @foreach ($countrys as $ckey => $cname)
-                                                        <option value="{{ old('nationality_id', $ckey) }}">
-                                                            {{ $cname }}</option>
-                                                    @endforeach
+                                            @if(!isPriceValid($default_duration['incall_price']))
+                                            <input class="form-check-input" type="checkbox" disabled  name="service[]" value="2_hand"
+                                                value="2">
+                                            @else
+                                            <input class="form-check-input" type="checkbox"  name="service[]" value="2_hand"
+                                                value="2" >
                                                 @endif
-                                            </select>
+
+                                            <label class="form-check-label">
+                                                +2 Hands
+                                            </label>
                                         </div>
+                                        <div class="form-check">
+                                            @if(!isPriceValid($default_duration['outcall_price']))
+                                            <input class="form-check-input" type="checkbox" disabled name="service[]"  value="4_hand"
+                                                value="3">
+                                            @else
+                                                <input class="form-check-input" type="checkbox"  name="service[]"  value="4_hand"
+                                                value="3" >
+                                            @endif    
 
-
-                                        <div class="form-group business-field">
-                                            <label for="ethnicity" class="mb-1">Ethnicity</label>
-                                            <select id="ethnicity" name="ethnicity" class="form-control rounded-0" required>
-                                                <option value="">-Not Set-</option>
-                                                @foreach (config('escorts.profile.ethnicities') as $key => $ethnicity)
-                                                    <option value="{{ $key }}"> {{ $ethnicity }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group business-field">
-                                            <label for="age" class="mb-1">Age</label>
-                                            <input type="text" id="age" name="age" data-type="number"
-                                                data-regex="^(1[89]|[2-9][0-9])$" data-min="18" data-max-length="2"
-                                                data-label="Age" class="form-control rounded-0" placeholder="Enter Age"
-                                                required>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="label">Vaccination</label>
-                                            <div class="d-flex justify-content-start gap-10">
-                                                <div class="form-check">
-                                                     <label class="form-check-label">
-                                                    <input for="form-check-label" class="form-check-input" type="radio" name="vaccination"
-                                                        value="1" required data-label="Vaccination">
-                                                   
-                                                        Vaccinated, not up to date
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                     <label class="form-check-label">
-                                                    <input for="form-check-label" class="form-check-input" type="radio" name="vaccination"
-                                                        value="2">
-                                                   
-                                                        Vaccinated, up to date
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                     <label class="form-check-label">
-                                                    <input for="form-check-label" class="form-check-input" type="radio" name="vaccination"
-                                                        value="3">
-                                                   
-                                                        Not Vaccinated
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-
-                                    
-
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <!-- Commentary -->
-                                            <div class="form-group">
-                                                <label for="commentary" class="label">Commentary</label>
-                                                <textarea id="commentary" name="commentary" class="form-control rounded-0" placeholder="Commentary (max 300 words)"
-                                                    rows="3"></textarea>
-                                            </div>
+                                            <label class="form-check-label">
+                                                +4 Hands.
+                                            </label>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <!-- End About The Masseur -->
 
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                          
-                                            <div class="form-group">
-                                            <label class="label">Services</label>
-                                            <div class="d-flex justify-content-start gap-10">
-                                                <div class="form-check">
-                                                    @if(!isPriceValid($default_duration['massage_price']))
-                                                    <input class="form-check-input" type="checkbox"  required data-label="Vaccination" disabled name="service[]" value="massage" >
-                                                    @else
-                                                    <input class="form-check-input" type="checkbox"  required data-label="Vaccination" checked name="service[]" value="massage" >
-                                                    @endif
+                        <!-- Media -->
+                        {{-- media --}}
+                        <div class="mcc-form-tab">
+                            <h2 class="mcc-heading">Media</h2>
+                            <div class="row">
+                                <div class="col-md-12 my-3 d-flex justify-content-end gap-10">
+                                    <button type="button" class="create-tour-sec dctour" data-toggle="modal"
+                                        data-target="#add_photo_mcc">Add Photos</button>
+                                        <button type="button" disabled id="MediaVerification" class="create-tour-sec dctour verify_timer" data-toggle="modal" data-target="#veryfy_media">Media Verification
+                                            <span class="timer_tooltip"></span>
+                                        </button>
+                                </div>
 
-                                                    <label class="form-check-label">
-                                                        Massage
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-
-                                                    @if(!isPriceValid($default_duration['incall_price']))
-                                                    <input class="form-check-input" type="checkbox" disabled  name="service[]" value="2_hand"
-                                                        value="2">
-                                                    @else
-                                                    <input class="form-check-input" type="checkbox"  name="service[]" value="2_hand"
-                                                        value="2" >
-                                                        @endif
-
-                                                    <label class="form-check-label">
-                                                        +2 Hands
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    @if(!isPriceValid($default_duration['outcall_price']))
-                                                    <input class="form-check-input" type="checkbox" disabled name="service[]"  value="4_hand"
-                                                        value="3">
-                                                    @else
-                                                     <input class="form-check-input" type="checkbox"  name="service[]"  value="4_hand"
-                                                        value="3" >
-                                                    @endif    
-
-                                                    <label class="form-check-label">
-                                                        +4 Hands.
-                                                    </label>
+                                <div class="col-lg-4 col-sm-12">
+                                    <div class="upload-banner p-0">
+                                        <div class="photo-top-header">
+                                            <div class="custom-img-filter-header border-0">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <h3 class="gallery-head">Your Default Images</h3>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        </div>
-                                    </div>
+                                        <div class="row p-3">
+                                            <div class="col-sm-12 masseur_upl_img">
+                                                <div class="thumnail_img">
+                                                    <h4 class="banner-sub-heading my-2">Thumbnail</h4>
+                                                    <div class="plate dvDest mass_verify_icon">
+                                                        <label class="newbtn " data-toggle="modal"
+                                                            data-target="#photo_gallery">
 
-                                    
-
-
-                                    <!-- End About The Masseur -->
-
-                                    <!-- Media -->
-                                    {{-- media --}}
-                                    <div class="mcc-form-tab">
-                                        <h2 class="mcc-heading">Media</h2>
-                                        <div class="row">
-                                            <div class="col-md-12 my-3 d-flex justify-content-end gap-10">
-                                                <button type="button" class="create-tour-sec dctour" data-toggle="modal"
-                                                    data-target="#add_photo_mcc">Add Photos</button>
-                                                    <button type="button" disabled id="MediaVerification" class="create-tour-sec dctour verify_timer" data-toggle="modal" data-target="#veryfy_media">Media Verification
-                                                        <span class="timer_tooltip"></span>
-                                                    </button>
-                                            </div>
-
-                                            
-
-                                            <div class="col-lg-4 col-sm-12">
-                                                <div class="upload-banner p-0">
-                                                    <div class="photo-top-header">
-                                                        <div class="custom-img-filter-header border-0">
-                                                            <div class="row">
-                                                                <div class="col-lg-12">
-                                                                    <h3 class="gallery-head">Your Default Images</h3>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row p-3">
-                                                        <div class="col-sm-12 masseur_upl_img">
-                                                            <div class="thumnail_img">
-                                                                <h4 class="banner-sub-heading my-2">Thumbnail</h4>
-                                                                <div class="plate dvDest mass_verify_icon">
-                                                                    <label class="newbtn " data-toggle="modal"
-                                                                        data-target="#photo_gallery">
-
-                                                                        
-                                                                        <img class="w-100 gal-thumb-first upld-img profile-gallery"
-                                                                            id="img1"
-                                                                            src="{{ asset('assets/app/img/mcc-default-thumbnail.png') }}"
-                                                                            data-position=1
-                                                                            onclick="positionToUpdate(1)" data-type="gallery">
-                                                                            
-                                                                    </label>
-                                                                    <div class="mass_lg_icon" id="verify_icon_1" style="display:none;">
-                                                                                <img src="{{ asset('assets/app/img/verify/e4u_pending_REV.png')}}">
-                                                                                <span class="mass_tooltip">Media Pending</span>
-                                                                            </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="gal_img">
-                                                                <h4 class="banner-sub-heading my-2">Gallery Images</h4>
-                                                                <div class="masseur_gallery">
-                                                                    <div class="plate dvDest mass_verify_icon">
-                                                                        <label class="newbtn" data-toggle="modal"
-                                                                            data-target="#photo_gallery">
-                                                                            <img class="upld-img profile-gallery"
-                                                                                id="img2" data-position=2  src="{{ asset('assets/app/img/frame-main-thum.png') }}"
-                                                                                onclick="positionToUpdate(2)" data-type="gallery">
-                                                                        </label>
-                                                                        
-                                                                                <div class="mass_sm_icon" id="verify_icon_2"  style="display:none;">
-                                                                                    <img src="{{ asset('assets/app/img/verify/e4u_pending-icon_REV.png')}}">
-                                                                                    <span class="mass_sm_tooltip">Media Pending</span>
-                                                                                </div>
-                                                                    </div>
-                                                                    <div class="plate dvDest mass_verify_icon">
-                                                                        <label class="newbtn" data-toggle="modal"
-                                                                            data-target="#photo_gallery">
-                                                                            <img class="upld-img profile-gallery"
-                                                                                id="img3"src="{{ asset('assets/app/img/frame-main-thum.png') }}"
-                                                                                data-position=3
-                                                                                onclick="positionToUpdate(3)" data-type="gallery">
-                                                                        </label>
-                                                                        
-                                                                                <div class="mass_sm_icon" id="verify_icon_3"  style="display:none;">
-                                                                                    <img src="{{ asset('assets/app/img/verify/e4u_pending-icon_REV.png')}}">
-                                                                                    <span class="mass_sm_tooltip">Media Pending</span>
-                                                                                </div>
-                                                                    </div>
-                                                                    <div class="plate dvDest mass_verify_icon">
-                                                                        <label class="newbtn" data-toggle="modal"
-                                                                            data-target="#photo_gallery">
-                                                                            <img class="upld-img profile-gallery"
-                                                                                id="img4"src="{{ asset('assets/app/img/frame-main-thum.png') }}"
-                                                                                data-position=4
-                                                                                onclick="positionToUpdate(4)" data-type="gallery">
-                                                                                
-                                                                        </label>
-                                                                        <div class="mass_sm_icon" id="verify_icon_4"  style="display:none;">
-                                                                            <img src="{{ asset('assets/app/img/verify/e4u_pending-icon_REV.png')}}">
-                                                                            <span class="mass_sm_tooltip">Media Pending</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-
-                                            <div class="col-lg-8 col-sm-12" id="js_profile_media_gallery">
-                                                <div class="photo-top-header">
-                                                    <div class="photo-header custom-photo-header">
-                                                        <div class="modal-header border-0 p-0"
-                                                            style="display: block;position: relative;top: 30%;">
-                                                            <div class="row">
-                                                                <div class="col-md-8">
-                                                                    <ul class="nav nav-tabs border-0" id="escort_profile_media_filter_type">
-                                                                        <li class="nav-item">
-                                                                            <a class="nav-link active" data-filter-type="all" id="menu_all"
-                                                                                data-toggle="tab" href="#home">All</a>
-                                                                        </li>
-                                                                        <li class="nav-item">
-                                                                            <a class="nav-link" data-filter-type="verified" id="menu_varified" data-toggle="tab"
-                                                                                href="#menu1">Verified</a>
-                                                                        </li>
-                                                                        <li class="nav-item">
-                                                                            <a class="nav-link" data-filter-type="unverified" id="menu_unverified" data-toggle="tab"
-                                                                                href="#menu2">Unverified</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div class="col-md-2 pt-1">
-                                                                    <div class="progress">
-                                                                        <div class="progress-bar bg-success"
-                                                                            role="progressbar"
-                                                                            style="width: {{ 0 * 3.3 }}%"
-                                                                            aria-valuenow="25" aria-valuemin="0"
-                                                                            aria-valuemax="100">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-2">
-                                                                    <div style="display: flex;gap: 15px;">
-                                                                        <p>0/30</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="custom-img-filter-header">
-                                                        <div class="row">
-                                                            <ul class="nav nav-tabs border-0 js_gallery_category">
-
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link active" data-type="gallery"
-                                                                        data-toggle="tab" href="#Gallery">Gallery</a>
-                                                                </li>
-                                                                <!-- <li class="nav-item">
-                                                                    <a class="nav-link" data-type="banner" data-toggle="tab"
-                                                                        href="#Banner">Banner</a>
-                                                                </li> -->
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="archive-photo-sec">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div id="pagination-container"></div>
                                                             
-                                                            <div id="carouselExampleIndicators" class="carousel slide"
-                                                                data-bs-wrap="false" data-bs-ride="carousel">
-
-                                                                <ul class="pagination ml-2 pl-1">
-                                                                   
-                                                                    <li class="page-item preview">
-                                                                      
-                                                                        <a class="page-link"
-                                                                            href="#carouselExampleIndicators"
-                                                                            id="preId">‹‹</a>
-
-                                                                    </li>
-
-                                                                    <li class="page-item nextOne">
-                                                                        <a class="page-link"
-                                                                            href="#carouselExampleIndicators"
-                                                                            id="nextId">››</a>
-                                                                    </li>
-                                                                </ul>
-                                                                <div class="container pt-2"
-                                                                    style="padding-left: 0.75rem;padding-right: 0.75rem;">
-                                                                    <div class="carousel-inner" id="view_all">
-
-                                                                    </div>
-                                                                   
+                                                            <img class="w-100 gal-thumb-first upld-img profile-gallery"
+                                                                id="img1"
+                                                                src="{{ asset('assets/app/img/mcc-default-thumbnail.png') }}"
+                                                                data-position=1
+                                                                onclick="positionToUpdate(1)" data-type="gallery">
+                                                                
+                                                        </label>
+                                                        <div class="mass_lg_icon" id="verify_icon_1" style="display:none;">
+                                                                    <img src="{{ asset('assets/app/img/verify/e4u_pending_REV.png')}}">
+                                                                    <span class="mass_tooltip">Media Pending</span>
                                                                 </div>
+                                                    </div>
+                                                </div>
+                                                <div class="gal_img">
+                                                    <h4 class="banner-sub-heading my-2">Gallery Images</h4>
+                                                    <div class="masseur_gallery">
+                                                        <div class="plate dvDest mass_verify_icon">
+                                                            <label class="newbtn" data-toggle="modal"
+                                                                data-target="#photo_gallery">
+                                                                <img class="upld-img profile-gallery"
+                                                                    id="img2" data-position=2  src="{{ asset('assets/app/img/frame-main-thum.png') }}"
+                                                                    onclick="positionToUpdate(2)" data-type="gallery">
+                                                            </label>
+                                                            
+                                                                    <div class="mass_sm_icon" id="verify_icon_2"  style="display:none;">
+                                                                        <img src="{{ asset('assets/app/img/verify/e4u_pending-icon_REV.png')}}">
+                                                                        <span class="mass_sm_tooltip">Media Pending</span>
+                                                                    </div>
+                                                        </div>
+                                                        <div class="plate dvDest mass_verify_icon">
+                                                            <label class="newbtn" data-toggle="modal"
+                                                                data-target="#photo_gallery">
+                                                                <img class="upld-img profile-gallery"
+                                                                    id="img3"src="{{ asset('assets/app/img/frame-main-thum.png') }}"
+                                                                    data-position=3
+                                                                    onclick="positionToUpdate(3)" data-type="gallery">
+                                                            </label>
+                                                            
+                                                                    <div class="mass_sm_icon" id="verify_icon_3"  style="display:none;">
+                                                                        <img src="{{ asset('assets/app/img/verify/e4u_pending-icon_REV.png')}}">
+                                                                        <span class="mass_sm_tooltip">Media Pending</span>
+                                                                    </div>
+                                                        </div>
+                                                        <div class="plate dvDest mass_verify_icon">
+                                                            <label class="newbtn" data-toggle="modal"
+                                                                data-target="#photo_gallery">
+                                                                <img class="upld-img profile-gallery"
+                                                                    id="img4"src="{{ asset('assets/app/img/frame-main-thum.png') }}"
+                                                                    data-position=4
+                                                                    onclick="positionToUpdate(4)" data-type="gallery">
+                                                                    
+                                                            </label>
+                                                            <div class="mass_sm_icon" id="verify_icon_4"  style="display:none;">
+                                                                <img src="{{ asset('assets/app/img/verify/e4u_pending-icon_REV.png')}}">
+                                                                <span class="mass_sm_tooltip">Media Pending</span>
                                                             </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-8 col-sm-12" id="js_profile_media_gallery">
+                                    <div class="photo-top-header">
+                                        <div class="photo-header custom-photo-header">
+                                            <div class="modal-header border-0 p-0"
+                                                style="display: block;position: relative;top: 30%;">
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <ul class="nav nav-tabs border-0" id="escort_profile_media_filter_type">
+                                                            <li class="nav-item">
+                                                                <a class="nav-link active" data-filter-type="all" id="menu_all"
+                                                                    data-toggle="tab" href="#home">All</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" data-filter-type="verified" id="menu_varified" data-toggle="tab"
+                                                                    href="#menu1">Verified</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" data-filter-type="unverified" id="menu_unverified" data-toggle="tab"
+                                                                    href="#menu2">Unverified</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-md-2 pt-1">
+                                                        <div class="progress">
+                                                            <div class="progress-bar bg-success"
+                                                                role="progressbar"
+                                                                style="width: {{ 0 * 3.3 }}%"
+                                                                aria-valuenow="25" aria-valuemin="0"
+                                                                aria-valuemax="100">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div style="display: flex;gap: 15px;">
+                                                            <p>0/30</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="custom-img-filter-header">
+                                            <div class="row">
+                                                <ul class="nav nav-tabs border-0 js_gallery_category">
 
-
-
-
-
-
-
-
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" data-type="gallery"
+                                                            data-toggle="tab" href="#Gallery">Gallery</a>
+                                                    </li>
+                                                    <!-- <li class="nav-item">
+                                                        <a class="nav-link" data-type="banner" data-toggle="tab"
+                                                            href="#Banner">Banner</a>
+                                                    </li> -->
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                    <!-- End Media -->
+                                    <div class="archive-photo-sec">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="pagination-container"></div>
+                                                
+                                                <div id="carouselExampleIndicators" class="carousel slide"
+                                                    data-bs-wrap="false" data-bs-ride="carousel">
+
+                                                    <ul class="pagination ml-2 pl-1">
+                                                        
+                                                        <li class="page-item preview">
+                                                            
+                                                            <a class="page-link"
+                                                                href="#carouselExampleIndicators"
+                                                                id="preId">‹‹</a>
+
+                                                        </li>
+
+                                                        <li class="page-item nextOne">
+                                                            <a class="page-link"
+                                                                href="#carouselExampleIndicators"
+                                                                id="nextId">››</a>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="container pt-2"
+                                                        style="padding-left: 0.75rem;padding-right: 0.75rem;">
+                                                        <div class="carousel-inner" id="view_all">
+
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Media -->
 
 
-                                    <!-- My Availability -->
-                                    <div class="mcc-form-tab">
+                        <!-- My Availability -->
+                        <div class="mcc-form-tab">
 
-                                        <h2>My Availability</h2>
-                                        
+                            <h2>My Availability</h2>
+                            
 
-                                        @php
-                                        $days = [
-                                            'monday' => 'Monday',
-                                            'tuesday' => 'Tuesday',
-                                            'wednesday' => 'Wednesday',
-                                            'thursday' => 'Thursday',
-                                            'friday' => 'Friday',
-                                            'saturday' => 'Saturday',
-                                            'sunday' => 'Sunday',
-                                        ];
+                            @php
+                            $days = [
+                                'monday' => 'Monday',
+                                'tuesday' => 'Tuesday',
+                                'wednesday' => 'Wednesday',
+                                'thursday' => 'Thursday',
+                                'friday' => 'Friday',
+                                'saturday' => 'Saturday',
+                                'sunday' => 'Sunday',
+                            ];
 
-                                        // 🔹 Generate 24-hour AM/PM time options
-                                        function generateTimes($start, $end, $selected = '', $minTime = null) {
+                            // 🔹 Generate 24-hour AM/PM time options
+                            function generateTimes($start, $end, $selected = '', $minTime = null) {
 
-                                            $startTime = strtotime($start);
-                                            $endTime   = strtotime($end);
+                                $startTime = strtotime($start);
+                                $endTime   = strtotime($end);
 
-                                            
-                                            if ($end == '12:00 AM') {
-                                                $endTime = strtotime('tomorrow 12:00 AM');
-                                            }
+                                
+                                if ($end == '12:00 AM') {
+                                    $endTime = strtotime('tomorrow 12:00 AM');
+                                }
 
-                                            // fallback safety
-                                            if ($endTime <= $startTime) {
-                                                $endTime = strtotime('+1 day', $endTime);
-                                            }
+                                // fallback safety
+                                if ($endTime <= $startTime) {
+                                    $endTime = strtotime('+1 day', $endTime);
+                                }
 
-                                            $output = '';
+                                $output = '';
 
-                                            for ($time = $startTime; $time <= $endTime; $time += 1800) {
+                                for ($time = $startTime; $time <= $endTime; $time += 1800) {
 
-                                                $formatted = date('h:i A', $time);
+                                    $formatted = date('h:i A', $time);
 
-                                                // skip invalid TO values
-                                                if ($minTime && strtotime($formatted) <= strtotime($minTime)) {
-                                                    continue;
-                                                }
+                                    // skip invalid TO values
+                                    if ($minTime && strtotime($formatted) <= strtotime($minTime)) {
+                                        continue;
+                                    }
 
-                                                $selectedAttr = ($formatted == $selected) ? 'selected' : '';
-                                                $output .= "<option value=\"$formatted\" $selectedAttr>$formatted</option>";
-                                            }
+                                    $selectedAttr = ($formatted == $selected) ? 'selected' : '';
+                                    $output .= "<option value=\"$formatted\" $selectedAttr>$formatted</option>";
+                                }
 
-                                            return $output;
-                                        }
-                                        @endphp
+                                return $output;
+                            }
+                            @endphp
 
 
-                                <div class="row">
+                            <div class="row">
                                 <div class="col-12">
-                                <div class="padding_20_all_side profile_time_availibility">
+                                    <div class="padding_20_all_side profile_time_availibility">
 
                                         @foreach ($days as $dayKey => $dayLabel)
 
@@ -777,354 +745,338 @@ padding: 37px !important;
 
                                             </div>
 
-                                @endforeach
-
-                                </div>
-                                </div>
-                                </div>
-
-
+                                        @endforeach
 
                                     </div>
-                                    <!-- End My Availability -->
+                                </div>
+                            </div>
 
 
-                                    <div class="mcc-form-tab">
-                                        <h2 class="mcc-heading">My Services</h2>
-                                            <div class="row">
 
-                                                <div class="col-md-12 my-3 d-flex justify-content-end gap-10">
-
-                                                        <div class="form-group business-field col-md-6">
-                                                                
-                                                                <label for="exampleFormControlSelect1">Massage services
-                                                                </label>
-                                                                
-                                                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_language_data" id="massage_service" name="massage_service" >
-                                                                    <option value="" selected="">-- Not Set --</option>
-                                                                    @foreach ($massage_default->massage_services()->where('category_id', 1)->get() as $value)
-                                                                
-                                                                    <option value="{{$value->service_id}}"  data-name="{{config('escorts.profile.massage-services')[$value->service_id]  }}">{{config('escorts.profile.massage-services')[$value->service_id]  }}</option>
-                                                                    @endforeach
-                                                                    </select>
+                        </div>
+                        <!-- End My Availability -->
 
 
-                                                                
-                                                                    <div id="show_db_massage_service" class="d-flex"></div>
-                                                                    <div id="show_massage_service" style="display:none"></div>
-                                                                    <div id="container_massage_service"></div>
-                                                                        
+                        <div class="mcc-form-tab">
+                            <h2 class="mcc-heading">My Services</h2>
+                                <div class="row">
+
+                                    <div class="col-md-12 my-3 d-flex justify-content-end gap-10">
+
+                                            <div class="form-group business-field col-md-6">
+                                                    
+                                                    <label for="exampleFormControlSelect1">Massage services
+                                                    </label>
+                                                    
+                                                        <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_language_data" id="massage_service" name="massage_service" >
+                                                        <option value="" selected="">-- Not Set --</option>
+                                                        @foreach ($massage_default->massage_services()->where('category_id', 1)->get() as $value)
+                                                    
+                                                        <option value="{{$value->service_id}}"  data-name="{{config('escorts.profile.massage-services')[$value->service_id]  }}">{{config('escorts.profile.massage-services')[$value->service_id]  }}</option>
+                                                        @endforeach
+                                                        </select>
+
+
+                                                    
+                                                        <div id="show_db_massage_service" class="d-flex"></div>
+                                                        <div id="show_massage_service" style="display:none"></div>
+                                                        <div id="container_massage_service"></div>
                                                             
-                                                        </div>
-
-
-                                                        <div class="form-group business-field col-md-6">
-                                                            
-                                                            <label for="exampleFormControlSelect1">Other service types
-                                                            </label>
-                                                            
-                                                                <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_language_data" id="massage_other_service" name="massage_other_service" >
-                                                                <option value="" selected="">-- Not Set --</option>
-                                                                @foreach ($massage_default->massage_services()->where('category_id', 2)->get() as $value)
-                                                                <option value="{{$value->service_id}}"  data-name="{{config('escorts.profile.other-services')[$value->service_id]  }}">{{config('escorts.profile.other-services')[$value->service_id]  }}</option>
-                                                                @endforeach
-                                                                </select>
-
-
-                                                            
-                                                                <div id="show_db_massage_other_service" class="d-flex"></div>
-                                                                <div id="container_massage_other_service"></div>
-                                                                    
-                                                        
-                                                        </div>
-
-                                                </div>
+                                                
                                             </div>
+
+
+                                            <div class="form-group business-field col-md-6">
+                                                
+                                                <label for="exampleFormControlSelect1">Other service types
+                                                </label>
+                                                
+                                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow update_language_data" id="massage_other_service" name="massage_other_service" >
+                                                    <option value="" selected="">-- Not Set --</option>
+                                                    @foreach ($massage_default->massage_services()->where('category_id', 2)->get() as $value)
+                                                    <option value="{{$value->service_id}}"  data-name="{{config('escorts.profile.other-services')[$value->service_id]  }}">{{config('escorts.profile.other-services')[$value->service_id]  }}</option>
+                                                    @endforeach
+                                                    </select>
+
+
+                                                
+                                                    <div id="show_db_massage_other_service" class="d-flex"></div>
+                                                    <div id="container_massage_other_service"></div>
+                                                        
+                                            
+                                            </div>
+
                                     </div>
+                                </div>
+                        </div>
 
 
 
-                                    <div class="d-flex justify-content-end py-3">
-                                        <input type="hidden" id="make_default" name="make_default" value="0">
-                                        <input type="hidden" name="page_token" id="page_token"
-                                            value="{{ $page_token }}">
-                                        <button type="button" id="submitMasseur" class="btn-common">Create
-                                            Masseur</button>
-                                    </div>
+                        <div class="d-flex justify-content-end py-3">
+                            <input type="hidden" id="make_default" name="make_default" value="0">
+                            <input type="hidden" name="page_token" id="page_token"
+                                value="{{ $page_token }}">
+                            <button type="button" id="submitMasseur" class="btn-common">Create
+                                Masseur</button>
+                        </div>
 
 
 
 
-                                    <div class="modal fade upload-modal" id="upload-sec" tabindex="-1" role="dialog"
-                                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true"
-                                        data-keyboard="false" data-backdrop="static" aria-modal="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLongTitle"> <img
-                                                                src="{{ asset('assets/dashboard/img/banner.png') }}"
-                                                                class="custompopicon">
-                                                            Manage Photos</h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true"><img
-                                                                    src="{{ asset('assets/app/img/cross.png') }}"
-                                                                    class="img-fluid img_resize_in_smscreen"></span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="container p-0">
-                                                                    <div class="row pr-2">
-                                                                        <div class="col-4">
-                                                                            <div class="plate"><label class="newbtn">
+                        <div class="modal fade upload-modal" id="upload-sec" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true"
+                            data-keyboard="false" data-backdrop="static" aria-modal="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle"> <img
+                                                    src="{{ asset('assets/dashboard/img/banner.png') }}"
+                                                    class="custompopicon">
+                                                Manage Photos</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true"><img
+                                                        src="{{ asset('assets/app/img/cross.png') }}"
+                                                        class="img-fluid img_resize_in_smscreen"></span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="container p-0">
+                                                        <div class="row pr-2">
+                                                            <div class="col-4">
+                                                                <div class="plate"><label class="newbtn">
 
-                                                                                    <input name="img[1]" id="pic1"
-                                                                                        data-id="1" class="pis"
-                                                                                        onchange="readURL(this);"
-                                                                                        type="file" accept="image/*">
-                                                                                    <input type="hidden"
-                                                                                        name="position[1]" id="mediaId1">
-                                                                                </label>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-8 pl-0">
-                                                                            <div class="row" style="">
-                                                                                <div class="col-4 pr-0">
-                                                                                    <div class="plate"><label
-                                                                                            class="newbtn">
-
-                                                                                            <input name="img[2]"
-                                                                                                id="pic2"
-                                                                                                data-id="2"
-                                                                                                class="pis"
-                                                                                                onchange="readURL(this);"
-                                                                                                type="file"
-                                                                                                accept="image/*">
-                                                                                            <input type="hidden"
-                                                                                                name="position[2]"
-                                                                                                id="mediaId2">
-                                                                                        </label>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-4 pr-0">
-                                                                                    <div class="plate"><label
-                                                                                            class="newbtn">
-
-                                                                                            <input name="img[3]"
-                                                                                                id="pic3"
-                                                                                                data-id="3"
-                                                                                                class="pis"
-                                                                                                onchange="readURL(this);"
-                                                                                                type="file"
-                                                                                                accept="image/*">
-                                                                                            <input type="hidden"
-                                                                                                name="position[3]"
-                                                                                                id="mediaId3">
-                                                                                        </label>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-4 pr-0">
-                                                                                    <div class="plate"><label
-                                                                                            class="newbtn">
-
-                                                                                            <input name="img[4]"
-                                                                                                id="pic4"
-                                                                                                data-id="4"
-                                                                                                class="pis"
-                                                                                                onchange="readURL(this);"
-                                                                                                type="file"
-                                                                                                accept="image/*">
-                                                                                            <input type="hidden"
-                                                                                                name="position[4]"
-                                                                                                id="mediaId4">
-                                                                                        </label>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-
-                                                                        </div>
-                                                                    </div>
-
+                                                                        <input name="img[1]" id="pic1"
+                                                                            data-id="1" class="pis"
+                                                                            onchange="readURL(this);"
+                                                                            type="file" accept="image/*">
+                                                                        <input type="hidden"
+                                                                            name="position[1]" id="mediaId1">
+                                                                    </label>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-8 pl-0">
+                                                                <div class="row" style="">
+                                                                    <div class="col-4 pr-0">
+                                                                        <div class="plate"><label
+                                                                                class="newbtn">
+
+                                                                                <input name="img[2]"
+                                                                                    id="pic2"
+                                                                                    data-id="2"
+                                                                                    class="pis"
+                                                                                    onchange="readURL(this);"
+                                                                                    type="file"
+                                                                                    accept="image/*">
+                                                                                <input type="hidden"
+                                                                                    name="position[2]"
+                                                                                    id="mediaId2">
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-4 pr-0">
+                                                                        <div class="plate"><label
+                                                                                class="newbtn">
+
+                                                                                <input name="img[3]"
+                                                                                    id="pic3"
+                                                                                    data-id="3"
+                                                                                    class="pis"
+                                                                                    onchange="readURL(this);"
+                                                                                    type="file"
+                                                                                    accept="image/*">
+                                                                                <input type="hidden"
+                                                                                    name="position[3]"
+                                                                                    id="mediaId3">
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-4 pr-0">
+                                                                        <div class="plate"><label
+                                                                                class="newbtn">
+
+                                                                                <input name="img[4]"
+                                                                                    id="pic4"
+                                                                                    data-id="4"
+                                                                                    class="pis"
+                                                                                    onchange="readURL(this);"
+                                                                                    type="file"
+                                                                                    accept="image/*">
+                                                                                <input type="hidden"
+                                                                                    name="position[4]"
+                                                                                    id="mediaId4">
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-
-
-                                        
-
-
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn-success-modal"
-                                                            id="defaultImg">Use Default</button>
-                                                        <button type="button" class="btn-success-modal"
-                                                            id="manageImgId">Save</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
 
 
-                                        
+                            
 
 
-                                    <input type="hidden" name="redirect_page" id="redirect_page" value="0" >
-                            </form>
-
-
-                        </div>
-                    </div>
-
-
-
-                </div>
-
-
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <div class="modal fade upload-modal" id="add_photo_mcc" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <form id="mulitiImage" method="POST" action="{{ route('center.massuers-media-upload-gallery') }}"
-                    enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-content border-0">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle"><img
-                                    src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross">
-                                Upload Photos</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                                        class="img-fluid img_resize_in_smscreen"></span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-lg-12 text-center">
-                                    <label class="newbtn rm">
-
-                                        <img id="blah" class="item"
-                                            src="{{ asset('assets/app/img/add-images.png') }}">
-
-                                        <input name="img[]" id="upload_file" class="pis"
-                                            onchange="preview_image(event);" type="file" multiple accept="image/*">
-                                    </label>
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="photo-sec-popup custom-upload-photo" id="image_preview">
-
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn-success-modal"
+                                                id="defaultImg">Use Default</button>
+                                            <button type="button" class="btn-success-modal"
+                                                id="manageImgId">Save</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                        </div>
-                        <div class="modal-footer">
-                            <input type="hidden" name="page_token" id="page_token" value="{{ $page_token }}">
-                            <!-- <button type="submit" class="btn-success-modal">Verify Media</button> -->
-                            <button type="submit" class="btn-success-modal">Upload</button>
-                        </div>
+
+
+                            
+
+
+                        <input type="hidden" name="redirect_page" id="redirect_page" value="0" >
                     </div>
                 </form>
+            
             </div>
         </div>
     </div>
-
-
-    <div class="modal fade upload-modal" id="photo_gallery" style="display: none">
-        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"><img
-                            src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon"> Select Photo
-                    </h5>
-                    <div class="uploadModalTrigger" style="display: inline-block;position: absolute;right: 300px;">
-                        <button type="button" data-toggle="modal" data-target="#add_photo_mcc"
-                            class="btn-cancel-modal select-Photo" style=" padding: 5px 10px;">Upload from device</button>
+</div>
+<div class="modal fade upload-modal" id="add_photo_mcc" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form id="mulitiImage" method="POST" action="{{ route('center.massuers-media-upload-gallery') }}"
+                enctype="multipart/form-data">
+                @csrf
+                <div class="modal-content border-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle"><img
+                                src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross">
+                            Upload Photos</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                    class="img-fluid img_resize_in_smscreen"></span>
+                        </button>
                     </div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen">
-                        </span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="gallery_modal_container" class="grid-container modalPopup">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <label class="newbtn rm">
 
-                        <!-- @foreach ($media as $keyId => $image)
-                                @if (!in_array($image->position, [9, 10]))
-                                <div class="item4">
-                                                                <img class="img-thumbnail defult-image select_image"
-                                                                    src="{{ asset($image->path) }}" alt=" "
-                                                                    data-id="{{ $image->id }}"
-                                                                    data-position="{{ $image->position ? $image->position : '' }}">
-                                                            </div>
-                                @endif
-                            @endforeach -->
-                    </div>
-                </div>
+                                    <img id="blah" class="item"
+                                        src="{{ asset('assets/app/img/add-images.png') }}">
 
-            </div>
-        </div>
-    </div>
+                                    <input name="img[]" id="upload_file" class="pis"
+                                        onchange="preview_image(event);" type="file" multiple accept="image/*">
+                                </label>
+                            </div>
 
-
-
-    <div class="modal fade upload-modal programmatic" id="update_info" style="display: none">
-        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> <img
-                            src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My
-                        Information</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen">
-                        </span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <form name="update_single_data" method="post" action="{{ route('center.update-single-data') }}">
-                        <input type="hidden" name="post_field" id="post_field" value="">
-                        <input type="hidden" name="post_value" id="post_value" value="">
-
-                        <input type="hidden" name="post_json" id="post_json" value="">
-                        <input type="hidden" name="post_type" id="post_type" value="">
-
-                        <h3 class="my-2"><span id="Lname">
-                                <p>Would you like to update <b>
-                                        <span id="field_name"></span>
-                                    </b> in your 'My Information' page for future Profiles?</p>
-                            </span> </h3>
-                        <div class="modal-footer">
-                            <button type="button" class="btn-cancel-modal gender_alert" data-dismiss="modal"
-                                value="close" id="close_change">No</button>
-                            <button type="button" class="btn-success-modal" id="update_new_value">Yes</button>
                         </div>
-                    </form>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="photo-sec-popup custom-upload-photo" id="image_preview">
 
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="page_token" id="page_token" value="{{ $page_token }}">
+                        <!-- <button type="submit" class="btn-success-modal">Verify Media</button> -->
+                        <button type="submit" class="btn-success-modal">Upload</button>
+                    </div>
                 </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade upload-modal" id="photo_gallery" style="display: none">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><img
+                        src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon"> Select Photo
+                </h5>
+                <div class="uploadModalTrigger" style="display: inline-block;position: absolute;right: 300px;">
+                    <button type="button" data-toggle="modal" data-target="#add_photo_mcc"
+                        class="btn-cancel-modal select-Photo" style=" padding: 5px 10px;">Upload from device</button>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <img src="{{ asset('assets/app/img/newcross.png') }}"
+                            class="img-fluid img_resize_in_smscreen">
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="gallery_modal_container" class="grid-container modalPopup">
+
+                    <!-- @foreach ($media as $keyId => $image)
+                            @if (!in_array($image->position, [9, 10]))
+                            <div class="item4">
+                                                            <img class="img-thumbnail defult-image select_image"
+                                                                src="{{ asset($image->path) }}" alt=" "
+                                                                data-id="{{ $image->id }}"
+                                                                data-position="{{ $image->position ? $image->position : '' }}">
+                                                        </div>
+                            @endif
+                        @endforeach -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade upload-modal programmatic" id="update_info" style="display: none">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> <img
+                        src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My
+                    Information</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <img src="{{ asset('assets/app/img/newcross.png') }}"
+                            class="img-fluid img_resize_in_smscreen">
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form name="update_single_data" method="post" action="{{ route('center.update-single-data') }}">
+                    <input type="hidden" name="post_field" id="post_field" value="">
+                    <input type="hidden" name="post_value" id="post_value" value="">
+
+                    <input type="hidden" name="post_json" id="post_json" value="">
+                    <input type="hidden" name="post_type" id="post_type" value="">
+
+                    <h3 class="my-2"><span id="Lname">
+                            <p>Would you like to update <b>
+                                    <span id="field_name"></span>
+                                </b> in your 'My Information' page for future Profiles?</p>
+                        </span> </h3>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-cancel-modal gender_alert" data-dismiss="modal"
+                            value="close" id="close_change">No</button>
+                        <button type="button" class="btn-success-modal" id="update_new_value">Yes</button>
+                    </div>
+                </form>
+
+
             </div>
         </div>
     </div>
+</div>
 
 
     @include('center.dashboard.modal.remove_gallary_image')

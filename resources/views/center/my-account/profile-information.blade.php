@@ -27,7 +27,6 @@
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <div class="row">
-
         <div class="col-lg-12">
             <div class="d-sm-flex align-items-center justify-content-between">
                 <div class="custom-heading-wrapper">
@@ -64,7 +63,8 @@
                 </div>
             </div>
         </div>
-        
+    </div>
+    <div class="row">
         <div class="col-md-12">
             <div id="accordion" class="myacording-design">
                 <div class="card common-card">
@@ -305,137 +305,138 @@
                 </div>
 
 
-            <div class="card custom-help-contain common-card">
-                <div class="card-header">
-                    <a class="collapsed card-link" data-toggle="collapse" href="#my_service_tags">
-                    Our service (tags)
-                    </a>
-                </div>
-                <div id="my_service_tags" class="collapse" data-parent="#accordion">
-                    <div class="card-body">
-                        <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="profile-tab">
-                            <div class="about_me_drop_down_info ">
-                                <form id="myProfileServiceForm" class="common-form" name="myProfileServiceForm" action="{{route('center.update-massage-profile')}}" method="POST" enctype="multipart/form-data">
-                                    @csrf    
-                                    <div class="row inner-row">
-                                        <div class="col-lg-12">
-                                            <div class="card-top">
-                                                <div class="card-icon">
-                                                    <svg width="64px" height="64px" viewBox="0 0 33 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>tag-2</title> <desc>Created with Sketch Beta.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"> <g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-360.000000, -774.000000)" fill="#ff3c5f"> <path d="M390.097,789.321 C390.097,789.849 389.611,790.623 389.095,791.139 L378.823,801.378 L365.634,788.197 L375.89,777.974 C376.36,777.504 377.111,776.903 377.641,776.903 L389.139,776.903 C389.668,776.903 390.097,777.331 390.097,777.858 L390.097,789.321 L390.097,789.321 Z M375.89,804.304 C375.079,805.111 373.765,805.111 372.955,804.304 L362.684,794.063 C361.873,793.256 361.873,791.946 362.684,791.139 L364.166,789.66 L377.341,802.856 L375.89,804.304 L375.89,804.304 Z M390.097,774.993 L376.683,774.993 C375.624,774.993 375.431,775.455 374.422,776.511 L361.217,789.676 C359.596,791.291 359.596,793.911 361.217,795.526 L371.487,805.767 C373.108,807.382 375.735,807.382 377.356,805.767 L390.563,792.602 C391.412,791.754 392.014,791.332 392.014,790.276 L392.014,776.903 C392.014,775.849 391.155,774.993 390.097,774.993 L390.097,774.993 Z M383.959,786.019 C383.148,786.826 381.835,786.826 381.024,786.019 C380.214,785.211 380.214,783.901 381.024,783.093 C381.835,782.285 383.148,782.285 383.959,783.093 C384.77,783.901 384.77,785.211 383.959,786.019 L383.959,786.019 Z M379.558,781.63 C377.937,783.246 377.937,785.865 379.558,787.481 C381.178,789.097 383.806,789.097 385.427,787.481 C387.047,785.865 387.047,783.246 385.427,781.63 C383.806,780.015 381.178,780.015 379.558,781.63 L379.558,781.63 Z" id="tag-2" sketch:type="MSShapeGroup"> </path> </g> </g> </g></svg>
+                <div class="card custom-help-contain common-card">
+                    <div class="card-header">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#my_service_tags">
+                        Our service (tags)
+                        </a>
+                    </div>
+                    <div id="my_service_tags" class="collapse" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="about_me_drop_down_info ">
+                                    <form id="myProfileServiceForm" class="common-form" name="myProfileServiceForm" action="{{route('center.update-massage-profile')}}" method="POST" enctype="multipart/form-data">
+                                        @csrf    
+                                        <div class="row inner-row">
+                                            <div class="col-lg-12">
+                                                <div class="card-top">
+                                                    <div class="card-icon">
+                                                        <svg width="64px" height="64px" viewBox="0 0 33 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>tag-2</title> <desc>Created with Sketch Beta.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"> <g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-360.000000, -774.000000)" fill="#ff3c5f"> <path d="M390.097,789.321 C390.097,789.849 389.611,790.623 389.095,791.139 L378.823,801.378 L365.634,788.197 L375.89,777.974 C376.36,777.504 377.111,776.903 377.641,776.903 L389.139,776.903 C389.668,776.903 390.097,777.331 390.097,777.858 L390.097,789.321 L390.097,789.321 Z M375.89,804.304 C375.079,805.111 373.765,805.111 372.955,804.304 L362.684,794.063 C361.873,793.256 361.873,791.946 362.684,791.139 L364.166,789.66 L377.341,802.856 L375.89,804.304 L375.89,804.304 Z M390.097,774.993 L376.683,774.993 C375.624,774.993 375.431,775.455 374.422,776.511 L361.217,789.676 C359.596,791.291 359.596,793.911 361.217,795.526 L371.487,805.767 C373.108,807.382 375.735,807.382 377.356,805.767 L390.563,792.602 C391.412,791.754 392.014,791.332 392.014,790.276 L392.014,776.903 C392.014,775.849 391.155,774.993 390.097,774.993 L390.097,774.993 Z M383.959,786.019 C383.148,786.826 381.835,786.826 381.024,786.019 C380.214,785.211 380.214,783.901 381.024,783.093 C381.835,782.285 383.148,782.285 383.959,783.093 C384.77,783.901 384.77,785.211 383.959,786.019 L383.959,786.019 Z M379.558,781.63 C377.937,783.246 377.937,785.865 379.558,787.481 C381.178,789.097 383.806,789.097 385.427,787.481 C387.047,785.865 387.047,783.246 385.427,781.63 C383.806,780.015 381.178,780.015 379.558,781.63 L379.558,781.63 Z" id="tag-2" sketch:type="MSShapeGroup"> </path> </g> </g> </g></svg>
+                                                    </div>
+                                                    <div class="card-heading">
+                                                        <h2>My Services <span class="custom--help"><b>Help?</b></span></h2>
+                                                    </div>
                                                 </div>
-                                                <div class="card-heading">
-                                                    <h2>My Services <span class="custom--help"><b>Help?</b></span></h2>
-                                                </div>
-                                            </div>
-                                            <div class="custom-note-section">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                                        <ol class=" mb-0">
-                                                                        <li>By completing these settings, the information set out under Service Tags will by default
-                                                                        appear in your Profile creator.</li>
-                                                                        <li>Any value you attach to a Service Tag is a separate value and is not included in your
-                                                                            Rates.</li>
-                                                                        <li>You can over ride these settings when creating a Profile, provided you have enabled
-                                                                            the the  <a href="{{ route('centre.notifications-and-features') }}" class="custom_links_design">feature</a>.</li>
-                                                                    </ol>
+                                                <div class="custom-note-section">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                                                            <ol class=" mb-0">
+                                                                            <li>By completing these settings, the information set out under Service Tags will by default
+                                                                            appear in your Profile creator.</li>
+                                                                            <li>Any value you attach to a Service Tag is a separate value and is not included in your
+                                                                                Rates.</li>
+                                                                            <li>You can over ride these settings when creating a Profile, provided you have enabled
+                                                                                the the  <a href="{{ route('centre.notifications-and-features') }}" class="custom_links_design">feature</a>.</li>
+                                                                        </ol>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="inner-field-row">
-                                                <div class="form-group">
-                                                    <label for="exampleFormControlSelect1">Massage services </label>
+                                            <div class="col-lg-12">
+                                                <div class="inner-field-row">
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlSelect1">Massage services </label>
+                                                        
+                                                            <select class="form-control select_tag_remove_box_sadow" id="service_id_one">
+                                                                <option value="" selected="" disable="">--Select--</option>
+                                                                @foreach(config('escorts.profile.massage-services') as $key =>$services)
+                                                                    @if(! in_array($key, $massage_profile->massage_services()->pluck('service_id')->toArray()))
+                                                                        <option id="{{ $services}}" value="{{$key}}" >{{$services}}</option>
+                                                                    @endif
+                                                                @endforeach
+                                                                
+                                                            </select>
+                                                            <div class="manage_tag_style">
+                                                                <ul id="selected_service_one">
+                                                                    {{-- @foreach ($massage_profile->services()->where('category_id', 1)->get() as $value) --}}
+                                                                    @foreach ($massage_profile->massage_services()->where('category_id', 1)->get() as $value)
+                                                                        <li class="mb-2" id="hideenclassOne_{{$value->service_id}}">
+                                                                            <div class='my_service_anal hideenclassOne{{$value->id}}'>
+                                                                                <span class="dollar-sign">
+                                                                                {{config('escorts.profile.massage-services')[$value->service_id]  }}
+                                                                                </span>
+                                                                                <input type='number' class='dollar-before input_border' name='price[]' placeholder='' value="{{ (int) $value->price}}" min=0 step=10 max=200>
+                                                                                <input type='hidden' name='service_id[]' value="{{$value->service_id}}">
+                                                                                <input type="hidden" name="category_id[]" value="{{$value->category_id}}">
+                                                                                <span id="span_id" data-id="{{$value->id}}">
+                                                                                <i class='fas fa-times-circle akh1' id="id_{{$value->id}}" value="{{$value->service_id}}" data-sname="{{config('escorts.profile.massage-services')[$value->service_id]  }}" data-val="{{$value->service_id}}"></i>
+                                                                                </span>
+                                                                            </div>
+                                                                        </li>
+                                                                        @endforeach
+                                                                </ul>
+                                                            </div>    
+                                                        
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlSelect1">Other service types </label>
                                                     
-                                                        <select class="form-control select_tag_remove_box_sadow" id="service_id_one">
+                                                        <select class="form-control  select_tag_remove_box_sadow" id="service_id_two">
                                                             <option value="" selected="" disable="">--Select--</option>
-                                                            @foreach(config('escorts.profile.massage-services') as $key =>$services)
+                                                            @foreach(config('escorts.profile.other-services') as $key =>$services)
                                                                 @if(! in_array($key, $massage_profile->massage_services()->pluck('service_id')->toArray()))
                                                                     <option id="{{ $services}}" value="{{$key}}" >{{$services}}</option>
                                                                 @endif
                                                             @endforeach
                                                             
                                                         </select>
-                                                        <div class="manage_tag_style">
-                                                            <ul id="selected_service_one">
-                                                                {{-- @foreach ($massage_profile->services()->where('category_id', 1)->get() as $value) --}}
-                                                                @foreach ($massage_profile->massage_services()->where('category_id', 1)->get() as $value)
-                                                                    <li class="mb-2" id="hideenclassOne_{{$value->service_id}}">
-                                                                        <div class='my_service_anal hideenclassOne{{$value->id}}'>
+                                                        <div class="manage_tag_style">                                                            
+                                                            <ul id="selected_service_two">
+                                                                @foreach ($massage_profile->massage_services()->where('category_id', 2)->get() as $value)
+                                                                    <li class="mb-2" id="hideenclassTwo_{{$value->service_id}}">
+                                                                        <div class='my_service_anal hideenclassTwo{{$value->id}}'>
                                                                             <span class="dollar-sign">
-                                                                            {{config('escorts.profile.massage-services')[$value->service_id]  }}
+                                                                            {{config('escorts.profile.other-services')[$value->service_id]  }}
                                                                             </span>
                                                                             <input type='number' class='dollar-before input_border' name='price[]' placeholder='' value="{{ (int) $value->price}}" min=0 step=10 max=200>
                                                                             <input type='hidden' name='service_id[]' value="{{$value->service_id}}">
                                                                             <input type="hidden" name="category_id[]" value="{{$value->category_id}}">
                                                                             <span id="span_id" data-id="{{$value->id}}">
-                                                                            <i class='fas fa-times-circle akh1' id="id_{{$value->id}}" value="{{$value->service_id}}" data-sname="{{config('escorts.profile.massage-services')[$value->service_id]  }}" data-val="{{$value->service_id}}"></i>
+                                                                            <i class='fas fa-times-circle akh2' id="id_{{$value->id}}" value="{{$value->service_id}}" data-sname="{{config('escorts.profile.other-services')[$value->service_id]  }}" data-val="{{$value->service_id}}"></i>
                                                                             </span>
                                                                         </div>
                                                                     </li>
                                                                     @endforeach
                                                             </ul>
-                                                        </div>    
-                                                    
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleFormControlSelect1">Other service types </label>
-                                                
-                                                    <select class="form-control  select_tag_remove_box_sadow" id="service_id_two">
-                                                        <option value="" selected="" disable="">--Select--</option>
-                                                        @foreach(config('escorts.profile.other-services') as $key =>$services)
-                                                            @if(! in_array($key, $massage_profile->massage_services()->pluck('service_id')->toArray()))
-                                                                <option id="{{ $services}}" value="{{$key}}" >{{$services}}</option>
-                                                            @endif
-                                                        @endforeach
-                                                        
-                                                    </select>
-                                                    <div class="manage_tag_style">                                                            
-                                                        <ul id="selected_service_two">
-                                                            @foreach ($massage_profile->massage_services()->where('category_id', 2)->get() as $value)
-                                                                <li class="mb-2" id="hideenclassTwo_{{$value->service_id}}">
-                                                                    <div class='my_service_anal hideenclassTwo{{$value->id}}'>
-                                                                        <span class="dollar-sign">
-                                                                        {{config('escorts.profile.other-services')[$value->service_id]  }}
-                                                                        </span>
-                                                                        <input type='number' class='dollar-before input_border' name='price[]' placeholder='' value="{{ (int) $value->price}}" min=0 step=10 max=200>
-                                                                        <input type='hidden' name='service_id[]' value="{{$value->service_id}}">
-                                                                        <input type="hidden" name="category_id[]" value="{{$value->category_id}}">
-                                                                        <span id="span_id" data-id="{{$value->id}}">
-                                                                        <i class='fas fa-times-circle akh2' id="id_{{$value->id}}" value="{{$value->service_id}}" data-sname="{{config('escorts.profile.other-services')[$value->service_id]  }}" data-val="{{$value->service_id}}"></i>
-                                                                        </span>
-                                                                    </div>
-                                                                </li>
-                                                                @endforeach
-                                                        </ul>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12 text-right common-footer">
-                                            <input type="hidden" name="type" id="type" value="service">
-                                            <input type="hidden" name="massage_id" id="massage_id" value="{{$massage_profile->id}}">
-                                            <button id="read-more" type="submit" class="save_profile_btn common-save-btn">Update</button>
+                                        <div class="row">
+                                            <div class="col-md-12 text-right common-footer">
+                                                <input type="hidden" name="type" id="type" value="service">
+                                                <input type="hidden" name="massage_id" id="massage_id" value="{{$massage_profile->id}}">
+                                                <button id="read-more" type="submit" class="save_profile_btn common-save-btn">Update</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card custom-help-contain common-card">
-                <div class="card-header">
-                    <a class="collapsed card-link" data-toggle="collapse" href="#my_social_media">
-                        Our Social Media
-                    </a>
-                </div>
-                <div id="my_social_media" class="collapse" data-parent="#accordion">
-                    <div class="card-body ">                                
-                        @include('center.my-account.partials.social-media-dash-tab')
+                <div class="card custom-help-contain common-card">
+                    <div class="card-header">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#my_social_media">
+                            Our Social Media
+                        </a>
+                    </div>
+                    <div id="my_social_media" class="collapse" data-parent="#accordion">
+                        <div class="card-body ">                                
+                            @include('center.my-account.partials.social-media-dash-tab')
+                        </div>
                     </div>
                 </div>
             </div>

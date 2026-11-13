@@ -133,7 +133,7 @@
             <div class="col-lg-12">
                 <div class="d-sm-flex align-items-center justify-content-between">
                     <div class="custom-heading-wrapper">
-                        <h1 class="h1">Photos</h1>
+                        <h1 class="h1">Photos </h1>
                         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true">
                             <b>Help?</b></span>
                     </div>
@@ -148,38 +148,39 @@
             </div>
             <div class="col-md-12">
                 <div class="card collapse" id="notes">
-                        <div class="card-body">
-                            <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                            <ol>
-                                <li>Upload your photos here (up to 30) and then select your default images including your
-                                    Thumbnail, other photos (up to six portrait) and your Banner Image (landscape)
-                                    (<b>Default Images</b>).</li>
-                                <li>Your Default Images will always appear in the Profile Creator when you activate the
-                                    Profile Creator (for a new Profile). If you change any of the Default Images in the
-                                    Profile Creator, like when you are creating a second Profile for the same Location, you
-                                    will be asked if you want to update your changes to the Default Images.</li>
-                                <li>When uploading your Photos, make sure they comply with our <a
-                                        href="/escort-dashboard/help" class="custom_links_design">Profile Image</a>
-                                    guidelines, especially in terms of the pixilation and the size of the photo.</li>
-                                <li>If you don't upload a Banner Image (which is located at the top of your Profile), you
-                                    can select a template image from the list (<b>Template</b>). There is a range of
-                                    Templates to suit every situation, although we do encourage you to upload your own
-                                    Banner. Remember, it is a landscape image and you can include a montage.</li>
-                                <li>
-                                    <ol class="level-2">
-                                        <li>Uploaded Media will by default be labelled 'Pending' verification. If you List a
-                                            Profile without having verified your Media, your Default Images verification
-                                            status will be displayed as Pending. </li>
-                                            <li>You must provide your Media Verification within 48 hours of having uploaded any Media otherwise your Media Verification status for all Media will change to Unverified and the appropriate icon will be displayed on your Listed Profile.</li>
-                                            <li>Masseur Media is treated independently of your Default Images.  Any Masseur who has had their Media verified will display the E4U Verified icon, regardless of the Member's Media Verification status.</li>
-                                    </ol>
-                                </li>
-                            </ol>
-                        </div>
+                    <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol>
+                            <li>Upload your photos here (up to 30) and then select your default images including your
+                                Thumbnail, other photos (up to six portrait) and your Banner Image (landscape)
+                                (<b>Default Images</b>).</li>
+                            <li>Your Default Images will always appear in the Profile Creator when you activate the
+                                Profile Creator (for a new Profile). If you change any of the Default Images in the
+                                Profile Creator, like when you are creating a second Profile for the same Location, you
+                                will be asked if you want to update your changes to the Default Images.</li>
+                            <li>When uploading your Photos, make sure they comply with our <a
+                                    href="/escort-dashboard/help" class="custom_links_design">Profile Image</a>
+                                guidelines, especially in terms of the pixilation and the size of the photo.</li>
+                            <li>If you don't upload a Banner Image (which is located at the top of your Profile), you
+                                can select a template image from the list (<b>Template</b>). There is a range of
+                                Templates to suit every situation, although we do encourage you to upload your own
+                                Banner. Remember, it is a landscape image and you can include a montage.</li>
+                            <li>
+                                <ol class="level-2">
+                                    <li>Uploaded Media will by default be labelled 'Pending' verification. If you List a
+                                        Profile without having verified your Media, your Default Images verification
+                                        status will be displayed as Pending. </li>
+                                        <li>You must provide your Media Verification within 48 hours of having uploaded any Media otherwise your Media Verification status for all Media will change to Unverified and the appropriate icon will be displayed on your Listed Profile.</li>
+                                        <li>Masseur Media is treated independently of your Default Images.  Any Masseur who has had their Media verified will display the E4U Verified icon, regardless of the Member's Media Verification status.</li>
+                                </ol>
+                            </li>
+                        </ol>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row">    
+
+        <div class="row"> 
             
             <div class="col-md-12 mb-3 d-flex justify-content-end gap-10">
                 <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add
@@ -210,6 +211,7 @@
                 </button>
             </div>
         </div>
+
         <div class="row">
             <div class="col-lg-4">
                 <div class="upload-photo-sec">
@@ -247,8 +249,7 @@
                                                     $status =  $media_details->varified ?? 0;
                                                     $status_icon = getMediaVerificationDataBigIcon($status);
                                                 }
-                                            @endphp
-]                                                
+                                            @endphp                                               
                                             <div class="lg_verify_icon" id="verify_icon_1"
                                                     style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                                 @if(!empty($imageData['id']))
@@ -630,6 +631,7 @@
             </div>
 
         </div>
+    </div>
         <div class="modal delete" id="pesrmissionModal" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">

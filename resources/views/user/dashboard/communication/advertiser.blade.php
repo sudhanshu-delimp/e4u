@@ -19,9 +19,6 @@
 </style>
 @endsection
 @section('content')
-<div id="wrapper">
-    <div id="content-wrapper" class="d-flex flex-column">
-        <div id="content">
             <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
                 <!--middle content start here-->
                 <!-- Page Heading -->
@@ -49,9 +46,6 @@
                 </div>
                 <!--middle content end here-->
             </div>
-        </div>
-    </div>
-</div>
 @include('escort.dashboard.partials.playmates-modal')
 @endsection
 @push('script')

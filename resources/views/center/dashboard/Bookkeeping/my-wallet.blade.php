@@ -221,7 +221,7 @@
 
         </div>
     </div>
-</div>
+
 
 <!-- Modal -->
 <div class="modal fade upload-modal" id="confirmModal" tabindex="-1" role="dialog"

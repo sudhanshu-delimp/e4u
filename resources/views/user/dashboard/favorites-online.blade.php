@@ -3,74 +3,74 @@
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-    
-  <!-- Page Heading -->
 
-  <div class="row">
-    <div class="col-md-12 custom-heading-wrapper justify-content-between">
-       <div class="d-flex align-items-center">
-        <h1 class="h1">Favorites Online</h1>
-        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
-       </div>
-        
-        <div class="back-to-dashboard">
-            <a href="{{ url()->previous() ?? route('user-dashboard') }}">
-                <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
-            </a>
+    <!-- Page Heading -->
+
+    <div class="row">
+        <div class="col-md-12 custom-heading-wrapper justify-content-between">
+            <div class="d-flex align-items-center">
+                <h1 class="h1">Favorites Online</h1>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+            </div>
+
+            <div class="back-to-dashboard">
+                <a href="{{ url()->previous() ?? route('user-dashboard') }}">
+                    <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+                </a>
+            </div>
+        </div>
+        <div class="col-md-12 mb-4">
+            <div class="card collapse" id="notes" style="">
+                <div class="card-body">
+                    <h3 class="NotesHeader"><b>Notes:</b></h3>
+
+                    <ol>
+                        <li>This report summarises how may of your Legbox Advertisers are in or outside your Location presently.</li>
+                        <li>Massage Centres will always be tallied as in your Location, unless you are outside your Location on the day.</li>
+                    </ol>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12 mb-4">
-        <div class="card collapse" id="notes" style="">
-           <div class="card-body">
-             <h3 class="NotesHeader"><b>Notes:</b></h3>
-              
-              <ol> 
-                <li>This report summarises how may of your Legbox Advertisers are in or outside your Location presently.</li>                   
-                <li>Massage Centres will always be tallied as in your Location, unless you are outside your Location on the day.</li>                   
-              </ol>
-           </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <!-- Followers Online (Legbox) -->
+    <div class="row">
+        <!-- Followers Online (Legbox) -->
         <div class="col-md-6 mb-4 ">
-        <div class="table-responsive common-card">
-            <table class="table table-bordered">
-            <thead style="background-color: #0C223D; color: #ffffff;">
-                <tr><th colspan="3" class="text-center">Escorts Online (Legbox)</th></tr>
-            </thead>
-            <tbody>
-                <tr>
-                <td class="icon-col"><i class="fas fa-map-marker-alt"></i></td>
-                <td>In my Location</td>
-                <td class="text-center">{{$result['same_state_count'] ?? 0}}</td>
-                </tr>
-                <tr>
-                <td class="icon-col"><i class="fas fa-globe"></i></td>
-                <td>Outside my Location</td>
-                <td class="text-center" style="border-bottom: 2px solid">{{$result['outside_state_count'] ?? 0}}</td>
-                </tr>
-                <tr>
-                <td class="icon-col"><i class="fas fa-wifi"></i>
-                </td>
-                <td class="text-right font-weight-bold">Online : </td>
-                <td class="text-center font-weight-bold">{{$result['total_count']}}</td>
-                </tr>
-                <tr>
-                <td class="icon-col"><i class="fas fa-kiss-wink-heart"></i>
+            <div class="table-responsive common-card">
+                <table class="table table-bordered">
+                    <thead style="background-color: #0C223D; color: #ffffff;">
+                        <tr>
+                            <th colspan="3" class="text-center">Escorts Online (Legbox)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="icon-col"><i class="fas fa-map-marker-alt"></i></td>
+                            <td>In my Location</td>
+                            <td class="text-center">{{$result['same_state_count'] ?? 0}}</td>
+                        </tr>
+                        <tr>
+                            <td class="icon-col"><i class="fas fa-globe"></i></td>
+                            <td>Outside my Location</td>
+                            <td class="text-center" style="border-bottom: 2px solid">{{$result['outside_state_count'] ?? 0}}</td>
+                        </tr>
+                        <tr>
+                            <td class="icon-col"><i class="fas fa-wifi"></i>
+                            </td>
+                            <td class="text-right font-weight-bold">Online : </td>
+                            <td class="text-center font-weight-bold">{{$result['total_count']}}</td>
+                        </tr>
+                        <tr>
+                            <td class="icon-col"><i class="fas fa-kiss-wink-heart"></i>
 
-                </td>
-                <td class="font-weight-bold">Total Legbox</td>
-                <td class="text-center font-weight-bold">{{$result['total_legbox_count'] ?? 0}}</td>
-                </tr>
-            </tbody>
-            </table>
+                            </td>
+                            <td class="font-weight-bold">Total Legbox</td>
+                            <td class="text-center font-weight-bold">{{$result['total_legbox_count'] ?? 0}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        </div>
+    </div>
 </div>
 
 @endsection

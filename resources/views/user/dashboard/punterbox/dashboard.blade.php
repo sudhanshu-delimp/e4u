@@ -55,8 +55,6 @@
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-    <!--middle content start here-->
-    <!-- Page Heading -->
     <div class="row">
 
         <div class="d-sm-flex align-items-center justify-content-between col-md-12">
@@ -72,8 +70,8 @@
             </div>
             @endif
         </div>
-        <div class="col-md-12 mb-4">
-            <div class="card collapse" id="notes" style="">
+        <div class="col-md-12">
+            <div class="card collapse" id="notes">
                 <div class="card-body">
                    <h3 class="NotesHeader"><b>Notes:</b></h3>
                     <ol>
@@ -94,12 +92,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Page Heading -->
-
-        <div class="col-md-12 common-card">
-
-            <div class="table-responsive">
+         <div class="col-md-12 ">
+            <div class="table-responsive common-card">
                 <table id="myReportListTable" class="table">
                     <thead class="bg-first">
                         <tr>
@@ -116,7 +110,8 @@
                 </table>
             </div>
         </div>
-    <!--middle content end here-->
+    </div>
+       
 </div>
 @endsection
 @push('script')

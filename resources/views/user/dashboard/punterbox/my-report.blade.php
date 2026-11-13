@@ -1,40 +1,38 @@
 @extends('layouts.userDashboard')
 @section('style')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
-    <style type="text/css">
-        .parsley-errors-list {
-            list-style: none;
-            color: rgb(248, 0, 0)
-        }
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
+<style type="text/css">
+    .parsley-errors-list {
+        list-style: none;
+        color: rgb(248, 0, 0)
+    }
 
-        .details-row {
-            background-color: #f9f9f9;
-        }
+    .details-row {
+        background-color: #f9f9f9;
+    }
 
-        .details-row th {
-            color: var(--blue--text);
-            font-weight: bold;
-        }
+    .details-row th {
+        color: var(--blue--text);
+        font-weight: bold;
+    }
 
-        .table td,
-        .table th {
-            vertical-align: baseline !important;
-        }
-    </style>
+    .table td,
+    .table th {
+        vertical-align: baseline !important;
+    }
+</style>
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-    <!--middle content start here-->
-    <!-- Page Heading -->
     <div class="row">
         <div class="custom-heading-wrapper col-md-12">
             <h1 class="h1">My Reports</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
-        <div class="col-md-12 mb-4">
-            <div class="card collapse" id="notes" style="">
+        <div class="col-md-12">
+            <div class="card collapse" id="notes">
                 <div class="card-body help_center">
-                   <h3 class="NotesHeader"><b>Notes:</b></h3>
+                    <h3 class="NotesHeader"><b>Notes:</b></h3>
                     <ol>
                         <li>You can view all of your Reports here. Simply search the report you are looking for by
                             searching the mobile number. Or scroll through the pages.</li>
@@ -48,242 +46,268 @@
             </div>
         </div>
     </div>
-        <!-- Page Heading -->
-        {{-- <div class="row"> --}}
-            <div class="col-md-12 common-card mb-3">
-                    <div class="stats-card-grid">
-                        <div class="stats-card">
-                            <div class="stats-details">
-                                <div class="stats-icon">
-                                    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"></path> </g></svg>
-                                </div>
-                                <div class="stat-text">                                    
-                                    <div class="stats-label ">Today</div>                                
-                                    <div class="stats-value today_report">0</div>
-                                </div>
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="common-card mb-3">
+                <div class="stats-card-grid">
+                    <div class="stats-card">
+                        <div class="stats-details">
+                            <div class="stats-icon">
+                                <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"></path>
+                                    </g>
+                                </svg>
                             </div>
-                        </div>
-
-                        <div class="stats-card">
-                            <div class="stats-details">
-                                 <div class="stats-icon">
-                                    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"></path> </g></svg>
-                                </div>
-                                <div class="stat-text">                                
-                                    <div class="stats-label">This Month</div>                            
-                                    <div class="stats-value month_report">0</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="stats-card">
-                            <div class="stats-details">
-                                 <div class="stats-icon">
-                                    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"></path> </g></svg>
-                                </div>
-                                <div class="stat-text">                                
-                                    <div class="stats-label ">This Year</div>                            
-                                    <div class="stats-value year_report">0</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="stats-card">
-                            <div class="stats-details">
-                                 <div class="stats-icon">
-                                    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"></path> </g></svg>
-                                </div>
-                                <div class="stat-text">                                
-                                    <div class="stats-label">All Time</div>                           
-                                    <div class="stats-value all_time_report">0</div>
-                                </div>
+                            <div class="stat-text">
+                                <div class="stats-label ">Today</div>
+                                <div class="stats-value today_report">0</div>
                             </div>
                         </div>
                     </div>
-                
-            </div>
-            <div class="col-md-12 common-card">
-                <div class="table-responsive">
-                    <table id="myReportListTable" class="table">
-                        <thead class="bg-first">
-                            <tr>
-                                <th>REF</th>
-                                <th>Mobile</th>
-                                <th>Incident Type</th>
-                                <th>Incident Date</th>
-                                <th>Location</th>
-                                <th>Status</th>
-                                <th class="text-center">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
 
-                        </tbody>
-                    </table>
+                    <div class="stats-card">
+                        <div class="stats-details">
+                            <div class="stats-icon">
+                                <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"></path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="stat-text">
+                                <div class="stats-label">This Month</div>
+                                <div class="stats-value month_report">0</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-card">
+                        <div class="stats-details">
+                            <div class="stats-icon">
+                                <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"></path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="stat-text">
+                                <div class="stats-label ">This Year</div>
+                                <div class="stats-value year_report">0</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-card">
+                        <div class="stats-details">
+                            <div class="stats-icon">
+                                <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round"></path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="stat-text">
+                                <div class="stats-label">All Time</div>
+                                <div class="stats-value all_time_report">0</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        {{-- </div> --}}
-        <!--middle content end here-->
+
+        </div>
+        <div class="col-md-12 ">
+            <div class="table-responsive common-card">
+                <table id="myReportListTable" class="table">
+                    <thead class="bg-first">
+                        <tr>
+                            <th>REF</th>
+                            <th>Mobile</th>
+                            <th>Incident Type</th>
+                            <th>Incident Date</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+    <!--middle content end here-->
+</div>
 @endsection
 
 @push('script')
-    <script src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            // Initialize DataTable
-            var table = $('#myReportListTable').DataTable({
+<script>
+    $(document).ready(function() {
+        // Initialize DataTable
+        var table = $('#myReportListTable').DataTable({
 
-                "language": {
-                    "zeroRecords": "No Record Found!",
-                    searchPlaceholder: "Search by Mobile Number"
-                },
-                order: [],
-                paging: true,
-                processing: false,
-                serverSide: false,
-                lengthMenu: paginateRange,
-                pageLength: paginateLength,
-                ordering: true,
-                columnDefs: [{
-                        targets: 5,
-                        orderable: false
-                    } // Action column
-                ],
-                ajax: {
-                    url: "{{ route('user.my-reports') }}",
-                    type: "GET",
-                    dataSrc: function(json) {
-                        console.log("Received Data:", json.today);
-                        $(".today_report").text(json.today);
-                        $(".month_report").text(json.this_month);
-                        $(".year_report").text(json.this_year);
-                        $(".all_time_report").text(json.all_time);
-                        return json.data;
-                    }
-                },
-                columns: [{
-                        data: 'ref',
-                        name: 'ref'
-                    },
-                    {
-                        data: 'escorts_mobile',
-                        name: 'escorts_mobile',
-                        render: function(data, type, row) {
-
-                            let clean = $('<div>').html(data).text();
-                            let normalized = clean.replace(/\s+/g, '');
-                            if (type === 'sort' || type === 'filter') {
-                                return normalized;
-                            }
-                            return data;
-                        }
-                    },
-                    {
-                        data: 'incident_nature',
-                        name: 'incident_nature'
-                    },
-                    {
-                        data: 'incident_date',
-                        render: function(data, type) {
-                            if (!data) return '';
-
-                            if (type === 'display') {
-                                let date = data.split(' ')[0];
-                                let parts = date.split('-');
-                                return `${parts[2]}-${parts[1]}-${parts[0]}`;
-                            }
-
-                            return data;
-                        }
-                    },
-                    {
-                        data: 'location',
-                        name: 'location'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status'
-                    },
-
-                    {
-                        data: 'actions',
-                        name: 'actions',
-                        orderable: false,
-                        searchable: false,
-                        class: 'text-center'
-                    }
-                ]
-            });
-
-            // Toggle expandable rows
-            $('body').on('click', '.toggle-details', function() {
-                var targetId = $(this).data('target');
-                $('#' + targetId).toggleClass('d-none');
-                $(this).toggleClass('open');
-            });
-
-
-            $('#myReportListTable tbody').on('click', '.view_report', function(e) {
-                e.preventDefault();
-
-                const tr = $(this).closest('tr');
-                const row = table.row(tr);
-
-                if (row.child.isShown()) {
-
-                    row.child().find('.child-wrapper').slideUp(250, function() {
-                        row.child.hide();
-                        tr.removeClass('shown');
-                    });
-
-                    $(this).removeClass('open');
-
-                } else {
-
-                    row.child(
-                        '<div class="child-wrapper" style="display:none;">' +
-                        format(row.data()) +
-                        '</div>'
-                    ).show();
-
-                    row.child().find('.child-wrapper').slideDown(250);
-
-                    tr.addClass('shown');
-                    $(this).addClass('open');
+            "language": {
+                "zeroRecords": "No Record Found!",
+                searchPlaceholder: "Search by Mobile Number"
+            },
+            order: [],
+            paging: true,
+            processing: false,
+            serverSide: false,
+            lengthMenu: paginateRange,
+            pageLength: paginateLength,
+            ordering: true,
+            columnDefs: [{
+                    targets: 5,
+                    orderable: false
+                } // Action column
+            ],
+            ajax: {
+                url: "{{ route('user.my-reports') }}",
+                type: "GET",
+                dataSrc: function(json) {
+                    console.log("Received Data:", json.today);
+                    $(".today_report").text(json.today);
+                    $(".month_report").text(json.this_month);
+                    $(".year_report").text(json.this_year);
+                    $(".all_time_report").text(json.all_time);
+                    return json.data;
                 }
-            });
+            },
+            columns: [{
+                    data: 'ref',
+                    name: 'ref'
+                },
+                {
+                    data: 'escorts_mobile',
+                    name: 'escorts_mobile',
+                    render: function(data, type, row) {
 
-            // CLOSE BUTTON HANDLER (only closes, no toggle)
-            $(document).on('click', '.close_report_btn', function(e) {
-                e.preventDefault();
+                        let clean = $('<div>').html(data).text();
+                        let normalized = clean.replace(/\s+/g, '');
+                        if (type === 'sort' || type === 'filter') {
+                            return normalized;
+                        }
+                        return data;
+                    }
+                },
+                {
+                    data: 'incident_nature',
+                    name: 'incident_nature'
+                },
+                {
+                    data: 'incident_date',
+                    render: function(data, type) {
+                        if (!data) return '';
 
-                const childTr = $(this).closest('tr');
-                const parentTr = childTr.prev(); // Parent row
-                const row = table.row(parentTr);
+                        if (type === 'display') {
+                            let date = data.split(' ')[0];
+                            let parts = date.split('-');
+                            return `${parts[2]}-${parts[1]}-${parts[0]}`;
+                        }
 
-                childTr.find('.child-wrapper').slideUp(250, function() {
+                        return data;
+                    }
+                },
+                {
+                    data: 'location',
+                    name: 'location'
+                },
+                {
+                    data: 'status',
+                    name: 'status'
+                },
+
+                {
+                    data: 'actions',
+                    name: 'actions',
+                    orderable: false,
+                    searchable: false,
+                    class: 'text-center'
+                }
+            ]
+        });
+
+        // Toggle expandable rows
+        $('body').on('click', '.toggle-details', function() {
+            var targetId = $(this).data('target');
+            $('#' + targetId).toggleClass('d-none');
+            $(this).toggleClass('open');
+        });
+
+
+        $('#myReportListTable tbody').on('click', '.view_report', function(e) {
+            e.preventDefault();
+
+            const tr = $(this).closest('tr');
+            const row = table.row(tr);
+
+            if (row.child.isShown()) {
+
+                row.child().find('.child-wrapper').slideUp(250, function() {
                     row.child.hide();
-                    parentTr.removeClass('shown');
-                    parentTr.find('.view_report').removeClass('open');
+                    tr.removeClass('shown');
                 });
-            });
 
-            function formatDate(dateString) {
-                if (!dateString) return 'N/A';
-                const date = new Date(dateString);
-                const day = String(date.getDate()).padStart(2, '0');
-                const month = String(date.getMonth() + 1).padStart(2, '0');
-                const year = date.getFullYear();
-                return `${day}-${month}-${year}`;
+                $(this).removeClass('open');
+
+            } else {
+
+                row.child(
+                    '<div class="child-wrapper" style="display:none;">' +
+                    format(row.data()) +
+                    '</div>'
+                ).show();
+
+                row.child().find('.child-wrapper').slideDown(250);
+
+                tr.addClass('shown');
+                $(this).addClass('open');
             }
+        });
 
-            function format(data) {
-                return `
+        // CLOSE BUTTON HANDLER (only closes, no toggle)
+        $(document).on('click', '.close_report_btn', function(e) {
+            e.preventDefault();
+
+            const childTr = $(this).closest('tr');
+            const parentTr = childTr.prev(); // Parent row
+            const row = table.row(parentTr);
+
+            childTr.find('.child-wrapper').slideUp(250, function() {
+                row.child.hide();
+                parentTr.removeClass('shown');
+                parentTr.find('.view_report').removeClass('open');
+            });
+        });
+
+        function formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            const date = new Date(dateString);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}-${month}-${year}`;
+        }
+
+        function format(data) {
+            return `
                     <div class="details-content p-3 bg-light border rounded">
                         <div class="mb-3 d-flex justify-content-end">
                             <button class="btn-sm btn-cancel-modal close_report_btn" type="button"> Close</button>
@@ -340,50 +364,50 @@
                         </table>
                     </div>
                 `;
+        }
+    });
+
+    $(document).on('click', '.delete_report', function(e) {
+        e.preventDefault();
+
+        let id = $(this).data('id');
+        let url = "{{ route('user.my-report.delete', ':id') }}";
+        url = url.replace(':id', id);
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'This action will permanently remove the report.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Yes, delete',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+
+                $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: response.message,
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#3085d6'
+                        });
+                        $('#myReportListTable').DataTable().ajax.reload(null, false);
+                    }
+                });
+
             }
         });
-
-        $(document).on('click', '.delete_report', function(e) {
-            e.preventDefault();
-
-            let id = $(this).data('id');
-            let url = "{{ route('user.my-report.delete', ':id') }}";
-            url = url.replace(':id', id);
-
-            Swal.fire({
-                title: 'Are you sure?',
-                text: 'This action will permanently remove the report.',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Yes, delete',
-                cancelButtonText: 'Cancel'
-            }).then((result) => {
-
-                if (result.isConfirmed) {
-
-                    $.ajax({
-                        url: url,
-                        type: 'DELETE',
-                        data: {
-                            _token: $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function(response) {
-
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success!',
-                                text: response.message,
-                                confirmButtonText: 'OK',
-                                confirmButtonColor: '#3085d6'
-                            });
-                            $('#myReportListTable').DataTable().ajax.reload(null, false);
-                        }
-                    });
-
-                }
-            });
-        });
-    </script>
+    });
+</script>
 @endpush

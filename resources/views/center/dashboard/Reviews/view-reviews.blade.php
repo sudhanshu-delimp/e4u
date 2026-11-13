@@ -136,13 +136,9 @@
     </div>
 
 </div>
-</div>
 
-<!--middle content end here-->
-<!--right side bar start from here-->
-</div>
-<!--right side bar end-->
-</div>
+
+
 
 <!-- confirmation model -->
 <div class="modal fade upload-modal" id="confirm_modal" style=" padding-right: 15px;" aria-modal="true"

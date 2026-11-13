@@ -28,7 +28,7 @@
             </div>
 
             <div class="col-md-12">
-                <div class="card collapse" id="notes" style="">
+                <div class="card collapse" id="notes">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
@@ -66,7 +66,9 @@
                     </table>
                 </div>
             </div>
-        </div>    
+        </div>   
+    </div>
+         
         <div class="modal fade upload-modal" id="view-details" tabindex="-1" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content basic-modal">
