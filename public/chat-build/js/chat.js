@@ -2132,7 +2132,6 @@ function initChat(root) {
       notify('You cannot call this user.', 'error');
       return;
     }
-    console.log('DISPATCHING CALL EVENT');
     window.dispatchEvent(new CustomEvent('chat:call', {
       detail: {
         conversation_id: conv.id,

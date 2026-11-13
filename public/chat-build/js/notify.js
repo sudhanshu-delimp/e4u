@@ -67,19 +67,37 @@ function initCalls(_ref) {
   var audioCtx = null;
   var ringTimer = null;
 
-  // kind 'out' = tone the caller hears, 'in' = ringtone for the person being called
-  function ring(kind) {
-    stopRing();
+  // Browsers allow sound only after the user has clicked on the page
+  var _unlockAudio = function unlockAudio() {
     try {
       var Ctx = window.AudioContext || window.webkitAudioContext;
       if (!Ctx) {
         return;
       }
       audioCtx = audioCtx || new Ctx();
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume()["catch"](function () {});
-      }
+      audioCtx.resume().then(function () {
+        if (audioCtx.state === 'running') {
+          ['click', 'keydown', 'touchstart'].forEach(function (e) {
+            return document.removeEventListener(e, _unlockAudio, true);
+          });
+        }
+      })["catch"](function () {});
+    } catch (error) {
+      // Sound is optional
+    }
+  };
+  ['click', 'keydown', 'touchstart'].forEach(function (e) {
+    return document.addEventListener(e, _unlockAudio, true);
+  });
 
+  // kind 'out' = tone the caller hears, 'in' = ringtone for the person being called
+  function ring(kind) {
+    stopRing();
+    try {
+      // Silent until the user has clicked once on the page
+      if (!audioCtx || audioCtx.state !== 'running') {
+        return;
+      }
       // One soft note: quick fade in, long fade out
       var note = function note(hz, start, length, volume) {
         var osc = audioCtx.createOscillator();
@@ -786,7 +804,6 @@ function initCalls(_ref) {
   // window.addEventListener('chat:call', (event) => start(event.detail || {}));
 
   window.addEventListener('chat:call', function (event) {
-    console.log('CHAT CALL RECEIVED:', event.detail);
     start(event.detail || {});
   });
 }

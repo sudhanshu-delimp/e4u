@@ -65,11 +65,8 @@ export function initCalls({ socket, me, cfg }) {
     let audioCtx = null;
     let ringTimer = null;
 
-
-    // kind 'out' = tone the caller hears, 'in' = ringtone for the person being called
-    function ring(kind) {
-        stopRing();
-
+    // Browsers allow sound only after the user has clicked on the page
+    const unlockAudio = () => {
         try {
             const Ctx = window.AudioContext || window.webkitAudioContext;
 
@@ -79,10 +76,28 @@ export function initCalls({ socket, me, cfg }) {
 
             audioCtx = audioCtx || new Ctx();
 
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume().catch(() => { });
-            }
+            audioCtx.resume().then(() => {
+                if (audioCtx.state === 'running') {
+                    ['click', 'keydown', 'touchstart'].forEach((e) => document.removeEventListener(e, unlockAudio, true));
+                }
+            }).catch(() => { });
+        } catch (error) {
+            // Sound is optional
+        }
+    };
 
+    ['click', 'keydown', 'touchstart'].forEach((e) => document.addEventListener(e, unlockAudio, true));
+
+
+    // kind 'out' = tone the caller hears, 'in' = ringtone for the person being called
+    function ring(kind) {
+        stopRing();
+
+        try {
+            // Silent until the user has clicked once on the page
+            if (!audioCtx || audioCtx.state !== 'running') {
+                return;
+            }
             // One soft note: quick fade in, long fade out
             const note = (hz, start, length, volume) => {
                 const osc = audioCtx.createOscillator();
@@ -733,7 +748,6 @@ export function initCalls({ socket, me, cfg }) {
     // window.addEventListener('chat:call', (event) => start(event.detail || {}));
 
     window.addEventListener('chat:call', (event) => {
-        console.log('CHAT CALL RECEIVED:', event.detail);
         start(event.detail || {});
     });
 }

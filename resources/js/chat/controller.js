@@ -1432,8 +1432,6 @@ export function initChat(root) {
             return;
         }
 
-        console.log('DISPATCHING CALL EVENT');
-
         window.dispatchEvent(new CustomEvent('chat:call', {
             detail: {
                 conversation_id: conv.id,
