@@ -24,7 +24,7 @@ class EscortPinup extends Model
 
     public function paymentItems()
     {
-        return $this->morphMany(PaymentItem::class, 'item');
+        return $this->morphOne(PaymentItem::class, 'item');
     }
 
     public function user()
@@ -33,6 +33,11 @@ class EscortPinup extends Model
     }
 
     public function escort()
+    {
+        return $this->belongsTo(Escort::class);
+    }
+
+    public function advertiser()
     {
         return $this->belongsTo(Escort::class);
     }

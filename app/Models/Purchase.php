@@ -252,4 +252,7 @@ class Purchase extends Model
     {
         return $this->belongsTo(MembershipPlan::class, 'membership', 'id');
     }
+
+   
+
 }

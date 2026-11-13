@@ -132,18 +132,9 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr style="background-color: #ffffff;">
-                                                            <td align="center" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px;">{{ !empty($payment->created_at) ? $payment->created_at->format('d-m-Y')  : '---' }}</td>
-                                                            <td align="center" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px;">{{ $payment?->service ?? '---' }}</td>
-                                                            <td align="left" valign="top" style="padding: 10px 6px; border: 1px solid #cbd5e1; font-size: 11px; line-height: 1.4;">
-                                                                <strong>Platinum profile</strong> listed in [Location]<br />
-                                                                <span style="color: #53657d;">([Profile name])</span>
-                                                            </td>
-                                                            <td align="center" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px;">10</td>
-                                                            <td align="right" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap;">$10.00</td>
-                                                            <td align="right" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap;">{{ formatCurrency($payment?->gst_amount ?? 0) }}</td>
-                                                            <td align="right" valign="top" style="padding: 10px 6px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap;"> {{ formatCurrency($payment?->amount ?? 0) }}</td>
-                                                        </tr>
+                                                         @if(!empty($payment))
+                                                            @include('escort.dashboard.Bookkeeping.modal.partials.tex-invoice-items', compact('payment'))
+                                                        @endif
 
                                                         <!-- Subtotal Row -->
                                                         <tr>

@@ -33,6 +33,11 @@ class EscortBumpup extends Model
         return $this->belongsTo(Escort::class);
     }
 
+    public function advertiser()
+    {
+        return $this->belongsTo(Escort::class);
+    }
+
     public function scopeActive($query)
     {
         return $query->where('utc_start_time', '<=', Carbon::now('UTC'))
