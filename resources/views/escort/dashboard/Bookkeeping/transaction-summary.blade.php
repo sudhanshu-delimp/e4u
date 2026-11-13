@@ -31,11 +31,11 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                    <ol class="mb-0">
+                    <ol>
                         <li>All Advertiser transactions are recorded here.</li>
                         <li>You can view any historical transaction as well as print or email the transaction
                             summary.</li>
-                        <li class="mb-0">To download the transaction summary, click Download located in the Action
+                        <li>To download the transaction summary, click Download located in the Action
                             options.</li>
                     </ol>
                 </div>
