@@ -182,7 +182,7 @@
      <!-- Current Location Modal -->
      <div class="upload-modal fade modal programmatic" id="current_location" tabindex="-1" role="dialog"
         aria-labelledby="current_location" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 650px;">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title text-white">
@@ -199,8 +199,7 @@
                     <div class="row">
                         <div class="col-lg-12 text-center">
                             <h5 class="custom_modal_text">
-                                The current Location for <span id="modal-member-name"></span> is : 
-                                <b id="modal-member-location"></b>
+                                The current Location for <span id="modal-member-name"></span> is: <b id="modal-member-location"></b>
                             </h5>
                             <div class="modal-footer justify-content-center">
                                 <button type="button" class="btn-success-modal" data-dismiss="modal">Ok</button>
@@ -220,7 +219,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="tour_summary">
-                                <img src="{{ asset('assets/dashboard/img/tour-summary.png') }}" class="custompopicon"> Tour Summury
+                                <img src="{{ asset('assets/dashboard/img/tour-summary.png') }}" class="custompopicon"> Tour Summury - Member ID:{{ auth()->user()->member_id}}
                             </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
@@ -269,7 +268,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="tour_summary">
                         <img src="{{ asset('assets/dashboard/img/tour-summary.png') }}" class="custompopicon"> 
-                        Tour Summary - <span id="summaryModalMemberId"></span>
+                        Tour Summary - Member ID:<span id="summaryModalMemberId"></span>
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
