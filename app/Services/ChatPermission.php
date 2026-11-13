@@ -25,9 +25,11 @@ class ChatPermission
             return false;
         }
 
-        // E4U staff can chat with anyone, and anyone can answer them
+        // E4U staff can chat with the allowed user types, and those users can answer them
         if ($this->isAdmin($a) || $this->isAdmin($b)) {
-            return true;
+            $other = $this->isAdmin($a) ? $b : $a;
+
+            return in_array((int) $other->type, config('chat.admin_targets', []), true);
         }
 
         return $this->allowed((int) $a->type, (int) $b->type)
@@ -52,12 +54,13 @@ class ChatPermission
     public function allowedTargetTypes(User $user): array
     {
         if ($this->isAdmin($user)) {
-            return range(0, 10);
+            return config('chat.admin_targets', []);
         }
 
         return config('chat.rules.' . (int) $user->type, []);
     }
 
+    
     public function isAdmin(User $user): bool
     {
         return in_array((int) $user->type, config('chat.admin_types', []), true);

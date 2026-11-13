@@ -43,6 +43,7 @@ return [
     ],
 
     'admin_types' => [1],
+    'admin_targets' => [0, 1, 2, 3, 4, 5, 6],
 
     // Types that can NOT be blocked
     'unblockable' => [5, 1],
