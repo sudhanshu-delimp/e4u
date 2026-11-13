@@ -24,10 +24,10 @@
     <link href="{{ asset('assets/dashboard/vendor/file-upload/css/fill-profile-details.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.6') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css?v1.1') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.7') }}" rel="stylesheet">
     <link href="{{ asset('assets/dashboard/css/dk-responsive.css?v1.3') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/common-style/style.css?v1.06') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/dashboard/css/common-style/style.css?v1.07') }}" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Quicksand&display=swap" rel="stylesheet">
     <!-- google fonts -->

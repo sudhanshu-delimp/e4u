@@ -57,7 +57,8 @@
                             </div>
                         </div>
                     </div>
-
+                     </div>
+                    <div class="stats-card-grid">
                     <div class="stats-card">
                         <div class="stats-details">
                                 <div class="stats-icon">
