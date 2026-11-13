@@ -60,6 +60,72 @@ function initCalls(_ref) {
 
   // The single call this tab is part of (null when idle)
   var call = null;
+  var audioCtx = null;
+  var ringTimer = null;
+
+  // kind 'out' = tone the caller hears, 'in' = ringtone for the person being called
+  function ring(kind) {
+    stopRing();
+    try {
+      var Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) {
+        return;
+      }
+      audioCtx = audioCtx || new Ctx();
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume()["catch"](function () {});
+      }
+
+      // One soft note: quick fade in, long fade out
+      var note = function note(hz, start, length, volume) {
+        var osc = audioCtx.createOscillator();
+        var gain = audioCtx.createGain();
+        var t = audioCtx.currentTime + start;
+        osc.type = 'sine';
+        osc.frequency.value = hz;
+        gain.gain.setValueAtTime(0.0001, t);
+        gain.gain.exponentialRampToValueAtTime(volume, t + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + length);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(t);
+        osc.stop(t + length + 0.05);
+      };
+      var melody = function melody() {
+        // Stop by itself if the call is no longer ringing
+        if (!call || call.state !== 'calling' && call.state !== 'ringing') {
+          stopRing();
+          return;
+        }
+        if (kind === 'in') {
+          // Receiver: rising chime C5 E5 G5 C6, then a short pause
+          [523.25, 659.25, 783.99, 1046.5].forEach(function (hz, i) {
+            return note(hz, i * 0.18, 0.9, 0.18);
+          });
+        } else {
+          // Caller: the original double beep
+          var gain = audioCtx.createGain();
+          gain.gain.value = 0.15;
+          gain.connect(audioCtx.destination);
+          [440, 480].forEach(function (hz) {
+            var osc = audioCtx.createOscillator();
+            osc.frequency.value = hz;
+            osc.connect(gain);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 1);
+          });
+        }
+      };
+      melody();
+      ringTimer = setInterval(melody, kind === 'in' ? 2500 : 3000);
+    } catch (error) {
+      // Sound is optional, never break the call because of it
+    }
+  }
+  function stopRing() {
+    clearInterval(ringTimer);
+    ringTimer = null;
+  }
 
   /* ---------------------------------------------------
      Small helpers
@@ -283,6 +349,7 @@ function initCalls(_ref) {
   --------------------------------------------------- */
 
   function finish(text) {
+    stopRing();
     var done = call;
     if (!done) {
       return;
@@ -453,6 +520,7 @@ function initCalls(_ref) {
             mine.id = data.call_id;
             mine.iceOut.splice(0).forEach(sendIce);
             setStatus('Calling...');
+            ring('out');
             mine.ringTimer = setTimeout(function () {
               return endCall('no_answer', true);
             }, RING_MS);
@@ -600,6 +668,7 @@ function initCalls(_ref) {
     showUi();
     setStatus(call.kind === 'video' ? 'Incoming video call...' : 'Incoming audio call...');
     controls('ringing');
+    ring('in');
     call.ringTimer = setTimeout(function () {
       return finish(END_TEXT.missed);
     }, RING_MS + 3000);

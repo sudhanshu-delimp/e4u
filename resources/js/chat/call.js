@@ -59,6 +59,85 @@ export function initCalls({ socket, me, cfg }) {
     // The single call this tab is part of (null when idle)
     let call = null;
 
+
+    let audioCtx = null;
+    let ringTimer = null;
+
+    // kind 'out' = tone the caller hears, 'in' = ringtone for the person being called
+    function ring(kind) {
+        stopRing();
+
+        try {
+            const Ctx = window.AudioContext || window.webkitAudioContext;
+
+            if (!Ctx) {
+                return;
+            }
+
+            audioCtx = audioCtx || new Ctx();
+
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume().catch(() => { });
+            }
+
+            // One soft note: quick fade in, long fade out
+            const note = (hz, start, length, volume) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                const t = audioCtx.currentTime + start;
+
+                osc.type = 'sine';
+                osc.frequency.value = hz;
+                gain.gain.setValueAtTime(0.0001, t);
+                gain.gain.exponentialRampToValueAtTime(volume, t + 0.02);
+                gain.gain.exponentialRampToValueAtTime(0.0001, t + length);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(t);
+                osc.stop(t + length + 0.05);
+            };
+
+            const melody = () => {
+                // Stop by itself if the call is no longer ringing
+                if (!call || (call.state !== 'calling' && call.state !== 'ringing')) {
+                    stopRing();
+
+                    return;
+                }
+
+                if (kind === 'in') {
+                    // Receiver: rising chime C5 E5 G5 C6, then a short pause
+                    [523.25, 659.25, 783.99, 1046.5].forEach((hz, i) => note(hz, i * 0.18, 0.9, 0.18));
+                } else {
+                    // Caller: the original double beep
+                    const gain = audioCtx.createGain();
+
+                    gain.gain.value = 0.15;
+                    gain.connect(audioCtx.destination);
+
+                    [440, 480].forEach((hz) => {
+                        const osc = audioCtx.createOscillator();
+
+                        osc.frequency.value = hz;
+                        osc.connect(gain);
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 1);
+                    });
+                }
+            };
+
+            melody();
+            ringTimer = setInterval(melody, kind === 'in' ? 2500 : 3000);
+        } catch (error) {
+            // Sound is optional, never break the call because of it
+        }
+    }
+
+    function stopRing() {
+        clearInterval(ringTimer);
+        ringTimer = null;
+    }
+
     /* ---------------------------------------------------
        Small helpers
     --------------------------------------------------- */
@@ -310,6 +389,7 @@ export function initCalls({ socket, me, cfg }) {
     --------------------------------------------------- */
 
     function finish(text) {
+        stopRing();
         const done = call;
 
         if (!done) {
@@ -455,6 +535,7 @@ export function initCalls({ socket, me, cfg }) {
             mine.id = data.call_id;
             mine.iceOut.splice(0).forEach(sendIce);
             setStatus('Calling...');
+            ring('out');
             mine.ringTimer = setTimeout(() => endCall('no_answer', true), RING_MS);
         } catch (error) {
             if (call === mine) {
@@ -558,6 +639,7 @@ export function initCalls({ socket, me, cfg }) {
         showUi();
         setStatus(call.kind === 'video' ? 'Incoming video call...' : 'Incoming audio call...');
         controls('ringing');
+        ring('in');
         call.ringTimer = setTimeout(() => finish(END_TEXT.missed), RING_MS + 3000);
 
         if (document.hidden && 'Notification' in window && Notification.permission === 'granted') {
