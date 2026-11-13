@@ -88,21 +88,7 @@ class ProfileInformationController extends Controller
         $address = $user->additionalInfo->where('type', 'address')->toArray();
         $title = $user->additionalInfo->where('type', 'title')->toArray();
         $narration = $user->additionalInfo->where('type', 'narration')->toArray();
-        return view(
-            'escort.dashboard.profile.information.profileInformation',
-            compact(
-                'escort',
-                'service_one',
-                'service_two',
-                'service_three',
-                'availability',
-                'durations',
-                'user',
-                'address',
-                'title',
-                'narration',
-                'stage_names'
-            )
+        return view('escort.dashboard.profile.information.profileInformation', compact('escort','service_one','service_two','service_three','availability','durations', 'user','address','title','narration','stage_names')
         );
     }
 
