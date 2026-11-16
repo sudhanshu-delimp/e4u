@@ -36,6 +36,11 @@ class Purchase extends Model
         return $this->hasMany(EscortPinup::class, 'purchase_id');
     }
 
+    public function bumpup()
+    {
+        return $this->hasMany(EscortPinup::class, 'purchase_id');
+    }
+
     public function suspendProfile()
     {
         return $this->hasMany(SuspendProfile::class, 'purchase_id');
@@ -98,10 +103,22 @@ class Purchase extends Model
             : null;
     }
 
+    public function getLastDescendantAttribute()
+    {
+        $purchase = $this;
+
+        while ($child = $purchase->children()->first()) {
+            $purchase = $child;
+        }
+
+        return $purchase;
+    }
+
     public function getDaysNumberAttribute()
     {
+        $lastDescendant = $this->last_descendant;
         return Carbon::parse($this->start_date)
-            ->diffInDays(Carbon::parse($this->end_date)) + 1;
+            ->diffInDays(Carbon::parse($lastDescendant->end_date)) + 1;
     }
 
     public function getDaysLeftAttribute()
@@ -252,4 +269,7 @@ class Purchase extends Model
     {
         return $this->belongsTo(MembershipPlan::class, 'membership', 'id');
     }
+
+   
+
 }
