@@ -326,7 +326,7 @@ Route::post('payments/process', [PaymentController::class, 'processPayment'])->n
 Route::get('transaction-summary', [PaymentController::class, 'transactionSummary'])->name('escort.payment.transaction_summary');
 Route::get('get-transaction-summary', [PaymentController::class, 'transactionSummaryDatatable'])->name('escort.payment.transaction_summary.datatable');
 Route::post('payments/detail', [PaymentController::class, 'paymentDetail'])->name('escort.payment.detail');
-Route::get('payments/{payment}/print', [PaymentController::class, 'printPaymentDetail'])->name('escort.payment.detail.print');
+Route::get('payments/{payment}/{action}/print', [PaymentController::class, 'printPaymentDetail'])->name('escort.payment.detail.print');
 Route::post('payments/adjustment', [PaymentController::class, 'paymentAdjustment'])->name('payment.adjustment');
 Route::get('my-spend', [PaymentController::class, 'mySpend'])->name('escort.dashboard.my-spend');
 

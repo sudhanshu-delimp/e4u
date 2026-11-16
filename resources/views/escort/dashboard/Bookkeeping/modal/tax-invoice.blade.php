@@ -137,18 +137,19 @@
                                                             <th style="padding: 8px 6px; font-size: 10.5px; font-weight: 600; color: #ffffff; border: 1px solid #1e3a63; text-align: left; width: 34%;">Service Description</th>
                                                             <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 600; color: #ffffff; border: 1px solid #1e3a63; text-align: center; width: 8%;">Qty<sup>(1)</sup></th>
                                                             <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 600; color: #ffffff; border: 1px solid #1e3a63; text-align: right; width: 10%;">Rate</th>
+                                                            <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 600; color: #ffffff; border: 1px solid #1e3a63; text-align: right; width: 10%;">Discount</th>
                                                             <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 600; color: #ffffff; border: 1px solid #1e3a63; text-align: right; width: 10%;">GST</th>
                                                             <th style="padding: 8px 6px; font-size: 10.5px; font-weight: 600; color: #ffffff; border: 1px solid #1e3a63; text-align: right; width: 12%;">Amount</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         @if(!empty($payment))
-                                                            @include('escort.dashboard.Bookkeeping.modal.partials.tex-invoice-items', compact('payment'))
+                                                            @include('escort.dashboard.Bookkeeping.modal.partials.tax-invoice-items', compact('payment'))
                                                         @endif
                                                         <!-- Subtotal Row -->
                                                         <tr>
                                                             <!-- Notes Box & Card details embedded in the left cells -->
-                                                            <td colspan="4" rowspan="3" valign="top" style="border: 1px solid #cbd5e1; padding: 12px; background-color: #ffffff;">
+                                                            <td colspan="5" rowspan="3" valign="top" style="border: 1px solid #cbd5e1; padding: 12px; background-color: #ffffff;">
                                                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
                                                                     <tr>
                                                                         <td valign="top" style="border:0;padding:0px;">
@@ -196,8 +197,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn-success-modal nex_sterp_btn print_payment_summary text-white" target="_blank">🖨️ Print Summary</a>
-                <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
+                <a href="#" class="btn-success-modal nex_sterp_btn print_payment_summary text-white" target="_blank">🖨️ Print</a>
+                <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

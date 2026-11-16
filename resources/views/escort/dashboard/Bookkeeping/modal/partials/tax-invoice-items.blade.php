@@ -9,15 +9,29 @@
             <td align="center" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; text-align:center;">{{ !empty($payment->created_at) ? $payment->created_at->format('d-m-Y')  : '---' }}</td>
             <td align="center" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; text-align:center;">{{ $payment?->service ?? '---' }}</td>
             <td align="left" valign="top" style="padding: 10px 6px; border: 1px solid #cbd5e1; font-size: 11px; line-height: 1.4;text-align:left;">
-            <strong>{{$purchase->MembershipType}} profile</strong> listed in {{$profile->StateAbbr}}<br />
-            <span style="color: #53657d;">({{$profile->profile_name}})</span>
+                @switch($payment->service)
+                 @case('Profile Extend')
+                        Extended Listing applied to
+                        <span style="color: #53657d;">({{$profile->profile_name}})</span>
+                @break
+                @case('Profile Upgrade')
+                        Upgrade applied to
+                        <span style="color: #53657d;">({{$profile->profile_name}})</span>
+                @break
+                @default
+                    <strong>{{$purchase->MembershipType}} profile</strong> listed in {{$profile->StateAbbr}}<br />
+                    <span style="color: #53657d;">({{$profile->profile_name}})</span>
+                @endswitch
             </td>
             <td align="center" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; text-align:center;">{{$purchase->days_number}}</td>
-            <td align="right" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap; text-align:right;">{{$purchase->rate}}</td>
-            <td align="right" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap; text-align:right;">{{($purchase->rate*10) / 100}}</td>
+            <td align="right" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap; text-align:right;">{{formatCurrency($purchase->rate)}}</td>
+            <td align="right" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap; text-align:right;">{!!formatCurrency($paymentItem->amount - $purchase->total_rate)!!}</td>
+            <td align="right" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap; text-align:right;">{{formatCurrency(($purchase->rate*10) / 100)}}</td>
             <td align="right" valign="top" style="padding: 10px 6px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap; text-align:right;"> {{ formatCurrency($paymentItem->amount)}}</td>
             </tr>
         @endforeach
+    @elseif($payment->service === 'Product Purchase')
+    
     @else 
         @php 
             $paymentItem = $payment->items[0];
@@ -29,11 +43,30 @@
                 <td align="center" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; text-align:center;">{{ !empty($payment->created_at) ? $payment->created_at->format('d-m-Y')  : '---' }}</td>
                 <td align="center" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; text-align:center;">{{ $payment?->service ?? '---' }}</td>
                 <td align="left" valign="top" style="padding: 10px 6px; border: 1px solid #cbd5e1; font-size: 11px; line-height: 1.4;text-align:left;">
-                <strong>{{$purchase->MembershipType}} profile</strong> listed in {{$profile->StateAbbr}}<br />
-                <span style="color: #53657d;">({{$profile->profile_name}})</span>
+                
+                @switch($payment->service)
+
+                    @case('Profile Bump Up')
+                        Bump Up applied to
+                        <span style="color: #53657d;">({{$profile->profile_name}})</span>
+                    @break
+
+                    @case('Profile Pin Up')
+                        Pin Up <span style="color: #53657d;">(Attached to: {{$profile->profile_name}})</span> in {{$profile->StateAbbr}}. Period: {{ \Carbon\Carbon::parse($item->start_date)->format('d-m-Y') }} to {{ \Carbon\Carbon::parse($item->end_date)->format('d-m-Y') }}
+                    @break
+
+                    @case('view')
+                    <button>View</button>
+                    @break
+
+                    @default
+                    <span>Invalid action</span>
+
+                @endswitch
                 </td>
-                <td align="center" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; text-align:center;">{{'---'}}</td>
+                <td align="center" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; text-align:center;">{{1}}</td>
                 <td align="right" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap; text-align:right;">{{ formatCurrency($payment?->amount ?? 0) }}</td>
+                <td align="right" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap; text-align:right;">{{ 0 }}</td>
                 <td align="right" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap; text-align:right;">{{ formatCurrency($payment?->gst_amount ?? 0) }}</td>
                 <td align="right" valign="top" style="padding: 10px 6px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap; text-align:right;">{{ formatCurrency($payment?->amount ?? 0) }}</td>
             </tr>
