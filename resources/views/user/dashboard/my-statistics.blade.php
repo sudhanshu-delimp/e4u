@@ -63,6 +63,12 @@
                         </div>
                         <hr class="custom-hr">
                         <div class="common-stars">
+
+                            <div class="stats-detail">
+                                <div class="stats-label">E4U Reports
+                                </div>
+                                <div class="stats-value">{{$statistics['report']}}</div>
+                            </div>
                             <div class="stats-detail">
                                 <div class="stats-label">My Legbox
                                 </div>
@@ -74,22 +80,16 @@
                                 </div>
                                 <div class="stats-value">{{$statistics['notBox']}}</div>
                             </div>
+                            <div class="stats-detail">
+                                <div class="stats-label">Punterbox Reports
+                                </div>
+                                <div class="stats-value">{{$statistics['penterBox']}}</div>
+                            </div>
 
                             <div class="stats-detail">
                                 <div class="stats-label">Reviews Posted
                                 </div>
                                 <div class="stats-value">{{$statistics['reviewPosted']}}</div>
-                            </div>
-
-                            <div class="stats-detail">
-                                <div class="stats-label">E4U Reports
-                                </div>
-                                <div class="stats-value">{{$statistics['report']}}</div>
-                            </div>
-                            <div class="stats-detail">
-                                <div class="stats-label">Punterbox Reports
-                                </div>
-                                <div class="stats-value">{{$statistics['penterBox']}}</div>
                             </div>
                         </div>
                     </div>

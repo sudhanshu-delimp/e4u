@@ -886,6 +886,7 @@
                if (data.response.success) {
                   swal_success_popup(data.response.message, 'Suspend Profile');
                   $('#suspend_profile').modal('hide');
+                  $("#suspend_form")[0].reset();
                   table.ajax.reload(null, false);
                } else {
                   swal_error_popup(data.response.message);

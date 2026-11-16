@@ -61,7 +61,7 @@
 </style>
 @endsection
 @section('content')
-<div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
 
 
     <div class="d-sm-flex align-items-center justify-content-between">
@@ -81,7 +81,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12 mb-4 collapse" id="notes">
+        <div class="col-md-12 collapse" id="notes">
             <div class="card " id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -112,9 +112,9 @@
         </div>
     </div>
 
-    <div id="content">
-        <div class="col-md-12 common-card">
-            <div class="box-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box-body common-card">
                 @if ($type != 'past')
                 <div>
                     <div class="add--list listingActionButtons">

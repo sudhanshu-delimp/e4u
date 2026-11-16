@@ -104,6 +104,7 @@ Route::post('/welcome-popup-closed', [UserController::class, 'welcomePopupClosed
 
 Route::prefix('common')->name('common.')->group(function () {
  Route::post('/get-advertiser', [CommonController::class, 'getAdvertiser'])->name('get_advertiser');
+ Route::post('/advertiser-suspension-history/{advertiserType}/{profile_id}', [CommonController::class, 'advertiserSuspensionHistoryAjax'])->name('advertiser-suspension-history');
 });
 
 Route::middleware('auth')->group(function () {

@@ -792,10 +792,15 @@ export function initChat(root) {
        Reactions
     --------------------------------------------------- */
 
-    function closeReactPicker() {
+   function closeReactPicker() {
         const picker = document.getElementById('chatReactPicker');
 
         if (picker) {
+           
+            const row = picker.closest('.message-row');
+            if (row) {
+                row.classList.remove('has-picker-open');
+            }
             picker.remove();
         }
     }
@@ -805,9 +810,15 @@ export function initChat(root) {
         closeReactPicker();
 
         const holder = button.closest('.chat-msg-actions');
+        const row = button.closest('.message-row');
 
         if (!holder) {
             return;
+        }
+
+        // Row पर क्लास लगाएं ताकि hover हटने पर भी hide न हो
+        if (row) {
+            row.classList.add('has-picker-open');
         }
 
         const mine = holder.closest('.message-row').classList.contains('sent');
@@ -815,12 +826,12 @@ export function initChat(root) {
 
         picker.id = 'chatReactPicker';
         picker.dataset.messageId = messageId;
-        picker.setAttribute('style', 'position:absolute;z-index:50;bottom:100%;' + (mine ? 'right:0;' : 'left:0;') +
+        picker.setAttribute('style', 'position:absolute;z-index:999;bottom:100%;' + (mine ? 'right:0;' : 'left:0;') +
             'display:flex;gap:4px;padding:6px 8px;background:#fff;border:1px solid #e5e7eb;border-radius:22px;' +
             'box-shadow:0 4px 16px rgba(0,0,0,.15);white-space:nowrap;');
         picker.innerHTML = (config.reactions || []).map((emoji) =>
             `<button type="button" class="chat-react-pick" data-emoji="${view.escapeHtml(emoji)}" style="border:0;background:transparent;font-size:22px;line-height:1;cursor:pointer;padding:2px 4px;">${view.escapeHtml(emoji)}</button>`
-        ).join('') + '<button type="button" class="chat-react-more" title="More emojis" style="border:0;background:#f3f4f6;border-radius:50%;width:28px;height:28px;font-size:18px;line-height:1;cursor:pointer;">+</button>';
+        ).join('') + '<button type="button" class="chat-react-more" title="More emojis"><i class="bi bi-three-dots-vertical"></i></button>';
 
         holder.appendChild(picker);
 
@@ -842,10 +853,6 @@ export function initChat(root) {
         }
     }
 
-
-
-
-        // The "+" button: swap the quick bar for the full emoji picker
     function openFullEmojiPicker() {
         const bar = document.getElementById('chatReactPicker');
 
@@ -864,6 +871,7 @@ export function initChat(root) {
         bar.innerHTML = '';
         bar.style.padding = '0';
         bar.style.borderRadius = '12px';
+        bar.style.overflow = 'hidden';
         bar.appendChild(full);
 
         full.addEventListener('emoji-click', (event) => {
@@ -872,7 +880,10 @@ export function initChat(root) {
             }
         });
 
-        placeReactPicker(bar, bar.parentElement);
+        // नए साइज के हिसाब से दोबारा पोजीशन सेट करें
+        setTimeout(() => {
+            placeReactPicker(bar, bar.parentElement);
+        }, 50);
     }
 
     async function react(messageId, emoji) {

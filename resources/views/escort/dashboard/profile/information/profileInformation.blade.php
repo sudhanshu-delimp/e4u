@@ -116,7 +116,7 @@
             <h1 class="h1"> My Information</h1>
             <span class="helpNoteLink collapsed" data-toggle="collapse" data-target="#notes" aria-expanded="false"><b>Help?</b></span>
       </div>
-      <div class="col-md-12 mb-4">
+      <div class="col-md-12 ">
         <div class="card collapse" id="notes">
             <div class="card-body">
                <h3 class="NotesHeader"><b>Notes:</b> </h3>

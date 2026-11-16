@@ -2,14 +2,12 @@
 <nav
     class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm pl-3 pl-lg-5 pr-3 pr-lg-5 justify-navbar custom-navbar db-custom-topbar">
 
-    <!-- Sidebar Toggle (Topbar) -->
-    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-        <i class="fa fa-bars"></i>
-    </button>
     {{-- logged in user data --}}
-    <div class="topbar-logged-in-user-data">
+    <div class="topbar-logged-in-user-data d-flex">
 
-
+        <button id="sidebarToggleTop">
+            <i class="fa fa-bars"></i>
+        </button>
         <div class="d-user-info">
             <div class="escort_header_top_menu">
                 <span>

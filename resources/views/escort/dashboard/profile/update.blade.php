@@ -55,7 +55,7 @@
             $isImpersonated = false;  
         } 
         @endphp
-    <div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <div class="d-sm-flex align-items-center justify-content-between">
             <div class="custom-heading-wrapper">
                 @if (request()->getPathInfo() == '/escort-dashboard/create-profile')
@@ -75,12 +75,12 @@
             @endif
         </div>
         <div class="row">
-            <div class="col-md-12 mb-4" id="profile_and_tour_options">
+            <div class="col-md-12" id="profile_and_tour_options">
                 <div class="card collapse" id="notes">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
                         <ol>
-                            <li>Use this feature to create a new Profile.  You can create as many Profiles as you want for as many Locations as you want.</li>
+                            <li>Use this feature to create a new Profile. You can create as many Profiles as you want for as many Locations as you want.</li>
                             <li>This page will auto load with your data saved in My Information.  You can edit any of the pre-loaded data.  Where data is edited, you will be asked if you want to save the changes to your My Information data.  If you don't, My Information will remain unchanged, and the edited data will be saved to the new Profile.</li>
                            <li>When creating a new Profile for a particular Location, we recommend you adopt a protocol that will help you identify the Profile, for example, a Profile you wish to create for NSW, could be named:  NSW01 and thereafter for any other Profiles for NSW, NSW02.</li>
                             <li>
@@ -91,118 +91,114 @@
                 </div>
             </div>
         </div>
-        <div id="content">
-            <div class="container-fluid p-0">
-                <!--middle content-->
+        <!--middle content-->
+        <div class="row">
+            <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <div class="form_process">
-                                    <div class="steps_to_filled_from">Step 1</div>
-                                    <p>About me</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="form_process">
-                                    <div class="steps_to_filled_from">Step 2</div>
-                                    <p>My Services & Rates</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="form_process">
-                                    <div class="steps_to_filled_from">Step 3</div>
-                                    <p>My Availability</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="form_process">
-                                    <div class="steps_to_filled_from">Step 4</div>
-                                    <p>My Playmates</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-1">
-                                <div id="percent" style="font-size: 48px;font-weight: 700;">25%</div>
-                            </div>
-                        </div>
-                        <div class="manage_process_bar_padding">
-                            <div class="progress define_process_bar_width">
-                                <div class="progress-bar define_process_bar_color" role="progressbar" style="width: 25%"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                </div>
-                            </div>
+                    <div class="col-lg-3">
+                        <div class="form_process">
+                            <div class="steps_to_filled_from">Step 1</div>
+                            <p>About me</p>
                         </div>
                     </div>
+                    <div class="col-lg-3">
+                        <div class="form_process">
+                            <div class="steps_to_filled_from">Step 2</div>
+                            <p>My Services & Rates</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form_process">
+                            <div class="steps_to_filled_from">Step 3</div>
+                            <p>My Availability</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form_process">
+                            <div class="steps_to_filled_from">Step 4</div>
+                            <p>My Playmates</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div id="percent" style="font-size: 48px;font-weight: 700;">25%</div>
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <!-- Begin Page Content -->
-                        @php
-                            $activeTab = request()->get('tab', 'about-me');
-                        @endphp
-                        <div class="row">
-                            <div class="col-md-12 remove_padding_in_ph">
-                                <ul class="dk-tab nav gap_between_btns" id="myTab" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link {{ $activeTab == 'about-me' ? 'active' : '' }}" id="home-tab"
-                                            data-toggle="tab" href="#aboutme" role="tab" aria-controls="home"
-                                            aria-selected="true">About me</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#services"
-                                            role="tab" aria-controls="profile" aria-selected="false">My Services &
-                                            Rates</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#available"
-                                            role="tab" aria-controls="contact" aria-selected="false">My Availability</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link {{ $activeTab == 'my-playmates' ? 'active' : '' }}"
-                                            id="playmates-tab" data-toggle="tab" href="#playmates" role="tab"
-                                            aria-controls="my-playmates" aria-selected="false">
-                                            My Playmates</a>
-                                    </li>
-                                </ul>
-
-                                @if (!$editMode)
-                                    <form id="my_escort_profile"
-                                        action="{{ route('escort.setting.profile', request()->segment(3)) }}"
-                                        method="post" enctype="multipart/form-data" data-parsley-validate>
-                                        @csrf
-                                        <input type="hidden" name="user_startDate" id="user_startDate"
-                                            value="{{ date('Y-m-d', strtotime($loginAccount->created_at)) }}">
-                                @endif
-                                <div class="tab-content tab-content-bg" id="myTabContent">
-                                    @include('escort.dashboard.profile.partials.aboutme-dash-tab', [
-                                        'profile_type' => 'updated',
-                                    ])
-                                    @include('escort.dashboard.profile.partials.services-dash-tab')
-                                    @include('escort.dashboard.profile.partials.available-dash-tab')
-                                    @include('escort.dashboard.profile.partials.playmates-dash-tab')
-                                </div>
-                                @if (!$editMode)
-                                    </form>
-                                @endif
-
-                            </div>
+                <div class="manage_process_bar_padding">
+                    <div class="progress define_process_bar_width">
+                        <div class="progress-bar define_process_bar_color" role="progressbar" style="width: 25%"
+                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- End of Content Wrapper -->
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <!--<img src="..." class="rounded mr-2" alt="...">-->
-            <strong class="mr-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Begin Page Content -->
+                @php
+                    $activeTab = request()->get('tab', 'about-me');
+                @endphp
+                <div class="row">
+                    <div class="col-md-12 remove_padding_in_ph">
+                        <ul class="dk-tab nav gap_between_btns" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link {{ $activeTab == 'about-me' ? 'active' : '' }}" id="home-tab"
+                                    data-toggle="tab" href="#aboutme" role="tab" aria-controls="home"
+                                    aria-selected="true">About me</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#services"
+                                    role="tab" aria-controls="profile" aria-selected="false">My Services &
+                                    Rates</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#available"
+                                    role="tab" aria-controls="contact" aria-selected="false">My Availability</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ $activeTab == 'my-playmates' ? 'active' : '' }}"
+                                    id="playmates-tab" data-toggle="tab" href="#playmates" role="tab"
+                                    aria-controls="my-playmates" aria-selected="false">
+                                    My Playmates</a>
+                            </li>
+                        </ul>
+
+                        @if (!$editMode)
+                            <form id="my_escort_profile"
+                                action="{{ route('escort.setting.profile', request()->segment(3)) }}"
+                                method="post" enctype="multipart/form-data" data-parsley-validate>
+                                @csrf
+                                <input type="hidden" name="user_startDate" id="user_startDate"
+                                    value="{{ date('Y-m-d', strtotime($loginAccount->created_at)) }}">
+                        @endif
+                        <div class="tab-content tab-content-bg" id="myTabContent">
+                            @include('escort.dashboard.profile.partials.aboutme-dash-tab', [
+                                'profile_type' => 'updated',
+                            ])
+                            @include('escort.dashboard.profile.partials.services-dash-tab')
+                            @include('escort.dashboard.profile.partials.available-dash-tab')
+                            @include('escort.dashboard.profile.partials.playmates-dash-tab')
+                        </div>
+                        @if (!$editMode)
+                            </form>
+                        @endif
+
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <!-- End of Content Wrapper -->
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <!--<img src="..." class="rounded mr-2" alt="...">-->
+                <strong class="mr-auto">Bootstrap</strong>
+                <small>11 mins ago</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">Hello, world! This is a toast message.</div>
         </div>
-        <div class="toast-body">Hello, world! This is a toast message.</div>
     </div>
     <!-- <div class="modal show" id="add_wishlist" style="display: block;"> -->
     @if(!$isImpersonated)

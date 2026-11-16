@@ -29,8 +29,8 @@
         @endif
     </div>
     <div class="row">
-        <div class="col-md-12 mb-4">
-            <div class="card collapse" id="notes" style="">
+        <div class="col-md-12 ">
+            <div class="card collapse" id="notes">
                 <div class="card-body">
                     <p class="mb-1" style="font-size: 20px;"><b>Notes:</b> </p>
                     <ol>
@@ -45,27 +45,28 @@
             </div>
         </div>
     </div>
-    {{-- end --}}
-    <div class="col-md-12 common-card">
-        <div class="box-body table-responsive">
-            <table class="table" id="supportTicketsTable">
-                <thead id="table-sec" class="table-bg">
-                    <tr>
-                        <th>Ticket ID </th>
-                        <th>Department</th>
-                        <th>Priority</th>
-                        <th>Service Type</th>
-                        <th>Subject</th>
-                        <th>Date Created</th>
-                        <th>Document</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-            </table>
+    <!-- end -->
+     <div class="row">
+        <div class="col-md-12 ">
+            <div class="box-body table-responsive common-card">
+                <table class="table" id="supportTicketsTable">
+                    <thead id="table-sec" class="table-bg">
+                        <tr>
+                            <th>Ticket ID </th>
+                            <th>Department</th>
+                            <th>Priority</th>
+                            <th>Service Type</th>
+                            <th>Subject</th>
+                            <th>Date Created</th>
+                            <th>Document</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
-    </div>
-    <!--right side bar start from here-->
+     </div>
 </div>
 
 

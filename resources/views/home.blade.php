@@ -6,7 +6,46 @@
         #parsley-id-5 li {
             margin-left: 0 !important;
         }
+        .trust-badges {
+            display: flex;
+           justify-content: flex-start;
+            gap: 15px;
+        }
+      
+    .trust-item {      
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    }
+    .trust-badges .trust-item{
+        border-right:1px solid #ccc; }
+        .trust-badges .trust-item:last-child{
+            border: none;
+        }
+    .trust-item i {
+      font-size: 1rem;
+      color: #ff3c5f;
+    }
 
+    .trust-item p {
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 0px;
+    padding-right: 15px;
+    line-height: 1.2;
+    }
+    @media (max-width: 450px){
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+           .trust-badges .trust-item{
+            border-right: 0;
+        }
+    }
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -23,6 +62,7 @@
                             <img style="" class="img-fluid"
                                 src="{{ asset('assets/app/img/local_img/home-demo.png') }}">
                         @endif
+                        
                     </div>
                 </div>
                 <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7 home-right-half">
@@ -108,7 +148,21 @@
                         Browse Australia's premium directory featuring verified Independent Escorts and Massage Centres. Direct contact, privacy and premium listings. The only platform where you pay by the day!
 
                     </p>
-                    
+                    <!-- Trust Badges -->
+                        <div class="trust-badges">
+                            <div class="trust-item">
+                                <i class="fa-solid fa-shield-halved"></i>
+                                <p>100% Verified Listings</p>
+                            </div>
+                            <div class="trust-item">
+                                <i class="fa-solid fa-lock"></i>
+                                <p>Your Privacy Our Priority</p>
+                            </div>
+                            <div class="trust-item">
+                                <i class="fa-solid fa-heart"></i>
+                                <p>Trusted Across Australia</p>
+                            </div>
+                        </div>
                     @php
                         $states = config('escorts.profile.states');
                         $url = route('find.all');
@@ -133,6 +187,7 @@
                         <a class="hero-btn btn-outline" href="{{ route('page.become-pin-up') }}" role="button">Become a
                             Pin-Up</a>
                     </div>
+
                 </div>
             </div>
         </div>

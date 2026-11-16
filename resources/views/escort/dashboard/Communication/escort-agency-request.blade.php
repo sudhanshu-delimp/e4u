@@ -20,7 +20,7 @@
             <h1 class="h1">Agent Request</h1>
             <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
         </div>
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12 ">
             <div class="card collapse" id="notes" style="">
             <div class="card-body">
                <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -42,15 +42,15 @@
 
     @if(auth()->user()->is_agent_assign=='1' && auth()->user()->assigned_agent_id!=null)
      <div class="row">
-        <div class="col-md-12 add-punterbox-report my-4">
+        <div class="col-md-12 add-punterbox-report mb-3">
              <p class="mb-0" style="font-size: 20px;color:red"><b>Note : You have already been assigned an Agent.</b> </p>
         </div>
      </div>
     @endif
 
-            
-            <div class="col-md-12 common-card">
-               
+            <div class="row">
+            <div class="col-md-12">
+               <div class="common-card">
                 <form action="{{route('escort.agent-request')}}" method="post" name="agent_request_frm" id="agent_request_frm" class="common-form">
 
                     <div class="row inner-row">
@@ -118,7 +118,8 @@
 
                    
                 </form>                                   
-
+                </div>
+            </div>
             </div>
     <!--middle content end here-->
 </div>

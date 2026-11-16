@@ -470,14 +470,17 @@ class LogService
             'today' => [
                 'profile_views' => (clone $thisWeekVisitor)->where('is_profile_media_visit', '0')->count(),
                 'media_views'   => (clone $thisWeekVisitor)->where('is_profile_media_visit', '1')->count(),
+                 'playbox'   => 0,
             ],
             'this_week' => [
                 'profile_views' => (clone $thisWeekVisitor)->where('is_profile_media_visit', '0')->count(),
                 'media_views'   => (clone $thisWeekVisitor)->where('is_profile_media_visit', '1')->count(),
+                'playbox'   => 0,
             ],
             'year_to_date' => [
                 'profile_views' => (clone $ytdVisitor)->where('is_profile_media_visit', '0')->count(),
                 'media_views'   => (clone $ytdVisitor)->where('is_profile_media_visit', '1')->count(),
+                'playbox'   => 0,
             ],
         ];
     }

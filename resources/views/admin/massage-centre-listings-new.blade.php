@@ -163,6 +163,7 @@
             </div>
         </div>
     </div>
+    @include('admin.modal.advertiser-profile-suspend-history')
     @include('modal.pin-change',['mode'=>'pinAuth'])
     <!-- end -->
     @endsection

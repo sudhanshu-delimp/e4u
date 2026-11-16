@@ -12,7 +12,10 @@
     --radius-xl: 24px;
     --radius-full: 100px;
     --border-color: #e7e9ee;
-    --label-color: #173a61;
+    --label-color: #173a61;   
+    --primary-gradient: linear-gradient(135deg, rgba(229, 240, 255, 0.352), #ff3c601b);
+    --secondary-gradient: linear-gradient(150deg, #0c223d, #ff3c5f);
+    --primary-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 /* dummy_tooltip */
 .dummy_tooltip {
@@ -155,7 +158,7 @@ form.v-form-design .form-group {
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
     background: var(--white);
-    box-shadow: 0 8px 25px rgba(20, 45, 70, 0.07);
+    box-shadow: var(--primary-shadow);
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -593,7 +596,7 @@ label.cabinet input.file {
 
 .helpNoteLink {
     border: 1px solid var(--pink-border-color);
-    background: #fff3f6;
+    background: var(--primary-gradient);
     color: var(--secondary-color);
     padding: 5px 15px;
     border-radius: var(--radius-md);
@@ -604,7 +607,7 @@ label.cabinet input.file {
 }
 
 .helpNoteLink:hover {
-    background: var(--secondary-color);
+    background: var(--secondary-gradient);
     color: #fff3f6;
 }
 
@@ -1548,6 +1551,7 @@ label.cabinet input.file {
 }
 
 .stats-card {
+    position: relative;
     border-radius: var(--radius-sm);
     padding: 16px;
     margin: 10px 0px;
@@ -1560,10 +1564,27 @@ label.cabinet input.file {
     flex-direction: row-reverse;
     align-items: center;
     gap: 20px;
-    flex: 0 1 0;
-    min-width: 250px;
+    flex: 1 1 0;
+    flex-wrap: wrap;
+    min-width: max-content;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: var(--primary-shadow);
 }
 
+.stats-card::before {
+    content: '';
+    content: '';
+    position: absolute;
+    bottom: -45px;
+    right: -50%;
+    width: 158%;
+    height: 70%;
+    background: var(--primary-gradient);
+    transform: rotate(-12deg);
+    z-index: -2;
+    transition: all 0.4s ease;
+}
 .stats-details {
     display: flex;
     justify-content: flex-start;
@@ -1577,6 +1598,7 @@ label.cabinet input.file {
     font-weight: bold;
     color: var(--blue--text);
     width: max-content;
+    display: contents;
 }
 
 .stats-details .stats-value {
@@ -1586,8 +1608,9 @@ label.cabinet input.file {
 }
 
 .stats-icon {
-    background-color: var(--light-pink);
+    background: var(--primary-gradient);
     border-radius: var(--radius-full);
+    box-shadow: var(--primary-shadow);
     max-width: 45px;
     min-width: 45px;
     width: 100%;

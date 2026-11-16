@@ -17,7 +17,7 @@
                 <h1 class="h1">Add New Listing</h1>
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
             </div>
-            <div class="col-md-12 mb-4" id="profile_and_tour_options">
+            <div class="col-md-12" id="profile_and_tour_options">
                 <div class="collapse" id="notes">
                     <div class="card">
                         <div class="card-body">
@@ -71,7 +71,7 @@
 
 
         <div class="col-md-12 common-card">
-            {{-- <div class="listing-container"> --}}
+           
             <div class="card-top mb-4 d-flex align-items-center gap-20 justify-content-between">
                 <div class="d-flex align-items-center gap-20">
                     <div class="card-icon">

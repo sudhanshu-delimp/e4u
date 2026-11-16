@@ -111,7 +111,7 @@
                                 </div>
                                 <div class="tab-pane fade" id="tab3warning">
                                     <div class="table-responsive-xl">
-                                        Users Online
+                                        Online Users
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="tab4warning">

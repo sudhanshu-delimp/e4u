@@ -35,45 +35,28 @@ $operatorCountryName = isset(auth()->user()->operator->country->name) ? auth()->
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="panel with-nav-tabs panel-warning">
-                            <div class="panel-body">
-                                <div class="tab-content">
-                                    <div class="tab-pane fade active show" id="tab3warning">
-                                        <div class="row pb-3">
-                                             @if($addAccessEnabled)
-                                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                                <div class="bothsearch-form" style="gap: 10px;">
-                                                    <button type="button" class="opr-btn-common" data-toggle="modal"
-                                                        data-target="#addStaffnew">Add New Staff Member</button>
-                                                </div>
-                                            </div>
-                                            @endif
-                                        </div>
-                                        <div class="table-responsive">
-                                            <table class="table mb-3 w-100" id="staff_data_table">
-                                                <thead class="opr-table-bg">
-                                                    <tr>
-                                                        <th scope="col">Staff ID</th>
-                                                        <th scope="col">Name</th>
-                                                        <th scope="col">Security</th>
-                                                        <th scope="col">Position</th>
-                                                        <th scope="col" style="width: 86px;">Mobile</th>
-                                                        <th scope="col">Email</th>
-                                                        {{-- <th scope="col">Operator</th> --}}
-                                                       {{--  <th scope="col">Created By</th> --}}
-                                                        <th scope="col">Logins</th>
-                                                        <th scope="col" style="width: 180px;">Last Login</th>
-                                                        <th scope="col">Status</th>
-                                                        <th scope="col">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="table-content">
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                        
+                        <div class="table-responsive">
+                            <table class="table mb-3 w-100" id="staff_data_table">
+                                <thead class="opr-table-bg">
+                                    <tr>
+                                        <th scope="col">Staff ID</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Security</th>
+                                        <th scope="col">Position</th>
+                                        <th scope="col" style="width: 86px;">Mobile</th>
+                                        <th scope="col">Email</th>
+                                        {{-- <th scope="col">Operator</th> --}}
+                                        {{--  <th scope="col">Created By</th> --}}
+                                        <th scope="col">Logins</th>
+                                        <th scope="col" style="width: 180px;">Last Login</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-content">
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

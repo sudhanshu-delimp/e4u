@@ -211,7 +211,7 @@
 
       </div>
 
-      <div class="col-md-12 mb-4 ">
+      <div class="col-md-12">
          <div class="card collapse" id="notes">
             <div class="card-body">
                <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -230,8 +230,8 @@
       </div>
    </div>
 
-   <div class="row mb-2">
-      <div class="col-lg-12 col-md-12 col-sm-12">
+   <div class="row mb-3">
+      <div class="col-lg-12">
 
          <div class="bothsearch-form d-flex gap-20">
             <button type="button" class="create-tour-sec dctour pay-id-modal" data-toggle="modal">View Pay ID</button>
@@ -242,8 +242,8 @@
    </div>
 
    <div class="row">
-      <div class="col-md-12 mt-2 common-card">
-         <div class="table-responsive">
+      <div class="col-md-12">
+         <div class="table-responsive common-card">
             <table class="table w-100" id="bankAccountTable">
                <thead class="table-bg">
                   <tr>

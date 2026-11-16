@@ -531,3 +531,23 @@ function addTooltip(
         });
     });
 }
+
+document.querySelectorAll('.console_heading').forEach(element => {
+    const originalText = element.textContent.trim();
+
+    let shortText;
+
+    if (originalText.includes('(')) {
+        shortText = originalText.replace(
+            /\((.*?)\)/,
+            (match, value) => `(${value.trim().charAt(0).toUpperCase()})`
+        );
+    } else {
+        shortText = originalText
+            .split(/\s+/)
+            .map(word => word.charAt(0).toUpperCase())
+            .join('');
+    }
+
+    element.setAttribute('data-short-text', shortText);
+});
