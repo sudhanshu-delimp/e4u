@@ -553,7 +553,8 @@ class PaymentController extends Controller
 
             $id = decrypt($request->id);
             $payment = PaymentHistory::findOrFail($id);
-            $html = view('escort.dashboard.Bookkeeping.modal.transaction-summary', compact('payment'))->render();
+            $template = $request->action === 'transaction-summary' ? 'escort.dashboard.Bookkeeping.modal.transaction-summary' : 'escort.dashboard.Bookkeeping.modal.tax-invoice';
+            $html = view($template, compact('payment'))->render();
             return response()->json([
                 'status' => true,
                 'html'   => $html,

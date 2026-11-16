@@ -86,7 +86,12 @@
 
 <body>
 
+<p>Date: <strong>{{date('d-m-Y')}}</strong>
+<p>Member ID: <strong>{{ auth()->user()->member_id}} </p> </strong>
+<p>Agent Name: <strong> {{ auth()->check() ? auth()->user()->name : '' }}  </p></strong>
     <div class="header"> 
+
+
         <h2>Tour Report</h2>
 
        

@@ -35,12 +35,12 @@ class PaymentMailer extends Mailable implements ShouldQueue
     /**
      * Build the message.
      *
-     * @return $this
+     * @return $this resources\views\partials\common\tax-invoice.blade.php
      */
     public function build()
     {
         $pdf = PDF::loadView(
-            'escort.dashboard.Bookkeeping.modal.transaction-summary',
+            'partials.common.tax-invoice',
             [
                 'payment' => $this->data['payment'],
                 'print' => true,
