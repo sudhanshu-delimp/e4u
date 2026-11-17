@@ -168,7 +168,7 @@ class CalculateAgentMonthlyFee extends Command
             }
 
             $notification = (new Notification);
-            $notificationTitle = 'Your Monthly <span style="color:#ff0505;"> Fee Report</span> for ' . $monthName . ' month is ready for approval. Please visit <a href="' . config('app.url') . '/operator-dashboard/operator-monthly-report">Fee Report</a> to acknowledge.';
+            $notificationTitle = 'Your Monthly <span style="color:#ff0505;"> Fee Report</span> for ' . $monthName . ' month is ready for approval. Please visit <a href="' . config('app.url') . '/operator-dashboard/management/reports/operator-monthly-report">Fee Report</a> to acknowledge.';
 
             $notificationIcon = $notification->notificationIcon('general');
 

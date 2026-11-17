@@ -413,7 +413,7 @@ class OperatorMonthlyReportController extends BaseController
           if ($report->save()) {
 
             $notification = (new Notification);
-            $notificationTitle = 'Your<span style="color:#ff0505;"> Monthly Fee </span> has been paid for ' . $reportMonth . ' month. Please visit <a href="' . config('app.url') . '/operator-dashboard/operator-monthly-report">Fee Report</a> to acknowledge.';
+            $notificationTitle = 'Your<span style="color:#ff0505;"> Monthly Fee </span> has been paid for ' . $reportMonth . ' month. Please visit <a href="' . config('app.url') . '/operator-dashboard/management/reports/operator-monthly-report">Fee Report</a> to acknowledge.';
 
             $notificationIcon = $notification->notificationIcon('general');
 

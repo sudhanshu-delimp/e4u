@@ -547,8 +547,8 @@ class OperatorController extends BaseController
             } else if ($item->status == 'paid') {
                 //pending
                
-                    $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="pending"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Pending</a>';
-                    $divider = '<div class="dropdown-divider"></div>';
+                    /* $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="pending"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Pending</a>';
+                    $divider = '<div class="dropdown-divider"></div>'; */
                 
             } else if ($item->status == 'query') {
 
@@ -772,7 +772,7 @@ class OperatorController extends BaseController
           if ($report->save()) {
 
             $notification = (new Notification);
-            $notificationTitle = 'Your<span style="color:#ff0505;"> Monthly Fee </span> has been paid for ' . $reportMonth . ' month. Please visit <a href="' . config('app.url') . '/operator-dashboard/operator-monthly-report">Fee Report</a> to acknowledge.';
+            $notificationTitle = 'Your<span style="color:#ff0505;"> Monthly Fee </span> has been paid for ' . $reportMonth . ' month. Please visit <a href="' . config('app.url') . '/operator-dashboard/management/reports/operator-monthly-report">Fee Report</a> to acknowledge.';
 
             $notificationIcon = $notification->notificationIcon('general');
 
