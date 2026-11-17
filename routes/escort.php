@@ -39,6 +39,7 @@ use App\Http\Controllers\User\Dashboard\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Escort\LegboxNotificationforEscortController;
 use App\Http\Controllers\Escort\AnalyticsController;
+use App\Http\Controllers\Escort\Concierge\EmailAccountRequestController;
 
 //remove before prod
 Route::post('/test-paymentUrl', [EscortController::class, 'pinup_test_payment'])->name('escort.payment');
@@ -394,6 +395,12 @@ Route::get('travel', function () {
 });
 Route::get('visa-migration', [VisaMigrationController::class, 'index'])->name('visa.migration');
 Route::post('/visa-migration-request', [VisaMigrationController::class, 'store'])->name('visa.migration.store.escort');
+
+Route::get('email-hosting', function () {
+  return view('escort.dashboard.Concierge.email-hosting');
+});
+Route::get('email-hosting', [EmailAccountRequestController::class, 'index'])->name('email.account');
+Route::post('email-hosting-request', [EmailAccountRequestController::class, 'store'])->name('store.email.account');
 
 
 Route::get('travel', function () {
