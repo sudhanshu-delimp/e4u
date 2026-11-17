@@ -12,7 +12,7 @@ class EmailAccountRequestController extends Controller
 {
       public function index()
   {
-    return view('escort.dashboard.Concierge.visa-migration');
+    return view('escort.dashboard.Concierge.email-hosting');
   }
   public function store(EmailHostingRequest $request, VisaMigrationService $visaMigrationService)
   {

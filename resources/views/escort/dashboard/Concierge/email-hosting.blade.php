@@ -41,6 +41,7 @@
 
                 <div class="col-lg-12 common-card">
                     <form id="simOrderForm" action="{{ route('mobile-read-sim') }}" method="POST" class="common-form">
+                      
                         <div class="row inner-row">
                             <div class="col-md-12 card-heading">
                                 <div class="card-top border-0 p-0 mb-0">
@@ -94,65 +95,71 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="inner-field-row">
+                                   @php
+                                        $nameParts = preg_split('/\s+/', trim(Auth::user()->name));
+                                        $firstName = $nameParts[0] ?? '';
+                                        $lastName =
+                                            count($nameParts) > 1 ? implode(' ', array_slice($nameParts, 1)) : '';
+                                    @endphp
                                     <div class="form-group">
                                         <label for="email"><b>First Name</b><span class="text-danger">*</span> </label>
-                                        <input id="name" value="{{ old('first_name') }}" placeholder="First Name"
-                                            name="first_name" type="text" class="form-control" required>
-                                        @error('first_name')
-                                            <div class="text-danger text-sm">{{ $message }}</div>
-                                        @enderror
+                                        <input id="name" value="{{   $firstName }}" placeholder="First Name"
+                                            name="first_name" type="text" class="form-control" >
+                                       
+                                        <span class="text-danger error-text first_name_error"></span>
+
                                     </div>
                                     <div class="form-group">
                                         <label for="email"><b>Last Name</b> </label>
-                                        <input id="name" placeholder="Last Name" name="last_name" type="text"
+                                        <input id="name" placeholder="Last Name" name="last_name" type="text" value="{{  $lastName}}"
                                             class="form-control">
-                                        @error('last_name')
-                                            <div class="text-danger text-sm">{{ $message }}</div>
-                                        @enderror
+                                         <span class="text-danger error-text last_name_error"></span>
+
                                     </div>
+
                                     <div class="form-group">
                                         <label for="email"><b>Email</b><span class="text-danger">*</span>
                                         </label>
-                                        <input id="email" value="{{ old('email') }}" required
+                                        <input id="email" value="{{ Auth::user()->email }}" required
                                             placeholder="Email Address" name="email" type="text"
                                             class="form-control">
-                                        @error('email')
-                                            <div class="text-danger text-sm">{{ $message }}</div>
-                                        @enderror
+                                       <span class="text-danger error-text email_error"></span>
                                     </div>
                                     <div class="form-group">
                                         <label for="email"><b>Mobile Number</b> <span class="text-danger">*</span>
                                         </label>
-                                        <input id="mobile" value="{{ old('mobile') }}" placeholder="Mobile Number"
-                                            name="mobile" type="number" class="form-control" required>
-                                        @error('mobile')
-                                            <div class="text-danger text-sm">{{ $message }}</div>
-                                        @enderror
+                                        <input id="mobile" value="{{ Auth::user()->phone }}" placeholder="Mobile Number"
+                                            name="mobile" type="text" class="form-control" >
+                                              <span class="text-danger error-text mobile_error"></span>
+
                                     </div>
                                     <div class="form-group">
                                         <label for="period_required"><b>Period required</b><span
                                                 class="text-danger">*</span></label>
                                         <div class="input-group">
-                                            <input type="number" value="{{ old('period_required') }}" required
+                                            <input type="number"   
                                                 class="form-control" name="period_required" id="period_required"
                                                 placeholder="Enter months" min="1">
-
+             
                                         </div>
+                                          <span class="text-danger error-text period_required_error"></span>
                                     </div>
                                     <div class="form-group">
                                         <div><label for="preference"><b>Your contact preference</b> </label></div>
-                                        <div class="radio-options mt-2 mb-0">
+                                      <div class="option-list mt-2">
                                             <div class="form-check form-check-inline">
-                                                <input name="contact_pref_email" class="form-check-input" type="checkbox"
-                                                    id="pref_Email" checked>
-                                                <label class="form-check-label m-0" for="pref_Email">Email</label>
+                                                <input name="contact_pref[]" class="form-check-input" type="checkbox"
+                                                    id="pref_Email" value="email">
+                                                <label class="form-check-label" for="pref_Email">Email</label>
                                             </div>
+
                                             <div class="form-check form-check-inline">
-                                                <input name="contact_pref_mobile" class="form-check-input"
-                                                    type="checkbox" id="pref_Mobile">
-                                                <label class="form-check-label m-0" for="pref_Mobile">Mobile</label>
+                                                <input name="contact_pref[]" class="form-check-input" type="checkbox"
+                                                    id="pref_Mobile" value="mobile">
+                                                <label class="form-check-label" for="pref_Mobile">Mobile</label>
                                             </div>
-                                        </div>
+                                        </div>    
+                                        <span class="text-danger error-text contact_pref_error"></span>
                                     </div>
                                 </div>
                                 <div class="inner-field-row">
@@ -160,11 +167,14 @@
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Comments</label>
                                         <textarea class="form-control what_happened" name="comments" id="exampleFormControlTextarea1" rows="7"
-                                            placeholder="Up to 300 characters">{{ old('comments') }}</textarea>
+                                            placeholder="Up to 300 characters"></textarea>
                                         <p class="cp-hint mb-0">
                                             <small><i>Please provide any additional information to assist us</i> </small>
                                         </p>
+                                                                                <span class="text-danger error-text comments_error"></span>
+
                                     </div>
+                                    
 
                                 </div>
                                 <div class="inner-field-row">
@@ -176,15 +186,15 @@
                                             <label class="form-check-label m-0" for="auth"> I authorise E4U to debit
                                                 my nominated Card.</label>
                                         </div>
-                                        @error('auth')
-                                            <div class="text-danger text-sm">{{ $message }}</div>
-                                        @enderror
+                                          <span class="text-danger error-text auth_error"></span>
+
+                                        
                                     </div>
                                 </div>
                                 <div class="inner-field-row">
                                     <div class="form-group">
                                         <div class="form-check form-check-inline ml-0">
-                                            <input name="terms" class="form-check-input" type="checkbox"
+                                            <input name="term_condition" class="form-check-input" type="checkbox"
                                                 id="pref_terms">
                                             <label class="form-check-label m-0" for="pref_terms"> I have read and agree to
                                                 the
@@ -193,17 +203,15 @@
                                             </label>
 
                                         </div>
-                                        @error('terms')
-                                            <div class="text-danger text-sm">{{ $message }}</div>
-                                        @enderror
+                                     <span class="text-danger error-text term_condition_error"></span>
                                     </div>
                                 </div>
 
                             </div>
 
                             <div class="common-footer">
-                                <button type="submit" class="common-save-btn">
-                                    Place Order
+                                  <button type="submit" class="common-save-btn" id="submitAssistanceRequest">
+                                      Place Order
                                 </button>
                             </div>
                         </div>
@@ -215,7 +223,7 @@
 
         {{-- popup --}}
 
-        <div class="modal fade upload-modal" id="new-ban" style="backdrop-filter: brightness(0.5);" tabindex="-1"
+        <div class="modal fade upload-modal" id="visa_migration_request" style="backdrop-filter: brightness(0.5);" tabindex="-1"
             role="dialog" aria-labelledby="new-ban" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content" style="border: 2px solid;">
@@ -259,8 +267,45 @@
                 $('#new-ban').show();
             @endif
 
-            $(document).click(function() {
-                $()
-            })
+              $("#simOrderForm").on("submit", function(e) {
+            e.preventDefault();
+            let form = this;
+            let submitButton = $("#submitAssistanceRequest");
+
+            // Clear previous errors
+            $(".error-text").text("");
+            submitButton.prop("disabled", true).text("Sending...");
+            $.ajax({
+                url: "{{ route('store.email.account') }}",
+                type: "POST",
+                data: $(form).serialize(),
+                success: function(response) {
+                    if (response.status) {
+                        $(form)[0].reset();
+                        $("#visa_migration_request").modal('show');
+                    }
+                },
+                error: function(xhr) {
+                    const messageResponse = JSON.parse(xhr.responseText);
+                    if (xhr.status === 422) {
+                        let response = JSON.parse(xhr.responseText);
+                        let errors = response.errors;
+                        $.each(errors, function(field, messages) {
+                            let errorField = field.replace(/\./g, "_");
+                            $("." + errorField + "_error").text(messages[0]);
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: messageResponse.message
+                        });
+                    }
+                },
+                complete: function() {
+                    submitButton.prop("disabled", false).text("Send request");
+                }
+            });
+        });
         </script>
     @endpush
