@@ -37,6 +37,7 @@ class EscortListingFeatureService
         $utcEnd   = $localEnd->copy()->setTimezone('UTC');
 
         $escortBumpUp = EscortBumpup::create([
+            'purchase_id' => $escortDetail->currentPurchase->id,
             'user_id'        => $escortDetail->user->id,
             'escort_id'      => $escortDetail->id,
             'start_date'     => $localStart->format('Y-m-d'),

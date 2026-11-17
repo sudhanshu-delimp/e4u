@@ -27,7 +27,7 @@ class ServiceRepository extends BaseRepository implements ServiceInterface
         $services = [];
         foreach($ids as $id)
         {
-            $services[] = $this->model->where('category_id', $id)->get();
+            $services[] = $this->model->where('category_id', $id)->orderBy('name','asc')->get();
         }
         return $services;
     }

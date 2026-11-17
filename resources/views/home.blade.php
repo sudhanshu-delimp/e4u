@@ -24,7 +24,7 @@
             border: none;
         }
     .trust-item i {
-      font-size: 1.35rem;
+      font-size: 1rem;
       color: #ff3c5f;
     }
 
@@ -34,6 +34,17 @@
       margin-bottom: 0px;
     padding-right: 15px;
     line-height: 1.2;
+    }
+    @media (max-width: 450px){
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+           .trust-badges .trust-item{
+            border-right: 0;
+        }
     }
     </style>
 
