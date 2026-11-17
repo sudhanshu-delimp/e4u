@@ -7,6 +7,7 @@ use App\Jobs\SendProductPurchaseMail;
 use App\Jobs\ProcessListingFeaturesPostPayment;
 use App\Models\PaymentHistory;
 use App\Models\ProductOrder;
+use App\Models\ProductOrderItem;
 use App\Services\Massage\MassagePaymentWebhookService;
 use App\Services\PinPaymentService;
 use Illuminate\Http\Request;
@@ -150,6 +151,15 @@ class WebhookController extends Controller
       // update order status
       $paymentStatus = $paymentObject['success'] == true ? 'paid' : 'failed';
       ProductOrder::where('id', $paymentObject['metadata']['order_id'])->update(['payment_status' => $paymentStatus, 'payment_message' => $paymentObject['status_message'], 'transaction_id' => $paymentObject['token']]);
+      $productOrderItems = ProductOrderItem::where('order_id', $paymentObject['metadata']['order_id'])->get();
+      foreach ($productOrderItems as $productOrderItem) {
+        $productOrderItem->paymentItems()->create([
+          'payment_history_id' => $paymentHistory->id ?? null,
+          'amount' => $productOrderItem->price,
+        ]);
+      }
+  
+
 
       return true;
     } catch (\Exception $e) {
