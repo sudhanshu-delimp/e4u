@@ -5,7 +5,6 @@
 @section('content')
 
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 opr-console">
-       {{-- Page Heading --}}
     <div class="row">
         <div class="col-md-12 operator-heading-wrapper">
             <h1 class="h1">Monthly Report</h1>
@@ -24,15 +23,11 @@
             </div>
         </div>
     </div>
-    {{-- end --}}
-
-    <div class="row">
-        <div class="col-md-12">
 
             <div class="row">
                 <div class="col-md-12 mt-2">
-                    <div id="table-sec" class="table-responsive-xl">
-                        <table class="table my_opr_table" id="commissionStatementTable">
+                    <div id="table-sec" class="table-responsive">
+                        <table class="table my_opr_table w-100" id="commissionStatementTable">
                            <thead class="opr-table-bg">
                                 <tr>
                                     <th>Date Issued</th>
@@ -51,8 +46,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 </div>
 
 {{-- View Report --}}

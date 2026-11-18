@@ -183,7 +183,7 @@ class ReportingController extends BaseController
             //$item->status_name = $item->status;
             if ($this->editAccessEnabled) {
 
-                 $updatePassword = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center update_password" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i>Reset Password</a>';
+                 $updatePassword = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center update_password" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i>Reset Password</a>';
                 /* if ($item->status != 'Active') {
                     $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
                                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-user-check"></i> Active</a>';
@@ -225,13 +225,13 @@ class ReportingController extends BaseController
                 if ($item->status == 'Active') {
                     $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="8" data-toggle="modal" data-user-id="' . $item->id . '"
                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-ban "></i> Cancel</a>';
-                    $dropdown .= '<div class="dropdown-divider"></div>
+                    $dropdown .= '
                 <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal" data-status-num="6" data-user-id="' . $item->id . '"
                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-pause-circle"></i> On Hold</a>';
 
-                    $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '" href="#"><i class="fa fa-times-circle "></i> Reject</a>';
+                    $dropdown .= ' <a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '" href="#"><i class="fa fa-times-circle "></i> Reject</a>';
                     $dropdown .= $updatePassword;
-                    $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="3" data-toggle="modal" data-user-id="' . $item->id . '" data-target="#confirm-popup" href="javascript:void(0)" ><i class="fa fa-user-slash"></i> Suspend</a>';
+                    $dropdown .= ' <a class="dropdown-item d-flex align-items-center gap-10" data-status-num="3" data-toggle="modal" data-user-id="' . $item->id . '" data-target="#confirm-popup" href="javascript:void(0)" ><i class="fa fa-user-slash"></i> Suspend</a>';
                 }
 
 
@@ -240,20 +240,20 @@ class ReportingController extends BaseController
                     $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="8" data-toggle="modal" data-user-id="' . $item->id . '"
                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-ban "></i> Cancel</a>';
 
-                    $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
+                    $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
                  data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-user-check"></i> Reinstate</a>';
 
-                    $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '" href="#"><i class="fa fa-times-circle "></i> Reject</a>';
+                    $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '" href="#"><i class="fa fa-times-circle "></i> Reject</a>';
                      $dropdown .= $updatePassword;
                 }
 
                 if ($item->status == 'Suspended') {
                     $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
                  data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-user-check"></i> Activate</a>';
-                    $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="8" data-toggle="modal" data-user-id="' . $item->id . '"
+                    $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="8" data-toggle="modal" data-user-id="' . $item->id . '"
                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-ban "></i> Cancel</a>';
 
-                    $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '" href="#"><i class="fa fa-times-circle "></i> Reject</a>';
+                    $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '" href="#"><i class="fa fa-times-circle "></i> Reject</a>';
                      $dropdown .= $updatePassword;
                 }
 
@@ -267,14 +267,14 @@ class ReportingController extends BaseController
                     $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="8" data-toggle="modal" data-user-id="' . $item->id . '"
                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-ban "></i> Cancel</a>';
 
-                    $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
+                    $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
                  data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-user-check"></i> Reinstate</a>';
                   $dropdown .= $updatePassword;
 
-                    $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="3" data-toggle="modal" data-user-id="' . $item->id . '" data-target="#confirm-popup" href="javascript:void(0)" ><i class="fa fa-user-slash"></i> Suspended</a>';
+                    $dropdown .= ' <a class="dropdown-item d-flex align-items-center gap-10" data-status-num="3" data-toggle="modal" data-user-id="' . $item->id . '" data-target="#confirm-popup" href="javascript:void(0)" ><i class="fa fa-user-slash"></i> Suspended</a>';
                 }
 
-                $dropdown .= '<div class="dropdown-divider"></div>';
+                $dropdown .= '';
             }
             $dropdown .= '<a class="view_member_report dropdown-item d-flex align-items-center gap-10 toggle-report" data-toggle="modal" data-target="#account-row-"' . $item->id . '" data-id="' . $item->id . '"  href="javascript:void(0)" ><i class="fa fa-eye"></i> View Summary</a>';
             
