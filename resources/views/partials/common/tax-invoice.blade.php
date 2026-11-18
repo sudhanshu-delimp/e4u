@@ -58,14 +58,16 @@
 
                                     <!-- Paid Stamp (Email-safe badge) -->
                                     <td width="20%" valign="middle" align="center">
-                                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border: 2px dashed #1aa34d; border-radius: 100px; background-color: #f0fdf4;">
-                                            <tr>
-                                                <td align="center" style="padding: 22px 12px; font-size: 14px; font-weight: 800; color: #1aa34d; letter-spacing: 1px; line-height: 1.2;">
-                                                    <span style="font-size: 8px; font-weight: 700; display: block; letter-spacing: 0.5px;">THANK YOU</span>
-                                                    PAID
-                                                </td>
-                                            </tr>
-                                        </table>
+                                        <div style="width: 84px; height: 84px; border: 2px dashed #1aa34d; border-radius: 42px; background-color: #f0fdf4; margin: 0 auto; box-sizing: border-box;">
+                                            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" height="80" style="width: 100%; height: 80px; border-collapse: collapse;">
+                                                <tr>
+                                                    <td align="center" valign="middle" style="padding: 0; font-size: 14px; font-weight: 800; color: #1aa34d; letter-spacing: 1px; line-height: 1.2; text-align: center;">
+                                                        <span style="font-size: 8px; font-weight: 700; display: block; letter-spacing: 0.5px; margin-bottom: 2px;">THANK YOU</span>
+                                                        PAID
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </td>
 
                                     <!-- Invoice Meta -->
