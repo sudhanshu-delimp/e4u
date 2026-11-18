@@ -37,4 +37,9 @@ class ChatMessage extends Model
     {
         return $this->hasMany(ChatReaction::class, 'message_id');
     }
+
+    public function replyTo()
+    {
+        return $this->belongsTo(ChatMessage::class, 'reply_to_id')->withTrashed();
+    }
 }

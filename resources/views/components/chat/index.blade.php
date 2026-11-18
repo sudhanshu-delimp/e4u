@@ -198,6 +198,8 @@ $chatAssetVersion = @filemtime(public_path('chat-build/js/chat.js')) ?: time();
                 <button id="chatSearchBtn" title="Search messages">
                     <i class="bi bi-search"></i>
                 </button>
+                <button type="button" id="audioCallBtn" title="Audio call"><i class="bi bi-telephone-fill"></i></button>
+                <button type="button" id="videoCallBtn" title="Video call"><i class="bi bi-camera-video-fill"></i></button>
 
                 <!-- FULLSCREEN BUTTON -->
                 <button type="button" id="toggleFullscreenBtn" title="Full Screen">
