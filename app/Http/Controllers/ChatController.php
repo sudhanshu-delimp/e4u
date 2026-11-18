@@ -75,6 +75,16 @@ class ChatController extends Controller
         'odt'  => ['document', 'application/vnd.oasis.opendocument.text'],
         'ods'  => ['document', 'application/vnd.oasis.opendocument.spreadsheet'],
         'odp'  => ['document', 'application/vnd.oasis.opendocument.presentation'],
+
+        // Voice messages and audio
+        'weba' => ['audio', 'audio/webm'],
+        'm4a'  => ['audio', 'audio/mp4'],
+        'ogg'  => ['audio', 'audio/ogg'],
+        'oga'  => ['audio', 'audio/ogg'],
+        'opus' => ['audio', 'audio/ogg'],
+        'mp3'  => ['audio', 'audio/mpeg'],
+        'wav'  => ['audio', 'audio/wav'],
+        'aac'  => ['audio', 'audio/aac'],
     ];
 
     public function __construct(private ChatEligibility $eligibility)
@@ -435,7 +445,7 @@ class ChatController extends Controller
                     ->whereColumn('h.message_id', 'chat_messages.id')
                     ->where('h.user_id', $me->id);
             })
-            ->with('attachments', 'reactions')
+            ->with('attachments', 'reactions', 'replyTo')
             ->orderByDesc('id');
 
         if ($beforeId > 0) {
@@ -474,6 +484,7 @@ class ChatController extends Controller
             'body'    => ['nullable', 'string', 'max:5000', 'required_without:files'],
             'files'   => ['nullable', 'array', 'max:10', 'required_without:body'],
             'files.*' => ['file', 'max:51200'], // 50 MB each, in kilobytes
+            'reply_to' => ['nullable', 'integer'],
         ]);
 
         $otherId = $conv->otherUserId($me->id);
@@ -486,6 +497,16 @@ class ChatController extends Controller
 
         $body = isset($input['body']) ? trim($input['body']) : '';
         $body = $body === '' ? null : $body;
+
+                // A reply must point to a message of this same chat
+        $replyTo = null;
+
+        if (! empty($input['reply_to'])) {
+            $replyTo = ChatMessage::withTrashed()
+                ->where('id', (int) $input['reply_to'])
+                ->where('conversation_id', $conv->id)
+                ->value('id');
+        }
 
         $files = $request->file('files') ?: [];
 
@@ -530,12 +551,13 @@ class ChatController extends Controller
             $items[] = $info + ['path' => $realPath, 'size' => (int) $file->getSize()];
         }
 
-        $message = DB::transaction(function () use ($conv, $me, $body, $items) {
+        $message = DB::transaction(function () use ($conv, $me, $body, $items, $replyTo) {
             $message = ChatMessage::create([
                 'conversation_id' => $conv->id,
                 'sender_id'       => $me->id,
                 'body'            => $body,
                 'type'            => $items ? $items[0]['kind'] : 'text',
+                'reply_to_id'     => $replyTo,
             ]);
 
             foreach ($items as $item) {
@@ -1205,6 +1227,7 @@ class ChatController extends Controller
         return match ($message->type) {
             'image' => 'Photo',
             'video' => 'Video',
+            'audio' => 'Voice message',
             'document' => 'Document',
             default => (string) $message->body,
         };
@@ -1232,8 +1255,14 @@ class ChatController extends Controller
         }
 
         // Documents are accepted by their extension (servers report office files in many ways)
-        if ($known && $known[0] === 'document') {
-            return ['kind' => 'document', 'mime' => $known[1], 'ext' => $ext, 'name' => $name];
+                // Documents and audio (voice messages) are accepted by their extension
+        if ($known && in_array($known[0], ['document', 'audio'], true)) {
+            return ['kind' => $known[0], 'mime' => $known[1], 'ext' => $ext, 'name' => $name];
+        }
+
+        // Audio the server recognised without a known extension
+        if (str_starts_with($mime, 'audio/')) {
+            return ['kind' => 'audio', 'mime' => $mime, 'ext' => $file->guessExtension() ?: 'weba', 'name' => $name];
         }
 
         // The server recognised it as an image or a video
@@ -1269,6 +1298,12 @@ class ChatController extends Controller
             'type'            => $m->type,
             'deleted'         => $deleted,
             'edited'          => ! $deleted && $m->edited_at !== null,
+            'reply'           => $m->replyTo ? [
+                'id'        => $m->replyTo->id,
+                'sender_id' => (int) $m->replyTo->sender_id,
+                'preview'   => $m->replyTo->trashed() ? '' : Str::limit($this->preview($m->replyTo), 120),
+                'deleted'   => $m->replyTo->trashed(),
+            ] : null,
             'reactions'       => $deleted ? [] : $m->reactions->map(fn ($r) => [
                 'user_id' => (int) $r->user_id,
                 'emoji'   => $r->emoji,

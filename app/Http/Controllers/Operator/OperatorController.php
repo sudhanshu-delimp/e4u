@@ -541,7 +541,10 @@ class OperatorController extends BaseController
             } else if ($item->status == 'approved') {
                 //Query
               
-                    $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="paid"  id="viewPayOperatorRreport"><i class="fa fa-star"></i>Pay</a>';
+                    /* $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="paid"  id="viewPayOperatorRreport"><i class="fa fa-star"></i>Pay</a>';
+                    $divider = '<div class="dropdown-divider"></div>'; */
+
+                     $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="pending"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Pending</a>';
                     $divider = '<div class="dropdown-divider"></div>';
                 
             } else if ($item->status == 'paid') {
@@ -559,9 +562,9 @@ class OperatorController extends BaseController
                     $divider = '<div class="dropdown-divider"></div>';
                 
             } else if ($item->status == 'query_resolved') {
-                //Approve
+                //query_resolved
                
-                    $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
+                    $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a><div class="dropdown-divider"></div>';
                 
             }
 

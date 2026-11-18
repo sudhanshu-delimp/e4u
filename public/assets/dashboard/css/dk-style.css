@@ -6403,7 +6403,7 @@ white-space: nowrap;
     border-color: #2C3E50 !important;
 }
 .sidebar .console_heading{
-    font-size: 18px;
+    font-size: 16px;
     color: var(--peach);
     padding: 15px;
     background-color: #eff0f6;

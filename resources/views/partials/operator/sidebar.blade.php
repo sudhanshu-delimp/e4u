@@ -174,7 +174,7 @@
                             <img src="{{ asset('assets/dashboard/img/menu-icon/arrow.png') }}">
                             <span
                                 style="{{ request()->segment(4) == 'operator-monthly-report' ? 'color: #f5841f;' : '' }}">
-                                Operator Monthly</span>
+                                Monthly Report</span>
                         </a>
                     </div>
                 </div>
