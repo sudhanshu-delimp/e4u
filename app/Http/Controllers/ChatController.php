@@ -26,8 +26,8 @@ class ChatController extends Controller
 
     protected $notification;
     // Filesystem disk (config/filesystems.php) where chat attachments are stored
-    private const DISK = 'escorts';
     private const EDIT_MINUTES = 15;
+    private const DISK = 'local';
 
     // Supported attachment extensions => [kind, mime used when the server cannot detect it]
     private const ATTACHMENT_EXTENSIONS = [
@@ -1078,13 +1078,22 @@ class ChatController extends Controller
 
         $this->conversationFor($request->user()->id, $message->conversation_id);
 
+        // A message deleted for everyone no longer serves its files
+        abort_if($message->trashed(), 404);
+
         $disk = Storage::disk(self::DISK);
 
         abort_unless($disk->exists($row->path), 404);
 
-        return $disk->response($row->path, null, [
-            'Content-Type'  => $row->mime ?: 'application/octet-stream',
-            'Cache-Control' => 'private, max-age=3600',
+        // Drop any stray output so the file is not corrupted
+        while (ob_get_level() > 0) {
+            ob_end_clean();
+        }
+
+        return response()->file($disk->path($row->path), [
+            'Content-Type'           => $row->mime ?: 'application/octet-stream',
+            'Cache-Control'          => 'private, max-age=3600',
+            'X-Content-Type-Options' => 'nosniff',
         ]);
     }
 
@@ -1357,7 +1366,7 @@ class ChatController extends Controller
                 'size' => $a->size,
                 'name' => $a->name,
                 // The escorts disk root is public/escorts, so files open at /escorts/{path}
-                'url'  => '/escorts/' . ltrim($a->path, '/'),
+                'url'  => route('chat.attachment', ['attachment' => $a->id], false),
             ])->values()->all(),
         ];
     }
