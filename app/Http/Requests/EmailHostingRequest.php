@@ -32,6 +32,7 @@ class EmailHostingRequest extends FormRequest
       'first_name' => ['required', 'max:255'],
       'last_name' => ['required', 'max:255'],
       'term_condition' => ['required', 'accepted'],
+      'auth' => ['required', 'accepted'],
       'period_required' => ['required','numeric'],
       'mobile' => [
         'required',
@@ -59,6 +60,6 @@ class EmailHostingRequest extends FormRequest
       'email.email' => 'Please enter a valid email address.',
       'mobile.required' => 'Mobile number is required.',
 'term_condition.required' => 'Please accept the terms and conditions.',
-    ];
+'auth.required' => 'Please accept the payment authorization terms to proceed with the payment.',    ];
   }
 }

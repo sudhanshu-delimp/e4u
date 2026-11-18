@@ -11,11 +11,31 @@ class CreateEmailHostingRequestsTable extends Migration
      *
      * @return void
      */
-    public function up()
+  public function up(): void
     {
         Schema::create('email_hosting_requests', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('user_id')->nullable();
+
+            $table->string('email');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('mobile')->nullable();
+
+            $table->json('contact_pref')->nullable();
+            $table->json('contact_preference')->nullable();
+
+            $table->boolean('term_condition')->default(false);
+            $table->boolean('auth')->default(false);
+
+            $table->unsignedInteger('period_required')->nullable();
+
+            $table->text('comments')->nullable();
+
             $table->timestamps();
+
+            $table->index('user_id');
         });
     }
 

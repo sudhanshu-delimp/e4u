@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Escort\Concierge;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmailHostingRequest;
+use App\Models\EmailHostingRequest as ModelsEmailHostingRequest;
+use App\Services\EmailHostingService;
 use App\Services\VisaMigrationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,15 +16,17 @@ class EmailAccountRequestController extends Controller
   {
     return view('escort.dashboard.Concierge.email-hosting');
   }
-  public function store(EmailHostingRequest $request, VisaMigrationService $visaMigrationService)
+  public function store(EmailHostingRequest $request, EmailHostingService $emailHostingService)
   {
     try {
 
       $data = $request->validated();
+      // dd($data);
       $data['contact_preference'] = json_encode($request->contact_pref);
-      $data['area_type'] = $request->advice_area;
       $data['user_id'] = Auth::user()->id;
-      $created = VisaMigration::create($data);
+      $data['auth'] = $request->boolean('auth');
+      $data['term_condition'] = $request->boolean('term_condition');
+      $created = ModelsEmailHostingRequest::create($data);
       $mailData['ref'] = $created->id;
       $mailData['member_id'] = Auth::user()->member_id;
 
@@ -30,7 +34,7 @@ class EmailAccountRequestController extends Controller
       $mailData['console'] = "EC";
 
       if ($created) {
-        $response =   $visaMigrationService->sendEmailToPeams($created, $mailData);
+        $response =   $emailHostingService->sendEmailToPeams($created, $mailData);
         if ($response) {
           return response()->json([
             'status' => true,
