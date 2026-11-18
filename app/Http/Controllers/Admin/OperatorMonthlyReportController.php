@@ -332,6 +332,7 @@ class OperatorMonthlyReportController extends BaseController
         ->where('fee_report_id', $id)
         ->where('status', 'query')
         ->where('notes', '!=', "")
+        ->orderBy("created_at" , "DESC")
         ->get();
 
       if ($queryData->isNotEmpty()) {
