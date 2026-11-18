@@ -530,8 +530,8 @@ class OperatorController extends BaseController
             if ($item->status == 'pending') {
                 //Approve
                 
-                    $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
-                    $divider = '<div class="dropdown-divider"></div>';
+                   /*  $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
+                    $divider = '<div class="dropdown-divider"></div>'; */
 
 
                     //Query
