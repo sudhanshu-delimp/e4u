@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Operator Montly Fee Report</title>
+    <title>Monthly Fee Reports</title>
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.2') }}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -99,7 +99,7 @@
                             <td style="text-align: left !important;background:#003c3e;"> <span>
                                     <img src="{{ $base64 }}" style="width: 25px;height:20px;">
                                 </span><span
-                                    style="color:#fff; font-weight:bold;text-align: left !important;line-height:0px;font-size: 16px;">Operator Montly Fee Report (Period Ending: {{ $reportEndDate }})</span> </td>
+                                    style="color:#fff; font-weight:bold;text-align: left !important;line-height:0px;font-size: 16px;">Fee Report by Agent (Period Ending: {{ $reportEndDate }})</span> </td>
                                     <td style="text-align: right;background:#003c3e;">
                                         <span
                                             style="color:#fff; font-weight:bold;text-align: right !important;line-height:0px;font-size: 16px;">Operator ID: {{ $operatorMemberId }}</span>

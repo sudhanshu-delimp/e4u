@@ -347,7 +347,7 @@
 <!-- opr_accordian_table JS -->
 <script>
     $(document).ready(function() {
-        $("#reportendDate").html('Operator Montly Fee Report (Period Ending: {{ $reportEndDate }})');
+        $("#reportendDate").html('Fee Report by Agent (Period Ending: {{ $reportEndDate }})');
     });
     document.querySelectorAll('.accordion-toggle').forEach(toggle => {
         toggle.addEventListener('click', () => {

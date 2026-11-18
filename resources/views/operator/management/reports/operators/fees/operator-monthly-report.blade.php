@@ -427,7 +427,7 @@
     async function submitStatus(table, id, status, note) {
         if (await isConfirm({
                 'action': 'Update',
-                'text': 'Are you sure you want to update status?'
+                'text': (status=='query') ? 'Are you sure you want to submit query?' : 'Are you sure you want to update status?'
             })) {
             var url = "{{ route('operator.operator.update.status.detail') }}";
             url = url.replace(':id', id);
