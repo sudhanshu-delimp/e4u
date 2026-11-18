@@ -23,37 +23,45 @@
                 border-bottom: 0px;
             }
         }
+
         table th,
         table td {
             font-family: "Poppins", sans-serif;
         }
+
         .heading {
             display: block;
             font-size: 1rem;
             font-weight: 500;
             line-height: 1px;
         }
+
         @page {
             size: A4;
         }
+
         h2 {
             font-size: 16px;
             font-weight: bold;
         }
+
         h6 {
             font-size: 16px;
         }
+
         .table td {
             vertical-align: middle;
         }
+
         table td {
             padding: .75rem;
             color: #333 !important;
-            font-size: 12px;
+            font-size: 14px;
         }
+
         table th {
             padding: .45rem .75rem .55rem !important;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 500;
             vertical-align: middle;
            font-family: "Poppins", sans-serif;
@@ -82,7 +90,7 @@
                 <td style="text-align: left !important;"> <span>
                         <img src="{{ $base64 }}" style="width: 25px;">
                     </span><span
-                        style="color:#fff; font-weight:bold;text-align: left !important;padding-top:-20px;font-size: 14px;">Payment
+                        style="color:#fff; font-weight:bold;text-align: left !important;padding-top:-20px;font-size: 18px;">Payment
                         Authorisation</span> </td>
             </tr>
         </table>
