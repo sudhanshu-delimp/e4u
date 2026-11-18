@@ -206,6 +206,7 @@ if (!function_exists('formatCurrency')) {
     function formatCurrency($amount, $currency = '$', $appendCurrencySign = true)
     {
         $amount = number_format($amount, 2, '.', ''); // keep 2 decsimals
+        $isNegative = $amount < 0;
         list($intPart, $decimalPart) = explode('.', $amount);
 
         $lastThree = substr($intPart, -3);
@@ -218,7 +219,10 @@ if (!function_exists('formatCurrency')) {
             $formatted = $lastThree;
         }
 
-        return $appendCurrencySign ? $currency . '' . $formatted . '.' . $decimalPart : $formatted . '.' . $decimalPart;
+        $formattedAmount = abs(intVal($formatted)) . '.' . $decimalPart;
+        
+        $amountString =  $appendCurrencySign ? $currency . '' . $formattedAmount : $formattedAmount;
+        return $isNegative ? '<span class="text-danger">(' . $amountString . ')</span>' : $amountString;
     }
 }
 

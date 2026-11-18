@@ -558,7 +558,7 @@ class PaymentController extends Controller
             return response()->json([
                 'status' => true,
                 'html'   => $html,
-                'print_url' => route('escort.payment.detail.print', $payment->id),
+                'print_url' => route('escort.payment.detail.print', ['payment' => $payment->id, 'action' => $request->action]),
                 'message' => 'Listing fetched successfully'
             ]);
         } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
@@ -575,17 +575,21 @@ class PaymentController extends Controller
             ], 404);
         } catch (\Exception $e) {
             return response()->json([
-                'status' => false,
-                'message' => 'Something went wrong'
+                'status'  => false,
+                'message' => 'Something went wrong',
+                'error'   => $e->getMessage(),
+                'line'    => $e->getLine(),
+                'file'    => $e->getFile(),
             ], 500);
         }
     }
 
-    public function printPaymentDetail(PaymentHistory $payment)
+    public function printPaymentDetail(Request $request, PaymentHistory $payment)
     {
         $print = true;
-        $pdf = PDF::loadView('escort.dashboard.Bookkeeping.modal.transaction-summary', compact('payment', 'print'));
-        return $pdf->stream($payment->user->member_id . '_Payment_Summary_' . $payment->ref_no . '.pdf');
+        $template = $request->action === 'transaction-summary' ? 'escort.dashboard.Bookkeeping.modal.transaction-summary' : 'escort.dashboard.Bookkeeping.modal.tax-invoice';
+        $pdf = PDF::loadView($template, compact('payment', 'print'));
+        return $pdf->stream($payment->user->member_id . '_'.str_replace(' ','_',ucwords(str_replace('-',' ',$request->action))).'_' . $payment->ref_no . '.pdf');
     }
 
     public function mySpend(Request $request)

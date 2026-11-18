@@ -203,7 +203,8 @@ class OperatorMonthlyReportController extends BaseController
           $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
         }
         /*$dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
-        $divider = '<div class="dropdown-divider"></div>'; */
+        */
+         $divider = '<div class="dropdown-divider"></div>';
       }
 
       //View Query
@@ -413,7 +414,7 @@ class OperatorMonthlyReportController extends BaseController
           if ($report->save()) {
 
             $notification = (new Notification);
-            $notificationTitle = 'Your<span style="color:#ff0505;"> Monthly Fee </span> has been paid for ' . $reportMonth . ' month. Please visit <a href="' . config('app.url') . '/operator-dashboard/operator-monthly-report">Fee Report</a> to acknowledge.';
+            $notificationTitle = 'Your<span style="color:#ff0505;"> Monthly Fee </span> has been paid for ' . $reportMonth . ' month. Please visit <a href="' . config('app.url') . '/operator-dashboard/management/reports/operator-monthly-report">Fee Report</a> to acknowledge.';
 
             $notificationIcon = $notification->notificationIcon('general');
 

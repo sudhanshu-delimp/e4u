@@ -108,13 +108,13 @@
                                     <tr>
                                         <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Wallet Amount</strong></td>
                                         <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">
-                                            -{{ formatCurrency($payment?->wallet_amount ?? 0) }}
+                                            {!! formatCurrency(-abs($payment?->wallet_amount ?? 0)) !!}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Loyalty Amount</strong></td>
                                         <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">
-                                            -{{ formatCurrency($payment?->loyalty_amount ?? 0) }}
+                                            {!! formatCurrency(-abs($payment?->loyalty_amount ?? 0)) !!}
                                         </td>
                                     </tr>
 
@@ -143,7 +143,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn-success-modal nex_sterp_btn print_payment_summary text-white" target="_blank">🖨️ Print Summary</a>
+                <a href="#" class="btn-success-modal nex_sterp_btn print_payment_summary text-white" target="_blank">🖨️ Print</a>
                 <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
             </div>
         </div>

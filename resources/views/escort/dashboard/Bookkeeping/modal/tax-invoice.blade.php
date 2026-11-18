@@ -137,63 +137,17 @@
                                                             <th style="padding: 8px 6px; font-size: 10.5px; font-weight: 600; color: #ffffff; border: 1px solid #1e3a63; text-align: left; width: 34%;">Service Description</th>
                                                             <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 600; color: #ffffff; border: 1px solid #1e3a63; text-align: center; width: 8%;">Qty<sup>(1)</sup></th>
                                                             <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 600; color: #ffffff; border: 1px solid #1e3a63; text-align: right; width: 10%;">Rate</th>
+                                                            <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 600; color: #ffffff; border: 1px solid #1e3a63; text-align: right; width: 10%;">Discount</th>
                                                             <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 600; color: #ffffff; border: 1px solid #1e3a63; text-align: right; width: 10%;">GST</th>
                                                             <th style="padding: 8px 6px; font-size: 10.5px; font-weight: 600; color: #ffffff; border: 1px solid #1e3a63; text-align: right; width: 12%;">Amount</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr style="background-color: #ffffff;">
-                                                            <td align="center" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; text-align:center;">{{ !empty($payment->created_at) ? $payment->created_at->format('d-m-Y')  : '---' }}</td>
-                                                            <td align="center" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; text-align:center;">{{ $payment?->service ?? '---' }}</td>
-                                                            <td align="left" valign="top" style="padding: 10px 6px; border: 1px solid #cbd5e1; font-size: 11px; line-height: 1.4;text-align:left;">
-                                                                <strong>Platinum profile</strong> listed in [Location]<br />
-                                                                <span style="color: #53657d;">([Profile name])</span>
-                                                            </td>
-                                                            <td align="center" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; text-align:center;">10</td>
-                                                            <td align="right" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap; text-align:right;">$10.00</td>
-                                                            <td align="right" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap; text-align:right;">{{ formatCurrency($payment?->gst_amount ?? 0) }}</td>
-                                                            <td align="right" valign="top" style="padding: 10px 6px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap; text-align:right;"> {{ formatCurrency($payment?->amount ?? 0) }}</td>
-                                                        </tr>
-
-                                                        <!-- Subtotal Row -->
-                                                        <tr>
-                                                            <!-- Notes Box & Card details embedded in the left cells -->
-                                                            <td colspan="4" rowspan="3" valign="top" style="border: 1px solid #cbd5e1; padding: 12px; background-color: #ffffff;">
-                                                                <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
-                                                                    <tr>
-                                                                        <td valign="top" style="border:0;padding:0px;">
-                                                                            <div style="width:55%;border: 1px dashed #22c55e; border-radius: 4px; padding: 6px 10px; font-size: 10.5px; color: #15803d; line-height: 1.4; background-color: #ffffff;">
-                                                                                <strong style="display: block; font-size: 11px; margin-bottom: 2px;">Notes:</strong>
-                                                                                1. Quantity can be either days or units.<br />
-                                                                                2. Card debited with your authority.
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td valign="top" style="border:0; padding-bottom:0px; padding-right:0px; padding-left:0px; padding-top: 8px; font-size: 11.5px; font-weight: 700; color: #dc2626;">
-                                                                            Card<sup>(2)</sup>: {{ $payment?->card ?? '---' }}
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
-                                                            <td colspan="2" align="center" style="padding: 8px 6px; border: 1px solid #cbd5e1; font-size: 11px; font-weight: 700; color: #0c223d; background-color: #ffffff;text-align:center;">Subtotal:</td>
-                                                            <td align="right" style="padding: 8px 6px; border: 1px solid #cbd5e1; font-size: 11px; color: #132238; background-color: #ffffff; white-space: nowrap;text-align:right;">{{ formatCurrency($payment?->amount ?? 0) }}</td>
-                                                        </tr>
-
-                                                        <!-- GST Row -->
-                                                        <tr>
-                                                            <td colspan="2" align="center" style="padding: 8px 6px; border: 1px solid #cbd5e1; font-size: 11px; font-weight: 700; color: #0c223d; background-color: #ffffff;text-align:center;">GST:</td>
-                                                            <td align="right" style="padding: 8px 6px; border: 1px solid #cbd5e1; font-size: 11px; color: #132238; background-color: #ffffff; white-space: nowrap;text-align:right;">{{ formatCurrency($payment?->gst_amount ?? 0) }}</td>
-                                                        </tr>
-
-                                                        <!-- Balance Due Row -->
-                                                        <tr style="background-color: #fafbfc;">
-                                                            <td colspan="2" align="left" style="padding: 9px 8px; border: 2px solid #0c223d; font-size: 13px; font-weight: 800; color: #0c223d;text-align:left;">Balance Due:</td>
-                                                            <td align="right" style="padding: 9px 6px; border: 2px solid #0c223d; font-size: 13px; font-weight: 800; color: #0c223d; white-space: nowrap; text-align:right;">{{ formatCurrency($payment?->paid_amount ?? 0) }}</td>
-                                                        </tr>
+                                                        @if(!empty($payment))
+                                                            @include('escort.dashboard.Bookkeeping.modal.partials.tax-invoice-items', compact('payment'))
+                                                        @endif
                                                     </tbody>
                                                 </table>
-
                                             </td>
                                         </tr>
                                     </table>
@@ -206,8 +160,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn-success-modal nex_sterp_btn print_payment_summary text-white" target="_blank">🖨️ Print Summary</a>
-                <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
+                <a href="#" class="btn-success-modal nex_sterp_btn print_payment_summary text-white" target="_blank">🖨️ Print</a>
+                <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

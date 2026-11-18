@@ -530,11 +530,14 @@ function createApi(_ref) {
     messages: function messages(id, params) {
       return request(withId(routes.messages, id) + query(params));
     },
-    send: function send(id, body, files) {
+    send: function send(id, body, files, replyTo) {
       if (files && files.length) {
         var form = new FormData();
         if (body) {
           form.append('body', body);
+        }
+        if (replyTo) {
+          form.append('reply_to', replyTo);
         }
         files.forEach(function (file) {
           return form.append('files[]', file);
@@ -547,7 +550,8 @@ function createApi(_ref) {
       return request(withId(routes.messages, id), {
         method: 'POST',
         body: JSON.stringify({
-          body: body
+          body: body,
+          reply_to: replyTo || null
         })
       });
     },
@@ -665,6 +669,7 @@ var MAX_FILE_BYTES = 50 * 1024 * 1024;
 var MAX_FILES = 10;
 var TYPING_SEND_GAP_MS = 2000;
 var TYPING_SHOW_MS = 3500;
+var MAX_VOICE_SECONDS = 300;
 var FILE_ACCEPT = 'image/*,video/*,.heic,.heif,.avif,.tif,.tiff,.mkv,.avi,.wmv,.flv,.3gp,.3g2,.mpg,.mpeg,.ogv,.m4v,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.rtf,.odt,.ods,.odp';
 var IMAGE_EXT = ['jpg', 'jpeg', 'jpe', 'jfif', 'png', 'gif', 'webp', 'bmp', 'avif', 'heic', 'heif', 'tif', 'tiff', 'ico'];
 var VIDEO_EXT = ['mp4', 'm4v', 'mov', 'webm', 'ogv', 'mkv', 'avi', 'wmv', 'flv', '3gp', '3g2', 'mpg', 'mpeg'];
@@ -751,7 +756,9 @@ function initChat(root) {
     pendingFiles: [],
     editingId: null,
     previewUrls: [],
-    detached: false
+    detached: false,
+    replyTo: null,
+    recording: null
   };
 
   /* ---------------------------------------------------
@@ -776,11 +783,11 @@ function initChat(root) {
     var conv = findConv(state.activeId);
     return {
       me: me,
+      myMemberId: config.myMemberId,
       peer: conv ? conv.user : {
         name: '?',
         color: '#6B7280'
-      },
-      meIsAdmin: !!config.meIsAdmin
+      }
     };
   }
   function isUserOnline(user) {
@@ -906,6 +913,10 @@ function initChat(root) {
   function setComposerEnabled(enabled) {
     el.input.disabled = !enabled;
     el.sendBtn.disabled = !enabled;
+    var mic = document.getElementById('voiceBtn');
+    if (mic) {
+      mic.disabled = !enabled;
+    }
   }
 
   /* ---------------------------------------------------
@@ -921,7 +932,6 @@ function initChat(root) {
     var ctx = {
       states: config.states || {},
       activeId: state.activeId,
-      meIsAdmin: !!config.meIsAdmin,
       isOnline: isUserOnline,
       isTyping: function isTyping(id) {
         return !!state.typing[id];
@@ -948,7 +958,7 @@ function initChat(root) {
     el.headerAvatar.innerHTML = _render__WEBPACK_IMPORTED_MODULE_2__.avatarInner(user);
     el.headerName.textContent = user.name;
     el.headerStatus.innerHTML = typing ? '<span style="color:#25a244;font-style:italic;">typing...</span>' : "<span class=\"status-dot".concat(online ? '' : ' offline', "\"></span> ").concat(online ? 'Active' : 'Offline');
-    el.headerMeta.innerHTML = "Type: ".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(user.type_label || (config.typeLabels || {})[user.type] || ''), " <span>|</span> ") + "Member ID: ".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(user.member_id), " <span>|</span> ") + "Location: ".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(abbr));
+    el.headerMeta.innerHTML = "Type: ".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml((config.typeLabels || {})[user.type] || ''), " <span>|</span> ") + "Member ID: ".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(user.member_id), " <span>|</span> ") + "Location: ".concat(_render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(abbr));
   }
   function renderMessages() {
     if (!state.activeId) {
@@ -1149,6 +1159,8 @@ function initChat(root) {
   }
   function clearAttachPreview() {
     cancelEdit();
+    cancelReply();
+    cancelRecording();
     var box = document.getElementById('chatAttachPreview');
     if (box) {
       box.remove();
@@ -1345,7 +1357,7 @@ function initChat(root) {
   } // The other person edited or deleted a message
   function _deleteMessage() {
     _deleteMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6(id) {
-      var msg, conv, peerIsAdmin, mode, res, scroll, _t4;
+      var msg, mode, res, scroll, _t4;
       return _regenerator().w(function (_context6) {
         while (1) switch (_context6.p = _context6.n) {
           case 0:
@@ -1356,13 +1368,9 @@ function initChat(root) {
             }
             return _context6.a(2);
           case 1:
-            // "Delete for everyone" is only for my own messages
-            // "Delete for everyone" is not offered in chats with E4U staff
-            conv = findConv(state.activeId);
-            peerIsAdmin = !!conv && (config.adminTypes || []).map(Number).indexOf(Number(conv.user.type)) !== -1;
             _context6.n = 2;
             return (0,_dialogs__WEBPACK_IMPORTED_MODULE_4__.chooseDelete)({
-              allowEveryone: msg.sender_id === me.id && !peerIsAdmin
+              allowEveryone: msg.sender_id === me.id
             });
           case 2:
             mode = _context6.v;
@@ -1499,6 +1507,9 @@ function initChat(root) {
   function react(_x4, _x5) {
     return _react.apply(this, arguments);
   }
+  /* ---------------------------------------------------
+  Reply and voice messages
+  --------------------------------------------------- */
   function _react() {
     _react = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee7(messageId, emoji) {
       var res, _t5;
@@ -1525,84 +1536,292 @@ function initChat(root) {
     }));
     return _react.apply(this, arguments);
   }
-  function sendMessage() {
-    return _sendMessage.apply(this, arguments);
+  function cancelReply() {
+    state.replyTo = null;
+    var banner = document.getElementById('chatReplyBanner');
+    if (banner) {
+      banner.remove();
+    }
   }
-  function _sendMessage() {
-    _sendMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
-      var body, files, res, _res, _t6, _t7;
+  function startReply(id) {
+    var msg = messageById(id);
+    if (!msg || msg.deleted) {
+      return;
+    }
+    cancelReply();
+    state.replyTo = msg;
+    var conv = findConv(state.activeId);
+    var name = msg.sender_id === me.id ? 'You' : conv ? conv.user.name : '';
+    var preview = msg.body ? msg.body : _render__WEBPACK_IMPORTED_MODULE_2__.previewText(msg);
+    var banner = document.createElement('div');
+    banner.id = 'chatReplyBanner';
+    banner.setAttribute('style', 'display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;border-top:1px solid #e5e7eb;background:#f3f4f6;font-size:13px;');
+    banner.innerHTML = '<span style="border-left:3px solid #e11d48;padding-left:8px;overflow:hidden;">' + '<strong style="display:block;">' + _render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(name) + '</strong>' + '<span style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:60vw;">' + _render__WEBPACK_IMPORTED_MODULE_2__.escapeHtml(preview) + '</span></span>' + '<button type="button" class="chat-reply-cancel" aria-label="Cancel" style="border:0;background:transparent;font-size:20px;line-height:1;cursor:pointer;color:#0c223d;">&times;</button>';
+    el.composer.parentNode.insertBefore(banner, el.composer);
+    el.input.focus();
+  }
+
+  // Scroll to the original message of a reply, when it is on the screen
+  function jumpToMessage(id) {
+    var row = el.messages.querySelector('.message-row[data-id="' + id + '"]');
+    if (!row) {
+      return;
+    }
+    row.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+    row.style.transition = 'background .4s';
+    row.style.background = 'rgba(225,29,72,.15)';
+    setTimeout(function () {
+      row.style.background = '';
+    }, 1200);
+  }
+  function pickAudioType() {
+    var types = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus'];
+    return types.find(function (type) {
+      return window.MediaRecorder && MediaRecorder.isTypeSupported(type);
+    }) || '';
+  }
+  function startRecording() {
+    return _startRecording.apply(this, arguments);
+  }
+  function _startRecording() {
+    _startRecording = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee8() {
+      var stream, mimeType, recorder, rec, _t6;
       return _regenerator().w(function (_context8) {
         while (1) switch (_context8.p = _context8.n) {
           case 0:
-            body = el.input.value.trim();
-            files = state.pendingFiles.slice();
-            if (!state.sending) {
+            if (!state.recording) {
               _context8.n = 1;
               break;
             }
             return _context8.a(2);
           case 1:
-            if (!state.editingId) {
-              _context8.n = 9;
-              break;
-            }
-            if (body) {
+            if (state.activeId) {
               _context8.n = 2;
               break;
             }
-            notify('A message cannot be empty. Use delete instead.', 'error');
+            notify('Select a chat first.', 'error');
             return _context8.a(2);
           case 2:
-            if (!files.length) {
+            if (!(!navigator.mediaDevices || !window.MediaRecorder)) {
               _context8.n = 3;
               break;
             }
-            notify('Attachments cannot be added while editing.', 'error');
+            notify('Voice messages are not supported in this browser.', 'error');
             return _context8.a(2);
           case 3:
+            _context8.p = 3;
+            _context8.n = 4;
+            return navigator.mediaDevices.getUserMedia({
+              audio: true
+            });
+          case 4:
+            stream = _context8.v;
+            _context8.n = 6;
+            break;
+          case 5:
+            _context8.p = 5;
+            _t6 = _context8.v;
+            notify('Allow the microphone to send a voice message.', 'error');
+            return _context8.a(2);
+          case 6:
+            mimeType = pickAudioType();
+            recorder = new MediaRecorder(stream, mimeType ? {
+              mimeType: mimeType
+            } : undefined);
+            rec = {
+              recorder: recorder,
+              stream: stream,
+              chunks: [],
+              startedAt: Date.now(),
+              cancelled: false,
+              timer: null
+            };
+            recorder.ondataavailable = function (event) {
+              if (event.data && event.data.size) {
+                rec.chunks.push(event.data);
+              }
+            };
+            recorder.onstop = function () {
+              return finishRecording(rec);
+            };
+            state.recording = rec;
+            recorder.start();
+            showRecordingBar(rec);
+          case 7:
+            return _context8.a(2);
+        }
+      }, _callee8, null, [[3, 5]]);
+    }));
+    return _startRecording.apply(this, arguments);
+  }
+  function showRecordingBar(rec) {
+    var banner = document.createElement('div');
+    banner.id = 'chatRecordBar';
+    banner.setAttribute('style', 'display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;border-top:1px solid #e5e7eb;background:#fff1f2;font-size:13px;');
+    banner.innerHTML = '<span style="display:flex;align-items:center;gap:8px;">' + '<span style="width:10px;height:10px;border-radius:50%;background:#e11d48;display:inline-block;"></span>' + 'Recording <strong class="chat-rec-time">0:00</strong></span>' + '<span><button type="button" class="chat-rec-cancel" style="border:0;background:transparent;font-size:20px;line-height:1;cursor:pointer;color:#0c223d;">&times;</button>' + '<button type="button" class="chat-rec-send" style="border:0;background:#e11d48;color:#fff;border-radius:14px;padding:2px 14px;cursor:pointer;">Send</button></span>';
+    el.composer.parentNode.insertBefore(banner, el.composer);
+    var label = banner.querySelector('.chat-rec-time');
+    rec.timer = setInterval(function () {
+      var seconds = Math.floor((Date.now() - rec.startedAt) / 1000);
+      label.textContent = Math.floor(seconds / 60) + ':' + String(seconds % 60).padStart(2, '0');
+      if (seconds >= MAX_VOICE_SECONDS) {
+        stopRecording();
+      }
+    }, 500);
+  }
+  function stopRecording() {
+    var rec = state.recording;
+    if (rec && rec.recorder.state !== 'inactive') {
+      rec.recorder.stop();
+    }
+  }
+  function cancelRecording() {
+    if (state.recording) {
+      state.recording.cancelled = true;
+      stopRecording();
+    }
+  }
+  function finishRecording(_x6) {
+    return _finishRecording.apply(this, arguments);
+  }
+  function _finishRecording() {
+    _finishRecording = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9(rec) {
+      var bar, seconds, type, ext, file, conversationId, res, _t7;
+      return _regenerator().w(function (_context9) {
+        while (1) switch (_context9.p = _context9.n) {
+          case 0:
+            clearInterval(rec.timer);
+            rec.stream.getTracks().forEach(function (track) {
+              return track.stop();
+            });
+            bar = document.getElementById('chatRecordBar');
+            if (bar) {
+              bar.remove();
+            }
+            if (state.recording === rec) {
+              state.recording = null;
+            }
+            seconds = (Date.now() - rec.startedAt) / 1000; // Cancelled, too short or no chat open: nothing is sent
+            if (!(rec.cancelled || seconds < 1 || !rec.chunks.length || !state.activeId)) {
+              _context9.n = 1;
+              break;
+            }
+            return _context9.a(2);
+          case 1:
+            type = (rec.recorder.mimeType || 'audio/webm').split(';')[0];
+            ext = type.indexOf('mp4') !== -1 ? 'm4a' : type.indexOf('ogg') !== -1 ? 'ogg' : 'weba';
+            file = new File(rec.chunks, 'voice-' + Date.now() + '.' + ext, {
+              type: type
+            });
+            conversationId = state.activeId;
+            _context9.p = 2;
+            _context9.n = 3;
+            return api.send(conversationId, '', [file], state.replyTo ? state.replyTo.id : null);
+          case 3:
+            res = _context9.v;
+            cancelReply();
+            if (conversationId === state.activeId) {
+              appendMessage(res.data);
+            }
+            touchConversation(res.data, {
+              mine: true,
+              unread: 0
+            });
+            renderList();
+            _context9.n = 5;
+            break;
+          case 4:
+            _context9.p = 4;
+            _t7 = _context9.v;
+            notify(_t7.message || 'Voice message could not be sent.', 'error');
+          case 5:
+            return _context9.a(2);
+        }
+      }, _callee9, null, [[2, 4]]);
+    }));
+    return _finishRecording.apply(this, arguments);
+  }
+  function sendMessage() {
+    return _sendMessage.apply(this, arguments);
+  }
+  function _sendMessage() {
+    _sendMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0() {
+      var body, files, res, _res, _t8, _t9;
+      return _regenerator().w(function (_context0) {
+        while (1) switch (_context0.p = _context0.n) {
+          case 0:
+            body = el.input.value.trim();
+            files = state.pendingFiles.slice();
+            if (!state.sending) {
+              _context0.n = 1;
+              break;
+            }
+            return _context0.a(2);
+          case 1:
+            if (!state.editingId) {
+              _context0.n = 9;
+              break;
+            }
+            if (body) {
+              _context0.n = 2;
+              break;
+            }
+            notify('A message cannot be empty. Use delete instead.', 'error');
+            return _context0.a(2);
+          case 2:
+            if (!files.length) {
+              _context0.n = 3;
+              break;
+            }
+            notify('Attachments cannot be added while editing.', 'error');
+            return _context0.a(2);
+          case 3:
             state.sending = true;
-            _context8.p = 4;
-            _context8.n = 5;
+            _context0.p = 4;
+            _context0.n = 5;
             return api.editMessage(state.editingId, body);
           case 5:
-            res = _context8.v;
+            res = _context0.v;
             replaceMessage(res.data);
             cancelEdit();
             el.input.value = '';
             resizeComposerInput();
             loadList();
-            _context8.n = 7;
+            _context0.n = 7;
             break;
           case 6:
-            _context8.p = 6;
-            _t6 = _context8.v;
-            notify(_t6.message || 'Message could not be edited.', 'error');
+            _context0.p = 6;
+            _t8 = _context0.v;
+            notify(_t8.message || 'Message could not be edited.', 'error');
           case 7:
-            _context8.p = 7;
+            _context0.p = 7;
             state.sending = false;
             el.input.focus({
               preventScroll: true
             });
-            return _context8.f(7);
+            return _context0.f(7);
           case 8:
-            return _context8.a(2);
+            return _context0.a(2);
           case 9:
             if (!(!body && !files.length || !state.activeId)) {
-              _context8.n = 10;
+              _context0.n = 10;
               break;
             }
-            return _context8.a(2);
+            return _context0.a(2);
           case 10:
             state.sending = true;
             el.sendBtn.disabled = true;
             if (files.length) {
               showSending(files);
             }
-            _context8.p = 11;
-            _context8.n = 12;
-            return api.send(state.activeId, body, files);
+            _context0.p = 11;
+            _context0.n = 12;
+            return api.send(state.activeId, body, files, state.replyTo ? state.replyTo.id : null);
           case 12:
-            _res = _context8.v;
+            _res = _context0.v;
             hideSending();
             root.querySelector('#emojiPicker').classList.remove('show');
             el.input.value = '';
@@ -1617,25 +1836,25 @@ function initChat(root) {
               unread: 0
             });
             renderList();
-            _context8.n = 14;
+            _context0.n = 14;
             break;
           case 13:
-            _context8.p = 13;
-            _t7 = _context8.v;
-            notify(_t7.message || 'Message could not be sent.', 'error');
+            _context0.p = 13;
+            _t9 = _context0.v;
+            notify(_t9.message || 'Message could not be sent.', 'error');
           case 14:
-            _context8.p = 14;
+            _context0.p = 14;
             hideSending();
             state.sending = false;
             el.sendBtn.disabled = false;
             el.input.focus({
               preventScroll: true
             });
-            return _context8.f(14);
+            return _context0.f(14);
           case 15:
-            return _context8.a(2);
+            return _context0.a(2);
         }
-      }, _callee8, null, [[11, 13, 14, 15], [4, 6, 7, 8]]);
+      }, _callee0, null, [[11, 13, 14, 15], [4, 6, 7, 8]]);
     }));
     return _sendMessage.apply(this, arguments);
   }
@@ -1809,29 +2028,29 @@ function initChat(root) {
     updateSearchCount();
     jumpToMessage(searchHits[searchPos].id);
   }
-  function runSearch(_x6) {
+  function runSearch(_x7) {
     return _runSearch.apply(this, arguments);
   }
   function _runSearch() {
-    _runSearch = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee9(term) {
-      var id, url, r, res, _t8;
-      return _regenerator().w(function (_context9) {
-        while (1) switch (_context9.p = _context9.n) {
+    _runSearch = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1(term) {
+      var id, url, r, res, _t0;
+      return _regenerator().w(function (_context1) {
+        while (1) switch (_context1.p = _context1.n) {
           case 0:
             searchHits = [];
             searchPos = -1;
             searchNav().style.display = 'none';
             if (!(!state.activeId || term.length < 2)) {
-              _context9.n = 1;
+              _context1.n = 1;
               break;
             }
             searchEls.count.textContent = term ? 'Type at least 2 characters' : 'Search messages';
-            return _context9.a(2);
+            return _context1.a(2);
           case 1:
             id = state.activeId;
-            _context9.p = 2;
+            _context1.p = 2;
             url = config.routes.search.replace('__ID__', id) + '?q=' + encodeURIComponent(term);
-            _context9.n = 3;
+            _context1.n = 3;
             return fetch(url, {
               headers: {
                 Accept: 'application/json',
@@ -1840,47 +2059,47 @@ function initChat(root) {
               credentials: 'same-origin'
             });
           case 3:
-            r = _context9.v;
+            r = _context1.v;
             if (r.ok) {
-              _context9.n = 4;
+              _context1.n = 4;
               break;
             }
             throw new Error('search failed');
           case 4:
-            _context9.n = 5;
+            _context1.n = 5;
             return r.json();
           case 5:
-            res = _context9.v;
+            res = _context1.v;
             if (!(state.activeId !== id || searchEls.input.value.trim() !== term)) {
-              _context9.n = 6;
+              _context1.n = 6;
               break;
             }
-            return _context9.a(2);
+            return _context1.a(2);
           case 6:
             searchHits = res.data || [];
             searchTotal = res.total || 0;
             if (searchHits.length) {
-              _context9.n = 7;
+              _context1.n = 7;
               break;
             }
             searchEls.count.textContent = 'No matches';
-            return _context9.a(2);
+            return _context1.a(2);
           case 7:
             searchNav().style.display = 'inline-flex';
             searchPos = 0; // newest match first
             updateSearchCount();
             jumpToMessage(searchHits[0].id);
-            _context9.n = 9;
+            _context1.n = 9;
             break;
           case 8:
-            _context9.p = 8;
-            _t8 = _context9.v;
-            console.error(_t8);
+            _context1.p = 8;
+            _t0 = _context1.v;
+            console.error(_t0);
             searchEls.count.textContent = 'Search failed';
           case 9:
-            return _context9.a(2);
+            return _context1.a(2);
         }
-      }, _callee9, null, [[2, 8]]);
+      }, _callee1, null, [[2, 8]]);
     }));
     return _runSearch.apply(this, arguments);
   }
@@ -1918,33 +2137,33 @@ function initChat(root) {
     // Cross button clears the text and the count
     searchEls.close.addEventListener('click', resetSearch);
   }
-  function jumpToMessage(_x7) {
+  function jumpToMessage(_x8) {
     return _jumpToMessage.apply(this, arguments);
   }
   function _jumpToMessage() {
-    _jumpToMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee0(id) {
+    _jumpToMessage = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee10(id) {
       var convId, row, res, boxRect, rowRect, bubble;
-      return _regenerator().w(function (_context0) {
-        while (1) switch (_context0.n) {
+      return _regenerator().w(function (_context10) {
+        while (1) switch (_context10.n) {
           case 0:
             convId = state.activeId;
             row = el.messages.querySelector('.message-row[data-id="' + id + '"]');
             if (row) {
-              _context0.n = 3;
+              _context10.n = 3;
               break;
             }
-            _context0.n = 1;
+            _context10.n = 1;
             return api.messages(convId, {
               limit: 30,
               before_id: id + 1
             });
           case 1:
-            res = _context0.v;
+            res = _context10.v;
             if (!(state.activeId !== convId)) {
-              _context0.n = 2;
+              _context10.n = 2;
               break;
             }
-            return _context0.a(2);
+            return _context10.a(2);
           case 2:
             state.messages = res.data;
             state.hasMore = !!res.has_more;
@@ -1954,10 +2173,10 @@ function initChat(root) {
             row = el.messages.querySelector('.message-row[data-id="' + id + '"]');
           case 3:
             if (row) {
-              _context0.n = 4;
+              _context10.n = 4;
               break;
             }
-            return _context0.a(2);
+            return _context10.a(2);
           case 4:
             // Scroll only the messages box, never the whole page
             boxRect = el.messages.getBoundingClientRect();
@@ -1968,9 +2187,9 @@ function initChat(root) {
             void bubble.offsetWidth;
             bubble.classList.add('chat-jump-flash');
           case 5:
-            return _context0.a(2);
+            return _context10.a(2);
         }
-      }, _callee0);
+      }, _callee10);
     }));
     return _jumpToMessage.apply(this, arguments);
   }
@@ -1997,55 +2216,55 @@ function initChat(root) {
     return _goLatest.apply(this, arguments);
   }
   function _goLatest() {
-    _goLatest = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee1() {
-      var _t9;
-      return _regenerator().w(function (_context1) {
-        while (1) switch (_context1.p = _context1.n) {
+    _goLatest = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee11() {
+      var _t1;
+      return _regenerator().w(function (_context11) {
+        while (1) switch (_context11.p = _context11.n) {
           case 0:
             state.detached = false;
             hideLatestBtn();
-            _context1.p = 1;
-            _context1.n = 2;
+            _context11.p = 1;
+            _context11.n = 2;
             return loadMessages(false);
           case 2:
-            _context1.n = 4;
+            _context11.n = 4;
             break;
           case 3:
-            _context1.p = 3;
-            _t9 = _context1.v;
-            console.error('Latest messages failed', _t9);
+            _context11.p = 3;
+            _t1 = _context11.v;
+            console.error('Latest messages failed', _t1);
           case 4:
-            return _context1.a(2);
+            return _context11.a(2);
         }
-      }, _callee1, null, [[1, 3]]);
+      }, _callee11, null, [[1, 3]]);
     }));
     return _goLatest.apply(this, arguments);
   }
   var MEMBER_HINT = "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">Type a Member ID to search.</div>");
   var memberTimer = null;
-  function searchMembers(_x8) {
+  function searchMembers(_x9) {
     return _searchMembers.apply(this, arguments);
   }
   function _searchMembers() {
-    _searchMembers = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee10(term) {
-      var res, _t0;
-      return _regenerator().w(function (_context10) {
-        while (1) switch (_context10.p = _context10.n) {
+    _searchMembers = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee12(term) {
+      var res, _t10;
+      return _regenerator().w(function (_context12) {
+        while (1) switch (_context12.p = _context12.n) {
           case 0:
             // Show a loading line only when there are no results on screen yet
             if (!el.memberResults.querySelector('.member-result')) {
               el.memberResults.innerHTML = "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">Loading...</div>");
             }
-            _context10.p = 1;
-            _context10.n = 2;
+            _context12.p = 1;
+            _context12.n = 2;
             return api.members(term);
           case 2:
-            res = _context10.v;
+            res = _context12.v;
             if (!(el.memberSearch.value.trim() !== term)) {
-              _context10.n = 3;
+              _context12.n = 3;
               break;
             }
-            return _context10.a(2);
+            return _context12.a(2);
           case 3:
             if (res.data.length) {
               el.memberResults.innerHTML = res.data.map(function (m) {
@@ -2061,33 +2280,33 @@ function initChat(root) {
             } else {
               el.memberResults.innerHTML = term ? '<div class="no-search-result"><i class="bi bi-person-x"></i> No eligible member found</div>' : "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">No members available to add.</div>");
             }
-            _context10.n = 5;
+            _context12.n = 5;
             break;
           case 4:
-            _context10.p = 4;
-            _t0 = _context10.v;
+            _context12.p = 4;
+            _t10 = _context12.v;
             el.memberResults.innerHTML = "<div class=\"chat-empty\" style=\"".concat(EMPTY_STYLE, "\">Could not load members. Try again.</div>");
           case 5:
-            return _context10.a(2);
+            return _context12.a(2);
         }
-      }, _callee10, null, [[1, 4]]);
+      }, _callee12, null, [[1, 4]]);
     }));
     return _searchMembers.apply(this, arguments);
   }
-  function startChat(_x9) {
+  function startChat(_x0) {
     return _startChat.apply(this, arguments);
   }
   function _startChat() {
-    _startChat = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee11(member) {
-      var res, _t1;
-      return _regenerator().w(function (_context11) {
-        while (1) switch (_context11.p = _context11.n) {
+    _startChat = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee13(member) {
+      var res, _t11;
+      return _regenerator().w(function (_context13) {
+        while (1) switch (_context13.p = _context13.n) {
           case 0:
-            _context11.p = 0;
-            _context11.n = 1;
+            _context13.p = 0;
+            _context13.n = 1;
             return api.start(member.id);
           case 1:
-            res = _context11.v;
+            res = _context13.v;
             if (!findConv(res.conversation_id)) {
               state.pending = {
                 id: res.conversation_id,
@@ -2108,16 +2327,16 @@ function initChat(root) {
             renderList();
             openConversation(res.conversation_id);
             loadList();
-            _context11.n = 3;
+            _context13.n = 3;
             break;
           case 2:
-            _context11.p = 2;
-            _t1 = _context11.v;
-            notify(_t1.message || 'Chat could not be started.', 'error');
+            _context13.p = 2;
+            _t11 = _context13.v;
+            notify(_t11.message || 'Chat could not be started.', 'error');
           case 3:
-            return _context11.a(2);
+            return _context13.a(2);
         }
-      }, _callee11, null, [[0, 2]]);
+      }, _callee13, null, [[0, 2]]);
     }));
     return _startChat.apply(this, arguments);
   }
@@ -2205,6 +2424,46 @@ function initChat(root) {
       event.preventDefault();
       event.stopPropagation();
       sendMessage();
+      return;
+    }
+
+    // Voice messages and replies
+    if (target.closest('#voiceBtn')) {
+      event.preventDefault();
+      event.stopPropagation();
+      startRecording();
+      return;
+    }
+    if (target.closest('.chat-rec-cancel')) {
+      event.preventDefault();
+      event.stopPropagation();
+      cancelRecording();
+      return;
+    }
+    if (target.closest('.chat-rec-send')) {
+      event.preventDefault();
+      event.stopPropagation();
+      stopRecording();
+      return;
+    }
+    var replyBtn = target.closest('.chat-msg-reply');
+    if (replyBtn) {
+      event.preventDefault();
+      event.stopPropagation();
+      startReply(Number(replyBtn.closest('.message-row').dataset.id));
+      return;
+    }
+    if (target.closest('.chat-reply-cancel')) {
+      event.preventDefault();
+      event.stopPropagation();
+      cancelReply();
+      return;
+    }
+    var quoteBox = target.closest('.chat-reply-quote');
+    if (quoteBox) {
+      event.preventDefault();
+      event.stopPropagation();
+      jumpToMessage(Number(quoteBox.dataset.replyId));
       return;
     }
 
@@ -2440,12 +2699,15 @@ function initChat(root) {
     el.fileInput.multiple = true;
   }
 
-  // E4U staff cannot clear a chat
-  if (config.meIsAdmin) {
-    var clearButton = document.getElementById('clearChatBtn');
-    if (clearButton) {
-      clearButton.style.display = 'none';
-    }
+  // Microphone button for voice messages, placed before the send button
+  if (el.sendBtn && el.sendBtn.parentNode) {
+    var mic = document.createElement('button');
+    mic.type = 'button';
+    mic.id = 'voiceBtn';
+    mic.className = 'composer-btn';
+    mic.title = 'Voice message';
+    mic.innerHTML = '<i class="bi bi-mic-fill"></i>';
+    el.sendBtn.parentNode.insertBefore(mic, el.sendBtn);
   }
   renderHeader(null);
   renderMessages();
@@ -2508,7 +2770,7 @@ function initChat(root) {
         }
       }, _callee2);
     }));
-    return function (_x0) {
+    return function (_x1) {
       return _ref2.apply(this, arguments);
     };
   }());
@@ -2998,6 +3260,9 @@ function previewText(message) {
   if (message.type === 'document') {
     return 'Document';
   }
+  if (message.type === 'audio') {
+    return 'Voice message';
+  }
   return message.body || '';
 }
 
@@ -3015,9 +3280,7 @@ function chatItemHtml(conv, ctx) {
     previewHtml = '<span style="color:#25a244;font-style:italic;">typing...</span>';
   } else {
     var preview = conv.last ? (conv.last.mine ? 'You: ' : '') + conv.last.preview : 'No messages yet';
-    var words = preview.trim().split(/\s+/);
-    var limitedPreview = words.length > 20 ? words.slice(0, 20).join(' ') + '...' : preview;
-    previewHtml = escapeHtml(limitedPreview);
+    previewHtml = escapeHtml(preview);
   }
   var time = conv.last ? listTime(conv.last.created_at) : '';
   return "\n        <div class=\"chat-user".concat(active, "\"\n            data-id=\"").concat(conv.id, "\"\n            data-name=\"").concat(escapeHtml(user.name), "\"\n            data-member=\"").concat(escapeHtml(user.member_id), "\"\n            data-location=\"").concat(escapeHtml(abbr), "\">\n\n            <div class=\"avatar avatar-light\" style=\"").concat(avatarStyle(user.color), "\">\n                ").concat(avatarInner(user), "\n                 \n            </div>\n\n            <div class=\"user-info\">\n\n               \n                <div class=\"user-name\">\n                    ").concat(escapeHtml(user.name), "\n                    <span class=\"user-type\">(").concat(escapeHtml(user.member_id), ")</span>\n                    <span class=\"status-dot").concat(online ? '' : ' offline', "\"></span>\n                </div>\n\n                <div class=\"user-top\">\n                    <span class=\"user-type\">").concat(previewHtml, "</span>\n                    <span class=\"user-time\">").concat(escapeHtml(time), "</span>\n                </div>\n\n                <div class=\"more-info-wrapper\">\n\n                    <button type=\"button\" class=\"chatInfoBtn\" aria-label=\"More options\">\n                        <i class=\"bi bi-three-dots-vertical\"></i>\n                    </button>\n\n                    <div class=\"more-info-dropdown\">\n\n                        <button type=\"button\" class=\"contactInfoBtn chat-mark-read\">\n                            <i class=\"bi bi-check-circle\"></i>\n                            Mark as Read\n                        </button>\n\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"contact\">\n                            <i class=\"bi bi-person-vcard\"></i>\n                            Contact Info\n                        </button>\n\n                        ").concat(conv.is_appointed ? '' : "\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"archive\">\n                            <i class=\"bi bi-archive\"></i>\n                            ".concat(conv.is_archived ? 'Unarchive' : 'Archive', "\n                        </button>"), "\n\n                        ").concat(conv.is_appointed || ctx.meIsAdmin ? '' : "\n                        <button type=\"button\" class=\"filter-option chat-action\" data-action=\"delete\">\n                            <i class=\"bi bi-trash3\"></i>\n                            Delete\n                        </button>", "\n\n                    </div>\n\n                </div>\n\n            </div>\n\n            ").concat(conv.unread > 0 ? "<span class=\"unread-count\">".concat(conv.unread, "</span>") : '', "\n\n        </div>\n    ");
@@ -3068,7 +3331,12 @@ function attachmentsHtml(msg) {
   // 1. Separate Media (Image/Video) and Documents
   var mediaList = [];
   var docList = [];
+  var audioList = [];
   list.forEach(function (a) {
+    if (a.kind === 'audio') {
+      audioList.push(a);
+      return;
+    }
     var mime = String(a.mime || '').toLowerCase();
     var isImg = a.kind === 'image' && showableImages.indexOf(mime) !== -1;
     var isVid = a.kind === 'video' && playableVideos.indexOf(mime) !== -1;
@@ -3105,6 +3373,10 @@ function attachmentsHtml(msg) {
     }).join('');
     outputHtml += "<div class=\"chat-image-gallery\">".concat(tiles, "</div>");
   }
+  // Voice messages and audio files
+  audioList.forEach(function (a) {
+    outputHtml += "<audio src=\"".concat(esc(a.url), "\" controls preload=\"metadata\" style=\"width:240px;max-width:100%;display:block;\"></audio>");
+  });
 
   // 3. RENDER DOCUMENTS (Clean Stacked List at bottom)
   if (docList.length > 0) {
@@ -3120,6 +3392,14 @@ function attachmentsHtml(msg) {
   }
   return outputHtml;
 }
+
+// The small quoted box on top of a reply
+function replyQuoteHtml(reply, ctx) {
+  var name = reply.sender_id === ctx.me.id ? 'You' : ctx.peer.name || '';
+  var text = reply.deleted ? 'This message was deleted' : reply.preview;
+  return "<div class=\"chat-reply-quote\" data-reply-id=\"".concat(reply.id, "\"\n        style=\"border-left:3px solid #e11d48;background:rgba(0,0,0,.06);border-radius:6px;padding:4px 8px;margin-bottom:4px;cursor:pointer;font-size:12px;max-width:260px;\">\n        <strong style=\"display:block;\">").concat(escapeHtml(name), "</strong>\n        <span style=\"display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;\">").concat(escapeHtml(text), "</span>\n    </div>");
+}
+
 /**
  * One message bubble, with a date divider when the day changes.
  * ctx: { me: {id, name, avatar, color}, peer: {name, avatar, color} }
@@ -3142,6 +3422,7 @@ function messageHtml(msg, prev, ctx) {
     var caption = msg.body ? "<div>".concat(nl2br(msg.body), "</div>") : '';
     content = attachmentsHtml(msg) + caption;
   }
+  var quote = !msg.deleted && msg.reply ? replyQuoteHtml(msg.reply, ctx) : '';
   var edited = !msg.deleted && msg.edited ? ' <span style="opacity:.6;">(edited)</span>' : '';
 
   // Edit (first 15 minutes only) and delete, on my own messages
@@ -3153,9 +3434,10 @@ function messageHtml(msg, prev, ctx) {
     var edit = mine && !hasFiles && msg.body && canEdit(msg) ? "<button type=\"button\" class=\"chat-msg-edit\" title=\"Edit\" style=\"".concat(buttonStyle, "\"><i class=\"bi bi-pencil\"></i></button>") : '';
     var remove = ctx.meIsAdmin ? '' : "<button type=\"button\" class=\"chat-msg-delete\" title=\"Delete\" style=\"".concat(buttonStyle, "\"><i class=\"bi bi-trash3\"></i></button>");
     var react = "<button type=\"button\" class=\"chat-msg-react\" title=\"React\" style=\"".concat(buttonStyle, "\"><i class=\"bi bi-emoji-smile\"></i></button>");
-    actions = "<span class=\"chat-msg-actions\" style=\"margin-left:8px;opacity:.65;\">".concat(react).concat(edit).concat(remove, "</span>");
+    var reply = "<button type=\"button\" class=\"chat-msg-reply\" title=\"Reply\" style=\"".concat(buttonStyle, "\"><i class=\"bi bi-reply\"></i></button>");
+    actions = "<span class=\"chat-msg-actions\" style=\"margin-left:8px;opacity:.65;\">".concat(reply).concat(react).concat(edit).concat(remove, "</span>");
   }
-  var bubble = "\n        <div class=\"message-wrapper\">\n            <div class=\"message-bubble".concat(hasImageGallery(msg.attachments || []) ? ' chat-gallery-bubble' : '', "\">").concat(content, "</div> ").concat(reactionsHtml(msg, ctx.me.id), "\n            <div class=\"message-time\">\n                ").concat(escapeHtml(formatTime(msg.created_at))).concat(edited, "\n                ").concat(tick, "\n                ").concat(actions, "\n            </div>\n        </div>");
+  var bubble = "\n        <div class=\"message-wrapper\">\n            <div class=\"message-bubble".concat(hasImageGallery(msg.attachments || []) ? ' chat-gallery-bubble' : '', "\">").concat(quote).concat(content, "</div> ").concat(reactionsHtml(msg, ctx.me.id), "\n            <div class=\"message-time\">\n                ").concat(escapeHtml(formatTime(msg.created_at))).concat(edited, "\n                ").concat(tick, "\n                ").concat(actions, "\n            </div>\n        </div>");
   return "\n        ".concat(divider, "\n        <div class=\"message-row ").concat(mine ? 'sent' : 'received', "\" data-id=\"").concat(msg.id, "\">\n            ").concat(mine ? bubble + avatar : avatar + bubble, "\n        </div>\n    ");
 }
 

@@ -166,9 +166,12 @@ export function previewText(message) {
         return 'Document';
     }
 
+    if (message.type === 'audio') {
+        return 'Voice message';
+    }
+
     return message.body || '';
 }
-
 
 /**
  * One row of the sidebar chat list.
@@ -311,8 +314,14 @@ function attachmentsHtml(msg) {
     // 1. Separate Media (Image/Video) and Documents
     const mediaList = [];
     const docList = [];
+    const audioList = [];
 
     list.forEach(a => {
+
+        if (a.kind === 'audio') {
+            audioList.push(a);
+        return;
+        }
         const mime = String(a.mime || '').toLowerCase();
         const isImg = a.kind === 'image' && showableImages.indexOf(mime) !== -1;
         const isVid = a.kind === 'video' && playableVideos.indexOf(mime) !== -1;
@@ -368,6 +377,10 @@ function attachmentsHtml(msg) {
 
         outputHtml += `<div class="chat-image-gallery">${tiles}</div>`;
     }
+    // Voice messages and audio files
+    audioList.forEach((a) => {
+        outputHtml += `<audio src="${esc(a.url)}" controls preload="metadata" style="width:240px;max-width:100%;display:block;"></audio>`;
+    });
 
     // 3. RENDER DOCUMENTS (Clean Stacked List at bottom)
     if (docList.length > 0) {
@@ -398,6 +411,19 @@ function attachmentsHtml(msg) {
 
     return outputHtml;
 }
+
+// The small quoted box on top of a reply
+function replyQuoteHtml(reply, ctx) {
+    const name = reply.sender_id === ctx.me.id ? 'You' : (ctx.peer.name || '');
+    const text = reply.deleted ? 'This message was deleted' : reply.preview;
+
+    return `<div class="chat-reply-quote" data-reply-id="${reply.id}"
+        style="border-left:3px solid #e11d48;background:rgba(0,0,0,.06);border-radius:6px;padding:4px 8px;margin-bottom:4px;cursor:pointer;font-size:12px;max-width:260px;">
+        <strong style="display:block;">${escapeHtml(name)}</strong>
+        <span style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(text)}</span>
+    </div>`;
+}
+
 /**
  * One message bubble, with a date divider when the day changes.
  * ctx: { me: {id, name, avatar, color}, peer: {name, avatar, color} }
@@ -434,6 +460,8 @@ export function messageHtml(msg, prev, ctx) {
         content = attachmentsHtml(msg) + caption;
     }
 
+        const quote = (!msg.deleted && msg.reply) ? replyQuoteHtml(msg.reply, ctx) : '';
+
     const edited = (!msg.deleted && msg.edited)
         ? ' <span style="opacity:.6;">(edited)</span>'
         : '';
@@ -452,14 +480,17 @@ export function messageHtml(msg, prev, ctx) {
         const remove = ctx.meIsAdmin
             ? ''
             : `<button type="button" class="chat-msg-delete" title="Delete" style="${buttonStyle}"><i class="bi bi-trash3"></i></button>`;
-                const react = `<button type="button" class="chat-msg-react" title="React" style="${buttonStyle}"><i class="bi bi-emoji-smile"></i></button>`;
 
-                actions = `<span class="chat-msg-actions" style="margin-left:8px;opacity:.65;">${react}${edit}${remove}</span>`;
+        const react = `<button type="button" class="chat-msg-react" title="React" style="${buttonStyle}"><i class="bi bi-emoji-smile"></i></button>`;
+
+        const reply = `<button type="button" class="chat-msg-reply" title="Reply" style="${buttonStyle}"><i class="bi bi-reply"></i></button>`;
+
+        actions = `<span class="chat-msg-actions" style="margin-left:8px;opacity:.65;">${reply}${react}${edit}${remove}</span>`;
     }
 
     const bubble = `
         <div class="message-wrapper">
-            <div class="message-bubble${hasImageGallery(msg.attachments || []) ? ' chat-gallery-bubble' : ''}">${content}</div> ${reactionsHtml(msg, ctx.me.id)}
+            <div class="message-bubble${hasImageGallery(msg.attachments || []) ? ' chat-gallery-bubble' : ''}">${quote}${content}</div> ${reactionsHtml(msg, ctx.me.id)}
             <div class="message-time">
                 ${escapeHtml(formatTime(msg.created_at))}${edited}
                 ${tick}

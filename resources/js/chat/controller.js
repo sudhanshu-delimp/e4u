@@ -16,6 +16,7 @@ const MAX_FILE_BYTES = 50 * 1024 * 1024;
 const MAX_FILES = 10;
 const TYPING_SEND_GAP_MS = 2000;
 const TYPING_SHOW_MS = 3500;
+const MAX_VOICE_SECONDS = 300;
 
 const FILE_ACCEPT = 'image/*,video/*,.heic,.heif,.avif,.tif,.tiff,.mkv,.avi,.wmv,.flv,.3gp,.3g2,.mpg,.mpeg,.ogv,.m4v,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.rtf,.odt,.ods,.odp';
 const IMAGE_EXT = ['jpg', 'jpeg', 'jpe', 'jfif', 'png', 'gif', 'webp', 'bmp', 'avif', 'heic', 'heif', 'tif', 'tiff', 'ico'];
@@ -112,6 +113,8 @@ export function initChat(root) {
         editingId: null,
         previewUrls: [],
         detached: false,
+        replyTo: null,
+        recording: null,
     };
 
     /* ---------------------------------------------------
@@ -136,7 +139,11 @@ export function initChat(root) {
     function messageContext() {
         const conv = findConv(state.activeId);
 
-        return { me, peer: conv ? conv.user : { name: '?', color: '#6B7280' }, meIsAdmin: !!config.meIsAdmin };
+        return {
+            me,
+            myMemberId: config.myMemberId,
+            peer: conv ? conv.user : { name: '?', color: '#6B7280' },
+        };
     }
 
     function isUserOnline(user) {
@@ -295,6 +302,12 @@ export function initChat(root) {
     function setComposerEnabled(enabled) {
         el.input.disabled = !enabled;
         el.sendBtn.disabled = !enabled;
+
+        const mic = document.getElementById('voiceBtn');
+
+        if (mic) {
+            mic.disabled = !enabled;
+        }
     }
 
     /* ---------------------------------------------------
@@ -312,7 +325,6 @@ export function initChat(root) {
         const ctx = {
             states: config.states || {},
             activeId: state.activeId,
-            meIsAdmin: !!config.meIsAdmin,
             isOnline: isUserOnline,
             isTyping: (id) => !!state.typing[id],
         };
@@ -349,7 +361,7 @@ export function initChat(root) {
             : `<span class="status-dot${online ? '' : ' offline'}"></span> ${online ? 'Active' : 'Offline'}`;
 
         el.headerMeta.innerHTML =
-            `Type: ${view.escapeHtml((user.type_label || (config.typeLabels || {})[user.type] || ''))} <span>|</span> ` +
+            `Type: ${view.escapeHtml((config.typeLabels || {})[user.type] || '')} <span>|</span> ` +
             `Member ID: ${view.escapeHtml(user.member_id)} <span>|</span> ` +
             `Location: ${view.escapeHtml(abbr)}`;
     }
@@ -510,6 +522,8 @@ export function initChat(root) {
 
     function clearAttachPreview() {
         cancelEdit();
+        cancelReply();
+        cancelRecording();
         const box = document.getElementById('chatAttachPreview');
 
         if (box) {
@@ -740,10 +754,7 @@ export function initChat(root) {
         }
 
         // "Delete for everyone" is only for my own messages
-        // "Delete for everyone" is not offered in chats with E4U staff
-        const conv = findConv(state.activeId);
-        const peerIsAdmin = !!conv && (config.adminTypes || []).map(Number).indexOf(Number(conv.user.type)) !== -1;
-        const mode = await chooseDelete({ allowEveryone: msg.sender_id === me.id && !peerIsAdmin });
+        const mode = await chooseDelete({ allowEveryone: msg.sender_id === me.id });
 
         if (!mode) {
             return;
@@ -898,6 +909,194 @@ export function initChat(root) {
         }
     }
 
+        /* ---------------------------------------------------
+       Reply and voice messages
+    --------------------------------------------------- */
+
+    function cancelReply() {
+        state.replyTo = null;
+
+        const banner = document.getElementById('chatReplyBanner');
+
+        if (banner) {
+            banner.remove();
+        }
+    }
+
+    function startReply(id) {
+        const msg = messageById(id);
+
+        if (!msg || msg.deleted) {
+            return;
+        }
+
+        cancelReply();
+        state.replyTo = msg;
+
+        const conv = findConv(state.activeId);
+        const name = msg.sender_id === me.id ? 'You' : (conv ? conv.user.name : '');
+        const preview = msg.body ? msg.body : view.previewText(msg);
+
+        const banner = document.createElement('div');
+
+        banner.id = 'chatReplyBanner';
+        banner.setAttribute('style', 'display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;border-top:1px solid #e5e7eb;background:#f3f4f6;font-size:13px;');
+        banner.innerHTML = '<span style="border-left:3px solid #e11d48;padding-left:8px;overflow:hidden;">' +
+            '<strong style="display:block;">' + view.escapeHtml(name) + '</strong>' +
+            '<span style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:60vw;">' + view.escapeHtml(preview) + '</span></span>' +
+            '<button type="button" class="chat-reply-cancel" aria-label="Cancel" style="border:0;background:transparent;font-size:20px;line-height:1;cursor:pointer;color:#0c223d;">&times;</button>';
+
+        el.composer.parentNode.insertBefore(banner, el.composer);
+        el.input.focus();
+    }
+
+    // Scroll to the original message of a reply, when it is on the screen
+    function jumpToMessage(id) {
+        const row = el.messages.querySelector('.message-row[data-id="' + id + '"]');
+
+        if (!row) {
+            return;
+        }
+
+        row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        row.style.transition = 'background .4s';
+        row.style.background = 'rgba(225,29,72,.15)';
+
+        setTimeout(() => {
+            row.style.background = '';
+        }, 1200);
+    }
+
+    function pickAudioType() {
+        const types = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus'];
+
+        return types.find((type) => window.MediaRecorder && MediaRecorder.isTypeSupported(type)) || '';
+    }
+
+    async function startRecording() {
+        if (state.recording) {
+            return;
+        }
+
+        if (!state.activeId) {
+            notify('Select a chat first.', 'error');
+            return;
+        }
+
+        if (!navigator.mediaDevices || !window.MediaRecorder) {
+            notify('Voice messages are not supported in this browser.', 'error');
+            return;
+        }
+
+        let stream;
+
+        try {
+            stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        } catch (error) {
+            notify('Allow the microphone to send a voice message.', 'error');
+            return;
+        }
+
+        const mimeType = pickAudioType();
+        const recorder = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
+        const rec = { recorder, stream, chunks: [], startedAt: Date.now(), cancelled: false, timer: null };
+
+        recorder.ondataavailable = (event) => {
+            if (event.data && event.data.size) {
+                rec.chunks.push(event.data);
+            }
+        };
+
+        recorder.onstop = () => finishRecording(rec);
+
+        state.recording = rec;
+        recorder.start();
+        showRecordingBar(rec);
+    }
+
+    function showRecordingBar(rec) {
+        const banner = document.createElement('div');
+
+        banner.id = 'chatRecordBar';
+        banner.setAttribute('style', 'display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;border-top:1px solid #e5e7eb;background:#fff1f2;font-size:13px;');
+        banner.innerHTML = '<span style="display:flex;align-items:center;gap:8px;">' +
+            '<span style="width:10px;height:10px;border-radius:50%;background:#e11d48;display:inline-block;"></span>' +
+            'Recording <strong class="chat-rec-time">0:00</strong></span>' +
+            '<span><button type="button" class="chat-rec-cancel" style="border:0;background:transparent;font-size:20px;line-height:1;cursor:pointer;color:#0c223d;">&times;</button>' +
+            '<button type="button" class="chat-rec-send" style="border:0;background:#e11d48;color:#fff;border-radius:14px;padding:2px 14px;cursor:pointer;">Send</button></span>';
+
+        el.composer.parentNode.insertBefore(banner, el.composer);
+
+        const label = banner.querySelector('.chat-rec-time');
+
+        rec.timer = setInterval(() => {
+            const seconds = Math.floor((Date.now() - rec.startedAt) / 1000);
+
+            label.textContent = Math.floor(seconds / 60) + ':' + String(seconds % 60).padStart(2, '0');
+
+            if (seconds >= MAX_VOICE_SECONDS) {
+                stopRecording();
+            }
+        }, 500);
+    }
+
+    function stopRecording() {
+        const rec = state.recording;
+
+        if (rec && rec.recorder.state !== 'inactive') {
+            rec.recorder.stop();
+        }
+    }
+
+    function cancelRecording() {
+        if (state.recording) {
+            state.recording.cancelled = true;
+            stopRecording();
+        }
+    }
+
+    async function finishRecording(rec) {
+        clearInterval(rec.timer);
+        rec.stream.getTracks().forEach((track) => track.stop());
+
+        const bar = document.getElementById('chatRecordBar');
+
+        if (bar) {
+            bar.remove();
+        }
+
+        if (state.recording === rec) {
+            state.recording = null;
+        }
+
+        const seconds = (Date.now() - rec.startedAt) / 1000;
+
+        // Cancelled, too short or no chat open: nothing is sent
+        if (rec.cancelled || seconds < 1 || !rec.chunks.length || !state.activeId) {
+            return;
+        }
+
+        const type = (rec.recorder.mimeType || 'audio/webm').split(';')[0];
+        const ext = type.indexOf('mp4') !== -1 ? 'm4a' : (type.indexOf('ogg') !== -1 ? 'ogg' : 'weba');
+        const file = new File(rec.chunks, 'voice-' + Date.now() + '.' + ext, { type });
+        const conversationId = state.activeId;
+
+        try {
+            const res = await api.send(conversationId, '', [file], state.replyTo ? state.replyTo.id : null);
+
+            cancelReply();
+
+            if (conversationId === state.activeId) {
+                appendMessage(res.data);
+            }
+
+            touchConversation(res.data, { mine: true, unread: 0 });
+            renderList();
+        } catch (error) {
+            notify(error.message || 'Voice message could not be sent.', 'error');
+        }
+    }
+
     async function sendMessage() {
         const body = el.input.value.trim();
         const files = state.pendingFiles.slice();
@@ -950,7 +1149,7 @@ export function initChat(root) {
         }
 
         try {
-            const res = await api.send(state.activeId, body, files);
+            const res = await api.send(state.activeId, body, files, state.replyTo ? state.replyTo.id : null);
 
             hideSending();
             root.querySelector('#emojiPicker').classList.remove('show');
@@ -1506,6 +1705,53 @@ export function initChat(root) {
             return;
         }
 
+                // Voice messages and replies
+        if (target.closest('#voiceBtn')) {
+            event.preventDefault();
+            event.stopPropagation();
+            startRecording();
+            return;
+        }
+
+        if (target.closest('.chat-rec-cancel')) {
+            event.preventDefault();
+            event.stopPropagation();
+            cancelRecording();
+            return;
+        }
+
+        if (target.closest('.chat-rec-send')) {
+            event.preventDefault();
+            event.stopPropagation();
+            stopRecording();
+            return;
+        }
+
+        const replyBtn = target.closest('.chat-msg-reply');
+
+        if (replyBtn) {
+            event.preventDefault();
+            event.stopPropagation();
+            startReply(Number(replyBtn.closest('.message-row').dataset.id));
+            return;
+        }
+
+        if (target.closest('.chat-reply-cancel')) {
+            event.preventDefault();
+            event.stopPropagation();
+            cancelReply();
+            return;
+        }
+
+        const quoteBox = target.closest('.chat-reply-quote');
+
+        if (quoteBox) {
+            event.preventDefault();
+            event.stopPropagation();
+            jumpToMessage(Number(quoteBox.dataset.replyId));
+            return;
+        }
+
         // Reactions: open the emoji bar, or tap a chip to add or remove that emoji
         const reactBtn = target.closest('.chat-msg-react');
 
@@ -1762,13 +2008,17 @@ export function initChat(root) {
         el.fileInput.multiple = true;
     }
 
-    // E4U staff cannot clear a chat
-    if (config.meIsAdmin) {
-        const clearButton = document.getElementById('clearChatBtn');
+        // Microphone button for voice messages, placed before the send button
+    if (el.sendBtn && el.sendBtn.parentNode) {
+        const mic = document.createElement('button');
 
-        if (clearButton) {
-            clearButton.style.display = 'none';
-        }
+        mic.type = 'button';
+        mic.id = 'voiceBtn';
+        mic.className = 'composer-btn';
+        mic.title = 'Voice message';
+        mic.innerHTML = '<i class="bi bi-mic-fill"></i>';
+
+        el.sendBtn.parentNode.insertBefore(mic, el.sendBtn);
     }
 
     renderHeader(null);
