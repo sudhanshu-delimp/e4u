@@ -6,7 +6,8 @@
         --color-yellow: #ffc60b;
         --color-orange: #f5841f;
         --color-white: #ffffff;
-    }
+      --primary-gradient: linear-gradient(135deg, rgb(216 248 249), #f9e2ce);
+     }
     
     h1,
     h2,
@@ -338,11 +339,9 @@
     
     .opr-console .my-custom-box {
         border: 1px solid var(--color-teal);
+        background-image: var(--primary-gradient);
     }
     
-    .opr-console .my-custom-box:hover {
-        background-color: var(--hover-bg);
-    }
     
     .oc-custom-nav-dropdown {
         position: relative;
