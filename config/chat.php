@@ -16,8 +16,8 @@ return [
      'reactions' => ['👍', '❤️', '😂', '😮', '😢', '🙏'],
 
     'socket' => [
-        'url'        => env('CHAT_SOCKET_URL', 'http://127.0.0.1:6002'),
-        'public_url' => env('CHAT_SOCKET_PUBLIC_URL', 'http://127.0.0.1:6002'),
+        'url'        => env('CHAT_SOCKET_URL', 'https://127.0.0.1:6002'),
+        'public_url' => env('CHAT_SOCKET_PUBLIC_URL', 'https://127.0.0.1:6002'),
         'secret'     => env('CHAT_SOCKET_SECRET'),
     ],
 
