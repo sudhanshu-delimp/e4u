@@ -88,8 +88,8 @@
             </div>
         </div>
     </div>
-    @include('escort.dashboard.Bookkeeping.modal.transaction-summary')
-    @include('escort.dashboard.Bookkeeping.modal.tax-invoice')
+    @include('modal.payment.transaction-summary')
+    @include('modal.payment.tax-invoice')
    
 @endsection
 @push('script')
