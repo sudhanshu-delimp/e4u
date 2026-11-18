@@ -61,10 +61,12 @@
         </div>
     </div>
 </div>
-@include('center.dashboard.modal.transaction-summary')
-@include('escort.dashboard.Bookkeeping.modal.tax-invoice')
+
+@include('modal.payment.transaction-summary')
+@include('modal.payment.tax-invoice')
+
 @endsection
-@push('script')
+@prepend('script')
 <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
     var table;
@@ -158,32 +160,9 @@
         order: [2, 'desc'],
     });
 
-    $('#view-listing').on('show.bs.modal', function(event) {
-        let button = $(event.relatedTarget);
-        let id = button.data('item');
-        let modal = $(this);
-        modal.find('#listingModalContent').html(`<div class="text-center p-3">Loading...</div>`);
-        $.ajax({
-            url: `{{route('center.payment.detail')}}`,
-            type: 'POST',
-            data: {
-                id: id,
-                _token: $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                modal.find('#listingModalContent').html(response.html);
-                modal.find('a.print_payment_summary').attr('href', response.print_url);
-            },
-            error: function() {
-                modal.find('#listingModalContent').html(`<div class="text-danger p-3">Failed to load data</div>`);
-            }
-        });
-
-    });
-
     $(document).on('click', '.print_payment_summary', function(e) {
         e.preventDefault();
         window.open($(this).attr('href'), '_blank');
     })
 </script>
-@endpush
+@endprepend

@@ -144,7 +144,7 @@
                                                     </thead>
                                                     <tbody>
                                                         @if(!empty($payment))
-                                                            @include('escort.dashboard.Bookkeeping.modal.partials.tax-invoice-items', compact('payment'))
+                                                            @include('modal.payment.partials.tax-invoice-items', compact('payment'))
                                                         @endif
                                                     </tbody>
                                                 </table>
@@ -168,3 +168,32 @@
 </div>
 </div>
 @endif
+
+@prepend('script')
+<script>
+    $('#view-tax-invoice').on('show.bs.modal', function(event) {
+        let button = $(event.relatedTarget);
+        let id = button.data('item');
+        let modal = $(this);
+        modal.find('#listingModalContent').html(`<div class="text-center p-3">Loading...</div>`);
+        $.ajax({
+            url: `{{ route('common.payment.detail') }}`,
+            type: 'POST',
+            data: {
+                id: id,
+                action: 'tax-invoice',
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                modal.find('#invoiceModalContent').html(response.html);
+                modal.find('a.print_payment_summary').attr('href', response.print_url);
+            },
+            error: function() {
+                modal.find('#invoiceModalContent').html(
+                    `<div class="text-danger p-3">Failed to load data</div>`);
+            }
+        });
+
+    });
+</script>
+@endprepend
