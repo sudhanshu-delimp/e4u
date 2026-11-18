@@ -93,10 +93,6 @@
                         Pin Up <span style="color: #53657d;">(Attached to: {{$profile->profile_name}})</span> in {{$profile->StateAbbr}}. Period: {{ \Carbon\Carbon::parse($item->start_date)->format('d-m-Y') }} to {{ \Carbon\Carbon::parse($item->end_date)->format('d-m-Y') }}
                     @break
 
-                    @case('view')
-                    <button>View</button>
-                    @break
-
                     @default
                     <span>Invalid action</span>
 
@@ -135,18 +131,18 @@
     <td align="right" style="padding: 8px 6px; border: 1px solid #cbd5e1; font-size: 11px; color: #132238; background-color: #ffffff; white-space: nowrap;text-align:right;">{{ formatCurrency($payment?->amount ?? 0) }}</td>
 </tr>
 
-<!-- GST Row -->
-<tr>
-    <td colspan="2" align="center" style="padding: 8px 6px; border: 1px solid #cbd5e1; font-size: 11px; font-weight: 700; color: #0c223d; background-color: #ffffff;text-align:center;">GST:</td>
-    <td align="right" style="padding: 8px 6px; border: 1px solid #cbd5e1; font-size: 11px; color: #132238; background-color: #ffffff; white-space: nowrap;text-align:right;">{{ formatCurrency($payment?->gst_amount ?? 0) }}</td>
-</tr>
-
 @if($payment->service === 'Product Purchase')
     <tr>
         <td colspan="2" align="center" style="padding: 8px 6px; border: 1px solid #cbd5e1; font-size: 11px; font-weight: 700; color: #0c223d; background-color: #ffffff;text-align:center;">Delivery Charge:</td>
         <td align="right" style="padding: 8px 6px; border: 1px solid #cbd5e1; font-size: 11px; color: #132238; background-color: #ffffff; white-space: nowrap;text-align:right;">{{ formatCurrency($payment?->delivery_charge ?? 0) }}</td>
     </tr>
 @endif
+
+<!-- GST Row -->
+<tr>
+    <td colspan="2" align="center" style="padding: 8px 6px; border: 1px solid #cbd5e1; font-size: 11px; font-weight: 700; color: #0c223d; background-color: #ffffff;text-align:center;">GST:</td>
+    <td align="right" style="padding: 8px 6px; border: 1px solid #cbd5e1; font-size: 11px; color: #132238; background-color: #ffffff; white-space: nowrap;text-align:right;">{{ formatCurrency($payment?->gst_amount ?? 0) }}</td>
+</tr>
 
 <!-- Balance Due Row -->
 <tr style="background-color: #fafbfc;">

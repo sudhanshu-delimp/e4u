@@ -62,6 +62,7 @@
     </div>
 </div>
 @include('center.dashboard.modal.transaction-summary')
+@include('escort.dashboard.Bookkeeping.modal.tax-invoice')
 @endsection
 @push('script')
 <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
