@@ -47,14 +47,21 @@ class ReportingController extends BaseController
 
     public function userRegistrationReport(Request $request)
     {
+        $types = ['0', '2', '3', '4', '5', '8', '9'];
+        $today = Carbon::parse(convert_aus_date_time_format(Carbon::now('UTC')));
 
-        $todayCount = User::whereDate('created_at', Carbon::today())->whereIn('type', ['0', '2', '3', '4', '5', '8', '9'])->count();
-        $thisMonthCount = User::whereMonth('created_at', Carbon::now()->month)
-            ->whereYear('created_at', Carbon::now()->year)
-            ->whereIn('type', ['0', '2', '3', '4', '5', '8', '9'])
-            ->count();
-        $thisYearCount = User::whereYear('created_at', Carbon::now()->year)->whereIn('type', ['0', '2', '3', '4', '5', '8', '9'])->count();
-        $allTimeCount = User::whereIn('type', ['0', '2', '3', '4', '5', '8', '9'])->count();
+        $countUsers = function ($start, $end) use ($types) {
+            return User::whereBetween('created_at', [
+                $start->copy()->setTimezone('UTC'),
+                $end->copy()->setTimezone('UTC')
+            ])->whereIn('type', $types)->count();
+        };
+
+        $todayCount = $countUsers($today->copy()->startOfDay(), $today->copy()->endOfDay());
+        $thisMonthCount = $countUsers($today->copy()->startOfMonth(), $today->copy()->endOfMonth());
+        $thisYearCount = $countUsers($today->copy()->startOfYear(), $today->copy()->endOfYear());
+        $allTimeCount = User::whereIn('type', $types)->count();
+            
         return view('admin.reporting.registrations', compact('todayCount', 'thisMonthCount', 'thisYearCount', 'allTimeCount'));
     }
 
@@ -310,7 +317,7 @@ class ReportingController extends BaseController
                       $item->communication = implode(', ', $communication);
 
             $item->member_id = $item->member_id . $memberIdBadgeText.$parent_account;
-            $item->registration_date = isset($item->created_at) ? showDateWithFormat($item->created_at) :  '---';
+            $item->registration_date = isset($item->created_at) ? showDateWithFormat(convert_aus_date_time_format($item->created_at)) :  '---';
             $i++;
         }
 
