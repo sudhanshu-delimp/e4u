@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use PDF;
+use App\Models\Notification;
 
 class AgentMonthlyReportController extends BaseController
 {
@@ -381,6 +382,7 @@ class AgentMonthlyReportController extends BaseController
 
         $report = AgentMonthlyReport::where('id', $reportId)->first();
         if ($report) {
+          $agentId = $report->agent_id;
           $reportDate = Carbon::parse($report->report_date)->format('d-m-Y');
           $reportMonth = Carbon::parse($report->report_date)->format('F');
           $reportData['payAgentId'] = $report->agent->member_id;
@@ -388,6 +390,28 @@ class AgentMonthlyReportController extends BaseController
           $reportData['payMonthlyReportMonth'] = $reportMonth;
           $reportData['payAgenFee'] = number_format($report->fees, 2);
 
+          
+          $report->status = "paid";
+
+         if ($report->save()) {
+
+            $notification = (new Notification);
+            $notificationTitle = 'Your<span style="color:#ff0505;"> Monthly Fee </span> has been paid for ' . $reportMonth . ' month. Please visit <a href="' . config('app.url') . '/agent-dashboard/fees/monthly-report">Fee Report</a> to acknowledge.';
+
+            $notificationIcon = $notification->notificationIcon('general');
+
+            // Write code for email report
+            $data = [];
+            $data['to_user'] = $agentId;
+            $data['notification_type'] = 'general';
+            $data['notification_icon'] = $notificationIcon;
+            $data['notification_listing_type'] = 3;
+            $data['title'] = $notificationTitle;
+            $data['message'] = '';
+            $data['created_at'] = date('Y-m-d H:i:s');
+            $data['updated_at'] = date('Y-m-d H:i:s');
+            $notification->create($data);
+          }
           $pdf = PDF::loadView(
             'admin.management.agents.Fees.print_monthly_pay_report',
             ['reportData' => $reportData]

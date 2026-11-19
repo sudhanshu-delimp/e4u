@@ -118,7 +118,7 @@
             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
+                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/report.png') }}"
                                 class="custompopicon"><span id="reportendDate">Query<span></h5>
                         <a href="" class="close" data-dismiss="modal" aria-label="Close">
                             <img src="{{ asset('assets/dashboard/img/operator/close.png') }}" class="opr-close-btn">
@@ -149,7 +149,7 @@
             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
+                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/report.png') }}"
                                 class="custompopicon"><span id="reportendDate">Query<span></h5>
                         <a href="" class="close" data-dismiss="modal" aria-label="Close">
                             <img src="{{ asset('assets/dashboard/img/operator/close.png') }}" class="opr-close-btn">

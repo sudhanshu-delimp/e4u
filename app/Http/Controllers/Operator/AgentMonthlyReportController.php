@@ -49,8 +49,8 @@ class AgentMonthlyReportController extends BaseController
                 ->get();
 
       //dd( $reports->toArray());
-     //return  view('operator.management.reports.agents.fees.monthly-report');
-     return view('operator.dashboard.reports.agents-monthly-report');
+     return  view('operator.management.reports.agents.fees.monthly-report');
+     //return view('operator.dashboard.reports.agents-monthly-report');
   }
 
 
@@ -149,7 +149,9 @@ class AgentMonthlyReportController extends BaseController
       $item->total_spend =  $formattedSpend;
       $item->total_fees =   $formattedFees;
       $status = ucfirst($item->status);
+     
       $statusName = str_replace('_', " ", $status);
+       $statusName = ( $statusName == 'Approved') ? ' Agent Approved' : $statusName;
       $item->status_name = '<span class="custom_badge_lg ' . getStatusBadgeClass($status) . '">' . ucwords($statusName) . ' </span>';
 
       $item->report_pproved_date = "N/A";
@@ -172,15 +174,15 @@ class AgentMonthlyReportController extends BaseController
         $divider = '<div class="dropdown-divider"></div>'; */
       } else if ($item->status == 'approved') {
         //Query
-        $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="paid"  id="viewPayAgentreport"><i class="fa fa-star"></i>Pay</a>';
-        $divider = '<div class="dropdown-divider"></div>';
+       /*  $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="paid"  id="viewPayAgentreport"><i class="fa fa-star"></i>Pay</a>';
+        $divider = '<div class="dropdown-divider"></div>'; */
         
       } else if ($item->status == 'paid') {
         //Query
         //$dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Query</a>';
       } else if ($item->status == 'query') {
-         $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" id="openQueryModel"><i class="fa fa-search-minus"></i></i>Reply Query</a>';
-        $divider = '<div class="dropdown-divider"></div>'; 
+        /*  $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" id="openQueryModel"><i class="fa fa-search-minus"></i></i>Reply Query</a>';
+        $divider = '<div class="dropdown-divider"></div>';  */
       } else if ($item->status == 'query_resolved') {
         //Approve
         /* $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
