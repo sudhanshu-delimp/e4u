@@ -266,7 +266,7 @@
             </tr>
 
             <tr>
-                <th>GST Amount ({{ config('escorts.product_tax') }}% of Subtotal)</th>
+                <th>GST Amount ({{ config('escorts.product_tax') }}% of Subtotal & Delivery Charge)</th>
                 <td>${{ number_format($payment->gst_amount ?? 0, 2) }}</td>
             </tr>
 
