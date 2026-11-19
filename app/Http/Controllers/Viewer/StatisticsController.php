@@ -30,10 +30,12 @@ class StatisticsController extends Controller
         // $statistics['report'] = ReportEscortProfile::where('viewer_id', $userId)->where('advertiser_type', 'escort')->count() ?? 0;
         // $statistics['penterBox'] = Punterbox::where('user_id', $userId)->where('status', 'published')->count() ?? 0;
 
+        $statistics['legEscort'] = MyLegbox::where('user_id', $userId)->count() ?? 0;
+        $statistics['legMassage']  = MyMassageLegbox::where('user_id', $userId)->count() ?? 0;
+        $statistics['MyLegbox'] = ($statistics['legEscort'] + $statistics['legMassage']);
 
-        $statistics['MyLegbox'] = MyLegbox::where('user_id', $userId)->count() ?? 0;
-        $statistics['report'] = ReportEscortProfile::where('viewer_id', $userId)->where('advertiser_type', 'escort')->count() ?? 0;
-        $statistics['reviewPosted'] = Reviews::where('user_id', $userId)->where('advertiser_type', 'escort')->count() ?? 0;
+        $statistics['report'] = ReportEscortProfile::where('viewer_id', $userId)->count() ?? 0;
+        $statistics['reviewPosted'] = Reviews::where('user_id', $userId)->count() ?? 0;
 
         $statistics['penterBox'] = Punterbox::where('user_id', $userId)->where('status', 'published')->count() ?? 0;
         $statistics['notBox'] = Notebox::where('user_id', $userId)->count() ?? 0;
