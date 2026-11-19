@@ -314,6 +314,16 @@ if (!function_exists('getEscortDetail')) {
     }
 }
 
+if (!function_exists('getMassageCenterDetail')) {
+    function getMassageCenterDetail($id)
+    {
+        $escort = MassageProfile::where('id', $id)->first();
+        return $escort;
+    }
+}
+
+
+
 /**
  * Get country list
  */

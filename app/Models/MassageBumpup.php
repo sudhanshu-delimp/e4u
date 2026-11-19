@@ -25,6 +25,11 @@ class MassageBumpup extends Model
         return $this->belongsTo(MassageProfile::class);
     }
 
+    public function purchase()
+    {
+        return $this->belongsTo(MassagePurchase::class, 'purchase_id');
+    }
+
 
     public function scopeActive($query)
     {
