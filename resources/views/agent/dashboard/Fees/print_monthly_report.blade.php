@@ -99,8 +99,7 @@
                 <td style="text-align: left !important;"> <span>
                         <img src="{{ $base64 }}" style="width: 25px;">
                     </span><span
-                        style="color:#fff; font-weight:bold;text-align: left !important;padding-top:-20px;font-size: 14px;">Agent
-                        Montly Fee Report (Period Ending: {{ $reportEndDate }})</span> </td>
+                        style="color:#fff; font-weight:bold;text-align: left !important;padding-top:-20px;font-size: 14px;">Monthly Fee Report (Period Ending: {{ $reportEndDate }})</span> </td>
                 <td style="text-align: right">
                     <span
                         style="color:#fff; font-weight:bold;text-align: right !important;padding-top:-20px;font-size: 14px;">Agent
