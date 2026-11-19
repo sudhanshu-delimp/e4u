@@ -31,11 +31,11 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                    <ol class="mb-0">
+                    <ol>
                         <li>All Advertiser transactions are recorded here.</li>
                         <li>You can view any historical transaction as well as print or email the transaction
                             summary.</li>
-                        <li class="mb-0">To download the transaction summary, click Download located in the Action
+                        <li>To download the transaction summary, click Download located in the Action
                             options.</li>
                     </ol>
                 </div>
@@ -66,9 +66,10 @@
     </div>    
 </div>
 
-@include('escort.dashboard.Bookkeeping.modal.transaction-summary')
+@include('modal.payment.transaction-summary')
+@include('modal.payment.tax-invoice')
 @endsection
-@push('script')
+@prepend('script')
 <script>
     var table;
     $(document).ready(function() {
@@ -161,33 +162,9 @@
         order: [2, 'desc'],
     });
 
-    $('#view-listing').on('show.bs.modal', function(event) {
-        let button = $(event.relatedTarget);
-        let id = button.data('item');
-        let modal = $(this);
-        modal.find('#listingModalContent').html(`<div class="text-center p-3">Loading...</div>`);
-        $.ajax({
-            url: `{{ route('escort.payment.detail') }}`,
-            type: 'POST',
-            data: {
-                id: id,
-                _token: $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                modal.find('#listingModalContent').html(response.html);
-                modal.find('a.print_payment_summary').attr('href', response.print_url);
-            },
-            error: function() {
-                modal.find('#listingModalContent').html(
-                    `<div class="text-danger p-3">Failed to load data</div>`);
-            }
-        });
-
-    });
-
     $(document).on('click', '.print_payment_summary', function(e) {
         e.preventDefault();
         window.open($(this).attr('href'), '_blank');
     })
 </script>
-@endpush
+@endprepend

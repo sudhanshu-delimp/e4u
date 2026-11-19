@@ -15,10 +15,10 @@
         {{-- Page Heading --}}
         <div class="row">
             <div class="col-md-12 operator-heading-wrapper">
-            <h1 class="h1">Agents Monthly Report</h1>
+            <h1 class="h1">Monthly Fee Reports</h1>
             <span class="oprhelpNote" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
-            <div class="col-md-12 mb-4">
+            <div class="col-md-12">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
                         <p class="notes"><b>Notes:</b> </p>
@@ -55,12 +55,11 @@
                 </div>
             </div>
         </div>
-        {{-- end --}}
         <div class="row">
             <div class="col-md-12">
 
-                <div class="table-responsive-xl">
-                    <table class="table my_opr_table" id="commissionStatementTable">
+                <div class="table-responsive">
+                    <table class="table my_opr_table w-100" id="commissionStatementTable">
                         <thead class="opr-table-bg">
                             <tr>
                                 <th>Report Date</th>
@@ -119,7 +118,7 @@
             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
+                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/report.png') }}"
                                 class="custompopicon"><span id="reportendDate">Query<span></h5>
                         <a href="" class="close" data-dismiss="modal" aria-label="Close">
                             <img src="{{ asset('assets/dashboard/img/operator/close.png') }}" class="opr-close-btn">
@@ -150,7 +149,7 @@
             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
+                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/operator/report.png') }}"
                                 class="custompopicon"><span id="reportendDate">Query<span></h5>
                         <a href="" class="close" data-dismiss="modal" aria-label="Close">
                             <img src="{{ asset('assets/dashboard/img/operator/close.png') }}" class="opr-close-btn">

@@ -25,8 +25,8 @@
     </div>
 
     <div class="row mb-4">
-         <div class="col-lg-4 box-wrapper">
-          <div class="my-custom-box shadow-sm">
+         <div class="col-lg-3 ">
+          <div class="my-custom-box">
               <a href="{{route('operator.operator.staff')}}">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/operator/Manage-Agents.png') }}" alt="Manage Agent">
@@ -40,8 +40,8 @@
       </div>
       
       {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-          <div class="my-custom-box shadow-sm">
+      <div class="col-lg-3 ">
+          <div class="my-custom-box">
               <a href="#">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/operator/Message-Agent.png') }}" alt="Message Agent">
@@ -56,8 +56,8 @@
       {{-- end --}}
       
       {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-          <div class="my-custom-box shadow-sm">
+      <div class="col-lg-3 ">
+          <div class="my-custom-box">
               <a href="#">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/operator/Manage-Agents.png') }}" alt="Manage Agent">
@@ -71,8 +71,8 @@
       </div>
       {{-- end --}}
       {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-          <div class="my-custom-box shadow-sm">
+      <div class="col-lg-3 ">
+          <div class="my-custom-box">
               <a href="#">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/operator/Commission-Agents.png') }}" alt="Commission Agents">
@@ -86,8 +86,8 @@
       </div>
       {{-- end --}}
       {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-          <div class="my-custom-box shadow-sm">
+      <div class="col-lg-3 ">
+          <div class="my-custom-box">
               <a href="#">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/operator/Advertiser-Summary.png') }}" alt="Advertiser Summary">
@@ -101,8 +101,8 @@
       </div>
       {{-- end --}}
       {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-          <div class="my-custom-box shadow-sm">
+      <div class="col-lg-3 ">
+          <div class="my-custom-box">
               <a href="#">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/operator/Agent-Statistics.png') }}" alt="Agent Statistics ">
@@ -118,8 +118,8 @@
       
       {{-- end --}}
       {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-         <div class="my-custom-box shadow-sm">
+      <div class="col-lg-3 ">
+         <div class="my-custom-box">
              <a href="#">
                  <div class="box-icon">
                      <img src="{{ asset('assets/dashboard/img/boxicon/operator/Support-Tickets.png') }}" alt=" Support Tickets">
@@ -133,8 +133,8 @@
      </div>
      {{-- end --}}
       {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-          <div class="my-custom-box shadow-sm">
+      <div class="col-lg-3 ">
+          <div class="my-custom-box">
               <a href="#">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/operator/AMA-Earning.png') }}" alt="AMA Earnings">

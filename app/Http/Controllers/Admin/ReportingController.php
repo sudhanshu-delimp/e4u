@@ -47,14 +47,21 @@ class ReportingController extends BaseController
 
     public function userRegistrationReport(Request $request)
     {
+        $types = ['0', '2', '3', '4', '5', '8', '9'];
+        $today = Carbon::parse(convert_aus_date_time_format(Carbon::now('UTC')));
 
-        $todayCount = User::whereDate('created_at', Carbon::today())->whereIn('type', ['0', '2', '3', '4', '5', '8', '9'])->count();
-        $thisMonthCount = User::whereMonth('created_at', Carbon::now()->month)
-            ->whereYear('created_at', Carbon::now()->year)
-            ->whereIn('type', ['0', '2', '3', '4', '5', '8', '9'])
-            ->count();
-        $thisYearCount = User::whereYear('created_at', Carbon::now()->year)->whereIn('type', ['0', '2', '3', '4', '5', '8', '9'])->count();
-        $allTimeCount = User::whereIn('type', ['0', '2', '3', '4', '5', '8', '9'])->count();
+        $countUsers = function ($start, $end) use ($types) {
+            return User::whereBetween('created_at', [
+                $start->copy()->setTimezone('UTC'),
+                $end->copy()->setTimezone('UTC')
+            ])->whereIn('type', $types)->count();
+        };
+
+        $todayCount = $countUsers($today->copy()->startOfDay(), $today->copy()->endOfDay());
+        $thisMonthCount = $countUsers($today->copy()->startOfMonth(), $today->copy()->endOfMonth());
+        $thisYearCount = $countUsers($today->copy()->startOfYear(), $today->copy()->endOfYear());
+        $allTimeCount = User::whereIn('type', $types)->count();
+            
         return view('admin.reporting.registrations', compact('todayCount', 'thisMonthCount', 'thisYearCount', 'allTimeCount'));
     }
 
@@ -183,7 +190,7 @@ class ReportingController extends BaseController
             //$item->status_name = $item->status;
             if ($this->editAccessEnabled) {
 
-                 $updatePassword = '<div class="dropdown-divider"></div><a class="dropdown-item d-flex justify-content-start gap-10 align-items-center update_password" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i>Reset Password</a>';
+                 $updatePassword = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center update_password" href="javascript:void(0)" data-id=' . $item->id . '  data-toggle="modal"> <i class="fa fa-pen"></i>Reset Password</a>';
                 /* if ($item->status != 'Active') {
                     $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
                                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-user-check"></i> Active</a>';
@@ -225,13 +232,13 @@ class ReportingController extends BaseController
                 if ($item->status == 'Active') {
                     $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="8" data-toggle="modal" data-user-id="' . $item->id . '"
                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-ban "></i> Cancel</a>';
-                    $dropdown .= '<div class="dropdown-divider"></div>
+                    $dropdown .= '
                 <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal" data-status-num="6" data-user-id="' . $item->id . '"
                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-pause-circle"></i> On Hold</a>';
 
-                    $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '" href="#"><i class="fa fa-times-circle "></i> Reject</a>';
+                    $dropdown .= ' <a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '" href="#"><i class="fa fa-times-circle "></i> Reject</a>';
                     $dropdown .= $updatePassword;
-                    $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="3" data-toggle="modal" data-user-id="' . $item->id . '" data-target="#confirm-popup" href="javascript:void(0)" ><i class="fa fa-user-slash"></i> Suspend</a>';
+                    $dropdown .= ' <a class="dropdown-item d-flex align-items-center gap-10" data-status-num="3" data-toggle="modal" data-user-id="' . $item->id . '" data-target="#confirm-popup" href="javascript:void(0)" ><i class="fa fa-user-slash"></i> Suspend</a>';
                 }
 
 
@@ -240,20 +247,20 @@ class ReportingController extends BaseController
                     $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="8" data-toggle="modal" data-user-id="' . $item->id . '"
                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-ban "></i> Cancel</a>';
 
-                    $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
+                    $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
                  data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-user-check"></i> Reinstate</a>';
 
-                    $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '" href="#"><i class="fa fa-times-circle "></i> Reject</a>';
+                    $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '" href="#"><i class="fa fa-times-circle "></i> Reject</a>';
                      $dropdown .= $updatePassword;
                 }
 
                 if ($item->status == 'Suspended') {
                     $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
                  data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-user-check"></i> Activate</a>';
-                    $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="8" data-toggle="modal" data-user-id="' . $item->id . '"
+                    $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="8" data-toggle="modal" data-user-id="' . $item->id . '"
                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-ban "></i> Cancel</a>';
 
-                    $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '" href="#"><i class="fa fa-times-circle "></i> Reject</a>';
+                    $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10 reject-registration-btn"  data-status-num="7" data-toggle="modal" data-user-id="' . $item->id . '" href="#"><i class="fa fa-times-circle "></i> Reject</a>';
                      $dropdown .= $updatePassword;
                 }
 
@@ -267,14 +274,14 @@ class ReportingController extends BaseController
                     $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="8" data-toggle="modal" data-user-id="' . $item->id . '"
                 data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-ban "></i> Cancel</a>';
 
-                    $dropdown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
+                    $dropdown .= '<a class="dropdown-item d-flex align-items-center gap-10" data-status-num="1" data-toggle="modal"data-user-id="' . $item->id . '"
                  data-target="#confirm-popup" href="javascript:void(0)"><i class="fa fa-user-check"></i> Reinstate</a>';
                   $dropdown .= $updatePassword;
 
-                    $dropdown .= ' <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center gap-10" data-status-num="3" data-toggle="modal" data-user-id="' . $item->id . '" data-target="#confirm-popup" href="javascript:void(0)" ><i class="fa fa-user-slash"></i> Suspended</a>';
+                    $dropdown .= ' <a class="dropdown-item d-flex align-items-center gap-10" data-status-num="3" data-toggle="modal" data-user-id="' . $item->id . '" data-target="#confirm-popup" href="javascript:void(0)" ><i class="fa fa-user-slash"></i> Suspended</a>';
                 }
 
-                $dropdown .= '<div class="dropdown-divider"></div>';
+                $dropdown .= '';
             }
             $dropdown .= '<a class="view_member_report dropdown-item d-flex align-items-center gap-10 toggle-report" data-toggle="modal" data-target="#account-row-"' . $item->id . '" data-id="' . $item->id . '"  href="javascript:void(0)" ><i class="fa fa-eye"></i> View Summary</a>';
             
@@ -310,7 +317,7 @@ class ReportingController extends BaseController
                       $item->communication = implode(', ', $communication);
 
             $item->member_id = $item->member_id . $memberIdBadgeText.$parent_account;
-            $item->registration_date = isset($item->created_at) ? showDateWithFormat($item->created_at) :  '---';
+            $item->registration_date = isset($item->created_at) ? showDateWithFormat(convert_aus_date_time_format($item->created_at)) :  '---';
             $i++;
         }
 

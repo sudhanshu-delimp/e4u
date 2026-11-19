@@ -65,7 +65,7 @@ class NotificationController extends BaseController
                 $notifications = $this->notification->where([
                     'to_user' => $userId,
                     'is_seen' => '0',
-                ])->latest()->take(5)->get();
+                ])->latest()->take(7)->get();
 
                if ($notifications->isNotEmpty()) 
                 {

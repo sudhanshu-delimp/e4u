@@ -276,6 +276,15 @@ class OtherCenterController extends Controller
             'switch_for'
         ]);
 
+        // store impersonation data AFTER login
+        if (session()->has('impersonatedId')) {
+            session([
+                'parent_user_id' => session('impersonatedId'),
+                'switch_for' => 'admin_to_any',
+                'is_impersonated' => true
+            ]);
+        }
+
         return redirect('/center-dashboard')
             ->with('success', "Switched back to ".Auth::user()->name." account");
     }
@@ -314,7 +323,8 @@ class OtherCenterController extends Controller
         session([
             'parent_massage_id' => $loggedInUser->id,
             'switch_for'=> 'massage_to_massage',
-            'is_impersonated' => true
+            'is_impersonated' => true,
+            'impersonatedId' => (session()->has('parent_user_id') && session('parent_user_id') > 0) ? session('parent_user_id') : 0,
         ]);
 
         Auth::login($childUser);

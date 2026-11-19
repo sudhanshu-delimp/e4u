@@ -67,12 +67,16 @@ export function createApi({ csrf, routes }) {
 
         messages: (id, params) => request(withId(routes.messages, id) + query(params)),
 
-        send: (id, body, files) => {
+        send: (id, body, files, replyTo) => {
             if (files && files.length) {
                 const form = new FormData();
 
                 if (body) {
                     form.append('body', body);
+                }
+
+                if (replyTo) {
+                    form.append('reply_to', replyTo);
                 }
 
                 files.forEach((file) => form.append('files[]', file));
@@ -82,7 +86,7 @@ export function createApi({ csrf, routes }) {
 
             return request(withId(routes.messages, id), {
                 method: 'POST',
-                body: JSON.stringify({ body }),
+                body: JSON.stringify({ body, reply_to: replyTo || null }),
             });
         },
 

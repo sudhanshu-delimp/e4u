@@ -16,7 +16,7 @@
             {{-- Page Heading   --}}
             <div class="d-flex align-items-center justify-content-between col-md-12">
                     <div class="custom-heading-wrapper">
-                    <h1 class="h1">Monthly Report</h1>
+                    <h1 class="h1">Monthly Fee Reports</h1>
                     <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
                     </div>                    
                     @if (request('from') == 'dashboard')

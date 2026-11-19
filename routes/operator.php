@@ -62,4 +62,13 @@ Route::post('management/fees/pay-detail', [AgentMonthlyReportController::class, 
 Route::post('management/fees/print-pay-detail', [AgentMonthlyReportController::class, 'printPayAgentreport'])->name('operator.agents.fees.print.pay-detail');
 
 //Operator Monthly Repors
-Route::get('management/reports/operator-monthly-report', [OperatorController::class, 'e4uMonthlyreport'])->name('operator.operator-monthly-report');
+Route::get('/operator-monthly-report', [OperatorController::class, 'operatorMonthlyreport'])->name('operator.operator-monthly-report');
+Route::get('management/reports/operator-monthly-report', [OperatorController::class, 'operatorMonthlyreport'])->name('operator.operator-monthly-report');
+Route::get('management/operator/monthly-report-list', [OperatorController::class, 'monthlyReportAjax'])->name('operator.operator.monthly-report-ajax');
+Route::post('management/operator/view-monthly-report', [OperatorController::class, 'viewMonthlyReport'])->name('operator.operator.view.monthly.detail');
+Route::post('management/operator/update-monthly-report', [OperatorController::class, 'updateMonthlyReportStatus'])->name('operator.operator.update.status.detail');
+Route::post('management/operator/print-monthly-report', [OperatorController::class, 'printMonthlyFee'])->name('operator.print.monthly.operator.report');
+Route::post('management/operator/pay-detail', [OperatorController::class, 'viewPayOperatorRreport'])->name('operator.operator.view.pay-detail');
+Route::post('management/operator/query', [OperatorController::class, 'viewQuery'])->name('operator.operator.view.query');
+Route::post('management/operator/print-pay-detail', [OperatorController::class, 'printPayOperatorReport'])->name('operator.operator.print.pay-detail');
+

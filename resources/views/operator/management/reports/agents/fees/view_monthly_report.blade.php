@@ -1,5 +1,5 @@
 @php
-    $reportEndDate = isset($feeData['report_end_date']) ? $feeData['report_end_date'] : '';
+    $reportEndDate = $reportEndDateTitle = isset($feeData['report_end_date']) ? $feeData['report_end_date'] : '';
     $esortReports = isset($feeData[3]) ? $feeData[3] : collect();
     //echo "<pre/>";
     //print_r($feeData);die;
@@ -300,7 +300,7 @@
 <!-- opr_accordian_table JS -->
 <script>
     $(document).ready(function() {
-        $("#reportendDate").html('Fee Report (Period Ending: {{ $reportEndDate }})');
+        $("#reportendDate").html('Fee Report (Period Ending: {{ $reportEndDateTitle }})');
     });
     document.querySelectorAll('.accordion-toggle').forEach(toggle => {
         toggle.addEventListener('click', () => {

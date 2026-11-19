@@ -108,13 +108,13 @@
                                     <tr>
                                         <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Wallet Amount</strong></td>
                                         <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">
-                                            -{{ formatCurrency($payment?->wallet_amount ?? 0) }}
+                                            {!! formatCurrency(-abs($payment?->wallet_amount ?? 0)) !!}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Loyalty Amount</strong></td>
                                         <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">
-                                            -{{ formatCurrency($payment?->loyalty_amount ?? 0) }}
+                                            {!! formatCurrency(-abs($payment?->loyalty_amount ?? 0)) !!}
                                         </td>
                                     </tr>
 
@@ -143,7 +143,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn-success-modal nex_sterp_btn print_payment_summary text-white" target="_blank">🖨️ Print Summary</a>
+                <a href="#" class="btn-success-modal nex_sterp_btn print_payment_summary text-white" target="_blank">🖨️ Print</a>
                 <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -151,3 +151,31 @@
 </div>
 </div>
 @endif
+@prepend('script')
+<script>
+    $('#view-listing').on('show.bs.modal', function(event) {
+        let button = $(event.relatedTarget);
+        let id = button.data('item');
+        let modal = $(this);
+        modal.find('#listingModalContent').html(`<div class="text-center p-3">Loading...</div>`);
+        $.ajax({
+            url: `{{ route('common.payment.detail') }}`,
+            type: 'POST',
+            data: {
+                id: id,
+                action: 'transaction-summary',
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                modal.find('#listingModalContent').html(response.html);
+                modal.find('a.print_payment_summary').attr('href', response.print_url);
+            },
+            error: function() {
+                modal.find('#listingModalContent').html(
+                    `<div class="text-danger p-3">Failed to load data</div>`);
+            }
+        });
+
+    });
+</script>
+@endprepend
