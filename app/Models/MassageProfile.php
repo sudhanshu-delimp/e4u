@@ -540,6 +540,14 @@ class MassageProfile extends Model
     }
 
 
+    public function getCurrentPurchaseAttribute()
+    {
+        return $this->purchase
+            ->whereIn('status', ['listed', 'pending'])
+            ->sortBy(fn ($purchase) => $purchase->status === 'listed' ? 0 : 1)
+            ->first();
+    }
+    
     public function mainPurchase()
     {
         return $this->belongsTo(MassagePurchase::class, 'purchase_id');

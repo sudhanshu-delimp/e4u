@@ -559,6 +559,8 @@ class PaymentController extends BaseController
             if($action == 'bumpup')
             {
             $purchaseData = session()->get('MassagePurchase');
+            $massageCenterDetail = getMassageCenterDetail($purchaseData['massage_id']);
+            $purchaseData['purchase_id'] = $massageCenterDetail->currentPurchase->id;
             $purchaseDetail = MassageBumpup::create($purchaseData);
             if (!empty($payment)) {
                     $purchaseDetail->paymentItems()->create([

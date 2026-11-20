@@ -138,7 +138,7 @@
                                 </thead>
                                 <tbody>
                                     @if(!empty($payment))
-                                        @include('escort.dashboard.Bookkeeping.modal.partials.tax-invoice-items', compact('payment'))
+                                         @include('modal.payment.partials.tax-invoice-items', compact('payment'))
                                     @endif
                                 </tbody>
                             </table>
