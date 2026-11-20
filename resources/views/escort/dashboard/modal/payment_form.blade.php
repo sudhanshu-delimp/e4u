@@ -117,7 +117,7 @@
                                 <div class="support mt-3 payment_note payment_wallet_option">
                                     <p class="mb-0"><strong>Notes:</strong></p>
                                     <ol>
-                                        <li>You can apply any portion of your benefits by selecting from your Wallet, to
+                                        <li>You can apply any portion of your benefits, by selecting from your Wallet, to
                                             reduce the total Fee payable for this Service.</li>
                                         <li>By selecting 'Pay Now', 2FA will be activated to verify it is you.</li>
                                         <li>For a detailed summary of this transaction, go to <a
