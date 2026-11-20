@@ -20,7 +20,7 @@
                             <div class="order_summary_adjustment">
                                 <p><strong>Order Summary</strong></p>
                                 <div class="d-flex justify-content-between mb-2">
-                                    <span>Subtotal:</span>
+                                    <span>Your Order:</span>
                                     <span class="paymentSubtotal">{{ formatCurrency(0) }}</span>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mb-2">

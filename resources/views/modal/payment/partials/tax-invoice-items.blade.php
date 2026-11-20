@@ -147,6 +147,6 @@
 <!-- Balance Due Row -->
 <tr style="background-color: #fafbfc;">
     <td colspan="2" align="left" style="padding: 9px 8px; border: 2px solid #0c223d; font-size: 13px; font-weight: 800; color: #0c223d;text-align:left;">Balance Due:</td>
-    <td align="right" style="padding: 9px 6px; border: 2px solid #0c223d; font-size: 13px; font-weight: 800; color: #0c223d; white-space: nowrap; text-align:right;">{{ formatCurrency($payment?->paid_amount ?? 0) }}</td>
+    <td align="right" style="padding: 9px 6px; border: 2px solid #0c223d; font-size: 13px; font-weight: 800; color: #0c223d; white-space: nowrap; text-align:right;">{{ formatCurrency($payment?->total_payable_amount ?? 0) }}</td>
 </tr>
 @endif
