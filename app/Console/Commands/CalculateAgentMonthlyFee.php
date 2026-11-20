@@ -69,9 +69,9 @@ class CalculateAgentMonthlyFee extends Command
         $billingStartDate = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('Y-m-d');
         $billingEndDate = Carbon::now()->subMonthNoOverflow()->endOfMonth()->format('Y-m-d');
         $reportDate = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('m-Y');
-        $billingStartDate = '2026-11-01';
-        $billingEndDate = '2026-11-30';
-        $reportDate = '11-2026';
+        //$billingStartDate = '2026-08-01';
+        //$billingEndDate = '2026-08-31';
+        //$reportDate = '08-2026';
 
         //$this->info("billingStartDate: $billingStartDate ,  billingEndDate  $billingEndDate");die;
         
