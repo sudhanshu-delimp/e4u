@@ -387,14 +387,14 @@ class ReportingController extends BaseController
       if ($request->status != 4) {
         $statusInfoCheck = config('messages.account_status', []);
         $message = $statusInfoCheck[$request->status];
-        $preferences = getUserNotificationPreferences($user);
+        $preferences = getUserTwofaNotificationPreferences($user);
         if ($preferences['text_enabled']) {
           $send = new MessageMedia();
           $dashboardUrl = config('app.url');
           $smsMessage = "Account Notification\n\nYour account status has been updated. Please log in to your dashboard to view the details:\n{$dashboardUrl}";
           $send->sendMessages($user->phone, $smsMessage);
-
-          // Save in-app notification
+        }
+            // Save in-app notification
           $payload = buildUserNotificationPayload(
             $user,
             $message['message'],
@@ -402,7 +402,6 @@ class ReportingController extends BaseController
             config('constants.NotificationIcon.general')
           );
           Notification::create($payload);
-        }
         if ($preferences['email_enabled']) {
          
           Mail::to($user->email)->queue(new UserStatusUpdatedMail($user, $statusName, $statusMessage, $emailType));

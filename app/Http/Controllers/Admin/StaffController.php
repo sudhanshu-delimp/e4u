@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ChangePasswordlEmail;
 use App\Models\Notification;
 use App\Sms\Provider\MessageMedia;
+use Exception;
 
 class StaffController extends BaseController
 {
@@ -404,25 +405,26 @@ class StaffController extends BaseController
             $statusInfoCheck = config('messages.account_status', []);
             // 9 for password reset message
             $message = $statusInfoCheck[9];
-            $preferences = getUserNotificationPreferences($user);
+            $preferences = getUserTwofaNotificationPreferences($user);
             if ($preferences['text_enabled']) {
               $send = new MessageMedia();
               $dashboardUrl = route("advertiser.login");
               $smsMessage = "Password Reset Notification\n\nYour account password has been reset successfully. If you did not make this change, please contact support immediately. Please log in to your dashboard to verify the change:\n{$dashboardUrl}";         
               $send->sendMessages($user->phone, $smsMessage);
 
-              // Save in-app notification
-              $payload = buildUserNotificationPayload(
-                $user,
-                $message['title'],
-                $message['message'],
-                config('constants.NotificationIcon.general')
-              );
-              Notification::create($payload);
+        
             }
-            if ($preferences['email_enabled']) {
+                  // Save in-app notification
+              $payload = buildUserNotificationPayload(  $user,  $message['message'],  $message['message'], config('constants.NotificationIcon.general'));
+              Notification::create($payload);
 
+            if ($preferences['email_enabled']) {
+              try{
               Mail::to($user->email)->send(new ChangePasswordlEmail($user));
+              }catch(Exception $e)
+              {
+                Log::info($e->getMessage());
+              }
             }
           }
         } catch (\Throwable $e) {
