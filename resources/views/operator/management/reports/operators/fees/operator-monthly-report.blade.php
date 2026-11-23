@@ -195,7 +195,7 @@
         </div>
     </div>
 </div>
-
+@include('modal.monthly_report_query', ['console'=>'operator'])
 {{-- end --}}
 @endsection
 @push('script')
@@ -339,7 +339,7 @@
             let status = $(this).data('status');
             $('#fee_id').val(id);
             $('#fee_status').val(status);
-            $('#raiseQueryModel').modal('show');
+            $('#queryConversationModal').modal('show');
         });
 
         /*** call monthly detail */
