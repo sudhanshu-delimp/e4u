@@ -75,11 +75,11 @@
             </div>
         </form>
 
-         <!-- Messages btn -->
+        <!-- Messages btn -->
         <li class="nav-item messages_btn">
             <a class="nav-link" href="{{ route('escort.dashboard.agent-messages') }}" role="button">
                 <span>
-                    <svg width="22px" height="22px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1"
+                    <svg width="18px" height="18px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1"
                         xmlns="http://www.w3.org/2000/svg" fill="#fff" stroke="#fff">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -105,6 +105,24 @@
                             <line class="cls-1" x1="12.95" y1="11.98" x2="14.86" y2="11.98"></line>
                         </g>
                     </svg> Messages
+                </span>
+            </a>
+        </li>
+        <!--- End --->
+
+        <!-- my-wallet btn -->
+        <li class="nav-item wallet_btn">
+            <a class="nav-link" href="{{ route('escort.my_wallet') }}" role="button">
+                <span>
+                <svg width="18px" height="18px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path d="M3 6V17C3 18.6569 4.34315 20 6 20H20C20.5523 20 21 19.5523 21 19V16M19 8H5C3.89543 8 3 7.10457 3 6V6C3 4.89543 3.89543 4 5 4H18C18.5523 4 19 4.44772 19 5V8ZM19 8H20C20.5523 8 21 8.44772 21 9V12M21 12H18C16.8954 12 16 12.8954 16 14V14C16 15.1046 16.8954 16 18 16H21M21 12V16" stroke="#28a745" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        </path>
+                    </g>
+                </svg>   
+                        Wallet Bal:  {{ formatCurrency(auth()->user()->wallet->balance) }}
                 </span>
             </a>
         </li>
