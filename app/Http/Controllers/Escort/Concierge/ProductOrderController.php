@@ -103,12 +103,15 @@ class ProductOrderController extends Controller
 
 
 
-      $gst_amount = ($calculatedSubtotal * $tax) / 100;
 
 
 
       // 3. Calculate final total
       $calculatedTotal = $calculatedSubtotal + $deliveryCharges;
+
+      $gst_amount = ($calculatedTotal * $tax) / 100;
+
+
       $netAmount = 0;
       if ($walletAmount > 0) {
         $netAmount = $calculatedSubtotal - $walletAmount;

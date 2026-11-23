@@ -6,14 +6,20 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\SuspendProfile;
 use App\Models\MassageSuspendProfile;
+use App\Models\PaymentHistory;
 use Illuminate\Http\Request;
 use DataTables;
+use PDF;
 
 class CommonController extends Controller
 {
+    protected $account;
     public function __construct()
     {
-    
+        $this->middleware(function ($request, $next) {
+            $this->account = auth()->user();
+            return $next($request);
+        });
     }
 
     public function getAdvertiser(Request $request)
@@ -115,5 +121,65 @@ class CommonController extends Controller
             ->rawColumns(['status'])
             ->make(true);
 
+    }
+
+    public function paymentDetail(Request $request)
+    {
+        try {
+
+            if (!$this->account) {
+                throw new \InvalidArgumentException('User is not authenticated');
+            }
+
+            if (in_array($this->account->type, ['0'])) {
+                throw new \InvalidArgumentException('Invalid user type');
+            }
+
+            $id = decrypt($request->id);
+            $payment = PaymentHistory::findOrFail($id);
+            $template = $request->action === 'transaction-summary' ? 'modal.payment.transaction-summary' : 'modal.payment.tax-invoice';
+            $html = view($template, compact('payment'))->render();
+            return response()->json([
+                'status' => true,
+                'html'   => $html,
+                'print_url' => route('common.payment.detail.print', ['payment' => $payment->id, 'action' => $request->action]),
+                'message' => 'Listing fetched successfully'
+            ]);
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid listing id'
+            ], 400);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+
+            return response()->json([
+                'status' => false,
+                'message' => 'Listing not found'
+            ], 404);
+        } catch (\InvalidArgumentException $e) {
+
+        return response()->json([
+            'status' => false,
+            'message' => $e->getMessage()
+        ], 400);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'Something went wrong',
+                'error'   => $e->getMessage(),
+                'line'    => $e->getLine(),
+                'file'    => $e->getFile(),
+            ], 500);
+        }
+    }
+
+    public function printPaymentDetail(Request $request, PaymentHistory $payment)
+    {
+        $print = true;
+        $template = $request->action === 'transaction-summary' ? 'modal.payment.transaction-summary' : 'modal.payment.tax-invoice';
+        $pdf = PDF::loadView($template, compact('payment', 'print'));
+        return $pdf->stream($payment->user->member_id . '_'.str_replace(' ','_',ucwords(str_replace('-',' ',$request->action))).'_' . $payment->ref_no . '.pdf');
     }
 }

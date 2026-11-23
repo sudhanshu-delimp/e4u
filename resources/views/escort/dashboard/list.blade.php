@@ -116,7 +116,7 @@
         <div class="col-md-12">
             <div class="box-body common-card">
                 @if ($type != 'past')
-                <div>
+                <div class="mb-4">
                     <div class="add--list listingActionButtons">
                         <div class=" d-flex gap-10 flex-wrap justify-content-between">
 
@@ -164,7 +164,7 @@
                         </button>
                     </div>
                 </div>
-                <br>
+                
                 @endif
                 <div class="table-responsive">
                     <table class="table w-100" id="sailorTable">

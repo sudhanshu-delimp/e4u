@@ -320,16 +320,16 @@ class ProductOrderController extends Controller
         if ($status) {
 
           $order->refresh();
-          $agentPreferences="";
-              // get details notifications 
-            $user = User::where('id', $order->user_id)->first();
+          $agentPreferences = "";
+          // get details notifications 
+          $user = User::where('id', $order->user_id)->first();
           if ($agent)
             $agentPreferences = getUserNotificationPreferences($agent);
 
           $customerPreferences = getUserNotificationPreferences($user);
 
-                $dashboardUrl = config('app.url');
-               
+          $dashboardUrl = config('app.url');
+
           if ($request->status == 'delivered') {
 
             $mailData['communication_id'] = "";
@@ -337,23 +337,25 @@ class ProductOrderController extends Controller
             $mailData['communication_id'] = sprintf('#%05d', $supplierCommunication->id);
             $smsMessage = "Product Order Notification\n\nA product order update is available. Member ID: {$user->member_id} | Order Ref: {$mailData['communication_id']}.\n\nPlease log in to your dashboard to view the details:\n{$dashboardUrl}";
             $message = "Your Order Has Been Successfully Completed – Member ID: {$user->member_id} | Order Ref: {$mailData['communication_id']}";
+            $payload = buildUserNotificationPayload($user, $message, $message, config('constants.NotificationIcon.general'));
+            Notification::create($payload);
+
+            if ($agent) {
+              $payloadAgent = buildUserNotificationPayload($agent, $message, $message, config('constants.NotificationIcon.general'));
+              Notification::create($payloadAgent);
+            }
 
             if ($order->createdBy &&  $order->createdBy->email && $order->user_id != $order->createdBy->id) {
-              
+
+
               if ($agentPreferences['text_enabled']) {
                 $send = new MessageMedia();
                 $send->sendMessages($agent->phone, $smsMessage);
-
-                $payload = buildUserNotificationPayload($agent, $message, $message, config('constants.NotificationIcon.general'));
-                Notification::create($payload);
               }
 
               if ($customerPreferences['text_enabled']) {
                 $send = new MessageMedia();
                 $send->sendMessages($user->phone, $smsMessage);
-
-                $payload = buildUserNotificationPayload($user, $message, $message, config('constants.NotificationIcon.general'));
-                Notification::create($payload);
               }
 
               if ($agentPreferences['email_enabled']) {
@@ -367,23 +369,16 @@ class ProductOrderController extends Controller
               } elseif ($customerPreferences['email_enabled']) {
                 Mail::to($billing->email)->send(new SendProductOrderCompleteConfirmationMailToEscort($mailData));
               }
-
             } else {
-              
+
               if (!empty($agent) && !empty($agent->phone) && $agentPreferences['text_enabled']) {
                 $send = new MessageMedia();
                 $send->sendMessages($agent->phone, $smsMessage);
-
-                $payload = buildUserNotificationPayload($agent, $message, $message, config('constants.NotificationIcon.general'));
-                Notification::create($payload);
               }
 
               if ($customerPreferences['text_enabled']) {
                 $send = new MessageMedia();
                 $send->sendMessages($user->phone, $smsMessage);
-
-                $payload = buildUserNotificationPayload($user, $message, $message, config('constants.NotificationIcon.general'));
-                Notification::create($payload);
               }
 
               if ($customerPreferences['email_enabled']) {
@@ -417,24 +412,25 @@ class ProductOrderController extends Controller
             $mailData['communication_id'] = "";
             $supplierCommunication = EmailLog::create([]);
             $mailData['communication_id'] = sprintf('#%05d', $supplierCommunication->id);
-             $smsMessage = "Product Order Notification\n\nYour product order is currently on hold. Member ID: {$user->member_id} | Order Ref: {$mailData['communication_id']}.\n\nPlease log in to your dashboard to view the details:\n{$dashboardUrl}";
-              $message = "Your Order Is Currently On Hold – Member ID: {$user->member_id} | Order Ref: {$mailData['communication_id']}";
-             
+            $smsMessage = "Product Order Notification\n\nYour product order is currently on hold. Member ID: {$user->member_id} | Order Ref: {$mailData['communication_id']}.\n\nPlease log in to your dashboard to view the details:\n{$dashboardUrl}";
+            $message = "Your Order Is Currently On Hold – Member ID: {$user->member_id} | Order Ref: {$mailData['communication_id']}";
+            $payload = buildUserNotificationPayload($user, $message, $message, config('constants.NotificationIcon.general'));
+            Notification::create($payload);
+
+            if ($agent) {
+              $payloadAgent = buildUserNotificationPayload($agent, $message, $message, config('constants.NotificationIcon.general'));
+              Notification::create($payloadAgent);
+            }
+
             if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
-               if ($agentPreferences['text_enabled']) {
+              if ($agentPreferences['text_enabled']) {
                 $send = new MessageMedia();
                 $send->sendMessages($agent->phone, $smsMessage);
-
-                $payload = buildUserNotificationPayload($agent, $message, $message, config('constants.NotificationIcon.general'));
-                Notification::create($payload);
               }
 
               if ($customerPreferences['text_enabled']) {
                 $send = new MessageMedia();
                 $send->sendMessages($user->phone, $smsMessage);
-
-                $payload = buildUserNotificationPayload($user, $message, $message, config('constants.NotificationIcon.general'));
-                Notification::create($payload);
               }
 
               // Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderHoldMailToEscort($mailData));
@@ -449,22 +445,16 @@ class ProductOrderController extends Controller
               } elseif ($customerPreferences['email_enabled']) {
                 Mail::to($billing->email)->send(new SendProductOrderHoldMailToEscort($mailData));
               }
-              } else {
-            
+            } else {
+
               if (!empty($agent) && !empty($agent->phone) && $agentPreferences['text_enabled']) {
                 $send = new MessageMedia();
                 $send->sendMessages($agent->phone, $smsMessage);
-
-                $payload = buildUserNotificationPayload($agent, $message, $message, config('constants.NotificationIcon.general'));
-                Notification::create($payload);
               }
 
               if ($customerPreferences['text_enabled']) {
                 $send = new MessageMedia();
                 $send->sendMessages($user->phone, $smsMessage);
-
-                $payload = buildUserNotificationPayload($user, $message, $message, config('constants.NotificationIcon.general'));
-                Notification::create($payload);
               }
 
 
@@ -475,7 +465,7 @@ class ProductOrderController extends Controller
               // $mail->send(new SendProductOrderHoldMailToEscort($mailData));
 
 
-              if($customerPreferences['email_enabled']) {
+              if ($customerPreferences['email_enabled']) {
                 $mail = Mail::to($billing->email);
                 if (!empty($agent) && !empty($agent->email) && $agentPreferences['email_enabled']) {
                   $mail->cc($agent->email);
@@ -504,27 +494,27 @@ class ProductOrderController extends Controller
             $mailData['communication_id'] = "";
             $supplierCommunication = EmailLog::create([]);
             $mailData['communication_id'] = sprintf('#%05d', $supplierCommunication->id);
-             $smsMessage = "Product Order Notification\n\nYour product order has been rejected. Member ID: {$user->member_id} | Order Ref: {$mailData['communication_id']}.\n\nPlease log in to your dashboard to view the details:\n{$dashboardUrl}";
+            $smsMessage = "Product Order Notification\n\nYour product order has been rejected. Member ID: {$user->member_id} | Order Ref: {$mailData['communication_id']}.\n\nPlease log in to your dashboard to view the details:\n{$dashboardUrl}";
             $message = "Your Order Has Been Rejected – Member ID: {$user->member_id} | Order Ref: {$mailData['communication_id']}";
-          
+
+            $payload = buildUserNotificationPayload($user, $message, $message, config('constants.NotificationIcon.general'));
+            Notification::create($payload);
+
+            if ($agent) {
+              $payloadAgent = buildUserNotificationPayload($agent, $message, $message, config('constants.NotificationIcon.general'));
+              Notification::create($payloadAgent);
+            }
 
             if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
 
-           
-            if ($agentPreferences['text_enabled']) {
+              if ($agentPreferences['text_enabled']) {
                 $send = new MessageMedia();
                 $send->sendMessages($agent->phone, $smsMessage);
-
-                $payload = buildUserNotificationPayload($agent, $message, $message, config('constants.NotificationIcon.general'));
-                Notification::create($payload);
               }
 
               if ($customerPreferences['text_enabled']) {
                 $send = new MessageMedia();
                 $send->sendMessages($user->phone, $smsMessage);
-
-                $payload = buildUserNotificationPayload($user, $message, $message, config('constants.NotificationIcon.general'));
-                Notification::create($payload);
               }
               if ($agentPreferences['email_enabled']) {
                 $mail = Mail::to($order->createdBy->email);
@@ -548,24 +538,18 @@ class ProductOrderController extends Controller
               // }
               // $mail->send(new SendProductOrderRejectMailToEscort($mailData));
 
-            
+
               if (!empty($agent) && !empty($agent->phone) && $agentPreferences['text_enabled']) {
                 $send = new MessageMedia();
                 $send->sendMessages($agent->phone, $smsMessage);
-
-                $payload = buildUserNotificationPayload($agent, $message, $message, config('constants.NotificationIcon.general'));
-                Notification::create($payload);
               }
 
               if ($customerPreferences['text_enabled']) {
                 $send = new MessageMedia();
                 $send->sendMessages($user->phone, $smsMessage);
-
-                $payload = buildUserNotificationPayload($user, $message, $message, config('constants.NotificationIcon.general'));
-                Notification::create($payload);
               }
 
-               if($customerPreferences['email_enabled']) {
+              if ($customerPreferences['email_enabled']) {
                 $mail = Mail::to($billing->email);
                 if (!empty($agent) && !empty($agent->email) && $agentPreferences['email_enabled']) {
                   $mail->cc($agent->email);
@@ -577,39 +561,37 @@ class ProductOrderController extends Controller
                   Mail::to($agent->email)->send(new SendProductOrderRejectMailToEscort($mailData));
                 }
               }
-
             }
           } else if ($request->status == 'shipped' && $order->delivery_type == "post") {
             $mailData['communication_id'] = "";
             $supplierCommunication = EmailLog::create([]);
             $mailData['communication_id'] = sprintf('#%05d', $supplierCommunication->id);
+            $smsMessage = "Product Order Notification\n\nYour product order has been shipped. Member ID: {$user->member_id} | Order Ref: {$mailData['communication_id']}.\n\nPlease log in to your dashboard to view the details:\n{$dashboardUrl}";
+            $message = "Your Order Has Been Shipped – Member ID: {$user->member_id} | Order Ref: {$mailData['communication_id']}";
+            $payload = buildUserNotificationPayload($user, $message, $message, config('constants.NotificationIcon.general'));
+            Notification::create($payload);
+            if ($agent) {
+              $payloadAgent = buildUserNotificationPayload($agent, $message, $message, config('constants.NotificationIcon.general'));
+              Notification::create($payloadAgent);
+            }
 
             if ($order->createdBy &&  $order->createdBy->email &&  $order->user_id != $order->createdBy->id) {
               // Mail::to($order->createdBy->email)->cc($billing->email)->send(new SendProductOrderShippedMailToEscort($mailData));
-                $smsMessage = "Product Order Notification\n\nYour product order has been shipped. Member ID: {$user->member_id} | Order Ref: {$mailData['communication_id']}.\n\nPlease log in to your dashboard to view the details:\n{$dashboardUrl}";
 
-                $message = "Your Order Has Been Shipped – Member ID: {$user->member_id} | Order Ref: {$mailData['communication_id']}";
-               
-                if ($agentPreferences['text_enabled']) {
+
+              if ($agentPreferences['text_enabled']) {
                 $send = new MessageMedia();
                 $send->sendMessages($agent->phone, $smsMessage);
-
-                $payload = buildUserNotificationPayload($agent, $message, $message, config('constants.NotificationIcon.general'));
-                Notification::create($payload);
               }
 
               if ($customerPreferences['text_enabled']) {
                 $send = new MessageMedia();
                 $send->sendMessages($user->phone, $smsMessage);
-
-                $payload = buildUserNotificationPayload($user, $message, $message, config('constants.NotificationIcon.general'));
-                Notification::create($payload);
               }
 
-                     if ($agentPreferences['email_enabled']) {
+              if ($agentPreferences['email_enabled']) {
                 $mail = Mail::to($order->createdBy->email);
                 if ($customerPreferences['email_enabled']) {
-
                   $mail->cc($billing->email);
                 }
 
@@ -623,26 +605,18 @@ class ProductOrderController extends Controller
               //   $mail->cc($agent->email);
               // }
               // $mail->send(new SendProductOrderShippedMailToEscort($mailData));
-              $smsMessage = "Product Order Notification\n\nYour product order has been shipped. Member ID: {$user->member_id} | Order Ref: {$mailData['communication_id']}.\n\nPlease log in to your dashboard to view the details:\n{$dashboardUrl}";
-              $message = "Your Order Has Been Shipped – Member ID: {$user->member_id} | Order Ref: {$mailData['communication_id']}";
-                        
+
               if (!empty($agent) && !empty($agent->phone) && $agentPreferences['text_enabled']) {
                 $send = new MessageMedia();
                 $send->sendMessages($agent->phone, $smsMessage);
-
-                $payload = buildUserNotificationPayload($agent, $message, $message, config('constants.NotificationIcon.general'));
-                Notification::create($payload);
               }
 
               if ($customerPreferences['text_enabled']) {
                 $send = new MessageMedia();
                 $send->sendMessages($user->phone, $smsMessage);
-
-                $payload = buildUserNotificationPayload($user, $message, $message, config('constants.NotificationIcon.general'));
-                Notification::create($payload);
               }
 
-               if($customerPreferences['email_enabled']) {
+              if ($customerPreferences['email_enabled']) {
                 $mail = Mail::to($billing->email);
                 if (!empty($agent) && !empty($agent->email) && $agentPreferences['email_enabled']) {
                   $mail->cc($agent->email);
@@ -654,13 +628,12 @@ class ProductOrderController extends Controller
                   Mail::to($agent->email)->send(new SendProductOrderShippedMailToEscort($mailData));
                 }
               }
-
             }
           }
         }
       });
 
-      sleep(3);
+      sleep(1);
       return response()->json([
         'status' => true,
         'message' => 'Your request has been processed successfully.'

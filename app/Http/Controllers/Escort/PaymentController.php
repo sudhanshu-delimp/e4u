@@ -547,50 +547,7 @@ class PaymentController extends Controller
         return response()->json($data);
     }
 
-    public function paymentDetail(Request $request)
-    {
-        try {
-
-            $id = decrypt($request->id);
-            $payment = PaymentHistory::findOrFail($id);
-            $template = $request->action === 'transaction-summary' ? 'escort.dashboard.Bookkeeping.modal.transaction-summary' : 'escort.dashboard.Bookkeeping.modal.tax-invoice';
-            $html = view($template, compact('payment'))->render();
-            return response()->json([
-                'status' => true,
-                'html'   => $html,
-                'print_url' => route('escort.payment.detail.print', ['payment' => $payment->id, 'action' => $request->action]),
-                'message' => 'Listing fetched successfully'
-            ]);
-        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
-
-            return response()->json([
-                'status' => false,
-                'message' => 'Invalid listing id'
-            ], 400);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-
-            return response()->json([
-                'status' => false,
-                'message' => 'Listing not found'
-            ], 404);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status'  => false,
-                'message' => 'Something went wrong',
-                'error'   => $e->getMessage(),
-                'line'    => $e->getLine(),
-                'file'    => $e->getFile(),
-            ], 500);
-        }
-    }
-
-    public function printPaymentDetail(Request $request, PaymentHistory $payment)
-    {
-        $print = true;
-        $template = $request->action === 'transaction-summary' ? 'escort.dashboard.Bookkeeping.modal.transaction-summary' : 'escort.dashboard.Bookkeeping.modal.tax-invoice';
-        $pdf = PDF::loadView($template, compact('payment', 'print'));
-        return $pdf->stream($payment->user->member_id . '_'.str_replace(' ','_',ucwords(str_replace('-',' ',$request->action))).'_' . $payment->ref_no . '.pdf');
-    }
+    
 
     public function mySpend(Request $request)
     {

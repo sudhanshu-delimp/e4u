@@ -199,33 +199,60 @@ if (!function_exists('getPlanFee')) {
 }
 
 
+// if (!function_exists('formatCurrency')) {
+//     /**
+//      * Format the amount
+//      */
+//     function formatCurrency($amount, $currency = '$', $appendCurrencySign = true)
+//     {
+//         $amount = number_format($amount, 2, '.', ''); // keep 2 decsimals
+//         $isNegative = $amount < 0;
+//         list($intPart, $decimalPart) = explode('.', $amount);
+
+//         $lastThree = substr($intPart, -3);
+//         $restUnits = substr($intPart, 0, -3);
+
+//         if ($restUnits != '') {
+//             $restUnits = preg_replace("/\B(?=(\d{2})+(?!\d))/", ",", $restUnits);
+//             $formatted = $restUnits . "," . $lastThree;
+//         } else {
+//             $formatted = $lastThree;
+//         }
+
+//         $formattedAmount = abs(intVal($formatted)) . '.' . $decimalPart;
+        
+//         $amountString =  $appendCurrencySign ? $currency . '' . $formattedAmount : $formattedAmount;
+//         return $isNegative ? '<span class="text-danger">(' . $amountString . ')</span>' : $amountString;
+//     }
+// }
 if (!function_exists('formatCurrency')) {
-    /**
-     * Format the amount
-     */
     function formatCurrency($amount, $currency = '$', $appendCurrencySign = true)
     {
-        $amount = number_format($amount, 2, '.', ''); // keep 2 decsimals
+        $amount = (float) $amount;
         $isNegative = $amount < 0;
-        list($intPart, $decimalPart) = explode('.', $amount);
+
+        $formattedAmount = number_format(abs($amount), 2, '.', '');
+        [$intPart, $decimalPart] = explode('.', $formattedAmount);
 
         $lastThree = substr($intPart, -3);
         $restUnits = substr($intPart, 0, -3);
 
-        if ($restUnits != '') {
-            $restUnits = preg_replace("/\B(?=(\d{2})+(?!\d))/", ",", $restUnits);
-            $formatted = $restUnits . "," . $lastThree;
+        if ($restUnits !== '') {
+            $restUnits = preg_replace('/\B(?=(\d{2})+(?!\d))/', ',', $restUnits);
+            $formattedAmount = $restUnits . ',' . $lastThree;
         } else {
-            $formatted = $lastThree;
+            $formattedAmount = $lastThree;
         }
 
-        $formattedAmount = abs(intVal($formatted)) . '.' . $decimalPart;
-        
-        $amountString =  $appendCurrencySign ? $currency . '' . $formattedAmount : $formattedAmount;
-        return $isNegative ? '<span class="text-danger">(' . $amountString . ')</span>' : $amountString;
+        $formattedAmount .= '.' . $decimalPart;
+
+        $amountString = ($appendCurrencySign ? $currency : '') . $formattedAmount;
+
+        return $isNegative
+            ? '<span class="text-danger">(' . $amountString . ')</span>'
+            : $amountString;
     }
 }
-
 if (!function_exists('formatAmount')) {
     function formatAmount($value)
     {
@@ -286,6 +313,16 @@ if (!function_exists('getEscortDetail')) {
         return $escort;
     }
 }
+
+if (!function_exists('getMassageCenterDetail')) {
+    function getMassageCenterDetail($id)
+    {
+        $escort = MassageProfile::where('id', $id)->first();
+        return $escort;
+    }
+}
+
+
 
 /**
  * Get country list
@@ -3659,6 +3696,36 @@ if (!function_exists('generateReferenceNunber')) {
         }
 
         return $refNumber;
+    }
+}
+if (!function_exists('getUserTwofaNotificationPreferences')) {
+    function getUserTwofaNotificationPreferences($user)
+    {
+        $settingsMap = [
+            0 => ViewerSetting::class,
+            3 => EscortSetting::class,
+            4 => MassageSetting::class,
+            5 => AgentSetting::class,
+        ];
+
+        $type = (int) $user->type;
+
+        if (!isset($settingsMap[$type])) {
+            return [
+                'text_enabled'  => false,
+                'email_enabled' => false,
+            ];
+        }
+
+        $model = $settingsMap[$type];
+        $setting = $model::where('user_id', $user->id)->first();
+
+        $twofa = (int) data_get($setting, 'twofa', 0);
+
+        return [
+            'email_enabled' => $twofa === 1,
+            'text_enabled'  => $twofa === 2,
+        ];
     }
 }
  if (! function_exists('getUserNotificationPreferences')) {

@@ -530,21 +530,24 @@ class OperatorController extends BaseController
             if ($item->status == 'pending') {
                 //Approve
                 
-                    $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
-                    $divider = '<div class="dropdown-divider"></div>';
+                   /*  $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
+                    $divider = '<div class="dropdown-divider"></div>'; */
 
 
                     //Query
-                    $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
-                    $divider = '<div class="dropdown-divider"></div>';
+                   /*  $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
+                    $divider = '<div class="dropdown-divider"></div>'; */
                 
             } else if ($item->status == 'approved') {
                 //Query
               
                     /* $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="paid"  id="viewPayOperatorRreport"><i class="fa fa-star"></i>Pay</a>';
                     $divider = '<div class="dropdown-divider"></div>'; */
-
+/* 
                      $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="pending"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Pending</a>';
+                    $divider = '<div class="dropdown-divider"></div>'; */
+                    //Query
+                    $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
                     $divider = '<div class="dropdown-divider"></div>';
                 
             } else if ($item->status == 'paid') {
@@ -564,7 +567,7 @@ class OperatorController extends BaseController
             } else if ($item->status == 'query_resolved') {
                 //query_resolved
                
-                    $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a><div class="dropdown-divider"></div>';
+                   /*  $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a><div class="dropdown-divider"></div>'; */
                 
             }
 
@@ -640,7 +643,8 @@ class OperatorController extends BaseController
             $reportQueryObj->notes = $note;
             $reportQueryObj->save();
           }
-          return $this->successResponse('Monthly fee report status successfully updated.');
+          $msg = ($status == 'query') ? 'Query submitted successfully.' : 'Monthly fee report status successfully updated.';
+          return $this->successResponse($msg);
         }
       } else {
         return $this->errorResponse('Monthly fee report data not found.');
@@ -694,6 +698,7 @@ class OperatorController extends BaseController
         ->where('fee_report_id', $id)
         ->where('status', 'query')
         ->where('notes', '!=', "")
+        ->orderBy("created_at" , "DESC")
         ->get();
 
       if ($queryData->isNotEmpty()) {

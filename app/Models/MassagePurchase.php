@@ -139,4 +139,10 @@ class MassagePurchase extends Model
             'data'  => $extendedPurchase,
         ];
     }
+
+    public function getDaysNumberAttribute()
+    {
+        return Carbon::parse($this->start_date)
+            ->diffInDays(Carbon::parse($this->end_date)) + 1;
+    }
 }
