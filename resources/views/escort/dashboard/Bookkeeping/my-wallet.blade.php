@@ -131,11 +131,11 @@
 
                             <div>
                                 <span class="wallet-summary-label">
-                                Loyalty Reward
+                                Loyalty Rewards
                             </span>
 
                                 <span class="wallet-summary-value">
-                               {{ $user->wallet->earn_days ?? 0 }} {{$user->wallet->earn_days > 1 ? 'Days' : 'Day'}}
+                               {{ $user->wallet->earn_days ?? 0 }} {{$user->wallet->earn_days > 1 ? 'Days' : 'Days'}}
                             </span>
                             </div>
 
