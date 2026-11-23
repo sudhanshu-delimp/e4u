@@ -3698,6 +3698,36 @@ if (!function_exists('generateReferenceNunber')) {
         return $refNumber;
     }
 }
+if (!function_exists('getUserTwofaNotificationPreferences')) {
+    function getUserTwofaNotificationPreferences($user)
+    {
+        $settingsMap = [
+            0 => ViewerSetting::class,
+            3 => EscortSetting::class,
+            4 => MassageSetting::class,
+            5 => AgentSetting::class,
+        ];
+
+        $type = (int) $user->type;
+
+        if (!isset($settingsMap[$type])) {
+            return [
+                'text_enabled'  => false,
+                'email_enabled' => false,
+            ];
+        }
+
+        $model = $settingsMap[$type];
+        $setting = $model::where('user_id', $user->id)->first();
+
+        $twofa = (int) data_get($setting, 'twofa', 0);
+
+        return [
+            'email_enabled' => $twofa === 1,
+            'text_enabled'  => $twofa === 2,
+        ];
+    }
+}
  if (! function_exists('getUserNotificationPreferences')) {
   function getUserNotificationPreferences($user)
   {
