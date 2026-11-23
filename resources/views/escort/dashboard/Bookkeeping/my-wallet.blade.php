@@ -28,11 +28,7 @@
                     </div>
                 @endif
             </div>
-
-        </div>
-
-        <div class="row collapse" id="notes">
-            <div class="col-md-12 ">
+            <div class="col-md-12 collapse" id="notes">
                 <div class="card">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -40,19 +36,20 @@
                             <li>You can select a payment option from the drop down including your preferred amount you want
                                 to pay.</li>
                             <li>SMS 2FA applies to this feature.</li>
-                            {{-- <li>You can enable the Auto Recharge feature <a href="#"
-                                class="custom_links_design">here</a> as well.</li> --}}
+                            
                             <li>You can view how much credit you have available in the summary below. When creating a
                                 Listing or Tour, your available credit will be displayed on the checkout payment page.</li>
                         </ol>
                     </div>
                 </div>
             </div>
+
         </div>
+
+        
 
         <div class="row">
             <div class="col-lg-12">
-
                 <div class="common-card">
                     <div class="wallet-header">
                         <div class="card-top">
@@ -76,71 +73,67 @@
                         </div>
                         
                         <div class="d-flex gap-10 flex-wrap">
-                        <div class="wallet-summary-card balance">
+                            <div class="wallet-summary-card balance">
 
-                            <div class="wallet-summary-icon">
-
-                                <!-- Wallet SVG -->
-                                <svg fill="#ff3c5f" height="24px" width="24px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 511.999 511.999" xml:space="preserve">
-                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                        <g id="SVGRepo_iconCarrier">
-                                            <g>
+                                <div class="wallet-summary-icon">
+                                    <!-- Wallet SVG -->
+                                    <svg fill="#ff3c5f" height="24px" width="24px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 511.999 511.999" xml:space="preserve">
+                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                            <g id="SVGRepo_iconCarrier">
                                                 <g>
-                                                    <path d="M256.298,101.846c-92.85,0-206.983,143.686-206.983,260.579c0,44.352,15.783,79.881,46.928,105.612 c35.323,29.174,89.169,43.962,160.054,43.962c70.625,0,124.319-14.906,159.567-44.319c31.069-25.916,46.82-61.673,46.82-106.262 C462.685,244.98,348.887,101.846,256.298,101.846z M264.276,302.614c23.697,12.525,53.196,28.124,53.196,59.042 c0,27.843-18.793,51.339-44.341,58.603v7.908c0,9.18-7.448,16.628-16.628,16.628c-9.18,0-16.628-7.448-16.628-16.628v-7.908 c-25.548-7.264-44.341-30.76-44.341-58.603c0-9.18,7.448-16.628,16.628-16.628c9.18,0,16.628,7.448,16.628,16.628 c0,15.285,12.428,27.713,27.713,27.713s27.713-12.428,27.713-27.713c0-10.89-18.036-20.417-35.486-29.64 c-23.697-12.525-53.196-28.124-53.196-59.042c0-27.843,18.793-51.339,44.341-58.603v-7.908c0-9.18,7.448-16.628,16.628-16.628 c9.18,0,16.628,7.448,16.628,16.628v7.908c25.548,7.264,44.341,30.76,44.341,58.603c0,9.18-7.448,16.628-16.628,16.628 c-9.18,0-16.628-7.448-16.628-16.628c0-15.285-12.428-27.713-27.713-27.713s-27.713,12.428-27.713,27.713 C228.791,283.864,246.825,293.391,264.276,302.614z">
-                                                    </path>
+                                                    <g>
+                                                        <path d="M256.298,101.846c-92.85,0-206.983,143.686-206.983,260.579c0,44.352,15.783,79.881,46.928,105.612 c35.323,29.174,89.169,43.962,160.054,43.962c70.625,0,124.319-14.906,159.567-44.319c31.069-25.916,46.82-61.673,46.82-106.262 C462.685,244.98,348.887,101.846,256.298,101.846z M264.276,302.614c23.697,12.525,53.196,28.124,53.196,59.042 c0,27.843-18.793,51.339-44.341,58.603v7.908c0,9.18-7.448,16.628-16.628,16.628c-9.18,0-16.628-7.448-16.628-16.628v-7.908 c-25.548-7.264-44.341-30.76-44.341-58.603c0-9.18,7.448-16.628,16.628-16.628c9.18,0,16.628,7.448,16.628,16.628 c0,15.285,12.428,27.713,27.713,27.713s27.713-12.428,27.713-27.713c0-10.89-18.036-20.417-35.486-29.64 c-23.697-12.525-53.196-28.124-53.196-59.042c0-27.843,18.793-51.339,44.341-58.603v-7.908c0-9.18,7.448-16.628,16.628-16.628 c9.18,0,16.628,7.448,16.628,16.628v7.908c25.548,7.264,44.341,30.76,44.341,58.603c0,9.18-7.448,16.628-16.628,16.628 c-9.18,0-16.628-7.448-16.628-16.628c0-15.285-12.428-27.713-27.713-27.713s-27.713,12.428-27.713,27.713 C228.791,283.864,246.825,293.391,264.276,302.614z">
+                                                        </path>
+                                                    </g>
+                                                </g>
+                                                <g>
+                                                    <g>
+                                                        <path d="M347.037,20.547c-7.686-3.941-17.126-1.354-21.705,5.976c-6.95,11.14-16.639,13.932-23.545,14.311 c-12.016,0.855-24.087-5.25-32.454-15.816C256.752,9.115,236.844,0,214.728,0c-22.116,0-42.024,9.115-54.604,25.017 c-3.746,4.72-4.634,11.085-2.338,16.66c1.859,4.508,10.991,25.543,26.151,46.511c23.911-12.465,48.487-19.6,72.36-19.6 c23.868,0,48.444,7.139,72.347,19.615c15.169-20.974,24.306-42.019,26.166-46.528C358.1,33.678,354.722,24.498,347.037,20.547z">
+                                                        </path>
+                                                    </g>
                                                 </g>
                                             </g>
-                                            <g>
-                                                <g>
-                                                    <path d="M347.037,20.547c-7.686-3.941-17.126-1.354-21.705,5.976c-6.95,11.14-16.639,13.932-23.545,14.311 c-12.016,0.855-24.087-5.25-32.454-15.816C256.752,9.115,236.844,0,214.728,0c-22.116,0-42.024,9.115-54.604,25.017 c-3.746,4.72-4.634,11.085-2.338,16.66c1.859,4.508,10.991,25.543,26.151,46.511c23.911-12.465,48.487-19.6,72.36-19.6 c23.868,0,48.444,7.139,72.347,19.615c15.169-20.974,24.306-42.019,26.166-46.528C358.1,33.678,354.722,24.498,347.037,20.547z">
-                                                    </path>
-                                                </g>
-                                            </g>
-                                        </g>
+                                        </svg>
+
+                                </div>
+
+                                <div>
+                                    <span class="wallet-summary-label">
+                                        Available Balance
+                                    </span>
+
+                                    <span class="wallet-summary-value">
+                                        {{ formatCurrency($user->wallet->balance) }}
+                                    </span>
+                                </div>
+
+                            </div>
+                            <div class="wallet-summary-card reward">
+                                <div class="wallet-summary-icon">
+                                    <!-- Gift SVG -->
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+
+                                        <rect x="3" y="8" width="18" height="4" rx="1"></rect>
+                                        <path d="M5 12v8h14v-8"></path>
+                                        <path d="M12 8v12"></path>
+                                        <path d="M12 8H8.5a2.5 2.5 0 1 1 2.5-2.5V8Z"></path>
+                                        <path d="M12 8h3.5A2.5 2.5 0 1 0 13 5.5V8Z"></path>
+
                                     </svg>
 
-                            </div>
+                                </div>
+                                <div>
+                                    <span class="wallet-summary-label">
+                                        Loyalty Rewards
+                                    </span>
 
-                            <div>
-                                <span class="wallet-summary-label">
-                                    Available Balance
-                                </span>
+                                    <span class="wallet-summary-value">
+                                    {{ $user->wallet->earn_days ?? 0 }} {{$user->wallet->earn_days > 1 ? 'Days' : 'Days'}}
+                                    </span>
+                                </div>
 
-                                <span class="wallet-summary-value">
-                                    {{ formatCurrency($user->wallet->balance) }}
-                                </span>
-                            </div>
-
-                        </div>
-                        <div class="wallet-summary-card reward">
-                            <div class="wallet-summary-icon">
-
-                                <!-- Gift SVG -->
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-
-                                <rect x="3" y="8" width="18" height="4" rx="1"></rect>
-                                <path d="M5 12v8h14v-8"></path>
-                                <path d="M12 8v12"></path>
-                                <path d="M12 8H8.5a2.5 2.5 0 1 1 2.5-2.5V8Z"></path>
-                                <path d="M12 8h3.5A2.5 2.5 0 1 0 13 5.5V8Z"></path>
-
-                            </svg>
-
-                            </div>
-
-                            <div>
-                                <span class="wallet-summary-label">
-                                Loyalty Rewards
-                            </span>
-
-                                <span class="wallet-summary-value">
-                               {{ $user->wallet->earn_days ?? 0 }} {{$user->wallet->earn_days > 1 ? 'Days' : 'Days'}}
-                            </span>
-                            </div>
-
-                        </div>
-                            
+                            </div>                           
                            
                         </div>
                     </div>
@@ -186,6 +179,8 @@
                     @include('escort.dashboard.modal.payment_form',['adjustment_form_action' => route('payment.adjustment') , 'payment_form_action' => route('escort.payment.process')])
                     @include('modal.two-step-verification', ['action' => true, 'inPaymentMode' => true])
                 </div>
+                
+            </div>
                 <div class="col-lg-12 mt-3">
                     <!-- Transaction History -->
                     <div class="common-card">
@@ -224,7 +219,6 @@
                     </div>
 
                 </div>
-            </div>
         </div>
     </div>
 
@@ -245,24 +239,10 @@
                 </div>
 
                 <div class="modal-body text-center">
-                    <!-- <div class="spinner-border text-primary my-3" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div> -->
                     <p class="lead">You have opted to top up your Account in the amount of <strong
                             class="display_amount"></strong>.</p>
                     <p>Are you sure that is the correct amount? If the amount is correct click <strong>Proceed</strong> to
                         complete your payment.</p>
-
-                    <!-- <div class="mt-3 p-2 bg-light rounded">
-                            <h5>Never Worry About Running Out of Credit</h5>
-                            <p>Would you like to enable Auto-recharge?</p>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="autoRechargeCheck">
-                                <label class="form-check-label" for="autoRechargeCheck">Yes</label>
-                            </div>
-                            <small class="d-block text-muted mt-2">If enabled, the recharge will occur automatically when
-                                balance falls below AU$100.00.</small>
-                        </div> -->
 
                 </div>
 
@@ -276,7 +256,7 @@
         </div>
     </div>
 
-    </div>
+    
 @endsection
 @prepend('script')
     <script>

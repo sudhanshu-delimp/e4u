@@ -218,7 +218,7 @@
         </div>
     </div>
 </div>
-</div>
+
 {{-- end --}}
 @prepend('script')
 <script src='https://cdn.pinpayments.com/pin.v2.js'></script>

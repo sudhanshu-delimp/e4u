@@ -62,13 +62,10 @@
     </div>
 </div>
 
-<<<<<<< HEAD
 @include('center.dashboard.modal.transaction-summary')
-=======
 @include('modal.payment.transaction-summary')
 @include('modal.payment.tax-invoice')
 
->>>>>>> 4abf4c64d3760c95d0520194b02c6321cf3a4eb8
 @endsection
 @prepend('script')
 <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>

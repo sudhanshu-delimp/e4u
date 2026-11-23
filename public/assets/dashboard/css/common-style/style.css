@@ -1282,7 +1282,7 @@ label.cabinet input.file {
     padding: 6px 10px;
     color: #fff;
     border-radius: var(--radius-sm);
-    font-size: 12px;
+    font-size: 11px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1299,7 +1299,7 @@ label.cabinet input.file {
     padding: 6px 10px;
     color: #027f00;
     border-radius: var(--radius-sm);
-    font-size: 12px;
+    font-size: 11px;
     display: flex;
     align-items: center;
     justify-content: space-between;

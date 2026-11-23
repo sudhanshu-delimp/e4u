@@ -149,10 +149,6 @@
         </div>
     </div>
 </div>
-<<<<<<< HEAD:resources/views/center/dashboard/modal/transaction-summary.blade.php
-
-@endif
-=======
 </div>
 @endif
 @prepend('script')
@@ -183,4 +179,3 @@
     });
 </script>
 @endprepend
->>>>>>> 4abf4c64d3760c95d0520194b02c6321cf3a4eb8:resources/views/modal/payment/transaction-summary.blade.php
