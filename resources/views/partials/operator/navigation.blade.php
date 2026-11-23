@@ -11,7 +11,10 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
     </button>
     {{-- logged in user data --}}
     <div class="topbar-logged-in-user-data operator-topbar-userdata d-flex">
-
+        <!-- Sidebar Toggle (Topbar) -->
+        <button id="sidebarToggleTop">
+            <i class="fa fa-bars"></i>
+        </button>
         <div class="d-user-info">
             <div class="common_top_menu">
                 <span>
@@ -72,7 +75,7 @@ $operatorName = isset(auth()->user()->operator->name) ? auth()->user()->operator
 
             </div>
         </form>
-        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">                               
+        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap opr-itmes">                               
             @if(session()->has('parent_user_id') && session('switch_for') == 'admin_to_any' && session('is_impersonated') === true)
                 <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>   
                 <a class="nav-link" href="{{ route('operator.back-to-parent') }}" title="">
