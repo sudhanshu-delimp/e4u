@@ -117,7 +117,7 @@
                         <li class="nav-item messages_btn">
                             <a class="nav-link" href="{{ route('agent-messages') }}" role="button">
                                 <span>
-                                    <svg width="22px" height="22px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1"
+                                    <svg width="18px" height="18px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1"
                                         xmlns="http://www.w3.org/2000/svg" fill="#fff" stroke="#fff">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -148,8 +148,26 @@
                         </li>
                         <!--- End --->
 
+                        <!-- my-wallet btn -->
+                        <li class="nav-item wallet_btn">
+                            <a class="nav-link" href="{{ route('center.my_wallet') }}" role="button">
+                                <span>
+                                <svg width="18px" height="18px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path d="M3 6V17C3 18.6569 4.34315 20 6 20H20C20.5523 20 21 19.5523 21 19V16M19 8H5C3.89543 8 3 7.10457 3 6V6C3 4.89543 3.89543 4 5 4H18C18.5523 4 19 4.44772 19 5V8ZM19 8H20C20.5523 8 21 8.44772 21 9V12M21 12H18C16.8954 12 16 12.8954 16 14V14C16 15.1046 16.8954 16 18 16H21M21 12V16" stroke="#027f00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        </path>
+                                    </g>
+                                </svg>   
+                                        Wallet Bal:  {{ formatCurrency(auth()->user()->wallet->balance) }}
+                                </span>
+                            </a>
+                        </li>
+                        <!--- End --->
+
                 <!-- //////// Notification ///////////// -->
-                        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">                               
+                        <li class="nav-item dropdown no-arrow esc-tooltip-wrap">                               
                                @if(session()->has('parent_massage_id') && session('switch_for') == 'massage_to_massage' && session('is_impersonated') === true)
                                 <span class="esc-tooltip esc-tooltip-support">Switch to Parent Account</span> 
                             <a class="nav-link switch-user-btn" href="javascript:void(0)" >
@@ -181,7 +199,7 @@
 
 
                        @if(auth()->check() && auth()->user()->type == '4' && ($other_centre_support_notification_count ?? 0) > 0)
-                        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">                            
+                        <li class="nav-item dropdown no-arrow esc-tooltip-wrap">                            
                                 <span class="esc-tooltip esc-tooltip-support">Other Centre Support Tickets</span>
                             <a class="nav-link dropdown-toggle other_support_notify_bell" href="#" id="ticketNotificationDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" title="Other Centre Support tickets">
@@ -198,7 +216,7 @@
                         </li>
                         @endif
 
-                        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">                            
+                        <li class="nav-item dropdown no-arrow esc-tooltip-wrap">                            
                                 <span class="esc-tooltip esc-tooltip-support">Support Tickets</span>
                             <a class="nav-link dropdown-toggle support_notify_bell" href="#" id="ticketNotificationDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip">
@@ -216,7 +234,7 @@
                             </div>
                         </li>
 
-                        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
+                        <li class="nav-item dropdown no-arrow esc-tooltip-wrap">
                              <span class="esc-tooltip esc-tooltip-support">Alert Centre</span>
                             <a class="nav-link dropdown-toggle alert_notify_bell" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
