@@ -28,7 +28,6 @@
     <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.4') }}" rel="stylesheet">
     <link href="{{ asset('assets/dashboard/css/dk-responsive.css?v1.3') }}" rel="stylesheet">
     <link href="{{ asset('assets/dashboard/css/operator-style.css?v1.5') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/common-style/style.css?v1.01') }}" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Quicksand&display=swap" rel="stylesheet">
