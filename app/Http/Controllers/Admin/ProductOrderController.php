@@ -339,8 +339,11 @@ class ProductOrderController extends Controller
             $message = "Your Order Has Been Successfully Completed – Member ID: {$user->member_id} | Order Ref: {$mailData['communication_id']}";
             $payload = buildUserNotificationPayload($user, $message, $message, config('constants.NotificationIcon.general'));
             Notification::create($payload);
-            $payloadAgent = buildUserNotificationPayload($agent, $message, $message, config('constants.NotificationIcon.general'));
-            Notification::create($payloadAgent);
+
+            if ($agent) {
+              $payloadAgent = buildUserNotificationPayload($agent, $message, $message, config('constants.NotificationIcon.general'));
+              Notification::create($payloadAgent);
+            }
 
             if ($order->createdBy &&  $order->createdBy->email && $order->user_id != $order->createdBy->id) {
 
@@ -630,7 +633,7 @@ class ProductOrderController extends Controller
         }
       });
 
-      sleep(3);
+      sleep(1);
       return response()->json([
         'status' => true,
         'message' => 'Your request has been processed successfully.'
