@@ -486,7 +486,9 @@ a:hover {
 p {
     font-size: 16px;
 }
-
+.navbar-nav li{    
+    margin-bottom: 0px;
+}
 .sidebar .nav-item .nav-link {
     max-width: 16rem;
     width: 95%;
@@ -12293,12 +12295,24 @@ td {
     }
 }
 
-.switch-profile {
-    background: #eff0f6;
-    padding: 6px;
-    border-radius: 100%;
+.switch-profile {    
+    font-weight: 900;
+    background-image: var(--primary-gradient);
+    padding: 13px;
+    border-radius: var(--radius-full);
+    width: 42px !important;
+    height: 42px;
+    box-shadow: var(--primary-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
+.switch-profile:hover{
+    background-image: var(--secondary-gradient);
+}
+.switch-profile:hover img{
+    filter: brightness(20);
+}
 .switch-profile img {
     width: 28px;
 }
