@@ -5,14 +5,17 @@ namespace App\Http\Controllers\Escort\Concierge;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmailHostingRequest;
 use App\Models\EmailHostingRequest as ModelsEmailHostingRequest;
+use App\Models\EscortBankDetail;
+use App\Models\FeesConciergeService;
 use App\Services\EmailHostingService;
 use App\Services\VisaMigrationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class EmailAccountRequestController extends Controller
 {
-      public function index()
+  public function index()
   {
     return view('escort.dashboard.Concierge.email-hosting');
   }
@@ -53,6 +56,47 @@ class EmailAccountRequestController extends Controller
         'status' => false,
         'message' => $th->getMessage(),
       ], 419);
+    }
+  }
+
+  public function paymentSummary(Request $request)
+  {
+    // $request->validate([
+    //     'duration' => 'required|integer|min:1|max:24',
+    // ]);
+
+    try {
+      $user = auth()->user();
+
+      $duration =   4;
+
+
+      $monthlyFee =  FeesConciergeService::where('service_type', 'Email Account')->value('amount');
+      $amountDueToday = $monthlyFee;
+      $totalSubscriptionCost = $monthlyFee * $duration;
+      $bankDetails = EscortBankDetail::where('user_id', auth()->user()->id)->first();
+
+
+      return response()->json([
+        'success' => true,
+        'currency_symbol' => '$',
+        'monthly_fee' => number_format($monthlyFee, 2),
+        'duration' => $duration,
+        'total_subscription_cost' => number_format($totalSubscriptionCost, 2),
+        'amount_due_today' => number_format($amountDueToday, 2),
+        'account_details' => $bankDetails,
+      ]);
+    } catch (\Exception $e) {
+
+      Log::error('Email hosting payment summary error', [
+        'user_id' => auth()->id(),
+        'error' => $e->getMessage(),
+      ]);
+
+      return response()->json([
+        'success' => false,
+        'message' => 'Unable to load payment summary. Please try again.',
+      ], 500);
     }
   }
 }

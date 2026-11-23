@@ -362,9 +362,9 @@ Route::get('viewer-messaging', function () {
 Route::get('accommodation', function () {
   return view('escort.dashboard.Concierge.accommodation');
 });
-Route::get('email-hosting', function () {
-  return view('escort.dashboard.Concierge.email-hosting');
-});
+// Route::get('email-hosting', function () {
+//   return view('escort.dashboard.Concierge.email-hosting');
+// });
 Route::get('mobile-read-sim', function () {
   return view('escort.dashboard.Concierge.mobile-read-sim');
 });
@@ -396,13 +396,16 @@ Route::get('travel', function () {
 Route::get('visa-migration', [VisaMigrationController::class, 'index'])->name('visa.migration');
 Route::post('/visa-migration-request', [VisaMigrationController::class, 'store'])->name('visa.migration.store.escort');
 
-Route::get('email-hosting', function () {
-  return view('escort.dashboard.Concierge.email-hosting');
-});
+// Route::get('email-hosting', function () {
+//   return view('escort.dashboard.Concierge.email-hosting');
+// });
 Route::get('email-hosting', [EmailAccountRequestController::class, 'index'])->name('email.account');
 Route::post('email-hosting-request', [EmailAccountRequestController::class, 'store'])->name('store.email.account');
 
-
+Route::post(
+    '/email-hosting/payment-summary',
+    [EmailAccountRequestController::class, 'paymentSummary']
+)->name('email.hosting.payment.summary');
 Route::get('travel', function () {
   return view('escort.dashboard.Concierge.travel');
 });

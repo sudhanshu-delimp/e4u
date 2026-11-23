@@ -234,7 +234,7 @@
                         </div>
 
                         <div class="common-footer">
-                            <button type="submit" class="common-save-btn" id="submitAssistanceRequest">
+                            <button type="button" class="common-save-btn" id="submitAssistanceRequest">
                                 Place Order
                             </button>
                         </div>
@@ -272,64 +272,494 @@
                 </div>
             </div>
         </div>
-    @endsection
-    @push('script')
-        <!-- file upload plugin start here -->
-        <!-- file upload plugin end here -->
-        <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 
-        <script>
-            // console.log('hello jiten');
-            //$('#new-ban').hide();
-            $(".close").click(function() {
-                $('#new-ban').hide();
-            })
+        <div class="modal fade upload-modal" id="process-payment-modal" tabindex="-1" aria-labelledby="renew_discountLabel"
+    data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <img src="{{ asset('assets/dashboard/img/secure-payment.png') }}" class="custompopicon"
+                        alt="View Centre">
+                    Secure Payment
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mt-5">
+                    <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="card p-3">
+                            <!-- Order Summary -->
+                            <div class="order_summary_adjustment">
+                                <p><strong>Order Summary</strong></p>
+                            
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Billing Frequency:</span>
+                                    <span >Monthly</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Monthly Subscription Fee:</span>
+                                    <span id="monthly-fee">$0.00</span>
+                                </div>
 
-            @if (isset($simData) && $simData != null)
-                $('#new-ban').show();
-            @endif
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Subscription Duration:</span>
+                                    <span id="subscription-duration">0 Months</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Total Subscription Cost:</span>
+                                    <span id="total-subscription-cost">$0.00</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <strong>GST :</strong>
+                                    <strong class="taxAmount" style="border: none;padding:0px">$0.00</strong>
+                                </div>
+ 
 
-            $("#simOrderForm").on("submit", function(e) {
-                e.preventDefault();
-                let form = this;
-                let submitButton = $("#submitAssistanceRequest");
+                                <hr>
+                                <div class="d-flex justify-content-between align-items-center fw-bold">
+                                    <span>Total Fee:</span>
+                                    <span id="total_fee"> {{ formatCurrency(0) }}</span>
+                                </div>
 
-                // Clear previous errors
-                $(".error-text").text("");
-                submitButton.prop("disabled", true).text("Sending...");
-                $.ajax({
-                    url: "{{ route('store.email.account') }}",
-                    type: "POST",
-                    data: $(form).serialize(),
-                    success: function(response) {
-                        if (response.status) {
-                            $(form)[0].reset();
-                            $("#visa_migration_request").modal('show');
-                        }
-                    },
-                    error: function(xhr) {
-                        const messageResponse = JSON.parse(xhr.responseText);
-                        if (xhr.status === 422) {
-                            let response = JSON.parse(xhr.responseText);
-                            let errors = response.errors;
-                            $.each(errors, function(field, messages) {
-                                let errorField = field.replace(/\./g, "_");
-                                $("." + errorField + "_error").text(messages[0]);
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Error",
-                                text: messageResponse.message
-                            });
-                        }
-                    },
-                    complete: function() {
-                        submitButton.prop("disabled", false).text("Send request");
+                       
+                                <div class="d-flex justify-content-between align-items-center fw-bold">
+                                    <span>Wallet Used:</span>
+                                    <span id="walletUsed" style="border-bottom:1px solid">
+                                        -{{ formatCurrency(0) }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center fw-bold">
+                                    <strong>Total Due:</strong>
+                                    <strong class="paymentTotal totalDue">{{ formatCurrency(0) }}</strong>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                         
+
+                            <div class="col lapse p-0" id="collapse Example">
+                                <div class="wallet_details">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5><img src="{{ asset('assets/dashboard/img/wallet.png') }}"> Wallet
+                                                Money :
+                                                <span
+                                                    id="walletAmount">{{ formatCurrency(Auth::user()->wallet->balance) }}</span>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card p-3 " style="border-radius:0px;">
+                                    <form id="adjustment-form">
+                                        <div class="form-row benefit_section">
+                                            <div class="form-group col-12">
+                                                <label class="mb-0" for="Wallet">Wallet Money</label>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">AU$</span>
+                                                    </div>
+                                                    <input type="text" class="form-control" name="wallet_amount"
+                                                        placeholder="Enter amount.">
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-end w-100 gap-10">
+                                                <button type="button" class="reset-btn btn-cancel-modal"
+                                                    name="action" value="reset" id="resetWallet">Reset</button>
+                                                <button type="button" class="apply-btn" id="applyWallet"
+                                                    name="action" value="apply">Apply</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="finish-payment-form d-none mt-2">
+
+                                <button type="button" data-action="wallet" id="finish_payment"
+                                    class="btn-success-modal btn-block">
+                                    Finish Payment
+                                </button>
+                            </div>
+                            <div class="support mt-3 payment_note">
+                                <p class="mb-0"><strong>Notes:</strong></p>
+                                <ol>
+                                    <li>You can apply any portion of your Wallet towards the Fee.</li>
+                                    <li>By selecting 'Pay Now', 2FA will be activated to verify it is you.</li>
+                                    <li>For a detailed summary of this transaction, go to <a
+                                            href="{{ route('escort.payment.transaction_summary') }}"
+                                            class="custom_links_design" target="_blank"> Transaction Summary</a>.</li>
+                                </ol>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+                        <form action="{{ route('escort.payment.process') }}" class="pin" method="post"
+                            id="payment-form">
+
+                            <div class="card p-3">
+
+                                @csrf
+                                <div class="errors alert alert-danger" id="errorList" style="display:none">
+                                </div>
+                                <!-- Billing -->
+                                <h6 class="font-weight-bold mb-0">Billing Details</h6>
+                                <hr class="mt-0">
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        {{-- <label class="mb-0" for="add1">Address 1</label> --}}
+                                        <input id="address-line1" class="form-control address_line1" disabled
+                                            placeholder="Address 1">
+                                    </div>
+                                    <div class="form-group col-12">
+                                        {{-- <label class="mb-0" for="add2">Address 2</label> --}}
+                                        <input id="address-line2" class="form-control" placeholder="Address 2"
+                                            disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        {{-- <label class="mb-0" for="City">City</label> --}}
+                                        <input id="address-city" class="form-control address_city" placeholder="City"
+                                            disabled>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        {{-- <label class="mb-0" for="State">State</label> --}}
+                                        <input id="address-state" class="form-control" placeholder="State" disabled>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        {{-- <label class="mb-0" for="Postcode">Postcode</label> --}}
+                                        <input id="address-postcode" class="form-control" placeholder="Postcode"
+                                            disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    {{-- <label class="mb-0" for="Country">Country</label> --}}
+                                    <input id="address-country" class="form-control address_country"
+                                        placeholder="Country" disabled>
+                                </div>
+
+                                <!-- Card -->
+
+
+                                <div class="card_details">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="font-weight-bold mb-0">Card Details</h6>
+
+                                        <div class="d-flex align-items-center cardImage">
+                                            <img src="{{ asset('assets/dashboard/img/visa.png') }}" alt="Visa"
+                                                class="me-2">
+                                            <img src="{{ asset('assets/dashboard/img/master-card.png') }}"
+                                                alt="MasterCard">
+                                        </div>
+                                    </div>
+                                    <hr class="mt-0">
+                                    <div class="form-group">
+                                        <input id="account-number" class="form-control number" placeholder="Card Number">
+                                        <small class="text-danger error-msg" data-field="number"></small>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input id="account-name" class="form-control name" placeholder="Name on Card">
+                                        <small class="text-danger error-msg" data-field="name"></small>
+
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <input id="cc-expiry-month" class="form-control expiry_month"
+                                                placeholder="MM">
+                                            <small class="text-danger error-msg" data-field="expiry_month"></small>
+
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <input id="cc-expiry-year" class="form-control expiry_year"
+                                                placeholder="YYYY">
+                                            <small class="text-danger error-msg" data-field="expiry_year"></small>
+
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <input id="cc-cvc" class="form-control cvc" placeholder="CVC">
+                                            <small class="text-danger error-msg" data-field="cvc"></small>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="my-3 text-right">
+                                    {{-- <button onclick="prev()" class="btn-common" id="btnBacklast"> <i
+                                                class="fas fa-arrow-left text-white pr-2"></i>
+                                            Back</button> --}}
+                                    <button type="button" class="btn-success-modal btn-block" id="makeOrder">Pay
+                                        Now</button>
+
+                                    {{-- <button type="submit" name="action" value="pay_now" class="btn-success-modal btn-block">
+                                            Pay Now
+                                        </button> --}}
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        
+    </div>
+    <div id="payment-summary-loader" class="payment-loader-overlay" style="display: none;">
+        <div class="payment-loader-content">
+            <div class="payment-spinner"></div>
+            <h4>Loading Payment Details</h4>
+            <p>Please wait while we retrieve your subscription and payment information.</p>
+        </div>
+    </div>
+@endsection
+@push('script')
+    <!-- file upload plugin start here -->
+    <!-- file upload plugin end here -->
+    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+
+    <script>
+        // console.log('hello jiten');
+        //$('#new-ban').hide();
+        $(".close").click(function() {
+            $('#new-ban').hide();
+        })
+
+        @if (isset($simData) && $simData != null)
+            $('#new-ban').show();
+        @endif
+
+        $(document).on("click", "#submitAssistanceRequest", function(e) {
+            e.preventDefault();
+
+            let duration = $("#period_required").val();
+
+            $("#process-payment-modal").modal("show");
+
+            // Reset modal state
+            $("#payment-summary-content").hide();
+            $("#payment-error").hide().text("");
+            $("#account-details-section").hide();
+
+            $("#confirmEmailHostingPayment").prop("disabled", true);
+
+            // Reset bank details
+            $("#account-bank-name").val("");
+            $("#account-name").val("");
+            $("#account-bsb").val("");
+            $("#account-number").val("");
+
+            // Show loader
+            $("#payment-summary-loader").stop(true, true).css("display", "flex");
+
+            $.ajax({
+                url: "{{ route('email.hosting.payment.summary') }}",
+                type: "POST",
+                data: {
+                    duration: duration,
+                    _token: "{{ csrf_token() }}"
+                },
+
+                success: function(res) {
+                    if (!res.success) {
+                        $("#payment-error")
+                            .text(res.message || "Unable to load payment details.")
+                            .show();
+                        return;
+                    }
+
+                    // Payment summary
+                    let currency = res.currency_symbol || "$";
+                    let months = parseInt(res.duration) || 1;
+                    let monthlyFee = parseFloat(res.monthly_fee) || 0;
+                    let totalCost = parseFloat(res.total_subscription_cost) || 0;
+                    let amountDueToday = parseFloat(res.amount_due_today) || 0;
+
+                    $("#monthly-fee").text(currency + monthlyFee.toFixed(2));
+                    $("#subscription-duration").text(months + " Months");
+                    $("#total-subscription-cost").text(currency + totalCost.toFixed(2));
+                    $("#amount-due-today").text(currency + amountDueToday.toFixed(2));
+                    $("#pay-now-amount").text(currency + amountDueToday.toFixed(2));
+
+                    $("#subscription-description").text(
+                        `Your subscription will be charged monthly for the selected period of ${months} ${months === 1 ? "month" : "months"}.`
+                    );
+
+                    // Bank account details
+                    let account = res.account_details;
+
+                    if (account) {
+                        $("#account-bank-name").val(account.bank_name || "-");
+                        $("#account-name").val(account.account_name || "-");
+                        $("#account-bsb").val(account.bsb || "-");
+                        $("#account-number").val(account.account_number || "-");
+
+                        $("#account-details-section").show();
+                    } else {
+                        $("#payment-error")
+                            .text("Bank account details not found.")
+                            .show();
+                        return;
+                    }
+
+                    // Enable payment button
+                    $("#confirmEmailHostingPayment").prop("disabled", false);
+
+                    // Show payment summary
+                    $("#payment-summary-content").fadeIn(200);
+                },
+
+                error: function(xhr) {
+                    let message = xhr.responseJSON?.message || "Something went wrong while fetching payment details.";
+
+                    $("#payment-error").text(message).show();
+                },
+
+                complete: function() {
+                    // Hide loader once AJAX completes
+                    $("#payment-summary-loader").stop(true, true).fadeOut(200);
+                }
+            });
+        });
+            var pinApi = new Pin.Api("{{ config('app.payment.publish_key') }}", 'test');
+
+        $(document).on('click', "#makeOrder", function() {
+            let btn = $("#makeOrder");
+            btn.prop("disabled", true);
+
+
+            var card = {
+                number: $('#cc-number').val(),
+                name: $('#cc-name').val(),
+                expiry_month: $('#cc-expiry-month').val(),
+                expiry_year: $('#cc-expiry-year').val(),
+                cvc: $('#cc-cvc').val(),
+            };
+
+            let billingDetails = getCardBilling();
+            card = {
+                ...card,
+                ...billingDetails
+            };
+
+            pinApi.createCardToken(card).then(handleSuccess, handleError).done();
+
+
+            function handleSuccess(card) {
+                localStorage.setItem('card_token_' + loginUserId, JSON.stringify(card.token));
+
+                $("#sendOtp_modal").modal('show');
+                paymentForm.closest('.modal').modal('hide');
+
+            }
+
+            function handleError(response) {
+
+                if (response.messages) {
+                    $.each(response.messages, function(index, paramError) {
+                        let fieldName = paramError.param;
+                        let fieldError = $('.error-msg[data-field="' + fieldName + '"]');
+                        if (fieldError.length)
+                            fieldError.text(paramError.message); // show under field
+                        else
+                            $('<li>').text(fieldName + ": " + paramError.message).appendTo(errorList);
+
+                    });
+                }
+                // Re-enable buttons
+                btn.prop("disabled", false);
+            }
+        })
+
+            var processPaymentForm = function() {
+
+        let btn = $("#makeOrder");
+        btn.prop("disabled", true);
+        $(".error-msg").text(""); // clear all existing errors
+
+        let orderData = {};
+        // get details from local stoarge
+        let cart = getCart();
+        let finalCart = getFinalCart();
+
+        // get final cart item 
+        let itemDetails = Object.fromEntries(
+            Object.entries(cart).filter(([key, value]) => finalCart.includes(parseInt(key)))
+        );
+        let formData = getDeliveryDetails();
+        // delivery type
+        formData.delivery_type = $('input[name="delivery_type"]:checked').val();
+        let sameAddress = $('input[name="sameAddress"]').is(':checked');
+        formData.isSameAddress = sameAddress;
+        // get payment details like tax sub total toatal amount for corss check in backend before make payment
+        let paymentDetails = getPaymentDetails();
+
+        // set details to make order
+        orderData.deliveryDetails = formData;
+        orderData.itemDetails = itemDetails;
+        orderData.paymentDetails = paymentDetails;
+        let cardToken = JSON.parse(localStorage.getItem('card_token_' + loginUserId) || '[]');
+        orderData.pin_token = cardToken;
+        // console.log(orderData);
+
+        $.ajax({
+            url: "{{ auth()->user()->type == 4 ? route('center.make.order.payment') : route('escort.make.order.payment') }}",
+            type: "POST",
+            data: orderData,
+            dataType: "json",
+            beforeSend: function() {
+                Swal.fire({
+                    title: "Processing your payment...",
+                    html: "<p>Please do not refresh page</p>",
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    didOpen: () => {
+                        Swal.showLoading();
                     }
                 });
-            });
-        </script>
-    @endpush
+            },
+            success: function(response, textStatus, xhr) {
+                if (response.status == true) {
+                    var modal = $("#process-payment-modal");
+
+                    // fully force-close modal
+                    modal.removeClass("show").css("display", "none");
+                    $("body").removeClass("modal-open");
+                    $(".modal-backdrop").remove();
+
+                    displaySwal(xhr);
+                    // Swal.fire(response.message, '', 'success');
+ 
+
+
+                } else {
+                    displaySwal(xhr);
+
+                }
+            },
+
+            error: function(xhr) {
+                displaySwal(xhr);
+            },
+            complete: function() {
+                btn.prop("disabled", false).text("Make Payment");
+            }
+        });
+    }
+    </script>
+@endpush
