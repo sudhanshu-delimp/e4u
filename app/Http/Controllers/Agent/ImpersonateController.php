@@ -56,6 +56,15 @@ class ImpersonateController extends Controller
                 'switch_for',
             ]);
 
+            // store impersonation data AFTER login
+            if (session()->has('impersonatedId')) {
+                session([
+                    'parent_user_id' => session('impersonatedId'),
+                    'switch_for' => 'admin_to_any',
+                    'is_impersonated' => true
+                ]);
+            }
+
             return redirect('/agent-dashboard')->with('success', 'Successfully switched back to your account.');
         } catch (Exception $e) {
             // abort(403, 'No parent session found');
@@ -152,7 +161,8 @@ class ImpersonateController extends Controller
             session([
                 'parent_agent_id' => $loggedInUser->id,
                 'switch_for' => 'agent_to_massage',
-                'is_impersonated' => true
+                'is_impersonated' => true,
+                'impersonatedId' => (session()->has('parent_user_id') && session('parent_user_id') > 0) ? session('parent_user_id') : 0,
             ]);
 
 

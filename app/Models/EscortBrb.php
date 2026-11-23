@@ -16,4 +16,9 @@ class EscortBrb extends Model
     {
         return $this->belongsTo(Escort::class, 'profile_id');
     }
+
+    public function advertiser()
+    {
+        return $this->belongsTo(Escort::class);
+    }
 }

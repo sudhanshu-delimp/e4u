@@ -100,12 +100,10 @@
                                     <img src="{{ $base64 }}" style="width: 25px;height:20px;">
                                 </span>
                                 <span
-                                    style="color:#fff; font-weight:bold;text-align: left !important;line-height:0px;font-size: 16px;">Agent
-                                    Montly Fee Report (Period Ending: {{ $reportEndDate }})</span> </td>
+                                    style="color:#fff; font-weight:bold;text-align: left !important;line-height:0px;font-size: 16px;">Fee Report (Period Ending: {{ $reportEndDate }})</span> </td>
                             <td style="text-align: right;background:#0c223d;">
                                 <span
-                                    style="color:#fff; font-weight:bold;text-align: right !important;line-height:0px;font-size: 16px;">Agent
-                                    ID: {{ $agentId }}</span>
+                                    style="color:#fff; font-weight:bold;text-align: right !important;line-height:0px;font-size: 16px;">Agent ID: {{ $agentId }}</span>
                             </td>
                         </tr>
                     </table>

@@ -1,7 +1,7 @@
 @if (empty($payment))
 <div class="modal fade upload-modal" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="view-listingLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg " role="document">
         <div class="modal-content basic-modal">
             <div class="modal-header">
                 <h5 class="modal-title" id="view-listing"><img
@@ -25,9 +25,44 @@
                             <table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
                                 <tbody>
                                     <tr>
-                                        <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Reference No.</strong></td>
+                                        <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Transaction Ref ID</strong></td>
                                         <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">{{ $payment?->ref_no ?? '---' }}</td>
                                     </tr>
+                                     <tr>
+                                        <td style="text-align:left; border: 1px solid #ccc; padding: 8px;">
+                                            <strong>Profile/Order ID</strong></td>
+                                        <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">
+                                            @php
+                                           // dd($payment?->ref_no );
+                                           if(isset($payment)) {
+                                            $serviceType = $payment->service;
+                                            $profile_product_ref = null;
+                                             if ($serviceType == 'Product Purchase') {
+                                                $profile_product_ref = optional($payment->product_order)->order_id;
+                                            } else {
+                                                $profile_product_ref = $payment->items->map(function ($subItem) {
+                                                $itemType = $subItem->item_type;
+                                                if (in_array($itemType, ['App\Models\Purchase', 'App\Models\EscortPinup', 'App\Models\EscortBumpup'])) {
+                                                    return optional(optional($subItem->item)->escort)->slug;
+                                                } elseif (in_array($itemType, ['App\Models\MassagePurchase', 'App\Models\MassageBumpup'])) {
+                                                    //print_r($subItem->item->MassageProfile);die;
+                                                    return optional(optional($subItem->item)->MassageProfile)->slug;
+                                                
+                                                } elseif (in_array($itemType, ['App\Models\CreditTransaction'])) {
+                                                    return null;
+                                                } 
+                                                return null;
+                                                })
+                                                ->filter()
+                                                ->implode(', ');
+                                            }
+
+                                            $profile_product_ref = $profile_product_ref ?: 'NA';
+                                           }
+                                            @endphp
+                                            {{ $profile_product_ref ?? '---' }}</td>
+                                    </tr>
+                                    
                                     <tr>
                                         <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Transaction
                                                 Date</strong></td>
@@ -47,8 +82,6 @@
                                     <tr>
                                         <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Completed
                                                 By</strong></td>
-                                        {{-- <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">
-                {{ $payment?->completedByUser->member_id ?? '---' }}</td> --}}
 
                                         <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">
                                             {{ $payment?->createdBy->member_id ?? '---' }}
@@ -75,13 +108,13 @@
                                     <tr>
                                         <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Wallet Amount</strong></td>
                                         <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">
-                                            -{{ formatCurrency($payment?->wallet_amount ?? 0) }}
+                                            {!! formatCurrency(-abs($payment?->wallet_amount ?? 0)) !!}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>Loyalty Amount</strong></td>
                                         <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">
-                                            -{{ formatCurrency($payment?->loyalty_amount ?? 0) }}
+                                            {!! formatCurrency(-abs($payment?->loyalty_amount ?? 0)) !!}
                                         </td>
                                     </tr>
 
@@ -110,11 +143,44 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn-success-modal nex_sterp_btn print_payment_summary text-white">🖨️ Print Summary</a>
+                <a href="#" class="btn-success-modal nex_sterp_btn print_payment_summary text-white" target="_blank">🖨️ Print</a>
                 <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
 </div>
+<<<<<<< HEAD:resources/views/center/dashboard/modal/transaction-summary.blade.php
 
 @endif
+=======
+</div>
+@endif
+@prepend('script')
+<script>
+    $('#view-listing').on('show.bs.modal', function(event) {
+        let button = $(event.relatedTarget);
+        let id = button.data('item');
+        let modal = $(this);
+        modal.find('#listingModalContent').html(`<div class="text-center p-3">Loading...</div>`);
+        $.ajax({
+            url: `{{ route('common.payment.detail') }}`,
+            type: 'POST',
+            data: {
+                id: id,
+                action: 'transaction-summary',
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                modal.find('#listingModalContent').html(response.html);
+                modal.find('a.print_payment_summary').attr('href', response.print_url);
+            },
+            error: function() {
+                modal.find('#listingModalContent').html(
+                    `<div class="text-danger p-3">Failed to load data</div>`);
+            }
+        });
+
+    });
+</script>
+@endprepend
+>>>>>>> 4abf4c64d3760c95d0520194b02c6321cf3a4eb8:resources/views/modal/payment/transaction-summary.blade.php

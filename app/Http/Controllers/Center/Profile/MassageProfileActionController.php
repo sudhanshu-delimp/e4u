@@ -358,15 +358,6 @@ class MassageProfileActionController extends BaseController
                 $checkout_data['start_date'] = $purchase['start_date'];
                 $checkout_data['end_date'] = $purchase['end_date'];
 
-                // MassageBumpup::create([
-                //     'user_id' => auth()->id(),
-                //     'massage_id' => $request->massage_id,
-                //     'start_date' => $localStart->format('Y-m-d'),
-                //     'end_date' => $localEnd->format('Y-m-d'),
-                //     'utc_start_time' => $utcStart,
-                //     'utc_end_time' => $utcEnd,
-                // ]);
-
                 return response()->json([
                     'data' => $checkout_data,
                     'success' => true,

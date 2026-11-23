@@ -530,10 +530,16 @@
                             <!-- Order Summary -->
                             <div class="order_summary_adjustment">
                                 <p><strong>Order Summary</strong></p>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span>Subtotal:</span>
+                                <div class="d-flex justify-content-between ">
+                                    <span>Your Order:</span>
                                     <span class="paymentSubtotal">{{ formatCurrency(0) }}</span>
                                 </div>
+                                   <div class="d-flex justify-content-between align-items-center fw-bold mb-2">
+                                    <strong>Delivery Charge:</strong>
+                                    <strong class="deliveryCharge">{{ formatCurrency(0) }}</strong>
+
+                                </div>
+
                                 <div class="d-flex justify-content-between align-items-center">
                                     <strong>GST :</strong>
                                     <strong class="taxAmount" style="border: none;padding:0px">$0.00</strong>
@@ -548,11 +554,7 @@
 
 
 
-                                <div class="d-flex justify-content-between align-items-center fw-bold">
-                                    <strong>Delivery Charge:</strong>
-                                    <strong class="deliveryCharge">{{ formatCurrency(0) }}</strong>
-
-                                </div>
+                             
 
                                 <div class="d-flex justify-content-between align-items-center fw-bold">
                                     <span>Wallet Used:</span>
@@ -581,7 +583,7 @@
                                             <h5><img src="{{ asset('assets/dashboard/img/wallet.png') }}"> Wallet
                                                 Money :
                                                 <span
-                                                    id="walletAmount">{{ formatCurrency(Auth::user()->wallet->balance) }}</span>
+                                                    id="walletAmount">{!! formatCurrency(Auth::user()->wallet->balance) !!}</span>
                                             </h5>
                                         </div>
                                     </div>
@@ -1408,10 +1410,10 @@
         }
 
         let total = subtotal + deliveryCharge;
-        let gst = subtotal * tax / 100; //GST
+        let gst = total * tax / 100; //GST
         // set amount details after calculation in html format
         $(".paymentSubtotal").text("$" + subtotal.toFixed(2));
-        $("#total_fee").text("$" + (gst + subtotal).toFixed(2));
+        $("#total_fee").text("$" + (gst + total).toFixed(2));
         $(".deliveryCharge").text("$" + deliveryCharge.toFixed(2));
         $(".taxAmount").text("$" + gst.toFixed(2));
         $(".totalDue").text("$" + (total + gst).toFixed(2));
@@ -1576,7 +1578,6 @@
 
 
         let remaining_wallet_balance = Number(accountWalletAmount - walletAmount);
-
         let formatedAccountWalletAmount = remaining_wallet_balance.toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
@@ -1584,7 +1585,7 @@
 
         $("#walletAmount").text("$" + formatedAccountWalletAmount);
         $("#walletUsed").text("- $" + Number(walletAmount).toFixed(2));
-
+console.log(details);
         // FORCE numeric values
         let oldSubtotal = Number(details.subtotal_payble) || 0;
         let oldTotalPayble = Number(details.total_payble) || 0;
@@ -1603,10 +1604,12 @@
 
         localStorage.setItem(key, JSON.stringify(details));
         let tax = parseFloat("{{ config('escorts.product_tax') }}");
-
-        let gst_amount = oldSubtotal * tax / 100;
+        // let gst_amount =(Number(oldSubtotal) + Number(details.deliveryCharge)) * tax / 100;
+ 
+        // let gst_amount = oldSubtotal * tax / 100;
+        let gst_amount = Number(details.tax_payble);
         let taxOfWalletAmount = walletUsed * tax / 100;
-        details.tax_payble = gst_amount.toFixed(2);
+        // details.tax_payble = gst_amount.toFixed(2);
         if (total_payble == 0) {
             $(".card_details").find("input, select, textarea, button").prop("disabled", true);
             subtotal = oldSubtotal;

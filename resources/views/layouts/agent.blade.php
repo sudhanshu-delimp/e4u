@@ -13,9 +13,15 @@
             <div id="content">
 
                 @include('partials.agent.navigation')
+<<<<<<< HEAD
                 <div>@include('flash-message')</div>
                 @yield('content')                
                 @include('partials.common.db_footer')
+=======
+                {{-- <div>@include('flash-message')</div> --}}
+                @yield('content')
+
+>>>>>>> 4abf4c64d3760c95d0520194b02c6321cf3a4eb8
             </div>
             <div class="modal upload-modal fade" id="comman_modal" style="display: none">
                 <div class="modal-dialog modal-dialog-centered">

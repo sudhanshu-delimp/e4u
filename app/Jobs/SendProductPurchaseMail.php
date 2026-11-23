@@ -87,6 +87,7 @@ class SendProductPurchaseMail implements ShouldQueue
         $mailData['grand_total'] = $order->paymentDetails->paid_amount;
         $mailData['tax_amount'] = $order->paymentDetails->gst_amount;
         $mailData['delivery_charges'] = $order->paymentDetails->delivery_charge;
+        $mailData['payment'] = $order->paymentDetails;
         $billingMail = $billingAddress->email;
         // $billingMail = "ashish.kumar+10@delimp.com";
 

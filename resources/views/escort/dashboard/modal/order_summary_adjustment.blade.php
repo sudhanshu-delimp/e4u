@@ -1,6 +1,6 @@
 <p><strong>Order Summary</strong></p>
 <div class="d-flex justify-content-between mb-2">
-    <span>Subtotal:</span>
+    <span>Your Order:</span>
     <span class="paymentSubtotal">{{ formatCurrency($sub_total_amount) }}</span>
 </div>
 <div class="d-flex justify-content-between mb-2">
@@ -12,17 +12,18 @@
     <strong>Total Fee:</strong>
     <strong class="paymentTotal">{{ formatCurrency($total_amount) }}</strong>
 </div>
-@if(!in_array($action, ['wallet']))
+@if(!in_array($action, ['wallet','support_service']))
 <div class="d-flex justify-content-between align-items-center">
     <strong>Wallet Used:</strong>
-    <strong class="">-{{formatCurrency($wallet_amount)}}</strong>
+    <strong class="">{!!formatCurrency(-abs($wallet_amount))!!}</strong>
+</div>
+<div class="d-flex justify-content-between align-items-center">
+    <strong>Loyalty Discount:</strong>
+    <strong class="">{!!formatCurrency(-abs($loyalty_amount))!!}</strong>
 </div>
 @endif
 @if(in_array($action, ['listing','extend','tour']))
-<div class="d-flex justify-content-between align-items-center">
-    <strong>Loyalty Discount:</strong>
-    <strong class="">-{{formatCurrency($loyalty_amount)}}</strong>
-</div>
+ {{-- Before here was loyalty discount section line 20 to 23 --}}
 @endif
 <div class="d-flex justify-content-between align-items-center">
     <strong>Total Due:</strong>

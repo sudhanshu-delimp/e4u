@@ -62,9 +62,15 @@
     </div>
 </div>
 
+<<<<<<< HEAD
 @include('center.dashboard.modal.transaction-summary')
+=======
+@include('modal.payment.transaction-summary')
+@include('modal.payment.tax-invoice')
+
+>>>>>>> 4abf4c64d3760c95d0520194b02c6321cf3a4eb8
 @endsection
-@push('script')
+@prepend('script')
 <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
     var table;
@@ -126,8 +132,8 @@
                 defaultContent: 'NA'
             },
             {
-                data: 'amount',
-                name: 'amount',
+                data: 'total_payable_amount',
+                name: 'total_payable_amount',
                 searchable: false,
                 orderable: true,
                 defaultContent: 'NA'
@@ -158,32 +164,9 @@
         order: [2, 'desc'],
     });
 
-    $('#view-listing').on('show.bs.modal', function(event) {
-        let button = $(event.relatedTarget);
-        let id = button.data('item');
-        let modal = $(this);
-        modal.find('#listingModalContent').html(`<div class="text-center p-3">Loading...</div>`);
-        $.ajax({
-            url: `{{route('center.payment.detail')}}`,
-            type: 'POST',
-            data: {
-                id: id,
-                _token: $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                modal.find('#listingModalContent').html(response.html);
-                modal.find('a.print_payment_summary').attr('href', response.print_url);
-            },
-            error: function() {
-                modal.find('#listingModalContent').html(`<div class="text-danger p-3">Failed to load data</div>`);
-            }
-        });
-
-    });
-
     $(document).on('click', '.print_payment_summary', function(e) {
         e.preventDefault();
         window.open($(this).attr('href'), '_blank');
     })
 </script>
-@endpush
+@endprepend
