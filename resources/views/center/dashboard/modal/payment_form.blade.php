@@ -21,7 +21,7 @@
                          <div class="order_summary_adjustment">
                                 <p><strong>Order Summary</strong></p>
                                 <div class="d-flex justify-content-between mb-2">
-                                    <span>Subtotal:</span>
+                                    <span>Your Order:</span>
                                     <span class="paymentSubtotal">{{ formatCurrency(0) }}</span>
                                 </div>
 
@@ -124,8 +124,8 @@
                             <div class="support mt-3 payment_note">
                                 <p class="mb-0"><strong>Notes:</strong></p>
                                 <ol>
-                                    <li>You can apply any portion of your benefits by selecting from your Wallet, to
-                                        reduce the total Fee payable for this Service.</li>
+                                    <li>You can apply any portion of your benefits, by selecting from your Wallet, to
+                                            reduce the total Fee payable for this Service.</li>
                                     <li>By selecting 'Pay Now', 2FA will be activated to verify it is you.</li>
                                     <li>For a detailed summary of this transaction, go to <a
                                             href="{{ route('escort.payment.transaction_summary') }}"

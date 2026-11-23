@@ -130,8 +130,8 @@
                 defaultContent: 'NA'
             },
             {
-                data: 'amount',
-                name: 'amount',
+                data: 'total_payable_amount',
+                name: 'total_payable_amount',
                 searchable: true,
                 orderable: true,
                 defaultContent: 'NA'
