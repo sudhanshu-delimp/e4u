@@ -216,7 +216,7 @@ class EscortGalleryController extends AppController
                 'error' => $e->getMessage(),
             ], 500);
         }
-        return response()->json($response);
+        return response()->json($response,$response['status']);
     }
     public function uploadVideosGaller(Request $request)
     {
