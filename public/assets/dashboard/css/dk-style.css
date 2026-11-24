@@ -8,6 +8,8 @@
     --blue--text--default: #2B3D50;
     --light-pink: #fff0f4;
     --border-color: #e7e9ee;
+    --action-bg: #fff0f3;    
+    --sent-bg: #fee7eb;
     /* status */
     --active--status: rgb(80, 220, 150);
     --dispatch--status: rgb(72, 185, 208);

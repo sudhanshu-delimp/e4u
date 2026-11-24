@@ -4,7 +4,12 @@
         --secondary-color: #f5841f;
         --color-teal: #008085;
         --color-yellow: #ffc60b;
-        --color-white: #ffffff;
+        --color-white: #ffffff;        
+        --action-bg: #ffebd7;
+        --sent-bg: #ffebd7;
+        --icon-bg:#eaf2f9;
+        --icon-bg-dark:#d9e8f3;
+        --icon-text:#526a84;
         --primary-gradient: linear-gradient(135deg, rgb(216 248 249), #f9e2ce);
         --secondary-gradient: linear-gradient(150deg, #008085, #f5841f);
      }
@@ -17,7 +22,22 @@
     h6 {
         color: var(--primary-color);
     }
-    
+    .messages_btn a span {
+        background: var(--secondary-color);
+        padding: 6px 10px;
+        color: #fff;
+        border-radius: var(--radius-sm);
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 5px;
+        font-weight: 600;
+        box-shadow: var(--primary-shadow);
+    }
+    .messages_btn a span:hover{
+        background-color: var(--primary-color);
+    }
     .opr-modal .modal-title {
         font-size: 18px;
     }
