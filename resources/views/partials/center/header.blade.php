@@ -22,10 +22,10 @@
     <link href="{{ asset('assets/app/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css?v1.1') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.8') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-responsive.css?v1.4') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/common-style/style.css?v1.05') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css?v1.3') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v2.0') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/dk-responsive.css?v1.6') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/common-style/style.css?v1.07') }}" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="{{ asset('assets/app/vendor/file-upload/css/jquery.fileupload.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/app/vendor/file-upload/css/jquery.fileupload-ui.css') }}" />
@@ -148,7 +148,7 @@
             }
 
             .sidebar.toggled:hover {
-                width: 265px !important;
+                width: 245px !important;
                 position: relative !important;
                 /* Content ke upar chadhega nahi, use aage khiskayega */
                 flex-shrink: 0 !important;

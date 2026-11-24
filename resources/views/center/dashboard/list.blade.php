@@ -86,7 +86,7 @@
    }
 
    .summary-header {
-      background: var(--blue--text);
+      background: var(--primary-color);
       color: white;
       padding: 15px 20px;
       font-size: 20px;
@@ -106,7 +106,7 @@
    }
 
    .summary-table th {
-      background: var(--blue--text);
+      background: var(--primary-color);
       color: white;
       padding: 12px;
       border: 1px solid #cfd6e0;

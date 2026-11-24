@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <div style="display:flex; align-items:center; justify-content:center;height:50vh; color:var(--peach);">
+        <div style="display:flex; align-items:center; justify-content:center;height:50vh; color:var(--secondary-color);">
             <h2>My Playbox will be launched in v2.0.</h2>
         </div>
     </div>

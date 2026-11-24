@@ -72,3 +72,6 @@ Route::post('management/operator/pay-detail', [OperatorController::class, 'viewP
 Route::post('management/operator/query', [OperatorController::class, 'viewQuery'])->name('operator.operator.view.query');
 Route::post('management/operator/print-pay-detail', [OperatorController::class, 'printPayOperatorReport'])->name('operator.operator.print.pay-detail');
 
+Route::get('operator-messages', function () {
+            return view('admin.management.operator.messages');
+        })->name('operator.operator-messages');

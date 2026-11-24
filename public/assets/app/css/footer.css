@@ -271,7 +271,7 @@
 }
 
 .delimp_copyright span a {
-    color: var(--peach);
+    color: var(--secondary-color);
 }
 
 .rta_logo {
@@ -283,7 +283,7 @@
 .rta_logo .tooltip {
     visibility: hidden;
     opacity: 0;
-    background-color: var(--peach);
+    background-color: var(--secondary-color);
     color: #fff;
     text-align: center;
     padding: 5px 7px 7px;
@@ -308,7 +308,7 @@
     border-width: 5px;
     transform: rotate(0deg);
     border-style: solid;
-    border-color: var(--peach) transparent transparent transparent;
+    border-color: var(--secondary-color) transparent transparent transparent;
 }
 
 .rta_logo:hover .tooltip {

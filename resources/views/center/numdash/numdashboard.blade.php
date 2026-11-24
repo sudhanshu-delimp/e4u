@@ -13,7 +13,7 @@
     }
 
     .details-row th {
-        color: var(--blue--text);
+        color: var(--primary-color);
         font-weight: bold;
     }
 
