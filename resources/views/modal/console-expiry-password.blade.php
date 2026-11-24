@@ -63,7 +63,10 @@ if (auth()->check())
             if( $user->type==8)
                 $submit_url  = 'shareholder.update.password-popup';
             }
-           
+   /* If the user login using the switch option, the default Change Password popup should not appear */         
+  if(request('isImpersonated')) {
+    $open_pop_up = false;
+  }         
 @endphp
 
 
