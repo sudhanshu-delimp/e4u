@@ -258,6 +258,8 @@ $("body").on('submit', '#mulitiImage', function (e) {
             });
         },
         success: function (data) {
+            console.log(data)
+            console.log(data.status)
             if (data.status == 200) {
                 resetAddPhotoFrom(form);
             } else if (data.status == 405) {
