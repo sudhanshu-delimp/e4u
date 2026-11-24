@@ -257,41 +257,48 @@ $("body").on('submit', '#mulitiImage', function (e) {
                 }
             });
         },
-        success: function (data) {
-            console.log(data)
-            console.log(data.status)
-            if (data.status == 200) {
-                resetAddPhotoFrom(form);
-            } else if (data.status == 405) {
-                swal.fire('Media', "<p>Can't upload more than 30 Images, try after deleting images from gallery</p>", 'error');
-                $("#exampleModal").modal('hide');
-            }
-            else {
-                swal.fire('Media', 'Please choose atleast one image', 'error');
-            }
-
+        success: function (response, textStatus, xhr) {
+            resetAddPhotoFrom(form);
+            displaySwal(xhr);
         },
-        error: function (xhr) {
-            if (xhr.status === 422) {
-                let messages = Object.values(JSON.parse(xhr.responseText).errors).flat().join('<br>');
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Validation Error',
-                    html: messages
-                });
-            } else {
-                let message = xhr.status === 500 ? JSON.parse(xhr.responseText).message : xhr.responseText;
-                Swal.fire({
-                    icon: 'error',
-                    title: xhr.statusText,
-                    text: message || 'Something went wrong.'
-                });
-                if (xhr.status === 200) {
-                    resetAddPhotoFrom(form);
-                }
-            }
-
+        error: function (xhr, status, error) {
+            displaySwal(xhr)
         }
+        // success: function (data) {
+        //     console.log(data)
+        //     console.log(data.status)
+        //     if (data.status == 200) {
+        //         resetAddPhotoFrom(form);
+        //     } else if (data.status == 405) {
+        //         swal.fire('Media', "<p>Can't upload more than 30 Images, try after deleting images from gallery</p>", 'error');
+        //         $("#exampleModal").modal('hide');
+        //     }
+        //     else {
+        //         swal.fire('Media', 'Please choose atleast one image', 'error');
+        //     }
+
+        // },
+        // error: function (xhr) {
+        //     if (xhr.status === 422) {
+        //         let messages = Object.values(JSON.parse(xhr.responseText).errors).flat().join('<br>');
+        //         Swal.fire({
+        //             icon: 'error',
+        //             title: 'Validation Error',
+        //             html: messages
+        //         });
+        //     } else {
+        //         let message = xhr.status === 500 ? JSON.parse(xhr.responseText).message : xhr.responseText;
+        //         Swal.fire({
+        //             icon: 'error',
+        //             title: xhr.statusText,
+        //             text: message || 'Something went wrong.'
+        //         });
+        //         if (xhr.status === 200) {
+        //             resetAddPhotoFrom(form);
+        //         }
+        //     }
+
+        // }
     });
 });
 
