@@ -1,15 +1,12 @@
     @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
      :root {
-        --color-teal-dark: #003c3e;
+        --primary-color: #003c3e;
+        --secondary-color: #f5841f;
         --color-teal: #008085;
-        --hover-bg: #0080851f;
         --color-yellow: #ffc60b;
-        --color-orange: #f5841f;
-        --light-orange:#f4931f7a;
         --color-white: #ffffff;
         --primary-gradient: linear-gradient(135deg, rgb(216 248 249), #f9e2ce);
-        --secondary-gradient: linear-gradient(150deg, #003c3e, #f5841f);
-
+        --secondary-gradient: linear-gradient(150deg, #008085, #f5841f);
      }
     
     h1,
@@ -18,7 +15,7 @@
     h4,
     h5,
     h6 {
-        color: var(--color-teal-dark);
+        color: var(--primary-color);
     }
     
     .opr-modal .modal-title {
@@ -34,11 +31,11 @@
     }
     
     .swal-button {
-        background-color: #242a2c;
+        background-color: var(--primary-color);
     }
     
     .opr-console i {
-        color: var(--color-teal-dark);
+        color: var(--primary-color);
     }
     .opr-console .card#notes, .card#in_notes {
         border: 1px solid var(--color-teal);
@@ -64,44 +61,44 @@
     }
     
     .myacording-design .card-header a {
-        color: var(--color-teal-dark);
+        color: var(--primary-color);
     }
     
     .opr-heading-1 {
-        color: var(--color-teal-dark);
+        color: var(--primary-color);
         font-size: 42px;
         font-weight: 500;
     }
     
     .opr-heading-2 {
-        color: var(--color-teal-dark);
+        color: var(--primary-color);
         font-size: 18px;
         font-weight: 600;
     }
     
     .image-upload-wrap {
-        border: 2px dashed var(--color-teal-dark);
+        border: 2px dashed var(--primary-color);
     }
     
     .custom_links_design {
-        color: var(--color-orange);
+        color: var(--secondary-color);
     }
     
     .custom_links_design:hover {
         text-decoration: underline;
-        color: var(--color-orange);
+        color: var(--secondary-color);
     }
     
     .opr-table-bg {
-        background-color: var(--color-teal-dark);
-        color: #fff;
+        background-color: var(--primary-color);
+        color: var(--color-white);
     }
     /* For radio buttons */
     
     input[type=checkbox],
     input[type=radio] {
-        accent-color: var(--color-teal-dark);
-        color: #fff;
+        accent-color: var(--primary-color);
+        color: var(--color-white);
     }
     /* Optional checkmark for checkbox */
     
@@ -113,7 +110,7 @@
         line-height: 23px;
         letter-spacing: 0.01em;
         text-align: left;
-        color: var(--color-teal-darks);
+        color: var(--primary-color);
     }
     
     form.v-form-design .form-control {
@@ -126,7 +123,7 @@
         text-align: left;
         max-height: 20px;
         border: 0;
-        border-bottom: 1px solid var(--color-teal-dark);
+        border-bottom: 1px solid var(--primary-color);
         border-radius: 0;
         padding-top: 0;
         padding-bottom: 0;
@@ -134,37 +131,37 @@
     }
     
     button {
-        background-color: var(--color-teal-dark);
+        background-color: var(--primary-color);
         color: var(--color-white);
     }
     
     button:hover {
-        background-color: var(--color-orange);
+        background-color: var(--secondary-color);
     }
     
     .opr-modal button {
-        background-color: var(--color-teal-dark);
+        background-color: var(--primary-color);
         color: var(--color-white);
     }
      .opr-modal button.btn-cancel-modal{
-        background-color: var(--color-orange) !important;
+        background-color: var(--secondary-color) !important;
         color: var(--color-white);
      }
       .opr-modal button.btn-cancel-modal:hover{
         opacity: .8;
       }
     .opr-modal button:hover {
-        background-color: var(--color-orange);
+        background-color: var(--secondary-color);
         color: var(--color-white);
     }
     
     .opr-common-btn {
-        background: var(--color-teal-dark);
+        background: var(--primary-color);
         color: var(--color-white);
     }
     
     .opr-common-btn:hover {
-        background: var(--color-orange) !important;
+        background: var(--secondary-color) !important;
         color: var(--color-white);
     }
     
@@ -173,26 +170,26 @@
     }
     
     .avatar.close {
-        background: var(--color-orange);
+        background: var(--secondary-color);
     }
     
     .opr-console .dataTables_paginate .previous {
-        background-color: var(--color-teal-dark);
+        background-color: var(--primary-color);
         color: var(--color-white);
     }
     
     .opr-console .dataTables_paginate .next {
-        background-color: var(--color-teal-dark);
+        background-color: var(--primary-color);
         color: var(--color-white);
     }
     
     .opr-console .paginate_button.current {
-        color: var(--color-orange);
+        color: var(--secondary-color);
     }
     
     .parsley-errors-list {
         list-style: none;
-        color: var(--color-orange);
+        color: var(--secondary-color);
         padding-left: 0;
     }
     
@@ -202,23 +199,23 @@
         right: 15px;
         cursor: pointer;
         z-index: 2;
-        color: var(--color-teal-dark);
+        color: var(--primary-color);
     }
     
     .opr-modal .modal-header {
-        background: var(--color-teal-dark);
-        color: #fff;
+        background: var(--primary-color);
+        color: var(--color-white);
     }
     
     .opr-modal-text {
         font-size: 18px;
         text-align: center;
-        color: var(--color-teal-dark);
+        color: var(--primary-color);
         margin-top: 20px;
     }
     
     .opr-common-btn:hover {
-        background-color: var(--color-orange);
+        background-color: var(--secondary-color);
     }
     
     .opr_modal_table td {
@@ -275,35 +272,23 @@
     }
     
     .sidebar-bg {
-        background-color: var(--color-teal-dark);
+        background-color: var(--primary-color);
         background-size: cover;
     }
     
     .sidebar-bg .helpNoteLink {
-        color: var(--color-orange) !important;
+        color: var(--secondary-color) !important;
     }
     
     .sidebar-bg .nav-item .collapse .collapse-inner .collapse-item:hover {
-        color: var(--color-orange);
+        color: var(--secondary-color);
     }
     
     .opr-itmes i {
-        color: var(--color-teal-dark) !important;
+        color: var(--primary-color) !important;
     }
     i.top-icon-bg:hover{
-        color: #fff !important;
-    }
-    .operator-sidebar-head {
-        color: var(--color-orange);
-        font-size: 16px;
-        padding-left: 16px;
-        padding-bottom: 24px;
-    }
-    .operator-sidebar-head.console_heading{
-        color: var(--color-orange);
-    }
-    .sidebar.toggled .operator-sidebar-head.console_heading{
-        color: var(--color-orange);
+        color: var(--color-white) !important;
     }
     .operator-heading-wrapper .h1 {
         font-family: Poppins;
@@ -314,18 +299,18 @@
         letter-spacing: 0em;
         text-align: left;
         margin-bottom: 20px;
-        color: var(--color-teal-dark);
+        color: var(--primary-color);
         text-transform: capitalize;
     }
     
     .opr-console .notes {
-        color: var(--color-teal-dark);
+        color: var(--primary-color);
         font-size: 18px;
         margin-bottom: 0;
     }
     
     .oprhelpNote {
-        color: var(--color-orange);
+        color: var(--secondary-color);
         display: inline-block;
         margin-left: 20px;
         cursor: pointer;
@@ -340,17 +325,17 @@
     }
     
     .operator-topbar-userdata .user-values {
-        color: var(--color-orange) !important;
+        color: var(--secondary-color) !important;
         display: inline-block;
     }
     
     .operator-topbar-userdata span {
-        color: var(--color-teal-dark) !important;
+        color: var(--primary-color) !important;
         display: inline-block;
     }
     
     .opr-console .my-custom-box h2 {
-        color: var(--color-teal-dark);
+        color: var(--primary-color);
     }
     
     .opr-console .my-custom-box {
@@ -372,12 +357,12 @@
         transform: translateX(1px) rotate(180deg);
         border-width: 13px;
         border-style: solid;
-        border-color: var(--color-orange) transparent transparent transparent;
+        border-color: var(--secondary-color) transparent transparent transparent;
     }
     
     .oc-highlight-menu {
-        background-color: var(--color-orange);
-        color: #fff;
+        background-color: var(--secondary-color);
+        color: var(--color-white);
     }
     
     .oc-custom-nav-dropdown {
@@ -390,7 +375,7 @@
     }
     
     .account-toggle:hover i {
-        color: #fff !important;
+        color: var(--color-white) !important;
     }
     
     .account-toggle span {
@@ -398,12 +383,12 @@
     }
     
     .oc-custom-nav-dropdown .oc-highlight-menu {
-        background-color: var(--color-orange);
+        background-color: var(--secondary-color);
         border-bottom: 1px solid #ccc;
     }
     
     .oc-custom-nav-dropdown .oc-highlight-menu .dropdown-item {
-        color: #fff;
+        color: var(--color-white);
     }
     
     .oc-custom-nav-dropdown .oc-highlight-menu .dropdown-item .profile_icons {
@@ -424,8 +409,8 @@
     }
     
     .oc-custom-nav-dropdown .dropdown-item:hover {
-        background-color: var(--color-orange) !important;
-        color: #fff;
+        background-color: var(--secondary-color) !important;
+        color: var(--color-white);
     }
     
     .oc-custom-nav-dropdown .dropdown-item:hover .profile_icons {

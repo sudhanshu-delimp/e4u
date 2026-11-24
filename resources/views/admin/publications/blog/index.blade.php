@@ -112,7 +112,7 @@ $addAccessEnabled = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
                                             onchange="handleFiles(this.files)" hidden>
                                         <img src="{{ asset('assets/dashboard/img/cloud-image.png') }}" width="50" />
                                         <p class="mb-1 font-weight-bold">Drop your image here, or <span
-                                                style="color: var(--peach)">browse</span></p>
+                                                style="color: var(--secondary-color)">browse</span></p>
                                         <small class="text-muted">Supports: JPG, JPEG, PNG</small>
                                     </div>
                                     <div id="preview" class="mt-3"></div>

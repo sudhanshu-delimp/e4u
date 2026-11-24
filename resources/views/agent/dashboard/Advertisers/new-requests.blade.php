@@ -12,7 +12,7 @@
     padding: 10px 14px;
     line-height: 20px;
     border-radius: var(--radius-full);
-    color: var(--peach) !important;
+    color: var(--secondary-color) !important;
 }
 
 .location_class {
