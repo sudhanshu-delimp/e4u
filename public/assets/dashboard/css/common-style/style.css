@@ -202,7 +202,7 @@ form.v-form-design .form-group {
 
 .card-heading h2 {
     margin: 0;
-    color: var(--primacy-color);
+    color: var(--primary-color);
     font-size: 18px;
     line-height: 1.25;
     font-weight: 700;
@@ -359,7 +359,7 @@ form.v-form-design .form-group {
 
 .common-save-btn {
     border: 0;
-    background: var(--primacy-color);
+    background: var(--primary-color);
     color: var(--white);
     min-width: 145px;
     padding: 14px 27px;
@@ -488,7 +488,7 @@ form.v-form-design .form-group {
 }
 
 .btn-switch {
-    background: var(--primacy-color);
+    background: var(--primary-color);
     padding: 10px 20px;
     border-radius: var(--radius-sm);
     color: var(--white);
@@ -1015,7 +1015,7 @@ label.cabinet input.file {
 .common-modal .common-modal-header {
     padding: 20px 24px;
     border-bottom: 1px solid var(--pink-border-color);
-    background: var(--primacy-color);
+    background: var(--primary-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
