@@ -50,7 +50,7 @@ class DemoBasicAuth
             return $next($request);
         }
 
-        return response('Unauthorized', 401)
+        return response('Unauthorized 001', 401)
             ->header('WWW-Authenticate', 'Basic realm="Demo Area"');
     }
 }
