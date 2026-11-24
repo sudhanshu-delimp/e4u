@@ -58,7 +58,7 @@ class EscortGalleryController extends AppController
 
     public function photoGalleries()
     {
-        <?php
+       
 echo 'PHP Version: ' . PHP_VERSION . '<br>';
 echo 'PHP SAPI: ' . PHP_SAPI . '<br>';
 echo 'GD Loaded: ';
