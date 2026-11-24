@@ -58,14 +58,6 @@ class EscortGalleryController extends AppController
 
     public function photoGalleries()
     {
-       
-echo 'PHP Version: ' . PHP_VERSION . '<br>';
-echo 'PHP SAPI: ' . PHP_SAPI . '<br>';
-echo 'GD Loaded: ';
-var_dump(extension_loaded('gd'));
-
-        echo phpinfo();
-        die;
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
         $path = $this->media;
         $verification = MediaVerification::where('user_id', auth()->id())->where('status' , '0')->first();
