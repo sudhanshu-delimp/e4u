@@ -142,7 +142,7 @@
                </div>
                 <div class="form-check m-0">
                             <input class="form-check-input" name="is_text_notificaion_on" type="checkbox"
-                                id="Text_Us" value="1"
+                                id="Text_Us" value="1" checked
                                 @if ($user->account_setting && $user->account_setting->is_text_notificaion_on == '1') {{ 'checked' }} @endif>
                             <label class="form-check-label" for="Text_Us">Text</label>
                         </div>
@@ -154,8 +154,7 @@
                         </div>
                
                <div class="pt-1">
-                <i id="emailHelp">If you select to be notified of your impending password expiry by Text or Email, you will receive a notification 24 hours prior to expiry date.
-</i>
+                <i id="emailHelp">You will receive your selected means of notification for your impending password expiry, when selected, 24 hours prior to the expiry date.</i>
               </div>
             </div>
              <button type="submit" class="opr-common-btn mt-4" name="submit">Save</button>

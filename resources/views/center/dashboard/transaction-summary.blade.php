@@ -61,7 +61,6 @@
         </div>
     </div>
 </div>
-
 @include('modal.payment.transaction-summary')
 @include('modal.payment.tax-invoice')
 

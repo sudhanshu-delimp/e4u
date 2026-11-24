@@ -71,40 +71,40 @@
                                     </div>
 
                                     <div class="option-list">
-                                        <div class="custom-control custom-switch ">
-                                            <input class="custom-control-input" type="checkbox" id="notification_feature1"
+                                        <div class="form-check ">
+                                            <input class="form-check-input" type="checkbox" id="notification_feature1"
                                                 name="features_viewer_notifications_forward_v_alerts" value="1"
                                                 {{ isset($setting->escort_settings) && $setting->escort_settings->features_viewer_notifications_forward_v_alerts == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label switch-option" for="notification_feature1">
+                                            <label class="form-check-label switch-option" for="notification_feature1">
                                                 Viewer notifications, forward V-Alerts
                                             </label>
                                         </div>
 
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" type="checkbox" id="notification_feature2"
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="notification_feature2"
                                                 name="features_allow_viewers_to_ask_you_a_question" value="1"
                                                 {{ isset($setting->escort_settings) && $setting->escort_settings->features_allow_viewers_to_ask_you_a_question == '1' ? 'checked' : '' }}>
 
-                                            <label class="custom-control-label switch-option" for="notification_feature2">
+                                            <label class="form-check-label switch-option" for="notification_feature2">
                                                 Allow Viewers to ask you a question
                                             </label>
                                         </div>
 
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" id="notification_feature3" type="checkbox"
+                                        <div class="form-check">
+                                            <input class="form-check-input" id="notification_feature3" type="checkbox"
                                                 name="features_allow_viewers_to_send_you_a_text_message" value="1"
                                                 {{ isset($setting->escort_settings) && $setting->escort_settings->features_allow_viewers_to_send_you_a_text_message == '1' ? 'checked' : '' }}>
 
-                                            <label class="custom-control-label switch-option" for="notification_feature3">
+                                            <label class="form-check-label switch-option" for="notification_feature3">
                                                 Allow Viewers to send you a Message
                                             </label>
                                         </div>
 
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" id="notification_feature4"
+                                        <div class="form-check">
+                                            <input class="form-check-input" id="notification_feature4"
                                                 name="features_i_am_available_as_a_playmate" type="checkbox" value="1"
                                                 {{ isset($setting->escort_settings) && $setting->escort_settings->features_i_am_available_as_a_playmate == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label switch-option" for="notification_feature4">
+                                            <label class="form-check-label switch-option" for="notification_feature4">
                                                 I am available as a playmate
                                             </label>
                                         </div>
@@ -175,22 +175,22 @@
                                         </div>
                                     </div>
                                     <div class="option-list">
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" type="checkbox"
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox"
                                                 id="agent_communications1" value="1"
                                                 name="agent_receive_communications"
                                                 {{ isset($setting->escort_settings) && $setting->escort_settings->agent_receive_communications == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="agent_communications1">
+                                            <label class="form-check-label" for="agent_communications1">
                                                 Receive communications
                                             </label>
                                         </div>
 
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" type="checkbox"
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox"
                                                 id="agent_communications2" value="1"
                                                 name="agent_send_communications"
                                                 {{ isset($setting->escort_settings) && $setting->escort_settings->agent_send_communications == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="agent_communications2">
+                                            <label class="form-check-label" for="agent_communications2">
                                                 Send communications
                                             </label>
                                         </div>
@@ -220,18 +220,18 @@
                                     </div>
                                     <div class="option-list">
                                         
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" type="checkbox"
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox"
                                                 name="alert_notification_email" id="alert_email" value="1"
                                                 {{ isset($setting->escort_settings) && $setting->escort_settings->alert_notification_email == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="alert_email">Email (A-Alert)</label>
+                                            <label class="form-check-label" for="alert_email">Email (A-Alert)</label>
                                         </div>
 
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" type="checkbox"
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox"
                                                 name="alert_notification_text" id="alert_text" value="1"
                                                 {{ isset($setting->escort_settings) && $setting->escort_settings->alert_notification_text == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="alert_text">Text</label>
+                                            <label class="form-check-label" for="alert_text">Text</label>
                                         </div>
 
 
