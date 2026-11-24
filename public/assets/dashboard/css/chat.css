@@ -1589,6 +1589,8 @@ emoji-picker {
     padding: 0 12px;
 }
 
+
+
 .member-results::-webkit-scrollbar {
     width: 5px;
 }
@@ -1609,6 +1611,7 @@ emoji-picker {
 
 .member-result:hover {
     background: #f7f9fb;
+    cursor: pointer;
 }
 
 .member-avatar {
