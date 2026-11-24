@@ -173,7 +173,7 @@
             <span>Management</span>
         </a>
         <!-- Manage People -->
-        <div id="Management" class="collapse  @if (in_array(request()->segment(3), ['staff', 'agent']) || in_array(request()->segment(4), ['agents-monthly-report', 'operator-monthly-report'])) show @endif"
+        <div id="Management" class="collapse  @if (in_array(request()->segment(3), ['staff', 'agent']) || in_array(request()->segment(4), ['agents-monthly-report', 'operator-monthly-report']) || request()->segment(2) == 'operator-messages') show @endif"
             data-parent="#accordionSidebar">
             <div class="collapse-inner">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse"
@@ -207,6 +207,11 @@
                     aria-expanded="true" aria-controls="Marketing">
                     <img src="{{ asset('assets/app/img/folded-booklet.png') }}">
                     <span>Marketing</span>
+                </a>
+
+                <a class="nav-link" href="{{route('operator.operator-messages')}}">
+                    <img src="{{asset('assets/dashboard/img/menu-icon/chat.png')}}">
+                    <span style="{{ request()->segment(2) == 'operator-messages' ? 'color: #f5841f;' : '' }}">Messages</span>
                 </a>
 
                 {{-- --------------------------- Reports tab ---------------------------- --}}
