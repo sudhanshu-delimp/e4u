@@ -85,41 +85,41 @@
 
                                     <div class="option-list">
 
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="feature_legbox"
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="feature_legbox"
                                                 name="features_enable_my_legbox" value="1"
                                                 {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_enable_my_legbox == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="feature_legbox">Enable My
+                                            <label class="form-check-label" for="feature_legbox">Enable My
                                                 Legbox</label>
                                         </div>
 
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="feature_notebox"
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="feature_notebox"
                                                 name="features_enable_my_notebox" value="1"
                                                 {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_enable_my_notebox == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="feature_notebox">Enable My
+                                            <label class="form-check-label" for="feature_notebox">Enable My
                                                 Notebox</label>
                                         </div>
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="feature_chatting"
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="feature_chatting"
                                                 name="features_direct_chatting_with_escorts" value="1"
                                                 {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_direct_chatting_with_escorts == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="feature_chatting">Enable Chat with Advertisers</label>
+                                            <label class="form-check-label" for="feature_chatting">Enable Chat with Advertisers</label>
                                         </div>
                                         
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="feature_alerts"
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="feature_alerts"
                                                 name="features_push_notifications_from_escorts" value="1"
                                                 {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_push_notifications_from_escorts == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="feature_alerts">Receive Alert Notifications from Advertisers</label>
+                                            <label class="form-check-label" for="feature_alerts">Receive Alert Notifications from Advertisers</label>
                                         </div>
 
 
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="feature_reviews"
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="feature_reviews"
                                                 name="features_write_reviews" value="1"
                                                 {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_write_reviews == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="feature_reviews">Write Reviews</label>
+                                            <label class="form-check-label" for="feature_reviews">Write Reviews</label>
                                         </div>
                                     </div>
                                     <div class="card-note">
@@ -163,45 +163,45 @@
                                         </div>
                                     </div>
                                     <div class="option-list">
-                                        <div class="custom-control custom-switch ">
-                                            <input class="custom-control-input" id="interest_all" type="checkbox"
+                                        <div class="form-check ">
+                                            <input class="form-check-input" id="interest_all" type="checkbox"
                                                 {{ $allSelected ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="interest_all">All</label>
+                                            <label class="form-check-label" for="interest_all">All</label>
                                         </div>
 
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" id="interest_female" type="checkbox"
+                                        <div class="form-check">
+                                            <input class="form-check-input" id="interest_female" type="checkbox"
                                                 name="interests_with_female" value="1"
                                                 {{ isset($setting->viewer_settings) && $setting->viewer_settings->interests_with_female == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="interest_female">Female</label>
+                                            <label class="form-check-label" for="interest_female">Female</label>
                                         </div>
 
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" id="interest_male" type="checkbox"
+                                        <div class="form-check">
+                                            <input class="form-check-input" id="interest_male" type="checkbox"
                                                 name="interests_with_male" value="1"
                                                 {{ isset($setting->viewer_settings) && $setting->viewer_settings->interests_with_male == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="interest_male">Male</label>
+                                            <label class="form-check-label" for="interest_male">Male</label>
                                         </div>
 
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" id="interest_trans" type="checkbox"
+                                        <div class="form-check">
+                                            <input class="form-check-input" id="interest_trans" type="checkbox"
                                                 name="interests_with_trans" value="1"
                                                 {{ isset($setting->viewer_settings) && $setting->viewer_settings->interests_with_trans == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="interest_trans">Trans</label>
+                                            <label class="form-check-label" for="interest_trans">Trans</label>
                                         </div>
 
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" id="interest_cross" type="checkbox"
+                                        <div class="form-check">
+                                            <input class="form-check-input" id="interest_cross" type="checkbox"
                                                 name="interests_with_cross_dresser" value="1"
                                                 {{ isset($setting->viewer_settings) && $setting->viewer_settings->interests_with_cross_dresser == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="interest_cross">Cross dresser</label>
+                                            <label class="form-check-label" for="interest_cross">Cross dresser</label>
                                         </div>
 
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" id="interest_couples" type="checkbox"
+                                        <div class="form-check">
+                                            <input class="form-check-input" id="interest_couples" type="checkbox"
                                                 name="interests_with_couples" value="1"
                                                 {{ isset($setting->viewer_settings) && $setting->viewer_settings->interests_with_couples == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="interest_couples">Couples</label>
+                                            <label class="form-check-label" for="interest_couples">Couples</label>
                                         </div>
                                     </div>
                                     <div class="card-note">
