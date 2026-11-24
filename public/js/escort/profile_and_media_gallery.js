@@ -306,6 +306,7 @@ var resetAddPhotoFrom = function (form) {
     $('#image_preview a:not(:first)').remove();
     $(".js_bannerDefaultImage").attr('src', bannerDefaultImage);
     $(".js_pinupDefaultImage").attr('src', pinupDefaultImage);
+    $(".deleteBannerPinupMedia").remove();
     $("#exampleModal").modal('hide');
     form[0].reset();
     allFiles = [];
