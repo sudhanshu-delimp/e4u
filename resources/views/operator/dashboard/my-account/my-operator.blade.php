@@ -39,12 +39,11 @@
                 <span class="oprhelpNote font-weight-bold" data-toggle="collapse" data-target="#notes"
                     aria-expanded="true">Help?</span>
             </div>
-            <div class="col-md-12 mb-4">
-                <div class="card collapse" id="notes" style="">
+            <div class="col-md-12">
+                <div class="card collapse" id="notes">
                     <div class="card-body">
                         <p class="notes"><b>Notes:</b> </p>
-                        <ol>
-                        </ol>
+                       
                     </div>
                 </div>
             </div>
@@ -61,7 +60,7 @@
             <div class="col-md-12 mb-5">
                 <div id="accordion" class="myacording-design">
                     <!-- About Us -->
-                    <div class="card">
+                    <div class="card common-card">
                         <div class="card-header">
                             <a class="card-link collapsed" data-toggle="collapse" href="#abbrieviations"
                                 aria-expanded="false">About Us</a>
@@ -237,7 +236,7 @@
                     <!-- End About Us -->
 
                     <!-- Agreement -->
-                    <div class="card">
+                    <div class="card common-card">
                         <div class="card-header">
                             <a class="card-link collapsed" data-toggle="collapse" href="#agreement"
                                 aria-expanded="false">Agreement</a>
@@ -310,7 +309,7 @@
                     </div>
                     <!-- End Agreement -->
                     <!-- Fee -->
-                    <div class="card">
+                    <div class="card common-card">
                         <div class="card-header">
                             <a class="card-link collapsed" data-toggle="collapse" href="#fees"
                                 aria-expanded="false">Fees</a>

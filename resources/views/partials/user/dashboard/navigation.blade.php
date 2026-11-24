@@ -65,16 +65,6 @@
 
             </div>
         </form>
-        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
-            @if (session()->has('parent_user_id') && session('switch_for') == 'admin_to_any' && session('is_impersonated') === true)
-                <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>
-                <a class="nav-link" href="{{ route('admin.back-to-parent') }}" title="">
-                    <span class="switch-profile">
-                        <img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="Switch back to your account" />
-                    </span>
-                </a>
-            @endif
-        </li>
         <li class="nav-item dropdown no-arrow d-sm-none">
             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
@@ -131,10 +121,22 @@
             </a>
         </li>
         <!--- End --->
-
+        
+        
+            @if (session()->has('parent_user_id') && session('switch_for') == 'admin_to_any' && session('is_impersonated') === true)
+            <li class="nav-item dropdown no-arrow esc-tooltip-wrap">
+                <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>
+                <a class="nav-link" href="{{ route('admin.back-to-parent') }}" title="">
+                    <span class="switch-profile">
+                        <img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="Switch back to your account" />
+                    </span>
+                </a>
+             </li>
+            @endif
+       
         <!-- //////// Notification ///////////// -->
 
-        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
+        <li class="nav-item dropdown no-arrow esc-tooltip-wrap">
             <span class="esc-tooltip esc-tooltip-support">Support Tickets</span>
             <a class="nav-link dropdown-toggle support_notify_bell" href="#" id="ticketNotificationDropdown"
                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -154,7 +156,7 @@
 
         </li>
 
-        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
+        <li class="nav-item dropdown no-arrow esc-tooltip-wrap">
             <span class="esc-tooltip esc-tooltip-support">Alert Centre</span>
             <a class="nav-link dropdown-toggle alert_notify_bell " href="#" id="alertsDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

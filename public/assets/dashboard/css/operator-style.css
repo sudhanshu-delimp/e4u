@@ -5,8 +5,10 @@
         --hover-bg: #0080851f;
         --color-yellow: #ffc60b;
         --color-orange: #f5841f;
+        --light-orange:#f4931f7a;
         --color-white: #ffffff;
-      --primary-gradient: linear-gradient(135deg, rgb(216 248 249), #f9e2ce);
+        --primary-gradient: linear-gradient(135deg, rgb(216 248 249), #f9e2ce);
+        --secondary-gradient: linear-gradient(150deg, #003c3e, #f5841f);
 
      }
     
@@ -38,7 +40,13 @@
     .opr-console i {
         color: var(--color-teal-dark);
     }
-    
+    .opr-console .card#notes, .card#in_notes {
+        border: 1px solid var(--color-teal);
+        border-radius: var(--radius-lg);
+        background: linear-gradient(135deg, #fffafd, #fff);
+        margin-bottom: 30px;
+        box-shadow: 0px 0px 6px -2px #ccc;
+    }
     label.cabinet input.file {
         position: relative;
         height: 100%;
@@ -282,14 +290,21 @@
     .opr-itmes i {
         color: var(--color-teal-dark) !important;
     }
-    
+    i.top-icon-bg:hover{
+        color: #fff !important;
+    }
     .operator-sidebar-head {
         color: var(--color-orange);
         font-size: 16px;
         padding-left: 16px;
         padding-bottom: 24px;
     }
-    
+    .operator-sidebar-head.console_heading{
+        color: var(--color-orange);
+    }
+    .sidebar.toggled .operator-sidebar-head.console_heading{
+        color: var(--color-orange);
+    }
     .operator-heading-wrapper .h1 {
         font-family: Poppins;
         font-size: 42px;
@@ -339,7 +354,7 @@
     }
     
     .opr-console .my-custom-box {
-        border: 1px solid var(--color-teal);
+      border: 1px solid var(--color-teal);
       background-image : linear-gradient(135deg, rgba(229, 240, 255, 0.352), #f6c8d01b);
 
     }
