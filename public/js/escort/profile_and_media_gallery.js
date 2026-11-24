@@ -156,6 +156,14 @@ $(document).on('click', '.deleteId', function (e) {
     $(`.rm_${index}`).remove();
 });
 
+$(document).on('click', '.deleteBannerPinupMedia', function (e) {
+    e.preventDefault();
+    let object = $(this);
+    let imageObject = object.prev();
+    imageObject.attr('src', object.data('placeholder-url')).next().remove();
+
+});
+
 $(document).on('click', '.js_gallery_category .nav-link', function (e) {
     e.preventDefault();
     getAccountMediaGallery();
@@ -170,14 +178,15 @@ $(document).on('click', '#escort_profile_media_filter_type .nav-link', function 
     getAccountMediaGallery();
 });
 
+let placeholderUrl = '';
 function readImageURL(input) {
     if (input.files && input.files[0]) {
         var $img = $(input).siblings('img');
         if ($img.hasClass('js_bannerDefaultImage')) {
-            bannerDefaultImage = $img.attr('src');
+            placeholderUrl = bannerDefaultImage = $img.attr('src');
         }
         if ($img.hasClass('js_pinupDefaultImage')) {
-            pinupDefaultImage = $img.attr('src');
+            placeholderUrl = pinupDefaultImage = $img.attr('src');
         }
         var reader = new FileReader();
         reader.onload = function (e) {
@@ -197,7 +206,7 @@ function readImageURL(input) {
                     input.value = '';
                     return false;
                 }
-                $(`#${input.id}`).prev().attr('src', e.target.result);
+                $(`#${input.id}`).prev().attr('src', e.target.result).after(`<i class="fa fa-trash deleteBannerPinupMedia" data-placeholder-url="${placeholderUrl}" title="Remove this media"></i>`);
             };
         };
         reader.readAsDataURL(input.files[0]);
