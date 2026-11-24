@@ -36,7 +36,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{asset('assets/app/css/jquery-ui.css')}}">
 
-
     <style>
         .toogle_eye_form_wrap {
             position: relative;
