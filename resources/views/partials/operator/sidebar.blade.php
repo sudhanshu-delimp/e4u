@@ -46,7 +46,7 @@
             </svg>
 
 
-            <span>Our Account - the Operator</span>
+            <span>The Operator Account</span>
         </a>
         <div id="ourAccount" class="collapse @if (request()->segment(2) == 'view-my-account') show @endif;"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -276,7 +276,7 @@
                     <path d="M14.8185 14.0364C14.4045 14.0621 14.3802 14.6183 14.7606 14.7837V14.7837C15.803 15.237 16.5879 15.9043 17.1508 16.756C17.6127 17.4549 18.33 18 19.1677 18H20.9483C21.6555 18 22.1715 17.2973 21.9227 16.6108C21.9084 16.5713 21.8935 16.5321 21.8781 16.4932C21.5357 15.6286 20.9488 14.9921 20.0798 14.5864C19.2639 14.2055 18.2425 14.0483 17.0392 14.0008L17.0194 14H16.9997C16.2909 14 15.5506 13.9909 14.8185 14.0364Z" fill="#003c3e"></path>
                 </g>
             </svg>
-            <span>My Account - the User</span>
+            <span>The User Account</span>
         </a>
         <div id="myAccount" class="collapse @if (request()->segment(2) == 'edit-my-account' ||
                 request()->segment(2) == 'change-password' ||
