@@ -14,7 +14,7 @@
   background-color: #f9f9f9;
 }
 .details-row th {
-  color: var(--blue--text);
+  color: var(--primary-color);
   font-weight: bold;
 }
 .toggle-details i {

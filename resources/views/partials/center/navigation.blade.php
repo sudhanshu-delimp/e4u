@@ -286,7 +286,7 @@
                                             <span class="user-values" title="My Agent : {{ (!empty(auth()->user()->my_agent->business_name)) ? auth()->user()->my_agent->business_name : (!empty(auth()->user()->my_agent->name))}}">
                                             My Agent ID :  {{ auth()->user()->my_agent->member_id }}</span>
                                             @else
-                                            My Agent : <span style="color:var(--peach)" class="request-active req"> Request one</span>
+                                            My Agent : <span style="color:var(--secondary-color)" class="request-active req"> Request one</span>
                                             @endif
                                             
                                     </a>

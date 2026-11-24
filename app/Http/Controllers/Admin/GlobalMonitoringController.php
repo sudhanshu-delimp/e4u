@@ -616,7 +616,7 @@ class GlobalMonitoringController extends Controller
                                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                         aria-labelledby="dropdownMenuLink" style="">
                                         <a class="dropdown-item d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#view-listing" href="#">View Listing <i class="fa fa-eye text-dark"
-                                                style="color: var(--peach);" ></i></a>
+                                                style="color: var(--secondary-color);" ></i></a>
                                     </div>
                                 </div>`;
 

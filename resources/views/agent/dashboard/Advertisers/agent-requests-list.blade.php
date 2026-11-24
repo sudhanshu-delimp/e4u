@@ -45,7 +45,7 @@
                                         <img src="{{ $list->user->avatar_img ? asset('avatars/' . $list->user->avatar_img) : asset('assets/dashboard/img/no-image-light.png') }}" alt="avtar">
                                     </div>
                                     <div class="ms-3">
-                                        <h5 class=" normal_heading mb-0" style="color: var(--peach)">
+                                        <h5 class=" normal_heading mb-0" style="color: var(--secondary-color)">
                                             <b>Agent Request</b>
                                         </h5>
                                         <span class="history_info">

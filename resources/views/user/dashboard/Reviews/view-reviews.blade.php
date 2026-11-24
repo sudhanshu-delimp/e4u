@@ -19,7 +19,7 @@
 
     .table.num_view_table th {
         font-weight: bold;
-        color: var(--blue--text);
+        color: var(--primary-color);
         padding: 5px !important;
     }
 

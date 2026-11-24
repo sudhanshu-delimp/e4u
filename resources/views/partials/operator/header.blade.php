@@ -43,13 +43,13 @@
 }
 
 .swal2-styled.swal2-confirm, .swal2-styled.swal2-cancel{
-    background-color: var(--color-teal-dark) !important;
+    background-color: var(--primary-color) !important;
 }
 .swal2-styled.swal2-confirm:hover, .swal2-cancel:hover{
-  background-color: var(--color-orange) !important;
+  background-color:var(--secondary-color) !important;
 }
 .swal2-cancel{
-    background-color: var(--color-teal-dark) !important;
+    background-color: var(--primary-color) !important;
 }
 
     html, body {

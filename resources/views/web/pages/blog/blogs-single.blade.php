@@ -7,18 +7,18 @@
         }
 
         .ui-state-default.ui-state-highlight {
-            background-color: var(--peach) !important;
+            background-color: var(--secondary-color) !important;
             border-color: #ccc !important;
         }
 
         .ui-state-default.ui-state-active {
-            background-color: var(--blue--text) !important;
-            border-color: var(--blue--text) !important;
+            background-color: var(--primary-color) !important;
+            border-color: var(--primary-color) !important;
         }
 
         .filter-date:focus {
             outline: none;
-            border: 2px solid var(--peach);
+            border: 2px solid var(--secondary-color);
         }
 
         /* Header background */

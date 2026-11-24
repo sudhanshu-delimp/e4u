@@ -104,7 +104,7 @@
   padding: 10px;
   max-width: 1200px;
   margin: 0 auto;
-  background: var(--peach);
+  background: var(--secondary-color);
 }
 
 .location_class{
