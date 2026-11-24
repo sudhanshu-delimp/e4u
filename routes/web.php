@@ -59,6 +59,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MonthlyReportQueryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -292,6 +293,11 @@ Route::middleware('auth')->group(function () {
         });
     ################ End All Authencated User Url #################################
     Route::get('back-to-agent', [ImpersonateController::class, 'backToParent'])->name('agent.back-to-parent');
+
+    Route::post('monthly-report-query', [MonthlyReportQueryController::class, 'monthlyReportQuery'])
+        ->whereNumber('message')->name('web.monthly.report.query');
+    Route::post('monthly-report-view-query', [MonthlyReportQueryController::class, 'viewQuery'])
+        ->whereNumber('message')->name('web.monthly.report.view.query');
 });
 
 Route::post('state-name', [App\Http\Controllers\HomeController::class, 'getGioLocation'])->name('web.state.name');

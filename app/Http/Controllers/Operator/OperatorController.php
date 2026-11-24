@@ -31,6 +31,8 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use PDF;
+use App\Models\MonthlyReportQuery;
+
 class OperatorController extends BaseController
 {
 
@@ -573,11 +575,11 @@ class OperatorController extends BaseController
 
             //View Query
             if ($queryCount > 0) {
-                $divider2 = "";
+               /*  $divider2 = "";
                 if (empty($divider)) {
                     $divider2 = '<div class="dropdown-divider"></div>';
                 }
-                $dropDown .= $divider . '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 getSubmittedQuery" href="javascript:void(0)" data-id="' . $item->id . '" > <i class="fa fa-eye"></i> View Query</a>' . $divider2;
+                $dropDown .= $divider . '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 getSubmittedQuery" href="javascript:void(0)" data-id="' . $item->id . '" > <i class="fa fa-eye"></i> View Query</a>' . $divider2; */
             }
             //  View Detail
             $dropDown .= $divider . '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-operator_id="' . $item->agent_id . '" id="getMontlyViewReportPage"> <i class="fa fa-eye"></i> View Report</a>';

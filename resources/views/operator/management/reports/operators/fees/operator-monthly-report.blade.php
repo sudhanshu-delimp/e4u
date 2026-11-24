@@ -80,7 +80,7 @@
     </div>
 </div>
 {{-- Raise query --}}
-<div class="modal fade upload-modal opr-modal" id="raiseQueryModel" tabindex="-1" role="dialog"
+{{-- <div class="modal fade upload-modal opr-modal" id="raiseQueryModel" tabindex="-1" role="dialog"
     aria-labelledby="raiseQueryModelLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
@@ -108,9 +108,9 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 {{-- view query --}}
-<div class="modal fade upload-modal opr-modal" id="viewMonthlyQueryModel" tabindex="-1" role="dialog"
+{{-- <div class="modal fade upload-modal opr-modal" id="viewMonthlyQueryModel" tabindex="-1" role="dialog"
     aria-labelledby="viewMonthlyQueryModelLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
@@ -132,7 +132,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 {{-- Payment Authorisation --}}
 
 <div class="modal fade upload-modal opr-modal" id="payAgentreport" tabindex="-1" role="dialog"
@@ -195,7 +195,7 @@
         </div>
     </div>
 </div>
-@include('modal.monthly_report_query', ['console'=>'operator'])
+@include('modal.monthly_report_query', ['console'=>'operator', 'reportFor' => 'operator'])
 {{-- end --}}
 @endsection
 @push('script')
@@ -333,37 +333,16 @@
              });
         });
 
-        $(document).on('click', '#openQueryModel', function() {
-            $('#queryForm')[0].reset();
-            let id = $(this).data('id');
-            let status = $(this).data('status');
-            $('#fee_id').val(id);
-            $('#fee_status').val(status);
-            $('#queryConversationModal').modal('show');
-        });
-
         /*** call monthly detail */
         $(document).on('click', '#updateMonthlyReportStatus', async function(e) {
-
             let id = $(this).data('id');
             let status = $(this).data('status');
             note = "";
             submitStatus(table, id, status, note);
-
-        });
-
-        /*** call monthly detail */
-        $(document).on('click', '#submitQuery', async function(e) {
-
-            let id = $('#fee_id').val();
-            let status = $('#fee_status').val();
-            let note = $('#query_note').val();
-            submitStatus(table, id, status, note);
-
         });
 
         /*** Query detail */
-        $(document).on('click', '.getSubmittedQuery', function() {
+        /* $(document).on('click', '.getSubmittedQuery', function() {
             let id = $(this).data('id');
             let agent_id = $(this).data('agent_id');
             var url = "{{ route('operator.operator.view.query') }}";
@@ -388,7 +367,7 @@
                     alert("Error loading form");
                 }
             });
-        });
+        }); */
 
         $(document).on('click', '#viewPayOperatorRreport', function() {
             $('#queryForm')[0].reset();
