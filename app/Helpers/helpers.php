@@ -496,7 +496,7 @@ if (!function_exists('getEscortTimezone')) {
         # get timezone of escort
         $escortTimezone = config('app.escort_server_timezone');
         if ($escort && $escort->state_id && $escort->city_id) {
-            $escortTimezone = config('escorts.profile.states')[$escort->state_id]['timeZone'];
+            $escortTimezone = config('escorts.profile.states')[$escort->state_id]['cities'][$escort->city_id]['timeZone'];
         }
 
         return $escortTimezone;
