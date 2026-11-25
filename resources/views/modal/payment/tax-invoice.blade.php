@@ -1,7 +1,7 @@
 @if (empty($payment))
 <div class="modal fade upload-modal" id="view-tax-invoice" tabindex="-1" role="dialog" aria-labelledby="view-tax-invoiceLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg " role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content basic-modal">
             <div class="modal-header">
                 <h5 class="modal-title" id="view-tax-invoiceLabel"><img src="{{ asset('assets/dashboard/img/transaction.png') }}" alt="alert" style="width:29px;">
