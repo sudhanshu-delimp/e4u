@@ -58,6 +58,8 @@ class EscortGalleryController extends AppController
 
     public function photoGalleries()
     {
+        echo phpinfo();
+        die;
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
         $path = $this->media;
         $verification = MediaVerification::where('user_id', auth()->id())->where('status' , '0')->first();
