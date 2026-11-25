@@ -40,7 +40,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Progress Bar -->
         <div class="row">
             <div class="col-lg-12">
