@@ -1560,6 +1560,7 @@ class UpdateController extends AppController
 
     public function duplicateProfile(Request $request)
     {
+        dd($request->all());
         $escort_id = $request->escort_id;
         $escortDefault = $this->escort->find($escort_id);
         $user = auth()->user();
