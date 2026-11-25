@@ -14,6 +14,12 @@ class MassageMediasBannerTemplateSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('massage_medias')
+        ->where('banner_group', '1')
+        ->where('template', '1')
+        ->where('position', 9)
+        ->delete();
+
         DB::table('massage_medias')->insert([
             [
                 'type'      => 0,
