@@ -91,23 +91,23 @@
                                 </div>
 
                                 <div class="option-list">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input"
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input"
                                             name="advertiser_alert" id="advertiser_alert"
                                             {{ isset($setting->agent_settings) &&
                                                         ($setting->agent_settings->advertiser_email == '1' || $setting->agent_settings->advertiser_text == '1')
                                                             ? 'checked'
                                                             : '' }}>
-                                        <label class="form-check-label" for="advertiser_alert">Receive Alert
+                                        <label class="custom-control-label" for="advertiser_alert">Receive Alert
                                             Notifications from Advertisers</label>
                                     </div>
 
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input"
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input"
                                             name="direct_chatting_with_advertisers"
                                             id="direct_chatting_with_advertisers"
                                             {{ isset($setting->agent_settings) && $setting->agent_settings->direct_chatting_with_advertisers == '1' ? 'checked' : '' }}>
-                                        <label class="form-check-label"
+                                        <label class="custom-control-label"
                                             for="direct_chatting_with_advertisers">Participate in direct
                                             chatting
                                             with Advertisers</label>
@@ -143,19 +143,19 @@
 
 
                                 <div class="option-list">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input"
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input"
                                             name="advertiser_email" id="advertiser_email"
                                             {{ isset($setting->agent_settings) && $setting->agent_settings->advertiser_email == '1' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="advertiser_email">Email
+                                        <label class="custom-control-label" for="advertiser_email">Email
                                             (A-Alert)</label>
                                     </div>
 
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input"
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input"
                                             name="advertiser_text" id="advertiser_text"
                                             {{ isset($setting->agent_settings) && $setting->agent_settings->advertiser_text == '1' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="advertiser_text">Text</label>
+                                        <label class="custom-control-label" for="advertiser_text">Text</label>
                                     </div>
 
                                 </div>
@@ -187,25 +187,25 @@
                                 </div>
 
                                 <div class="option-list">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="escort_email"
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="escort_email"
                                             name="escort_email"
                                             {{ isset($setting->agent_settings) && $setting->agent_settings->escort_email == '1' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="escort_email">Email</label>
+                                        <label class="custom-control-label" for="escort_email">Email</label>
                                     </div>
 
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="escort_text"
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="escort_text"
                                             name="escort_text"
                                             {{ isset($setting->agent_settings) && $setting->agent_settings->escort_text == '1' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="escort_text">Text </label>
+                                        <label class="custom-control-label" for="escort_text">Text </label>
                                     </div>
 
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input"
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input"
                                             name="call_access" id="call_access"
                                             {{ isset($setting->agent_settings) && $setting->agent_settings->call == '1' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="call_access">Call me</label>
+                                        <label class="custom-control-label" for="call_access">Call me</label>
                                     </div>
                                 </div>
 
