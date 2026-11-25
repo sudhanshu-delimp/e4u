@@ -400,15 +400,11 @@ Route::post('/visa-migration-request', [VisaMigrationController::class, 'store']
 //   return view('escort.dashboard.Concierge.email-hosting');
 // });
 Route::get('email-hosting', [EmailAccountRequestController::class, 'index'])->name('email.account');
-Route::post('email-hosting-request', [EmailAccountRequestController::class, 'store'])->name('store.email.account');
+Route::post('email-hosting-request', [EmailAccountRequestController::class, 'emailHostingRequestPayment'])->name('escort.email.hosting.request');
 
-Route::post(
-    '/email-hosting/payment-summary',
-    [EmailAccountRequestController::class, 'paymentSummary']
-)->name('email.hosting.payment.summary');
-Route::get('travel', function () {
-  return view('escort.dashboard.Concierge.travel');
-});
+Route::post('/email-hosting/payment-summary',[EmailAccountRequestController::class, 'paymentSummary'])->name('email.hosting.payment.summary');
+
+Route::get('travel', function () { return view('escort.dashboard.Concierge.travel');});
 
 
 Route::get('/list-tour/{type}', [TourController::class, 'viewTourList'])->name('escort.view.tour.list');
