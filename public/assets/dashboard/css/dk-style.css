@@ -10135,7 +10135,22 @@ ul {
     text-align: center;
     margin-top: 20px;
 }
-
+.copy_btn{
+    position: absolute;
+    right: -9px !important;
+    top: 50% !important;
+    transform: translateY(-50%);
+    z-index: 2;
+    padding: 10px !important;
+    border: none;   
+    background: #ccc;
+    border-radius: 0px 10px 10px 0px;
+    color: #1a3c63;
+}
+.copy_btn:hover{
+    background-color: #949393;
+    color: #fff;
+}
 button {
     padding: 10px 20px;
     margin: 0 10px;

@@ -148,7 +148,7 @@
                                                         @endforeach
                                                     @endif
                                                 </div>
-                                                <div class="form-group">
+                                                <!-- <div class="form-group">
                                                     <label for="mobile" class="common_help_icon">Mobile
                                                     <div class="common-tooltip">
                                                         <img class="delay_tooltip tooltip-icon"
@@ -158,6 +158,35 @@
                                                     </div>
                                                     </label>
                                                     <p class="input_not_edit">{{ $escort->phone }}</p>
+                                                </div> -->
+                                                <div class="form-group">
+                                                    <label for="mobile" class="common_help_icon">Mobile
+                                                        <div class="common-tooltip">
+                                                            <img class="delay_tooltip tooltip-icon"
+                                                                src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
+                                                            <span class="tooltip-text">This is the number which will be
+                                                                displayed in your Profiles.</span>
+                                                        </div>
+                                                    </label>
+
+                                                    <div class="position-relative">
+                                                        <p class="input_not_edit mb-0" id="escortPhoneText" style="padding-right: 75px;">{{ $escort->phone }}</p>
+
+                                                        @if (!empty($escort->phone))
+                                                            <button type="button"
+                                                                class="copy_btn"
+                                                                id="copyPhoneBtn"
+                                                                data-phone="{{ $escort->phone }}"
+                                                                title="Copy Mobile Number"
+                                                                style="right: 8px; top: 50%; transform: translateY(-50%); z-index: 2;">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                                    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                                                                    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                                                                </svg>
+                                                                <span class="copy-text ml-1" style="font-size: 11px;">Copy</span>
+                                                            </button>
+                                                        @endif
+                                                    </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="my-agent" for="home_state">Home State
@@ -223,6 +252,7 @@
                                                         placeholder="Insert your Bank Account name" aria-describedby="Help"
                                                         value="{{ $escort->pay_id_name ?? '' }}">
                                                 </div>
+
                                                 <div class="form-group">
                                                     <label for="PayID Number">PayID Number</label>
                                                     <input type="text" class="form-control" name="PayID_NO"
@@ -804,6 +834,71 @@
      }
    });
    
-   
+   // Copy Mobile Number
+$(document).on("click", "#copyPhoneBtn", function () {
+    let btn = $(this);
+    let phone = btn.data("phone") || $("#escortPhoneText").text().trim();
+
+    if (!phone) return;
+
+    // Fallback storage taaki local HTTP par bhi paste button kaam kare
+    sessionStorage.setItem("copied_phone_number", phone);
+
+    function showCopiedFeedback() {
+        let textEl = btn.find(".copy-text");
+        textEl.text("Copied!");
+        btn.removeClass("btn-outline-secondary").addClass("btn-success");
+
+        setTimeout(function () {
+            textEl.text("Copy");
+            btn.removeClass("btn-success").addClass("btn-outline-secondary");
+        }, 1500);
+    }
+
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(phone).then(showCopiedFeedback);
+    } else {
+        let tempInput = $("<input>");
+        $("body").append(tempInput);
+        tempInput.val(phone).select();
+        document.execCommand("copy");
+        tempInput.remove();
+        showCopiedFeedback();
+    }
+});
+
+$(document).on("click", "#copyPhoneBtn", function () {
+    let btn = $(this);
+    let phone = (btn.data("phone") || $("#escortPhoneText").text() || "").toString().trim();
+
+    if (!phone) return;
+
+    function afterCopy() {
+        // Direct paste PayID Number 
+        $('input[name="PayID_NO"]').val(phone).trigger("input").trigger("change");
+
+        let textEl = btn.find(".copy-text");
+        textEl.text("Copied!");
+        btn.removeClass("btn-outline-secondary").addClass("btn-success");
+
+        setTimeout(function () {
+            textEl.text("Copy");
+            btn.removeClass("btn-success").addClass("btn-outline-secondary");
+        }, 1500);
+    }
+
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(phone).then(afterCopy).catch(function () {
+            afterCopy();
+        });
+    } else {
+        let tempInput = $("<input>");
+        $("body").append(tempInput);
+        tempInput.val(phone).select();
+        document.execCommand("copy");
+        tempInput.remove();
+        afterCopy();
+    }
+});
 </script>
 @endpush
