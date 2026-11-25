@@ -10,7 +10,7 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand text-left pb-1" href="{{ route('home') }}">
-        <img src="{{ asset('assets/images/escorts4u-logo.svg') }}" class="mb-3 e4u_logo" alt="">
+        <img src="{{ asset('assets/images/escorts4u-logo.svg') }}" class="e4u_logo" alt="">
     </a>
     <span class="console_heading">Massage Centre Console</span>
     <!-- Divider -->
