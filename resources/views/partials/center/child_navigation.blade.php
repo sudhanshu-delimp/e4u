@@ -1,51 +1,48 @@
 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm pl-3 pl-lg-5 pr-3 pr-lg-5 justify-navbar db-custom-topbar">
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm pl-3 pl-lg-5 pr-3 pr-lg-5 justify-navbar db-custom-topbar">
 
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    {{-- logged in user data --}}
-                    <div class="topbar-logged-in-user-data d-flex">
-                        {{-- <div class="pr-5">
-                            <img src="{{ asset('assets/images/escorts4u-logo.svg') }}" alt="">
-                        </div> --}}
-                        <div class="d-user-info">
-                           <div class="common_top_menu">
-                            <span>
-                                <b>Welcome back :  </b><span class="user-values">{{auth()->user()->name ? substr(auth()->user()->name, 0, 15) : '--' }}</span>  
-                            </span>
-                            <span>
-                                <span class="separator">|</span><b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> 
-                            </span>
-                            <span>
-                                <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
-                            </span>
-                        <span>
-                            <span class="separator">|</span><b>My Agent :</b>
-                                @if(auth()->user()->my_agent)<span class="user-values" title="My Agent ID : {{ auth()->user()->my_agent->member_id }}"> {{ \Illuminate\Support\Str::limit(
+   
+    {{-- logged in user data --}}
+    <div class="topbar-logged-in-user-data d-flex">
+         <button id="sidebarToggleTop">
+            <i class="fa fa-bars"></i>
+        </button>
+    <div class="d-user-info">
+        <div class="common_top_menu">
+            <span>
+                <b>Welcome back : </b><span class="user-values">{{auth()->user()->name ? substr(auth()->user()->name, 0, 15) : '--' }}</span>
+            </span>
+            <span>
+                <span class="separator">|</span><b>Membership ID : </b><span class="user-values">{{auth()->user()->member_id }}</span>
+            </span>
+            <span>
+                <b>Home State : </b><span class="user-values">{{auth()->user()->home_state }} </span>
+            </span>
+            <span>
+                <span class="separator">|</span><b>My Agent :</b>
+                @if(auth()->user()->my_agent)<span class="user-values" title="My Agent ID : {{ auth()->user()->my_agent->member_id }}"> {{ \Illuminate\Support\Str::limit(
                                 \Illuminate\Support\Str::title(
                                     auth()->user()?->my_agent?->business_name ?? (auth()->user()?->my_agent?->name ?? ''),
                                 ),
                                 12,
                                 '..',
                             ) }}</span>
-                                @else
-                                <span class="user-values" title="">NA</span>
-                                @endif
-                       
-                        </span>
+                @else
+                <span class="user-values" title="">NA</span>
+                @endif
 
-                            
+            </span>
 
 
-                           </div>
-                          
-                        </div>
-                    </div>
-                    {{-- end --}}
-                    <!-- Topbar Search -->
-                    {{-- <form
+
+
+        </div>
+
+    </div>
+    </div>
+    {{-- end --}}
+    <!-- Topbar Search -->
+    {{-- <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group dk-border-radius">
                             <div class="input-group-append">
@@ -59,213 +56,211 @@
                         </div>
                     </form> --}}
 
-                    <!-- Topbar Navbar -->
-                    <div class="navbar-nav">
+    <!-- Topbar Navbar -->
+    <div class="navbar-nav">
 
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
 
-                        <form class="form-inline navbar-search form-inline-custom d-none" style="width: 22rem;">
-                            <div class="input-group dk-border-radius">
-                                <div class="input-group-append">
-                                    <button class="btn" type="button">
-                                        <i class="fas fa-search fa-sm"></i>
-                                    </button>
-                                </div>
-                                <input type="text" class="form-control border-0 small" placeholder="Enter keywords..."
-                                       aria-label="Search" aria-describedby="basic-addon2">
-                
-                            </div>
-                        </form>
+        <form class="form-inline navbar-search form-inline-custom d-none" style="width: 22rem;">
+            <div class="input-group dk-border-radius">
+                <div class="input-group-append">
+                    <button class="btn" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+                <input type="text" class="form-control border-0 small" placeholder="Enter keywords..."
+                    aria-label="Search" aria-describedby="basic-addon2">
 
-                                 <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">                               
-                               @if(session()->has('parent_massage_id') && session('switch_for') == 'massage_to_massage' && session('is_impersonated') === true)
-                                <span class="esc-tooltip esc-tooltip-support">Switch to Parent Account</span> 
-                            <a class="nav-link switch-user-btn" href="javascript:void(0)" >
-                                <span class="switch-profile">
-                                    <img src="{{ asset('assets/dashboard/img/switch-child.png') }}" alt="switch-profile"/>
-                                </span>
-                            </a>
+            </div>
+        </form>
+
+        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap">
+            @if(session()->has('parent_massage_id') && session('switch_for') == 'massage_to_massage' && session('is_impersonated') === true)
+            <span class="esc-tooltip esc-tooltip-support">Switch to Parent Account</span>
+            <a class="nav-link switch-user-btn" href="javascript:void(0)">
+                <span class="switch-profile"><img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="switch-profile" /></span>
+            </a>
+            @endif
+
+            @if(session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true)
+            <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>
+            <a class="nav-link" href="{{ route('agent.back-to-parent') }}" title="">
+                <span class="switch-profile">
+                    <img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="Switch back to your account" />
+
+                </span>
+            </a>
+            @endif
+
+
+            @if(session()->has('parent_user_id') && session('switch_for') == 'admin_to_any' && session('is_impersonated') === true)
+            <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>
+            <a class="nav-link" href="{{ route('admin.back-to-parent') }}" title="">
+                <span class="switch-profile">
+                    <img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="Switch back to your account" />
+
+                </span>
+            </a>
+            @endif
+        </li>
+        <li class="nav-item dropdown no-arrow d-sm-none">
+            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+            </a>
+            <!-- Dropdown - Messages -->
+            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                aria-labelledby="searchDropdown">
+                <form class="form-inline mr-auto w-100 navbar-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small"
+                            placeholder="Search for..." aria-label="Search"
+                            aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </li>
+
+
+
+        <!-- //////// Notification ///////////// -->
+
+        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap {{ canManage() ? '': 'd-none'}}">
+            <span class="esc-tooltip esc-tooltip-navbar">Support Tickets</span>
+            <a class="nav-link dropdown-toggle support_notify_bell" href="#" id="ticketNotificationDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" title="Support tickets">
+                <i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>
+            </a>
+
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="ticketNotificationDropdown">
+                <h6 class="dropdown-header">Support Ticket Alert</h6>
+                <div class="support_notify_html">
+
+                    <div class="text-center">No new notification</div>
+
+                </div>
+            </div>
+
+        </li>
+
+        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap {{ canManage() ? '': 'd-none'}}">
+            <span class="esc-tooltip esc-tooltip-navbar">Alert Centre</span>
+            <a class="nav-link dropdown-toggle alert_notify_bell" href="#" id="alertsDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="top-icon-bg fas fa-bell fa-fw"></i>
+            </a>
+
+
+            <div class="dropdown-list  dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header">Alerts Center</h6>
+                <div class="alert_notify_html">
+
+                    <div class="text-center">No new notification</div>
+
+                </div>
+            </div>
+        </li>
+
+
+        <!-- //////// End Notification ///////////// -->
+
+
+        <div class=" d-none d-sm-block"></div>
+
+        <!-- Nav Item - User Information -->
+        <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span> -->
+                <img src="{{asset(auth()->user()->avatar_url)}}" class="img-profile rounded-circle avatarName custom-profile-pic">
+            </a>
+            <!-- Dropdown - User Information -->
+            <div class="dropdown-menu dropdown-menu-right animated--grow-in custom-nav-dropdown"
+                aria-labelledby="userDropdown">
+                <div class="highlight-menu">
+                    <a class="dropdown-item profile-menu" href="javascript:void(0);">
+                        <span>{{auth()->user()->name }}</span> <br> {{auth()->user()->member_id }}
+                    </a>
+
+                    @if(!auth()->user()->my_agent)
+
+                    <a class="dropdown-item" href="{{ route('agent-request') }}">
+                        @else
+                        <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="#">
+                            @endif
+                            <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
+
+                            @if(auth()->user()->my_agent)
+                            <span class="user-values" title="My Agent : {{ (!empty(auth()->user()->my_agent->business_name)) ? auth()->user()->my_agent->business_name : (!empty(auth()->user()->my_agent->name))}}">
+                                My Agent ID : {{ auth()->user()->my_agent->member_id }}</span>
+                            @else
+                            My Agent ID : NA
                             @endif
 
-                             @if(session()->has('parent_agent_id') && session('switch_for') == 'agent_to_massage' && session('is_impersonated') === true)
-                             <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>   
-                             <a class="nav-link" href="{{ route('agent.back-to-parent') }}" title="">
-                            <span class="switch-profile">
-                               <img src="{{ asset('assets/dashboard/img/switch-child.png') }}" alt="Switch back to your account"/>
+                        </a>
+                </div>
 
-                            </span>
-                             </a>
-                            @endif
-                           
+                <div class="dropdown-item account-toggle d-flex justify-content-between align-items-center">
+                    <span>My account
+                    </span>
+                    <i class="fas fa-chevron-down chevron-icon"></i>
+                </div>
 
-                            @if(session()->has('parent_user_id') && session('switch_for') == 'admin_to_any' && session('is_impersonated') === true)
-                             <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>   
-                             <a class="nav-link" href="{{ route('admin.back-to-parent') }}" title="">
-                            <span class="switch-profile">
-                               <img src="{{ asset('assets/dashboard/img/switch-child.png') }}" alt="Switch back to your account"/>
+                <div class="collapse" id="accountMenu">
+                    {{-- <div class="dropdown-divider"></div> --}}
+                    <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.account.edit')}}">
+                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-account.png') }}">
+                        Edit my account
+                    </a>
 
-                            </span>
-                             </a>
-                            @endif
-                        </li>
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
+                    <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.change.password')}}">
+                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
+                        Change password
+                    </a>
 
-                        
-            
-                <!-- //////// Notification ///////////// -->
+                    <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.profile')}}">
+                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
+                        New Profile
+                    </a>
 
-                        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap {{ canManage() ? '': 'd-none'}}">                            
-                                <span class="esc-tooltip esc-tooltip-navbar">Support Tickets</span>
-                            <a class="nav-link dropdown-toggle support_notify_bell" href="#" id="ticketNotificationDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" title="Support tickets">
-                                <i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>
-                            </a>
-                            
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                    aria-labelledby="ticketNotificationDropdown">
-                                    <h6 class="dropdown-header">Support Ticket Alert</h6>
-                                    <div class="support_notify_html">
-
-                                       <div class="text-center">No new notification</div>
-
-                                    </div>
-                            </div>
-
-                        </li>
-
-                        <li class="nav-item dropdown no-arrow mx-1 esc-tooltip-wrap {{ canManage() ? '': 'd-none'}}">
-                             <span class="esc-tooltip esc-tooltip-navbar">Alert Centre</span>
-                            <a class="nav-link dropdown-toggle alert_notify_bell" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="top-icon-bg fas fa-bell fa-fw"></i>
-                            </a>
-                          
-
-                                <div class="dropdown-list  dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                    aria-labelledby="alertsDropdown">
-                                    <h6 class="dropdown-header">Alerts Center</h6>
-                                    <div class="alert_notify_html">
-
-                                       <div class="text-center">No new notification</div>
-
-                                    </div>
-                                </div>
-                        </li>
-
-            
-                <!-- //////// End Notification ///////////// -->
+                    <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.create-new-masseur')}}">
+                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
+                        New Masseur 
+                    </a>
+                </div>
+                <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('support-ticket.form_create')}}">
+                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/support-ticket.png') }}">
+                    Support Ticket
+                </a>
 
 
-                        <div class=" d-none d-sm-block"></div>
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span> -->
-                                <img src="{{asset(auth()->user()->avatar_url)}}" class="img-profile rounded-circle avatarName custom-profile-pic">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right animated--grow-in custom-nav-dropdown"
-                                aria-labelledby="userDropdown">
-                                 <div class="highlight-menu">
-                                    <a class="dropdown-item profile-menu" href="javascript:void(0);">
-                                        <span>{{auth()->user()->name }}</span> <br> {{auth()->user()->member_id }}
-                                    </a>
-
-                                    @if(!auth()->user()->my_agent)
-                                    
-                                    <a class="dropdown-item" href="{{ route('agent-request') }}">
-                                    @else
-                                    <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="#">   
-                                    @endif    
-                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/user.png') }}">
-                                            
-                                            @if(auth()->user()->my_agent)
-                                            <span class="user-values" title="My Agent : {{ (!empty(auth()->user()->my_agent->business_name)) ? auth()->user()->my_agent->business_name : (!empty(auth()->user()->my_agent->name))}}">
-                                            My Agent ID :  {{ auth()->user()->my_agent->member_id }}</span>
-                                            @else
-                                            My Agent ID : NA
-                                            @endif
-                                            
-                                    </a>
-                                </div>
-                                
-                                <div class="dropdown-item account-toggle d-flex justify-content-between align-items-center">
-                                    <span>My account
-                                    </span>
-                                    <i class="fas fa-chevron-down chevron-icon"></i>
-                                </div>
-
-                                <div class="collapse" id="accountMenu">
-                                    {{-- <div class="dropdown-divider"></div> --}}
-                                    <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.account.edit')}}">
-                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-account.png') }}">
-                                        Edit my account
-                                    </a>
-
-                                    <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.change.password')}}">
-                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/reset-password.png') }}">
-                                        Change password
-                                    </a>
-
-                                    <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.profile')}}">
-                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
-                                        New Profile
-                                    </a>
-
-                                    <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.create-new-masseur')}}">
-                                        <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/add-user.png') }}">
-                                        New Masseur 
-                                    </a>
-                                </div>
-                                  <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('support-ticket.form_create')}}">
-                                      <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/support-ticket.png') }}">
-                                    Support Ticket
-                                </a>
 
 
-                               
-                               
-                                {{-- <a class="dropdown-item" href="#">
+                {{-- <a class="dropdown-item" href="#">
                                     <img src="{{asset('assets/dashboard/img/menu-icon/bell-badge.png')}}">
-                                    Notification & Features
-                                </a> --}}
-                                <!-- <a class="dropdown-item" href="{{ route('center.profile.information')}}">
+                Notification & Features
+                </a> --}}
+                <!-- <a class="dropdown-item" href="{{ route('center.profile.information')}}">
                                 <img class="mr-2" src="{{asset('assets/dashboard/img/menu-icon/cellphone-information.png')}}">
                                     Profile Information
                                 </a>  -->
-                                
-                                <div class="dropdown-divider {{ canManage() ? '': 'd-none'}}"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                     <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
 
-                        </ul>
+                <div class="dropdown-divider {{ canManage() ? '': 'd-none'}}"></div>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                    <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/logout.png') }}">
+                    Logout
+                </a>
+            </div>
+        </li>
 
-                </nav>
-                <!-- End of Topbar -->
+        </ul>
+
+</nav>
+<!-- End of Topbar -->

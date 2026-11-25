@@ -281,31 +281,31 @@
                                             </div>
                                         </div>
                                         <div class="inner-field-row">
-                                            <div class="form-group">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" name="contact_type[]"
+                                            <div class="form-group radio-options mt-0">
+                                                <div class="custom-control custom-switch">
+                                                    <input class="custom-control-input" type="checkbox" name="contact_type[]"
                                                         id="Method_Message" value="1"
                                                         @if (!empty($escort->contact_type)) {{ in_array(1, $escort->contact_type) ? 'checked' : null }} @endif>
-                                                    <label class="form-check-label" for="Method_Message">Message (via
+                                                    <label class="custom-control-label" for="Method_Message">Message (via
                                                         Console)</label>
                                                 </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" checked type="checkbox"
+                                                <div class="custom-control custom-switch">
+                                                    <input class="custom-control-input" checked type="checkbox"
                                                         name="contact_type[]" id="Method_Text" value="2"
                                                         @if (!empty($escort->contact_type)) {{ in_array(2, $escort->contact_type) ? 'checked' : null }} @endif>
-                                                    <label class="form-check-label" for="Method_Text">Text</label>
+                                                    <label class="custom-control-label" for="Method_Text">Text</label>
                                                 </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" name="contact_type[]"
+                                                <div class="custom-control custom-switch">
+                                                    <input class="custom-control-input" type="checkbox" name="contact_type[]"
                                                         id="Method_Email" value="3"
                                                         @if (!empty($escort->contact_type)) {{ in_array(3, $escort->contact_type) ? 'checked' : null }} @endif>
-                                                    <label class="form-check-label" for="Method_Email">Email</label>
+                                                    <label class="custom-control-label" for="Method_Email">Email</label>
                                                 </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" name="contact_type[]"
+                                                <div class="custom-control custom-switch">
+                                                    <input class="custom-control-input" type="checkbox" name="contact_type[]"
                                                         id="Method_call_me" value="4"
                                                         @if (!empty($escort->contact_type)) {{ in_array(4, $escort->contact_type) ? 'checked' : null }} @endif>
-                                                    <label class="form-check-label" for="Method_call_me">Call Us</label>
+                                                    <label class="custom-control-label" for="Method_call_me">Call Us</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -422,25 +422,25 @@
                                             <div class="form-group">
                                                 <div class="option-list">
                                                     <label for="email">Profile creator settings</label>
-                                                    <div class="form-check form-check-inline">
-                                                        <input name="profile_creator[]" class="form-check-input"
+                                                    <div class="custom-control custom-switch">
+                                                        <input name="profile_creator[]" class="custom-control-input"
                                                             type="checkbox" id="profile_Info" value="1"
                                                             @if (!empty($escort->profile_creator)) {{ in_array(1, $escort->profile_creator) ? 'checked' : null }} @endif>
-                                                        <label class="form-check-label" for="profile_Info">Include
+                                                        <label class="custom-control-label" for="profile_Info">Include
                                                             Profile Information</label>
                                                     </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input name="profile_creator[]" class="form-check-input"
+                                                    <div class="custom-control custom-switch">
+                                                        <input name="profile_creator[]" class="custom-control-input"
                                                             type="checkbox" id="Peofile_Over" value="2"
                                                             @if (!empty($escort->profile_creator)) {{ in_array(2, $escort->profile_creator) ? 'checked' : null }} @endif>
-                                                        <label class="form-check-label" for="Peofile_Over">Include
+                                                        <label class="custom-control-label" for="Peofile_Over">Include
                                                             Profile Information and allow to over ride</label>
                                                     </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input name="profile_creator[]" class="form-check-input"
+                                                    <div class="custom-control custom-switch">
+                                                        <input name="profile_creator[]" class="custom-control-input"
                                                             type="checkbox" id="Social_Media" value="3"
                                                             @if (!empty($escort->profile_creator)) {{ in_array(3, $escort->profile_creator) ? 'checked' : null }} @endif>
-                                                        <label class="form-check-label" for="Social_Media">Include
+                                                        <label class="custom-control-label" for="Social_Media">Include
                                                             social media information</label>
                                                     </div>
                                                 </div>
@@ -448,25 +448,25 @@
                                             <div class="form-group">
                                                 <div class="option-list">
                                                     <label for="email">How can Viewers contact us</label>
-                                                    <div class="form-check form-check-inline">
-                                                        <input name="viewer_contact_type[]" class="form-check-input"
+                                                    <div class="custom-control custom-switch">
+                                                        <input name="viewer_contact_type[]" class="custom-control-input"
                                                             type="checkbox" id="Call_Us" value="1"
                                                             @if (!empty($escort->viewer_contact_type)) {{ in_array(1, $escort->viewer_contact_type) ? 'checked' : null }} @endif>
-                                                        <label class="form-check-label" for="Call_Us">Call
+                                                        <label class="custom-control-label" for="Call_Us">Call
                                                             us</label>
                                                     </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" name="viewer_contact_type[]"
+                                                    <div class="custom-control custom-switch">
+                                                        <input class="custom-control-input" name="viewer_contact_type[]"
                                                             type="checkbox" id="Email_Us" value="3"
                                                             @if (!empty($escort->viewer_contact_type)) {{ in_array(3, $escort->viewer_contact_type) ? 'checked' : null }} @endif>
-                                                        <label class="form-check-label" for="Email_Us">Email us
+                                                        <label class="custom-control-label" for="Email_Us">Email us
                                                             (only for private communications with a Viewer)</label>
                                                     </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input name="viewer_contact_type[]" class="form-check-input"
+                                                    <div class="custom-control custom-switch">
+                                                        <input name="viewer_contact_type[]" class="custom-control-input"
                                                             type="checkbox" id="Text_Us" value="2"
                                                             @if (!empty($escort->viewer_contact_type)) {{ in_array(2, $escort->viewer_contact_type) ? 'checked' : null }} @endif>
-                                                        <label class="form-check-label" for="Text_Us">Text
+                                                        <label class="custom-control-label" for="Text_Us">Text
                                                             us</label>
                                                     </div>
                                                 </div>
