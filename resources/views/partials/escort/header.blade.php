@@ -22,11 +22,11 @@
     <link href="{{ asset('assets/app/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css?v1.3') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/dashboard/css/dk-style.css?v2.1') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/app/css/responsive-style.css?v1.6') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css?v1.4') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v2.2') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/app/css/responsive-style.css?v1.7') }}" rel="stylesheet" />
     <link href="{{ asset('assets/dashboard/css/dk-responsive.css') }}" rel="stylesheet" />    
-    <link href="{{ asset('assets/dashboard/css/common-style/style.css?v1.09') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/dashboard/css/common-style/style.css?v2.01') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/app/vendor/file-upload/css/jquery.fileupload.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/app/vendor/file-upload/css/jquery.fileupload-ui.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/app/vendor/file-upload/css/jquery.fileupload-noscript.css') }}"/>

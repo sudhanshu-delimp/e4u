@@ -72,18 +72,18 @@
 
 
                                     <div class="option-list">
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="advertiser_email"
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="advertiser_email"
                                                 name="advertiser_email" value="1"
                                                 {{ $setting->viewer_settings?->advertiser_email == '1' ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="advertiser_email">Email</label>
+                                            <label class="custom-control-label" for="advertiser_email">Email</label>
                                         </div>
 
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="advertiser_text"
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="advertiser_text"
                                                 name="advertiser_text" value="1"
                                                 {{ $setting->viewer_settings?->advertiser_text == '1' ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="advertiser_text">Text</label>
+                                            <label class="custom-control-label" for="advertiser_text">Text</label>
                                         </div>
                                     </div>
                                     <div class="card-note">
@@ -116,18 +116,18 @@
                                     </div>
 
                                     <div class="option-list">
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="escort_email"
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="escort_email"
                                                 {{-- ✅ unique ID --}} name="escort_email" value="1"
                                                 {{ $setting->viewer_settings?->escort_email == '1' ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="escort_email">Email</label>
+                                            <label class="custom-control-label" for="escort_email">Email</label>
                                         </div>
 
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="escort_text"
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="escort_text"
                                                 name="escort_text" value="1"
                                                 {{ $setting->viewer_settings?->escort_text == '1' ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="escort_text">Text</label>
+                                            <label class="custom-control-label" for="escort_text">Text</label>
                                         </div>
                                     </div>
 

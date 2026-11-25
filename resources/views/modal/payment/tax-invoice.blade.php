@@ -1,7 +1,7 @@
 @if (empty($payment))
 <div class="modal fade upload-modal" id="view-tax-invoice" tabindex="-1" role="dialog" aria-labelledby="view-tax-invoiceLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg " role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content basic-modal">
             <div class="modal-header">
                 <h5 class="modal-title" id="view-tax-invoiceLabel"><img src="{{ asset('assets/dashboard/img/transaction.png') }}" alt="alert" style="width:29px;">
@@ -180,7 +180,7 @@
                                                         <thead>
                                                             <tr style="background-color: #0c223d;">
                                                                 <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 700; color: #ffffff; border: 1px solid #1e3a63; text-align: center; width: 11%;">Date</th>
-                                                                <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 700; color: #ffffff; border: 1px solid #1e3a63; text-align: center; width: 10%;">Service Type</th>
+                                                                <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 700; color: #ffffff; border: 1px solid #1e3a63; text-align: center; width: 18%;">Service Type</th>
                                                                 <th style="padding: 8px 6px; font-size: 10.5px; font-weight: 700; color: #ffffff; border: 1px solid #1e3a63; text-align: left; width: 33%;">Service Description</th>
                                                                 <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 700; color: #ffffff; border: 1px solid #1e3a63; text-align: center; width: 7%;">Qty<sup>(1)</sup></th>
                                                                 <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 700; color: #ffffff; border: 1px solid #1e3a63; text-align: right; width: 9%;">Rate</th>
