@@ -207,6 +207,7 @@
             },
             drawCallback: function(settings) {
                let records = settings.json;
+               console.log(records.recordsFiltered);
                let $checkoutSelect = $('#escort_tour_id');
                $checkoutSelect.empty();
 
@@ -245,7 +246,7 @@
                      }
                   });
                }
-               if ($checkoutSelect.find('option').length === 1 && $checkoutSelect.find('option:first').val() === '') {
+               if (records.recordsFiltered == 0 || ($checkoutSelect.find('option').length === 1 && $checkoutSelect.find('option:first').val() === '')) {
                   tourCheckoutButton.prop('disabled', true);
                }
             },
