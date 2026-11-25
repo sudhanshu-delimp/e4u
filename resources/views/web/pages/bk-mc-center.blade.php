@@ -82,7 +82,7 @@
                                                         </a>
                                                     </div>
                                                 </div>
-                                                <span style="color: var(--peach);font-size: 14px;">Listings reshuffle every
+                                                <span style="color: var(--secondary-color);font-size: 14px;">Listings reshuffle every
                                                     30 minutes. </span>
                                             </div>
                                             <div class="col-md-8 ryt_srch_btn">

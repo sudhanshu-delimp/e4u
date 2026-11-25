@@ -1,3 +1,11 @@
+<style>
+    #mulitiImage .newbtn .fa-trash {
+        position: absolute;
+        right: 29px;
+        top: 10px;
+        color: #e73b3b;
+    }
+</style>
 <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
     data-keyboard="false" data-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">

@@ -59,6 +59,14 @@ if (auth()->check())
             $submit_url  = 'operator.update-password';
     
 }
+/* If the user login using the switch option, the default Change Password popup should not appear */         
+  if(request('isImpersonated')) {
+    $open_pop_up = false;
+  }  
+  
+  if (session()->has('parent_user_id') && session('is_impersonated') === true) { 
+    $open_pop_up = false;
+  }
 @endphp
 
 

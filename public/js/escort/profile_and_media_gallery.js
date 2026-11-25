@@ -156,6 +156,14 @@ $(document).on('click', '.deleteId', function (e) {
     $(`.rm_${index}`).remove();
 });
 
+$(document).on('click', '.deleteBannerPinupMedia', function (e) {
+    e.preventDefault();
+    let object = $(this);
+    let imageObject = object.prev();
+    imageObject.attr('src', object.data('placeholder-url')).next().remove();
+
+});
+
 $(document).on('click', '.js_gallery_category .nav-link', function (e) {
     e.preventDefault();
     getAccountMediaGallery();
@@ -170,14 +178,15 @@ $(document).on('click', '#escort_profile_media_filter_type .nav-link', function 
     getAccountMediaGallery();
 });
 
+let placeholderUrl = '';
 function readImageURL(input) {
     if (input.files && input.files[0]) {
         var $img = $(input).siblings('img');
         if ($img.hasClass('js_bannerDefaultImage')) {
-            bannerDefaultImage = $img.attr('src');
+            placeholderUrl = bannerDefaultImage = $img.attr('src');
         }
         if ($img.hasClass('js_pinupDefaultImage')) {
-            pinupDefaultImage = $img.attr('src');
+            placeholderUrl = pinupDefaultImage = $img.attr('src');
         }
         var reader = new FileReader();
         reader.onload = function (e) {
@@ -197,7 +206,7 @@ function readImageURL(input) {
                     input.value = '';
                     return false;
                 }
-                $(`#${input.id}`).prev().attr('src', e.target.result);
+                $(`#${input.id}`).prev().attr('src', e.target.result).after(`<i class="fa fa-trash deleteBannerPinupMedia" data-placeholder-url="${placeholderUrl}" title="Remove this media"></i>`);
             };
         };
         reader.readAsDataURL(input.files[0]);
@@ -248,39 +257,48 @@ $("body").on('submit', '#mulitiImage', function (e) {
                 }
             });
         },
-        success: function (data) {
-            if (data.status == 200) {
-                resetAddPhotoFrom(form);
-            } else if (data.status == 405) {
-                swal.fire('Media', "<p>Can't upload more than 30 Images, try after deleting images from gallery</p>", 'error');
-                $("#exampleModal").modal('hide');
-            }
-            else {
-                swal.fire('Media', 'Please choose atleast one image', 'error');
-            }
-
+        success: function (response, textStatus, xhr) {
+            resetAddPhotoFrom(form);
+            displaySwal(xhr);
         },
-        error: function (xhr) {
-            if (xhr.status === 422) {
-                let messages = Object.values(JSON.parse(xhr.responseText).errors).flat().join('<br>');
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Validation Error',
-                    html: messages
-                });
-            } else {
-                let message = xhr.status === 500 ? JSON.parse(xhr.responseText).message : xhr.responseText;
-                Swal.fire({
-                    icon: 'error',
-                    title: xhr.statusText,
-                    text: message || 'Something went wrong.'
-                });
-                if (xhr.status === 200) {
-                    resetAddPhotoFrom(form);
-                }
-            }
-
+        error: function (xhr, status, error) {
+            displaySwal(xhr)
         }
+        // success: function (data) {
+        //     console.log(data)
+        //     console.log(data.status)
+        //     if (data.status == 200) {
+        //         resetAddPhotoFrom(form);
+        //     } else if (data.status == 405) {
+        //         swal.fire('Media', "<p>Can't upload more than 30 Images, try after deleting images from gallery</p>", 'error');
+        //         $("#exampleModal").modal('hide');
+        //     }
+        //     else {
+        //         swal.fire('Media', 'Please choose atleast one image', 'error');
+        //     }
+
+        // },
+        // error: function (xhr) {
+        //     if (xhr.status === 422) {
+        //         let messages = Object.values(JSON.parse(xhr.responseText).errors).flat().join('<br>');
+        //         Swal.fire({
+        //             icon: 'error',
+        //             title: 'Validation Error',
+        //             html: messages
+        //         });
+        //     } else {
+        //         let message = xhr.status === 500 ? JSON.parse(xhr.responseText).message : xhr.responseText;
+        //         Swal.fire({
+        //             icon: 'error',
+        //             title: xhr.statusText,
+        //             text: message || 'Something went wrong.'
+        //         });
+        //         if (xhr.status === 200) {
+        //             resetAddPhotoFrom(form);
+        //         }
+        //     }
+
+        // }
     });
 });
 
@@ -288,6 +306,7 @@ var resetAddPhotoFrom = function (form) {
     $('#image_preview a:not(:first)').remove();
     $(".js_bannerDefaultImage").attr('src', bannerDefaultImage);
     $(".js_pinupDefaultImage").attr('src', pinupDefaultImage);
+    $(".deleteBannerPinupMedia").remove();
     $("#exampleModal").modal('hide');
     form[0].reset();
     allFiles = [];

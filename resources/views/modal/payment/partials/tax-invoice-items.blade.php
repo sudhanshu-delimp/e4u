@@ -113,10 +113,11 @@
             <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
                     <td valign="top" style="border:0; padding:0px;">
-                        <div style="width:55%; border: 1px dashed #22c55e; border-radius: 4px; padding: 6px 10px; font-size: 10.5px; color: #15803d; line-height: 1.4; background-color: #ffffff;">
+                        <div style="width:100%; border: 1px dashed #22c55e; border-radius: 4px; padding: 6px 10px; font-size: 10.5px; color: #15803d; line-height: 1.4; background-color: #ffffff;">
                             <strong style="display: block; font-size: 11px; margin-bottom: 2px;">Notes:</strong>
                             1. Quantity can be either days or units.<br />
-                            2. Card debited with your authority.
+                            2. Card debited with your authority.<br />
+                            3. Balance due does not include any monies applied from your Wallet (See Transaction Summary).
                         </div>
                     </td>
                 </tr>
@@ -146,7 +147,7 @@
 
 <!-- Balance Due Row -->
 <tr style="background-color: #fafbfc;">
-    <td colspan="2" align="left" style="padding: 9px 8px; border: 2px solid #0c223d; font-size: 13px; font-weight: 800; color: #0c223d;text-align:left;">Balance Due:</td>
-    <td align="right" style="padding: 9px 6px; border: 2px solid #0c223d; font-size: 13px; font-weight: 800; color: #0c223d; white-space: nowrap; text-align:right;">{{ formatCurrency($payment?->total_payable_amount ?? 0) }}</td>
+    <td colspan="2" align="left" style="padding: 9px 8px; border: 2px solid #0c223d; font-size: 13px; font-weight: 700; color: #0c223d; text-align:left;">Balance Due:</td>
+    <td align="right" style="padding: 9px 6px; border: 2px solid #0c223d; font-size: 13px; font-weight: 700; color: #0c223d; white-space: nowrap; text-align:right;">{{ formatCurrency($payment?->total_payable_amount ?? 0) }}</td>
 </tr>
 @endif

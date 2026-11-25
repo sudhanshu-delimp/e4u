@@ -81,7 +81,9 @@
                                @if(session()->has('parent_massage_id') && session('switch_for') == 'massage_to_massage' && session('is_impersonated') === true)
                                 <span class="esc-tooltip esc-tooltip-support">Switch to Parent Account</span> 
                             <a class="nav-link switch-user-btn" href="javascript:void(0)" >
-                                <span class="switch-profile"><img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="switch-profile"/></span>
+                                <span class="switch-profile">
+                                    <img src="{{ asset('assets/dashboard/img/switch-child.png') }}" alt="switch-profile"/>
+                                </span>
                             </a>
                             @endif
 
@@ -89,7 +91,7 @@
                              <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>   
                              <a class="nav-link" href="{{ route('agent.back-to-parent') }}" title="">
                             <span class="switch-profile">
-                               <img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="Switch back to your account"/>
+                               <img src="{{ asset('assets/dashboard/img/switch-child.png') }}" alt="Switch back to your account"/>
 
                             </span>
                              </a>
@@ -100,7 +102,7 @@
                              <span class="esc-tooltip esc-tooltip-support">Switch back to your account</span>   
                              <a class="nav-link" href="{{ route('admin.back-to-parent') }}" title="">
                             <span class="switch-profile">
-                               <img src="{{ asset('assets/dashboard/img/switch.png') }}" alt="Switch back to your account"/>
+                               <img src="{{ asset('assets/dashboard/img/switch-child.png') }}" alt="Switch back to your account"/>
 
                             </span>
                              </a>

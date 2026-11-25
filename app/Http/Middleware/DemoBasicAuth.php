@@ -17,21 +17,6 @@ class DemoBasicAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        // Log::info('DemoBasicAuth', [
-        //     'url' => $request->fullUrl(),
-        //     'user' => $request->getUser(),
-        //     'password' => $request->getPassword(),
-        // ]);
-
-        // $username = 'meetwithme';
-        // $password = 'currentYear@2025';
-
-        // if ($request->getUser() !== $username || $request->getPassword() !== $password) {
-        //     return response('Unauthorized', 401)
-        //         ->header('WWW-Authenticate', 'Basic realm="Demo Area"');
-        // }
-
-        // return $next($request);
 
         if (session()->get('demo_authenticated') === true) {
             return $next($request);
@@ -50,7 +35,7 @@ class DemoBasicAuth
             return $next($request);
         }
 
-        return response('Unauthorized', 401)
+        return response('Unauthorized 001', 401)
             ->header('WWW-Authenticate', 'Basic realm="Demo Area"');
     }
 }

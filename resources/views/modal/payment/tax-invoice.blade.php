@@ -24,6 +24,10 @@
                             .e4u-invoice-wrap th,
                             .e4u-invoice-wrap div,
                             .e4u-invoice-wrap span,
+                            .e4u-invoice-wrap p,
+                            .e4u-invoice-wrap strong,
+                            .e4u-invoice-wrap b,
+                            .e4u-invoice-wrap sup,
                             .e4u-invoice-wrap a {
                                 font-family: Helvetica, Arial, sans-serif !important;
                                 -webkit-print-color-adjust: exact !important;
@@ -64,7 +68,7 @@
                                     <td align="center" style="border: 0px; padding: 0;">
 
                                         <!-- Main Invoice Container -->
-                                        <table class="e4u-invoice-container" role="presentation" cellpadding="0" cellspacing="0" width="100%" style=" background-color: #ffffff; border: 1px solid #cbd5e1; border-collapse: collapse; font-family: Helvetica, Arial, sans-serif; margin: 0 auto;">
+                                        <table class="e4u-invoice-container" role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color: #ffffff; border: 1px solid #cbd5e1; border-collapse: collapse; font-family: Helvetica, Arial, sans-serif; margin: 0 auto;">
 
                                             <!-- Top Blue Header -->
                                             <tr>
@@ -101,33 +105,33 @@
                                                                 </div>
                                                             </td>
 
-                                                           <!-- Paid Stamp (Replace this td block) -->
-<td width="20%" valign="middle" align="center" style="border: 0px; padding: 0;">
-    <div style="width: 82px; height: 82px; border: 2px dashed #1aa34d; border-radius: 50%; background-color: #f0fdf4; margin: 0 auto; padding: 0;">
-        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="width: 100%; height: 82px; border-collapse: collapse;">
-            <tr>
-                <td align="center" valign="middle" style="border: 0px; padding: 0; height: 82px; text-align: center; vertical-align: middle; color: #1aa34d; font-size: 14px; font-weight: 800; letter-spacing: 1px; line-height: 1.2;">
-                    <span style="display: block; font-size: 8px; font-weight: 700; letter-spacing: 0.5px; line-height: 11px;">THANK YOU</span>
-                    PAID
-                </td>
-            </tr>
-        </table>
-    </div>
-</td>
+                                                            <!-- Paid Stamp -->
+                                                            <td width="20%" valign="middle" align="center" style="border: 0px; padding: 0;">
+                                                                <div style="width: 82px; height: 82px; border: 2px dashed #1aa34d; border-radius: 50%; background-color: #f0fdf4; margin: 0 auto; padding: 0;">
+                                                                    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="width: 100%; height: 82px; border-collapse: collapse;">
+                                                                        <tr>
+                                                                            <td align="center" valign="middle" style="border: 0px; padding: 0; height: 82px; text-align: center; vertical-align: middle; color: #1aa34d; font-size: 14px; font-weight: 700; letter-spacing: 1px; line-height: 1.2;">
+                                                                                <span style="display: block; font-size: 8px; font-weight: 700; letter-spacing: 0.5px; line-height: 11px;">THANK YOU</span>
+                                                                                PAID
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </div>
+                                                            </td>
 
                                                             <!-- Invoice Meta -->
                                                             <td width="34%" valign="middle" align="right" style="border: 0px; padding: 0; font-size: 11.5px; line-height: 1.5;">
                                                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="right">
                                                                     <tr>
-                                                                        <td align="right" style="color: #53657d; border: 0px; font-weight: 600; padding: 2px 6px; white-space: nowrap;">Invoice Date:</td>
+                                                                        <td align="right" style="color: #53657d; border: 0px; font-weight: 700; padding: 2px 6px; white-space: nowrap;">Invoice Date:</td>
                                                                         <td align="right" style="color: #0c223d; border: 0px; font-weight: 700; padding: 2px 0; white-space: nowrap;">{{ !empty($payment->created_at) ? $payment->created_at->format('d-m-Y') : '---' }}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td align="right" style="color: #53657d; border: 0px; font-weight: 600; padding: 2px 6px; white-space: nowrap;">Invoice No:</td>
+                                                                        <td align="right" style="color: #53657d; border: 0px; font-weight: 700; padding: 2px 6px; white-space: nowrap;">Invoice No:</td>
                                                                         <td align="right" style="color: #0c223d; border: 0px; font-weight: 700; padding: 2px 0; white-space: nowrap;">{{ $payment?->ref_no ?? '---' }}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td align="right" style="color: #53657d; border: 0px; font-weight: 600; padding: 2px 6px; white-space: nowrap;">ABN:</td>
+                                                                        <td align="right" style="color: #53657d; border: 0px; font-weight: 700; padding: 2px 6px; white-space: nowrap;">ABN:</td>
                                                                         <td align="right" style="color: #0c223d; border: 0px; font-weight: 700; padding: 2px 0; white-space: nowrap;">88 664 919 975</td>
                                                                     </tr>
                                                                 </table>
@@ -152,10 +156,10 @@
                                                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse; border: 1px solid #cbd5e1; text-align: center;">
                                                                     <thead>
                                                                         <tr style="background-color: #0c223d;">
-                                                                            <th style="padding: 5px; text-align: center; font-size: 10px; font-weight: 600; color: #ffffff; text-transform: uppercase; border: 1px solid #1e3a63;">Completed By</th>
-                                                                            <th style="padding: 5px; text-align: center; font-size: 10px; font-weight: 600; color: #ffffff; text-transform: uppercase; border: 1px solid #1e3a63;">Currency</th>
-                                                                            <th style="padding: 5px; text-align: center; font-size: 10px; font-weight: 600; color: #ffffff; text-transform: uppercase; border: 1px solid #1e3a63;">Home State</th>
-                                                                            <th style="padding: 5px; text-align: center; font-size: 10px; font-weight: 600; color: #ffffff; text-transform: uppercase; border: 1px solid #1e3a63;">Member ID</th>
+                                                                            <th style="padding: 5px; text-align: center; font-size: 10px; font-weight: 700; color: #ffffff; border: 1px solid #1e3a63;">Completed By</th>
+                                                                            <th style="padding: 5px; text-align: center; font-size: 10px; font-weight: 700; color: #ffffff; border: 1px solid #1e3a63;">Currency</th>
+                                                                            <th style="padding: 5px; text-align: center; font-size: 10px; font-weight: 700; color: #ffffff; border: 1px solid #1e3a63;">Home State</th>
+                                                                            <th style="padding: 5px; text-align: center; font-size: 10px; font-weight: 700; color: #ffffff; border: 1px solid #1e3a63;">Member ID</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -175,14 +179,14 @@
                                                     <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse; border: 1px solid #cbd5e1; width: 100%;">
                                                         <thead>
                                                             <tr style="background-color: #0c223d;">
-                                                                <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 600; color: #ffffff; border: 1px solid #1e3a63; text-align: center; width: 11%;">Date</th>
-                                                                <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 600; color: #ffffff; border: 1px solid #1e3a63; text-align: center; width: 10%;">Service Type</th>
-                                                                <th style="padding: 8px 6px; font-size: 10.5px; font-weight: 600; color: #ffffff; border: 1px solid #1e3a63; text-align: left; width: 33%;">Service Description</th>
-                                                                <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 600; color: #ffffff; border: 1px solid #1e3a63; text-align: center; width: 7%;">Qty<sup>(1)</sup></th>
-                                                                <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 600; color: #ffffff; border: 1px solid #1e3a63; text-align: right; width: 9%;">Rate</th>
-                                                                <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 600; color: #ffffff; border: 1px solid #1e3a63; text-align: right; width: 9%;">Discount</th>
-                                                                <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 600; color: #ffffff; border: 1px solid #1e3a63; text-align: right; width: 9%;">GST</th>
-                                                                <th style="padding: 8px 6px; font-size: 10.5px; font-weight: 600; color: #ffffff; border: 1px solid #1e3a63; text-align: right; width: 12%;">Amount</th>
+                                                                <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 700; color: #ffffff; border: 1px solid #1e3a63; text-align: center; width: 11%;">Date</th>
+                                                                <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 700; color: #ffffff; border: 1px solid #1e3a63; text-align: center; width: 10%;">Service Type</th>
+                                                                <th style="padding: 8px 6px; font-size: 10.5px; font-weight: 700; color: #ffffff; border: 1px solid #1e3a63; text-align: left; width: 33%;">Service Description</th>
+                                                                <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 700; color: #ffffff; border: 1px solid #1e3a63; text-align: center; width: 7%;">Qty<sup>(1)</sup></th>
+                                                                <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 700; color: #ffffff; border: 1px solid #1e3a63; text-align: right; width: 9%;">Rate</th>
+                                                                <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 700; color: #ffffff; border: 1px solid #1e3a63; text-align: right; width: 9%;">Discount</th>
+                                                                <th style="padding: 8px 4px; font-size: 10.5px; font-weight: 700; color: #ffffff; border: 1px solid #1e3a63; text-align: right; width: 9%;">GST</th>
+                                                                <th style="padding: 8px 6px; font-size: 10.5px; font-weight: 700; color: #ffffff; border: 1px solid #1e3a63; text-align: right; width: 12%;">Amount</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>

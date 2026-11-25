@@ -891,7 +891,7 @@
 @include('escort.dashboard.modal.verify_media')
 
 @endsection
-@push('script')
+@prepend('script')
 <script src="https://foliotek.github.io/Croppie/croppie.js"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
@@ -1061,4 +1061,4 @@
         $(`#${$(this).parents('.modal').attr('id')}`).modal("hide");
     });
 </script>
-@endpush
+@endprepend

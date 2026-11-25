@@ -80,12 +80,11 @@
                 <span class="oprhelpNote font-weight-bold" data-toggle="collapse" data-target="#notes"
                     aria-expanded="true">Help?</span>
             </div>
-            <div class="col-md-12 mb-4">
-                <div class="card collapse" id="notes" style="">
+            <div class="col-md-12">
+                <div class="card collapse" id="notes">
                     <div class="card-body">
                         <p class="notes"><b>Notes:</b> </p>
-                        <ol>
-                        </ol>
+                        
                     </div>
                 </div>
             </div>
@@ -102,7 +101,7 @@
             <div class="col-md-12 mb-5">
                 <div id="accordion" class="myacording-design">
                    
-                    <div class="card">
+                    <div class="card common-card">
                         <div class="card-header">
                             <a class="card-link" data-toggle="collapse" href="#Abbreviations" aria-expanded="true">
                                 About Me

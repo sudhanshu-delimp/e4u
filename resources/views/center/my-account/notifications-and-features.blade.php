@@ -76,31 +76,31 @@
                                     </div>
 
                                     <div class="option-list">
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input"
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input"
                                                 name="features_viewer_notifications_forward_v_alerts" id="features1"
                                                 value="1"
                                                 {{ old('features_viewer_notifications_forward_v_alerts', $setting->features_viewer_notifications_forward_v_alerts ?? 0) ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="features1">Viewer
+                                            <label class="form-check-label" for="features1">Viewer
                                                 notifications,
                                                 forward V-Alerts</label>
                                         </div>
 
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input"
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input"
                                                 name="features_allow_viewers_to_ask_you_a_question" id="features2"
                                                 value="1"
                                                 {{ old('features_allow_viewers_to_ask_you_a_question', $setting->features_allow_viewers_to_ask_you_a_question ?? 0) ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="features2">Allow Viewers to ask
+                                            <label class="form-check-label" for="features2">Allow Viewers to ask
                                                 you a question</label>
                                         </div>
 
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input"
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input"
                                                 name="features_allow_viewers_to_send_you_a_text_message"
                                                 id="features3" value="1"
                                                 {{ old('features_allow_viewers_to_send_you_a_text_message', $setting->features_allow_viewers_to_send_you_a_text_message ?? 0) ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="features3">Allow Viewers to
+                                            <label class="form-check-label" for="features3">Allow Viewers to
                                                 send you a Message</label>
                                         </div>
                                     </div>
@@ -132,19 +132,19 @@
                                         </div>
                                     </div>
                                     <div class="option-list">
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input"
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input"
                                                 name="agent_receive_communications" id="agent1" value="1"
                                                 {{ old('agent_receive_communications', $setting->agent_receive_communications ?? 0) ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="agent1">Receive
+                                            <label class="form-check-label" for="agent1">Receive
                                                 communications</label>
                                         </div>
 
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input"
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input"
                                                 name="agent_send_communications" id="agent2" value="1"
                                                 {{ old('agent_send_communications', $setting->agent_send_communications ?? 0) ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="agent2">Send
+                                            <label class="form-check-label" for="agent2">Send
                                                 communications</label>
                                         </div>
                                     </div>
@@ -177,19 +177,19 @@
                                     </div>
                                     <div class="option-list">
 
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input"
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input"
                                                 name="alert_notification_email" id="alert_email" value="1"
                                                 {{ old('alert_notification_email', $setting->alert_notification_email ?? 0) ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="alert_email">Email
+                                            <label class="form-check-label" for="alert_email">Email
                                                 (A-Alert)</label>
                                         </div>
 
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input"
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input"
                                                 name="alert_notification_text" id="alert_text" value="1"
                                                 {{ old('alert_notification_text', $setting->alert_notification_text ?? 0) ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="alert_text">Text</label>
+                                            <label class="form-check-label" for="alert_text">Text</label>
                                         </div>
                                     </div>
 

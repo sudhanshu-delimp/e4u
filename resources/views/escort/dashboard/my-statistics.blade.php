@@ -3,18 +3,18 @@
 @section('style')
     <style>
         .table thead {
-            background-color: var(--blue--text);
+            background-color: var(--primary-color);
             color: #fff;
         }
 
         .icon-col {
             font-size: 18px;
             text-align: left;
-            color: var(--blue--text);
+            color: var(--primary-color);
         }
 
         h5 {
-            color: var(--blue--text);
+            color: var(--primary-color);
         }
     </style>
 @endsection

@@ -81,7 +81,7 @@
                 </div>
                 <!-- Monitoring -->
                 <div class="col-md-6 mb-4">
-                    {{-- <h4 class="font-weight-bold" style="color: var(--blue--text);">Monitoring
+                    {{-- <h4 class="font-weight-bold" style="color: var(--primary-color);">Monitoring
                             </h4> --}}
                     <div class="table-responsive common-card">
                         <table class="table table-bordered">

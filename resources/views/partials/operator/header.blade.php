@@ -24,10 +24,10 @@
         type="text/css">
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.3') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/dk-responsive.css?v1.3') }}" rel="stylesheet">
-    <link href="{{ asset('assets/dashboard/css/operator-style.css?v1.4') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css?v1.3') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v1.7') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/dk-responsive.css?v1.5') }}" rel="stylesheet">
+    <link href="{{ asset('assets/dashboard/css/operator-style.css?v1.8') }}" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Quicksand&display=swap" rel="stylesheet">
@@ -43,14 +43,143 @@
 }
 
 .swal2-styled.swal2-confirm, .swal2-styled.swal2-cancel{
-    background-color: var(--color-teal-dark) !important;
+    background-color: var(--primary-color) !important;
 }
 .swal2-styled.swal2-confirm:hover, .swal2-cancel:hover{
-  background-color: var(--color-orange) !important;
+  background-color:var(--secondary-color) !important;
 }
 .swal2-cancel{
-    background-color: var(--color-teal-dark) !important;
+    background-color: var(--primary-color) !important;
 }
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+    }
+        
+        #wrapper {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        #accordionSidebar {
+            height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            flex-shrink: 0;
+            z-index: 1030;
+        }
+
+       #content-wrapper {
+            flex: 1;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        #content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .db-custom-topbar {
+            flex-shrink: 0;
+            margin-bottom: 0 !important;
+            /* default margin hataya */
+            z-index: 1020;
+        }
+
+        #content>.container-fluid {
+            flex: 1;
+            overflow-y: auto;
+            /* Sirf content scroll hoga */
+            overflow-x: hidden;
+            padding-top: 1.5rem;
+            /* Topbar se thoda gap */
+            padding-bottom: 2rem;
+        }
+
+        
+        #accordionSidebar::-webkit-scrollbar,
+        #content>.container-fluid::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #accordionSidebar::-webkit-scrollbar-thumb,
+        #content>.container-fluid::-webkit-scrollbar-thumb {
+            background: #303e50;
+            border-radius: 4px;
+        }
+
+       
+        @media (min-width: 768px) {
+
+            
+            .sidebar {
+                transition: width 0.3s ease-in-out !important;
+            }
+
+            #content-wrapper {
+                transition: width 0.3s ease-in-out, margin 0.3s ease-in-out !important;
+            }
+
+            .sidebar.toggled:hover {
+                width: 245px !important;
+                position: relative !important;
+                /* Content ke upar chadhega nahi, use aage khiskayega */
+                flex-shrink: 0 !important;
+                overflow-y: auto !important;
+            }
+
+          .sidebar.toggled:hover .sidebar-brand .sidebar-brand-text {
+                display: inline !important;
+            }
+
+           .sidebar.toggled:hover .nav-item .nav-link {
+                width: 100% !important;
+                text-align: left !important;
+                padding: 0.5rem 0 0.5rem 1rem !important;
+            }
+
+            .sidebar.toggled:hover .nav-item .nav-link span {
+                font-size: 15px !important;
+                font-weight: 500 !important;
+                display: inline !important;
+            }
+
+            .sidebar.toggled:hover .nav-item .nav-link i,
+            .sidebar.toggled:hover .nav-item .nav-link img,
+            .sidebar.toggled:hover .nav-item .nav-link svg {
+                margin-right: 0.5rem !important;
+            }
+
+           .sidebar.toggled:hover .nav-item .nav-link[data-toggle=collapse]::after {
+                display: inline-block !important;
+                float: right !important;
+                margin-right: 1.5rem !important;
+            }
+
+           .sidebar.toggled:hover .nav-item .collapse {
+                position: relative !important;
+                left: 0 !important;
+                top: 0 !important;
+                margin: 0 1rem !important;
+                animation: none !important;
+            }
+
+            .sidebar.toggled:hover .nav-item .collapse .collapse-inner {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                min-width: unset !important;
+            }
+        }
 </style>
     @section('style')
     @show
