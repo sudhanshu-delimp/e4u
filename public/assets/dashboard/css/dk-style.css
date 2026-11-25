@@ -3779,7 +3779,9 @@ button.btn:focus {
     background-color: var(--primary-color);
     color: var(--white);
 }
-
+.my-custompop-tabs.nav-tabs .nav-link.active {
+    color: #ffffff !important;
+}
 .banner_img,
 .pinup_img {
     width: 100%;
