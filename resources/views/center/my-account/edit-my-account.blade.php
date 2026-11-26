@@ -1629,41 +1629,41 @@
 
 
         function setupCopyAndPaste(btnSelector, sourceSelector, targetSelector) {
-    $(document).on("click", btnSelector, function () {
-        let btn = $(this);
-        let value = ($(sourceSelector).val() || "").trim();
+            $(document).on("click", btnSelector, function () {
+                let btn = $(this);
+                let value = ($(sourceSelector).val() || "").trim();
 
-        if (!value) return;
+                if (!value) return;
 
-        function afterCopy() {
-            $(targetSelector).val(value).trigger("input").trigger("change");
+                function afterCopy() {
+                    $(targetSelector).val(value).trigger("input").trigger("change");
 
-            let textEl = btn.find(".copy-text");
-            textEl.text("Copied!");
-            btn.removeClass("btn-outline-secondary").addClass("btn-success");
+                    let textEl = btn.find(".copy-text");
+                    textEl.text("Copied!");
+                    btn.removeClass("btn-outline-secondary").addClass("btn-success");
 
-            setTimeout(function () {
-                textEl.text("Copy");
-                btn.removeClass("btn-success").addClass("btn-outline-secondary");
-            }, 1500);
-        }
+                    setTimeout(function () {
+                        textEl.text("Copy");
+                        btn.removeClass("btn-success").addClass("btn-outline-secondary");
+                    }, 1500);
+                }
 
-        if (navigator.clipboard && window.isSecureContext) {
-            navigator.clipboard.writeText(value).then(afterCopy).catch(function () {
-                afterCopy();
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(value).then(afterCopy).catch(function () {
+                        afterCopy();
+                    });
+                } else {
+                    let tempInput = $("<input>");
+                    $("body").append(tempInput);
+                    tempInput.val(value).select();
+                    document.execCommand("copy");
+                    tempInput.remove();
+                    afterCopy();
+                }
             });
-        } else {
-            let tempInput = $("<input>");
-            $("body").append(tempInput);
-            tempInput.val(value).select();
-            document.execCommand("copy");
-            tempInput.remove();
-            afterCopy();
         }
-    });
-}
 
-setupCopyAndPaste("#copyMobileInputBtn", "#mobilePhoneInput", 'input[name="paID_no"]');
-setupCopyAndPaste("#copyEntityInputBtn", 'input[name="entity_name"]', 'input[name="payID_name"]');
+        setupCopyAndPaste("#copyMobileInputBtn", "#mobilePhoneInput", 'input[name="paID_no"]');
+        setupCopyAndPaste("#copyEntityInputBtn", 'input[name="entity_name"]', 'input[name="payID_name"]');
     </script>
 @endpush

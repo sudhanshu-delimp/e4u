@@ -260,12 +260,13 @@ class EscortController extends BaseController
             ->whereNotNull('start_date')
             ->where('utc_end_time', '>=', $today) // still active (today or future)
             ->exists();
-
+ 
         return view('escort.dashboard.list', compact('escort', 'type', 'active_escorts', 'suspended_escorts', 'activePinup'));
     }
 
     public function dataTable($type = NULL)
     {
+     
         $conditions = [];
         if ($type == 'current') {
             //$conditions[] = ['enabled', 1];
