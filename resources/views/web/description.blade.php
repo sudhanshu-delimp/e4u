@@ -1217,7 +1217,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                                                         <div class="swiper-slide">
                                                                             <div id="dm_{{ $key }}" class="w-100">
                                                                                 <a href="#">
-                                                                                    <video style="z-index: 1" controls="" id="videoId_{{ $key }}" src="{{ asset($media->path) }}">
+                                                                                    <video style="z-index: 1" preload="none" controls="" id="videoId_{{ $key }}" src="{{ asset($media->path) }}">
                                                                                         <source src="{{ asset($media->path) }}" type="video/mp4">
                                                                                     </video>
                                                                                     <button
@@ -1255,6 +1255,7 @@ $features_allow_viewers_to_ask_you_a_question = isset($escort->user->escort_sett
                                                                                     id="videoId_{{ $key }}"
                                                                                     class="video-element"
                                                                                     controls
+                                                                                    preload="none"
                                                                                     src="{{ asset($media->path) }}"
                                                                                 >
                                                                                     <source
