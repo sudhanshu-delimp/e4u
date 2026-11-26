@@ -268,7 +268,7 @@ class CenterController extends Controller
             'business_number' => removeSpaceFromString($request->business_number),
             'phone' => removeSpaceFromString($request->phone),
             'contact_type' => $request->contact_type,
-            'pay_id_name'=> removeSpaceFromString($request->payID_name),
+            'pay_id_name'=> $request->payID_name,
             'pay_id_no'=> $request->paID_no,
             'social_media_consent' => $request->social_media_consent,
             'subrub_city'=>$request->subrub_city,
