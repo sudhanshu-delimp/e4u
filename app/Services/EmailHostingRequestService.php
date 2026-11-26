@@ -139,14 +139,12 @@ class EmailHostingRequestService
   public function createRequest(array $data): array
   {
     // Fetch monthly email hosting price
-    $monthlyFee = (float) FeesConciergeService::where(
-      'service_type',
-      'Email Account'
-    )->value('amount');
+    $monthlyFee = (float) FeesConciergeService::where('service_type', 'Email Account')->value('amount');
 
-    if ($monthlyFee <= 0) {
-      throw new \RuntimeException('Email hosting price is not configured.');
-    }
+    if ($monthlyFee <= 0)
+      return ['status' => false, 'message' => 'Email hosting price is not configured.'];
+
+
 
     // Pricing calculations
     $duration = max(1, (int) $data['period_required']);
@@ -156,67 +154,49 @@ class EmailHostingRequestService
     $totalGst = round(($totalBaseAmount * $gstRate) / 100, 2);
     $totalAmount = round($totalBaseAmount + $totalGst, 2);
 
-    $frontendAmount = isset($data['total_amount'])? round((float) $data['total_amount'], 2): null;
+    // Wallet deduction
+    $walletUsedAmount = min((float) ($data['wallet_used_amount'] ?? 0), $totalAmount);
+
+    $payableAmount = round($totalAmount - $walletUsedAmount, 2);
+
+    $frontendAmount = (float) ($data['total_amount'] ?? 0);
+    $frontendGstAmount = (float) ($data['total_gst_amount'] ?? 0);
+
 
     if ($frontendAmount === null || $frontendAmount <= 0) {
-      throw new \InvalidArgumentException(
-        'Invalid payment amount. Please refresh and try again.'
-      );
-    }
-
-    // Compare frontend amount with backend calculated amount
-    if (abs($frontendAmount - $totalAmount) > 0.009) {
-
-      Log::warning('Email hosting payment amount mismatch', [
-        'user_id' => $data['user_id'] ?? null,
-        'frontend_amount' => $frontendAmount,
-        'backend_amount' => $totalAmount,
-        'monthly_fee' => $monthlyFee,
-        'duration' => $duration,
-        'gst_rate' => $gstRate,
-      ]);
-
-      throw new \InvalidArgumentException(
-        'Payment amount verification failed. Please refresh the page and try again.'
-      );
+      return ['status' => false, 'message' =>  'Invalid payment amount. Please refresh and try again.'];
     }
 
 
+    $amountMismatch = abs($frontendAmount - $payableAmount) > 0.009;
+    $gstMismatch = abs($frontendGstAmount - $totalGst) > 0.009;
 
+    if ($amountMismatch || $gstMismatch) {
+      return ['status' => false, 'message' => "Payment amount verification failed. Please refresh the page and try again.",];
+    }
 
     $today = Carbon::today();
-
-    /*
-    |--------------------------------------------------------------------------
-    | STEP 1: Create email hosting request
-    |--------------------------------------------------------------------------
-    */
-
+    
     $request = EmailHostingRequest::create([
-      'user_id'              => $data['user_id'] ?? null,
+      'user_id'              => auth()->user()->id ?? null,
       'user_type'             => $data['user_type'],
       'email'                 => $data['email'],
       'first_name'            => $data['first_name'],
       'last_name'             => $data['last_name'],
       'mobile'                => $data['mobile'] ?? null,
-      'contact_preference'     => $data['contact_preference'] ?? [],
-      'term_condition'         => $data['term_condition'] ?? false,
-      'payment_authorized'    => $data['auth'] ?? false,
+      'contact_preference'     => $data['contact_pref'] ?? [],
+      'term_condition' => filter_var($data['term_condition'] ?? false, FILTER_VALIDATE_BOOLEAN),
+      'auth'          => filter_var($data['auth'] ?? false, FILTER_VALIDATE_BOOLEAN),
       'period_required'        => $duration,
 
       // Request status
       'request_status'         => 'pending',
-
       // Payment / pricing details
       'payment_status'         => 'pending',
       'monthly_fee'            => $monthlyFee,
-      'total_subscription_cost' => $totalBaseAmount,
       'gst_rate'                => $gstRate,
-      'total_gst'               => $totalGst,
-      'total_amount'             => $totalAmount,
       'amount_paid'              => 0,
       'currency'                  => 'AUD',
-
       // Service dates - set once payment succeeds
       'start_date'              => null,
       'end_date'                => null,
@@ -226,16 +206,11 @@ class EmailHostingRequestService
 
       // Optional gateway customer/card references
       'gateway_customer_id'      => $data['pin_customer_token'] ?? null,
-      'payment_method_id'         => $data['pin_card_token'] ?? null,
-
+      'payment_method_id'         => $data['card_token'] ?? null,
       'comments'                  => $data['comments'] ?? null,
     ]);
 
-    /*
-    |--------------------------------------------------------------------------
-    | STEP 2: Charge full amount through Pin Payments (one-time payment)
-    |--------------------------------------------------------------------------
-    */
+
 
     try {
 
@@ -245,84 +220,31 @@ class EmailHostingRequestService
         'email_hosting_request_id' => (string) $request->id,
         'period_required'            => (string) $duration,
         'payment_type'               => 'one_time',
+        'type' => 'email-hosting',
+        'console' => 'EC',
       ];
 
-      $response = $this->pinPayments->charge($data['pin_token'], $totalAmount,$data['email'],$description,$metadata);
+      $response = $this->pinPayments->charge($data['card_token'], $totalAmount, $data['email'], $description, $metadata);
 
-      /*
-        |--------------------------------------------------------------------------
-        | STEP 3: Handle unsuccessful charge
-        |--------------------------------------------------------------------------
-        */
 
-      if (empty($response['status'])) {
+      if ($response['status'] == false) {
+        $errorMessage = $response['error'] ?? $response['message'] ?? 'Pin Payments charge failed.';
+        $request->update(['payment_status' => 'failed', 'payment_error_message' => $errorMessage,]);
 
-        $errorMessage = $response['error']
-          ?? $response['message']
-          ?? 'Pin Payments charge failed.';
-
-        $request->update([
-          'payment_status'         => 'failed',
-          'payment_error_message'  => $errorMessage,
-        ]);
-
-        Log::warning('Email hosting one-time payment failed', [
-          'request_id' => $request->id,
-          'amount' => $totalAmount,
-          'response' => $response,
-        ]);
-
-        return [
-          'success' => false,
-          'request' => $request->fresh(),
-          'message' => $errorMessage,
-        ];
+        return ['status' => false,  'request' => $request->fresh(), 'message' => $errorMessage,];
       }
 
-      /*
-        |--------------------------------------------------------------------------
-        | STEP 4: Extract gateway charge response
-        |--------------------------------------------------------------------------
-        */
 
       $chargeData = $response['data']['response'] ?? null;
 
       if (empty($chargeData)) {
-
-        // Gateway reported success, but charge details are missing.
         // Keep it in processing for reconciliation.
-        $request->update([
-          'payment_status' => 'processing',
-          'payment_error_message' =>
-          'Payment reported successful but transaction details are missing. Reconciliation required.',
-        ]);
-
-        Log::error('Pin Payments success response missing charge data', [
-          'request_id' => $request->id,
-          'response' => $response,
-        ]);
-
-        return [
-          'success' => false,
-          'request' => $request->fresh(),
-          'message' => 'Payment requires verification. The request has been saved.',
-        ];
+        $request->update(['payment_status' => 'processing', 'payment_error_message' =>  'Payment reported successful but transaction details are missing. Reconciliation required.',]);
+        return ['status' => false,  'request' => $request->fresh(),  'message' => 'Payment requires verification. The request has been saved.',];
       }
 
-      /*
-        |--------------------------------------------------------------------------
-        | STEP 5: Extract transaction details
-        |--------------------------------------------------------------------------
-        |
-        | Verify the transaction ID key against your Pin Payments response.
-        | Adjust the key below if your charge service returns a different format.
-        |--------------------------------------------------------------------------
-        */
 
-      $transactionId = $chargeData['token']
-        ?? $chargeData['id']
-        ?? $chargeData['transaction_id']
-        ?? null;
+      $transactionId = $chargeData['token'] ?? $chargeData['id']  ?? $chargeData['transaction_id']  ?? null;
 
       /*
         |--------------------------------------------------------------------------
@@ -330,95 +252,57 @@ class EmailHostingRequestService
         |--------------------------------------------------------------------------
         */
 
-    DB::transaction(function () use (
-    $request,
-    $totalAmount,
-    $totalBaseAmount,
-    $totalGst,
-    $transactionId,
-    $today,
-    $duration,
-    $monthlyFee,
-    $gstRate,
-    $chargeData
-) {
-    $request->update([
-        'request_status'         => 'active',
-        'payment_status'         => 'paid',
-        'amount_paid'            => $totalAmount,
-        'payment_transaction_id' => $transactionId,
-        'payment_reference'      => $transactionId,
-        'payment_date'           => now(),
-        'payment_error_message'  => null,
-        'start_date'             => $today,
-        'end_date'               => $today->copy()->addMonths($duration),
-    ]);
+      DB::transaction(function () use ($request, $totalAmount, $totalBaseAmount, $walletUsedAmount, $payableAmount, $totalGst, $transactionId, $today, $duration, $metadata, $chargeData) {
 
-    PaymentHistory::create([
-        'user_id'              => $request->user_id,
-        'completed_by'         => $request->user_id,
-        'ref_no'               => now()->format('Ymd') . rand(100, 999),
-        'amount'               => $totalBaseAmount,
-        'gst_amount'           => $totalGst,
-        'paid_amount'          => $totalAmount,
-        'wallet_amount'        => 0,
-        'net_amount'           => $totalAmount,
-        'delivery_charge'      => 0,
-        'total_payable_amount' => $totalAmount,
-        'currency'             => 'AUD',
-        'transaction_id'       => $transactionId,
-        'service'              => 'Email Hosting',
-        'status'               => 'success',
-        'paid_at'              => now(),
-        'card'                 => $chargeData['card']['display_number'] ?? null,
-        'meta'                 => json_encode([
-            'email_hosting_request_id' => $request->id,
-            'period_required' => $duration,
-            'monthly_fee' => $monthlyFee,
-            'payment_gateway' => 'pinpayments',
-            'gateway_response' => $chargeData,
-        ]),
-    ]);
-});
+        $request->update([
+          'request_status'         => 'active',
+          'payment_status'         => 'paid',
+          'amount_paid'            => $totalAmount,
+          'payment_transaction_id' => $transactionId,
+          'payment_reference'      => $transactionId,
+          'payment_date'           => now(),
+          'payment_error_message'  => null,
+          'start_date'             => $today,
+          'end_date'               => $today->copy()->addMonths($duration),
+        ]);
 
-     
-      /*
-        |--------------------------------------------------------------------------
-        | STEP 7: Return success
-        |--------------------------------------------------------------------------
-        */
+        PaymentHistory::create([
+          'user_id'              => auth()->id(),
+          'completed_by'         => auth()->id(),
+          'ref_no'               => now()->format('Ymd') . rand(100, 999),
+          // Pricing details
+          'amount'               => $totalBaseAmount,
+          'gst_amount'           => $totalGst,
+          'paid_amount'          => $payableAmount,
+          'wallet_amount'        => $walletUsedAmount,
+          'net_amount'           => $payableAmount,
+          'total_payable_amount' => $totalAmount,
+          'currency'             => 'AUD',
+          // Transaction details
+          'transaction_id'       => $transactionId,
+          'service'              => 'Email Hosting',
+          'status'               => 'success',
+          'paid_at'              => now(),
+          'card' => $chargeData['card']['display_number'] ?? null,
+          'meta' => json_encode($metadata),
+        ]);
+      });
 
       return [
-        'success' => true,
+        'status' => true,
         'request' => $request->fresh(),
         'message' => 'Email hosting request created and full payment successfully processed.',
       ];
     } catch (\Throwable $e) {
-
-      /*
-        |--------------------------------------------------------------------------
-        | STEP 9: Handle payment exception
-        |--------------------------------------------------------------------------
-        |
-        | Do not delete the request. Keep it available for retry/reconciliation.
-        |--------------------------------------------------------------------------
-        */
-
       $request->update([
         'payment_status'         => 'failed',
         'payment_error_message'  => $e->getMessage(),
       ]);
 
-      Log::error('Email hosting Pin Payments exception', [
-        'request_id' => $request->id,
-        'amount' => $totalAmount,
-        'error' => $e->getMessage(),
-      ]);
-
       return [
-        'success' => false,
+        'status' => false,
         'request' => $request->fresh(),
-        'message' => 'Email hosting request was saved but payment failed.',
+        'message' => $e->getMessage(),
         'error' => $e->getMessage(),
       ];
     }

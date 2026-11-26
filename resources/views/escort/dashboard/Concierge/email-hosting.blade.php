@@ -63,8 +63,8 @@
                             <div class="col-md-12 card-heading">
                                 <div class="card-top border-0 p-0 mb-0">
                                     <div class="card-icon">
-                                        <svg width="40px" height="40px" viewBox="0 -8 72 72" id="Layer_1" data-name="Layer 1"
-                                            xmlns="http://www.w3.org/2000/svg" fill="#000000">
+                                        <svg width="40px" height="40px" viewBox="0 -8 72 72" id="Layer_1"
+                                            data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" fill="#000000">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
                                             </g>
@@ -87,7 +87,8 @@
                                     <div class="card-heading">
                                         <h2>Partnership</h2>
 
-                                        <p class="mt-0">Escorts4U has partnered with a leading email services supplier to be
+                                        <p class="mt-0">Escorts4U has partnered with a leading email services supplier to
+                                            be
                                             able to
                                             provide
                                             email
@@ -104,11 +105,13 @@
                                 <div class="card-top">
                                     <div class="card-icon">
                                         <svg fill="#ff3c5f" width="40px" height="40px" viewBox="0 0 512 512"
-                                            enable-background="new 0 0 512 512" id="Receiver" version="1.1" xml:space="preserve"
-                                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                            stroke="#ff3c5f" stroke-width="9.728">
+                                            enable-background="new 0 0 512 512" id="Receiver" version="1.1"
+                                            xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" stroke="#ff3c5f"
+                                            stroke-width="9.728">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                            </g>
                                             <g id="SVGRepo_iconCarrier">
                                                 <g>
                                                     <rect height="11.49"
@@ -143,12 +146,13 @@
                                     @php
                                         $nameParts = preg_split('/\s+/', trim(Auth::user()->name));
                                         $firstName = $nameParts[0] ?? '';
-                                        $lastName = count($nameParts) > 1 ? implode(' ', array_slice($nameParts, 1)) : '';
+                                        $lastName =
+                                            count($nameParts) > 1 ? implode(' ', array_slice($nameParts, 1)) : '';
                                     @endphp
                                     <div class="form-group">
                                         <label for="email"><b>First Name</b><span class="text-danger">*</span> </label>
-                                        <input id="name" value="{{ $firstName }}" placeholder="First Name" name="first_name"
-                                            type="text" class="form-control">
+                                        <input id="name" value="{{ $firstName }}" placeholder="First Name"
+                                            name="first_name" type="text" class="form-control">
 
                                         <span class="text-danger error-text first_name_error"></span>
 
@@ -165,14 +169,16 @@
                                         <label for="email"><b>Email</b><span class="text-danger">*</span>
                                         </label>
                                         <input id="email" value="{{ Auth::user()->email }}" required
-                                            placeholder="Email Address" name="email" type="text" class="form-control">
+                                            placeholder="Email Address" name="email" type="text"
+                                            class="form-control">
                                         <span class="text-danger error-text email_error"></span>
                                     </div>
                                     <div class="form-group">
                                         <label for="email"><b>Mobile Number</b> <span class="text-danger">*</span>
                                         </label>
-                                        <input id="mobile" value="{{ Auth::user()->phone }}" placeholder="Mobile Number"
-                                            name="mobile" type="text" class="form-control">
+                                        <input id="mobile" value="{{ Auth::user()->phone }}"
+                                            placeholder="Mobile Number" name="mobile" type="text"
+                                            class="form-control">
                                         <span class="text-danger error-text mobile_error"></span>
 
                                     </div>
@@ -244,7 +250,8 @@
 
                                     <div class="form-group w-50">
                                         <div class="form-check form-check-inline ml-0">
-                                            <input name="auth" class="form-check-input" type="checkbox" id="auth">
+                                            <input name="auth" class="form-check-input" type="checkbox"
+                                                id="auth">
                                             <label class="form-check-label m-0" for="auth"> I authorise E4U to debit
                                                 my nominated Card.</label>
                                         </div><br>
@@ -273,7 +280,7 @@
 
                             <div class="common-footer">
                                 <button type="button" class="common-save-btn" id="submitAssistanceRequest">
-                                    Place Order
+                                    Make Payment
                                 </button>
                             </div>
                         </div>
@@ -287,10 +294,11 @@
                             <div class="card-top">
                                 <div class="card-icon">
                                     <img src="{{ asset('assets/dashboard/img/secure-payment.png') }}"
-                                        class="custompopicon" alt="Order Summary" style="width: 30px; height: 30px; margin:0 auto;">
+                                        class="custompopicon" alt="Order Summary"
+                                        style="width: 30px; height: 30px; margin:0 auto;">
                                 </div>
                                 <div class="card-heading">
-                                    <h2>Order Summary</h2>
+                                    <h2>Payment Summary</h2>
                                     <p class="mt-0 mb-0" id="subscription-description"></p>
                                 </div>
                             </div>
@@ -317,7 +325,7 @@
 
             </div>
         </div>
-        
+
         <!--middle content end here-->
     </div>
 
@@ -366,7 +374,7 @@
                     <div class="row mt-5">
                         <div class="col-12 col-md-6 col-lg-6 col-xl-6">
                             <div class="card p-3">
-                                <div class="order_summary_adjustment">
+                                <div class="order_summary_adjustment" id="payment_details">
                                 </div>
                                 <hr>
                                 <div class="col lapse p-0" id="collapse Example">
@@ -395,22 +403,17 @@
                                                     </div>
                                                 </div>
                                                 <div class="d-flex justify-content-end w-100 gap-10">
-                                                    <button type="button" class="reset-btn btn-cancel-modal"
-                                                        name="action" value="reset" id="resetWallet">Reset</button>
-                                                    <button type="button" class="apply-btn" id="applyWallet"
-                                                        name="action" value="apply">Apply</button>
+                                                    <button type="button"
+                                                        class="reset-btn btn-cancel-modal applyResetWallet" name="action"
+                                                        value="reset" id="resetWallet">Reset</button>
+                                                    <button type="button" class="apply-btn applyResetWallet"
+                                                        id="applyWallet" name="action" value="apply">Apply</button>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
-                                <div class="finish-payment-form d-none mt-2">
 
-                                    <button type="button" data-action="wallet" id="finish_payment"
-                                        class="btn-success-modal btn-block">
-                                        Finish Payment
-                                    </button>
-                                </div>
                                 <div class="support mt-3 payment_note">
                                     <p class="mb-0"><strong>Notes:</strong></p>
                                     <ol>
@@ -602,7 +605,9 @@
             e.preventDefault();
             $("#orderSummarySection").hide();
             $("#orderFormSection").fadeIn(200);
-            $('html, body').animate({ scrollTop: 0 }, 300);
+            $('html, body').animate({
+                scrollTop: 0
+            }, 300);
         });
 
         $(document).on("click", "#makePayment", function(e) {
@@ -635,7 +640,7 @@
                 },
                 success: function(response, textStatus, xhr) {
                     if (response.success) {
-                        $("#process-payment-modal .order_summary_adjustment").html(response.html);
+                        $("#payment_details").html(response.html);
                         $("#process-payment-modal").modal("show");
                     } else {
                         displaySwal(xhr);
@@ -692,12 +697,14 @@
             }
 
             if (!$("#auth").is(":checked")) {
-                $("#auth").closest(".form-group").find(".error-text").text("Please authorize E4U to debit your nominated card.");
+                $("#auth").closest(".form-group").find(".error-text").text(
+                    "Please authorize E4U to debit your nominated card.");
                 isValid = false;
             }
 
             if (!$("#pref_terms").is(":checked")) {
-                $("#pref_terms").closest(".form-group").find(".error-text").text("Please accept the Terms and Conditions to continue.");
+                $("#pref_terms").closest(".form-group").find(".error-text").text(
+                    "Please accept the Terms and Conditions to continue.");
                 isValid = false;
             }
 
@@ -737,22 +744,26 @@
                 },
                 success: function(res) {
                     if (!res.success) {
-                        $("#payment-error").text(res.message || "Unable to load payment details.").show();
+                        $("#payment-error").text(res.message || "Unable to load payment details.")
+                            .show();
                         $("#makePayment").prop("disabled", true);
                     } else {
                         $("#emailRequestPaymentSummery").html(res.html);
                         $("#subscription-description").text(
-                            `Your subscription will be charged monthly for the selected period of ${duration} ${Number(duration) === 1 ? "month" : "months"}.`
+                            `Your email hosting service will be active for ${duration} ${Number(duration) === 1 ? "month" : "months"}.`
                         );
                         $("#makePayment").prop("disabled", false);
                     }
 
                     $("#orderFormSection").hide();
                     $("#orderSummarySection").fadeIn(200);
-                    $('html, body').animate({ scrollTop: 0 }, 300);
+                    $('html, body').animate({
+                        scrollTop: 0
+                    }, 300);
                 },
                 error: function(xhr) {
-                    let message = xhr.responseJSON?.message || "Something went wrong while fetching payment details.";
+                    let message = xhr.responseJSON?.message ||
+                        "Something went wrong while fetching payment details.";
                     $("#payment-error").text(message).show();
                     $("#makePayment").prop("disabled", true);
                     $("#orderFormSection").hide();
@@ -791,8 +802,10 @@
 
 
             function handleSuccess(card) {
-                // localStorage.setItem('card_token_' + loginUserId, JSON.stringify(card.token));
-                console.log(JSON.stringify(card.token));
+                localStorage.removeItem('card_token_email_requests');
+                localStorage.setItem('card_token_email_requests', card.token);
+
+
                 $("#sendOtp_modal").modal('show');
                 paymentForm.closest('.modal').modal('hide');
 
@@ -825,7 +838,15 @@
             let form = document.getElementById("emailServiceOrderForm");
 
             let requestData = new FormData(form);
-            console.log(requestData);
+            requestData.append('total_amount', $("#amountDueToday").val());
+            requestData.append('total_gst_amount', $("#totalGstAmount").val());
+            requestData.append('wallet_used_amount', $("#walletUsedAmount").val());
+            requestData.append('user_type', "escort");
+
+            let cardToken = localStorage.getItem('card_token_email_requests');
+
+            requestData.append('card_token', cardToken);
+
             $.ajax({
                 url: "{{ auth()->user()->type == 4 ? route('center.make.order.payment') : route('escort.email.hosting.request') }}",
                 type: "POST",
@@ -864,5 +885,136 @@
                 }
             });
         }
+        // $(document).on("click", "#applyWallet", function(e) {
+        //     e.preventDefault(); // Stop normal form submit
+        //     let form = $("#adjustment-form");
+        //     let formData = form.serialize();
+        //     let walletAmount = Number(form.find('input[name="wallet_amount"]').val());
+        //     let accountWalletAmount = parseFloat("{{ Auth::user()->wallet->balance }}");
+        //     if (accountWalletAmount <= 0) {
+        //         Swal.fire("Insufficient wallet balance.", "You don't have enough amount to apply.",
+        //             "error");
+        //         return;
+        //     } else if (walletAmount > accountWalletAmount) {
+        //         Swal.fire("The wallet amount you entered exceeds your wallet balance.", '', 'error');
+        //         return;
+        //     }
+
+
+        //     if (walletAmount == "" || walletAmount == null) {
+        //         Swal.fire("The wallet amount is required to apply the wallet.", '',
+        //             'error');
+        //         return;
+        //     }
+
+        //     if (walletAmount > dueAmount) {
+        //         Swal.fire("The wallet amount you entered exceeds the total due amount.", '',
+        //             'error');
+        //         return;
+        //     }
+
+
+
+
+        // });
+
+        $(document).on("click", ".applyResetWallet", function(e) {
+            e.preventDefault();
+
+            let button = $(this);
+            let form = $("#adjustment-form");
+            let action = $(this).val(); // Gets "apply" or "reset"
+
+
+            if (action === "apply") {
+                type = "apply_wallet";
+            } else if (action === "reset") {
+                type = "payment_details";
+            }
+            // Prevent multiple submissions
+            if (button.prop("disabled")) {
+                return;
+            }
+            let dueAmount = $("#amountDueToday").val();
+            let walletAmount = parseFloat(form.find('input[name="wallet_amount"]').val()) || 0;
+            let accountWalletAmount = parseFloat("{{ Auth::user()->wallet->balance ?? 0 }}") || 0;
+
+            // Validation
+            if (walletAmount <= 0) {
+                Swal.fire("Wallet amount is required to apply the wallet.", "", "error");
+                return;
+            }
+
+            if (accountWalletAmount <= 0) {
+                Swal.fire("Insufficient wallet balance.", "You don't have enough amount to apply.", "error");
+                return;
+            }
+
+            if (walletAmount > accountWalletAmount) {
+                Swal.fire("The wallet amount you entered exceeds your wallet balance.", "", "error");
+                return;
+            }
+
+            if (walletAmount > dueAmount) {
+                Swal.fire("The wallet amount you entered exceeds the total due amount.", "", "error");
+                return;
+            }
+
+            // Get selected duration
+            let duration = $("#period_required").val(); // Adjust selector if needed
+
+            // Button loader
+            let originalText = button.html();
+            button.prop("disabled", true);
+            button.html('<span class="spinner-border spinner-border-sm me-1"></span> Applying...');
+
+            $.ajax({
+                url: "{{ route('email.hosting.payment.summary') }}",
+                type: "POST",
+                data: {
+                    duration: duration,
+                    type: type,
+                    wallet_amount: walletAmount,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    if (response.success == true) {
+                        // Update UI from backend response
+                        $("#payment_details").html(response.html);
+
+                        if (response.amountDue !== undefined) {
+                            dueAmount = parseFloat(response.amountDue);
+                        }
+
+                        Swal.fire({
+                            title: "Success!",
+                            text: response.message || "Wallet amount applied successfully.",
+                            icon: "success"
+                        });
+
+
+                    } else {
+                        Swal.fire(
+                            "Error",
+                            response.message || "Unable to apply wallet amount.",
+                            "error"
+                        );
+                    }
+                },
+                error: function(xhr) {
+                    let message = "Something went wrong while applying wallet amount.";
+
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        message = xhr.responseJSON.message;
+                    }
+
+                    Swal.fire("Error", message, "error");
+                },
+                complete: function() {
+                    button.prop("disabled", false);
+                    button.html(originalText);
+                }
+            });
+        });
     </script>
 @endpush

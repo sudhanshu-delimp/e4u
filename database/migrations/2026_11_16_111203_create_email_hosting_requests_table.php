@@ -31,7 +31,7 @@ class CreateEmailHostingRequestsTable extends Migration
         ->comment('Email hosting duration in months');
 
       // Request status
-      $table->enum('request_status', ['pending', 'active', 'on_hold', 'completed', 'rejected', 'cancelled'])->default('pending');
+      $table->enum('status', ['pending', 'active', 'on_hold', 'completed', 'rejected', 'cancelled'])->default('pending');
 
       // Payment details (One-time payment only)
       $table->enum('payment_status', ['pending', 'processing', 'paid', 'failed', 'refunded'])->default('pending');
@@ -39,14 +39,7 @@ class CreateEmailHostingRequestsTable extends Migration
       // Pricing breakdown
       $table->decimal('monthly_fee', 10, 2)->default(0)
         ->comment('Monthly pricing used to calculate the one-time payment');
-
-      $table->decimal('total_subscription_cost', 10, 2)->default(0) ->comment('Total base cost for the requested duration, excluding GST');
-
       $table->decimal('gst_rate', 5, 2)->default(0)->comment('GST percentage');
-      $table->decimal('total_gst', 10, 2)->default(0)->comment('Total GST for the requested duration');
-      $table->decimal('total_amount', 10, 2)->default(0)->comment('Total one-time payment amount including GST');
-      $table->decimal('amount_paid', 10, 2)->default(0)->comment('Actual amount successfully paid');
-      $table->string('currency', 3)->default('AUD');
 
       // Payment dates
       $table->timestamp('payment_date')->nullable()->comment('Date and time payment was successfully completed');
@@ -72,7 +65,7 @@ class CreateEmailHostingRequestsTable extends Migration
 
       // Indexes
       $table->index('user_type');
-      $table->index('request_status');
+      $table->index('status');
       $table->index('payment_status');
       $table->index('user_id');
       $table->index('payment_transaction_id');

@@ -16,13 +16,13 @@ use Illuminate\Support\Facades\Log;
 
 class EmailAccountRequestController extends Controller
 {
-   protected EmailHostingRequestService $service;
+  protected EmailHostingRequestService $service;
 
-    public function __construct(EmailHostingRequestService $service)
-    {
-        $this->service = $service;
-    }
-    
+  public function __construct(EmailHostingRequestService $service)
+  {
+    $this->service = $service;
+  }
+
   public function index()
   {
     return view('escort.dashboard.Concierge.email-hosting');
@@ -31,11 +31,19 @@ class EmailAccountRequestController extends Controller
   {
     try {
 
-       
-        $result = $this->service->createRequest(
-                $request->validated()
-            );
 
+      $result = $this->service->createRequest($request->all());
+      if ($result['status'] == false) {
+        return response()->json([
+          'status' => false,
+          'message' => $result['message'],
+        ], 419);
+      } else if ($result['status'] == true) {
+        return response()->json([
+          'status' => true,
+          'message' => $result['message'],
+        ], 200);
+      }
 
       // $data['contact_preference'] = json_encode($request->contact_pref);
       // $data['user_id'] = Auth::user()->id;
@@ -81,22 +89,56 @@ class EmailAccountRequestController extends Controller
       $monthlyFee =  FeesConciergeService::where('service_type', 'Email Account')->value('amount');
       $totalSubscriptionCost = $monthlyFee * $duration;
       $gstAmount = getGSTAmount($monthlyFee);
-      $totalFee=$monthlyFee+$gstAmount;
+      $totalFee = $monthlyFee + $gstAmount;
 
       $totalGstAmount = getGSTAmount($totalSubscriptionCost);
-      $amountDueToday = $totalSubscriptionCost +$totalGstAmount; 
-  $view = 'escort.dashboard.Concierge.email-request-payment-summery';
+      $amountDue = $totalSubscriptionCost + $totalGstAmount;
+      $totalFee=$amountDue;
+      $view = "";
+      $walletAmount = 0;
       if ($request->type == "order_details") {
         $view = 'escort.dashboard.Concierge.email-request-order-summery';
+      } else if ($request->type == "payment_details") {
+        $view = 'escort.dashboard.Concierge.email-request-payment-summery';
+      } else if ($request->type == "apply_wallet") {
+        $walletAmount = (float) $request->wallet_amount;
+        $accountWalletAmount = (float) (auth()->user()->wallet->balance ?? 0);
+
+        if ($walletAmount <= 0) {
+          return response()->json([
+            'success' => false,
+            'message' => 'Wallet amount is required to apply the wallet.',
+          ], 422);
+        } elseif ($accountWalletAmount <= 0) {
+          return response()->json([
+            'success' => false,
+            'message' => "Insufficient wallet balance. You don't have enough amount to apply.",
+          ], 422);
+        } elseif ($walletAmount > $accountWalletAmount) {
+          return response()->json([
+            'success' => false,
+            'message' => 'The wallet amount you entered exceeds your wallet balance.',
+          ], 422);
+        } elseif ($walletAmount > $amountDue) {
+          return response()->json([
+            'success' => false,
+            'message' => 'The wallet amount you entered exceeds the total due amount.',
+          ], 422);
+        }
+
+        // Apply wallet deduction to payment summary (not actual wallet debit yet)
+        $amountDue = round($amountDue - $walletAmount, 2);
+        $view = 'escort.dashboard.Concierge.email-request-payment-summery';
       }
-      $html = view($view, compact('duration', 'monthlyFee', 'totalSubscriptionCost', 'gstAmount', 'totalFee','totalGstAmount', 'amountDueToday'))->render();
+    $type=  $request->type;
+      // dd($amountDue);
+      $html = view($view, compact('duration','type', 'amountDue', 'walletAmount', 'monthlyFee', 'totalSubscriptionCost', 'gstAmount', 'totalFee', 'totalGstAmount', 'amountDue'))->render();
 
 
       return response()->json([
         'success' => true,
-        'html' => $html
+        'html' => $html, 
       ]);
-
     } catch (\Exception $e) {
 
       Log::error('Email hosting payment summary error', [

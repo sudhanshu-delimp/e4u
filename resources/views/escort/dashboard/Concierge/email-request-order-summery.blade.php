@@ -37,16 +37,11 @@
 
 <div class="d-flex justify-content-between align-items-center mb-2">
     <span>Total Subscription Cost (Incl. GST):</span>
-    <strong>{{ formatCurrency($totalSubscriptionCost + ($gstAmount * $duration)) }}</strong>
+    <strong>{{ formatCurrency($amountDue) }}</strong>
 </div>
 <hr>
 
-{{-- <div class="d-flex justify-content-between align-items-center fw-bold">
-    <strong>Total Due:</strong>
-    <strong class="paymentTotal totalDue" style="border-top: 1px solid;">
-        {{ formatCurrency($amountDueToday) }}
-    </strong>
-</div> --}}
+
 
  
 

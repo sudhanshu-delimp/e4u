@@ -10,32 +10,48 @@ class EmailHostingRequest extends Model
   use HasFactory;
   protected $table = 'email_hosting_requests';
   protected $fillable = [
+    // User details
     'user_id',
+    'user_type',
+
+    // Contact details
     'email',
     'first_name',
     'last_name',
     'mobile',
     'contact_preference',
+
+    // Request details
     'term_condition',
     'auth',
     'period_required',
-    'user_type',
-    'request_status',
+
+    // Request status
+    'status',
+
+    // Payment details
+    'payment_status',
     'monthly_fee',
-    'total_subscription_cost',
     'gst_rate',
-    'total_gst',
-    'currency',
+    'payment_date',
+
+    // Service validity
     'start_date',
     'end_date',
-    'next_payment_date',
+
+    // Payment gateway information
     'payment_gateway',
     'gateway_customer_id',
     'payment_method_id',
-    'pin_customer_token',
-    'pin_card_token',
-    'subscription_status',
-    'auto_renew',
+    'payment_transaction_id',
+    'payment_reference',
+
+    // Payment failure / refund information
+    'payment_error_message',
+    'refunded_at',
+    'refunded_amount',
+
+    // Admin notes
     'comments',
   ];
 
@@ -43,22 +59,13 @@ class EmailHostingRequest extends Model
     'contact_preference' => 'array',
     'term_condition' => 'boolean',
     'auth' => 'boolean',
-    'auto_renew' => 'boolean',
     'period_required' => 'integer',
     'monthly_fee' => 'decimal:2',
-    'total_subscription_cost' => 'decimal:2',
     'gst_rate' => 'decimal:2',
-    'total_gst' => 'decimal:2',
+    'refunded_amount' => 'decimal:2',
+    'payment_date' => 'datetime',
+    'refunded_at' => 'datetime',
     'start_date' => 'date',
     'end_date' => 'date',
-    'next_payment_date' => 'date',
   ];
-  public function subscriptionPayments()
-  {
-    return $this->hasMany(
-      EmailHostingSubscriptionPayment::class,
-      'email_hosting_request_id',
-      'id'
-    );
-  }
 }
