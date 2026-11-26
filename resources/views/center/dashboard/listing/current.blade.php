@@ -40,7 +40,7 @@
                   <table id="currentListings" class="table  custom--common-table" width="100%">
                      <thead class="table-bg">
                         <tr>
-
+                           <th>ID</th>
                            <th>Profile Name</th>
                            <th>Location</th>
                            <th>Business Name</th>
@@ -92,7 +92,15 @@
          }
       },
 
-      columns: [{
+      columns: [
+      {
+            data: 'slug',
+            name: 'slug',
+            searchable: true,
+            orderable: true,
+            defaultContent: 'NA'
+         },
+      {
             data: 'profile_name',
             name: 'profile_name',
             searchable: true,

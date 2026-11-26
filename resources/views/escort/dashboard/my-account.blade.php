@@ -148,7 +148,7 @@
                                                         @endforeach
                                                     @endif
                                                 </div>
-                                                <div class="form-group">
+                                                <!-- <div class="form-group">
                                                     <label for="mobile" class="common_help_icon">Mobile
                                                     <div class="common-tooltip">
                                                         <img class="delay_tooltip tooltip-icon"
@@ -158,6 +158,35 @@
                                                     </div>
                                                     </label>
                                                     <p class="input_not_edit">{{ $escort->phone }}</p>
+                                                </div> -->
+                                                <div class="form-group">
+                                                    <label for="mobile" class="common_help_icon">Mobile
+                                                        <div class="common-tooltip">
+                                                            <img class="delay_tooltip tooltip-icon"
+                                                                src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
+                                                            <span class="tooltip-text">This is the number which will be
+                                                                displayed in your Profiles.</span>
+                                                        </div>
+                                                    </label>
+
+                                                    <div class="position-relative">
+                                                        <p class="input_not_edit mb-0" id="escortPhoneText" style="padding-right: 75px;">{{ $escort->phone }}</p>
+
+                                                        @if (!empty($escort->phone))
+                                                            <button type="button"
+                                                                class="copy_btn"
+                                                                id="copyPhoneBtn"
+                                                                data-phone="{{ $escort->phone }}"
+                                                                title="Copy Mobile Number"
+                                                                style="right: 8px; top: 50%; transform: translateY(-50%); z-index: 2;">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                                    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                                                                    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                                                                </svg>
+                                                                <span class="copy-text ml-1" style="font-size: 11px;">Copy</span>
+                                                            </button>
+                                                        @endif
+                                                    </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="my-agent" for="home_state">Home State
@@ -223,6 +252,7 @@
                                                         placeholder="Insert your Bank Account name" aria-describedby="Help"
                                                         value="{{ $escort->pay_id_name ?? '' }}">
                                                 </div>
+
                                                 <div class="form-group">
                                                     <label for="PayID Number">PayID Number</label>
                                                     <input type="text" class="form-control" name="PayID_NO"
@@ -263,30 +293,30 @@
 
                                                 <div class="form-group">
                                                     <div class="radio-options">
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" name="contact_type[]"
+                                                        <div class="custom-control custom-switch form-check-inline">
+                                                            <input class="custom-control-input" type="checkbox" name="contact_type[]"
                                                                 id="Method_Message" value="1"
                                                                 @if (!empty($escort->contact_type)) {{ in_array(1, $escort->contact_type) ? 'checked' : null }} @endif>
-                                                            <label class="form-check-label" for="Method_Message">Message
+                                                            <label class="custom-control-label" for="Method_Message">Message
                                                                 (via Console)</label>
                                                         </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" checked
+                                                        <div class="custom-control custom-switch form-check-inline">
+                                                            <input class="custom-control-input" type="checkbox" checked
                                                                 name="contact_type[]" id="Method_Text" value="2"
                                                                 @if (!empty($escort->contact_type)) {{ in_array(2, $escort->contact_type) ? 'checked' : null }} @endif>
-                                                            <label class="form-check-label" for="Method_Text">Text</label>
+                                                            <label class="custom-control-label" for="Method_Text">Text</label>
                                                         </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" name="contact_type[]"
+                                                        <div class="custom-control custom-switch form-check-inline">
+                                                            <input class="custom-control-input" type="checkbox" name="contact_type[]"
                                                                 id="Method_Email" value="3"
                                                                 @if (!empty($escort->contact_type)) {{ in_array(3, $escort->contact_type) ? 'checked' : null }} @endif>
-                                                            <label class="form-check-label" for="Method_Email">Email</label>
+                                                            <label class="custom-control-label" for="Method_Email">Email</label>
                                                         </div>
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" name="contact_type[]"
+                                                        <div class="custom-control custom-switch form-check-inline">
+                                                            <input class="custom-control-input" type="checkbox" name="contact_type[]"
                                                                 id="Method_call_me" value="4"
                                                                 @if (!empty($escort->contact_type)) {{ in_array(4, $escort->contact_type) ? 'checked' : null }} @endif>
-                                                            <label class="form-check-label" for="Method_call_me">Call
+                                                            <label class="custom-control-label" for="Method_call_me">Call
                                                                 me</label>
                                                         </div>
                                                     </div>
@@ -478,70 +508,70 @@
                                             <div class="inner-field-row">
                                                 <div class="form-group option-list mt-0">
                                                     <label for="email">Profile creator settings</label>
-                                                    <div class="form-check form-check-inline">
-                                                        <input name="profile_creator[]" class="form-check-input" type="checkbox"
+                                                    <div class="custom-control custom-switch">
+                                                        <input name="profile_creator[]" class="custom-control-input" type="checkbox"
                                                             id="Stage_Name" value="1"
                                                             @if (!empty($escort->profile_creator)) {{ in_array(1, $escort->profile_creator) ? 'checked' : null }} @endif>
-                                                        <label class="form-check-label" for="Stage_Name">Include Profile
+                                                        <label class="custom-control-label" for="Stage_Name">Include Profile
                                                             Information (Stage Name optional)</label>
                                                     </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input name="profile_creator[]" class="form-check-input" type="checkbox"
+                                                    <div class="custom-control custom-switch">
+                                                        <input name="profile_creator[]" class="custom-control-input" type="checkbox"
                                                             id="Profile_Info" value="2"
                                                             @if (!empty($escort->profile_creator)) {{ in_array(2, $escort->profile_creator) ? 'checked' : null }} @endif>
-                                                        <label class="form-check-label" for="Profile_Info">Include Profile
+                                                        <label class="custom-control-label" for="Profile_Info">Include Profile
                                                             Information and allow to over ride</label>
                                                     </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input name="profile_creator[]" class="form-check-input" type="checkbox"
+                                                    <div class="custom-control custom-switch">
+                                                        <input name="profile_creator[]" class="custom-control-input" type="checkbox"
                                                             id="Social_Media" value="3"
                                                             @if (!empty($escort->profile_creator)) {{ in_array(3, $escort->profile_creator) ? 'checked' : null }} @endif>
-                                                        <label class="form-check-label" for="Social_Media">Include social
+                                                        <label class="custom-control-label" for="Social_Media">Include social
                                                             media information</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-group option-list mt-0">
                                                     <label for="email">How can Viewers contact me</label>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" name="viewer_contact_type[]"
+                                                    <div class="custom-control custom-switch">
+                                                        <input class="custom-control-input" type="checkbox" name="viewer_contact_type[]"
                                                             id="Method_Call" value="1"
                                                             @if (!empty($escort->viewer_contact_type)) {{ in_array(1, $escort->viewer_contact_type) ? 'checked' : null }} @endif>
-                                                        <label class="form-check-label" for="Method_Call">Call me</label>
+                                                        <label class="custom-control-label" for="Method_Call">Call me</label>
                                                     </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" name="viewer_contact_type[]" type="checkbox"
+                                                    <div class="custom-control custom-switch">
+                                                        <input class="custom-control-input" name="viewer_contact_type[]" type="checkbox"
                                                             id="Method_Email_Me" value="3"
                                                             @if (!empty($escort->viewer_contact_type)) {{ in_array(3, $escort->viewer_contact_type) ? 'checked' : null }} @endif>
-                                                        <label class="form-check-label" for="Method_Email_Me" style="text-transform: unset;">Email Me (For private communications)</label>
+                                                        <label class="custom-control-label" for="Method_Email_Me" style="text-transform: unset;">Email Me (For private communications)</label>
                                                     </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" name="viewer_contact_type[]" type="checkbox"
+                                                    <div class="custom-control custom-switch">
+                                                        <input class="custom-control-input" name="viewer_contact_type[]" type="checkbox"
                                                             id="Method_Text_Me" value="2"
                                                             @if (!empty($escort->viewer_contact_type)) {{ in_array(2, $escort->viewer_contact_type) ? 'checked' : null }} @endif>
-                                                        <label class="form-check-label" for="Method_Text_Me">Text me</label>
+                                                        <label class="custom-control-label" for="Method_Text_Me">Text me</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-group option-list mt-0">
                                                     <label for="email">Tour options</label>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" name="tour_permissition_type[]"
+                                                    <div class="custom-control custom-switch">
+                                                        <input class="custom-control-input" name="tour_permissition_type[]"
                                                             type="checkbox" id="Create_Tours" value="1"
                                                             @if (!empty($escort->tour_permissition_type)) {{ in_array(1, $escort->tour_permissition_type) ? 'checked' : null }} @endif>
-                                                        <label class="form-check-label" for="Create_Tours">Allow Tours to be
+                                                        <label class="custom-control-label" for="Create_Tours">Allow Tours to be
                                                             created</label>
                                                     </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" name="tour_permissition_type[]"
+                                                    <div class="custom-control custom-switch">
+                                                        <input class="custom-control-input" name="tour_permissition_type[]"
                                                             type="checkbox" id="Edit_Tour" value="2"
                                                             @if (!empty($escort->tour_permissition_type)) {{ in_array(2, $escort->tour_permissition_type) ? 'checked' : null }} @endif>
-                                                        <label class="form-check-label" for="Edit_Tour">Allow Tours to be
+                                                        <label class="custom-control-label" for="Edit_Tour">Allow Tours to be
                                                             edited</label>
                                                     </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" name="tour_permissition_type[]"
+                                                    <div class="custom-control custom-switch">
+                                                        <input class="custom-control-input" name="tour_permissition_type[]"
                                                             type="checkbox" id="Tour_Date" value="3"
                                                             @if (!empty($escort->tour_permissition_type)) {{ in_array(3, $escort->tour_permissition_type) ? 'checked' : null }} @endif>
-                                                        <label class="form-check-label" for="Tour_Date">Post a Tour leg one
+                                                        <label class="custom-control-label" for="Tour_Date">Post a Tour leg one
                                                             day before the arrival date</label>
                                                     </div>
                                                 </div>
@@ -804,6 +834,71 @@
      }
    });
    
-   
+   // Copy Mobile Number
+$(document).on("click", "#copyPhoneBtn", function () {
+    let btn = $(this);
+    let phone = btn.data("phone") || $("#escortPhoneText").text().trim();
+
+    if (!phone) return;
+
+    // Fallback storage taaki local HTTP par bhi paste button kaam kare
+    sessionStorage.setItem("copied_phone_number", phone);
+
+    function showCopiedFeedback() {
+        let textEl = btn.find(".copy-text");
+        textEl.text("Copied!");
+        btn.removeClass("btn-outline-secondary").addClass("btn-success");
+
+        setTimeout(function () {
+            textEl.text("Copy");
+            btn.removeClass("btn-success").addClass("btn-outline-secondary");
+        }, 1500);
+    }
+
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(phone).then(showCopiedFeedback);
+    } else {
+        let tempInput = $("<input>");
+        $("body").append(tempInput);
+        tempInput.val(phone).select();
+        document.execCommand("copy");
+        tempInput.remove();
+        showCopiedFeedback();
+    }
+});
+
+$(document).on("click", "#copyPhoneBtn", function () {
+    let btn = $(this);
+    let phone = (btn.data("phone") || $("#escortPhoneText").text() || "").toString().trim();
+
+    if (!phone) return;
+
+    function afterCopy() {
+        // Direct paste PayID Number 
+        $('input[name="PayID_NO"]').val(phone).trigger("input").trigger("change");
+
+        let textEl = btn.find(".copy-text");
+        textEl.text("Copied!");
+        btn.removeClass("btn-outline-secondary").addClass("btn-success");
+
+        setTimeout(function () {
+            textEl.text("Copy");
+            btn.removeClass("btn-success").addClass("btn-outline-secondary");
+        }, 1500);
+    }
+
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(phone).then(afterCopy).catch(function () {
+            afterCopy();
+        });
+    } else {
+        let tempInput = $("<input>");
+        $("body").append(tempInput);
+        tempInput.val(phone).select();
+        document.execCommand("copy");
+        tempInput.remove();
+        afterCopy();
+    }
+});
 </script>
 @endpush

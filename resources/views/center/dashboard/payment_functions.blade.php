@@ -18,8 +18,34 @@ function make_order_summury(plandata)
                 $(".paymentTotal").text('$'+paymentTotal);
                 $(".taxAmount").text(response.data.order_summry.gstTax);
                 $('.totalDue').text(response.data.order_summry.total_due);
-                $('.wallet_amount').text('-'+response.data.order_summry.wallet_use);
-                $('.loyalty_amount').text('-'+response.data.order_summry.loyalty_use);
+
+                // $('.wallet_amount').text('-'+response.data.order_summry.wallet_use);
+                // $('.loyalty_amount').text('-'+response.data.order_summry.loyalty_use);
+
+                console.log('response.data.pay_data.loyalty_use')
+                console.log(parseFloat(response.data.pay_data.loyalty_amount));
+
+                console.log('response.data.pay_data.wallet_use')
+                console.log(parseFloat(response.data.pay_data.wallet_amount));
+
+                if(parseFloat(response.data.pay_data.wallet_amount)>0)
+                {
+                    $('.wallet_amount').text(`(${response.data.order_summry.wallet_use})`).css({color:'red'});
+                }
+                else
+                {
+                     $('.wallet_amount').text(`${response.data.order_summry.wallet_use}`).css({color:'black'});
+                }
+                
+                if(parseFloat(response.data.pay_data.loyalty_amount)>0)
+                {
+                    $('.loyalty_amount').text(`(${response.data.order_summry.loyalty_use})`).css({color:'red'});
+                }
+                else
+                {
+                     $('.loyalty_amount').text(`${response.data.order_summry.loyalty_use}`).css({color:'black'});;
+                }
+
                 
             } else {
                 console.error("Response data format sahi nahi hai.");

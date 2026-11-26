@@ -55,9 +55,9 @@ class CalculateAgentMonthlyFee extends Command
      */
     public function handle()
     {
-        /* $AddRefNumberToExistingRecordsService = new AddRefNumberToExistingRecordsService();
+        $AddRefNumberToExistingRecordsService = new AddRefNumberToExistingRecordsService();
         $AddRefNumberToExistingRecordsService->updateReferenceNumber();
-        $this->info("Unique reference number generated");die(); */
+        $this->info("Unique reference number generated");die();
 
         $reportObj = (new AgentMonthlyReport);
         // Write code for email report

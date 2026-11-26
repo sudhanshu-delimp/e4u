@@ -42,6 +42,7 @@
                         <thead class="table-bg">
                            <tr>
                               
+                              <th>ID</th>
                               <th>Profile Name</th>
                               <th>Location</th>
                               <th>Business Name</th>
@@ -92,6 +93,7 @@
     },
 
     columns: [
+            {data: 'slug',name: 'slug',searchable: true,orderable: true,defaultContent: 'NA'},
             { data: 'profile_name', name: 'profile_name', searchable: true, orderable:true ,defaultContent: 'NA' },
             { data: 'address', name: 'address', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'business_name', name: 'business_name', searchable: true, orderable:true ,defaultContent: 'NA'},

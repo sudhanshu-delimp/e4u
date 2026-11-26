@@ -196,8 +196,8 @@ function readImageURL(input) {
             image.onload = function () {
                 var height = image.height;
                 var width = image.width;
-                if (input.id == 'upload_banner' && (height < 469 || width < 1920)) {
-                    Swal.fire("Banner Media", "The image you have selected is too small.<br>Please upload an image with a minimum size of 1920×469 pixels", "warning");
+                if (input.id == 'upload_banner' && (height < 469 || width < 900)) {
+                    Swal.fire("Banner Media", "The image you have selected is too small.<br>Please upload an image with a minimum size of 900×469 pixels", "warning");
                     input.value = '';
                     return false;
                 }
