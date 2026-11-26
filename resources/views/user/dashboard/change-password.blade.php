@@ -195,10 +195,10 @@
                                         <h2>Notification</h2>
                                     </div>
                                 </div>
-                                <div class="radio-options">
-                                    <div class="custom-control custom-switch m-0">
+                                <div class="radio-options"> 
+                                    <div class="custom-control custom-switch m-0"> 
                                         <input class="custom-control-input" name="is_text_notificaion_on" type="checkbox"
-                                            id="n_text" value="1" checked
+                                            id="n_text" value="1" 
                                             @if ($user->account_setting && $user->account_setting->is_text_notificaion_on == '1') {{ 'checked' }} @endif>
                                         <label class="custom-control-label" for="n_text">Text</label>
                                     </div>
