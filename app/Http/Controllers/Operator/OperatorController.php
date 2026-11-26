@@ -87,7 +87,7 @@ class OperatorController extends BaseController
         $staff = OperatorStaff::with('operator')->where("id", auth()->user()->id)->first();
         $operator = $staff->operator;
         return view('operator.dashboard.my-account.my-operator', compact('staff', 'operator'));
-    }               
+    }
 
 
     /**
@@ -420,11 +420,11 @@ class OperatorController extends BaseController
     public function operatorMonthlyreport()
     {
         return  view('operator.management.reports.operators.fees.operator-monthly-report');
-    }                 
+    }
 
     public function monthlyReportAjax()
     {
-       // echo "mithu";die;
+        // echo "mithu";die;
         $userId = auth()->user()->id;
         $reportObj = (new OperatorMonthlyReport);
         try {
@@ -465,11 +465,11 @@ class OperatorController extends BaseController
     private function reportDataPagination($start, $limit, $order_key, $dir)
     {
         $user = auth()->user();
-        $userId =$user->id;
-        
+        $userId = $user->id;
+
         $operatorId = $user->operator->id;
         $reports = OperatorMonthlyReport::with('operator', 'monthlyReportQuery')
-        ->where('operator_id',  $operatorId);
+            ->where('operator_id',  $operatorId);
 
         $search = request()->input('search.value');
 
@@ -523,6 +523,7 @@ class OperatorController extends BaseController
             if ($queryCount > 0) {
                 $queryTitle = "View & Reply";
             }
+            $queryShowHide = true;
 
             $dropDown = '<div class="dropdown no-arrow"><a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">';
             $divider = "";
@@ -534,47 +535,49 @@ class OperatorController extends BaseController
 
             if ($item->status == 'pending') {
                 //Approve
-                
-                   /*  $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
+
+                /*  $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
                     $divider = '<div class="dropdown-divider"></div>'; */
 
 
-                    //Query
-                   /*  $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
+                //Query
+                /*  $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
                     $divider = '<div class="dropdown-divider"></div>'; */
-                
             } else if ($item->status == 'approved') {
                 //Query
-              
-                    /* $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="paid"  id="viewPayOperatorRreport"><i class="fa fa-star"></i>Pay</a>';
+
+                /* $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="paid"  id="viewPayOperatorRreport"><i class="fa fa-star"></i>Pay</a>';
                     $divider = '<div class="dropdown-divider"></div>'; */
-/* 
+                /* 
                      $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="pending"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Pending</a>';
                     $divider = '<div class="dropdown-divider"></div>'; */
-                    //Query
-                  
-                
+                //Query
+
+
             } else if ($item->status == 'paid') {
                 //pending
-               
-                    /* $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="pending"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Pending</a>';
+
+                /* $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="pending"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Pending</a>';
                     $divider = '<div class="dropdown-divider"></div>'; */
-                    $queryTitle = "View Query";
-                
+                $queryShowHide = false;
+                if ($queryCount > 0) {
+                    $queryShowHide = true;
+                }
+                $queryTitle = "View Query";
+    
             } else if ($item->status == 'query') {
-                    $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query_resolved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Query Resolve</a><div class="dropdown-divider"></div>';
-                
+                $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query_resolved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Query Resolve</a><div class="dropdown-divider"></div>';
             } else if ($item->status == 'query_resolved') {
                 //query_resolved
-               
-                   /*  $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a><div class="dropdown-divider"></div>'; */
 
-                
+                /*  $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a><div class="dropdown-divider"></div>'; */
             }
 
             //View Query
-            $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" data-original_status="'.$item->status.'"  id="openQueryModel"><i class="fa fa-search-minus"></i>'.$queryTitle.'</a>';
-            $divider = '<div class="dropdown-divider"></div>';
+            if ($queryShowHide) {
+                $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" data-original_status="' . $item->status . '"  id="openQueryModel"><i class="fa fa-search-minus"></i>' . $queryTitle . '</a>';
+                $divider = '<div class="dropdown-divider"></div>';
+            }
             //  View Detail
             $dropDown .= $divider . '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-operator_id="' . $item->agent_id . '" id="getMontlyViewReportPage"> <i class="fa fa-eye"></i> View Report</a>';
 
@@ -586,218 +589,216 @@ class OperatorController extends BaseController
     }
 
     /**
-   * View the monthly fee detail
-   * 
-   * @param \Illuminate\Http\Request $request
-   */
-  public function viewMonthlyReport(Request $request)
-  {
-    $data = $request->all();
-    if (isset($data['id']) && $data['id'] > 0) {
-      $id = $data['id'];
-      $calculateServiceObj = (new CalculateOperatorFeeService);
-      //Prepare the operator monthly fee data for view detail
-      $feeDatas = $calculateServiceObj->getOperatorFeeDetails($id);
+     * View the monthly fee detail
+     * 
+     * @param \Illuminate\Http\Request $request
+     */
+    public function viewMonthlyReport(Request $request)
+    {
+        $data = $request->all();
+        if (isset($data['id']) && $data['id'] > 0) {
+            $id = $data['id'];
+            $calculateServiceObj = (new CalculateOperatorFeeService);
+            //Prepare the operator monthly fee data for view detail
+            $feeDatas = $calculateServiceObj->getOperatorFeeDetails($id);
 
-      if (count($feeDatas) > 0) {
-        return view('operator.management.reports.operators.fees.view_monthly_report', compact('feeDatas'));
-                    
-      }
-    }
-    return "";
-  }
-
-  /**
-   * Update the status
-   * 
-   * @param \Illuminate\Http\Request $request
-   */
-  public function updateMonthlyReportStatus(Request $request)
-  {
-    $report = true;
-    $data = $request->all();
-    if ($data) {
-      $id = $data['id'];
-      $status = $data['status'];
-      $note = $data['note'] ?? "";
-      $report = OperatorMonthlyReport::where('id', $id)->first();
-      if ($report) {
-        $report->status = $status;
-        if ($status == 'approved') {
-          $report->report_approved = now();
+            if (count($feeDatas) > 0) {
+                return view('operator.management.reports.operators.fees.view_monthly_report', compact('feeDatas'));
+            }
         }
-        if ($report->save()) {
-          if ($status == 'query' || $status == 'query_resolved') {
-            $userId = auth()->user()->id;
-            $userType = auth()->user()->type;
-            $reportQueryObj = (new monthlyReportQuery);
-            $reportQueryObj->fee_report_id = $id;
-            $reportQueryObj->status = $status;
-            $reportQueryObj->submitted_by = $userId;
-            $reportQueryObj->user_type = $userType;
-            $reportQueryObj->report_date = date('Y-m-d H:i:s');;
-            $reportQueryObj->notes = $note;
-            $reportQueryObj->save();
-          }
-          $msg = ($status == 'query') ? 'Query submitted successfully.' : 'Monthly fee report status successfully updated.';
-          return $this->successResponse($msg);
+        return "";
+    }
+
+    /**
+     * Update the status
+     * 
+     * @param \Illuminate\Http\Request $request
+     */
+    public function updateMonthlyReportStatus(Request $request)
+    {
+        $report = true;
+        $data = $request->all();
+        if ($data) {
+            $id = $data['id'];
+            $status = $data['status'];
+            $note = $data['note'] ?? "";
+            $report = OperatorMonthlyReport::where('id', $id)->first();
+            if ($report) {
+                $report->status = $status;
+                if ($status == 'approved') {
+                    $report->report_approved = now();
+                }
+                if ($report->save()) {
+                    if ($status == 'query' || $status == 'query_resolved') {
+                        $userId = auth()->user()->id;
+                        $userType = auth()->user()->type;
+                        $reportQueryObj = (new monthlyReportQuery);
+                        $reportQueryObj->fee_report_id = $id;
+                        $reportQueryObj->status = $status;
+                        $reportQueryObj->submitted_by = $userId;
+                        $reportQueryObj->user_type = $userType;
+                        $reportQueryObj->report_date = date('Y-m-d H:i:s');;
+                        $reportQueryObj->notes = $note;
+                        //$reportQueryObj->save();
+                    }
+                    $msg = ($status == 'query') ? 'Query submitted successfully.' : 'Monthly fee report status successfully updated.';
+                    return $this->successResponse($msg);
+                }
+            } else {
+                return $this->errorResponse('Monthly fee report data not found.');
+            }
         }
-      } else {
-        return $this->errorResponse('Monthly fee report data not found.');
-      }
+        return $this->errorResponse('Error occurred while updating the status.');
     }
-    return $this->errorResponse('Error occurred while updating the status.');
-  }
 
-  public function printMonthlyFee(Request $request)
-  {
-    $reportId  = $request->fee_print_id;
-    $report = OperatorMonthlyReport::where('id', $reportId)->first();
-    if ($report) {
-      $reportMonth = Carbon::parse($report->report_date)->format('F');
-      $operatorMemberId = $report->operator->member_id;
-      $calculateServiceObj = (new CalculateOperatorFeeService);
-      $feeDatas = $calculateServiceObj->getOperatorFeeDetails($reportId);
-      $reportEndDate = Carbon::parse($report->billing_period_to)->format('d-m-Y');
-      //return view('admin.management.operator.fees.print_monthly_report', compact('feeDatas', 'operatorMemberId', 'reportEndDate'));
-      if (count($feeDatas) > 0) {
-        $pdf = PDF::loadView(
-          'operator.management.reports.operators.fees.print_monthly_report',
-          [
-            'feeDatas' => $feeDatas,
-            'operatorMemberId' => $operatorMemberId,
-            'reportEndDate' => $reportEndDate
-          ]
-        )->setPaper('A4', 'portrait')
-        ->setOption(['isRemoteEnabled' => true]);
-
-        $fileName = 'operator_monthly_fee_report_' . $operatorMemberId . '-' . $reportMonth . '.pdf';
-        return $pdf->stream($fileName);
-      }
-    }
-    return response()->redirectTo('/operator-dashboard/management/reports/operator-monthly-report')->with('error', 'Monthly fee record not found.');
-  }
-
-  /**
-   * View the monthly fee detail
-   * 
-   * @param \Illuminate\Http\Request $request
-   */
-  public function viewQuery(Request $request)
-  {
-    $data = $request->all();
-    if (isset($data['id']) && $data['id'] > 0) {
-      $id = $data['id'];
-      $queryObj = (new monthlyReportQuery);
-
-      $queryData = $queryObj->with('submittedBy')
-        ->where('fee_report_id', $id)
-        ->where('status', 'query')
-        ->where('notes', '!=', "")
-        ->orderBy("created_at" , "DESC")
-        ->get();
-
-      if ($queryData->isNotEmpty()) {
-        return view('operator.management.reports.operators.fees.view_query', compact('queryData'));
-      }
-    }
-    return "";
-  }
-   /**
-   * View the monthly pay fee detail
-   * 
-   * @param \Illuminate\Http\Request $request
-   */
-  public function viewPayOperatorRreport(Request $request)
-  {
-    $reportId  = $request->report_id;
-    $response['error'] = 1;
-    $response['data'] = [];
-
-    if (!empty($reportId)) {
-
-      $report = OperatorMonthlyReport::where('id', $reportId)->first();
-      if ($report) {
-        $reportDate = Carbon::parse($report->report_date)->format('d-m-Y');
-        $reportMonth = Carbon::parse($report->report_date)->format('F');
-
-        $reportStartDate = Carbon::parse($report->billing_period_from)->format('d-m-Y');
-        $reportEndDate = Carbon::parse($report->billing_period_to)->format('d-m-Y');
-        $reportPeriod = $reportStartDate." to ".$reportEndDate;
-
-        $reportData['operatorId'] = $report->operator->member_id;
-        $reportData['payMonthlyReportDate'] = $reportDate;
-        $reportData['payMonthlyReportMonth'] = $reportPeriod;
-        $reportData['payOperatorFee'] = number_format($report->fees, 2);
-
-        $response['error'] = 0;
-        $response['data'] = $reportData;
-        return response()->json($response);
-      }
-    }
-    return response()->json($response);
-  }
-
-  /**
-   * Print the monthly pay fee detail
-   * 
-   * @param \Illuminate\Http\Request $request
-   */
-  public function printPayOperatorReport(Request $request)
-  {
-    try {
-      $reportId  = $request->monthly_report_id;
-
-      if (!empty($reportId)) {
-
+    public function printMonthlyFee(Request $request)
+    {
+        $reportId  = $request->fee_print_id;
         $report = OperatorMonthlyReport::where('id', $reportId)->first();
         if ($report) {
-          $reportDate = Carbon::parse($report->report_date)->format('d-m-Y');
-          $reportMonth = Carbon::parse($report->report_date)->format('F');
+            $reportMonth = Carbon::parse($report->report_date)->format('F');
+            $operatorMemberId = $report->operator->member_id;
+            $calculateServiceObj = (new CalculateOperatorFeeService);
+            $feeDatas = $calculateServiceObj->getOperatorFeeDetails($reportId);
+            $reportEndDate = Carbon::parse($report->billing_period_to)->format('d-m-Y');
+            //return view('admin.management.operator.fees.print_monthly_report', compact('feeDatas', 'operatorMemberId', 'reportEndDate'));
+            if (count($feeDatas) > 0) {
+                $pdf = PDF::loadView(
+                    'operator.management.reports.operators.fees.print_monthly_report',
+                    [
+                        'feeDatas' => $feeDatas,
+                        'operatorMemberId' => $operatorMemberId,
+                        'reportEndDate' => $reportEndDate
+                    ]
+                )->setPaper('A4', 'portrait')
+                    ->setOption(['isRemoteEnabled' => true]);
 
-          $reportStartDate = Carbon::parse($report->billing_period_from)->format('d-m-Y');
-          $reportEndDate = Carbon::parse($report->billing_period_to)->format('d-m-Y');
-          $reportPeriod = $reportStartDate." to ".$reportEndDate;
-
-          $reportData['payOperatorId'] = $report->operator->member_id;
-          $reportData['payMonthlyReportDate'] = $reportDate;
-          $reportData['payMonthlyReportMonth'] = $reportPeriod;
-          $reportData['payOperatorFee'] = number_format($report->fees, 2);
-          $operatorId = $report->operator_id;
-
-          $pdf = PDF::loadView(
-            'operator.management.reports.operators.fees.print_monthly_pay_report',
-            ['reportData' => $reportData]
-          )->setOption(['isRemoteEnabled' => true]);
-          $fileName = 'operator_monthly_payment_authorisation_report_' . $report->operator->member_id . '-' . $reportMonth . '.pdf';
-          $report->status = "paid";
-
-          if ($report->save()) {
-
-            $notification = (new Notification);
-            $notificationTitle = 'Your<span style="color:#ff0505;"> Monthly Fee </span> has been paid for ' . $reportMonth . ' month. Please visit <a href="' . config('app.url') . '/operator-dashboard/management/reports/operator-monthly-report">Fee Report</a> to acknowledge.';
-
-            $notificationIcon = $notification->notificationIcon('general');
-
-            // Write code for email report
-            $data = [];
-            $data['to_user'] = $operatorId;
-            $data['notification_type'] = 'general';
-            $data['notification_icon'] = $notificationIcon;
-            $data['notification_listing_type'] = 3;
-            $data['title'] = $notificationTitle;
-            $data['message'] = '';
-            $data['created_at'] = date('Y-m-d H:i:s');
-            $data['updated_at'] = date('Y-m-d H:i:s');
-            $notification->create($data);
-          }
-          return $pdf->stream($fileName);
+                $fileName = 'operator_monthly_fee_report_' . $operatorMemberId . '-' . $reportMonth . '.pdf';
+                return $pdf->stream($fileName);
+            }
         }
-      }
-    } catch (Exception $e) {
-      return response()->redirectTo('/operator-dashboard/management/reports/operator-monthly-report')->with('error', 'Error occurred while fetching the report data. Please try later.');
+        return response()->redirectTo('/operator-dashboard/management/reports/operator-monthly-report')->with('error', 'Monthly fee record not found.');
     }
-    return response()->redirectTo('/operator-dashboard/management/reports/operator-monthly-report')->with('error', 'Monthly fee record not found.');
-  }
 
+    /**
+     * View the monthly fee detail
+     * 
+     * @param \Illuminate\Http\Request $request
+     */
+    public function viewQuery(Request $request)
+    {
+        $data = $request->all();
+        if (isset($data['id']) && $data['id'] > 0) {
+            $id = $data['id'];
+            $queryObj = (new monthlyReportQuery);
+
+            $queryData = $queryObj->with('submittedBy')
+                ->where('fee_report_id', $id)
+                ->where('status', 'query')
+                ->where('notes', '!=', "")
+                ->orderBy("created_at", "DESC")
+                ->get();
+
+            if ($queryData->isNotEmpty()) {
+                return view('operator.management.reports.operators.fees.view_query', compact('queryData'));
+            }
+        }
+        return "";
+    }
+    /**
+     * View the monthly pay fee detail
+     * 
+     * @param \Illuminate\Http\Request $request
+     */
+    public function viewPayOperatorRreport(Request $request)
+    {
+        $reportId  = $request->report_id;
+        $response['error'] = 1;
+        $response['data'] = [];
+
+        if (!empty($reportId)) {
+
+            $report = OperatorMonthlyReport::where('id', $reportId)->first();
+            if ($report) {
+                $reportDate = Carbon::parse($report->report_date)->format('d-m-Y');
+                $reportMonth = Carbon::parse($report->report_date)->format('F');
+
+                $reportStartDate = Carbon::parse($report->billing_period_from)->format('d-m-Y');
+                $reportEndDate = Carbon::parse($report->billing_period_to)->format('d-m-Y');
+                $reportPeriod = $reportStartDate . " to " . $reportEndDate;
+
+                $reportData['operatorId'] = $report->operator->member_id;
+                $reportData['payMonthlyReportDate'] = $reportDate;
+                $reportData['payMonthlyReportMonth'] = $reportPeriod;
+                $reportData['payOperatorFee'] = number_format($report->fees, 2);
+
+                $response['error'] = 0;
+                $response['data'] = $reportData;
+                return response()->json($response);
+            }
+        }
+        return response()->json($response);
+    }
+
+    /**
+     * Print the monthly pay fee detail
+     * 
+     * @param \Illuminate\Http\Request $request
+     */
+    public function printPayOperatorReport(Request $request)
+    {
+        try {
+            $reportId  = $request->monthly_report_id;
+
+            if (!empty($reportId)) {
+
+                $report = OperatorMonthlyReport::where('id', $reportId)->first();
+                if ($report) {
+                    $reportDate = Carbon::parse($report->report_date)->format('d-m-Y');
+                    $reportMonth = Carbon::parse($report->report_date)->format('F');
+
+                    $reportStartDate = Carbon::parse($report->billing_period_from)->format('d-m-Y');
+                    $reportEndDate = Carbon::parse($report->billing_period_to)->format('d-m-Y');
+                    $reportPeriod = $reportStartDate . " to " . $reportEndDate;
+
+                    $reportData['payOperatorId'] = $report->operator->member_id;
+                    $reportData['payMonthlyReportDate'] = $reportDate;
+                    $reportData['payMonthlyReportMonth'] = $reportPeriod;
+                    $reportData['payOperatorFee'] = number_format($report->fees, 2);
+                    $operatorId = $report->operator_id;
+
+                    $pdf = PDF::loadView(
+                        'operator.management.reports.operators.fees.print_monthly_pay_report',
+                        ['reportData' => $reportData]
+                    )->setOption(['isRemoteEnabled' => true]);
+                    $fileName = 'operator_monthly_payment_authorisation_report_' . $report->operator->member_id . '-' . $reportMonth . '.pdf';
+                    $report->status = "paid";
+
+                    if ($report->save()) {
+
+                        $notification = (new Notification);
+                        $notificationTitle = 'Your<span style="color:#ff0505;"> Monthly Fee </span> has been paid for ' . $reportMonth . ' month. Please visit <a href="' . config('app.url') . '/operator-dashboard/management/reports/operator-monthly-report">Fee Report</a> to acknowledge.';
+
+                        $notificationIcon = $notification->notificationIcon('general');
+
+                        // Write code for email report
+                        $data = [];
+                        $data['to_user'] = $operatorId;
+                        $data['notification_type'] = 'general';
+                        $data['notification_icon'] = $notificationIcon;
+                        $data['notification_listing_type'] = 3;
+                        $data['title'] = $notificationTitle;
+                        $data['message'] = '';
+                        $data['created_at'] = date('Y-m-d H:i:s');
+                        $data['updated_at'] = date('Y-m-d H:i:s');
+                        $notification->create($data);
+                    }
+                    return $pdf->stream($fileName);
+                }
+            }
+        } catch (Exception $e) {
+            return response()->redirectTo('/operator-dashboard/management/reports/operator-monthly-report')->with('error', 'Error occurred while fetching the report data. Please try later.');
+        }
+        return response()->redirectTo('/operator-dashboard/management/reports/operator-monthly-report')->with('error', 'Monthly fee record not found.');
+    }
 }

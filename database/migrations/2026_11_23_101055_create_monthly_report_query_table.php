@@ -13,6 +13,7 @@ return new class extends Migration
             $table->id();
             $table->string('ref_number')->nullable();
             $table->unsignedBigInteger('fee_report_id');
+            $table->enum('fee_report_type', ['operator', 'agent'])->default('agent')->after('fee_report_id');
             $table->dateTime('report_date')->nullable();
 
             $table->enum('status', [
@@ -32,6 +33,7 @@ return new class extends Migration
 
             // Indexes
             $table->index('fee_report_id');
+            $table->index('fee_report_type');
             $table->index('submitted_by');
             $table->index('status');
         });

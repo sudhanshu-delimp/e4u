@@ -114,7 +114,7 @@
 
 
                                 <table class="table mb-0 common_accordian_table"> 
-                                    <thead class="table-bg modal-thaed" style="background:#0c223d;">
+                                    <thead class="table-bg modal-thaed" style="background-color:#0c223d;">
                                         <tr>
                                             <td class="font-weight-bold text-left">Member ID</td>
                                             <td class="font-weight-bold text-left">Name</td>

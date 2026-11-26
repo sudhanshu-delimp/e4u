@@ -24,6 +24,7 @@ class MonthlyReportQueryController extends BaseController
         try {
             $data = $request->all();
             $userId = auth()->user()->id;
+            $feeReportType = "";
             if ($data) {
                 $id = $data['id'];
                 $status = $data['status'];
@@ -33,9 +34,11 @@ class MonthlyReportQueryController extends BaseController
                     return $this->errorResponse('Please enter your query.');
                 }
                 if ($reportFor == 'operator') {
+                    $feeReportType = "operator";
                     $report = OperatorMonthlyReport::where('id', $id)->first();
                 } else {
                     $report = AgentMonthlyReport::where('id', $id)->first();
+                    $feeReportType = "agent";
                 }
 
                 if ($report) {
@@ -49,6 +52,7 @@ class MonthlyReportQueryController extends BaseController
                         $userType = auth()->user()->type;
                         $reportQueryObj = (new MonthlyReportQuery);
                         $reportQueryObj->fee_report_id = $id;
+                        $reportQueryObj->fee_report_type = $feeReportType;
                         $reportQueryObj->status = 'query';
                         $reportQueryObj->submitted_by = $userId;
                         $reportQueryObj->user_type = $userType;
@@ -86,6 +90,7 @@ class MonthlyReportQueryController extends BaseController
             ];
             if (isset($data['id']) && $data['id'] > 0) {
                 $id = $data['id'];
+                $feeReportType = isset($data['fee_report_type']) ? $data['fee_report_type'] : "";
                 $queryObj = (new MonthlyReportQuery);
 
                 $queryData = $queryObj->with('submittedBy')

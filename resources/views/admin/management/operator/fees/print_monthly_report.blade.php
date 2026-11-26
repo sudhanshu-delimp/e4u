@@ -110,8 +110,8 @@
                         <tr>
                             <td style="width: 100%;padding: 10px 5px 20px 5px;">
                                 <table class="table mb-0 common_accordian_table">
-                                    <thead class="table-bg modal-thaed">
-                                        <tr style="background-color:#0c223d;">
+                                    <thead class="table-bg modal-thaed"  style="background-color:#0c223d;">
+                                        <tr>
                                             <td class="font-weight-bold text-left">Agent ID</th>
                                             <td class="font-weight-bold text-left">Name</th>
                                             <td class="font-weight-bold">Territory</th>

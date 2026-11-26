@@ -55,7 +55,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title text-white"><img
                             src="{{ asset('assets/dashboard/img/operator/view-reply.png') }}"
-                            class="custompopicon">{{ $title }}</h5>
+                            class="custompopicon"><span id="queryTitle">{{ $title }}</span></h5>
                     <a href="" class="close" data-dismiss="modal" aria-label="Close">
                         <img src="{{ asset('assets/dashboard/img/operator/close.png') }}" class="opr-close-btn">
                     </a>
@@ -70,7 +70,7 @@
                                     <div class="modal-header">
                                         <span class="custom-pop-wrapper"><img src="/assets/dashboard/img/view-reply.png"
                                                 class="custompopicon" alt="cross">
-                                            <h5 class="modal-title" id="ticket_name">{{ $title }}</h5>
+                                            <h5 class="modal-title" id="ticket_name"><span id="queryTitle">{{ $title }}</span></h5>
                                         </span>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -93,7 +93,7 @@
                             <input type="hidden" name="report_for" id="report_for" value="{{ $reportFor }}">
                             <input type="hidden" name="fee_id" id="fee_id" value="">
                             <input type="hidden" name="fee_status" id="fee_status" value="">
-                            <textarea class="messageBox" name="query_note" id="query_note" rows="4" placeholder="Enter your query..." maxlength="{{$maxlength}}" required></textarea>
+                            <textarea class="messageBox form-control" name="query_note" id="query_note" rows="4" placeholder="Enter your query..." maxlength="{{$maxlength}}" required></textarea>
                              <button type="button" class="btn-cancel-modal" id="submitQuery" >Send</button>
                         </div>
                         <div class="text-end">
@@ -116,16 +116,20 @@
             $(document).on('click', '#openQueryModel', function() {
                 $('#queryForm')[0].reset();
                 let id = $(this).data('id');
+                $("#queryForm").show();
+                $("#queryTitle").text("View & Reply");
                 let status = $(this).data('origin_status');
                 let origin_status = $(this).data('original_status');
+                let reportFor = $('#report_for').val();
                 $('#fee_id').val(id);
                 $('#fee_status').val(status);
-                 $('#original_status').val(origin_status);
-                  $("#showHideQueryForm").show();
+                $('#original_status').val(origin_status);
+                
+                $("#showHideQueryForm").show();
                  if(origin_status == 'paid') {
                     $("#queryForm").hide();
+                    $("#queryTitle").text("View Query");
                  }
-                
 
                 var url = "{{ route('web.monthly.report.view.query') }}";
 
@@ -134,6 +138,7 @@
                 method: 'POST',
                 data: {
                     id: id,
+                    fee_report_type:reportFor,
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {

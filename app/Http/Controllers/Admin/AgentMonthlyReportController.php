@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\BaseController;
 use App\Models\AgentCommission;
 use App\Models\AgentMonthlyReport;
-use App\Models\AgentMonthlyReportQuery;
+use App\Models\MonthlyReportQuery;
 use App\Models\PaymentHistory;
 use App\Models\PaymentItem;
 use App\Models\User;
@@ -21,34 +21,34 @@ use App\Models\Notification;
 
 class AgentMonthlyReportController extends BaseController
 {
-    protected $viewAccessEnabled;
-    protected $editAccessEnabled;
-    protected $addAccessEnabled;
-    protected $sidebar;
+  protected $viewAccessEnabled;
+  protected $editAccessEnabled;
+  protected $addAccessEnabled;
+  protected $sidebar;
 
-    public function __construct()
-    {
-        $this->middleware(function ($request, $next) {
-            $user = auth()->user();   // works here
-            // Now do everything that needs user data
-            $securityLevel = isset($user->staff_detail->security_level) ? $user->staff_detail->security_level : 0;
+  public function __construct()
+  {
+    $this->middleware(function ($request, $next) {
+      $user = auth()->user();   // works here
+      // Now do everything that needs user data
+      $securityLevel = isset($user->staff_detail->security_level) ? $user->staff_detail->security_level : 0;
 
-            $viewAccess = staffPageAccessPermission($securityLevel, 'view');
-            $editAccess = staffPageAccessPermission($securityLevel, 'edit');
-            $addAccess = staffPageAccessPermission($securityLevel, 'add');
-            $this->sidebar = staffPageAccessPermission($securityLevel, 'sidebar');
+      $viewAccess = staffPageAccessPermission($securityLevel, 'view');
+      $editAccess = staffPageAccessPermission($securityLevel, 'edit');
+      $addAccess = staffPageAccessPermission($securityLevel, 'add');
+      $this->sidebar = staffPageAccessPermission($securityLevel, 'sidebar');
 
-            $this->viewAccessEnabled  = isset($viewAccess['yesNo']) && $viewAccess['yesNo'] == 'yes';
-            $this->editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
-            $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
+      $this->viewAccessEnabled  = isset($viewAccess['yesNo']) && $viewAccess['yesNo'] == 'yes';
+      $this->editAccessEnabled  = isset($editAccess['yesNo']) && $editAccess['yesNo'] == 'yes';
+      $this->addAccessEnabled  = isset($addAccess['yesNo']) && $addAccess['yesNo'] == 'yes';
 
-            if (isset($this->sidebar['management']['yesNo']) && $this->sidebar['management']['yesNo'] == 'no') {
-                return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
-            }
+      if (isset($this->sidebar['management']['yesNo']) && $this->sidebar['management']['yesNo'] == 'no') {
+        return response()->redirectTo('/admin-dashboard/dashboard')->with('error', __(accessDeniedMsg()));
+      }
 
-            return $next($request);
-        });
-    }
+      return $next($request);
+    });
+  }
 
 
   /**
@@ -56,24 +56,24 @@ class AgentMonthlyReportController extends BaseController
    */
   public function monthlyReport()
   {
-        $billingStartDate = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('Y-m-d');
-        $billingEndDate = Carbon::now()->subMonthNoOverflow()->endOfMonth()->format('Y-m-d');
-        $reportDate = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('m-Y');
-     $reports = AgentCommission::select(
-                'agent_id',
-                DB::raw('SUM(total_commission_amount) as total_commission'),
-                DB::raw('SUM(purchase_amount) as total_purchase')
-            )->with('agent', function ($query) {
-                $query->select(['id', 'member_id', 'email', 'business_name', 'state_id'])
-                    ->with('state', function ($queryState) {
-                        $queryState->select(['id', 'name', 'iso2', 'country_id']);
-                    });
-            })
-                ->whereBetween('commission_date', [$billingStartDate." 00:00:00", $billingEndDate." 23:59:59"])
-                ->groupBy('agent_id')
-                ->get();
+    $billingStartDate = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('Y-m-d');
+    $billingEndDate = Carbon::now()->subMonthNoOverflow()->endOfMonth()->format('Y-m-d');
+    $reportDate = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('m-Y');
+    $reports = AgentCommission::select(
+      'agent_id',
+      DB::raw('SUM(total_commission_amount) as total_commission'),
+      DB::raw('SUM(purchase_amount) as total_purchase')
+    )->with('agent', function ($query) {
+      $query->select(['id', 'member_id', 'email', 'business_name', 'state_id'])
+        ->with('state', function ($queryState) {
+          $queryState->select(['id', 'name', 'iso2', 'country_id']);
+        });
+    })
+      ->whereBetween('commission_date', [$billingStartDate . " 00:00:00", $billingEndDate . " 23:59:59"])
+      ->groupBy('agent_id')
+      ->get();
 
-      //dd( $reports->toArray());
+    //dd( $reports->toArray());
 
     return  view('admin.management.agents.Fees.monthly-report');
   }
@@ -122,7 +122,7 @@ class AgentMonthlyReportController extends BaseController
   private function reportDataPagination($start, $limit, $order_key, $dir)
   {
     $userId = auth()->user()->id;
-    $reports = AgentMonthlyReport::with('state', 'agent', 'agentMonthlyReportQuery');
+    $reports = AgentMonthlyReport::with('state', 'agent', 'monthlyReportQuery');
 
     $search = request()->input('search.value');
 
@@ -152,7 +152,7 @@ class AgentMonthlyReportController extends BaseController
 
     foreach ($reports as $item) {
       $approvedDate = "";
-      $queryCount = $item->agentMonthlyReportQuery->where('status', 'query')->where('notes', '!=', "")->count();
+      $queryCount = $item->monthlyReportQuery->where('status', 'query')->where('notes', '!=', "")->count();
       $item->reportDate = Carbon::parse($item->report_date)->format('d-m-Y');
       $fromDate = Carbon::parse($item->billing_period_from)->format('d-m-Y');
       $toDate = Carbon::parse($item->billing_period_to)->format('d-m-Y');
@@ -168,11 +168,17 @@ class AgentMonthlyReportController extends BaseController
       $item->total_fees =   $formattedFees;
       $status = ucfirst($item->status);
       $statusName = str_replace('_', " ", $status);
-       $statusName = ( $statusName == 'Approved') ? ' Agent Approved' : $statusName;
+      $statusName = ($statusName == 'Approved') ? ' Agent Approved' : $statusName;
       $item->status_name = '<span class="custom_badge_lg ' . getStatusBadgeClass($status) . '">' . ucwords($statusName) . ' </span>';
 
       $item->report_pproved_date = "N/A";
       $item->approved_by =  $item->approved_by;
+      $queryTitle = "Query";
+      if ($queryCount > 0) {
+        $queryTitle = "View & Reply";
+      }
+      $queryShowHide = true;
+
 
       $dropDown = '<div class="dropdown no-arrow"><a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">';
       $divider = "";
@@ -192,19 +198,23 @@ class AgentMonthlyReportController extends BaseController
       } else if ($item->status == 'approved') {
         //Query
         if ($this->editAccessEnabled) {
-        $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="paid"  id="viewPayAgentreport"><i class="fa fa-star"></i>Pay</a>';
-        $divider = '<div class="dropdown-divider"></div>';
+         /*  $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="paid"  id="viewPayAgentreport"><i class="fa fa-star"></i>Pay</a>';
+          $divider = '<div class="dropdown-divider"></div>'; */
         }
-
       } else if ($item->status == 'paid') {
         //Query
         //$dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Query</a>';
+        $queryTitle = "View Query";
+        $queryShowHide = false;
+        if ($queryCount > 0) {
+          $queryShowHide = true;
+        }
       } else if ($item->status == 'query') {
-       if ($this->editAccessEnabled) {
+        if ($this->editAccessEnabled) {
 
-         $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" id="openQueryModel"><i class="fa fa-search-minus"></i></i>Reply Query</a>';
-        $divider = '<div class="dropdown-divider"></div>'; 
-       }
+          /*  $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" id="openQueryModel"><i class="fa fa-search-minus"></i></i>Reply Query</a>';
+          $divider = '<div class="dropdown-divider"></div>'; */
+        }
       } else if ($item->status == 'query_resolved') {
         //Approve
         /* $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a>';
@@ -214,12 +224,9 @@ class AgentMonthlyReportController extends BaseController
       }
 
       //View Query
-      if ($queryCount > 0) {
-        $divider2 = "";
-        if (empty($divider)) {
-          $divider2 = '<div class="dropdown-divider"></div>';
-        }
-        $dropDown .= $divider . '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 getSubmittedQuery" href="javascript:void(0)" data-id="' . $item->id . '" > <i class="fa fa-eye"></i> View Query</a>' . $divider2;
+      if ($queryShowHide) {
+        $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" data-original_status="' . $item->status . '"  id="openQueryModel"><i class="fa fa-search-minus"></i>' . $queryTitle . '</a>';
+        $divider = '<div class="dropdown-divider"></div>';
       }
 
       //  View Detail
@@ -275,14 +282,14 @@ class AgentMonthlyReportController extends BaseController
           if ($status == 'query' || $status == 'query_resolved') {
             $userId = auth()->user()->id;
             $userType = auth()->user()->type;
-            $reportQueryObj = (new AgentMonthlyReportQuery);
+            $reportQueryObj = (new MonthlyReportQuery);
             $reportQueryObj->fee_report_id = $id;
             $reportQueryObj->status = $status;
             $reportQueryObj->submitted_by = $userId;
             $reportQueryObj->user_type = $userType;
             $reportQueryObj->report_date = date('Y-m-d H:i:s');;
             $reportQueryObj->notes = $note;
-            $reportQueryObj->save();
+            //$reportQueryObj->save();
           }
 
           return $this->successResponse('Monthly fee report status successfully updated.');
@@ -324,13 +331,13 @@ class AgentMonthlyReportController extends BaseController
     $data = $request->all();
     if (isset($data['id']) && $data['id'] > 0) {
       $id = $data['id'];
-      $queryObj = (new AgentMonthlyReportQuery);
+      $queryObj = (new MonthlyReportQuery);
 
       $queryData = $queryObj->with('submittedBy')
-      ->where('fee_report_id', $id)
-      ->where('status', 'query')
-      ->where('notes', '!=', "")
-      ->get();
+        ->where('fee_report_id', $id)
+        ->where('status', 'query')
+        ->where('notes', '!=', "")
+        ->get();
 
       if ($queryData->isNotEmpty()) {
         return view('admin.management.agents.Fees.view_query', compact('queryData'));
@@ -391,10 +398,10 @@ class AgentMonthlyReportController extends BaseController
           $reportData['payMonthlyReportMonth'] = $reportMonth;
           $reportData['payAgenFee'] = number_format($report->fees, 2);
 
-          
+
           $report->status = "paid";
 
-         if ($report->save()) {
+          if ($report->save()) {
 
             $notification = (new Notification);
             $notificationTitle = 'Your<span style="color:#ff0505;"> Monthly Fee </span> has been paid for ' . $reportMonth . ' month. Please visit <a href="' . config('app.url') . '/agent-dashboard/fees/monthly-report">Fee Report</a> to acknowledge.';

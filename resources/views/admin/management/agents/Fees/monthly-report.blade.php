@@ -106,61 +106,7 @@
                 </div>
             </div>
         </div>
-        {{-- Raise query --}}
-        <div class="modal fade upload-modal" id="raiseQueryModel" tabindex="-1" role="dialog"
-            aria-labelledby="raiseQueryModelLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
-                                class="custompopicon"><span id="reportendDate">Query<span></h5>
-                        <a href="" class="close" data-dismiss="modal" aria-label="Close">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
-                        </a>
-                    </div>
-                    <div class="modal-body">
-                        <form name="queryForm" id="queryForm">
-                            {{ csrf_field() }}
-                            <input type="hidden" name="fee_id" id="fee_id" value="">
-                            <input type="hidden" name="fee_status" id="fee_status" value="">
-                            <label class="form-check-label" for="query_note">Query</label>
-                            <textarea name="query_note" id="query_note" class="form-control" cols="4" rows="4"></textarea>
-
-                        </form>
-                        <div class="modal-footer">
-                            <button type="button" class="print-btn m-0" id="submitQuery">Submit</button>
-                            <button type="button" class="btn-cancel-modal" data-dismiss="modal"
-                                aria-label="Close">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{-- view query --}}
-        <div class="modal fade upload-modal" id="viewMonthlyQueryModel" tabindex="-1" role="dialog"
-            aria-labelledby="viewMonthlyQueryModelLabel" aria-hidden="true" data-backdrop="static"
-            data-keyboard="false">
-            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/admin-report.png') }}"
-                                class="custompopicon"><span id="reportendDate">Query<span></h5>
-                        <a href="" class="close" data-dismiss="modal" aria-label="Close">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="opr-close-btn">
-                        </a>
-                    </div>
-                    <div class="modal-body">
-                        <!-- content area -->
-                        <div id="renderMonthlyRaiseQuery"></div>
-                        <!-- End content area -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn-cancel-modal" data-dismiss="modal"
-                            aria-label="Close">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
 
         {{-- Payment Authorisation --}}
 
@@ -222,7 +168,7 @@
                 </div>
             </div>
         </div>
-
+    @include('modal.monthly_report_query', ['console'=>'agent', 'reportFor' => 'agent', 'dataTableId' => "commissionStatementTable"])
         {{-- end --}}
     @endsection
     @push('script')
@@ -356,15 +302,6 @@
                     });
                 });
 
-                $(document).on('click', '#openQueryModel', function() {
-                    $('#queryForm')[0].reset();
-                    let id = $(this).data('id');
-                    let status = $(this).data('status');
-                    $('#fee_id').val(id);
-                    $('#fee_status').val(status);
-                    $('#raiseQueryModel').modal('show');
-                });
-
                 /*** call monthly detail */
                 $(document).on('click', '#updateMonthlyReportStatus', async function(e) {
 
@@ -373,44 +310,6 @@
                     note = "";
                     submitStatus(table, id, status, note);
 
-                });
-
-                /*** call monthly detail */
-                $(document).on('click', '#submitQuery', async function(e) {
-
-                    let id = $('#fee_id').val();
-                    let status = $('#fee_status').val();
-                    let note = $('#query_note').val();
-                    submitStatus(table, id, status, note);
-
-                });
-
-                /*** Query detail */
-                $(document).on('click', '.getSubmittedQuery', function() {
-                    let id = $(this).data('id');
-                    let agent_id = $(this).data('agent_id');
-                    var url = "{{ route('admin.fees.view.query') }}";
-                    $.ajax({
-                        url: url,
-                        method: 'POST',
-                        data: {
-                            id: id,
-                            agent_id: agent_id,
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success: function(response) {
-                            if ($.trim(response) === "") {
-                                swal_error_popup("Query not found.");
-                            } else {
-
-                                $('#renderMonthlyRaiseQuery').html(response);
-                                $('#viewMonthlyQueryModel').modal('show');
-                            }
-                        },
-                        error: function() {
-                            alert("Error loading form");
-                        }
-                    });
                 });
 
                 $(document).on('click', '#viewPayAgentreport', function() {

@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use PDF;
+
 class OperatorMonthlyReportController extends BaseController
 {
   protected $viewAccessEnabled;
@@ -159,8 +160,9 @@ class OperatorMonthlyReportController extends BaseController
       $item->approved_by =  $item->approved_by;
       $queryTitle = "Query";
       if ($queryCount > 0) {
-          $queryTitle = "View & Reply";
+        $queryTitle = "View & Reply";
       }
+      $queryShowHide = true;
 
       $dropDown = '<div class="dropdown no-arrow"><a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">';
       $divider = "";
@@ -185,7 +187,7 @@ class OperatorMonthlyReportController extends BaseController
         //Query
         if ($this->editAccessEnabled) {
           $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="paid"  id="viewPayOperatorRreport"><i class="fa fa-star"></i>Pay</a>';
-        
+
           $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="pending"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Pending</a>';
           $divider = '<div class="dropdown-divider"></div>';
         }
@@ -195,13 +197,17 @@ class OperatorMonthlyReportController extends BaseController
           $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="pending"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Pending</a>';
           $divider = '<div class="dropdown-divider"></div>';
           $queryTitle = "View Query";
+          $queryShowHide = false;
+          if ($queryCount > 0) {
+            $queryShowHide = true;
+          }
         }
       } else if ($item->status == 'query') {
 
         if ($this->editAccessEnabled) {
-           $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query_resolved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Query Resolve</a><div class="dropdown-divider"></div>';
+          $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query_resolved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Query Resolve</a><div class="dropdown-divider"></div>';
 
-        /*   $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" id="openQueryModel"><i class="fa fa-search-minus"></i></i>Reply Query</a>'; */
+          /*   $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" id="openQueryModel"><i class="fa fa-search-minus"></i></i>Reply Query</a>'; */
           $divider = '<div class="dropdown-divider"></div>';
         }
       } else if ($item->status == 'query_resolved') {
@@ -211,12 +217,15 @@ class OperatorMonthlyReportController extends BaseController
         }
         /*$dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
         */
-         $divider = '<div class="dropdown-divider"></div>';
+        $divider = '<div class="dropdown-divider"></div>';
       }
 
       //View Query
-        $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" data-original_status="'.$item->status.'"  id="openQueryModel"><i class="fa fa-search-minus"></i>'.$queryTitle.'</a>';
+      if ($queryShowHide) {
+        $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" data-original_status="' . $item->status . '"  id="openQueryModel"><i class="fa fa-search-minus"></i>' . $queryTitle . '</a>';
         $divider = '<div class="dropdown-divider"></div>';
+      }
+
       //  View Detail
       $dropDown .= $divider . '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-operator_id="' . $item->agent_id . '" id="getMontlyViewReportPage"> <i class="fa fa-eye"></i> View Report</a>';
 
@@ -278,7 +287,7 @@ class OperatorMonthlyReportController extends BaseController
             $reportQueryObj->user_type = $userType;
             $reportQueryObj->report_date = date('Y-m-d H:i:s');;
             $reportQueryObj->notes = $note;
-            $reportQueryObj->save();
+            //$reportQueryObj->save();
           }
           return $this->successResponse('Monthly fee report status successfully updated.');
         }
@@ -309,7 +318,7 @@ class OperatorMonthlyReportController extends BaseController
             'reportEndDate' => $reportEndDate
           ]
         )->setPaper('A4', 'portrait')
-        ->setOption(['isRemoteEnabled' => true]);
+          ->setOption(['isRemoteEnabled' => true]);
 
         $fileName = 'operator_monthly_fee_report_' . $operatorMemberId . '-' . $reportMonth . '.pdf';
         return $pdf->stream($fileName);
@@ -334,7 +343,7 @@ class OperatorMonthlyReportController extends BaseController
         ->where('fee_report_id', $id)
         ->where('status', 'query')
         ->where('notes', '!=', "")
-        ->orderBy("created_at" , "DESC")
+        ->orderBy("created_at", "DESC")
         ->get();
 
       if ($queryData->isNotEmpty()) {
@@ -364,7 +373,7 @@ class OperatorMonthlyReportController extends BaseController
 
         $reportStartDate = Carbon::parse($report->billing_period_from)->format('d-m-Y');
         $reportEndDate = Carbon::parse($report->billing_period_to)->format('d-m-Y');
-        $reportPeriod = $reportStartDate." to ".$reportEndDate;
+        $reportPeriod = $reportStartDate . " to " . $reportEndDate;
 
         $reportData['operatorId'] = $report->operator->member_id;
         $reportData['payMonthlyReportDate'] = $reportDate;
@@ -399,7 +408,7 @@ class OperatorMonthlyReportController extends BaseController
 
           $reportStartDate = Carbon::parse($report->billing_period_from)->format('d-m-Y');
           $reportEndDate = Carbon::parse($report->billing_period_to)->format('d-m-Y');
-          $reportPeriod = $reportStartDate." to ".$reportEndDate;
+          $reportPeriod = $reportStartDate . " to " . $reportEndDate;
 
           $reportData['payOperatorId'] = $report->operator->member_id;
           $reportData['payMonthlyReportDate'] = $reportDate;
