@@ -343,6 +343,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->enabled = "<span class='custom_badge {$badgeClass}'>{$item->enabled}</span>";
 
             $listingStatusClass = getStatusBadgeClass(strtolower($listingStatus));
+            $item->thumbnail = "<a href='' class='ec_listing_thumb' data-target='#viewThumbnail' data-toggle='modal'><img src='https://e4u.com.au/avatars/default/default_escort.png' alt='Thumbnail'></a>";
             $item->statusBtn = "<span class='custom_badge {$listingStatusClass}'>{$listingStatus}</span>";
             $item->statusText = $listingStatus;
             $item->render_profile_name = view('escort.dashboard.profile.partials.profile.table_listed_profieName_cell', compact('item'))->render();

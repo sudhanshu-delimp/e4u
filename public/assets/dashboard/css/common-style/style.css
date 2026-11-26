@@ -1295,7 +1295,7 @@ label.cabinet input.file {
     background-color: var(--primary-color);
 }
 .wallet_btn a span{
-    background-color: #dcf6dc;
+    background-color: #d5ffd4;
     padding: 6px 10px;
     color: #027f00;
     border-radius: var(--radius-sm);

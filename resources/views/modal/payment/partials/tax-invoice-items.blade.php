@@ -70,6 +70,24 @@
             <td align="right" valign="top" style="padding: 10px 6px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap; text-align:right;"> {{ formatCurrency($price)}}</td>
             </tr>
         @endforeach
+    @elseif($payment->service === 'Wallet Credit') 
+            @php 
+                $paymentItem = $payment->items[0];
+                $item = $paymentItem->item;
+            @endphp
+            <tr style="background-color: #ffffff;">
+            <td align="center" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; text-align:center;">{{ !empty($payment->created_at) ? $payment->created_at->format('d-m-Y')  : '---' }}</td>
+            <td align="center" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; text-align:center;">{{ $payment?->service ?? '---' }}</td>
+            <td align="left" valign="top" style="padding: 10px 6px; border: 1px solid #cbd5e1; font-size: 11px; line-height: 1.4;text-align:left;">
+                {{ $item?->description ?? '---' }}
+            </td>
+            <td align="center" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; text-align:center;">{{1}}</td>
+            <td align="right" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap; text-align:right;">{{ formatCurrency($payment?->total_payable_amount ?? 0) }}</td>
+            <td align="right" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap; text-align:right;">{{formatCurrency(0)}}</td>
+            <td align="right" valign="top" style="padding: 10px 4px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap; text-align:right;">{{ formatCurrency($payment?->gst_amount ?? 0) }}</td>
+            <td align="right" valign="top" style="padding: 10px 6px; border: 1px solid #cbd5e1; font-size: 11px; white-space: nowrap; text-align:right;">{{ formatCurrency($payment?->total_payable_amount ?? 0) }}</td>
+            </tr>
+
     @else 
         @php 
             $paymentItem = $payment->items[0];
@@ -147,7 +165,7 @@
 
 <!-- Balance Due Row -->
 <tr style="background-color: #fafbfc;">
-    <td colspan="2" align="left" style="padding: 9px 8px; border: 2px solid #0c223d; font-size: 13px; font-weight: 700; color: #0c223d; text-align:left;">Balance Due:</td>
-    <td align="right" style="padding: 9px 6px; border: 2px solid #0c223d; font-size: 13px; font-weight: 700; color: #0c223d; white-space: nowrap; text-align:right;">{{ formatCurrency($payment?->total_payable_amount ?? 0) }}</td>
+    <td colspan="2" align="left" style="padding: 9px 8px; border: 2px solid #0c223d; font-size: 12px; font-weight: 700; color: #0c223d; text-align:left;">Balance Due<sup>(3)</sup>:</td>
+    <td align="right" style="padding: 9px 6px; border: 2px solid #0c223d; font-size: 12px; font-weight: 700; color: #0c223d; white-space: nowrap; text-align:right;">{{ formatCurrency($payment?->total_payable_amount ?? 0) }}</td>
 </tr>
 @endif

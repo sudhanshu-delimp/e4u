@@ -7,8 +7,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    {{-- <meta name="google-site-verification" content="tzqUkr_jX_neI5MlPldK2ai6CErqC0OOKQCvJ85xJeA" /> --}}
     <!-- Bootstrap CSS -->
     <link rel="shortcut icon" href="{{ asset('assets/app/img/favicon.ico') }}" />
     <title>{{ !empty($seo->meta_title) ? $seo->meta_title : 'E4U - Escort Directory' }}</title>
@@ -88,60 +86,12 @@
     @section('style')
     @show
      @if(isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] != '127.0.0.1')
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9P7DMPWFYZ"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'G-9P7DMPWFYZ');
-    </script> 
    
-     <script type="text/javascript">
-        (function(c, l, a, r, i, t, y) {
-            c[a] = c[a] || function() {
-                (c[a].q = c[a].q || []).push(arguments)
-            };
-            t = l.createElement(r);
-            t.async = 1;
-            t.src = "https://www.clarity.ms/tag/" + i;
-            y = l.getElementsByTagName(r)[0];
-            y.parentNode.insertBefore(t, y);
-        })(window, document, "clarity", "script", "xpw6cg8o8x");
-    </script> 
-   
-    <!-- Google Tag Manager -->
-     <script>
-(function(w,d,s,l,i){
-    w[l]=w[l]||[];
-    w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
-    var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),
-        dl=l!='dataLayer' ? '&l='+l : '';
-
-    j.async=true;
-    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl+'&env=2&auth=2Pmbbm1fWE2AQq-trZke8g';
-
-    f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PLBTNLKP');
-</script> 
-    <!-- End Google Tag Manager -->
      @endif
 </head>
 
 <body>
-    <!-- Google Tag Manager (noscript) -->
-     <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PLBTNLKP&env=2&auth=2Pmbbm1fWE2AQq-trZke8g"
-        height="0"
-        width="0"
-        style="display:none;visibility:hidden">
-    </iframe>
-</noscript> 
-    <!-- End Google Tag Manager (noscript) -->
+   
     <a id="back-to-top-2" href="#" class="btn btn-light btn-lg back-to-top" style="display: none;"
         role="button"><img src="{{ asset('assets/img/Vector(23).svg') }}"></a>
     <a id="back-to-bottom-2" href="#" class="btn btn-light btn-lg back-to-bottom" style="display: none;"

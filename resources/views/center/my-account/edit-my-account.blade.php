@@ -152,9 +152,22 @@
                                                             ABC Pty Ltd</span>
                                                     </div>
                                                 </label>
-                                                <input type="text" class="form-control" placeholder=" "
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" placeholder=" "
                                                     name="entity_name" aria-describedby="emailHelp"
                                                     value="{{ $escort->entity_name }}">
+                                                    <button type="button"
+                                                        class="copy_btn"
+                                                        id="copyEntityInputBtn"
+                                                        title="Copy Entity Name"
+                                                        style="right: 8px; top: 50%; transform: translateY(-50%); z-index: 2;">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                                                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                                                        </svg>
+                                                        <span class="copy-text ml-1" style="font-size: 11px;">Copy</span>
+                                                    </button>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="email" class="my-agent">Our Address </label>
@@ -1615,38 +1628,42 @@
         });
 
 
-        $(document).on("click", "#copyMobileInputBtn", function () {
-    let btn = $(this);
-    let phone = ($("#mobilePhoneInput").val() || "").trim();
+        function setupCopyAndPaste(btnSelector, sourceSelector, targetSelector) {
+            $(document).on("click", btnSelector, function () {
+                let btn = $(this);
+                let value = ($(sourceSelector).val() || "").trim();
 
-    if (!phone) return;
+                if (!value) return;
 
-    function afterMobileCopy() {
-        // Direct paID_no field me paste/fill karein
-        $('input[name="paID_no"]').val(phone).trigger("input").trigger("change");
+                function afterCopy() {
+                    $(targetSelector).val(value).trigger("input").trigger("change");
 
-        let textEl = btn.find(".copy-text");
-        textEl.text("Copied!");
-        btn.removeClass("btn-outline-secondary").addClass("btn-success");
+                    let textEl = btn.find(".copy-text");
+                    textEl.text("Copied!");
+                    btn.removeClass("btn-outline-secondary").addClass("btn-success");
 
-        setTimeout(function () {
-            textEl.text("Copy");
-            btn.removeClass("btn-success").addClass("btn-outline-secondary");
-        }, 1500);
-    }
+                    setTimeout(function () {
+                        textEl.text("Copy");
+                        btn.removeClass("btn-success").addClass("btn-outline-secondary");
+                    }, 1500);
+                }
 
-    if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(phone).then(afterMobileCopy).catch(function () {
-            afterMobileCopy();
-        });
-    } else {
-        let tempInput = $("<input>");
-        $("body").append(tempInput);
-        tempInput.val(phone).select();
-        document.execCommand("copy");
-        tempInput.remove();
-        afterMobileCopy();
-    }
-});
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(value).then(afterCopy).catch(function () {
+                        afterCopy();
+                    });
+                } else {
+                    let tempInput = $("<input>");
+                    $("body").append(tempInput);
+                    tempInput.val(value).select();
+                    document.execCommand("copy");
+                    tempInput.remove();
+                    afterCopy();
+                }
+            });
+        }
+
+        setupCopyAndPaste("#copyMobileInputBtn", "#mobilePhoneInput", 'input[name="paID_no"]');
+        setupCopyAndPaste("#copyEntityInputBtn", 'input[name="entity_name"]', 'input[name="payID_name"]');
     </script>
 @endpush
