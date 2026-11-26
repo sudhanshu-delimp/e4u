@@ -185,7 +185,7 @@
             <div class="dropdown-menu dropdown-menu-right animated--grow-in custom-nav-dropdown"
                 aria-labelledby="userDropdown">
                 <div class="highlight-menu">
-                    <a class="dropdown-item profile-menu" href="javascript:void(0);">
+                    <a class="dropdown-item profile-menu" href="javascript:void(0);" style="border-bottom:1px solid;">
                         <span>{{auth()->user()->name }}</span> <br> {{auth()->user()->member_id }}
                     </a>
 
@@ -199,16 +199,16 @@
 
                             @if(auth()->user()->my_agent)
                             <span class="user-values" title="My Agent : {{ (!empty(auth()->user()->my_agent->business_name)) ? auth()->user()->my_agent->business_name : (!empty(auth()->user()->my_agent->name))}}">
-                                My Agent ID : {{ auth()->user()->my_agent->member_id }}</span>
+                                Our Agent ID : {{ auth()->user()->my_agent->member_id }}</span>
                             @else
-                            My Agent ID : NA
+                            Our Agent ID : NA
                             @endif
 
                         </a>
                 </div>
 
                 <div class="dropdown-item account-toggle d-flex justify-content-between align-items-center">
-                    <span>My account
+                    <span>Our account
                     </span>
                     <i class="fas fa-chevron-down chevron-icon"></i>
                 </div>
@@ -217,7 +217,7 @@
                     {{-- <div class="dropdown-divider"></div> --}}
                     <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.account.edit')}}">
                         <img class="profile_icons" src="{{ asset('assets/dashboard/img/profile-icons/edit-account.png') }}">
-                        Edit my account
+                        Edit our account
                     </a>
 
                     <a class="dropdown-item {{ canManage() ? '': 'd-none'}}" href="{{ route('center.change.password')}}">
