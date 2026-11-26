@@ -39,11 +39,11 @@
 
 
                                 <div class="d-flex justify-content-between align-items-center mb-2 wallet_amount_sec">
-                                    <span>Wallet Used:</span>
+                                    <span> <strong>Wallet Used: </strong></span>
                                     <span class="wallet_amount">{{ formatCurrency(0) }}</span>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mb-2 loyalty_amount_sec">
-                                    <span>Loyalty Discount:</span>
+                                    <span> <strong>Loyalty Discount: </strong></span>
                                     <span class="loyalty_amount">{{ formatCurrency(0) }}</span>
                                 </div>
                                
