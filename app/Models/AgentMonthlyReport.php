@@ -53,6 +53,11 @@ class AgentMonthlyReport extends Model
         return $this->hasMany('App\Models\AgentMonthlyReportQuery', 'fee_report_id', 'id');
     }
 
+    public function monthlyReportQuery()
+    {
+        return $this->hasMany('App\Models\MonthlyReportQuery', 'fee_report_id', 'id');
+    }
+
 
     /**
      * Indicates if the model should have created_by and updated_by fields.

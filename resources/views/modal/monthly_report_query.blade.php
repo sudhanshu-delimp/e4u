@@ -1,11 +1,49 @@
 @php
-    $title = 'View & Replay Query';
+    $title = 'View & Reply';
     $inputHelp = 'Please enter a your query.';
+    $maxlength = 500;
 @endphp
 
 <style>
     .modal-title{color: #fff;}
     .custompopicon{max-width: 32px !important;}
+    .conversation {
+    display: inline-block;
+    margin: 10px 0px;
+}
+.conversation {
+    margin-bottom: 10px;
+}
+
+.adminMessage {
+    background: #f1f1f1;
+    padding: 12px;
+    border-radius: 10px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.userMessage {
+    background: #d9fdd3;
+    padding: 12px;
+    border-radius: 10px;
+    max-height: 150px;
+     overflow-y: auto;
+}
+
+.conversation p {
+    margin: 0;
+    word-break: break-word;
+}
+
+.message_time {
+    font-size: 11px;
+    color: #888;
+}
+.modal-dialog-scrollable .modal-body {
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
     </style>
 
 @if ($console == 'operator')
@@ -47,16 +85,20 @@
                     </div>
                 </div>
             </div>
-                <div class="reply-wrapper p-3">
+                <div class="reply-wrapper p-3" id="showHideQueryForm">
                     <form name="queryForm" id="queryForm">
                         <div class="reply-message-box">
                             {{ csrf_field() }}
+                            <input type="hidden" name="original_status" id="original_status" value="">
                             <input type="hidden" name="report_for" id="report_for" value="{{ $reportFor }}">
                             <input type="hidden" name="fee_id" id="fee_id" value="">
                             <input type="hidden" name="fee_status" id="fee_status" value="">
-                            <textarea class="messageBox" name="query_note" id="query_note" rows="4" required></textarea>
-                            <button type="button" class="btn-cancel-modal" id="submitQuery">Send</button>
+                            <textarea class="messageBox" name="query_note" id="query_note" rows="4" placeholder="Enter your query..." maxlength="{{$maxlength}}" required></textarea>
+                             <button type="button" class="btn-cancel-modal" id="submitQuery" >Send</button>
                         </div>
+                        <div class="text-end">
+                                <small id="query_note_count">{{$maxlength}} characters remaining</small>
+                            </div>
                         <small type="button" class="text-danger d-none" id="message_error">{{ $inputHelp }}</small>
                     </form>
                 </div>
@@ -66,14 +108,25 @@
 
 @push('script')
     <script>
+        var dataTableId = '{{$dataTableId}}';
+        let maxLength = parseInt('{{$maxlength}}');
+        $("#showHideQueryForm").show();
         $(document).ready(function() {
 
             $(document).on('click', '#openQueryModel', function() {
                 $('#queryForm')[0].reset();
                 let id = $(this).data('id');
-                let status = $(this).data('status');
+                let status = $(this).data('origin_status');
+                let origin_status = $(this).data('original_status');
                 $('#fee_id').val(id);
                 $('#fee_status').val(status);
+                 $('#original_status').val(origin_status);
+                  $("#showHideQueryForm").show();
+                 if(origin_status == 'paid') {
+                    $("#queryForm").hide();
+                 }
+                
+
                 var url = "{{ route('web.monthly.report.view.query') }}";
 
                 $.ajax({
@@ -85,11 +138,29 @@
                 },
                 success: function(response) {
                     if ($.trim(response) === "") {
-                        swal_error_popup("Query not found.");
+                        //swal_error_popup("Query not found.");
                     } else {
+                            let html = '';
+                            const messages = response.conversations.messages || [];
 
-                        $('#renderMonthlyRaiseQuery').html(response);
-                        $('#viewMonthlyQueryModel').modal('show');
+                            $.each(messages, function (index, message) {
+
+                                let isReceiver = message.side === 'receiver';
+                                html += `
+                                    <div class="row mb-3 ${isReceiver ? '' : 'justify-content-end'}">
+                                        <div class="col-sm-6 conversation">
+                                            <div class="${isReceiver ? 'adminMessage' : 'userMessage'}">
+                                                <p>${escapeHtml(message.message ?? '')}</p>
+                                            </div>
+                                            <span class="message_time">
+                                                Member ID: ${escapeHtml(message.member_id ?? '')},
+                                                ${date_time_format(message.report_date)}
+                                            </span>
+                                        </div>
+                                    </div>
+                                `;
+                            });
+                            $("#conv-main").html(html);
                     }
                 },
                 error: function() {
@@ -119,19 +190,32 @@
                     },
                     success: function(response) {
                         Swal.close();
-                        $('#queryConversationModal').modal('hide');
+                        $("#queryForm")[0].reset();
+                         $('#'+dataTableId).DataTable().ajax.reload(null, false);
                         if (response.status) {
-                            //table.ajax.reload(null, false);
+                            $('#queryConversationModal').modal('hide');
                             swal_success_popup(response.message);
                         } else {
                             swal_error_popup(response.message);
                         }
                     },
                     error: function() {
-                        alert("Error occurred while updating the status.");
+                        swal_error_popup("Error occurred while updating the status.");
                     }
                 });
             });
+
+            $('#query_note').on('input', function () {
+
+                let currentLength = $(this).val().length;
+                let remaining = maxLength - currentLength;
+                $('#query_note_count').text(remaining + ' characters remaining');  
+            });
         });
+        function escapeHtml(value) {
+            return $('<div>').text(value).html();
+        }
+
+        
     </script>
 @endpush

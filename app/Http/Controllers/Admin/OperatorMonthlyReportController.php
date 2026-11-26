@@ -157,6 +157,10 @@ class OperatorMonthlyReportController extends BaseController
 
       $item->report_pproved_date = "N/A";
       $item->approved_by =  $item->approved_by;
+      $queryTitle = "Query";
+      if ($queryCount > 0) {
+          $queryTitle = "View & Reply";
+      }
 
       $dropDown = '<div class="dropdown no-arrow"><a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">';
       $divider = "";
@@ -174,15 +178,15 @@ class OperatorMonthlyReportController extends BaseController
 
 
           //Query
-          $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
-          $divider = '<div class="dropdown-divider"></div>';
+          /* $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
+          $divider = '<div class="dropdown-divider"></div>'; */
         }
       } else if ($item->status == 'approved') {
         //Query
         if ($this->editAccessEnabled) {
           $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="paid"  id="viewPayOperatorRreport"><i class="fa fa-star"></i>Pay</a>';
         
-           $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="pending"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Pending</a>';
+          $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="pending"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Pending</a>';
           $divider = '<div class="dropdown-divider"></div>';
         }
       } else if ($item->status == 'paid') {
@@ -190,13 +194,14 @@ class OperatorMonthlyReportController extends BaseController
         if ($this->editAccessEnabled) {
           $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="pending"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Pending</a>';
           $divider = '<div class="dropdown-divider"></div>';
+          $queryTitle = "View Query";
         }
       } else if ($item->status == 'query') {
 
         if ($this->editAccessEnabled) {
-           $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query_resolved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Query Resolve</a>';
+           $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query_resolved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Query Resolve</a><div class="dropdown-divider"></div>';
 
-          $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" id="openQueryModel"><i class="fa fa-search-minus"></i></i>Reply Query</a>';
+        /*   $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" id="openQueryModel"><i class="fa fa-search-minus"></i></i>Reply Query</a>'; */
           $divider = '<div class="dropdown-divider"></div>';
         }
       } else if ($item->status == 'query_resolved') {
@@ -210,13 +215,8 @@ class OperatorMonthlyReportController extends BaseController
       }
 
       //View Query
-      if ($queryCount > 0) {
-        $divider2 = "";
-        if (empty($divider)) {
-          $divider2 = '<div class="dropdown-divider"></div>';
-        }
-        $dropDown .= $divider . '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 getSubmittedQuery" href="javascript:void(0)" data-id="' . $item->id . '" > <i class="fa fa-eye"></i> View Query</a>' . $divider2;
-      }
+        $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" data-original_status="'.$item->status.'"  id="openQueryModel"><i class="fa fa-search-minus"></i>'.$queryTitle.'</a>';
+        $divider = '<div class="dropdown-divider"></div>';
       //  View Detail
       $dropDown .= $divider . '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-operator_id="' . $item->agent_id . '" id="getMontlyViewReportPage"> <i class="fa fa-eye"></i> View Report</a>';
 

@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Hash;
 use App\Repositories\OperatorBank\OperatorBankDetailInterface;
 use App\Models\AgentCommission;
 use App\Models\OperatorMonthlyReport;
-use App\Models\OperatorMonthlyReportQuery;
 use App\Models\PaymentHistory;
 use App\Models\State;
 use App\Models\User;
@@ -469,7 +468,7 @@ class OperatorController extends BaseController
         $userId =$user->id;
         
         $operatorId = $user->operator->id;
-        $reports = OperatorMonthlyReport::with('operator', 'operatorMonthlyReportQuery')
+        $reports = OperatorMonthlyReport::with('operator', 'monthlyReportQuery')
         ->where('operator_id',  $operatorId);
 
         $search = request()->input('search.value');
@@ -500,7 +499,7 @@ class OperatorController extends BaseController
 
         foreach ($reports as $item) {
             $approvedDate = "";
-            $queryCount = $item->operatorMonthlyReportQuery->where('status', 'query')->where('notes', '!=', "")->count();
+            $queryCount = $item->monthlyReportQuery->where('status', 'query')->where('notes', '!=', "")->count();
             $item->reportDate = Carbon::parse($item->report_date)->format('d-m-Y');
             $fromDate = Carbon::parse($item->billing_period_from)->format('d-m-Y');
             $toDate = Carbon::parse($item->billing_period_to)->format('d-m-Y');
@@ -520,6 +519,10 @@ class OperatorController extends BaseController
 
             $item->report_pproved_date = "N/A";
             $item->approved_by =  $item->approved_by;
+            $queryTitle = "Query";
+            if ($queryCount > 0) {
+                $queryTitle = "View & Reply";
+            }
 
             $dropDown = '<div class="dropdown no-arrow"><a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a><div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">';
             $divider = "";
@@ -549,38 +552,29 @@ class OperatorController extends BaseController
                      $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="pending"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Pending</a>';
                     $divider = '<div class="dropdown-divider"></div>'; */
                     //Query
-                    $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="openQueryModel"><i class="fa fa-search-minus"></i>Query</a>';
-                    $divider = '<div class="dropdown-divider"></div>';
+                  
                 
             } else if ($item->status == 'paid') {
                 //pending
                
                     /* $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="pending"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Pending</a>';
                     $divider = '<div class="dropdown-divider"></div>'; */
+                    $queryTitle = "View Query";
                 
             } else if ($item->status == 'query') {
-
-              
-                    $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query_resolved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Query Resolve</a>';
-
-                    $dropDown .= '<div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" id="openQueryModel"><i class="fa fa-search-minus"></i></i>Reply Query</a>';
-                    $divider = '<div class="dropdown-divider"></div>';
+                    $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query_resolved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Query Resolve</a><div class="dropdown-divider"></div>';
                 
             } else if ($item->status == 'query_resolved') {
                 //query_resolved
                
                    /*  $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="approved"  id="updateMonthlyReportStatus"><i class="fa fa-check-circle"></i>Approve</a><div class="dropdown-divider"></div>'; */
+
                 
             }
 
             //View Query
-            if ($queryCount > 0) {
-               /*  $divider2 = "";
-                if (empty($divider)) {
-                    $divider2 = '<div class="dropdown-divider"></div>';
-                }
-                $dropDown .= $divider . '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 getSubmittedQuery" href="javascript:void(0)" data-id="' . $item->id . '" > <i class="fa fa-eye"></i> View Query</a>' . $divider2; */
-            }
+            $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" data-original_status="'.$item->status.'"  id="openQueryModel"><i class="fa fa-search-minus"></i>'.$queryTitle.'</a>';
+            $divider = '<div class="dropdown-divider"></div>';
             //  View Detail
             $dropDown .= $divider . '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-operator_id="' . $item->agent_id . '" id="getMontlyViewReportPage"> <i class="fa fa-eye"></i> View Report</a>';
 
@@ -636,7 +630,7 @@ class OperatorController extends BaseController
           if ($status == 'query' || $status == 'query_resolved') {
             $userId = auth()->user()->id;
             $userType = auth()->user()->type;
-            $reportQueryObj = (new OperatorMonthlyReportQuery);
+            $reportQueryObj = (new monthlyReportQuery);
             $reportQueryObj->fee_report_id = $id;
             $reportQueryObj->status = $status;
             $reportQueryObj->submitted_by = $userId;
@@ -694,7 +688,7 @@ class OperatorController extends BaseController
     $data = $request->all();
     if (isset($data['id']) && $data['id'] > 0) {
       $id = $data['id'];
-      $queryObj = (new OperatorMonthlyReportQuery);
+      $queryObj = (new monthlyReportQuery);
 
       $queryData = $queryObj->with('submittedBy')
         ->where('fee_report_id', $id)
@@ -735,7 +729,6 @@ class OperatorController extends BaseController
         $reportData['payMonthlyReportDate'] = $reportDate;
         $reportData['payMonthlyReportMonth'] = $reportPeriod;
         $reportData['payOperatorFee'] = number_format($report->fees, 2);
-
 
         $response['error'] = 0;
         $response['data'] = $reportData;

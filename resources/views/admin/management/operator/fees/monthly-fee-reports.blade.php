@@ -96,7 +96,7 @@
     </div>
 </div>
 {{-- Raise query --}}
-<div class="modal fade upload-modal" id="raiseQueryModel" tabindex="-1" role="dialog"
+{{-- <div class="modal fade upload-modal" id="raiseQueryModel" tabindex="-1" role="dialog"
     aria-labelledby="raiseQueryModelLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
@@ -124,9 +124,9 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 {{-- view query --}}
-<div class="modal fade upload-modal" id="viewMonthlyQueryModel" tabindex="-1" role="dialog"
+{{-- <div class="modal fade upload-modal" id="viewMonthlyQueryModel" tabindex="-1" role="dialog"
     aria-labelledby="viewMonthlyQueryModelLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
@@ -148,7 +148,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 {{-- Payment Authorisation --}}
 
 <div class="modal fade upload-modal" id="payAgentreport" tabindex="-1" role="dialog"
@@ -211,7 +211,7 @@
         </div>
     </div>
 </div>
-
+@include('modal.monthly_report_query', ['console'=>'admin', 'reportFor' => 'operator', 'dataTableId' => "commissionStatementTable"])
 {{-- end --}}
 @endsection
 @push('script')
@@ -321,7 +321,7 @@
             });
 
         /*** call monthly detail */
-        $(document).on('click', '#getMontlyViewReportPage', function() {
+       /*  $(document).on('click', '#getMontlyViewReportPage', function() {
             let id = $(this).data('id');
             var url = "{{ route('admin.operator.view.monthly.detail') }}";
             $('#viewMonthlyReportModel').modal('show');
@@ -345,16 +345,16 @@
                      alert("Error loading form");
                  }
              });
-        });
+        }); */
 
-        $(document).on('click', '#openQueryModel', function() {
+        /* $(document).on('click', '#openQueryModel', function() {
             $('#queryForm')[0].reset();
             let id = $(this).data('id');
             let status = $(this).data('status');
             $('#fee_id').val(id);
             $('#fee_status').val(status);
             $('#raiseQueryModel').modal('show');
-        });
+        }); */
 
         /*** call monthly detail */
         $(document).on('click', '#updateMonthlyReportStatus', async function(e) {
@@ -367,17 +367,17 @@
         });
 
         /*** call monthly detail */
-        $(document).on('click', '#submitQuery', async function(e) {
+        /* $(document).on('click', '#submitQuery', async function(e) {
 
             let id = $('#fee_id').val();
             let status = $('#fee_status').val();
             let note = $('#query_note').val();
             submitStatus(table, id, status, note);
 
-        });
+        }); */
 
         /*** Query detail */
-        $(document).on('click', '.getSubmittedQuery', function() {
+       /*  $(document).on('click', '.getSubmittedQuery', function() {
             let id = $(this).data('id');
             let agent_id = $(this).data('agent_id');
             var url = "{{ route('admin.operator.view.query') }}";
@@ -402,7 +402,7 @@
                     alert("Error loading form");
                 }
             });
-        });
+        }); */
 
         $(document).on('click', '#viewPayOperatorRreport', function() {
             $('#queryForm')[0].reset();

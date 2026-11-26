@@ -41,7 +41,7 @@ $(document).on('input', '.only_digits_decimal', function () {
 });
 
 
-function date_time_format(dateString) {
+function date_time_format(dateString, aMpM = 'en-GB') {
 
     const date = new Date(dateString.replace(" ", "T") + "Z");
     const options = {
@@ -54,7 +54,7 @@ function date_time_format(dateString) {
         timeZone: 'Australia/Perth'
     };
 
-    return date.toLocaleString('en-GB', options);
+    return date.toLocaleString(aMpM, options);
 }
 
 function swal_fire(message) {

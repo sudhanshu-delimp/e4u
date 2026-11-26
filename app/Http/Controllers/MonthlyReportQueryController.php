@@ -20,6 +20,7 @@ class MonthlyReportQueryController extends BaseController
     public function monthlyReportQuery(Request $request)
     {
         $report = true;
+        //'pending','approved','rejected','paid','query','query_resolved'
         try {
             $data = $request->all();
             $userId = auth()->user()->id;
@@ -29,7 +30,7 @@ class MonthlyReportQueryController extends BaseController
                 $reportFor = $data['report_for'];
                 $note = trim($data['note']) ?? "";
                 if (empty($note)) {
-                    return $this->errorResponse('Please write the your query.');
+                    return $this->errorResponse('Please enter your query.');
                 }
                 if ($reportFor == 'operator') {
                     $report = OperatorMonthlyReport::where('id', $id)->first();
@@ -38,14 +39,17 @@ class MonthlyReportQueryController extends BaseController
                 }
 
                 if ($report) {
-                    $report->status = 'query';
+                    $sreportStatus = $report->status;
+                    if (in_array($sreportStatus, ['approved', 'pending', 'query_resolved', 'query'])) {
+                        $report->status = 'query';
+                    }
 
                     if ($report->save()) {
 
                         $userType = auth()->user()->type;
                         $reportQueryObj = (new MonthlyReportQuery);
                         $reportQueryObj->fee_report_id = $id;
-                        $reportQueryObj->status = $status;
+                        $reportQueryObj->status = 'query';
                         $reportQueryObj->submitted_by = $userId;
                         $reportQueryObj->user_type = $userType;
                         $reportQueryObj->report_date = date('Y-m-d H:i:s');;
@@ -77,8 +81,9 @@ class MonthlyReportQueryController extends BaseController
             $userId = auth()->user()->id;
             $userType = auth()->user()->type;
             $data = $request->all();
-            $msg['sender'] = [];
-            $msg['reciever'] = [];
+            $msg = [
+                'messages' => []
+            ];
             if (isset($data['id']) && $data['id'] > 0) {
                 $id = $data['id'];
                 $queryObj = (new MonthlyReportQuery);
@@ -87,35 +92,37 @@ class MonthlyReportQueryController extends BaseController
                     ->where('fee_report_id', $id)
                     ->where('status', 'query')
                     ->where('notes', '!=', "")
-                    ->orderBy("created_at", "DESC")
+                    ->orderBy("created_at", "ASC")
                     ->get();
-                   // ->groupBy('user_type');
+                // ->groupBy('user_type');
 
                 if ($queryData->isNotEmpty()) {
-                    //print_r($queryData->toArray());die;
                     $i = 0;
                     foreach ($queryData as $result) {
-                        if ($userType == $result->user_type) {
-                            $msg['sender'][$i]['member_id'] = $result->submittedBy->member_id;
-                            $msg['sender'][$i]['email'] = $result->submittedBy->email;
-                            $msg['sender'][$i]['name'] = ($result->user_type == '5')? $result->submittedBy->business_name :$result->submittedBy->name;
-                            $msg['sender'][$i]['notes'] = $result->notes;
-                            $msg['sender'][$i]['user_type'] = $result->user_type;
-                            $msg['sender'][$i]['report_date'] = $result->report_date;
-                        } else {
-                            $msg['reciever'][$i]['member_id'] = $result->submittedBy->member_id;
-                            $msg['reciever'][$i]['email'] = $result->submittedBy->email;
-                            $msg['reciever'][$i]['name'] = ($result->user_type == '5')? $result->submittedBy->business_name :$result->submittedBy->name;
-                            $msg['reciever'][$i]['notes'] = $result->notes;
-                            $msg['reciever'][$i]['user_type'] = $result->user_type;
-                            $msg['reciever'][$i]['report_date'] = $result->report_date;
+
+                        if (!$result->submittedBy) {
+                            continue;
                         }
-                        $i++;
+
+                        $msg['messages'][] = [
+                            'member_id'  => $result->submittedBy->member_id,
+                            'email'      => $result->submittedBy->email,
+                            'name'       => ($result->user_type == '5')
+                                ? $result->submittedBy->business_name
+                                : $result->submittedBy->name,
+                            'message'    => $result->notes,
+                            'user_type'  => (string) $result->user_type,
+                            'report_date' => $result->report_date,
+                            'created_at' => $result->created_at,
+                            'side'        => ($userType == $result->user_type)
+                                ? 'sender'
+                                : 'receiver',
+                        ];
                     }
 
                     return response()->json([
                         'status' =>  true,
-                        'data' => $msg,
+                        'conversations' => $msg,
                     ], 200);
                 }
             }
@@ -124,7 +131,7 @@ class MonthlyReportQueryController extends BaseController
         }
         return response()->json([
             'status' =>  false,
-            'data' => [],
+            'conversations' => [],
         ], 200);
     }
 }

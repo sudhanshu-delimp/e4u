@@ -195,7 +195,7 @@
         </div>
     </div>
 </div>
-@include('modal.monthly_report_query', ['console'=>'operator', 'reportFor' => 'operator'])
+@include('modal.monthly_report_query', ['console'=>'operator', 'reportFor' => 'operator', 'dataTableId' => "commissionStatementTable"])
 {{-- end --}}
 @endsection
 @push('script')
