@@ -4,6 +4,7 @@
     --primary-color:#0c223d;
     --secondary-color:#ff3c5f;
     --white: #ffffff;
+    --off-white: #fff1f4;
     --black-body: #212529;
     --blue--text--default: #2B3D50;
     --light-pink: #fff0f4;
@@ -3751,7 +3752,30 @@ button.btn:focus {
 
 
 /* Left Thumbnail */
+.ec_listing_thumb{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    padding: 10px;
+    object-fit: cover;
+    border-radius: var(--radius-full);
+    background-color: var(--border-color);
+}
+.ec_listing_thumb img{
+    width: 100%;
+}
+.viewThumbnailEnlarge{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+.viewThumbnailEnlarge img{
+    width: 100%;
+    height: 100%;
 
+}
 .view_img_tab {
     gap: 10px;
 }

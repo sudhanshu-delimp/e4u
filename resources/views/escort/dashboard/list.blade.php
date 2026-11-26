@@ -1,5 +1,7 @@
 @extends('layouts.escort')
 @section('style')
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/glightbox.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/lightbox/css/lightbox.css?v1.02') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 <style type="text/css">
     .select2-container .select2-choice,
@@ -134,7 +136,7 @@
                             <button style="padding: 10px;" class="btn btn-bump-up"
                                 data-toggle="modal" data-target="#bumpup_profile" id="btn_bumpup_profile"> Bump
                                 Up
-                                
+
                             </button>
 
                             <button class="btn upgrade-btn" data-toggle="modal"
@@ -160,11 +162,11 @@
                         </div>
                         <button class="btn brb-btn" data-toggle="modal" data-target="#add_brb"
                             id="btn_add_brb">Add BRB
-                            
+
                         </button>
                     </div>
                 </div>
-                
+
                 @endif
                 <div class="table-responsive">
                     <table class="table w-100" id="sailorTable">
@@ -177,6 +179,7 @@
                                 <th class="w-auto">Membership</th>
                                 <th class="w-auto">Start Date</th>
                                 <th class="w-auto">Date Created</th>
+                                <th class="w-auto">Thumbnail</th>
                                 <th>Status</th>
                                 <th class="text-center">Action</th>
                             </tr>
@@ -186,13 +189,10 @@
                     </table>
                 </div>
 
-                <div>
-                </div>
+
             </div>
         </div>
     </div>
-    <!--middle content end here-->
-    <!--right side bar start from here-->
 </div>
 
 <!-- extend profile modal start here -->
@@ -350,7 +350,167 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade upload-modal " id="viewThumbnails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static" data-keyboard="false">
 
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-between align-items-center">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <img src="{{asset('assets/dashboard/img/view-img.png')}}" class="custompopicon">
+                    My Photos
+                </h5>
+
+                </ul>
+                <button type="button" class="p-0" data-dismiss="modal" aria-label="Close">
+                    <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="gallery" class="photos-grid-container gallery">
+                    <div class="main-photo img-box">
+
+
+
+                        <a href="http://e4u_server.local/escorts/images/9/gallery_448dfdaa1ceb072c096d9d173.jpg" class="glightbox image-wrapper" data-gallery="escort-gallery">
+
+                            <img src="{{ asset('escorts/images/9/gallery_448dfdaa1ceb072c096d9d173.jpg') }}" alt="thumbnail">
+
+
+                        </a>
+                        <div class="hover-overlay">
+                            <span>Click me!</span>
+                        </div>
+
+
+                        <div class="verify_icon imgStatus" data-tooltip="Media Pending">
+                            <img src="http://e4u_server.local/assets/app/img/verify/e4u_pending.png">                            
+                        </div>
+                        
+
+                    </div>
+
+                    <div class="sub">
+
+
+
+                        <div class="img-box">
+
+                            <a href="http://e4u_server.local/escorts/images/9/gallery_a8c948b5c128830f746a78845.jpg" class="glightbox image-wrapper" data-gallery="escort-gallery">
+
+                                <img src="http://e4u_server.local/escorts/images/9/gallery_a8c948b5c128830f746a78845.jpg" alt="others">
+
+                            </a>
+                            <div class="hover-overlay">
+                                <span>Click me!</span>
+                            </div>
+
+                            <div class="verify_icon_sm imgStatus2" data-tooltip="Media Pending">
+                                <img src="{{asset('assets/app/img/verify/e4u_pending-icon.png')}}">                                
+                            </div>
+
+                        </div>
+
+
+                        <div class="img-box">
+
+                            <a href="http://e4u_server.local/escorts/images/9/gallery_9503ba4b2e1d290c6a0cb17cc.jpg" class="glightbox image-wrapper" data-gallery="escort-gallery">
+
+                                <img src="http://e4u_server.local/escorts/images/9/gallery_9503ba4b2e1d290c6a0cb17cc.jpg" alt="others">
+
+                            </a>
+                            <div class="hover-overlay">
+                                <span>Click me!</span>
+                            </div>
+
+                            <div class="verify_icon_sm imgStatus2" data-tooltip="Media Pending">
+                                <img src="{{asset('assets/app/img/verify/e4u_pending-icon.png')}}">
+                            </div>
+
+                        </div>
+
+
+                        <div class="img-box">
+
+                            <a href="http://e4u_server.local/escorts/images/9/gallery_f3b078d0656794afa41118135.jpg" class="glightbox image-wrapper" data-gallery="escort-gallery">
+
+                                <img src="http://e4u_server.local/escorts/images/9/gallery_f3b078d0656794afa41118135.jpg" alt="others">
+
+                            </a>
+                            <div class="hover-overlay">
+                                <span>Click me!</span>
+                            </div>
+
+                            <div class="verify_icon_sm imgStatus2" data-tooltip="Media Pending">
+                                <img src="{{asset('assets/app/img/verify/e4u_pending-icon.png')}}">
+                            </div>
+
+                        </div>
+
+
+                        <div class="img-box">
+
+                            <a href="http://e4u_server.local/escorts/images/9/gallery_f1ff5fa2aaa6c6dad6dc803c8.jpg" class="glightbox image-wrapper" data-gallery="escort-gallery">
+
+                                <img src="http://e4u_server.local/escorts/images/9/gallery_f1ff5fa2aaa6c6dad6dc803c8.jpg" alt="others">
+
+                            </a>
+                            <div class="hover-overlay">
+                                <span>Click me!</span>
+                            </div>
+
+                            <div class="verify_icon_sm imgStatus2" data-tooltip="Media Pending">
+                                <img src="{{asset('assets/app/img/verify/e4u_pending-icon.png')}}">
+                            </div>
+
+                        </div>
+
+
+                        <div class="img-box">
+
+                            <a href="http://e4u_server.local/escorts/images/9/gallery_a3a24f02f259de381ef4e1ebd.jpg" class="glightbox image-wrapper" data-gallery="escort-gallery">
+
+                                <img src="http://e4u_server.local/escorts/images/9/gallery_a3a24f02f259de381ef4e1ebd.jpg" alt="others">
+
+                            </a>
+                            <div class="hover-overlay">
+                                <span>Click me!</span>
+                            </div>
+
+                            <div class="verify_icon_sm imgStatus2" data-tooltip="Media Pending">
+                               <img src="{{asset('assets/app/img/verify/e4u_pending-icon.png')}}">
+                            </div>
+
+                        </div>
+
+
+                        <div class="img-box">
+
+                            <a href="http://e4u_server.local/escorts/images/9/gallery_fb40250740cb0ee996b442dbb.jpg" class="glightbox image-wrapper" data-gallery="escort-gallery">
+
+                                <img src="http://e4u_server.local/escorts/images/9/gallery_fb40250740cb0ee996b442dbb.jpg" alt="others">
+
+                            </a>
+                            <div class="hover-overlay">
+                                <span>Click me!</span>
+                            </div>
+
+                            <div class="verify_icon_sm imgStatus2" data-tooltip="Media Pending">
+                                <img src="{{asset('assets/app/img/verify/e4u_pending-icon.png')}}">
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 @if ($type != 'past')
 @include('escort.dashboard.profile.modal.index')
 @endif
@@ -362,13 +522,25 @@
 @prepend('script')
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+
+<script src="{{ asset('assets/app/lightbox/js/glightbox.min.js') }}"> </script>
+<script src="{{ asset('assets/app/lightbox/js/script.js') }}"> </script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
 </script>
 
 <script>
-
-    const tooltips = [        
-        {
+    function initializeThumbnailTooltip() {
+        addTooltip(
+            '.ec_listing_thumb',
+            'Click to enlarge',
+            'top',
+            'center'
+        );
+    }
+    $('#sailorTable').on('draw.dt', function() {
+        initializeThumbnailTooltip();
+    });
+    const tooltips = [{
             element: '#btn_bumpup_profile',
             text: 'Bump your Listing up to <br> the top of the Listings',
             position: 'top',
@@ -404,13 +576,34 @@
             position: 'top',
             align: 'center'
         },
-       
+        
+        {
+            element: '.imgStatus',
+            text: (target) => target.dataset.tooltip,
+            position: 'top',
+            align: 'center'
+        },
+        {
+            element: '.imgStatus2',
+            text: (target) => target.dataset.tooltip,
+            position: 'left',
+            align: 'center'
+        },
+
     ];
 
     // Initialize all tooltips
-    tooltips.forEach(({ element, text, position, align, color }) => {
+    tooltips.forEach(({
+        element,
+        text,
+        position,
+        align,
+        color
+    }) => {
         addTooltip(element, text, position, align, color);
     });
+
+
     var table;
     $(".listingActionButtons button").attr('disabled', 'disabled');
     $.ajaxSetup({
@@ -607,6 +800,13 @@
                     defaultContent: 'NA'
                 },
                 {
+                    data: 'thumbnail',
+                    name: 'thumbnail',
+                    searchable: false,
+                    orderable: false,
+                    defaultContent: 'NA'
+                },
+                {
                     data: 'statusBtn',
                     name: 'statusBtn',
                     searchable: false,
@@ -649,7 +849,7 @@
             });
         });
 
-       
+
 
     });
 

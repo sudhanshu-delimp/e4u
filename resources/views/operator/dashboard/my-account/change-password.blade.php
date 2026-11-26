@@ -140,17 +140,17 @@
                <div class="form-group mb-0">
                   <label for="confirm_password">Notification</label>
                </div>
-                <div class="form-check m-0">
-                            <input class="form-check-input" name="is_text_notificaion_on" type="checkbox"
+                <div class="custom-control custom-switch m-0">
+                            <input class="custom-control-input" name="is_text_notificaion_on" type="checkbox"
                                 id="Text_Us" value="1" checked
                                 @if ($user->account_setting && $user->account_setting->is_text_notificaion_on == '1') {{ 'checked' }} @endif>
-                            <label class="form-check-label" for="Text_Us">Text</label>
+                            <label class="custom-control-label" for="Text_Us">Text</label>
                         </div>
-                        <div class="form-check m-0">
-                            <input class="form-check-input" name="is_email_notificaion_on" type="checkbox"
+                        <div class="custom-control custom-switch m-0">
+                            <input class="custom-control-input" name="is_email_notificaion_on" type="checkbox"
                                 id="Email_Us" value="1"
                                 @if ($user->account_setting && $user->account_setting->is_email_notificaion_on == '1') {{ 'checked' }} @endif>
-                            <label class="form-check-label" for="Email_Us">Email</label>
+                            <label class="custom-control-label" for="Email_Us">Email</label>
                         </div>
                
                <div class="pt-1">
