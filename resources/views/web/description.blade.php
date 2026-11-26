@@ -3325,23 +3325,14 @@ function closeScreenshotLightbox() {
 }
 
 
-/*
-==========================================
-CLICK OUTSIDE IMAGE TO CLOSE
-==========================================
-*/
+/* CLICK OUTSIDE IMAGE TO CLOSE */
 
-document.getElementById('screenshotLightbox')
-    .addEventListener('click', function (e) {
-
-        if (e.target === this) {
-
-            closeScreenshotLightbox();
-        }
-
-    });
-
-
+document.addEventListener('click', function (e) {
+    const lightbox = document.getElementById('screenshotLightbox');
+    if (lightbox && e.target === lightbox) {
+        closeScreenshotLightbox();
+    }
+});
 /* ESC KEY TO CLOSE */
 
 document.addEventListener('click', function (e) {
