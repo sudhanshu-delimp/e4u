@@ -3341,19 +3341,12 @@ document.getElementById('screenshotLightbox')
     });
 
 
-/*
-==========================================
-ESC KEY TO CLOSE
-==========================================
-*/
+/* ESC KEY TO CLOSE */
 
-document.addEventListener('keydown', function (e) {
-
-    if (e.key === 'Escape') {
-
+document.addEventListener('click', function (e) {
+    if (e.target.closest('.close-lightbox')) {
         closeScreenshotLightbox();
     }
-
 });
 
 
