@@ -487,10 +487,13 @@
             visible: false
          },
          {
-            data: 'id',
-            name: 'id',
-            visible: false
+            data: 'slug',
+            name: 'slug',
+            searchable: true,
+            orderable: true,
+            defaultContent: 'NA'
          },
+         
          {
             data: 'profile_name',
             name: 'profile_name',

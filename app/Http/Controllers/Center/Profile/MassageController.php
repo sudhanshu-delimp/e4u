@@ -236,7 +236,9 @@ class MassageController extends Controller
 
             $listingStatus = ($row->mainPurchase && $row->mainPurchase->activeSuspendProfile->count() > 0) ? 'Suspended' : (($is_live) ? 'Active' : 'Inactive');
             $listingStatusClass = getStatusBadgeClass(strtolower($listingStatus));
+             $slug = isset($row->slug) ? $row->slug : $row->id;
             return [
+                'slug' => $slug,
                 'is_live' => $is_live ? 1 : 0,
                 'id' => $row->id,
                 'profile_name' => $profile_name,
@@ -1662,9 +1664,10 @@ class MassageController extends Controller
                     <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($activeUpcomingSuspend['start_date'])) . " to " . date("d-m-Y", strtotime($activeUpcomingSuspend['end_date'])) . '</small>
                     </sup>';
             }
-
+            $slug = isset($row->massageprofile->slug) ? $row->massageprofile->slug : $row->massageprofile->id;
 
             return [
+                'slug' =>$slug,
                 'id' => $row->id,
                 'profile_name' => $profile_name,
                 'address' => 'Home State', //auth()->user()->home_state,
@@ -1707,9 +1710,11 @@ class MassageController extends Controller
 
             $start_date = date('d M Y', strtotime($row->start_date));
             $end_date = date('d M Y', strtotime($row->end_date));
+            $slug = isset($row->massageprofile->slug) ? $row->massageprofile->slug : $row->massageprofile->id;
 
 
             return [
+                'slug' =>$slug,
                 'id' => $row->id,
                 'profile_name' => $row->massageprofile->profile_name,
                 'address' => auth()->user()->home_state,
