@@ -159,7 +159,7 @@
                                                     <button type="button"
                                                         class="copy_btn"
                                                         id="copyEntityInputBtn"
-                                                        title="Copy Mobile Number"
+                                                        title="Copy Entity Name"
                                                         style="right: 8px; top: 50%; transform: translateY(-50%); z-index: 2;">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
                                                             <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
