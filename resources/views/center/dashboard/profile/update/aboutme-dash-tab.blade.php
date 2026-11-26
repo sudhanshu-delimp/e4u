@@ -950,12 +950,15 @@
                                 <div class="tab-pane fade" id="default" role="tabpanel"
                                     aria-labelledby="default-tab">
                                     <div class="modal-tab">
+                                        @php
+                                         $banners = getMassageBannerTemplates(1);
+                                        @endphp
+                                        @foreach($banners as $keyId => $banner)
                                         <div class="item2">
-                                            <img src="{{ asset('assets/dashboard/img/mc_banner.jpg') }}" class="img-thumbnail" alt="MC Banner">
+                                            <img src="{{ asset($banner->path) }}" data-id="{{$banner->id}}" data-position="{{$banner->position ? $banner->position : ''}}" class="img-thumbnail" alt="MC Banner">
                                         </div>
-                                        
+                                        @endforeach
                                     </div>
-
                                 </div>
                                 {{-- end --}}
                             </div>
