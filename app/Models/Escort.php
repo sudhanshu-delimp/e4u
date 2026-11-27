@@ -669,6 +669,15 @@ class Escort extends Model
     //     ->orderBy('escort_gallery.position', 'asc');
     // }
 
+    public function gallerymediaPositionDetail($val){
+        if ($media = $this->gallary()->wherePivot('position', $val)->first()) {
+                return $media;
+        }
+        else{
+            return false;
+        }
+    }
+
     public function imagePosition($val, $defaultPositionImages = [])
     {
         if ($val == 1) {

@@ -107,6 +107,7 @@ Route::prefix('common')->name('common.')->group(function () {
  Route::post('/advertiser-suspension-history/{advertiserType}/{profile_id}', [CommonController::class, 'advertiserSuspensionHistoryAjax'])->name('advertiser-suspension-history');
  Route::post('payments/detail', [CommonController::class, 'paymentDetail'])->name('payment.detail');
  Route::get('payments/{payment}/{action}/print', [CommonController::class, 'printPaymentDetail'])->name('payment.detail.print');
+ Route::get('advertiser/profile-gallery/{escort}', [CommonController::class, 'getProfileGallery'])->name('get_profile_gallery');
 });
 
 Route::middleware('auth')->group(function () {

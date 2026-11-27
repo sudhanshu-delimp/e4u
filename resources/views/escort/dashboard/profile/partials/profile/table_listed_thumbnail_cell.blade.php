@@ -1,0 +1,1 @@
+<a href='' class='ec_listing_thumb' data-target='#viewThumbnail' data-toggle='modal' data-escort-id="{{$item->id}}"><img src='{{ asset($item->imagePosition(1)) }}' alt='Thumbnail'></a>
