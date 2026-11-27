@@ -20,9 +20,7 @@
 @endsection
 @section('content')
     <div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4 add-punterbox-report">
-        <!--middle content start here-->
-
-        {{-- Page Heading   --}}
+        
         <div class="row">
             <div class="d-flex justify-content-between align-items-center flex-wrap col-md-12">
                 <div class="custom-heading-wrapper">
@@ -57,9 +55,6 @@
                 </div>
             </div>
         </div>
-        {{-- end --}}
-
-        <!--middle content-->
         {{-- <div class="row">
             @if ($products->isNotEmpty())
                 <div class="col-12 product-card-wrapper">
@@ -153,7 +148,7 @@
         </div>
 
     </div>
-    </div>
+
     <!-- End of Main Content -->
     <!-- Product Image Modal -->
     <div class="modal fade upload-modal " id="imageModal" tabindex="-1">
@@ -183,15 +178,6 @@
             </div>
         </div>
     </div>
-    <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span> </span>
-            </div>
-        </div>
-    </footer>
-    <!-- End of Footer -->
 @endsection
 @push('script')
     <script>

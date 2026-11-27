@@ -75,8 +75,10 @@
     </div>
 
     <!-- DataTable -->
-    <div class="col-md-12 common-card">
-        <div class="table-responsive">
+
+    <div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive common-card">
             <table id="myReportTable" class="table display nowrap num_table" width="100%">
                 <thead class="bg-first">
                     <tr>

@@ -45,7 +45,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12 mb-5">
+            <div class="col-md-12">
                 <form id="assistanceRequestFormEscort" class="common-form">
                     @csrf
                     <div class="common-card">

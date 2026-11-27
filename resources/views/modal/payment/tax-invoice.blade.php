@@ -15,7 +15,7 @@
             <div class="modal-body pb-0">
                 <div class="row">
                     <div id="invoiceModalContent" class="col-lg-12">
-@endif
+                    @endif
 
                         <style type="text/css">
                             .e4u-invoice-wrap,

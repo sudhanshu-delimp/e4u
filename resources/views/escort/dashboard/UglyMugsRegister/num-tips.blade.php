@@ -3,9 +3,6 @@
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4">
-   <!--middle content start here-->
-   <!-- Page Heading -->
-   
    <div class="row">
       <div class="col-md-12 custom-heading-wrapper">
          <h1 class="h1">Screening Tips</h1>
@@ -14,7 +11,7 @@
       <div class="col-md-12 ">
          <div class="card collapse" id="notes">
             <div class="card-body">
-              <h3 class="NotesHeader"><b>Notes:</b></h3>
+               <h3 class="NotesHeader"><b>Notes:</b></h3>
                <ol>
                   <li>Use these tips to assist you when you are screening a potential client to meet with.</li>
                   <li>Always remember that your safety should always take precedence over income.</li>
@@ -23,14 +20,13 @@
          </div>
       </div>
    </div>
-   <!-- Page Heading -->
    <div class="row">
       <div class="col-md-12">
          <div id="accordion" class="myacording-design">
             <div class="card common-card">
                <div class="card-header">
                   <a class="card-link collapsed" data-toggle="collapse" href="#pre_book" aria-expanded="false">
-                  Pre-booking Screening
+                     Pre-booking Screening
                   </a>
                </div>
                <div id="pre_book" class="collapse" data-parent="#accordion" style="">
@@ -52,7 +48,7 @@
             <div class="card common-card">
                <div class="card-header">
                   <a class="card-link collapsed" data-toggle="collapse" href="#number_email" aria-expanded="false">
-                  Number and Email Checking
+                     Number and Email Checking
                   </a>
                </div>
                <div id="number_email" class="collapse" data-parent="#accordion" style="">
@@ -70,21 +66,21 @@
                   </div>
                </div>
             </div>
-            
+
             <div class="card common-card">
                <div class="card-header">
                   <a class="card-link collapsed" data-toggle="collapse" href="#warning_schemes" aria-expanded="false">
-                  Warning Schemes, Alerts, and Ugly Mugs
+                     Warning Schemes, Alerts, and Ugly Mugs
                   </a>
                </div>
                <div id="warning_schemes" class="collapse" data-parent="#accordion" style="">
                   <div class="card-body ">
-                     
+
                      <p>Ugly Mug is a term used by many Escorts to describe a ‘bad’ or dangerous (or potentially
                         dangerous) client or another problem individual. It is also used for clients and others who are
                         committing fraud such as paying with counterfeit money. There are warning schemes and
                         forums you can use to warn others and arm yourself with information, such as this website.</p>
-                        <ul class="mb-0" style="margin-top: 5px;padding-left: 20px;">
+                     <ul class="mb-0" style="margin-top: 5px;padding-left: 20px;">
                         <li>Checking sex work forums and similar platforms to see if the client has any warnings or negative feedback is an important part of screening.</li>
                         <li>Sign up to and use free safety warning schemes and forums, like this one, and the public <a href="http://www.nationaluglymugs.com.au" target="_blank" class="custom_links_design">NUM</a> where warnings are shared. Through these you can keep up to date with local and national warnings about ‘ugly mugs’ and in some cases also timewasters.</li>
                         <li>NUM offers free SMS alerts to your phone or email as well as providing a number checker.</li>
@@ -97,7 +93,7 @@
             <div class="card common-card">
                <div class="card-header">
                   <a class="card-link collapsed" data-toggle="collapse" href="#on_phone" aria-expanded="false">
-                  On the Phone
+                     On the Phone
                   </a>
                </div>
                <div id="on_phone" class="collapse" data-parent="#accordion" style="">
@@ -115,7 +111,7 @@
             <div class="card common-card">
                <div class="card-header">
                   <a class="card-link collapsed" data-toggle="collapse" href="#payments_safety" aria-expanded="false">
-                  Payments, safety and spotting a scam
+                     Payments, safety and spotting a scam
                   </a>
                </div>
                <div id="payments_safety" class="collapse" data-parent="#accordion" style="">
@@ -137,20 +133,20 @@
             <div class="card common-card">
                <div class="card-header">
                   <a class="card-link collapsed" data-toggle="collapse" href="#gut_feeling" aria-expanded="false">
-                  Instinct and Gut Feeling
+                     Instinct and Gut Feeling
                   </a>
                </div>
                <div id="gut_feeling" class="collapse" data-parent="#accordion" style="">
                   <div class="card-body ">
                      <p>Trust your instincts at pre-booking as well as at all the stages. If you think someone sounds dodgy, like they are making the call to get kicks, or if you feel your boundaries are being pushed or you feel in any way uncomfortable, end the call, and don’t take the booking. Instincts can be invaluable in this line of work and are often undervalued. Consider making a report of the incident <a href="/escort-dashboard/add-report" class="custom_links_design">here.</a></p>
-                    
+
                   </div>
                </div>
             </div>
             <div class="card common-card">
                <div class="card-header">
                   <a class="card-link collapsed" data-toggle="collapse" href="#call_screening" aria-expanded="false">
-                  In call screening 
+                     In call screening
                   </a>
                </div>
                <div id="call_screening" class="collapse" data-parent="#accordion" style="">
@@ -164,15 +160,15 @@
                         <li>Stay vigilant, be aware of theft, look out for traveling hands, clients who seemingly
                            appear to be ‘scoping out’ the property on arrival, e.g. looking around at the room/flat
                            (sometimes followed by leaving, ‘look and walk’).</li>
-                           <li>Always get the money up front.</li>
+                        <li>Always get the money up front.</li>
                      </ol>
                   </div>
                </div>
             </div>
-         </d>
+            </d>
+         </div>
       </div>
    </div>
-   <!--middle content end here-->
 </div>
 @endsection
 @push('script')

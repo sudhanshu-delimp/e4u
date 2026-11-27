@@ -27,7 +27,7 @@
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
             </div>
             <div class="col-md-12 ">
-                <div class="card collapse" id="notes" style="">
+                <div class="card collapse" id="notes">
                     <div class="card-body">
                        <h3 class="NotesHeader"><b>Notes:</b></h3>
                         
@@ -117,13 +117,6 @@
         </div>
        
     </div>
-</div>
-
-
-<!--right side bar start from here-->
-</div>
-<!--right side bar end-->
-</div>
 
 <!-- confirmation model -->
     <div class="modal fade upload-modal" id="confirm_modal" style=" padding-right: 15px;" aria-modal="true"

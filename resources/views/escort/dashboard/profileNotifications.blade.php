@@ -1,441 +1,434 @@
 @extends('layouts.escort')
 @section('style')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/dashboard/css/common-style/style.css') }}" />
-    <style type="text/css">
-        .parsley-errors-list {
-            list-style: none;
-            color: rgb(248, 0, 0)
-        }
-    </style>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/dashboard/css/common-style/style.css') }}" />
+<style type="text/css">
+    .parsley-errors-list {
+        list-style: none;
+        color: rgb(248, 0, 0)
+    }
+</style>
 @endsection
 @section('content')
-    <div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4">
-        <!--middle content start here-->
-        <div class="row">
-            <div class="col-md-12 custom-heading-wrapper">
-                <h1 class="h1">Notifications & Features</h1>
-                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
-            </div>
-            <div class="col-md-12">
-                <div class="card collapse" id="notes">
-                    <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                        <ol>
-                            <li>Enable and disable your notification and feature preferences.</li>
-                            <li>For a Viewer or Agent to receive your Notifications, the Viewer or Agent must have
-                                also enabled the feature.</li>
-                            <li>Please note what features are enabled by default.</li>
-                            <li>Note also the default setting for 2FA authentification.</li>
-                        </ol>
-                    </div>
+<div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4">
+    <div class="row">
+        <div class="col-md-12 custom-heading-wrapper">
+            <h1 class="h1">Notifications & Features</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
+        </div>
+        <div class="col-md-12">
+            <div class="card collapse" id="notes">
+                <div class="card-body">
+                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                    <ol>
+                        <li>Enable and disable your notification and feature preferences.</li>
+                        <li>For a Viewer or Agent to receive your Notifications, the Viewer or Agent must have
+                            also enabled the feature.</li>
+                        <li>Please note what features are enabled by default.</li>
+                        <li>Note also the default setting for 2FA authentification.</li>
+                    </ol>
                 </div>
             </div>
-
-            <div class="col-lg-12">
-                <div id="globalAlert"></div>
-            </div>
         </div>
-        <div class="row">
-            <div class="col-md-12" id="profile_and_tour_options">
-                <form class="v-form-design" id="profile_notification_options"
-                    action="{{ route('escort.profile.notifications') }}" method="POST">
-                    @csrf
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="common-grid">
-                                {{-- FEATURES --}}
-                                <div class="form-group notification_checkbox_div common-card">
-                                    <div class="card-top">
-                                        <div class="card-icon">
-                                            <svg viewBox="0 0 24 24" fill="none">
-                                                <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.8"
-                                                    stroke-linecap="round" />
 
-                                                <circle cx="9" cy="6" r="2" fill="white"
-                                                    stroke="currentColor" stroke-width="1.8" />
+        <div class="col-lg-12">
+            <div id="globalAlert"></div>
+        </div>
 
-                                                <circle cx="15" cy="12" r="2" fill="white"
-                                                    stroke="currentColor" stroke-width="1.8" />
+    </div>
 
-                                                <circle cx="10" cy="18" r="2" fill="white"
-                                                    stroke="currentColor" stroke-width="1.8" />
-                                            </svg>
-                                        </div>
+    <div class="row">
+        <div class="col-md-12" id="profile_and_tour_options">
+            <form class="v-form-design" id="profile_notification_options"
+                action="{{ route('escort.profile.notifications') }}" method="POST">
+                @csrf
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="common-grid">
+                            {{-- FEATURES --}}
+                            <div class="form-group notification_checkbox_div common-card">
+                                <div class="card-top">
+                                    <div class="card-icon">
+                                        <svg viewBox="0 0 24 24" fill="none">
+                                            <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" />
 
-                                        <div class="card-heading">
-                                            <h2>Features</h2>
-                                        </div>
+                                            <circle cx="9" cy="6" r="2" fill="white"
+                                                stroke="currentColor" stroke-width="1.8" />
+
+                                            <circle cx="15" cy="12" r="2" fill="white"
+                                                stroke="currentColor" stroke-width="1.8" />
+
+                                            <circle cx="10" cy="18" r="2" fill="white"
+                                                stroke="currentColor" stroke-width="1.8" />
+                                        </svg>
                                     </div>
 
-                                    <div class="option-list">
-                                        <div class="custom-control custom-switch ">
-                                            <input class="custom-control-input" type="checkbox" id="notification_feature1"
-                                                name="features_viewer_notifications_forward_v_alerts" value="1"
-                                                {{ isset($setting->escort_settings) && $setting->escort_settings->features_viewer_notifications_forward_v_alerts == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label switch-option" for="notification_feature1">
-                                                Viewer notifications, forward V-Alerts
-                                            </label>
-                                        </div>
-
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" type="checkbox" id="notification_feature2"
-                                                name="features_allow_viewers_to_ask_you_a_question" value="1"
-                                                {{ isset($setting->escort_settings) && $setting->escort_settings->features_allow_viewers_to_ask_you_a_question == '1' ? 'checked' : '' }}>
-
-                                            <label class="custom-control-label switch-option" for="notification_feature2">
-                                                Allow Viewers to ask you a question
-                                            </label>
-                                        </div>
-
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" id="notification_feature3" type="checkbox"
-                                                name="features_allow_viewers_to_send_you_a_text_message" value="1"
-                                                {{ isset($setting->escort_settings) && $setting->escort_settings->features_allow_viewers_to_send_you_a_text_message == '1' ? 'checked' : '' }}>
-
-                                            <label class="custom-control-label switch-option" for="notification_feature3">
-                                                Allow Viewers to send you a Message
-                                            </label>
-                                        </div>
-
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" id="notification_feature4"
-                                                name="features_i_am_available_as_a_playmate" type="checkbox" value="1"
-                                                {{ isset($setting->escort_settings) && $setting->escort_settings->features_i_am_available_as_a_playmate == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label switch-option" for="notification_feature4">
-                                                I am available as a playmate
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div class="card-note">
-                                        <span class="note-icon">i</span>
-                                        <p><i>Some features are enabled by default<br class="desktop-only"> unless you
-                                                disable them.</i></p>
+                                    <div class="card-heading">
+                                        <h2>Features</h2>
                                     </div>
                                 </div>
-                                {{-- AUTO RECHARGE --}}
-                                {{-- <div class="form-group">
+
+                                <div class="option-list">
+                                    <div class="custom-control custom-switch ">
+                                        <input class="custom-control-input" type="checkbox" id="notification_feature1"
+                                            name="features_viewer_notifications_forward_v_alerts" value="1"
+                                            {{ isset($setting->escort_settings) && $setting->escort_settings->features_viewer_notifications_forward_v_alerts == '1' ? 'checked' : '' }}>
+                                        <label class="custom-control-label switch-option" for="notification_feature1">
+                                            Viewer notifications, forward V-Alerts
+                                        </label>
+                                    </div>
+
+                                    <div class="custom-control custom-switch">
+                                        <input class="custom-control-input" type="checkbox" id="notification_feature2"
+                                            name="features_allow_viewers_to_ask_you_a_question" value="1"
+                                            {{ isset($setting->escort_settings) && $setting->escort_settings->features_allow_viewers_to_ask_you_a_question == '1' ? 'checked' : '' }}>
+
+                                        <label class="custom-control-label switch-option" for="notification_feature2">
+                                            Allow Viewers to ask you a question
+                                        </label>
+                                    </div>
+
+                                    <div class="custom-control custom-switch">
+                                        <input class="custom-control-input" id="notification_feature3" type="checkbox"
+                                            name="features_allow_viewers_to_send_you_a_text_message" value="1"
+                                            {{ isset($setting->escort_settings) && $setting->escort_settings->features_allow_viewers_to_send_you_a_text_message == '1' ? 'checked' : '' }}>
+
+                                        <label class="custom-control-label switch-option" for="notification_feature3">
+                                            Allow Viewers to send you a Message
+                                        </label>
+                                    </div>
+
+                                    <div class="custom-control custom-switch">
+                                        <input class="custom-control-input" id="notification_feature4"
+                                            name="features_i_am_available_as_a_playmate" type="checkbox" value="1"
+                                            {{ isset($setting->escort_settings) && $setting->escort_settings->features_i_am_available_as_a_playmate == '1' ? 'checked' : '' }}>
+                                        <label class="custom-control-label switch-option" for="notification_feature4">
+                                            I am available as a playmate
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="card-note">
+                                    <span class="note-icon">i</span>
+                                    <p><i>Some features are enabled by default<br class="desktop-only"> unless you
+                                            disable them.</i></p>
+                                </div>
+                            </div>
+                            {{-- AUTO RECHARGE --}}
+                            {{-- <div class="form-group">
                                 <h3 class="h3">Auto-Recharge options</h3>
 
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox"
                                         name="auto_recharge_no" id="auto_no" value="1"
                                         {{  (isset($setting->escort_settings) &&  $setting->escort_settings->auto_recharge_no == '1') ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="auto_no">No</label>
-                                </div>
+                                        <label class="form-check-label" for="auto_no">No</label>
+                                    </div>
 
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox"
                                             name="auto_recharge_100" id="auto_100" value="1"
                                             {{  (isset($setting->escort_settings) &&  $setting->escort_settings->auto_recharge_100 == '1') ? 'checked' : '' }}>
-                                        
+
                                         <label class="form-check-label" for="auto_100">$100.00</label>
                                     </div>
 
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox"
                                             name="auto_recharge_250" id="auto_250" value="1"
-                                        {{  (isset($setting->escort_settings) &&  $setting->escort_settings->auto_recharge_250 == '1') ? 'checked' : '' }}>
+                                            {{  (isset($setting->escort_settings) &&  $setting->escort_settings->auto_recharge_250 == '1') ? 'checked' : '' }}>
                                         <label class="form-check-label" for="auto_250">$250.00</label>
                                     </div>
 
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox"
                                             name="auto_recharge_500" id="auto_500" value="1"
-                                        {{  (isset($setting->escort_settings) &&  $setting->escort_settings->auto_recharge_500 == '1') ? 'checked' : '' }}>
+                                            {{  (isset($setting->escort_settings) &&  $setting->escort_settings->auto_recharge_500 == '1') ? 'checked' : '' }}>
                                         <label class="form-check-label" for="auto_500">$500.00</label>
                                     </div>
-                                
-                                <div class="pt-1">
-                                    <i>Select your preferred top up value to be applied to your Wallet.</i>
-                                </div>
+
+                                    <div class="pt-1">
+                                        <i>Select your preferred top up value to be applied to your Wallet.</i>
+                                    </div>
                                 </div> --}}
 
-                                {{-- AGENT --}}
-                                <div class="form-group common-card">
-                                    <div class="card-top">
-                                        <div class="card-icon">
-                                            <svg viewBox="0 0 24 24" fill="none">
-                                                <circle cx="12" cy="7" r="3.5" stroke="currentColor"
-                                                    stroke-width="1.8" />
+                            {{-- AGENT --}}
+                            <div class="form-group common-card">
+                                <div class="card-top">
+                                    <div class="card-icon">
+                                        <svg viewBox="0 0 24 24" fill="none">
+                                            <circle cx="12" cy="7" r="3.5" stroke="currentColor"
+                                                stroke-width="1.8" />
 
-                                                <path d="M5 20c0-3.5 2.7-6 7-6s7 2.5 7 6" stroke="currentColor"
-                                                    stroke-width="1.8" stroke-linecap="round" />
+                                            <path d="M5 20c0-3.5 2.7-6 7-6s7 2.5 7 6" stroke="currentColor"
+                                                stroke-width="1.8" stroke-linecap="round" />
 
-                                                <path d="M8 20h8" stroke="currentColor" stroke-width="1.8"
-                                                    stroke-linecap="round" />
-                                            </svg>
-                                        </div>
-
-                                        <div class="card-heading">
-                                            <h2>Agent</h2>
-                                        </div>
+                                            <path d="M8 20h8" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" />
+                                        </svg>
                                     </div>
-                                    <div class="option-list">
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" type="checkbox"
-                                                id="agent_communications1" value="1"
-                                                name="agent_receive_communications"
-                                                {{ isset($setting->escort_settings) && $setting->escort_settings->agent_receive_communications == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="agent_communications1">
-                                                Receive communications
-                                            </label>
-                                        </div>
 
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" type="checkbox"
-                                                id="agent_communications2" value="1"
-                                                name="agent_send_communications"
-                                                {{ isset($setting->escort_settings) && $setting->escort_settings->agent_send_communications == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="agent_communications2">
-                                                Send communications
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="card-note">
-                                        <span class="note-icon">i</span>
-                                        <p><i>Enable communications between you and your Agent (if applicable).</i></p>
+                                    <div class="card-heading">
+                                        <h2>Agent</h2>
                                     </div>
                                 </div>
-                                {{-- ALERT --}}
-                                <div class="form-group common-card">
-                                    <div class="card-top">
-                                        <div class="card-icon">
-                                            <svg viewBox="0 0 24 24" fill="none">
-                                                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"
-                                                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                                                    stroke-linejoin="round" />
-
-                                                <path d="M10 21h4" stroke="currentColor" stroke-width="1.8"
-                                                    stroke-linecap="round" />
-                                            </svg>
-                                        </div>
-
-                                        <div class="card-heading">
-                                            <h2>Alert notifications</h2>
-                                        </div>
+                                <div class="option-list">
+                                    <div class="custom-control custom-switch">
+                                        <input class="custom-control-input" type="checkbox"
+                                            id="agent_communications1" value="1"
+                                            name="agent_receive_communications"
+                                            {{ isset($setting->escort_settings) && $setting->escort_settings->agent_receive_communications == '1' ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="agent_communications1">
+                                            Receive communications
+                                        </label>
                                     </div>
-                                    <div class="option-list">
-                                        
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" type="checkbox"
-                                                name="alert_notification_email" id="alert_email" value="1"
-                                                {{ isset($setting->escort_settings) && $setting->escort_settings->alert_notification_email == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="alert_email">Email (A-Alert)</label>
-                                        </div>
 
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" type="checkbox"
-                                                name="alert_notification_text" id="alert_text" value="1"
-                                                {{ isset($setting->escort_settings) && $setting->escort_settings->alert_notification_text == '1' ? 'checked' : '' }}>
-                                            <label class="custom-control-label" for="alert_text">Text</label>
-                                        </div>
-
-
-
-                                    </div>
-                                    <div class="card-note">
-                                        <span class="note-icon">i</span>
-                                        <p><i>How Escorts4U will communicate with you.</i></p>
+                                    <div class="custom-control custom-switch">
+                                        <input class="custom-control-input" type="checkbox"
+                                            id="agent_communications2" value="1"
+                                            name="agent_send_communications"
+                                            {{ isset($setting->escort_settings) && $setting->escort_settings->agent_send_communications == '1' ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="agent_communications2">
+                                            Send communications
+                                        </label>
                                     </div>
                                 </div>
-                                {{-- IDLE TIME --}}
-                                <div class="form-group common-card">
-                                    <div class="card-top">
-                                        <div class="card-icon">
-                                            <svg viewBox="0 0 24 24" fill="none">
-                                                <circle cx="12" cy="12" r="8.5" stroke="currentColor"
-                                                    stroke-width="1.8" />
-
-                                                <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8"
-                                                    stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg>
-                                        </div>
-
-                                        <div class="card-heading">
-                                            <h2>Idle Time Preference</h2>
-                                        </div>
-                                    </div>
-                                    <div class="option-list">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="idle_preference_time"
-                                                id="idle_15" value="15"
-                                                {{ isset($setting->escort_settings) && $setting->escort_settings->idle_preference_time == '15' ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="idle_15">15 minutes</label>
-                                        </div>
-
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="idle_preference_time"
-                                                id="idle_30" value="30"
-                                                {{ isset($setting->escort_settings) && $setting->escort_settings->idle_preference_time == '30' ? 'checked' : '' }}>
-
-                                            <label class="form-check-label" for="idle_30">30 minutes</label>
-                                        </div>
-
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="idle_preference_time"
-                                                id="idle_60" value="60"
-                                                {{ isset($setting->escort_settings) && $setting->escort_settings->idle_preference_time == '60' ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="idle_60">60 minutes</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="card-note">
-                                        <span class="note-icon">i</span>
-                                        <p> <i>Set the Idle time before you are logged out of your Console.</i></p>
-                                    </div>
+                                <div class="card-note">
+                                    <span class="note-icon">i</span>
+                                    <p><i>Enable communications between you and your Agent (if applicable).</i></p>
                                 </div>
-                                {{-- 2FA --}}
-                                <div class="form-group common-card">
-                                    <div class="card-top">
-                                        <div class="card-icon">
-                                            <svg viewBox="0 0 24 24" fill="none">
-                                                <path d="M12 3l8 3v5c0 5.2-3.2 8.7-8 10-4.8-1.3-8-4.8-8-10V6l8-3z"
-                                                    stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
-
-                                                <path d="m8.5 11.8 2.2 2.2 4.8-5" stroke="currentColor" stroke-width="1.8"
-                                                    stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg>
-                                        </div>
-
-                                        <div class="card-heading">
-                                            <h2>2FA Authentication</h2>
-                                        </div>
-                                    </div>
-
-                                    <div class="radio-options">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="twofa" id="auth_1"
-                                                value="1"
-                                                {{ isset($setting->escort_settings) && $setting->escort_settings->twofa == '1' ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="auth_1">Email</label>
-                                        </div>
-
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="twofa" id="auth_2"
-                                                value="2"
-                                                {{ isset($setting->escort_settings) && $setting->escort_settings->twofa == '2' ? 'checked' : '' }}>
-
-                                            <label class="form-check-label" for="auth_2">Text</label>
-                                        </div>
-
-                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="twofa" id="auth_3"
-                                                value="3"
-                                                {{ isset($setting->escort_settings) && $setting->escort_settings->twofa == '3' ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="auth_3">Both</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="card-note">
-                                        <span class="note-icon">i</span>
-                                        <p> <i>How your authentication code will be sent to you.</i></p>
-                                    </div>
-                                </div>
-                                {{-- Show Entries --}}
-                                <div class="form-group common-card">
-                                        <div class="card-top">
-                                            <div class="card-icon">
-                                            <svg viewBox="0 0 24 24" fill="none">
-                                                    <path
-                                                        d="M4 6h16M4 12h16M4 18h16"
-                                                        stroke="currentColor"
-                                                        stroke-width="1.8"
-                                                        stroke-linecap="round"
-                                                    />
-                                                    <circle
-                                                        cx="7"
-                                                        cy="6"
-                                                        r="1.5"
-                                                        fill="currentColor"
-                                                    />
-                                                    <circle
-                                                        cx="7"
-                                                        cy="12"
-                                                        r="1.5"
-                                                        fill="currentColor"
-                                                    />
-                                                    <circle
-                                                        cx="7"
-                                                        cy="18"
-                                                        r="1.5"
-                                                        fill="currentColor"
-                                                    />
-                                                </svg>
-                                            </div>
-
-                                            <div class="card-heading">
-                                                <h2>Show Entries</h2>
-                                            </div>
-                                        </div>
-
-                                        <div class="entries-setting">
-
-                                            <span class="entries-label">
-                                                Your default setting is:
-                                            </span>
-
-                                            <select class="entries-select" name="entries">
-                                                <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '10' ? 'selected' : '' }} value="10">10</option>
-                                                <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '25' ? 'selected' : '' }} value="25">25</option>
-                                                <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '50' ? 'selected' : '' }} value="50">50</option>
-                                                <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '75' ? 'selected' : '' }} value="75">75</option>
-                                                <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '100' ? 'selected' : '' }} value="100">100</option>
-                                            </select>
-
-                                        </div> 
-
-                                        <div class="card-note">
-                                            <span class="note-icon">i</span>
-                                            <p> <i>Select your preferred number of entries for Report pages.</i></p>
-                                        </div>
-                                </div>
-                                {{-- SUBSCRIPTIONS --}}
-                                
-
                             </div>
+                            {{-- ALERT --}}
+                            <div class="form-group common-card">
+                                <div class="card-top">
+                                    <div class="card-icon">
+                                        <svg viewBox="0 0 24 24" fill="none">
+                                            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"
+                                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+
+                                            <path d="M10 21h4" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" />
+                                        </svg>
+                                    </div>
+
+                                    <div class="card-heading">
+                                        <h2>Alert notifications</h2>
+                                    </div>
+                                </div>
+                                <div class="option-list">
+
+                                    <div class="custom-control custom-switch">
+                                        <input class="custom-control-input" type="checkbox"
+                                            name="alert_notification_email" id="alert_email" value="1"
+                                            {{ isset($setting->escort_settings) && $setting->escort_settings->alert_notification_email == '1' ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="alert_email">Email (A-Alert)</label>
+                                    </div>
+
+                                    <div class="custom-control custom-switch">
+                                        <input class="custom-control-input" type="checkbox"
+                                            name="alert_notification_text" id="alert_text" value="1"
+                                            {{ isset($setting->escort_settings) && $setting->escort_settings->alert_notification_text == '1' ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="alert_text">Text</label>
+                                    </div>
+
+
+
+                                </div>
+                                <div class="card-note">
+                                    <span class="note-icon">i</span>
+                                    <p><i>How Escorts4U will communicate with you.</i></p>
+                                </div>
+                            </div>
+                            {{-- IDLE TIME --}}
+                            <div class="form-group common-card">
+                                <div class="card-top">
+                                    <div class="card-icon">
+                                        <svg viewBox="0 0 24 24" fill="none">
+                                            <circle cx="12" cy="12" r="8.5" stroke="currentColor"
+                                                stroke-width="1.8" />
+
+                                            <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </div>
+
+                                    <div class="card-heading">
+                                        <h2>Idle Time Preference</h2>
+                                    </div>
+                                </div>
+                                <div class="option-list">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="idle_preference_time"
+                                            id="idle_15" value="15"
+                                            {{ isset($setting->escort_settings) && $setting->escort_settings->idle_preference_time == '15' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="idle_15">15 minutes</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="idle_preference_time"
+                                            id="idle_30" value="30"
+                                            {{ isset($setting->escort_settings) && $setting->escort_settings->idle_preference_time == '30' ? 'checked' : '' }}>
+
+                                        <label class="form-check-label" for="idle_30">30 minutes</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="idle_preference_time"
+                                            id="idle_60" value="60"
+                                            {{ isset($setting->escort_settings) && $setting->escort_settings->idle_preference_time == '60' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="idle_60">60 minutes</label>
+                                    </div>
+                                </div>
+
+                                <div class="card-note">
+                                    <span class="note-icon">i</span>
+                                    <p> <i>Set the Idle time before you are logged out of your Console.</i></p>
+                                </div>
+                            </div>
+                            {{-- 2FA --}}
+                            <div class="form-group common-card">
+                                <div class="card-top">
+                                    <div class="card-icon">
+                                        <svg viewBox="0 0 24 24" fill="none">
+                                            <path d="M12 3l8 3v5c0 5.2-3.2 8.7-8 10-4.8-1.3-8-4.8-8-10V6l8-3z"
+                                                stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+
+                                            <path d="m8.5 11.8 2.2 2.2 4.8-5" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </div>
+
+                                    <div class="card-heading">
+                                        <h2>2FA Authentication</h2>
+                                    </div>
+                                </div>
+
+                                <div class="radio-options">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="twofa" id="auth_1"
+                                            value="1"
+                                            {{ isset($setting->escort_settings) && $setting->escort_settings->twofa == '1' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="auth_1">Email</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="twofa" id="auth_2"
+                                            value="2"
+                                            {{ isset($setting->escort_settings) && $setting->escort_settings->twofa == '2' ? 'checked' : '' }}>
+
+                                        <label class="form-check-label" for="auth_2">Text</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="twofa" id="auth_3"
+                                            value="3"
+                                            {{ isset($setting->escort_settings) && $setting->escort_settings->twofa == '3' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="auth_3">Both</label>
+                                    </div>
+                                </div>
+
+                                <div class="card-note">
+                                    <span class="note-icon">i</span>
+                                    <p> <i>How your authentication code will be sent to you.</i></p>
+                                </div>
+                            </div>
+                            {{-- Show Entries --}}
+                            <div class="form-group common-card">
+                                <div class="card-top">
+                                    <div class="card-icon">
+                                        <svg viewBox="0 0 24 24" fill="none">
+                                            <path
+                                                d="M4 6h16M4 12h16M4 18h16"
+                                                stroke="currentColor"
+                                                stroke-width="1.8"
+                                                stroke-linecap="round" />
+                                            <circle
+                                                cx="7"
+                                                cy="6"
+                                                r="1.5"
+                                                fill="currentColor" />
+                                            <circle
+                                                cx="7"
+                                                cy="12"
+                                                r="1.5"
+                                                fill="currentColor" />
+                                            <circle
+                                                cx="7"
+                                                cy="18"
+                                                r="1.5"
+                                                fill="currentColor" />
+                                        </svg>
+                                    </div>
+
+                                    <div class="card-heading">
+                                        <h2>Show Entries</h2>
+                                    </div>
+                                </div>
+
+                                <div class="entries-setting">
+
+                                    <span class="entries-label">
+                                        Your default setting is:
+                                    </span>
+
+                                    <select class="entries-select" name="entries">
+                                        <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '10' ? 'selected' : '' }} value="10">10</option>
+                                        <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '25' ? 'selected' : '' }} value="25">25</option>
+                                        <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '50' ? 'selected' : '' }} value="50">50</option>
+                                        <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '75' ? 'selected' : '' }} value="75">75</option>
+                                        <option {{ isset($setting->escort_settings) && $setting->escort_settings->datatable_entries == '100' ? 'selected' : '' }} value="100">100</option>
+                                    </select>
+
+                                </div>
+
+                                <div class="card-note">
+                                    <span class="note-icon">i</span>
+                                    <p> <i>Select your preferred number of entries for Report pages.</i></p>
+                                </div>
+                            </div>
+                            {{-- SUBSCRIPTIONS --}}
+
+
                         </div>
                     </div>
-                    {{-- <input  value="save" class="common-footer" > --}}
-                     <div class="common-footer">
-                        <button type="submit" class="common-save-btn">
+                </div>
+                <div class="common-footer">
+                    <button type="submit" class="common-save-btn">
                         Save
                     </button>
-                </form>
-
-
-
-            </div>
+                </div>
+            </form>
         </div>
-        <!--middle content end here-->
     </div>
+</div>
 @endsection
 @push('script')
-    <script>
-        $('#profile_notification_options').on('submit', function(e) {
-            e.preventDefault();
+<script>
+    $('#profile_notification_options').on('submit', function(e) {
+        e.preventDefault();
 
-            let formData = new FormData(this);
+        let formData = new FormData(this);
 
-            $('#globalAlert').show();
-            $.ajax({
-                type: "POST",
-                url: $(this).attr('action'),
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    showAlert('success', '', response.message || 'Notification settings updated successfully!');
-                },
-                error: function(xhr) {
-                    Swal.close();
-                    console.log(xhr);
-                    showAlert('error', '', xhr.responseJSON.message || 'Something went wrong');
-                }
-            });
+        $('#globalAlert').show();
+        $.ajax({
+            type: "POST",
+            url: $(this).attr('action'),
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                showAlert('success', '', response.message || 'Notification settings updated successfully!');
+            },
+            error: function(xhr) {
+                Swal.close();
+                console.log(xhr);
+                showAlert('error', '', xhr.responseJSON.message || 'Something went wrong');
+            }
         });
-    </script>
+    });
+</script>
 @endpush

@@ -125,7 +125,7 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <div class="d-sm-flex align-items-center justify-content-between">
         <div class="custom-heading-wrapper">
             <h1 class="h1">Photos</h1>
@@ -142,21 +142,21 @@
     <div class="row">
         <div class="col-md-12 ">
             <div class="card collapse" id="notes">
-                    <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                        <ol>
-                            <li>Upload your photos here (up to 30) and then select your default images including your Thumbnail, other photos (up to six portrait) and your Banner Image (landscape) (<b>Default Images</b>).</li>
-                            <li>Your Default Images will always appear in the Profile Creator when you activate the Profile Creator (for a new Profile). If you change any of the Default Images in the Profile Creator, like when you are creating a second Profile for the same Location, you will be asked if you want to update your changes to the Default Images.</li>
-                            <li>When uploading your Photos, make sure they comply with our <a href="/escort-dashboard/help" class="custom_links_design">Profile Image</a> guidelines, especially in terms of the pixilation and the size of the photo.</li>
-                            <li>If you don't upload a Banner Image (which is located at the top of your Profile), you can select a template image from the list (<b>Template</b>). There is a range of Templates to suit every mood, although we do encourage you to upload your own Banner. Remember, it is a landscape image and you can include a montage.</li>
-                            <li>
-                                <ol class="level-2">
-                                    <li>Uploaded Media will by default be labelled 'Pending' verification. If you List a Profile without having verified your Media, your Default Images verification status will be displayed as Pending.</li>
-                                    <li>You must provide your Media Verification within 48 hours of having uploaded any Media otherwise your Media Verification status for all Media will change to Unverified and the appropriate icon will be displayed on any Listed Profile.</li>
-                                </ol>
-                            </li>
-                        </ol>
-                    </div>
+                <div class="card-body">
+                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                    <ol>
+                        <li>Upload your photos here (up to 30) and then select your default images including your Thumbnail, other photos (up to six portrait) and your Banner Image (landscape) (<b>Default Images</b>).</li>
+                        <li>Your Default Images will always appear in the Profile Creator when you activate the Profile Creator (for a new Profile). If you change any of the Default Images in the Profile Creator, like when you are creating a second Profile for the same Location, you will be asked if you want to update your changes to the Default Images.</li>
+                        <li>When uploading your Photos, make sure they comply with our <a href="/escort-dashboard/help" class="custom_links_design">Profile Image</a> guidelines, especially in terms of the pixilation and the size of the photo.</li>
+                        <li>If you don't upload a Banner Image (which is located at the top of your Profile), you can select a template image from the list (<b>Template</b>). There is a range of Templates to suit every mood, although we do encourage you to upload your own Banner. Remember, it is a landscape image and you can include a montage.</li>
+                        <li>
+                            <ol class="level-2">
+                                <li>Uploaded Media will by default be labelled 'Pending' verification. If you List a Profile without having verified your Media, your Default Images verification status will be displayed as Pending.</li>
+                                <li>You must provide your Media Verification within 48 hours of having uploaded any Media otherwise your Media Verification status for all Media will change to Unverified and the appropriate icon will be displayed on any Listed Profile.</li>
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
             </div>
         </div>
         <div class="col-md-12 mb-3 d-flex justify-content-end gap-10">
@@ -216,7 +216,7 @@
                                         if(!empty($imageData['id'])){
                                         $media_details = get_media_by_id($imageData['id'],'escort');
                                         $status = $media_details->varified ?? 0;
-                                            $status_icon = getMediaVerificationDataBigIcon($status);                                                           
+                                        $status_icon = getMediaVerificationDataBigIcon($status);
                                         }
                                         @endphp
 
@@ -237,7 +237,7 @@
                                         <h2 class="banner-sub-heading my-2">Gallery Images</h2>
                                     </div>
                                 </div>
-                                <div class="row" style="">
+                                <div class="row">
                                     <div class="col-4 pr-0">
                                         <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(2)">
                                             <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
@@ -256,9 +256,9 @@
                                                     style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
 
                                                     @if(!empty($imageData['id']))
-                                                   
+
                                                     <img src="{{ $status_icon['icon'] }}"> <span class="mc_media_tooltip">{{ $status_icon['label'] }}</span>
-                                                    
+
                                                     @endif
                                                 </div>
                                             </label>
@@ -308,14 +308,14 @@
 
                                                     @if(!empty($imageData['id']))
                                                     <img src="{{ $status_icon['icon'] }}"> <span class="mc_media_tooltip">{{ $status_icon['label'] }}</span>
-                                                    
+
                                                     @endif
                                                 </div>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" style="">
+                                <div class="row">
                                     <div class="col-4 pr-0">
                                         <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(5)">
                                             <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
@@ -334,7 +334,7 @@
                                                     style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
 
                                                     @if(!empty($imageData['id']))
-                                                        <img src="{{ $status_icon['icon'] }}"> <span class="mc_media_tooltip">{{ $status_icon['label'] }}</span>
+                                                    <img src="{{ $status_icon['icon'] }}"> <span class="mc_media_tooltip">{{ $status_icon['label'] }}</span>
 
                                                     @endif
                                                 </div>
@@ -359,8 +359,8 @@
                                                     style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
 
                                                     @if(!empty($imageData['id']))
-                                                        <img src="{{ $status_icon['icon'] }}"> <span class="mc_media_tooltip">{{ $status_icon['label'] }}</span>
-                                                  @endif
+                                                    <img src="{{ $status_icon['icon'] }}"> <span class="mc_media_tooltip">{{ $status_icon['label'] }}</span>
+                                                    @endif
                                                 </div>
                                             </label>
                                         </div>
@@ -383,7 +383,7 @@
                                                     style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
 
                                                     @if(!empty($imageData['id']))
-                                                        <img src="{{ $status_icon['icon'] }}"> <span class="mc_media_tooltip">{{ $status_icon['label'] }}</span>
+                                                    <img src="{{ $status_icon['icon'] }}"> <span class="mc_media_tooltip">{{ $status_icon['label'] }}</span>
 
                                                     @endif
                                                 </div>
@@ -406,12 +406,12 @@
                                             if(!empty($imageData['id'])){
                                             $media_details = get_media_by_id($imageData['id'],'escort');
                                             $status = $media_details->varified ?? 0;
-                                            $status_icon = getMediaVerificationDataBigIcon($status);    
+                                            $status_icon = getMediaVerificationDataBigIcon($status);
                                             }
                                             @endphp
                                             <div class="lg_verify_icon" id="verify_icon_9" style="{{ !empty($imageData['id']) && $media_details->template != '1' ? '' : 'display:none;' }}">
                                                 @if(!empty($imageData['id']))
-                                                    <img src="{{ $status_icon['icon'] }}"> <span class="common_shield_tooltip">{{ $status_icon['label'] }}</span>
+                                                <img src="{{ $status_icon['icon'] }}"> <span class="common_shield_tooltip">{{ $status_icon['label'] }}</span>
                                                 @endif
                                             </div>
                                         </label>
@@ -430,12 +430,12 @@
                                             if(!empty($imageData['id'])){
                                             $media_details = get_media_by_id($imageData['id'],'escort');
                                             $status = $media_details->varified ?? 0;
-                                            $status_icon = getMediaVerificationDataBigIcon($status);    
+                                            $status_icon = getMediaVerificationDataBigIcon($status);
                                             }
                                             @endphp
                                             <div class="lg_verify_icon" id="verify_icon_10" style="{{ !empty($imageData['id']) ? '' : 'display:none;' }}">
                                                 @if(!empty($imageData['id']))
-                                                    <img src="{{ $status_icon['icon'] }}"> <span class="common_shield_tooltip">{{ $status_icon['label'] }}</span>
+                                                <img src="{{ $status_icon['icon'] }}"> <span class="common_shield_tooltip">{{ $status_icon['label'] }}</span>
                                                 @endif
                                             </div>
 
@@ -597,8 +597,8 @@
                 </div>
             </div>
         </div>
-
     </div>
+</div>
 
     <div class="modal fade upload-modal delete" id="pesrmissionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -621,7 +621,6 @@
             </div>
         </div>
     </div>
-
     @include('escort.dashboard.modal.upload_gallery_image')
 
     <div class="modal fade upload-modal" id="photo_gallery" style="display: none">
@@ -649,10 +648,6 @@
             </div>
         </div>
     </div>
-
-
-
-
     <div class="modal fade upload-modal" id="photo_gallery_banner" style="display: none">
         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
             <div class="modal-content">
@@ -703,362 +698,357 @@
                             </div>
                             <!-- default Banner Tab -->
                             {{-- <div class="tab-pane fade" id="default" role="tabpanel" aria-labelledby="default-tab">
-                            @php  
-                            $bannerTemplates = getBannerTemplates();
-                            @endphp
-                            <div class="modal-tab">
-                                @if(!empty($bannerTemplates))
-                                @foreach($bannerTemplates as $keyId => $image)
-                                <div class="item2">
-                                    <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                    @php  
+                                    $bannerTemplates = getBannerTemplates();
+                                        @endphp
+                                        <div class="modal-tab">
+                                            @if(!empty($bannerTemplates))
+                                            @foreach($bannerTemplates as $keyId => $image)
+                                            <div class="item2">
+                                                <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                            </div>
+                                            @endforeach
+                                            @endif
+                                        </div>
+                            </div> --}}
+
+                            {{-- Don't Remove This  --}}
+                            <!-- Templates Tab -->
+                            <div class="tab-pane fade" id="default" role="tabpanel" aria-labelledby="default-tab">
+
+                                <!-- Nested Tabs (Static) -->
+                                <ul class="sub-nav-tabs nav nav-tabs mt-3">
+                                    <li class="nav-item">
+                                        <a class="sub-nav nav-link active" data-toggle="tab" href="#bdsm">BDSM</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="sub-nav nav-link" data-toggle="tab" href="#lingerie">Lingerie</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="sub-nav nav-link" data-toggle="tab" href="#passive">Passive</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="sub-nav nav-link" data-toggle="tab" href="#sheets">Sheets</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="sub-nav nav-link" data-toggle="tab" href="#subtle">Subtle</a>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content mt-3">
+
+                                    <!-- GROUP 1 STATIC -->
+                                    <div class="tab-pane fade show active" id="bdsm">
+                                        @php
+                                        $bannerTemplates = getBannerTemplates(1);
+                                        @endphp
+                                        <div class="modal-tab">
+                                            @if(!empty($bannerTemplates))
+                                            @foreach($bannerTemplates as $keyId => $image)
+                                            <div class="item2">
+                                                <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                            </div>
+                                            @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <!-- GROUP 2 STATIC -->
+                                    <div class="tab-pane fade" id="lingerie">
+                                        @php
+                                        $bannerTemplates = getBannerTemplates(2);
+                                        @endphp
+                                        <div class="modal-tab">
+                                            @if(!empty($bannerTemplates))
+                                            @foreach($bannerTemplates as $keyId => $image)
+                                            <div class="item2">
+                                                <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                            </div>
+                                            @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <!-- GROUP 3 STATIC -->
+                                    <div class="tab-pane fade" id="passive">
+                                        @php
+                                        $bannerTemplates = getBannerTemplates(3);
+                                        @endphp
+                                        <div class="modal-tab">
+                                            @if(!empty($bannerTemplates))
+                                            @foreach($bannerTemplates as $keyId => $image)
+                                            <div class="item2">
+                                                <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                            </div>
+                                            @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <!-- GROUP 4 STATIC -->
+                                    <div class="tab-pane fade" id="sheets">
+                                        @php
+                                        $bannerTemplates = getBannerTemplates(4);
+                                        @endphp
+                                        <div class="modal-tab">
+                                            @if(!empty($bannerTemplates))
+                                            @foreach($bannerTemplates as $keyId => $image)
+                                            <div class="item2">
+                                                <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                            </div>
+                                            @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <!-- GROUP 5 STATIC -->
+                                    <div class="tab-pane fade" id="subtle">
+                                        @php
+                                        $bannerTemplates = getBannerTemplates(5);
+                                        @endphp
+                                        <div class="modal-tab">
+                                            @if(!empty($bannerTemplates))
+                                            @foreach($bannerTemplates as $keyId => $image)
+                                            <div class="item2">
+                                                <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                            </div>
+                                            @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            {{-- end --}}
                         </div>
-                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade upload-modal" id="photo_gallery_pinup" style="display: none">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color: white;"> <img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Pin Up</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="pinup_modal_container" class="grid-container modalPopup" style="max-height: 350px; overflow:auto; grid-template-columns: 1fr 1fr 1fr;">
+
+                        @foreach($media as $keyId => $image)
+                        @if(in_array($image->position, [10]))
+                        <div class="item2">
+                            <img class="img-thumbnail defult-image select_image" style="" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
+                        </div>
                         @endif
+                        @endforeach
                     </div>
-                </div> --}}
-
-                {{-- Don't Remove This  --}}
-                <!-- Templates Tab -->
-                <div class="tab-pane fade" id="default" role="tabpanel" aria-labelledby="default-tab">
-
-                    <!-- Nested Tabs (Static) -->
-                    <ul class="sub-nav-tabs nav nav-tabs mt-3">
-                        <li class="nav-item">
-                            <a class="sub-nav nav-link active" data-toggle="tab" href="#bdsm">BDSM</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="sub-nav nav-link" data-toggle="tab" href="#lingerie">Lingerie</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="sub-nav nav-link" data-toggle="tab" href="#passive">Passive</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="sub-nav nav-link" data-toggle="tab" href="#sheets">Sheets</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="sub-nav nav-link" data-toggle="tab" href="#subtle">Subtle</a>
-                        </li>
-                    </ul>
-
-                    <div class="tab-content mt-3">
-
-                        <!-- GROUP 1 STATIC -->
-                        <div class="tab-pane fade show active" id="bdsm">
-                            @php
-                            $bannerTemplates = getBannerTemplates(1);
-                            @endphp
-                            <div class="modal-tab">
-                                @if(!empty($bannerTemplates))
-                                @foreach($bannerTemplates as $keyId => $image)
-                                <div class="item2">
-                                    <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
-                                </div>
-                                @endforeach
-                                @endif
-                            </div>
-                        </div>
-
-                        <!-- GROUP 2 STATIC -->
-                        <div class="tab-pane fade" id="lingerie">
-                            @php
-                            $bannerTemplates = getBannerTemplates(2);
-                            @endphp
-                            <div class="modal-tab">
-                                @if(!empty($bannerTemplates))
-                                @foreach($bannerTemplates as $keyId => $image)
-                                <div class="item2">
-                                    <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
-                                </div>
-                                @endforeach
-                                @endif
-                            </div>
-                        </div>
-
-                        <!-- GROUP 3 STATIC -->
-                        <div class="tab-pane fade" id="passive">
-                            @php
-                            $bannerTemplates = getBannerTemplates(3);
-                            @endphp
-                            <div class="modal-tab">
-                                @if(!empty($bannerTemplates))
-                                @foreach($bannerTemplates as $keyId => $image)
-                                <div class="item2">
-                                    <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
-                                </div>
-                                @endforeach
-                                @endif
-                            </div>
-                        </div>
-
-                        <!-- GROUP 4 STATIC -->
-                        <div class="tab-pane fade" id="sheets">
-                            @php
-                            $bannerTemplates = getBannerTemplates(4);
-                            @endphp
-                            <div class="modal-tab">
-                                @if(!empty($bannerTemplates))
-                                @foreach($bannerTemplates as $keyId => $image)
-                                <div class="item2">
-                                    <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
-                                </div>
-                                @endforeach
-                                @endif
-                            </div>
-                        </div>
-
-                        <!-- GROUP 5 STATIC -->
-                        <div class="tab-pane fade" id="subtle">
-                            @php
-                            $bannerTemplates = getBannerTemplates(5);
-                            @endphp
-                            <div class="modal-tab">
-                                @if(!empty($bannerTemplates))
-                                @foreach($bannerTemplates as $keyId => $image)
-                                <div class="item2">
-                                    <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
-                                </div>
-                                @endforeach
-                                @endif
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-                {{-- end --}}
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-</div>
-
-
-
-
-<div class="modal fade upload-modal" id="photo_gallery_pinup" style="display: none">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" style="color: white;"> <img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Pin Up</h5>
-
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">
-                        <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                    </span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="pinup_modal_container" class="grid-container modalPopup" style="max-height: 350px; overflow:auto; grid-template-columns: 1fr 1fr 1fr;">
-
-                    @foreach($media as $keyId => $image)
-                    @if(in_array($image->position, [10]))
-                    <div class="item2">
-                        <img class="img-thumbnail defult-image select_image" style="" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
-                    </div>
-                    @endif
-                    @endforeach
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-<div class="modal fade upload-modal" id="comman_modal" style="display: none">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">
-                        <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                    </span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
-                    <span id="comman_str dd"></span>
-                    <span class="comman_msg"></span>
-                </h1>
-            </div>
-            <div class="modal-footer" style="justify-content: center;">
-                <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
+    <div class="modal fade upload-modal" id="comman_modal" style="display: none">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+                        <span id="comman_str dd"></span>
+                        <span class="comman_msg"></span>
+                    </h1>
+                </div>
+                <div class="modal-footer" style="justify-content: center;">
+                    <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-@include('escort.dashboard.modal.remove_gallary_image')
-@include('escort.dashboard.modal.verify_media')
+    @include('escort.dashboard.modal.remove_gallary_image')
+    @include('escort.dashboard.modal.verify_media')
 
-@endsection
-@prepend('script')
-<script src="https://foliotek.github.io/Croppie/croppie.js"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/ajax/libs/jquery/jquery-ui.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('js/escort/profile_and_media_gallery.js') }}?v={{ time() }}"></script>
-<script src="{{ asset('js/escort/media-varification.js') }}"></script>
-<script>
-    var updatePosition = 0;
-    $("body").on('click', '.cropEdit', function() {
-        var id = $(this).attr('id');
-        var val = $(this).attr('value');
-        var src = $("#blah" + val).attr('src');
-        console.log("id = " + id);
-        console.log("val = " + src);
-    });
-
-    $(".useDefault").hide();
-
-    function initDragDrop() {
-        $("#dvSource img").draggable({
-            revert: "invalid",
-            helper: 'clone',
-            appendTo: ".upload-photo-sec",
-            refreshPositions: false,
-            drag: function(event, ui) {
-
-            },
-            stop: function(event, ui) {}
+    @endsection
+    @prepend('script')
+    <script src="https://foliotek.github.io/Croppie/croppie.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/ajax/libs/jquery/jquery-ui.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/escort/profile_and_media_gallery.js') }}?v={{ time() }}"></script>
+    <script src="{{ asset('js/escort/media-varification.js') }}"></script>
+    <script>
+        var updatePosition = 0;
+        $("body").on('click', '.cropEdit', function() {
+            var id = $(this).attr('id');
+            var val = $(this).attr('value');
+            var src = $("#blah" + val).attr('src');
+            console.log("id = " + id);
+            console.log("val = " + src);
         });
-        $(".dvDest").droppable({
-            drop: function(event, ui) {
-                var img_target = $(this).find('img');
-                var id = (img_target.attr('id'));
-                var position = img_target.data('position-id');
-                var sourceImagePosition = $(ui.draggable).data('position');
-                var meidaId = ui.draggable.data('id');
-                $("#pos_" + id.slice(3, 4)).val(ui.draggable.data('id'));
-                updateDefaultImage(position, meidaId, img_target, ui.draggable.attr('src'));
-            }
 
+        $(".useDefault").hide();
+
+        function initDragDrop() {
+            $("#dvSource img").draggable({
+                revert: "invalid",
+                helper: 'clone',
+                appendTo: ".upload-photo-sec",
+                refreshPositions: false,
+                drag: function(event, ui) {
+
+                },
+                stop: function(event, ui) {}
+            });
+            $(".dvDest").droppable({
+                drop: function(event, ui) {
+                    var img_target = $(this).find('img');
+                    var id = (img_target.attr('id'));
+                    var position = img_target.data('position-id');
+                    var sourceImagePosition = $(ui.draggable).data('position');
+                    var meidaId = ui.draggable.data('id');
+                    $("#pos_" + id.slice(3, 4)).val(ui.draggable.data('id'));
+                    updateDefaultImage(position, meidaId, img_target, ui.draggable.attr('src'));
+                }
+
+            });
+        }
+
+        $(function() {
+            initDragDrop();
         });
-    }
 
-    $(function() {
-        initDragDrop();
-    });
+        function updateDefaultImage(position, meidaId, img_target, media_src) {
+            var url = "{{ route('escort.default.images') }} ";
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {
+                    position: position,
+                    meidaId: meidaId
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    if (data.error == true) {
+                        img_target.attr('data-id', meidaId);
+                        img_target.attr('src', media_src);
+                        let resp = data.media_data;
+                        let status = resp?.media_data?.varified ?? 'template';
+                        let iconPath = '';
+                        let iconText = '';
+                        if (position == 1 || position == 9 || position == 10) {
 
-    function updateDefaultImage(position, meidaId, img_target, media_src) {
-        var url = "{{ route('escort.default.images') }} ";
-        $.ajax({
-            type: 'POST',
-            url: url,
-            data: {
-                position: position,
-                meidaId: meidaId
-            },
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(data) {
-                if (data.error == true) {
-                    img_target.attr('data-id', meidaId);
-                    img_target.attr('src', media_src);
-                    let resp = data.media_data;
-                    let status = resp?.media_data?.varified ?? 'template';
-                    let iconPath = '';
-                    let iconText = '';
-                    if (position == 1 || position == 9 || position == 10) {
+                            if (status == "0") {
+                                iconPath = '/assets/app/img/verify/e4u_pending.png';
+                                iconText = '<span class="common_shield_tooltip">Media Pending</span>';
+                            } else if (status == "1") {
+                                iconPath = '/assets/app/img/verify/e4u_verified.png';
+                                iconText = '<span class="common_shield_tooltip">Media Verified</span>';
+                            } else {
+                                iconPath = '/assets/app/img/verify/unverified_dark.png';
+                                iconText = '<span class="common_shield_tooltip">Media Unverified</span>';
+                            }
 
-                        if (status == "0") {
-                            iconPath = '/assets/app/img/verify/e4u_pending.png';
-                            iconText = '<span class="common_shield_tooltip">Media Pending</span>';
-                        } else if (status == "1") {
-                            iconPath = '/assets/app/img/verify/e4u_verified.png';
-                            iconText = '<span class="common_shield_tooltip">Media Verified</span>';
                         } else {
-                            iconPath = '/assets/app/img/verify/unverified_dark.png';
-                            iconText = '<span class="common_shield_tooltip">Media Unverified</span>';
+                            if (status == "0") {
+                                iconPath = '/assets/app/img/verify/e4u_pending-icon.png';
+                                iconText = '<span class="mc_media_tooltip">Media Pending</span>';
+                            } else if (status == "1") {
+                                iconPath = '/assets/app/img/verify/verified_icon_dark.png';
+                                iconText = '<span class="mc_media_tooltip">Media Verified</span>';
+                            } else {
+                                iconPath = '/assets/app/img/verify/unverified_icon_dark.png';
+                                iconText = '<span class="mc_media_tooltip">Media Unverified</span>';
+                            }
+                        }
+
+                        let iconBox = $('#verify_icon_' + position);
+                        iconBox.html(`<img src="${iconPath}">${iconText}`);
+                        if (status == "template" && position == "9") {
+                            iconBox.hide();
+                        } else {
+                            iconBox.show('');
                         }
 
                     } else {
-                        if (status == "0") {
-                            iconPath = '/assets/app/img/verify/e4u_pending-icon.png';
-                            iconText = '<span class="mc_media_tooltip">Media Pending</span>';
-                        } else if (status == "1") {
-                            iconPath = '/assets/app/img/verify/verified_icon_dark.png';
-                            iconText = '<span class="mc_media_tooltip">Media Verified</span>';
-                        } else {
-                            iconPath = '/assets/app/img/verify/unverified_icon_dark.png';
-                            iconText = '<span class="mc_media_tooltip">Media Unverified</span>';
-                        }
+                        swal.fire('', "<p>" + data.msg + "</p>", 'error');
+                        $('#comman_modal').on('hidden.bs.modal', function() {});
                     }
+                }
+            });
+        }
 
-                    let iconBox = $('#verify_icon_' + position);
-                    iconBox.html(`<img src="${iconPath}">${iconText}`);
-                    if (status == "template" && position == "9") {
-                        iconBox.hide();
+        $("#defaultImage").on('submit', function(e) {
+            e.preventDefault();
+
+            var form = $(this);
+            var url = form.attr('action');
+            var data = new FormData($('#defaultImage')[0]);
+            $.ajax({
+                method: form.attr('method'),
+                url: url,
+                data: data,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    console.log(data);
+                    if (data.error == true) {
+                        var msg = "Saved";
+                        swal.fire('', msg, 'success');
+
                     } else {
-                        iconBox.show('');
+                        var msg = "Something wrong...";
+                        swal.fire('', msg, 'error');
                     }
+                },
+                error: function(data) {
+                    $.toast({
+                        heading: 'Error!',
+                        text: data.responseJSON.message,
+                        icon: 'error',
+                        loader: true,
+                        position: 'top-right', // Change it to false to disable loader
+                        loaderBg: '#9EC600' // To change the background
+                    });
 
-                } else {
-                    swal.fire('', "<p>" + data.msg + "</p>", 'error');
-                    $('#comman_modal').on('hidden.bs.modal', function() {});
                 }
-            }
+            });
         });
-    }
 
-    $("#defaultImage").on('submit', function(e) {
-        e.preventDefault();
+        var positionToFill;
+        $(document).ready(function() {
+            $(".img-fluid.excludeTooltip, #img9").on('click', function(e) {
+                positionToFill = $(this);
+            });
+        })
 
-        var form = $(this);
-        var url = form.attr('action');
-        var data = new FormData($('#defaultImage')[0]);
-        $.ajax({
-            method: form.attr('method'),
-            url: url,
-            data: data,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(data) {
-                console.log(data);
-                if (data.error == true) {
-                    var msg = "Saved";
-                    swal.fire('', msg, 'success');
+        function positionToUpdate(position) {
+            console.log("positionToUpdate", position);
+            updatePosition = position;
+            return true;
+        }
 
-                } else {
-                    var msg = "Something wrong...";
-                    swal.fire('', msg, 'error');
-                }
-            },
-            error: function(data) {
-                $.toast({
-                    heading: 'Error!',
-                    text: data.responseJSON.message,
-                    icon: 'error',
-                    loader: true,
-                    position: 'top-right', // Change it to false to disable loader
-                    loaderBg: '#9EC600' // To change the background
-                });
-
-            }
+        $(document).on('click', '.modalPopup .item2,.modalPopup .item4', function(e) {
+            let imageSrc = $(this).find('img').attr('src');
+            let mediaId = $(this).find('img').data('id');
+            let img_target = $("#img" + updatePosition);
+            updateDefaultImage(updatePosition, mediaId, img_target, imageSrc);
+            $(`#${$(this).parents('.modal').attr('id')}`).modal("hide");
         });
-    });
-
-    var positionToFill;
-    $(document).ready(function() {
-        $(".img-fluid.excludeTooltip, #img9").on('click', function(e) {
-            positionToFill = $(this);
-        });
-    })
-
-    function positionToUpdate(position) {
-        console.log("positionToUpdate", position);
-        updatePosition = position;
-        return true;
-    }
-
-    $(document).on('click', '.modalPopup .item2,.modalPopup .item4', function(e) {
-        let imageSrc = $(this).find('img').attr('src');
-        let mediaId = $(this).find('img').data('id');
-        let img_target = $("#img" + updatePosition);
-        updateDefaultImage(updatePosition, mediaId, img_target, imageSrc);
-        $(`#${$(this).parents('.modal').attr('id')}`).modal("hide");
-    });
-</script>
-@endprepend
+    </script>
+    @endprepend
