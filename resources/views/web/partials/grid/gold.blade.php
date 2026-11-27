@@ -9,7 +9,7 @@
     <div class="six_column_content_top d-flex justify-content-between mid_tit wish_span" style="z-index: 1;width: 90%;">
                 @if($escort->default_image)
                     @php 
-                        $media_verification_status =  get_profile_verification_status($escort->id);
+                        $media_verification_status =  get_profile_verification_status($escort->id,'3');
                         $media_status = getMediaVerificationDataSmallIcon($media_verification_status ?? 0);
                     @endphp
                     <div class="vrf-tooltip-wrap">

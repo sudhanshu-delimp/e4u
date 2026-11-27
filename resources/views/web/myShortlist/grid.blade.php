@@ -9,7 +9,7 @@
     <div class="ec_card_header">
         @if ($escort->default_image)
             @php
-                $media_verification_status = get_profile_verification_status($escort->id);
+                $media_verification_status = get_profile_verification_status($escort->id,'3');
                 $media_status = getMediaVerificationDataSmallIcon($media_verification_status ?? 0);
             @endphp
             <div class="vrf-tooltip-wrap">

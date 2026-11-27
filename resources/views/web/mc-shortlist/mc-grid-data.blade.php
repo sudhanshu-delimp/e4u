@@ -33,7 +33,7 @@
             <div class="mc_card_header">
                 <span class="verify_icon">
                     @php 
-                        $media_verification_status =  get_profile_verification_status($listing->id);
+                        $media_verification_status =  get_profile_verification_status($listing->id,'4');
                         $media_status = getMediaVerificationDataSmallIcon(($media_verification_status ?? 0));
                     @endphp
                     <img src="{{$media_status['icon']}}" alt="">

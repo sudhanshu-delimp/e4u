@@ -2645,13 +2645,27 @@ if (!function_exists('formatIndianNumber')) {
 
 
     if (!function_exists('get_profile_verification_status')) {
-        function get_profile_verification_status($profileId)
-        {
-            return DB::table('profile_verification_status')
-                ->where('profile_id', $profileId)
-                ->value('status') ?? '0'; // default Pending
+    /**
+     * @param int         $profileId Escort or massage profile id
+     * @param string|null $type      '3' = escort, '4' = massage
+     */
+    function get_profile_verification_status($profileId, $type = null)
+    {
+        $query = DB::table('profile_verification_status')
+            ->where('profile_id', $profileId);
+
+        if ($type !== null) {
+            $query->where('type', (string) $type);
         }
+
+        $status = $query->value('status');
+
+        // Default: pending
+        return $status === null ? '0' : (string) $status;
     }
+}
+
+
 
     if (!function_exists('get_masseur_data_by_id')) {
         function get_masseur_data_by_id($masseur_id)
