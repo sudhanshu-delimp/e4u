@@ -202,7 +202,7 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 wrong_pin_hide_details bank-details-container">
+<div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4 wrong_pin_hide_details bank-details-container">
    <!--middle content end here-->
    <div class="row">
       <div class="col-md-12 custom-heading-wrapper">

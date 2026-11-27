@@ -22,7 +22,7 @@
 <div id="wrapper">
    <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
-            <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+            <div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4">
                 <!--middle content-->
                 <div class="row">
                     <div class="custom-heading-wrapper col-md-12">

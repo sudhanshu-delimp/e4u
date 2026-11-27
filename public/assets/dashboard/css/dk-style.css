@@ -11062,12 +11062,12 @@ td {
     color: var(--primary-color);
     display: inline-block;
     text-align: center;
-    padding: 0 10px;
+    padding: 0 5px;
 }
 
 .topbar-logged-in-user-data .d-user-info b {
     display: inline-block;
-    margin-right: 10px;
+    margin-right: 0px;
 }
 
 #wrapper #content-wrapper {
@@ -11120,7 +11120,7 @@ td {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto auto;
-    font-size: 14px;
+    font-size: 13px;
 }
 .escort_header_top_menu > span {
     display: flex;
@@ -11140,13 +11140,13 @@ td {
 .d-user-info span b {
     width: 125px;
     display: inline-block;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .d-user-info .user-values {
     width: max-content;
     display: inline-block;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .justify-navbar {

@@ -12,7 +12,7 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+<div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4">
     <!--middle content start here-->
     <!-- Page Heading -->
     <div class="row">
@@ -20,8 +20,8 @@
             <h1 class="h1">Edit Report</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
-        <div class="col-md-12 mb-4">
-            <div class="card collapse" id="notes" style="">
+        <div class="col-md-12">
+            <div class="card collapse" id="notes">
                 <div class="card-body">
                    <h3 class="NotesHeader"><b>Notes:</b></h3>
                     <ol>
@@ -72,8 +72,9 @@
     </div>
     <!-- Page Heading -->
     <div class="row">
-        <div class="col-md-9 add-punterbox-report">
-            <form id="punterbox-reports">
+        <div class="col-lg-12 add-punterbox-report">
+            <div class="common-card">
+                <form id="punterbox-reports">
                 <div class="form-group">
                     <label class="required">Incident Date</label>
                     <input type="hidden" name="id" value="{{$punterbox ? $punterbox->id : ''}}">
@@ -166,7 +167,8 @@
 
                 <button type="submit" class="save_profile_btn">Update Report</button>
                 <small class="d-block mt-2">Your report will remain <em>Pending</em> until approved by our Operations team.</small>
-            </form>
+            </form> 
+            </div>
         </div>
     </div>
     <!--middle content end here-->

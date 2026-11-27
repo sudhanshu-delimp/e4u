@@ -121,7 +121,7 @@ background:#16385f;
 
 
 
-<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 ">
+<div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4 ">
     <div class="row">
         <div class="col-md-12 custom-heading-wrapper">
             <h1 class="h1">Add New Listing</h1>

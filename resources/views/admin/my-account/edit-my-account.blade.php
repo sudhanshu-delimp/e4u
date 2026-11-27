@@ -57,7 +57,7 @@
         }
 
     @endphp
-    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+    <div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4">
         <div class="row">
             <div class="custom-heading-wrapper col-md-12">
                 <h1 class="h1">My Account </h1>
@@ -79,7 +79,7 @@
 
 
             <!-- ALERT MESSAGE -->
-            <div class="col-md-12 mb-3">
+            <div class="col-md-12">
                 <div id="formAlert" class="alert d-none rounded" role="alert"></div>
             </div>
              <div class="col-md-12 mb-4">

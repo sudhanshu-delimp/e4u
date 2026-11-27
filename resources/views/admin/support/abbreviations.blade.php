@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+<div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4">
    <div class="row">
       <div class="custom-heading-wrapper col-md-12">
          <h1 class="h1">Abbreviations, Icons & Lingo</h1>

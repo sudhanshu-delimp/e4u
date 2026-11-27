@@ -8,11 +8,7 @@
 </style>
 @stop
 @section('content')
-<!-- Content Wrapper -->
-<div id="content-wrapper" class="d-flex flex-column">
-   <!-- Main Content -->
-   <div id="content">
-      <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+      <div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4">
          <!--middle content-->
          @if(session('success'))
             <div class="alert alert-success">
@@ -23,15 +19,13 @@
 
 
             <div class="col-sm-12 col-md-12 col-lg-9 ">
-                 <!-- Begin Page Content -->
                  <div class="row">
-                   <!-- Page Heading -->
                      <div class="col-md-12 custom-heading-wrapper">
                         <h1 class="h1">My Legbox</h1>
                         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
                      </div>                  
-                     <div class="col-md-12 mb-4">
-                        <div class="card collapse" id="notes" style="">
+                     <div class="col-md-12">
+                        <div class="card collapse" id="notes">
                            <div class="card-body">
                              <h3 class="NotesHeader"><b>Notes:</b></h3>
                               <ol>
@@ -133,22 +127,6 @@
          </div>
          <!--right side bar end-->
       </div>
-   </div>
-   <!-- End of Main Content -->
-   <!-- Footer -->
-   <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-         <div class="copyright text-center my-auto">
-            <span> </span>
-         </div>
-      </div>
-   </footer>
-   <!-- End of Footer -->
-</div>
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-<i class="fas fa-angle-up"></i>
-</a>
 
    <div class="modal" id="change_all" style="display: none">
       <div class="modal-dialog modal-dialog-centered">

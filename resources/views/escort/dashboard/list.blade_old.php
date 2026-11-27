@@ -66,7 +66,7 @@
 </style>
 @endsection
 @section('content')
-<div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+<div class="d-flex flex-column container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4">
 
 
     <div class="d-sm-flex align-items-center justify-content-between">
