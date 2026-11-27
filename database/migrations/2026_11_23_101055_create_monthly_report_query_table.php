@@ -13,7 +13,7 @@ return new class extends Migration
             $table->id();
             $table->string('ref_number')->nullable();
             $table->unsignedBigInteger('fee_report_id');
-            $table->enum('fee_report_type', ['operator', 'agent'])->default('agent')->after('fee_report_id');
+            $table->enum('fee_report_type', ['operator', 'agent'])->default('agent');
             $table->dateTime('report_date')->nullable();
 
             $table->enum('status', [
