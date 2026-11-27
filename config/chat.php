@@ -12,6 +12,7 @@ return [
         'escort'         => 3,
         'massage_center' => 4,
         'agent'          => 5,
+        'operator'       => 7,
     ],
      'reactions' => ['👍', '❤️', '😂', '😮', '😢', '🙏'],
 
@@ -31,6 +32,7 @@ return [
         0 => [3, 4],    // viewer         -> escort, massage centre
         5 => [3, 4],    // agent          -> escort, massage centre
         4 => [0, 5],    // massage centre -> viewer, agent
+        7 => [5],       // operator       -> agent
     ],
 
     // Label shown as "Type:" in the chat header
@@ -40,10 +42,12 @@ return [
         3 => 'Escort',
         4 => 'Massage Centre',
         5 => 'Agent',
+        7 => 'Operator',
     ],
+    'admin_targets' => [0, 1, 2, 3, 4, 5, 6, 7],
 
     // Types that can NOT be blocked
-    'unblockable' => [5],
+    'unblockable' => [5, 1, 7],
     'hide_blocked_for' => [4],
 
     // Escort starting a chat with a viewer needs extra checks

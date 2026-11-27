@@ -61,7 +61,7 @@ class ChatController extends Controller
         'mpg'  => ['video', 'video/mpeg'],
         'mpeg' => ['video', 'video/mpeg'],
 
-                // Documents
+        // Documents
         'pdf'  => ['document', 'application/pdf'],
         'doc'  => ['document', 'application/msword'],
         'docx' => ['document', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
@@ -230,7 +230,7 @@ class ChatController extends Controller
                 ],
                 'last'         => $last ? [
                     'preview'    => $this->preview($last),
-                    'created_at' => \Carbon\Carbon::parse($last->created_at)->toIso8601String(), 
+                    'created_at' => \Carbon\Carbon::parse($last->created_at)->toIso8601String(),
                     'mine'       => (int) $last->sender_id === $me->id,
                 ] : null,
                 'unread'       => (int) ($unread[$r->id] ?? 0),
@@ -323,6 +323,11 @@ class ChatController extends Controller
             $query->whereIn('id', $this->eligibility->advertiserIdsIn($me));
         }
 
+        if ($type === (int) config('chat.types.operator')) {
+            // An Operator only sees their own Agents
+            $query->where('enabled', 1)->where('operator_id', $me->id);
+        }
+
         $users = $query->orderBy('member_id')->limit(50)->get([
             'id',
             'name',
@@ -334,6 +339,7 @@ class ChatController extends Controller
             'type',
             'last_online_at',
             'assigned_agent_id',
+            'operator_id',
         ]);
 
         // The remaining rules (settings, blocks, appointment) are checked per person
@@ -498,7 +504,7 @@ class ChatController extends Controller
         $body = isset($input['body']) ? trim($input['body']) : '';
         $body = $body === '' ? null : $body;
 
-                // A reply must point to a message of this same chat
+        // A reply must point to a message of this same chat
         $replyTo = null;
 
         if (! empty($input['reply_to'])) {
@@ -614,7 +620,7 @@ class ChatController extends Controller
         return response()->json(['data' => $payload], 201);
     }
 
-        /**
+    /**
      * Alert Centre notification for a new message. Skipped when the chat is muted,
      * or when the person still has an unseen notification from the same sender.
      */
@@ -630,7 +636,7 @@ class ChatController extends Controller
                 return;
             }
 
-           $title = 'New message from ' . ChatState::displayName($from);
+            $title = 'New message from ' . ChatState::displayName($from);
 
             $unseen = DB::table('notifications')
                 ->where('to_user', $to->id)
@@ -912,7 +918,7 @@ class ChatController extends Controller
     }
 
 
-        /**
+    /**
      * React to a message with one emoji. The same emoji again removes the reaction,
      * a different emoji replaces it.
      */
@@ -1067,11 +1073,20 @@ class ChatController extends Controller
 
 
     /**
-     * users.id of the Agents this escort or massage centre appointed.
+     * users.id of the contacts that are always in this person's list, at the top:
+     * the appointed Agent of an escort or massage centre, and the Operator of an Agent.
      */
     private function appointedAgentIds(User $user): array
     {
+        // An Agent always has their Operator in the list
         if ((int) $user->type === (int) config('chat.types.agent')) {
+            return (int) $user->operator_id > 0 ? [(int) $user->operator_id] : [];
+        }
+
+        // E4U staff and Operators have no default member
+        $noDefault = array_merge(config('chat.admin_types', []), [(int) config('chat.types.operator')]);
+
+        if (in_array((int) $user->type, $noDefault, true)) {
             return [];
         }
 
@@ -1083,6 +1098,7 @@ class ChatController extends Controller
             ->values()
             ->all();
     }
+
 
     /**
      * The appointed Agent always has a chat in the list, so nobody has to search for them.
@@ -1233,7 +1249,7 @@ class ChatController extends Controller
         };
     }
 
-        /**
+    /**
      * Work out whether an uploaded file is an image, a video or a document we accept.
      * Returns ['kind' => 'image|video|document', 'mime' => string, 'ext' => string, 'name' => string] or null.
      */
@@ -1246,8 +1262,15 @@ class ChatController extends Controller
 
         // SVG files and anything that can run as a page or a program are never accepted
         $blocked = [
-            'image/svg+xml', 'text/html', 'application/xhtml+xml', 'application/javascript', 'text/javascript',
-            'application/x-httpd-php', 'text/x-php', 'application/x-dosexec', 'application/x-executable',
+            'image/svg+xml',
+            'text/html',
+            'application/xhtml+xml',
+            'application/javascript',
+            'text/javascript',
+            'application/x-httpd-php',
+            'text/x-php',
+            'application/x-dosexec',
+            'application/x-executable',
         ];
 
         if ($ext === 'svg' || in_array($mime, $blocked, true)) {
@@ -1255,7 +1278,7 @@ class ChatController extends Controller
         }
 
         // Documents are accepted by their extension (servers report office files in many ways)
-                // Documents and audio (voice messages) are accepted by their extension
+        // Documents and audio (voice messages) are accepted by their extension
         if ($known && in_array($known[0], ['document', 'audio'], true)) {
             return ['kind' => $known[0], 'mime' => $known[1], 'ext' => $ext, 'name' => $name];
         }
@@ -1304,7 +1327,7 @@ class ChatController extends Controller
                 'preview'   => $m->replyTo->trashed() ? '' : Str::limit($this->preview($m->replyTo), 120),
                 'deleted'   => $m->replyTo->trashed(),
             ] : null,
-            'reactions'       => $deleted ? [] : $m->reactions->map(fn ($r) => [
+            'reactions'       => $deleted ? [] : $m->reactions->map(fn($r) => [
                 'user_id' => (int) $r->user_id,
                 'emoji'   => $r->emoji,
             ])->values()->all(),

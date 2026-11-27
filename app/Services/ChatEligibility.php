@@ -51,6 +51,10 @@ class ChatEligibility
         }
 
         if (! $this->isAppointed($starter, $target)) {
+            if ($this->isOperatorAgentPair($starter, $target)) {
+                return $this->deny('Operators can only chat with their own Agents.');
+            }
+
             return $this->deny(
                 $this->isAgent($starter)
                     ? 'This advertiser has not appointed you as their Agent.'
@@ -96,11 +100,31 @@ class ChatEligibility
             return true;
         }
 
+        // Operator <-> Agent: the Agent must belong to that Operator (users.operator_id)
+        if ($this->isOperatorAgentPair($a, $b)) {
+            $agent    = $this->isAgent($a) ? $a : $b;
+            $operator = $this->isAgent($a) ? $b : $a;
+
+            return (int) $agent->operator_id === (int) $operator->id;
+        }
+
         // The Agent Console builds "My Escorts" from this table
         return DB::table('agent_escorts')
             ->where('agent_id', $agent->id)
             ->where('escort_id', $advertiser->id)
             ->exists();
+    }
+
+
+    /**
+     * Is this an Operator <-> Agent pair?
+     */
+    protected function isOperatorAgentPair(User $a, User $b): bool
+    {
+        $operator = (int) config('chat.types.operator');
+
+        return ((int) $a->type === $operator && $this->isAgent($b))
+            || ((int) $b->type === $operator && $this->isAgent($a));
     }
 
     /**
