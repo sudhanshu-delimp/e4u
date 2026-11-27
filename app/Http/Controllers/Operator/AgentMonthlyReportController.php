@@ -21,10 +21,10 @@ use App\Models\Notification;
 
 class AgentMonthlyReportController extends BaseController
 {
-    public function __construct()
-    {
-        //
-    }
+  public function __construct()
+  {
+    //
+  }
 
 
   /**
@@ -32,26 +32,26 @@ class AgentMonthlyReportController extends BaseController
    */
   public function agentMonthlyreport()
   {
-        $billingStartDate = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('Y-m-d');
-        $billingEndDate = Carbon::now()->subMonthNoOverflow()->endOfMonth()->format('Y-m-d');
-        $reportDate = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('m-Y');
-     $reports = AgentCommission::select(
-                'agent_id',
-                DB::raw('SUM(total_commission_amount) as total_commission'),
-                DB::raw('SUM(purchase_amount) as total_purchase')
-            )->with('agent', function ($query) {
-                $query->select(['id', 'member_id', 'email', 'business_name', 'state_id'])
-                    ->with('state', function ($queryState) {
-                        $queryState->select(['id', 'name', 'iso2', 'country_id']);
-                    });
-            })
-                ->whereBetween('commission_date', [$billingStartDate." 00:00:00", $billingEndDate." 23:59:59"])
-                ->groupBy('agent_id')
-                ->get();
+    $billingStartDate = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('Y-m-d');
+    $billingEndDate = Carbon::now()->subMonthNoOverflow()->endOfMonth()->format('Y-m-d');
+    $reportDate = Carbon::now()->subMonthNoOverflow()->startOfMonth()->format('m-Y');
+    $reports = AgentCommission::select(
+      'agent_id',
+      DB::raw('SUM(total_commission_amount) as total_commission'),
+      DB::raw('SUM(purchase_amount) as total_purchase')
+    )->with('agent', function ($query) {
+      $query->select(['id', 'member_id', 'email', 'business_name', 'state_id'])
+        ->with('state', function ($queryState) {
+          $queryState->select(['id', 'name', 'iso2', 'country_id']);
+        });
+    })
+      ->whereBetween('commission_date', [$billingStartDate . " 00:00:00", $billingEndDate . " 23:59:59"])
+      ->groupBy('agent_id')
+      ->get();
 
-      //dd( $reports->toArray());
-     return  view('operator.management.reports.agents.fees.monthly-report');
-     //return view('operator.dashboard.reports.agents-monthly-report');
+    //dd( $reports->toArray());
+    return  view('operator.management.reports.agents.fees.monthly-report');
+    //return view('operator.dashboard.reports.agents-monthly-report');
   }
 
 
@@ -101,11 +101,11 @@ class AgentMonthlyReportController extends BaseController
     $user = auth()->user();
     $countryId = $user->operator->country_id;
     $reports = AgentMonthlyReport::with('state', 'agent', 'monthlyReportQuery')
-    ->where(function ($query) use ($countryId) {
-       $query->orWhereHas('state', function ($q) use ($countryId) {
+      ->where(function ($query) use ($countryId) {
+        $query->orWhereHas('state', function ($q) use ($countryId) {
           $q->where('country_id',  $countryId);
         });
-    });
+      });
 
     $search = request()->input('search.value');
 
@@ -150,9 +150,9 @@ class AgentMonthlyReportController extends BaseController
       $item->total_spend =  $formattedSpend;
       $item->total_fees =   $formattedFees;
       $status = ucfirst($item->status);
-     
+
       $statusName = str_replace('_', " ", $status);
-      $statusName = ( $statusName == 'Approved') ? ' Agent Approved' : $statusName;
+      $statusName = ($statusName == 'Approved') ? ' Agent Approved' : $statusName;
       $item->status_name = '<span class="custom_badge_lg ' . getStatusBadgeClass($status) . '">' . ucwords($statusName) . ' </span>';
 
       $item->report_pproved_date = "N/A";
@@ -181,9 +181,8 @@ class AgentMonthlyReportController extends BaseController
         $divider = '<div class="dropdown-divider"></div>'; */
       } else if ($item->status == 'approved') {
         //Query
-         $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="paid"  id="viewPayAgentreport"><i class="fa fa-star"></i>Pay</a>';
+        $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="paid"  id="viewPayAgentreport"><i class="fa fa-star"></i>Pay</a><div class="dropdown-divider"></div>';
         $divider = '<div class="dropdown-divider"></div>';
-        
       } else if ($item->status == 'paid') {
         //Query
         //$dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query"  id="updateMonthlyReportStatus"><i class="fa fa-search-minus"></i>Query</a>';
@@ -193,7 +192,6 @@ class AgentMonthlyReportController extends BaseController
         if ($queryCount > 0) {
           $queryShowHide = true;
         }
-
       } else if ($item->status == 'query') {
         /*  $dropDown .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0)" data-id="' . $item->id . '" data-status="query" id="openQueryModel"><i class="fa fa-search-minus"></i></i>Reply Query</a>';
         $divider = '<div class="dropdown-divider"></div>';  */
@@ -315,10 +313,10 @@ class AgentMonthlyReportController extends BaseController
       $queryObj = (new monthlyReportQuery);
 
       $queryData = $queryObj->with('submittedBy')
-      ->where('fee_report_id', $id)
-      ->where('status', 'query')
-      ->where('notes', '!=', "")
-      ->get();
+        ->where('fee_report_id', $id)
+        ->where('status', 'query')
+        ->where('notes', '!=', "")
+        ->get();
 
       if ($queryData->isNotEmpty()) {
         return view('operator.management.reports.agents.fees.view_query', compact('queryData'));
@@ -339,6 +337,7 @@ class AgentMonthlyReportController extends BaseController
     $response['data'] = [];
 
     if (!empty($reportId)) {
+     $gstPercent = config("app.payment.gst_percentage");
 
       $report = AgentMonthlyReport::where('id', $reportId)->first();
       if ($report) {
@@ -348,7 +347,9 @@ class AgentMonthlyReportController extends BaseController
         $reportData['payMonthlyReportDate'] = $reportDate;
         $reportData['payMonthlyReportMonth'] = $reportMonth;
         $reportData['payAgenFee'] = number_format($report->fees, 2);
-
+        $totalGst = ($report->fees * $gstPercent) / 100;
+        $reportData['payMonthlyGST'] = number_format($totalGst, 2);
+        $reportData['agentPayAmount'] = number_format(($report->fees + $totalGst), 2);
 
         $response['error'] = 0;
         $response['data'] = $reportData;
@@ -365,23 +366,28 @@ class AgentMonthlyReportController extends BaseController
    */
   public function printPayAgentreport(Request $request)
   {
-  
+
     try {
       $reportId  = $request->monthly_report_id;
       if (!empty($reportId)) {
 
         $report = AgentMonthlyReport::where('id', $reportId)->first();
         if ($report) {
-           $agentId = $report->agent_id;
+          $gstPercent = config("app.payment.gst_percentage");
+          $agentId = $report->agent_id;
           $reportDate = Carbon::parse($report->report_date)->format('d-m-Y');
           $reportMonth = Carbon::parse($report->report_date)->format('F');
           $reportData['payAgentId'] = $report->agent->member_id;
           $reportData['payMonthlyReportDate'] = $reportDate;
           $reportData['payMonthlyReportMonth'] = $reportMonth;
           $reportData['payAgenFee'] = number_format($report->fees, 2);
+
+          $totalGst = ($report->fees * $gstPercent) / 100;
+          $reportData['payMonthlyGST'] = number_format($totalGst, 2);
+          $reportData['agentPayAmount'] = number_format(($report->fees + $totalGst), 2);
           $report->status = "paid";
 
-         if ($report->save()) {
+          if ($report->save()) {
 
             $notification = (new Notification);
             $notificationTitle = 'Your<span style="color:#ff0505;"> Monthly Fee </span> has been paid for ' . $reportMonth . ' month. Please visit <a href="' . config('app.url') . '/agent-dashboard/fees/monthly-report">Fee Report</a> to acknowledge.';

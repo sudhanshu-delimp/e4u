@@ -147,6 +147,14 @@
                                 <td style="font-weight: bold; color: #001f4d;">Month:</td>
                                 <td><span id="payMonthlyReportMonth"></span></td>
                             </tr>
+                            <tr>
+                                <td style="font-weight: bold; color: #000;text-align:right;" colspan="3">GST:</td>
+                                <td><span id="payMonthlyGST"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold; color: #000;text-align:right;"  colspan="3">Pay Amount:</td>
+                                <td><span id="agentPayAmount"></span></td>
+                            </tr>
                         </table>
 
                         <p>
@@ -162,7 +170,7 @@
                         <hr style="margin: 20px 0;">
 
                         <div style="text-align: right;">
-                            <form action="{{ route('operator.agents.fees.print.pay-detail') }}" method="post" target="_blank">
+                            <form action="{{ route('operator.agents.fees.print.pay-detail') }}" method="post" target="_blank" onClick="javascrpt:refreshThePage()">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="monthly_report_id" id="monthly_report_id" value="">
                                 <button type="submit" class="btn-success-modal">Print</button>
@@ -340,9 +348,10 @@
                             } else {
                                 $('#payAgentId').text(response.data.payAgentId);
                                 $('#payMonthlyReportDate').text(response.data.payMonthlyReportDate);
-                                $('#payMonthlyReportMonth').text(response.data
-                                    .payMonthlyReportMonth);
+                                $('#payMonthlyReportMonth').text(response.data.payMonthlyReportMonth);
                                 $('#payAgenFee').text(response.data.payAgenFee);
+                                $('#payMonthlyGST').text("$"+response.data.payMonthlyGST);
+                                $('#agentPayAmount').text("$"+response.data.agentPayAmount);
 
                                 $('#payAgentreport').modal('show');
                             }

@@ -82,6 +82,8 @@
         $payMonthlyReportDate = $reportData['payMonthlyReportDate'];
         $payMonthlyReportMonth = $reportData['payMonthlyReportMonth'];
         $payAgenFee = number_format($reportData['payAgenFee'], 2); 
+        $payMonthlyGST = $reportData['payMonthlyGST'];
+        $agentPayAmount = $reportData['agentPayAmount'];
     @endphp    
     <!-- Body -->
 
@@ -107,10 +109,17 @@
                 <td style="font-weight: bold; color: #000;">Month:</td>
                 <td><span id="payMonthlyReportMonth">{{$payMonthlyReportMonth}}</span></td>
             </tr>
+            <tr>
+                <td style="font-weight: bold; color: #000;text-align:right;" colspan="3">GST:</td>
+                <td><span id="payMonthlyGST"></span>${{$payMonthlyGST}}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold; color: #000;text-align:right;"  colspan="3">Pay Amount:</td>
+                <td><span id="agentPayAmount"></span>${{$agentPayAmount}}</td>
+            </tr>
         </table>
         <p style="font-size: 14px;">
-            The Fee for the month is authorised for payment into the
-            Operator’s nominated Bank Account for the Agent.
+            The Fee for the month is authorised for payment into the Operator’s nominated Bank Account for the Agent.
         </p>
         <p style="margin-top: 25px;font-size: 14px;">
             Managing Director: <span style="display: inline-block; border-bottom: 1px solid #000; width: 200px;"></span>

@@ -155,7 +155,7 @@
                         <hr style="margin: 20px 0;">
 
                         <div style="text-align: right;">
-                            <form action="{{ route('admin.fees.print.pay-detail') }}" method="post" target="_blank">
+                            <form action="{{ route('admin.fees.print.pay-detail') }}" method="post" target="_blank" onClick="javascrpt:refreshThePage()">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="monthly_report_id" id="monthly_report_id" value="">
                                 <button type="submit" class="btn-success-modal">Print</button>

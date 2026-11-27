@@ -220,7 +220,11 @@
         function escapeHtml(value) {
             return $('<div>').text(value).html();
         }
-
+        function refreshThePage() {
+            setTimeout(function () {
+                window.location.reload();
+            }, 2000);
+        }
         
     </script>
 @endpush
