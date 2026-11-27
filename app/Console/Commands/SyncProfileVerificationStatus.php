@@ -14,21 +14,22 @@ class SyncProfileVerificationStatus extends Command
     protected $signature = 'profile:sync-status';
     protected $description = 'Sync Escort & Massage Profile Verification Status';
 
+    // Status constants (0 = pending, 1 = verified, 2 = unverified)
+    private const PENDING    = '0';
+    private const VERIFIED   = '1';
+    private const UNVERIFIED = '2';
+
     public function handle()
     {
         Log::info('=== START CRON ===');
 
         $users = User::where('status', 1)
-            ->whereIn('type', ['3','4'])
+            ->whereIn('type', ['3', '4'])
             ->get();
 
         foreach ($users as $user) {
 
-            /*
-            =========================
-            🔹 ESCORT (TYPE 3)
-            =========================
-            */
+            // ESCORT (TYPE 3)
             if ($user->type == '3') {
 
                 $profiles = Escort::where('user_id', $user->id)
@@ -38,41 +39,19 @@ class SyncProfileVerificationStatus extends Command
 
                 foreach ($profiles as $escort) {
 
-                    $media = $escort->gallary()
+                    // Only the thumbnail (position 1) decides the status
+                    $thumbnail = $escort->gallary()
                         ->wherePivot('type', 0)
-                        ->wherePivotIn('position', [1,2,3,4,5,6,7])
-                        ->get();
+                        ->wherePivot('position', 1)
+                        ->first();
 
-                    $thumbnailStatus = '0';
+                    $status = $this->normalizeStatus($thumbnail->varified ?? null);
 
-                    foreach ($media as $item) {
-                        if ($item->pivot->position == 1) {
-                            $thumbnailStatus = (string) ($item->varified ?? '0');
-                        }
-                    }
-
-                    // FINAL RULE (SIMPLIFIED)
-                    $finalStatus = ($thumbnailStatus == '1') ? '1' : '2';
-
-                    DB::table('profile_verification_status')->updateOrInsert(
-                        [
-                            'profile_id' => $escort->id,
-                            'type' => '3'
-                        ],
-                        [
-                            'status' => $finalStatus,
-                            'updated_at' => now(),
-                            'created_at' => now()
-                        ]
-                    );
+                    $this->saveStatus($escort->id, '3', $status);
                 }
             }
 
-            /*
-            =========================
-            🔹 MASSAGE (TYPE 4)
-            =========================
-            */
+            // MASSAGE (TYPE 4)
             if ($user->type == '4') {
 
                 $profiles = MassageProfile::where('user_id', $user->id)
@@ -82,31 +61,12 @@ class SyncProfileVerificationStatus extends Command
 
                 foreach ($profiles as $profile) {
 
-                    $thumbnailStatus = '0';
+                    // Only the thumbnail (position 1) decides the status
+                    $image_data = get_image_position_detail($profile, 1);
 
-                    for ($i = 1; $i <= 7; $i++) {
+                    $status = $this->normalizeStatus($image_data['varified'] ?? null);
 
-                        $image_data = get_image_position_detail($profile, $i);
-
-                        if (!empty($image_data) && $i == 1) {
-                            $thumbnailStatus = (string) ($image_data['varified'] ?? '0');
-                        }
-                    }
-
-                    // FINAL RULE (SIMPLIFIED)
-                    $finalStatus = ($thumbnailStatus == '1') ? '1' : '2';
-
-                    DB::table('profile_verification_status')->updateOrInsert(
-                        [
-                            'profile_id' => $profile->id,
-                            'type' => '4'
-                        ],
-                        [
-                            'status' => $finalStatus,
-                            'updated_at' => now(),
-                            'created_at' => now()
-                        ]
-                    );
+                    $this->saveStatus($profile->id, '4', $status);
                 }
             }
         }
@@ -114,5 +74,41 @@ class SyncProfileVerificationStatus extends Command
         Log::info('=== END CRON ===');
 
         $this->info('Profile verification status synced successfully');
+    }
+
+    /**
+     * Store the actual thumbnail status.
+     * Missing or unexpected value -> pending.
+     */
+    private function normalizeStatus($value): string
+    {
+        $value = (string) ($value ?? self::PENDING);
+
+        return in_array($value, [self::PENDING, self::VERIFIED, self::UNVERIFIED], true)
+            ? $value
+            : self::PENDING;
+    }
+
+    private function saveStatus($profileId, string $type, string $status): void
+    {
+        $key = [
+            'profile_id' => $profileId,
+            'type'       => $type,
+        ];
+
+        $exists = DB::table('profile_verification_status')->where($key)->exists();
+
+        if ($exists) {
+            DB::table('profile_verification_status')->where($key)->update([
+                'status'     => $status,
+                'updated_at' => now(),
+            ]);
+        } else {
+            DB::table('profile_verification_status')->insert($key + [
+                'status'     => $status,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }
