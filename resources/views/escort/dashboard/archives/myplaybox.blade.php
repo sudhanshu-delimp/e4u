@@ -19,7 +19,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+    <div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4">
         <div class="row">
             <div class="d-sm-flex align-items-center justify-content-between col-md-12">
                 <div class="custom-heading-wrapper">
@@ -36,7 +36,7 @@
                 @endif
             </div>
             <!-- Help Notes Accordion -->
-            <div class="col-md-12 ">
+            <div class="col-md-12">
                 <div class="card collapse" id="notes">
                         <div class="card-body">
                             <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="row">
-            <div class=" col-md-12">
+            <div class="col-md-12">
                 <div class="common-card fill_profile_headings_global text-justify">
                 <p><strong>Coming soon!</strong></p>
 
