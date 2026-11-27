@@ -1,4 +1,4 @@
-<div class="container-fluid register-pin-up mb-5  pl-3 pl-lg-5 pr-3 pr-lg-5">
+<div class="container-fluid register-pin-up  pl-3 pl-lg-4 pr-3 pr-lg-4">
     <div class="row">
         <div class="d-sm-flex align-items-center justify-content-between col-md-12">
             <div class="custom-heading-wrapper">
@@ -31,7 +31,8 @@
         </div>
     </div>
 
-    <div class="col-md-12 ">
+   <div class="row">
+     <div class="col-md-12 ">
         <div class="common-card">
             <form class="common-form" id="supportTicket" method="post" action="{{ route('support-ticket.create') }}"
                 enctype="multipart/form-data">
@@ -131,6 +132,7 @@
             </form>
         </div>
     </div>
+   </div>
 </div>
 <script>
     $(document).ready(function() {

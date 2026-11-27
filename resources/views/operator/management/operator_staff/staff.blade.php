@@ -12,7 +12,7 @@ $operatorCountryName = isset(auth()->user()->operator->country->name) ? auth()->
     <div id="content-wrapper" class="d-flex flex-column">
         <!-- Main Content -->
         <div id="content">
-            <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 opr-console">
+            <div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4 opr-console">
                 <!--middle content-->
                 <div class="row">
                     <!-- Page Heading -->

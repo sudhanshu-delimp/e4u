@@ -7,7 +7,7 @@
 <div id="content-wrapper" class="d-flex flex-column">
     <!-- Main Content -->
     <div id="content">
-        <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 opr-console">
+        <div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4 opr-console">
             <!--middle content start here-->
             {{-- Page Heading   --}}
             <div class="row">
@@ -15,7 +15,7 @@
                     <h1 class="h1">Upload your avatar</h1>
                     <span class="oprhelpNote font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
                 </div>
-                <div class="col-md-12 my-2">
+                <div class="col-md-12">
                     <div class="card collapse" id="notes" style="">
                         <div class="card-body">
                             <p class="notes"><b>Notes:</b> </p>

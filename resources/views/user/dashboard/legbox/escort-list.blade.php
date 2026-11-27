@@ -12,7 +12,7 @@
 @stop
 @section('content')
 <!-- Content Wrapper -->
-<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+<div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4">
    <!-- Page Heading -->
    <div class="row">
         <div class="custom-heading-wrapper col-md-12">

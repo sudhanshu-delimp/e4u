@@ -22,8 +22,8 @@
     <link href="{{ asset('assets/app/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css?v1.4') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/dashboard/css/dk-style.css?v2.04') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/dashboard/css/sb-admin-2.min.css?v1.5') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/dashboard/css/dk-style.css?v2.05') }}" rel="stylesheet" />
     <link href="{{ asset('assets/app/css/responsive-style.css?v1.7') }}" rel="stylesheet" />
     <link href="{{ asset('assets/dashboard/css/dk-responsive.css') }}" rel="stylesheet" />    
     <link href="{{ asset('assets/dashboard/css/common-style/style.css?v2.01') }}" rel="stylesheet" />

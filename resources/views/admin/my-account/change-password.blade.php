@@ -58,7 +58,7 @@
     </style>
 @stop
 @section('content')
-    <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5 change-pass-sec">
+    <div class="container-fluid  pl-3 pl-lg-4 pr-3 pr-lg-4 change-pass-sec">
         <!--middle content start here-->
         <div class="row">
             <div class="custom-heading-wrapper col-md-12">
@@ -76,7 +76,7 @@
                 </div>
             </div>
             <!-- ALERT MESSAGE -->
-            <div class="col-md-12 mb-3">
+            <div class="col-md-12">
                 <div id="profileAlert" class="alert d-none rounded" role="alert"></div>
             </div>
                 <div class="col-md-12">

@@ -54,7 +54,7 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+<div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4">
     <!--middle content start here-->
     <!-- Page Heading -->
     <div class="row">
@@ -72,8 +72,8 @@
             </div>
             @endif
         </div>
-        <div class="col-md-12 mb-4">
-            <div class="card collapse" id="notes" style="">
+        <div class="col-md-12">
+            <div class="card collapse" id="notes">
                 <div class="card-body">
                    <h3 class="NotesHeader"><b>Notes:</b></h3>
                     <ol>
@@ -97,23 +97,24 @@
     </div>
     <!-- Page Heading -->
 
-        <div class="col-md-12 common-card">
-
-            <div class="table-responsive">
-                <table id="myReportListTable" class="table">
-                    <thead class="bg-first">
-                        <tr>
-                            <th>REF</th>
-                            <th>Mobile</th>
-                            <th>Incident Type</th>
-                            <th>Incident Date</th>
-                            <th>Location</th>
-                            <th class="text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="common-card table-responsive">
+                    <table id="myReportListTable" class="table w-100">
+                        <thead class="bg-first">
+                            <tr>
+                                <th>REF</th>
+                                <th>Mobile</th>
+                                <th>Incident Type</th>
+                                <th>Incident Date</th>
+                                <th>Location</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     <!--middle content end here-->

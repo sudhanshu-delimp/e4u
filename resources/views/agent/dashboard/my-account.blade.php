@@ -1,53 +1,48 @@
 @extends('layouts.agent')
 @section('style')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
-    <style type="text/css">
-        .parsley-errors-list {
-            list-style: none;
-            color: rgb(248, 0, 0)
-        }
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
+<style type="text/css">
+    .parsley-errors-list {
+        list-style: none;
+        color: rgb(248, 0, 0)
+    }
 
-        #Agent_Agreement .modal-dialog {
-            max-width: 1000px !important;
-        }
-    </style>
+    #Agent_Agreement .modal-dialog {
+        max-width: 1000px !important;
+    }
+</style>
 @endsection
 @section('content')
-    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-        <!--middle content start here-->
-        <!-- Page Heading -->
-        <div class="row">
-
-
-
-
-            <div class="custom-heading-wrapper col-lg-12">
-                <h1 class="h1">Edit My Account</h1>
-                <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes"
-                    aria-expanded="true">Help?</span>
-            </div>
-            <div class="col-md-12 mb-4">
-                <div class="card collapse" id="notes" style="">
-                    <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b></h3>
-                        <ol>
-                            <li>Use this feature to view all of your personal details - who you are, your Agent Agreement,
-                                and Fees.</li>
-                            <li>You can download your Agent Agreement which incorporates your KPIs and other critical
-                                information in relation to your expected performance outcomes.</li>
-                            <li>There is some general information also available to you inside each of the My Account
-                                groups.</li>
-                        </ol>
-                    </div>
+<div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4">
+    <div class="row">
+        <div class="custom-heading-wrapper col-lg-12">
+            <h1 class="h1">Edit My Account</h1>
+            <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes"
+                aria-expanded="true">Help?</span>
+        </div>
+        <div class="col-md-12">
+            <div class="card collapse" id="notes">
+                <div class="card-body">
+                    <h3 class="NotesHeader"><b>Notes:</b></h3>
+                    <ol>
+                        <li>Use this feature to view all of your personal details - who you are, your Agent Agreement,
+                            and Fees.</li>
+                        <li>You can download your Agent Agreement which incorporates your KPIs and other critical
+                            information in relation to your expected performance outcomes.</li>
+                        <li>There is some general information also available to you inside each of the My Account
+                            groups.</li>
+                    </ol>
                 </div>
             </div>
         </div>
-        {{-- end --}}
-        <div class="row">
+    </div>
+    {{-- end --}}
+    <div class="row">
 
-            <div class="col-md-12 commanAlert"></div>
+        <div class="col-md-12 commanAlert"></div>
+        <div class="col-lg-12">
             <div id="accordion" class="myacording-design mb-5">
                 <div class="card common-card">
                     <div class="card-header">
@@ -105,7 +100,8 @@
                                             <div class="form-group">
                                                 <label for="membership_num">Date Joined</label>
                                                 <p class="input_not_edit" placeholder=" " aria-describedby="emailHelp">
-                                                    {{ Carbon\Carbon::parse($user->created_at)->format('d-m-Y') }}</p>
+                                                    {{ Carbon\Carbon::parse($user->created_at)->format('d-m-Y') }}
+                                                </p>
                                             </div>
                                             <div class="form-group">
                                                 <label for="my_name">Business Name</label>
@@ -128,7 +124,7 @@
                                                 <span id="abn-errors"></span>
                                                 <div class="termsandconditions_text_color">
                                                     @error('abn')
-                                                        <strong>{{ $message }}</strong>
+                                                    <strong>{{ $message }}</strong>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -153,7 +149,7 @@
                                                 <span id="business_number-errors"></span>
                                                 <div class="termsandconditions_text_color">
                                                     @error('business_number')
-                                                        <strong>{{ $message }}</strong>
+                                                    <strong>{{ $message }}</strong>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -170,25 +166,26 @@
                                                     required placeholder="Mobile Number"
                                                     data-parsley-required-message="Your mobile number is required"
                                                     value="{{ $user->phone }}" disabled data-parsley-pattern="^[0-9 ]+$"
-                                                    data-parsley-type-message="Enter only mobile numbers">
+                                                data-parsley-type-message="Enter only mobile numbers">
                                                 <span id="phone-errors"></span>
                                                 <div class="termsandconditions_text_color">
                                                     @error('phone')
-                                                        <strong>{{ $message }}</strong>
+                                                    <strong>{{ $message }}</strong>
                                                     @enderror
-                                                   
+
                                                 </div> --}}
                                                 <p class="input_not_edit">{{ $user->phone }}</p>
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">{{ __('Email') }}</label>
                                                 <p class="input_not_edit" placeholder=" " aria-describedby="emailHelp">
-                                                    {{ $user->email }} </p>
+                                                    {{ $user->email }}
+                                                </p>
 
                                                 <span id="email2-errors"></span>
                                                 <div class="termsandconditions_text_color">
                                                     @error('email2')
-                                                        <strong>{{ $message }}</strong>
+                                                    <strong>{{ $message }}</strong>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -201,7 +198,8 @@
                                             <div class="form-group">
                                                 <label for="mobile">E4U Email</label>
                                                 <p class="input_not_edit" placeholder=" " aria-describedby="emailHelp">
-                                                    {{ $user->email2 }} </p>
+                                                    {{ $user->email2 }}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -259,13 +257,15 @@
                                             <div class="form-group">
                                                 <label for="membership_num">Term</label>
                                                 <p class="input_not_edit">
-                                                    {{ $user->agent_detail ? $user->agent_detail->term : '' }}</p>
+                                                    {{ $user->agent_detail ? $user->agent_detail->term : '' }}
+                                                </p>
                                                 </label>
                                             </div>
                                             <div class="form-group">
                                                 <label for="my_name">Option Period</label>
                                                 <p class="input_not_edit">
-                                                    {{ $user->agent_detail ? $user->agent_detail->option_peroid : '' }}</p>
+                                                    {{ $user->agent_detail ? $user->agent_detail->option_peroid : '' }}
+                                                </p>
                                             </div>
                                             <div class="form-group">
                                                 <label for="my_name" class="my-agent">Option Exercised</label>
@@ -276,7 +276,8 @@
                                             <div class="form-group">
                                                 <label for="mobile">Territory</label>
                                                 <p class="input_not_edit" aria-describedby="emailHelp">
-                                                    {{ $user->state->name }}</p>
+                                                    {{ $user->state->name }}
+                                                </p>
                                             </div>
 
                                         </div>
@@ -286,16 +287,16 @@
                                         <div class="form-group">
 
                                             @if ($user->agent_detail && $user->agent_detail->agreement_file != '')
-                                                <label>You can retrieve your Agent Agreement by
-                                                    <a href="{{ asset('storage/' . $user->agent_detail->agreement_file) }}"
-                                                        class="custom_links_design" target="_blank">
-                                                        <span style="color: #FF3C5F;">clicking here.</span>
-                                                    </a></label>
+                                            <label>You can retrieve your Agent Agreement by
+                                                <a href="{{ asset('storage/' . $user->agent_detail->agreement_file) }}"
+                                                    class="custom_links_design" target="_blank">
+                                                    <span style="color: #FF3C5F;">clicking here.</span>
+                                                </a></label>
                                             @else
-                                                <a href="javascript:void(0)" class="custom_links_design"
-                                                    title="The agreement file has not been uploaded.">
-                                                    <span style="color: #FF3C5F;">Agreement file not uploaded.</span>
-                                                </a>
+                                            <a href="javascript:void(0)" class="custom_links_design"
+                                                title="The agreement file has not been uploaded.">
+                                                <span style="color: #FF3C5F;">Agreement file not uploaded.</span>
+                                            </a>
                                             @endif
 
 
@@ -349,22 +350,22 @@
                                                 <label for="membership_num">Advertiser
                                                 </label>
                                                 @if ($user->agent_detail->commission_advertising_type == 'percent')
-                                                    <p class="input_not_edit">
-                                                        {{ $user->agent_detail ? $user->agent_detail->commission_advertising_percent . '%' : '' }}
-                                                    </p>
+                                                <p class="input_not_edit">
+                                                    {{ $user->agent_detail ? $user->agent_detail->commission_advertising_percent . '%' : '' }}
+                                                </p>
                                                 @else
-                                                    <p class="input_not_edit">
-                                                        {{ $user->agent_detail ? "$" . $user->agent_detail->commission_advertising_percent : '' }}
-                                                    </p>
+                                                <p class="input_not_edit">
+                                                    {{ $user->agent_detail ? "$" . $user->agent_detail->commission_advertising_percent : '' }}
+                                                </p>
                                                 @endif
                                             </div>
                                             <div class="form-group">
                                                 <label for="membership_num">Massage Centres (Signed Up)</label>
                                                 <p class="input_not_edit" placeholder=" " aria-describedby="emailHelp">
                                                     @if ($user->agent_detail->commission_registration_type == 'percent')
-                                                        {{ $user->agent_detail ? $user->agent_detail->commission_registration_amount . '%' : '' }}
+                                                    {{ $user->agent_detail ? $user->agent_detail->commission_registration_amount . '%' : '' }}
                                                     @else
-                                                        {{ $user->agent_detail ? "$" . $user->agent_detail->commission_registration_amount : '' }}
+                                                    {{ $user->agent_detail ? "$" . $user->agent_detail->commission_registration_amount : '' }}
                                                     @endif
 
                                                 </p>
@@ -429,12 +430,12 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
-                                        <div class="form-group" >
+                                        <div class="form-group">
                                             <label for="membership_num">Upload Signature File</label>
                                             <label for="signature_file" class="file-upload-box">
-                                                
-                                                <div class="upload-content" >
-                                                    <div class="upload-icon" >
+
+                                                <div class="upload-content">
+                                                    <div class="upload-icon">
                                                         <svg width="25px" height="25px" viewBox="0 0 24 24"
                                                             xmlns="http://www.w3.org/2000/svg" fill="none">
                                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -452,7 +453,7 @@
                                                     </div>
                                                     <span class="upload-title">Upload a file</span>
                                                     <span class="upload-hint"><span class="upload-text"> <strong>browse</strong>
-                                                    </span> Only PNG, JPG, or JPEG images up to 2MB are
+                                                        </span> Only PNG, JPG, or JPEG images up to 2MB are
                                                         allowed.</span>
                                                 </div>
                                                 <input type="file" name="signature_file" id="signature_file"
@@ -460,30 +461,46 @@
                                             </label>
                                             <span id="signature_file-errors" class="text-danger error-signature_file"></span>
                                         </div>
-                                        
+
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="row" id="deleteSignature">
                                             @if ($user->agent_detail && $user->agent_detail->signature_file != '')
-                                                <div class="col-lg-12 mt-4">
-                                                    <div class="mt-2 signature-image-box">
-                                                        <img src="{{ asset('storage/' . $user->agent_detail->signature_file) }}"
-                                                            alt="Signature"
-                                                            id="signatureImage">
-                                                    </div>
+                                            <div class="col-lg-12 mt-4">
+                                                <div class="mt-2 signature-image-box">
+                                                    <img src="{{ asset('storage/' . $user->agent_detail->signature_file) }}"
+                                                        alt="Signature"
+                                                        id="signatureImage">
                                                 </div>
-                                                <div class="col-lg-12 mt-4">
-                                                    <div class="existing-file">
-                                                        <a href="{{ asset('storage/' . $user->agent_detail->signature_file) }}"
-                                                            class="" target="_blank">
-                                                            <span style="color: #FF3C5F;"> <svg width="24px" height="24px" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5.625 15C5.625 14.5858 5.28921 14.25 4.875 14.25C4.46079 14.25 4.125 14.5858 4.125 15H5.625ZM4.875 16H4.125H4.875ZM19.275 15C19.275 14.5858 18.9392 14.25 18.525 14.25C18.1108 14.25 17.775 14.5858 17.775 15H19.275ZM11.1086 15.5387C10.8539 15.8653 10.9121 16.3366 11.2387 16.5914C11.5653 16.8461 12.0366 16.7879 12.2914 16.4613L11.1086 15.5387ZM16.1914 11.4613C16.4461 11.1347 16.3879 10.6634 16.0613 10.4086C15.7347 10.1539 15.2634 10.2121 15.0086 10.5387L16.1914 11.4613ZM11.1086 16.4613C11.3634 16.7879 11.8347 16.8461 12.1613 16.5914C12.4879 16.3366 12.5461 15.8653 12.2914 15.5387L11.1086 16.4613ZM8.39138 10.5387C8.13662 10.2121 7.66533 10.1539 7.33873 10.4086C7.01212 10.6634 6.95387 11.1347 7.20862 11.4613L8.39138 10.5387ZM10.95 16C10.95 16.4142 11.2858 16.75 11.7 16.75C12.1142 16.75 12.45 16.4142 12.45 16H10.95ZM12.45 5C12.45 4.58579 12.1142 4.25 11.7 4.25C11.2858 4.25 10.95 4.58579 10.95 5H12.45ZM4.125 15V16H5.625V15H4.125ZM4.125 16C4.125 18.0531 5.75257 19.75 7.8 19.75V18.25C6.61657 18.25 5.625 17.2607 5.625 16H4.125ZM7.8 19.75H15.6V18.25H7.8V19.75ZM15.6 19.75C17.6474 19.75 19.275 18.0531 19.275 16H17.775C17.775 17.2607 16.7834 18.25 15.6 18.25V19.75ZM19.275 16V15H17.775V16H19.275ZM12.2914 16.4613L16.1914 11.4613L15.0086 10.5387L11.1086 15.5387L12.2914 16.4613ZM12.2914 15.5387L8.39138 10.5387L7.20862 11.4613L11.1086 16.4613L12.2914 15.5387ZM12.45 16V5H10.95V16H12.45Z" fill="#ff3c5f"></path> </g></svg> Download File</span>
-                                                        </a>
-                                                        <a href="javascript:void(0)" style="margin-left:50px;"
-                                                            title="Click here to delete signature file"
-                                                            class="deleteUploadedFile" data-id="{{ $user->id }}"
-                                                            data-type="signature"> <svg width="22px" height="22px" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 12V17" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M14 12V17" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M4 7H20" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg> Delete File</a>
-                                                    </div>
+                                            </div>
+                                            <div class="col-lg-12 mt-4">
+                                                <div class="existing-file">
+                                                    <a href="{{ asset('storage/' . $user->agent_detail->signature_file) }}"
+                                                        class="" target="_blank">
+                                                        <span style="color: #FF3C5F;"> <svg width="24px" height="24px" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                                                <g id="SVGRepo_iconCarrier">
+                                                                    <path d="M5.625 15C5.625 14.5858 5.28921 14.25 4.875 14.25C4.46079 14.25 4.125 14.5858 4.125 15H5.625ZM4.875 16H4.125H4.875ZM19.275 15C19.275 14.5858 18.9392 14.25 18.525 14.25C18.1108 14.25 17.775 14.5858 17.775 15H19.275ZM11.1086 15.5387C10.8539 15.8653 10.9121 16.3366 11.2387 16.5914C11.5653 16.8461 12.0366 16.7879 12.2914 16.4613L11.1086 15.5387ZM16.1914 11.4613C16.4461 11.1347 16.3879 10.6634 16.0613 10.4086C15.7347 10.1539 15.2634 10.2121 15.0086 10.5387L16.1914 11.4613ZM11.1086 16.4613C11.3634 16.7879 11.8347 16.8461 12.1613 16.5914C12.4879 16.3366 12.5461 15.8653 12.2914 15.5387L11.1086 16.4613ZM8.39138 10.5387C8.13662 10.2121 7.66533 10.1539 7.33873 10.4086C7.01212 10.6634 6.95387 11.1347 7.20862 11.4613L8.39138 10.5387ZM10.95 16C10.95 16.4142 11.2858 16.75 11.7 16.75C12.1142 16.75 12.45 16.4142 12.45 16H10.95ZM12.45 5C12.45 4.58579 12.1142 4.25 11.7 4.25C11.2858 4.25 10.95 4.58579 10.95 5H12.45ZM4.125 15V16H5.625V15H4.125ZM4.125 16C4.125 18.0531 5.75257 19.75 7.8 19.75V18.25C6.61657 18.25 5.625 17.2607 5.625 16H4.125ZM7.8 19.75H15.6V18.25H7.8V19.75ZM15.6 19.75C17.6474 19.75 19.275 18.0531 19.275 16H17.775C17.775 17.2607 16.7834 18.25 15.6 18.25V19.75ZM19.275 16V15H17.775V16H19.275ZM12.2914 16.4613L16.1914 11.4613L15.0086 10.5387L11.1086 15.5387L12.2914 16.4613ZM12.2914 15.5387L8.39138 10.5387L7.20862 11.4613L11.1086 16.4613L12.2914 15.5387ZM12.45 16V5H10.95V16H12.45Z" fill="#ff3c5f"></path>
+                                                                </g>
+                                                            </svg> Download File</span>
+                                                    </a>
+                                                    <a href="javascript:void(0)" style="margin-left:50px;"
+                                                        title="Click here to delete signature file"
+                                                        class="deleteUploadedFile" data-id="{{ $user->id }}"
+                                                        data-type="signature"> <svg width="22px" height="22px" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                                            <g id="SVGRepo_iconCarrier">
+                                                                <path d="M10 12V17" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path d="M14 12V17" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path d="M4 7H20" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#ff3c5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                            </g>
+                                                        </svg> Delete File</a>
                                                 </div>
+                                            </div>
                                             @endif
                                         </div>
                                         <div class="col-lg-12 mt-4">
@@ -502,285 +519,284 @@
                     </div>
                 </div>
             </div>
-            {{-- End Signatue --}}
         </div>
-
+        {{-- End Signatue --}}
     </div>
 
-    </div>
+</div>
 
-    <div class="modal fade upload-modal" id="Agent_Agreement" tabindex="-1" role="dialog"
-        aria-labelledby="Edit_CompetitorLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="Agent_Agreement">Agent Agreement</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
-                </div>
-                <div class="modal-body pb-0">
-                    <iframe src="{{ asset('assets/app/img/Agent%20Agreement%20-%20Victoria%20(10-2021).pdf') }}"
-                        width="100%" height="800" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
+<div class="modal fade upload-modal" id="Agent_Agreement" tabindex="-1" role="dialog"
+    aria-labelledby="Edit_CompetitorLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content basic-modal">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Agent_Agreement">Agent Agreement</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                            class="img-fluid img_resize_in_smscreen"></span>
+                </button>
+            </div>
+            <div class="modal-body pb-0">
+                <iframe src="{{ asset('assets/app/img/Agent%20Agreement%20-%20Victoria%20(10-2021).pdf') }}"
+                    width="100%" height="800" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </div>
+</div>
 @endsection
 @push('script')
-    <!-- file upload plugin start here -->
-    <!-- file upload plugin end here -->
-    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-    <script type="text/javascript">
-        $('#userProfile').parsley({});
-        $('#frmSignature').parsley({});
+<!-- file upload plugin start here -->
+<!-- file upload plugin end here -->
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script type="text/javascript">
+    $('#userProfile').parsley({});
+    $('#frmSignature').parsley({});
 
-        window.Parsley.addValidator('extension', {
-            validateString: function(value, requirement) {
-                var fileExtension = value.split('.').pop().toLowerCase();
-                var allowedExtensions = requirement.replace(/\s/g, '').split(',');
-                return allowedExtensions.indexOf(fileExtension) !== -1;
-            },
-            messages: {
-                en: 'Only PNG, JPG, or JPEG images are allowed.'
-            }
-        });
+    window.Parsley.addValidator('extension', {
+        validateString: function(value, requirement) {
+            var fileExtension = value.split('.').pop().toLowerCase();
+            var allowedExtensions = requirement.replace(/\s/g, '').split(',');
+            return allowedExtensions.indexOf(fileExtension) !== -1;
+        },
+        messages: {
+            en: 'Only PNG, JPG, or JPEG images are allowed.'
+        }
+    });
 
-        /* Delete agreement or signature file */
-        $(document).on('click', '.deleteUploadedFile', async function(e) {
+    /* Delete agreement or signature file */
+    $(document).on('click', '.deleteUploadedFile', async function(e) {
 
-            if (await isConfirm({
-                    'action': 'Delete',
-                    'text': ' Are you sure want to delete this file.'
-                })) {
-                swal_waiting_popup({
-                    'title': 'Deleting the file'
-                });
-                var userId = $(this).attr('data-id');
-                var type = $(this).attr('data-type');
-                $.ajax({
-                    url: "{{ route('agent.delete.file') }}",
-                    method: 'POST',
-                    data: {
-                        'userId': userId,
-                        'type': type
-                    },
-                    success: function(response, textStatus, xhr) {
-                        Swal.close();
-                        if (response.status) {
-                            displaySwal(xhr);
-                            if (type == 'agreement') {
-                                $("#deleteAgreement, #downloadAgreement").hide();
-                            } else {
-                                $("#deleteSignature").hide();
-                            }
+        if (await isConfirm({
+                'action': 'Delete',
+                'text': ' Are you sure want to delete this file.'
+            })) {
+            swal_waiting_popup({
+                'title': 'Deleting the file'
+            });
+            var userId = $(this).attr('data-id');
+            var type = $(this).attr('data-type');
+            $.ajax({
+                url: "{{ route('agent.delete.file') }}",
+                method: 'POST',
+                data: {
+                    'userId': userId,
+                    'type': type
+                },
+                success: function(response, textStatus, xhr) {
+                    Swal.close();
+                    if (response.status) {
+                        displaySwal(xhr);
+                        if (type == 'agreement') {
+                            $("#deleteAgreement, #downloadAgreement").hide();
                         } else {
-                            displaySwal(xhr);
+                            $("#deleteSignature").hide();
                         }
-                    },
-                    error: function(xhr) {
-                        Swal.close();
-                        //swal_error_popup(xhr.responseJSON.message);
+                    } else {
                         displaySwal(xhr);
                     }
-                });
-            }
-        })
-
-        $(document).on('submit', 'form[name="frmSignature"]', function(e) {
-
-            e.preventDefault();
-            let form = $(this);
-            let formData = new FormData(this);
-            swal_waiting_popup({
-                'title': 'Saving Agent Details'
-            });
-            //  return false
-
-            $.ajax({
-                url: "{{ route('agent.upload.file') }}",
-                method: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    Swal.close();
-                    window.location.href = "{{ route('agent.account.edit') . '?show=1' }}";
-                    swal_success_popup(response.message);
                 },
                 error: function(xhr) {
                     Swal.close();
-                    if (xhr.status === 422) {
-                            $('span.text-danger').text('');
-                            let errors = xhr.responseJSON.errors;
-                            $.each(errors, function(field, messages) {
-                                console.log("messages:"+messages[0]);
-                                $('.error-' + field).text(messages[0]);
-                            });
-                        } else {
-                            swal_error_popup(xhr.responseJSON.message ||
-                                'Something went wrong');
-                        }
-                   // swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+                    //swal_error_popup(xhr.responseJSON.message);
+                    displaySwal(xhr);
                 }
             });
+        }
+    })
+
+    $(document).on('submit', 'form[name="frmSignature"]', function(e) {
+
+        e.preventDefault();
+        let form = $(this);
+        let formData = new FormData(this);
+        swal_waiting_popup({
+            'title': 'Saving Agent Details'
         });
+        //  return false
+
+        $.ajax({
+            url: "{{ route('agent.upload.file') }}",
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                Swal.close();
+                window.location.href = "{{ route('agent.account.edit') . '?show=1' }}";
+                swal_success_popup(response.message);
+            },
+            error: function(xhr) {
+                Swal.close();
+                if (xhr.status === 422) {
+                    $('span.text-danger').text('');
+                    let errors = xhr.responseJSON.errors;
+                    $.each(errors, function(field, messages) {
+                        console.log("messages:" + messages[0]);
+                        $('.error-' + field).text(messages[0]);
+                    });
+                } else {
+                    swal_error_popup(xhr.responseJSON.message ||
+                        'Something went wrong');
+                }
+                // swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+            }
+        });
+    });
 
 
 
 
-        $('#userProfile').on('submit', function(e) {
-            e.preventDefault();
+    $('#userProfile').on('submit', function(e) {
+        e.preventDefault();
 
-            var form = $(this);
-            $("#modal-title").text("About Me");
-            $("#modal-icon").attr("src", "/assets/dashboard/img/info.png");
-            if (form.parsley().isValid()) {
+        var form = $(this);
+        $("#modal-title").text("About Me");
+        $("#modal-icon").attr("src", "/assets/dashboard/img/info.png");
+        if (form.parsley().isValid()) {
 
-                var url = form.attr('action');
-                var data = new FormData(form[0]);
-                $.ajax({
-                    method: form.attr('method'),
-                    url: url,
-                    data: data,
-                    contentType: false,
-                    processData: false,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        if (!data.error) {
-                            showAlert('success', 'Your details have been updated successfully.',
-                                'success');
-                            // $('.commanAlert').html(`<div id="commanAlert" class="alert rounded alert-success">Your details have been updated successfully.</div>`);
-                            //$('.comman_msg').html("Saved");
-                            //$("#my_account_modal").modal('show');
-                            //$("#my_account_modal").show();
-                            //$("#comman_modal").modal('show');
+            var url = form.attr('action');
+            var data = new FormData(form[0]);
+            $.ajax({
+                method: form.attr('method'),
+                url: url,
+                data: data,
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    if (!data.error) {
+                        showAlert('success', 'Your details have been updated successfully.',
+                            'success');
+                        // $('.commanAlert').html(`<div id="commanAlert" class="alert rounded alert-success">Your details have been updated successfully.</div>`);
+                        //$('.comman_msg').html("Saved");
+                        //$("#my_account_modal").modal('show');
+                        //$("#my_account_modal").show();
+                        //$("#comman_modal").modal('show');
 
-                        } else {
-                            //  $('.commanAlert').html(`<div id="commanAlert" class="alert rounded alert-error">Error occured while updating data.</div>`);
-                            showAlert('error', 'An error occurred while updating your details.',
-                                'error');
+                    } else {
+                        //  $('.commanAlert').html(`<div id="commanAlert" class="alert rounded alert-error">Error occured while updating data.</div>`);
+                        showAlert('error', 'An error occurred while updating your details.',
+                            'error');
 
-                            // $('.comman_msg').html("Oops.. sumthing wrong Please try again");
-                            // $("#comman_modal").show();
+                        // $('.comman_msg').html("Oops.. sumthing wrong Please try again");
+                        // $("#comman_modal").show();
 
+                    }
+                },
+
+            });
+        }
+    });
+    $('#city').select2({
+        allowClear: true,
+        placeholder: 'Select City',
+        createTag: function(params) {
+            var term = $.trim(params.term);
+
+            if (term === '') {
+                return null;
+            }
+            return {
+                id: term,
+                text: term,
+                newTag: false // add additional parameters
+            }
+        },
+        tags: false,
+        minimumInputLength: 2,
+        tokenSeparators: [','],
+        ajax: {
+            url: "{{ route('city.list') }}",
+            dataType: "json",
+            type: "GET",
+            data: function(params) {
+                console.log(params);
+                var queryParameters = {
+                    query: params.term,
+                    state_id: $('#state').val()
+                }
+                return queryParameters;
+            },
+            processResults: function(data) {
+                return {
+                    results: $.map(data, function(item) {
+
+                        return {
+                            text: item.name,
+                            id: item.id
                         }
-                    },
-
-                });
+                    })
+                };
             }
-        });
-        $('#city').select2({
-            allowClear: true,
-            placeholder: 'Select City',
-            createTag: function(params) {
-                var term = $.trim(params.term);
+        }
+    });
 
-                if (term === '') {
-                    return null;
+    $('#state').select2({
+        allowClear: true,
+        placeholder: 'Select State',
+        createTag: function(params) {
+            var term = $.trim(params.term);
+
+            if (term === '') {
+                return null;
+            }
+            return {
+                id: term,
+                text: term,
+                newTag: false // add additional parameters
+            }
+        },
+        tags: false,
+        minimumInputLength: 2,
+        tokenSeparators: [','],
+        ajax: {
+            url: "{{ route('state.list') }}",
+            dataType: "json",
+            type: "GET",
+            data: function(params) {
+                console.log(params);
+                var queryParameters = {
+                    query: params.term,
+                    country_id: $('#country').val()
                 }
-                return {
-                    id: term,
-                    text: term,
-                    newTag: false // add additional parameters
-                }
+                return queryParameters;
             },
-            tags: false,
-            minimumInputLength: 2,
-            tokenSeparators: [','],
-            ajax: {
-                url: "{{ route('city.list') }}",
-                dataType: "json",
-                type: "GET",
-                data: function(params) {
-                    console.log(params);
-                    var queryParameters = {
-                        query: params.term,
-                        state_id: $('#state').val()
-                    }
-                    return queryParameters;
-                },
-                processResults: function(data) {
-                    return {
-                        results: $.map(data, function(item) {
-
-                            return {
-                                text: item.name,
-                                id: item.id
-                            }
-                        })
-                    };
-                }
-            }
-        });
-
-        $('#state').select2({
-            allowClear: true,
-            placeholder: 'Select State',
-            createTag: function(params) {
-                var term = $.trim(params.term);
-
-                if (term === '') {
-                    return null;
-                }
+            processResults: function(data) {
                 return {
-                    id: term,
-                    text: term,
-                    newTag: false // add additional parameters
-                }
-            },
-            tags: false,
-            minimumInputLength: 2,
-            tokenSeparators: [','],
-            ajax: {
-                url: "{{ route('state.list') }}",
-                dataType: "json",
-                type: "GET",
-                data: function(params) {
-                    console.log(params);
-                    var queryParameters = {
-                        query: params.term,
-                        country_id: $('#country').val()
-                    }
-                    return queryParameters;
-                },
-                processResults: function(data) {
-                    return {
-                        results: $.map(data, function(item) {
+                    results: $.map(data, function(item) {
 
-                            return {
-                                text: item.name,
-                                id: item.id
-                            }
-                        })
-                    };
-                }
+                        return {
+                            text: item.name,
+                            id: item.id
+                        }
+                    })
+                };
             }
-        });
+        }
+    });
 
 
-        $('#country').on('change', function(e) {
-            if ($(this).val()) {
-                $('#state').prop('disabled', false);
-                $('#state').select2('open');
-            } else {
-                $('#state').prop('disabled', true);
-            }
-        });
+    $('#country').on('change', function(e) {
+        if ($(this).val()) {
+            $('#state').prop('disabled', false);
+            $('#state').select2('open');
+        } else {
+            $('#state').prop('disabled', true);
+        }
+    });
 
-        $('#state').on('change', function(e) {
-            if ($(this).val()) {
-                $('#city').prop('disabled', false);
-                $('#city').select2('open');
-            } else {
-                $('#city').prop('disabled', true);
-            }
-        });
-    </script>
+    $('#state').on('change', function(e) {
+        if ($(this).val()) {
+            $('#city').prop('disabled', false);
+            $('#city').select2('open');
+        } else {
+            $('#city').prop('disabled', true);
+        }
+    });
+</script>
 @endpush

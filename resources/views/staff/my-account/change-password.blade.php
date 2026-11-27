@@ -58,7 +58,7 @@
 <div id="content-wrapper" class="d-flex flex-column">
     <!-- Main Content -->
     <div id="content">
-        <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5 change-pass-sec">
+        <div class="container-fluid  pl-3 pl-lg-4 pr-3 pr-lg-4 change-pass-sec">
             <!--middle content start here-->
             <div class="row">
                 <div class="custom-heading-wrapper col-md-12">

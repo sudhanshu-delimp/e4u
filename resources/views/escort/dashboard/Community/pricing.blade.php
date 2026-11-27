@@ -33,7 +33,7 @@ padding: 2px 8px 2px 8px !important;
 @endsection
 @section('content')
 
-            <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 custom--accordfee">
+            <div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4 custom--accordfee">
                 <!--middle content-->
                 <div class="row">
                     <div class="col-md-12 custom-heading-wrapper">

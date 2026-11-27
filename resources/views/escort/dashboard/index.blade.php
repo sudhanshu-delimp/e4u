@@ -15,7 +15,7 @@
         pointer-events: none;
     }
 </style>
-<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+<div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4">
     <!-- Page Heading -->
     <div class="row">
         @if($notification)
@@ -374,7 +374,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Date</label>
-                                <input type="Date" class="form-control" placeholder="Date" value="19-08-2022">
+                                <input type="Date" class="form-control" placeholder="Date" value="2022-08-19">
                             </div>
                         </div>
                         <div class="col-md-6">

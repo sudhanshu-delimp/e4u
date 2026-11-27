@@ -4,7 +4,7 @@ $businessName = isset(auth()->user()->business_name) ? auth()->user()->business_
 @endphp
 <!-- Topbar -->
 <nav
-    class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm pl-3 pl-lg-5 pr-3 pr-lg-5 justify-navbar custom-navbar db-custom-topbar">
+    class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm pl-3 pl-lg-4 pr-3 pr-lg-4 justify-navbar custom-navbar db-custom-topbar">
 
     <!-- Sidebar Toggle (Topbar) -->
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">

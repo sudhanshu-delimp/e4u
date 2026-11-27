@@ -2,7 +2,7 @@
 @section('style')
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+<div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4">
    <!--middle content start here-->
    <!-- Page Heading -->
    

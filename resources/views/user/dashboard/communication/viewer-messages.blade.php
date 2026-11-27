@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/dashboard/css/chat.css') }}">
 @endsection
 @section('content')
-    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+    <div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4">
         
         <div class="row">
             <!-- Page Heading -->
@@ -14,7 +14,7 @@
                 <h1 class="h1">Messages</h1>
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>            
             </div>
-            <div class="col-md-12 my-2">
+            <div class="col-md-12">
                 <div class="card collapse" id="notes" style="">
                     <div class="card-body">
                        <h3 class="NotesHeader"><b>Notes:</b></h3>

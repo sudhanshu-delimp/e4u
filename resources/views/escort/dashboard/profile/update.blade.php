@@ -55,7 +55,7 @@
             $isImpersonated = false;  
         } 
         @endphp
-    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+    <div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4">
         <div class="d-sm-flex align-items-center justify-content-between">
             <div class="custom-heading-wrapper">
                 @if (request()->getPathInfo() == '/escort-dashboard/create-profile')

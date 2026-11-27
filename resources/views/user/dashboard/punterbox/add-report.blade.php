@@ -16,17 +16,15 @@
     </style>
 @endsection
 @section('content')
-    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-        <!--middle content start here-->
-        <!-- Page Heading -->
+    <div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4">
         <div class="row">
             <div class="custom-heading-wrapper col-md-12">
                 <h1 class="h1">Add Report</h1>
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
                     aria-expanded="true"><b>Help?</b></span>
             </div>
-            <div class="col-md-12 mb-4">
-                <div class="card collapse" id="notes" style="">
+            <div class="col-md-12">
+                <div class="card collapse" id="notes">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b></h3>
                         <ol>
@@ -76,7 +74,6 @@
                 </div>
             </div>
         </div>
-        <!-- Page Heading -->
         <div class="row">
             <div class="col-md-12 add-punterbox-report">
                 <div class="common-card">
@@ -193,7 +190,6 @@
                 </div>
             </div>
         </div>
-        <!--middle content end here-->
     </div>
 @endsection
 @push('script')
