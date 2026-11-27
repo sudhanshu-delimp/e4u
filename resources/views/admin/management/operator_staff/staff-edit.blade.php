@@ -6,6 +6,7 @@
         : '';
     $setting = $staff->operator_staff_setting ?? null;
     $staffAddEditUnderSelectedOperatorycounty = config("operator_staff.staff_add_edit_under_selected_operatory_county");
+    $operatorName = isset($operators[$staff->operator_id]) ? $operators[$staff->operator_id] : "";
 @endphp
 <style>
     /* Chrome, Safari, Edge, Opera */
@@ -28,15 +29,18 @@
         </div>
         <div class="col-12 mb-3">
             <input type="hidden" name="from_admin" value="1">
+            <input type="hidden" name="operator_id" value="{{$staff->operator_id}}">
             <input type="hidden" name="is_same_operator_country" value="{{$staffAddEditUnderSelectedOperatorycounty}}">
-            <select class="form-control" name="operator_id" id="operator_id" @if( $staffAddEditUnderSelectedOperatorycounty) onchange="getCountryByUserId(this, 'edit_')" @endif>
+            {{-- <select class="form-control" name="operator_id" id="operator_id" @if( $staffAddEditUnderSelectedOperatorycounty) onchange="getCountryByUserId(this, 'edit_')" @endif>
                 <option value="">Select Operator</option>
                 @foreach ($operators as $key => $name)
                     <option value="{{ $key }}" {{ $staff->operator_id == $key ? 'selected' : '' }}>
                         {{ $name }}</option>
                 @endforeach
-            </select>
+            </select> --}}
             <span class="text-danger error-operator_id"></span>
+            <input type="text" class="form-control rounded-0" name="operator_name" id="operator_name"
+                value="{{ $operatorName }}" readonly>
         </div>
 
         <!-- Section: Personal Details -->

@@ -554,9 +554,14 @@ class User extends Authenticatable
         if ($this->type == 9) {
             $countryAbrs = config('operator.countryAbr');
             // return 'O' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
-
-            if (isset($countryAbrs[$this->country_id])) {
-                $cid = $countryAbrs[$this->country_id];
+            $countryId = $this->country_id;
+            $operatorId = $this->operator_id;
+            $operator = $this->select(['id', 'country_id'])->where('id', $operatorId)->first();
+            if($operator) {
+                $countryId = $operator->country_id;
+            }
+            if (isset($countryAbrs[$countryId])) {
+                $cid = $countryAbrs[$countryId];
             } else {
                 $cid = $this->country_id;
             }
