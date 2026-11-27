@@ -19,7 +19,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid pl-3 pl-lg-4 pr-3 pr-lg-4">
+    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <div class="row">
             <div class="d-sm-flex align-items-center justify-content-between col-md-12">
                 <div class="custom-heading-wrapper">
@@ -70,10 +70,8 @@
                     This is particularly helpful for Viewers to get to see an Escort who they are considering meeting with.
                 </p>
 
-                <!-- Centered Playbox Icon -->
-                <img src="{{ asset('assets/dashboard/img/boxicon/icon_myplaybox.png') }}" alt="Playbox Icon"
+                <img src="{{ asset('assets/dashboard/img/playbox-r.png') }}" alt="Playbox Icon"
                     class="playbox-icon">
-                <!-- Replace the image path above with the actual path -->
             </div>
             </div>
         </div>

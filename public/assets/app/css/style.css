@@ -2876,14 +2876,17 @@
         }
         
         .custom--favourite {
-            color: var(--secondary-color);
-            position: relative;
-            background-color: var(--off-white);
-            align-items: center;
-            display: flex;
-            justify-content: center;
-            border-radius: var(--radius-full);
-            cursor: pointer;
+                color: var(--peach);
+                font-size: 14px !important;
+                position: relative;
+                background-color: var(--off-white);
+                width: 27px;
+                height: 27px;
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                border-radius: var(--radius-full);
+                cursor: pointer;
         }
         
         .sm_fav_icon {
