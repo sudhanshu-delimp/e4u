@@ -39,7 +39,7 @@
 
             <div class="mc_card_header">
                 @php 
-                    $media_verification_status =  get_profile_verification_status($listing->id);
+                    $media_verification_status =  get_profile_verification_status($listing->id,'4');    
                     $media_status = getMediaVerificationDataSmallIcon(($media_verification_status ?? 0));
                 @endphp
                     

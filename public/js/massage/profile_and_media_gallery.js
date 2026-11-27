@@ -822,68 +822,144 @@ function initDragDrop() {
         }
     });
 
-    $(".dvDest").droppable({
-        tolerance: "pointer", // Triggers drop based on exact mouse pointer position rather than helper overlap
-        drop: function (event, ui) {
-            let dropSlot = $(this);
-            let dragSlot = ui.draggable;
+    // $(".dvDest").droppable({
+    //     tolerance: "pointer", // Triggers drop based on exact mouse pointer position rather than helper overlap
+    //     drop: function (event, ui) {
+    //         let dropSlot = $(this);
+    //         let dragSlot = ui.draggable;
 
-            // Accurately select the target image slot for both Banner and Gallery
-            let targetImg = dropSlot.find('img.upld-img').length
-                ? dropSlot.find('img.upld-img')
-                : dropSlot.find('img').first();
+    //         // Accurately select the target image slot for both Banner and Gallery
+    //         let targetImg = dropSlot.find('img.upld-img').length
+    //             ? dropSlot.find('img.upld-img')
+    //             : dropSlot.find('img').first();
 
-            let dropSlotType = targetImg.data('type');
+    //         let dropSlotType = targetImg.data('type');
 
-            // Retrieve slot type from parent badge or fallback to data attribute
-            let dragSlotType = dragSlot
-                .closest(".item4, .item2")
-                .find("span.badge")
-                .text()
-                .trim()
-                .toLowerCase();
+    //         // Retrieve slot type from parent badge or fallback to data attribute
+    //         let dragSlotType = dragSlot
+    //             .closest(".item4, .item2")
+    //             .find("span.badge")
+    //             .text()
+    //             .trim()
+    //             .toLowerCase();
 
-            if (!dragSlotType) {
-                dragSlotType = dragSlot.data('type') ? dragSlot.data('type').toLowerCase() : '';
-            }
+    //         if (!dragSlotType) {
+    //             dragSlotType = dragSlot.data('type') ? dragSlot.data('type').toLowerCase() : '';
+    //         }
 
-            // Type validation check
-            if (dropSlotType != dragSlotType) {
-                let message = (dragSlotType == 'gallery') ?
-                    `The photo you selected is not a Banner image. Please select a Banner image from your repository.` :
-                    `The photo you selected is not a Gallery image. Please select a Gallery image from your repository.`;
-                swal.fire('Media', message, 'error');
-                return false;
-            }
+    //         // Type validation check
+    //         if (dropSlotType != dragSlotType) {
+    //             let message = (dragSlotType == 'gallery') ?
+    //                 `The photo you selected is not a Banner image. Please select a Banner image from your repository.` :
+    //                 `The photo you selected is not a Gallery image. Please select a Gallery image from your repository.`;
+    //             swal.fire('Media', message, 'error');
+    //             return false;
+    //         }
 
-            let meidaId = dragSlot.data('id');
-            let iconBox = dropSlot.find('.verify_icon, .lg_verify_icon');
-            let position = iconBox.attr('id')?.split('_')[2];
+    //         let meidaId = dragSlot.data('id');
+    //         let iconBox = dropSlot.find('.verify_icon, .lg_verify_icon');
+    //         let position = iconBox.attr('id')?.split('_')[2];
 
-            // Check for duplicate images
-            let draggedSrc = dragSlot.attr('src');
-            let srcArray = $(".upld-img").map(function () {
-                return $(this).attr("src");
-            }).get();
+    //         // Check for duplicate images
+    //         let draggedSrc = dragSlot.attr('src');
+    //         let srcArray = $(".upld-img").map(function () {
+    //             return $(this).attr("src");
+    //         }).get();
 
-            let duplicateFound = srcArray.filter(src => src === draggedSrc).length > 0;
+    //         let duplicateFound = srcArray.filter(src => src === draggedSrc).length > 0;
 
-            if (duplicateFound) {
-                swal.fire('', "<p>It's a duplicate image. Please select another image.</p>", 'error');
-                return false;
-            }
+    //         if (duplicateFound) {
+    //             swal.fire('', "<p>It's a duplicate image. Please select another image.</p>", 'error');
+    //             return false;
+    //         }
 
-            // Directly update the image and attributes without triggering modal clicks
-            targetImg.attr('src', draggedSrc);
-            targetImg.attr('data-id', meidaId);
-            dropSlot.find('input[type="hidden"]').val(meidaId);
+    //         // Directly update the image and attributes without triggering modal clicks
+    //         targetImg.attr('src', draggedSrc);
+    //         targetImg.attr('data-id', meidaId);
+    //         dropSlot.find('input[type="hidden"]').val(meidaId);
 
-            // Execute status update callback if defined
-            if (typeof getMediaByIdAndStatusShow === "function") {
-                getMediaByIdAndStatusShow(meidaId, position);
-            }
+    //         // Execute status update callback if defined
+    //         if (typeof getMediaByIdAndStatusShow === "function") {
+    //             getMediaByIdAndStatusShow(meidaId, position);
+    //         }
+    //     }
+    // });
+$(".dvDest").droppable({
+    tolerance: "pointer", // Triggers drop based on exact mouse pointer position
+    drop: function (event, ui) {
+        let dropSlot = $(this);
+        let dragSlot = ui.draggable;
+
+        // Select the target image slot for both Banner and Gallery
+        let targetImg = dropSlot.find('img.upld-img').length
+            ? dropSlot.find('img.upld-img')
+            : dropSlot.find('img').first();
+
+        let dropSlotType = targetImg.data('type');
+
+        // Retrieve slot type from parent badge or fallback to data attribute
+        let dragSlotType = dragSlot
+            .closest(".item4, .item2")
+            .find("span.badge")
+            .text()
+            .trim()
+            .toLowerCase();
+
+        if (!dragSlotType) {
+            dragSlotType = dragSlot.data('type') ? String(dragSlot.data('type')).toLowerCase() : '';
         }
-    });
+
+        // Type validation check
+        if (dropSlotType != dragSlotType) {
+            let message = (dragSlotType == 'gallery') ?
+                `The photo you selected is not a Banner image. Please select a Banner image from your repository.` :
+                `The photo you selected is not a Gallery image. Please select a Gallery image from your repository.`;
+            swal.fire('Media', message, 'error');
+            return false;
+        }
+
+        let mediaId = dragSlot.data('id');
+        let iconBox = dropSlot.find('.verify_icon, .lg_verify_icon');
+        let position = iconBox.attr('id')?.split('_')[2];
+
+        // Check for duplicate images
+        let draggedSrc = dragSlot.attr('src');
+        let srcArray = $(".upld-img").map(function () {
+            return $(this).attr("src");
+        }).get();
+
+        let duplicateFound = srcArray.filter(src => src === draggedSrc).length > 0;
+
+        if (duplicateFound) {
+            swal.fire('', "<p>It's a duplicate image. Please select another image.</p>", 'error');
+            return false;
+        }
+
+        // Update image and keep attr + jQuery data cache in sync
+        targetImg.attr('src', draggedSrc);
+        targetImg.attr('data-id', mediaId);
+        targetImg.data('id', mediaId);
+
+        // Update ONLY the position input (name="position[N]")
+        let positionInput = dropSlot.find('input[type="hidden"][name^="position"]');
+
+        if (!positionInput.length && position) {
+            // Fallback: input may live outside the slot
+            positionInput = $('input[type="hidden"][name="position[' + position + ']"]');
+        }
+
+        positionInput.val(mediaId).trigger('change');
+
+        console.log('Drop -> position:', position, 'media:', mediaId, 'inputs found:', positionInput.length);
+
+        // Execute status update callback if defined
+        if (typeof getMediaByIdAndStatusShow === "function") {
+            getMediaByIdAndStatusShow(mediaId, position);
+        }
+    }
+});
+
+
 }
 
 

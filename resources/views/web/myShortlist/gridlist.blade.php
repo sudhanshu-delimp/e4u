@@ -93,7 +93,7 @@
                         @if ($escort->default_image)
                             <div class="verify-image-custom">
                                 @php
-                                    $media_verification_status = get_profile_verification_status($escort->id);
+                                    $media_verification_status = get_profile_verification_status($escort->id,'3');
                                     $media_status = getMediaVerificationDataBigIcon(
                                         $media_verification_status ?? 0,
                                     );
