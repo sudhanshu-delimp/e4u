@@ -36,7 +36,7 @@
                 @endif
             </div>
             <!-- Help Notes Accordion -->
-            <div class="col-md-12 ">
+            <div class="col-md-12">
                 <div class="card collapse" id="notes">
                         <div class="card-body">
                             <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="row">
-            <div class=" col-md-12">
+            <div class="col-md-12">
                 <div class="common-card fill_profile_headings_global text-justify">
                 <p><strong>Coming soon!</strong></p>
 
@@ -70,10 +70,8 @@
                     This is particularly helpful for Viewers to get to see an Escort who they are considering meeting with.
                 </p>
 
-                <!-- Centered Playbox Icon -->
-                <img src="{{ asset('assets/dashboard/img/boxicon/icon_myplaybox.png') }}" alt="Playbox Icon"
+                <img src="{{ asset('assets/dashboard/img/playbox-r.png') }}" alt="Playbox Icon"
                     class="playbox-icon">
-                <!-- Replace the image path above with the actual path -->
             </div>
             </div>
         </div>
