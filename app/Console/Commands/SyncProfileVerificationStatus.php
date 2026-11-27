@@ -38,16 +38,19 @@ class SyncProfileVerificationStatus extends Command
                     ->get();
 
                 foreach ($profiles as $escort) {
+                    try {
+                        // Only the thumbnail (position 1) decides the status
+                        $thumbnail = $escort->gallary()
+                            ->wherePivot('type', 0)
+                            ->wherePivot('position', 1)
+                            ->first();
 
-                    // Only the thumbnail (position 1) decides the status
-                    $thumbnail = $escort->gallary()
-                        ->wherePivot('type', 0)
-                        ->wherePivot('position', 1)
-                        ->first();
+                        $status = $this->normalizeStatus($thumbnail->varified ?? null);
 
-                    $status = $this->normalizeStatus($thumbnail->varified ?? null);
-
-                    $this->saveStatus($escort->id, '3', $status);
+                        $this->saveStatus($escort->id, '3', $status);
+                    } catch (\Throwable $e) {
+                        Log::error('Sync status failed (escort ' . $escort->id . '): ' . $e->getMessage());
+                    }
                 }
             }
 
@@ -60,13 +63,16 @@ class SyncProfileVerificationStatus extends Command
                     ->get();
 
                 foreach ($profiles as $profile) {
+                    try {
+                        // Only the thumbnail (position 1) decides the status
+                        $image_data = get_image_position_detail($profile, 1);
 
-                    // Only the thumbnail (position 1) decides the status
-                    $image_data = get_image_position_detail($profile, 1);
+                        $status = $this->normalizeStatus($image_data['varified'] ?? null);
 
-                    $status = $this->normalizeStatus($image_data['varified'] ?? null);
-
-                    $this->saveStatus($profile->id, '4', $status);
+                        $this->saveStatus($profile->id, '4', $status);
+                    } catch (\Throwable $e) {
+                        Log::error('Sync status failed (massage ' . $profile->id . '): ' . $e->getMessage());
+                    }
                 }
             }
         }
